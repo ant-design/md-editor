@@ -55,6 +55,7 @@
               contenteditable="false"
               data-be="code"
               data-lang="html"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -63,6 +64,7 @@
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -70,9 +72,11 @@
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt;     &lt;style&gt;         body {             margin: 0;             height: 100vh;             display: flex;             align-items: center;             justify-content: center;             background: #000;             overflow: hidden;         }          #color-wheel {             width: 150vmax;             height: 150vmax;             background: conic-gradient(                 #ff0000 0deg 51.4deg,                 #ff7f00 51.4deg 102.8deg,                 #ffff00 102.8deg 154.2deg,                 #00ff00 154.2deg 205.6deg,                 #0000ff 205.6deg 257deg,                 #4b0082 257deg 308.4deg,                 #8f00ff 308.4deg 360deg             );             animation: rotate 10s linear infinite;             position: fixed;             top: 50%;             left: 50%;             transform: translate(-50%, -50%);         }          @keyframes rotate {             from { transform: translate(-50%, -50%) rotate(0deg); }             to { transform: translate(-50%, -50%) rotate(360deg); }         }          #speed-control {             position: fixed;             bottom: 20px;             right: 20px;             z-index: 100;             width: 200px;             background: rgba(255, 255, 255, 0.2);             padding: 10px;             border-radius: 20px;         }          #speed-control input {             width: 100%;         }          #speed-label {             color: white;             font-family: Arial;             font-size: 14px;             text-align: center;             display: block;             margin-top: 5px;         }     &lt;/style&gt; &lt;/head&gt; &lt;body&gt;     &lt;div id="color-wheel"&gt;&lt;/div&gt;          &lt;div id="speed-control"&gt;         &lt;input type="range" id="speed" min="0.1" max="2" value="1" step="0.1"&gt;         &lt;span id="speed-label"&gt;速度: 1x&lt;/span&gt;     &lt;/div&gt;      &lt;script&gt;         const wheel = document.getElementById('color-wheel');         const speedControl = document.getElementById('speed');         const speedLabel = document.getElementById('speed-label');          function updateSpeed() {             const speed = speedControl.value;             wheel.style.animationDuration = `${2 / speed}s`;             speedLabel.textContent = `速度: ${speed}x`;         }          speedControl.addEventListener('input', updateSpeed);         updateSpeed(); // 初始化速度     &lt;/script&gt; &lt;/body&gt; &lt;/html&gt;
@@ -566,6 +570,7 @@
               contenteditable="false"
               data-be="code"
               data-lang="css"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -574,6 +579,7 @@
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -581,9 +587,11 @@
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     background: conic-gradient(     #ff0000 0deg 51.4deg,        /* 红色 */     #ff7f00 51.4deg 102.8deg,    /* 橙色 */     #ffff00 102.8deg 154.2deg,   /* 黄色 */     #00ff00 154.2deg 205.6deg,   /* 绿色 */     #0000ff 205.6deg 257deg,     /* 蓝色 */     #4b0082 257deg 308.4deg,     /* 靛色 */     #8f00ff 308.4deg 360deg      /* 紫色 */ );

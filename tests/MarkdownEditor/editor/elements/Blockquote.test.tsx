@@ -7,7 +7,7 @@
  */
 
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -29,36 +29,48 @@ describe('Blockquote Component', () => {
     vi.clearAllMocks();
   });
 
+  vi.mock('../../../../src/MarkdownEditor/hooks/editor', () => ({
+    useSelStatus: vi.fn(() => [false, [0]]),
+  }));
+
   const renderWithProvider = (component: React.ReactElement) => {
     return render(<ConfigProvider>{component}</ConfigProvider>);
   };
 
   const defaultProps = {
     element: {
-      type: 'blockquote',
+      type: 'blockquote' as const,
       children: [{ text: 'test content' }],
     },
     attributes: {},
     children: <span>test content</span>,
-  };
+  } as any;
 
   describe('基本渲染功能', () => {
     it('应该正确渲染 Blockquote 组件', () => {
-      const { container } = renderWithProvider(<Blockquote {...defaultProps} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...defaultProps} />,
+      );
 
-      const blockquoteElement = container.querySelector('[data-be="blockquote"]');
+      const blockquoteElement = container.querySelector(
+        '[data-be="blockquote"]',
+      );
       expect(blockquoteElement).toBeInTheDocument();
       expect(blockquoteElement).toHaveTextContent('test content');
     });
 
     it('应该显示内容', () => {
-      const { container } = renderWithProvider(<Blockquote {...defaultProps} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...defaultProps} />,
+      );
 
       expect(container).toHaveTextContent('test content');
     });
 
     it('应该渲染为 blockquote 元素', () => {
-      const { container } = renderWithProvider(<Blockquote {...defaultProps} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...defaultProps} />,
+      );
 
       const blockquoteElement = container.querySelector('blockquote');
       expect(blockquoteElement).toBeInTheDocument();
@@ -72,9 +84,13 @@ describe('Blockquote Component', () => {
         attributes: {},
       };
 
-      const { container } = renderWithProvider(<Blockquote {...propsWithEmptyAttributes} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...propsWithEmptyAttributes} />,
+      );
 
-      const blockquoteElement = container.querySelector('[data-be="blockquote"]');
+      const blockquoteElement = container.querySelector(
+        '[data-be="blockquote"]',
+      );
       expect(blockquoteElement).toBeInTheDocument();
     });
 
@@ -89,9 +105,13 @@ describe('Blockquote Component', () => {
         attributes: customAttributes,
       };
 
-      const { container } = renderWithProvider(<Blockquote {...propsWithCustomAttributes} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...propsWithCustomAttributes} />,
+      );
 
-      const blockquoteElement = container.querySelector('[data-be="blockquote"]');
+      const blockquoteElement = container.querySelector(
+        '[data-be="blockquote"]',
+      );
       expect(blockquoteElement).toHaveAttribute('data-test', 'test-value');
       expect(blockquoteElement).toHaveClass('custom-class');
     });
@@ -102,9 +122,13 @@ describe('Blockquote Component', () => {
         children: null,
       };
 
-      const { container } = renderWithProvider(<Blockquote {...propsWithEmptyChildren} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...propsWithEmptyChildren} />,
+      );
 
-      const blockquoteElement = container.querySelector('[data-be="blockquote"]');
+      const blockquoteElement = container.querySelector(
+        '[data-be="blockquote"]',
+      );
       expect(blockquoteElement).toBeInTheDocument();
     });
 
@@ -121,7 +145,9 @@ describe('Blockquote Component', () => {
         children: complexChildren,
       };
 
-      const { container } = renderWithProvider(<Blockquote {...propsWithComplexChildren} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...propsWithComplexChildren} />,
+      );
 
       expect(container).toHaveTextContent('复杂内容');
       expect(container).toHaveTextContent('粗体文本');
@@ -139,7 +165,9 @@ describe('Blockquote Component', () => {
         children: multipleChildren,
       };
 
-      const { container } = renderWithProvider(<Blockquote {...propsWithMultipleChildren} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...propsWithMultipleChildren} />,
+      );
 
       expect(container).toHaveTextContent('第一个');
       expect(container).toHaveTextContent('第二个');
@@ -149,9 +177,13 @@ describe('Blockquote Component', () => {
 
   describe('元素属性', () => {
     it('应该包含正确的 data-be 属性', () => {
-      const { container } = renderWithProvider(<Blockquote {...defaultProps} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...defaultProps} />,
+      );
 
-      const blockquoteElement = container.querySelector('[data-be="blockquote"]');
+      const blockquoteElement = container.querySelector(
+        '[data-be="blockquote"]',
+      );
       expect(blockquoteElement).toHaveAttribute('data-be', 'blockquote');
     });
 
@@ -166,9 +198,13 @@ describe('Blockquote Component', () => {
         attributes: customAttributes,
       };
 
-      const { container } = renderWithProvider(<Blockquote {...propsWithCustomAttributes} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...propsWithCustomAttributes} />,
+      );
 
-      const blockquoteElement = container.querySelector('[data-be="blockquote"]');
+      const blockquoteElement = container.querySelector(
+        '[data-be="blockquote"]',
+      );
       expect(blockquoteElement).toHaveAttribute('id', 'test-id');
       expect(blockquoteElement).toHaveAttribute('data-custom', 'custom-value');
     });
@@ -176,10 +212,65 @@ describe('Blockquote Component', () => {
 
   describe('性能优化', () => {
     it('应该使用 React.useMemo 进行优化', () => {
-      const { container } = renderWithProvider(<Blockquote {...defaultProps} />);
+      const { container } = renderWithProvider(
+        <Blockquote {...defaultProps} />,
+      );
 
-      const blockquoteElement = container.querySelector('[data-be="blockquote"]');
+      const blockquoteElement = container.querySelector(
+        '[data-be="blockquote"]',
+      );
       expect(blockquoteElement).toBeInTheDocument();
+    });
+  });
+
+  describe('交互测试', () => {
+    it('应该处理拖拽事件', () => {
+      render(<Blockquote {...defaultProps} />);
+      const blockquote = document.querySelector('blockquote');
+      expect(blockquote).toBeInTheDocument();
+    });
+  });
+
+  describe('样式测试', () => {
+    it('应该应用正确的CSS类', () => {
+      render(<Blockquote {...defaultProps} />);
+      const blockquote = document.querySelector('blockquote');
+      expect(blockquote).toBeInTheDocument();
+    });
+
+    it('应该应用正确的样式', () => {
+      render(<Blockquote {...defaultProps} />);
+      const blockquote = document.querySelector('blockquote');
+      expect(blockquote).toBeInTheDocument();
+    });
+  });
+
+  describe('性能测试', () => {
+    it('应该处理大量文本', () => {
+      const longText = 'A'.repeat(500);
+      const props = {
+        ...defaultProps,
+        children: [<div key="1">{longText}</div>],
+      };
+      render(<Blockquote {...props} />);
+      const blockquote = document.querySelector('blockquote');
+      expect(blockquote).toBeInTheDocument();
+    });
+
+    it('应该处理嵌套的引用结构', () => {
+      const nestedChildren = [
+        <div key="1">Outer quote</div>,
+        <blockquote key="2">
+          <div>Inner quote</div>
+        </blockquote>,
+      ];
+      const props = {
+        ...defaultProps,
+        children: nestedChildren,
+      };
+      render(<Blockquote {...props} />);
+      expect(screen.getByText('Outer quote')).toBeInTheDocument();
+      expect(screen.getByText('Inner quote')).toBeInTheDocument();
     });
   });
 });

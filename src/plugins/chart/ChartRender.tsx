@@ -88,7 +88,7 @@ export const ChartRender: React.FC<{
   columnLength?: number;
   onColumnLengthChange?: (value: number) => void;
 }> = (props) => {
-  const handle = useFullScreenHandle();
+  const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
     'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions' | 'table'
   >(() => props.chartType);

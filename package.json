@@ -24,6 +24,7 @@
     "prettier": "prettier --write \"{src,test}/**/*.{js,jsx,ts,tsx,css,less,json,md}\"",
     "start": "npm run dev",
     "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage",
     "tsc": "tsc --noEmit"
   },
   "lint-staged": {

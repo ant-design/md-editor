@@ -14,6 +14,7 @@ interface HtmlPreviewProps {
 export function HtmlPreview({ htmlStr, onClose }: HtmlPreviewProps) {
   return (
     <Modal
+      data-testid="html-preview-modal"
       open={!!htmlStr}
       destroyOnHidden
       title="HTML执行结果"
@@ -30,6 +31,7 @@ export function HtmlPreview({ htmlStr, onClose }: HtmlPreviewProps) {
       afterClose={onClose}
     >
       <iframe
+        data-testid="html-preview-iframe"
         style={{
           outline: 0,
           border: 'none',

@@ -100,6 +100,7 @@
                 contenteditable="false"
                 data-be="code"
                 data-lang="markdown"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -108,6 +109,7 @@
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -115,9 +117,11 @@
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       普通文本   **粗体文本**   *斜体文本*   ~~删除线文本~~   ==高亮文本==   `行内代码`   H~2~O 下标   x^2^ 上标   &gt; 引用文本   [超链接](https://example.com)   👉 特殊符号支持
@@ -181,6 +185,7 @@ x^2^ 上标
                 contenteditable="false"
                 data-be="code"
                 data-lang="markdown"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -189,6 +194,7 @@ x^2^ 上标
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -196,9 +202,11 @@ x^2^ 上标
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       首行缩进可通过CSS实现，或使用特殊空格：  缩进文本  有序列表： 1. 一级项目    1. 二级项目    2. 二级项目 2. 一级项目  任务列表： - [x] 已完成任务 - [ ] 待完成任务
@@ -262,6 +270,7 @@ x^2^ 上标
                 contenteditable="false"
                 data-be="code"
                 data-lang="markdown"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -270,6 +279,7 @@ x^2^ 上标
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -277,9 +287,11 @@ x^2^ 上标
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       原生支持emoji：🚀 ✅ ❤️   Font Awesome图标：:fa-solid fa-rocket:   自定义图标：:custom-icon:
@@ -1188,6 +1200,7 @@ end{bmatrix}
                 contenteditable="false"
                 data-be="code"
                 data-lang="react"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -1196,6 +1209,7 @@ end{bmatrix}
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -1203,9 +1217,11 @@ end{bmatrix}
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       // 可交互代码组件 function Counter() {   const [count, setCount] = useState(0);      return (     &lt;div&gt;       &lt;p&gt;当前计数: {count}&lt;/p&gt;       &lt;button onClick={() =&gt; setCount(count + 1)}&gt;         增加       &lt;/button&gt;     &lt;/div&gt;   ); }
@@ -1293,6 +1309,7 @@ function Counter() {
                 contenteditable="false"
                 data-be="code"
                 data-lang="toc"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -1301,6 +1318,7 @@ function Counter() {
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -1308,9 +1326,11 @@ function Counter() {
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       [生成目录] maxLevel: 3
@@ -1365,6 +1385,7 @@ maxLevel: 3
                 contenteditable="false"
                 data-be="code"
                 data-lang="yaml"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -1373,6 +1394,7 @@ maxLevel: 3
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -1380,9 +1402,11 @@ maxLevel: 3
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       # 编辑器配置示例 render:   strategy: incremental   maxLines: 10000 performance:   workerCount: 4   memoryLimit: 2GB extensions:   - name: lsp-client     version: 2.3.1   - name: git-integration     version: 1.8.2
@@ -1889,6 +1913,7 @@ extensions:
                 contenteditable="false"
                 data-be="code"
                 data-lang="model"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -1897,6 +1922,7 @@ extensions:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -1904,9 +1930,11 @@ extensions:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       format: glb source: https://example.com/3d/editor.glb camera:   position: [0, 2, 5]   target: [0, 0, 0]
@@ -1964,6 +1992,7 @@ camera:
                 contenteditable="false"
                 data-be="code"
                 data-lang="audio"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -1972,6 +2001,7 @@ camera:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -1979,9 +2009,11 @@ camera:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       source: https://example.com/audio/note.mp3 title: 功能说明
@@ -2058,6 +2090,7 @@ title: 功能说明
                 contenteditable="false"
                 data-be="code"
                 data-lang="diff"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -2066,6 +2099,7 @@ title: 功能说明
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -2073,9 +2107,11 @@ title: 功能说明
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       // 代码变更示例 function calculate(a, b) { -   return a + b; +   return a * b; }
@@ -2133,6 +2169,7 @@ function calculate(a, b) {
                 contenteditable="false"
                 data-be="code"
                 data-lang="review"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -2141,6 +2178,7 @@ function calculate(a, b) {
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -2148,9 +2186,11 @@ function calculate(a, b) {
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       status: in-progress reviewers:   - name: 张三     role: 技术主管   - name: 李四     role: 产品经理 deadline: 2023-12-31
@@ -2749,6 +2789,7 @@ deadline: 2023-12-31
                 contenteditable="false"
                 data-be="code"
                 data-lang="endpoint"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -2757,6 +2798,7 @@ deadline: 2023-12-31
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -2764,9 +2806,11 @@ deadline: 2023-12-31
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       method: GET path: /api/v1/document/{id} description: 获取文档内容 parameters:   - name: id     in: path     required: true     type: string response:   type: object   properties:     title:        type: string     content:       type: string
@@ -3817,6 +3861,7 @@ response:
                 contenteditable="false"
                 data-be="code"
                 data-lang="permission"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -3825,6 +3870,7 @@ response:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -3832,9 +3878,11 @@ response:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       levels:   - PUBLIC: 所有用户可见   - INTERNAL: 仅内部成员可见   - CONFIDENTIAL: 仅核心团队可见
@@ -3891,6 +3939,7 @@ response:
                 contenteditable="false"
                 data-be="code"
                 data-lang="sensitive"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -3899,6 +3948,7 @@ response:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -3906,9 +3956,11 @@ response:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       creditCard: **** **** **** 1234 apiKey: sk_live_••••••••••••••••••••••••••••••
@@ -3985,6 +4037,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 contenteditable="false"
                 data-be="code"
                 data-lang="responsive"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -3993,6 +4046,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -4000,9 +4054,11 @@ apiKey: sk_live_•••••••••••••••••••••�
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       breakpoints:   - viewport: &lt; 768px     components:       - hide: sidebar       - resize: text(90%)   - viewport: &lt; 480px     components:       - hide: footer       - resize: images(80%)
@@ -4064,6 +4120,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 contenteditable="false"
                 data-be="code"
                 data-lang="theme"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -4072,6 +4129,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -4079,9 +4137,11 @@ apiKey: sk_live_•••••••••••••••••••••�
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       light:   background: #ffffff   text: #333333 dark:   background: #1e1e1e   text: #f0f0f0
@@ -4162,6 +4222,7 @@ dark:
                 contenteditable="false"
                 data-be="code"
                 data-lang="analysis"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -4170,6 +4231,7 @@ dark:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -4177,9 +4239,11 @@ dark:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       metrics:   completeness: 85%   freshness: 92%    brokenLinks: 2   readability: Grade 10
@@ -4237,6 +4301,7 @@ dark:
                 contenteditable="false"
                 data-be="code"
                 data-lang="dependencies"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -4245,6 +4310,7 @@ dark:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -4252,9 +4318,11 @@ dark:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       [核心架构] --&gt; [扩展系统] [扩展系统] --&gt; [插件API] [性能优化] --&gt; [核心架构] [用户手册] --&gt; [所有模块]
@@ -5154,6 +5222,7 @@ dark:
                 contenteditable="false"
                 data-be="code"
                 data-lang="markdown"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -5162,6 +5231,7 @@ dark:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -5169,9 +5239,11 @@ dark:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       普通文本   **粗体文本**   *斜体文本*   ~~删除线文本~~   ==高亮文本==   `行内代码`   H~2~O 下标   x^2^ 上标   &gt; 引用文本   [超链接](https://example.com)   👉 特殊符号支持
@@ -5235,6 +5307,7 @@ x^2^ 上标
                 contenteditable="false"
                 data-be="code"
                 data-lang="markdown"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -5243,6 +5316,7 @@ x^2^ 上标
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -5250,9 +5324,11 @@ x^2^ 上标
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       首行缩进可通过CSS实现，或使用特殊空格：  缩进文本  有序列表： 1. 一级项目    1. 二级项目    2. 二级项目 2. 一级项目  任务列表： - [x] 已完成任务 - [ ] 待完成任务
@@ -5316,6 +5392,7 @@ x^2^ 上标
                 contenteditable="false"
                 data-be="code"
                 data-lang="markdown"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -5324,6 +5401,7 @@ x^2^ 上标
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -5331,9 +5409,11 @@ x^2^ 上标
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       原生支持emoji：🚀 ✅ ❤️   Font Awesome图标：:fa-solid fa-rocket:   自定义图标：:custom-icon:
@@ -6252,6 +6332,7 @@ end{bmatrix}
                 contenteditable="false"
                 data-be="code"
                 data-lang="react"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -6260,6 +6341,7 @@ end{bmatrix}
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -6267,9 +6349,11 @@ end{bmatrix}
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       // 可交互代码组件 function Counter() {   const [count, setCount] = useState(0);      return (     &lt;div&gt;       &lt;p&gt;当前计数: {count}&lt;/p&gt;       &lt;button onClick={() =&gt; setCount(count + 1)}&gt;         增加       &lt;/button&gt;     &lt;/div&gt;   ); }
@@ -6357,6 +6441,7 @@ function Counter() {
                 contenteditable="false"
                 data-be="code"
                 data-lang="toc"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -6365,6 +6450,7 @@ function Counter() {
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -6372,9 +6458,11 @@ function Counter() {
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       [生成目录] maxLevel: 3
@@ -6429,6 +6517,7 @@ maxLevel: 3
                 contenteditable="false"
                 data-be="code"
                 data-lang="yaml"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -6437,6 +6526,7 @@ maxLevel: 3
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -6444,9 +6534,11 @@ maxLevel: 3
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       # 编辑器配置示例 render:   strategy: incremental   maxLines: 10000 performance:   workerCount: 4   memoryLimit: 2GB extensions:   - name: lsp-client     version: 2.3.1   - name: git-integration     version: 1.8.2
@@ -6941,6 +7033,7 @@ extensions:
                 contenteditable="false"
                 data-be="code"
                 data-lang="model"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -6949,6 +7042,7 @@ extensions:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -6956,9 +7050,11 @@ extensions:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       format: glb source: https://example.com/3d/editor.glb camera:   position: [0, 2, 5]   target: [0, 0, 0]
@@ -7016,6 +7112,7 @@ camera:
                 contenteditable="false"
                 data-be="code"
                 data-lang="audio"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -7024,6 +7121,7 @@ camera:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -7031,9 +7129,11 @@ camera:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       source: https://example.com/audio/note.mp3 title: 功能说明
@@ -7110,6 +7210,7 @@ title: 功能说明
                 contenteditable="false"
                 data-be="code"
                 data-lang="diff"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -7118,6 +7219,7 @@ title: 功能说明
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -7125,9 +7227,11 @@ title: 功能说明
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       // 代码变更示例 function calculate(a, b) { -   return a + b; +   return a * b; }
@@ -7185,6 +7289,7 @@ function calculate(a, b) {
                 contenteditable="false"
                 data-be="code"
                 data-lang="review"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -7193,6 +7298,7 @@ function calculate(a, b) {
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -7200,9 +7306,11 @@ function calculate(a, b) {
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       status: in-progress reviewers:   - name: 张三     role: 技术主管   - name: 李四     role: 产品经理 deadline: 2023-12-31
@@ -7804,6 +7912,7 @@ deadline: 2023-12-31
                 contenteditable="false"
                 data-be="code"
                 data-lang="endpoint"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -7812,6 +7921,7 @@ deadline: 2023-12-31
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -7819,9 +7929,11 @@ deadline: 2023-12-31
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       method: GET path: /api/v1/document/{id} description: 获取文档内容 parameters:   - name: id     in: path     required: true     type: string response:   type: object   properties:     title:        type: string     content:       type: string
@@ -8876,6 +8988,7 @@ response:
                 contenteditable="false"
                 data-be="code"
                 data-lang="permission"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -8884,6 +8997,7 @@ response:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -8891,9 +9005,11 @@ response:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       levels:   - PUBLIC: 所有用户可见   - INTERNAL: 仅内部成员可见   - CONFIDENTIAL: 仅核心团队可见
@@ -8950,6 +9066,7 @@ response:
                 contenteditable="false"
                 data-be="code"
                 data-lang="sensitive"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -8958,6 +9075,7 @@ response:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -8965,9 +9083,11 @@ response:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       creditCard: **** **** **** 1234 apiKey: sk_live_••••••••••••••••••••••••••••••
@@ -9044,6 +9164,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 contenteditable="false"
                 data-be="code"
                 data-lang="responsive"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -9052,6 +9173,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -9059,9 +9181,11 @@ apiKey: sk_live_•••••••••••••••••••••�
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       breakpoints:   - viewport: &lt; 768px     components:       - hide: sidebar       - resize: text(90%)   - viewport: &lt; 480px     components:       - hide: footer       - resize: images(80%)
@@ -9123,6 +9247,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 contenteditable="false"
                 data-be="code"
                 data-lang="theme"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -9131,6 +9256,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -9138,9 +9264,11 @@ apiKey: sk_live_•••••••••••••••••••••�
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       light:   background: #ffffff   text: #333333 dark:   background: #1e1e1e   text: #f0f0f0
@@ -9221,6 +9349,7 @@ dark:
                 contenteditable="false"
                 data-be="code"
                 data-lang="analysis"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -9229,6 +9358,7 @@ dark:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -9236,9 +9366,11 @@ dark:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       metrics:   completeness: 85%   freshness: 92%    brokenLinks: 2   readability: Grade 10
@@ -9296,6 +9428,7 @@ dark:
                 contenteditable="false"
                 data-be="code"
                 data-lang="dependencies"
+                data-testid="code-container"
                 tabindex="-1"
               >
                 <div
@@ -9304,6 +9437,7 @@ dark:
                 >
                   <div
                     class="ace-container drag-el "
+                    data-testid="code-editor-container"
                     style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
@@ -9311,9 +9445,11 @@ dark:
                       style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
+                      data-testid="ace-editor-container"
                       style="height: 200px; line-height: 22px;"
                     />
                     <div
+                      data-testid="code-content-copy"
                       style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                     >
                       [核心架构] --&gt; [扩展系统] [扩展系统] --&gt; [插件API] [性能优化] --&gt; [核心架构] [用户手册] --&gt; [所有模块]

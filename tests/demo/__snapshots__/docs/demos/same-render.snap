@@ -1437,6 +1437,7 @@
               contenteditable="false"
               data-be="code"
               data-lang="javascript"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -1445,6 +1446,7 @@
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -1452,9 +1454,11 @@
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     // 使用有限状态机实现基础语法高亮 class SyntaxHighlighter {   constructor(rules) {     this.states = [];     this.rules = rules;   }    parse(text) {     let currentState = 'initial';     const tokens = [];          while (text.length &gt; 0) {       let matched = false;       for (const rule of this.rules[currentState]) {         const match = text.match(rule.regex);         if (match) {           tokens.push({             type: rule.tokenType,             value: match[0]           });           text = text.substr(match[0].length);           currentState = rule.nextState || currentState;           matched = true;           break;         }       }       if (!matched) {         text = text.substr(1);       }     }     return tokens;   } }
@@ -1804,6 +1808,7 @@ class SyntaxHighlighter {
               contenteditable="false"
               data-be="code"
               data-lang="python"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -1812,6 +1817,7 @@ class SyntaxHighlighter {
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -1819,9 +1825,11 @@ class SyntaxHighlighter {
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     # 文件分块加载示例 class FileBuffer:     BLOCK_SIZE = 4096          def __init__(self, filename):         self.blocks = []         with open(filename, 'r') as f:             while True:                 block = f.read(self.BLOCK_SIZE)                 if not block:                     break                 self.blocks.append(block)                      def get_line(self, line_num):         cumulative = 0         for block in self.blocks:             lines = block.split(' ')             if line_num &lt; cumulative + len(lines):                 return lines[line_num - cumulative]             cumulative += len(lines)         return None
@@ -1986,6 +1994,7 @@ class FileBuffer:
               contenteditable="false"
               data-be="code"
               data-lang="typescript"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -1994,6 +2003,7 @@ class FileBuffer:
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -2001,9 +2011,11 @@ class FileBuffer:
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     interface EditorPlugin {   name: string;   activate(editor: EditorCore): void;   deactivate?(): void; }  class EditorCore {   registerPlugin(plugin: EditorPlugin): boolean {     // 实现插件注册逻辑   }      // 其他核心方法... }

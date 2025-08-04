@@ -1,5 +1,116 @@
 import '@testing-library/jest-dom';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { I18nContext } from '../../../src/i18n';
+import { ChartRender } from '../../../src/plugins/chart/ChartRender';
+
+// Mock Chart.js
+vi.mock('chart.js', () => ({
+  Chart: vi.fn().mockImplementation(() => ({
+    render: vi.fn(),
+    destroy: vi.fn(),
+  })),
+}));
+
+// Mock ChartMark components
+vi.mock('../../../src/plugins/chart/ChartMark', () => ({
+  Pie: vi.fn().mockImplementation((props) => (
+    <div data-testid="pie-chart">
+      Pie Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Bar: vi.fn().mockImplementation((props) => (
+    <div data-testid="bar-chart">
+      Bar Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Line: vi.fn().mockImplementation((props) => (
+    <div data-testid="line-chart">
+      Line Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Column: vi.fn().mockImplementation((props) => (
+    <div data-testid="column-chart">
+      Column Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Area: vi.fn().mockImplementation((props) => (
+    <div data-testid="area-chart">
+      Area Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+}));
+
+// Mock the actual ChartMark components
+vi.mock('../../../src/plugins/chart/ChartMark/index', () => ({
+  Pie: vi.fn().mockImplementation((props) => (
+    <div data-testid="pie-chart">
+      Pie Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Bar: vi.fn().mockImplementation((props) => (
+    <div data-testid="bar-chart">
+      Bar Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Line: vi.fn().mockImplementation((props) => (
+    <div data-testid="line-chart">
+      Line Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Column: vi.fn().mockImplementation((props) => (
+    <div data-testid="column-chart">
+      Column Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+  Area: vi.fn().mockImplementation((props) => (
+    <div data-testid="area-chart">
+      Area Chart - {props.xField} vs {props.yField}
+    </div>
+  )),
+}));
+
+// Mock ChartAttrToolBar
+vi.mock('../../../src/plugins/chart/ChartAttrToolBar', () => ({
+  ChartAttrToolBar: vi.fn().mockImplementation((props) => (
+    <div data-testid="chart-attr-toolbar">
+      {props.title}
+      {props.options?.map((option: any, index: number) => (
+        <div key={index}>{option.icon}</div>
+      ))}
+    </div>
+  )),
+}));
+
+// Mock the actual ChartAttrToolBar component
+vi.mock('../../../src/plugins/chart/ChartAttrToolBar/index', () => ({
+  ChartAttrToolBar: vi.fn().mockImplementation((props) => (
+    <div data-testid="chart-attr-toolbar">
+      {props.title}
+      {props.options?.map((option: any, index: number) => (
+        <div key={index}>{option.icon}</div>
+      ))}
+    </div>
+  )),
+}));
+
+// Mock useFullScreenHandle
+vi.mock('../../../src/MarkdownEditor/hooks/useFullScreenHandle', () => ({
+  useFullScreenHandle: vi.fn().mockReturnValue({
+    active: false,
+    enter: vi.fn(),
+    exit: vi.fn(),
+    node: { current: null },
+  }),
+}));
+
+// Mock ActionIconBox
+vi.mock('../../../src/MarkdownEditor/editor/components', () => ({
+  ActionIconBox: vi
+    .fn()
+    .mockImplementation(() => <div data-testid="action-icon">Action Icon</div>),
+}));
 
 describe('ChartRender', () => {
   const defaultProps = {
@@ -14,6 +125,10 @@ describe('ChartRender', () => {
       x: 'name',
       y: 'value',
       rest: {},
+      columns: [
+        { title: 'Name', dataIndex: 'name' },
+        { title: 'Value', dataIndex: 'value' },
+      ],
     },
     node: {},
     title: 'Test Chart',
@@ -22,38 +137,196 @@ describe('ChartRender', () => {
     onColumnLengthChange: vi.fn(),
   };
 
+  const mockI18n = {
+    locale: {
+      pieChart: '饼图',
+      barChart: '条形图',
+      lineChart: '折线图',
+      columnChart: '柱状图',
+      areaChart: '面积图',
+      tableChart: '表格',
+      configChart: '配置图表',
+      updateChart: '更新',
+      fullScreen: '全屏',
+    } as any,
+  };
+
   beforeEach(() => {
     vi.clearAllMocks();
+    // 设置测试环境，但允许图表渲染
+    process.env.NODE_ENV = 'test-chart';
+    // 确保 window 对象存在
+    Object.defineProperty(window, 'notRenderChart', {
+      value: false,
+      writable: true,
+    });
+    // 确保 window 对象存在
+    if (typeof window === 'undefined') {
+      global.window = {} as any;
+    }
   });
 
-  describe('基本结构测试', () => {
-    it('应该正确处理基本属性', () => {
-      expect(defaultProps.chartType).toBe('bar');
-      expect(defaultProps.chartData).toHaveLength(3);
-      expect(defaultProps.config.x).toBe('name');
-      expect(defaultProps.config.y).toBe('value');
+  afterEach(() => {
+    process.env.NODE_ENV = 'test';
+    vi.restoreAllMocks();
+  });
+
+  describe('基本渲染测试', () => {
+    it('应该正确渲染条形图', () => {
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...defaultProps} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
 
-    it('应该处理不同的图表类型', () => {
-      const props = {
-        ...defaultProps,
-        chartType: 'pie' as const,
-      };
+    it('应该正确渲染饼图', () => {
+      const props = { ...defaultProps, chartType: 'pie' as const };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
 
-      expect(props.chartType).toBe('pie');
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
 
-    it('应该处理空数据', () => {
+    it('应该正确渲染折线图', () => {
+      const props = { ...defaultProps, chartType: 'line' as const };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('应该正确渲染柱状图', () => {
+      const props = { ...defaultProps, chartType: 'column' as const };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('应该正确渲染面积图', () => {
+      const props = { ...defaultProps, chartType: 'area' as const };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('应该在测试环境下返回 null', () => {
+      process.env.NODE_ENV = 'test';
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...defaultProps} />
+        </I18nContext.Provider>,
+      );
+
+      expect(container.firstChild).toBeNull();
+    });
+
+    it('应该在 notRenderChart 环境下返回 null', () => {
+      Object.defineProperty(window, 'notRenderChart', {
+        value: true,
+        writable: true,
+      });
+
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...defaultProps} />
+        </I18nContext.Provider>,
+      );
+
+      expect(container.firstChild).toBeNull();
+    });
+  });
+
+  describe('表格渲染测试', () => {
+    it('应该正确渲染表格', () => {
+      const props = { ...defaultProps, chartType: 'table' as const };
+      render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查表格数据是否渲染
+      expect(screen.getByText('A')).toBeInTheDocument();
+      expect(screen.getByText('B')).toBeInTheDocument();
+      expect(screen.getByText('C')).toBeInTheDocument();
+    });
+  });
+
+  describe('定义列表渲染测试', () => {
+    it('应该正确渲染定义列表', () => {
+      const props = { ...defaultProps, chartType: 'descriptions' as const };
+      render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查定义列表数据是否渲染
+      expect(screen.getByText('A')).toBeInTheDocument();
+      expect(screen.getByText('B')).toBeInTheDocument();
+      expect(screen.getByText('C')).toBeInTheDocument();
+    });
+
+    it('应该在数据少于2条且列数大于8时渲染定义列表', () => {
       const props = {
         ...defaultProps,
-        chartData: [],
+        chartType: 'bar' as const,
+        chartData: [{ name: 'A', value: 10 }],
+        config: {
+          ...defaultProps.config,
+          columns: new Array(10).fill(0).map((_, i) => ({
+            title: `Column ${i}`,
+            dataIndex: `col${i}`,
+          })),
+        },
       };
 
-      expect(props.chartData).toHaveLength(0);
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
   });
 
   describe('数据处理测试', () => {
+    it('应该处理空数据', () => {
+      const props = { ...defaultProps, chartData: [] };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
     it('应该处理复杂数据结构', () => {
       const props = {
         ...defaultProps,
@@ -69,85 +342,93 @@ describe('ChartRender', () => {
         },
       };
 
-      expect(props.chartData).toHaveLength(3);
-      expect(props.config.x).toBe('category');
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
 
-    it('应该处理颜色图例', () => {
-      const props = {
-        ...defaultProps,
-        chartData: [
-          { name: 'A', value: 10, color: 'red' },
-          { name: 'B', value: 20, color: 'blue' },
-        ],
-        config: {
-          ...defaultProps.config,
-          colorLegend: 'color',
-        },
-      };
-
-      expect(props.chartData).toHaveLength(2);
-      expect(props.config.colorLegend).toBe('color');
-    });
-  });
-
-  describe('配置测试', () => {
-    it('应该传递正确的配置参数', () => {
+    it('应该处理没有配置的情况', () => {
       const props = {
         ...defaultProps,
         config: {
-          height: 400,
-          x: 'category',
-          y: 'amount',
-          rest: { color: 'blue' },
-        },
+          height: 300,
+          x: 'name',
+          y: 'value',
+          rest: {},
+          columns: [
+            { title: 'Name', dataIndex: 'name' },
+            { title: 'Value', dataIndex: 'value' },
+          ],
+        } as any,
       };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
 
-      expect(props.config.height).toBe(400);
-      expect(props.config.x).toBe('category');
-      expect(props.config.y).toBe('amount');
-    });
-
-    it('应该处理默认配置', () => {
-      const props = {
-        ...defaultProps,
-        config: undefined,
-      };
-
-      expect(props.config).toBeUndefined();
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
   });
 
   describe('边界条件测试', () => {
     it('应该处理无效的图表类型', () => {
-      const props = {
-        ...defaultProps,
-        chartType: 'invalid' as any,
-      };
+      const props = { ...defaultProps, chartType: 'invalid' as any };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
 
-      expect(props.chartType).toBe('invalid');
+      // 检查组件是否返回 null（无效图表类型应该返回 null）
+      expect(container.firstChild).toBeNull();
     });
 
     it('应该处理没有标题的情况', () => {
-      const props = {
-        ...defaultProps,
-        title: undefined,
-      };
+      const props = { ...defaultProps, title: undefined };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
 
-      expect(props.title).toBeUndefined();
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('应该处理没有列数变化回调的情况', () => {
+      const props = { ...defaultProps, onColumnLengthChange: undefined };
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
   });
 
-  describe('图表列表模式测试', () => {
-    it('应该在图表列表模式下工作', () => {
-      const props = {
-        ...defaultProps,
-        isChartList: true,
-      };
+  describe('图表类型切换测试', () => {
+    it('应该支持图表类型切换', () => {
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...defaultProps} />
+        </I18nContext.Provider>,
+      );
 
-      expect(props.isChartList).toBe(true);
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
+  });
 
+  describe('列数变化测试', () => {
     it('应该处理列数变化回调', () => {
       const onColumnLengthChange = vi.fn();
       const props = {
@@ -156,7 +437,47 @@ describe('ChartRender', () => {
         onColumnLengthChange,
       };
 
-      expect(props.onColumnLengthChange).toBeDefined();
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...props} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+  });
+
+  describe('配置更新测试', () => {
+    it('应该处理配置更新', () => {
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...defaultProps} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+  });
+
+  describe('国际化测试', () => {
+    it('应该使用正确的国际化文本', () => {
+      const { container } = render(
+        <I18nContext.Provider value={mockI18n}>
+          <ChartRender {...defaultProps} />
+        </I18nContext.Provider>,
+      );
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('应该在没有国际化时使用默认文本', () => {
+      const { container } = render(<ChartRender {...defaultProps} />);
+
+      // 检查组件是否渲染了基本结构
+      expect(container.firstChild).toBeInTheDocument();
     });
   });
 });

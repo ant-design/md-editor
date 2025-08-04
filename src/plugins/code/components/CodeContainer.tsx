@@ -35,6 +35,7 @@ export function CodeContainer({
       contentEditable={false}
       className="ace-el drag-el"
       data-be="code"
+      data-testid="code-container"
       ref={containerRef}
       tabIndex={-1}
       onBlur={(e) => e.stopPropagation()}
@@ -56,6 +57,7 @@ export function CodeContainer({
       >
         {/* 编辑器主容器 */}
         <div
+          data-testid="code-editor-container"
           onClick={(e) => {
             e.stopPropagation();
             onEditorClick();
