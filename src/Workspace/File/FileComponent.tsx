@@ -124,9 +124,12 @@ const FileItemComponent: FC<{
     onPreview?.(fileWithId);
   };
 
-  // 判断是否显示预览按钮：支持预览且有预览回调
+  // 判断是否显示预览按钮：对于图片类型，只要有 url 就可以预览；其他类型按原有逻辑判断
   const showPreviewButton =
-    onPreview && fileTypeProcessor.processFile(fileWithId).canPreview;
+    onPreview &&
+    (isImageFile(fileWithId)
+      ? !!(fileWithId.url || fileWithId.previewUrl)
+      : fileTypeProcessor.processFile(fileWithId).canPreview);
 
   return (
     <AccessibleButton
@@ -363,7 +366,7 @@ export const FileComponent: FC<{
       });
       return;
     }
-
+    debugger;
     setPreviewFile(file);
   };
 
