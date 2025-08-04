@@ -75,6 +75,13 @@ import { Pie } from '../../../src/plugins/chart/ChartMark/Pie';
 import { debounce, stringFormatNumber } from '../../../src/plugins/chart/utils';
 
 describe('ChartMark Components', () => {
+  afterEach(() => {
+    process.env.NODE_ENV = 'test';
+  });
+  beforeEach(() => {
+    process.env.NODE_ENV = 'test-chart';
+  });
+
   const defaultProps = {
     data: [
       { name: 'A', value: 10 },
@@ -386,7 +393,9 @@ describe('ChartMark Components', () => {
         expect(mockFn).not.toHaveBeenCalled();
 
         // 等待防抖延迟
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 100);
+        });
         expect(mockFn).toHaveBeenCalled();
       });
 
@@ -417,7 +426,9 @@ describe('ChartMark Components', () => {
         debouncedFn();
 
         // 等待防抖延迟
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 100);
+        });
         expect(mockFn).toHaveBeenCalledTimes(1);
       });
     });
