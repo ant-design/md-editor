@@ -95,8 +95,11 @@ const MockResizeImage = ({ src, alt, selected, ...props }: any) => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
+    if (typeof window === 'undefined') return;
     // 模拟图片加载
-    setTimeout(() => setLoading(false), 100);
+    setTimeout(() => {
+      setLoading(false);
+    }, 100);
   }, []);
 
   return (

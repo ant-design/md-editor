@@ -35,6 +35,7 @@ describe('InlineKatex', () => {
   const mockElement: InlineKatexNode = {
     type: 'inline-katex',
     children: [{ text: 'x^2' }],
+    value: 'x^2',
   };
 
   const defaultProps: ElementProps<InlineKatexNode> = {
@@ -83,6 +84,7 @@ describe('InlineKatex', () => {
     const differentElement: InlineKatexNode = {
       type: 'inline-katex',
       children: [{ text: 'y^3' }],
+      value: 'y^3',
     };
 
     const propsWithDifferentElement = {
@@ -103,7 +105,7 @@ describe('InlineKatex', () => {
     const propsWithAttributes = {
       ...defaultProps,
       attributes: { 'data-testid': 'custom-katex' },
-    };
+    } as any;
 
     render(<InlineKatex {...propsWithAttributes} />);
 
