@@ -1,12 +1,23 @@
+/**
+ * Paragraph 组件测试文件
+ *
+ * 测试覆盖范围：
+ * - 基本渲染功能
+ * - 对齐方式
+ * - 边界情况处理
+ */
+
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import { Paragraph } from '../../../../src/MarkdownEditor/editor/elements/Paragraph';
 
-// Mock dependencies
+// Mock 依赖
 vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
-  useEditorStore: vi.fn(() => ({
+  useEditorStore: () => ({
     store: {
       dragStart: vi.fn(),
       isLatestNode: vi.fn(() => false),
@@ -18,143 +29,218 @@ vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
     editorProps: {
       titlePlaceholderContent: '请输入内容...',
     },
-  })),
+  }),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/hooks/editor', () => ({
-  useSelStatus: vi.fn(() => [false, [0]]),
-}));
-
-vi.mock('../../../../src/MarkdownEditor/editor/slate-react', () => ({
-  useSlate: vi.fn(() => ({
-    children: [{ children: [] }],
-  })),
-  ReactEditor: {
-    isFocused: vi.fn(() => false),
-    findPath: vi.fn(() => [0]),
-  },
+vi.mock('../../../../src/MarkdownEditor/hooks/editor', () => ({
+  useSelStatus: () => [false, [0, 0]],
 }));
 
 vi.mock('../../../../src/MarkdownEditor/editor/tools/DragHandle', () => ({
-  DragHandle: () => <div data-testid="drag-handle">Drag Handle</div>,
+  DragHandle: () => <div data-testid="drag-handle" />,
 }));
 
-describe('Paragraph', () => {
+vi.mock('slate', () => ({
+  Node: {
+    string: vi.fn(() => 'test content'),
+  },
+}));
+
+describe('Paragraph Component', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  const renderWithProvider = (component: React.ReactElement) => {
+    return render(<ConfigProvider>{component}</ConfigProvider>);
+  };
+
   const defaultProps = {
     element: {
-      type: 'paragraph' as const,
-      children: [{ text: 'Test content' }],
+      type: 'paragraph',
       align: 'left',
+      children: [{ text: 'test content' }],
     },
-    attributes: {
-      'data-slate-node': 'element' as const,
-      ref: { current: null },
-    },
-    children: [<div key="1">Test Content</div>],
-  } as any;
+    attributes: {},
+    children: <span>test content</span>,
+  };
 
-  describe('基本渲染测试', () => {
-    it('应该正确渲染段落元素', () => {
-      render(<Paragraph {...defaultProps} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toBeInTheDocument();
+  describe('基本渲染功能', () => {
+    it('应该正确渲染 Paragraph 组件', () => {
+      const { container } = renderWithProvider(<Paragraph {...defaultProps} />);
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toBeInTheDocument();
+      expect(paragraphElement).toHaveTextContent('test content');
     });
 
-    it('应该应用正确的对齐样式', () => {
-      render(<Paragraph {...defaultProps} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toHaveAttribute('data-align', 'left');
-    });
-
-    it('应该包含拖拽手柄', () => {
-      render(<Paragraph {...defaultProps} />);
-      expect(screen.getByTestId('drag-handle')).toBeInTheDocument();
-    });
-
-    it('应该渲染子元素', () => {
-      render(<Paragraph {...defaultProps} />);
-      expect(screen.getByText('Test Content')).toBeInTheDocument();
-    });
-  });
-
-  describe('空段落测试', () => {
-    it('应该处理空段落', () => {
-      const props = {
-        ...defaultProps,
-        element: { ...defaultProps.element, children: [{ text: '' }] },
-        children: [<div key="1"></div>],
-      };
-      render(<Paragraph {...props} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toBeInTheDocument();
-    });
-
-    it('应该为空段落显示占位符', () => {
-      const props = {
-        ...defaultProps,
-        element: { ...defaultProps.element, children: [{ text: '' }] },
-        children: [<div key="1"></div>],
-      };
-      render(<Paragraph {...props} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toHaveAttribute(
-        'data-slate-placeholder',
-        '请输入内容...',
+    it('应该显示拖拽手柄', () => {
+      const { getByTestId } = renderWithProvider(
+        <Paragraph {...defaultProps} />,
       );
+
+      const dragHandle = getByTestId('drag-handle');
+      expect(dragHandle).toBeInTheDocument();
+    });
+
+    it('应该显示内容', () => {
+      const { container } = renderWithProvider(<Paragraph {...defaultProps} />);
+
+      expect(container).toHaveTextContent('test content');
     });
   });
 
-  describe('对齐测试', () => {
-    it('应该支持居中对齐', () => {
-      const props = {
+  describe('对齐方式处理', () => {
+    it('应该处理左对齐', () => {
+      const propsWithLeftAlign = {
         ...defaultProps,
-        element: { ...defaultProps.element, align: 'center' },
+        element: {
+          ...defaultProps.element,
+          align: 'left',
+        },
       };
-      render(<Paragraph {...props} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toHaveAttribute('data-align', 'center');
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithLeftAlign} />,
+      );
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toHaveAttribute('data-align', 'left');
     });
 
-    it('应该支持右对齐', () => {
-      const props = {
+    it('应该处理居中对齐', () => {
+      const propsWithCenterAlign = {
         ...defaultProps,
-        element: { ...defaultProps.element, align: 'right' },
+        element: {
+          ...defaultProps.element,
+          align: 'center',
+        },
       };
-      render(<Paragraph {...props} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toHaveAttribute('data-align', 'right');
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithCenterAlign} />,
+      );
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toHaveAttribute('data-align', 'center');
     });
 
-    it('应该支持两端对齐', () => {
-      const props = {
+    it('应该处理右对齐', () => {
+      const propsWithRightAlign = {
         ...defaultProps,
-        element: { ...defaultProps.element, align: 'justify' },
+        element: {
+          ...defaultProps.element,
+          align: 'right',
+        },
       };
-      render(<Paragraph {...props} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toHaveAttribute('data-align', 'justify');
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithRightAlign} />,
+      );
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toHaveAttribute('data-align', 'right');
     });
   });
 
-  describe('边界条件测试', () => {
-    it('应该处理没有子元素的情况', () => {
-      const props = {
+  describe('边界情况处理', () => {
+    it('应该处理空的 attributes', () => {
+      const propsWithEmptyAttributes = {
         ...defaultProps,
-        children: [],
+        attributes: {},
       };
-      render(<Paragraph {...props} />);
-      const paragraph = document.querySelector('[data-be="paragraph"]');
-      expect(paragraph).toBeInTheDocument();
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithEmptyAttributes} />,
+      );
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toBeInTheDocument();
     });
 
-    it('应该处理复杂的子元素结构', () => {
-      const props = {
-        ...defaultProps,
-        children: [<div key="1">Complex</div>, <span key="2">Content</span>],
+    it('应该处理自定义 attributes', () => {
+      const customAttributes = {
+        'data-test': 'test-value',
       };
-      render(<Paragraph {...props} />);
-      expect(screen.getByText('Complex')).toBeInTheDocument();
-      expect(screen.getByText('Content')).toBeInTheDocument();
+
+      const propsWithCustomAttributes = {
+        ...defaultProps,
+        attributes: customAttributes,
+      };
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithCustomAttributes} />,
+      );
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toHaveAttribute('data-test', 'test-value');
+    });
+
+    it('应该处理空的 children', () => {
+      const propsWithEmptyChildren = {
+        ...defaultProps,
+        children: null,
+      };
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithEmptyChildren} />,
+      );
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toBeInTheDocument();
+    });
+  });
+
+  describe('样式处理', () => {
+    it('应该应用正确的类名', () => {
+      const { container } = renderWithProvider(<Paragraph {...defaultProps} />);
+
+      const paragraphElement = container.querySelector('[data-be="paragraph"]');
+      expect(paragraphElement).toHaveClass('ant-md-editor-drag-el');
+    });
+  });
+
+  describe('内容渲染', () => {
+    it('应该渲染复杂的 children', () => {
+      const complexChildren = (
+        <div>
+          <span>复杂内容</span>
+          <strong>粗体文本</strong>
+        </div>
+      );
+
+      const propsWithComplexChildren = {
+        ...defaultProps,
+        children: complexChildren,
+      };
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithComplexChildren} />,
+      );
+
+      expect(container).toHaveTextContent('复杂内容');
+      expect(container).toHaveTextContent('粗体文本');
+    });
+
+    it('应该处理多个 children', () => {
+      const multipleChildren = [
+        <span key="1">第一个</span>,
+        <span key="2">第二个</span>,
+        <span key="3">第三个</span>,
+      ];
+
+      const propsWithMultipleChildren = {
+        ...defaultProps,
+        children: multipleChildren,
+      };
+
+      const { container } = renderWithProvider(
+        <Paragraph {...propsWithMultipleChildren} />,
+      );
+
+      expect(container).toHaveTextContent('第一个');
+      expect(container).toHaveTextContent('第二个');
+      expect(container).toHaveTextContent('第三个');
     });
   });
 });

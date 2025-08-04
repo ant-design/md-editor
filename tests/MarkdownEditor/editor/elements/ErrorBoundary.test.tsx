@@ -1,134 +1,254 @@
+/**
+ * ErrorBoundary 组件测试文件
+ *
+ * 测试覆盖范围：
+ * - 基本渲染功能
+ * - 错误捕获功能
+ * - 错误状态处理
+ * - 边界情况处理
+ */
+
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
 import React from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import { ErrorBoundary } from '../../../../src/MarkdownEditor/editor/elements/ErrorBoundary';
 
-const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
-  if (shouldThrow) {
-    throw new Error('Test error');
-  }
-  return <div>Normal content</div>;
-};
+// Mock console.log
+const mockConsoleLog = vi.fn();
+console.log = mockConsoleLog;
 
-describe('ErrorBoundary', () => {
-  const fallback = <div>Something went wrong.</div>;
-
-  beforeEach(() => {
+describe('ErrorBoundary Component', () => {
+  afterEach(() => {
     vi.clearAllMocks();
-    vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
-  describe('正常渲染测试', () => {
-    it('应该正常渲染子组件', () => {
-      render(
-        <ErrorBoundary fallback={fallback}>
-          <div>Normal content</div>
-        </ErrorBoundary>,
+  const renderWithProvider = (component: React.ReactElement) => {
+    return render(<ConfigProvider>{component}</ConfigProvider>);
+  };
+
+  // 创建一个会抛出错误的组件
+  const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
+    if (shouldThrow) {
+      throw new Error('Test error');
+    }
+    return <div>正常内容</div>;
+  };
+
+  const defaultProps = {
+    children: <div>正常内容</div>,
+    fallback: <div>错误回退内容</div>,
+  };
+
+  describe('基本渲染功能', () => {
+    it('应该正确渲染 ErrorBoundary 组件', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary {...defaultProps} />,
       );
-      expect(screen.getByText('Normal content')).toBeInTheDocument();
+
+      expect(container).toHaveTextContent('正常内容');
     });
 
-    it('应该渲染多个子组件', () => {
-      render(
-        <ErrorBoundary fallback={fallback}>
-          <div>First</div>
-          <div>Second</div>
-        </ErrorBoundary>,
+    it('应该显示 children 内容', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary {...defaultProps} />,
       );
-      expect(screen.getByText('First')).toBeInTheDocument();
-      expect(screen.getByText('Second')).toBeInTheDocument();
+
+      expect(container).toHaveTextContent('正常内容');
+    });
+
+    it('应该渲染为 React 组件', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary {...defaultProps} />,
+      );
+
+      expect(container.firstChild).toBeInTheDocument();
     });
   });
 
-  describe('错误处理测试', () => {
+  describe('错误捕获功能', () => {
     it('应该捕获子组件的错误', () => {
-      render(
-        <ErrorBoundary fallback={fallback}>
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
           <ThrowError shouldThrow={true} />
         </ErrorBoundary>,
       );
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+
+      expect(container).toHaveTextContent('错误回退内容');
     });
 
-    it('应该显示错误信息', () => {
-      render(
-        <ErrorBoundary fallback={fallback}>
+    it('应该在错误时显示 fallback', () => {
+      const customFallback = <div>自定义错误回退</div>;
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={customFallback}>
           <ThrowError shouldThrow={true} />
         </ErrorBoundary>,
       );
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+
+      expect(container).toHaveTextContent('自定义错误回退');
     });
 
-    it('应该包含错误边界标识', () => {
-      render(
-        <ErrorBoundary fallback={fallback}>
+    it('应该调用 componentDidCatch', () => {
+      renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
           <ThrowError shouldThrow={true} />
         </ErrorBoundary>,
       );
-      // ErrorBoundary 只是返回 fallback，不添加额外的属性
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+
+      expect(mockConsoleLog).toHaveBeenCalled();
     });
   });
 
-  describe('错误恢复测试', () => {
-    it('应该在错误后重新渲染正常内容', () => {
-      const { rerender } = render(
-        <ErrorBoundary fallback={fallback}>
+  describe('错误状态处理', () => {
+    it('应该在错误后保持错误状态', () => {
+      const { container, rerender } = renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
           <ThrowError shouldThrow={true} />
         </ErrorBoundary>,
       );
 
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+      expect(container).toHaveTextContent('错误回退内容');
 
-      // 重新渲染正常内容
+      // 重新渲染，错误状态应该保持
       rerender(
-        <ErrorBoundary fallback={fallback}>
+        <ConfigProvider>
+          <ErrorBoundary fallback={<div>错误回退内容</div>}>
+            <ThrowError shouldThrow={false} />
+          </ErrorBoundary>
+        </ConfigProvider>,
+      );
+
+      expect(container).toHaveTextContent('错误回退内容');
+    });
+
+    it('应该在无错误时显示正常内容', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
           <ThrowError shouldThrow={false} />
         </ErrorBoundary>,
       );
 
-      // ErrorBoundary 一旦捕获错误，状态就会保持，不会自动恢复
-      // 所以这里应该仍然显示 fallback
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+      expect(container).toHaveTextContent('正常内容');
     });
   });
 
-  describe('边界条件测试', () => {
-    it('应该处理空子组件', () => {
-      render(<ErrorBoundary fallback={fallback}>{null}</ErrorBoundary>);
-      // ErrorBoundary 应该正常渲染 null 子组件
-      expect(
-        screen.queryByText('Something went wrong.'),
-      ).not.toBeInTheDocument();
+  describe('边界情况处理', () => {
+    it('应该处理空的 children', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
+          {null}
+        </ErrorBoundary>,
+      );
+
+      expect(container).toBeInTheDocument();
     });
 
-    it('应该处理 undefined 子组件', () => {
-      render(<ErrorBoundary fallback={fallback}>{undefined}</ErrorBoundary>);
-      // ErrorBoundary 应该正常渲染 undefined 子组件
-      expect(
-        screen.queryByText('Something went wrong.'),
-      ).not.toBeInTheDocument();
-    });
-
-    it('应该处理没有子组件的情况', () => {
-      render(<ErrorBoundary fallback={fallback}>{null}</ErrorBoundary>);
-      // ErrorBoundary 应该正常渲染 null 子组件
-      expect(
-        screen.queryByText('Something went wrong.'),
-      ).not.toBeInTheDocument();
-    });
-  });
-
-  describe('样式测试', () => {
-    it('应该应用正确的样式类', () => {
-      render(
-        <ErrorBoundary fallback={fallback}>
+    it('应该处理空的 fallback', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={null}>
           <ThrowError shouldThrow={true} />
         </ErrorBoundary>,
       );
-      // ErrorBoundary 不添加额外的样式类，只是返回 fallback
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+
+      expect(container).toBeInTheDocument();
+    });
+
+    it('应该处理复杂的 children', () => {
+      const complexChildren = (
+        <div>
+          <span>复杂内容</span>
+          <strong>粗体文本</strong>
+        </div>
+      );
+
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
+          {complexChildren}
+        </ErrorBoundary>,
+      );
+
+      expect(container).toHaveTextContent('复杂内容');
+      expect(container).toHaveTextContent('粗体文本');
+    });
+
+    it('应该处理复杂的 fallback', () => {
+      const complexFallback = (
+        <div>
+          <span>复杂错误回退</span>
+          <strong>粗体错误文本</strong>
+        </div>
+      );
+
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={complexFallback}>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>,
+      );
+
+      expect(container).toHaveTextContent('复杂错误回退');
+      expect(container).toHaveTextContent('粗体错误文本');
+    });
+
+    it('应该处理多个 children', () => {
+      const multipleChildren = [
+        <span key="1">第一个</span>,
+        <span key="2">第二个</span>,
+        <span key="3">第三个</span>,
+      ];
+
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
+          {multipleChildren}
+        </ErrorBoundary>,
+      );
+
+      expect(container).toHaveTextContent('第一个');
+      expect(container).toHaveTextContent('第二个');
+      expect(container).toHaveTextContent('第三个');
+    });
+  });
+
+  describe('构造函数和状态', () => {
+    it('应该正确初始化状态', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary {...defaultProps} />,
+      );
+
+      expect(container).toHaveTextContent('正常内容');
+    });
+
+    it('应该在构造函数中设置初始状态', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary {...defaultProps} />,
+      );
+
+      expect(container).toHaveTextContent('正常内容');
+    });
+  });
+
+  describe('静态方法', () => {
+    it('应该正确处理 getDerivedStateFromError', () => {
+      const { container } = renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>,
+      );
+
+      expect(container).toHaveTextContent('错误回退内容');
+    });
+  });
+
+  describe('生命周期方法', () => {
+    it('应该调用 componentDidCatch 方法', () => {
+      renderWithProvider(
+        <ErrorBoundary fallback={<div>错误回退内容</div>}>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>,
+      );
+
+      expect(mockConsoleLog).toHaveBeenCalled();
     });
   });
 });
