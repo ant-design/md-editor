@@ -1279,6 +1279,7 @@
           >
             <div
               class="ant-md-editor-attachment-button"
+              data-testid="attachment-button"
             >
               <svg
                 aria-describedby="test-id"

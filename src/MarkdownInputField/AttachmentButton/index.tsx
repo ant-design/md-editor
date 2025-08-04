@@ -243,6 +243,7 @@ export const AttachmentButton: React.FC<
         if (props.disabled) return;
         props.uploadImage?.();
       }}
+      data-testid="attachment-button"
     >
       <AttachmentButtonPopover supportedFormats={supportedFormats}>
         <AttachmentIcon />

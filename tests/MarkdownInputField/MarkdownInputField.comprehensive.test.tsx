@@ -25,23 +25,6 @@ vi.mock('../../src/MarkdownEditor/editor/slate-react', () => ({
   },
 }));
 
-vi.mock('../../src/MarkdownInputField/AttachmentButton', () => ({
-  AttachmentButton: ({ children, ...props }: any) => (
-    <div data-testid="attachment-button" {...props}>
-      {children}
-    </div>
-  ),
-  upLoadFileToServer: vi.fn(),
-}));
-
-vi.mock('../../src/MarkdownInputField/SendButton', () => ({
-  SendButton: ({ children, ...props }: any) => (
-    <button data-testid="send-button" {...props}>
-      {children}
-    </button>
-  ),
-}));
-
 vi.mock('../../src/MarkdownInputField/Suggestion', () => ({
   Suggestion: ({ children, ...props }: any) => (
     <div data-testid="suggestion" {...props}>
@@ -50,14 +33,20 @@ vi.mock('../../src/MarkdownInputField/Suggestion', () => ({
   ),
 }));
 
-vi.mock('../../src/MarkdownInputField/style', () => ({
-  useStyle: () => ({
-    wrapper: 'test-wrapper-class',
-    container: 'test-container-class',
-    editor: 'test-editor-class',
-    actions: 'test-actions-class',
-    tools: 'test-tools-class',
-  }),
+vi.mock('../../src/MarkdownInputField/AttachmentButton', () => ({
+  AttachmentButton: ({ children, ...props }: any) => (
+    <div data-testid="attachment-button" {...props}>
+      {children}
+    </div>
+  ),
+}));
+
+vi.mock('../../src/MarkdownInputField/SendButton', () => ({
+  SendButton: ({ children, ...props }: any) => (
+    <button data-testid="send-button" type="button" {...props}>
+      {children}
+    </button>
+  ),
 }));
 
 describe('MarkdownInputField Comprehensive Tests', () => {
@@ -65,6 +54,9 @@ describe('MarkdownInputField Comprehensive Tests', () => {
     value: '# Hello World',
     onChange: vi.fn(),
     placeholder: 'Type your message...',
+    attachment: {
+      enable: true,
+    },
   };
 
   beforeEach(() => {
@@ -73,7 +65,14 @@ describe('MarkdownInputField Comprehensive Tests', () => {
 
   describe('基本渲染功能', () => {
     it('应该正确渲染基本组件', () => {
-      render(<MarkdownInputField {...defaultProps} />);
+      render(
+        <MarkdownInputField
+          {...defaultProps}
+          attachment={{
+            enable: true,
+          }}
+        />,
+      );
       expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
     });
 
@@ -84,7 +83,14 @@ describe('MarkdownInputField Comprehensive Tests', () => {
     });
 
     it('应该渲染附件按钮', () => {
-      render(<MarkdownInputField {...defaultProps} />);
+      render(
+        <MarkdownInputField
+          {...defaultProps}
+          attachment={{
+            enable: true,
+          }}
+        />,
+      );
       expect(screen.getByTestId('attachment-button')).toBeInTheDocument();
     });
 
@@ -139,11 +145,13 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       render(
         <MarkdownInputField
           {...defaultProps}
-          attachment={{
-            enable: true,
-            accept: '.pdf,.doc',
-            maxSize: 1024 * 1024,
-          }}
+          attachment={
+            {
+              enable: true,
+              accept: '.pdf,.doc',
+              maxSize: 1024 * 1024,
+            } as any
+          }
         />,
       );
       expect(screen.getByTestId('attachment-button')).toBeInTheDocument();
@@ -153,12 +161,15 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       render(
         <MarkdownInputField
           {...defaultProps}
-          attachment={{
-            enable: false,
-          }}
+          attachment={
+            {
+              enable: false,
+            } as any
+          }
         />,
       );
-      expect(screen.getByTestId('attachment-button')).toBeInTheDocument();
+      // 附件按钮应该不存在
+      expect(screen.queryByTestId('attachment-button')).not.toBeInTheDocument();
     });
 
     it('应该处理附件上传配置', () => {
@@ -166,12 +177,14 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       render(
         <MarkdownInputField
           {...defaultProps}
-          attachment={{
-            enable: true,
-            onUpload,
-            accept: '.pdf,.doc',
-            maxSize: 1024 * 1024,
-          }}
+          attachment={
+            {
+              enable: true,
+              upload: onUpload,
+              accept: '.pdf,.doc',
+              maxSize: 1024 * 1024,
+            } as any
+          }
         />,
       );
       expect(screen.getByTestId('attachment-button')).toBeInTheDocument();
@@ -180,7 +193,13 @@ describe('MarkdownInputField Comprehensive Tests', () => {
 
   describe('发送功能', () => {
     it('应该处理 Enter 键发送', () => {
-      render(<MarkdownInputField {...defaultProps} triggerSendKey="Enter" />);
+      render(
+        <MarkdownInputField
+          {...defaultProps}
+          triggerSendKey="Enter"
+          attachment={{ enable: true }}
+        />,
+      );
       expect(screen.getByTestId('send-button')).toBeInTheDocument();
     });
 
@@ -246,7 +265,12 @@ describe('MarkdownInputField Comprehensive Tests', () => {
 
   describe('样式和主题', () => {
     it('应该应用自定义背景色', () => {
-      const bgColorList = ['#f0f0f0', '#e0e0e0', '#d0d0d0', '#c0c0c0'];
+      const bgColorList = ['#f0f0f0', '#e0e0e0', '#d0d0d0', '#c0c0c0'] as [
+        string,
+        string,
+        string,
+        string,
+      ];
       render(
         <MarkdownInputField {...defaultProps} bgColorList={bgColorList} />,
       );
@@ -330,7 +354,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
           {...defaultProps}
           attachment={{
             enable: true,
-            onUpload,
+            upload: onUpload,
           }}
         />,
       );
@@ -364,7 +388,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
     });
 
     it('应该正确处理复杂的自定义渲染', () => {
-      const actionsRender = vi.fn((props, defaultActions) => [
+      const actionsRender = vi.fn((_props, defaultActions) => [
         <div key="custom1" data-testid="custom-action-1">
           Action 1
         </div>,
@@ -374,7 +398,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
         ...defaultActions,
       ]);
 
-      const toolsRender = vi.fn((props) => [
+      const toolsRender = vi.fn((_props) => [
         <div key="tool1" data-testid="custom-tool-1">
           Tool 1
         </div>,
@@ -388,6 +412,9 @@ describe('MarkdownInputField Comprehensive Tests', () => {
           {...defaultProps}
           actionsRender={actionsRender}
           toolsRender={toolsRender}
+          attachment={{
+            enable: true,
+          }}
         />,
       );
 
