@@ -28,12 +28,23 @@ export const InlineKatex = ({
     }
   }, [selected]);
   if (process.env.NODE_ENV === 'test') {
-    return <span contentEditable={false} style={{ fontSize: 0 }} />;
+    return (
+      <span
+        contentEditable={false}
+        {...attributes}
+        data-be={'inline-katex'}
+        style={{
+          position: 'relative',
+        }}
+        data-testid="inline-katex"
+      />
+    );
   }
 
   if (readonly) {
     return (
       <span
+        data-testid="inline-katex"
         {...attributes}
         data-be={'inline-katex'}
         style={{
