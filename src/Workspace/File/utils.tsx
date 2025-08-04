@@ -1,6 +1,7 @@
 import React from 'react';
 import ArchiveIcon from '../icons/ArchiveIcon';
 import CsvIcon from '../icons/CsvIcon';
+import DefaultFileIcon from '../icons/DefaultFileIcon';
 import HtmlIcon from '../icons/HtmlIcon';
 import MdIcon from '../icons/MdIcon';
 import PdfIcon from '../icons/PdfIcon';
@@ -42,10 +43,10 @@ const TYPE_ICON_MAP: Record<FileCategory, React.ReactNode> = {
   [FileCategory.PDF]: <PdfIcon />,
   [FileCategory.Word]: <WordIcon />,
   [FileCategory.Excel]: <XlsxIcon />,
-  [FileCategory.Image]: <MdIcon />,
-  [FileCategory.Video]: <MdIcon />,
+  [FileCategory.Image]: <DefaultFileIcon />,
+  [FileCategory.Video]: <DefaultFileIcon />,
   [FileCategory.Archive]: <ArchiveIcon />,
-  [FileCategory.Other]: <MdIcon />,
+  [FileCategory.Other]: <DefaultFileIcon />,
 };
 
 /**
@@ -72,7 +73,7 @@ export const getFileTypeIcon = (
     return EXTENSION_ICON_MAP[fileDefinition.extensions[0]];
   }
 
-  return TYPE_ICON_MAP[getFileCategory(type)] || <MdIcon />;
+  return TYPE_ICON_MAP[getFileCategory(type)] || <DefaultFileIcon />;
 };
 
 // 生成唯一ID的工具函数
