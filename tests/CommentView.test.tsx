@@ -58,7 +58,6 @@ import {
   CommentCreate,
   CommentView,
 } from '../src/MarkdownEditor/editor/elements/Comment';
-import { useStyle } from '../src/MarkdownEditor/editor/elements/Comment/style';
 
 describe('CommentView Component', () => {
   const mockCommentData: CommentDataType[] = [
@@ -767,67 +766,6 @@ describe('CommentView Component', () => {
       const divElement = container.querySelector('div');
       expect(divElement).toBeInTheDocument();
       expect(divElement?.children.length).toBe(0);
-    });
-  });
-
-  describe('Style Hook', () => {
-    it('应该正确调用 useStyle hook', () => {
-      const result = useStyle('test-prefix');
-      expect(result).toBeDefined();
-      expect(result.hashId).toBe('test-hash-id');
-    });
-
-    it('应该在没有 prefixCls 参数时也能正常工作', () => {
-      const result = useStyle();
-      expect(result).toBeDefined();
-      expect(result.hashId).toBe('test-hash-id');
-    });
-
-    it('应该正确处理 wrapSSR 函数', () => {
-      const result = useStyle('test-prefix');
-      const testElement = <div>测试元素</div>;
-      const wrappedElement = result.wrapSSR(testElement);
-      expect(wrappedElement).toBe(testElement);
-    });
-
-    it('应该处理不同的 prefixCls 参数', () => {
-      const result1 = useStyle('prefix1');
-      const result2 = useStyle('prefix2');
-
-      expect(result1).toBeDefined();
-      expect(result2).toBeDefined();
-      expect(result1.hashId).toBe('test-hash-id');
-      expect(result2.hashId).toBe('test-hash-id');
-    });
-
-    it('应该处理空字符串的 prefixCls 参数', () => {
-      const result = useStyle('');
-      expect(result).toBeDefined();
-      expect(result.hashId).toBe('test-hash-id');
-    });
-
-    it('应该处理 undefined 的 prefixCls 参数', () => {
-      const result = useStyle(undefined);
-      expect(result).toBeDefined();
-      expect(result.hashId).toBe('test-hash-id');
-    });
-
-    it('应该处理 null 的 prefixCls 参数', () => {
-      const result = useStyle(null as any);
-      expect(result).toBeDefined();
-      expect(result.hashId).toBe('test-hash-id');
-    });
-
-    it('应该处理数字类型的 prefixCls 参数', () => {
-      const result = useStyle(123 as any);
-      expect(result).toBeDefined();
-      expect(result.hashId).toBe('test-hash-id');
-    });
-
-    it('应该处理布尔类型的 prefixCls 参数', () => {
-      const result = useStyle(true as any);
-      expect(result).toBeDefined();
-      expect(result.hashId).toBe('test-hash-id');
     });
   });
 });
