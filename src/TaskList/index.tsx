@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
 import { useStyle } from './style';
 
-function DashPendingIcon(props: React.SVGProps<SVGSVGElement>) {
+const DashPendingIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -26,9 +26,11 @@ function DashPendingIcon(props: React.SVGProps<SVGSVGElement>) {
       </g>
     </svg>
   );
-}
+});
 
-function SuccessIcon(props: React.SVGProps<SVGSVGElement>) {
+DashPendingIcon.displayName = 'DashPendingIcon';
+
+const SuccessIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -52,9 +54,11 @@ function SuccessIcon(props: React.SVGProps<SVGSVGElement>) {
       </g>
     </svg>
   );
-}
+});
 
-function ChevronUpIcon(props: React.SVGProps<SVGSVGElement>) {
+SuccessIcon.displayName = 'SuccessIcon';
+
+const ChevronUpIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +82,9 @@ function ChevronUpIcon(props: React.SVGProps<SVGSVGElement>) {
       </g>
     </svg>
   );
-}
+});
+
+ChevronUpIcon.displayName = 'ChevronUpIcon';
 
 type ThoughtChainProps = {
   items: {
@@ -90,7 +96,88 @@ type ThoughtChainProps = {
   className?: string;
 };
 
-export const TaskList = ({ items, className }: ThoughtChainProps) => {
+const TaskListItem = memo(
+  ({
+    item,
+    isLast,
+    prefixCls,
+    hashId,
+    itemsCollapseStatus,
+    onToggle,
+  }: {
+    item: {
+      key: string;
+      title: string;
+      content: React.ReactNode | React.ReactNode[];
+      status: 'success' | 'pending';
+    };
+    isLast: boolean;
+    prefixCls: string;
+    hashId: string;
+    itemsCollapseStatus: React.MutableRefObject<Map<string, boolean>>;
+    onToggle: (key: string) => void;
+  }) => {
+    const isCollapsed = itemsCollapseStatus.current.get(item.key);
+
+    const hasContent =
+      item.content && Array.isArray(item.content) && item.content.length > 0;
+
+    return (
+      <div key={item.key} className={`${prefixCls}-thoughtChainItem ${hashId}`}>
+        <div className={`${prefixCls}-left ${hashId}`}>
+          <div
+            className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
+          >
+            {item.status === 'success' ? <SuccessIcon /> : null}
+            {item.status === 'pending' ? <DashPendingIcon /> : null}
+            {item.status !== 'success' && item.status !== 'pending' ? (
+              <div className={`${prefixCls}-status-idle ${hashId}`}>
+                <DashPendingIcon />
+              </div>
+            ) : null}
+          </div>
+          <div className={`${prefixCls}-content-left ${hashId}`}>
+            {!isLast && (
+              <div className={`${prefixCls}-dash-line ${hashId}`}></div>
+            )}
+          </div>
+        </div>
+        <div className={`${prefixCls}-right ${hashId}`}>
+          <div
+            className={`${prefixCls}-top ${hashId}`}
+            onClick={() => onToggle(item.key)}
+          >
+            <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
+            {hasContent && (
+              <div className={`${prefixCls}-arrowContainer ${hashId}`}>
+                <ActionIconBox
+                  title={isCollapsed ? '收起' : '展开'}
+                  iconStyle={{
+                    transform: isCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
+                  }}
+                  onClick={() => onToggle(item.key)}
+                >
+                  <ChevronUpIcon className={`${prefixCls}-arrow ${hashId}`} />
+                </ActionIconBox>
+              </div>
+            )}
+          </div>
+          {isCollapsed && (
+            <div className={`${prefixCls}-body ${hashId}`}>
+              <div className={`${prefixCls}-content ${hashId}`}>
+                {item.content}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  },
+);
+
+TaskListItem.displayName = 'TaskListItem';
+
+export const TaskList = memo(({ items, className }: ThoughtChainProps) => {
   const prefixCls = 'task-list';
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [reFresh, setReFresh] = useState(false);
@@ -119,79 +206,34 @@ export const TaskList = ({ items, className }: ThoughtChainProps) => {
     if (flag) {
       setReFresh(!reFresh);
     }
-  }, [items]);
+  }, [items, reFresh]);
 
-  const OnClickArrow = (key: string) => {
-    itemsCollapseStatus.current.set(key, !itemsCollapseStatus.current.get(key));
-    setReFresh(!reFresh);
-  };
+  const handleToggle = useCallback(
+    (key: string) => {
+      itemsCollapseStatus.current.set(
+        key,
+        !itemsCollapseStatus.current.get(key),
+      );
+      setReFresh(!reFresh);
+    },
+    [reFresh],
+  );
 
   return wrapSSR(
     <div className={className}>
       {items.map((item, index) => (
-        <div
+        <TaskListItem
           key={item.key}
-          className={`${prefixCls}-thoughtChainItem ${hashId}`}
-        >
-          <div className={`${prefixCls}-left ${hashId}`}>
-            <div
-              className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
-            >
-              {item.status === 'success' ? <SuccessIcon /> : null}
-              {item.status === 'pending' ? <DashPendingIcon /> : null}
-              {item.status !== 'success' && item.status !== 'pending' ? (
-                <div className={`${prefixCls}-status-idle ${hashId}`}>
-                  <DashPendingIcon />
-                </div>
-              ) : null}
-            </div>
-            <div className={`${prefixCls}-content-left ${hashId}`}>
-              {index !== items.length - 1 && (
-                <div className={`${prefixCls}-dash-line ${hashId}`}></div>
-              )}
-            </div>
-          </div>
-          <div className={`${prefixCls}-right ${hashId}`}>
-            <div
-              className={`${prefixCls}-top ${hashId}`}
-              onClick={() => OnClickArrow(item.key)}
-            >
-              <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
-              {item.content
-                ? Array.isArray(item.content) &&
-                  item.content.length > 0 && (
-                    <div className={`${prefixCls}-arrowContainer ${hashId}`}>
-                      <ActionIconBox
-                        title={
-                          itemsCollapseStatus.current.get(item.key)
-                            ? '收起'
-                            : '展开'
-                        }
-                        iconStyle={{
-                          transform: itemsCollapseStatus.current.get(item.key)
-                            ? 'rotate(0deg)'
-                            : 'rotate(180deg)',
-                        }}
-                        onClick={() => OnClickArrow(item.key)}
-                      >
-                        <ChevronUpIcon
-                          className={`${prefixCls}-arrow ${hashId}`}
-                        />
-                      </ActionIconBox>
-                    </div>
-                  )
-                : null}
-            </div>
-            {itemsCollapseStatus.current.get(item.key) && (
-              <div className={`${prefixCls}-body ${hashId}`}>
-                <div className={`${prefixCls}-content ${hashId}`}>
-                  {item.content}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+          item={item}
+          isLast={index === items.length - 1}
+          prefixCls={prefixCls}
+          hashId={hashId}
+          itemsCollapseStatus={itemsCollapseStatus}
+          onToggle={handleToggle}
+        />
       ))}
     </div>,
   );
-};
+});
+
+TaskList.displayName = 'TaskList';

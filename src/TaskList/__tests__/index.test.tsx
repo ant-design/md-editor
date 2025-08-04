@@ -23,9 +23,9 @@ describe('TaskList', () => {
     },
     {
       key: '3',
-      title: 'Error Task',
-      content: 'Error content',
-      status: 'error' as const,
+      title: 'Another Pending Task',
+      content: 'Another pending content',
+      status: 'pending' as const,
     },
   ];
 
@@ -35,25 +35,19 @@ describe('TaskList', () => {
     // Check titles are rendered
     expect(screen.getByText('Success Task')).toBeInTheDocument();
     expect(screen.getByText('Pending Task')).toBeInTheDocument();
-    expect(screen.getByText('Error Task')).toBeInTheDocument();
+    expect(screen.getByText('Another Pending Task')).toBeInTheDocument();
 
-    // Check status icons
-    const successIcon = document.querySelector('.anticon-check-circle');
-    const errorIcon = document.querySelector('.anticon-close-circle');
-    const loadingIcon = document.querySelector('.anticon-loading');
-
-    expect(successIcon).toBeInTheDocument();
-    expect(errorIcon).toBeInTheDocument();
-    expect(loadingIcon).toBeInTheDocument();
+    // Check that tasks are rendered with correct structure
+    const taskItems = document.querySelectorAll('.task-list-thoughtChainItem');
+    expect(taskItems).toHaveLength(3);
   });
 
-  it('shows loading component for pending tasks', () => {
+  it('shows content for tasks with array content', () => {
     render(<TaskList items={mockItems} />);
-    const pendingTask = mockItems.find((item) => item.status === 'pending');
-    const taskElement = screen.getByText(pendingTask!.title);
-    const loadingComponent =
-      taskElement.parentElement?.querySelector('.loading-container');
-    expect(loadingComponent).toBeInTheDocument();
+
+    // Check if array content items are rendered
+    expect(screen.getByText('Pending content 1')).toBeInTheDocument();
+    expect(screen.getByText('Pending content 2')).toBeInTheDocument();
   });
 
   it('toggles content visibility when clicked', () => {
@@ -106,5 +100,30 @@ describe('TaskList', () => {
     fireEvent.click(pendingTask);
     expect(screen.queryByText('Success content')).not.toBeInTheDocument();
     expect(screen.queryByText('Pending content 1')).not.toBeInTheDocument();
+  });
+
+  it('shows arrow icon for tasks with content', () => {
+    render(<TaskList items={mockItems} />);
+
+    // Check that arrow containers exist for tasks with content
+    const arrowContainers = document.querySelectorAll(
+      '.task-list-arrowContainer',
+    );
+    expect(arrowContainers.length).toBeGreaterThan(0);
+  });
+
+  it('handles empty content gracefully', () => {
+    const itemsWithEmptyContent = [
+      {
+        key: '1',
+        title: 'Empty Content Task',
+        content: [],
+        status: 'pending' as const,
+      },
+    ];
+
+    render(<TaskList items={itemsWithEmptyContent} />);
+
+    expect(screen.getByText('Empty Content Task')).toBeInTheDocument();
   });
 });

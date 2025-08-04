@@ -112,7 +112,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           marginLeft: 12,
           display: 'flex',
           flexDirection: 'column',
-          gap: 4,
+          gap: 2,
           fontSize: '12px',
           fontWeight: 'normal',
           lineHeight: '160%',
