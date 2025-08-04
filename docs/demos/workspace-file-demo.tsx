@@ -86,6 +86,33 @@ const WorkspaceFileDemo: React.FC = () => {
       ],
     },
     {
+      name: '音频文件',
+      type: 'audio',
+      children: [
+        {
+          name: '产品介绍.mp3',
+          type: 'audio',
+          size: '5.2MB',
+          lastModified: '10:30',
+          url: '/downloads/product-intro.mp3',
+        },
+        {
+          name: '用户反馈.m4a',
+          type: 'audio',
+          size: '3.8MB',
+          lastModified: '15:45',
+          url: '/downloads/user-feedback.m4a',
+        },
+        {
+          name: '会议记录.wav',
+          type: 'audio',
+          size: '12.5MB',
+          lastModified: '09:15',
+          url: '/downloads/meeting-record.wav',
+        },
+      ],
+    },
+    {
       name: 'CSV文件',
       type: 'plainText',
       children: [

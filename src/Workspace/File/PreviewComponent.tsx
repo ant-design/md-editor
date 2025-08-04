@@ -237,6 +237,27 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           </video>
         );
 
+      case 'audio':
+        if (!dataSource.previewUrl) {
+          return (
+            <PlaceholderContent>
+              <p>无法获取音频预览</p>
+            </PlaceholderContent>
+          );
+        }
+
+        return (
+          <audio
+            className={`${PREFIX}__audio`}
+            src={dataSource.previewUrl}
+            controls
+            controlsList="nodownload"
+            preload="metadata"
+          >
+            您的浏览器不支持音频播放
+          </audio>
+        );
+
       case 'pdf':
         if (!dataSource.previewUrl) {
           return (

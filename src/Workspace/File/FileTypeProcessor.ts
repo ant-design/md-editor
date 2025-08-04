@@ -200,6 +200,7 @@ export class FileTypeProcessor {
       FileCategory.Text,
       FileCategory.Image,
       FileCategory.Video,
+      FileCategory.Audio,
       FileCategory.PDF,
       FileCategory.Archive,
     ].includes(typeInference.category);
@@ -222,6 +223,8 @@ export class FileTypeProcessor {
       case FileCategory.Image:
         return 'modal';
       case FileCategory.Video:
+        return 'inline';
+      case FileCategory.Audio:
         return 'inline';
       case FileCategory.PDF:
         return 'inline';
@@ -259,6 +262,10 @@ export const isTextFile = (file: FileNode): boolean => {
 
 export const isArchiveFile = (file: FileNode): boolean => {
   return fileTypeProcessor.inferFileType(file).category === FileCategory.Archive;
+};
+
+export const isAudioFile = (file: FileNode): boolean => {
+  return fileTypeProcessor.inferFileType(file).category === FileCategory.Audio;
 };
 
 /**

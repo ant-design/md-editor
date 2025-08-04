@@ -52,6 +52,7 @@ export enum FileCategory {
   Text = 'text',
   Image = 'image',
   Video = 'video',
+  Audio = 'audio',
   PDF = 'pdf',
   Word = 'word',
   Excel = 'excel',
@@ -99,6 +100,18 @@ export const FILE_TYPES: Record<string, FileTypeDefinition> = {
     extensions: ['mp4', 'webm', 'ogg'],
     mimeTypes: ['video/mp4', 'video/webm', 'video/ogg'],
     name: '视频',
+  },
+  audio: {
+    category: FileCategory.Audio,
+    extensions: ['mp3', 'wav', 'ogg', 'aac', 'm4a'],
+    mimeTypes: [
+      'audio/mpeg',
+      'audio/wav',
+      'audio/ogg',
+      'audio/aac',
+      'audio/mp4',
+    ],
+    name: '音频',
   },
   pdf: {
     category: FileCategory.PDF,

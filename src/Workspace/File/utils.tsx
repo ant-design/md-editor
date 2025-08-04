@@ -1,10 +1,13 @@
 import React from 'react';
 import ArchiveIcon from '../icons/ArchiveIcon';
+import AudioIcon from '../icons/AudioIcon';
 import CsvIcon from '../icons/CsvIcon';
 import DefaultFileIcon from '../icons/DefaultFileIcon';
 import HtmlIcon from '../icons/HtmlIcon';
+import ImageIcon from '../icons/ImageIcon';
 import MdIcon from '../icons/MdIcon';
 import PdfIcon from '../icons/PdfIcon';
+import VideoIcon from '../icons/VideoIcon';
 import WordIcon from '../icons/WordIcon';
 import XlsxIcon from '../icons/XlsxIcon';
 import XmlIcon from '../icons/XmlIcon';
@@ -43,8 +46,9 @@ const TYPE_ICON_MAP: Record<FileCategory, React.ReactNode> = {
   [FileCategory.PDF]: <PdfIcon />,
   [FileCategory.Word]: <WordIcon />,
   [FileCategory.Excel]: <XlsxIcon />,
-  [FileCategory.Image]: <DefaultFileIcon />,
-  [FileCategory.Video]: <DefaultFileIcon />,
+  [FileCategory.Image]: <ImageIcon />,
+  [FileCategory.Video]: <VideoIcon />,
+  [FileCategory.Audio]: <AudioIcon />,
   [FileCategory.Archive]: <ArchiveIcon />,
   [FileCategory.Other]: <DefaultFileIcon />,
 };
