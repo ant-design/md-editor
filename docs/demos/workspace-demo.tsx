@@ -2,24 +2,32 @@ import { Workspace } from '@ant-design/md-editor';
 import React, { useEffect, useState } from 'react';
 import { defaultValue } from './shared/defaultValue';
 
+// Use a fixed timestamp in test environment
+const getTimestamp = () => process.env.NODE_ENV === 'test' ? new Date('2024-01-01T00:00:00Z').getTime() : Date.now();
+
 const Demo = () => {
   const [mdContent, setMdContent] = useState('');
   useEffect(() => {
-    // setMdContent(defaultValue);
-    let md = '';
-    const list = defaultValue.split('');
-    const run = async () => {
-      for await (const item of list) {
-        md += item;
-        await new Promise((resolve) => {
-          setTimeout(() => {
-            setMdContent(md);
-            resolve(true);
-          }, 10);
-        });
-      }
-    };
-    run();
+    if (process.env.NODE_ENV === 'test') {
+      // In test environment, set content immediately
+      setMdContent(defaultValue);
+    } else {
+      // In development/production, keep the animation
+      let md = '';
+      const list = defaultValue.split('');
+      const run = async () => {
+        for await (const item of list) {
+          md += item;
+          await new Promise((resolve) => {
+            setTimeout(() => {
+              setMdContent(md);
+              resolve(true);
+            }, 10);
+          });
+        }
+      };
+      run();
+    }
   }, []);
   return (
     <div style={{ height: 600, width: '100%' }}>
@@ -99,7 +107,7 @@ const Demo = () => {
               name: '项目计划.docx',
               type: 'word',
               size: '2.5MB',
-              lastModified: new Date(Date.now() - 3600000).toLocaleTimeString(),
+              lastModified: new Date(getTimestamp() - 3600000).toLocaleTimeString(),
               url: '/docs/project-plan.docx',
             },
             {
@@ -107,7 +115,7 @@ const Demo = () => {
               name: '数据分析.xlsx',
               type: 'excel',
               size: '1.8MB',
-              lastModified: new Date(Date.now() - 7200000).toLocaleTimeString(),
+              lastModified: new Date(getTimestamp() - 7200000).toLocaleTimeString(),
               url: '/docs/data-analysis.xlsx',
             },
             {
@@ -115,9 +123,7 @@ const Demo = () => {
               name: '技术文档.pdf',
               type: 'pdf',
               size: '3.2MB',
-              lastModified: new Date(
-                Date.now() - 86400000,
-              ).toLocaleTimeString(),
+              lastModified: new Date(getTimestamp() - 86400000).toLocaleTimeString(),
               url: '/docs/technical-doc.pdf',
             },
             {
@@ -125,7 +131,7 @@ const Demo = () => {
               name: '系统架构图.png',
               type: 'image',
               size: '0.5MB',
-              lastModified: new Date(Date.now() - 1800000).toLocaleTimeString(),
+              lastModified: new Date(getTimestamp() - 1800000).toLocaleTimeString(),
               url: '/images/architecture.png',
             },
             {
@@ -133,9 +139,7 @@ const Demo = () => {
               name: '接口文档.md',
               type: 'markdown',
               size: '0.3MB',
-              lastModified: new Date(
-                Date.now() - 14400000,
-              ).toLocaleTimeString(),
+              lastModified: new Date(getTimestamp() - 14400000).toLocaleTimeString(),
               url: '/docs/api.md',
             },
             {
@@ -143,9 +147,7 @@ const Demo = () => {
               name: '配置说明.html',
               type: 'plainText',
               size: '0.1MB',
-              lastModified: new Date(
-                Date.now() - 28800000,
-              ).toLocaleTimeString(),
+              lastModified: new Date(getTimestamp() - 28800000).toLocaleTimeString(),
               url: '/docs/config.html',
             },
           ]}
