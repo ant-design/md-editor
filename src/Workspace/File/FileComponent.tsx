@@ -11,7 +11,7 @@ import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import { fileTypeProcessor, isImageFile } from './FileTypeProcessor';
 import { PreviewComponent } from './PreviewComponent';
-import { getFileTypeIcon } from './utils';
+import { generateUniqueId, getFileTypeIcon } from './utils';
 
 // 通用的键盘事件处理函数
 const handleKeyboardEvent = (
@@ -96,64 +96,69 @@ const FileItemComponent: FC<{
   onDownload?: (file: FileNode) => void;
   onPreview?: (file: FileNode) => void;
 }> = ({ file, onClick, onDownload, onPreview }) => {
+  // 确保文件有唯一ID
+  const fileWithId = { ...file, id: file.id || generateUniqueId(file) };
+
   const handleClick = () => {
-    onClick?.(file);
+    onClick?.(fileWithId);
   };
 
   // 判断是否显示下载按钮：有用户方法、有url、有content或有file对象
   const showDownloadButton =
-    onDownload || file.url || file.content || file.file;
+    onDownload || fileWithId.url || fileWithId.content || fileWithId.file;
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
 
     // 优先使用用户传入的下载方法
     if (onDownload) {
-      onDownload(file);
+      onDownload(fileWithId);
       return;
     }
 
-    handleFileDownload(file);
+    handleFileDownload(fileWithId);
   };
 
   const handlePreview = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onPreview?.(file);
+    onPreview?.(fileWithId);
   };
 
   // 判断是否显示预览按钮：支持预览且有预览回调
   const showPreviewButton =
-    onPreview && fileTypeProcessor.processFile(file).canPreview;
+    onPreview && fileTypeProcessor.processFile(fileWithId).canPreview;
 
   return (
     <AccessibleButton
       icon={
         <>
           <div className="workspace-file-item__icon">
-            {getFileTypeIcon(file.type, file.icon, file.name)}
+            {getFileTypeIcon(fileWithId.type, fileWithId.icon, fileWithId.name)}
           </div>
           <div className="workspace-file-item__info">
             <div className="workspace-file-item__name">
-              <Typography.Text ellipsis={{ tooltip: file.name }}>
-                {file.name}
+              <Typography.Text ellipsis={{ tooltip: fileWithId.name }}>
+                {fileWithId.name}
               </Typography.Text>
             </div>
             <div className="workspace-file-item__details">
               <Typography.Text type="secondary" ellipsis>
-                <span className="workspace-file-item__type">{file.type}</span>
-                {file.size && (
+                <span className="workspace-file-item__type">
+                  {fileWithId.type}
+                </span>
+                {fileWithId.size && (
                   <>
                     <span className="workspace-file-item__separator">|</span>
                     <span className="workspace-file-item__size">
-                      {formatFileSize(file.size)}
+                      {formatFileSize(fileWithId.size)}
                     </span>
                   </>
                 )}
-                {file.lastModified && (
+                {fileWithId.lastModified && (
                   <>
                     <span className="workspace-file-item__separator">|</span>
                     <span className="workspace-file-item__time">
-                      {formatLastModified(file.lastModified)}
+                      {formatLastModified(fileWithId.lastModified)}
                     </span>
                   </>
                 )}
@@ -169,7 +174,7 @@ const FileItemComponent: FC<{
                 icon={<EyeOutlined />}
                 onClick={handlePreview}
                 className="workspace-file-item__preview-icon"
-                ariaLabel={`预览文件：${file.name}`}
+                ariaLabel={`预览文件：${fileWithId.name}`}
               />
             )}
             {showDownloadButton && (
@@ -177,7 +182,7 @@ const FileItemComponent: FC<{
                 icon={<DownloadOutlined />}
                 onClick={handleDownload}
                 className="workspace-file-item__download-icon"
-                ariaLabel={`下载文件：${file.name}`}
+                ariaLabel={`下载文件：${fileWithId.name}`}
               />
             )}
           </div>
@@ -185,7 +190,7 @@ const FileItemComponent: FC<{
       }
       onClick={handleClick}
       className="workspace-file-item"
-      ariaLabel={`文件：${file.name}`}
+      ariaLabel={`文件：${fileWithId.name}`}
     />
   );
 };
@@ -411,15 +416,23 @@ export const FileComponent: FC<{
     <>
       <div className="workspace-file-container">
         {nodes.map((node: FileNode | GroupNode) => {
-          if ('children' in node) {
+          const nodeWithId = { ...node, id: node.id || generateUniqueId(node) };
+
+          if ('children' in nodeWithId) {
             // 分组节点，使用内部状态覆盖外部的 collapsed 属性
             const groupNode: GroupNode = {
-              ...node,
-              collapsed: collapsedGroups[node.type] ?? node.collapsed,
+              ...nodeWithId,
+              collapsed:
+                collapsedGroups[nodeWithId.type] ?? nodeWithId.collapsed,
+              // 确保子节点也有唯一ID
+              children: nodeWithId.children.map((child) => ({
+                ...child,
+                id: child.id || generateUniqueId(child),
+              })),
             };
             return (
               <FileGroupComponent
-                key={node.id}
+                key={nodeWithId.id}
                 group={groupNode}
                 onToggle={handleToggleGroup}
                 onGroupDownload={onGroupDownload}
@@ -433,8 +446,8 @@ export const FileComponent: FC<{
           // 文件节点
           return (
             <FileItemComponent
-              key={node.id}
-              file={node as FileNode}
+              key={nodeWithId.id}
+              file={nodeWithId as FileNode}
               onClick={onFileClick}
               onDownload={onDownload}
               onPreview={handlePreview}

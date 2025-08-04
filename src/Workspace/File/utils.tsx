@@ -1,4 +1,5 @@
 import React from 'react';
+import ArchiveIcon from '../icons/ArchiveIcon';
 import CsvIcon from '../icons/CsvIcon';
 import HtmlIcon from '../icons/HtmlIcon';
 import MdIcon from '../icons/MdIcon';
@@ -9,10 +10,11 @@ import XmlIcon from '../icons/XmlIcon';
 import {
   FILE_TYPES,
   FileCategory,
+  FileNode,
   FileType,
   getFileCategory,
+  GroupNode,
 } from '../types';
-import ArchiveIcon from '../icons/ArchiveIcon';
 
 // 文件扩展名到图标的映射
 const EXTENSION_ICON_MAP: Record<string, React.ReactNode> = {
@@ -71,4 +73,14 @@ export const getFileTypeIcon = (
   }
 
   return TYPE_ICON_MAP[getFileCategory(type)] || <MdIcon />;
+};
+
+// 生成唯一ID的工具函数
+export const generateUniqueId = (node: FileNode | GroupNode): string => {
+  if (node.id) return node.id;
+
+  // 使用文件名、类型和时间戳组合生成唯一ID
+  const timestamp = Date.now();
+  const randomStr = Math.random().toString(36).substring(2, 8);
+  return `${node.type}_${node.name}_${timestamp}_${randomStr}`;
 };
