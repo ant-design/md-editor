@@ -392,35 +392,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        数据统计表.xlsx
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          数据统计表.xlsx
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          excel
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          1.2MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          10:20
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            excel
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            1.2MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            10:20
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -500,35 +509,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        财务报表.xlsx
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          财务报表.xlsx
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          excel
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          2.8MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          16:30
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            excel
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            2.8MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            16:30
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -751,35 +769,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        产品说明书.pdf
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          产品说明书.pdf
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          pdf
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          3.2MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          11:20
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            pdf
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            3.2MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            11:20
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -875,68 +902,50 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        研究报告.pdf
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          研究报告.pdf
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          pdf
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          4.5MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          13:45
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            pdf
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            4.5MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            13:45
+                          </span>
                         </span>
                       </div>
                     </div>
                     <div
                       class="workspace-file-item__actions"
-                    >
-                      <div
-                        aria-label="下载文件：研究报告.pdf"
-                        class="workspace-file-item__download-icon"
-                        role="button"
-                        tabindex="0"
-                      >
-                        <span
-                          aria-label="download"
-                          class="anticon anticon-download"
-                          role="img"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            data-icon="download"
-                            fill="currentColor"
-                            focusable="false"
-                            height="1em"
-                            viewBox="64 64 896 896"
-                            width="1em"
-                          >
-                            <path
-                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -1096,41 +1105,76 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        用户数据.csv
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          用户数据.csv
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          plainText
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          856KB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          08:45
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            plainText
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            856KB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08:45
+                          </span>
                         </span>
                       </div>
                     </div>
                     <div
                       class="workspace-file-item__actions"
                     >
+                      <div
+                        aria-label="预览文件：用户数据.csv"
+                        class="workspace-file-item__preview-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
                       <div
                         aria-label="下载文件：用户数据.csv"
                         class="workspace-file-item__download-icon"
@@ -1205,68 +1249,50 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        销售记录.csv
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          销售记录.csv
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          plainText
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          1.1MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          11:25
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            plainText
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            1.1MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            11:25
+                          </span>
                         </span>
                       </div>
                     </div>
                     <div
                       class="workspace-file-item__actions"
-                    >
-                      <div
-                        aria-label="下载文件：销售记录.csv"
-                        class="workspace-file-item__download-icon"
-                        role="button"
-                        tabindex="0"
-                      >
-                        <span
-                          aria-label="download"
-                          class="anticon anticon-download"
-                          role="img"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            data-icon="download"
-                            fill="currentColor"
-                            focusable="false"
-                            height="1em"
-                            viewBox="64 64 896 896"
-                            width="1em"
-                          >
-                            <path
-                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
+                    />
                   </div>
                   <div
                     aria-label="文件：产品目录.csv"
@@ -1314,35 +1340,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        产品目录.csv
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          产品目录.csv
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          plainText
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          432KB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          15:10
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            plainText
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            432KB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            15:10
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -1555,35 +1590,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        README.md
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          README.md
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          markdown
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          15KB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          07:30
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            markdown
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            15KB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            07:30
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -1661,35 +1705,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        API文档-文本.md
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          API文档-文本.md
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          markdown
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          28KB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          13:20
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            markdown
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            28KB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            13:20
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -1756,7 +1809,7 @@
                 class="workspace-file-container--group"
               >
                 <div
-                  aria-label="收起图片文件分组"
+                  aria-label="收起图片分组"
                   class="workspace-file-group__header"
                   role="button"
                   tabindex="0"
@@ -1817,7 +1870,7 @@
                     <span
                       class="workspace-file-group__type-name"
                     >
-                      图片文件
+                      图片
                     </span>
                   </div>
                   <div
@@ -1829,7 +1882,7 @@
                       2
                     </span>
                     <div
-                      aria-label="下载图片文件文件"
+                      aria-label="下载图片文件"
                       class="workspace-file-group__download-icon"
                       role="button"
                       tabindex="0"
@@ -1902,35 +1955,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        产品展示.jpg
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          产品展示.jpg
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          image
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          1.5MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          09:30
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            image
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            1.5MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            09:30
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -2034,35 +2096,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        用户界面.png
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          用户界面.png
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          image
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          2.1MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          14:20
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            image
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            2.1MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            14:20
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -2129,7 +2200,7 @@
                 class="workspace-file-container--group"
               >
                 <div
-                  aria-label="收起视频文件分组"
+                  aria-label="收起视频分组"
                   class="workspace-file-group__header"
                   role="button"
                   tabindex="0"
@@ -2190,7 +2261,7 @@
                     <span
                       class="workspace-file-group__type-name"
                     >
-                      视频文件
+                      视频
                     </span>
                   </div>
                   <div
@@ -2202,7 +2273,7 @@
                       2
                     </span>
                     <div
-                      aria-label="下载视频文件文件"
+                      aria-label="下载视频文件"
                       class="workspace-file-group__download-icon"
                       role="button"
                       tabindex="0"
@@ -2275,35 +2346,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        产品演示.mp4
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          产品演示.mp4
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          video
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          15.5MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          10:30
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            video
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            15.5MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            10:30
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -2381,35 +2461,44 @@
                       <div
                         class="workspace-file-item__name"
                       >
-                        教程.webm
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          教程.webm
+                        </span>
                       </div>
                       <div
                         class="workspace-file-item__details"
                       >
                         <span
-                          class="workspace-file-item__type"
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          video
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__size"
-                        >
-                          12.1MB
-                        </span>
-                        <span
-                          class="workspace-file-item__separator"
-                        >
-                          |
-                        </span>
-                        <span
-                          class="workspace-file-item__time"
-                        >
-                          15:20
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            video
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            12.1MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            15:20
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -2418,6 +2507,532 @@
                     >
                       <div
                         aria-label="下载文件：教程.webm"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="workspace-file-container--group"
+              >
+                <div
+                  aria-label="收起压缩包文件分组"
+                  class="workspace-file-group__header"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="workspace-file-group__header-left"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                    <div
+                      class="workspace-file-group__type-icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="32"
+                        version="1.1"
+                        viewBox="0 0 32 32"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <defs>
+                          <clippath
+                            id="master_svg0_663_048986"
+                          >
+                            <rect
+                              height="24"
+                              rx="0"
+                              width="20"
+                              x="6"
+                              y="4"
+                            />
+                          </clippath>
+                        </defs>
+                        <g>
+                          <g
+                            clip-path="url(#master_svg0_663_048986)"
+                          >
+                            <g>
+                              <path
+                                d="M12.87508,4L19.7501,4L26,9.999929999999999L26,23.2C26,24.8802,25.9965,25.7392,25.6512,26.3787C25.354,26.9291,24.8844,27.3799,24.3111,27.6651C23.645,27.9966,22.7502,28,21,28L11,28C9.24983,28,8.35497,27.9966,7.68888,27.6651C7.11556,27.3799,6.645989,26.9291,6.348807,26.3787C6.00354298,25.7392,6,24.8802,6,23.2L6,8.8C6,7.11984,6.00354291,6.26077,6.348807,5.62133C6.645989,5.07094,7.11556,4.62015,7.68888,4.334855C8.27063,4.0453679,9.0269,4.00612032,10.37508,4.00082254L10.37508,6.4L12.87504,6.4L12.87504,8.799959999999999L15.37504,8.799959999999999L15.37504,6.39996L12.87504,6.4L12.87508,4ZM12.87504,8.799959999999999L10.37508,8.80006L10.37508,11.20006L12.87504,11.20006L12.87504,13.59999L10.37508,13.59999L10.37508,16L12.87504,16L12.87504,18.4L15.37504,18.4L15.37504,16L12.87504,16L12.87504,13.59999L15.37504,13.60003L15.37504,11.20003L12.87504,11.20006L12.87504,8.799959999999999Z"
+                                fill="#F5CD47"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g>
+                              <path
+                                d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
+                                fill="#F8E6A0"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <span
+                      class="workspace-file-group__type-name"
+                    >
+                      压缩包文件
+                    </span>
+                  </div>
+                  <div
+                    class="workspace-file-group__header-right"
+                  >
+                    <span
+                      class="workspace-file-group__count"
+                    >
+                      3
+                    </span>
+                    <div
+                      aria-label="下载压缩包文件文件"
+                      class="workspace-file-group__download-icon"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-label="download"
+                        class="anticon anticon-download"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="download"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="workspace-file-group__content"
+                >
+                  <div
+                    aria-label="文件：项目源码.zip"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="32"
+                        version="1.1"
+                        viewBox="0 0 32 32"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <defs>
+                          <clippath
+                            id="master_svg0_663_048986"
+                          >
+                            <rect
+                              height="24"
+                              rx="0"
+                              width="20"
+                              x="6"
+                              y="4"
+                            />
+                          </clippath>
+                        </defs>
+                        <g>
+                          <g
+                            clip-path="url(#master_svg0_663_048986)"
+                          >
+                            <g>
+                              <path
+                                d="M12.87508,4L19.7501,4L26,9.999929999999999L26,23.2C26,24.8802,25.9965,25.7392,25.6512,26.3787C25.354,26.9291,24.8844,27.3799,24.3111,27.6651C23.645,27.9966,22.7502,28,21,28L11,28C9.24983,28,8.35497,27.9966,7.68888,27.6651C7.11556,27.3799,6.645989,26.9291,6.348807,26.3787C6.00354298,25.7392,6,24.8802,6,23.2L6,8.8C6,7.11984,6.00354291,6.26077,6.348807,5.62133C6.645989,5.07094,7.11556,4.62015,7.68888,4.334855C8.27063,4.0453679,9.0269,4.00612032,10.37508,4.00082254L10.37508,6.4L12.87504,6.4L12.87504,8.799959999999999L15.37504,8.799959999999999L15.37504,6.39996L12.87504,6.4L12.87508,4ZM12.87504,8.799959999999999L10.37508,8.80006L10.37508,11.20006L12.87504,11.20006L12.87504,13.59999L10.37508,13.59999L10.37508,16L12.87504,16L12.87504,18.4L15.37504,18.4L15.37504,16L12.87504,16L12.87504,13.59999L15.37504,13.60003L15.37504,11.20003L12.87504,11.20006L12.87504,8.799959999999999Z"
+                                fill="#F5CD47"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g>
+                              <path
+                                d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
+                                fill="#F8E6A0"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          项目源码.zip
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            archive
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            25.5MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            16:30
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="下载文件：项目源码.zip"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：资源文件.rar"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="32"
+                        version="1.1"
+                        viewBox="0 0 32 32"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <defs>
+                          <clippath
+                            id="master_svg0_663_048986"
+                          >
+                            <rect
+                              height="24"
+                              rx="0"
+                              width="20"
+                              x="6"
+                              y="4"
+                            />
+                          </clippath>
+                        </defs>
+                        <g>
+                          <g
+                            clip-path="url(#master_svg0_663_048986)"
+                          >
+                            <g>
+                              <path
+                                d="M12.87508,4L19.7501,4L26,9.999929999999999L26,23.2C26,24.8802,25.9965,25.7392,25.6512,26.3787C25.354,26.9291,24.8844,27.3799,24.3111,27.6651C23.645,27.9966,22.7502,28,21,28L11,28C9.24983,28,8.35497,27.9966,7.68888,27.6651C7.11556,27.3799,6.645989,26.9291,6.348807,26.3787C6.00354298,25.7392,6,24.8802,6,23.2L6,8.8C6,7.11984,6.00354291,6.26077,6.348807,5.62133C6.645989,5.07094,7.11556,4.62015,7.68888,4.334855C8.27063,4.0453679,9.0269,4.00612032,10.37508,4.00082254L10.37508,6.4L12.87504,6.4L12.87504,8.799959999999999L15.37504,8.799959999999999L15.37504,6.39996L12.87504,6.4L12.87508,4ZM12.87504,8.799959999999999L10.37508,8.80006L10.37508,11.20006L12.87504,11.20006L12.87504,13.59999L10.37508,13.59999L10.37508,16L12.87504,16L12.87504,18.4L15.37504,18.4L15.37504,16L12.87504,16L12.87504,13.59999L15.37504,13.60003L15.37504,11.20003L12.87504,11.20006L12.87504,8.799959999999999Z"
+                                fill="#F5CD47"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g>
+                              <path
+                                d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
+                                fill="#F8E6A0"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          资源文件.rar
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            archive
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            18.2MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            17:45
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="下载文件：资源文件.rar"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：文档备份.7z"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="32"
+                        version="1.1"
+                        viewBox="0 0 32 32"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <defs>
+                          <clippath
+                            id="master_svg0_663_048986"
+                          >
+                            <rect
+                              height="24"
+                              rx="0"
+                              width="20"
+                              x="6"
+                              y="4"
+                            />
+                          </clippath>
+                        </defs>
+                        <g>
+                          <g
+                            clip-path="url(#master_svg0_663_048986)"
+                          >
+                            <g>
+                              <path
+                                d="M12.87508,4L19.7501,4L26,9.999929999999999L26,23.2C26,24.8802,25.9965,25.7392,25.6512,26.3787C25.354,26.9291,24.8844,27.3799,24.3111,27.6651C23.645,27.9966,22.7502,28,21,28L11,28C9.24983,28,8.35497,27.9966,7.68888,27.6651C7.11556,27.3799,6.645989,26.9291,6.348807,26.3787C6.00354298,25.7392,6,24.8802,6,23.2L6,8.8C6,7.11984,6.00354291,6.26077,6.348807,5.62133C6.645989,5.07094,7.11556,4.62015,7.68888,4.334855C8.27063,4.0453679,9.0269,4.00612032,10.37508,4.00082254L10.37508,6.4L12.87504,6.4L12.87504,8.799959999999999L15.37504,8.799959999999999L15.37504,6.39996L12.87504,6.4L12.87508,4ZM12.87504,8.799959999999999L10.37508,8.80006L10.37508,11.20006L12.87504,11.20006L12.87504,13.59999L10.37508,13.59999L10.37508,16L12.87504,16L12.87504,18.4L15.37504,18.4L15.37504,16L12.87504,16L12.87504,13.59999L15.37504,13.60003L15.37504,11.20003L12.87504,11.20006L12.87504,8.799959999999999Z"
+                                fill="#F5CD47"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g>
+                              <path
+                                d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
+                                fill="#F8E6A0"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          文档备份.7z
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            archive
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            8.7MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            18:20
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="下载文件：文档备份.7z"
                         class="workspace-file-item__download-icon"
                         role="button"
                         tabindex="0"
