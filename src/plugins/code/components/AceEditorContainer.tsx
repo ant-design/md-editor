@@ -20,10 +20,15 @@ export function AceEditorContainer({
   return (
     <>
       {/* Ace 编辑器容器 */}
-      <div ref={dom} style={{ height: 200, lineHeight: '22px' }} />
+      <div 
+        data-testid="ace-editor-container"
+        ref={dom} 
+        style={{ height: 200, lineHeight: '22px' }} 
+      />
 
       {/* 隐藏的内容副本（用于搜索和 SEO） */}
       <div
+        data-testid="code-content-copy"
         style={{
           height: '0.5px',
           overflow: 'hidden',

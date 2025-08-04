@@ -13,6 +13,7 @@ interface ThinkBlockProps {
 export function ThinkBlock({ element }: ThinkBlockProps) {
   return (
     <div
+      data-testid="think-block"
       style={{
         color: '#8b8b8b',
         whiteSpace: 'pre-wrap',

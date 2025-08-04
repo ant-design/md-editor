@@ -158,6 +158,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
 
   return (
     <div
+      data-testid="code-toolbar"
       contentEditable={false}
       style={{
         height: '1.75em',

@@ -612,6 +612,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             contenteditable="false"
             data-be="code"
             data-lang="python"
+            data-testid="code-container"
             tabindex="-1"
           >
             <div
@@ -620,6 +621,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             >
               <div
                 class="ace-container drag-el "
+                data-testid="code-editor-container"
                 style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
               >
                 <div
@@ -627,9 +629,11 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                   style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                 />
                 <div
+                  data-testid="ace-editor-container"
                   style="height: 200px; line-height: 22px;"
                 />
                 <div
+                  data-testid="code-content-copy"
                   style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                 >
                   def nested_function():     return "code in list"
@@ -1807,6 +1811,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         contenteditable="false"
         data-be="code"
         data-lang="javascript"
+        data-testid="code-container"
         tabindex="-1"
       >
         <div
@@ -1815,6 +1820,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         >
           <div
             class="ace-container drag-el "
+            data-testid="code-editor-container"
             style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
           >
             <div
@@ -1822,9 +1828,11 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
               style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
             />
             <div
+              data-testid="ace-editor-container"
               style="height: 200px; line-height: 22px;"
             />
             <div
+              data-testid="code-content-copy"
               style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
             >
               // Code block in blockquote console.log("nested code");
@@ -1880,6 +1888,7 @@ console.log("nested code");
       contenteditable="false"
       data-be="code"
       data-lang="typescript"
+      data-testid="code-container"
       tabindex="-1"
     >
       <div
@@ -1888,6 +1897,7 @@ console.log("nested code");
       >
         <div
           class="ace-container drag-el "
+          data-testid="code-editor-container"
           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
         >
           <div
@@ -1895,9 +1905,11 @@ console.log("nested code");
             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
           />
           <div
+            data-testid="ace-editor-container"
             style="height: 200px; line-height: 22px;"
           />
           <div
+            data-testid="code-content-copy"
             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
           >
             interface ComplexType {   name: string;   values: number[];   nested: {     prop: boolean;   }; }
@@ -1935,6 +1947,7 @@ console.log("nested code");
       contenteditable="false"
       data-be="code"
       data-lang="bash"
+      data-testid="code-container"
       tabindex="-1"
     >
       <div
@@ -1943,6 +1956,7 @@ console.log("nested code");
       >
         <div
           class="ace-container drag-el "
+          data-testid="code-editor-container"
           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
         >
           <div
@@ -1950,9 +1964,11 @@ console.log("nested code");
             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
           />
           <div
+            data-testid="ace-editor-container"
             style="height: 200px; line-height: 22px;"
           />
           <div
+            data-testid="code-content-copy"
             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
           >
             # Shell commands echo "Hello World" ls -la | grep "test"
@@ -2419,6 +2435,7 @@ ls -la | grep "test"
       class="ace-el drag-el"
       contenteditable="false"
       data-be="code"
+      data-testid="code-container"
       tabindex="-1"
     >
       <div
@@ -2427,6 +2444,7 @@ ls -la | grep "test"
       >
         <div
           class="ace-container drag-el "
+          data-testid="code-editor-container"
           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
         >
           <div
@@ -2434,9 +2452,11 @@ ls -la | grep "test"
             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
           />
           <div
+            data-testid="ace-editor-container"
             style="height: 200px; line-height: 22px;"
           />
           <div
+            data-testid="code-content-copy"
             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
           >
             Code block with \`backticks\` inside
@@ -2826,6 +2846,7 @@ ls -la | grep "test"
       contenteditable="false"
       data-be="code"
       data-lang="javascript"
+      data-testid="code-container"
       tabindex="-1"
     >
       <div
@@ -2834,6 +2855,7 @@ ls -la | grep "test"
       >
         <div
           class="ace-container drag-el "
+          data-testid="code-editor-container"
           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
         >
           <div
@@ -2841,9 +2863,11 @@ ls -la | grep "test"
             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
           />
           <div
+            data-testid="ace-editor-container"
             style="height: 200px; line-height: 22px;"
           />
           <div
+            data-testid="code-content-copy"
             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
           >
             console.log("Code in collapsible");

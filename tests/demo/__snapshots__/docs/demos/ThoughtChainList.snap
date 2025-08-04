@@ -476,6 +476,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="sql"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -484,6 +485,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -491,9 +493,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             SELECT * FROM table_name
@@ -1535,6 +1539,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -1543,6 +1548,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -1550,9 +1556,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {   "params": {     "name": "参数"   } }
@@ -1653,6 +1661,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -1661,6 +1670,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -1668,9 +1678,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {   "error": false,   "data": "调用工具成功" }
@@ -2113,6 +2125,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -2121,6 +2134,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -2128,9 +2142,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"query": "研究员提到拼多多风险点 知乎 CFRA", "count": 5}
@@ -3016,6 +3032,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -3024,6 +3041,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -3031,9 +3049,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"symbol": "0700.HK"}
@@ -3338,6 +3358,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -3346,6 +3367,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -3353,9 +3375,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"symbol": "NTES"}
@@ -3660,6 +3684,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -3668,6 +3693,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -3675,9 +3701,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"query": "拼多多风险点 研究员报告 中金 华创 国泰君安", "count": 10}
@@ -4767,6 +4795,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -4775,6 +4804,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -4782,9 +4812,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"query": "腾讯 网易 对比 业务模式 收入结构", "limit": 5}
@@ -4988,6 +5020,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -4996,6 +5029,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -5003,9 +5037,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"query": "拼多多 风险点 招股书 SWOT", "count": 5}
@@ -5645,6 +5681,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -5653,6 +5690,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -5660,9 +5698,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"query": "腾讯业务模式", "company_id": 10, "limit": 5}
@@ -5887,6 +5927,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -5895,6 +5936,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -5902,9 +5944,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"query": "腾讯与网易业务模式收入结构对比分析", "count": 10}
@@ -6959,6 +7003,7 @@
                                       contenteditable="false"
                                       data-be="code"
                                       data-lang="json"
+                                      data-testid="code-container"
                                       tabindex="-1"
                                     >
                                       <div
@@ -6967,6 +7012,7 @@
                                       >
                                         <div
                                           class="ace-container drag-el "
+                                          data-testid="code-editor-container"
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
@@ -6974,9 +7020,11 @@
                                             style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                                           />
                                           <div
+                                            data-testid="ace-editor-container"
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
+                                            data-testid="code-content-copy"
                                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
                                             {"url": "https://www.21jingji.com/article/20240327/herald/a1e32b3c044c144ccfa60fa205c46ea1.html"}

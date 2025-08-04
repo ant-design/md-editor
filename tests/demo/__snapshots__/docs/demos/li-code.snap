@@ -247,6 +247,7 @@
                     contenteditable="false"
                     data-be="code"
                     data-lang="python"
+                    data-testid="code-container"
                     tabindex="-1"
                   >
                     <div
@@ -255,6 +256,7 @@
                     >
                       <div
                         class="ace-container drag-el "
+                        data-testid="code-editor-container"
                         style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                       >
                         <div
@@ -262,9 +264,11 @@
                           style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                         />
                         <div
+                          data-testid="ace-editor-container"
                           style="height: 200px; line-height: 22px;"
                         />
                         <div
+                          data-testid="code-content-copy"
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
                           arr = [1, 2, 3, 4] for num in arr:     print(num)  # 输出每个元素的值
@@ -470,6 +474,7 @@ for num in arr:
                     contenteditable="false"
                     data-be="code"
                     data-lang="python"
+                    data-testid="code-container"
                     tabindex="-1"
                   >
                     <div
@@ -478,6 +483,7 @@ for num in arr:
                     >
                       <div
                         class="ace-container drag-el "
+                        data-testid="code-editor-container"
                         style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                       >
                         <div
@@ -485,9 +491,11 @@ for num in arr:
                           style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                         />
                         <div
+                          data-testid="ace-editor-container"
                           style="height: 200px; line-height: 22px;"
                         />
                         <div
+                          data-testid="code-content-copy"
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
                           for i in range(len(arr)):     print(arr[i])  # 通过索引访问元素
@@ -663,6 +671,7 @@ for num in arr:
                     contenteditable="false"
                     data-be="code"
                     data-lang="python"
+                    data-testid="code-container"
                     tabindex="-1"
                   >
                     <div
@@ -671,6 +680,7 @@ for num in arr:
                     >
                       <div
                         class="ace-container drag-el "
+                        data-testid="code-editor-container"
                         style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                       >
                         <div
@@ -678,9 +688,11 @@ for num in arr:
                           style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                         />
                         <div
+                          data-testid="ace-editor-container"
                           style="height: 200px; line-height: 22px;"
                         />
                         <div
+                          data-testid="code-content-copy"
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
                           for index, value in enumerate(arr):     print(f"索引 {index} 的值是 {value}")
@@ -932,6 +944,7 @@ for num in arr:
                     contenteditable="false"
                     data-be="code"
                     data-lang="python"
+                    data-testid="code-container"
                     tabindex="-1"
                   >
                     <div
@@ -940,6 +953,7 @@ for num in arr:
                     >
                       <div
                         class="ace-container drag-el "
+                        data-testid="code-editor-container"
                         style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                       >
                         <div
@@ -947,9 +961,11 @@ for num in arr:
                           style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                         />
                         <div
+                          data-testid="ace-editor-container"
                           style="height: 200px; line-height: 22px;"
                         />
                         <div
+                          data-testid="code-content-copy"
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
                           i = 0 while i &lt; len(arr):     print(arr[i])     i += 1  # 必须手动递增
@@ -1122,6 +1138,7 @@ while i &lt; len(arr):
                     contenteditable="false"
                     data-be="code"
                     data-lang="python"
+                    data-testid="code-container"
                     tabindex="-1"
                   >
                     <div
@@ -1130,6 +1147,7 @@ while i &lt; len(arr):
                     >
                       <div
                         class="ace-container drag-el "
+                        data-testid="code-editor-container"
                         style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                       >
                         <div
@@ -1137,9 +1155,11 @@ while i &lt; len(arr):
                           style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                         />
                         <div
+                          data-testid="ace-editor-container"
                           style="height: 200px; line-height: 22px;"
                         />
                         <div
+                          data-testid="code-content-copy"
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
                           squared = [x**2 for x in arr]  # 遍历并计算平方
@@ -1368,6 +1388,7 @@ while i &lt; len(arr):
                     contenteditable="false"
                     data-be="code"
                     data-lang="python"
+                    data-testid="code-container"
                     tabindex="-1"
                   >
                     <div
@@ -1376,6 +1397,7 @@ while i &lt; len(arr):
                     >
                       <div
                         class="ace-container drag-el "
+                        data-testid="code-editor-container"
                         style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                       >
                         <div
@@ -1383,9 +1405,11 @@ while i &lt; len(arr):
                           style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                         />
                         <div
+                          data-testid="ace-editor-container"
                           style="height: 200px; line-height: 22px;"
                         />
                         <div
+                          data-testid="code-content-copy"
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
                           def traverse(arr, i=0):     if i &lt; len(arr):         print(arr[i])
@@ -1528,6 +1552,7 @@ while i &lt; len(arr):
               contenteditable="false"
               data-be="code"
               data-lang="python"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -1536,6 +1561,7 @@ while i &lt; len(arr):
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -1543,9 +1569,11 @@ while i &lt; len(arr):
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     fruits = ["Apple", "Mango", "Banana"] for fruit in fruits:     print(fruit)
@@ -1796,6 +1824,7 @@ for fruit in fruits:
               contenteditable="false"
               data-be="code"
               data-lang="python"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -1804,6 +1833,7 @@ for fruit in fruits:
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -1811,9 +1841,11 @@ for fruit in fruits:
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     for index, fruit in enumerate(fruits):     print(f"第{index}个元素：{fruit}")
@@ -1983,6 +2015,7 @@ for fruit in fruits:
               contenteditable="false"
               data-be="code"
               data-lang="python"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -1991,6 +2024,7 @@ for fruit in fruits:
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -1998,9 +2032,11 @@ for fruit in fruits:
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     i = 0 while i &lt; len(fruits):     print(fruits[i])     i += 1
@@ -2195,6 +2231,7 @@ while i &lt; len(fruits):
               contenteditable="false"
               data-be="code"
               data-lang="python"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -2203,6 +2240,7 @@ while i &lt; len(fruits):
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -2210,9 +2248,11 @@ while i &lt; len(fruits):
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     uppercase_fruits = [fruit.upper() for fruit in fruits]
@@ -2381,6 +2421,7 @@ while i &lt; len(fruits):
               contenteditable="false"
               data-be="code"
               data-lang="python"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -2389,6 +2430,7 @@ while i &lt; len(fruits):
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -2396,9 +2438,11 @@ while i &lt; len(fruits):
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     for i in range(len(fruits)):     print(fruits[i])
@@ -2679,6 +2723,7 @@ while i &lt; len(fruits):
               contenteditable="false"
               data-be="code"
               data-lang="python"
+              data-testid="code-container"
               tabindex="-1"
             >
               <div
@@ -2687,6 +2732,7 @@ while i &lt; len(fruits):
               >
                 <div
                   class="ace-container drag-el "
+                  data-testid="code-editor-container"
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                 >
                   <div
@@ -2694,9 +2740,11 @@ while i &lt; len(fruits):
                     style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                   />
                   <div
+                    data-testid="ace-editor-container"
                     style="height: 200px; line-height: 22px;"
                   />
                   <div
+                    data-testid="code-content-copy"
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
                     for fruit in fruits.copy():  # 创建副本     if "n" in fruit:         fruits.remove(fruit)

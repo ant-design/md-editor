@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { WarpCard } from '../../../../src/MarkdownEditor/editor/elements/Card';
+import { TestSlateWrapper } from './TestSlateWrapper';
 
 // Mock dependencies
 vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
@@ -17,15 +18,6 @@ vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
 
 vi.mock('../../../../src/MarkdownEditor/hooks/editor', () => ({
   useSelStatus: vi.fn(() => [false, [0]]),
-}));
-
-vi.mock('../../../../src/MarkdownEditor/editor/slate-react', () => ({
-  ReactEditor: {
-    isFocused: vi.fn(() => false),
-  },
-  useSlate: vi.fn(() => ({
-    children: [{ children: [] }],
-  })),
 }));
 
 describe('WarpCard', () => {
@@ -43,26 +35,34 @@ describe('WarpCard', () => {
     children: [<div key="1">Card Content</div>],
   } as any;
 
+  const renderWithSlate = (props: any) => {
+    return render(
+      <TestSlateWrapper>
+        <WarpCard {...props} />
+      </TestSlateWrapper>,
+    );
+  };
+
   describe('基本渲染测试', () => {
     it('应该正确渲染卡片元素', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
 
     it('应该渲染子元素', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       expect(screen.getByText('Card Content')).toBeInTheDocument();
     });
 
     it('应该设置正确的role属性', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toHaveAttribute('role', 'button');
     });
 
     it('应该设置正确的aria-label属性', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toHaveAttribute('aria-label', '可选择的卡片元素');
     });
@@ -70,13 +70,13 @@ describe('WarpCard', () => {
 
   describe('样式测试', () => {
     it('应该应用元素的自定义样式', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
 
     it('应该应用默认的卡片样式', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -86,7 +86,7 @@ describe('WarpCard', () => {
         ...defaultProps,
         element: { ...defaultProps.element, block: true },
       };
-      render(<WarpCard {...blockProps} />);
+      renderWithSlate(blockProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -96,7 +96,7 @@ describe('WarpCard', () => {
         ...defaultProps,
         element: { ...defaultProps.element, block: false },
       };
-      render(<WarpCard {...inlineProps} />);
+      renderWithSlate(inlineProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -104,13 +104,13 @@ describe('WarpCard', () => {
 
   describe('选中状态测试', () => {
     it('应该处理选中状态', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
 
     it('应该处理未选中状态', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -118,13 +118,13 @@ describe('WarpCard', () => {
 
   describe('悬停状态测试', () => {
     it('应该处理鼠标悬停', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
 
     it('应该处理鼠标离开', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -132,13 +132,13 @@ describe('WarpCard', () => {
 
   describe('只读模式测试', () => {
     it('应该在只读模式下简化渲染', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
 
     it('只读模式下不应该有交互样式', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -150,7 +150,7 @@ describe('WarpCard', () => {
         ...defaultProps,
         children: [],
       };
-      render(<WarpCard {...props} />);
+      renderWithSlate(props);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -160,7 +160,7 @@ describe('WarpCard', () => {
         ...defaultProps,
         children: [<div key="1">Complex</div>, <span key="2">Content</span>],
       };
-      render(<WarpCard {...props} />);
+      renderWithSlate(props);
       expect(screen.getByText('Complex')).toBeInTheDocument();
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
@@ -173,7 +173,7 @@ describe('WarpCard', () => {
           style: undefined,
         },
       };
-      render(<WarpCard {...props} />);
+      renderWithSlate(props);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
@@ -186,7 +186,7 @@ describe('WarpCard', () => {
           block: undefined,
         },
       };
-      render(<WarpCard {...props} />);
+      renderWithSlate(props);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
       expect(card).toHaveStyle({ display: 'flex' }); // 默认值
@@ -195,13 +195,13 @@ describe('WarpCard', () => {
 
   describe('交互测试', () => {
     it('应该设置正确的tabIndex', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
 
     it('只读模式下不应该设置tabIndex', () => {
-      render(<WarpCard {...defaultProps} />);
+      renderWithSlate(defaultProps);
       const card = document.querySelector('[data-be="card"]');
       expect(card).toBeInTheDocument();
     });
