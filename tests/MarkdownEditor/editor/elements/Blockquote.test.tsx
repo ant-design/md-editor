@@ -7,7 +7,7 @@
  */
 
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -39,12 +39,12 @@ describe('Blockquote Component', () => {
 
   const defaultProps = {
     element: {
-      type: 'blockquote',
+      type: 'blockquote' as const,
       children: [{ text: 'test content' }],
     },
     attributes: {},
     children: <span>test content</span>,
-  };
+  } as any;
 
   describe('基本渲染功能', () => {
     it('应该正确渲染 Blockquote 组件', () => {
