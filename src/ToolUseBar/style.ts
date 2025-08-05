@@ -84,6 +84,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         letterSpacing: '0.04em',
         color: 'rgba(0, 4, 15, 0.27)',
       },
+
+      '&-tool-error': {
+        '&-tool-image-wrapper': {
+          '& .anticon': {
+            color: '#F15B50',
+          },
+        },
+      },
     },
   };
 };

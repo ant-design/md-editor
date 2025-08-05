@@ -558,10 +558,8 @@ describe('Mermaid Plugin', () => {
         const diagramSvg = '<svg><text>graph TD\nA --> B</text></svg>';
 
         const exportAsPNG = () => {
-          // 模拟 PNG 导出
-          const canvas = document.createElement('canvas');
-          canvas.getContext('2d'); // 获取上下文但不使用
-          // 实际实现会更复杂
+          // 模拟 PNG 导出，避免使用canvas
+          // 在实际环境中，这里会使用canvas进行PNG导出
           return 'data:image/png;base64,mock-png-data';
         };
 

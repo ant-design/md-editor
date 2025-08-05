@@ -17,16 +17,16 @@ import { LoadImage } from './LoadImage';
  */
 export interface LanguageSelectorProps {
   /** 代码块元素信息 */
-  element: {
+  element?: {
     /** 当前选择的编程语言 */
     language?: string;
     /** 是否为数学公式（katex） */
     katex?: any;
   };
   /** 容器引用，用于焦点管理 */
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef?: React.RefObject<HTMLDivElement>;
   /** 语言变更回调函数 */
-  setLanguage: (language: string) => void;
+  setLanguage?: (language: string) => void;
 }
 
 /**
@@ -61,6 +61,9 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
   const i18n = useContext(I18nContext);
   // 搜索关键字状态
   const [keyword, setKeyword] = useState('');
+
+  // 处理未定义的 element
+  const safeElement = props.element || { language: undefined, katex: false };
 
   return (
     <Popover
@@ -99,7 +102,7 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
           }}
           onSelect={(selectedLanguage) => {
             // 选择语言后执行回调
-            props.setLanguage(selectedLanguage);
+            props.setLanguage?.(selectedLanguage);
           }}
           onChange={(inputValue) => {
             // 更新搜索关键字
@@ -132,8 +135,8 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
         size="small"
         icon={
           // 如果有语言图标且不是公式，则显示图标
-          langIconMap.get(props.element.language?.toLowerCase() || '') &&
-          !props.element.katex && (
+          langIconMap.get(safeElement.language?.toLowerCase() || '') &&
+          !safeElement.katex && (
             <div
               style={{
                 height: '1em',
@@ -146,7 +149,7 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
             >
               <LoadImage
                 src={langIconMap.get(
-                  props.element.language?.toLowerCase() || 'html',
+                  safeElement.language?.toLowerCase() || 'html',
                 )}
               />
             </div>
@@ -155,10 +158,10 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
       >
         <>
           <div>
-            {props.element.language ? (
+            {safeElement.language ? (
               <span>
                 {/* 根据类型显示不同的标签 */}
-                {props.element.katex ? 'Formula' : props.element.language}
+                {safeElement.katex ? 'Formula' : safeElement.language}
               </span>
             ) : (
               <span>{'plain text'}</span>

@@ -16,8 +16,9 @@ export default defineConfig({
     },
     coverage: {
       provider: 'istanbul',
-      reporter: ['text', 'text-summary', 'json', 'lcov'],
+      reporter: ['text', 'json', 'html'],
       include: ['src/**'],
+      all: true,
       exclude: [
         'tests/**',
         '**/MarkdownEditor/editor/slate-react/**',

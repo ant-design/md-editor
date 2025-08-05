@@ -367,9 +367,13 @@ const handleCodeTagOperation = (
       operation.text === ' ' &&
       editor.selection?.focus.offset === currentNode.text.length
     ) {
-      // 如果当前节点是代码块，且输入的是空格，则插入一个空格到 code 节点外
-      Transforms.insertNodes(editor, [{ text: ' ' }]);
-      return true;
+      // 检查前一个字符是否是空格
+      const lastChar = currentNode.text.charAt(currentNode.text.length - 1);
+      if (lastChar === ' ') {
+        // 如果前一个输入是空格，且当前输入也是空格，则插入一个空格到 tag 节点外
+        Transforms.insertNodes(editor, [{ text: ' ' }]);
+        return true;
+      }
     }
   }
 

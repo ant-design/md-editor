@@ -50,14 +50,18 @@
         </div>
       </div>
       <div
+        animate="visible"
         class="ant-md-editor-file-view-list"
-        style="opacity: 1;"
+        initial="hidden"
+        variants="[object Object]"
+        whileinview="visible"
       >
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -95,7 +99,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -133,7 +138,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -171,7 +177,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -262,7 +269,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -356,7 +364,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -450,7 +459,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -539,7 +549,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -628,7 +639,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -692,7 +704,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -763,7 +776,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -827,7 +841,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -952,14 +967,18 @@
         </div>
       </div>
       <div
+        animate="visible"
         class="ant-md-editor-file-view-list"
-        style="opacity: 1;"
+        initial="hidden"
+        variants="[object Object]"
+        whileinview="visible"
       >
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -997,7 +1016,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -1035,7 +1055,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -1073,7 +1094,8 @@
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
           data-testid="file-item"
-          style="opacity: 1; transform: none;"
+          exit="[object Object]"
+          variants="[object Object]"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -1165,8 +1187,11 @@
         都是图片
       </h2>
       <div
+        animate="visible"
         class="ant-md-editor-file-view-list"
-        style="opacity: 1;"
+        initial="hidden"
+        variants="[object Object]"
+        whileinview="visible"
       >
         <div
           class="ant-image"

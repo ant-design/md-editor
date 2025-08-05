@@ -8,7 +8,7 @@ import { DragHandle } from '../../../MarkdownEditor/editor/tools/DragHandle';
 import { CodeNode } from '../../../MarkdownEditor/el';
 
 interface CodeContainerProps {
-  element: CodeNode;
+  element?: CodeNode;
   showBorder: boolean;
   hide: boolean;
   onEditorClick: () => void;
@@ -30,6 +30,13 @@ export function CodeContainer({
   isSelected = false,
 }: CodeContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // 处理未定义的 element
+  const safeElement = element || {
+    language: undefined,
+    frontmatter: false,
+  };
+  
   return (
     <div
       contentEditable={false}
@@ -40,10 +47,10 @@ export function CodeContainer({
       tabIndex={-1}
       onBlur={(e) => e.stopPropagation()}
       onClick={(e) => e.stopPropagation()}
-      data-lang={element.language}
+      data-lang={safeElement.language}
     >
       {/* 拖拽手柄 */}
-      {!element.frontmatter && <DragHandle />}
+      {!safeElement.frontmatter && <DragHandle />}
 
       {/* 全屏容器 */}
       <div
@@ -84,7 +91,7 @@ export function CodeContainer({
             transition: 'border-color 0.2s ease-in-out',
           }}
           className={`ace-container drag-el ${
-            element.frontmatter ? 'frontmatter' : ''
+            safeElement.frontmatter ? 'frontmatter' : ''
           }`}
         >
           {children}

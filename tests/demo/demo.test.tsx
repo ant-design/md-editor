@@ -3,6 +3,16 @@ import { App, ConfigProvider } from 'antd';
 import { glob } from 'glob';
 import React, { useEffect } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import {
+  framerMotionMock,
+  setupAnimationMocks,
+} from '../_mocks_/animationMocks';
+
+// Mock framer-motion to speed up tests
+vi.mock('framer-motion', () => framerMotionMock);
+
+// 设置动画相关的全局mock
+setupAnimationMocks();
 
 const waitTime = (time: number) =>
   new Promise((resolve) => {
@@ -28,6 +38,18 @@ function demoTest() {
     global.window.scrollTo = vi.fn();
     Element.prototype.scrollTo = vi.fn();
     process.env.NODE_ENV = 'test';
+
+    // 禁用动画以减少测试时间
+    const originalGetComputedStyle = window.getComputedStyle;
+    window.getComputedStyle = (element) => {
+      const style = originalGetComputedStyle(element);
+      return {
+        ...style,
+        animation: 'none',
+        transition: 'none',
+        transform: 'none',
+      } as any;
+    };
   });
 
   const files = glob.sync('./docs/**/demos/**/*.tsx', {

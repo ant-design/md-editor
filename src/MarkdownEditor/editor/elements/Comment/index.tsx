@@ -1,6 +1,6 @@
 ﻿import React, { useContext } from 'react';
 import {
-  CommentDataType,
+CommentDataType,
   MarkdownEditorProps,
 } from '../../../BaseMarkdownEditor';
 import { EditorStoreContext } from '../../store';

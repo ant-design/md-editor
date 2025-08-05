@@ -13,8 +13,12 @@
         style="gap: 12px;"
       >
         <div
+          animate="visible"
           class="ant-agent-list-bubble-container"
-          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; opacity: 1; transform: none;"
+          initial="hidden"
+          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+          variants="[object Object]"
+          whileinview="visible"
         >
           <div
             class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
@@ -41,19 +45,24 @@
             </div>
           </div>
           <div
+            animate="visible"
             class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
             data-testid="chat-message"
-            style="display: flex; gap: 4px; flex-direction: column; opacity: 1; transform: none;"
+            initial="hidden"
+            style="display: flex; gap: 4px; flex-direction: column;"
+            variants="[object Object]"
+            whileinview="visible"
           >
             <div
               class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
               data-testid="message-before"
-              style="opacity: 1; transform: none;"
+              variants="[object Object]"
             />
             <div
               class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
               data-testid="message-content"
-              style="min-width: 0px; opacity: 1; transform: none;"
+              style="min-width: 0px;"
+              variants="[object Object]"
             >
               <div
                 style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -106,8 +115,12 @@
                 >
                   <div />
                   <div
+                    animate="visible"
                     class="ant-chat-item-extra-action-box"
-                    style="display: flex; gap: 8px; align-items: center; opacity: 1;"
+                    initial="hidden"
+                    style="display: flex; gap: 8px; align-items: center;"
+                    variants="[object Object]"
+                    whileinview="visible"
                   >
                     <span
                       aria-describedby="test-id"
@@ -145,7 +158,8 @@
             <div
               class="ant-agent-list-bubble-after ant-agent-list-bubble-after-left"
               data-testid="message-after"
-              style="min-width: 0px; opacity: 1; transform: none;"
+              style="min-width: 0px;"
+              variants="[object Object]"
             >
               <div
                 class="ant-image ant-image-error"
@@ -186,14 +200,18 @@
                 </div>
               </div>
               <div
+                animate="visible"
                 class="ant-md-editor-file-view-list"
-                style="opacity: 1;"
+                initial="hidden"
+                variants="[object Object]"
+                whileinview="visible"
               >
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-file-view-list-item"
                   data-testid="file-item"
-                  style="opacity: 1; transform: none;"
+                  exit="[object Object]"
+                  variants="[object Object]"
                 >
                   <div
                     class="ant-md-editor-file-view-list-item-file-icon"
@@ -284,7 +302,8 @@
                   aria-describedby="test-id"
                   class="ant-md-editor-file-view-list-item"
                   data-testid="file-item"
-                  style="opacity: 1; transform: none;"
+                  exit="[object Object]"
+                  variants="[object Object]"
                 >
                   <div
                     class="ant-md-editor-file-view-list-item-file-icon"
@@ -322,7 +341,8 @@
                   aria-describedby="test-id"
                   class="ant-md-editor-file-view-list-item"
                   data-testid="file-item"
-                  style="opacity: 1; transform: none;"
+                  exit="[object Object]"
+                  variants="[object Object]"
                 >
                   <div
                     class="ant-md-editor-file-view-list-item-file-icon"
@@ -399,8 +419,12 @@
         style="gap: 12px;"
       >
         <div
+          animate="visible"
           class="ant-agent-list-bubble-container"
-          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; opacity: 1; transform: none;"
+          initial="hidden"
+          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+          variants="[object Object]"
+          whileinview="visible"
         >
           <div
             class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
@@ -427,19 +451,24 @@
             </div>
           </div>
           <div
+            animate="visible"
             class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
             data-testid="chat-message"
-            style="display: flex; gap: 4px; flex-direction: column; opacity: 1; transform: none;"
+            initial="hidden"
+            style="display: flex; gap: 4px; flex-direction: column;"
+            variants="[object Object]"
+            whileinview="visible"
           >
             <div
               class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
               data-testid="message-before"
-              style="opacity: 1; transform: none;"
+              variants="[object Object]"
             />
             <div
               class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
               data-testid="message-content"
-              style="min-width: 0px; opacity: 1; transform: none;"
+              style="min-width: 0px;"
+              variants="[object Object]"
             >
               <div
                 style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -492,8 +521,12 @@
                 >
                   <div />
                   <div
+                    animate="visible"
                     class="ant-chat-item-extra-action-box"
-                    style="display: flex; gap: 8px; align-items: center; opacity: 1;"
+                    initial="hidden"
+                    style="display: flex; gap: 8px; align-items: center;"
+                    variants="[object Object]"
+                    whileinview="visible"
                   >
                     <span
                       aria-describedby="test-id"
@@ -531,11 +564,15 @@
             <div
               class="ant-agent-list-bubble-after ant-agent-list-bubble-after-left"
               data-testid="message-after"
-              style="min-width: 0px; opacity: 1; transform: none;"
+              style="min-width: 0px;"
+              variants="[object Object]"
             >
               <div
+                animate="visible"
                 class="ant-md-editor-file-view-list"
-                style="opacity: 1;"
+                initial="hidden"
+                variants="[object Object]"
+                whileinview="visible"
               >
                 <div
                   class="ant-image"

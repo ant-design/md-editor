@@ -1041,8 +1041,12 @@
             style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(270px,100%); flex: 1 1 0%;"
           >
             <div
+              animate="visible"
               class="ant-md-editor-attachment-list"
-              style="height: 0px; overflow: hidden; padding: 0px; opacity: 1;"
+              initial="hidden"
+              style="height: 0px; overflow: hidden; padding: 0px;"
+              variants="[object Object]"
+              whileinview="visible"
             >
               <div
                 class="ant-image ant-image-error"

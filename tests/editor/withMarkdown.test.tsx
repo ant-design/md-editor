@@ -358,7 +358,57 @@ describe('withMarkdown Plugin Tests', () => {
         // Operation might be handled by our custom logic
       }
 
-      // Should insert space outside the tag
+      // First space should be inserted inside the tag (not jump out)
+      expect(editor.children[0].children.length).toBe(1);
+      const firstChild = editor.children[0].children[0];
+      expect(firstChild.text).toBe('code '); // Space should be added inside the tag
+    });
+
+    it('should only jump out of tag when previous character is space', () => {
+      // Test case 1: First space - should NOT jump out
+      const tagNode1 = {
+        text: 'code',
+        tag: true,
+        code: true,
+      };
+
+      editor.children = [{ type: 'paragraph', children: [tagNode1] }];
+
+      // Select at end of tag (after 'code')
+      Transforms.select(editor, { path: [0, 0], offset: 4 });
+
+      // Insert first space
+      try {
+        editor.insertText(' ');
+      } catch (error) {
+        // Operation might be handled by our custom logic
+      }
+
+      // Should still be only one child node (space added to tag)
+      expect(editor.children[0].children.length).toBe(1);
+      const firstNode = editor.children[0].children[0];
+      expect(firstNode.text).toBe('code '); // Space should be added to the tag
+
+      // Test case 2: Second space after existing space - should jump out
+      const tagNode2 = {
+        text: 'code ',
+        tag: true,
+        code: true,
+      };
+
+      editor.children = [{ type: 'paragraph', children: [tagNode2] }];
+
+      // Select at end of tag (after 'code ')
+      Transforms.select(editor, { path: [0, 0], offset: 5 });
+
+      // Insert second space
+      try {
+        editor.insertText(' ');
+      } catch (error) {
+        // Operation might be handled by our custom logic
+      }
+
+      // Should now have more than one child node (jumped out of tag)
       expect(editor.children[0].children.length).toBeGreaterThan(1);
     });
 

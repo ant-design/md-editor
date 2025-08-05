@@ -1,24 +1,183 @@
-import {
-  CheckCircleFilled,
-  CloseCircleFilled,
-  LoadingOutlined,
-  UpOutlined,
-} from '@ant-design/icons';
-import React, { useEffect, useRef, useState } from 'react';
-import { Loading } from '../components/Loading';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { ActionIconBox } from '../MarkdownEditor/editor/components';
 import { useStyle } from './style';
+
+const DashPendingIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <defs>
+        <clipPath id="a">
+          <rect width={16} height={16} rx={0} />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <path
+          d="M9.14 2.11q-1.14-.221-2.28 0A.666.666 0 116.607.8Q8 .53 9.393.8a.667.667 0 01-.253 1.31zm0 11.78q-1.14.221-2.28 0a.667.667 0 10-.254 1.309q1.394.27 2.787.001a.667.667 0 00-.253-1.31zm4.946-9.981q-.794-1.182-1.973-1.98a.667.667 0 00-.748 1.104q.965.653 1.614 1.62a.667.667 0 001.107-.744zM2.12 6.733a.667.667 0 01-.012.127q-.22 1.14 0 2.28A.667.667 0 01.8 9.393Q.53 8 .8 6.607a.667.667 0 011.321.126zm12.065 5.006c0 .134-.04.264-.115.374q-.798 1.179-1.98 1.973a.667.667 0 01-.744-1.107q.967-.65 1.62-1.614a.667.667 0 011.219.374zm-.307-5.006c0 .043.004.085.012.127q.22 1.14 0 2.28a.665.665 0 00.654.793c.32 0 .594-.226.655-.54q.27-1.393 0-2.786a.667.667 0 00-1.321.126zM4.947 2.467c0 .222-.11.43-.295.554q-.966.65-1.62 1.614a.667.667 0 11-1.103-.748q.798-1.179 1.98-1.973a.667.667 0 011.038.553zM1.801 11.72c0 .133.04.262.113.372q.794 1.182 1.972 1.98a.667.667 0 10.749-1.104q-.965-.653-1.614-1.62a.667.667 0 00-1.22.372z"
+          fillRule="evenodd"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  );
+});
+
+DashPendingIcon.displayName = 'DashPendingIcon';
+
+const SuccessIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <defs>
+        <clipPath id="a">
+          <rect width={16} height={16} rx={0} />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <path
+          d="M8 15.333A7.333 7.333 0 108 .667a7.333 7.333 0 000 14.666zm-.963-4.1l5.33-5.279-1.033-1.042-4.297 4.256-2.004-1.986L4 8.224l3.036 3.008z"
+          fillRule="evenodd"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  );
+});
+
+SuccessIcon.displayName = 'SuccessIcon';
+
+const ChevronUpIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <defs>
+        <clipPath id="a">
+          <rect width={16} height={16} rx={0} />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <path
+          d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
+          fillRule="evenodd"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  );
+});
+
+ChevronUpIcon.displayName = 'ChevronUpIcon';
 
 type ThoughtChainProps = {
   items: {
     key: string;
     title: string;
     content: React.ReactNode | React.ReactNode[];
-    status: 'success' | 'error' | 'pending';
+    status: 'success' | 'pending';
   }[];
   className?: string;
 };
 
-export const TaskList = ({ items, className }: ThoughtChainProps) => {
+const TaskListItem = memo(
+  ({
+    item,
+    isLast,
+    prefixCls,
+    hashId,
+    itemsCollapseStatus,
+    onToggle,
+  }: {
+    item: {
+      key: string;
+      title: string;
+      content: React.ReactNode | React.ReactNode[];
+      status: 'success' | 'pending';
+    };
+    isLast: boolean;
+    prefixCls: string;
+    hashId: string;
+    itemsCollapseStatus: React.MutableRefObject<Map<string, boolean>>;
+    onToggle: (key: string) => void;
+  }) => {
+    const isCollapsed = itemsCollapseStatus.current.get(item.key);
+
+    const hasContent =
+      item.content && Array.isArray(item.content) && item.content.length > 0;
+
+    return (
+      <div key={item.key} className={`${prefixCls}-thoughtChainItem ${hashId}`}>
+        <div className={`${prefixCls}-left ${hashId}`}>
+          <div
+            className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
+          >
+            {item.status === 'success' ? <SuccessIcon /> : null}
+            {item.status === 'pending' ? <DashPendingIcon /> : null}
+            {item.status !== 'success' && item.status !== 'pending' ? (
+              <div className={`${prefixCls}-status-idle ${hashId}`}>
+                <DashPendingIcon />
+              </div>
+            ) : null}
+          </div>
+          <div className={`${prefixCls}-content-left ${hashId}`}>
+            {!isLast && (
+              <div className={`${prefixCls}-dash-line ${hashId}`}></div>
+            )}
+          </div>
+        </div>
+        <div className={`${prefixCls}-right ${hashId}`}>
+          <div
+            className={`${prefixCls}-top ${hashId}`}
+            onClick={() => onToggle(item.key)}
+          >
+            <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
+            {hasContent && (
+              <div className={`${prefixCls}-arrowContainer ${hashId}`}>
+                <ActionIconBox
+                  title={isCollapsed ? '收起' : '展开'}
+                  iconStyle={{
+                    transform: isCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
+                  }}
+                  onClick={() => onToggle(item.key)}
+                >
+                  <ChevronUpIcon className={`${prefixCls}-arrow ${hashId}`} />
+                </ActionIconBox>
+              </div>
+            )}
+          </div>
+          {isCollapsed && (
+            <div className={`${prefixCls}-body ${hashId}`}>
+              <div className={`${prefixCls}-content ${hashId}`}>
+                {item.content}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  },
+);
+
+TaskListItem.displayName = 'TaskListItem';
+
+export const TaskList = memo(({ items, className }: ThoughtChainProps) => {
   const prefixCls = 'task-list';
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [reFresh, setReFresh] = useState(false);
@@ -47,73 +206,34 @@ export const TaskList = ({ items, className }: ThoughtChainProps) => {
     if (flag) {
       setReFresh(!reFresh);
     }
-  }, [items]);
+  }, [items, reFresh]);
 
-  const OnClickArrow = (key: string) => {
-    itemsCollapseStatus.current.set(key, !itemsCollapseStatus.current.get(key));
-    setReFresh(!reFresh);
-  };
+  const handleToggle = useCallback(
+    (key: string) => {
+      itemsCollapseStatus.current.set(
+        key,
+        !itemsCollapseStatus.current.get(key),
+      );
+      setReFresh(!reFresh);
+    },
+    [reFresh],
+  );
 
   return wrapSSR(
     <div className={className}>
       {items.map((item, index) => (
-        <div
+        <TaskListItem
           key={item.key}
-          className={`${prefixCls}-thoughtChainItem ${hashId}`}
-        >
-          <div className={`${prefixCls}-left ${hashId}`}>
-            <div className={`${prefixCls}-status ${hashId}`}>
-              {item.status === 'success' ? (
-                <CheckCircleFilled />
-              ) : item.status === 'error' ? (
-                <CloseCircleFilled />
-              ) : (
-                <LoadingOutlined />
-              )}
-            </div>
-            <div className={`${prefixCls}-content-left ${hashId}`}>
-              {index !== items.length - 1 && (
-                <div className={`${prefixCls}-dash-line ${hashId}`}></div>
-              )}
-            </div>
-          </div>
-          <div className={`${prefixCls}-right ${hashId}`}>
-            <div
-              className={`${prefixCls}-top ${hashId}`}
-              onClick={() => OnClickArrow(item.key)}
-            >
-              <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
-              {item.status === 'pending' ? (
-                <div className={`${prefixCls}-loading ${hashId}`}>
-                  <Loading />
-                </div>
-              ) : null}
-              {item.content
-                ? Array.isArray(item.content) &&
-                  item.content.length > 0 && (
-                    <div className={`${prefixCls}-arrowContainer ${hashId}`}>
-                      <UpOutlined
-                        style={{
-                          transform: itemsCollapseStatus.current.get(item.key)
-                            ? 'rotate(180deg)'
-                            : 'rotate(0deg)',
-                        }}
-                        className={`${prefixCls}-arrow ${hashId}`}
-                      />
-                    </div>
-                  )
-                : null}
-            </div>
-            {itemsCollapseStatus.current.get(item.key) && (
-              <div className={`${prefixCls}-body ${hashId}`}>
-                <div className={`${prefixCls}-content ${hashId}`}>
-                  {item.content}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+          item={item}
+          isLast={index === items.length - 1}
+          prefixCls={prefixCls}
+          hashId={hashId}
+          itemsCollapseStatus={itemsCollapseStatus}
+          onToggle={handleToggle}
+        />
       ))}
     </div>,
   );
-};
+});
+
+TaskList.displayName = 'TaskList';

@@ -4,7 +4,7 @@ import { Button, Card, Form, Input, InputNumber, Select, Space } from 'antd';
 import type { Rule } from 'antd/es/form';
 import { merge } from 'lodash';
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
-import { I18nContext } from '../../i18n';
+import { I18nContext, cnLabels } from '../../i18n';
 import { LowCodeSchema, SchemaProperty } from '../../schema/types';
 
 interface SchemaFormProps {
@@ -25,7 +25,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
 }) => {
   const [form] = Form.useForm();
   const { properties = {} } = schema?.component || {};
-  const { locale } = useContext(I18nContext);
+  const { locale = cnLabels } = useContext(I18nContext);
 
   // 生成表单验证规则
   const generateRules = useCallback((property: SchemaProperty): Rule[] => {
@@ -34,7 +34,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
     if (property.required) {
       rules.push({
         required: true,
-        message: `${locale?.inputPlaceholder} ${property.title || property.description || ''}`,
+        message: `${locale?.inputPlaceholder || '请输入'} ${property.title || property.description || ''}`,
       });
     }
 
@@ -89,7 +89,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
     }
 
     return rules;
-  }, []);
+  }, [locale]);
 
   // 获取属性标题
   const getPropertyTitle = useCallback(
@@ -102,7 +102,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   // 获取通用输入框属性
   const getCommonInputProps = useCallback(
     (property: SchemaProperty) => ({
-      placeholder: `${locale?.inputPlaceholder} ${property.title || property.description}`,
+      placeholder: `${locale?.inputPlaceholder || '请输入'} ${property.title || property.description}`,
       readOnly: readonly,
       disabled: readonly,
     }),
@@ -156,7 +156,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
         return (
           <Form.Item name={name} style={{ margin: 0 }}>
             <Input
-              placeholder={locale?.inputPlaceholder}
+              placeholder={locale?.inputPlaceholder || '请输入'}
               readOnly={readonly}
               disabled={readonly}
             />
@@ -254,7 +254,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
       if (!property.properties) {
         return (
           <Input
-            placeholder={`${locale?.inputPlaceholder} ${property.title || property.description}`}
+            placeholder={`${locale?.inputPlaceholder || '请输入'} ${property.title || property.description}`}
             disabled
           />
         );

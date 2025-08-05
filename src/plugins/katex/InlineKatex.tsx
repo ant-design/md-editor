@@ -10,7 +10,8 @@ export const InlineKatex = ({
   children,
   element,
   attributes,
-}: ElementProps<InlineKatexNode>) => {
+  style,
+}: ElementProps<InlineKatexNode> & { style?: React.CSSProperties }) => {
   const renderEl = useRef<HTMLElement>(null);
   const { markdownEditorRef, readonly } = useEditorStore();
   const [selected, path] = useSelStatus(element);
@@ -40,7 +41,7 @@ export const InlineKatex = ({
           position: 'relative',
         }}
       >
-        <span contentEditable={false} ref={renderEl} />
+        <span contentEditable={false} ref={renderEl} style={{ fontSize: 0 }} />
         <span
           style={{
             display: 'none',
@@ -63,6 +64,7 @@ export const InlineKatex = ({
           height: selected ? 'auto' : '0',
           overflow: 'hidden',
           position: selected ? 'static' : 'absolute',
+          ...style,
         }}
         className={selected ? 'inline-code-input' : ''}
       >
@@ -80,6 +82,7 @@ export const InlineKatex = ({
         style={{
           margin: '0 0.25rem',
           userSelect: 'none',
+          fontSize: 0,
           visibility: selected ? 'hidden' : 'visible',
           width: selected ? '0' : 'auto',
           height: selected ? '0' : 'auto',

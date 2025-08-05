@@ -9,7 +9,7 @@
       style="padding: 24px;"
     >
       <h3>
-        基础用法
+        Tesla 股票分析任务列表示例
       </h3>
       <div>
         <div
@@ -19,27 +19,36 @@
             class="task-list-left "
           >
             <div
-              class="task-list-status "
+              class="task-list-status task-list-status-success "
             >
-              <span
-                aria-label="check-circle"
-                class="anticon anticon-check-circle"
-                role="img"
+              <svg
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  aria-hidden="true"
-                  data-icon="check-circle"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                    />
+                  </clippath>
+                </defs>
+                <g
+                  clip-path="url(#a)"
                 >
                   <path
-                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 01-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"
+                    d="M8 15.333A7.333 7.333 0 108 .667a7.333 7.333 0 000 14.666zm-.963-4.1l5.33-5.279-1.033-1.042-4.297 4.256-2.004-1.986L4 8.224l3.036 3.008z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
                   />
-                </svg>
-              </span>
+                </g>
+              </svg>
             </div>
             <div
               class="task-list-content-left "
@@ -58,106 +67,47 @@
               <div
                 class="task-list-title "
               >
-                已完成任务
-              </div>
-            </div>
-            <div
-              class="task-list-body "
-            >
-              <div
-                class="task-list-content "
-              >
-                这是一个已完成的任务内容
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="task-list-thoughtChainItem "
-        >
-          <div
-            class="task-list-left "
-          >
-            <div
-              class="task-list-status "
-            >
-              <span
-                aria-label="loading"
-                class="anticon anticon-loading anticon-spin"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="loading"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="0 0 1024 1024"
-                  width="1em"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <div
-              class="task-list-content-left "
-            >
-              <div
-                class="task-list-dash-line "
-              />
-            </div>
-          </div>
-          <div
-            class="task-list-right "
-          >
-            <div
-              class="task-list-top "
-            >
-              <div
-                class="task-list-title "
-              >
-                进行中任务
-              </div>
-              <div
-                class="task-list-loading "
-              >
-                <div
-                  class="loading-container "
-                >
-                  <div
-                    class="loading-container-item "
-                  />
-                  <div
-                    class="loading-container-item "
-                  />
-                  <div
-                    class="loading-container-item "
-                  />
-                </div>
+                创建全面的 Tesla 股票分析任务列表
               </div>
               <div
                 class="task-list-arrowContainer "
               >
                 <span
-                  aria-label="up"
-                  class="anticon anticon-up task-list-arrow "
-                  role="img"
-                  style="transform: rotate(180deg);"
+                  aria-describedby="test-id"
+                  aria-label="收起"
+                  class="ant-md-editor-action-icon-box"
+                  role="button"
+                  tabindex="0"
                 >
                   <svg
-                    aria-hidden="true"
-                    data-icon="up"
-                    fill="currentColor"
-                    focusable="false"
+                    class="task-list-arrow "
+                    fill="none"
                     height="1em"
-                    viewBox="64 64 896 896"
+                    style="transform: rotate(0deg);"
+                    viewBox="0 0 16 16"
                     width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                    />
+                    <defs>
+                      <clippath
+                        id="a"
+                      >
+                        <rect
+                          height="16"
+                          rx="0"
+                          width="16"
+                        />
+                      </clippath>
+                    </defs>
+                    <g
+                      clip-path="url(#a)"
+                    >
+                      <path
+                        d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </g>
                   </svg>
                 </span>
               </div>
@@ -169,11 +119,133 @@
                 class="task-list-content "
               >
                 <div>
-                  这是一个进行中的任务内容
+                  Get stock chart 获取股票图表
                 </div>
                 <div>
-                  可以包含多个内容项
+                  Get stock holders 获取股票持有人
                 </div>
+                <div>
+                  Get stock insights 获取股票洞察
+                </div>
+                <div>
+                  Get stock profile 获取股票概况
+                </div>
+                <div>
+                  Get stock SEC filing 获取股票 SEC 备案
+                </div>
+                <div>
+                  Get what analysts say about the stock 获取分析师对股票的评价
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="task-list-thoughtChainItem "
+        >
+          <div
+            class="task-list-left "
+          >
+            <div
+              class="task-list-status task-list-status-pending "
+            >
+              <svg
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                    />
+                  </clippath>
+                </defs>
+                <g
+                  clip-path="url(#a)"
+                >
+                  <path
+                    d="M9.14 2.11q-1.14-.221-2.28 0A.666.666 0 116.607.8Q8 .53 9.393.8a.667.667 0 01-.253 1.31zm0 11.78q-1.14.221-2.28 0a.667.667 0 10-.254 1.309q1.394.27 2.787.001a.667.667 0 00-.253-1.31zm4.946-9.981q-.794-1.182-1.973-1.98a.667.667 0 00-.748 1.104q.965.653 1.614 1.62a.667.667 0 001.107-.744zM2.12 6.733a.667.667 0 01-.012.127q-.22 1.14 0 2.28A.667.667 0 01.8 9.393Q.53 8 .8 6.607a.667.667 0 011.321.126zm12.065 5.006c0 .134-.04.264-.115.374q-.798 1.179-1.98 1.973a.667.667 0 01-.744-1.107q.967-.65 1.62-1.614a.667.667 0 011.219.374zm-.307-5.006c0 .043.004.085.012.127q.22 1.14 0 2.28a.665.665 0 00.654.793c.32 0 .594-.226.655-.54q.27-1.393 0-2.786a.667.667 0 00-1.321.126zM4.947 2.467c0 .222-.11.43-.295.554q-.966.65-1.62 1.614a.667.667 0 11-1.103-.748q.798-1.179 1.98-1.973a.667.667 0 011.038.553zM1.801 11.72c0 .133.04.262.113.372q.794 1.182 1.972 1.98a.667.667 0 10.749-1.104q-.965-.653-1.614-1.62a.667.667 0 00-1.22.372z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="task-list-content-left "
+            >
+              <div
+                class="task-list-dash-line "
+              />
+            </div>
+          </div>
+          <div
+            class="task-list-right "
+          >
+            <div
+              class="task-list-top "
+            >
+              <div
+                class="task-list-title "
+              >
+                创建全面的 Tesla 股票分析任务列表
+              </div>
+              <div
+                class="task-list-arrowContainer "
+              >
+                <span
+                  aria-describedby="test-id"
+                  aria-label="收起"
+                  class="ant-md-editor-action-icon-box"
+                  role="button"
+                  tabindex="0"
+                >
+                  <svg
+                    class="task-list-arrow "
+                    fill="none"
+                    height="1em"
+                    style="transform: rotate(0deg);"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <clippath
+                        id="a"
+                      >
+                        <rect
+                          height="16"
+                          rx="0"
+                          width="16"
+                        />
+                      </clippath>
+                    </defs>
+                    <g
+                      clip-path="url(#a)"
+                    >
+                      <path
+                        d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div
+              class="task-list-body "
+            >
+              <div
+                class="task-list-content "
+              >
                 <div
                   class="tool-use-bar "
                 >
@@ -212,19 +284,19 @@
                         <div
                           class="tool-use-bar-tool-name "
                         >
-                          Search Code
+                          工具类/工具名称
                         </div>
                       </div>
                     </div>
                     <div
                       class="tool-use-bar-tool-target "
                     >
-                      baidu.com
+                      操作...
                     </div>
                     <div
                       class="tool-use-bar-tool-time "
                     >
-                      1.3s
+                      3
                     </div>
                   </div>
                   <div
@@ -262,19 +334,19 @@
                         <div
                           class="tool-use-bar-tool-name "
                         >
-                          Read File
+                          工具类/工具名称
                         </div>
                       </div>
                     </div>
                     <div
                       class="tool-use-bar-tool-target "
                     >
-                      xxx.docx
+                      操作...
                     </div>
                     <div
                       class="tool-use-bar-tool-time "
                     >
-                      2.3s
+                      3
                     </div>
                   </div>
                   <div
@@ -312,19 +384,19 @@
                         <div
                           class="tool-use-bar-tool-name "
                         >
-                          Edit File
+                          工具类/工具名称
                         </div>
                       </div>
                     </div>
                     <div
                       class="tool-use-bar-tool-target "
                     >
-                      xx.md
+                      操作...
                     </div>
                     <div
                       class="tool-use-bar-tool-time "
                     >
-                      2.3s
+                      3
                     </div>
                   </div>
                 </div>
@@ -339,28 +411,36 @@
             class="task-list-left "
           >
             <div
-              class="task-list-status "
+              class="task-list-status task-list-status-pending "
             >
-              <span
-                aria-label="close-circle"
-                class="anticon anticon-close-circle"
-                role="img"
+              <svg
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  aria-hidden="true"
-                  data-icon="close-circle"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                    />
+                  </clippath>
+                </defs>
+                <g
+                  clip-path="url(#a)"
                 >
                   <path
-                    d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
+                    d="M9.14 2.11q-1.14-.221-2.28 0A.666.666 0 116.607.8Q8 .53 9.393.8a.667.667 0 01-.253 1.31zm0 11.78q-1.14.221-2.28 0a.667.667 0 10-.254 1.309q1.394.27 2.787.001a.667.667 0 00-.253-1.31zm4.946-9.981q-.794-1.182-1.973-1.98a.667.667 0 00-.748 1.104q.965.653 1.614 1.62a.667.667 0 001.107-.744zM2.12 6.733a.667.667 0 01-.012.127q-.22 1.14 0 2.28A.667.667 0 01.8 9.393Q.53 8 .8 6.607a.667.667 0 011.321.126zm12.065 5.006c0 .134-.04.264-.115.374q-.798 1.179-1.98 1.973a.667.667 0 01-.744-1.107q.967-.65 1.62-1.614a.667.667 0 011.219.374zm-.307-5.006c0 .043.004.085.012.127q.22 1.14 0 2.28a.665.665 0 00.654.793c.32 0 .594-.226.655-.54q.27-1.393 0-2.786a.667.667 0 00-1.321.126zM4.947 2.467c0 .222-.11.43-.295.554q-.966.65-1.62 1.614a.667.667 0 11-1.103-.748q.798-1.179 1.98-1.973a.667.667 0 011.038.553zM1.801 11.72c0 .133.04.262.113.372q.794 1.182 1.972 1.98a.667.667 0 10.749-1.104q-.965-.653-1.614-1.62a.667.667 0 00-1.22.372z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
                   />
-                </svg>
-              </span>
+                </g>
+              </svg>
             </div>
             <div
               class="task-list-content-left "
@@ -375,7 +455,49 @@
               <div
                 class="task-list-title "
               >
-                错误任务
+                创建全面的 Tesla 股票分析任务列表
+              </div>
+              <div
+                class="task-list-arrowContainer "
+              >
+                <span
+                  aria-describedby="test-id"
+                  aria-label="收起"
+                  class="ant-md-editor-action-icon-box"
+                  role="button"
+                  tabindex="0"
+                >
+                  <svg
+                    class="task-list-arrow "
+                    fill="none"
+                    height="1em"
+                    style="transform: rotate(0deg);"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <clippath
+                        id="a"
+                      >
+                        <rect
+                          height="16"
+                          rx="0"
+                          width="16"
+                        />
+                      </clippath>
+                    </defs>
+                    <g
+                      clip-path="url(#a)"
+                    >
+                      <path
+                        d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </svg>
+                </span>
               </div>
             </div>
             <div
@@ -384,7 +506,17 @@
               <div
                 class="task-list-content "
               >
-                这是一个出错的任务内容
+                <div>
+                  Get stock chart 获取股票图表
+                </div>
+                <div>
+                  Get stock holders 获取股票持有人
+                </div>
+                <div
+                  style="color: rgb(24, 144, 255);"
+                >
+                  Get stock insights 编辑文件 股票洞察.md
+                </div>
               </div>
             </div>
           </div>

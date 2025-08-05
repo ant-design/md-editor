@@ -4,15 +4,19 @@ import { useGetSetState } from 'react-use';
 import { CodeNode } from '../../../../MarkdownEditor/el';
 import './katex.min.css';
 
-export const Katex = (props: { el: CodeNode }) => {
+export const Katex = (props: { el?: CodeNode }) => {
   const [state, setState] = useGetSetState({
     code: '',
     error: '',
   });
   const divRef = useRef<HTMLDivElement>(null);
   const timer = useRef(0);
+
+  // 处理未定义的 el
+  const safeEl = props.el || { value: '', type: 'code', language: 'katex' };
+
   useEffect(() => {
-    const code = props.el.value || '';
+    const code = safeEl.value || '';
     clearTimeout(timer.current);
     timer.current = window.setTimeout(
       () => {
@@ -40,7 +44,7 @@ export const Katex = (props: { el: CodeNode }) => {
       !state().code ? 0 : 300,
     );
     return () => window.clearTimeout(timer.current);
-  }, [props.el]);
+  }, [safeEl]);
   return (
     <div
       style={{
