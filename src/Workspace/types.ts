@@ -137,6 +137,12 @@ export const FILE_TYPES: Record<string, FileTypeDefinition> = {
     ],
     name: 'Excel表格',
   },
+  csv: {
+    category: FileCategory.Excel,
+    extensions: ['csv'],
+    mimeTypes: ['text/csv', 'application/csv', 'application/vnd.ms-excel'],
+    name: 'CSV文件',
+  },
   archive: {
     category: FileCategory.Archive,
     extensions: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2'],
@@ -159,25 +165,14 @@ export type FileType = keyof typeof FILE_TYPES;
 export interface BaseNode {
   id?: string;
   name: string;
-  type: FileType;
   icon?: ReactNode;
 }
 
 // 文件节点（叶子节点）
 export interface FileNode extends BaseNode {
-  /**
-   * 文件大小
-   * @description 当传入 number 类型时（单位：字节），会自动转换为合适的单位（B、KB、MB、GB、TB）
-   * @description 当传入 string 类型时，将直接显示该字符串
-   */
+  type?: FileType;
   size?: string | number;
-
-  /**
-   * 文件最后修改时间
-   * @description 当传入 number 类型时（时间戳，单位：毫秒），会自动转换为 "MM-DD HH:mm" 格式
-   * @description 当传入 string 类型时，将直接显示该字符串
-   */
-  lastModified?: string | number;
+  lastModified?: string | number | Date;
   url?: string;
   file?: File | Blob;
   previewUrl?: string;
@@ -189,6 +184,7 @@ export interface FileNode extends BaseNode {
 export interface GroupNode extends BaseNode {
   collapsed?: boolean;
   children: FileNode[];
+  type: FileType;
 }
 
 // 文件组件属性

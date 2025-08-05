@@ -136,7 +136,11 @@ const FileItemComponent: FC<{
       icon={
         <>
           <div className="workspace-file-item__icon">
-            {getFileTypeIcon(fileWithId.type, fileWithId.icon, fileWithId.name)}
+            {getFileTypeIcon(
+              fileTypeProcessor.inferFileType(fileWithId).fileType,
+              fileWithId.icon,
+              fileWithId.name,
+            )}
           </div>
           <div className="workspace-file-item__info">
             <div className="workspace-file-item__name">
@@ -147,7 +151,7 @@ const FileItemComponent: FC<{
             <div className="workspace-file-item__details">
               <Typography.Text type="secondary" ellipsis>
                 <span className="workspace-file-item__type">
-                  {fileWithId.type}
+                  {fileTypeProcessor.inferFileType(fileWithId).fileType}
                 </span>
                 {fileWithId.size && (
                   <>
@@ -205,12 +209,14 @@ const GroupHeader: FC<{
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
 }> = ({ group, onToggle, onGroupDownload }) => {
   const handleToggle = () => {
-    onToggle?.(group.type, !group.collapsed);
+    const type = group.type || fileTypeProcessor.inferFileType(group).fileType;
+    onToggle?.(type, !group.collapsed);
   };
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onGroupDownload?.(group.children, group.type);
+    const type = group.type || fileTypeProcessor.inferFileType(group).fileType;
+    onGroupDownload?.(group.children, type);
   };
 
   const CollapseIcon = group.collapsed ? RightOutlined : DownOutlined;
@@ -230,7 +236,7 @@ const GroupHeader: FC<{
             <CollapseIcon className="workspace-file-group__toggle-icon" />
             <div className="workspace-file-group__type-icon">
               {getFileTypeIcon(
-                group.type,
+                group.type || fileTypeProcessor.inferFileType(group).fileType,
                 group.icon,
                 getRepresentativeFileName(),
               )}
@@ -426,7 +432,9 @@ export const FileComponent: FC<{
             const groupNode: GroupNode = {
               ...nodeWithId,
               collapsed:
-                collapsedGroups[nodeWithId.type] ?? nodeWithId.collapsed,
+                collapsedGroups[
+                  fileTypeProcessor.inferFileType(nodeWithId).fileType
+                ] ?? nodeWithId.collapsed,
               // 确保子节点也有唯一ID
               children: nodeWithId.children.map((child) => ({
                 ...child,

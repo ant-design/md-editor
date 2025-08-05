@@ -7,6 +7,7 @@ import {
   type MarkdownEditorProps,
 } from '../../MarkdownEditor';
 import { FileNode } from '../types';
+import { formatLastModified } from '../utils';
 import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
 import { getFileTypeIcon } from './utils';
 
@@ -305,13 +306,17 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         <div className={`${PREFIX}__file-info`}>
           <div className={`${PREFIX}__file-title`}>
             <span className={`${PREFIX}__file-icon`}>
-              {getFileTypeIcon(file.type, file.icon, file.name)}
+              {getFileTypeIcon(
+                fileTypeProcessor.inferFileType(file).fileType,
+                file.icon,
+                file.name,
+              )}
             </span>
             <span className={`${PREFIX}__file-name`}>{file.name}</span>
           </div>
           {file.lastModified && (
             <div className={`${PREFIX}__generate-time`}>
-              生成时间：{file.lastModified}
+              生成时间：{formatLastModified(file.lastModified)}
             </div>
           )}
         </div>
