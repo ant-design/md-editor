@@ -2071,7 +2071,7 @@ exports[`should convert markdown to schema in [<font col chunk 1`] = `
         "color": "red",
         "highColor": "red",
         "text": "知乎",
-        "url": "https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10",
+        "url": "https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10",
       },
     ],
     "type": "paragraph",
@@ -2085,7 +2085,7 @@ exports[`should convert markdown to schema in [知乎](https chunk 1`] = `
     "children": [
       {
         "text": "知乎",
-        "url": "https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10",
+        "url": "https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10",
       },
     ],
     "type": "paragraph",
@@ -5703,9 +5703,9 @@ exports[`should convert schema to markdown in <html><tab chunk 1`] = `
 
 exports[`should convert schema to markdown in <sup>1</su chunk 1`] = `"[^1]"`;
 
-exports[`should convert schema to markdown in [<font col chunk 1`] = `"<a href="https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10"><span style="color:red">知乎</span></a>"`;
+exports[`should convert schema to markdown in [<font col chunk 1`] = `"<a href="https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10"><span style="color:red">知乎</span></a>"`;
 
-exports[`should convert schema to markdown in [知乎](https chunk 1`] = `"[知乎](https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10)"`;
+exports[`should convert schema to markdown in [知乎](https chunk 1`] = `"[知乎](https://www.zhihu.com/favicon.ico?x-oss-process=image%252Fquality%252Cq_10)"`;
 
 exports[`should convert schema to markdown in \`\`\`javascr chunk 1`] = `
 "\`\`\`javascript
