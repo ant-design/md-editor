@@ -243,7 +243,7 @@ export type MarkdownEditorProps = {
   /**
    * @deprecated 请使用 apaasify 代替
    */
-  apassify: any;
+  apassify?: any;
 
   initSchemaValue?: Elements[];
   /**
