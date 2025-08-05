@@ -20,6 +20,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         '&-loading': {
           '&::before': {
+            display: 'none',
             content: '""',
             position: 'absolute',
             top: '50%',
@@ -33,7 +34,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
         '&-active': {
-          borderRadius: '200px',
           background: '#FFFFFF',
           boxSizing: 'border-box',
           outline: '1.5px solid #1D7AFC',
@@ -45,7 +45,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&:hover': {
           background: 'rgba(20, 22, 28, 0.06)',
         },
-        borderRadius: '200px',
+        borderRadius: '12px',
         background: 'rgba(20, 22, 28, 0.03)',
         boxSizing: 'border-box',
         outline: '1px solid rgba(20, 22, 28, 0.07)',
@@ -53,8 +53,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         minHeight: '28px',
         width: 'max-content',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        padding: '2px 3px 2px 2px',
+        padding: '4px',
+        gap: '4px',
+        zIndex: 1,
+      },
+
+      '&-tool-bar': {
+        borderRadius: '12px',
+        minHeight: '28px',
+        width: 'max-content',
+        display: 'flex',
+        alignItems: 'center',
         gap: '8px',
         zIndex: 1,
       },
@@ -131,6 +142,29 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '8px',
         fontFamily: `Rubik, sans-serif`,
         zIndex: 1,
+      },
+      '&-tool-content': {
+        display: 'flex',
+        width: '100%',
+      },
+      '&-tool-content-error': {
+        display: 'flex',
+        width: '100%',
+        borderRadius: '8px',
+        background: 'rgba(255, 187, 0, 0.22)',
+        color: '#A56900',
+        padding: '8px',
+        fontSize: '13px',
+        alignItems: 'center',
+        gap: 8,
+      },
+      '&-tool-content-error-icon': {
+        alignItems: 'center',
+        fontSize: '14px',
+        fontWeight: 500,
+        lineHeight: '12px',
+        letterSpacing: 'normal',
+        color: '#A56900',
       },
       '&-tool-error': {
         '&-tool-image-wrapper': {
