@@ -1,6 +1,7 @@
 ﻿import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { ChevronUpIcon } from '../TaskList';
 import { useStyle } from './style';
 
 function ToolIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -55,6 +56,7 @@ interface ToolCall {
   time: React.ReactNode;
   icon?: React.ReactNode;
   errorMessage?: string;
+  content?: React.ReactNode;
   status?: 'idle' | 'loading' | 'success' | 'error';
 }
 
@@ -82,11 +84,18 @@ const ToolUseBarItem = ({
   isActive?: boolean;
   onActiveChange?: (id: string, active: boolean) => void;
 }) => {
+  const [expanded, setExpanded] = useState(false);
+
   const handleClick = () => {
     onClick?.(tool.id);
     if (onActiveChange) {
       onActiveChange(tool.id, !isActive);
     }
+  };
+
+  const handleExpandClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpanded(!expanded);
   };
 
   const errorDom = useMemo(() => {
@@ -101,6 +110,18 @@ const ToolUseBarItem = ({
       </div>
     ) : null;
   }, [tool.status, tool.errorMessage, prefixCls, hashId]);
+
+  const contentDom = useMemo(() => {
+    return tool.content ? (
+      <div className={`${prefixCls}-tool-content ${hashId}`}>
+        {tool.content}
+      </div>
+    ) : null;
+  }, [tool.content, prefixCls, hashId]);
+
+  const showContent = useMemo(() => {
+    return !!errorDom || !!contentDom;
+  }, [errorDom, contentDom]);
 
   return (
     <div
@@ -147,9 +168,26 @@ const ToolUseBarItem = ({
           {tool.toolTarget}
         </div>
         <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
+
+        {showContent && (
+          <div
+            className={`${prefixCls}-tool-expand ${hashId}`}
+            onClick={handleExpandClick}
+          >
+            <ChevronUpIcon
+              style={{
+                transition: 'transform 0.3s ease-in-out',
+                transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+              }}
+            />
+          </div>
+        )}
       </div>
-      {errorDom ? (
-        <div className={`${prefixCls}-tool-content ${hashId}`}>{errorDom}</div>
+      {showContent && expanded ? (
+        <div className={`${prefixCls}-tool-container ${hashId}`}>
+          {contentDom}
+          {errorDom}
+        </div>
       ) : null}
     </div>
   );

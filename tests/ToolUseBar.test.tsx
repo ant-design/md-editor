@@ -24,6 +24,15 @@ const mockTools = [
     toolTarget: 'Target 3',
     time: '11:00',
     status: 'error' as const,
+    errorMessage: 'Network error',
+  },
+  {
+    id: 'tool4',
+    toolName: 'Tool 4',
+    toolTarget: 'Target 4',
+    time: '11:30',
+    status: 'success' as const,
+    content: <div>Custom content</div>,
   },
 ];
 
@@ -34,6 +43,7 @@ describe('ToolUseBar', () => {
     expect(screen.getByText('Tool 1')).toBeInTheDocument();
     expect(screen.getByText('Tool 2')).toBeInTheDocument();
     expect(screen.getByText('Tool 3')).toBeInTheDocument();
+    expect(screen.getByText('Tool 4')).toBeInTheDocument();
   });
 
   it('should call onToolClick when tool is clicked', () => {
@@ -68,6 +78,7 @@ describe('ToolUseBar', () => {
     expect(screen.getByText('Tool 1')).toBeInTheDocument();
     expect(screen.getByText('Tool 2')).toBeInTheDocument();
     expect(screen.getByText('Tool 3')).toBeInTheDocument();
+    expect(screen.getByText('Tool 4')).toBeInTheDocument();
   });
 
   it('should show error icon when tool status is error', () => {
@@ -107,5 +118,48 @@ describe('ToolUseBar', () => {
       '[class*="tool-use-bar-tool-error-icon"]',
     );
     expect(errorIconContainers.length).toBe(0);
+  });
+
+  it('should show expand button when tool has content or error message', () => {
+    const { container } = render(<ToolUseBar tools={mockTools} />);
+
+    // 查找展开按钮
+    const expandButtons = container.querySelectorAll(
+      '[class*="tool-use-bar-tool-expand"]',
+    );
+    expect(expandButtons.length).toBe(2); // tool3 (error) 和 tool4 (content)
+  });
+
+  it('should expand/collapse content when expand button is clicked', () => {
+    const { container } = render(<ToolUseBar tools={mockTools} />);
+
+    // 查找展开按钮
+    const expandButtons = container.querySelectorAll(
+      '[class*="tool-use-bar-tool-expand"]',
+    );
+    const firstExpandButton = expandButtons[0];
+
+    // 初始状态应该是收起的
+    const contentContainers = container.querySelectorAll(
+      '[class*="tool-use-bar-tool-container"]',
+    );
+    expect(contentContainers.length).toBe(0);
+
+    // 点击展开按钮
+    fireEvent.click(firstExpandButton);
+
+    // 应该显示内容
+    const expandedContentContainers = container.querySelectorAll(
+      '[class*="tool-use-bar-tool-container"]',
+    );
+    expect(expandedContentContainers.length).toBe(1);
+
+    // 再次点击应该收起
+    fireEvent.click(firstExpandButton);
+
+    const collapsedContentContainers = container.querySelectorAll(
+      '[class*="tool-use-bar-tool-container"]',
+    );
+    expect(collapsedContentContainers.length).toBe(0);
   });
 });

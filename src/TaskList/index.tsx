@@ -58,7 +58,7 @@ const SuccessIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
 
 SuccessIcon.displayName = 'SuccessIcon';
 
-const ChevronUpIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
+export const ChevronUpIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

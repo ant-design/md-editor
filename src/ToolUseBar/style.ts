@@ -63,7 +63,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-tool-bar': {
         borderRadius: '12px',
         minHeight: '28px',
-        width: 'max-content',
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
@@ -80,12 +80,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: 8,
+        justifyContent: 'space-between',
       },
 
       '&-tool-header-left': {
         display: 'flex',
         alignItems: 'center',
         gap: 4,
+      },
+
+      '&-tool-expand': {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '20px',
+        height: '20px',
+        color: '#767E8B',
+        fontSize: '14px',
+        cursor: 'pointer',
+        borderRadius: '4px',
+        transition: 'all 0.2s ease',
+        '&:hover': {
+          background: 'rgba(20, 22, 28, 0.06)',
+          color: '#959DA8',
+        },
       },
 
       '&-tool-name': {
@@ -121,7 +139,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '12px',
         fontWeight: 'normal',
         lineHeight: '20px',
-        letterSpacing: 'normal',
+        flex: 1,
         color: '#959DA8',
         marginRight: 30,
       },
@@ -143,9 +161,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontFamily: `Rubik, sans-serif`,
         zIndex: 1,
       },
-      '&-tool-content': {
+      '&-tool-container': {
         display: 'flex',
         width: '100%',
+      },
+      '&-tool-content': {
+        flex: 1,
+        fontSize: '12px',
+        fontWeight: 'normal',
+        lineHeight: '160%',
+        letterSpacing: 'normal',
+        color: '#767E8B',
       },
       '&-tool-content-error': {
         display: 'flex',

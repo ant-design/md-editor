@@ -79,6 +79,39 @@
             >
               10:30
             </div>
+            <div
+              class="tool-use-bar-tool-expand "
+            >
+              <svg
+                fill="none"
+                height="1em"
+                style="transition: transform 0.3s ease-in-out; transform: rotate(0deg);"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                    />
+                  </clippath>
+                </defs>
+                <g
+                  clip-path="url(#a)"
+                >
+                  <path
+                    d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
         </div>
         <div
@@ -207,35 +240,38 @@
             >
               10:40
             </div>
-          </div>
-          <div
-            class="tool-use-bar-tool-content "
-          >
             <div
-              class="tool-use-bar-tool-content-error "
+              class="tool-use-bar-tool-expand "
             >
-              <div
-                class="tool-use-bar-tool-content-error-icon "
+              <svg
+                fill="none"
+                height="1em"
+                style="transition: transform 0.3s ease-in-out; transform: rotate(0deg);"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 12.25330924987793 12.836221694946289"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                    />
+                  </clippath>
+                </defs>
+                <g
+                  clip-path="url(#a)"
                 >
                   <path
-                    d="M11.145 4.133q-.461-.953-1.248-1.648-.76-.672-1.72-1.014-.961-.341-1.975-.3-1.049.043-2.008.492-.96.448-1.664 1.226-.682.751-1.036 1.708-.354.956-.325 1.97.03 1.05.465 2.014.437.965 1.205 1.68.743.691 1.695 1.057.951.366 1.966.35 1.049-.015 2.018-.438h.002a.583.583 0 11.467 1.068h-.001q-1.185.518-2.468.537-1.24.02-2.403-.428-1.162-.447-2.07-1.292-.94-.874-1.474-2.053Q.038 7.883.003 6.6-.032 5.36.4 4.192q.432-1.168 1.265-2.087.863-.951 2.035-1.5Q4.87.059 6.154.006q1.24-.05 2.413.367Q9.741.789 10.67 1.61q.962.85 1.525 2.015a.584.584 0 01-1.05.508zM6.42 2.337a.583.583 0 00-.583.583v3.5c0 .221.124.423.322.522L8.492 8.11a.583.583 0 00.522-1.044L7.004 6.06V2.92a.583.583 0 00-.584-.583zm4.083 3.792a.583.583 0 111.167 0v3.5a.583.583 0 11-1.167 0v-3.5zm.584 6.416a.583.583 0 100-1.166.583.583 0 000 1.166z"
+                    d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
                     fill="currentColor"
                     fill-rule="evenodd"
                   />
-                </svg>
-              </div>
-              <div
-                class="tool-use-bar-tool-content-error-text "
-              >
-                网络请求异常，工具调用失败
-              </div>
+                </g>
+              </svg>
             </div>
           </div>
         </div>
@@ -308,7 +344,7 @@
         style="margin-top: 20px;"
       >
         <h4>
-          状态说明:
+          功能说明:
         </h4>
         <ul>
           <li>
@@ -318,12 +354,21 @@
             ⏳ 加载状态 (loading) - 带有旋转动画
           </li>
           <li>
-            ❌ 错误状态 (error) - 红色，显示错误图标
+            ❌ 错误状态 (error) - 红色，显示错误信息
           </li>
           <li>
             ⏸️ 空闲状态 (idle) - 默认样式
           </li>
+          <li>
+            📄 展开/收起 - 有内容或错误信息的工具项会显示展开按钮
+          </li>
         </ul>
+        <p>
+          <strong>
+            操作提示:
+          </strong>
+           点击工具项右侧的箭头图标可以展开/收起详细内容
+        </p>
       </div>
     </div>
   </div>
