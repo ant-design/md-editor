@@ -41,7 +41,7 @@ nav:
 ## 使用示例
 
 ```typescript | pure
-import { isMarkdown } from 'md-editor';
+import { isMarkdown } from '@ant-design/md-editor';
 
 // 检测包含 Markdown 的文本
 console.log(isMarkdown('# 标题')); // true

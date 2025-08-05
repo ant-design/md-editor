@@ -27,7 +27,7 @@ npm install md-editor
 ### 基本转换
 
 ```typescript | pure
-import { htmlToMarkdown } from 'md-editor';
+import { htmlToMarkdown } from '@ant-design/md-editor';
 
 const html = '<h1>标题</h1><p>这是一个段落。</p>';
 const markdown = htmlToMarkdown(html);
@@ -37,7 +37,10 @@ const markdown = htmlToMarkdown(html);
 ### 带选项的转换
 
 ```typescript | pure
-import { htmlToMarkdown, type HtmlToMarkdownOptions } from 'md-editor';
+import {
+  htmlToMarkdown,
+  type HtmlToMarkdownOptions,
+} from '@ant-design/md-editor';
 
 const options: HtmlToMarkdownOptions = {
   preserveLineBreaks: true,
@@ -54,7 +57,7 @@ const markdown = htmlToMarkdown(html, options);
 ### 批量转换
 
 ```typescript | pure
-import { batchHtmlToMarkdown } from 'md-editor';
+import { batchHtmlToMarkdown } from '@ant-design/md-editor';
 
 const htmlFragments = ['<h1>标题1</h1>', '<p>段落1</p>', '<h2>标题2</h2>'];
 
@@ -65,7 +68,7 @@ const results = batchHtmlToMarkdown(htmlFragments);
 ### HTML 检测
 
 ```typescript | pure
-import { isHtml } from 'md-editor';
+import { isHtml } from '@ant-design/md-editor';
 
 console.log(isHtml('<p>内容</p>')); // true
 console.log(isHtml('普通文本')); // false
@@ -74,7 +77,7 @@ console.log(isHtml('普通文本')); // false
 ### 文本提取
 
 ```typescript | pure
-import { extractTextFromHtml } from 'md-editor';
+import { extractTextFromHtml } from '@ant-design/md-editor';
 
 const html = '<h1>标题</h1><p>这是<strong>粗体</strong>文本。</p>';
 const text = extractTextFromHtml(html);
@@ -84,7 +87,7 @@ const text = extractTextFromHtml(html);
 ### HTML 清理
 
 ```typescript | pure
-import { cleanHtml } from 'md-editor';
+import { cleanHtml } from '@ant-design/md-editor';
 
 const html = '  <p>  内容  </p>  ';
 const cleaned = cleanHtml(html);

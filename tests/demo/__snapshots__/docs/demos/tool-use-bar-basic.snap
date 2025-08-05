@@ -5,12 +5,20 @@
     <div>
       test
     </div>
-    <div>
+    <div
+      style="padding: 20px;"
+    >
+      <h3>
+        ToolUseBar 基础演示
+      </h3>
+      <p>
+        当前激活的工具: 无
+      </p>
       <div
         class="tool-use-bar"
       >
         <div
-          class="tool-use-bar-tool "
+          class="tool-use-bar-tool  tool-use-bar-tool-success"
         >
           <div
             class="tool-use-bar-tool-header "
@@ -54,23 +62,23 @@
               <div
                 class="tool-use-bar-tool-name "
               >
-                Search Code
+                文件搜索
               </div>
             </div>
           </div>
           <div
             class="tool-use-bar-tool-target "
           >
-            baidu.com
+            搜索 "react" 相关文件
           </div>
           <div
             class="tool-use-bar-tool-time "
           >
-            1.3s
+            10:30
           </div>
         </div>
         <div
-          class="tool-use-bar-tool "
+          class="tool-use-bar-tool  tool-use-bar-tool-loading"
         >
           <div
             class="tool-use-bar-tool-header "
@@ -79,7 +87,7 @@
               class="tool-use-bar-tool-header-left "
             >
               <div
-                class="tool-use-bar-tool-image-wrapper "
+                class="tool-use-bar-tool-image-wrapper  rotating"
               >
                 <svg
                   class="tool-use-bar-tool-image "
@@ -112,25 +120,25 @@
                 </svg>
               </div>
               <div
-                class="tool-use-bar-tool-name "
+                class="tool-use-bar-tool-name  gradient-text"
               >
-                Read File
+                代码分析
               </div>
             </div>
           </div>
           <div
-            class="tool-use-bar-tool-target "
+            class="tool-use-bar-tool-target  gradient-text"
           >
-            xxx.docx
+            分析 src/components 目录
           </div>
           <div
             class="tool-use-bar-tool-time "
           >
-            2.3s
+            10:35
           </div>
         </div>
         <div
-          class="tool-use-bar-tool "
+          class="tool-use-bar-tool  tool-use-bar-tool-error"
         >
           <div
             class="tool-use-bar-tool-header "
@@ -174,19 +182,19 @@
               <div
                 class="tool-use-bar-tool-name "
               >
-                Edit File
+                代码格式化
               </div>
             </div>
           </div>
           <div
             class="tool-use-bar-tool-target "
           >
-            xx.md
+            格式化 TypeScript 文件
           </div>
           <div
             class="tool-use-bar-tool-time "
           >
-            2.3s
+            10:40
           </div>
         </div>
       </div>

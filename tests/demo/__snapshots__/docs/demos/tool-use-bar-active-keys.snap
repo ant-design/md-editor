@@ -5,12 +5,20 @@
     <div>
       test
     </div>
-    <div>
+    <div
+      style="padding: 20px;"
+    >
+      <h3>
+        ToolUseBar 受控模式演示
+      </h3>
+      <p>
+        当前激活的工具: 无
+      </p>
       <div
         class="tool-use-bar"
       >
         <div
-          class="tool-use-bar-tool "
+          class="tool-use-bar-tool  tool-use-bar-tool-success"
         >
           <div
             class="tool-use-bar-tool-header "
@@ -54,23 +62,23 @@
               <div
                 class="tool-use-bar-tool-name "
               >
-                Search Code
+                文件搜索
               </div>
             </div>
           </div>
           <div
             class="tool-use-bar-tool-target "
           >
-            baidu.com
+            搜索 "react" 相关文件
           </div>
           <div
             class="tool-use-bar-tool-time "
           >
-            1.3s
+            10:30
           </div>
         </div>
         <div
-          class="tool-use-bar-tool "
+          class="tool-use-bar-tool  tool-use-bar-tool-loading"
         >
           <div
             class="tool-use-bar-tool-header "
@@ -79,7 +87,7 @@
               class="tool-use-bar-tool-header-left "
             >
               <div
-                class="tool-use-bar-tool-image-wrapper "
+                class="tool-use-bar-tool-image-wrapper  rotating"
               >
                 <svg
                   class="tool-use-bar-tool-image "
@@ -112,25 +120,25 @@
                 </svg>
               </div>
               <div
-                class="tool-use-bar-tool-name "
+                class="tool-use-bar-tool-name  gradient-text"
               >
-                Read File
+                代码分析
               </div>
             </div>
           </div>
           <div
-            class="tool-use-bar-tool-target "
+            class="tool-use-bar-tool-target  gradient-text"
           >
-            xxx.docx
+            分析 src/components 目录
           </div>
           <div
             class="tool-use-bar-tool-time "
           >
-            2.3s
+            10:35
           </div>
         </div>
         <div
-          class="tool-use-bar-tool "
+          class="tool-use-bar-tool  tool-use-bar-tool-error"
         >
           <div
             class="tool-use-bar-tool-header "
@@ -174,21 +182,102 @@
               <div
                 class="tool-use-bar-tool-name "
               >
-                Edit File
+                代码格式化
               </div>
             </div>
           </div>
           <div
             class="tool-use-bar-tool-target "
           >
-            xx.md
+            格式化 TypeScript 文件
           </div>
           <div
             class="tool-use-bar-tool-time "
           >
-            2.3s
+            10:40
           </div>
         </div>
+        <div
+          class="tool-use-bar-tool  tool-use-bar-tool-idle"
+        >
+          <div
+            class="tool-use-bar-tool-header "
+          >
+            <div
+              class="tool-use-bar-tool-header-left "
+            >
+              <div
+                class="tool-use-bar-tool-image-wrapper "
+              >
+                <svg
+                  class="tool-use-bar-tool-image "
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 14 14"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <clippath
+                      id="a"
+                    >
+                      <rect
+                        height="14"
+                        rx="0"
+                        width="14"
+                      />
+                    </clippath>
+                  </defs>
+                  <g
+                    clip-path="url(#a)"
+                  >
+                    <path
+                      d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div
+                class="tool-use-bar-tool-name "
+              >
+                单元测试
+              </div>
+            </div>
+          </div>
+          <div
+            class="tool-use-bar-tool-target "
+          >
+            运行 Jest 测试套件
+          </div>
+          <div
+            class="tool-use-bar-tool-time "
+          >
+            10:45
+          </div>
+        </div>
+      </div>
+      <div
+        style="margin-top: 20px;"
+      >
+        <h4>
+          操作说明:
+        </h4>
+        <ul>
+          <li>
+            点击工具项可以激活/取消激活
+          </li>
+          <li>
+            支持多选激活
+          </li>
+          <li>
+            激活状态由外部 state 控制
+          </li>
+          <li>
+            不同状态的工具项有不同的视觉样式
+          </li>
+        </ul>
       </div>
     </div>
   </div>

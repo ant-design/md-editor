@@ -7,7 +7,7 @@
     </div>
     <div>
       <div
-        class="tool-use-bar "
+        class="tool-use-bar"
       >
         <div
           class="tool-use-bar-tool  tool-use-bar-tool-success"
@@ -70,7 +70,7 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-loading loading"
+          class="tool-use-bar-tool  tool-use-bar-tool-loading"
         >
           <div
             class="tool-use-bar-tool-header "

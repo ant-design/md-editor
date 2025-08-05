@@ -1,6 +1,4 @@
-import { PlayCircleOutlined } from '@ant-design/icons';
 import { ToolUseBar } from '@ant-design/md-editor';
-import { Badge, Button, Card, Progress, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const ToolUseBarAdvancedDemo = () => {
@@ -108,59 +106,6 @@ const ToolUseBarAdvancedDemo = () => {
 
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-      {/* 控制面板 */}
-      <Card
-        title="ToolUseBar 扩展功能演示"
-        size="small"
-        style={{ marginBottom: 16 }}
-      >
-        <Space wrap>
-          <Button
-            type="primary"
-            onClick={startWorkflow}
-            disabled={isRunning}
-            icon={<PlayCircleOutlined />}
-          >
-            开始工作流程
-          </Button>
-          <Button onClick={stopWorkflow} disabled={!isRunning} danger>
-            停止
-          </Button>
-          <Button onClick={resetWorkflow} disabled={isRunning}>
-            重置
-          </Button>
-          <Button
-            type={showWorkflow ? 'primary' : 'default'}
-            onClick={() => setShowWorkflow(!showWorkflow)}
-          >
-            {showWorkflow ? '隐藏' : '显示'}工作流
-          </Button>
-          <Button
-            type={showTaskList ? 'primary' : 'default'}
-            onClick={() => setShowTaskList(!showTaskList)}
-          >
-            {showTaskList ? '隐藏' : '显示'}任务列表
-          </Button>
-          <Badge
-            count={isRunning ? '运行中' : '已停止'}
-            color={isRunning ? '#52c41a' : '#d9d9d9'}
-            style={{ marginLeft: 16 }}
-          />
-        </Space>
-
-        <div style={{ marginTop: 16 }}>
-          <Progress
-            percent={progress}
-            status={isRunning ? 'active' : 'normal'}
-            strokeColor={{
-              '0%': '#108ee9',
-              '100%': '#87d068',
-            }}
-          />
-        </div>
-      </Card>
-
-      {/* ToolUseBar 组件 */}
       <ToolUseBar
         tools={tools}
         activeToolId={isRunning ? '1' : '2'}

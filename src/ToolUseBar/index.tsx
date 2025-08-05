@@ -1,4 +1,5 @@
 ﻿import classNames from 'classnames';
+import { useMergedState } from 'rc-util';
 import React from 'react';
 import { useStyle } from './style';
 
@@ -40,6 +41,10 @@ interface ToolCall {
 interface ToolUseBarProps {
   tools?: ToolCall[];
   onToolClick?: (id: string) => void;
+  className?: string;
+  activeKeys?: string[];
+  defaultActiveKeys?: string[];
+  onActiveKeysChange?: (activeKeys: string[]) => void;
 }
 
 const ToolUseBarItem = ({
@@ -47,22 +52,34 @@ const ToolUseBarItem = ({
   prefixCls,
   hashId,
   onClick,
+  isActive,
+  onActiveChange,
 }: {
   tool: ToolCall;
   prefixCls: string;
   hashId: string;
   onClick?: (id: string) => void;
+  isActive?: boolean;
+  onActiveChange?: (id: string, active: boolean) => void;
 }) => {
+  const handleClick = () => {
+    onClick?.(tool.id);
+    if (onActiveChange) {
+      onActiveChange(tool.id, !isActive);
+    }
+  };
+
   return (
     <div
-      onClick={() => onClick?.(tool.id)}
+      onClick={handleClick}
       key={tool.id}
       className={classNames(
         `${prefixCls}-tool ${hashId}`,
         tool.status === 'success' && `${prefixCls}-tool-success`,
-        tool.status === 'loading' && `${prefixCls}-tool-loading loading`,
+        tool.status === 'loading' && `${prefixCls}-tool-loading`,
         tool.status === 'error' && `${prefixCls}-tool-error`,
         tool.status === 'idle' && `${prefixCls}-tool-idle`,
+        isActive && `${prefixCls}-tool-active`,
       )}
     >
       <div className={`${prefixCls}-tool-header ${hashId}`}>
@@ -100,19 +117,43 @@ const ToolUseBarItem = ({
   );
 };
 
-export const ToolUseBar: React.FC<ToolUseBarProps> = ({ tools, ...props }) => {
+export const ToolUseBar: React.FC<ToolUseBarProps> = ({
+  tools,
+  onActiveKeysChange,
+  ...props
+}) => {
   const prefixCls = 'tool-use-bar';
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
-  if (!tools?.length) return <div />;
+  const [activeKeys, setActiveKeys] = useMergedState(
+    props.defaultActiveKeys || [],
+    {
+      defaultValue: props.activeKeys,
+      onChange: onActiveKeysChange,
+    },
+  );
+
+  const handleActiveChange = (id: string, active: boolean) => {
+    if (onActiveKeysChange) {
+      const newActiveKeys = active
+        ? [...activeKeys, id]
+        : activeKeys.filter((key) => key !== id);
+      setActiveKeys(newActiveKeys);
+    }
+  };
+
+  if (!tools?.length)
+    return <div className={classNames(prefixCls, hashId, props.className)} />;
 
   return wrapSSR(
-    <div className={`${prefixCls} ${hashId}`}>
+    <div className={classNames(prefixCls, hashId, props.className)}>
       {tools.map((tool) => (
         <ToolUseBarItem
           key={tool.id}
           tool={tool}
           onClick={props.onToolClick}
+          isActive={activeKeys.includes(tool.id)}
+          onActiveChange={handleActiveChange}
           prefixCls={prefixCls}
           hashId={hashId}
         />
