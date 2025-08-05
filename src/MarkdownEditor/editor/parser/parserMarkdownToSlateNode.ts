@@ -1196,7 +1196,7 @@ const applyInlineFormatting = (leaf: CustomLeaf, currentElement: any) => {
   if (currentElement.type === 'delete') leaf.strikethrough = true;
   if (currentElement.type === 'link') {
     try {
-      leaf.url = decodeURIComponentUrl(currentElement?.url);
+      leaf.url = currentElement?.url;
     } catch (error) {
       leaf.url = currentElement?.url;
     }
