@@ -1,10 +1,13 @@
+import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
 } from '../hooks/useStyle';
-
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+  const moveLighting = new Keyframes(`lui-tool-use-bar-move-lighting`, {
+    '100%': { left: '100%' },
+  });
   return {
     [token.componentCls]: {
       display: 'flex',
@@ -14,18 +17,31 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
       },
       '&-tool': {
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '50%',
+          left: '-50%',
+          height: '200%',
+          zIndex: 999,
+          boxShadow: '0 0 20px 6px rgba(243, 244, 245, 1)',
+          transform: 'translateY(-50%) rotateZ(-45deg)',
+          animation: 'moveLighting 0.7s ease-out 0s infinite',
+          animationName: moveLighting,
+        },
         borderRadius: '200px',
-        background: 'rgba(0, 37, 110, 0.03)',
+        background: 'rgba(20, 22, 28, 0.06)',
         boxSizing: 'border-box',
-        border: '0px solid rgba(0, 30, 75, 0.07)',
-        boxShadow: 'inset 0px 0px 1px 0px rgba(0, 0, 0, 0.15)',
-        maxWidth: '800px',
+        border: '0px solid rgba(20, 22, 28, 0.07)',
+        boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
+        minHeight: '28px',
+        width: 'max-content',
         display: 'flex',
         alignItems: 'center',
-        padding: '2px 4px',
-        width: 'max-content',
+        padding: '2px 3px 2px 2px',
         gap: '8px',
-        zIndex: 2,
+        zIndex: 1,
       },
 
       '&-tool-arrow': {
@@ -48,10 +64,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-tool-name': {
         fontSize: '12px',
-        fontWeight: 600,
+        fontWeight: 500,
         lineHeight: '20px',
         letterSpacing: 'normal',
-        color: 'rgba(0, 2, 7, 0.61)',
+        color: '#767E8B',
       },
 
       '&-tool-image-wrapper': {
@@ -70,21 +86,37 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         zIndex: 0,
       },
 
+      '&-tool-image': {
+        color: '#767E8B',
+        fontSize: '14px',
+      },
+
       '&-tool-target': {
         fontSize: '12px',
         fontWeight: 'normal',
         lineHeight: '20px',
         letterSpacing: 'normal',
-        color: 'rgba(0, 5, 27, 0.45)',
+        color: '#959DA8',
+        marginRight: 30,
       },
       '&-tool-time': {
         fontSize: '12px',
         fontWeight: 'normal',
         lineHeight: '12px',
         letterSpacing: '0.04em',
-        color: 'rgba(0, 4, 15, 0.27)',
+        height: '20px',
+        minWidth: '20px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '200px',
+        background: 'rgba(20, 22, 28, 0.06)',
+        padding: '4px 6px',
+        color: '#767E8B',
+        gap: '8px',
+        fontFamily: `Rubik, sans-serif`,
+        zIndex: 1,
       },
-
       '&-tool-error': {
         '&-tool-image-wrapper': {
           '& .anticon': {

@@ -5,64 +5,41 @@ group:
   order: 2
 ---
 
-# ToolUseBar 工具使用栏
+# ToolUseBar 组件
 
-用于展示工具调用状态和结果的组件。支持展示工具名称、执行状态和执行结果。
+ToolUseBar 是一个用于显示工具调用状态的组件，支持多种动画效果。
 
 ## 代码演示
 
 <code src="../demos/tool-use-bar.tsx">基础用法</code>
 
+<code src="../demos/tool-use-bar-all.tsx">全量 api</code>
+
+<code src="../demos/tool-use-bar-advanced.tsx">高级用法</code>
+
 ## API
 
-### ToolUseBar
+### ToolUseBarProps
 
-| 参数     | 说明             | 类型         | 默认值 |
-| -------- | ---------------- | ------------ | ------ |
-| tools    | 工具列表         | `ToolCall[]` | -      |
-| activeId | 当前执行的工具ID | `string`     | -      |
+| 参数        | 说明             | 类型                   | 默认值 |
+| ----------- | ---------------- | ---------------------- | ------ |
+| tools       | 工具列表         | `ToolCall[]`           | -      |
+| onToolClick | 点击工具时的回调 | `(id: string) => void` | -      |
 
 ### ToolCall
 
-| 参数     | 说明     | 类型     | 默认值 |
-| -------- | -------- | -------- | ------ |
-| id       | 工具ID   | `string` | -      |
-| toolName | 工具名称 | `string` | -      |
-| result   | 执行结果 | `string` | -      |
+| 参数       | 说明          | 类型                                          | 默认值 |
+| ---------- | ------------- | --------------------------------------------- | ------ |
+| id         | 工具唯一标识  | `string`                                      | -      |
+| toolName   | 工具名称      | `React.ReactNode`                             | -      |
+| toolTarget | 工具目标/描述 | `React.ReactNode`                             | -      |
+| time       | 执行时间      | `React.ReactNode`                             | -      |
+| icon       | 自定义图标    | `React.ReactNode`                             | -      |
+| status     | 工具状态      | `'idle' \| 'loading' \| 'success' \| 'error'` | -      |
 
-### 样式定制
+## 状态说明
 
-组件使用了以下的样式变量，可以通过 CSS-in-JS 进行样式定制：
-
-```ts
-{
-  // 工具项
-  tool: {
-    marginBottom: 12,
-    borderRadius: 200,
-    background: token.colorBgContainer,
-    border: `1px solid ${token.colorBorderSecondary}`,
-    padding: '2px 3px',
-  },
-  // 工具项 - 展开状态
-  toolCollapse: {
-    marginBottom: 12,
-    borderRadius: 12,
-    background: token.colorBgContainer,
-    padding: 12,
-  },
-  // 工具名称
-  toolName: {
-    fontSize: 14,
-    fontWeight: 500,
-    lineHeight: '22px',
-    color: token.colorText,
-  },
-  // 执行结果
-  toolResult: {
-    padding: 8,
-    lineHeight: '160%',
-    backgroundColor: '#f5f5f5',
-  }
-}
-```
+- `idle`: 空闲状态，无动画
+- `loading`: 加载状态，显示所有动画效果
+- `success`: 成功状态，无动画
+- `error`: 错误状态，图标显示红色
