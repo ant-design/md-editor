@@ -272,6 +272,8 @@ const MElementComponent = (
       return <List {...props} />;
     case 'schema':
       return <Schema {...props} />;
+    case 'apassify':
+      return <Schema {...props} />;
     case 'apaasify':
       return <Schema {...props} />;
     case 'description':

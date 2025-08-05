@@ -1060,7 +1060,7 @@ const handleCode = (currentElement: any) => {
   const baseCodeElement = {
     type: 'code',
     language:
-      currentElement.lang === 'apassify' ? 'apaasify' : currentElement.lang,
+      currentElement.lang === 'apaasify' ? 'apaasify' : currentElement.lang,
     render: currentElement.meta === 'render',
     value: currentElement.value,
     isConfig: currentElement?.value.trim()?.startsWith('<!--'),

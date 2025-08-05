@@ -7,8 +7,9 @@ import { useEditorStore } from '../store';
 export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
   const { element: node } = props;
   const { editorProps } = useEditorStore();
+  const apaasify = editorProps?.apaasify || editorProps?.apassify;
   return useMemo(() => {
-    if (editorProps?.apassify?.enable && editorProps.apassify.render) {
+    if (apaasify?.enable && apaasify.render) {
       return (
         <div
           {...node.attributes}
@@ -17,7 +18,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
             flexDirection: 'column',
           }}
         >
-          {editorProps.apassify.render(props)}
+          {apaasify.render(props)}
           <div
             style={{
               height: 1,
