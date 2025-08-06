@@ -1060,7 +1060,7 @@ const handleCode = (currentElement: any) => {
   const baseCodeElement = {
     type: 'code',
     language:
-      currentElement.lang === 'apassify' ? 'apaasify' : currentElement.lang,
+      currentElement.lang === 'apaasify' ? 'apaasify' : currentElement.lang,
     render: currentElement.meta === 'render',
     value: currentElement.value,
     isConfig: currentElement?.value.trim()?.startsWith('<!--'),
@@ -1196,7 +1196,7 @@ const applyInlineFormatting = (leaf: CustomLeaf, currentElement: any) => {
   if (currentElement.type === 'delete') leaf.strikethrough = true;
   if (currentElement.type === 'link') {
     try {
-      leaf.url = decodeURIComponentUrl(currentElement?.url);
+      leaf.url = currentElement?.url;
     } catch (error) {
       leaf.url = currentElement?.url;
     }

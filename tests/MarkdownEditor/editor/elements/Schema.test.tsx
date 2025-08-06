@@ -20,7 +20,7 @@ import { Schema } from '../../../../src/MarkdownEditor/editor/elements/Schema';
 vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
   useEditorStore: vi.fn(() => ({
     editorProps: {
-      apassify: {
+      apaasify: {
         enable: false,
         render: null,
       },

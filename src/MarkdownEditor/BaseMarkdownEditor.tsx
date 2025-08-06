@@ -235,10 +235,15 @@ export type MarkdownEditorProps = {
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
 
-  apassify?: {
+  apaasify?: {
     enable?: boolean;
     render?: (props: ElementProps<SchemaNode>) => React.ReactNode;
   } & Record<string, any>;
+
+  /**
+   * @deprecated 请使用 apaasify 代替
+   */
+  apassify?: any;
 
   initSchemaValue?: Elements[];
   /**

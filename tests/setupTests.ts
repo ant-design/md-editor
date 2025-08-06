@@ -3,12 +3,14 @@ import { MotionGlobalConfig } from 'framer-motion';
 import { JSDOM } from 'jsdom';
 import React from 'react';
 import { vi } from 'vitest';
+import { setupLottieMock } from './_mocks_/lottieMock';
 import { setupGlobalMocks } from './_mocks_/sharedMocks';
 
 MotionGlobalConfig.skipAnimations = true;
 
 // 设置全局mocks
 setupGlobalMocks();
+setupLottieMock();
 
 globalThis.React = React;
 
@@ -27,8 +29,6 @@ Object.defineProperty(document, 'doctype', {
 });
 
 // 修复canvas相关的问题
-
-
 
 global.window.scrollTo = vi.fn();
 Element.prototype.scrollTo = vi.fn();

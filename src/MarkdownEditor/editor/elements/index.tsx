@@ -272,6 +272,8 @@ const MElementComponent = (
       return <List {...props} />;
     case 'schema':
       return <Schema {...props} />;
+    case 'apassify':
+      return <Schema {...props} />;
     case 'apaasify':
       return <Schema {...props} />;
     case 'description':
@@ -574,7 +576,7 @@ const MLeafComponent = (
   if (leaf?.url && readonly) {
     return (
       <Popover
-        trigger="click"
+        trigger="hover"
         content={
           <div
             style={{
@@ -582,7 +584,15 @@ const MLeafComponent = (
               gap: 4,
             }}
           >
-            {leaf.url}
+            <div
+              style={{
+                width: 'max(50vw, 200px)',
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
+              }}
+            >
+              {leaf.url}
+            </div>
             <ExportOutlined
               onClick={() => {
                 if (!leaf?.url) return;

@@ -35,7 +35,7 @@ nav:
 - `number` - 垂直偏移量（像素）
 
 ```typescript | pure
-import { getOffsetTop } from 'md-editor';
+import { getOffsetTop } from '@ant-design/md-editor';
 
 const element = document.getElementById('my-element');
 const offsetTop = getOffsetTop(element);
@@ -56,7 +56,7 @@ console.log(`元素距离顶部 ${offsetTop}px`);
 - `number` - 水平偏移量（像素）
 
 ```typescript | pure
-import { getOffsetLeft } from 'md-editor';
+import { getOffsetLeft } from '@ant-design/md-editor';
 
 const element = document.getElementById('my-element');
 const offsetLeft = getOffsetLeft(element);
@@ -88,7 +88,7 @@ console.log(`元素距离左侧 ${offsetLeft}px`);
 - 转换为小写
 
 ```typescript | pure
-import { slugify } from 'md-editor';
+import { slugify } from '@ant-design/md-editor';
 
 console.log(slugify('Hello World!')); // 'hello-world'
 console.log(slugify('Café & Résumé')); // 'cafe-resume'
@@ -119,7 +119,7 @@ console.log(slugify('123 Number')); // '_123-number'
 - **附件**：其他文件类型
 
 ```typescript | pure
-import { getMediaType } from 'md-editor';
+import { getMediaType } from '@ant-design/md-editor';
 
 // 根据文件扩展名判断
 console.log(getMediaType('image.jpg')); // 'image'
@@ -146,7 +146,7 @@ console.log(getMediaType('file', 'video:mp4')); // 'video'
 - `DOMRect | null` - 选区矩形信息，如果没有选区则返回 `null`
 
 ```typescript | pure
-import { getSelRect } from 'md-editor';
+import { getSelRect } from '@ant-design/md-editor';
 
 const selection = window.getSelection();
 if (selection && !selection.isCollapsed) {
