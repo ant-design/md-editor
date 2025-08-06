@@ -25,6 +25,7 @@ export default () => {
       title: '创建全面的 Tesla 股票分析任务列表',
       content: [
         <ToolUseBar
+          key="1"
           tools={[
             {
               id: '1',
@@ -47,7 +48,7 @@ export default () => {
           ]}
         />,
       ],
-      status: 'pending' as TaskStatus,
+      status: 'loading' as TaskStatus,
     },
     {
       key: '3',

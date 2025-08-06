@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
+import { LoadingLottie } from './LoadingLottie';
 import { useStyle } from './style';
 
 const DashPendingIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
@@ -109,7 +110,7 @@ const TaskListItem = memo(
       key: string;
       title: string;
       content: React.ReactNode | React.ReactNode[];
-      status: 'success' | 'pending';
+      status: 'success' | 'pending' | 'loading';
     };
     isLast: boolean;
     prefixCls: string;
@@ -129,8 +130,8 @@ const TaskListItem = memo(
             className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
           >
             {item.status === 'success' ? <SuccessIcon /> : null}
-            {item.status === 'pending' ? <DashPendingIcon /> : null}
-            {item.status !== 'success' && item.status !== 'pending' ? (
+            {item.status === 'loading' ? <LoadingLottie size={16} /> : null}
+            {item.status === 'pending' ? (
               <div className={`${prefixCls}-status-idle ${hashId}`}>
                 <DashPendingIcon />
               </div>

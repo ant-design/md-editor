@@ -41,7 +41,7 @@ const ToolUseBarBasicDemo = () => {
       toolName: '单元测试',
       toolTarget: '运行 Jest 测试套件',
       time: '10:45',
-      status: 'idle' as const,
+      status: 'pending' as const,
     },
   ];
 

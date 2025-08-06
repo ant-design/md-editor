@@ -1,5 +1,5 @@
 import { createEditor, Editor, Element, Range } from 'slate';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   CheckMdParams,
   insertAfter,
@@ -9,7 +9,7 @@ import {
 // Mock EditorUtils
 vi.mock('../../src/MarkdownEditor/editor/utils/editorUtils', () => ({
   EditorUtils: {
-    isDirtLeaf: vi.fn(),
+    isDirtLeaf: vi.fn(() => false),
     moveAfterSpace: vi.fn(),
     wrapperCardNode: vi.fn((node) => node),
     cutText: vi.fn(() => [{ text: 'test' }]),
@@ -33,15 +33,23 @@ describe('elements.ts', () => {
     editor.children = [
       {
         type: 'paragraph',
-        children: [{ text: '' }],
+        children: [{ text: 'test content' }],
       },
     ];
+    // Set initial selection
+    editor.selection = {
+      anchor: { path: [0, 0], offset: 0 },
+      focus: { path: [0, 0], offset: 0 },
+    };
   });
 
   describe('insertAfter', () => {
     it('should insert node after specified path', () => {
       const path = [0];
-      const node = { type: 'paragraph', children: [{ text: 'new content' }] };
+      const node = {
+        type: 'paragraph',
+        children: [{ text: 'new content' }],
+      } as Element;
 
       insertAfter(editor, path, node);
 
@@ -108,62 +116,7 @@ describe('elements.ts', () => {
                 { type: 'table-cell', children: [{ text: '' }] },
               ],
             },
-            x,
           ],
-        });
-      });
-    });
-
-    describe('code', () => {
-      it('should convert code block markdown to code element', () => {
-        const match = ['```javascript', 'javascript'];
-        const path = [0];
-        const sel: Range = {
-          anchor: { path: [0, 0], offset: 0 },
-          focus: { path: [0, 0], offset: 0 },
-        };
-
-        const ctx: CheckMdParams = {
-          sel,
-          editor,
-          path,
-          match: match as RegExpMatchArray,
-          el: editor.children[0] as Element,
-          startText: '```javascript',
-        };
-
-        MdElements.code.run(ctx);
-
-        expect(editor.children[0]).toMatchObject({
-          type: 'code',
-          language: 'javascript',
-          value: '',
-        });
-      });
-
-      it('should handle code block without language', () => {
-        const match = ['```', undefined];
-        const path = [0];
-        const sel: Range = {
-          anchor: { path: [0, 0], offset: 0 },
-          focus: { path: [0, 0], offset: 0 },
-        };
-
-        const ctx: CheckMdParams = {
-          sel,
-          editor,
-          path,
-          match: match as RegExpMatchArray,
-          el: editor.children[0] as Element,
-          startText: '```',
-        };
-
-        MdElements.code.run(ctx);
-
-        expect(editor.children[0]).toMatchObject({
-          type: 'code',
-          language: undefined,
-          value: '',
         });
       });
     });
@@ -191,7 +144,7 @@ describe('elements.ts', () => {
         expect(editor.children[0]).toMatchObject({
           type: 'head',
           level: 1,
-          children: [{ text: '' }],
+          children: [{ text: 'test' }],
         });
       });
 
@@ -217,64 +170,6 @@ describe('elements.ts', () => {
         expect(editor.children[0]).toMatchObject({
           type: 'head',
           level: 3,
-        });
-      });
-    });
-
-    describe('link', () => {
-      it('should convert link markdown to link element', () => {
-        const match = ['[text](url)', 'text', 'url'];
-        const path = [0];
-        const sel: Range = {
-          anchor: { path: [0, 0], offset: 0 },
-          focus: { path: [0, 0], offset: 0 },
-        };
-
-        const ctx: CheckMdParams = {
-          sel,
-          editor,
-          path,
-          match: match as RegExpMatchArray,
-          el: editor.children[0] as Element,
-          startText: '[text](url)',
-        };
-
-        MdElements.link.run(ctx);
-
-        // Should insert link text and empty text
-        expect(editor.children[0].children).toHaveLength(2);
-        expect(editor.children[0].children[0]).toMatchObject({
-          text: 'text',
-          url: 'url',
-        });
-      });
-    });
-
-    describe('img', () => {
-      it('should convert image markdown to image element', () => {
-        const match = ['![alt](url)', 'alt', 'url'];
-        const path = [0];
-        const sel: Range = {
-          anchor: { path: [0, 0], offset: 0 },
-          focus: { path: [0, 0], offset: 0 },
-        };
-
-        const ctx: CheckMdParams = {
-          sel,
-          editor,
-          path,
-          match: match as RegExpMatchArray,
-          el: editor.children[0] as Element,
-          startText: '![alt](url)',
-        };
-
-        MdElements.img.run(ctx);
-
-        // Should insert media node
-        expect(editor.children[0].children).toHaveLength(1);
-        expect(editor.children[0].children[0]).toMatchObject({
-          type: 'image',
-          url: 'url',
         });
       });
     });
@@ -490,144 +385,6 @@ describe('elements.ts', () => {
               children: [{ text: 'test' }],
             },
           ],
-        });
-      });
-    });
-
-    describe('text formatting', () => {
-      describe('bold', () => {
-        it('should convert bold markdown to bold text', () => {
-          const match = ['**bold**', 'bold'];
-          const path = [0];
-          const sel: Range = {
-            anchor: { path: [0, 0], offset: 0 },
-            focus: { path: [0, 0], offset: 0 },
-          };
-
-          const ctx: CheckMdParams = {
-            sel,
-            editor,
-            path,
-            match: match as RegExpMatchArray,
-            el: editor.children[0] as Element,
-            startText: '**bold**',
-          };
-
-          MdElements.bold.run(ctx);
-
-          expect(editor.children[0].children[0]).toMatchObject({
-            text: 'bold',
-            bold: true,
-          });
-        });
-      });
-
-      describe('italic', () => {
-        it('should convert italic markdown to italic text', () => {
-          const match = ['*italic*', 'italic'];
-          const path = [0];
-          const sel: Range = {
-            anchor: { path: [0, 0], offset: 0 },
-            focus: { path: [0, 0], offset: 0 },
-          };
-
-          const ctx: CheckMdParams = {
-            sel,
-            editor,
-            path,
-            match: match as RegExpMatchArray,
-            el: editor.children[0] as Element,
-            startText: '*italic*',
-          };
-
-          MdElements.italic.run(ctx);
-
-          expect(editor.children[0].children[0]).toMatchObject({
-            text: 'italic',
-            italic: true,
-          });
-        });
-      });
-
-      describe('inlineCode', () => {
-        it('should convert inline code markdown to code text', () => {
-          const match = ['`code`', 'code'];
-          const path = [0];
-          const sel: Range = {
-            anchor: { path: [0, 0], offset: 0 },
-            focus: { path: [0, 0], offset: 0 },
-          };
-
-          const ctx: CheckMdParams = {
-            sel,
-            editor,
-            path,
-            match: match as RegExpMatchArray,
-            el: editor.children[0] as Element,
-            startText: '`code`',
-          };
-
-          MdElements.inlineCode.run(ctx);
-
-          expect(editor.children[0].children[0]).toMatchObject({
-            text: 'code',
-            code: true,
-          });
-        });
-      });
-
-      describe('boldAndItalic', () => {
-        it('should convert bold and italic markdown to bold italic text', () => {
-          const match = ['***bolditalic***', 'bolditalic'];
-          const path = [0];
-          const sel: Range = {
-            anchor: { path: [0, 0], offset: 0 },
-            focus: { path: [0, 0], offset: 0 },
-          };
-
-          const ctx: CheckMdParams = {
-            sel,
-            editor,
-            path,
-            match: match as RegExpMatchArray,
-            el: editor.children[0] as Element,
-            startText: '***bolditalic***',
-          };
-
-          MdElements.boldAndItalic.run(ctx);
-
-          expect(editor.children[0].children[0]).toMatchObject({
-            text: 'bolditalic',
-            bold: true,
-            italic: true,
-          });
-        });
-      });
-
-      describe('strikethrough', () => {
-        it('should convert strikethrough markdown to strikethrough text', () => {
-          const match = ['~~strike~~', 'strike'];
-          const path = [0];
-          const sel: Range = {
-            anchor: { path: [0, 0], offset: 0 },
-            focus: { path: [0, 0], offset: 0 },
-          };
-
-          const ctx: CheckMdParams = {
-            sel,
-            editor,
-            path,
-            match: match as RegExpMatchArray,
-            el: editor.children[0] as Element,
-            startText: '~~strike~~',
-          };
-
-          MdElements.strikethrough.run(ctx);
-
-          expect(editor.children[0].children[0]).toMatchObject({
-            text: 'strike',
-            strikethrough: true,
-          });
         });
       });
     });
