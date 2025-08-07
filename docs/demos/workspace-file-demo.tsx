@@ -30,6 +30,7 @@ const WorkspaceFileDemo: React.FC = () => {
           size: '2.3MB',
           lastModified: '08-20 12:30',
           url: '/downloads/project-requirements.docx',
+          canPreview: true,
         },
         {
           name: 'md-preview用户手册.docx',
@@ -261,6 +262,10 @@ graph TD
     alert(`正在下载文件: ${file.name}`);
   };
 
+  const handlePreview = (file: FileNode) => {
+    console.log('预览文件:', file);
+  };
+
   const handleGroupDownload = (files: FileNode[], groupType?: FileType) => {
     console.log('下载文件组:', files);
     // 获取文件类型的可读名称
@@ -310,7 +315,8 @@ graph TD
         <Workspace title="文件管理">
           <Workspace.File
             nodes={nodes}
-            // onDownload={handleDownload}
+            onDownload={handleDownload}
+            onPreview={handlePreview}
             onGroupDownload={handleGroupDownload}
             onToggleGroup={handleToggleGroup}
             markdownEditorProps={customMarkdownEditorProps}

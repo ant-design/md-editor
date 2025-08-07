@@ -178,6 +178,7 @@ export interface FileNode extends BaseNode {
   previewUrl?: string;
   content?: string;
   metadata?: Record<string, unknown>;
+  canPreview?: boolean; // 用户自定义是否可以预览
 }
 
 // 分组节点

@@ -124,12 +124,23 @@ const FileItemComponent: FC<{
     onPreview?.(fileWithId);
   };
 
-  // 判断是否显示预览按钮：对于图片类型，只要有 url 就可以预览；其他类型按原有逻辑判断
-  const showPreviewButton =
-    onPreview &&
-    (isImageFile(fileWithId)
-      ? !!(fileWithId.url || fileWithId.previewUrl)
-      : fileTypeProcessor.processFile(fileWithId).canPreview);
+  // 判断是否显示预览按钮：
+  // 1. 如果用户设置了 canPreview，优先使用用户的设置
+  // 2. 如果没有设置，则使用系统默认逻辑：图片类型有 url 就可以预览；其他类型按原有逻辑判断
+  const showPreviewButton = (() => {
+    // 如果用户明确设置了 canPreview，直接使用用户设置
+    if (fileWithId.canPreview !== undefined) {
+      return fileWithId.canPreview;
+    }
+
+    // 否则使用系统默认逻辑
+    return (
+      onPreview &&
+      (isImageFile(fileWithId)
+        ? !!(fileWithId.url || fileWithId.previewUrl)
+        : fileTypeProcessor.processFile(fileWithId).canPreview)
+    );
+  })();
 
   return (
     <AccessibleButton
@@ -359,11 +370,13 @@ export const FileComponent: FC<{
 
   // 预览文件处理
   const handlePreview = (file: FileNode) => {
+    // 如果用户提供了预览方法，直接使用用户的方法
     if (onPreview) {
       onPreview(file);
       return;
     }
 
+    // 如果用户设置了 canPreview=true 但没有提供预览方法，或者没有设置 canPreview，则使用系统默认的预览逻辑
     if (isImageFile(file)) {
       const previewSrc = file.previewUrl || file.url || '';
       setImagePreview({
@@ -372,7 +385,6 @@ export const FileComponent: FC<{
       });
       return;
     }
-    debugger;
     setPreviewFile(file);
   };
 
