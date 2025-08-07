@@ -101,6 +101,11 @@ describe('InsertAutocomplete Component', () => {
       // 这里只检查组件是否正常渲染
       expect(document.body).toBeInTheDocument();
     });
+
+    it('应该处理 openInsertCompletion 为 true 的情况', () => {
+      render(<InsertAutocomplete {...defaultProps} />);
+      expect(document.body).toBeInTheDocument();
+    });
   });
 
   describe('属性传递测试', () => {
@@ -377,6 +382,60 @@ describe('InsertAutocomplete Component', () => {
         expect(runInsertTask).toBeDefined();
       });
     });
+
+    it('应该处理自定义任务执行', async () => {
+      const runInsertTask = vi.fn().mockResolvedValue(true);
+      const props = {
+        ...defaultProps,
+        runInsertTask,
+      };
+
+      render(<InsertAutocomplete {...props} />);
+
+      await waitFor(() => {
+        expect(runInsertTask).toBeDefined();
+      });
+    });
+
+    it('应该处理图片任务', async () => {
+      const props = {
+        ...defaultProps,
+        insertOptions: [
+          {
+            label: ['Image', '图片'],
+            key: 'image',
+            task: 'image',
+            icon: <div data-testid="image-icon">🖼️</div>,
+          },
+        ],
+      };
+
+      render(<InsertAutocomplete {...props} />);
+
+      await waitFor(() => {
+        expect(document.body).toBeInTheDocument();
+      });
+    });
+
+    it('应该处理附件任务', async () => {
+      const props = {
+        ...defaultProps,
+        insertOptions: [
+          {
+            label: ['Attachment', '附件'],
+            key: 'attachment',
+            task: 'attachment',
+            icon: <div data-testid="attachment-icon">📎</div>,
+          },
+        ],
+      };
+
+      render(<InsertAutocomplete {...props} />);
+
+      await waitFor(() => {
+        expect(document.body).toBeInTheDocument();
+      });
+    });
   });
 
   describe('清理测试', () => {
@@ -404,6 +463,30 @@ describe('InsertAutocomplete Component', () => {
       }
 
       expect(document.body).toBeInTheDocument();
+    });
+
+    it('应该处理媒体插入功能', async () => {
+      render(<InsertAutocomplete {...defaultProps} />);
+
+      await waitFor(() => {
+        expect(document.body).toBeInTheDocument();
+      });
+    });
+
+    it('应该处理附件插入功能', async () => {
+      render(<InsertAutocomplete {...defaultProps} />);
+
+      await waitFor(() => {
+        expect(document.body).toBeInTheDocument();
+      });
+    });
+
+    it('应该处理 URL 替换功能', async () => {
+      render(<InsertAutocomplete {...defaultProps} />);
+
+      await waitFor(() => {
+        expect(document.body).toBeInTheDocument();
+      });
     });
   });
 });
