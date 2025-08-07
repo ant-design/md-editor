@@ -12,7 +12,7 @@ import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
 import { getFileTypeIcon } from './utils';
 
 interface PreviewComponentProps {
-  file: FileNode;
+  file: FileNode | React.ReactNode;
   onBack: () => void;
   onDownload?: (file: FileNode) => void;
   /**
@@ -61,6 +61,39 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   onDownload,
   markdownEditorProps,
 }) => {
+  // Check if file is a ReactNode (not a FileNode)
+  const isReactNode = React.isValidElement(file) || typeof file === 'string' || typeof file === 'number' || typeof file === 'boolean';
+  
+  // If it's a ReactNode, render it directly with minimal wrapper
+  if (isReactNode) {
+    return (
+      <div className={PREFIX}>
+        <div className={`${PREFIX}__header`}>
+          <button
+            className={`${PREFIX}__back-button`}
+            onClick={onBack}
+            aria-label="返回文件列表"
+          >
+            <ArrowLeftOutlined className={`${PREFIX}__back-icon`} />
+          </button>
+          <div className={`${PREFIX}__file-info`}>
+            <div className={`${PREFIX}__file-title`}>
+              <span className={`${PREFIX}__file-name`}>自定义预览</span>
+            </div>
+          </div>
+        </div>
+        <div className={`${PREFIX}__content`}>
+          <div className={`${PREFIX}__custom-content`}>
+            {file as React.ReactNode}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Cast to FileNode for the rest of the component since we know it's not a ReactNode
+  const fileNode = file as FileNode;
+  
   const editorRef = useRef<MarkdownEditorInstance>();
   const [processResult, setProcessResult] = useState<FileProcessResult | null>(
     null,
@@ -70,18 +103,18 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   const handleDownload = () => {
-    onDownload?.(file);
+    onDownload?.(fileNode);
   };
 
   // 处理文件
   useEffect(() => {
     try {
-      const result = fileTypeProcessor.processFile(file);
+      const result = fileTypeProcessor.processFile(fileNode);
       setProcessResult(result);
     } catch (err) {
       setError(err instanceof Error ? err.message : '文件处理失败');
     }
-  }, [file]);
+  }, [fileNode]);
 
   // 获取文本内容
   useEffect(() => {
@@ -168,7 +201,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     if (!canPreview || previewMode === 'none') {
       return (
         <PlaceholderContent
-          file={file}
+          file={fileNode}
           showFileInfo
           onDownload={handleDownload}
         >
@@ -212,7 +245,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
         return (
           <div className={`${PREFIX}__image`}>
-            <Image src={dataSource.previewUrl} alt={file.name} />
+            <Image src={dataSource.previewUrl} alt={fileNode.name} />
           </div>
         );
 
@@ -281,7 +314,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       default:
         return (
           <PlaceholderContent
-            file={file}
+            file={fileNode}
             showFileInfo
             onDownload={handleDownload}
           >
@@ -307,16 +340,16 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           <div className={`${PREFIX}__file-title`}>
             <span className={`${PREFIX}__file-icon`}>
               {getFileTypeIcon(
-                fileTypeProcessor.inferFileType(file).fileType,
-                file.icon,
-                file.name,
+                fileTypeProcessor.inferFileType(fileNode).fileType,
+                fileNode.icon,
+                fileNode.name,
               )}
             </span>
-            <span className={`${PREFIX}__file-name`}>{file.name}</span>
+            <span className={`${PREFIX}__file-name`}>{fileNode.name}</span>
           </div>
-          {file.lastModified && (
+          {fileNode.lastModified && (
             <div className={`${PREFIX}__generate-time`}>
-              生成时间：{formatLastModified(file.lastModified)}
+              生成时间：{formatLastModified(fileNode.lastModified)}
             </div>
           )}
         </div>

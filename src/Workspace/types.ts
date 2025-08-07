@@ -195,7 +195,7 @@ export interface FileProps extends BaseChildProps {
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
-  onPreview?: (file: FileNode) => void;
+  onPreview?: (file: FileNode) => FileNode | ReactNode | Promise<FileNode | ReactNode>;
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置

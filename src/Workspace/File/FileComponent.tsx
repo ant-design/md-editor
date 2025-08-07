@@ -63,6 +63,17 @@ const handleFileDownload = (file: FileNode) => {
   }
 };
 
+// 确保节点有唯一ID的辅助函数
+const ensureNodeWithId = <T extends FileNode | GroupNode>(node: T): T => ({
+  ...node,
+  id: node.id || generateUniqueId(node),
+});
+
+// 获取文件预览源的辅助函数
+const getPreviewSource = (file: FileNode): string => {
+  return file.previewUrl || file.url || '';
+};
+
 // 通用的可访问按钮组件
 interface AccessibleButtonProps {
   icon: React.ReactNode;
@@ -97,7 +108,8 @@ const FileItemComponent: FC<{
   onPreview?: (file: FileNode) => void;
 }> = ({ file, onClick, onDownload, onPreview }) => {
   // 确保文件有唯一ID
-  const fileWithId = { ...file, id: file.id || generateUniqueId(file) };
+  const fileWithId = ensureNodeWithId(file);
+  const fileTypeInfo = fileTypeProcessor.inferFileType(fileWithId);
 
   const handleClick = () => {
     onClick?.(fileWithId);
@@ -148,7 +160,7 @@ const FileItemComponent: FC<{
         <>
           <div className="workspace-file-item__icon">
             {getFileTypeIcon(
-              fileTypeProcessor.inferFileType(fileWithId).fileType,
+              fileTypeInfo.fileType,
               fileWithId.icon,
               fileWithId.name,
             )}
@@ -162,7 +174,7 @@ const FileItemComponent: FC<{
             <div className="workspace-file-item__details">
               <Typography.Text type="secondary" ellipsis>
                 <span className="workspace-file-item__type">
-                  {fileTypeProcessor.inferFileType(fileWithId).fileType}
+                  {fileTypeInfo.fileType}
                 </span>
                 {fileWithId.size && (
                   <>
@@ -219,15 +231,16 @@ const GroupHeader: FC<{
   onToggle?: (type: FileType, collapsed: boolean) => void;
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
 }> = ({ group, onToggle, onGroupDownload }) => {
+  const groupTypeInfo = fileTypeProcessor.inferFileType(group);
+  const groupType = group.type || groupTypeInfo.fileType;
+
   const handleToggle = () => {
-    const type = group.type || fileTypeProcessor.inferFileType(group).fileType;
-    onToggle?.(type, !group.collapsed);
+    onToggle?.(groupType, !group.collapsed);
   };
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const type = group.type || fileTypeProcessor.inferFileType(group).fileType;
-    onGroupDownload?.(group.children, type);
+    onGroupDownload?.(group.children, groupType);
   };
 
   const CollapseIcon = group.collapsed ? RightOutlined : DownOutlined;
@@ -247,7 +260,7 @@ const GroupHeader: FC<{
             <CollapseIcon className="workspace-file-group__toggle-icon" />
             <div className="workspace-file-group__type-icon">
               {getFileTypeIcon(
-                group.type || fileTypeProcessor.inferFileType(group).fileType,
+                groupType,
                 group.icon,
                 getRepresentativeFileName(),
               )}
@@ -340,7 +353,9 @@ export const FileComponent: FC<{
   onPreview,
   markdownEditorProps,
 }) => {
-  const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
+  const [previewFile, setPreviewFile] = useState<
+    FileNode | React.ReactNode | null
+  >(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
@@ -369,16 +384,21 @@ export const FileComponent: FC<{
   };
 
   // 预览文件处理
-  const handlePreview = (file: FileNode) => {
-    // 如果用户提供了预览方法，直接使用用户的方法
+  const handlePreview = async (file: FileNode) => {
+    // 如果用户提供了预览方法，尝试使用用户的方法
     if (onPreview) {
-      onPreview(file);
-      return;
+      const previewData = await onPreview(file);
+      if (previewData) {
+        // 如果返回的是FileNode或ReactNode，直接设置预览文件
+        setPreviewFile(previewData);
+        return;
+      }
+      // 如果用户方法没有返回值，继续使用内部预览逻辑
     }
 
-    // 如果用户设置了 canPreview=true 但没有提供预览方法，或者没有设置 canPreview，则使用系统默认的预览逻辑
+    // 使用组件库内部的预览逻辑
     if (isImageFile(file)) {
-      const previewSrc = file.previewUrl || file.url || '';
+      const previewSrc = getPreviewSource(file);
       setImagePreview({
         visible: true,
         src: previewSrc,
@@ -437,21 +457,17 @@ export const FileComponent: FC<{
     <>
       <div className="workspace-file-container">
         {nodes.map((node: FileNode | GroupNode) => {
-          const nodeWithId = { ...node, id: node.id || generateUniqueId(node) };
+          const nodeWithId = ensureNodeWithId(node);
 
           if ('children' in nodeWithId) {
             // 分组节点，使用内部状态覆盖外部的 collapsed 属性
+            const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
             const groupNode: GroupNode = {
               ...nodeWithId,
               collapsed:
-                collapsedGroups[
-                  fileTypeProcessor.inferFileType(nodeWithId).fileType
-                ] ?? nodeWithId.collapsed,
+                collapsedGroups[nodeTypeInfo.fileType] ?? nodeWithId.collapsed,
               // 确保子节点也有唯一ID
-              children: nodeWithId.children.map((child) => ({
-                ...child,
-                id: child.id || generateUniqueId(child),
-              })),
+              children: nodeWithId.children.map(ensureNodeWithId),
             };
             return (
               <FileGroupComponent

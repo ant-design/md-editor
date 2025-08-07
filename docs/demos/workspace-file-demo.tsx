@@ -26,6 +26,7 @@ const WorkspaceFileDemo: React.FC = () => {
       children: [
         {
           name: '项目需求文档.docx',
+          id: 'customPreviewDomID1',
           // type: 'word',// 非必填，会自动推断
           size: '2.3MB',
           lastModified: '08-20 12:30',
@@ -33,6 +34,7 @@ const WorkspaceFileDemo: React.FC = () => {
           canPreview: true,
         },
         {
+          id: 'customPreviewDomID2',
           name: 'md-preview用户手册.docx',
           type: 'plainText', // 非必填，用户自定义
           size: '1.8MB',
@@ -262,8 +264,38 @@ graph TD
     alert(`正在下载文件: ${file.name}`);
   };
 
-  const handlePreview = (file: FileNode) => {
+  const handlePreview = async (
+    file: FileNode,
+  ): Promise<FileNode | React.ReactNode> => {
     console.log('预览文件:', file);
+
+    // 模拟异步请求延迟
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // 检查特定的文件ID
+    if (file.id === 'customPreviewDomID2') {
+      // 返回带有特定内容的文件对象
+      return {
+        ...file,
+        content: '异步获取的内容：123',
+      };
+    } else if(file.id === 'customPreviewDomID1'){
+      // 返回自定义DOM
+      return (
+        <div
+          style={{
+            padding: '20px',
+            border: '1px solid #d9d9d9',
+            borderRadius: '6px',
+          }}
+        >
+          <h3>自定义预览内容</h3>
+          <p>文件名: {file.name}</p>
+          <p>文件ID: {file.id || '未指定'}</p>
+          <p>这是一个自定义的预览组件</p>
+        </div>
+      );
+    }
   };
 
   const handleGroupDownload = (files: FileNode[], groupType?: FileType) => {
