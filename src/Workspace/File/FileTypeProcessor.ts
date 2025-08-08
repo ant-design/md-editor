@@ -191,6 +191,7 @@ export class FileTypeProcessor {
     // 完全预览能力支持更多类型
     return [
       FileCategory.Text,
+      FileCategory.Code,
       FileCategory.Image,
       FileCategory.Video,
       FileCategory.Audio,
@@ -212,6 +213,7 @@ export class FileTypeProcessor {
 
     switch (typeInference.category) {
       case FileCategory.Text:
+      case FileCategory.Code:
         return 'inline';
       case FileCategory.Image:
         return 'modal';

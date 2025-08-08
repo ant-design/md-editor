@@ -173,14 +173,59 @@ export class FileDataSourceStrategy implements DataSourceStrategy {
   private getCategoryFromMimeType(mimeType: string): FileCategory {
     if (mimeType.startsWith('image/')) return FileCategory.Image;
     if (mimeType.startsWith('video/')) return FileCategory.Video;
+    // 先识别具体的代码类 MIME，避免被通用的 text/* 提前匹配
+    if (this.isCodeMimeType(mimeType)) return FileCategory.Code;
     if (mimeType.startsWith('text/')) return FileCategory.Text;
     if (mimeType === 'application/pdf') return FileCategory.PDF;
     return FileCategory.Other;
   }
 
+  private isCodeMimeType(mimeType: string): boolean {
+    const codeMimeTypes = [
+      'text/javascript',
+      'application/javascript',
+      'text/typescript',
+      'application/typescript',
+      'text/jsx',
+      'text/tsx',
+      'text/x-python',
+      'application/x-python-code',
+      'text/x-java-source',
+      'text/x-c++src',
+      'text/x-c++hdr',
+      'text/x-csrc',
+      'text/x-chdr',
+      'text/x-csharp',
+      'text/x-go',
+      'text/x-rust',
+      'text/x-php',
+      'application/x-httpd-php',
+      'text/x-ruby',
+      'text/x-shellscript',
+      'application/x-sh',
+      'text/x-powershell',
+      'text/x-sql',
+      'application/sql',
+      'text/x-kotlin',
+      'text/x-swift',
+      'text/x-dart',
+      'text/x-lua',
+      'text/x-perl',
+      'text/x-r',
+      'text/x-matlab',
+      'text/x-scala',
+      'application/json',
+      'application/yaml',
+      'text/yaml',
+      'application/toml',
+    ];
+    return codeMimeTypes.includes(mimeType);
+  }
+
   private getPreviewCapability(category: FileCategory): PreviewCapability {
     switch (category) {
       case FileCategory.Text:
+      case FileCategory.Code:
       case FileCategory.Image:
       case FileCategory.Video:
       case FileCategory.PDF:

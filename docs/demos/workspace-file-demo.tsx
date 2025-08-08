@@ -253,6 +253,44 @@ graph TD
         },
       ],
     },
+    {
+      name: '代码示例',
+      type: 'javascript',
+      children: [
+        {
+          name: 'hello.js',
+          size: '156B',
+          lastModified: '2025-08-01 09:00:00',
+          content: "console.log('Hello, World!');\n\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\nconsole.log(greet('Workspace'));",
+        },
+        {
+          name: 'App.tsx',
+          size: '521B',
+          lastModified: '2025-08-01 09:05:00',
+          content: "import React, { useState } from 'react';\n\nconst App: React.FC = () => {\n  const [count, setCount] = useState(0);\n  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;\n};\n\nexport default App;",
+        },
+        {
+          name: 'server.py',
+          size: '754B',
+          lastModified: '2025-08-01 09:10:00',
+          content: "from flask import Flask\napp = Flask(__name__)\n\n@app.get('/')\ndef index():\n    return 'OK'\n\nif __name__ == '__main__':\n    app.run()",
+        },
+        {
+          name: 'package.json',
+          size: '428B',
+          lastModified: '2025-08-01 09:12:00',
+          content: "{\n  \"name\": \"code-preview-demo\",\n  \"version\": \"1.0.0\",\n  \"scripts\": { \n    \"build\": \"webpack --mode production\" \n  }\n}",
+          type: 'config',
+        },
+        {
+          name: 'Dockerfile',
+          size: '445B',
+          lastModified: '2025-08-01 09:15:00',
+          content: "FROM node:18-alpine\nWORKDIR /app\nCMD [\"node\", \"-v\"]",
+          type: 'config',
+        },
+      ],
+    },
   ]);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import ArchiveIcon from '../icons/ArchiveIcon';
 import AudioIcon from '../icons/AudioIcon';
+import CodeIcon from '../icons/CodeIcon';
 import CsvIcon from '../icons/CsvIcon';
 import DefaultFileIcon from '../icons/DefaultFileIcon';
 import HtmlIcon from '../icons/HtmlIcon';
@@ -43,6 +44,7 @@ const EXTENSION_ICON_MAP: Record<string, React.ReactNode> = {
 // 文件类型到默认图标的映射
 const TYPE_ICON_MAP: Record<FileCategory, React.ReactNode> = {
   [FileCategory.Text]: <MdIcon />,
+  [FileCategory.Code]: <CodeIcon />,
   [FileCategory.PDF]: <PdfIcon />,
   [FileCategory.Word]: <WordIcon />,
   [FileCategory.Excel]: <XlsxIcon />,

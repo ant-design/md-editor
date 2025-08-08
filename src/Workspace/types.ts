@@ -50,6 +50,7 @@ export interface TaskProps extends BaseChildProps {
 // 文件类型分类
 export enum FileCategory {
   Text = 'text',
+  Code = 'code',
   Image = 'image',
   Video = 'video',
   Audio = 'audio',
@@ -155,6 +156,128 @@ export const FILE_TYPES: Record<string, FileTypeDefinition> = {
       'application/x-bzip2',
     ],
     name: '压缩文件',
+  },
+  // 代码文件类型
+  javascript: {
+    category: FileCategory.Code,
+    extensions: ['js', 'mjs', 'cjs'],
+    mimeTypes: ['text/javascript', 'application/javascript'],
+    name: 'JavaScript',
+  },
+  typescript: {
+    category: FileCategory.Code,
+    extensions: ['ts'],
+    mimeTypes: ['text/typescript', 'application/typescript'],
+    name: 'TypeScript',
+  },
+  react: {
+    category: FileCategory.Code,
+    extensions: ['jsx', 'tsx'],
+    mimeTypes: ['text/jsx', 'text/tsx'],
+    name: 'React',
+  },
+  python: {
+    category: FileCategory.Code,
+    extensions: ['py', 'pyw', 'pyi'],
+    mimeTypes: ['text/x-python', 'application/x-python-code'],
+    name: 'Python',
+  },
+  java: {
+    category: FileCategory.Code,
+    extensions: ['java'],
+    mimeTypes: ['text/x-java-source'],
+    name: 'Java',
+  },
+  cpp: {
+    category: FileCategory.Code,
+    extensions: ['cpp', 'cc', 'cxx', 'c++', 'hpp', 'hxx', 'h++'],
+    mimeTypes: ['text/x-c++src', 'text/x-c++hdr'],
+    name: 'C++',
+  },
+  c: {
+    category: FileCategory.Code,
+    extensions: ['c', 'h'],
+    mimeTypes: ['text/x-csrc', 'text/x-chdr'],
+    name: 'C',
+  },
+  csharp: {
+    category: FileCategory.Code,
+    extensions: ['cs'],
+    mimeTypes: ['text/x-csharp'],
+    name: 'C#',
+  },
+  go: {
+    category: FileCategory.Code,
+    extensions: ['go'],
+    mimeTypes: ['text/x-go'],
+    name: 'Go',
+  },
+  rust: {
+    category: FileCategory.Code,
+    extensions: ['rs'],
+    mimeTypes: ['text/x-rust'],
+    name: 'Rust',
+  },
+  php: {
+    category: FileCategory.Code,
+    extensions: ['php', 'php3', 'php4', 'php5', 'phtml'],
+    mimeTypes: ['text/x-php', 'application/x-httpd-php'],
+    name: 'PHP',
+  },
+  ruby: {
+    category: FileCategory.Code,
+    extensions: ['rb', 'rbw'],
+    mimeTypes: ['text/x-ruby'],
+    name: 'Ruby',
+  },
+  shell: {
+    category: FileCategory.Code,
+    extensions: ['sh', 'bash', 'zsh', 'fish'],
+    mimeTypes: ['text/x-shellscript', 'application/x-sh'],
+    name: 'Shell脚本',
+  },
+  powershell: {
+    category: FileCategory.Code,
+    extensions: ['ps1', 'psm1', 'psd1'],
+    mimeTypes: ['text/x-powershell'],
+    name: 'PowerShell',
+  },
+  sql: {
+    category: FileCategory.Code,
+    extensions: ['sql'],
+    mimeTypes: ['text/x-sql', 'application/sql'],
+    name: 'SQL',
+  },
+  lua: {
+    category: FileCategory.Code,
+    extensions: ['lua'],
+    mimeTypes: ['text/x-lua'],
+    name: 'Lua',
+  },
+  perl: {
+    category: FileCategory.Code,
+    extensions: ['pl', 'pm', 'perl'],
+    mimeTypes: ['text/x-perl'],
+    name: 'Perl',
+  },
+  scala: {
+    category: FileCategory.Code,
+    extensions: ['scala', 'sc'],
+    mimeTypes: ['text/x-scala'],
+    name: 'Scala',
+  },
+  config: {
+    category: FileCategory.Code,
+    extensions: ['json', 'yaml', 'yml', 'toml', 'ini', 'conf', 'cfg', 'properties'],
+    mimeTypes: [
+      'application/json',
+      'application/yaml',
+      'text/yaml',
+      'application/toml',
+      'text/plain',
+      'application/x-wine-extension-ini',
+    ],
+    name: '配置文件',
   },
 } as const;
 

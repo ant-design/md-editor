@@ -8,6 +8,10 @@ import {
 } from '../../MarkdownEditor';
 import { FileNode } from '../types';
 import { formatLastModified } from '../utils';
+import {
+  getLanguageFromFilename,
+  wrapContentInCodeBlock,
+} from '../utils/codeLanguageUtils';
 import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
 import { getFileTypeIcon } from './utils';
 
@@ -62,8 +66,12 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   markdownEditorProps,
 }) => {
   // Check if file is a ReactNode (not a FileNode)
-  const isReactNode = React.isValidElement(file) || typeof file === 'string' || typeof file === 'number' || typeof file === 'boolean';
-  
+  const isReactNode =
+    React.isValidElement(file) ||
+    typeof file === 'string' ||
+    typeof file === 'number' ||
+    typeof file === 'boolean';
+
   // If it's a ReactNode, render it directly with minimal wrapper
   if (isReactNode) {
     return (
@@ -93,14 +101,20 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
   // Cast to FileNode for the rest of the component since we know it's not a ReactNode
   const fileNode = file as FileNode;
-  
+
   const editorRef = useRef<MarkdownEditorInstance>();
   const [processResult, setProcessResult] = useState<FileProcessResult | null>(
     null,
   );
-  const [textContent, setTextContent] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  type ContentState =
+    | { status: 'idle' | 'loading' | 'ready'; mdContent: string }
+    | { status: 'error'; error: string };
+
+  const [contentState, setContentState] = useState<ContentState>({
+    status: 'idle',
+    mdContent: '',
+  });
 
   const handleDownload = () => {
     onDownload?.(fileNode);
@@ -112,29 +126,40 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       const result = fileTypeProcessor.processFile(fileNode);
       setProcessResult(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : '文件处理失败');
+      setContentState({
+        status: 'error',
+        error: err instanceof Error ? err.message : '文件处理失败',
+      });
     }
   }, [fileNode]);
 
-  // 获取文本内容
+  // 获取并准备 Markdown 内容（含代码自动包裹）
   useEffect(() => {
     if (!processResult) return;
 
     const { typeInference, dataSource } = processResult;
 
-    // 只处理文本类型文件
-    if (typeInference.category !== 'text') return;
+    // 只处理文本类型和代码类型文件
+    if (typeInference.category !== 'text' && typeInference.category !== 'code')
+      return;
 
-    // 如果数据源直接提供了内容
+    const buildMd = (raw: string): string => {
+      if (typeInference.category === 'code') {
+        const language = getLanguageFromFilename(fileNode.name);
+        return wrapContentInCodeBlock(raw, language);
+      }
+      return raw;
+    };
+
+    // 直接内容
     if (dataSource.content) {
-      setTextContent(dataSource.content);
+      setContentState({ status: 'ready', mdContent: buildMd(dataSource.content) });
       return;
     }
 
-    // 否则通过URL加载内容
+    // 通过 URL 拉取内容
     if (dataSource.previewUrl) {
-      setIsLoading(true);
-      setError(null);
+      setContentState({ status: 'loading', mdContent: '' });
 
       fetch(dataSource.previewUrl)
         .then((response) => {
@@ -143,25 +168,28 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           }
           return response.text();
         })
-        .then(setTextContent)
+        .then((raw) => setContentState({ status: 'ready', mdContent: buildMd(raw) }))
         .catch((err) => {
           const errorMessage =
             err instanceof Error ? err.message : '加载文本内容失败';
-          setError(errorMessage);
+          setContentState({ status: 'error', error: errorMessage });
           console.error('加载文本内容失败:', err);
-        })
-        .finally(() => {
-          setIsLoading(false);
         });
     }
-  }, [processResult]);
+  }, [processResult, fileNode.name]);
+
+
 
   // 更新编辑器内容
   useEffect(() => {
-    if (editorRef.current?.store && textContent) {
-      editorRef.current.store.setMDContent(textContent);
+    if (
+      editorRef.current?.store &&
+      contentState.status === 'ready' &&
+      contentState.mdContent
+    ) {
+      editorRef.current.store.setMDContent(contentState.mdContent);
     }
-  }, [textContent]);
+  }, [contentState]);
 
   // 清理资源
   useEffect(() => {
@@ -181,12 +209,12 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       );
     }
 
-    if (error) {
+    if (contentState.status === 'error') {
       return (
         <PlaceholderContent>
           <Alert
             message="文件处理失败"
-            description={error}
+            description={contentState.error}
             type="error"
             showIcon
           />
@@ -215,10 +243,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     // 根据文件类型渲染预览内容
     switch (typeInference.category) {
       case 'text':
-        if (isLoading) {
+      case 'code':
+        if (contentState.status === 'loading') {
           return (
             <PlaceholderContent>
-              <Spin size="large" tip="正在加载文本内容..." />
+              <Spin size="large" tip="正在加载文件内容..." />
             </PlaceholderContent>
           );
         }
@@ -229,6 +258,9 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               {...markdownEditorProps}
               editorRef={editorRef}
               initValue=""
+              contentStyle={{
+                padding: 0,
+              }}
               readonly
             />
           </div>
