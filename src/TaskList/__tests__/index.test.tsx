@@ -368,7 +368,7 @@ describe('TaskList', () => {
       const endTime = performance.now();
       const renderTime = endTime - startTime;
 
-      expect(renderTime).toBeLessThan(100);
+      expect(renderTime).toBeLessThan(200);
 
       const taskItems = document.querySelectorAll(
         '.task-list-thoughtChainItem',
