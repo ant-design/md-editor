@@ -174,7 +174,7 @@ const FileItemComponent: FC<{
             <div className="workspace-file-item__details">
               <Typography.Text type="secondary" ellipsis>
                 <span className="workspace-file-item__type">
-                  {fileTypeInfo.fileType}
+                  {fileTypeInfo.displayType || fileTypeInfo.fileType}
                 </span>
                 {fileWithId.size && (
                   <>

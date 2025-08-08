@@ -170,6 +170,7 @@ export interface BaseNode {
 
 // 文件节点（叶子节点）
 export interface FileNode extends BaseNode {
+  displayType?: string; // 用于展示在文件标题下方的类型：文件类型、文件大小、文件更新时间
   type?: FileType;
   size?: string | number;
   lastModified?: string | number | Date;
@@ -195,7 +196,9 @@ export interface FileProps extends BaseChildProps {
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
-  onPreview?: (file: FileNode) => FileNode | ReactNode | Promise<FileNode | ReactNode>;
+  onPreview?: (
+    file: FileNode,
+  ) => FileNode | ReactNode | Promise<FileNode | ReactNode>;
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置

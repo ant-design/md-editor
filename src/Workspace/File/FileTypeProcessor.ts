@@ -16,6 +16,8 @@ import {
  * 文件类型推断结果
  */
 export interface FileTypeInference {
+  /** 用户自定义的、显示在页面上的类型 */
+  displayType?: string;
   /** 推断出的文件类型 */
   fileType: FileType;
   /** 文件分类 */
@@ -53,6 +55,7 @@ export class FileTypeProcessor {
     // 1. 优先使用明确指定的类型
     if (file.type && file.type in FILE_TYPES) {
       return {
+        displayType: file.displayType,
         fileType: file.type,
         category: getTypeCategoryFromType(file.type),
         confidence: 'high',
@@ -65,6 +68,7 @@ export class FileTypeProcessor {
       const typeFromMime = this.getTypeFromMimeType(file.file.type);
       if (typeFromMime) {
         return {
+          displayType: file.displayType,
           fileType: typeFromMime,
           category: getTypeCategoryFromType(typeFromMime),
           confidence: 'high',
@@ -78,6 +82,7 @@ export class FileTypeProcessor {
       const typeFromExtension = this.getTypeFromFileName(file.name);
       if (typeFromExtension) {
         return {
+          displayType: file.displayType,
           fileType: typeFromExtension,
           category: getTypeCategoryFromType(typeFromExtension),
           confidence: 'medium',
@@ -91,6 +96,7 @@ export class FileTypeProcessor {
       const typeFromUrlExtension = this.getTypeFromUrl(file.url);
       if (typeFromUrlExtension) {
         return {
+          displayType: file.displayType,
           fileType: typeFromUrlExtension,
           category: getTypeCategoryFromType(typeFromUrlExtension),
           confidence: 'low',
@@ -101,6 +107,7 @@ export class FileTypeProcessor {
 
     // 5. 默认类型
     return {
+      displayType: file.displayType,
       fileType: 'plainText',
       category: FileCategory.Text,
       confidence: 'low',
@@ -261,7 +268,9 @@ export const isTextFile = (file: FileNode): boolean => {
 };
 
 export const isArchiveFile = (file: FileNode): boolean => {
-  return fileTypeProcessor.inferFileType(file).category === FileCategory.Archive;
+  return (
+    fileTypeProcessor.inferFileType(file).category === FileCategory.Archive
+  );
 };
 
 export const isAudioFile = (file: FileNode): boolean => {
