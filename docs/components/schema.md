@@ -2,6 +2,9 @@
 nav:
   title: 组件
   order: 1
+group:
+  title: 渲染器
+  order: 3
 ---
 
 # Schema

@@ -279,8 +279,14 @@ export function Media({
             width: element.width ? `${element.width}px` : '100%',
             height: element.height ? `${element.height}px` : 'auto',
             maxWidth: 600,
+            borderRadius: '6px',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
           }}
           src={state()?.url || ''}
+          preload="metadata"
+          onError={() => {
+            console.warn('Video failed to load:', state()?.url);
+          }}
         />
       );
 

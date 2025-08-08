@@ -1,6 +1,9 @@
 ---
 nav:
   order: 1
+group:
+  title: 编辑器
+  order: 1
 ---
 
 # Markdown Editor
