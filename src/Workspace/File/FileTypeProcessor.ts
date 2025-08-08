@@ -22,10 +22,6 @@ export interface FileTypeInference {
   fileType: FileType;
   /** 文件分类 */
   category: FileCategory;
-  /** 推断的置信度 */
-  confidence: 'high' | 'medium' | 'low';
-  /** 推断依据 */
-  source: 'explicit' | 'mime-type' | 'extension' | 'url-extension' | 'fallback';
 }
 
 /**
@@ -58,8 +54,6 @@ export class FileTypeProcessor {
         displayType: file.displayType,
         fileType: file.type,
         category: getTypeCategoryFromType(file.type),
-        confidence: 'high',
-        source: 'explicit',
       };
     }
 
@@ -71,8 +65,6 @@ export class FileTypeProcessor {
           displayType: file.displayType,
           fileType: typeFromMime,
           category: getTypeCategoryFromType(typeFromMime),
-          confidence: 'high',
-          source: 'mime-type',
         };
       }
     }
@@ -85,8 +77,6 @@ export class FileTypeProcessor {
           displayType: file.displayType,
           fileType: typeFromExtension,
           category: getTypeCategoryFromType(typeFromExtension),
-          confidence: 'medium',
-          source: 'extension',
         };
       }
     }
@@ -99,8 +89,6 @@ export class FileTypeProcessor {
           displayType: file.displayType,
           fileType: typeFromUrlExtension,
           category: getTypeCategoryFromType(typeFromUrlExtension),
-          confidence: 'low',
-          source: 'url-extension',
         };
       }
     }
@@ -110,8 +98,6 @@ export class FileTypeProcessor {
       displayType: file.displayType,
       fileType: 'plainText',
       category: FileCategory.Text,
-      confidence: 'low',
-      source: 'fallback',
     };
   }
 
