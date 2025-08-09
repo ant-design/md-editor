@@ -12,32 +12,28 @@
         视频支持功能演示
       </h1>
       <div
-        class="markdown-editor ant-md-editor ant-md-editor-edit"
-        style="width: 400px; height: auto; display: flex; flex-direction: column; max-height: 100%; border: 1px solid rgb(217, 217, 217); border-radius: 6px;"
+        class="markdown-editor ant-md-editor ant-md-editor-readonly ant-md-editor-report"
+        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
           style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
           tabindex="-1"
         >
           <div
-            aria-multiline="true"
             autocapitalize="false"
             autocorrect="false"
-            class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-edit"
-            contenteditable="true"
+            class="ant-md-editor-content-readonly ant-md-editor-content ant-md-editor-content-report"
             data-slate-editor="true"
             data-slate-node="value"
-            role="textbox"
             spellcheck="false"
-            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
             zindex="-1"
           >
             <div
-              class="ant-md-editor-drag-el empty"
-              data-be="paragraph"
-              data-empty="true"
               data-slate-node="element"
-              data-slate-placeholder="请输入内容..."
+              data-testid="markdown-heading"
+              id="视频支持演示"
+              style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -48,21 +44,665 @@
                   draggable="false"
                 >
                   <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
+                    data-slate-string="true"
                   >
-                    ﻿
-                    <br />
+                    视频支持演示
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-slate-node="element"
+              data-testid="markdown-heading"
+              id="基本视频标签"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    基本视频标签
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="media"
+                  draggable="false"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+                >
+                  <div
+                    aria-describedby="test-id"
+                    class="md-editor-media"
+                    contenteditable="false"
+                    draggable="false"
+                    style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                    tabindex="-1"
+                  >
+                    <video
+                      controls=""
+                      preload="metadata"
+                      src="https://www.w3schools.com/html/mov_bbb.mp4"
+                      style="width: 400px; height: auto; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
+                    />
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-slate-node="element"
+              data-testid="markdown-heading"
+              id="带source标签的视频"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    带source标签的视频
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="media"
+                  draggable="false"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+                >
+                  <div
+                    aria-describedby="test-id"
+                    class="md-editor-media"
+                    contenteditable="false"
+                    draggable="false"
+                    style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column;"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="ant-image"
+                      crossorigin="anonymous"
+                      draggable="false"
+                      referrerpolicy="no-referrer"
+                      style="width: 600px;"
+                    >
+                      <img
+                        alt="image"
+                        class="ant-image-img"
+                        crossorigin="anonymous"
+                        draggable="false"
+                        referrerpolicy="no-referrer"
+                        src="https://aicomm-dev.oss-cn-shanghai.aliyuncs.com/aico/boss/transfer/wrong_question/Fa892bfbe407045efa56813498df8e508.video/mp4?Expires=1755941235&OSSAccessKeyId=LTAI5tKiBhsKfhwgbsFbC3CL&Signature=0tSi7oBjEXZHjpkSjLCRbkUpmIg="
+                        style="max-width: 800px;"
+                        width="600"
+                      />
+                      <div
+                        class="ant-image-mask"
+                      >
+                        <div
+                          class="ant-image-mask-info"
+                        >
+                          <span
+                            aria-label="eye"
+                            class="anticon anticon-eye"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="eye"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                              />
+                            </svg>
+                          </span>
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-slate-node="element"
+              data-testid="markdown-heading"
+              id="自闭合视频标签"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    自闭合视频标签
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="media"
+                  draggable="false"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+                >
+                  <div
+                    aria-describedby="test-id"
+                    class="md-editor-media"
+                    contenteditable="false"
+                    draggable="false"
+                    style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                    tabindex="-1"
+                  >
+                    <video
+                      controls=""
+                      preload="metadata"
+                      src="test.mp4"
+                      style="width: 100%; height: auto; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
+                    />
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-slate-node="element"
+              data-testid="markdown-heading"
+              id="带完整属性的视频"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    带完整属性的视频
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="media"
+                  draggable="false"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+                >
+                  <div
+                    aria-describedby="test-id"
+                    class="md-editor-media"
+                    contenteditable="false"
+                    draggable="false"
+                    style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                    tabindex="-1"
+                  >
+                    <video
+                      autoplay=""
+                      controls=""
+                      loop=""
+                      poster="poster.jpg"
+                      preload="metadata"
+                      src="test.mp4"
+                      style="width: 640px; height: 360px; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
+                    />
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-slate-node="element"
+              data-testid="markdown-heading"
+              id="多个source的视频"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    多个source的视频
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="media"
+                  draggable="false"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+                >
+                  <div
+                    aria-describedby="test-id"
+                    class="md-editor-media"
+                    contenteditable="false"
+                    draggable="false"
+                    style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                    tabindex="-1"
+                  >
+                    <video
+                      autoplay=""
+                      controls=""
+                      loop=""
+                      preload="metadata"
+                      src="https://example.com/video.mp4"
+                      style="width: 800px; height: 450px; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
+                    />
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
                   </span>
                 </span>
               </span>
             </div>
           </div>
         </div>
-        <div
-          class="ant-md-editor-focus"
-          style="height: 64px;"
-        />
       </div>
     </div>
   </div>
