@@ -13,6 +13,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
       return (
         <div
           {...node.attributes}
+          data-testid="schema-container"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -20,6 +21,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
         >
           {apaasify.render(props)}
           <div
+            data-testid="schema-hidden-json"
             style={{
               height: 1,
               opacity: 0,
@@ -37,6 +39,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
     if (node.language === 'agentar-card') {
       return (
         <div
+          data-testid="agentar-card-container"
           style={{
             padding: '0.5em',
           }}
@@ -56,6 +59,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
     return (
       <div
         {...node.attributes}
+        data-testid="schema-container"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -63,6 +67,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
         }}
       >
         <div
+          data-testid="schema-clickable"
           style={{
             padding: 8,
             width: '100%',
@@ -88,6 +93,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
           {JSON.stringify(node?.value, null, 2)}
         </div>
         <span
+          data-testid="schema-hidden-children"
           style={{
             display: 'none',
           }}

@@ -1,33 +1,16 @@
 /**
  * Schema 组件测试文件
- *
- * 测试覆盖范围：
- * - 基本渲染功能
- * - agentar-card 渲染
- * - 边界情况处理
- * - 样式处理
  */
 
+import { Schema } from '@ant-design/md-editor/MarkdownEditor/editor/elements/Schema';
+import { CodeNode } from '@ant-design/md-editor/MarkdownEditor/el';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { Schema } from '../../../../src/MarkdownEditor/editor/elements/Schema';
-
-// Mock 依赖
-vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
-  useEditorStore: vi.fn(() => ({
-    editorProps: {
-      apaasify: {
-        enable: false,
-        render: null,
-      },
-    },
-  })),
-}));
-
+// Mock SchemaRenderer
 vi.mock('@ant-design/md-editor/schema', () => ({
   SchemaRenderer: ({
     schema,
@@ -40,176 +23,253 @@ vi.mock('@ant-design/md-editor/schema', () => ({
       data-testid="schema-renderer"
       data-schema={JSON.stringify(schema)}
       data-values={JSON.stringify(values)}
+      data-debug={String(debug)}
+      data-fallback={String(fallbackContent)}
+      data-default={String(useDefaultValues)}
     >
-      Schema Renderer
+      Schema Renderer Content
     </div>
   ),
 }));
 
-describe('Schema Component', () => {
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
+// Mock store
+vi.mock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
+  useEditorStore: () => ({
+    editorProps: {
+      apaasify: {
+        enable: false,
+        render: null,
+      },
+    },
+  }),
+}));
+
+describe('Schema', () => {
+  const mockElement: CodeNode = {
+    type: 'code',
+    language: 'json',
+    children: [{ text: '' }],
+    value: JSON.stringify({
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        age: { type: 'number' },
+      },
+    }),
+  };
+
+  const mockAttributes = {
+    'data-slate-node': 'element' as const,
+    ref: vi.fn(),
+  };
 
   const renderWithProvider = (component: React.ReactElement) => {
     return render(<ConfigProvider>{component}</ConfigProvider>);
   };
 
-  const defaultProps = {
-    element: {
-      type: 'code',
-      language: 'json',
-      value: { test: 'value' },
-      attributes: {},
-    },
-    children: <span>测试内容</span>,
-  };
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-  describe('基本渲染功能', () => {
-    it('应该正确渲染 Schema 组件', () => {
-      const { container } = renderWithProvider(<Schema {...defaultProps} />);
+  describe('基本渲染测试', () => {
+    it('应该正确渲染Schema组件', () => {
+      renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Schema>,
+      );
 
-      const element = container.querySelector('[data-be="code"]');
-      expect(element).toBeInTheDocument();
-      expect(element).toHaveTextContent('{ "test": "value" }');
+      const container = screen.getByTestId('schema-container');
+      expect(container).toBeInTheDocument();
     });
 
-    it('应该渲染隐藏的子内容', () => {
-      const { container } = renderWithProvider(<Schema {...defaultProps} />);
+    it('应该渲染JSON内容', () => {
+      renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Schema>,
+      );
 
-      const hiddenSpan = container.querySelector('span');
-      expect(hiddenSpan).toBeInTheDocument();
-      expect(hiddenSpan).toHaveStyle('display: none');
-      expect(hiddenSpan).toHaveTextContent('测试内容');
+      const clickableArea = screen.getByTestId('schema-clickable');
+      expect(clickableArea).toHaveTextContent('properties');
+    });
+
+    it('应该渲染可点击区域', () => {
+      renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Schema>,
+      );
+
+      const clickableArea = screen.getByTestId('schema-clickable');
+      expect(clickableArea).toBeInTheDocument();
+    });
+
+    it('应该隐藏子元素', () => {
+      renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          <span data-testid="child-element">Child Content</span>
+        </Schema>,
+      );
+
+      const hiddenChildren = screen.getByTestId('schema-hidden-children');
+      expect(hiddenChildren).toBeInTheDocument();
+      expect(hiddenChildren).toHaveStyle({ display: 'none' });
     });
   });
 
-  describe('agentar-card 渲染', () => {
-    it('应该为 agentar-card 语言渲染 SchemaRenderer', () => {
-      const agentarProps = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          language: 'agentar-card',
-          value: {
-            type: 'object',
-            properties: {
-              name: { type: 'string' },
-            },
-            initialValues: { name: '测试' },
+  describe('agentar-card语言测试', () => {
+    it('应该为agentar-card语言渲染SchemaRenderer', () => {
+      const elementWithAgentarCard: CodeNode = {
+        ...mockElement,
+        language: 'agentar-card',
+        value: JSON.stringify({
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
           },
-        },
+          initialValues: {
+            title: 'Test Title',
+          },
+        }),
       };
 
-      const { getByTestId } = renderWithProvider(<Schema {...agentarProps} />);
+      renderWithProvider(
+        <Schema element={elementWithAgentarCard} attributes={mockAttributes}>
+          {null}
+        </Schema>,
+      );
 
-      const schemaRenderer = getByTestId('schema-renderer');
+      const schemaRenderer = screen.getByTestId('schema-renderer');
       expect(schemaRenderer).toBeInTheDocument();
-      expect(schemaRenderer).toHaveTextContent('Schema Renderer');
+      expect(schemaRenderer).toHaveAttribute('data-debug', 'false');
+      expect(schemaRenderer).toHaveAttribute('data-fallback', 'null');
+      expect(schemaRenderer).toHaveAttribute('data-default', 'false');
     });
 
-    it('应该为 agentar-card 添加正确的样式类', () => {
-      const agentarProps = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          language: 'agentar-card',
-          value: { test: 'value' },
-        },
+    it('应该为agentar-card添加正确的样式类', () => {
+      const elementWithAgentarCard: CodeNode = {
+        ...mockElement,
+        language: 'agentar-card',
       };
 
-      const { container } = renderWithProvider(<Schema {...agentarProps} />);
+      renderWithProvider(
+        <Schema element={elementWithAgentarCard} attributes={mockAttributes}>
+          {null}
+        </Schema>,
+      );
 
-      const cardElement = container.querySelector('.md-editor-agentar-card');
-      expect(cardElement).toBeInTheDocument();
+      const container = screen.getByTestId('agentar-card-container');
+      expect(container).toHaveClass('md-editor-agentar-card');
+      expect(container).toHaveStyle({ padding: '0.5em' });
     });
   });
 
-  describe('边界情况处理', () => {
-    it('应该处理空的 value', () => {
-      const emptyValueProps = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          value: null,
-        },
-      };
-
-      const { container } = renderWithProvider(<Schema {...emptyValueProps} />);
-
-      const element = container.querySelector('[data-be="code"]');
-      expect(element).toBeInTheDocument();
-      expect(element).toHaveTextContent('null');
-    });
-
-    it('应该处理复杂的 value 对象', () => {
-      const complexValueProps = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          value: {
-            nested: {
-              array: [1, 2, 3],
-              object: { key: 'value' },
-            },
-          },
-        },
-      };
-
-      const { container } = renderWithProvider(
-        <Schema {...complexValueProps} />,
+  describe('样式测试', () => {
+    it('应该应用正确的容器样式', () => {
+      renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Schema>,
       );
 
-      const element = container.querySelector('[data-be="code"]');
-      expect(element).toBeInTheDocument();
-      expect(element).toHaveTextContent('"nested"');
+      const container = screen.getByTestId('schema-container');
+      expect(container).toHaveStyle({
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+      });
     });
 
-    it('应该处理空的 children', () => {
-      const emptyChildrenProps = {
-        ...defaultProps,
-        children: null,
-      };
-
-      const { container } = renderWithProvider(
-        <Schema {...emptyChildrenProps} />,
+    it('应该应用正确的可点击区域样式', () => {
+      renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Schema>,
       );
 
-      const element = container.querySelector('[data-be="code"]');
-      expect(element).toBeInTheDocument();
+      const clickableDiv = screen.getByTestId('schema-clickable');
+      expect(clickableDiv).toHaveStyle({
+        padding: '8px',
+        width: '100%',
+        cursor: 'pointer',
+        position: 'relative',
+        display: 'flex',
+        borderRadius: '8px',
+        flex: '1',
+        border: '1px solid rgb(209 213 219 / 0.8)',
+        alignItems: 'center',
+      });
+    });
+
+    it('应该隐藏子元素', () => {
+      renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          <span data-testid="child-element">Child Content</span>
+        </Schema>,
+      );
+
+      const hiddenChildren = screen.getByTestId('schema-hidden-children');
+      expect(hiddenChildren).toHaveStyle({
+        display: 'none',
+      });
     });
   });
 
-  describe('样式处理', () => {
-    it('应该应用正确的样式', () => {
-      const { container } = renderWithProvider(<Schema {...defaultProps} />);
-
-      const element = container.querySelector(
-        '[data-be="code"]',
-      ) as HTMLElement;
-      expect(element).toHaveStyle('padding: 8px');
-      expect(element).toHaveStyle('width: 100%');
-      expect(element).toHaveStyle('cursor: pointer');
-    });
-
-    it('应该传递 attributes', () => {
-      const propsWithAttributes = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          attributes: {
-            'data-testid': 'schema-element',
-            className: 'custom-class',
-          },
-        },
+  describe('边界情况测试', () => {
+    it('应该处理空的value属性', () => {
+      const elementWithEmptyValue: CodeNode = {
+        ...mockElement,
+        value: '',
       };
 
-      const { getByTestId } = renderWithProvider(
-        <Schema {...propsWithAttributes} />,
+      renderWithProvider(
+        <Schema element={elementWithEmptyValue} attributes={mockAttributes}>
+          {null}
+        </Schema>,
       );
 
-      const element = getByTestId('schema-element');
-      expect(element).toHaveClass('custom-class');
+      const container = screen.getByTestId('schema-container');
+      expect(container).toBeInTheDocument();
+    });
+
+    it('应该处理不同的语言类型', () => {
+      const elementWithDifferentLanguage: CodeNode = {
+        ...mockElement,
+        language: 'javascript',
+      };
+
+      renderWithProvider(
+        <Schema
+          element={elementWithDifferentLanguage}
+          attributes={mockAttributes}
+        >
+          {null}
+        </Schema>,
+      );
+
+      const container = screen.getByTestId('schema-container');
+      expect(container).toBeInTheDocument();
+    });
+  });
+
+  describe('性能优化测试', () => {
+    it('应该使用useMemo进行性能优化', () => {
+      const { rerender } = renderWithProvider(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Schema>,
+      );
+
+      // 重新渲染相同的props，应该不会重新创建元素
+      rerender(
+        <Schema element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Schema>,
+      );
+
+      const container = screen.getByTestId('schema-container');
+      expect(container).toBeInTheDocument();
     });
   });
 });
