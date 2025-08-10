@@ -62,6 +62,7 @@
               class="ant-md-editor-drag-el"
               data-be="image"
               data-slate-node="element"
+              data-testid="image-container"
               draggable="false"
               style="cursor: pointer; position: relative; user-select: none;"
             >
@@ -74,6 +75,7 @@
                 tabindex="-1"
               >
                 <div
+                  data-testid="resize-image-container"
                   style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 200px; height: 200px;"
                 >
                   <div
@@ -223,6 +225,7 @@
               class="ant-md-editor-drag-el"
               data-be="image"
               data-slate-node="element"
+              data-testid="image-container"
               draggable="false"
               style="cursor: pointer; position: relative; user-select: none;"
             >
@@ -235,6 +238,7 @@
                 tabindex="-1"
               >
                 <div
+                  data-testid="resize-image-container"
                   style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 200px; height: 200px;"
                 >
                   <div
@@ -384,6 +388,7 @@
               class="ant-md-editor-drag-el"
               data-be="image"
               data-slate-node="element"
+              data-testid="image-container"
               draggable="false"
               style="cursor: pointer; position: relative; user-select: none;"
             >
@@ -396,6 +401,7 @@
                 tabindex="-1"
               >
                 <div
+                  data-testid="resize-image-container"
                   style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 400px; height: 400px;"
                 >
                   <div
@@ -589,6 +595,7 @@
               class="ant-md-editor-drag-el"
               data-be="image"
               data-slate-node="element"
+              data-testid="image-container"
               draggable="false"
               style="cursor: pointer; position: relative; user-select: none;"
             >
@@ -689,6 +696,7 @@
               class="ant-md-editor-drag-el"
               data-be="image"
               data-slate-node="element"
+              data-testid="image-container"
               draggable="false"
               style="cursor: pointer; position: relative; user-select: none;"
             >
@@ -789,6 +797,7 @@
               class="ant-md-editor-drag-el"
               data-be="image"
               data-slate-node="element"
+              data-testid="image-container"
               draggable="false"
               style="cursor: pointer; position: relative; user-select: none;"
             >

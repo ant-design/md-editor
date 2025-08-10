@@ -107,6 +107,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
+                  data-testid="media-container"
                   draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
@@ -120,6 +121,7 @@
                   >
                     <video
                       controls=""
+                      data-testid="video-element"
                       preload="metadata"
                       src="https://www.w3schools.com/html/mov_bbb.mp4"
                       style="width: 400px; height: auto; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
@@ -228,6 +230,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
+                  data-testid="media-container"
                   draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
@@ -389,6 +392,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
+                  data-testid="media-container"
                   draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
@@ -402,6 +406,7 @@
                   >
                     <video
                       controls=""
+                      data-testid="video-element"
                       preload="metadata"
                       src="test.mp4"
                       style="width: 100%; height: auto; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
@@ -510,6 +515,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
+                  data-testid="media-container"
                   draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
@@ -524,6 +530,7 @@
                     <video
                       autoplay=""
                       controls=""
+                      data-testid="video-element"
                       loop=""
                       poster="poster.jpg"
                       preload="metadata"
@@ -634,6 +641,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
+                  data-testid="media-container"
                   draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
@@ -648,6 +656,7 @@
                     <video
                       autoplay=""
                       controls=""
+                      data-testid="video-element"
                       loop=""
                       preload="metadata"
                       src="https://example.com/video.mp4"

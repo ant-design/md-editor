@@ -4321,13 +4321,16 @@
                     class="ant-md-editor-description ant-md-editor-drag-el"
                     data-be="table"
                     data-slate-node="element"
+                    data-testid="description-container"
                   >
                     <table
                       class="ant-md-editor-description-table"
+                      data-testid="description-table"
                     >
                       <tbody>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4384,6 +4387,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4440,6 +4444,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4496,6 +4501,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4552,6 +4558,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4608,6 +4615,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4664,6 +4672,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4720,6 +4729,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4776,6 +4786,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4832,6 +4843,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4888,6 +4900,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -4944,6 +4957,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -5000,6 +5014,7 @@
                         </tr>
                         <tr
                           class="ant-md-editor-description-row"
+                          data-testid="description-row"
                         >
                           <td
                             data-slate-node="element"
@@ -12731,6 +12746,7 @@
                     <div
                       class="ant-md-editor-drag-el"
                       data-be="media"
+                      data-testid="media-container"
                       draggable="false"
                       style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                     >
@@ -12920,6 +12936,7 @@
                     <div
                       class="ant-md-editor-drag-el"
                       data-be="media"
+                      data-testid="media-container"
                       draggable="false"
                       style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                     >
@@ -12933,6 +12950,7 @@
                       >
                         <video
                           controls=""
+                          data-testid="video-element"
                           preload="metadata"
                           src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
                           style="width: 100%; height: auto; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
@@ -13069,6 +13087,7 @@
                     <div
                       class="ant-md-editor-drag-el"
                       data-be="media"
+                      data-testid="media-container"
                       draggable="false"
                       style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                     >
@@ -14891,10 +14910,12 @@
                   </span>
                 </div>
                 <div
+                  data-testid="schema-container"
                   style="display: flex; flex-direction: column; width: 100%;"
                 >
                   <div
                     data-be="apaasify"
+                    data-testid="schema-clickable"
                     style="padding: 8px; width: 100%; cursor: pointer; position: relative; display: flex; border-radius: 8px; flex: 1 1 0%; border: 1px solid rgba(209, 213, 219, 0.8); align-items: center;"
                   >
                     [
@@ -14914,6 +14935,7 @@
 ]
                   </div>
                   <span
+                    data-testid="schema-hidden-children"
                     style="display: none;"
                   >
                     <span

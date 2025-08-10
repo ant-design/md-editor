@@ -124,6 +124,7 @@ export const ResizeImage = ({
 
   return (
     <div
+      data-testid="resize-image-container"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -328,6 +329,7 @@ export function EditorImage({
       {...attributes}
       className={'ant-md-editor-drag-el'}
       data-be="image"
+      data-testid="image-container"
       style={{
         cursor: 'pointer',
         position: 'relative',
