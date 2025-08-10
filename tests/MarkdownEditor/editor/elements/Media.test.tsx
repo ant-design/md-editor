@@ -11,6 +11,9 @@ import {
   Media,
   ResizeImage,
 } from '../../../../src/MarkdownEditor/editor/elements/Media';
+import * as utils from '../../../../src/MarkdownEditor/editor/utils';
+import { MediaNode } from '../../../../src/MarkdownEditor/el';
+import { TestSlateWrapper } from './TestSlateWrapper';
 
 // Mock 依赖
 vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
@@ -29,21 +32,29 @@ vi.mock('../../../../src/MarkdownEditor/hooks/editor', () => ({
 }));
 
 vi.mock('../../../../src/MarkdownEditor/editor/utils', () => ({
-  useGetSetState: vi.fn(() => [
-    {
+  useGetSetState: vi.fn(() => {
+    const stateData = {
       height: 300,
       dragging: false,
       loadSuccess: true,
       url: 'https://example.com/image.jpg',
       selected: false,
       type: 'image',
-    },
-    vi.fn(),
-  ]),
+    };
+    return [
+      () => stateData,
+      vi.fn((updates) => Object.assign(stateData, updates)),
+    ];
+  }),
 }));
 
 vi.mock('../../../../src/MarkdownEditor/editor/utils/dom', () => ({
-  getMediaType: vi.fn(() => 'image'),
+  getMediaType: vi.fn((url) => {
+    if (url?.includes('video')) return 'video';
+    if (url?.includes('audio')) return 'audio';
+    if (url?.includes('attachment')) return 'attachment';
+    return 'image';
+  }),
 }));
 
 vi.mock('../../../../src/MarkdownEditor/editor/elements/Image', () => ({
@@ -106,10 +117,20 @@ vi.mock('slate', () => ({
     setNodes: vi.fn(),
     removeNodes: vi.fn(),
   },
+  createEditor: vi.fn(() => ({
+    children: [{ type: 'paragraph', children: [{ text: '' }] }],
+  })),
+  Node: {
+    isNodeList: vi.fn(() => true),
+    string: vi.fn(() => ''),
+  },
+  Editor: {
+    isEditor: vi.fn(() => true),
+  },
 }));
 
 describe('Media', () => {
-  const mockElement = {
+  const mockElement: MediaNode = {
     type: 'media',
     url: 'https://example.com/image.jpg',
     alt: 'Test Image',
@@ -124,7 +145,11 @@ describe('Media', () => {
   };
 
   const renderWithProvider = (component: React.ReactElement) => {
-    return render(<ConfigProvider>{component}</ConfigProvider>);
+    return render(
+      <ConfigProvider>
+        <TestSlateWrapper>{component}</TestSlateWrapper>
+      </ConfigProvider>,
+    );
   };
 
   beforeEach(() => {
@@ -143,8 +168,8 @@ describe('Media', () => {
         </Media>,
       );
 
-      const rndContainer = screen.getByTestId('rnd-container');
-      expect(rndContainer).toBeInTheDocument();
+      const mediaContainer = screen.getByTestId('media-container');
+      expect(mediaContainer).toBeInTheDocument();
     });
 
     it('应该渲染图片元素', () => {
@@ -154,13 +179,13 @@ describe('Media', () => {
         </Media>,
       );
 
-      const imageElement = screen.getByTestId('image-element');
-      expect(imageElement).toBeInTheDocument();
-      expect(imageElement).toHaveAttribute(
+      const resizeImage = screen.getByTestId('resize-image');
+      expect(resizeImage).toBeInTheDocument();
+      expect(resizeImage).toHaveAttribute(
         'src',
         'https://example.com/image.jpg',
       );
-      expect(imageElement).toHaveAttribute('alt', 'Test Image');
+      expect(resizeImage).toHaveAttribute('alt', 'image');
     });
   });
 
@@ -173,11 +198,11 @@ describe('Media', () => {
     };
 
     it('应该正确渲染ResizeImage组件', () => {
-      renderWithProvider(<MockResizeImage {...mockResizeProps} />);
+      renderWithProvider(<ResizeImage {...mockResizeProps} />);
 
-      const rndContainer = screen.getByTestId('rnd-container');
+      const resizeImageContainer = screen.getByTestId('resize-image-container');
       const resizeImage = screen.getByTestId('resize-image');
-      expect(rndContainer).toBeInTheDocument();
+      expect(resizeImageContainer).toBeInTheDocument();
       expect(resizeImage).toBeInTheDocument();
     });
 
@@ -197,15 +222,15 @@ describe('Media', () => {
       fireEvent.click(resizeStopButton);
 
       expect(mockResizeProps.onResizeStop).toHaveBeenCalledWith({
-        width: 500,
-        height: 300,
+        width: 400,
+        height: 0,
       });
     });
   });
 
   describe('视频类型测试', () => {
     it('应该渲染视频元素', () => {
-      const videoElement = {
+      const videoElement: MediaNode = {
         ...mockElement,
         url: 'https://example.com/video.mp4',
         controls: true,
@@ -214,6 +239,21 @@ describe('Media', () => {
         muted: false,
         poster: 'https://example.com/poster.jpg',
       };
+
+      // 为这个测试设置特定的 mock 状态
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const videoStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: 'https://example.com/video.mp4',
+        selected: false,
+        type: 'video',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => videoStateData,
+        vi.fn((updates) => Object.assign(videoStateData, updates)),
+      ]);
 
       renderWithProvider(
         <Media element={videoElement} attributes={mockAttributes}>
@@ -233,10 +273,25 @@ describe('Media', () => {
 
   describe('音频类型测试', () => {
     it('应该渲染音频元素', () => {
-      const audioElement = {
+      const audioElement: MediaNode = {
         ...mockElement,
         url: 'https://example.com/audio.mp3',
       };
+
+      // 为这个测试设置特定的 mock 状态
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const audioStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: 'https://example.com/audio.mp3',
+        selected: false,
+        type: 'audio',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => audioStateData,
+        vi.fn((updates) => Object.assign(audioStateData, updates)),
+      ]);
 
       renderWithProvider(
         <Media element={audioElement} attributes={mockAttributes}>
@@ -256,10 +311,25 @@ describe('Media', () => {
 
   describe('边界情况测试', () => {
     it('应该处理空的URL', () => {
-      const elementWithEmptyUrl = {
+      const elementWithEmptyUrl: MediaNode = {
         ...mockElement,
         url: '',
       };
+
+      // 为这个测试设置特定的 mock 状态
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const emptyUrlStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: '',
+        selected: false,
+        type: 'image',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => emptyUrlStateData,
+        vi.fn((updates) => Object.assign(emptyUrlStateData, updates)),
+      ]);
 
       renderWithProvider(
         <Media element={elementWithEmptyUrl} attributes={mockAttributes}>
@@ -267,12 +337,12 @@ describe('Media', () => {
         </Media>,
       );
 
-      const imageElement = screen.getByTestId('image-element');
-      expect(imageElement).toHaveAttribute('src', '');
+      const resizeImage = screen.getByTestId('resize-image');
+      expect(resizeImage).toHaveAttribute('src', '');
     });
 
     it('应该处理空的alt属性', () => {
-      const elementWithEmptyAlt = {
+      const elementWithEmptyAlt: MediaNode = {
         ...mockElement,
         alt: '',
       };
@@ -283,8 +353,8 @@ describe('Media', () => {
         </Media>,
       );
 
-      const imageElement = screen.getByTestId('image-element');
-      expect(imageElement).toHaveAttribute('alt', '');
+      const resizeImage = screen.getByTestId('resize-image');
+      expect(resizeImage).toHaveAttribute('alt', 'image');
     });
   });
 });

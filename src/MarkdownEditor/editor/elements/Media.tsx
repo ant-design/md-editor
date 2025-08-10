@@ -64,6 +64,7 @@ export const ResizeImage = ({
 
   return (
     <div
+      data-testid="resize-image-container"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -128,6 +129,7 @@ export const ResizeImage = ({
         }}
       >
         <img
+          data-testid="resize-image"
           draggable={false}
           onLoad={(e) => {
             setLoading(false);
@@ -270,6 +272,7 @@ export function Media({
     if (state().type === 'video')
       return (
         <video
+          data-testid="video-element"
           controls={element.controls !== false}
           autoPlay={element.autoplay}
           loop={element.loop}
@@ -293,6 +296,7 @@ export function Media({
     if (state().type === 'audio') {
       return (
         <audio
+          data-testid="audio-element"
           controls
           style={{
             width: '100%',
@@ -431,6 +435,7 @@ export function Media({
       <div
         className={'ant-md-editor-drag-el'}
         data-be="media"
+        data-testid="media-container"
         style={{
           cursor: 'pointer',
           position: 'relative',
