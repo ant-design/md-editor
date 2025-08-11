@@ -30,13 +30,13 @@ export function CodeContainer({
   isSelected = false,
 }: CodeContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // 处理未定义的 element
   const safeElement = element || {
     language: undefined,
     frontmatter: false,
   };
-  
+
   return (
     <div
       contentEditable={false}

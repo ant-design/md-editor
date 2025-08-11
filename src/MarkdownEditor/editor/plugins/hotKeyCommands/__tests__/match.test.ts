@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { BaseEditor, createEditor, Editor, Element, Node, Transforms } from 'slate';
+import { BaseEditor, createEditor, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ReactEditor, withReact } from '../../../slate-react';
@@ -40,7 +40,9 @@ describe('MatchKey', () => {
   let matchKey: MatchKey;
 
   beforeEach(() => {
-    editor = withHistory(withReact(createEditor())) as BaseEditor & ReactEditor & HistoryEditor;
+    editor = withHistory(withReact(createEditor())) as BaseEditor &
+      ReactEditor &
+      HistoryEditor;
     editor.children = [{ type: 'paragraph', children: [{ text: '' }] }];
     matchKey = new MatchKey(editor);
   });
@@ -240,4 +242,4 @@ describe('MatchKey', () => {
       expect(endTime - startTime).toBeLessThan(100); // 应该在100ms内完成
     });
   });
-}); 
+});

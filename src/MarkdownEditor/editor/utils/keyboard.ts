@@ -590,6 +590,7 @@ export class KeyboardTask {
     const [curNode, curPath] = this.curNodes;
     if (curNode && ['paragraph', 'head'].includes(curNode[0].type)) {
       const parent = Editor.parent(this.editor, curNode[1]);
+
       if (parent[0].type === 'list-item' && !Path.hasPrevious(curNode[1])) {
         Transforms.setNodes(
           this.editor,
@@ -660,6 +661,12 @@ export class KeyboardTask {
           { at: curNode[1], select: true },
         );
       }
+    } else if (curNode && curNode[0].type === 'list-item') {
+      Transforms.setNodes(
+        this.editor,
+        { order: mode === 'ordered', task: mode === 'task' },
+        { at: curNode[1] },
+      );
     }
   }
 
@@ -873,6 +880,8 @@ export const useSystemKeyboard = (
   }, []);
 
   useEffect(() => {
+    if (props.readonly) return;
+    if (!store) return;
     if (typeof window === 'undefined') return;
     markdownContainerRef?.current?.addEventListener('keydown', keydown);
     return () => {

@@ -1,6 +1,6 @@
-import { Editor, Node, Span } from "slate";
-import { WithTableOptions } from "../options";
-import { isOfType } from "./is-of-type";
+import { Editor, Node, Span } from 'slate';
+import { WithTableOptions } from '../options';
+import { isOfType } from './is-of-type';
 
 /**
  * Determines whether two paths belong to the same types by checking
@@ -9,7 +9,7 @@ import { isOfType } from "./is-of-type";
 export function hasCommon(
   editor: Editor,
   [path, another]: Span,
-  ...types: Array<keyof WithTableOptions["blocks"]>
+  ...types: Array<keyof WithTableOptions['blocks']>
 ) {
   const [node, commonPath] = Node.common(editor, path, another);
 
