@@ -135,7 +135,7 @@
                 class="workspace-file-container--group"
               >
                 <div
-                  aria-label="展开Word文档分组"
+                  aria-label="展开Word分组"
                   class="workspace-file-group__header"
                   role="button"
                   tabindex="0"
@@ -198,7 +198,7 @@
                     <span
                       class="workspace-file-group__type-name"
                     >
-                      Word文档
+                      Word
                     </span>
                   </div>
                   <div
@@ -210,7 +210,7 @@
                       3
                     </span>
                     <div
-                      aria-label="下载Word文档文件"
+                      aria-label="下载Word文件"
                       class="workspace-file-group__download-icon"
                       role="button"
                       tabindex="0"
@@ -428,7 +428,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            10:20
+                            08-01 10:20:00
                           </span>
                         </span>
                       </div>
@@ -545,7 +545,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            16:30
+                            08-01 16:30:00
                           </span>
                         </span>
                       </div>
@@ -805,7 +805,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            11:20
+                            08-01 11:20:00
                           </span>
                         </span>
                       </div>
@@ -938,14 +938,507 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            13:45
+                            08-01 13:45:00
                           </span>
                         </span>
                       </div>
                     </div>
                     <div
                       class="workspace-file-item__actions"
-                    />
+                    >
+                      <div
+                        aria-label="下载文件：研究报告.pdf"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="workspace-file-container--group"
+              >
+                <div
+                  aria-label="收起音频文件分组"
+                  class="workspace-file-group__header"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="workspace-file-group__header-left"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                    <div
+                      class="workspace-file-group__type-icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M16,4L30.0001,4L40,13.99988L40,36C40,38.8003,39.994299999999996,40.2321,39.441900000000004,41.2978C38.9664,42.2151,38.2151,42.9664,37.297799999999995,43.4419C36.2321,43.9943,34.8003,44,32,44L16,44C13.199729999999999,44,11.767949999999999,43.9943,10.702210000000001,43.4419C9.78489,42.9664,9.03358,42.2151,8.558091,41.2978C8.00566877,40.2321,8,38.8003,8,36L8,12C8,9.199729999999999,8.00566866,7.76795,8.558091,6.70221C9.03358,5.78489,9.78489,5.03358,10.702210000000001,4.558091C11.767949999999999,4.00566866,13.199729999999999,4,16,4ZM29.443,21.897L29.443,26.0993C29.1731,26.0042,28.889,25.9555,28.6029,25.9555C27.2076,25.9555,26.0766,27.0866,26.0766,28.4819C26.0766,29.8771,27.2076,31.0082,28.6029,31.0082C29.9981,31.0082,31.1292,29.8771,31.1292,28.4819C31.1292,28.4481,31.1285,28.4144,31.1272,28.3807L31.1272,17.5345C31.1272,17.0694,30.7502,16.6924,30.2851,16.6924C30.2387,16.6924,30.1924,16.696199999999997,30.1466,16.7038L20.0414,18.3881C19.6353,18.4557,19.337699999999998,18.807000000000002,19.337699999999998,19.2187L19.337699999999998,27.7835C19.0678,27.6884,18.7838,27.6398,18.4976,27.6398C17.10238,27.6398,15.971309999999999,28.7708,15.971309999999999,30.1661C15.971309999999999,31.5613,17.10238,32.6924,18.4976,32.6924C19.892899999999997,32.6924,21.023899999999998,31.5613,21.023899999999998,30.1661C21.023899999999998,30.1323,21.0233,30.0986,21.021900000000002,30.0649L21.021900000000002,23.3005L29.443,21.897Z"
+                              fill="#BA4AAB"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#FFE5F7"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <span
+                      class="workspace-file-group__type-name"
+                    >
+                      音频文件
+                    </span>
+                  </div>
+                  <div
+                    class="workspace-file-group__header-right"
+                  >
+                    <span
+                      class="workspace-file-group__count"
+                    >
+                      3
+                    </span>
+                    <div
+                      aria-label="下载音频文件文件"
+                      class="workspace-file-group__download-icon"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-label="download"
+                        class="anticon anticon-download"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="download"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="workspace-file-group__content"
+                >
+                  <div
+                    aria-label="文件：产品介绍.mp3"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M16,4L30.0001,4L40,13.99988L40,36C40,38.8003,39.994299999999996,40.2321,39.441900000000004,41.2978C38.9664,42.2151,38.2151,42.9664,37.297799999999995,43.4419C36.2321,43.9943,34.8003,44,32,44L16,44C13.199729999999999,44,11.767949999999999,43.9943,10.702210000000001,43.4419C9.78489,42.9664,9.03358,42.2151,8.558091,41.2978C8.00566877,40.2321,8,38.8003,8,36L8,12C8,9.199729999999999,8.00566866,7.76795,8.558091,6.70221C9.03358,5.78489,9.78489,5.03358,10.702210000000001,4.558091C11.767949999999999,4.00566866,13.199729999999999,4,16,4ZM29.443,21.897L29.443,26.0993C29.1731,26.0042,28.889,25.9555,28.6029,25.9555C27.2076,25.9555,26.0766,27.0866,26.0766,28.4819C26.0766,29.8771,27.2076,31.0082,28.6029,31.0082C29.9981,31.0082,31.1292,29.8771,31.1292,28.4819C31.1292,28.4481,31.1285,28.4144,31.1272,28.3807L31.1272,17.5345C31.1272,17.0694,30.7502,16.6924,30.2851,16.6924C30.2387,16.6924,30.1924,16.696199999999997,30.1466,16.7038L20.0414,18.3881C19.6353,18.4557,19.337699999999998,18.807000000000002,19.337699999999998,19.2187L19.337699999999998,27.7835C19.0678,27.6884,18.7838,27.6398,18.4976,27.6398C17.10238,27.6398,15.971309999999999,28.7708,15.971309999999999,30.1661C15.971309999999999,31.5613,17.10238,32.6924,18.4976,32.6924C19.892899999999997,32.6924,21.023899999999998,31.5613,21.023899999999998,30.1661C21.023899999999998,30.1323,21.0233,30.0986,21.021900000000002,30.0649L21.021900000000002,23.3005L29.443,21.897Z"
+                              fill="#BA4AAB"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#FFE5F7"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          产品介绍.mp3
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            audio
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            5.2MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 10:30:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="下载文件：产品介绍.mp3"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：用户反馈.m4a"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M16,4L30.0001,4L40,13.99988L40,36C40,38.8003,39.994299999999996,40.2321,39.441900000000004,41.2978C38.9664,42.2151,38.2151,42.9664,37.297799999999995,43.4419C36.2321,43.9943,34.8003,44,32,44L16,44C13.199729999999999,44,11.767949999999999,43.9943,10.702210000000001,43.4419C9.78489,42.9664,9.03358,42.2151,8.558091,41.2978C8.00566877,40.2321,8,38.8003,8,36L8,12C8,9.199729999999999,8.00566866,7.76795,8.558091,6.70221C9.03358,5.78489,9.78489,5.03358,10.702210000000001,4.558091C11.767949999999999,4.00566866,13.199729999999999,4,16,4ZM29.443,21.897L29.443,26.0993C29.1731,26.0042,28.889,25.9555,28.6029,25.9555C27.2076,25.9555,26.0766,27.0866,26.0766,28.4819C26.0766,29.8771,27.2076,31.0082,28.6029,31.0082C29.9981,31.0082,31.1292,29.8771,31.1292,28.4819C31.1292,28.4481,31.1285,28.4144,31.1272,28.3807L31.1272,17.5345C31.1272,17.0694,30.7502,16.6924,30.2851,16.6924C30.2387,16.6924,30.1924,16.696199999999997,30.1466,16.7038L20.0414,18.3881C19.6353,18.4557,19.337699999999998,18.807000000000002,19.337699999999998,19.2187L19.337699999999998,27.7835C19.0678,27.6884,18.7838,27.6398,18.4976,27.6398C17.10238,27.6398,15.971309999999999,28.7708,15.971309999999999,30.1661C15.971309999999999,31.5613,17.10238,32.6924,18.4976,32.6924C19.892899999999997,32.6924,21.023899999999998,31.5613,21.023899999999998,30.1661C21.023899999999998,30.1323,21.0233,30.0986,21.021900000000002,30.0649L21.021900000000002,23.3005L29.443,21.897Z"
+                              fill="#BA4AAB"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#FFE5F7"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          用户反馈.m4a
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            audio
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            3.8MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 15:45:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="下载文件：用户反馈.m4a"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：会议记录.wav"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M16,4L30.0001,4L40,13.99988L40,36C40,38.8003,39.994299999999996,40.2321,39.441900000000004,41.2978C38.9664,42.2151,38.2151,42.9664,37.297799999999995,43.4419C36.2321,43.9943,34.8003,44,32,44L16,44C13.199729999999999,44,11.767949999999999,43.9943,10.702210000000001,43.4419C9.78489,42.9664,9.03358,42.2151,8.558091,41.2978C8.00566877,40.2321,8,38.8003,8,36L8,12C8,9.199729999999999,8.00566866,7.76795,8.558091,6.70221C9.03358,5.78489,9.78489,5.03358,10.702210000000001,4.558091C11.767949999999999,4.00566866,13.199729999999999,4,16,4ZM29.443,21.897L29.443,26.0993C29.1731,26.0042,28.889,25.9555,28.6029,25.9555C27.2076,25.9555,26.0766,27.0866,26.0766,28.4819C26.0766,29.8771,27.2076,31.0082,28.6029,31.0082C29.9981,31.0082,31.1292,29.8771,31.1292,28.4819C31.1292,28.4481,31.1285,28.4144,31.1272,28.3807L31.1272,17.5345C31.1272,17.0694,30.7502,16.6924,30.2851,16.6924C30.2387,16.6924,30.1924,16.696199999999997,30.1466,16.7038L20.0414,18.3881C19.6353,18.4557,19.337699999999998,18.807000000000002,19.337699999999998,19.2187L19.337699999999998,27.7835C19.0678,27.6884,18.7838,27.6398,18.4976,27.6398C17.10238,27.6398,15.971309999999999,28.7708,15.971309999999999,30.1661C15.971309999999999,31.5613,17.10238,32.6924,18.4976,32.6924C19.892899999999997,32.6924,21.023899999999998,31.5613,21.023899999999998,30.1661C21.023899999999998,30.1323,21.0233,30.0986,21.021900000000002,30.0649L21.021900000000002,23.3005L29.443,21.897Z"
+                              fill="#BA4AAB"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#FFE5F7"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          会议记录.wav
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            audio
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            12.5MB
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 09:15:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="下载文件：会议记录.wav"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1121,7 +1614,7 @@
                           <span
                             class="workspace-file-item__type"
                           >
-                            plainText
+                            csv
                           </span>
                           <span
                             class="workspace-file-item__separator"
@@ -1141,7 +1634,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            08:45
+                            08-01 08:45:00
                           </span>
                         </span>
                       </div>
@@ -1149,32 +1642,6 @@
                     <div
                       class="workspace-file-item__actions"
                     >
-                      <div
-                        aria-label="预览文件：用户数据.csv"
-                        class="workspace-file-item__preview-icon"
-                        role="button"
-                        tabindex="0"
-                      >
-                        <span
-                          aria-label="eye"
-                          class="anticon anticon-eye"
-                          role="img"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            data-icon="eye"
-                            fill="currentColor"
-                            focusable="false"
-                            height="1em"
-                            viewBox="64 64 896 896"
-                            width="1em"
-                          >
-                            <path
-                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                            />
-                          </svg>
-                        </span>
-                      </div>
                       <div
                         aria-label="下载文件：用户数据.csv"
                         class="workspace-file-item__download-icon"
@@ -1265,7 +1732,7 @@
                           <span
                             class="workspace-file-item__type"
                           >
-                            plainText
+                            csv
                           </span>
                           <span
                             class="workspace-file-item__separator"
@@ -1285,14 +1752,41 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            11:25
+                            08-01 11:25:00
                           </span>
                         </span>
                       </div>
                     </div>
                     <div
                       class="workspace-file-item__actions"
-                    />
+                    >
+                      <div
+                        aria-label="下载文件：销售记录.csv"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <div
                     aria-label="文件：产品目录.csv"
@@ -1356,7 +1850,7 @@
                           <span
                             class="workspace-file-item__type"
                           >
-                            plainText
+                            csv
                           </span>
                           <span
                             class="workspace-file-item__separator"
@@ -1376,7 +1870,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            15:10
+                            08-01 15:10:00
                           </span>
                         </span>
                       </div>
@@ -1384,32 +1878,6 @@
                     <div
                       class="workspace-file-item__actions"
                     >
-                      <div
-                        aria-label="预览文件：产品目录.csv"
-                        class="workspace-file-item__preview-icon"
-                        role="button"
-                        tabindex="0"
-                      >
-                        <span
-                          aria-label="eye"
-                          class="anticon anticon-eye"
-                          role="img"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            data-icon="eye"
-                            fill="currentColor"
-                            focusable="false"
-                            height="1em"
-                            viewBox="64 64 896 896"
-                            width="1em"
-                          >
-                            <path
-                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                            />
-                          </svg>
-                        </span>
-                      </div>
                       <div
                         aria-label="下载文件：产品目录.csv"
                         class="workspace-file-item__download-icon"
@@ -1444,7 +1912,7 @@
                 class="workspace-file-container--group"
               >
                 <div
-                  aria-label="收起Markdown文档分组"
+                  aria-label="收起Markdown文档23分组"
                   class="workspace-file-group__header"
                   role="button"
                   tabindex="0"
@@ -1505,7 +1973,7 @@
                     <span
                       class="workspace-file-group__type-name"
                     >
-                      Markdown文档
+                      Markdown文档23
                     </span>
                   </div>
                   <div
@@ -1517,7 +1985,7 @@
                       2
                     </span>
                     <div
-                      aria-label="下载Markdown文档文件"
+                      aria-label="下载Markdown文档23文件"
                       class="workspace-file-group__download-icon"
                       role="button"
                       tabindex="0"
@@ -1626,7 +2094,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            07:30
+                            08-01 13:15:00
                           </span>
                         </span>
                       </div>
@@ -1741,7 +2209,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            13:20
+                            08-01 13:20:00
                           </span>
                         </span>
                       </div>
@@ -1841,27 +2309,30 @@
                     >
                       <svg
                         fill="none"
-                        height="16"
+                        height="48"
                         version="1.1"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        viewBox="0 0 48 48"
+                        width="48"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                       >
                         <g>
                           <g>
                             <path
-                              d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
-                              fill="#23D6DC"
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM22,22C22,24.2091,20.2091,26,18,26C15.79086,26,14,24.2091,14,22C14,19.7909,15.79086,18,18,18C20.2091,18,22,19.7909,22,22ZM35.760000000000005,30.0146L32.7416,27.0224Q32.0175,26.3046,30.998,26.2979Q29.9785,26.2912,29.2451,26.9994L16.1527,39.6403C16.055120000000002,39.7345,16,39.8643,16,40C16,40.2761,16.223860000000002,40.5,16.5,40.5L34,40.5Q35.0355,40.5,35.7678,39.7677Q36.5,39.0355,36.5,38L36.5,31.79Q36.5,30.7481,35.760000000000005,30.0146Z"
+                              fill="#24BCAE"
                               fill-opacity="1"
                               fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                           <g>
                             <path
-                              d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
-                              fill="#A2F7FA"
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#E5FAD7"
                               fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                         </g>
@@ -1923,27 +2394,30 @@
                     >
                       <svg
                         fill="none"
-                        height="16"
+                        height="48"
                         version="1.1"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        viewBox="0 0 48 48"
+                        width="48"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                       >
                         <g>
                           <g>
                             <path
-                              d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
-                              fill="#23D6DC"
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM22,22C22,24.2091,20.2091,26,18,26C15.79086,26,14,24.2091,14,22C14,19.7909,15.79086,18,18,18C20.2091,18,22,19.7909,22,22ZM35.760000000000005,30.0146L32.7416,27.0224Q32.0175,26.3046,30.998,26.2979Q29.9785,26.2912,29.2451,26.9994L16.1527,39.6403C16.055120000000002,39.7345,16,39.8643,16,40C16,40.2761,16.223860000000002,40.5,16.5,40.5L34,40.5Q35.0355,40.5,35.7678,39.7677Q36.5,39.0355,36.5,38L36.5,31.79Q36.5,30.7481,35.760000000000005,30.0146Z"
+                              fill="#24BCAE"
                               fill-opacity="1"
                               fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                           <g>
                             <path
-                              d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
-                              fill="#A2F7FA"
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#E5FAD7"
                               fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                         </g>
@@ -1991,7 +2465,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            09:30
+                            08-01 09:30:00
                           </span>
                         </span>
                       </div>
@@ -2054,7 +2528,7 @@
                     </div>
                   </div>
                   <div
-                    aria-label="文件：用户界面.png"
+                    aria-label="文件：用户界面Base64.png"
                     class="workspace-file-item"
                     role="button"
                     tabindex="0"
@@ -2064,27 +2538,30 @@
                     >
                       <svg
                         fill="none"
-                        height="16"
+                        height="48"
                         version="1.1"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        viewBox="0 0 48 48"
+                        width="48"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                       >
                         <g>
                           <g>
                             <path
-                              d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
-                              fill="#23D6DC"
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM22,22C22,24.2091,20.2091,26,18,26C15.79086,26,14,24.2091,14,22C14,19.7909,15.79086,18,18,18C20.2091,18,22,19.7909,22,22ZM35.760000000000005,30.0146L32.7416,27.0224Q32.0175,26.3046,30.998,26.2979Q29.9785,26.2912,29.2451,26.9994L16.1527,39.6403C16.055120000000002,39.7345,16,39.8643,16,40C16,40.2761,16.223860000000002,40.5,16.5,40.5L34,40.5Q35.0355,40.5,35.7678,39.7677Q36.5,39.0355,36.5,38L36.5,31.79Q36.5,30.7481,35.760000000000005,30.0146Z"
+                              fill="#24BCAE"
                               fill-opacity="1"
                               fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                           <g>
                             <path
-                              d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
-                              fill="#A2F7FA"
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#E5FAD7"
                               fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                         </g>
@@ -2100,7 +2577,7 @@
                           aria-describedby="test-id"
                           class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
-                          用户界面.png
+                          用户界面Base64.png
                         </span>
                       </div>
                       <div
@@ -2132,7 +2609,7 @@
                           <span
                             class="workspace-file-item__time"
                           >
-                            14:20
+                            08-01 14:20:00
                           </span>
                         </span>
                       </div>
@@ -2141,7 +2618,7 @@
                       class="workspace-file-item__actions"
                     >
                       <div
-                        aria-label="预览文件：用户界面.png"
+                        aria-label="预览文件：用户界面Base64.png"
                         class="workspace-file-item__preview-icon"
                         role="button"
                         tabindex="0"
@@ -2167,7 +2644,7 @@
                         </span>
                       </div>
                       <div
-                        aria-label="下载文件：用户界面.png"
+                        aria-label="下载文件：用户界面Base64.png"
                         class="workspace-file-item__download-icon"
                         role="button"
                         tabindex="0"
@@ -2232,27 +2709,29 @@
                     >
                       <svg
                         fill="none"
-                        height="16"
+                        height="48"
                         version="1.1"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        viewBox="0 0 48 48"
+                        width="48"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                       >
                         <g>
                           <g>
                             <path
-                              d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
-                              fill="#23D6DC"
+                              d="M16,4L30.0001,4L40,13.99988L40,36C40,38.8003,39.994299999999996,40.2321,39.441900000000004,41.2978C38.9664,42.2151,38.2151,42.9664,37.297799999999995,43.4419C36.2321,43.9943,34.8003,44,32,44L16,44C13.199729999999999,44,11.767949999999999,43.9943,10.702210000000001,43.4419C9.78489,42.9664,9.03358,42.2151,8.558091,41.2978C8.00566877,40.2321,8,38.8003,8,36L8,12C8,9.199729999999999,8.00566866,7.76795,8.558091,6.70221C9.03358,5.78489,9.78489,5.03358,10.702210000000001,4.558091C11.767949999999999,4.00566866,13.199729999999999,4,16,4ZM16.91077,28.1052L16.91077,21.3808C16.91077,20.4524,17.663420000000002,19.6997,18.591900000000003,19.6997L26.9974,19.6997C27.9258,19.6997,28.6785,20.4524,28.6785,21.3808L28.6785,23.009L32.2786,20.9085C32.4086,20.8326,32.5693,20.8321,32.699799999999996,20.907C32.8303,20.982,32.910799999999995,21.1211,32.9107,21.2716L32.9107,28.1608C32.9107,28.3157,32.8254,28.4579,32.6888,28.5311C32.5523,28.6042,32.3866,28.5962,32.2576,28.5104L28.6785,26.1243L28.6785,28.1052C28.6785,29.0337,27.9258,29.7863,26.9974,29.7863L18.591900000000003,29.7863C17.663420000000002,29.7863,16.91077,29.0337,16.91077,28.1052Z"
+                              fill="#4762EA"
                               fill-opacity="1"
                               fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                           <g>
                             <path
-                              d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
-                              fill="#A2F7FA"
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#C5CEF9"
                               fill-opacity="1"
+                              fill-rule="evenodd"
                             />
                           </g>
                         </g>
@@ -2314,27 +2793,29 @@
                     >
                       <svg
                         fill="none"
-                        height="16"
+                        height="48"
                         version="1.1"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        viewBox="0 0 48 48"
+                        width="48"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                       >
                         <g>
                           <g>
                             <path
-                              d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
-                              fill="#23D6DC"
+                              d="M16,4L30.0001,4L40,13.99988L40,36C40,38.8003,39.994299999999996,40.2321,39.441900000000004,41.2978C38.9664,42.2151,38.2151,42.9664,37.297799999999995,43.4419C36.2321,43.9943,34.8003,44,32,44L16,44C13.199729999999999,44,11.767949999999999,43.9943,10.702210000000001,43.4419C9.78489,42.9664,9.03358,42.2151,8.558091,41.2978C8.00566877,40.2321,8,38.8003,8,36L8,12C8,9.199729999999999,8.00566866,7.76795,8.558091,6.70221C9.03358,5.78489,9.78489,5.03358,10.702210000000001,4.558091C11.767949999999999,4.00566866,13.199729999999999,4,16,4ZM16.91077,28.1052L16.91077,21.3808C16.91077,20.4524,17.663420000000002,19.6997,18.591900000000003,19.6997L26.9974,19.6997C27.9258,19.6997,28.6785,20.4524,28.6785,21.3808L28.6785,23.009L32.2786,20.9085C32.4086,20.8326,32.5693,20.8321,32.699799999999996,20.907C32.8303,20.982,32.910799999999995,21.1211,32.9107,21.2716L32.9107,28.1608C32.9107,28.3157,32.8254,28.4579,32.6888,28.5311C32.5523,28.6042,32.3866,28.5962,32.2576,28.5104L28.6785,26.1243L28.6785,28.1052C28.6785,29.0337,27.9258,29.7863,26.9974,29.7863L18.591900000000003,29.7863C17.663420000000002,29.7863,16.91077,29.0337,16.91077,28.1052Z"
+                              fill="#4762EA"
                               fill-opacity="1"
                               fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                           <g>
                             <path
-                              d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
-                              fill="#A2F7FA"
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#C5CEF9"
                               fill-opacity="1"
+                              fill-rule="evenodd"
                             />
                           </g>
                         </g>
@@ -2429,27 +2910,29 @@
                     >
                       <svg
                         fill="none"
-                        height="16"
+                        height="48"
                         version="1.1"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        viewBox="0 0 48 48"
+                        width="48"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                       >
                         <g>
                           <g>
                             <path
-                              d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
-                              fill="#23D6DC"
+                              d="M16,4L30.0001,4L40,13.99988L40,36C40,38.8003,39.994299999999996,40.2321,39.441900000000004,41.2978C38.9664,42.2151,38.2151,42.9664,37.297799999999995,43.4419C36.2321,43.9943,34.8003,44,32,44L16,44C13.199729999999999,44,11.767949999999999,43.9943,10.702210000000001,43.4419C9.78489,42.9664,9.03358,42.2151,8.558091,41.2978C8.00566877,40.2321,8,38.8003,8,36L8,12C8,9.199729999999999,8.00566866,7.76795,8.558091,6.70221C9.03358,5.78489,9.78489,5.03358,10.702210000000001,4.558091C11.767949999999999,4.00566866,13.199729999999999,4,16,4ZM16.91077,28.1052L16.91077,21.3808C16.91077,20.4524,17.663420000000002,19.6997,18.591900000000003,19.6997L26.9974,19.6997C27.9258,19.6997,28.6785,20.4524,28.6785,21.3808L28.6785,23.009L32.2786,20.9085C32.4086,20.8326,32.5693,20.8321,32.699799999999996,20.907C32.8303,20.982,32.910799999999995,21.1211,32.9107,21.2716L32.9107,28.1608C32.9107,28.3157,32.8254,28.4579,32.6888,28.5311C32.5523,28.6042,32.3866,28.5962,32.2576,28.5104L28.6785,26.1243L28.6785,28.1052C28.6785,29.0337,27.9258,29.7863,26.9974,29.7863L18.591900000000003,29.7863C17.663420000000002,29.7863,16.91077,29.0337,16.91077,28.1052Z"
+                              fill="#4762EA"
                               fill-opacity="1"
                               fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
                             />
                           </g>
                           <g>
                             <path
-                              d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
-                              fill="#A2F7FA"
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#C5CEF9"
                               fill-opacity="1"
+                              fill-rule="evenodd"
                             />
                           </g>
                         </g>
@@ -3033,6 +3516,838 @@
                     >
                       <div
                         aria-label="下载文件：文档备份.7z"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="workspace-file-container--group"
+              >
+                <div
+                  aria-label="收起代码示例分组"
+                  class="workspace-file-group__header"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="workspace-file-group__header-left"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                    <div
+                      class="workspace-file-group__type-icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM27.4545,16.298299999999998C27.4847,16.201700000000002,27.5,16.1012,27.5,16C27.5,15.4477,27.0523,15,26.5,15C26.0626,15,25.676,15.2843,25.5455,15.7017L20.5455,31.7017C20.5153,31.7983,20.5,31.8988,20.5,32C20.5,32.5523,20.947699999999998,33,21.5,33C21.9374,33,22.323999999999998,32.7157,22.4545,32.2983L27.4545,16.298299999999998ZM18.7071,20.7071C18.8946,20.5196,19,20.2652,19,20C19,19.447699999999998,18.552300000000002,19,18,19C17.73478,19,17.48043,19.1054,17.29289,19.2929L13.29289,23.2929C13.105360000000001,23.4804,13,23.7348,13,24C13,24.2652,13.105360000000001,24.5196,13.29289,24.7071L17.29289,28.7071C17.48043,28.8946,17.73478,29,18,29C18.552300000000002,29,19,28.5523,19,28C19,27.7348,18.8946,27.4804,18.7066,27.2924L15.41421,24L18.7071,20.7071ZM30.7071,19.2929L34.7071,23.2929C34.8946,23.4804,35,23.7348,35,24C35,24.2652,34.8946,24.5196,34.7071,24.7071L30.7071,28.7071C30.5196,28.8946,30.2652,29,30,29C29.4477,29,29,28.5523,29,28C29,27.7348,29.1054,27.4804,29.2933,27.2925L32.5858,24L29.2929,20.7071C29.1054,20.5196,29,20.2652,29,20C29,19.447699999999998,29.4477,19,30,19C30.2652,19,30.5196,19.1054,30.7071,19.2929Z"
+                              fill="#00B5FD"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#DBF8FF"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <span
+                      class="workspace-file-group__type-name"
+                    >
+                      代码示例
+                    </span>
+                  </div>
+                  <div
+                    class="workspace-file-group__header-right"
+                  >
+                    <span
+                      class="workspace-file-group__count"
+                    >
+                      5
+                    </span>
+                    <div
+                      aria-label="下载代码示例文件"
+                      class="workspace-file-group__download-icon"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-label="download"
+                        class="anticon anticon-download"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="download"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="workspace-file-group__content"
+                >
+                  <div
+                    aria-label="文件：hello.js"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM27.4545,16.298299999999998C27.4847,16.201700000000002,27.5,16.1012,27.5,16C27.5,15.4477,27.0523,15,26.5,15C26.0626,15,25.676,15.2843,25.5455,15.7017L20.5455,31.7017C20.5153,31.7983,20.5,31.8988,20.5,32C20.5,32.5523,20.947699999999998,33,21.5,33C21.9374,33,22.323999999999998,32.7157,22.4545,32.2983L27.4545,16.298299999999998ZM18.7071,20.7071C18.8946,20.5196,19,20.2652,19,20C19,19.447699999999998,18.552300000000002,19,18,19C17.73478,19,17.48043,19.1054,17.29289,19.2929L13.29289,23.2929C13.105360000000001,23.4804,13,23.7348,13,24C13,24.2652,13.105360000000001,24.5196,13.29289,24.7071L17.29289,28.7071C17.48043,28.8946,17.73478,29,18,29C18.552300000000002,29,19,28.5523,19,28C19,27.7348,18.8946,27.4804,18.7066,27.2924L15.41421,24L18.7071,20.7071ZM30.7071,19.2929L34.7071,23.2929C34.8946,23.4804,35,23.7348,35,24C35,24.2652,34.8946,24.5196,34.7071,24.7071L30.7071,28.7071C30.5196,28.8946,30.2652,29,30,29C29.4477,29,29,28.5523,29,28C29,27.7348,29.1054,27.4804,29.2933,27.2925L32.5858,24L29.2929,20.7071C29.1054,20.5196,29,20.2652,29,20C29,19.447699999999998,29.4477,19,30,19C30.2652,19,30.5196,19.1054,30.7071,19.2929Z"
+                              fill="#00B5FD"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#DBF8FF"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          hello.js
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            javascript
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            156B
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 09:00:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="预览文件：hello.js"
+                        class="workspace-file-item__preview-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        aria-label="下载文件：hello.js"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：App.tsx"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM27.4545,16.298299999999998C27.4847,16.201700000000002,27.5,16.1012,27.5,16C27.5,15.4477,27.0523,15,26.5,15C26.0626,15,25.676,15.2843,25.5455,15.7017L20.5455,31.7017C20.5153,31.7983,20.5,31.8988,20.5,32C20.5,32.5523,20.947699999999998,33,21.5,33C21.9374,33,22.323999999999998,32.7157,22.4545,32.2983L27.4545,16.298299999999998ZM18.7071,20.7071C18.8946,20.5196,19,20.2652,19,20C19,19.447699999999998,18.552300000000002,19,18,19C17.73478,19,17.48043,19.1054,17.29289,19.2929L13.29289,23.2929C13.105360000000001,23.4804,13,23.7348,13,24C13,24.2652,13.105360000000001,24.5196,13.29289,24.7071L17.29289,28.7071C17.48043,28.8946,17.73478,29,18,29C18.552300000000002,29,19,28.5523,19,28C19,27.7348,18.8946,27.4804,18.7066,27.2924L15.41421,24L18.7071,20.7071ZM30.7071,19.2929L34.7071,23.2929C34.8946,23.4804,35,23.7348,35,24C35,24.2652,34.8946,24.5196,34.7071,24.7071L30.7071,28.7071C30.5196,28.8946,30.2652,29,30,29C29.4477,29,29,28.5523,29,28C29,27.7348,29.1054,27.4804,29.2933,27.2925L32.5858,24L29.2929,20.7071C29.1054,20.5196,29,20.2652,29,20C29,19.447699999999998,29.4477,19,30,19C30.2652,19,30.5196,19.1054,30.7071,19.2929Z"
+                              fill="#00B5FD"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#DBF8FF"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          App.tsx
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            react
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            521B
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 09:05:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="预览文件：App.tsx"
+                        class="workspace-file-item__preview-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        aria-label="下载文件：App.tsx"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：server.py"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM27.4545,16.298299999999998C27.4847,16.201700000000002,27.5,16.1012,27.5,16C27.5,15.4477,27.0523,15,26.5,15C26.0626,15,25.676,15.2843,25.5455,15.7017L20.5455,31.7017C20.5153,31.7983,20.5,31.8988,20.5,32C20.5,32.5523,20.947699999999998,33,21.5,33C21.9374,33,22.323999999999998,32.7157,22.4545,32.2983L27.4545,16.298299999999998ZM18.7071,20.7071C18.8946,20.5196,19,20.2652,19,20C19,19.447699999999998,18.552300000000002,19,18,19C17.73478,19,17.48043,19.1054,17.29289,19.2929L13.29289,23.2929C13.105360000000001,23.4804,13,23.7348,13,24C13,24.2652,13.105360000000001,24.5196,13.29289,24.7071L17.29289,28.7071C17.48043,28.8946,17.73478,29,18,29C18.552300000000002,29,19,28.5523,19,28C19,27.7348,18.8946,27.4804,18.7066,27.2924L15.41421,24L18.7071,20.7071ZM30.7071,19.2929L34.7071,23.2929C34.8946,23.4804,35,23.7348,35,24C35,24.2652,34.8946,24.5196,34.7071,24.7071L30.7071,28.7071C30.5196,28.8946,30.2652,29,30,29C29.4477,29,29,28.5523,29,28C29,27.7348,29.1054,27.4804,29.2933,27.2925L32.5858,24L29.2929,20.7071C29.1054,20.5196,29,20.2652,29,20C29,19.447699999999998,29.4477,19,30,19C30.2652,19,30.5196,19.1054,30.7071,19.2929Z"
+                              fill="#00B5FD"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#DBF8FF"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          server.py
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            python
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            754B
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 09:10:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="预览文件：server.py"
+                        class="workspace-file-item__preview-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        aria-label="下载文件：server.py"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：package.json"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM27.4545,16.298299999999998C27.4847,16.201700000000002,27.5,16.1012,27.5,16C27.5,15.4477,27.0523,15,26.5,15C26.0626,15,25.676,15.2843,25.5455,15.7017L20.5455,31.7017C20.5153,31.7983,20.5,31.8988,20.5,32C20.5,32.5523,20.947699999999998,33,21.5,33C21.9374,33,22.323999999999998,32.7157,22.4545,32.2983L27.4545,16.298299999999998ZM18.7071,20.7071C18.8946,20.5196,19,20.2652,19,20C19,19.447699999999998,18.552300000000002,19,18,19C17.73478,19,17.48043,19.1054,17.29289,19.2929L13.29289,23.2929C13.105360000000001,23.4804,13,23.7348,13,24C13,24.2652,13.105360000000001,24.5196,13.29289,24.7071L17.29289,28.7071C17.48043,28.8946,17.73478,29,18,29C18.552300000000002,29,19,28.5523,19,28C19,27.7348,18.8946,27.4804,18.7066,27.2924L15.41421,24L18.7071,20.7071ZM30.7071,19.2929L34.7071,23.2929C34.8946,23.4804,35,23.7348,35,24C35,24.2652,34.8946,24.5196,34.7071,24.7071L30.7071,28.7071C30.5196,28.8946,30.2652,29,30,29C29.4477,29,29,28.5523,29,28C29,27.7348,29.1054,27.4804,29.2933,27.2925L32.5858,24L29.2929,20.7071C29.1054,20.5196,29,20.2652,29,20C29,19.447699999999998,29.4477,19,30,19C30.2652,19,30.5196,19.1054,30.7071,19.2929Z"
+                              fill="#00B5FD"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#DBF8FF"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          package.json
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            config
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            428B
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 09:12:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="预览文件：package.json"
+                        class="workspace-file-item__preview-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        aria-label="下载文件：package.json"
+                        class="workspace-file-item__download-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="download"
+                          class="anticon anticon-download"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="download"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="文件：Dockerfile"
+                    class="workspace-file-item"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="workspace-file-item__icon"
+                    >
+                      <svg
+                        fill="none"
+                        height="48"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M30.0001,4L16,4C13.199729999999999,4,11.767949999999999,4.00566866,10.702210000000001,4.558091C9.78489,5.03358,9.03358,5.78489,8.558091,6.70221C8.00566866,7.76795,8,9.199729999999999,8,12L8,36C8,38.8003,8.00566877,40.2321,8.558091,41.2978C9.03358,42.2151,9.78489,42.9664,10.702210000000001,43.4419C11.767949999999999,43.9943,13.199729999999999,44,16,44L32,44C34.8003,44,36.2321,43.9943,37.297799999999995,43.4419C38.2151,42.9664,38.9664,42.2151,39.441900000000004,41.2978C39.994299999999996,40.2321,40,38.8003,40,36L40,13.99988L30.0001,4ZM27.4545,16.298299999999998C27.4847,16.201700000000002,27.5,16.1012,27.5,16C27.5,15.4477,27.0523,15,26.5,15C26.0626,15,25.676,15.2843,25.5455,15.7017L20.5455,31.7017C20.5153,31.7983,20.5,31.8988,20.5,32C20.5,32.5523,20.947699999999998,33,21.5,33C21.9374,33,22.323999999999998,32.7157,22.4545,32.2983L27.4545,16.298299999999998ZM18.7071,20.7071C18.8946,20.5196,19,20.2652,19,20C19,19.447699999999998,18.552300000000002,19,18,19C17.73478,19,17.48043,19.1054,17.29289,19.2929L13.29289,23.2929C13.105360000000001,23.4804,13,23.7348,13,24C13,24.2652,13.105360000000001,24.5196,13.29289,24.7071L17.29289,28.7071C17.48043,28.8946,17.73478,29,18,29C18.552300000000002,29,19,28.5523,19,28C19,27.7348,18.8946,27.4804,18.7066,27.2924L15.41421,24L18.7071,20.7071ZM30.7071,19.2929L34.7071,23.2929C34.8946,23.4804,35,23.7348,35,24C35,24.2652,34.8946,24.5196,34.7071,24.7071L30.7071,28.7071C30.5196,28.8946,30.2652,29,30,29C29.4477,29,29,28.5523,29,28C29,27.7348,29.1054,27.4804,29.2933,27.2925L32.5858,24L29.2929,20.7071C29.1054,20.5196,29,20.2652,29,20C29,19.447699999999998,29.4477,19,30,19C30.2652,19,30.5196,19.1054,30.7071,19.2929Z"
+                              fill="#00B5FD"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M30,4L40,14L34,14C32.59987,14,31.88397,13.99717,31.35111,13.72095C30.892446,13.48321,30.516792,13.10755,30.279046,12.64889C30.00283439,12.11603,30,11.40013,30,10L30,4Z"
+                              fill="#DBF8FF"
+                              fill-opacity="1"
+                              fill-rule="evenodd"
+                              style="mix-blend-mode: normal;"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div
+                      class="workspace-file-item__info"
+                    >
+                      <div
+                        class="workspace-file-item__name"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          Dockerfile
+                        </span>
+                      </div>
+                      <div
+                        class="workspace-file-item__details"
+                      >
+                        <span
+                          class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                        >
+                          <span
+                            class="workspace-file-item__type"
+                          >
+                            config
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__size"
+                          >
+                            445B
+                          </span>
+                          <span
+                            class="workspace-file-item__separator"
+                          >
+                            |
+                          </span>
+                          <span
+                            class="workspace-file-item__time"
+                          >
+                            08-01 09:15:00
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="workspace-file-item__actions"
+                    >
+                      <div
+                        aria-label="预览文件：Dockerfile"
+                        class="workspace-file-item__preview-icon"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        aria-label="下载文件：Dockerfile"
                         class="workspace-file-item__download-icon"
                         role="button"
                         tabindex="0"

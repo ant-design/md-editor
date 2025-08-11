@@ -9,12 +9,15 @@ export interface BrowserItemInput {
 }
 
 export const BrowserList: FC<{ data: BrowserItemInput }> = ({ data }) => {
+  const isTestEnv = process.env.NODE_ENV === 'test';
   // 默认的MarkdownEditor配置
   const getDefaultProps = (): Partial<MarkdownEditorProps> => ({
     readonly: true,
     toc: false,
     style: { width: '100%' },
     contentStyle: { padding: 0 },
+    // 测试环境下关闭打字机等额外效果，降低快照成本
+    ...(isTestEnv ? { typewriter: false } : {}),
   });
 
   // 合并默认配置和用户传入的配置

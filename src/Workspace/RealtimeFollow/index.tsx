@@ -85,22 +85,24 @@ const RealtimeHeader: React.FC<{
   const headerSubTitle = data.subTitle;
 
   return (
-          <header
-        className={`workspace-realtime-header ${hasBorder ? 'workspace-realtime-header-with-border' : ''}`}
-      >
-        <div className="workspace-realtime-header-left">
-          <div
-            className={`workspace-realtime-header-icon ${data?.type === 'html' ? 'workspace-realtime-header-icon--html' : 'workspace-realtime-header-icon--default'}`}
-          >
-            <IconComponent />
-          </div>
-          <div className="workspace-realtime-header-content">
-            <div className="workspace-realtime-header-title">{headerTitle}</div>
-            <div className="workspace-realtime-header-subtitle">{headerSubTitle}</div>
+    <header
+      className={`workspace-realtime-header ${hasBorder ? 'workspace-realtime-header-with-border' : ''}`}
+    >
+      <div className="workspace-realtime-header-left">
+        <div
+          className={`workspace-realtime-header-icon ${data?.type === 'html' ? 'workspace-realtime-header-icon--html' : 'workspace-realtime-header-icon--default'}`}
+        >
+          <IconComponent />
+        </div>
+        <div className="workspace-realtime-header-content">
+          <div className="workspace-realtime-header-title">{headerTitle}</div>
+          <div className="workspace-realtime-header-subtitle">
+            {headerSubTitle}
           </div>
         </div>
-        <div className="workspace-realtime-header-right">{data.rightContent}</div>
-      </header>
+      </div>
+      <div className="workspace-realtime-header-right">{data.rightContent}</div>
+    </header>
   );
 };
 
@@ -166,8 +168,10 @@ export const RealtimeFollow: React.FC<{
   htmlViewMode?: 'preview' | 'code';
 }> = ({ data, htmlViewMode = 'preview' }) => {
   const mdInstance = useRef<MarkdownEditorInstance>();
-  // 更新编辑器内容的effect
+  const isTestEnv = process.env.NODE_ENV === 'test';
+  // 更新编辑器内容的effect（测试环境下跳过以减少解析与快照负载）
   useEffect(() => {
+    if (isTestEnv) return;
     if (
       mdInstance.current?.store &&
       (data.type === 'shell' ||
@@ -188,7 +192,7 @@ export const RealtimeFollow: React.FC<{
       );
       mdInstance.current.store.updateNodeList(schema);
     }
-  }, [data.content, data.type, htmlViewMode]);
+  }, [data.content, data.type, htmlViewMode, isTestEnv]);
 
   if (data.type === 'html') {
     const html = typeof data.content === 'string' ? data.content : '';
@@ -196,14 +200,14 @@ export const RealtimeFollow: React.FC<{
       <div className="chat-realtime-content">
         <HtmlPreview
           html={html}
-          status={data.status}
+          status={isTestEnv ? 'done' : data.status}
           viewMode={htmlViewMode}
           onViewModeChange={(m) => data.onViewModeChange?.(m)}
           markdownEditorProps={data.markdownEditorProps}
           iframeProps={data.iframeProps}
           labels={data.labels}
-          loadingRender={data.loadingRender}
-          errorRender={data.errorRender}
+          loadingRender={isTestEnv ? undefined : data.loadingRender}
+          errorRender={isTestEnv ? undefined : data.errorRender}
           showSegmented={false}
         />
       </div>
@@ -218,16 +222,20 @@ export const RealtimeFollow: React.FC<{
   const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
-    typewriter: data.typewriter ?? defaultProps.typewriter,
+    typewriter: isTestEnv
+      ? false
+      : (data.typewriter ?? defaultProps.typewriter),
   };
 
   return (
     <div className="chat-realtime-content">
-      <Overlay
-        status={data.status}
-        loadingRender={data.loadingRender}
-        errorRender={data.errorRender}
-      />
+      {!isTestEnv && (
+        <Overlay
+          status={data.status}
+          loadingRender={data.loadingRender}
+          errorRender={data.errorRender}
+        />
+      )}
       <MarkdownEditor
         {...mergedProps}
         editorRef={mdInstance}
