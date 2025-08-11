@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { BaseEditor, createEditor, Editor, Element, Node, Path, Point, Range, Transforms } from 'slate';
+import { BaseEditor, createEditor, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ReactEditor, withReact } from '../../../slate-react';
@@ -11,7 +11,8 @@ import { keyArrow } from '../arrow';
 // Mock isHotkey
 vi.mock('is-hotkey', () => ({
   default: (hotkey: string, event: any) => {
-    if (hotkey === 'mod+left') return event.key === 'ArrowLeft' && (event.metaKey || event.ctrlKey);
+    if (hotkey === 'mod+left')
+      return event.key === 'ArrowLeft' && (event.metaKey || event.ctrlKey);
     if (hotkey === 'left') return event.key === 'ArrowLeft';
     if (hotkey === 'right') return event.key === 'ArrowRight';
     if (hotkey === 'up') return event.key === 'ArrowUp';
@@ -48,7 +49,9 @@ describe('keyArrow', () => {
   let store: EditorStore;
 
   beforeEach(() => {
-    editor = withHistory(withReact(createEditor())) as BaseEditor & ReactEditor & HistoryEditor;
+    editor = withHistory(withReact(createEditor())) as BaseEditor &
+      ReactEditor &
+      HistoryEditor;
     editor.children = [{ type: 'paragraph', children: [{ text: '' }] }];
     store = new EditorStore({ current: editor });
   });
@@ -548,4 +551,4 @@ describe('keyArrow', () => {
       Transforms.move = originalMove;
     });
   });
-}); 
+});

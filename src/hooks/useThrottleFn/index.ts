@@ -1,4 +1,4 @@
-﻿import { useCallback, useRef, useEffect } from 'react';
+﻿import { useCallback, useEffect, useRef } from 'react';
 
 export function useThrottleFn(fn: any, interval = 100) {
   const fnRef = useRef(fn);
@@ -10,7 +10,7 @@ export function useThrottleFn(fn: any, interval = 100) {
   fnRef.current = fn;
 
   const throttledFn = useCallback(
-    function(this: any, ...args: any) {
+    function (this: any, ...args: any) {
       const now = Date.now();
       const remainingTime = interval - (now - lastCallRef.current);
 

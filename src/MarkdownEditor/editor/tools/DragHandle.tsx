@@ -14,6 +14,7 @@ export const DragHandle = (props: { style?: CSSProperties }) => {
     <Tooltip title="拖拽移动">
       <span
         className={'ant-md-editor-drag-handle'}
+        data-testid="drag-handle"
         style={{ ...props.style }}
         contentEditable={false}
         ref={ref}

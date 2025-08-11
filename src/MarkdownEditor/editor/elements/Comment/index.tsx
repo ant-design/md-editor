@@ -1,6 +1,6 @@
 ﻿import React, { useContext } from 'react';
 import {
-CommentDataType,
+  CommentDataType,
   MarkdownEditorProps,
 } from '../../../BaseMarkdownEditor';
 import { EditorStoreContext } from '../../store';
@@ -18,6 +18,7 @@ export const CommentView = (props: {
   return (
     <span
       data-be="comment-text"
+      data-testid="comment-view"
       id={props.id}
       onClick={(e) => {
         e.preventDefault();
@@ -33,9 +34,9 @@ export const CommentView = (props: {
 export const CommentCreate = (props: {
   comment: MarkdownEditorProps['comment'];
 }) => {
-  const dom = <div></div>;
+  const dom = <div data-testid="comment-create-default"></div>;
   if (props.comment?.editorRender) {
     return props.comment.editorRender(dom);
   }
-  return <div></div>;
+  return <div data-testid="comment-create-default"></div>;
 };

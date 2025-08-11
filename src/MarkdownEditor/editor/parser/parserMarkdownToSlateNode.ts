@@ -171,6 +171,37 @@ const myRemark = {
 
 const findImageElement = (str: string) => {
   try {
+    // 首先尝试匹配包含source标签的video格式
+    const videoWithSourceMatch = str.match(
+      /^\s*<video[^>\n]*>[\s\S]*?<source[^>]*src="([^"\n]+)"[^>]*>[\s\S]*?<\/video>\s*$/,
+    );
+
+    if (videoWithSourceMatch) {
+      const tagName = 'video';
+      const height = str.match(/height="(\d+)"/);
+      const width = str.match(/width="(\d+)"/);
+      const align = str.match(/data-align="(\w+)"/);
+      const controls = str.match(/controls/);
+      const autoplay = str.match(/autoplay/);
+      const loop = str.match(/loop/);
+      const muted = str.match(/muted/);
+      const poster = str.match(/poster="([^"\n]+)"/);
+
+      return {
+        url: decodeURIComponent(videoWithSourceMatch[1]),
+        height: height ? +height[1] : undefined,
+        width: width ? +width[1] : undefined,
+        align: align?.[1],
+        alt: str.match(/alt="([^"\n]+)"/)?.[1],
+        tagName,
+        controls: !!controls,
+        autoplay: !!autoplay,
+        loop: !!loop,
+        muted: !!muted,
+        poster: poster?.[1],
+      };
+    }
+
     // 匹配完整的 HTML 标签，包括自闭合和带结束标签的
     const match = str.match(
       /^\s*<(img|video|iframe)[^>\n]*\/?>(.*<\/(?:img|video|iframe)>)?\s*$/,
@@ -187,7 +218,20 @@ const findImageElement = (str: string) => {
       fullTagMatch || match || selfClosingMatch || startTagMatch;
     if (fullMatch) {
       const tagName = fullMatch[0].match(/<(img|video|iframe)/)?.[1];
-      const url = fullMatch[0].match(/src="([^"\n]+)"/);
+
+      // 首先尝试从video标签本身获取src属性
+      let url = fullMatch[0].match(/src="([^"\n]+)"/);
+
+      // 如果是video标签且没有找到src，尝试从source标签中获取
+      if (tagName === 'video' && !url) {
+        const sourceMatch = fullMatch[0].match(
+          /<source[^>]*src="([^"\n]+)"[^>]*>/,
+        );
+        if (sourceMatch) {
+          url = sourceMatch;
+        }
+      }
+
       const height = fullMatch[0].match(/height="(\d+)"/);
       const width = fullMatch[0].match(/width="(\d+)"/);
       const align = fullMatch[0].match(/data-align="(\w+)"/);

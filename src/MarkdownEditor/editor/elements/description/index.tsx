@@ -7,6 +7,10 @@ import { DragHandle } from '../../tools/DragHandle';
 import { useStyle } from './style';
 
 function group(array: string | any[], subGroupLength: number) {
+  if (!array || array.length === 0) {
+    return [];
+  }
+
   let index = 0;
   let newArray = [];
 
@@ -33,17 +37,22 @@ export const Description = (props: RenderElementProps) => {
       <div
         {...props.attributes}
         data-be={'table'}
+        data-testid="description-container"
         onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
         className={classNames(baseCls, 'ant-md-editor-drag-el', hashId)}
       >
         <DragHandle />
-        <table className={classNames(`${baseCls}-table`, hashId)}>
+        <table
+          className={classNames(`${baseCls}-table`, hashId)}
+          data-testid="description-table"
+        >
           <tbody>
             {group(props.children, subGroupLength).map((item, index) => {
               return (
                 <tr
                   key={index}
                   className={classNames(`${baseCls}-row`, hashId)}
+                  data-testid="description-row"
                 >
                   {item}
                 </tr>

@@ -1,16 +1,16 @@
-import { CellElement } from "./types";
-import { Editor, Location, Node, NodeEntry, Span } from "slate";
-import { isElement } from "./is-element";
-import { isOfType } from "./is-of-type";
+import { Editor, Location, Node, NodeEntry, Span } from 'slate';
+import { isElement } from './is-element';
+import { isOfType } from './is-of-type';
+import { CellElement } from './types';
 
 export function* matrix(
   editor: Editor,
-  options: { at?: Location | Span; reverse?: boolean } = {}
+  options: { at?: Location | Span; reverse?: boolean } = {},
 ): Generator<NodeEntry<CellElement>[], undefined> {
   const { at, reverse } = options;
 
   const [table] = Editor.nodes(editor, {
-    match: isOfType(editor, "table"),
+    match: isOfType(editor, 'table'),
     at,
   });
 
@@ -22,7 +22,7 @@ export function* matrix(
 
   for (const [, rowPath] of Editor.nodes(editor, {
     at: Span.isSpan(at) ? at : tablePath,
-    match: isOfType(editor, "tr"),
+    match: isOfType(editor, 'tr'),
     reverse,
   })) {
     const cells: NodeEntry<CellElement>[] = [];

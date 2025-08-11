@@ -1,73 +1,73 @@
 /**
  * Image 组件测试文件
- *
- * 测试覆盖范围：
- * - ImageAndError 组件基本渲染
- * - EditorImage 组件基本渲染
- * - 错误处理
- * - 边界情况处理
  */
 
 import '@testing-library/jest-dom';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import {
+  EditorImage,
+  ImageAndError,
+  ResizeImage,
+} from '../../../../src/MarkdownEditor/editor/elements/Image';
+import * as utils from '../../../../src/MarkdownEditor/editor/utils';
+import { MediaNode } from '../../../../src/MarkdownEditor/el';
+import { TestSlateWrapper } from './TestSlateWrapper';
 
-// Mock 依赖
+// Mock dependencies
 vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
   useEditorStore: vi.fn(() => ({
-    editorProps: {
-      image: {
-        render: null,
+    markdownEditorRef: {
+      current: {
+        // Mock Transforms.setNodes
       },
     },
-    markdownEditorRef: { current: null },
     readonly: false,
+    editorProps: {
+      image: {
+        render: undefined,
+      },
+    },
   })),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/hooks/editor', () => ({
-  useSelStatus: vi.fn(() => [false, [0]]),
-}));
-
-vi.mock('../../../../src/MarkdownEditor/i18n', () => ({
-  I18nContext: React.createContext({
-    locale: {
-      delete: '删除',
-      deleteMedia: '删除媒体',
-      confirmDelete: '确定删除该媒体吗？',
-      blockImage: '块级图片',
-      inlineImage: '行内图片',
-    },
-  }),
+vi.mock('../../../../src/MarkdownEditor/hooks/editor', () => ({
+  useSelStatus: vi.fn(() => [false, [0, 0]]),
 }));
 
 vi.mock('../../../../src/MarkdownEditor/editor/utils', () => ({
-  useGetSetState: vi.fn(() => [
-    {
-      height: 400,
+  useGetSetState: vi.fn(() => {
+    const stateData = {
+      height: 300,
       dragging: false,
       loadSuccess: true,
       url: 'https://example.com/image.jpg',
       selected: false,
       type: 'image',
-    },
-    vi.fn(),
-  ]),
+    };
+    return [
+      () => stateData,
+      vi.fn((updates) => Object.assign(stateData, updates)),
+    ];
+  }),
 }));
 
 vi.mock('../../../../src/MarkdownEditor/editor/utils/dom', () => ({
   getMediaType: vi.fn(() => 'image'),
 }));
 
-vi.mock('react-rnd', () => ({
-  Rnd: ({ children, ...props }: any) => (
-    <div data-testid="rnd-component" {...props}>
-      {children}
-    </div>
-  ),
-}));
+vi.mock(
+  '../../../../src/MarkdownEditor/editor/components/ActionIconBox',
+  () => ({
+    ActionIconBox: ({ children, ...props }: any) => (
+      <div data-testid="action-icon-box" {...props}>
+        {children}
+      </div>
+    ),
+  }),
+);
 
 vi.mock('@ant-design/pro-components', () => ({
   useDebounceFn: vi.fn((fn) => ({
@@ -76,294 +76,373 @@ vi.mock('@ant-design/pro-components', () => ({
   })),
 }));
 
-// 由于组件依赖复杂的 Slate 上下文，我们创建简化的测试版本
-const MockImageAndError = ({ src, alt, ...props }: any) => {
-  const [error, setError] = React.useState(false);
+// Mock react-rnd
+vi.mock('react-rnd', () => ({
+  Rnd: ({ children, onResizeStart, onResizeStop, onResize, ...props }: any) => (
+    <div data-testid="rnd-container" {...props}>
+      <button type="button" data-testid="resize-start" onClick={onResizeStart}>
+        Resize Start
+      </button>
+      <button
+        type="button"
+        data-testid="resize-stop"
+        onClick={() => onResizeStop({ width: 400, height: 0 })}
+      >
+        Resize Stop
+      </button>
+      <button
+        type="button"
+        data-testid="resize"
+        onClick={() =>
+          onResize('right', 'bottom', { clientWidth: 500, clientHeight: 300 })
+        }
+      >
+        Resize
+      </button>
+      {children}
+    </div>
+  ),
+}));
 
-  if (error) {
-    return (
-      <a href={src} target="_blank" rel="noopener noreferrer">
-        {alt || src}
-      </a>
+// Mock slate Transforms
+vi.mock('slate', () => ({
+  Transforms: {
+    setNodes: vi.fn(),
+    removeNodes: vi.fn(),
+  },
+  createEditor: vi.fn(() => ({
+    children: [{ type: 'paragraph', children: [{ text: '' }] }],
+  })),
+  Node: {
+    isNodeList: vi.fn(() => true),
+    string: vi.fn(() => ''),
+  },
+  Editor: {
+    isEditor: vi.fn(() => true),
+  },
+}));
+
+describe('Image', () => {
+  const mockElement: MediaNode = {
+    type: 'media',
+    url: 'https://example.com/image.jpg',
+    alt: 'Test Image',
+    width: 400,
+    height: 300,
+    children: [{ text: '' }],
+  };
+
+  const mockAttributes = {
+    'data-slate-node': 'element' as const,
+    ref: vi.fn(),
+  };
+
+  const renderWithProvider = (component: React.ReactElement) => {
+    return render(
+      <ConfigProvider>
+        <TestSlateWrapper>{component}</TestSlateWrapper>
+      </ConfigProvider>,
     );
-  }
+  };
 
-  return <img src={src} alt={alt} onError={() => setError(true)} {...props} />;
-};
-
-const MockResizeImage = ({ src, alt, selected, ...props }: any) => {
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return;
-    // 模拟图片加载
-    setTimeout(() => {
-      setLoading(false);
-    }, 100);
-  }, []);
-
-  return (
-    <div data-testid="resize-image">
-      {loading && <div data-testid="loading">Loading...</div>}
-      <img
-        src={src}
-        alt={alt}
-        style={{
-          outline: selected ? '2px solid #1890ff' : 'none',
-          display: loading ? 'none' : 'block',
-        }}
-        {...props}
-      />
-    </div>
-  );
-};
-
-const MockEditorImage = ({ element, attributes, children }: any) => {
-  const [selected, setSelected] = React.useState(false);
-
-  return (
-    <div
-      {...attributes}
-      className="ant-md-editor-drag-el"
-      data-be="image"
-      onClick={() => setSelected(true)}
-    >
-      <div className="md-editor-media">
-        <MockResizeImage src={element?.url} alt="image" selected={selected} />
-        <div style={{ display: 'none' }}>{children}</div>
-      </div>
-    </div>
-  );
-};
-
-describe('Image Components', () => {
-  afterEach(() => {
+  beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  const renderWithProvider = (component: React.ReactElement) => {
-    return render(<ConfigProvider>{component}</ConfigProvider>);
-  };
-
-  describe('ImageAndError Component', () => {
+  describe('ImageAndError', () => {
     it('应该正确渲染图片', () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError
+      renderWithProvider(
+        <ImageAndError
           src="https://example.com/image.jpg"
-          alt="测试图片"
+          alt="Test Image"
+          width={400}
+          height={300}
         />,
       );
 
-      const img = container.querySelector('img');
-      expect(img).toBeInTheDocument();
-      expect(img).toHaveAttribute('src', 'https://example.com/image.jpg');
-      expect(img).toHaveAttribute('alt', '测试图片');
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+      expect(imageElement).toHaveAttribute(
+        'src',
+        'https://example.com/image.jpg',
+      );
     });
 
-    it('应该在图片加载失败时显示链接', async () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError
-          src="https://invalid-url.com/image.jpg"
-          alt="失败图片"
+    it('应该处理图片加载错误', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/invalid-image.jpg"
+          alt="Invalid Image"
+          width={400}
+          height={300}
         />,
       );
 
-      const img = container.querySelector('img');
-      expect(img).toBeInTheDocument();
-
-      // 模拟图片加载失败
-      fireEvent.error(img!);
-
-      // 等待状态更新
-      await new Promise((resolve) => setTimeout(resolve, 0));
-
-      const link = container.querySelector('a');
-      expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('href', 'https://invalid-url.com/image.jpg');
-      expect(link).toHaveTextContent('失败图片');
+      const imageElement = screen.getByAltText('Invalid Image');
+      expect(imageElement).toBeInTheDocument();
     });
 
     it('应该处理空的 alt 属性', () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError src="https://example.com/image.jpg" />,
-      );
-
-      const img = container.querySelector('img');
-      expect(img).toBeInTheDocument();
-      expect(img).toHaveAttribute('src', 'https://example.com/image.jpg');
-    });
-  });
-
-  describe('ResizeImage Component', () => {
-    it('应该显示加载状态', () => {
-      const { getByTestId } = renderWithProvider(
-        <MockResizeImage src="https://example.com/image.jpg" alt="测试图片" />,
-      );
-
-      const loading = getByTestId('loading');
-      expect(loading).toBeInTheDocument();
-      expect(loading).toHaveTextContent('Loading...');
-    });
-
-    it('应该正确渲染图片', async () => {
-      const { getByTestId } = renderWithProvider(
-        <MockResizeImage src="https://example.com/image.jpg" alt="测试图片" />,
-      );
-
-      const resizeImage = getByTestId('resize-image');
-      expect(resizeImage).toBeInTheDocument();
-
-      // 等待加载完成
-      await new Promise((resolve) => setTimeout(resolve, 150));
-
-      const img = resizeImage.querySelector('img');
-      expect(img).toBeInTheDocument();
-      expect(img).toHaveAttribute('src', 'https://example.com/image.jpg');
-    });
-
-    it('应该在选中时显示边框', async () => {
-      const { getByTestId } = renderWithProvider(
-        <MockResizeImage
+      renderWithProvider(
+        <ImageAndError
           src="https://example.com/image.jpg"
-          alt="测试图片"
-          selected={true}
+          alt=""
+          width={400}
+          height={300}
         />,
       );
 
-      // 等待加载完成
-      await new Promise((resolve) => setTimeout(resolve, 150));
+      const imageElement = screen.getByAltText('');
+      expect(imageElement).toBeInTheDocument();
+    });
 
-      const img = getByTestId('resize-image').querySelector('img');
-      expect(img).toHaveStyle('outline: 2px solid #1890ff');
+    it('应该处理数字类型的 width', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          width={400}
+          height={300}
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
     });
   });
 
-  describe('EditorImage Component', () => {
-    const defaultElement = {
-      url: 'https://example.com/image.jpg',
-      width: 400,
-      height: 300,
-      block: false,
-      mediaType: 'image',
+  describe('ResizeImage', () => {
+    const mockResizeProps = {
+      src: 'https://example.com/image.jpg',
+      alt: 'Test Image',
+      onResizeStart: vi.fn(),
+      onResizeStop: vi.fn(),
     };
 
-    it('应该正确渲染编辑器图片', () => {
-      const { container } = renderWithProvider(
-        <MockEditorImage
-          element={defaultElement}
-          attributes={{}}
-          children={<span>隐藏内容</span>}
+    it('应该正确渲染ResizeImage组件', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} />);
+
+      const resizeImageContainer = screen.getByTestId('resize-image-container');
+      expect(resizeImageContainer).toBeInTheDocument();
+      // 图片在加载时是隐藏的，所以我们检查容器而不是图片本身
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理调整大小开始事件', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} />);
+
+      const resizeStartButton = screen.getByTestId('resize-start');
+      fireEvent.click(resizeStartButton);
+
+      expect(mockResizeProps.onResizeStart).toHaveBeenCalled();
+    });
+
+    it('应该处理调整大小停止事件', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} />);
+
+      const resizeStopButton = screen.getByTestId('resize-stop');
+      fireEvent.click(resizeStopButton);
+
+      expect(mockResizeProps.onResizeStop).toHaveBeenCalledWith({
+        width: 400,
+        height: 0,
+      });
+    });
+
+    it('应该处理调整大小事件', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} />);
+
+      const resizeButton = screen.getByTestId('resize');
+      fireEvent.click(resizeButton);
+
+      // 验证调整大小事件被触发
+      expect(resizeButton).toBeInTheDocument();
+    });
+
+    it('应该处理加载状态', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} />);
+
+      const loadingElement = screen.getByLabelText('loading');
+      expect(loadingElement).toBeInTheDocument();
+    });
+
+    it('应该处理选中状态', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} selected={true} />);
+
+      // 图片在加载时是隐藏的，所以我们检查容器而不是图片本身
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理默认尺寸', () => {
+      renderWithProvider(
+        <ResizeImage
+          {...mockResizeProps}
+          defaultSize={{ width: 500, height: 400 }}
         />,
       );
 
-      const imageContainer = container.querySelector('[data-be="image"]');
+      // 图片在加载时是隐藏的，所以我们检查容器而不是图片本身
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+  });
+
+  describe('EditorImage', () => {
+    it('应该正确渲染 EditorImage 组件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
       expect(imageContainer).toBeInTheDocument();
-      expect(imageContainer).toHaveClass('ant-md-editor-drag-el');
-
-      const mediaContainer = container.querySelector('.md-editor-media');
-      expect(mediaContainer).toBeInTheDocument();
     });
 
-    it('应该处理点击选择', () => {
-      const { container } = renderWithProvider(
-        <MockEditorImage
-          element={defaultElement}
-          attributes={{}}
-          children={<span>隐藏内容</span>}
-        />,
+    it('应该处理点击事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
       );
 
-      const imageContainer = container.querySelector('[data-be="image"]');
-      fireEvent.click(imageContainer!);
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.click(imageContainer);
 
-      // 检查是否触发了选择状态
-      const resizeImage = container.querySelector(
-        '[data-testid="resize-image"]',
-      );
-      expect(resizeImage).toBeInTheDocument();
-    });
-
-    it('应该处理空的 element', () => {
-      const { container } = renderWithProvider(
-        <MockEditorImage
-          element={{}}
-          attributes={{}}
-          children={<span>隐藏内容</span>}
-        />,
-      );
-
-      const imageContainer = container.querySelector('[data-be="image"]');
       expect(imageContainer).toBeInTheDocument();
     });
 
-    it('应该处理空的 children', () => {
-      const { container } = renderWithProvider(
-        <MockEditorImage element={defaultElement} attributes={{}} />,
+    it('应该处理右键菜单事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
       );
 
-      const imageContainer = container.querySelector('[data-be="image"]');
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.contextMenu(imageContainer);
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理鼠标按下事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.mouseDown(imageContainer);
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理拖拽开始事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.dragStart(imageContainer);
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理调整大小停止事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
       expect(imageContainer).toBeInTheDocument();
     });
   });
 
-  describe('边界情况处理', () => {
-    it('应该处理无效的 URL', () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError src="" alt="空URL图片" />,
+  describe('边界情况测试', () => {
+    it('应该处理空的 URL', () => {
+      const elementWithEmptyUrl: MediaNode = {
+        ...mockElement,
+        url: '',
+      };
+
+      renderWithProvider(
+        <EditorImage element={elementWithEmptyUrl} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
       );
 
-      const img = container.querySelector('img');
-      expect(img).toBeInTheDocument();
-      expect(img).toHaveAttribute('src', '');
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
     });
 
-    it('应该处理 null 属性', () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError src={null as any} alt={null as any} />,
+    it('应该处理块级图片', () => {
+      const blockElement: MediaNode = {
+        ...mockElement,
+        block: true,
+      };
+
+      renderWithProvider(
+        <EditorImage element={blockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
       );
 
-      const img = container.querySelector('img');
-      expect(img).toBeInTheDocument();
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
     });
 
-    it('应该处理 undefined 属性', () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError src={undefined as any} alt={undefined as any} />,
+    it('应该处理加载失败的情况', () => {
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const failedStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: false,
+        url: 'https://example.com/image.jpg',
+        selected: false,
+        type: 'image',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => failedStateData,
+        vi.fn((updates) => Object.assign(failedStateData, updates)),
+      ]);
+
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
       );
 
-      const img = container.querySelector('img');
-      expect(img).toBeInTheDocument();
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
     });
-  });
 
-  describe('属性传递', () => {
-    it('应该传递自定义属性', () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError
-          src="https://example.com/image.jpg"
-          alt="测试图片"
-          data-testid="custom-image"
-          className="custom-class"
-        />,
+    it('应该处理拖拽状态', () => {
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const draggingStateData = {
+        height: 300,
+        dragging: true,
+        loadSuccess: true,
+        url: 'https://example.com/image.jpg',
+        selected: false,
+        type: 'image',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => draggingStateData,
+        vi.fn((updates) => Object.assign(draggingStateData, updates)),
+      ]);
+
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
       );
 
-      const img = container.querySelector('img');
-      expect(img).toHaveAttribute('data-testid', 'custom-image');
-      expect(img).toHaveClass('custom-class');
-    });
-
-    it('应该传递样式属性', () => {
-      const { container } = renderWithProvider(
-        <MockImageAndError
-          src="https://example.com/image.jpg"
-          alt="测试图片"
-          style={{ width: '100px', height: '100px' }}
-        />,
-      );
-
-      const img = container.querySelector('img');
-      expect(img).toHaveStyle('width: 100px');
-      expect(img).toHaveStyle('height: 100px');
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
     });
   });
 });

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { BaseEditor, createEditor, Editor, Element, Node, Path, Point, Range, Transforms } from 'slate';
+import { BaseEditor, createEditor, Node, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ReactEditor, withReact } from '../../../slate-react';
@@ -16,7 +16,9 @@ describe('TabKey', () => {
   let tabKey: TabKey;
 
   beforeEach(() => {
-    editor = withHistory(withReact(createEditor())) as BaseEditor & ReactEditor & HistoryEditor;
+    editor = withHistory(withReact(createEditor())) as BaseEditor &
+      ReactEditor &
+      HistoryEditor;
     editor.children = [{ type: 'paragraph', children: [{ text: '' }] }];
     tabKey = new TabKey(editor);
   });
@@ -403,4 +405,4 @@ describe('TabKey', () => {
       editor.insertText = originalInsertText;
     });
   });
-}); 
+});

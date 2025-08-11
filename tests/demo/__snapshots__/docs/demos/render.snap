@@ -2757,6 +2757,7 @@ extensions:
                       <div
                         class="ant-md-editor-drag-el"
                         data-be="media"
+                        data-testid="media-container"
                         draggable="false"
                         style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                       >
@@ -2770,8 +2771,10 @@ extensions:
                         >
                           <video
                             controls=""
+                            data-testid="video-element"
+                            preload="metadata"
                             src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
-                            style="width: 100%; height: auto; max-width: 600px;"
+                            style="width: 100%; height: auto; max-width: 600px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
                           />
                           <div
                             style="display: none;"
@@ -2943,6 +2946,7 @@ extensions:
                       <div
                         class="ant-md-editor-drag-el"
                         data-be="media"
+                        data-testid="media-container"
                         draggable="false"
                         style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                       >

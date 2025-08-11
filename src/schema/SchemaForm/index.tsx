@@ -28,68 +28,71 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   const { locale = cnLabels } = useContext(I18nContext);
 
   // 生成表单验证规则
-  const generateRules = useCallback((property: SchemaProperty): Rule[] => {
-    const rules: Rule[] = [];
+  const generateRules = useCallback(
+    (property: SchemaProperty): Rule[] => {
+      const rules: Rule[] = [];
 
-    if (property.required) {
-      rules.push({
-        required: true,
-        message: `${locale?.inputPlaceholder || '请输入'} ${property.title || property.description || ''}`,
-      });
-    }
+      if (property.required) {
+        rules.push({
+          required: true,
+          message: `${locale?.inputPlaceholder || '请输入'} ${property.title || property.description || ''}`,
+        });
+      }
 
-    if (property.type === 'string' && property.pattern) {
-      rules.push({
-        pattern: new RegExp(property.pattern),
-        message:
-          property.patternMessage ||
-          `${property.title || property.description || ''}格式不正确`,
-      });
-    }
+      if (property.type === 'string' && property.pattern) {
+        rules.push({
+          pattern: new RegExp(property.pattern),
+          message:
+            property.patternMessage ||
+            `${property.title || property.description || ''}格式不正确`,
+        });
+      }
 
-    if (property.type === 'number') {
-      rules.push({
-        type: 'number',
-        message: `${property.title || property.description || ''}必须是数字`,
-      });
-
-      if (typeof property.minimum === 'number') {
+      if (property.type === 'number') {
         rules.push({
           type: 'number',
-          min: property.minimum,
-          message: `${property.title || property.description || ''}不能小于 ${property.minimum}`,
+          message: `${property.title || property.description || ''}必须是数字`,
         });
+
+        if (typeof property.minimum === 'number') {
+          rules.push({
+            type: 'number',
+            min: property.minimum,
+            message: `${property.title || property.description || ''}不能小于 ${property.minimum}`,
+          });
+        }
+
+        if (typeof property.maximum === 'number') {
+          rules.push({
+            type: 'number',
+            max: property.maximum,
+            message: `${property.title || property.description || ''}不能大于 ${property.maximum}`,
+          });
+        }
       }
 
-      if (typeof property.maximum === 'number') {
-        rules.push({
-          type: 'number',
-          max: property.maximum,
-          message: `${property.title || property.description || ''}不能大于 ${property.maximum}`,
-        });
-      }
-    }
+      if (property.type === 'array') {
+        if (typeof property.minItems === 'number') {
+          rules.push({
+            type: 'array',
+            min: property.minItems,
+            message: `${property.title || property.description || ''}至少需要 ${property.minItems} 项`,
+          });
+        }
 
-    if (property.type === 'array') {
-      if (typeof property.minItems === 'number') {
-        rules.push({
-          type: 'array',
-          min: property.minItems,
-          message: `${property.title || property.description || ''}至少需要 ${property.minItems} 项`,
-        });
+        if (typeof property.maxItems === 'number') {
+          rules.push({
+            type: 'array',
+            max: property.maxItems,
+            message: `${property.title || property.description || ''}最多只能有 ${property.maxItems} 项`,
+          });
+        }
       }
 
-      if (typeof property.maxItems === 'number') {
-        rules.push({
-          type: 'array',
-          max: property.maxItems,
-          message: `${property.title || property.description || ''}最多只能有 ${property.maxItems} 项`,
-        });
-      }
-    }
-
-    return rules;
-  }, [locale]);
+      return rules;
+    },
+    [locale],
+  );
 
   // 获取属性标题
   const getPropertyTitle = useCallback(

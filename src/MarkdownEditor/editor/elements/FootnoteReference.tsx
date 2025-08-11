@@ -16,6 +16,7 @@ export const FootnoteReference = (
       <p
         {...props.attributes}
         data-be={'paragraph'}
+        data-testid="footnote-reference"
         className={
           !str ? 'ant-md-editor-drag-el empty' : 'ant-md-editor-drag-el'
         }
