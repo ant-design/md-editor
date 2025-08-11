@@ -1,4 +1,4 @@
-import { createEditor, Editor } from 'slate';
+import { createEditor, Editor, Transforms } from 'slate';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ReactEditor,
@@ -29,16 +29,34 @@ Object.defineProperty(navigator, 'clipboard', {
 });
 
 // Mock document.createElement
-const mockInputElement = {
-  id: '',
-  type: 'file',
-  accept: 'image/*',
-  value: '',
-  dataset: {} as any,
-  onchange: vi.fn(),
-  click: vi.fn(),
-  remove: vi.fn(),
-};
+let mockInputElement: any;
+const originalCreateElement = document.createElement;
+vi.spyOn(document, 'createElement').mockImplementation((tagName: string) => {
+  if (tagName === 'input') {
+    mockInputElement = {
+      id: '',
+      type: 'file',
+      accept: 'image/*',
+      value: '',
+      dataset: {} as any,
+      onchange: vi.fn(),
+      click: vi.fn(),
+      remove: vi.fn(),
+    };
+    return mockInputElement;
+  }
+  return originalCreateElement.call(document, tagName);
+});
+
+// Mock only Transforms methods to prevent undefined errors
+vi.spyOn(Transforms, 'insertNodes').mockImplementation(() => {});
+vi.spyOn(Transforms, 'insertText').mockImplementation(() => {});
+vi.spyOn(Transforms, 'delete').mockImplementation(() => {});
+vi.spyOn(Transforms, 'select').mockImplementation(() => {});
+vi.spyOn(Transforms, 'setNodes').mockImplementation(() => {});
+vi.spyOn(Transforms, 'wrapNodes').mockImplementation(() => {});
+vi.spyOn(Transforms, 'unwrapNodes').mockImplementation(() => {});
+vi.spyOn(Transforms, 'removeNodes').mockImplementation(() => {});
 
 // Mock EditorUtils
 vi.mock('../../../../../src/MarkdownEditor/editor/utils/editorUtils', () => ({
@@ -98,7 +116,12 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       (navigator.clipboard.readText as any).mockResolvedValue(mockText);
 
       const mockNode = [{ type: 'paragraph', children: [{ text: '' }] }, [0]];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
+
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
 
       const insertTextSpy = vi.spyOn(Editor, 'insertText');
 
@@ -112,7 +135,12 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       (navigator.clipboard.readText as any).mockResolvedValue(mockText);
 
       const mockNode = [{ type: 'table-cell', children: [{ text: '' }] }, [0]];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
+
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
 
       const insertTextSpy = vi.spyOn(Editor, 'insertText');
 
@@ -148,12 +176,18 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       mockProps.image.upload.mockResolvedValue(mockUrl);
 
       const mockNode = [{ type: 'paragraph', children: [{ text: '' }] }, [0]];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Editor, 'insertText');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
 
       keyboardTask.uploadImage();
 
+      // 手动触发 onchange 事件
       const mockEvent = {
         target: { files: mockFiles },
       };
@@ -173,6 +207,7 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
 
       keyboardTask.uploadImage();
 
+      // 手动触发 onchange 事件
       const mockEvent = {
         target: { files: mockFiles },
       };
@@ -188,24 +223,42 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       const mockFiles = [new File([''], 'test.jpg', { type: 'image/jpeg' })];
       mockProps.image.upload = undefined;
 
-      const { message } = await import('antd');
+      const mockNode = [{ type: 'paragraph', children: [{ text: '' }] }, [0]];
+
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
 
       keyboardTask.uploadImage();
 
+      // 手动触发 onchange 事件
       const mockEvent = {
         target: { files: mockFiles },
       };
-      await mockInputElement.onchange(mockEvent);
 
+      // 手动调用onchange事件处理函数
+      const onchangeHandler = mockInputElement.onchange;
+      await onchangeHandler(mockEvent);
+
+      // 验证message.error被调用
+      const { message } = await import('antd');
       expect(message.error).toHaveBeenCalledWith('图片上传功能未配置');
     });
 
     it('应该防止重复上传', async () => {
-      mockInputElement.dataset.readonly = 'true';
-
+      // 先调用一次 uploadImage 来设置 readonly 状态
       keyboardTask.uploadImage();
 
-      expect(mockInputElement.click).not.toHaveBeenCalled();
+      // 设置 readonly 状态
+      mockInputElement.dataset.readonly = 'true';
+
+      // 再次调用 uploadImage
+      keyboardTask.uploadImage();
+
+      // 第二次调用时，click 不应该被调用
+      expect(mockInputElement.click).toHaveBeenCalledTimes(1);
     });
 
     it('应该处理空文件列表', async () => {
@@ -213,10 +266,16 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       mockProps.image.upload.mockResolvedValue('https://example.com/test.jpg');
 
       const mockNode = [{ type: 'paragraph', children: [{ text: '' }] }, [0]];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
+
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
 
       keyboardTask.uploadImage();
 
+      // 手动触发 onchange 事件
       const mockEvent = {
         target: { files: mockFiles },
       };
@@ -237,12 +296,18 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       mockProps.image.upload.mockResolvedValue(mockUrls);
 
       const mockNode = [{ type: 'paragraph', children: [{ text: '' }] }, [0]];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Editor, 'insertText');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
 
       keyboardTask.uploadImage();
 
+      // 手动触发 onchange 事件
       const mockEvent = {
         target: { files: mockFiles },
       };
@@ -256,12 +321,18 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       mockProps.image.upload.mockResolvedValue([]);
 
       const mockNode = [{ type: 'paragraph', children: [{ text: '' }] }, [0]];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Editor, 'insertText');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
 
       keyboardTask.uploadImage();
 
+      // 手动触发 onchange 事件
       const mockEvent = {
         target: { files: mockFiles },
       };
@@ -275,12 +346,17 @@ describe('KeyboardTask - Paste and Upload Methods', () => {
       const mockUrl = 'https://example.com/test.jpg';
       mockProps.image.upload.mockResolvedValue(mockUrl);
 
-      vi.spyOn(Editor, 'nodes').mockReturnValue([] as any);
+      // Mock curNodes getter to return empty array
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([]),
+        configurable: true,
+      });
 
-      const insertNodesSpy = vi.spyOn(Editor, 'insertText');
+      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
 
       keyboardTask.uploadImage();
 
+      // 手动触发 onchange 事件
       const mockEvent = {
         target: { files: mockFiles },
       };

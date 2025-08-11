@@ -1,4 +1,4 @@
-import { createEditor, Editor } from 'slate';
+import { createEditor } from 'slate';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ReactEditor,

@@ -168,7 +168,7 @@ export class KeyboardTask {
     input.type = 'file';
     input.accept = 'image/*';
     const insertMedia = async (url: string) => {
-      if (node) {
+      if (node && ['column-cell'].includes(node[0].type)) {
         Transforms.insertNodes(
           this.editor,
           [EditorUtils.createMediaNode(url, 'image', {})],

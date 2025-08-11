@@ -1,11 +1,10 @@
-import { createEditor, Editor, Node, Transforms } from 'slate';
+import { createEditor, Editor, Node, Path, Transforms } from 'slate';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ReactEditor,
   withReact,
 } from '../../../../../src/MarkdownEditor/editor/slate-react';
 import { EditorStore } from '../../../../../src/MarkdownEditor/editor/store';
-import { EditorUtils } from '../../../../../src/MarkdownEditor/editor/utils/editorUtils';
 import { KeyboardTask } from '../../../../../src/MarkdownEditor/editor/utils/keyboard';
 
 // Mock dependencies
@@ -27,6 +26,29 @@ Object.defineProperty(navigator, 'clipboard', {
     readText: vi.fn(),
   },
   writable: true,
+});
+
+// Mock Transforms
+vi.mock('slate', async () => {
+  const actual = await vi.importActual('slate');
+  return {
+    ...actual,
+    Transforms: {
+      wrapNodes: vi.fn(),
+      unwrapNodes: vi.fn(),
+      insertNodes: vi.fn(),
+      setNodes: vi.fn(),
+      select: vi.fn(),
+      delete: vi.fn(),
+      removeNodes: vi.fn(),
+    },
+    Editor: {
+      ...actual.Editor,
+      start: vi.fn(() => ({ path: [0, 0], offset: 0 })),
+      end: vi.fn(() => ({ path: [0, 0], offset: 0 })),
+      hasPath: vi.fn(() => false),
+    },
+  };
 });
 
 // Mock EditorUtils
@@ -87,13 +109,22 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const wrapNodesSpy = vi.spyOn(Transforms, 'wrapNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      // Mock Node.parent to return a non-blockquote parent
+      vi.spyOn(Node, 'parent').mockReturnValue({
+        type: 'document',
+        children: [],
+      } as any);
 
       keyboardTask.insertQuote();
 
-      expect(wrapNodesSpy).toHaveBeenCalledWith(editor, {
+      expect(Transforms.wrapNodes).toHaveBeenCalledWith(editor, {
         type: 'blockquote',
         children: [],
       });
@@ -104,28 +135,37 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0, 0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
+
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
       vi.spyOn(Node, 'parent').mockReturnValue({
         type: 'blockquote',
         children: [],
       } as any);
 
-      const unwrapNodesSpy = vi.spyOn(Transforms, 'unwrapNodes');
+      vi.spyOn(Path, 'parent').mockReturnValue([0]);
 
       keyboardTask.insertQuote();
 
-      expect(unwrapNodesSpy).toHaveBeenCalledWith(editor, { at: [0] });
+      expect(Transforms.unwrapNodes).toHaveBeenCalledWith(editor, { at: [0] });
     });
 
     it('当节点类型不支持时不应该执行任何操作', () => {
       const mockNode = [{ type: 'code', children: [{ text: 'Test' }] }, [0]];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const wrapNodesSpy = vi.spyOn(Transforms, 'wrapNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
 
       keyboardTask.insertQuote();
 
-      expect(wrapNodesSpy).not.toHaveBeenCalled();
+      expect(Transforms.wrapNodes).not.toHaveBeenCalled();
     });
   });
 
@@ -135,13 +175,19 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      // Mock Path.next to return a valid path
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
 
       keyboardTask.insertTable();
 
-      expect(insertNodesSpy).toHaveBeenCalled();
+      expect(Transforms.insertNodes).toHaveBeenCalled();
     });
 
     it('应该在列单元格中插入表格', () => {
@@ -149,13 +195,16 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'column-cell', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
 
       keyboardTask.insertTable();
 
-      expect(insertNodesSpy).toHaveBeenCalled();
+      expect(Transforms.insertNodes).toHaveBeenCalled();
     });
   });
 
@@ -165,13 +214,19 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      // Mock Path.next to return a valid path
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
 
       keyboardTask.insertCode();
 
-      expect(insertNodesSpy).toHaveBeenCalled();
+      expect(Transforms.insertNodes).toHaveBeenCalled();
     });
 
     it('应该插入指定类型的代码块', () => {
@@ -179,13 +234,19 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      // Mock Path.next to return a valid path
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
 
       keyboardTask.insertCode('mermaid');
 
-      expect(insertNodesSpy).toHaveBeenCalled();
+      expect(Transforms.insertNodes).toHaveBeenCalled();
     });
 
     it('应该插入HTML代码块', () => {
@@ -193,13 +254,19 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      // Mock Path.next to return a valid path
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
 
       keyboardTask.insertCode('html');
 
-      expect(insertNodesSpy).toHaveBeenCalled();
+      expect(Transforms.insertNodes).toHaveBeenCalled();
     });
   });
 
@@ -209,13 +276,19 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
 
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      // Mock Path.next to return a valid path
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
 
       keyboardTask.horizontalLine();
 
-      expect(insertNodesSpy).toHaveBeenCalled();
+      expect(Transforms.insertNodes).toHaveBeenCalled();
     });
 
     it('应该在水平线后插入段落', () => {
@@ -223,14 +296,21 @@ describe('KeyboardTask - Insert Methods', () => {
         { type: 'paragraph', children: [{ text: 'Test' }] },
         [0],
       ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
-      vi.spyOn(Editor, 'hasPath').mockReturnValue(false);
 
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
+      // Mock curNodes getter
+      Object.defineProperty(keyboardTask, 'curNodes', {
+        get: vi.fn().mockReturnValue([mockNode]),
+        configurable: true,
+      });
+
+      // Mock Path.next to return a valid path
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
+
+      vi.spyOn(Editor, 'hasPath').mockReturnValue(false);
 
       keyboardTask.horizontalLine();
 
-      expect(insertNodesSpy).toHaveBeenCalledTimes(2); // 一次插入水平线，一次插入段落
+      expect(Transforms.insertNodes).toHaveBeenCalledTimes(2); // 一次插入水平线，一次插入段落
     });
   });
 });
