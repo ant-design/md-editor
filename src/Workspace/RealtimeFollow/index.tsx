@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import { Segmented, Spin } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../../MarkdownEditor';
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
+import { HtmlPreview } from '../HtmlPreview';
 import HtmlIcon from '../icons/HtmlIcon';
 import ShellIcon from '../icons/ShellIcon';
 import ThinkIcon from '../icons/ThinkIcon';
@@ -17,14 +19,9 @@ export interface DiffContent {
   modified: string;
 }
 
-export interface HtmlContent {
-  html: string;
-  status?: 'generating' | 'done' | 'error';
-}
-
 export interface RealtimeFollowData {
   type: RealtimeFollowMode;
-  content: string | DiffContent | HtmlContent;
+  content: string | DiffContent;
   // 支持MarkdownEditor的所有配置项
   markdownEditorProps?: Partial<MarkdownEditorProps>;
   title?: string; // 自定义主标题，如"终端执行"
@@ -32,6 +29,21 @@ export interface RealtimeFollowData {
   icon?: React.ComponentType; // 自定义图标
   typewriter?: boolean; // 是否启用打印机效果
   rightContent?: React.ReactNode; // 自定义右侧内容
+  loadingRender?: React.ReactNode | (() => React.ReactNode);
+  className?: string;
+  style?: React.CSSProperties;
+  errorRender?: React.ReactNode | (() => React.ReactNode);
+  // 通用状态：适用于任意类型（html/shell/markdown）
+  status?: 'loading' | 'done' | 'error';
+
+  // —— 以下为库化增强配置，主要用于 html 类型 ——
+  viewMode?: 'preview' | 'code';
+  defaultViewMode?: 'preview' | 'code';
+  onViewModeChange?: (mode: 'preview' | 'code') => void;
+  iframeProps?: React.IframeHTMLAttributes<HTMLIFrameElement>;
+  labels?: { preview?: string; code?: string };
+  // 右侧分段器（Segmented）自定义
+  segmentedItems?: Array<{ label: React.ReactNode; value: string }>; // 自定义 items
 }
 
 // 获取不同type的配置信息
@@ -62,37 +74,33 @@ const getTypeConfig = (type: RealtimeFollowMode) => {
 };
 
 // 头部组件
-const RealtimeHeader: React.FC<{ data: RealtimeFollowData }> = ({ data }) => {
-  const config = getTypeConfig(data.type); // 根据传入的类型渲染不同的头部元素
+const RealtimeHeader: React.FC<{
+  data: RealtimeFollowData;
+  hasBorder?: boolean;
+}> = ({ data, hasBorder }) => {
+  const config = getTypeConfig(data.type);
 
-  // 优先使用传入的自定义属性，否则使用默认配置
   const IconComponent = data.icon || config.icon;
   const headerTitle = data.title || config.title;
   const headerSubTitle = data.subTitle;
 
   return (
-    <header
-      className="chat-realtime-header"
-      style={{
-        borderBottom: ['html', 'markdown'].includes(data.type)
-          ? '1px solid rgba(20, 22, 28, 0.07)'
-          : 'none',
-      }}
-    >
-      <div className="chat-realtime-header-left">
-        <div
-          className="chat-realtime-header-icon"
-          style={{ background: data?.type === 'html' ? '#E0F9FF' : '#EEF1F6' }}
-        >
-          <IconComponent />
+          <header
+        className={`workspace-realtime-header ${hasBorder ? 'workspace-realtime-header-with-border' : ''}`}
+      >
+        <div className="workspace-realtime-header-left">
+          <div
+            className={`workspace-realtime-header-icon ${data?.type === 'html' ? 'workspace-realtime-header-icon--html' : 'workspace-realtime-header-icon--default'}`}
+          >
+            <IconComponent />
+          </div>
+          <div className="workspace-realtime-header-content">
+            <div className="workspace-realtime-header-title">{headerTitle}</div>
+            <div className="workspace-realtime-header-subtitle">{headerSubTitle}</div>
+          </div>
         </div>
-        <div className="chat-realtime-header-content">
-          <div className="chat-realtime-header-title">{headerTitle}</div>
-          <div className="chat-realtime-header-subtitle">{headerSubTitle}</div>
-        </div>
-      </div>
-      <div className="chat-realtime-right">{data.rightContent}</div>
-    </header>
+        <div className="workspace-realtime-header-right">{data.rightContent}</div>
+      </header>
   );
 };
 
@@ -112,7 +120,7 @@ const getEditorConfig = (
       return {
         ...baseConfig,
         contentStyle: { padding: 0 },
-        className: 'chat-realtime--shell',
+        className: 'workspace-realtime--shell',
         codeProps: {
           showGutter: true,
           showLineNumbers: true,
@@ -123,7 +131,7 @@ const getEditorConfig = (
       return {
         ...baseConfig,
         contentStyle: { padding: 16 },
-        className: 'chat-realtime--markdown',
+        className: 'workspace-realtime--markdown',
         height: '100%',
       };
     default:
@@ -131,27 +139,75 @@ const getEditorConfig = (
   }
 };
 
-export const RealtimeFollow: React.FC<{ data: RealtimeFollowData }> = ({
-  data,
-}) => {
+// 通用遮罩（仅供 shell/md 使用；html 由 HtmlPreview 自己处理）
+const Overlay: React.FC<{
+  status?: 'loading' | 'done' | 'error';
+  loadingRender?: React.ReactNode | (() => React.ReactNode);
+  errorRender?: React.ReactNode | (() => React.ReactNode);
+}> = ({ status, loadingRender, errorRender }) => {
+  if (status !== 'loading' && status !== 'error') return null;
+  const loadingNode =
+    typeof loadingRender === 'function' ? loadingRender() : loadingRender;
+  const errorNode =
+    typeof errorRender === 'function' ? errorRender() : errorRender;
+  return (
+    <div
+      className={`workspace-realtime-overlay ${status === 'loading' ? 'workspace-realtime-overlay--loading' : 'workspace-realtime-overlay--error'}`}
+    >
+      {status === 'loading'
+        ? loadingNode || <Spin />
+        : errorNode || <span>页面渲染失败</span>}
+    </div>
+  );
+};
+
+export const RealtimeFollow: React.FC<{
+  data: RealtimeFollowData;
+  htmlViewMode?: 'preview' | 'code';
+}> = ({ data, htmlViewMode = 'preview' }) => {
   const mdInstance = useRef<MarkdownEditorInstance>();
   // 更新编辑器内容的effect
   useEffect(() => {
     if (
       mdInstance.current?.store &&
-      (data.type === 'shell' || ['markdown', 'md'].includes(data.type))
+      (data.type === 'shell' ||
+        ['markdown', 'md'].includes(data.type) ||
+        (data.type === 'html' && htmlViewMode === 'code'))
     ) {
-      const content = String(data.content);
+      const content = (() => {
+        if (data.type === 'html') {
+          const html = typeof data.content === 'string' ? data.content : '';
+          return '```html\n' + html + '\n```';
+        }
+        return String(data.content);
+      })();
+
       const { schema } = parserMdToSchema(
         content,
         mdInstance.current.store.plugins,
       );
       mdInstance.current.store.updateNodeList(schema);
     }
-  }, [data.content, data.type]);
+  }, [data.content, data.type, htmlViewMode]);
 
   if (data.type === 'html') {
-    return <div>html</div>;
+    const html = typeof data.content === 'string' ? data.content : '';
+    return (
+      <div className="chat-realtime-content">
+        <HtmlPreview
+          html={html}
+          status={data.status}
+          viewMode={htmlViewMode}
+          onViewModeChange={(m) => data.onViewModeChange?.(m)}
+          markdownEditorProps={data.markdownEditorProps}
+          iframeProps={data.iframeProps}
+          labels={data.labels}
+          loadingRender={data.loadingRender}
+          errorRender={data.errorRender}
+          showSegmented={false}
+        />
+      </div>
+    );
   }
 
   if (!['shell', 'markdown', 'md'].includes(data.type)) {
@@ -166,21 +222,83 @@ export const RealtimeFollow: React.FC<{ data: RealtimeFollowData }> = ({
   };
 
   return (
-    <MarkdownEditor
-      {...mergedProps}
-      editorRef={mdInstance}
-      initValue={String(data.content)}
-    />
+    <div className="chat-realtime-content">
+      <Overlay
+        status={data.status}
+        loadingRender={data.loadingRender}
+        errorRender={data.errorRender}
+      />
+      <MarkdownEditor
+        {...mergedProps}
+        editorRef={mdInstance}
+        initValue={String(data.content)}
+      />
+    </div>
   );
 };
 
 export const RealtimeFollowList: React.FC<{
   data: RealtimeFollowData;
 }> = ({ data }) => {
+  const isControlled = data.type === 'html' && data.viewMode !== undefined;
+  const [innerViewMode, setInnerViewMode] = useState<'preview' | 'code'>(
+    data.defaultViewMode || 'preview',
+  );
+  const htmlViewMode: 'preview' | 'code' =
+    data.type === 'html'
+      ? isControlled
+        ? (data.viewMode as any)
+        : innerViewMode
+      : 'preview';
+
+  const handleSetMode = (mode: 'preview' | 'code') => {
+    if (!isControlled) setInnerViewMode(mode);
+    data.onViewModeChange?.(mode);
+  };
+
+  const labels = {
+    preview: data.labels?.preview || '预览',
+    code: data.labels?.code || '代码',
+  };
+
+  // 右侧：优先使用外部自定义 rightContent，其次使用 segmentedItems，再次使用默认的预览/代码
+  const rightContent = (() => {
+    if (data.rightContent) return data.rightContent;
+    if (data.type !== 'html') return null;
+
+    if (data.segmentedItems && data.segmentedItems.length > 0) {
+      return (
+        <Segmented
+          options={data.segmentedItems}
+          onChange={(val) => data.onViewModeChange?.(String(val) as any)}
+        />
+      );
+    }
+
+    return (
+      <Segmented
+        options={[
+          { label: labels.preview, value: 'preview' },
+          { label: labels.code, value: 'code' },
+        ]}
+        value={htmlViewMode}
+        onChange={(val) => handleSetMode(val as 'preview' | 'code')}
+      />
+    );
+  })();
+
+  const headerData: RealtimeFollowData = { ...data, rightContent };
+
   return (
-    <div className="chat-realtime-container">
-      <RealtimeHeader data={data} />
-      <RealtimeFollow data={data} />
+    <div
+      className={`workspace-realtime-container ${data.className || ''}`}
+      style={data.style}
+    >
+      <RealtimeHeader
+        data={headerData}
+        hasBorder={['html', 'markdown'].includes(data.type)}
+      />
+      <RealtimeFollow data={data} htmlViewMode={htmlViewMode} />
     </div>
   );
 };

@@ -8,7 +8,7 @@ import type { TaskItemInput } from './Task';
 export interface TabConfiguration {
   key?: string;
   icon?: ReactNode;
-  title?: string;
+  title?: ReactNode;
 }
 
 // 标签页数据结构
@@ -268,7 +268,16 @@ export const FILE_TYPES: Record<string, FileTypeDefinition> = {
   },
   config: {
     category: FileCategory.Code,
-    extensions: ['json', 'yaml', 'yml', 'toml', 'ini', 'conf', 'cfg', 'properties'],
+    extensions: [
+      'json',
+      'yaml',
+      'yml',
+      'toml',
+      'ini',
+      'conf',
+      'cfg',
+      'properties',
+    ],
     mimeTypes: [
       'application/json',
       'application/yaml',

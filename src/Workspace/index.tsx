@@ -10,15 +10,15 @@ import TaskIcon from './icons/TaskIcon';
 import './index.less';
 import { RealtimeFollowList } from './RealtimeFollow';
 import { TaskList } from './Task';
-import type { 
-  WorkspaceProps, 
-  TabItem,
-  RealtimeProps,
+import type {
   BrowserProps,
-  TaskProps,
-  FileProps,
   CustomProps,
-  TabConfiguration
+  FileProps,
+  RealtimeProps,
+  TabConfiguration,
+  TabItem,
+  TaskProps,
+  WorkspaceProps,
 } from './types';
 
 const CSS_PREFIX = 'workspace';
@@ -26,10 +26,10 @@ const CSS_PREFIX = 'workspace';
 // 组件类型枚举
 enum ComponentType {
   REALTIME = 'realtime',
-  BROWSER = 'browser', 
+  BROWSER = 'browser',
   TASK = 'task',
   FILE = 'file',
-  CUSTOM = 'custom'
+  CUSTOM = 'custom',
 }
 
 // 默认配置映射
@@ -37,57 +37,57 @@ const DEFAULT_CONFIG = {
   [ComponentType.REALTIME]: {
     key: ComponentType.REALTIME,
     icon: <RealtimeIcon />,
-    title: '实时跟随'
+    title: '实时跟随',
   },
   [ComponentType.BROWSER]: {
     key: ComponentType.BROWSER,
     icon: <BrowserIcon />,
-    title: '浏览器'
+    title: '浏览器',
   },
   [ComponentType.TASK]: {
     key: ComponentType.TASK,
     icon: <TaskIcon />,
-    title: '任务'
+    title: '任务',
   },
   [ComponentType.FILE]: {
     key: ComponentType.FILE,
     icon: <FileIcon />,
-    title: '文件'
+    title: '文件',
   },
   [ComponentType.CUSTOM]: {
     key: 'custom',
     icon: null,
-    title: '自定义'
-  }
+    title: '自定义',
+  },
 } as const;
 
 // 解析标签配置的工具函数
 const resolveTabConfig = (
   tab: TabConfiguration | undefined,
-  defaultConfig: typeof DEFAULT_CONFIG[ComponentType],
-  index?: number
-): { key: string; icon: React.ReactNode; title: string } => {
+  defaultConfig: (typeof DEFAULT_CONFIG)[ComponentType],
+  index?: number,
+): { key: string; icon: React.ReactNode; title: React.ReactNode } => {
   return {
-    key: tab?.key || defaultConfig.key + (index !== undefined ? `-${index}` : ''),
+    key:
+      tab?.key || defaultConfig.key + (index !== undefined ? `-${index}` : ''),
     icon: tab?.icon ?? defaultConfig.icon,
     title: tab?.title || defaultConfig.title,
   };
 };
 
 // 子组件定义
-const RealtimeComponent: FC<RealtimeProps> = ({ data }) => 
+const RealtimeComponent: FC<RealtimeProps> = ({ data }) =>
   data ? <RealtimeFollowList data={data} /> : null;
 
-const BrowserComponent: FC<BrowserProps> = ({ data }) => 
+const BrowserComponent: FC<BrowserProps> = ({ data }) =>
   data ? <BrowserList data={data} /> : null;
 
-const TaskComponent: FC<TaskProps> = ({ data }) => 
+const TaskComponent: FC<TaskProps> = ({ data }) =>
   data ? <TaskList data={data} /> : null;
 
 const FileComponent: FC<FileProps> = (props) => <File {...props} />;
 
-const CustomComponent: FC<CustomProps> = ({ children }) => 
-  children || null;
+const CustomComponent: FC<CustomProps> = ({ children }) => children || null;
 
 // 主组件
 const Workspace: FC<WorkspaceProps> & {
@@ -119,23 +119,39 @@ const Workspace: FC<WorkspaceProps> & {
       // 根据组件类型解析配置
       switch (type) {
         case RealtimeComponent:
-          tabConfig = resolveTabConfig(props.tab, DEFAULT_CONFIG[ComponentType.REALTIME]);
+          tabConfig = resolveTabConfig(
+            props.tab,
+            DEFAULT_CONFIG[ComponentType.REALTIME],
+          );
           content = <RealtimeComponent {...props} />;
           break;
         case BrowserComponent:
-          tabConfig = resolveTabConfig(props.tab, DEFAULT_CONFIG[ComponentType.BROWSER]);
+          tabConfig = resolveTabConfig(
+            props.tab,
+            DEFAULT_CONFIG[ComponentType.BROWSER],
+          );
           content = <BrowserComponent {...props} />;
           break;
         case TaskComponent:
-          tabConfig = resolveTabConfig(props.tab, DEFAULT_CONFIG[ComponentType.TASK]);
+          tabConfig = resolveTabConfig(
+            props.tab,
+            DEFAULT_CONFIG[ComponentType.TASK],
+          );
           content = <TaskComponent {...props} />;
           break;
         case FileComponent:
-          tabConfig = resolveTabConfig(props.tab, DEFAULT_CONFIG[ComponentType.FILE]);
+          tabConfig = resolveTabConfig(
+            props.tab,
+            DEFAULT_CONFIG[ComponentType.FILE],
+          );
           content = <FileComponent {...props} />;
           break;
         case CustomComponent:
-          tabConfig = resolveTabConfig(props.tab, DEFAULT_CONFIG[ComponentType.CUSTOM], index);
+          tabConfig = resolveTabConfig(
+            props.tab,
+            DEFAULT_CONFIG[ComponentType.CUSTOM],
+            index,
+          );
           content = <CustomComponent {...props} />;
           break;
         default:
@@ -147,7 +163,9 @@ const Workspace: FC<WorkspaceProps> & {
         label: (
           <div className={`${CSS_PREFIX}__tab-item`}>
             {tabConfig.icon}
-            <span className={`${CSS_PREFIX}__tab-title`}>{tabConfig.title}</span>
+            <span className={`${CSS_PREFIX}__tab-title`}>
+              {tabConfig.title}
+            </span>
           </div>
         ),
         content,
@@ -196,9 +214,9 @@ const Workspace: FC<WorkspaceProps> & {
       <div className={`${CSS_PREFIX}__header`}>
         <div className={`${CSS_PREFIX}__title`}>{title}</div>
         {onClose && (
-          <CloseOutlined 
-            className={`${CSS_PREFIX}__close`} 
-            onClick={onClose} 
+          <CloseOutlined
+            className={`${CSS_PREFIX}__close`}
+            onClick={onClose}
             aria-label="关闭工作空间"
           />
         )}
@@ -220,9 +238,7 @@ const Workspace: FC<WorkspaceProps> & {
       )}
 
       {/* 内容区域 */}
-      <div className={`${CSS_PREFIX}__content`}>
-        {currentTabData?.content}
-      </div>
+      <div className={`${CSS_PREFIX}__content`}>{currentTabData?.content}</div>
     </div>
   );
 };
@@ -235,15 +251,16 @@ Workspace.File = FileComponent;
 Workspace.Custom = CustomComponent;
 
 // 导出类型和组件
-export type { 
-  WorkspaceProps, 
-  TabItem, 
-  TabConfiguration,
-  RealtimeProps,
+export type { HtmlPreviewProps } from './HtmlPreview';
+export type {
   BrowserProps,
-  TaskProps,
+  CustomProps,
   FileProps,
-  CustomProps
+  RealtimeProps,
+  TabConfiguration,
+  TabItem,
+  TaskProps,
+  WorkspaceProps,
 } from './types';
 
 export default Workspace;

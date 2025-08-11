@@ -1,11 +1,12 @@
 import { ArrowLeftOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Alert, Image, Spin } from 'antd';
+import { Alert, Image, Spin, Segmented } from 'antd';
 import React, { type FC, useEffect, useRef, useState } from 'react';
 import {
   MarkdownEditor,
   type MarkdownEditorInstance,
   type MarkdownEditorProps,
 } from '../../MarkdownEditor';
+import { HtmlPreview } from '../HtmlPreview';
 import { FileNode } from '../types';
 import { formatLastModified } from '../utils';
 import {
@@ -108,13 +109,19 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   );
 
   type ContentState =
-    | { status: 'idle' | 'loading' | 'ready'; mdContent: string }
+    | {
+        status: 'idle' | 'loading' | 'ready';
+        mdContent: string;
+        rawContent?: string;
+      }
     | { status: 'error'; error: string };
 
   const [contentState, setContentState] = useState<ContentState>({
     status: 'idle',
     mdContent: '',
+    rawContent: '',
   });
+  const [htmlViewMode, setHtmlViewMode] = useState<'preview' | 'code'>('preview');
 
   const handleDownload = () => {
     onDownload?.(fileNode);
@@ -133,7 +140,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   }, [fileNode]);
 
-  // 获取并准备 Markdown 内容（含代码自动包裹）
+  // 获取并准备 Markdown/HTML 内容
   useEffect(() => {
     if (!processResult) return;
 
@@ -151,15 +158,23 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       return raw;
     };
 
+    const setReady = (raw: string) => {
+      setContentState({
+        status: 'ready',
+        mdContent: buildMd(raw),
+        rawContent: raw,
+      });
+    };
+
     // 直接内容
     if (dataSource.content) {
-      setContentState({ status: 'ready', mdContent: buildMd(dataSource.content) });
+      setReady(dataSource.content);
       return;
     }
 
     // 通过 URL 拉取内容
     if (dataSource.previewUrl) {
-      setContentState({ status: 'loading', mdContent: '' });
+      setContentState({ status: 'loading', mdContent: '', rawContent: '' });
 
       fetch(dataSource.previewUrl)
         .then((response) => {
@@ -168,7 +183,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           }
           return response.text();
         })
-        .then((raw) => setContentState({ status: 'ready', mdContent: buildMd(raw) }))
+        .then((raw) => setReady(raw))
         .catch((err) => {
           const errorMessage =
             err instanceof Error ? err.message : '加载文本内容失败';
@@ -177,8 +192,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         });
     }
   }, [processResult, fileNode.name]);
-
-
 
   // 更新编辑器内容
   useEffect(() => {
@@ -199,6 +212,18 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       }
     };
   }, [processResult]);
+
+  // 文件变化时重置 HTML 预览模式
+  useEffect(() => {
+    setHtmlViewMode('preview');
+  }, [fileNode.name]);
+
+  const isHtmlFile = (): boolean => {
+    const name = fileNode.name?.toLowerCase() || '';
+    const byExt = name.endsWith('.html') || name.endsWith('.htm');
+    const byMime = processResult?.dataSource.mimeType === 'text/html';
+    return Boolean(byExt || byMime);
+  };
 
   const renderPreviewContent = () => {
     if (!processResult) {
@@ -243,7 +268,29 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     // 根据文件类型渲染预览内容
     switch (typeInference.category) {
       case 'text':
-      case 'code':
+      case 'code': {
+        if (isHtmlFile()) {
+          const toHtmlStatus = (
+            s: ContentState,
+          ): 'loading' | 'error' | 'done' => {
+            if ('error' in s) return 'error';
+            return s.status === 'loading' ? 'loading' : 'done';
+          };
+          const htmlStatus = toHtmlStatus(contentState);
+          return (
+            <div className={`${PREFIX}__text`}>
+              <HtmlPreview
+                html={contentState.rawContent || ''}
+                status={htmlStatus as any}
+                viewMode={htmlViewMode}
+                onViewModeChange={setHtmlViewMode}
+                iframeProps={{ sandbox: 'allow-scripts' }}
+                showSegmented={false}
+              />
+            </div>
+          );
+        }
+
         if (contentState.status === 'loading') {
           return (
             <PlaceholderContent>
@@ -255,16 +302,13 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         return (
           <div className={`${PREFIX}__text`}>
             <MarkdownEditor
-              {...markdownEditorProps}
               editorRef={editorRef}
-              initValue=""
-              contentStyle={{
-                padding: 0,
-              }}
-              readonly
+              {...{ initValue: '', readonly: true, contentStyle: { padding: 0 } }}
+              {...markdownEditorProps}
             />
           </div>
         );
+      }
 
       case 'image':
         if (!dataSource.previewUrl) {
@@ -387,6 +431,17 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         </div>
 
         <div className={`${PREFIX}__actions`}>
+          {isHtmlFile() && (
+            <Segmented
+              size="small"
+              options={[
+                { label: '预览', value: 'preview' },
+                { label: '代码', value: 'code' },
+              ]}
+              value={htmlViewMode}
+              onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}
+            />
+          )}
           <button
             className={`${PREFIX}__action-button`}
             onClick={handleDownload}
