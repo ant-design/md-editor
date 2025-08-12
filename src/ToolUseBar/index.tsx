@@ -140,30 +140,32 @@ const ToolUseBarItem = ({
         <div className={`${prefixCls}-tool-header ${hashId}`}>
           <div className={`${prefixCls}-tool-header-left ${hashId}`}>
             <div
-              className={classNames(
-                `${prefixCls}-tool-image-wrapper ${hashId}`,
-                tool.status === 'loading' && 'rotating',
-              )}
+              className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
+                [`${prefixCls}-tool-image-wrapper-rotating`]:
+                  tool.status === 'loading',
+                [`${prefixCls}-tool-image-wrapper-loading`]:
+                  tool.status === 'loading',
+              })}
             >
               {tool.icon || (
-                <ToolIcon className={`${prefixCls}-tool-image ${hashId}`} />
+                <div className={`${prefixCls}-tool-image ${hashId}`}>
+                  <ToolIcon />
+                </div>
               )}
             </div>
             <div
-              className={classNames(
-                `${prefixCls}-tool-name ${hashId}`,
-                tool.status === 'loading' && 'gradient-text',
-              )}
+              className={classNames(`${prefixCls}-tool-name ${hashId}`, {
+                [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
+              })}
             >
               {tool.toolName}
             </div>
           </div>
         </div>
         <div
-          className={classNames(
-            `${prefixCls}-tool-target ${hashId}`,
-            tool.status === 'loading' && 'gradient-text',
-          )}
+          className={classNames(`${prefixCls}-tool-target ${hashId}`, {
+            [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
+          })}
         >
           {tool.toolTarget}
         </div>

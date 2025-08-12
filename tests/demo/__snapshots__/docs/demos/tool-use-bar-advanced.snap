@@ -24,37 +24,40 @@
                 class="tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper "
+                  class="tool-use-bar-tool-image-wrapper"
                 >
-                  <svg
+                  <div
                     class="tool-use-bar-tool-image "
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 14 14"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <defs>
-                      <clippath
-                        id="a"
-                      >
-                        <rect
-                          height="14"
-                          rx="0"
-                          width="14"
-                        />
-                      </clippath>
-                    </defs>
-                    <g
-                      clip-path="url(#a)"
+                    <svg
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 14 14"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                      />
-                    </g>
-                  </svg>
+                      <defs>
+                        <clippath
+                          id="a"
+                        >
+                          <rect
+                            height="14"
+                            rx="0"
+                            width="14"
+                          />
+                        </clippath>
+                      </defs>
+                      <g
+                        clip-path="url(#a)"
+                      >
+                        <path
+                          d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </g>
+                    </svg>
+                  </div>
                 </div>
                 <div
                   class="tool-use-bar-tool-name "
@@ -88,37 +91,40 @@
                 class="tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper "
+                  class="tool-use-bar-tool-image-wrapper"
                 >
-                  <svg
+                  <div
                     class="tool-use-bar-tool-image "
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 14 14"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <defs>
-                      <clippath
-                        id="a"
-                      >
-                        <rect
-                          height="14"
-                          rx="0"
-                          width="14"
-                        />
-                      </clippath>
-                    </defs>
-                    <g
-                      clip-path="url(#a)"
+                    <svg
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 14 14"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                      />
-                    </g>
-                  </svg>
+                      <defs>
+                        <clippath
+                          id="a"
+                        >
+                          <rect
+                            height="14"
+                            rx="0"
+                            width="14"
+                          />
+                        </clippath>
+                      </defs>
+                      <g
+                        clip-path="url(#a)"
+                      >
+                        <path
+                          d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </g>
+                    </svg>
+                  </div>
                 </div>
                 <div
                   class="tool-use-bar-tool-name "
