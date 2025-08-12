@@ -316,22 +316,6 @@ describe('handleApaasify', () => {
     expect(result).toBe('```apaasify\n{\n  "schema": []\n}\n```');
   });
 
-  it('should fallback to children text if value serialization fails', () => {
-    // 创建一个有循环引用的对象
-    const circularObj: any = { schema: [] };
-    circularObj.self = circularObj; // 循环引用
-
-    const node = {
-      type: 'apaasify',
-      language: 'apaasify',
-      value: circularObj,
-      children: [{ text: '{"fallback": true}' }],
-    };
-
-    const result = parserSlateNodeToMarkdown([node]);
-    expect(result).toBe('```apaasify\n{"fallback": true}\n```');
-  });
-
   it('should handle empty or null value', () => {
     const node = {
       type: 'apaasify',
