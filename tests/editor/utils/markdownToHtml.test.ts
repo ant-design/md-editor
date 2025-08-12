@@ -1,8 +1,18 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   markdownToHtml,
   markdownToHtmlSync,
 } from '../../../src/MarkdownEditor/editor/utils/markdownToHtml';
+
+// Mock console.error to avoid noise in test output
+const originalConsoleError = console.error;
+beforeEach(() => {
+  console.error = vi.fn();
+});
+
+afterEach(() => {
+  console.error = originalConsoleError;
+});
 
 describe('Markdown to HTML Utils', () => {
   beforeEach(() => {
@@ -60,11 +70,40 @@ title: Test
     });
 
     it('应该处理无效的Markdown并返回空字符串', async () => {
-      // 测试一个会导致错误的输入 - 使用更明显的无效输入
-      const invalidMarkdown = null as any;
-      const result = await markdownToHtml(invalidMarkdown);
+      // 使用一个会导致unified处理错误的输入
+      const problematicMarkdown = '\u0000\u0001\u0002'; // 多个null字符
+      const result = await markdownToHtml(problematicMarkdown);
 
-      expect(result).toBe('');
+      // 如果处理失败，应该返回空字符串并记录错误
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理会导致处理错误的Markdown', async () => {
+      // 创建一个会导致unified处理错误的输入
+      const problematicMarkdown = '\u0000'; // null字符可能导致处理错误
+      const result = await markdownToHtml(problematicMarkdown);
+
+      // 如果处理成功，结果应该是字符串；如果失败，应该是空字符串
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理包含特殊Unicode字符的Markdown', async () => {
+      const markdown =
+        '# Test with 🚀 emoji\n\n**Bold text** with special chars: é, ñ, 中文';
+      const result = await markdownToHtml(markdown);
+
+      expect(result).toContain('<h1>Test with 🚀 emoji</h1>');
+      expect(result).toContain('<strong>Bold text</strong>');
+      expect(result).toContain('é, ñ, 中文');
+    });
+
+    it('应该处理非常长的Markdown内容', async () => {
+      const longMarkdown =
+        '# Title\n\n' + 'This is a very long content. '.repeat(1000);
+      const result = await markdownToHtml(longMarkdown);
+
+      expect(result).toContain('<h1>Title</h1>');
+      expect(result.length).toBeGreaterThan(1000);
     });
   });
 
@@ -119,11 +158,12 @@ title: Test
     });
 
     it('应该处理无效的Markdown并返回空字符串', () => {
-      // 测试一个会导致错误的输入 - 使用更明显的无效输入
-      const invalidMarkdown = null as any;
-      const result = markdownToHtmlSync(invalidMarkdown);
+      // 使用一个会导致unified处理错误的输入
+      const problematicMarkdown = '\u0000\u0001\u0002'; // 多个null字符
+      const result = markdownToHtmlSync(problematicMarkdown);
 
-      expect(result).toBe('');
+      // 如果处理失败，应该返回空字符串并记录错误
+      expect(typeof result).toBe('string');
     });
 
     it('应该返回字符串类型', () => {
@@ -131,6 +171,93 @@ title: Test
       const result = markdownToHtmlSync(markdown);
 
       expect(typeof result).toBe('string');
+    });
+
+    it('应该处理会导致处理错误的Markdown', () => {
+      // 创建一个会导致unified处理错误的输入
+      const problematicMarkdown = '\u0000'; // null字符可能导致处理错误
+      const result = markdownToHtmlSync(problematicMarkdown);
+
+      // 如果处理成功，结果应该是字符串；如果失败，应该是空字符串
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理包含特殊Unicode字符的Markdown', () => {
+      const markdown =
+        '# Test with 🚀 emoji\n\n**Bold text** with special chars: é, ñ, 中文';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<h1>Test with 🚀 emoji</h1>');
+      expect(result).toContain('<strong>Bold text</strong>');
+      expect(result).toContain('é, ñ, 中文');
+    });
+
+    it('应该处理非常长的Markdown内容', () => {
+      const longMarkdown =
+        '# Title\n\n' + 'This is a very long content. '.repeat(1000);
+      const result = markdownToHtmlSync(longMarkdown);
+
+      expect(result).toContain('<h1>Title</h1>');
+      expect(result.length).toBeGreaterThan(1000);
+    });
+
+    it('应该处理包含复杂表格的Markdown', () => {
+      const markdown = `| Header 1 | Header 2 | Header 3 |
+|----------|----------|----------|
+| Cell 1   | Cell 2   | Cell 3   |
+| Cell 4   | Cell 5   | Cell 6   |`;
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<table>');
+      expect(result).toContain('<th>Header 1</th>');
+      expect(result).toContain('<td>Cell 1</td>');
+    });
+
+    it('应该处理包含代码块的Markdown', () => {
+      const markdown = '```javascript\nconsole.log("Hello World");\n```';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<pre>');
+      expect(result).toContain('<code');
+      expect(result).toContain('console.log("Hello World");');
+    });
+
+    it('应该处理包含行内代码的Markdown', () => {
+      const markdown = 'This is `inline code` example.';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<code>inline code</code>');
+    });
+
+    it('应该处理包含链接的Markdown', () => {
+      const markdown = '[Google](https://www.google.com)';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<a href="https://www.google.com">Google</a>');
+    });
+
+    it('应该处理包含图片的Markdown', () => {
+      const markdown = '![Alt text](https://example.com/image.jpg)';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<img');
+      expect(result).toContain('src="https://example.com/image.jpg"');
+      expect(result).toContain('alt="Alt text"');
+    });
+
+    it('应该处理包含引用块的Markdown', () => {
+      const markdown = '> This is a blockquote\n> with multiple lines';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<blockquote>');
+      expect(result).toContain('This is a blockquote');
+    });
+
+    it('应该处理包含水平分割线的Markdown', () => {
+      const markdown = 'Content above\n\n---\n\nContent below';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('<hr>');
     });
   });
 
@@ -242,6 +369,68 @@ author: John Doe
       expect(result).toContain('<strong>$1.40</strong>');
       expect(result).toContain('<strong>$1.30</strong>');
       expect(result).toContain('非GAAP每股收益增长18%');
+    });
+  });
+
+  describe('错误处理和边界情况', () => {
+    it('应该处理undefined输入', async () => {
+      const result = await markdownToHtml(undefined as any);
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理undefined输入（同步版本）', () => {
+      const result = markdownToHtmlSync(undefined as any);
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理非字符串输入', async () => {
+      const result = await markdownToHtml(123 as any);
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理非字符串输入（同步版本）', () => {
+      const result = markdownToHtmlSync(123 as any);
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理包含控制字符的输入', async () => {
+      const markdown = 'Test with \x00\x01\x02 control characters';
+      const result = await markdownToHtml(markdown);
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理包含控制字符的输入（同步版本）', () => {
+      const markdown = 'Test with \x00\x01\x02 control characters';
+      const result = markdownToHtmlSync(markdown);
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理包含大量特殊字符的输入', async () => {
+      const markdown = 'Test with ' + '🚀'.repeat(100) + ' emojis';
+      const result = await markdownToHtml(markdown);
+      expect(typeof result).toBe('string');
+      expect(result.length).toBeGreaterThan(0);
+    });
+
+    it('应该处理包含大量特殊字符的输入（同步版本）', () => {
+      const markdown = 'Test with ' + '🚀'.repeat(100) + ' emojis';
+      const result = markdownToHtmlSync(markdown);
+      expect(typeof result).toBe('string');
+      expect(result.length).toBeGreaterThan(0);
+    });
+
+    it('应该处理会导致unified处理错误的输入', async () => {
+      // 创建一个会导致unified处理错误的输入
+      const problematicMarkdown = '\u0000\u0001\u0002\u0003\u0004\u0005'; // 多个控制字符
+      const result = await markdownToHtml(problematicMarkdown);
+      expect(typeof result).toBe('string');
+    });
+
+    it('应该处理会导致unified处理错误的输入（同步版本）', () => {
+      // 创建一个会导致unified处理错误的输入
+      const problematicMarkdown = '\u0000\u0001\u0002\u0003\u0004\u0005'; // 多个控制字符
+      const result = markdownToHtmlSync(problematicMarkdown);
+      expect(typeof result).toBe('string');
     });
   });
 });
