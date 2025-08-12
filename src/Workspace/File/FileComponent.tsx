@@ -359,8 +359,9 @@ export const FileComponent: FC<{
   onPreview,
   markdownEditorProps,
 }) => {
-  const [previewFile, setPreviewFile] = useState<
-    FileNode | React.ReactNode | null
+  const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
+  const [customPreviewContent, setCustomPreviewContent] = useState<
+    React.ReactNode | null
   >(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
@@ -395,8 +396,27 @@ export const FileComponent: FC<{
     if (onPreview) {
       const previewData = await onPreview(file);
       if (previewData) {
-        // 如果返回的是FileNode或ReactNode，直接设置预览文件
-        setPreviewFile(previewData);
+        // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
+        if (
+          React.isValidElement(previewData) ||
+          typeof previewData === 'string' ||
+          typeof previewData === 'number' ||
+          typeof previewData === 'boolean'
+        ) {
+          setPreviewFile(file);
+          setCustomPreviewContent(previewData as React.ReactNode);
+        } else if (
+          typeof previewData === 'object' &&
+          previewData !== null &&
+          'name' in (previewData as any)
+        ) {
+          setCustomPreviewContent(null);
+          setPreviewFile(previewData as FileNode);
+        } else {
+          // 非法返回值：忽略并按默认逻辑
+          setCustomPreviewContent(null);
+          setPreviewFile(file);
+        }
         return;
       }
       // 如果用户方法没有返回值，继续使用内部预览逻辑
@@ -411,11 +431,13 @@ export const FileComponent: FC<{
       });
       return;
     }
+    setCustomPreviewContent(null);
     setPreviewFile(file);
   };
 
   const handleBackToList = () => {
     setPreviewFile(null);
+    setCustomPreviewContent(null);
   };
 
   // 处理预览页面的下载
@@ -451,6 +473,7 @@ export const FileComponent: FC<{
           file={previewFile}
           onBack={handleBackToList}
           onDownload={handleDownloadInPreview}
+          customContent={customPreviewContent || undefined}
           markdownEditorProps={markdownEditorProps}
         />
         {ImagePreviewComponent}

@@ -316,15 +316,14 @@ graph TD
     // 模拟异步请求延迟
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // 检查特定的文件ID
+    // 场景一：后端返回 Markdown 文本 → 返回更新后的 FileNode，走默认 Markdown 预览
     if (file.id === 'customPreviewDomID2') {
-      // 返回带有特定内容的文件对象
-      return {
-        ...file,
-        content: '异步获取的内容：123',
-      };
-    } else if (file.id === 'customPreviewDomID1') {
-      // 返回自定义DOM
+      const markdownFromApi = `# 后端返回的文档\n\n- 支持代码高亮\n\n\`\`\`ts\nconst sum = (a: number, b: number) => a + b;\nconsole.log(sum(1, 2));\n\`\`\`\n\n> 这是通过 onPreview 异步返回的内容`;
+      return { ...file, type: 'markdown', content: markdownFromApi } as FileNode;
+    }
+
+    // 场景二：后端返回 HTML 片段或需要自定义展示 → 直接返回 ReactNode，仅替换内容区
+    if (file.id === 'customPreviewDomID1') {
       return (
         <div
           style={{
@@ -333,13 +332,16 @@ graph TD
             borderRadius: '6px',
           }}
         >
-          <h3>自定义预览内容</h3>
+          <h3>自定义预览内容（来自后端）</h3>
           <p>文件名: {file.name}</p>
           <p>文件ID: {file.id || '未指定'}</p>
-          <p>这是一个自定义的预览组件</p>
+          <p>这里可以渲染接口返回的结构化数据、表格或图表等。</p>
         </div>
       );
     }
+
+    // 其他情况：返回 undefined，使用组件内置的默认预览逻辑
+    return undefined;
   };
 
   const handleGroupDownload = (files: FileNode[], groupType?: FileType) => {

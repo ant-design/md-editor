@@ -17,7 +17,11 @@ import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
 import { getFileTypeIcon } from './utils';
 
 interface PreviewComponentProps {
-  file: FileNode | React.ReactNode;
+  file: FileNode;
+  /**
+   * 提供自定义内容以替换预览区域，头部信息保持与默认一致
+   */
+  customContent?: React.ReactNode;
   onBack: () => void;
   onDownload?: (file: FileNode) => void;
   /**
@@ -62,47 +66,11 @@ const PlaceholderContent: FC<{
 
 export const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
+  customContent,
   onBack,
   onDownload,
   markdownEditorProps,
 }) => {
-  // Check if file is a ReactNode (not a FileNode)
-  const isReactNode =
-    React.isValidElement(file) ||
-    typeof file === 'string' ||
-    typeof file === 'number' ||
-    typeof file === 'boolean';
-
-  // If it's a ReactNode, render it directly with minimal wrapper
-  if (isReactNode) {
-    return (
-      <div className={PREFIX}>
-        <div className={`${PREFIX}__header`}>
-          <button
-            className={`${PREFIX}__back-button`}
-            onClick={onBack}
-            aria-label="返回文件列表"
-          >
-            <ArrowLeftOutlined className={`${PREFIX}__back-icon`} />
-          </button>
-          <div className={`${PREFIX}__file-info`}>
-            <div className={`${PREFIX}__file-title`}>
-              <span className={`${PREFIX}__file-name`}>自定义预览</span>
-            </div>
-          </div>
-        </div>
-        <div className={`${PREFIX}__content`}>
-          <div className={`${PREFIX}__custom-content`}>
-            {file as React.ReactNode}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Cast to FileNode for the rest of the component since we know it's not a ReactNode
-  const fileNode = file as FileNode;
-
   const editorRef = useRef<MarkdownEditorInstance>();
   const [processResult, setProcessResult] = useState<FileProcessResult | null>(
     null,
@@ -124,13 +92,14 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   const [htmlViewMode, setHtmlViewMode] = useState<'preview' | 'code'>('preview');
 
   const handleDownload = () => {
-    onDownload?.(fileNode);
+    onDownload?.(file);
   };
 
-  // 处理文件
+  // 处理文件（当未提供 customContent 时）
   useEffect(() => {
+    if (customContent) return;
     try {
-      const result = fileTypeProcessor.processFile(fileNode);
+      const result = fileTypeProcessor.processFile(file);
       setProcessResult(result);
     } catch (err) {
       setContentState({
@@ -138,10 +107,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         error: err instanceof Error ? err.message : '文件处理失败',
       });
     }
-  }, [fileNode]);
+  }, [file, customContent]);
 
-  // 获取并准备 Markdown/HTML 内容
+  // 获取并准备 Markdown/HTML 内容（当未提供 customContent 时）
   useEffect(() => {
+    if (customContent) return;
     if (!processResult) return;
 
     const { typeInference, dataSource } = processResult;
@@ -152,7 +122,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
     const buildMd = (raw: string): string => {
       if (typeInference.category === 'code') {
-        const language = getLanguageFromFilename(fileNode.name);
+        const language = getLanguageFromFilename(file.name);
         return wrapContentInCodeBlock(raw, language);
       }
       return raw;
@@ -191,10 +161,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           console.error('加载文本内容失败:', err);
         });
     }
-  }, [processResult, fileNode.name]);
+  }, [processResult, file.name, customContent]);
 
   // 更新编辑器内容
   useEffect(() => {
+    if (customContent) return;
     if (
       editorRef.current?.store &&
       contentState.status === 'ready' &&
@@ -202,7 +173,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     ) {
       editorRef.current.store.setMDContent(contentState.mdContent);
     }
-  }, [contentState]);
+  }, [contentState, customContent]);
 
   // 清理资源
   useEffect(() => {
@@ -216,16 +187,20 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   // 文件变化时重置 HTML 预览模式
   useEffect(() => {
     setHtmlViewMode('preview');
-  }, [fileNode.name]);
+  }, [file.name]);
 
   const isHtmlFile = (): boolean => {
-    const name = fileNode.name?.toLowerCase() || '';
+    const name = file.name?.toLowerCase() || '';
     const byExt = name.endsWith('.html') || name.endsWith('.htm');
     const byMime = processResult?.dataSource.mimeType === 'text/html';
     return Boolean(byExt || byMime);
   };
 
   const renderPreviewContent = () => {
+    if (customContent) {
+      return <div className={`${PREFIX}__custom-content`}>{customContent}</div>;
+    }
+
     if (!processResult) {
       return (
         <PlaceholderContent>
@@ -254,7 +229,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     if (!canPreview || previewMode === 'none') {
       return (
         <PlaceholderContent
-          file={fileNode}
+          file={file}
           showFileInfo
           onDownload={handleDownload}
         >
@@ -321,7 +296,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
         return (
           <div className={`${PREFIX}__image`}>
-            <Image src={dataSource.previewUrl} alt={fileNode.name} />
+            <Image src={dataSource.previewUrl} alt={file.name} />
           </div>
         );
 
@@ -390,7 +365,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       default:
         return (
           <PlaceholderContent
-            file={fileNode}
+            file={file}
             showFileInfo
             onDownload={handleDownload}
           >
@@ -416,22 +391,22 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           <div className={`${PREFIX}__file-title`}>
             <span className={`${PREFIX}__file-icon`}>
               {getFileTypeIcon(
-                fileTypeProcessor.inferFileType(fileNode).fileType,
-                fileNode.icon,
-                fileNode.name,
+                fileTypeProcessor.inferFileType(file).fileType,
+                file.icon,
+                file.name,
               )}
             </span>
-            <span className={`${PREFIX}__file-name`}>{fileNode.name}</span>
+            <span className={`${PREFIX}__file-name`}>{file.name}</span>
           </div>
-          {fileNode.lastModified && (
+          {file.lastModified && (
             <div className={`${PREFIX}__generate-time`}>
-              生成时间：{formatLastModified(fileNode.lastModified)}
+              生成时间：{formatLastModified(file.lastModified)}
             </div>
           )}
         </div>
 
         <div className={`${PREFIX}__actions`}>
-          {isHtmlFile() && (
+          {!customContent && isHtmlFile() && (
             <Segmented
               size="small"
               options={[
