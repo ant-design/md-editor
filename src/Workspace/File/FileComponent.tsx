@@ -4,8 +4,8 @@ import {
   EyeOutlined,
   RightOutlined,
 } from '@ant-design/icons';
-import { Image, Typography } from 'antd';
-import React, { type FC, useState } from 'react';
+import { Alert, Image, Spin, Typography } from 'antd';
+import React, { type FC, useRef, useState } from 'react';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
@@ -360,9 +360,8 @@ export const FileComponent: FC<{
   markdownEditorProps,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
-  const [customPreviewContent, setCustomPreviewContent] = useState<
-    React.ReactNode | null
-  >(null);
+  const [customPreviewContent, setCustomPreviewContent] =
+    useState<React.ReactNode | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
@@ -374,6 +373,8 @@ export const FileComponent: FC<{
   const [collapsedGroups, setCollapsedGroups] = useState<
     Record<string, boolean>
   >({});
+  // 追踪预览请求的序号，避免异步竞态
+  const previewRequestIdRef = useRef(0);
 
   if (!nodes || nodes.length === 0) {
     return null;
@@ -394,32 +395,63 @@ export const FileComponent: FC<{
   const handlePreview = async (file: FileNode) => {
     // 如果用户提供了预览方法，尝试使用用户的方法
     if (onPreview) {
-      const previewData = await onPreview(file);
-      if (previewData) {
-        // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
-        if (
-          React.isValidElement(previewData) ||
-          typeof previewData === 'string' ||
-          typeof previewData === 'number' ||
-          typeof previewData === 'boolean'
-        ) {
-          setPreviewFile(file);
-          setCustomPreviewContent(previewData as React.ReactNode);
-        } else if (
-          typeof previewData === 'object' &&
-          previewData !== null &&
-          'name' in (previewData as any)
-        ) {
-          setCustomPreviewContent(null);
-          setPreviewFile(previewData as FileNode);
-        } else {
-          // 非法返回值：忽略并按默认逻辑
-          setCustomPreviewContent(null);
-          setPreviewFile(file);
+      // 立刻进入预览页并展示 loading
+      const currentCallId = ++previewRequestIdRef.current;
+      setPreviewFile(file);
+      setCustomPreviewContent(
+        <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
+          <Spin size="large" tip="正在加载预览..." />
+        </div>,
+      );
+
+      try {
+        const previewData = await onPreview(file);
+        // 如果在等待过程中用户已返回列表或触发了新的预览请求，忽略本次结果
+        if (previewRequestIdRef.current !== currentCallId) return;
+
+        if (previewData) {
+          // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
+          if (
+            React.isValidElement(previewData) ||
+            typeof previewData === 'string' ||
+            typeof previewData === 'number' ||
+            typeof previewData === 'boolean'
+          ) {
+            setCustomPreviewContent(previewData as React.ReactNode);
+          } else if (
+            typeof previewData === 'object' &&
+            previewData !== null &&
+            'name' in (previewData as any)
+          ) {
+            setCustomPreviewContent(null);
+            setPreviewFile(previewData as FileNode);
+          } else {
+            // 非法返回值：忽略并按默认逻辑（使用当前文件预览）
+            setCustomPreviewContent(null);
+            setPreviewFile(file);
+          }
+          return;
         }
+        // 如果用户方法没有返回值，继续使用内部预览逻辑（当前文件）
+        setCustomPreviewContent(null);
+        setPreviewFile(file);
+        return;
+      } catch (err) {
+        if (previewRequestIdRef.current !== currentCallId) return;
+        setCustomPreviewContent(
+          <div style={{ padding: 24 }}>
+            <Alert
+              type="error"
+              message="预览加载失败"
+              description={
+                err instanceof Error ? err.message : '获取预览内容时发生错误'
+              }
+              showIcon
+            />
+          </div>,
+        );
         return;
       }
-      // 如果用户方法没有返回值，继续使用内部预览逻辑
     }
 
     // 使用组件库内部的预览逻辑
@@ -436,6 +468,8 @@ export const FileComponent: FC<{
   };
 
   const handleBackToList = () => {
+    // 使进行中的预览请求失效
+    previewRequestIdRef.current++;
     setPreviewFile(null);
     setCustomPreviewContent(null);
   };
