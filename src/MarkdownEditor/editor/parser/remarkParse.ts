@@ -9,7 +9,7 @@ import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
 /**
- * Plugin to fix bold text containing special characters like **$9.698M**
+ * Plugin to fix bold text containing special characters like **$9.698M**, **57%**, etc.
  *
  * @returns {(tree: any) => void}
  *   Transformer function.
@@ -28,8 +28,8 @@ export function fixStrongWithSpecialChars() {
             child.value &&
             typeof child.value === 'string'
           ) {
-            // 匹配包含美元符号的加粗文本
-            const strongPattern = /\*\*([^*\n]*\$[^*\n]*?)\*\*/g;
+            // 匹配包含特殊字符的加粗文本（美元符号、百分号、其他数字相关符号）
+            const strongPattern = /\*\*([^*\n]*[$%#@&+\-=\w\d.]+[^*\n]*?)\*\*/g;
 
             if (strongPattern.test(child.value)) {
               // 重置正则表达式
@@ -91,8 +91,8 @@ export function fixStrongWithSpecialChars() {
     // 处理所有文本节点（作为备用方案）
     visit(tree, 'text', (node: any, index: number | undefined, parent: any) => {
       if (node.value && typeof node.value === 'string') {
-        // 匹配包含美元符号的加粗文本
-        const strongPattern = /\*\*([^*\n]*\$[^*\n]*?)\*\*/g;
+        // 匹配包含特殊字符的加粗文本（美元符号、百分号、其他数字相关符号）
+        const strongPattern = /\*\*([^*\n]*[$%#@&+\-=\w\d.]+[^*\n]*?)\*\*/g;
 
         if (strongPattern.test(node.value)) {
           // 重置正则表达式
