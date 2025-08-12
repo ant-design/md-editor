@@ -66,12 +66,13 @@ const resolveTabConfig = (
   tab: TabConfiguration | undefined,
   defaultConfig: (typeof DEFAULT_CONFIG)[ComponentType],
   index?: number,
-): { key: string; icon: React.ReactNode; title: React.ReactNode } => {
+): { key: string; icon: React.ReactNode; title: React.ReactNode; count?: number } => {
   return {
     key:
       tab?.key || defaultConfig.key + (index !== undefined ? `-${index}` : ''),
     icon: tab?.icon ?? defaultConfig.icon,
     title: tab?.title || defaultConfig.title,
+    count: tab?.count,
   };
 };
 
@@ -166,6 +167,11 @@ const Workspace: FC<WorkspaceProps> & {
             <span className={`${CSS_PREFIX}__tab-title`}>
               {tabConfig.title}
             </span>
+            {tabConfig.count !== undefined && (
+              <span className={`${CSS_PREFIX}__tab-count`}>
+                {tabConfig.count}
+              </span>
+            )}
           </div>
         ),
         content,

@@ -9,6 +9,7 @@ export interface TabConfiguration {
   key?: string;
   icon?: ReactNode;
   title?: ReactNode;
+  count?: number;
 }
 
 // 标签页数据结构

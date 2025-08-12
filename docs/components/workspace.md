@@ -149,3 +149,4 @@ group:
 | key   | 标签页唯一标识 | `string`    | -      |
 | icon  | 标签页图标     | `ReactNode` | -      |
 | title | 标签页标题     | `ReactNode` | -      |
+| count | 标签页标题右侧数字 | `number` | -      |
