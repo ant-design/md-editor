@@ -169,6 +169,9 @@ const parserNode = (
     case 'code':
       str += handleCode(node, preString);
       break;
+    case 'apaasify':
+      str += handleApaasify(node, preString);
+      break;
     case 'attach':
       str += handleAttach(node);
       break;
@@ -884,6 +887,51 @@ const handleCode = (node: any, preString: string) => {
   return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
 };
 
+/**
+ * 处理 apaasify 节点，生成代码块格式的 Markdown
+ * @param node - apaasify 节点，包含 value、language、children 属性
+ * @param preString - 前缀字符串，用于处理缩进
+ * @returns 处理后的 Markdown 代码块字符串
+ */
+const handleApaasify = (node: any, preString: string) => {
+  // 使用 value 属性，将对象序列化为字符串
+  let code = '';
+  try {
+    if (node.value && typeof node.value === 'object') {
+      code = JSON.stringify(node.value, null, 2); // 格式化输出
+    } else {
+      code = String(node.value || '');
+    }
+  } catch (error) {
+    // 如果序列化失败，fallback 到 children[0].text
+    code = node?.children?.[0]?.text || '';
+    console.warn(
+      'Failed to serialize apaasify value, falling back to children text:',
+      error,
+    );
+  }
+
+  const language = node.language || 'apaasify';
+
+  if (!code.trim()) {
+    return `${preString}\`\`\`${language}\n${preString}\`\`\``;
+  }
+
+  const codeLines = code.split('\n');
+  const indentedCode = codeLines
+    .map((line: string, index: number) => {
+      if (index === 0 || index === codeLines.length - 1) {
+        return line;
+      }
+      return preString + line;
+    })
+    .join('\n');
+
+  return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
+};
+
+/**
+ * 处理附件节点，生成带下载属性的链接标签
 /**
  * 处理附件节点，生成带下载属性的链接标签
  * @param node - 附件节点，包含 url、size、name 属性

@@ -264,3 +264,123 @@ describe('parserSlateNodeToMarkdown', () => {
     });
   });
 });
+
+describe('handleApaasify', () => {
+  it('should handle apaasify node using value property', () => {
+    const node = {
+      type: 'apaasify',
+      language: 'apaasify',
+      value: { schema: [] },
+      children: [{ text: ' {"schema":[]} ' }], // 原始输入，可能过时
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    // 应该使用 value 属性生成，而不是 children[0].text
+    expect(result).toBe('```apaasify\n{\n  "schema": []\n}\n```');
+  });
+
+  it('should handle apaasify node with schema language', () => {
+    const node = {
+      type: 'apaasify',
+      language: 'schema',
+      value: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+        },
+      },
+      children: [{ text: '{"schema":[]}' }], // 原始输入，已经过时
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    // 应该反映 value 中的最新修改
+    expect(result).toBe(
+      '```schema\n{\n  "type": "object",\n  "properties": {\n    "name": {\n      "type": "string"\n    }\n  }\n}\n```',
+    );
+  });
+
+  it('should handle modified apaasify value from your example', () => {
+    const node = {
+      type: 'apaasify',
+      language: 'apaasify',
+      render: false,
+      value: {
+        schema: [],
+      },
+      isConfig: false,
+      children: [
+        {
+          text: ' {"schema":[]} ',
+        },
+      ],
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    expect(result).toBe('```apaasify\n{\n  "schema": []\n}\n```');
+  });
+
+  it('should fallback to children text if value serialization fails', () => {
+    // 创建一个有循环引用的对象
+    const circularObj: any = { schema: [] };
+    circularObj.self = circularObj; // 循环引用
+
+    const node = {
+      type: 'apaasify',
+      language: 'apaasify',
+      value: circularObj,
+      children: [{ text: '{"fallback": true}' }],
+    };
+
+    const result = parserSlateNodeToMarkdown([node]);
+    expect(result).toBe('```apaasify\n{"fallback": true}\n```');
+  });
+
+  it('should handle empty or null value', () => {
+    const node = {
+      type: 'apaasify',
+      language: 'apaasify',
+      value: null,
+      children: [{ text: '' }],
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    expect(result).toBe('```apaasify\n```');
+  });
+
+  it('should handle apaasify node with indentation', () => {
+    const node = {
+      type: 'apaasify',
+      language: 'schema',
+      value: { test: true },
+      children: [{ text: '{"test": true}' }],
+    };
+    const result = parserSlateNodeToMarkdown([node], '  '); // 2 spaces indentation
+    expect(result).toBe('  ```schema\n{\n    "test": true\n}\n  ```');
+  });
+
+  it('should handle string value', () => {
+    const node = {
+      type: 'apaasify',
+      language: 'apaasify',
+      value: 'simple string',
+      children: [{ text: 'original text' }],
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    expect(result).toBe('```apaasify\nsimple string\n```');
+  });
+
+  it('should handle multiline content with proper indentation', () => {
+    const node = {
+      type: 'apaasify',
+      language: 'schema',
+      value: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          age: { type: 'number' },
+        },
+      },
+      children: [{ text: '{}' }],
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    const expected =
+      '```schema\n{\n  "type": "object",\n  "properties": {\n    "name": {\n      "type": "string"\n    },\n    "age": {\n      "type": "number"\n    }\n  }\n}\n```';
+    expect(result).toBe(expected);
+  });
+});
