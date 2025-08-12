@@ -230,15 +230,19 @@
               >
                 <div
                   class="tool-use-bar"
+                  data-testid="ToolUse"
                 >
                   <div
                     class="tool-use-bar-tool "
+                    data-testid="ToolUserItem"
                   >
                     <div
                       class="tool-use-bar-tool-bar "
+                      data-testid="tool-user-item-tool-bar"
                     >
                       <div
                         class="tool-use-bar-tool-header "
+                        data-testid="tool-user-item-tool-header"
                       >
                         <div
                           class="tool-use-bar-tool-header-left "
@@ -300,12 +304,15 @@
                   </div>
                   <div
                     class="tool-use-bar-tool "
+                    data-testid="ToolUserItem"
                   >
                     <div
                       class="tool-use-bar-tool-bar "
+                      data-testid="tool-user-item-tool-bar"
                     >
                       <div
                         class="tool-use-bar-tool-header "
+                        data-testid="tool-user-item-tool-header"
                       >
                         <div
                           class="tool-use-bar-tool-header-left "
@@ -367,12 +374,15 @@
                   </div>
                   <div
                     class="tool-use-bar-tool "
+                    data-testid="ToolUserItem"
                   >
                     <div
                       class="tool-use-bar-tool-bar "
+                      data-testid="tool-user-item-tool-bar"
                     >
                       <div
                         class="tool-use-bar-tool-header "
+                        data-testid="tool-user-item-tool-header"
                       >
                         <div
                           class="tool-use-bar-tool-header-left "

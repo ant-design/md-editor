@@ -58,6 +58,7 @@ interface ToolCall {
   errorMessage?: string;
   content?: React.ReactNode;
   status?: 'idle' | 'loading' | 'success' | 'error';
+  testId?: string;
 }
 
 interface ToolUseBarProps {
@@ -67,6 +68,7 @@ interface ToolUseBarProps {
   activeKeys?: string[];
   defaultActiveKeys?: string[];
   onActiveKeysChange?: (activeKeys: string[]) => void;
+  testId?: string;
 }
 
 const ToolUseBarItem = ({
@@ -127,6 +129,7 @@ const ToolUseBarItem = ({
     <div
       onClick={handleClick}
       key={tool.id}
+      data-testid="ToolUserItem"
       className={classNames(
         `${prefixCls}-tool ${hashId}`,
         tool.status === 'success' && `${prefixCls}-tool-success`,
@@ -136,8 +139,14 @@ const ToolUseBarItem = ({
         isActive && `${prefixCls}-tool-active`,
       )}
     >
-      <div className={`${prefixCls}-tool-bar ${hashId}`}>
-        <div className={`${prefixCls}-tool-header ${hashId}`}>
+      <div
+        className={`${prefixCls}-tool-bar ${hashId}`}
+        data-testid="tool-user-item-tool-bar"
+      >
+        <div
+          className={`${prefixCls}-tool-header ${hashId}`}
+          data-testid="tool-user-item-tool-header"
+        >
           <div className={`${prefixCls}-tool-header-left ${hashId}`}>
             <div
               className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
@@ -186,7 +195,10 @@ const ToolUseBarItem = ({
         )}
       </div>
       {showContent && expanded ? (
-        <div className={`${prefixCls}-tool-container ${hashId}`}>
+        <div
+          className={`${prefixCls}-tool-container ${hashId}`}
+          data-testid="tool-user-item-tool-container "
+        >
           {contentDom}
           {errorDom}
         </div>
@@ -221,10 +233,18 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   };
 
   if (!tools?.length)
-    return <div className={classNames(prefixCls, hashId, props.className)} />;
+    return (
+      <div
+        className={classNames(prefixCls, hashId, props.className)}
+        data-testid="ToolUse"
+      />
+    );
 
   return wrapSSR(
-    <div className={classNames(prefixCls, hashId, props.className)}>
+    <div
+      className={classNames(prefixCls, hashId, props.className)}
+      data-testid="ToolUse"
+    >
       {tools.map((tool) => (
         <ToolUseBarItem
           key={tool.id}

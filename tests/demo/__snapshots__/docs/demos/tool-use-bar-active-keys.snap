@@ -16,15 +16,19 @@
       </p>
       <div
         class="tool-use-bar"
+        data-testid="ToolUse"
       >
         <div
           class="tool-use-bar-tool  tool-use-bar-tool-success"
+          data-testid="ToolUserItem"
         >
           <div
             class="tool-use-bar-tool-bar "
+            data-testid="tool-user-item-tool-bar"
           >
             <div
               class="tool-use-bar-tool-header "
+              data-testid="tool-user-item-tool-header"
             >
               <div
                 class="tool-use-bar-tool-header-left "
@@ -86,12 +90,15 @@
         </div>
         <div
           class="tool-use-bar-tool  tool-use-bar-tool-loading"
+          data-testid="ToolUserItem"
         >
           <div
             class="tool-use-bar-tool-bar "
+            data-testid="tool-user-item-tool-bar"
           >
             <div
               class="tool-use-bar-tool-header "
+              data-testid="tool-user-item-tool-header"
             >
               <div
                 class="tool-use-bar-tool-header-left "
@@ -153,12 +160,15 @@
         </div>
         <div
           class="tool-use-bar-tool  tool-use-bar-tool-error"
+          data-testid="ToolUserItem"
         >
           <div
             class="tool-use-bar-tool-bar "
+            data-testid="tool-user-item-tool-bar"
           >
             <div
               class="tool-use-bar-tool-header "
+              data-testid="tool-user-item-tool-header"
             >
               <div
                 class="tool-use-bar-tool-header-left "
@@ -220,12 +230,15 @@
         </div>
         <div
           class="tool-use-bar-tool  tool-use-bar-tool-idle"
+          data-testid="ToolUserItem"
         >
           <div
             class="tool-use-bar-tool-bar "
+            data-testid="tool-user-item-tool-bar"
           >
             <div
               class="tool-use-bar-tool-header "
+              data-testid="tool-user-item-tool-header"
             >
               <div
                 class="tool-use-bar-tool-header-left "
