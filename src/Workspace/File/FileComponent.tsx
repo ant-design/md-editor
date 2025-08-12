@@ -115,9 +115,15 @@ const FileItemComponent: FC<{
     onClick?.(fileWithId);
   };
 
-  // 判断是否显示下载按钮：有用户方法、有url、有content或有file对象
-  const showDownloadButton =
-    onDownload || fileWithId.url || fileWithId.content || fileWithId.file;
+  // 判断是否显示下载按钮：优先使用用户 canDownload；否则当存在 onDownload/url/content/file 时显示
+  const showDownloadButton = (() => {
+    if (fileWithId.canDownload !== undefined) {
+      return fileWithId.canDownload;
+    }
+    return Boolean(
+      onDownload || fileWithId.url || fileWithId.content || fileWithId.file,
+    );
+  })();
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();

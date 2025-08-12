@@ -312,6 +312,7 @@ export interface FileNode extends BaseNode {
   content?: string;
   metadata?: Record<string, unknown>;
   canPreview?: boolean; // 用户自定义是否可以预览
+  canDownload?: boolean; // 用户自定义是否可以下载（默认显示，设置为 false 隐藏）
 }
 
 // 分组节点

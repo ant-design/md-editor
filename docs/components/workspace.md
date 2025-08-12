@@ -113,7 +113,8 @@ group:
 | previewUrl   | 预览地址（优先用于图片类预览）                                       | `string`                               |
 | content      | 文本内容（如 md/html 等，优先用于内置预览）                          | `string`                               |
 | metadata     | 额外元数据                                                           | `Record<string, unknown>`              |
-| canPreview   | 是否允许预览（用户自定义开关）                                       | `boolean`                              |
+| canPreview   | 是否允许预览（用户自定义开关，默认由系统推断是否可预览）                                       | `boolean`                              |
+| canDownload	 | 是否在文件列表页面展示下载图标（用户自定义开关，默认展示）        | `boolean`                              |
 
 #### GroupNode
 

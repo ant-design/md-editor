@@ -32,6 +32,7 @@ const WorkspaceFileDemo: React.FC = () => {
           lastModified: '08-20 12:30',
           url: '/downloads/project-requirements.docx',
           canPreview: true,
+          canDownload: false
         },
         {
           id: 'customPreviewDomID2',
@@ -156,6 +157,7 @@ const WorkspaceFileDemo: React.FC = () => {
           name: 'API文档-文本.md',
           // type: 'markdown',
           size: '28KB',
+          canDownload: false,
           content: `# API文档
 
 ## 代码示例
