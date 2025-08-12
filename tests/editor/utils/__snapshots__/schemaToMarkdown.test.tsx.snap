@@ -5723,7 +5723,25 @@ exports[`should convert schema to markdown in \`\`\`mermaid chunk 1`] = `""`;
 exports[`should convert schema to markdown in \`\`\`mermaid chunk 2`] = `""`;
 
 exports[`should convert schema to markdown in \`\`\`schema
- chunk 1`] = `""`;
+ chunk 1`] = `
+"\`\`\`schema
+[
+  {
+    "title": "标题",
+    "dataIndex": "title",
+    "formItemProps": {
+      "rules": [
+        {
+          "required": true,
+          "message": "此项为必填项"
+        }
+      ]
+    },
+    "width": "md"
+  }
+]
+\`\`\`"
+`;
 
 exports[`should convert schema to markdown in | 业务       chunk 1`] = `
 "| 业务 |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |  2022Q1 |
