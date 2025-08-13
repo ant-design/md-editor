@@ -30,8 +30,6 @@ describe('Markdown to HTML Safe Conversion Tests', () => {
 
       // 基本验证：确保没有原始的 markdown 语法残留
       expect(html).not.toContain('**');
-
-      console.log('Generated HTML:', html);
     });
 
     it('should handle empty markdown', async () => {
@@ -47,7 +45,7 @@ Text with "quotes" and & symbols.`;
       const html = await markdownToHtml(specialMarkdown);
 
       // 验证HTML转义 - 使用实际的转义格式
-      expect(html).toContain('<script>alert(\'xss\')</script>'); // 脚本标签会被保留（因为 allowDangerousHtml: true）
+      expect(html).toContain("<script>alert('xss')</script>"); // 脚本标签会被保留（因为 allowDangerousHtml: true）
       expect(html).toContain('&#x26;'); // & 符号被转义
       expect(html).toContain('<script>alert'); // 脚本标签被保留
     });
@@ -72,8 +70,6 @@ Text with "quotes" and & symbols.`;
 
       // 基本验证：确保没有原始的 markdown 语法残留
       expect(html).not.toContain('**');
-
-      console.log('Generated HTML (Sync):', html);
     });
 
     it('should produce same result as async version', async () => {
@@ -112,8 +108,6 @@ Multiple inline codes: \`const a = 1\` and \`const b = 2\`
       expect(html).toContain('<pre><code class="language-javascript">');
       expect(html).toContain('function test()');
       expect(html).toContain("return 'hello world';");
-
-      console.log('Code Block HTML:', html);
     });
 
     it('should handle edge cases with backticks', async () => {
@@ -129,8 +123,6 @@ Empty code: \`\`
       // 验证基本的 HTML 结构生成
       expect(html).toContain('<p>');
       expect(typeof html).toBe('string');
-
-      console.log('Edge Cases HTML:', html);
     });
   });
 
@@ -154,7 +146,7 @@ Empty code: \`\`
 
       // 验证代码块中的脚本被安全处理 - 使用实际的转义格式
       expect(html).toContain(
-        '<code>&#x3C;script>alert(\'xss\')&#x3C;/script></code>',
+        "<code>&#x3C;script>alert('xss')&#x3C;/script></code>",
       );
 
       // 验证JavaScript链接 - 允许，因为 allowDangerousHtml: true
@@ -162,10 +154,8 @@ Empty code: \`\`
 
       // 验证代码块中的内容被安全显示
       expect(html).toContain(
-        '&#x3C;script>alert(\'safe in code block\')&#x3C;/script>',
+        "&#x3C;script>alert('safe in code block')&#x3C;/script>",
       );
-
-      console.log('Safe HTML:', html);
     });
   });
 
@@ -207,8 +197,6 @@ unclosed code block
       expect(html).toContain('<h1>Incomplete</h1>');
       expect(typeof html).toBe('string');
       expect(html.length).toBeGreaterThan(0);
-
-      console.log('Malformed Markdown HTML:', html);
     });
   });
 });
