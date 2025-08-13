@@ -18,23 +18,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
   ),
 }));
 
-vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
-  BubbleExtra: ({ render }: any) => {
-    const defaultDom = <div data-testid="default-bubble-extra">Default Extra</div>;
-    
-    if (render === false) {
-      return null;
-    }
-    
-    if (typeof render === 'function') {
-      // 在 BubbleExtra 中不再调用 render，因为这会在 BubbleMessageDisplay 中调用
-      return defaultDom;
-    }
-    
-    return defaultDom;
-  },
-}));
-
 vi.mock('../../src/Bubble/MessagesContent/DocInfo', () => ({
   DocInfoList: () => <div data-testid="doc-info-list">Doc Info</div>,
 }));

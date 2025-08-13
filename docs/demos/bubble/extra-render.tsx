@@ -1,7 +1,11 @@
-import React, { useState, useRef } from 'react';
-import { Button, Space, Tag } from 'antd';
-import { StarOutlined, HeartOutlined, ShareAltOutlined } from '@ant-design/icons';
+import {
+  HeartOutlined,
+  ShareAltOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
 import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { Button, Space, Tag } from 'antd';
+import React, { useRef, useState } from 'react';
 
 const mockMessages: MessageBubbleData[] = [
   {
@@ -14,7 +18,8 @@ const mockMessages: MessageBubbleData[] = [
     isAborted: false,
     extra: {},
     meta: {
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      avatar:
+        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
       title: 'AI 助手',
     },
   },
@@ -28,7 +33,8 @@ const mockMessages: MessageBubbleData[] = [
     isAborted: false,
     extra: {},
     meta: {
-      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+      avatar:
+        'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
       title: '用户',
     },
   },
@@ -55,7 +61,8 @@ const mockMessages: MessageBubbleData[] = [
     isAborted: false,
     extra: {},
     meta: {
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      avatar:
+        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
       title: 'AI 助手',
     },
   },
@@ -65,14 +72,16 @@ export default function ExtraRenderDemo() {
   const bubbleRef = useRef<any>();
   const [likes, setLikes] = useState<Record<string, boolean>>({});
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
-  const [customMode, setCustomMode] = useState<'default' | 'custom' | 'disabled'>('default');
+  const [customMode, setCustomMode] = useState<
+    'default' | 'custom' | 'disabled'
+  >('default');
 
   const handleLike = (messageId: string) => {
-    setLikes(prev => ({ ...prev, [messageId]: !prev[messageId] }));
+    setLikes((prev) => ({ ...prev, [messageId]: !prev[messageId] }));
   };
 
   const handleFavorite = (messageId: string) => {
-    setFavorites(prev => ({ ...prev, [messageId]: !prev[messageId] }));
+    setFavorites((prev) => ({ ...prev, [messageId]: !prev[messageId] }));
   };
 
   const handleShare = (message: any) => {
@@ -83,42 +92,44 @@ export default function ExtraRenderDemo() {
   // 自定义额外操作渲染函数
   const customExtraRender = (props: any, defaultDom: React.ReactNode) => {
     const messageId = props.id;
-    
+
     return (
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        gap: 8,
-        padding: '8px 0',
-        borderTop: '1px solid #f0f0f0',
-        marginTop: 8
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '8px 0',
+          borderTop: '1px solid #f0f0f0',
+          marginTop: 8,
+        }}
+      >
         {/* 自定义操作按钮 */}
         <Space size="small">
           <Button
             type="text"
             size="small"
             icon={<HeartOutlined />}
-            style={{ 
-              color: likes[messageId] ? '#ff4d4f' : '#8c8c8c' 
+            style={{
+              color: likes[messageId] ? '#ff4d4f' : '#8c8c8c',
             }}
             onClick={() => handleLike(messageId)}
           >
             {likes[messageId] ? '已点赞' : '点赞'}
           </Button>
-          
+
           <Button
             type="text"
             size="small"
             icon={<StarOutlined />}
-            style={{ 
-              color: favorites[messageId] ? '#faad14' : '#8c8c8c' 
+            style={{
+              color: favorites[messageId] ? '#faad14' : '#8c8c8c',
             }}
             onClick={() => handleFavorite(messageId)}
           >
             {favorites[messageId] ? '已收藏' : '收藏'}
           </Button>
-          
+
           <Button
             type="text"
             size="small"
@@ -128,12 +139,10 @@ export default function ExtraRenderDemo() {
             分享
           </Button>
         </Space>
-        
+
         {/* 显示默认操作按钮 */}
-        <div style={{ marginLeft: 'auto' }}>
-          {defaultDom}
-        </div>
-        
+        <div style={{ marginLeft: 'auto' }}>{defaultDom}</div>
+
         {/* 状态标签 */}
         <div style={{ display: 'flex', gap: 4 }}>
           {likes[messageId] && <Tag color="red">已点赞</Tag>}
@@ -158,34 +167,39 @@ export default function ExtraRenderDemo() {
     <div style={{ padding: 24, maxWidth: 800, margin: '0 auto' }}>
       <div style={{ marginBottom: 24 }}>
         <h2>Bubble extraRender 自定义功能演示</h2>
-        <p>此演示展示如何使用 <code>extraRender</code> 功能自定义气泡消息的额外操作区域。</p>
-        
+        <p>
+          此演示展示如何使用 <code>extraRender</code>{' '}
+          功能自定义气泡消息的额外操作区域。
+        </p>
+
         <Space style={{ marginBottom: 16 }}>
           <span>操作模式：</span>
-          <Button 
+          <Button
             type={customMode === 'default' ? 'primary' : 'default'}
             onClick={() => setCustomMode('default')}
           >
             默认模式
           </Button>
-          <Button 
+          <Button
             type={customMode === 'custom' ? 'primary' : 'default'}
             onClick={() => setCustomMode('custom')}
           >
             自定义模式
           </Button>
-          <Button 
+          <Button
             type={customMode === 'disabled' ? 'primary' : 'default'}
             onClick={() => setCustomMode('disabled')}
           >
             禁用额外操作
           </Button>
         </Space>
-        
+
         <div style={{ fontSize: '14px', color: '#666', marginBottom: 16 }}>
           <strong>当前模式说明：</strong>
-          {customMode === 'default' && ' 使用默认的额外操作区域（点赞、点踩、复制等）'}
-          {customMode === 'custom' && ' 使用自定义的额外操作区域（点赞、收藏、分享 + 默认操作）'}
+          {customMode === 'default' &&
+            ' 使用默认的额外操作区域（点赞、点踩、复制等）'}
+          {customMode === 'custom' &&
+            ' 使用自定义的额外操作区域（点赞、收藏、分享 + 默认操作）'}
           {customMode === 'disabled' && ' 完全禁用额外操作区域'}
         </div>
       </div>
@@ -212,10 +226,17 @@ export default function ExtraRenderDemo() {
         ))}
       </div>
 
-      <div style={{ marginTop: 32, padding: 16, backgroundColor: '#f8f9fa', borderRadius: 8 }}>
+      <div
+        style={{
+          marginTop: 32,
+          padding: 16,
+          backgroundColor: '#f8f9fa',
+          borderRadius: 8,
+        }}
+      >
         <h4>代码示例：</h4>
         <pre style={{ fontSize: '12px', overflow: 'auto' }}>
-{`// 自定义 extraRender 函数
+          {`// 自定义 extraRender 函数
 const customExtraRender = (props, defaultDom) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

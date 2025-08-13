@@ -192,6 +192,9 @@ describe('Bubble', () => {
         id: '123',
         role: 'assistant' as const,
         updateAt: 1716537600000,
+        extra: {
+          // 确保 extra 字段存在但没有 answerStatus
+        },
       },
     };
 
@@ -228,6 +231,9 @@ describe('Bubble', () => {
         id: '123',
         role: 'assistant' as const,
         updateAt: 1716537600000,
+        extra: {
+          // 确保 extra 字段存在但没有 answerStatus
+        },
       },
     };
 
@@ -255,6 +261,9 @@ describe('Bubble', () => {
         id: '123',
         role: 'assistant' as const,
         updateAt: 1716537600000,
+        extra: {
+          // 确保 extra 字段存在但没有 answerStatus
+        },
       },
     };
 
@@ -286,6 +295,9 @@ describe('Bubble', () => {
         id: '123',
         updateAt: 1716537600000,
         feedback: 'thumbsUp' as const, // 已经点赞
+        extra: {
+          // 确保 extra 字段存在但没有 answerStatus
+        },
       },
     };
 
@@ -326,6 +338,9 @@ describe('Bubble', () => {
         id: '123',
         updateAt: 1716537600000,
         feedback: 'thumbsUp' as const,
+        extra: {
+          // 确保 extra 字段存在但没有 answerStatus
+        },
       },
     };
 
@@ -355,6 +370,9 @@ describe('Bubble', () => {
         id: '123',
         role: 'assistant' as const,
         updateAt: 1716537600000,
+        extra: {
+          // 确保 extra 字段存在但没有 answerStatus
+        },
       },
     };
 
@@ -379,6 +397,9 @@ describe('Bubble', () => {
         id: '123',
         role: 'assistant' as const,
         updateAt: 1716537600000,
+        extra: {
+          // 确保 extra 字段存在但没有 answerStatus
+        },
       },
     };
 

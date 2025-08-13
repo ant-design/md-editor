@@ -126,21 +126,21 @@ Bubble 组件是一个用于显示聊天消息的气泡组件，支持多种消�
 
 ### MessageBubbleData
 
-| 参数          | 说明         | 类型                                                                                                                                                                                                                      | 默认值  |
-| ------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| content       | 消息内容     | `React.ReactNode`                                                                                                                                                                                                         | -       |
-| originContent | 原始文本内容 | `string`                                                                                                                                                                                                                  | -       |
-| error         | 错误信息     | `any`                                                                                                                                                                                                                     | -       |
-| model         | AI模型标识符 | `string`                                                                                                                                                                                                                  | -       |
-| name          | 发送者名称   | `string`                                                                                                                                                                                                                  | -       |
-| parentId      | 父消息ID     | `string`                                                                                                                                                                                                                  | -       |
-| role          | 发送者角色   | `'user' \| 'system' \| 'assistant' \| 'agent' \| 'bot'`                                                                                                                                                                   | -       |
-| createAt      | 创建时间戳   | `number`                                                                                                                                                                                                                  | -       |
-| endTime       | 结束时间戳   | `number`                                                                                                                                                                                                                  | -       |
-| id            | 消息唯一标识 | `string`                                                                                                                                                                                                                  | -       |
-| updateAt      | 修改时间戳   | `number`                                                                                                                                                                                                                  | -       |
-| extra         | 额外信息     | `{ white_box_process?: WhiteBoxProcessInterface[] \| WhiteBoxProcessInterface; chat_trace_id?: string; sessionId?: string; uuid?: string; clientId?: string; tags?: ('REJECT_TO_ANSWER' \| 'ABOUT_YOU' \| 'NORMAL')[]; }` | -       |
-| meta          | 模型元数据   | `BubbleMetaData`                                                                                                                                                                                                          | -       |
+| 参数          | 说明         | 类型                                                                                                                                                                                                                      | 默认值 |
+| ------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| content       | 消息内容     | `React.ReactNode`                                                                                                                                                                                                         | -      |
+| originContent | 原始文本内容 | `string`                                                                                                                                                                                                                  | -      |
+| error         | 错误信息     | `any`                                                                                                                                                                                                                     | -      |
+| model         | AI模型标识符 | `string`                                                                                                                                                                                                                  | -      |
+| name          | 发送者名称   | `string`                                                                                                                                                                                                                  | -      |
+| parentId      | 父消息ID     | `string`                                                                                                                                                                                                                  | -      |
+| role          | 发送者角色   | `'user' \| 'system' \| 'assistant' \| 'agent' \| 'bot'`                                                                                                                                                                   | -      |
+| createAt      | 创建时间戳   | `number`                                                                                                                                                                                                                  | -      |
+| endTime       | 结束时间戳   | `number`                                                                                                                                                                                                                  | -      |
+| id            | 消息唯一标识 | `string`                                                                                                                                                                                                                  | -      |
+| updateAt      | 修改时间戳   | `number`                                                                                                                                                                                                                  | -      |
+| extra         | 额外信息     | `{ white_box_process?: WhiteBoxProcessInterface[] \| WhiteBoxProcessInterface; chat_trace_id?: string; sessionId?: string; uuid?: string; clientId?: string; tags?: ('REJECT_TO_ANSWER' \| 'ABOUT_YOU' \| 'NORMAL')[]; }` | -      |
+| meta          | 模型元数据   | `BubbleMetaData`                                                                                                                                                                                                          | -      |
 
 ## 功能特性
 
@@ -161,19 +161,13 @@ const customExtraRender = (props, defaultDom) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       {/* 自定义操作按钮 */}
-      <Button 
-        icon={<HeartOutlined />} 
-        onClick={() => handleLike(props.id)}
-      >
+      <Button icon={<HeartOutlined />} onClick={() => handleLike(props.id)}>
         点赞
       </Button>
-      <Button 
-        icon={<StarOutlined />} 
-        onClick={() => handleFavorite(props.id)}
-      >
+      <Button icon={<StarOutlined />} onClick={() => handleFavorite(props.id)}>
         收藏
       </Button>
-      
+
       {/* 包含默认操作按钮 */}
       {defaultDom}
     </div>
@@ -184,10 +178,10 @@ const customExtraRender = (props, defaultDom) => {
 <Bubble
   originData={messageData}
   bubbleRenderConfig={{
-    extraRender: customExtraRender,  // 自定义渲染
+    extraRender: customExtraRender, // 自定义渲染
     // extraRender: false,           // 或者禁用额外操作
   }}
-/>
+/>;
 ```
 
 #### 参数说明
@@ -200,8 +194,8 @@ const customExtraRender = (props, defaultDom) => {
 - `extraRender` 只在左侧消息（AI回复）中生效，右侧消息（用户消息）不会显示额外操作区域
 - 当设置 `extraRender: false` 时，会完全禁用额外操作区域
 - 在异常状态下，自定义的 `extraRender` 仍然会生效
-| isFinished    | 是否完成     | `boolean`                                                                                                                                                                                                                 | `false` |
-| isAborted     | 是否被终止   | `boolean`                                                                                                                                                                                                                 | `false` |
-| feedback      | 用户反馈     | `'thumbsUp' \| 'thumbsDown' \| 'none'`                                                                                                                                                                                    | -       |
-| isRetry       | 是否重试     | `boolean`                                                                                                                                                                                                                 | `false` |
-| fileMap       | 文件映射     | `Map<string, AttachmentFile>`                                                                                                                                                                                             | -       |
+  | isFinished | 是否完成 | `boolean` | `false` |
+  | isAborted | 是否被终止 | `boolean` | `false` |
+  | feedback | 用户反馈 | `'thumbsUp' \| 'thumbsDown' \| 'none'` | - |
+  | isRetry | 是否重试 | `boolean` | `false` |
+  | fileMap | 文件映射 | `Map<string, AttachmentFile>` | - |
