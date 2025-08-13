@@ -141,7 +141,6 @@ export const Bubble: React.FC<
       markdownRenderConfig={props.markdownRenderConfig}
       docListProps={props.docListProps}
       bubbleListRef={props.bubbleListRef}
-      extraRender={props.bubbleRenderConfig?.extraRender}
       bubbleListItemExtraStyle={styles?.bubbleListItemExtraStyle}
       bubbleRef={props.bubbleRef}
       content={props?.originData?.content}

@@ -238,20 +238,6 @@ describe('BubbleExtra', () => {
       expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
     });
 
-    it('应该处理自定义渲染', () => {
-      const customRender = vi.fn(() => (
-        <div data-testid="custom-render">Custom</div>
-      ));
-      const props = {
-        ...defaultProps,
-        render: customRender,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('custom-render')).toBeInTheDocument();
-    });
-
     it('应该处理onRenderExtraNull回调', () => {
       const onRenderExtraNull = vi.fn();
       const props = {

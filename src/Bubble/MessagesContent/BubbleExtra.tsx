@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ActionIconBox } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
-import { BubbleProps, MessageBubbleData } from '../type';
+import { BubbleProps, MessageBubbleData, WithFalse } from '../type';
 import { CopyButton } from './CopyButton';
 import { ReloadIcon } from './icons';
 
@@ -151,27 +151,35 @@ export type BubbleExtraProps = {
    * @returns 自定义的额外操作区域 React 节点
    * @optional
    */
-  render?: (
-    props: BubbleExtraProps,
-    defaultDoms: {
-      /**
-       * 点赞按钮的 DOM 节点
-       */
-      like: React.ReactNode;
-      /**
-       * 点踩按钮的 DOM 节点
-       */
-      disLike: React.ReactNode;
-      /**
-       * 复制按钮的 DOM 节点
-       */
-      copy: React.ReactNode;
-      /**
-       * 回复按钮的 DOM 节点
-       */
-      reply: React.ReactNode;
-    },
-  ) => React.ReactNode;
+  render?: WithFalse<
+    (
+      props: BubbleProps<Record<string, any>>,
+      defaultDoms: React.ReactNode,
+    ) => React.ReactNode
+  >;
+  rightRender?: WithFalse<
+    (
+      props: BubbleExtraProps,
+      defaultDoms: {
+        /**
+         * 点赞按钮的 DOM 节点
+         */
+        like: React.ReactNode;
+        /**
+         * 点踩按钮的 DOM 节点
+         */
+        disLike: React.ReactNode;
+        /**
+         * 复制按钮的 DOM 节点
+         */
+        copy: React.ReactNode;
+        /**
+         * 回复按钮的 DOM 节点
+         */
+        reply: React.ReactNode;
+      },
+    ) => React.ReactNode
+  >;
 };
 
 /**
@@ -541,21 +549,23 @@ export const BubbleExtra = ({
       {reSend || <div />}
       {originalData?.isAborted
         ? copyDom
-        : props.render?.(
-            {
-              ...props,
-              bubble,
-              onReply,
-              onRenderExtraNull: props.onRenderExtraNull,
-              slidesModeProps: props.slidesModeProps,
-            },
-            {
-              like,
-              disLike,
-              copy: copyDom,
-              reply: reSend,
-            },
-          ) || dom}
+        : props.rightRender === false
+          ? null
+          : props.rightRender?.(
+              {
+                ...props,
+                bubble,
+                onReply,
+                onRenderExtraNull: props.onRenderExtraNull,
+                slidesModeProps: props.slidesModeProps,
+              },
+              {
+                like,
+                disLike,
+                copy: copyDom,
+                reply: reSend,
+              },
+            ) || dom}
     </div>
   );
 };

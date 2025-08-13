@@ -327,10 +327,8 @@ export interface BubbleRenderConfig<T = Record<string, any>> {
       defaultDom: ReactNode,
     ) => ReactNode
   >;
-  extraRender?: WithFalse<
-    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
-  >;
-  bubbleRightExtraRender?: BubbleExtraProps['render'];
+  extraRender?: BubbleExtraProps['render'];
+  extraRightRender?: BubbleExtraProps['rightRender'];
 }
 
 /**
@@ -451,13 +449,6 @@ export interface BubbleProps<T = Record<string, any>>
   docListProps?: DocInfoListProps & {
     enable?: boolean;
   };
-
-  /**
-   * 额外内容渲染
-   */
-  extraRender?: WithFalse<
-    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
-  >;
 
   /**
    * 气泡引用

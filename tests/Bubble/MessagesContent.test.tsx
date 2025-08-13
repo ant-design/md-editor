@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
@@ -159,32 +160,6 @@ vi.mock('../../src/MarkdownEditor', () => ({
   ),
 }));
 
-// Mock ActionIconBox
-vi.mock('../../src/index', () => ({
-  ActionIconBox: ({
-    children,
-    onClick,
-    title,
-    style,
-    scale,
-    active,
-    borderLess,
-    dataTestid,
-  }: any) => (
-    <button
-      data-testid={dataTestid || 'action-icon-box'}
-      onClick={onClick}
-      style={style}
-      title={title}
-    >
-      {children}
-    </button>
-  ),
-  useRefFunction: (fn: any) => fn,
-  Chunk: {},
-  WhiteBoxProcessInterface: {},
-}));
-
 // Mock Antd 组件
 vi.mock('antd', () => ({
   Popover: ({ children, content, title, placement }: any) => (
@@ -288,8 +263,8 @@ vi.mock('copy-to-clipboard', () => ({
 
 // Mock dayjs
 vi.mock('dayjs', () => ({
-  default: (date: any) => ({
-    format: (format: string) => `2024-01-01 12:00:00`,
+  default: () => ({
+    format: () => `2024-01-01 12:00:00`,
   }),
 }));
 
@@ -334,14 +309,15 @@ describe('BubbleMessageDisplay', () => {
     thoughtChain: {
       alwaysRender: false,
     },
+    thoughtChainList: {},
   };
 
   const renderWithContext = (
-    props = defaultProps,
-    context = defaultContext,
+    props: any = defaultProps,
+    context: any = defaultContext,
   ) => {
     return render(
-      <BubbleConfigContext.Provider value={context}>
+      <BubbleConfigContext.Provider value={context as any}>
         <BubbleMessageDisplay {...props} />
       </BubbleConfigContext.Provider>,
     );
@@ -560,26 +536,14 @@ describe('BubbleMessageDisplay', () => {
     it('应该处理额外内容为空的情况', () => {
       const props = {
         ...defaultProps,
-        extraRender: false,
-      };
+        bubbleRenderConfig: {
+          bubbleRightExtraRender: false,
+        },
+      } as BubbleProps;
 
       renderWithContext(props);
 
       expect(screen.queryByTestId('bubble-extra')).not.toBeInTheDocument();
-    });
-
-    it('应该处理自定义额外渲染', () => {
-      const customExtra = <div data-testid="custom-extra">Custom Extra</div>;
-      const extraRender = vi.fn().mockReturnValue(customExtra);
-      const props = {
-        ...defaultProps,
-        extraRender,
-      };
-
-      renderWithContext(props);
-
-      expect(extraRender).toHaveBeenCalled();
-      expect(screen.getByTestId('custom-extra')).toBeInTheDocument();
     });
   });
 

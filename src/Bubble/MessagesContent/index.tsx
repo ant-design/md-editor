@@ -117,7 +117,7 @@ export const BubbleMessageDisplay: React.FC<
     content: MessageBubbleData['content'];
     bubbleListItemExtraStyle?: React.CSSProperties;
   }
-> = ({ content, bubbleRef, readonly, extraRender, ...props }) => {
+> = ({ content, bubbleRef, readonly, ...props }) => {
   /**
    * 获取聊天配置上下文
    * @type {ChatConfigContext}
@@ -208,51 +208,55 @@ export const BubbleMessageDisplay: React.FC<
       );
     }
 
-    const defaultExtra = (
-      <BubbleExtra
-        style={props.bubbleListItemExtraStyle}
-        readonly={readonly}
-        render={props?.bubbleRenderConfig?.bubbleRightExtraRender}
-        bubble={props as any}
-        onReply={props.onReply}
-        onCancelLike={props.onCancelLike}
-        shouldShowCopy={props.shouldShowCopy}
-        onDisLike={
-          props.onDisLike
-            ? async () => {
-                try {
-                  await props.onDisLike?.(props.originData as any);
-                  bubbleRef?.current?.setMessageItem?.(props.id!, {
-                    feedback: 'thumbsDown',
-                  } as any);
-                } catch (error) {}
-              }
-            : undefined
-        }
-        onRenderExtraNull={(isNull) => setIsExtraNull(isNull)}
-        onOpenSlidesMode={() => setSlidesMode(true)}
-        slidesModeProps={props.slidesModeProps}
-        onLike={
-          props.onLike
-            ? async () => {
-                try {
-                  await props.onLike?.(props.originData as any);
-                  bubbleRef?.current?.setMessageItem?.(props.id!, {
-                    feedback: 'thumbsUp',
-                  } as any);
-                } catch (error) {}
-              }
-            : undefined
-        }
-      />
-    );
+    const defaultExtra =
+      props?.bubbleRenderConfig?.extraRender === false ? null : (
+        <BubbleExtra
+          style={props.bubbleListItemExtraStyle}
+          readonly={readonly}
+          render={props?.bubbleRenderConfig?.extraRender}
+          rightRender={props?.bubbleRenderConfig?.extraRightRender}
+          onReply={props.onReply}
+          onCancelLike={props.onCancelLike}
+          shouldShowCopy={props.shouldShowCopy}
+          onDisLike={
+            props.onDisLike
+              ? async () => {
+                  try {
+                    await props.onDisLike?.(props.originData as any);
+                    bubbleRef?.current?.setMessageItem?.(props.id!, {
+                      feedback: 'thumbsDown',
+                    } as any);
+                  } catch (error) {}
+                }
+              : undefined
+          }
+          bubble={props as any}
+          onRenderExtraNull={(isNull) => setIsExtraNull(isNull)}
+          onOpenSlidesMode={() => setSlidesMode(true)}
+          slidesModeProps={props.slidesModeProps}
+          onLike={
+            props.onLike
+              ? async () => {
+                  try {
+                    await props.onLike?.(props.originData as any);
+                    bubbleRef?.current?.setMessageItem?.(props.id!, {
+                      feedback: 'thumbsUp',
+                    } as any);
+                  } catch (error) {}
+                }
+              : undefined
+          }
+        />
+      );
 
     const extra =
-      extraRender === false
-        ? null
-        : extraRender
-          ? extraRender(props, defaultExtra)
-          : (defaultExtra as React.ReactNode);
+      props?.bubbleRenderConfig?.extraRender !== false &&
+      props?.bubbleRenderConfig?.extraRender
+        ? props?.bubbleRenderConfig?.extraRender?.(
+            props as BubbleProps,
+            defaultExtra,
+          )
+        : null;
 
     // answerStatus= 'EXCEPTION'时 一定是异常情况
     if (
