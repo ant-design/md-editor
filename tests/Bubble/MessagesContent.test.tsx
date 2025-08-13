@@ -26,24 +26,42 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
     style,
     originData,
     htmlRef,
-  }: any) => (
-    <div data-testid="markdown-preview">
-      <div data-testid="content">{content}</div>
-      <div data-testid="is-finished">{isFinished ? 'true' : 'false'}</div>
-      <div data-testid="typing">{typing ? 'true' : 'false'}</div>
-      <div data-testid="slides-mode">{slidesMode ? 'true' : 'false'}</div>
-      {extra && <div data-testid="extra">{extra}</div>}
-      {docListNode && <div data-testid="doc-list">{docListNode}</div>}
-      {fncProps && <div data-testid="fnc-props">fncProps</div>}
-      {markdownRenderConfig && <div data-testid="markdown-config">config</div>}
-      {style && <div data-testid="style">style</div>}
-      {originData && <div data-testid="origin-data">originData</div>}
-      {htmlRef && <div data-testid="html-ref">htmlRef</div>}
-      <button data-testid="close-slides" onClick={onCloseSlides}>
-        Close Slides
-      </button>
-    </div>
-  ),
+  }: any) => {
+    console.log('MarkdownPreview props:', {
+      content,
+      isFinished,
+      typing,
+      extra: extra ? 'has-extra' : 'no-extra',
+      docListNode: docListNode ? 'has-doc-list' : 'no-doc-list',
+      slidesMode,
+      fncProps: fncProps ? 'has-fnc-props' : 'no-fnc-props',
+      markdownRenderConfig: markdownRenderConfig ? 'has-config' : 'no-config',
+      style: style ? 'has-style' : 'no-style',
+      originData: originData ? 'has-origin-data' : 'no-origin-data',
+      htmlRef: htmlRef ? 'has-html-ref' : 'no-html-ref',
+    });
+
+    return (
+      <div data-testid="markdown-preview">
+        <div data-testid="content">{content}</div>
+        <div data-testid="is-finished">{isFinished ? 'true' : 'false'}</div>
+        <div data-testid="typing">{typing ? 'true' : 'false'}</div>
+        <div data-testid="slides-mode">{slidesMode ? 'true' : 'false'}</div>
+        {extra && <div data-testid="extra">{extra}</div>}
+        {docListNode && <div data-testid="doc-list">{docListNode}</div>}
+        {fncProps && <div data-testid="fnc-props">fncProps</div>}
+        {markdownRenderConfig && (
+          <div data-testid="markdown-config">config</div>
+        )}
+        {style && <div data-testid="style">style</div>}
+        {originData && <div data-testid="origin-data">originData</div>}
+        {htmlRef && <div data-testid="html-ref">htmlRef</div>}
+        <button data-testid="close-slides" onClick={onCloseSlides}>
+          Close Slides
+        </button>
+      </div>
+    );
+  },
 }));
 
 vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
@@ -225,6 +243,12 @@ vi.mock('@ant-design/icons', () => ({
   SelectOutlined: () => <div data-testid="select-icon">Select</div>,
   RightOutlined: () => <div data-testid="right-icon">Right</div>,
   CloseCircleFilled: () => <div data-testid="close-circle-icon">Close</div>,
+  FileImageOutlined: () => <div data-testid="file-image-icon">FileImage</div>,
+  FileTextFilled: () => <div data-testid="file-text-icon">FileText</div>,
+  AudioOutlined: () => <div data-testid="audio-icon">Audio</div>,
+  VideoCameraOutlined: () => (
+    <div data-testid="video-camera-icon">VideoCamera</div>
+  ),
 }));
 
 // Mock framer-motion
@@ -278,7 +302,7 @@ describe('BubbleMessageDisplay', () => {
     content: MessageBubbleData['content'];
     bubbleListItemExtraStyle?: React.CSSProperties;
   } = {
-    content: 'Test message content',
+    content: 'Test content',
     bubbleRef: { current: { setMessageItem: vi.fn() } },
     readonly: false,
     placement: 'left',
@@ -334,6 +358,21 @@ describe('BubbleMessageDisplay', () => {
       expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
       expect(screen.getByTestId('content')).toHaveTextContent('Test content');
       expect(screen.getByTestId('is-finished')).toHaveTextContent('true');
+    });
+
+    it('调试：查看实际渲染的DOM结构', () => {
+      const { container } = renderWithContext();
+      console.log('Actual DOM:', container.innerHTML);
+
+      // 检查是否有extra元素
+      const extraElement = screen.queryByTestId('extra');
+      console.log('Extra element:', extraElement);
+
+      // 检查是否有bubble-extra元素
+      const bubbleExtraElement = screen.queryByTestId('bubble-extra');
+      console.log('Bubble extra element:', bubbleExtraElement);
+
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
     });
 
     it('应该渲染加载状态', () => {
