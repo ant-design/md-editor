@@ -362,6 +362,9 @@ export const FileComponent: FC<{
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
     useState<React.ReactNode | null>(null);
+
+  const [customPreviewHeader, setCustomPreviewHeader] =
+    useState<React.ReactNode | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
@@ -416,18 +419,29 @@ export const FileComponent: FC<{
             typeof previewData === 'string' ||
             typeof previewData === 'number' ||
             typeof previewData === 'boolean'
-          ) {
-            setCustomPreviewContent(previewData as React.ReactNode);
+                      ) {
+              // 如果自定义内容是 ReactElement，注入控制头部/返回/下载的方法
+              const content = React.isValidElement(previewData)
+                ? React.cloneElement(previewData as React.ReactElement, {
+                    setPreviewHeader: (header: React.ReactNode) => setCustomPreviewHeader(header),
+                    back: handleBackToList,
+                    download: () => handleDownloadInPreview(file),
+                  })
+                : (previewData as React.ReactNode);
+              setCustomPreviewHeader(null);
+              setCustomPreviewContent(content);
           } else if (
             typeof previewData === 'object' &&
             previewData !== null &&
             'name' in (previewData as any)
           ) {
             setCustomPreviewContent(null);
+            setCustomPreviewHeader(null);
             setPreviewFile(previewData as FileNode);
           } else {
             // 非法返回值：忽略并按默认逻辑（使用当前文件预览）
             setCustomPreviewContent(null);
+            setCustomPreviewHeader(null);
             setPreviewFile(file);
           }
           return;
@@ -472,6 +486,7 @@ export const FileComponent: FC<{
     previewRequestIdRef.current++;
     setPreviewFile(null);
     setCustomPreviewContent(null);
+    setCustomPreviewHeader(null);
   };
 
   // 处理预览页面的下载
@@ -508,6 +523,7 @@ export const FileComponent: FC<{
           onBack={handleBackToList}
           onDownload={handleDownloadInPreview}
           customContent={customPreviewContent || undefined}
+          customHeader={customPreviewHeader || undefined}
           markdownEditorProps={markdownEditorProps}
         />
         {ImagePreviewComponent}

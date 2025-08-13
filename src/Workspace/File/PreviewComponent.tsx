@@ -19,9 +19,14 @@ import { getFileTypeIcon } from './utils';
 interface PreviewComponentProps {
   file: FileNode;
   /**
-   * 提供自定义内容以替换预览区域，头部信息保持与默认一致
+   * 提供自定义内容以替换预览区域
    */
   customContent?: React.ReactNode;
+
+  /**
+   * 自定义头部（当提供时，将完全替换默认头部：返回、图标、标题、时间、下载等均由外部控制）
+   */
+  customHeader?: React.ReactNode;
   onBack: () => void;
   onDownload?: (file: FileNode) => void;
   /**
@@ -67,6 +72,7 @@ const PlaceholderContent: FC<{
 export const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   customContent,
+  customHeader,
   onBack,
   onDownload,
   markdownEditorProps,
@@ -378,54 +384,58 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
   return (
     <div className={PREFIX}>
-      <div className={`${PREFIX}__header`}>
-        <button
-          className={`${PREFIX}__back-button`}
-          onClick={onBack}
-          aria-label="返回文件列表"
-        >
-          <ArrowLeftOutlined className={`${PREFIX}__back-icon`} />
-        </button>
-
-        <div className={`${PREFIX}__file-info`}>
-          <div className={`${PREFIX}__file-title`}>
-            <span className={`${PREFIX}__file-icon`}>
-              {getFileTypeIcon(
-                fileTypeProcessor.inferFileType(file).fileType,
-                file.icon,
-                file.name,
-              )}
-            </span>
-            <span className={`${PREFIX}__file-name`}>{file.name}</span>
-          </div>
-          {file.lastModified && (
-            <div className={`${PREFIX}__generate-time`}>
-              生成时间：{formatLastModified(file.lastModified)}
-            </div>
-          )}
-        </div>
-
-        <div className={`${PREFIX}__actions`}>
-          {!customContent && isHtmlFile() && (
-            <Segmented
-              size="small"
-              options={[
-                { label: '预览', value: 'preview' },
-                { label: '代码', value: 'code' },
-              ]}
-              value={htmlViewMode}
-              onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}
-            />
-          )}
+      {customHeader ? (
+        <div className={`${PREFIX}__header`}>{customHeader}</div>
+      ) : (
+        <div className={`${PREFIX}__header`}>
           <button
-            className={`${PREFIX}__action-button`}
-            onClick={handleDownload}
-            aria-label="下载文件"
+            className={`${PREFIX}__back-button`}
+            onClick={onBack}
+            aria-label="返回文件列表"
           >
-            <DownloadOutlined />
+            <ArrowLeftOutlined className={`${PREFIX}__back-icon`} />
           </button>
+
+          <div className={`${PREFIX}__file-info`}>
+            <div className={`${PREFIX}__file-title`}>
+              <span className={`${PREFIX}__file-icon`}>
+                {getFileTypeIcon(
+                  fileTypeProcessor.inferFileType(file).fileType,
+                  file.icon,
+                  file.name,
+                )}
+              </span>
+              <span className={`${PREFIX}__file-name`}>{file.name}</span>
+            </div>
+            {file.lastModified && (
+              <div className={`${PREFIX}__generate-time`}>
+                生成时间：{formatLastModified(file.lastModified)}
+              </div>
+            )}
+          </div>
+
+          <div className={`${PREFIX}__actions`}>
+            {!customContent && isHtmlFile() && (
+              <Segmented
+                size="small"
+                options={[
+                  { label: '预览', value: 'preview' },
+                  { label: '代码', value: 'code' },
+                ]}
+                value={htmlViewMode}
+                onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}
+              />
+            )}
+            <button
+              className={`${PREFIX}__action-button`}
+              onClick={handleDownload}
+              aria-label="下载文件"
+            >
+              <DownloadOutlined />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <div className={`${PREFIX}__content`}>{renderPreviewContent()}</div>
     </div>
   );

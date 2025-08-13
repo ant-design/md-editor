@@ -5,7 +5,7 @@ import {
   FileType,
   GroupNode,
 } from '@ant-design/md-editor/Workspace/types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 // 自定义 markdownEditorProps 配置
 const customMarkdownEditorProps = {
@@ -15,6 +15,288 @@ const customMarkdownEditorProps = {
     fontSize: '16px',
     lineHeight: '1.6',
   },
+};
+
+// 支持“列表 -> 查看详情 -> 返回列表”的自定义预览组件
+const VariableAnalysisPreview: React.FC<{
+  file: FileNode;
+  setPreviewHeader?: (h: React.ReactNode) => void;
+  back?: () => void;
+  download?: () => void;
+}> = ({ file, setPreviewHeader, back, download }) => {
+  const [mode, setMode] = useState<'list' | 'detail'>('list');
+  const [current, setCurrent] = useState<{
+    id: string;
+    name: string;
+    type: string;
+    binMethod: string;
+    binCount: number;
+    iv: string | number;
+    ks: string | number;
+  } | null>(null);
+
+  const rows = useMemo(
+    () => [
+      {
+        id: '1',
+        name: '变量1',
+        type: 'double',
+        binMethod: '等频',
+        binCount: 11,
+        iv: 0.075298,
+        ks: 0.075298,
+      },
+      {
+        id: '2',
+        name: '变量2',
+        type: 'double',
+        binMethod: '等频',
+        binCount: 1,
+        iv: 0.075298,
+        ks: 0.075298,
+      },
+      {
+        id: '3',
+        name: '变量3',
+        type: 'double',
+        binMethod: '等频',
+        binCount: 2,
+        iv: 0.075298,
+        ks: 0.075298,
+      },
+      {
+        id: '4',
+        name: '变量4',
+        type: 'double',
+        binMethod: '等频',
+        binCount: 3,
+        iv: 0.075298,
+        ks: 0.075298,
+      },
+    ],
+    [],
+  );
+
+  const handleViewDetail = (row: (typeof rows)[number]) => {
+    setCurrent(row);
+    setMode('detail');
+    setPreviewHeader?.(
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+        {/* <button
+          onClick={back}
+          aria-label="返回文件列表"
+          style={{ marginRight: 8 }}
+        >
+          ←
+        </button> */}
+        <div style={{ flex: 1 }}>
+          <div style={{ fontWeight: 600 }}>{row.name}</div>
+          <div style={{ fontSize: 12, color: '#888' }}>
+            详情的生成时间：{new Date().toLocaleString()}
+          </div>
+        </div>
+      </div>,
+    );
+  };
+
+  const handleBack = () => {
+    setMode('list');
+    setCurrent(null);
+    setPreviewHeader?.(undefined);
+  };
+
+  if (mode === 'detail' && current) {
+    return (
+      <div style={{ padding: 16 }} aria-label="变量详情">
+        <button
+          onClick={handleBack}
+          onKeyDown={(e) => e.key === 'Enter' && handleBack()}
+          aria-label="返回列表"
+          style={{ marginBottom: 12 }}
+        >
+          返回
+        </button>
+        <h3 style={{ margin: '8px 0' }}>变量详情 - {current.name}</h3>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '120px 1fr',
+            rowGap: 8,
+          }}
+        >
+          <div>名称</div>
+          <div>{current.name}</div>
+          <div>类型</div>
+          <div>{current.type}</div>
+          <div>分箱方式</div>
+          <div>{current.binMethod}</div>
+          <div>分箱数</div>
+          <div>{current.binCount}</div>
+          <div>IV</div>
+          <div>{current.iv}</div>
+          <div>KS</div>
+          <div>{current.ks}</div>
+          <div>文件名</div>
+          <div>{file.name}</div>
+          <div>文件ID</div>
+          <div>{file.id || '未指定'}</div>
+        </div>
+      </div>
+    );
+  }
+  if (mode === 'list') {
+    setPreviewHeader?.(
+      <div>
+        <div onClick={back}>返回</div>
+        这是书琰测试的
+      </div>,
+    );
+  }
+
+  return (
+    <div style={{ padding: 16 }} aria-label="变量分析列表">
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              名称
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              类型
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              分箱方式
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              分箱数
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              IV
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              KS
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              操作
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.id}>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.name}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.type}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.binMethod}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.binCount}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.iv}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.ks}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`查看${row.name}详情`}
+                  onClick={() => handleViewDetail(row)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleViewDetail(row)}
+                  style={{ color: '#1677ff', cursor: 'pointer' }}
+                >
+                  查看详情
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 const WorkspaceFileDemo: React.FC = () => {
@@ -319,25 +601,16 @@ graph TD
     // 场景一：后端返回 Markdown 文本 → 返回更新后的 FileNode，走默认 Markdown 预览
     if (file.id === 'customPreviewDomID2') {
       const markdownFromApi = `# 后端返回的文档\n\n- 支持代码高亮\n\n\`\`\`ts\nconst sum = (a: number, b: number) => a + b;\nconsole.log(sum(1, 2));\n\`\`\`\n\n> 这是通过 onPreview 异步返回的内容`;
-      return { ...file, type: 'markdown', content: markdownFromApi } as FileNode;
+      return {
+        ...file,
+        type: 'markdown',
+        content: markdownFromApi,
+      } as FileNode;
     }
 
     // 场景二：后端返回 HTML 片段或需要自定义展示 → 直接返回 ReactNode，仅替换内容区
     if (file.id === 'customPreviewDomID1') {
-      return (
-        <div
-          style={{
-            padding: '20px',
-            border: '1px solid #d9d9d9',
-            borderRadius: '6px',
-          }}
-        >
-          <h3>自定义预览内容（来自后端）</h3>
-          <p>文件名: {file.name}</p>
-          <p>文件ID: {file.id || '未指定'}</p>
-          <p>这里可以渲染接口返回的结构化数据、表格或图表等。</p>
-        </div>
-      );
+      return <VariableAnalysisPreview file={file} />;
     }
 
     // 其他情况：返回 undefined，使用组件内置的默认预览逻辑
