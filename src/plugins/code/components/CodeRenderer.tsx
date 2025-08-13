@@ -142,10 +142,8 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     state.hide,
     state.htmlStr,
     isSelected,
-    focusEditor,
     editorProps.codeProps?.hideToolBar,
     toolbarProps,
-    dom,
     handleHtmlPreviewClose,
   ]);
 }
