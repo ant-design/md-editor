@@ -542,7 +542,7 @@ console.log("这是普通的 JavaScript 代码");
 
 ### 复杂例子
 
-<code src="./demos/useCreateComponentPlugin.tsx" ></code>
+<code src="../demos/useCreateComponentPlugin.tsx" background="var(--main-bg-color)" title="创建组件插件" iframe=540></code>
 
 ## 最佳实践
 

@@ -17,3 +17,9 @@ features:
     emoji: 🚀
     description: 简洁高效的设计，提供工具栏、代码高亮、评论、图片上传等多种实用功能，同时保持轻量级和高性能
 ---
+
+<code src="./demos/bug.tsx" background="var(--main-bg-color)" title="bug" iframe=540></code>
+
+<code src="./demos/li-code.tsx"  background="var(--main-bg-color)" title="li 嵌套 icode" iframe=540 ></code>
+
+<code src="./demos/table_line.tsx" background="var(--main-bg-color)" title="table \n 换行" iframe=540 ></code>
