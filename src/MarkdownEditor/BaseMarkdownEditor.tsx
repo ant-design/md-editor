@@ -424,10 +424,12 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     width,
     toolBar = {},
     editorRef,
-    toc = true,
+    toc = false,
     readonly,
     style,
-    contentStyle,
+    contentStyle = {
+      height: '100%',
+    },
     editorStyle,
     height,
     ...rest
@@ -647,7 +649,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               },
             )}
             style={{
-              width: width || '400px',
+              width: width || '100%',
               height: height || 'auto',
               display: 'flex',
               flexDirection: 'column',

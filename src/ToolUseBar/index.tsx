@@ -58,6 +58,7 @@ interface ToolCall {
   errorMessage?: string;
   content?: React.ReactNode;
   status?: 'idle' | 'loading' | 'success' | 'error';
+  testId?: string;
 }
 
 interface ToolUseBarProps {
@@ -67,6 +68,7 @@ interface ToolUseBarProps {
   activeKeys?: string[];
   defaultActiveKeys?: string[];
   onActiveKeysChange?: (activeKeys: string[]) => void;
+  testId?: string;
 }
 
 const ToolUseBarItem = ({
@@ -127,6 +129,7 @@ const ToolUseBarItem = ({
     <div
       onClick={handleClick}
       key={tool.id}
+      data-testid="ToolUserItem"
       className={classNames(
         `${prefixCls}-tool ${hashId}`,
         tool.status === 'success' && `${prefixCls}-tool-success`,
@@ -136,34 +139,42 @@ const ToolUseBarItem = ({
         isActive && `${prefixCls}-tool-active`,
       )}
     >
-      <div className={`${prefixCls}-tool-bar ${hashId}`}>
-        <div className={`${prefixCls}-tool-header ${hashId}`}>
+      <div
+        className={`${prefixCls}-tool-bar ${hashId}`}
+        data-testid="tool-user-item-tool-bar"
+      >
+        <div
+          className={`${prefixCls}-tool-header ${hashId}`}
+          data-testid="tool-user-item-tool-header"
+        >
           <div className={`${prefixCls}-tool-header-left ${hashId}`}>
             <div
-              className={classNames(
-                `${prefixCls}-tool-image-wrapper ${hashId}`,
-                tool.status === 'loading' && 'rotating',
-              )}
+              className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
+                [`${prefixCls}-tool-image-wrapper-rotating`]:
+                  tool.status === 'loading',
+                [`${prefixCls}-tool-image-wrapper-loading`]:
+                  tool.status === 'loading',
+              })}
             >
               {tool.icon || (
-                <ToolIcon className={`${prefixCls}-tool-image ${hashId}`} />
+                <div className={`${prefixCls}-tool-image ${hashId}`}>
+                  <ToolIcon />
+                </div>
               )}
             </div>
             <div
-              className={classNames(
-                `${prefixCls}-tool-name ${hashId}`,
-                tool.status === 'loading' && 'gradient-text',
-              )}
+              className={classNames(`${prefixCls}-tool-name ${hashId}`, {
+                [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
+              })}
             >
               {tool.toolName}
             </div>
           </div>
         </div>
         <div
-          className={classNames(
-            `${prefixCls}-tool-target ${hashId}`,
-            tool.status === 'loading' && 'gradient-text',
-          )}
+          className={classNames(`${prefixCls}-tool-target ${hashId}`, {
+            [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
+          })}
         >
           {tool.toolTarget}
         </div>
@@ -184,7 +195,10 @@ const ToolUseBarItem = ({
         )}
       </div>
       {showContent && expanded ? (
-        <div className={`${prefixCls}-tool-container ${hashId}`}>
+        <div
+          className={`${prefixCls}-tool-container ${hashId}`}
+          data-testid="tool-user-item-tool-container "
+        >
           {contentDom}
           {errorDom}
         </div>
@@ -219,10 +233,18 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   };
 
   if (!tools?.length)
-    return <div className={classNames(prefixCls, hashId, props.className)} />;
+    return (
+      <div
+        className={classNames(prefixCls, hashId, props.className)}
+        data-testid="ToolUse"
+      />
+    );
 
   return wrapSSR(
-    <div className={classNames(prefixCls, hashId, props.className)}>
+    <div
+      className={classNames(prefixCls, hashId, props.className)}
+      data-testid="ToolUse"
+    >
       {tools.map((tool) => (
         <ToolUseBarItem
           key={tool.id}

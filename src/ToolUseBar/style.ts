@@ -5,9 +5,15 @@ import {
   useEditorStyleRegister,
 } from '../hooks/useStyle';
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
-  const moveLighting = new Keyframes(`lui-tool-use-bar-move-lighting`, {
-    '100%': { left: '100%' },
+  const rotate = new Keyframes(`lui-tool-use-bar-rotate`, {
+    '100%': { transform: 'rotate(360deg)' },
   });
+  const maskMove = new Keyframes(`lui-tool-use-bar-maskMove`, {
+    '0%': { backgroundPosition: '200% 0' },
+    '40%': { backgroundPosition: '0% 0' },
+    '100%': { backgroundPosition: '-100% 0' },
+  });
+
   return {
     [token.componentCls]: {
       display: 'flex',
@@ -18,21 +24,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-tool': {
         position: 'relative',
-        '&-loading': {
-          '&::before': {
-            display: 'none',
-            content: '""',
-            position: 'absolute',
-            top: '50%',
-            left: '-50%',
-            height: '200%',
-            zIndex: 999,
-            boxShadow: '0 0 20px 6px rgba(243, 244, 245, 1)',
-            transform: 'translateY(-50%) rotateZ(-45deg)',
-            animation: 'moveLighting 0.7s ease-out 0s infinite',
-            animationName: moveLighting,
-          },
-        },
         '&-active': {
           background: '#FFFFFF',
           boxSizing: 'border-box',
@@ -112,6 +103,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '20px',
         letterSpacing: 'normal',
         color: '#767E8B',
+        '&-loading': {
+          position: 'relative',
+          background:
+            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+          animation: 'maskMove 2s linear infinite',
+          backgroundSize: '200% auto',
+          animationName: maskMove,
+        },
       },
 
       '&-tool-image-wrapper': {
@@ -128,11 +129,48 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
         border: '1px solid rgba(0, 16, 40, 0.13)',
         zIndex: 0,
+        '&-loading': {
+          borderRadius: '50%',
+          position: 'relative',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: '0',
+            borderRadius: '50%',
+            padding: '2px',
+            left: '-2px',
+            top: '-2px',
+            right: '-2px',
+            bottom: '-2px',
+            background:
+              'conic-gradient(from 0deg, #4facfe 0deg, #00f2fe 60deg, transparent 120deg, transparent 360deg)',
+            WebkitMask:
+              'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude',
+            animation:
+              'spin 1.2s cubic-bezier(0.55, 0.06, 0.68, 0.19) infinite',
+            animationName: rotate,
+          },
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            inset: '4px',
+            background: '#f9f9f9',
+            borderRadius: '50%',
+          },
+        },
       },
 
       '&-tool-image': {
         color: '#767E8B',
-        fontSize: '14px',
+        fontSize: '15px',
+        position: 'absolute',
+        zIndex: 999,
+        borderRadius: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       },
 
       '&-tool-target': {
@@ -142,6 +180,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flex: 1,
         color: '#959DA8',
         marginRight: 30,
+        '&-loading': {
+          position: 'relative',
+          background:
+            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+          animation: 'maskMove 2s linear infinite',
+          backgroundSize: '200% auto',
+          animationName: maskMove,
+        },
       },
       '&-tool-time': {
         fontSize: '12px',

@@ -16,7 +16,7 @@
       </p>
       <div
         class="markdown-editor ant-md-editor ant-md-editor-edit"
-        style="width: 400px; height: auto; display: flex; flex-direction: column; max-height: 100%;"
+        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
           style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
@@ -427,100 +427,6 @@ alert("它会被特殊渲染！");
                   </span>
                 </span>
               </span>
-            </div>
-          </div>
-          <div>
-            <div
-              class=""
-            >
-              <div
-                class="ant-anchor-wrapper"
-                style="max-height: min(calc(100vh - 180px), 70vh); min-width: 200px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;"
-              >
-                <div
-                  class="ant-anchor"
-                >
-                  <span
-                    class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
-                  />
-                  <div
-                    class="ant-anchor-link"
-                  >
-                    <a
-                      class="ant-anchor-link-title"
-                      href="#parsemarkdown-插件演示"
-                      title=""
-                    >
-                      <span
-                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
-                      >
-                        parseMarkdown 插件演示
-                      </span>
-                    </a>
-                    <div
-                      class="ant-anchor-link"
-                    >
-                      <a
-                        class="ant-anchor-link-title"
-                        href="#自定义代码块"
-                        title=""
-                      >
-                        <span
-                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
-                        >
-                          自定义代码块
-                        </span>
-                      </a>
-                    </div>
-                    <div
-                      class="ant-anchor-link"
-                    >
-                      <a
-                        class="ant-anchor-link-title"
-                        href="#普通代码块"
-                        title=""
-                      >
-                        <span
-                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
-                        >
-                          普通代码块
-                        </span>
-                      </a>
-                    </div>
-                    <div
-                      class="ant-anchor-link"
-                    >
-                      <a
-                        class="ant-anchor-link-title"
-                        href="#自定义引用块"
-                        title=""
-                      >
-                        <span
-                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
-                        >
-                          自定义引用块
-                        </span>
-                      </a>
-                    </div>
-                    <div
-                      class="ant-anchor-link"
-                    >
-                      <a
-                        class="ant-anchor-link-title"
-                        href="#普通段落"
-                        title=""
-                      >
-                        <span
-                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
-                        >
-                          普通段落
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

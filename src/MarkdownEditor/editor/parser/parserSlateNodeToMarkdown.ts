@@ -167,6 +167,7 @@ const parserNode = (
       str += handleHead(node, preString, parent, plugins);
       break;
     case 'code':
+    case 'apaasify':
       str += handleCode(node, preString);
       break;
     case 'attach':
@@ -855,7 +856,16 @@ const handleHead = (
  * @returns 处理后的代码块字符串
  */
 const handleCode = (node: any, preString: string) => {
-  const code = node?.value || '';
+  let code = node?.value || '';
+
+  // 如果 code 是对象，则转换为 JSON 字符串，实现对 apaasify 等节点的支持
+  if (typeof code === 'object') {
+    try {
+      code = JSON.stringify(code, null, 2);
+    } catch (e) {
+      console.warn('Invalid code object', e);
+    }
+  }
 
   if (node.language === 'html' && node.render) {
     return code;
