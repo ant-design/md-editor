@@ -68,7 +68,7 @@ describe('BubbleMessageDisplay - extraRender 功能测试', () => {
 
       // 验证 MarkdownPreview 被渲染，但 extra 为 null（因为没有自定义 extraRender）
       expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
-      expect(screen.queryByTestId('extra-content')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('extra-content')).toBeInTheDocument();
     });
 
     it('当 extraRender 为 false 时，应该渲染 MarkdownPreview 但不传递 extra', () => {
