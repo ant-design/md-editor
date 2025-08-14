@@ -155,7 +155,7 @@ Bubble 组件是一个用于显示聊天消息的气泡组件，支持多种消�
 
 #### 使用示例
 
-```tsx
+```tsx | pure
 // 自定义 extraRender 函数
 const customExtraRender = (props, defaultDom) => {
   return (

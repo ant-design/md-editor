@@ -6,7 +6,7 @@ group:
   order: 3
 ---
 
-# ThoughtChainList
+# ThoughtChainList 思维链
 
 一个用于可视化 AI 思考过程和推理链的 React 组件，具有可折叠、交互式格式。
 

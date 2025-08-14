@@ -11,12 +11,8 @@ import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 import useClickAway from '../hooks/useClickAway';
 import { HistoryIcon } from '../icons/HistoryIcon';
-import {
-  ActionIconBox,
-  BubbleConfigContext,
-  useRefFunction,
-  WhiteBoxProcessInterface,
-} from '../index';
+import { ActionIconBox, BubbleConfigContext, useRefFunction } from '../index';
+import { WhiteBoxProcessInterface } from '../ThoughtChainList';
 
 if (dayjs.extend) {
   dayjs.extend(require('dayjs/plugin/relativeTime'));
