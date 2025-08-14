@@ -13,6 +13,18 @@ group:
 
 <code src="../demos/workspace-demo.tsx">基础用法</code>
 
+<code src="../demos/workspace-file-demo.tsx">文件管理</code>
+
+<code src="../demos/workspace-realtime-demo.tsx">实时跟随</code>
+
+<code src="../demos/workspace-task-demo.tsx">任务管理</code>
+
+<code src="../demos/workspace-custom-demo.tsx">自定义内容</code>
+
+<code src="../demos/workspace-browser-demo.tsx">浏览器</code>
+
+<code src="../demos/workspace-advanced-demo.tsx">高级用法</code>
+
 ## API
 
 ### Workspace
@@ -131,6 +143,15 @@ group:
 
 文件类型键值，内置常见文本/图片/视频/音频/办公文档/压缩包/代码等类型（如 `plainText`、`markdown`、`image`、`video`、`audio`、`pdf`、`word`、`excel`、`archive`、`javascript`、`typescript`、`react`、`python`、`java`、`cpp`、`c`、`csharp`、`go`、`rust`、`php`、`ruby`、`shell`、`powershell`、`sql`、`lua`、`perl`、`scala`、`config`）。
 
+### Workspace.Browser
+
+浏览器组件，用于展示浏览器内容。
+
+| 参数 | 说明       | 类型               | 默认值 |
+| ---- | ---------- | ------------------ | ------ |
+| data | 浏览器数据 | `BrowserItemInput` | -      |
+| tab  | 标签页配置 | `TabConfiguration` | -      |
+
 ### Workspace.Custom
 
 自定义组件，用于展示自定义内容。
@@ -150,3 +171,43 @@ group:
 | icon  | 标签页图标         | `ReactNode` | -      |
 | title | 标签页标题         | `ReactNode` | -      |
 | count | 标签页标题右侧数字 | `number`    | -      |
+
+## 使用场景
+
+### 1. 开发工作空间
+
+适用于开发环境中的多标签页工作空间，可以同时查看代码、日志、文档等。
+
+### 2. 数据分析工作台
+
+用于数据分析场景，可以同时展示数据文件、分析结果、可视化图表等。
+
+### 3. 文档管理系统
+
+用于文档的预览、编辑、版本对比等功能。
+
+### 4. 实时监控面板
+
+用于展示实时数据、日志流、系统状态等信息。
+
+### 5. 任务管理界面
+
+用于展示任务进度、执行状态、结果输出等。
+
+## 最佳实践
+
+1. **合理使用标签页数量**：建议单个工作空间内的标签页数量不超过 8 个，避免界面过于拥挤。
+
+2. **标签页命名**：使用简洁明了的标签页标题，便于用户快速识别。
+
+3. **文件类型支持**：充分利用内置的文件类型支持，为不同类型的文件提供合适的预览方式。
+
+4. **自定义预览**：对于特殊文件类型，可以通过 `onPreview` 回调实现自定义预览逻辑。
+
+5. **响应式设计**：考虑在不同屏幕尺寸下的显示效果，合理设置工作空间的高度和宽度。
+
+6. **性能优化**：对于大量文件或复杂内容，考虑使用虚拟滚动或分页加载。
+
+7. **错误处理**：为文件预览、下载等操作添加适当的错误处理和用户提示。
+
+8. **无障碍支持**：确保工作空间组件具有良好的键盘导航和屏幕阅读器支持。
