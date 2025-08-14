@@ -13,32 +13,32 @@ const BasicHistoryDemo = () => {
         sessionId: 'session-1',
         sessionTitle: '关于项目架构的讨论',
         agentId: agentId,
-        gmtCreate: Date.now(),
-        gmtLastConverse: Date.now(),
+        gmtCreate: 1703123456789, // 2023-12-21 10:30:56
+        gmtLastConverse: 1703123456789,
       },
       {
         id: '2',
         sessionId: 'session-2',
         sessionTitle: '代码优化建议',
         agentId: agentId,
-        gmtCreate: Date.now() - 86400000, // 昨天
-        gmtLastConverse: Date.now() - 86400000,
+        gmtCreate: 1703037056789, // 2023-12-20 10:30:56
+        gmtLastConverse: 1703037056789,
       },
       {
         id: '3',
         sessionId: 'session-3',
         sessionTitle: '前端性能优化讨论',
         agentId: agentId,
-        gmtCreate: Date.now() - 172800000, // 前天
-        gmtLastConverse: Date.now() - 172800000,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
       },
       {
         id: '4',
         sessionId: 'session-4',
         sessionTitle: '数据库设计讨论',
         agentId: agentId,
-        gmtCreate: Date.now() - 604800000, // 一周前
-        gmtLastConverse: Date.now() - 604800000,
+        gmtCreate: 1702518656789, // 2023-12-14 10:30:56
+        gmtLastConverse: 1702518656789,
       },
     ] as HistoryDataType[];
   };

@@ -10,8 +10,8 @@ const mockMessage: MessageBubbleData = {
   id: '1',
   role: 'assistant',
   content: '你好，我是 Ant Design 聊天助手！',
-  createAt: Date.now(),
-  updateAt: Date.now(),
+  createAt: 1703123456789, // 2023-12-21 10:30:56
+  updateAt: 1703123456789,
   meta: {
     avatar:
       'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
@@ -23,8 +23,8 @@ const mockUserMessage: MessageBubbleData = {
   id: '2',
   role: 'user',
   content: '你好！很高兴认识你。',
-  createAt: Date.now(),
-  updateAt: Date.now(),
+  createAt: 1703123456789, // 2023-12-21 10:30:56
+  updateAt: 1703123456789,
   meta: {
     avatar:
       'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
@@ -36,8 +36,8 @@ const mockFileMessage: MessageBubbleData = {
   id: '3',
   role: 'assistant',
   content: '这是一些文件供你参考：',
-  createAt: Date.now(),
-  updateAt: Date.now(),
+  createAt: 1703123456789, // 2023-12-21 10:30:56
+  updateAt: 1703123456789,
   meta: {
     avatar:
       'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',

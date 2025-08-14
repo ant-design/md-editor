@@ -12,7 +12,7 @@ const createMockFile = (
   type,
   size,
   url,
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
   webkitRelativePath: '',
   arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
   bytes: () => Promise.resolve(new Uint8Array(0)),
@@ -30,8 +30,8 @@ export default () => {
     id: '1',
     role: 'assistant',
     content: '这里是一些不同类型的文件：',
-    createAt: Date.now(),
-    updateAt: Date.now(),
+    createAt: 1703123456789, // 2023-12-21 10:30:56
+    updateAt: 1703123456789,
     meta: {
       avatar:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
@@ -73,8 +73,8 @@ export default () => {
     id: '2',
     role: 'assistant',
     content: '这是一张图片：',
-    createAt: Date.now(),
-    updateAt: Date.now(),
+    createAt: 1703123456789, // 2023-12-21 10:30:56
+    updateAt: 1703123456789,
     meta: {
       avatar:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',

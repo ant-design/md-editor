@@ -11,32 +11,32 @@ const StandaloneHistoryDemo = () => {
         sessionId: 'session-1',
         sessionTitle: '项目需求分析',
         agentId: agentId,
-        gmtCreate: Date.now(),
-        gmtLastConverse: Date.now(),
+        gmtCreate: 1703123456789, // 2023-12-21 10:30:56
+        gmtLastConverse: 1703123456789,
       },
       {
         id: '2',
         sessionId: 'session-2',
         sessionTitle: '技术方案讨论',
         agentId: agentId,
-        gmtCreate: Date.now() - 86400000,
-        gmtLastConverse: Date.now() - 86400000,
+        gmtCreate: 1703037056789, // 2023-12-20 10:30:56
+        gmtLastConverse: 1703037056789,
       },
       {
         id: '3',
         sessionId: 'session-3',
         sessionTitle: 'UI/UX 设计评审',
         agentId: agentId,
-        gmtCreate: Date.now() - 172800000,
-        gmtLastConverse: Date.now() - 172800000,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
       },
       {
         id: '4',
         sessionId: 'session-4',
         sessionTitle: '测试计划制定',
         agentId: agentId,
-        gmtCreate: Date.now() - 604800000,
-        gmtLastConverse: Date.now() - 604800000,
+        gmtCreate: 1702518656789, // 2023-12-14 10:30:56
+        gmtLastConverse: 1702518656789,
       },
     ] as HistoryDataType[];
   };

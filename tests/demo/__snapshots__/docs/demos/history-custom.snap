@@ -30,9 +30,9 @@
             <div
               class="ant-menu-item-group-title"
               role="presentation"
-              title="今天"
+              title="06月14日"
             >
-              今天
+              06月14日
             </div>
             <ul
               class="ant-menu-item-group-list"
@@ -60,28 +60,11 @@
                     <div
                       style="color: rgba(0, 0, 0, 0.25);"
                     >
-                      16:27
+                      10:40
                     </div>
                   </div>
                 </span>
               </li>
-            </ul>
-          </li>
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
-          >
-            <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="昨天"
-            >
-              昨天
-            </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
-            >
               <li
                 aria-describedby="test-id"
                 class="ant-menu-item ant-menu-item-only-child"
@@ -104,28 +87,11 @@
                     <div
                       style="color: rgba(0, 0, 0, 0.25);"
                     >
-                      16:27
+                      10:40
                     </div>
                   </div>
                 </span>
               </li>
-            </ul>
-          </li>
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
-          >
-            <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="本周"
-            >
-              本周
-            </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
-            >
               <li
                 aria-describedby="test-id"
                 class="ant-menu-item ant-menu-item-only-child"
@@ -148,28 +114,11 @@
                     <div
                       style="color: rgba(0, 0, 0, 0.25);"
                     >
-                      16:27
+                      10:40
                     </div>
                   </div>
                 </span>
               </li>
-            </ul>
-          </li>
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
-          >
-            <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="本月"
-            >
-              本月
-            </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
-            >
               <li
                 aria-describedby="test-id"
                 class="ant-menu-item ant-menu-item-only-child"
@@ -192,7 +141,7 @@
                     <div
                       style="color: rgba(0, 0, 0, 0.25);"
                     >
-                      16:27
+                      10:40
                     </div>
                   </div>
                 </span>
@@ -219,7 +168,7 @@
                     <div
                       style="color: rgba(0, 0, 0, 0.25);"
                     >
-                      16:27
+                      10:40
                     </div>
                   </div>
                 </span>

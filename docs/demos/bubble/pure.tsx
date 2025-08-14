@@ -10,8 +10,8 @@ const mockMessage: MessageBubbleData = {
   id: '1',
   role: 'assistant',
   content: '这是一条使用 pure 模式的消息，没有阴影和边框。',
-  createAt: Date.now(),
-  updateAt: Date.now(),
+  createAt: 1703123456789, // 2023-12-21 10:30:56
+  updateAt: 1703123456789,
   meta: {
     avatar:
       'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
@@ -23,8 +23,8 @@ const mockUserMessage: MessageBubbleData = {
   id: '2',
   role: 'user',
   content: '这是一条用户发送的 pure 模式消息。',
-  createAt: Date.now(),
-  updateAt: Date.now(),
+  createAt: 1703123456789, // 2023-12-21 10:30:56
+  updateAt: 1703123456789,
   meta: {
     avatar:
       'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',

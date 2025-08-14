@@ -11,8 +11,8 @@ const mockMessages: MessageBubbleData[] = [
     id: '1',
     role: 'assistant',
     content: '你好！我是 Ant Design 聊天助手。',
-    createAt: Date.now() - 3000,
-    updateAt: Date.now() - 3000,
+    createAt: 1703123453789, // 2023-12-21 10:30:53
+    updateAt: 1703123453789,
     meta: {
       avatar:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
@@ -23,8 +23,8 @@ const mockMessages: MessageBubbleData[] = [
     id: '2',
     role: 'user',
     content: '你好！很高兴认识你。',
-    createAt: Date.now() - 2000,
-    updateAt: Date.now() - 2000,
+    createAt: 1703123454789, // 2023-12-21 10:30:54
+    updateAt: 1703123454789,
     meta: {
       avatar:
         'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
@@ -35,8 +35,8 @@ const mockMessages: MessageBubbleData[] = [
     id: '3',
     role: 'assistant',
     content: '我可以帮你了解 Ant Design 的各种组件和设计理念。你想了解什么？',
-    createAt: Date.now() - 1000,
-    updateAt: Date.now() - 1000,
+    createAt: 1703123455789, // 2023-12-21 10:30:55
+    updateAt: 1703123455789,
     meta: {
       avatar:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',

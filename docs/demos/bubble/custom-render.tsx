@@ -12,8 +12,8 @@ export default () => {
     id: '1',
     role: 'assistant',
     content: '这是一条带有自定义渲染的消息。',
-    createAt: Date.now(),
-    updateAt: Date.now(),
+    createAt: 1703123456789, // 2023-12-21 10:30:56
+    updateAt: 1703123456789,
     meta: {
       avatar:
         'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',

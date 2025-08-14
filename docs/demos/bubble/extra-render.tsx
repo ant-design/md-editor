@@ -12,8 +12,8 @@ const mockMessages: MessageBubbleData[] = [
     id: '1',
     content: '你好！我是AI助手，请问有什么可以帮助你的吗？',
     role: 'assistant' as const,
-    createAt: Date.now() - 60000,
-    updateAt: Date.now() - 60000,
+    createAt: 1703123396789, // 2023-12-21 10:29:56
+    updateAt: 1703123396789,
     isFinished: true,
     isAborted: false,
     extra: {},
@@ -27,8 +27,8 @@ const mockMessages: MessageBubbleData[] = [
     id: '2',
     content: '帮我写一首关于春天的诗',
     role: 'user' as const,
-    createAt: Date.now() - 30000,
-    updateAt: Date.now() - 30000,
+    createAt: 1703123426789, // 2023-12-21 10:30:26
+    updateAt: 1703123426789,
     isFinished: true,
     isAborted: false,
     extra: {},
@@ -55,8 +55,8 @@ const mockMessages: MessageBubbleData[] = [
 
 这首诗描绘了春天的美好景象，表达了对新生活的向往和希望。`,
     role: 'assistant' as const,
-    createAt: Date.now(),
-    updateAt: Date.now(),
+    createAt: 1703123456789, // 2023-12-21 10:30:56
+    updateAt: 1703123456789,
     isFinished: true,
     isAborted: false,
     extra: {},

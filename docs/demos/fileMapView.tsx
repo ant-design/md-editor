@@ -12,7 +12,7 @@ Array.from({ length: 2 }).forEach((_, index) => {
       'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
     size: 1024,
     uuid: `uuid-${index}`,
-    lastModified: Date.now(),
+    lastModified: 1703123456789, // 2023-12-21 10:30:56
   } as unknown as AttachmentFile);
 });
 
@@ -25,7 +25,7 @@ fileMap.set(`file-${2}`, {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
   size: 1024,
   uuid: `uuid-${2}`,
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 
 fileMap.set(`file-${3}`, {
@@ -37,7 +37,7 @@ fileMap.set(`file-${3}`, {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: `uuid-${3}`,
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 
 fileMap.set('file-5', {
@@ -49,7 +49,7 @@ fileMap.set('file-5', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-5',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 fileMap.set('file-6', {
   name: 'file-6.doc',
@@ -60,7 +60,7 @@ fileMap.set('file-6', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-6',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 fileMap.set('file-7', {
   name: 'file-7.pptx',
@@ -71,7 +71,7 @@ fileMap.set('file-7', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-7',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 fileMap.set('file-8', {
   name: 'file-8.ppt',
@@ -82,7 +82,7 @@ fileMap.set('file-8', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-8',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 
 fileMap.set('file-9', {
@@ -94,7 +94,7 @@ fileMap.set('file-9', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-9',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 
 fileMap.set('file-10', {
@@ -106,7 +106,7 @@ fileMap.set('file-10', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-10',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 
 fileMap.set('file-11', {
@@ -118,7 +118,7 @@ fileMap.set('file-11', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-11',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 
 fileMap.set('file-12', {
@@ -130,7 +130,7 @@ fileMap.set('file-12', {
     'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original',
   size: 1024,
   uuid: 'uuid-11',
-  lastModified: Date.now(),
+  lastModified: 1703123456789, // 2023-12-21 10:30:56
 } as unknown as AttachmentFile);
 
 export default () => {
@@ -169,7 +169,7 @@ export default () => {
                   'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
                 size: 1024,
                 uuid: `uuid-${1}`,
-                lastModified: Date.now(),
+                lastModified: 1703123456789, // 2023-12-21 10:30:56
               } as AttachmentFile,
             ],
             [
@@ -183,7 +183,7 @@ export default () => {
                   'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
                 size: 1024,
                 uuid: `uuid-${2}`,
-                lastModified: Date.now(),
+                lastModified: 1703123456789, // 2023-12-21 10:30:56
               } as AttachmentFile,
             ],
             [
@@ -197,7 +197,7 @@ export default () => {
                   'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
                 size: 1024,
                 uuid: `uuid-${3}`,
-                lastModified: Date.now(),
+                lastModified: 1703123456789, // 2023-12-21 10:30:56
               } as AttachmentFile,
             ],
             [
@@ -211,7 +211,7 @@ export default () => {
                   'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
                 size: 1024,
                 uuid: `uuid-${4}`,
-                lastModified: Date.now(),
+                lastModified: 1703123456789, // 2023-12-21 10:30:56
               } as AttachmentFile,
             ],
           ])
