@@ -45,7 +45,16 @@ describe('Workspace File 组件', () => {
     // 点击组下载按钮
     const downloadBtn = screen.getByLabelText('下载图片组文件');
     fireEvent.click(downloadBtn);
-    expect(onGroupDownload).toHaveBeenCalled();
+    expect(onGroupDownload).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: imageFile.name,
+          type: imageFile.type,
+          url: imageFile.url,
+        }),
+      ]),
+      'image',
+    );
   });
 
   it('单文件点击与下载回调', () => {
@@ -63,27 +72,140 @@ describe('Workspace File 组件', () => {
     // 点击文件项
     const fileItem = screen.getByLabelText('文件：说明.md');
     fireEvent.click(fileItem);
-    expect(onFileClick).toHaveBeenCalled();
+    expect(onFileClick).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: textFile.name,
+        type: textFile.type,
+        content: textFile.content,
+      }),
+    );
 
     // 点击下载按钮（存在 onDownload 时，直接调用回调）
     const downloadBtn = screen.getByLabelText('下载文件：说明.md');
     fireEvent.click(downloadBtn);
-    expect(onDownload).toHaveBeenCalled();
+    expect(onDownload).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: textFile.name,
+        type: textFile.type,
+        content: textFile.content,
+      }),
+    );
   });
 
   it('图片文件预览与文本文件预览，以及 onPreview 自定义覆盖', async () => {
     const onPreview = vi.fn(async (file: FileNode) => file);
 
-    render(<File nodes={[imageFile, textFile]} onPreview={onPreview} />);
+    // 分别测试图片文件
+    const { unmount } = render(
+      <File nodes={[imageFile]} onPreview={onPreview} />,
+    );
 
     // 对图片：有预览按钮
     const imgPreviewBtn = screen.getByLabelText('预览文件：图片.png');
     fireEvent.click(imgPreviewBtn);
-    expect(onPreview).toHaveBeenCalled();
+    expect(onPreview).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: imageFile.name,
+        type: imageFile.type,
+        url: imageFile.url,
+      }),
+    );
+
+    unmount();
+
+    // 重置 mock 函数调用次数
+    onPreview.mockClear();
+
+    // 分别测试文本文件
+    render(<File nodes={[textFile]} onPreview={onPreview} />);
 
     // 对文本：有预览按钮
     const txtPreviewBtn = screen.getByLabelText('预览文件：说明.md');
     fireEvent.click(txtPreviewBtn);
-    expect(onPreview).toHaveBeenCalled();
+    expect(onPreview).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: textFile.name,
+        type: textFile.type,
+        content: textFile.content,
+      }),
+    );
+  });
+
+  it('键盘导航可访问性', () => {
+    const onFileClick = vi.fn();
+    const onPreview = vi.fn();
+
+    render(
+      <File
+        nodes={[textFile]}
+        onFileClick={onFileClick}
+        onPreview={onPreview}
+      />,
+    );
+
+    // 测试文件项的键盘导航
+    const fileItem = screen.getByLabelText('文件：说明.md');
+    fireEvent.keyDown(fileItem, { key: 'Enter' });
+    expect(onFileClick).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: textFile.name,
+        type: textFile.type,
+        content: textFile.content,
+      }),
+    );
+
+    // 测试预览按钮的键盘导航
+    const previewBtn = screen.getByLabelText('预览文件：说明.md');
+    fireEvent.keyDown(previewBtn, { key: 'Enter' });
+    expect(onPreview).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: textFile.name,
+        type: textFile.type,
+        content: textFile.content,
+      }),
+    );
+
+    // 测试空格键导航
+    fireEvent.keyDown(previewBtn, { key: ' ' });
+    expect(onPreview).toHaveBeenCalledTimes(1);
+  });
+
+  it('分组键盘导航可访问性', () => {
+    const onToggleGroup = vi.fn();
+    const onGroupDownload = vi.fn();
+
+    const group: GroupNode = {
+      name: '图片组',
+      type: 'image',
+      children: [imageFile],
+      collapsed: true,
+    };
+
+    render(
+      <File
+        nodes={[group]}
+        onGroupDownload={onGroupDownload}
+        onToggleGroup={onToggleGroup}
+      />,
+    );
+
+    // 测试分组展开的键盘导航
+    const header = screen.getByLabelText('展开图片组分组');
+    fireEvent.keyDown(header, { key: 'Enter' });
+    expect(onToggleGroup).toHaveBeenCalledWith('image', false);
+
+    // 测试组下载按钮的键盘导航
+    const downloadBtn = screen.getByLabelText('下载图片组文件');
+    fireEvent.keyDown(downloadBtn, { key: 'Enter' });
+    expect(onGroupDownload).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: imageFile.name,
+          type: imageFile.type,
+          url: imageFile.url,
+        }),
+      ]),
+      'image',
+    );
   });
 });
