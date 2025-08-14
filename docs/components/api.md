@@ -197,6 +197,8 @@ export default () => {
   return (
     <BaseMarkdownEditor
       initValue="# 支持评论功能"
+      readonly={true}
+      reportMode={true}
       comment={{
         enable: true,
         onSubmit: (id, comment) => {
