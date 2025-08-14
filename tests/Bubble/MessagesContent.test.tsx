@@ -500,6 +500,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         onLike,
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -517,6 +520,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         onDisLike,
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -534,6 +540,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         onReply,
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -548,6 +557,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         slidesModeProps: { enable: true },
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -579,7 +591,7 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         bubbleRenderConfig: {
-          bubbleRightExtraRender: false,
+          extraRender: false, // 修正属性名
         },
       } as BubbleProps;
 
@@ -764,6 +776,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         readonly: true,
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -774,6 +789,11 @@ describe('BubbleMessageDisplay', () => {
     it('应该正确渲染内容', () => {
       const props = {
         ...defaultProps,
+        onLike: vi.fn(),
+        onDisLike: vi.fn(),
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -843,6 +863,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         bubbleListItemExtraStyle: { backgroundColor: 'red' },
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -871,6 +894,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         bubbleListItemExtraStyle: { backgroundColor: 'red' },
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);
@@ -916,6 +942,9 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         slidesModeProps: { enable: true },
+        bubbleRenderConfig: {
+          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+        },
       };
 
       renderWithContext(props);

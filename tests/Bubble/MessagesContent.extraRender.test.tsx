@@ -107,7 +107,8 @@ describe('BubbleMessageDisplay - extraRender 功能测试', () => {
       expect(customExtraRender).toHaveBeenCalled();
       expect(screen.getByTestId('custom-extra-wrapper')).toBeInTheDocument();
       expect(screen.getByText('Custom Extra Content')).toBeInTheDocument();
-      expect(screen.getByTestId('default-bubble-extra')).toBeInTheDocument();
+      // 验证默认的 BubbleExtra 组件被渲染（通过复制按钮的存在来验证）
+      expect(screen.getByTestId('chat-item-copy-button')).toBeInTheDocument();
       expect(screen.getByTestId('extra-content')).toBeInTheDocument();
     });
 

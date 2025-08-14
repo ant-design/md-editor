@@ -345,7 +345,13 @@ describe('Bubble', () => {
 
     render(
       <BubbleConfigProvide>
-        <Bubble {...propsWithAssistantRole} shouldShowCopy={true} />
+        <Bubble
+          {...propsWithAssistantRole}
+          shouldShowCopy={true}
+          bubbleRenderConfig={{
+            extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+          }}
+        />
       </BubbleConfigProvide>,
     );
 
@@ -412,7 +418,13 @@ describe('Bubble', () => {
 
     render(
       <BubbleConfigProvide>
-        <Bubble {...propsWithAssistantRole} shouldShowCopy={shouldShowCopyFn} />
+        <Bubble
+          {...propsWithAssistantRole}
+          shouldShowCopy={shouldShowCopyFn}
+          bubbleRenderConfig={{
+            extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+          }}
+        />
       </BubbleConfigProvide>,
     );
 
@@ -449,7 +461,13 @@ describe('Bubble', () => {
 
     render(
       <BubbleConfigProvide>
-        <Bubble {...propsWithAssistantRole} shouldShowCopy={shouldShowCopyFn} />
+        <Bubble
+          {...propsWithAssistantRole}
+          shouldShowCopy={shouldShowCopyFn}
+          bubbleRenderConfig={{
+            extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+          }}
+        />
       </BubbleConfigProvide>,
     );
 
@@ -489,7 +507,12 @@ describe('Bubble', () => {
 
     render(
       <BubbleConfigProvide>
-        <Bubble {...propsWithFeedback} />
+        <Bubble
+          {...propsWithFeedback}
+          bubbleRenderConfig={{
+            extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+          }}
+        />
       </BubbleConfigProvide>,
     );
 
@@ -538,7 +561,12 @@ describe('Bubble', () => {
 
     render(
       <BubbleConfigProvide>
-        <Bubble {...propsWithFeedback} />
+        <Bubble
+          {...propsWithFeedback}
+          bubbleRenderConfig={{
+            extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+          }}
+        />
       </BubbleConfigProvide>,
     );
 
@@ -577,7 +605,12 @@ describe('Bubble', () => {
 
     render(
       <BubbleConfigProvide>
-        <Bubble {...propsWithAssistantRole} />
+        <Bubble
+          {...propsWithAssistantRole}
+          bubbleRenderConfig={{
+            extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+          }}
+        />
       </BubbleConfigProvide>,
     );
 
@@ -611,7 +644,13 @@ describe('Bubble', () => {
 
     render(
       <BubbleConfigProvide>
-        <Bubble {...propsWithAssistantRole} shouldShowCopy={shouldShowCopyFn} />
+        <Bubble
+          {...propsWithAssistantRole}
+          shouldShowCopy={shouldShowCopyFn}
+          bubbleRenderConfig={{
+            extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
+          }}
+        />
       </BubbleConfigProvide>,
     );
 

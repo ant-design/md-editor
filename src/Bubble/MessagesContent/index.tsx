@@ -256,7 +256,7 @@ export const BubbleMessageDisplay: React.FC<
             props as BubbleProps,
             defaultExtra,
           )
-        : null;
+        : defaultExtra;
 
     // answerStatus= 'EXCEPTION'时 一定是异常情况
     if (
