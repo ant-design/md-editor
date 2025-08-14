@@ -136,7 +136,7 @@ import { BaseMarkdownEditor } from '@ant-design/md-editor';
 export default () => {
   return (
     <BaseMarkdownEditor
-      initValue="# Hello World"
+      initValue={`# Hello World \n <font color="red">2144 </font>`}
       width="100%"
       height="500px"
       onChange={(value, schema) => {

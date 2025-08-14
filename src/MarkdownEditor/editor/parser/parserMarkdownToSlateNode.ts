@@ -1362,7 +1362,6 @@ const parserBlock = (
   let preElement: Element = null;
   let htmlTag: { tag: string; color?: string; url?: string }[] = [];
   let contextProps = {};
-
   for (let i = 0; i < nodes.length; i++) {
     const currentElement = nodes[i];
     const config =

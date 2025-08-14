@@ -511,6 +511,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
       <div
         ref={containerRef}
         className="schemaRenderer"
+        data-testid="schema-renderer"
         style={containerStyle}
       />
     </ErrorBoundary>

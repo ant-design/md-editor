@@ -13,6 +13,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
   const { bubble } = useContext(BubbleConfigContext) || {};
   return useMemo(() => {
     if (apaasify?.enable && apaasify.render) {
+      const renderedContent = apaasify.render(props, bubble);
       return (
         <div
           {...node.attributes}
@@ -22,7 +23,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
             flexDirection: 'column',
           }}
         >
-          {apaasify.render(props, bubble)}
+          {renderedContent}
           <div
             data-testid="schema-hidden-json"
             style={{
@@ -93,7 +94,9 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
           }}
           data-be={node?.type}
         >
-          {JSON.stringify(node?.value, null, 2)}
+          {typeof node?.value === 'string'
+            ? node.value
+            : JSON.stringify(node?.value, null, 2)}
         </div>
         <span
           data-testid="schema-hidden-children"
@@ -105,5 +108,5 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
         </span>
       </div>
     );
-  }, [node.value]);
+  }, [node.value, bubble, apaasify]);
 };

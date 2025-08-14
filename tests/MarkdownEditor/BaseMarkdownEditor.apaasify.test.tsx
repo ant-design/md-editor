@@ -63,6 +63,28 @@ vi.mock('../../src/i18n', () => ({
   I18nProvide: ({ children }: any) => <div>{children}</div>,
 }));
 
+// Mock Schema component
+vi.mock('../../src/MarkdownEditor/editor/elements/Schema', () => ({
+  Schema: ({ element, children, ...props }: any) => {
+    const { editorProps } =
+      require('../../src/MarkdownEditor/editor/store').useEditorStore();
+    const apaasify = editorProps?.apaasify || editorProps?.apassify;
+
+    if (apaasify?.enable && apaasify.render) {
+      const renderedContent = apaasify.render({ element, children, ...props });
+      return <div data-testid="schema-container">{renderedContent}</div>;
+    }
+
+    return (
+      <div data-testid="schema-container">
+        <div data-testid="schema-clickable">
+          {JSON.stringify(element?.value, null, 2)}
+        </div>
+      </div>
+    );
+  },
+}));
+
 describe('BaseMarkdownEditor - apaasify 功能', () => {
   const defaultProps: MarkdownEditorProps = {
     initValue: '# Test Content',
@@ -82,9 +104,11 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
       },
     };
 
-    const mockApaasifyRender = vi.fn().mockReturnValue(
-      <div data-testid="apaasify-content">Apaasified Content</div>
-    );
+    const mockApaasifyRender = vi
+      .fn()
+      .mockReturnValue(
+        <div data-testid="apaasify-content">Apaasified Content</div>,
+      );
 
     const propsWithApaasify: MarkdownEditorProps = {
       ...defaultProps,
@@ -103,12 +127,12 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
         }}
       >
         <BaseMarkdownEditor {...propsWithApaasify} />
-      </BubbleConfigContext.Provider>
+      </BubbleConfigContext.Provider>,
     );
 
     // 验证编辑器已渲染
     expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-    
+
     // 注意：由于 apaasify.render 是在 Schema 组件中调用的，
     // 我们需要确保 EditorStoreContext 正确传递了 apaasify 配置
     // 这个测试主要验证配置能够正确传递到编辑器上下文
@@ -130,7 +154,7 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
 
     // 验证编辑器组件接收到了 apaasify 配置
     expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-    
+
     // SlateMarkdownEditor 应该接收到包含 apaasify 的 props
     const slateEditor = screen.getByTestId('slate-markdown-editor');
     expect(slateEditor).toBeInTheDocument();
@@ -160,23 +184,53 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
     expect(screen.getByTestId('editor-content')).toBeInTheDocument();
   });
 
-  it('应该正确处理 apaasify.render 的返回值类型', () => {
-    // 测试不同的返回值类型
-    const testCases = [
-      {
-        name: 'JSX Element',
+  it('应该正确处理 apaasify.render 的返回值类型 - JSX Element', () => {
+    const propsWithRender: MarkdownEditorProps = {
+      ...defaultProps,
+      apaasify: {
+        enable: true,
         render: () => <div data-testid="jsx-element">JSX</div>,
       },
-      {
-        name: 'String',
+    };
+
+    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
+    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
+    unmount();
+  });
+
+  it('应该正确处理 apaasify.render 的返回值类型 - String', () => {
+    const propsWithRender: MarkdownEditorProps = {
+      ...defaultProps,
+      apaasify: {
+        enable: true,
         render: () => 'String content',
       },
-      {
-        name: 'Null',
+    };
+
+    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
+    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
+    unmount();
+  });
+
+  it('应该正确处理 apaasify.render 的返回值类型 - Null', () => {
+    const propsWithRender: MarkdownEditorProps = {
+      ...defaultProps,
+      apaasify: {
+        enable: true,
         render: () => null,
       },
-      {
-        name: 'Fragment',
+    };
+
+    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
+    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
+    unmount();
+  });
+
+  it('应该正确处理 apaasify.render 的返回值类型 - Fragment', () => {
+    const propsWithRender: MarkdownEditorProps = {
+      ...defaultProps,
+      apaasify: {
+        enable: true,
         render: () => (
           <>
             <span>Fragment 1</span>
@@ -184,30 +238,17 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
           </>
         ),
       },
-    ];
+    };
 
-    testCases.forEach(({ render }) => {
-      const propsWithRender: MarkdownEditorProps = {
-        ...defaultProps,
-        apaasify: {
-          enable: true,
-          render,
-        },
-      };
-
-      const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
-
-      // 验证编辑器能够正常渲染，不会因为 render 返回值而崩溃
-      expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-
-      unmount();
-    });
+    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
+    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
+    unmount();
   });
 
   it('应该在 bubble context 变化时正确更新', () => {
-    const mockRender = vi.fn().mockReturnValue(
-      <div data-testid="dynamic-content">Dynamic</div>
-    );
+    const mockRender = vi
+      .fn()
+      .mockReturnValue(<div data-testid="dynamic-content">Dynamic</div>);
 
     const propsWithApaasify: MarkdownEditorProps = {
       ...defaultProps,
@@ -250,7 +291,7 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
         }}
       >
         <BaseMarkdownEditor {...propsWithApaasify} />
-      </BubbleConfigContext.Provider>
+      </BubbleConfigContext.Provider>,
     );
 
     // 初始渲染
@@ -266,7 +307,7 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
         }}
       >
         <BaseMarkdownEditor {...propsWithApaasify} />
-      </BubbleConfigContext.Provider>
+      </BubbleConfigContext.Provider>,
     );
 
     // 验证仍然正常工作

@@ -9,12 +9,12 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BubbleConfigContext } from '../../../../src/Bubble/BubbleConfigProvide';
-import { CodeNode } from '../../../../src/MarkdownEditor/el';
 import { Schema } from '../../../../src/MarkdownEditor/editor/elements/Schema';
 import { EditorStoreContext } from '../../../../src/MarkdownEditor/editor/store';
+import { CodeNode } from '../../../../src/MarkdownEditor/el';
 
 // Mock SchemaRenderer
-vi.mock('../../../src/schema', () => ({
+vi.mock('../../../../src/schema', () => ({
   SchemaRenderer: ({
     schema,
     values,
@@ -121,9 +121,9 @@ describe('Schema - BubbleConfigContext 功能', () => {
   });
 
   it('应该在没有 bubble context 时正常工作', () => {
-    const mockApaasifyRender = vi.fn().mockReturnValue(
-      <div data-testid="apaasify-no-bubble">No Bubble</div>,
-    );
+    const mockApaasifyRender = vi
+      .fn()
+      .mockReturnValue(<div data-testid="apaasify-no-bubble">No Bubble</div>);
 
     const mockEditorStore = {
       editorProps: {
@@ -207,9 +207,11 @@ describe('Schema - BubbleConfigContext 功能', () => {
   });
 
   it('应该在 bubble 数据变化时正确更新 apaasify.render', () => {
-    const mockApaasifyRender = vi.fn().mockReturnValue(
-      <div data-testid="dynamic-apaasify">Dynamic Content</div>,
-    );
+    const mockApaasifyRender = vi
+      .fn()
+      .mockReturnValue(
+        <div data-testid="dynamic-apaasify">Dynamic Content</div>,
+      );
 
     const mockEditorStore = {
       editorProps: {
@@ -287,9 +289,9 @@ describe('Schema - BubbleConfigContext 功能', () => {
   });
 
   it('应该兼容旧的 apassify 配置', () => {
-    const mockApassifyRender = vi.fn().mockReturnValue(
-      <div data-testid="apassify-legacy">Legacy Content</div>,
-    );
+    const mockApassifyRender = vi
+      .fn()
+      .mockReturnValue(<div data-testid="apassify-legacy">Legacy Content</div>);
 
     const mockEditorStore = {
       editorProps: {
@@ -360,8 +362,13 @@ describe('Schema - BubbleConfigContext 功能', () => {
     expect(screen.getByTestId('schema-hidden-children')).toBeInTheDocument();
 
     // 验证显示的是原始的 JSON 数据
-    expect(screen.getByTestId('schema-clickable')).toHaveTextContent(
-      JSON.stringify(mockElement.value, null, 2),
+    const schemaClickable = screen.getByTestId('schema-clickable');
+    const actualContent = schemaClickable.textContent;
+    const expectedContent = JSON.stringify(mockElement.value, null, 2);
+
+    // 比较 JSON 内容，忽略格式差异
+    expect(JSON.parse(actualContent || '{}')).toEqual(
+      JSON.parse(expectedContent),
     );
   });
 
