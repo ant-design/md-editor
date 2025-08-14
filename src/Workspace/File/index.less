@@ -1,0 +1,328 @@
+// 变量定义
+@primary-text-color: #343a40;
+@secondary-text-color: #6c757d;
+@border-color: rgba(20, 22, 28, 0.07);
+@hover-bg-color: #f8f9fa;
+@light-bg-color: #fafafa;
+
+// 通用混入
+.icon-base() {
+  font-size: 14px;
+  color: @secondary-text-color;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: @hover-bg-color;
+  }
+}
+
+// 文件组件样式
+.workspace-file-container {
+  // 分组展示模式
+  &--group {
+    .workspace-file-group {
+      // 分组标题栏
+      &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 8px 12px 8px 0px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &-left,
+        &-right {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+
+      // 展开收起图标
+      &__toggle-icon {
+        font-size: 12px;
+        color: @secondary-text-color;
+        transition: transform 0.2s ease;
+      }
+
+      // 文件类型图标
+      &__type-icon {
+        display: flex;
+        align-items: center;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      // 文件类型名称
+      &__type-name {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 13px;
+        font-weight: 500;
+        color: @primary-text-color;
+      }
+
+      // 文件数量
+      &__count {
+        font-size: 12px;
+        color: @secondary-text-color;
+        background: rgba(20, 22, 28, 0.06);
+        padding: 2px 6px;
+        border-radius: 200px;
+        min-width: 20px;
+        text-align: center;
+      }
+
+      // 下载图标
+      &__download-icon {
+        .icon-base();
+      }
+
+      // 分组内容区域
+      &__content {
+        padding-left: 12px;
+      }
+    }
+  }
+}
+
+// 文件项样式
+.workspace-file-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background: rgba(20, 22, 28, 0.03);
+    box-sizing: border-box;
+    border: 0px solid @border-color;
+  }
+
+  // 文件图标
+  &__icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  // 文件信息
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 文件名
+  &__name {
+    font-size: 14px;
+    color: @primary-text-color;
+    font-weight: 400;
+    line-height: 1.4;
+    word-break: break-all;
+  }
+
+  // 文件详情容器
+  &__details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  // 文件类型、大小、时间
+  &__type,
+  &__size,
+  &__time {
+    font-size: 12px;
+    color: #959da8;
+  }
+
+  // 分割符
+  &__separator {
+    font-size: 10px;
+    color: @border-color;
+    margin: 0 4px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  // 操作图标
+  &__preview-icon,
+  &__download-icon {
+    .icon-base();
+  }
+}
+
+// 预览组件样式
+.workspace-preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+
+  // 预览头部
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid @border-color;
+    background: #fff;
+    flex-shrink: 0;
+  }
+
+  // 返回按钮
+  &__back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #767e8b;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+
+  // 返回图标
+  &__back-icon {
+    font-size: 16px;
+  }
+
+  // 文件信息容器
+  &__file-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  // 文件标题行
+  &__file-title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  // 文件图标
+  &__file-icon {
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  // 文件名
+  &__file-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: @primary-text-color;
+  }
+
+  // 生成时间
+  &__generate-time {
+    font-size: 12px;
+    color: #767e8b;
+  }
+
+  // 操作按钮容器
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  // 操作按钮
+  &__action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #8c8c8c;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+
+    &:hover {
+      background: #f0f0f0;
+      color: #767e8b;
+    }
+
+    svg {
+      font-size: 14px;
+    }
+  }
+
+  // 预览内容区域
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  // iframe 预览
+  &__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    flex: 1;
+  }
+
+  // 占位符
+  &__placeholder {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: @light-bg-color;
+  }
+
+  // 占位符内容
+  &__placeholder-content {
+    text-align: center;
+    color: #8c8c8c;
+
+    p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+  }
+}

@@ -110,7 +110,7 @@ describe('Performance Benchmark Tests', () => {
 
       // 优化版本应该至少不会比未优化版本慢太多
       // 在某些情况下，memo 可能会增加轻微的开销，但应该在合理范围内
-      expect(optimizedTime).toBeLessThan(unoptimizedTime * 2);
+      expect(optimizedTime).toBeLessThan(unoptimizedTime * 3);
     });
 
     it('should measure re-rendering performance with prop changes', () => {

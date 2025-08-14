@@ -26,6 +26,12 @@ export { useEditorStore } from './MarkdownEditor/editor/store';
 export * from './MarkdownEditor/editor/utils';
 export * from './MarkdownEditor/editor/utils/docx/index';
 export { markdownToHtmlSync } from './MarkdownEditor/editor/utils/markdownToHtml';
+export { default as Workspace } from './Workspace';
+export type {
+  TabConfiguration,
+  TabItem,
+  WorkspaceProps,
+} from './Workspace/types';
 // HTML to Markdown conversion utilities
 export {
   batchHtmlToMarkdown,
@@ -44,5 +50,6 @@ export * from './MarkdownInputField/MarkdownInputField';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
 export * from './TaskList';
-export * from './ThoughtChainList';
+export { ThoughtChainList } from './ThoughtChainList';
 export * from './ToolUseBar';
+export * from './Workspace';

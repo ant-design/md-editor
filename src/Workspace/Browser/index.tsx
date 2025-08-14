@@ -1,0 +1,46 @@
+import React, { type FC } from 'react';
+import { MarkdownEditor, MarkdownEditorProps } from '../../MarkdownEditor';
+import './index.less';
+
+export interface BrowserItemInput {
+  title?: string;
+  content: string;
+  markdownEditorProps?: Partial<MarkdownEditorProps>;
+}
+
+export const BrowserList: FC<{ data: BrowserItemInput }> = ({ data }) => {
+  const isTestEnv = process.env.NODE_ENV === 'test';
+  // 默认的MarkdownEditor配置
+  const getDefaultProps = (): Partial<MarkdownEditorProps> => ({
+    readonly: true,
+    toc: false,
+    style: { width: '100%' },
+    contentStyle: { padding: 0 },
+    // 测试环境下关闭打字机等额外效果，降低快照成本
+    ...(isTestEnv ? { typewriter: false } : {}),
+  });
+
+  // 合并默认配置和用户传入的配置
+  const getMergedProps = (
+    defaultProps: Partial<MarkdownEditorProps>,
+  ): Partial<MarkdownEditorProps> => {
+    return {
+      ...defaultProps,
+      ...data.markdownEditorProps,
+    };
+  };
+
+  return (
+    <div className="chat-browser-list">
+      {data.title && (
+        <div className="chat-browser-header">
+          <div className="chat-browser-title">{data.title}</div>
+        </div>
+      )}
+      <MarkdownEditor
+        {...getMergedProps(getDefaultProps())}
+        initValue={data.content}
+      />
+    </div>
+  );
+};

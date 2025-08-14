@@ -1,0 +1,87 @@
+.workspace-realtime {
+  &-container {
+    height: 100%;
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    &-with-border {
+      border-bottom: 1px solid rgba(20, 22, 28, 0.07);
+    }
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      &--html {
+        background: #e0f9ff;
+      }
+      &--default {
+        background: #eef1f6;
+      }
+    }
+    &-content {
+      display: flex;
+      flex-direction: column;
+    }
+    &-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #343a45;
+    }
+    &-subtitle {
+      font-size: 12px;
+      font-weight: normal;
+      color: #767e8b;
+    }
+    &-right {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &--shell {
+    .ace-container {
+      margin-top: 0;
+      border-radius: unset;
+    }
+  }
+  &--markdown {
+    .ant-md-editor-content div[data-be='paragraph']:last-child {
+      padding-bottom: 16px;
+    }
+  }
+
+  &-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    &--loading {
+      background: rgba(255, 255, 255, 0.6);
+    }
+    &--error {
+      background: rgba(255, 245, 245, 0.6);
+      color: #cb1e1e;
+    }
+  }
+
+}
