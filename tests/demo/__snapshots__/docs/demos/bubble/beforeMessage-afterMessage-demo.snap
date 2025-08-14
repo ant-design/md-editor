@@ -1,0 +1,602 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px; max-width: 800px; margin: 0px auto;"
+    >
+      <h2>
+        beforeMessageRender 和 afterMessageRender 渲染演示
+      </h2>
+      <p>
+        这个演示展示了如何使用 
+        <code>
+          beforeMessageRender
+        </code>
+         和 
+        <code>
+          afterMessageRender
+        </code>
+         在消息内容的前后添加自定义内容。
+      </p>
+      <div
+        style="margin-top: 20px;"
+      >
+        <div
+          class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+          style="gap: 12px;"
+        >
+          <div
+            animate="visible"
+            class="ant-agent-list-bubble-container"
+            initial="hidden"
+            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+            variants="[object Object]"
+            whileinview="visible"
+          >
+            <div
+              class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+            >
+              <span
+                class="ant-avatar ant-avatar-circle ant-agent-list-bubble-avatar"
+                data-testid="bubble-avatar"
+                style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+              >
+                <span
+                  class="ant-avatar-string"
+                  style="-webkit-transform: scale(1); transform: scale(1);"
+                >
+                  UN
+                </span>
+              </span>
+              <span>
+                Agentar
+              </span>
+              <div
+                class="ant-agent-list-bubble-title ant-flex"
+                data-testid="bubble-title"
+                style="flex-direction: row; gap: 8px;"
+              />
+            </div>
+            <div
+              animate="visible"
+              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+              data-testid="chat-message"
+              initial="hidden"
+              style="display: flex; gap: 4px; flex-direction: column;"
+              variants="[object Object]"
+              whileinview="visible"
+            >
+              <div
+                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                data-testid="message-before"
+                variants="[object Object]"
+              />
+              <div
+                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+                data-testid="message-content"
+                style="min-width: 0px;"
+                variants="[object Object]"
+              >
+                <div
+                  style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                >
+                  <div
+                    style="padding: 8px 12px; background: rgb(246, 255, 237); border-radius: 6px; margin-bottom: 8px; font-size: 12px; color: rgb(82, 196, 26); border: 1px solid rgb(183, 235, 143);"
+                  >
+                    🔍 
+                    <strong>
+                      消息分析
+                    </strong>
+                    <br />
+                    模型: gpt-4
+                    <br />
+                    发送者: AI助手
+                    <br />
+                    创建时间: 2023/12/21 09:50:56
+                  </div>
+                  <div
+                    class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                  >
+                    <div
+                      style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                      tabindex="-1"
+                    >
+                      <div
+                        autocapitalize="false"
+                        autocorrect="false"
+                        class="ant-md-editor-content-readonly ant-md-editor-content"
+                        data-slate-editor="true"
+                        data-slate-node="value"
+                        spellcheck="false"
+                        style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                        zindex="-1"
+                      >
+                        <div
+                          data-slate-node="element"
+                          data-testid="markdown-heading"
+                          id="这是一个演示消息"
+                          style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-string="true"
+                              >
+                                这是一个演示消息
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
+                          data-slate-node="element"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-string="true"
+                              >
+                                这是一个支持 
+                              </span>
+                            </span>
+                          </span>
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                              style="font-weight: bold;"
+                            >
+                              <span
+                                data-testid="markdown-bold"
+                              >
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  Markdown
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-string="true"
+                              >
+                                 的消息内容。
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          data-slate-node="element"
+                          data-testid="markdown-heading"
+                          id="功能特性"
+                          style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-string="true"
+                              >
+                                功能特性
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="ant-md-editor-list-container relative"
+                          data-be="list"
+                          data-slate-node="element"
+                        >
+                          <ul
+                            class="ant-md-editor-list ul"
+                          >
+                            <li
+                              class="ant-md-editor-list-item"
+                              data-be="list-item"
+                              data-slate-node="element"
+                            >
+                              <div
+                                class="ant-md-editor-drag-el"
+                                data-be="paragraph"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      支持标题、列表、代码块等 Markdown 语法
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </li>
+                            <li
+                              class="ant-md-editor-list-item"
+                              data-be="list-item"
+                              data-slate-node="element"
+                            >
+                              <div
+                                class="ant-md-editor-drag-el"
+                                data-be="paragraph"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      支持自定义 beforeMessageRender 和 afterMessageRender 渲染
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </li>
+                            <li
+                              class="ant-md-editor-list-item"
+                              data-be="list-item"
+                              data-slate-node="element"
+                            >
+                              <div
+                                class="ant-md-editor-drag-el"
+                                data-be="paragraph"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      可以显示消息的元数据信息
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div
+                          data-slate-node="element"
+                        >
+                          <div
+                            class="ace-el drag-el"
+                            contenteditable="false"
+                            data-be="code"
+                            data-lang="javascript"
+                            data-testid="code-container"
+                            tabindex="-1"
+                          >
+                            <div
+                              contenteditable="false"
+                              style="background-color: transparent; user-select: none;"
+                            >
+                              <div
+                                class="ace-container drag-el "
+                                data-testid="code-editor-container"
+                                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                              >
+                                <div
+                                  contenteditable="false"
+                                  style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
+                                />
+                                <div
+                                  data-testid="ace-editor-container"
+                                  style="height: 200px; line-height: 22px;"
+                                />
+                                <div
+                                  data-testid="code-content-copy"
+                                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                >
+                                  console.log('Hello, World!');
+                                  <span
+                                    data-slate-node="text"
+                                  >
+                                    <span
+                                      data-be="text"
+                                      data-slate-leaf="true"
+                                      draggable="false"
+                                    >
+                                      <span
+                                        data-slate-string="true"
+                                      >
+                                        console.log('Hello, World!');
+                                      </span>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <blockquote
+                          data-be="blockquote"
+                          data-slate-node="element"
+                        >
+                          <div
+                            class="ant-md-editor-drag-el"
+                            data-be="paragraph"
+                            data-slate-node="element"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  这是一个引用块，展示 Markdown 的引用功能。
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </blockquote>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="padding: 8px 12px; background: rgb(255, 247, 230); border-radius: 6px; margin-top: 8px; font-size: 12px; color: rgb(250, 140, 22); border: 1px solid rgb(255, 213, 145);"
+                  >
+                    📊 
+                    <strong>
+                      生成统计
+                    </strong>
+                    <br />
+                    消息状态: ✅ 已完成
+                    <br />
+                    角色: 🤖 AI助手
+                    <br />
+                    消息ID: demo-message-1
+                  </div>
+                  <div
+                    class="ant-chat-item-extra"
+                    style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                  >
+                    <div />
+                    <div
+                      animate="visible"
+                      class="ant-chat-item-extra-action-box"
+                      initial="hidden"
+                      style="display: flex; gap: 8px; align-items: center;"
+                      variants="[object Object]"
+                      whileinview="visible"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                        data-testid="chat-item-copy-button"
+                        role="button"
+                        style="color: var(--color-icon-secondary);"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="margin-top: 40px;"
+      >
+        <h3>
+          代码示例
+        </h3>
+        <pre
+          style="background: rgb(246, 248, 250); padding: 16px; border-radius: 6px; overflow: auto; font-size: 14px;"
+        >
+          // 自定义 beforeMessageRender 渲染函数
+const customBeforeMessageRender = (props) =&gt; {
+  const messageData = props.originData;
+  return (
+    &lt;div style={{
+      padding: '8px 12px',
+      background: '#f6ffed',
+      borderRadius: '6px',
+      marginBottom: '8px',
+      fontSize: '12px',
+      color: '#52c41a'
+    }}&gt;
+      🔍 模型: gpt-4
+    &lt;/div&gt;
+  );
+};
+
+// 自定义 afterMessageRender 渲染函数
+const customAfterMessageRender = (props) =&gt; {
+  const messageData = props.originData;
+  return (
+    &lt;div style={{
+      padding: '8px 12px',
+      background: '#fff7e6',
+      borderRadius: '6px',
+      marginTop: '8px',
+      fontSize: '12px',
+      color: '#fa8c16'
+    }}&gt;
+      📊 消息状态: 已完成
+    &lt;/div&gt;
+  );
+};
+
+// 使用配置
+&lt;Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    beforeMessageRender: customBeforeMessageRender,
+    afterMessageRender: customAfterMessageRender,
+  }}
+/&gt;
+        </pre>
+      </div>
+      <div
+        style="margin-top: 20px;"
+      >
+        <h3>
+          功能说明
+        </h3>
+        <ul>
+          <li>
+            <strong>
+              beforeMessageRender
+            </strong>
+            : 在消息内容前面添加自定义内容
+          </li>
+          <li>
+            <strong>
+              afterMessageRender
+            </strong>
+            : 在消息内容后面添加自定义内容
+          </li>
+          <li>
+            <strong>
+              参数
+            </strong>
+            : 两个函数都接收 
+            <code>
+              props
+            </code>
+             和 
+            <code>
+              defaultDom
+            </code>
+             参数
+          </li>
+          <li>
+            <strong>
+              返回值
+            </strong>
+            : 可以返回任何有效的 React 节点
+          </li>
+          <li>
+            <strong>
+              禁用
+            </strong>
+            : 设置为 
+            <code>
+              false
+            </code>
+             可以禁用对应的渲染
+          </li>
+          <li>
+            <strong>
+              适用性
+            </strong>
+            : 在所有消息类型中都生效（用户消息和 AI 消息）
+          </li>
+        </ul>
+      </div>
+      <div
+        style="margin-top: 20px;"
+      >
+        <h3>
+          与 beforeContentRender/afterContentRender 的区别
+        </h3>
+        <ul>
+          <li>
+            <strong>
+              beforeMessageRender/afterMessageRender
+            </strong>
+            : 更新的 API，在所有消息类型中都生效
+          </li>
+          <li>
+            <strong>
+              beforeContentRender/afterContentRender
+            </strong>
+            : 较旧的 API，仅在左侧消息（AI 回复）中生效
+          </li>
+          <li>
+            <strong>
+              建议
+            </strong>
+            : 优先使用 
+            <code>
+              beforeMessageRender
+            </code>
+             和 
+            <code>
+              afterMessageRender
+            </code>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
