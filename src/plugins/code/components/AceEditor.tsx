@@ -196,13 +196,7 @@ export function AceEditor({
     return () => {
       codeEditor.destroy();
     };
-  }, [
-    setupEditorEvents,
-    readonly,
-    element.value,
-    element.language,
-    editorProps.codeProps,
-  ]);
+  }, []);
 
   // 监听外部值变化
   useEffect(() => {
