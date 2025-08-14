@@ -146,32 +146,38 @@ Bubble 组件是一个用于显示聊天消息的气泡组件，支持多种消�
 
 ## 功能特性
 
-### extraRender 自定义额外操作区域
+### titleRender 自定义标题渲染
 
-`extraRender` 功能允许您完全自定义气泡消息的额外操作区域，您可以：
-
-1. **自定义操作按钮**：添加点赞、收藏、分享等自定义操作
-2. **保留默认操作**：通过 `defaultDom` 参数包含默认的点赞、点踩、复制等操作
-3. **完全替换**：完全替换默认操作区域为自定义内容
-4. **禁用操作区域**：设置为 `false` 完全禁用额外操作区域
+`titleRender` 功能允许您完全自定义消息标题的渲染方式，可以替换默认的标题显示逻辑。
 
 #### 使用示例
 
 ```tsx | pure
-// 自定义 extraRender 函数
-const customExtraRender = (props, defaultDom) => {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-      {/* 自定义操作按钮 */}
-      <Button icon={<HeartOutlined />} onClick={() => handleLike(props.id)}>
-        点赞
-      </Button>
-      <Button icon={<StarOutlined />} onClick={() => handleFavorite(props.id)}>
-        收藏
-      </Button>
+// 自定义 titleRender 函数
+const customTitleRender = (props, defaultDom) => {
+  const { originData, avatar } = props;
 
-      {/* 包含默认操作按钮 */}
-      {defaultDom}
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '4px 0',
+        fontSize: '14px',
+        fontWeight: 500,
+      }}
+    >
+      <span style={{ color: '#1890ff' }}>
+        {avatar?.title || originData?.name || 'AI助手'}
+      </span>
+      <span style={{ color: '#999', fontSize: '12px' }}>
+        {originData?.model && `(${originData.model})`}
+      </span>
+      <span style={{ color: '#999', fontSize: '12px' }}>
+        {originData?.createAt &&
+          new Date(originData.createAt).toLocaleTimeString()}
+      </span>
     </div>
   );
 };
@@ -180,8 +186,8 @@ const customExtraRender = (props, defaultDom) => {
 <Bubble
   originData={messageData}
   bubbleRenderConfig={{
-    extraRender: customExtraRender, // 自定义渲染
-    // extraRender: false,           // 或者禁用额外操作
+    titleRender: customTitleRender, // 自定义标题渲染
+    // titleRender: false,          // 或者隐藏标题
   }}
 />;
 ```
@@ -189,13 +195,149 @@ const customExtraRender = (props, defaultDom) => {
 #### 参数说明
 
 - `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
-- `defaultDom: ReactNode` - 默认的额外操作区域内容，包含点赞、点踩、复制等按钮
+- `defaultDom: ReactNode` - 默认的标题内容，可以忽略或包含在自定义渲染中
 
 #### 注意事项
 
-- `extraRender` 只在左侧消息（AI回复）中生效，右侧消息（用户消息）不会显示额外操作区域
-- 当设置 `extraRender: false` 时，会完全禁用额外操作区域
-- 在异常状态下，自定义的 `extraRender` 仍然会生效
+- `titleRender` 在所有消息类型中都生效
+- 当设置 `titleRender: false` 时，会完全隐藏标题区域
+- 自定义标题不会影响其他功能，如头像、内容等
+
+### contentRender 自定义内容渲染
+
+`contentRender` 功能允许您完全自定义消息内容的渲染方式，可以替换默认的 Markdown 内容渲染逻辑。
+
+#### 使用示例
+
+```tsx | pure
+// 自定义 contentRender 函数
+const customContentRender = (props, defaultDom) => {
+  const { originData, loading } = props;
+
+  if (loading) {
+    return (
+      <div style={{ padding: '16px', textAlign: 'center' }}>
+        <Spin size="small" />
+        <span style={{ marginLeft: 8 }}>正在生成回复...</span>
+      </div>
+    );
+  }
+
+  // 如果是错误状态
+  if (originData?.error) {
+    return (
+      <div
+        style={{
+          padding: '12px',
+          background: '#fff2f0',
+          border: '1px solid #ffccc7',
+          borderRadius: '6px',
+          color: '#cf1322',
+        }}
+      >
+        ❌ 生成失败: {originData.error.message}
+      </div>
+    );
+  }
+
+  // 返回默认内容或自定义内容
+  return (
+    defaultDom || (
+      <div style={{ padding: '12px' }}>{originData?.content || '暂无内容'}</div>
+    )
+  );
+};
+
+// 使用配置
+<Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    contentRender: customContentRender, // 自定义内容渲染
+  }}
+/>;
+```
+
+#### 参数说明
+
+- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
+- `defaultDom: ReactNode` - 默认的内容渲染结果，通常是 Markdown 渲染后的内容
+
+#### 注意事项
+
+- `contentRender` 在所有消息类型中都生效
+- 当设置 `contentRender: false` 时，会完全隐藏内容区域
+- 自定义内容渲染会替换默认的 Markdown 渲染逻辑
+
+### contentAfterRender 和 contentBeforeRender 自定义内容前后渲染
+
+`contentAfterRender` 和 `contentBeforeRender` 功能允许您在消息内容的前后添加自定义内容，这些内容会直接插入到内容区域的前后。
+
+#### 使用示例
+
+```tsx | pure
+// 自定义 contentBeforeRender 函数
+const customContentBeforeRender = (props, defaultDom) => {
+  const { originData } = props;
+
+  return (
+    <div
+      style={{
+        padding: '8px 12px',
+        background: '#f6ffed',
+        border: '1px solid #b7eb8f',
+        borderRadius: '6px',
+        marginBottom: '8px',
+        fontSize: '12px',
+        color: '#52c41a',
+      }}
+    >
+      🔍 分析结果: 共找到 {originData?.extra?.searchCount || 0} 个相关结果
+    </div>
+  );
+};
+
+// 自定义 contentAfterRender 函数
+const customContentAfterRender = (props, defaultDom) => {
+  const { originData } = props;
+
+  return (
+    <div
+      style={{
+        padding: '8px 12px',
+        background: '#fff7e6',
+        border: '1px solid #ffd591',
+        borderRadius: '6px',
+        marginTop: '8px',
+        fontSize: '12px',
+        color: '#fa8c16',
+      }}
+    >
+      📊 生成统计: 耗时 {originData?.extra?.duration || 0}ms，使用{' '}
+      {originData?.model || 'unknown'} 模型
+    </div>
+  );
+};
+
+// 使用配置
+<Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    contentBeforeRender: customContentBeforeRender, // 内容前渲染
+    contentAfterRender: customContentAfterRender, // 内容后渲染
+  }}
+/>;
+```
+
+#### 参数说明
+
+- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
+- `defaultDom: ReactNode` - 默认为 `null`，可以忽略
+
+#### 注意事项
+
+- `contentBeforeRender` 和 `contentAfterRender` 在所有消息类型中都生效
+- 当设置为 `false` 时，不会渲染任何内容
+- 这些内容会直接插入到内容区域的前后，不会影响其他功能
 
 ### afterContentRender 和 beforeContentRender 自定义内容前后渲染
 
@@ -260,8 +402,376 @@ const customAfterContentRender = (props, defaultDom) => {
 - 当设置为 `false` 时，不会渲染任何内容
 - 这些内容会直接插入到 Markdown 内容的前后，不会影响其他功能
 - 支持返回任何有效的 React 节点，包括组件、HTML 元素等
-  | isFinished | 是否完成 | `boolean` | `false` |
-  | isAborted | 是否被终止 | `boolean` | `false` |
-  | feedback | 用户反馈 | `'thumbsUp' \| 'thumbsDown' \| 'none'` | - |
-  | isRetry | 是否重试 | `boolean` | `false` |
-  | fileMap | 文件映射 | `Map<string, AttachmentFile>` | - |
+
+### avatarRender 自定义头像渲染
+
+`avatarRender` 功能允许您完全自定义头像的渲染方式，可以替换默认的头像显示逻辑。
+
+#### 使用示例
+
+```tsx | pure
+// 自定义 avatarRender 函数
+const customAvatarRender = (props, defaultDom) => {
+  const { avatar, originData, placement } = props;
+
+  // 根据角色显示不同的头像
+  if (placement === 'right') {
+    return (
+      <div
+        style={{
+          width: '32px',
+          height: '32px',
+          borderRadius: '50%',
+          background: '#1890ff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          fontSize: '14px',
+          fontWeight: 'bold',
+        }}
+      >
+        👤
+      </div>
+    );
+  }
+
+  // AI 头像
+  if (avatar?.avatar) {
+    return (
+      <img
+        src={avatar.avatar}
+        alt={avatar.title || 'AI'}
+        style={{
+          width: '32px',
+          height: '32px',
+          borderRadius: '50%',
+          objectFit: 'cover',
+        }}
+      />
+    );
+  }
+
+  // 默认 AI 头像
+  return (
+    <div
+      style={{
+        width: '32px',
+        height: '32px',
+        borderRadius: '50%',
+        background: '#52c41a',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '14px',
+        fontWeight: 'bold',
+      }}
+    >
+      🤖
+    </div>
+  );
+};
+
+// 使用配置
+<Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    avatarRender: customAvatarRender, // 自定义头像渲染
+    // avatarRender: false,          // 或者隐藏头像
+  }}
+/>;
+```
+
+#### 参数说明
+
+- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
+- `defaultDom: ReactNode` - 默认的头像内容，可以忽略或包含在自定义渲染中
+
+#### 注意事项
+
+- `avatarRender` 在所有消息类型中都生效
+- 当设置 `avatarRender: false` 时，会完全隐藏头像区域
+- 自定义头像不会影响其他功能，如标题、内容等
+
+### render 整体自定义渲染
+
+`render` 功能允许您完全自定义整个气泡组件的渲染方式，提供最大的灵活性。
+
+#### 使用示例
+
+```tsx | pure
+// 自定义 render 函数
+const customRender = (props, domsMap, defaultDom) => {
+  const { avatar, title, messageContent, itemDom } = domsMap;
+  const { originData, placement, loading } = props;
+
+  // 完全自定义布局
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: placement === 'right' ? 'row-reverse' : 'row',
+        gap: '12px',
+        padding: '16px',
+        background: placement === 'right' ? '#f0f9ff' : '#fafafa',
+        borderRadius: '12px',
+        border: '1px solid #e5e7eb',
+      }}
+    >
+      {/* 头像区域 */}
+      <div style={{ flexShrink: 0 }}>{avatar}</div>
+
+      {/* 内容区域 */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        {/* 标题区域 */}
+        <div style={{ marginBottom: '8px' }}>{title}</div>
+
+        {/* 消息内容 */}
+        <div
+          style={{
+            background: 'white',
+            padding: '12px',
+            borderRadius: '8px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+          }}
+        >
+          {messageContent}
+        </div>
+
+        {/* 额外信息 */}
+        {originData?.extra && (
+          <div
+            style={{
+              marginTop: '8px',
+              padding: '8px',
+              background: '#f8f9fa',
+              borderRadius: '4px',
+              fontSize: '12px',
+              color: '#6c757d',
+            }}
+          >
+            💡 提示: 这是自定义渲染的消息
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// 使用配置
+<Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    render: customRender, // 自定义整体渲染
+  }}
+/>;
+```
+
+#### 参数说明
+
+- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
+- `domsMap: { avatar: ReactNode; title: ReactNode; messageContent: ReactNode; itemDom: ReactNode }` - 各个部分的默认渲染结果
+- `defaultDom: ReactNode` - 默认的整体渲染结果
+
+#### 注意事项
+
+- `render` 在所有消息类型中都生效
+- 当设置 `render: false` 时，会使用默认的渲染逻辑
+- 自定义整体渲染会完全替换默认的布局和样式
+- 可以通过 `domsMap` 参数获取各个部分的默认渲染结果进行组合
+
+### extraRender 自定义额外操作区域
+
+`extraRender` 功能允许您完全自定义气泡消息的额外操作区域，您可以：
+
+1. **自定义操作按钮**：添加点赞、收藏、分享等自定义操作
+2. **保留默认操作**：通过 `defaultDom` 参数包含默认的点赞、点踩、复制等操作
+3. **完全替换**：完全替换默认操作区域为自定义内容
+4. **禁用操作区域**：设置为 `false` 完全禁用额外操作区域
+
+#### 使用示例
+
+```tsx | pure
+// 自定义 extraRender 函数
+const customExtraRender = (props, defaultDom) => {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      {/* 自定义操作按钮 */}
+      <Button icon={<HeartOutlined />} onClick={() => handleLike(props.id)}>
+        点赞
+      </Button>
+      <Button icon={<StarOutlined />} onClick={() => handleFavorite(props.id)}>
+        收藏
+      </Button>
+
+      {/* 包含默认操作按钮 */}
+      {defaultDom}
+    </div>
+  );
+};
+
+// 使用配置
+<Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    extraRender: customExtraRender, // 自定义渲染
+    // extraRender: false,           // 或者禁用额外操作
+  }}
+/>;
+```
+
+#### 参数说明
+
+- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
+- `defaultDom: ReactNode` - 默认的额外操作区域内容，包含点赞、点踩、复制等按钮
+
+#### 注意事项
+
+- `extraRender` 只在左侧消息（AI回复）中生效，右侧消息（用户消息）不会显示额外操作区域
+- 当设置 `extraRender: false` 时，会完全禁用额外操作区域
+- 在异常状态下，自定义的 `extraRender` 仍然会生效
+
+### extraRightRender 自定义右侧额外操作区域
+
+`extraRightRender` 功能允许您自定义右侧消息的额外操作区域，通常用于用户消息的自定义操作。
+
+#### 使用示例
+
+```tsx | pure
+// 自定义 extraRightRender 函数
+const customExtraRightRender = (props, defaultDom) => {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+      {/* 自定义操作按钮 */}
+      <Button
+        size="small"
+        icon={<EditOutlined />}
+        onClick={() => handleEdit(props.id)}
+      >
+        编辑
+      </Button>
+      <Button
+        size="small"
+        icon={<DeleteOutlined />}
+        danger
+        onClick={() => handleDelete(props.id)}
+      >
+        删除
+      </Button>
+    </div>
+  );
+};
+
+// 使用配置
+<Bubble
+  originData={messageData}
+  placement="right"
+  bubbleRenderConfig={{
+    extraRightRender: customExtraRightRender, // 自定义右侧额外操作
+  }}
+/>;
+```
+
+#### 参数说明
+
+- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
+- `defaultDom: ReactNode` - 默认的右侧额外操作区域内容
+
+#### 注意事项
+
+- `extraRightRender` 只在右侧消息（用户消息）中生效
+- 当设置 `extraRightRender: false` 时，会完全禁用右侧额外操作区域
+- 自定义右侧操作区域不会影响左侧消息的额外操作区域
+
+## Render 方法优先级说明
+
+当同时配置多个 render 方法时，它们的优先级和执行顺序如下：
+
+1. **render** - 最高优先级，如果设置了 `render`，其他所有 render 方法都会被忽略
+2. **titleRender** - 自定义标题渲染
+3. **avatarRender** - 自定义头像渲染
+4. **contentRender** - 自定义内容渲染
+5. **contentBeforeRender** - 内容前渲染
+6. **contentAfterRender** - 内容后渲染
+7. **beforeContentRender** - 内容前渲染（仅左侧消息）
+8. **afterContentRender** - 内容后渲染（仅左侧消息）
+9. **extraRender** - 额外操作区域渲染（仅左侧消息）
+10. **extraRightRender** - 右侧额外操作区域渲染（仅右侧消息）
+
+### 组合使用示例
+
+```tsx | pure
+// 组合使用多个 render 方法
+<Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    // 自定义标题
+    titleRender: (props) => (
+      <div style={{ color: '#1890ff', fontWeight: 'bold' }}>
+        {props.avatar?.title || 'AI助手'}
+      </div>
+    ),
+
+    // 自定义头像
+    avatarRender: (props) => (
+      <div
+        style={{
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+          background: '#52c41a',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+        }}
+      >
+        🤖
+      </div>
+    ),
+
+    // 内容前添加提示
+    contentBeforeRender: (props) => (
+      <div
+        style={{
+          padding: '8px',
+          background: '#fff7e6',
+          borderRadius: '4px',
+          marginBottom: '8px',
+          fontSize: '12px',
+        }}
+      >
+        💡 这是 AI 生成的回复
+      </div>
+    ),
+
+    // 内容后添加统计
+    contentAfterRender: (props) => (
+      <div
+        style={{
+          padding: '8px',
+          background: '#f6ffed',
+          borderRadius: '4px',
+          marginTop: '8px',
+          fontSize: '12px',
+        }}
+      >
+        📊 生成时间: {new Date(props.originData?.createAt).toLocaleTimeString()}
+      </div>
+    ),
+
+    // 自定义额外操作
+    extraRender: (props, defaultDom) => (
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button size="small" icon={<StarOutlined />}>
+          收藏
+        </Button>
+        {defaultDom}
+      </div>
+    ),
+  }}
+/>
+```
+
+通过合理组合这些 render 方法，您可以实现高度自定义的消息气泡组件，满足各种复杂的业务需求。
