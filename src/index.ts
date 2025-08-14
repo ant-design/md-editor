@@ -51,6 +51,6 @@ export * from './MarkdownInputField/MarkdownInputField';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
 export * from './TaskList';
-export { ThoughtChainList } from './ThoughtChainList';
+export * from './ThoughtChainList';
 export * from './ToolUseBar';
 export * from './Workspace';
