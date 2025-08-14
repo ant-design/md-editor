@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from 'antd';
 import dayjs from 'dayjs';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import useClickAway from '../hooks/useClickAway';
 import { HistoryIcon } from '../icons/HistoryIcon';
 import { ActionIconBox, BubbleConfigContext, useRefFunction } from '../index';
@@ -237,12 +237,14 @@ export const History: React.FC<HistoryProps> = (props) => {
     loadHistory();
   }, [props.sessionId]);
 
-  const groupList = groupByCategory(chatList || [], (item: HistoryDataType) => {
-    if (props.groupBy) {
-      return props.groupBy?.(item);
-    }
-    return dayjs(item.gmtCreate).format('YYYY-MM-DD');
-  });
+  const groupList = useMemo(() => {
+    return groupByCategory(chatList || [], (item: HistoryDataType) => {
+      if (props.groupBy) {
+        return props.groupBy?.(item);
+      }
+      return dayjs(item.gmtCreate).format('YYYY-MM-DD');
+    });
+  }, [chatList, props.groupBy]);
 
   const items =
     Object.keys(groupList).map((key) => {

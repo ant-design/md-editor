@@ -11,18 +11,18 @@
       <h3>
         当前会话ID: session-1
       </h3>
-      <span
-        aria-describedby="test-id"
-        aria-label="历史记录"
-        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-noPadding"
-        role="button"
-        style="color: rgb(102, 111, 141); width: 24px; height: 24px;"
-        tabindex="0"
+      <div
+        class="ant-dropdown-trigger"
+        data-testid="history-button"
+        style="display: flex; padding: 4px; align-items: center; font-size: 0.85em;"
       >
-        <div
-          class="ant-dropdown-trigger"
-          data-testid="history-button"
-          style="display: flex; padding: 4px; align-items: center; font-size: 0.85em;"
+        <span
+          aria-describedby="test-id"
+          aria-label="历史记录"
+          class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-noPadding"
+          role="button"
+          style="color: rgb(102, 111, 141); width: 24px; height: 24px;"
+          tabindex="0"
         >
           <svg
             fill="none"
@@ -52,8 +52,8 @@
               </g>
             </g>
           </svg>
-        </div>
-      </span>
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
