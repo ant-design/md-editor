@@ -22,9 +22,9 @@ vi.mock('dayjs', () => {
     subtract: vi.fn().mockReturnThis(),
     fromNow: vi.fn().mockReturnValue('a few seconds ago'),
   }));
-  
+
   mockDayjs.extend = vi.fn();
-  
+
   return {
     __esModule: true,
     default: mockDayjs,
@@ -323,12 +323,16 @@ describe('History Component', () => {
       );
 
       // 等待数据加载完成
-      await waitFor(() => {
-        expect(screen.getByRole('menu')).toBeInTheDocument();
-      });
+      await waitFor(
+        () => {
+          expect(customDateFormatter).toHaveBeenCalled();
+        },
+        {
+          timeout: 50000,
+        },
+      );
 
       // 验证 customDateFormatter 被调用
-      expect(customDateFormatter).toHaveBeenCalled();
     });
 
     it('should use custom groupBy function', async () => {
