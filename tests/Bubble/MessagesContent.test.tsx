@@ -285,6 +285,14 @@ vi.mock('copy-to-clipboard', () => ({
   default: vi.fn(),
 }));
 
+// Mock navigator.clipboard
+Object.defineProperty(navigator, 'clipboard', {
+  value: {
+    writeText: vi.fn(),
+  },
+  writable: true,
+});
+
 // Mock dayjs
 vi.mock('dayjs', () => ({
   default: () => ({
@@ -306,6 +314,12 @@ describe('BubbleMessageDisplay', () => {
     bubbleRef: { current: { setMessageItem: vi.fn() } },
     readonly: false,
     placement: 'left',
+    onLike: vi.fn(),
+    onDisLike: vi.fn(),
+    onReply: vi.fn(),
+    bubbleRenderConfig: {
+      extraRender: (props: any, defaultDom: any) => defaultDom, // 返回默认的 BubbleExtra 组件
+    },
     originData: {
       id: 'test-id',
       role: 'assistant',
@@ -313,7 +327,10 @@ describe('BubbleMessageDisplay', () => {
       createAt: Date.now(),
       updateAt: Date.now(),
       isFinished: true,
-      extra: {},
+      extra: {
+        answerStatus: undefined, // 明确设置为undefined
+      },
+      feedback: undefined, // 明确设置为undefined
     },
   };
 
@@ -358,21 +375,6 @@ describe('BubbleMessageDisplay', () => {
       expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
       expect(screen.getByTestId('content')).toHaveTextContent('Test content');
       expect(screen.getByTestId('is-finished')).toHaveTextContent('true');
-    });
-
-    it('调试：查看实际渲染的DOM结构', () => {
-      const { container } = renderWithContext();
-      console.log('Actual DOM:', container.innerHTML);
-
-      // 检查是否有extra元素
-      const extraElement = screen.queryByTestId('extra');
-      console.log('Extra element:', extraElement);
-
-      // 检查是否有bubble-extra元素
-      const bubbleExtraElement = screen.queryByTestId('bubble-extra');
-      console.log('Bubble extra element:', bubbleExtraElement);
-
-      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
     });
 
     it('应该渲染加载状态', () => {
@@ -563,13 +565,14 @@ describe('BubbleMessageDisplay', () => {
       const props = {
         ...defaultProps,
         bubbleRenderConfig: {
-          bubbleRightExtraRender: customRender,
+          extraRender: customRender, // 使用自定义渲染函数
         },
       };
 
       renderWithContext(props);
 
       expect(screen.getByTestId('custom-render')).toBeInTheDocument();
+      expect(customRender).toHaveBeenCalled();
     });
 
     it('应该处理额外内容为空的情况', () => {

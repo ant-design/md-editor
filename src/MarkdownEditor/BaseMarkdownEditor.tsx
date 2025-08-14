@@ -13,6 +13,7 @@ import React, {
 import { Subject } from 'rxjs';
 import { BaseEditor, createEditor, Editor, Selection } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
+import { BubbleProps } from '../Bubble';
 import { I18nProvide } from '../i18n';
 import { CommentList } from './editor/components/CommentList';
 import { SlateMarkdownEditor } from './editor/Editor';
@@ -237,7 +238,10 @@ export type MarkdownEditorProps = {
 
   apaasify?: {
     enable?: boolean;
-    render?: (props: ElementProps<SchemaNode>) => React.ReactNode;
+    render?: (
+      props: ElementProps<SchemaNode>,
+      bubble?: BubbleProps,
+    ) => React.ReactNode;
   } & Record<string, any>;
 
   /**

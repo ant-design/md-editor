@@ -1,5 +1,6 @@
-﻿import { SchemaRenderer } from '@ant-design/md-editor/schema';
-import React, { useMemo } from 'react';
+﻿import React, { useContext, useMemo } from 'react';
+import { BubbleConfigContext } from '../../../Bubble/BubbleConfigProvide';
+import { SchemaRenderer } from '../../../schema';
 import { CodeNode } from '../../el';
 import { RenderElementProps } from '../slate-react';
 import { useEditorStore } from '../store';
@@ -8,6 +9,8 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
   const { element: node } = props;
   const { editorProps } = useEditorStore();
   const apaasify = editorProps?.apaasify || editorProps?.apassify;
+
+  const { bubble } = useContext(BubbleConfigContext) || {};
   return useMemo(() => {
     if (apaasify?.enable && apaasify.render) {
       return (
@@ -19,7 +22,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
             flexDirection: 'column',
           }}
         >
-          {apaasify.render(props)}
+          {apaasify.render(props, bubble)}
           <div
             data-testid="schema-hidden-json"
             style={{

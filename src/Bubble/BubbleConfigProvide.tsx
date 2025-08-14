@@ -47,6 +47,16 @@ export type ChatConfigType = {
     'chat.message.exception': string;
     'chat.helloMessage.pre_hello_text': string;
   };
+  bubble?: BubbleProps<{
+    /**
+     * 聊天内容
+     */
+    content: string;
+    /**
+     * 聊天项的唯一标识
+     */
+    uuid: number;
+  }>;
   compact?: boolean;
 };
 

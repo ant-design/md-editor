@@ -80,7 +80,7 @@ export const Bubble: React.FC<
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
-  const { compact, standalone } = useContext(BubbleConfigContext) || {};
+  const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
 
   const prefixClass = getPrefixCls('agent-list');
 
@@ -202,66 +202,31 @@ export const Bubble: React.FC<
 
   const itemDom = useMemo(() => {
     return wrapSSR(
-      <Flex
-        className={cx(
-          prefixClass,
-          hashId,
-          `${prefixClass}-${placement}`,
-          className,
-          {
-            [`${prefixClass}-compact`]: compact,
-          },
-        )}
-        style={style}
-        vertical
-        id={props.id}
-        data-id={props.id}
-        gap={12}
+      <BubbleConfigContext.Provider
+        value={{
+          compact,
+          standalone: !!standalone,
+          locale: locale as any,
+          bubble: props as any,
+        }}
       >
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          whileInView="visible"
-          variants={{
-            hidden: { opacity: 0, scale: 1 },
-            visible: {
-              opacity: 1,
-              scale: 1,
-              transition: {
-                delay: 0.1,
-                delayChildren: 0.3,
-                staggerChildren: 0.2,
-              },
+        <Flex
+          className={cx(
+            prefixClass,
+            hashId,
+            `${prefixClass}-${placement}`,
+            className,
+            {
+              [`${prefixClass}-compact`]: compact,
             },
-          }}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-            alignItems: 'flex-start',
-            ...style,
-          }}
-          className={cx(`${prefixClass}-bubble-container`, hashId)}
-        >
-          {placement === 'right' ? null : (
-            <motion.div
-              className={cx(
-                `${prefixClass}-bubble-avatar-title`,
-                `${prefixClass}-bubble-avatar-title-${placement}`,
-                hashId,
-              )}
-            >
-              {avatarDom}
-              <span>{avatar?.name ?? 'Agentar'}</span>
-              {titleDom}
-            </motion.div>
           )}
+          style={style}
+          vertical
+          id={props.id}
+          data-id={props.id}
+          gap={12}
+        >
           <motion.div
-            style={{
-              display: 'flex',
-              gap: 4,
-              flexDirection: 'column',
-            }}
             initial="hidden"
             animate="visible"
             whileInView="visible"
@@ -277,68 +242,82 @@ export const Bubble: React.FC<
                 },
               },
             }}
-            className={cx(
-              `${prefixClass}-bubble-container`,
-              `${prefixClass}-bubble-container-${placement}`,
-              {
-                [`${prefixClass}-bubble-container-pure`]: props.pure,
-              },
-              hashId,
-            )}
-            data-testid="chat-message"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+              alignItems: 'flex-start',
+              ...style,
+            }}
+            className={cx(`${prefixClass}-bubble-container`, hashId)}
           >
-            {contentBeforeDom ? (
+            {placement === 'right' ? null : (
               <motion.div
-                variants={{
-                  hidden: { y: 20, opacity: 0 },
-                  visible: {
-                    y: 0,
-                    opacity: 1,
-                    transition: {
-                      duration: 0.5,
-                    },
-                  },
-                }}
-                style={styles?.bubbleListItemExtraStyle}
                 className={cx(
-                  `${prefixClass}-bubble-before`,
-                  `${prefixClass}-bubble-before-${placement}`,
+                  `${prefixClass}-bubble-avatar-title`,
+                  `${prefixClass}-bubble-avatar-title-${placement}`,
                   hashId,
                 )}
-                data-testid="message-before"
               >
-                {contentBeforeDom}
+                {avatarDom}
+                <span>{avatar?.name ?? 'Agentar'}</span>
+                {titleDom}
               </motion.div>
-            ) : null}
+            )}
             <motion.div
+              style={{
+                display: 'flex',
+                gap: 4,
+                flexDirection: 'column',
+              }}
+              initial="hidden"
+              animate="visible"
+              whileInView="visible"
               variants={{
-                hidden: { y: 20, opacity: 0 },
+                hidden: { opacity: 0, scale: 1 },
                 visible: {
-                  y: 0,
                   opacity: 1,
+                  scale: 1,
                   transition: {
-                    duration: 0.5,
+                    delay: 0.1,
+                    delayChildren: 0.3,
+                    staggerChildren: 0.2,
                   },
                 },
               }}
-              style={{
-                minWidth: standalone ? 'min(16px,100%)' : '0px',
-                ...styles?.bubbleListItemContentStyle,
-              }}
               className={cx(
-                `${prefixClass}-bubble-content`,
-                `${prefixClass}-bubble-content-${placement}`,
+                `${prefixClass}-bubble-container`,
+                `${prefixClass}-bubble-container-${placement}`,
                 {
-                  [`${prefixClass}-bubble-content-pure`]: props.pure,
+                  [`${prefixClass}-bubble-container-pure`]: props.pure,
                 },
                 hashId,
               )}
-              onDoubleClick={props.onDoubleClick}
-              data-testid="message-content"
+              data-testid="chat-message"
             >
-              {childrenDom}
-            </motion.div>
-            {contentAfterDom || (props?.originData?.fileMap?.size || 0) > 0 ? (
+              {contentBeforeDom ? (
+                <motion.div
+                  variants={{
+                    hidden: { y: 20, opacity: 0 },
+                    visible: {
+                      y: 0,
+                      opacity: 1,
+                      transition: {
+                        duration: 0.5,
+                      },
+                    },
+                  }}
+                  style={styles?.bubbleListItemExtraStyle}
+                  className={cx(
+                    `${prefixClass}-bubble-before`,
+                    `${prefixClass}-bubble-before-${placement}`,
+                    hashId,
+                  )}
+                  data-testid="message-before"
+                >
+                  {contentBeforeDom}
+                </motion.div>
+              ) : null}
               <motion.div
                 variants={{
                   hidden: { y: 20, opacity: 0 },
@@ -351,26 +330,57 @@ export const Bubble: React.FC<
                   },
                 }}
                 style={{
-                  minWidth: standalone ? 'min(296px,100%)' : '0px',
-                  ...styles?.bubbleListItemExtraStyle,
+                  minWidth: standalone ? 'min(16px,100%)' : '0px',
+                  ...styles?.bubbleListItemContentStyle,
                 }}
                 className={cx(
-                  `${prefixClass}-bubble-after`,
-                  `${prefixClass}-bubble-after-${placement}`,
+                  `${prefixClass}-bubble-content`,
+                  `${prefixClass}-bubble-content-${placement}`,
+                  {
+                    [`${prefixClass}-bubble-content-pure`]: props.pure,
+                  },
                   hashId,
                 )}
-                data-testid="message-after"
+                onDoubleClick={props.onDoubleClick}
+                data-testid="message-content"
               >
-                <BubbleFileView
-                  bubbleListRef={props.bubbleListRef}
-                  bubble={props as any}
-                />
-                {contentAfterDom}
+                {childrenDom}
               </motion.div>
-            ) : null}
+              {contentAfterDom ||
+              (props?.originData?.fileMap?.size || 0) > 0 ? (
+                <motion.div
+                  variants={{
+                    hidden: { y: 20, opacity: 0 },
+                    visible: {
+                      y: 0,
+                      opacity: 1,
+                      transition: {
+                        duration: 0.5,
+                      },
+                    },
+                  }}
+                  style={{
+                    minWidth: standalone ? 'min(296px,100%)' : '0px',
+                    ...styles?.bubbleListItemExtraStyle,
+                  }}
+                  className={cx(
+                    `${prefixClass}-bubble-after`,
+                    `${prefixClass}-bubble-after-${placement}`,
+                    hashId,
+                  )}
+                  data-testid="message-after"
+                >
+                  <BubbleFileView
+                    bubbleListRef={props.bubbleListRef}
+                    bubble={props as any}
+                  />
+                  {contentAfterDom}
+                </motion.div>
+              ) : null}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </Flex>,
+        </Flex>
+      </BubbleConfigContext.Provider>,
     );
   }, [
     avatarDom,
