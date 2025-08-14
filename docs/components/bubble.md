@@ -98,6 +98,8 @@ Bubble 组件是一个用于显示聊天消息的气泡组件，支持多种消�
 | contentBeforeRender | 内容前渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
 | afterContentRender  | afterContent 渲染函数  | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
 | beforeContentRender | beforeContent 渲染函数 | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| beforeMessageRender | 消息前渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| afterMessageRender  | 消息后渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
 | avatarRender        | 头像渲染函数           | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
 | extraRender         | 额外内容渲染函数       | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
 | extraRightRender    | 右侧额外内容渲染函数   | `BubbleExtraProps['render']`                                                                                                                                              | -      |
@@ -268,15 +270,15 @@ const customContentRender = (props, defaultDom) => {
 - 当设置 `contentRender: false` 时，会完全隐藏内容区域
 - 自定义内容渲染会替换默认的 Markdown 渲染逻辑
 
-### contentAfterRender 和 contentBeforeRender 自定义内容前后渲染
+### beforeMessageRender 和 afterMessageRender 自定义消息前后渲染
 
-`contentAfterRender` 和 `contentBeforeRender` 功能允许您在消息内容的前后添加自定义内容，这些内容会直接插入到内容区域的前后。
+`beforeMessageRender` 和 `afterMessageRender` 功能允许您在消息内容的前后添加自定义内容，这些内容会直接插入到 Markdown 内容的前后。
 
 #### 使用示例
 
 ```tsx | pure
-// 自定义 contentBeforeRender 函数
-const customContentBeforeRender = (props, defaultDom) => {
+// 自定义 beforeMessageRender 函数
+const customBeforeMessageRender = (props, defaultDom) => {
   const { originData } = props;
 
   return (
@@ -296,8 +298,8 @@ const customContentBeforeRender = (props, defaultDom) => {
   );
 };
 
-// 自定义 contentAfterRender 函数
-const customContentAfterRender = (props, defaultDom) => {
+// 自定义 afterMessageRender 函数
+const customAfterMessageRender = (props, defaultDom) => {
   const { originData } = props;
 
   return (
@@ -322,8 +324,8 @@ const customContentAfterRender = (props, defaultDom) => {
 <Bubble
   originData={messageData}
   bubbleRenderConfig={{
-    contentBeforeRender: customContentBeforeRender, // 内容前渲染
-    contentAfterRender: customContentAfterRender, // 内容后渲染
+    beforeMessageRender: customBeforeMessageRender, // 消息前渲染
+    afterMessageRender: customAfterMessageRender, // 消息后渲染
   }}
 />;
 ```
@@ -335,13 +337,15 @@ const customContentAfterRender = (props, defaultDom) => {
 
 #### 注意事项
 
-- `contentBeforeRender` 和 `contentAfterRender` 在所有消息类型中都生效
+- `beforeMessageRender` 和 `afterMessageRender` 在所有消息类型中都生效
 - 当设置为 `false` 时，不会渲染任何内容
-- 这些内容会直接插入到内容区域的前后，不会影响其他功能
+- 这些内容会直接插入到 Markdown 内容的前后，不会影响其他功能
 
 ### afterContentRender 和 beforeContentRender 自定义内容前后渲染
 
 `afterContentRender` 和 `beforeContentRender` 功能允许您在消息内容的前后添加自定义内容，这些内容会直接插入到 Markdown 内容的前后。
+
+**注意**: 这两个属性与 `beforeMessageRender` 和 `afterMessageRender` 功能类似，但它们是不同的属性。`beforeMessageRender` 和 `afterMessageRender` 是更新的 API，建议优先使用。
 
 #### 使用示例
 
@@ -694,84 +698,145 @@ const customExtraRightRender = (props, defaultDom) => {
 4. **contentRender** - 自定义内容渲染
 5. **contentBeforeRender** - 内容前渲染
 6. **contentAfterRender** - 内容后渲染
-7. **beforeContentRender** - 内容前渲染（仅左侧消息）
-8. **afterContentRender** - 内容后渲染（仅左侧消息）
-9. **extraRender** - 额外操作区域渲染（仅左侧消息）
-10. **extraRightRender** - 右侧额外操作区域渲染（仅右侧消息）
+7. **beforeMessageRender** - 消息前渲染
+8. **afterMessageRender** - 消息后渲染
+9. **beforeContentRender** - 内容前渲染（仅左侧消息）
+10. **afterContentRender** - 内容后渲染（仅左侧消息）
+11. **extraRender** - 额外操作区域渲染（仅左侧消息）
+12. **extraRightRender** - 右侧额外操作区域渲染（仅右侧消息）
 
 ### 组合使用示例
 
-```tsx | pure
+```tsx
+import { Bubble } from '@ant-design/md-editor';
+import { Button } from 'antd';
+import { StarOutlined } from '@ant-design/icons';
+
+const messageData = {
+  id: '1',
+  content: 'Hello, world!',
+  createAt: Date.now(),
+  updateAt: Date.now(),
+  extra: {
+    like: 0,
+  },
+};
+
 // 组合使用多个 render 方法
-<Bubble
-  originData={messageData}
-  bubbleRenderConfig={{
-    // 自定义标题
-    titleRender: (props) => (
-      <div style={{ color: '#1890ff', fontWeight: 'bold' }}>
-        {props.avatar?.title || 'AI助手'}
-      </div>
-    ),
+const App = () => {
+  return (
+    <>
+      <Bubble
+        originData={messageData}
+        bubbleRenderConfig={{
+          // 自定义标题
+          titleRender: (props) => (
+            <div style={{ color: '#1890ff', fontWeight: 'bold' }}>
+              {props.avatar?.title || 'AI助手'}
+            </div>
+          ),
 
-    // 自定义头像
-    avatarRender: (props) => (
-      <div
-        style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          background: '#52c41a',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
+          // 自定义头像
+          avatarRender: (props) => (
+            <div
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                background: '#52c41a',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+              }}
+            >
+              🤖
+            </div>
+          ),
+          beforeMessageRender: (props) => (
+            <div
+              style={{
+                padding: '8px',
+                background: '#fff7e6',
+                borderRadius: '4px',
+                marginBottom: '8px',
+                fontSize: '12px',
+              }}
+            >
+              <div>💡 消息前提示</div>
+            </div>
+          ),
+          afterMessageRender: (props) => (
+            <div
+              style={{
+                padding: '8px',
+                background: '#f6ffed',
+                borderRadius: '4px',
+                marginTop: '8px',
+                fontSize: '12px',
+              }}
+            >
+              <div>💡 消息后提示</div>
+            </div>
+          ),
+          // 内容前添加提示
+          contentBeforeRender: (props) => (
+            <div
+              style={{
+                padding: '8px',
+                background: '#fff7e6',
+                borderRadius: '4px',
+                marginBottom: '8px',
+                fontSize: '12px',
+              }}
+            >
+              💡 这是 AI 生成的回复
+            </div>
+          ),
+
+          // 内容后添加统计
+          contentAfterRender: (props) => (
+            <div
+              style={{
+                padding: '8px',
+                background: '#f6ffed',
+                borderRadius: '4px',
+                marginTop: '8px',
+                fontSize: '12px',
+              }}
+            >
+              📊 生成时间:{' '}
+              {new Date(props.originData?.createAt).toLocaleTimeString()}
+            </div>
+          ),
+          // 自定义额外操作
+          extraRender: (props, defaultDom) => (
+            <div
+              style={{
+                display: 'flex',
+                gap: 8,
+                alignItems: 'center',
+              }}
+            >
+              <Button
+                size="small"
+                type="text"
+                icon={<StarOutlined />}
+                style={{
+                  width: 120,
+                }}
+              >
+                收藏
+              </Button>
+              {defaultDom}
+            </div>
+          ),
         }}
-      >
-        🤖
-      </div>
-    ),
-
-    // 内容前添加提示
-    contentBeforeRender: (props) => (
-      <div
-        style={{
-          padding: '8px',
-          background: '#fff7e6',
-          borderRadius: '4px',
-          marginBottom: '8px',
-          fontSize: '12px',
-        }}
-      >
-        💡 这是 AI 生成的回复
-      </div>
-    ),
-
-    // 内容后添加统计
-    contentAfterRender: (props) => (
-      <div
-        style={{
-          padding: '8px',
-          background: '#f6ffed',
-          borderRadius: '4px',
-          marginTop: '8px',
-          fontSize: '12px',
-        }}
-      >
-        📊 生成时间: {new Date(props.originData?.createAt).toLocaleTimeString()}
-      </div>
-    ),
-
-    // 自定义额外操作
-    extraRender: (props, defaultDom) => (
-      <div style={{ display: 'flex', gap: 8 }}>
-        <Button size="small" icon={<StarOutlined />}>
-          收藏
-        </Button>
-        {defaultDom}
-      </div>
-    ),
-  }}
-/>
+      />
+    </>
+  );
+};
+export default App;
 ```
 
 通过合理组合这些 render 方法，您可以实现高度自定义的消息气泡组件，满足各种复杂的业务需求。

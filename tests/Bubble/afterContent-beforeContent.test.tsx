@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { describe, expect, it } from 'vitest';
 import { Bubble } from '../../src/Bubble';
 import { MessageBubbleData } from '../../src/Bubble/type';
 
@@ -14,7 +15,7 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
   };
 
   it('应该渲染 beforeContentRender 的内容', () => {
-    const beforeContentRender = (props: any) => (
+    const beforeContentRender = () => (
       <div data-testid="before-content">前置内容</div>
     );
 
@@ -22,7 +23,7 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
       <Bubble
         originData={mockMessageData}
         bubbleRenderConfig={{
-          beforeContentRender,
+          beforeMessageRender: beforeContentRender,
         }}
       />,
     );
@@ -32,7 +33,7 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
   });
 
   it('应该渲染 afterContentRender 的内容', () => {
-    const afterContentRender = (props: any) => (
+    const afterContentRender = () => (
       <div data-testid="after-content">后置内容</div>
     );
 
@@ -40,7 +41,7 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
       <Bubble
         originData={mockMessageData}
         bubbleRenderConfig={{
-          afterContentRender,
+          afterMessageRender: afterContentRender,
         }}
       />,
     );
@@ -50,11 +51,11 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
   });
 
   it('应该同时渲染 beforeContentRender 和 afterContentRender 的内容', () => {
-    const beforeContentRender = (props: any) => (
+    const beforeContentRender = () => (
       <div data-testid="before-content">前置内容</div>
     );
 
-    const afterContentRender = (props: any) => (
+    const afterContentRender = () => (
       <div data-testid="after-content">后置内容</div>
     );
 
@@ -62,8 +63,8 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
       <Bubble
         originData={mockMessageData}
         bubbleRenderConfig={{
-          beforeContentRender,
-          afterContentRender,
+          beforeMessageRender: beforeContentRender,
+          afterMessageRender: afterContentRender,
         }}
       />,
     );
@@ -75,7 +76,7 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
   });
 
   it('当 beforeContentRender 为 false 时，不应该渲染前置内容', () => {
-    const afterContentRender = (props: any) => (
+    const afterContentRender = () => (
       <div data-testid="after-content">后置内容</div>
     );
 
@@ -83,8 +84,8 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
       <Bubble
         originData={mockMessageData}
         bubbleRenderConfig={{
-          beforeContentRender: false,
-          afterContentRender,
+          beforeMessageRender: false,
+          afterMessageRender: afterContentRender,
         }}
       />,
     );
@@ -94,7 +95,7 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
   });
 
   it('当 afterContentRender 为 false 时，不应该渲染后置内容', () => {
-    const beforeContentRender = (props: any) => (
+    const beforeContentRender = () => (
       <div data-testid="before-content">前置内容</div>
     );
 
@@ -102,8 +103,8 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
       <Bubble
         originData={mockMessageData}
         bubbleRenderConfig={{
-          beforeContentRender,
-          afterContentRender: false,
+          beforeMessageRender: beforeContentRender,
+          afterMessageRender: false,
         }}
       />,
     );
@@ -129,8 +130,8 @@ describe('Bubble afterContentRender and beforeContentRender', () => {
       <Bubble
         originData={mockMessageData}
         bubbleRenderConfig={{
-          beforeContentRender,
-          afterContentRender,
+          beforeMessageRender: beforeContentRender,
+          afterMessageRender: afterContentRender,
         }}
       />,
     );

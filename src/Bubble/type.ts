@@ -315,14 +315,14 @@ export interface BubbleRenderConfig<T = Record<string, any>> {
    * afterContent 的 render 方法
    * @description 用于渲染在 content 后面的内容
    */
-  afterContentRender?: WithFalse<
+  afterMessageRender?: WithFalse<
     (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
   >;
   /**
    * beforeContent 的 render 方法
    * @description 用于渲染在 content 前面的内容
    */
-  beforeContentRender?: WithFalse<
+  beforeMessageRender?: WithFalse<
     (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
   >;
   avatarRender?: WithFalse<

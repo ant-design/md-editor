@@ -160,16 +160,16 @@ export const BubbleMessageDisplay: React.FC<
 
   // 处理 beforeContent 和 afterContent
   const beforeContent = useMemo(() => {
-    return props.bubbleRenderConfig?.beforeContentRender
-      ? props.bubbleRenderConfig.beforeContentRender(props, null)
+    return props.bubbleRenderConfig?.beforeMessageRender
+      ? props.bubbleRenderConfig.beforeMessageRender(props, null)
       : null;
-  }, [props.bubbleRenderConfig?.beforeContentRender]);
+  }, [props.bubbleRenderConfig?.beforeMessageRender]);
 
   const afterContent = useMemo(() => {
-    return props.bubbleRenderConfig?.afterContentRender
-      ? props.bubbleRenderConfig.afterContentRender(props, null)
+    return props.bubbleRenderConfig?.afterMessageRender
+      ? props.bubbleRenderConfig.afterMessageRender(props, null)
       : null;
-  }, [props.bubbleRenderConfig?.afterContentRender]);
+  }, [props.bubbleRenderConfig?.afterMessageRender]);
 
   const memo = useMemo(() => {
     if (
@@ -214,6 +214,8 @@ export const BubbleMessageDisplay: React.FC<
           onDoubleClick={props.onDoubleClick}
         >
           <MarkdownPreview
+            beforeContent={beforeContent}
+            afterContent={afterContent}
             {...props.markdownRenderConfig}
             isFinished={true}
             style={
@@ -490,8 +492,8 @@ export const BubbleMessageDisplay: React.FC<
     slidesMode,
     isExtraNull,
     props.deps,
-    props.bubbleRenderConfig?.beforeContentRender,
-    props.bubbleRenderConfig?.afterContentRender,
+    props.bubbleRenderConfig?.beforeMessageRender,
+    props.bubbleRenderConfig?.afterMessageRender,
   ]);
 
   return memo;

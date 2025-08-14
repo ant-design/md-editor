@@ -2,7 +2,7 @@ import React from 'react';
 import { Bubble } from '../../../src/Bubble';
 import { MessageBubbleData } from '../../../src/Bubble/type';
 
-const AfterContentBeforeContentDemo: React.FC = () => {
+const BeforeMessageAfterMessageDemo: React.FC = () => {
   const mockMessageData: MessageBubbleData = {
     id: 'demo-message-1',
     content: `# 这是一个演示消息
@@ -12,7 +12,7 @@ const AfterContentBeforeContentDemo: React.FC = () => {
 ## 功能特性
 
 - 支持标题、列表、代码块等 Markdown 语法
-- 支持自定义 beforeContent 和 afterContent 渲染
+- 支持自定义 beforeMessageRender 和 afterMessageRender 渲染
 - 可以显示消息的元数据信息
 
 \`\`\`javascript
@@ -28,48 +28,48 @@ console.log('Hello, World!');
     name: 'AI助手',
   };
 
-  // 自定义 beforeContent 渲染函数
-  const customBeforeContentRender = (props: any) => {
+  // 自定义 beforeMessageRender 渲染函数
+  const customBeforeMessageRender = (props: any) => {
     const messageData = props.originData;
     return (
       <div
         style={{
           padding: '8px 12px',
-          background: '#f5f5f5',
+          background: '#f6ffed',
           borderRadius: '6px',
           marginBottom: '8px',
           fontSize: '12px',
-          color: '#666',
-          border: '1px solid #e8e8e8',
+          color: '#52c41a',
+          border: '1px solid #b7eb8f',
         }}
       >
-        📝 <strong>消息信息</strong>
-        <br />
-        创建时间: {new Date(messageData?.createAt).toLocaleString()}
+        🔍 <strong>消息分析</strong>
         <br />
         模型: {messageData?.model || '未知'}
         <br />
         发送者: {messageData?.name || '未知'}
+        <br />
+        创建时间: {new Date(messageData?.createAt).toLocaleString()}
       </div>
     );
   };
 
-  // 自定义 afterContent 渲染函数
-  const customAfterContentRender = (props: any) => {
+  // 自定义 afterMessageRender 渲染函数
+  const customAfterMessageRender = (props: any) => {
     const messageData = props.originData;
     return (
       <div
         style={{
           padding: '8px 12px',
-          background: '#e6f7ff',
+          background: '#fff7e6',
           borderRadius: '6px',
           marginTop: '8px',
           fontSize: '12px',
-          color: '#1890ff',
-          border: '1px solid #91d5ff',
+          color: '#fa8c16',
+          border: '1px solid #ffd591',
         }}
       >
-        ✅ <strong>状态信息</strong>
+        📊 <strong>生成统计</strong>
         <br />
         消息状态: {messageData?.isFinished ? '✅ 已完成' : '⏳ 生成中...'}
         <br />
@@ -82,18 +82,18 @@ console.log('Hello, World!');
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h2>afterContent 和 beforeContent 渲染演示</h2>
+      <h2>beforeMessageRender 和 afterMessageRender 渲染演示</h2>
       <p>
-        这个演示展示了如何使用 <code>afterContentRender</code> 和{' '}
-        <code>beforeContentRender</code> 在消息内容的前后添加自定义内容。
+        这个演示展示了如何使用 <code>beforeMessageRender</code> 和{' '}
+        <code>afterMessageRender</code> 在消息内容的前后添加自定义内容。
       </p>
 
       <div style={{ marginTop: '20px' }}>
         <Bubble
           originData={mockMessageData}
           bubbleRenderConfig={{
-            beforeMessageRender: customBeforeContentRender,
-            afterMessageRender: customAfterContentRender,
+            beforeMessageRender: customBeforeMessageRender,
+            afterMessageRender: customAfterMessageRender,
           }}
         />
       </div>
@@ -109,36 +109,36 @@ console.log('Hello, World!');
             fontSize: '14px',
           }}
         >
-          {`// 自定义 beforeContent 渲染函数
-const customBeforeContentRender = (props) => {
+          {`// 自定义 beforeMessageRender 渲染函数
+const customBeforeMessageRender = (props) => {
   const messageData = props.originData;
   return (
     <div style={{
       padding: '8px 12px',
-      background: '#f5f5f5',
+      background: '#f6ffed',
       borderRadius: '6px',
       marginBottom: '8px',
       fontSize: '12px',
-      color: '#666'
+      color: '#52c41a'
     }}>
-      📝 消息创建时间: 2023-12-21 10:30:56
+      🔍 模型: gpt-4
     </div>
   );
 };
 
-// 自定义 afterContent 渲染函数
-const customAfterContentRender = (props) => {
+// 自定义 afterMessageRender 渲染函数
+const customAfterMessageRender = (props) => {
   const messageData = props.originData;
   return (
     <div style={{
       padding: '8px 12px',
-      background: '#e6f7ff',
+      background: '#fff7e6',
       borderRadius: '6px',
       marginTop: '8px',
       fontSize: '12px',
-      color: '#1890ff'
+      color: '#fa8c16'
     }}>
-      ✅ 消息状态: 已完成
+      📊 消息状态: 已完成
     </div>
   );
 };
@@ -147,8 +147,8 @@ const customAfterContentRender = (props) => {
 <Bubble
   originData={messageData}
   bubbleRenderConfig={{
-    beforeContentRender: customBeforeContentRender,
-    afterContentRender: customAfterContentRender,
+    beforeMessageRender: customBeforeMessageRender,
+    afterMessageRender: customAfterMessageRender,
   }}
 />`}
         </pre>
@@ -158,10 +158,10 @@ const customAfterContentRender = (props) => {
         <h3>功能说明</h3>
         <ul>
           <li>
-            <strong>beforeContentRender</strong>: 在消息内容前面添加自定义内容
+            <strong>beforeMessageRender</strong>: 在消息内容前面添加自定义内容
           </li>
           <li>
-            <strong>afterContentRender</strong>: 在消息内容后面添加自定义内容
+            <strong>afterMessageRender</strong>: 在消息内容后面添加自定义内容
           </li>
           <li>
             <strong>参数</strong>: 两个函数都接收 <code>props</code> 和{' '}
@@ -173,10 +173,32 @@ const customAfterContentRender = (props) => {
           <li>
             <strong>禁用</strong>: 设置为 <code>false</code> 可以禁用对应的渲染
           </li>
+          <li>
+            <strong>适用性</strong>: 在所有消息类型中都生效（用户消息和 AI
+            消息）
+          </li>
+        </ul>
+      </div>
+
+      <div style={{ marginTop: '20px' }}>
+        <h3>与 beforeContentRender/afterContentRender 的区别</h3>
+        <ul>
+          <li>
+            <strong>beforeMessageRender/afterMessageRender</strong>: 更新的
+            API，在所有消息类型中都生效
+          </li>
+          <li>
+            <strong>beforeContentRender/afterContentRender</strong>: 较旧的
+            API，仅在左侧消息（AI 回复）中生效
+          </li>
+          <li>
+            <strong>建议</strong>: 优先使用 <code>beforeMessageRender</code> 和{' '}
+            <code>afterMessageRender</code>
+          </li>
         </ul>
       </div>
     </div>
   );
 };
 
-export default AfterContentBeforeContentDemo;
+export default BeforeMessageAfterMessageDemo;

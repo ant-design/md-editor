@@ -51,9 +51,9 @@ export interface MarkdownPreviewProps {
   originData?: MessageBubbleData;
   markdownRenderConfig?: MarkdownEditorProps;
   /** 在 content 前面插入的 DOM 元素，例如: <div>前置内容</div> */
-  beforeContent?: React.ReactNode;
+  beforeContent: React.ReactNode;
   /** 在 content 后面插入的 DOM 元素，例如: <div>后置内容</div> */
-  afterContent?: React.ReactNode;
+  afterContent: React.ReactNode;
 }
 
 /**
