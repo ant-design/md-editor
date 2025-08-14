@@ -14,10 +14,6 @@ import { HistoryIcon } from '../icons/HistoryIcon';
 import { ActionIconBox, BubbleConfigContext, useRefFunction } from '../index';
 import { WhiteBoxProcessInterface } from '../ThoughtChainList';
 
-if (dayjs.extend) {
-  dayjs.extend(require('dayjs/plugin/relativeTime'));
-}
-
 const formatTime = (time: number | string) => {
   //如果是今天
   if (dayjs().isSame(dayjs(time), 'day')) {
@@ -30,7 +26,7 @@ const formatTime = (time: number | string) => {
     return '一周内';
   }
   //@ts-ignore 如果是昨天
-  return dayjs(time).fromNow();
+  return dayjs(time)?.fromNow?.();
 };
 
 const groupByCategory = (list: any[], key: (item: any) => string) => {
