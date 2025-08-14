@@ -17,7 +17,7 @@ export * from './BubbleConfigProvide';
 export * from './MessagesContent/BubbleContext';
 export * from './type';
 
-const runRender = (
+export const runRender = (
   render: any,
   props: BubbleProps,
   defaultDom:

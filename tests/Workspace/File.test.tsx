@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
-import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { File } from '../../src/Workspace/File';
 import type { FileNode, GroupNode } from '../../src/Workspace/types';
 
@@ -86,4 +86,4 @@ describe('Workspace File 组件', () => {
     fireEvent.click(txtPreviewBtn);
     expect(onPreview).toHaveBeenCalled();
   });
-}); 
+});

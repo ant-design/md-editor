@@ -50,6 +50,10 @@ export interface MarkdownPreviewProps {
   style?: React.CSSProperties;
   originData?: MessageBubbleData;
   markdownRenderConfig?: MarkdownEditorProps;
+  /** 在 content 前面插入的 DOM 元素，例如: <div>前置内容</div> */
+  beforeContent?: React.ReactNode;
+  /** 在 content 后面插入的 DOM 元素，例如: <div>后置内容</div> */
+  afterContent?: React.ReactNode;
 }
 
 /**
@@ -66,6 +70,8 @@ export interface MarkdownPreviewProps {
  * @param {boolean} props.isFinished - 内容是否已完成
  * @param {boolean} props.slidesMode - 是否为幻灯片模式
  * @param {() => void} props.onCloseSlides - 关闭幻灯片模式的回调函数
+ * @param {ReactNode} props.beforeContent - 在 content 前面插入的 DOM 元素
+ * @param {ReactNode} props.afterContent - 在 content 后面插入的 DOM 元素
  *
  * @description
  * 这是一个用于渲染 Markdown 内容的预览组件。它支持以下功能：
@@ -76,6 +82,7 @@ export interface MarkdownPreviewProps {
  * - 支持 Apaasify 自定义渲染
  * - 支持紧凑模式和标准模式
  * - 支持弹出层展示额外内容
+ * - 支持在 content 前后插入自定义 DOM 元素
  *
  * @example
  * ```tsx
@@ -83,6 +90,8 @@ export interface MarkdownPreviewProps {
  *   content="# Hello World"
  *   typing={false}
  *   htmlRef={ref}
+ *   beforeContent={<div>前置内容</div>}
+ *   afterContent={<div>后置内容</div>}
  * />
  * ```
  */
@@ -97,6 +106,8 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
     isFinished,
     slidesMode,
     onCloseSlides,
+    beforeContent,
+    afterContent,
   } = props;
   const MarkdownEditorRef = React.useRef<MarkdownEditorInstance | undefined>(
     undefined,
@@ -218,8 +229,10 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
       }}
     >
       <ErrorBoundary fallback={errorDom}>
+        {beforeContent}
         {markdown}
         {docListNode}
+        {afterContent}
       </ErrorBoundary>
       {extra}
     </div>

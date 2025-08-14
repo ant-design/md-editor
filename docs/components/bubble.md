@@ -90,17 +90,19 @@ Bubble 组件是一个用于显示聊天消息的气泡组件，支持多种消�
 
 ### BubbleRenderConfig
 
-| 参数                | 说明                 | 类型                                                                                                                                                                      | 默认值 |
-| ------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| titleRender         | 标题渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| contentRender       | 内容渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| contentAfterRender  | 内容后渲染函数       | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| contentBeforeRender | 内容前渲染函数       | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| avatarRender        | 头像渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| extraRender         | 额外内容渲染函数     | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| extraRightRender    | 右侧额外内容渲染函数 | `BubbleExtraProps['render']`                                                                                                                                              | -      |
-| render              | 整体渲染函数         | `WithFalse<(props: BubbleProps<T>, domsMap: { avatar: ReactNode; title: ReactNode; messageContent: ReactNode; itemDom: ReactNode }, defaultDom: ReactNode) => ReactNode>` | -      |
-| customConfig        | 自定义配置           | `CustomConfig`                                                                                                                                                            | -      |
+| 参数                | 说明                   | 类型                                                                                                                                                                      | 默认值 |
+| ------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| titleRender         | 标题渲染函数           | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| contentRender       | 内容渲染函数           | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| contentAfterRender  | 内容后渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| contentBeforeRender | 内容前渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| afterContentRender  | afterContent 渲染函数  | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| beforeContentRender | beforeContent 渲染函数 | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| avatarRender        | 头像渲染函数           | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| extraRender         | 额外内容渲染函数       | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
+| extraRightRender    | 右侧额外内容渲染函数   | `BubbleExtraProps['render']`                                                                                                                                              | -      |
+| render              | 整体渲染函数           | `WithFalse<(props: BubbleProps<T>, domsMap: { avatar: ReactNode; title: ReactNode; messageContent: ReactNode; itemDom: ReactNode }, defaultDom: ReactNode) => ReactNode>` | -      |
+| customConfig        | 自定义配置             | `CustomConfig`                                                                                                                                                            | -      |
 
 ### BubbleList
 
@@ -194,6 +196,70 @@ const customExtraRender = (props, defaultDom) => {
 - `extraRender` 只在左侧消息（AI回复）中生效，右侧消息（用户消息）不会显示额外操作区域
 - 当设置 `extraRender: false` 时，会完全禁用额外操作区域
 - 在异常状态下，自定义的 `extraRender` 仍然会生效
+
+### afterContentRender 和 beforeContentRender 自定义内容前后渲染
+
+`afterContentRender` 和 `beforeContentRender` 功能允许您在消息内容的前后添加自定义内容，这些内容会直接插入到 Markdown 内容的前后。
+
+#### 使用示例
+
+```tsx | pure
+// 自定义 beforeContentRender 和 afterContentRender 函数
+const customBeforeContentRender = (props, defaultDom) => {
+  return (
+    <div
+      style={{
+        padding: '8px 12px',
+        background: '#f5f5f5',
+        borderRadius: '6px',
+        marginBottom: '8px',
+        fontSize: '12px',
+        color: '#666',
+      }}
+    >
+      📝 消息创建时间: {new Date(props.originData?.createAt).toLocaleString()}
+    </div>
+  );
+};
+
+const customAfterContentRender = (props, defaultDom) => {
+  return (
+    <div
+      style={{
+        padding: '8px 12px',
+        background: '#e6f7ff',
+        borderRadius: '6px',
+        marginTop: '8px',
+        fontSize: '12px',
+        color: '#1890ff',
+      }}
+    >
+      ✅ 消息状态: {props.originData?.isFinished ? '已完成' : '生成中...'}
+    </div>
+  );
+};
+
+// 使用配置
+<Bubble
+  originData={messageData}
+  bubbleRenderConfig={{
+    beforeContentRender: customBeforeContentRender, // 内容前渲染
+    afterContentRender: customAfterContentRender, // 内容后渲染
+  }}
+/>;
+```
+
+#### 参数说明
+
+- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
+- `defaultDom: ReactNode` - 默认为 `null`，可以忽略
+
+#### 注意事项
+
+- `beforeContentRender` 和 `afterContentRender` 只在左侧消息（AI回复）中生效
+- 当设置为 `false` 时，不会渲染任何内容
+- 这些内容会直接插入到 Markdown 内容的前后，不会影响其他功能
+- 支持返回任何有效的 React 节点，包括组件、HTML 元素等
   | isFinished | 是否完成 | `boolean` | `false` |
   | isAborted | 是否被终止 | `boolean` | `false` |
   | feedback | 用户反馈 | `'thumbsUp' \| 'thumbsDown' \| 'none'` | - |

@@ -145,6 +145,32 @@ export const BubbleMessageDisplay: React.FC<
     return node;
   });
 
+  const typing = useMemo(() => {
+    return (
+      props.originData?.isAborted !== true &&
+      props.originData?.isFinished === false &&
+      props?.originData?.extra?.isHistory === undefined &&
+      props.originData?.isFinished !== undefined
+    );
+  }, [
+    props.originData?.isAborted,
+    props.originData?.isFinished,
+    props.originData?.extra?.isHistory,
+  ]);
+
+  // 处理 beforeContent 和 afterContent
+  const beforeContent = useMemo(() => {
+    return props.bubbleRenderConfig?.beforeContentRender
+      ? props.bubbleRenderConfig.beforeContentRender(props, null)
+      : null;
+  }, [props.bubbleRenderConfig?.beforeContentRender]);
+
+  const afterContent = useMemo(() => {
+    return props.bubbleRenderConfig?.afterContentRender
+      ? props.bubbleRenderConfig.afterContentRender(props, null)
+      : null;
+  }, [props.bubbleRenderConfig?.afterContentRender]);
+
   const memo = useMemo(() => {
     if (
       content === LOADING_FLAT ||
@@ -298,16 +324,13 @@ export const BubbleMessageDisplay: React.FC<
         />
       );
     }
-    const typing =
-      props.originData?.isAborted !== true &&
-      props.originData?.isFinished === false &&
-      props?.originData?.extra?.isHistory === undefined &&
-      props.originData?.isFinished !== undefined;
 
     return (
       <MarkdownPreview
         markdownRenderConfig={props.markdownRenderConfig}
         isFinished={props.originData?.isFinished}
+        beforeContent={beforeContent}
+        afterContent={afterContent}
         fncProps={{
           render: (mdProps, _) => {
             const reference_url_info_list =
@@ -467,6 +490,8 @@ export const BubbleMessageDisplay: React.FC<
     slidesMode,
     isExtraNull,
     props.deps,
+    props.bubbleRenderConfig?.beforeContentRender,
+    props.bubbleRenderConfig?.afterContentRender,
   ]);
 
   return memo;
