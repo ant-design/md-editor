@@ -71,7 +71,7 @@ export function useEditorStyleRegister(
   };
   const { getPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
 
-  chatToken.chatCls = `.${getPrefixCls('md-editor')}`;
+  chatToken.chatCls = `.${getPrefixCls('@ant-design/md-editor')}`;
   chatToken.antCls = `.${getPrefixCls()}`;
   if (!CSS_VAR_INSERT) {
     CSS_VAR_INSERT = true;

@@ -33,6 +33,7 @@ export type {
   WorkspaceProps,
 } from './Workspace/types';
 // HTML to Markdown conversion utilities
+export * from './History';
 export {
   batchHtmlToMarkdown,
   cleanHtml,

@@ -1,0 +1,59 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <h3>
+        当前会话ID: session-1
+      </h3>
+      <span
+        aria-describedby="test-id"
+        aria-label="历史记录"
+        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-noPadding"
+        role="button"
+        style="color: rgb(102, 111, 141); width: 24px; height: 24px;"
+        tabindex="0"
+      >
+        <div
+          class="ant-dropdown-trigger"
+          data-testid="history-button"
+          style="display: flex; padding: 4px; align-items: center; font-size: 0.85em;"
+        >
+          <svg
+            fill="none"
+            height="1em"
+            version="1.1"
+            viewBox="0 0 14 14"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g>
+              <g>
+                <path
+                  d="M11.9497,11.9497Q14,9.89949,14,7Q14,4.10051,11.9497,2.05025Q9.89949,-5.68953e-8,7,0Q4.1005,-2.84477e-7,2.05025,2.05025Q1.70686e-7,4.1005,0,7Q-2.84477e-7,9.89949,2.05025,11.9497Q4.10051,14,7,14Q9.89949,14,11.9497,11.9497ZM11.0498,2.95021Q12.7273,4.62769,12.7273,7Q12.7273,9.37231,11.0498,11.0498Q9.37231,12.7273,7,12.7273Q4.62769,12.7273,2.95021,11.0498Q1.27273,9.37232,1.27273,7Q1.27273,4.62769,2.95021,2.95021Q4.62769,1.27273,7,1.27273Q9.37232,1.27273,11.0498,2.95021Z"
+                  fill="currentColor"
+                  fill-opacity="1"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  d="M8.955748828125,7.87163765625L6.622495828125,6.70501765625L6.300048828125,6.18328765625L6.300048828125,2.6834096562500003C6.300048828125,2.36125565625,6.561206828125,2.10009765625,6.883360828125,2.10009765625C7.205514828125,2.10009765625,7.466668828125,2.36125565625,7.466668828125,2.6834096562500003L7.466668828125,5.82277765625L9.477478828125001,6.82817765625C9.765618828125,6.97224765625,9.882408828125,7.32262765625,9.738338828125,7.61076765625C9.594268828125,7.89891765625,9.243888828125,8.015707656250001,8.955748828125,7.87163765625Z"
+                  fill="currentColor"
+                  fill-opacity="1"
+                  fill-rule="evenodd"
+                />
+              </g>
+            </g>
+          </svg>
+        </div>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>

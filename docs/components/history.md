@@ -1,0 +1,140 @@
+---
+title: History 历史记录
+group:
+  title: 数据展示
+  order: 4
+---
+
+# History 历史记录
+
+History 组件用于显示和管理聊天历史记录，支持两种显示模式：下拉菜单模式和独立菜单模式。组件提供历史会话的查看、选择和删除功能。
+
+## 代码演示
+
+### 基础用法
+
+展示基本的历史记录下拉菜单功能。
+
+<code src="../demos/history-basic.tsx">基础用法</code>
+
+### 独立菜单模式
+
+使用 `standalone` 属性直接显示历史记录菜单。
+
+<code src="../demos/history-standalone.tsx">独立菜单模式</code>
+
+### 自定义日期格式化和分组
+
+使用 `customDateFormatter` 和 `groupBy` 属性自定义日期显示和分组逻辑。
+
+<code src="../demos/history-custom.tsx">自定义日期格式化和分组</code>
+
+### 自定义额外内容
+
+使用 `extra` 属性为每个历史记录项添加自定义内容。
+
+<code src="../demos/history-extra.tsx">自定义额外内容</code>
+
+## API
+
+### History
+
+| 参数                | 说明                             | 类型                                                                               | 默认值  |
+| ------------------- | -------------------------------- | ---------------------------------------------------------------------------------- | ------- |
+| agentId             | 代理ID，用于获取历史记录         | `string`                                                                           | -       |
+| sessionId           | 会话ID，变更时会触发数据重新获取 | `string`                                                                           | -       |
+| request             | 请求函数，用于获取历史数据       | `(params: { agentId: string }) => Promise<HistoryDataType[]>`                      | -       |
+| standalone          | 是否以独立模式显示               | `boolean`                                                                          | `false` |
+| onInit              | 组件初始化时的回调函数           | `() => void`                                                                       | -       |
+| onShow              | 组件显示时的回调函数             | `() => void`                                                                       | -       |
+| onSelected          | 选择历史记录项时的回调函数       | `(sessionId: string) => void`                                                      | -       |
+| onDeleteItem        | 删除历史记录项时的回调函数       | `(sessionId: string) => void`                                                      | -       |
+| customDateFormatter | 自定义日期格式化函数             | `(date: number \| string \| Date) => string`                                       | -       |
+| groupBy             | 自定义分组函数                   | `(item: HistoryDataType) => string`                                                | -       |
+| extra               | 自定义额外内容渲染函数           | `(item: HistoryDataType) => React.ReactElement`                                    | -       |
+| sessionSort         | 自定义排序函数或禁用排序         | `((pre: HistoryDataType, current: HistoryDataType) => number \| boolean) \| false` | -       |
+
+### HistoryDataType
+
+| 参数            | 说明         | 类型               | 默认值 |
+| --------------- | ------------ | ------------------ | ------ |
+| id              | 会话记录ID   | `number \| string` | -      |
+| tenantId        | 租户ID       | `string`           | -      |
+| sessionTitle    | 会话标题     | `React.ReactNode`  | -      |
+| agentId         | AI代理ID     | `string`           | -      |
+| sessionId       | 会话唯一标识 | `string`           | -      |
+| gmtCreate       | 记录创建时间 | `number \| string` | -      |
+| gmtLastConverse | 最近对话时间 | `number \| string` | -      |
+
+### HistoryChatType
+
+| 参数            | 说明         | 类型                                                                                                        | 默认值 |
+| --------------- | ------------ | ----------------------------------------------------------------------------------------------------------- | ------ |
+| feedback        | 问答对状态   | `'median' \| 'thumbsUp' \| 'thumbsDown'`                                                                    | -      |
+| tenantId        | 租户ID       | `string`                                                                                                    | -      |
+| agentId         | AI代理ID     | `string`                                                                                                    | -      |
+| questionContent | 提问内容     | `{ role?: string; content?: string; contentType?: string }`                                                 | -      |
+| answerContent   | 回答内容     | `{ role?: string; content?: string; contentType?: string; white_box_process?: WhiteBoxProcessInterface[] }` | -      |
+| sessionId       | 会话唯一标识 | `string`                                                                                                    | -      |
+| clientId        | 客户ID       | `string`                                                                                                    | -      |
+| gmtCreate       | 记录创建时间 | `string \| number`                                                                                          | -      |
+
+## 功能特性
+
+### 显示模式
+
+- **下拉菜单模式**（默认）：显示为一个可点击的历史图标，点击后显示下拉菜单
+- **独立菜单模式**：直接显示为菜单列表，适用于侧边栏等场景
+
+### 数据分组
+
+- 默认按日期分组（今日、昨日、一周内、更早）
+- 支持自定义分组逻辑
+- 每组内按时间倒序排列
+
+### 交互功能
+
+- **查看历史**：点击历史记录项可切换到对应会话
+- **删除记录**：鼠标悬停显示删除按钮，支持确认删除
+- **自定义操作**：通过 `extra` 属性添加自定义按钮或标签
+
+### 样式定制
+
+组件使用了 Ant Design 的 Menu 组件，可以通过以下方式定制样式：
+
+```tsx | pure
+// 通过 ConfigProvider 定制主题
+<ConfigProvider
+  theme={{
+    components: {
+      Menu: {
+        colorBgTextHover: '#F0F2F5',
+        itemBorderRadius: 2,
+        itemSelectedBg: '#F0F2F5',
+      },
+    },
+  }}
+>
+  <History {...props} />
+</ConfigProvider>
+```
+
+### 国际化支持
+
+组件支持国际化，通过 `BubbleConfigContext` 提供以下文案：
+
+```ts | pure
+{
+  'chat.history': '历史记录',
+  'chat.history.delete': '删除',
+  'chat.history.delete.popconfirm': '确定删除该消息吗？'
+}
+```
+
+## 注意事项
+
+1. **请求函数**：`request` 函数必须返回 `Promise<HistoryDataType[]>`，用于获取历史数据
+2. **会话ID**：`sessionId` 变更时会自动重新获取数据
+3. **删除功能**：需要提供 `onDeleteItem` 回调函数才能启用删除功能
+4. **独立模式**：在独立模式下，组件直接渲染菜单，不包含下拉触发器
+5. **性能优化**：大量历史记录时建议实现虚拟滚动或分页加载
