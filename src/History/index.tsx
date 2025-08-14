@@ -355,47 +355,48 @@ export const History: React.FC<HistoryProps> = (props) => {
   }
 
   return (
-    <ActionIconBox
-      key="history"
-      style={{
-        color: '#666F8D',
-        width: 24,
-        height: 24,
+    <Dropdown
+      open={open}
+      onOpenChange={setOpen}
+      menu={{
+        items: items,
+        className: menuPrefixCls,
+        style: {
+          maxHeight: 'min(480px,100%)',
+          overflow: 'auto',
+          maxWidth: 'min(480px,100%)',
+          borderRadius: 'inherit',
+          border: '1px solid #f0f2f5',
+        },
       }}
-      noPadding
-      title={locale?.['chat.history'] || '历史记录'}
+      getPopupContainer={(p) => {
+        return p.parentElement || document.body;
+      }}
+      trigger={['click']}
     >
-      <Dropdown
-        open={open}
-        onOpenChange={setOpen}
-        menu={{
-          items: items,
-          className: menuPrefixCls,
-          style: {
-            maxHeight: 'min(480px,100%)',
-            overflow: 'auto',
-            borderRadius: 'inherit',
-            border: '1px solid #f0f2f5',
-          },
+      <div
+        ref={containerRef}
+        style={{
+          display: 'flex',
+          padding: 4,
+          alignItems: 'center',
+          fontSize: '0.85em',
         }}
-        getPopupContainer={(p) => {
-          return p.parentElement || document.body;
-        }}
-        trigger={['click']}
+        data-testid="history-button"
       >
-        <div
-          ref={containerRef}
+        <ActionIconBox
+          key="history"
           style={{
-            display: 'flex',
-            padding: 4,
-            alignItems: 'center',
-            fontSize: '0.85em',
+            color: '#666F8D',
+            width: 24,
+            height: 24,
           }}
-          data-testid="history-button"
+          noPadding
+          title={locale?.['chat.history'] || '历史记录'}
         >
           <HistoryIcon />
-        </div>
-      </Dropdown>
-    </ActionIconBox>
+        </ActionIconBox>
+      </div>
+    </Dropdown>
   );
 };

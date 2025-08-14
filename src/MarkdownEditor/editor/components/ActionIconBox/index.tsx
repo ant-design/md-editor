@@ -70,7 +70,6 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
           [`${prefixCls}-noPadding`]: props.noPadding,
         })}
         onClick={async (e) => {
-          e.stopPropagation();
           e.preventDefault();
           if (!props.onClick) return;
           if (loading) return;
