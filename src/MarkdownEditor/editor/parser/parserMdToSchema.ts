@@ -10,10 +10,7 @@ export type ParserResult = {
 const transformResult = (result: ParserResult) => {
   return {
     schema: result.schema?.filter((s) => {
-      if (
-        (s as CodeNode).language === 'html' &&
-        (s as CodeNode).otherProps?.inConfig
-      ) {
+      if ((s as CodeNode).language === 'html' && (s as CodeNode)?.isConfig) {
         return false;
       }
       if (!s.type && !(s as any)?.text) {

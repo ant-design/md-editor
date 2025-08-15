@@ -4,8 +4,8 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Node, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
-import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import DOMPurify from 'dompurify';
+import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import {
   ReactEditor,
   RenderElementProps,
@@ -254,7 +254,9 @@ const MElementComponent = (
               display: props.element?.otherProps?.isConfig ? 'none' : 'block',
             }}
           >
-            {DOMPurify.sanitize(props.element?.value?.trim())}
+            {props.element?.otherProps?.isConfig
+              ? ''
+              : DOMPurify.sanitize(props.element?.value?.trim())}
           </div>
         );
       }

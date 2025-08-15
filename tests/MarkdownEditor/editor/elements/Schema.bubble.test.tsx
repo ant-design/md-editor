@@ -261,7 +261,7 @@ describe('Schema - BubbleConfigContext 功能', () => {
     // 初始调用
     expect(mockApaasifyRender).toHaveBeenCalledTimes(1);
     const [, initialBubbleArg] = mockApaasifyRender.mock.calls[0];
-    expect(initialBubbleArg.originData.uuid).toBe(111);
+    expect(initialBubbleArg.uuid).toBe(111);
 
     // 更新 bubble context
     rerender(
@@ -285,7 +285,7 @@ describe('Schema - BubbleConfigContext 功能', () => {
     // 验证 render 函数被再次调用，且接收到更新的 bubble 数据
     expect(mockApaasifyRender).toHaveBeenCalledTimes(2);
     const [, updatedBubbleArg] = mockApaasifyRender.mock.calls[1];
-    expect(updatedBubbleArg.originData.uuid).toBe(222);
+    expect(updatedBubbleArg.uuid).toBe(222);
   });
 
   it('应该兼容旧的 apassify 配置', () => {
@@ -324,7 +324,7 @@ describe('Schema - BubbleConfigContext 功能', () => {
     expect(mockApassifyRender).toHaveBeenCalled();
     const [propsArg, bubbleArg] = mockApassifyRender.mock.calls[0];
     expect(propsArg).toBeDefined();
-    expect(bubbleArg).toEqual(mockBubbleData);
+    expect(bubbleArg).toEqual(mockBubbleData.originData);
 
     expect(screen.getByTestId('apassify-legacy')).toBeInTheDocument();
   });
@@ -435,8 +435,8 @@ describe('Schema - BubbleConfigContext 功能', () => {
     // 验证复杂数据结构被正确传递
     expect(mockApaasifyRender).toHaveBeenCalled();
     const [, bubbleArg] = mockApaasifyRender.mock.calls[0];
-    expect(bubbleArg).toEqual(complexBubbleData);
-    expect(bubbleArg.originData.meta).toEqual({
+    expect(bubbleArg).toEqual(complexBubbleData.originData);
+    expect(bubbleArg.meta).toEqual({
       source: 'test',
       confidence: 0.95,
     });

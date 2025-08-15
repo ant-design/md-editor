@@ -1,5 +1,5 @@
 /**
- * Schema 组件扩展测试文件 
+ * Schema 组件扩展测试文件
  * 测试新增的 BubbleConfigContext 使用和 apaasify.render 中 bubble 参数传递功能
  */
 
@@ -111,7 +111,7 @@ describe('Schema - BubbleConfigContext 功能', () => {
     const [propsArg, bubbleArg] = mockApaasifyRender.mock.calls[0];
     expect(propsArg).toBeDefined();
     expect(propsArg.element).toEqual(mockElement);
-    expect(bubbleArg).toEqual(mockBubbleData);
+    expect(bubbleArg).toEqual(mockBubbleData.originData);
 
     // 验证渲染结果
     expect(screen.getByTestId('apaasify-rendered')).toBeInTheDocument();
@@ -120,9 +120,9 @@ describe('Schema - BubbleConfigContext 功能', () => {
   });
 
   it('应该在没有 bubble context 时正常工作', () => {
-    const mockApaasifyRender = vi.fn().mockReturnValue(
-      <div data-testid="apaasify-no-bubble">No Bubble</div>,
-    );
+    const mockApaasifyRender = vi
+      .fn()
+      .mockReturnValue(<div data-testid="apaasify-no-bubble">No Bubble</div>);
 
     const mockEditorStore = {
       editorProps: {

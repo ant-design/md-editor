@@ -92,23 +92,11 @@
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    普通文本  
+            普通文本  
 **粗体文本**  
 *斜体文本*  
 ~~删除线文本~~  
@@ -119,11 +107,7 @@ x^2^ 上标
 &gt; 引用文本  
 [超链接](https://example.com)  
 👉 特殊符号支持
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -146,23 +130,11 @@ x^2^ 上标
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    首行缩进可通过CSS实现，或使用特殊空格：  缩进文本
+            首行缩进可通过CSS实现，或使用特殊空格：  缩进文本
 
 有序列表：
 1. 一级项目
@@ -173,11 +145,7 @@ x^2^ 上标
 任务列表：
 - [x] 已完成任务
 - [ ] 待完成任务
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -200,30 +168,14 @@ x^2^ 上标
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    原生支持emoji：🚀 ✅ ❤️  
+            原生支持emoji：🚀 ✅ ❤️  
 Font Awesome图标：:fa-solid fa-rocket:  
 自定义图标：:custom-icon:
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -1140,23 +1092,11 @@ end{bmatrix}
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    // 可交互代码组件
+            // 可交互代码组件
 function Counter() {
   const [count, setCount] = useState(0);
   
@@ -1169,11 +1109,7 @@ function Counter() {
     &lt;/div&gt;
   );
 }
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -1218,29 +1154,13 @@ function Counter() {
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    [生成目录]
+            [生成目录]
 maxLevel: 3
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -1263,23 +1183,18 @@ maxLevel: 3
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="display: block;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    # 编辑器配置示例
+            &lt;details&gt;
+&lt;summary&gt;高级配置选项&lt;/summary&gt;&lt;/details&gt;
+          </div>
+          <div
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
+          >
+            # 编辑器配置示例
 render:
   strategy: incremental
   maxLines: 10000
@@ -1291,11 +1206,11 @@ extensions:
     version: 2.3.1
   - name: git-integration
     version: 1.8.2
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
+          <div
+            data-slate-node="element"
+            style="display: block;"
+          />
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -1752,32 +1667,16 @@ extensions:
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    format: glb
+            format: glb
 source: https://example.com/3d/editor.glb
 camera:
   position: [0, 2, 5]
   target: [0, 0, 0]
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -1800,29 +1699,13 @@ camera:
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    source: https://example.com/audio/note.mp3
+            source: https://example.com/audio/note.mp3
 title: 功能说明
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -1867,32 +1750,16 @@ title: 功能说明
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    // 代码变更示例
+            // 代码变更示例
 function calculate(a, b) {
 -   return a + b;
 +   return a * b;
 }
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -1915,34 +1782,18 @@ function calculate(a, b) {
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    status: in-progress
+            status: in-progress
 reviewers:
   - name: 张三
     role: 技术主管
   - name: 李四
     role: 产品经理
 deadline: 2023-12-31
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -2507,23 +2358,11 @@ deadline: 2023-12-31
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    method: GET
+            method: GET
 path: /api/v1/document/{id}
 description: 获取文档内容
 parameters:
@@ -2538,11 +2377,7 @@ response:
       type: string
     content:
       type: string
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -3513,31 +3348,15 @@ response:
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    levels:
+            levels:
   - PUBLIC: 所有用户可见
   - INTERNAL: 仅内部成员可见
   - CONFIDENTIAL: 仅核心团队可见
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -3560,29 +3379,13 @@ response:
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    creditCard: **** **** **** 1234
+            creditCard: **** **** **** 1234
 apiKey: sk_live_••••••••••••••••••••••••••••••
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -3627,23 +3430,11 @@ apiKey: sk_live_•••••••••••••••••••••�
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    breakpoints:
+            breakpoints:
   - viewport: &lt; 768px
     components:
       - hide: sidebar
@@ -3652,11 +3443,7 @@ apiKey: sk_live_•••••••••••••••••••••�
     components:
       - hide: footer
       - resize: images(80%)
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -3679,33 +3466,17 @@ apiKey: sk_live_•••••••••••••••••••••�
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    light:
+            light:
   background: #ffffff
   text: #333333
 dark:
   background: #1e1e1e
   text: #f0f0f0
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -3750,32 +3521,16 @@ dark:
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    metrics:
+            metrics:
   completeness: 85%
   freshness: 92% 
   brokenLinks: 2
   readability: Grade 10
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
@@ -3798,31 +3553,15 @@ dark:
               </span>
             </span>
           </div>
-          <pre
+          <div
             data-slate-node="element"
-            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
           >
-            <code>
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    [核心架构] --&gt; [扩展系统]
+            [核心架构] --&gt; [扩展系统]
 [扩展系统] --&gt; [插件API]
 [性能优化] --&gt; [核心架构]
 [用户手册] --&gt; [所有模块]
-                  </span>
-                </span>
-              </span>
-            </code>
-          </pre>
+          </div>
           <div
             class="select-none"
             contenteditable="false"

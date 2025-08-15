@@ -2414,6 +2414,91 @@ maxLevel: 3
                   class="ace-el drag-el"
                   contenteditable="false"
                   data-be="code"
+                  data-lang="html"
+                  data-testid="code-container"
+                  tabindex="-1"
+                >
+                  <div
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
+                  >
+                    <div
+                      class="ace-container drag-el "
+                      data-testid="code-editor-container"
+                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                    >
+                      <div
+                        contenteditable="false"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
+                      />
+                      <div
+                        data-testid="ace-editor-container"
+                        style="height: 200px; line-height: 22px;"
+                      />
+                      <div
+                        data-testid="code-content-copy"
+                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                      >
+                        &lt;details&gt; &lt;summary&gt;高级配置选项&lt;/summary&gt;
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              &lt;details&gt;
+&lt;summary&gt;高级配置选项&lt;/summary&gt;
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-card ant-card-bordered ant-card-hoverable"
+            style="margin-bottom: 24px;"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  code
+                </div>
+                <div
+                  class="ant-card-extra"
+                >
+                  <a
+                    href="#"
+                  >
+                    More
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ace-el drag-el"
+                  contenteditable="false"
+                  data-be="code"
                   data-lang="yaml"
                   data-testid="code-container"
                   tabindex="-1"
@@ -2463,6 +2548,90 @@ extensions:
     version: 2.3.1
   - name: git-integration
     version: 1.8.2
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-card ant-card-bordered ant-card-hoverable"
+            style="margin-bottom: 24px;"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  code
+                </div>
+                <div
+                  class="ant-card-extra"
+                >
+                  <a
+                    href="#"
+                  >
+                    More
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ace-el drag-el"
+                  contenteditable="false"
+                  data-be="code"
+                  data-lang="html"
+                  data-testid="code-container"
+                  tabindex="-1"
+                >
+                  <div
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
+                  >
+                    <div
+                      class="ace-container drag-el "
+                      data-testid="code-editor-container"
+                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                    >
+                      <div
+                        contenteditable="false"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
+                      />
+                      <div
+                        data-testid="ace-editor-container"
+                        style="height: 200px; line-height: 22px;"
+                      />
+                      <div
+                        data-testid="code-content-copy"
+                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                      >
+                        &lt;/details&gt;
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              &lt;/details&gt;
                             </span>
                           </span>
                         </span>
