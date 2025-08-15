@@ -3,6 +3,7 @@
  * 封装代码编辑器的所有渲染逻辑
  */
 
+import DOMPurify from 'dompurify';
 import React, { useMemo } from 'react';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { CodeNode, ElementProps } from '../../../MarkdownEditor/el';
@@ -94,6 +95,19 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     // 只读模式下的思考块特殊渲染
     if (shouldRenderAsThinkBlock) {
       return <ThinkBlock element={props.element} />;
+    }
+
+    if (props.element?.language === 'html' && readonly) {
+      return (
+        <div
+          {...props.attributes}
+          style={{
+            display: props.element?.otherProps?.isConfig ? 'none' : 'block',
+          }}
+        >
+          {DOMPurify.sanitize(props.element?.value?.trim())}
+        </div>
+      );
     }
 
     // 主要的代码编辑器渲染

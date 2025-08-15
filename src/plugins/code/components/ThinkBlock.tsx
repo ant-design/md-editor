@@ -16,14 +16,14 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
       data-testid="think-block"
       style={{
         color: '#8b8b8b',
-        whiteSpace: 'pre-wrap',
+        lineHeight: '1.25',
         margin: 0,
         borderLeft: '2px solid #e5e5e5',
         paddingLeft: '1em',
         fontFamily: 'Monaco, Consolas, monospace',
       }}
     >
-      {element?.value}
+      {element?.value?.trim?.()}
     </div>
   );
 }
