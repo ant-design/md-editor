@@ -11,6 +11,11 @@ interface ThinkBlockProps {
 }
 
 export function ThinkBlock({ element }: ThinkBlockProps) {
+  const content =
+    element?.value !== null && element?.value !== undefined
+      ? String(element.value).trim()
+      : '';
+
   return (
     <div
       data-testid="think-block"
@@ -21,9 +26,10 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
         borderLeft: '2px solid #e5e5e5',
         paddingLeft: '1em',
         fontFamily: 'Monaco, Consolas, monospace',
+        whiteSpace: 'pre-wrap',
       }}
     >
-      {element?.value?.trim?.()}
+      {content}
     </div>
   );
 }

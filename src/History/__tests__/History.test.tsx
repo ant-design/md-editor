@@ -397,7 +397,7 @@ describe('History Component', () => {
     });
   });
 
-  describe('SessionId Changes', () => {
+  describe('SessionId Changes', async () => {
     it('should reload data when sessionId changes', () => {
       const { rerender } = render(
         <TestWrapper>
@@ -415,8 +415,10 @@ describe('History Component', () => {
         </TestWrapper>,
       );
 
+      await waitFor(() => {
+        expect(mockRequest).toHaveBeenCalled();
+      });
       // 应该重新调用请求
-      expect(mockRequest).toHaveBeenCalled();
     });
   });
 });

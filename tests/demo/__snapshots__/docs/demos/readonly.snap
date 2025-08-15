@@ -1460,57 +1460,10 @@ maxLevel: 3
           </div>
           <div
             data-slate-node="element"
+            style="display: block;"
           >
-            <div
-              class="ace-el drag-el"
-              contenteditable="false"
-              data-be="code"
-              data-lang="html"
-              data-testid="code-container"
-              tabindex="-1"
-            >
-              <div
-                contenteditable="false"
-                style="background-color: transparent; user-select: none;"
-              >
-                <div
-                  class="ace-container drag-el "
-                  data-testid="code-editor-container"
-                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
-                >
-                  <div
-                    contenteditable="false"
-                    style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
-                  />
-                  <div
-                    data-testid="ace-editor-container"
-                    style="height: 200px; line-height: 22px;"
-                  />
-                  <div
-                    data-testid="code-content-copy"
-                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                  >
-                    &lt;details&gt; &lt;summary&gt;高级配置选项&lt;/summary&gt;
-                    <span
-                      data-slate-node="text"
-                    >
-                      <span
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
-                      >
-                        <span
-                          data-slate-string="true"
-                        >
-                          &lt;details&gt;
-&lt;summary&gt;高级配置选项&lt;/summary&gt;
-                        </span>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            &lt;details&gt;
+&lt;summary&gt;高级配置选项&lt;/summary&gt;&lt;/details&gt;
           </div>
           <div
             data-slate-node="element"
@@ -1578,57 +1531,8 @@ extensions:
           </div>
           <div
             data-slate-node="element"
-          >
-            <div
-              class="ace-el drag-el"
-              contenteditable="false"
-              data-be="code"
-              data-lang="html"
-              data-testid="code-container"
-              tabindex="-1"
-            >
-              <div
-                contenteditable="false"
-                style="background-color: transparent; user-select: none;"
-              >
-                <div
-                  class="ace-container drag-el "
-                  data-testid="code-editor-container"
-                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
-                >
-                  <div
-                    contenteditable="false"
-                    style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
-                  />
-                  <div
-                    data-testid="ace-editor-container"
-                    style="height: 200px; line-height: 22px;"
-                  />
-                  <div
-                    data-testid="code-content-copy"
-                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                  >
-                    &lt;/details&gt;
-                    <span
-                      data-slate-node="text"
-                    >
-                      <span
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
-                      >
-                        <span
-                          data-slate-string="true"
-                        >
-                          &lt;/details&gt;
-                        </span>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            style="display: block;"
+          />
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
