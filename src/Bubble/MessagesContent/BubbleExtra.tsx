@@ -150,6 +150,7 @@ export type BubbleExtraProps = {
    * @param defaultDoms - 默认的操作按钮 DOM 节点
    * @returns 自定义的额外操作区域 React 节点
    * @optional
+   * @deprecated 此属性当前未被使用，extraRender 功能在 MessagesContent 层级处理
    */
   render?: WithFalse<
     (

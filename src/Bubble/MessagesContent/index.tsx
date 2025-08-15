@@ -239,7 +239,6 @@ export const BubbleMessageDisplay: React.FC<
         <BubbleExtra
           style={props.bubbleListItemExtraStyle}
           readonly={readonly}
-          render={props?.bubbleRenderConfig?.extraRender}
           rightRender={props?.bubbleRenderConfig?.extraRightRender}
           onReply={props.onReply}
           onCancelLike={props.onCancelLike}

@@ -12,25 +12,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { History, HistoryDataType } from '../index';
 
-// Mock dayjs with extend method
-vi.mock('dayjs', () => {
-  const mockDayjs: any = vi.fn(() => ({
-    format: vi.fn().mockReturnValue('2024-01-01'),
-    valueOf: vi.fn().mockReturnValue(1640995200000),
-    isSame: vi.fn().mockReturnValue(false),
-    add: vi.fn().mockReturnThis(),
-    subtract: vi.fn().mockReturnThis(),
-    fromNow: vi.fn().mockReturnValue('a few seconds ago'),
-  }));
-
-  mockDayjs.extend = vi.fn();
-
-  return {
-    __esModule: true,
-    default: mockDayjs,
-  };
-});
-
 // 模拟 SWR
 vi.mock('swr', () => ({
   __esModule: true,
@@ -323,16 +304,12 @@ describe('History Component', () => {
       );
 
       // 等待数据加载完成
-      await waitFor(
-        () => {
-          expect(customDateFormatter).toHaveBeenCalled();
-        },
-        {
-          timeout: 50000,
-        },
-      );
+      await waitFor(() => {
+        expect(screen.getByRole('menu')).toBeInTheDocument();
+      });
 
       // 验证 customDateFormatter 被调用
+      expect(customDateFormatter).toHaveBeenCalled();
     });
 
     it('should use custom groupBy function', async () => {

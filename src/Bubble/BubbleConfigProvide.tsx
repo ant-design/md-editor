@@ -1,6 +1,6 @@
 ﻿import React from 'react';
-import { BubbleProps } from './type';
 import { ThoughtChainListProps } from '../ThoughtChainList';
+import { BubbleProps } from './type';
 
 export type ChatConfigType = {
   agentId?: string;

@@ -1,5 +1,4 @@
 import { TooltipProps } from 'antd';
-import type { MotionProps } from 'framer-motion';
 import { ReactNode } from 'react';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { AttachmentFile } from '../MarkdownInputField/FileMapView';
@@ -350,11 +349,6 @@ export interface BubbleRenderConfig<T = Record<string, any>> {
  */
 export interface BubbleProps<T = Record<string, any>>
   extends BubbleItemStyleProps {
-  /**
-   * 动画配置
-   */
-  animation?: MotionProps;
-
   /**
    * 消息时间
    */

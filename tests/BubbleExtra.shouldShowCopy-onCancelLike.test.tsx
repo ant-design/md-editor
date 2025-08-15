@@ -100,9 +100,6 @@ describe('BubbleExtra - shouldShowCopy and onCancelLike Tests', () => {
       content: 'Test message content',
       createAt: 1716537600000,
       updateAt: 1716537600000,
-      extra: {
-        // 确保 extra 字段存在但没有 answerStatus
-      },
     },
   };
 
