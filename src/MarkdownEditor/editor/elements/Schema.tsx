@@ -13,7 +13,7 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
   const { bubble } = useContext(BubbleConfigContext) || {};
   return useMemo(() => {
     if (apaasify?.enable && apaasify.render) {
-      const renderedContent = apaasify.render(props, bubble);
+      const renderedContent = apaasify.render(props, bubble?.originData);
       return (
         <div
           {...node.attributes}

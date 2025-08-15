@@ -5,6 +5,7 @@ import { Editor, Node, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
+import DOMPurify from 'dompurify';
 import {
   ReactEditor,
   RenderElementProps,
@@ -245,26 +246,45 @@ const MElementComponent = (
         </pre>
       );
     case 'code':
+      if (props.element?.language === 'html') {
+        return (
+          <div
+            {...props.attributes}
+            style={{
+              display: props.element?.otherProps?.isConfig ? 'none' : 'block',
+            }}
+          >
+            {DOMPurify.sanitize(props.element?.value?.trim())}
+          </div>
+        );
+      }
       return (
-        <pre
+        <div
           {...props.attributes}
-          style={{
-            background: 'rgb(242, 241, 241)',
-            color: 'rgb(27, 27, 27)',
-            fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
-            padding: '1em',
-            borderRadius: '0.5em',
-            margin: '1em 0',
-            fontSize: '0.8em',
-            lineHeight: '1.5',
-            overflowX: 'auto',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-all',
-            wordWrap: 'break-word',
-          }}
+          style={
+            props.element?.language === 'html'
+              ? {
+                  display: props.element?.otherProps?.isConfig
+                    ? 'none'
+                    : 'block',
+                }
+              : {
+                  background: 'rgb(242, 241, 241)',
+                  color: 'rgb(27, 27, 27)',
+                  fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
+                  padding: '1em',
+                  borderRadius: '0.5em',
+                  margin: '1em 0',
+                  fontSize: '0.8em',
+                  lineHeight: '1.25',
+                  overflowX: 'auto',
+                  wordBreak: 'break-all',
+                  wordWrap: 'break-word',
+                }
+          }
         >
-          <code>{props.children}</code>
-        </pre>
+          {props.element?.value?.trim() || props.children}
+        </div>
       );
     case 'list-item':
       return <ListItem {...props} />;
