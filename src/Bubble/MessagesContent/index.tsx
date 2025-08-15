@@ -163,13 +163,13 @@ export const BubbleMessageDisplay: React.FC<
     return props.bubbleRenderConfig?.beforeMessageRender
       ? props.bubbleRenderConfig.beforeMessageRender(props, null)
       : null;
-  }, [props.bubbleRenderConfig?.beforeMessageRender]);
+  }, [props.bubbleRenderConfig?.beforeMessageRender, typing, props.originData]);
 
   const afterContent = useMemo(() => {
     return props.bubbleRenderConfig?.afterMessageRender
       ? props.bubbleRenderConfig.afterMessageRender(props, null)
       : null;
-  }, [props.bubbleRenderConfig?.afterMessageRender]);
+  }, [props.bubbleRenderConfig?.afterMessageRender, typing, props.originData]);
 
   const memo = useMemo(() => {
     if (
