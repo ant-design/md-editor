@@ -1,0 +1,104 @@
+import { Checkbox, Tooltip } from 'antd';
+import dayjs from 'dayjs';
+import React from 'react';
+import { HistoryDataType } from '../types';
+import { TimeBox } from './TimeBox';
+
+interface HistoryItemProps {
+  item: HistoryDataType;
+  selectedIds: string[];
+  onSelectionChange: (sessionId: string, checked: boolean) => void;
+  onSelected: (sessionId: string) => void;
+  onDeleteItem?: (sessionId: string) => Promise<void>;
+  onFavorite?: (sessionId: string, isFavorite: boolean) => Promise<void>;
+  agent?: {
+    enabled?: boolean;
+    onSearch?: (keyword: string) => void;
+    onFavorite?: (sessionId: string, isFavorite: boolean) => void;
+    onSelectionChange?: (selectedIds: string[]) => void;
+    onLoadMore?: () => void;
+    loadingMore?: boolean;
+  };
+  extra?: (item: HistoryDataType) => React.ReactElement;
+}
+
+/**
+ * 历史记录项组件 - 显示单个历史记录
+ */
+export const HistoryItem: React.FC<HistoryItemProps> = ({
+  item,
+  selectedIds,
+  onSelectionChange,
+  onSelected,
+  onDeleteItem,
+  onFavorite,
+  agent,
+  extra,
+}) => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        gap: 8,
+        minWidth: 140,
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      {agent?.enabled && (
+        <Checkbox
+          checked={selectedIds.includes(item.sessionId!)}
+          onChange={(e) => {
+            e.stopPropagation();
+            onSelectionChange(item.sessionId!, e.target.checked);
+          }}
+          style={{ marginRight: 4 }}
+        />
+      )}
+      <div
+        style={{
+          color: '#666F8D',
+          overflow: 'hidden',
+          textWrap: 'nowrap',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          flex: 1,
+        }}
+      >
+        <Tooltip
+          open={(item.sessionTitle?.length || 10) > 10 ? undefined : false}
+          title={item.sessionTitle}
+        >
+          <div
+            style={{
+              width: 'max-content',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              onSelected(item.sessionId!);
+            }}
+          >
+            {item.sessionTitle}
+          </div>
+        </Tooltip>
+      </div>
+      <TimeBox
+        onDeleteItem={
+          onDeleteItem
+            ? async () => {
+                await onDeleteItem(item.sessionId!);
+              }
+            : undefined
+        }
+        agent={agent}
+        item={item}
+        onFavorite={onFavorite}
+      >
+        {dayjs(item.gmtCreate).format('HH:mm')}
+      </TimeBox>
+      {extra?.(item)}
+    </div>
+  );
+};
