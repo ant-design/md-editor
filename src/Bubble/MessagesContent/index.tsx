@@ -17,88 +17,31 @@ import { MarkdownPreview } from './MarkdownPreview';
 export const LOADING_FLAT = '...';
 
 /**
- * MessageComponent 组件
+ * BubbleMessageDisplay 组件 - 聊天气泡消息显示组件
  *
- * 用于渲染单条聊天消息的组件，支持以下功能：
- * 1. 渲染文本内容（支持 Markdown）
- * 2. 显示文档信息列表
- * 3. 提供点赞、点踩、复制等交互操作
- * 4. 支持幻灯片模式
- * 5. 支持自定义渲染
+ * 该组件负责渲染聊天气泡中的消息内容，支持多种内容类型的显示，
+ * 包括Markdown、异常消息、加载状态等。提供完整的交互功能。
  *
  * @component
+ * @description 聊天气泡消息显示组件，处理各种消息内容的渲染
+ * @param {BubbleProps & {content: MessageBubbleData['content'], bubbleListItemExtraStyle?: React.CSSProperties}} props - 组件属性
+ * @param {string} props.content - 消息内容
+ * @param {React.CSSProperties} [props.bubbleListItemExtraStyle] - 额外样式
+ * @param {MutableRefObject} [props.bubbleRef] - 气泡引用
+ * @param {boolean} [props.readonly] - 是否只读模式
+ * @param {BubbleRenderConfig} [props.bubbleRenderConfig] - 渲染配置
+ * @param {BubbleMetaData} [props.avatar] - 头像元数据
+ *
  * @example
- * // 基础用法
  * ```tsx
- * <MessageComponent
- *   content="Hello World"
- *    bubbleRef={ bubbleRef}
+ * <BubbleMessageDisplay
+ *   content="这是一条消息内容"
  *   readonly={false}
+ *   bubbleRef={bubbleRef}
  * />
  * ```
  *
- * @example
- * // 带 Markdown 的用法
- * ```tsx
- * <MessageComponent
- *   content="# 标题\n这是**加粗**的文本"
- *    bubbleRef={ bubbleRef}
- *   markdownRenderConfig={{
- *     fncProps: {
- *       enableCopy: true,
- *       enablePreview: true
- *     }
- *   }}
- * />
- * ```
- *
- * @example
- * // 带文档列表的用法
- * ```tsx
- * <MessageComponent
- *   content="相关文档："
- *    bubbleRef={ bubbleRef}
- *   docListProps={{
- *     enable: true,
- *     docList: [
- *       { title: "文档1", url: "https://example.com/doc1" },
- *       { title: "文档2", url: "https://example.com/doc2" }
- *     ]
- *   }}
- * />
- * ```
- *
- * @example
- * // 带自定义渲染的用法
- * ```tsx
- * <MessageComponent
- *   content="自定义消息"
- *    bubbleRef={ bubbleRef}
- *   extraRender={(props, defaultDom) => (
- *     <div>
- *       {defaultDom}
- *       <button>自定义按钮</button>
- *     </div>
- *   )}
- * />
- * ```
- *
- * @param {MessageComponentProps} props - 组件属性
- * @param {string | ReactNode} props.content - 消息内容，可以是字符串或 React 节点
- * @param {MutableRefObject<BubbleChatInstance>} props. bubbleRef - 聊天实例的引用
- * @param {boolean} [props.readonly] - 是否为只读模式，默认为 false
- * @param {BaseChatProps['markdownRenderConfig']} [props.markdownRenderConfig] - Markdown 渲染配置
- * @param {CustomConfig} [props.customConfig] - 自定义配置
- * @param {any[]} [props.deps] - 依赖项数组
- * @param {BaseChatProps['onDisLike']} [props.onDisLike] - 点踩的回调函数
- * @param {BaseChatProps['onLike']} [props.onLike] - 点赞的回调函数
- * @param {BaseChatProps['onReply']} [props.onReply] - 回复的回调函数
- * @param {BaseChatProps['slidesModeProps']} props.slidesModeProps - 幻灯片模式的配置属性
- * @param {BaseChatProps['docListProps']} [props.docListProps] - 文档列表的属性
- * @param {WithFalse<(props: BubbleProps, defaultDom: ReactNode) => ReactNode>} [props.extraRender] - 额外内容的渲染函数
- * @param {React.CSSProperties} [props.bubbleListItemExtraStyle] - 聊天项额外操作区域的样式
- *
- * @returns {JSX.Element} 返回渲染后的消息组件
+ * @returns {React.ReactElement} 渲染的消息显示组件
  *
  * @remarks
  * - 组件会自动处理 Markdown 内容的渲染

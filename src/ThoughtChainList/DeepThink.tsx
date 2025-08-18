@@ -8,6 +8,47 @@ import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';
 
+/**
+ * DeepThink 组件 - 深度思考组件
+ *
+ * 该组件用于显示AI的深度思考过程，包括思考状态、思考内容、错误信息等。
+ * 提供打字机效果、加载动画、错误处理等功能，展示AI的思考过程。
+ *
+ * @component
+ * @description 深度思考组件，显示AI思考过程
+ * @param {Object} props - 组件属性
+ * @param {string} [props['data-testid']] - 测试ID
+ * @param {boolean} [props.isFinished] - 是否已完成
+ * @param {MarkdownEditorProps} [props.markdownRenderProps] - Markdown渲染配置
+ * @param {Function} [props.onChangeItem] - 项目变更回调
+ * @param {Object} [props.output] - 输出结果
+ * @param {Object} [props.output.response] - 响应数据
+ * @param {string} [props.output.errorMsg] - 错误消息
+ * @param {string} props.info - 思考信息
+ * @param {string} props.category - 思考类别
+ *
+ * @example
+ * ```tsx
+ * <DeepThink
+ *   info="分析用户需求"
+ *   category="thinking"
+ *   output={{ response: { content: "思考结果..." } }}
+ *   isFinished={true}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的深度思考组件
+ *
+ * @remarks
+ * - 显示AI思考过程
+ * - 提供打字机效果
+ * - 支持加载动画
+ * - 处理错误信息
+ * - 支持Markdown渲染
+ * - 提供状态指示
+ * - 支持国际化
+ * - 提供自定义配置
+ */
 export const DeepThink = (
   props: {
     'data-testid'?: string;

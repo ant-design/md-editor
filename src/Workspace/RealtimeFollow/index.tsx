@@ -163,6 +163,40 @@ const Overlay: React.FC<{
   );
 };
 
+/**
+ * RealtimeFollow 组件 - 实时跟随组件
+ *
+ * 该组件用于实时显示和跟随不同类型的内容，支持HTML、Markdown、Shell等格式。
+ * 提供实时更新、状态管理、错误处理等功能，主要用于显示动态内容。
+ *
+ * @component
+ * @description 实时跟随组件，用于显示和跟随动态内容
+ * @param {Object} props - 组件属性
+ * @param {RealtimeFollowData} props.data - 实时跟随数据
+ * @param {'preview' | 'code'} [props.htmlViewMode='preview'] - HTML查看模式
+ *
+ * @example
+ * ```tsx
+ * <RealtimeFollow
+ *   data={{
+ *     type: 'html',
+ *     content: '<div>Hello World</div>',
+ *     status: 'done'
+ *   }}
+ *   htmlViewMode="preview"
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的实时跟随组件
+ *
+ * @remarks
+ * - 支持多种内容类型（HTML、Markdown、Shell）
+ * - 提供实时内容更新
+ * - 支持状态管理（加载、错误、完成）
+ * - 提供HTML预览和代码查看模式
+ * - 支持自定义渲染和错误处理
+ * - 在测试环境下优化性能
+ */
 export const RealtimeFollow: React.FC<{
   data: RealtimeFollowData;
   htmlViewMode?: 'preview' | 'code';
@@ -245,6 +279,38 @@ export const RealtimeFollow: React.FC<{
   );
 };
 
+/**
+ * RealtimeFollowList 组件 - 实时跟随列表组件
+ *
+ * 该组件是RealtimeFollow的包装组件，提供视图模式管理和状态控制功能。
+ * 支持HTML内容的预览和代码模式切换，提供更好的用户体验。
+ *
+ * @component
+ * @description 实时跟随列表组件，管理实时跟随的视图模式
+ * @param {Object} props - 组件属性
+ * @param {RealtimeFollowData} props.data - 实时跟随数据
+ *
+ * @example
+ * ```tsx
+ * <RealtimeFollowList
+ *   data={{
+ *     type: 'html',
+ *     content: '<div>Hello World</div>',
+ *     status: 'done',
+ *     defaultViewMode: 'preview'
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的实时跟随列表组件
+ *
+ * @remarks
+ * - 管理HTML视图模式状态
+ * - 支持受控和非受控模式
+ * - 提供默认视图模式设置
+ * - 支持视图模式切换
+ * - 继承RealtimeFollow的所有功能
+ */
 export const RealtimeFollowList: React.FC<{
   data: RealtimeFollowData;
 }> = ({ data }) => {

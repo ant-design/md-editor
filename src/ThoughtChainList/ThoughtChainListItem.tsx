@@ -142,12 +142,51 @@ const ThoughtChainItemMotion = React.memo<{
 });
 
 /**
- * 任务列表组件
+ * ThoughtChainListItem 组件 - 思维链列表项组件
+ *
+ * 该组件用于显示单个思维链项，包括标题、内容、图标、状态等信息。
+ * 支持折叠/展开、文档元数据显示、自定义渲染等功能。
+ *
  * @component
+ * @description 思维链列表项组件，显示单个思维链项
  * @param {Object} props - 组件属性
- * @param {string[]} props.taskList - 任务列表
- * @param {boolean} props.loading - 加载状态
- * @returns {JSX.Element} 任务列表组件
+ * @param {Object} [props.bubble] - 气泡数据
+ * @param {boolean} [props.bubble.isFinished] - 是否已完成
+ * @param {number} [props.bubble.endTime] - 结束时间
+ * @param {number} [props.bubble.createAt] - 创建时间
+ * @param {string} props.hashId - 哈希ID
+ * @param {string} props.prefixCls - 前缀类名
+ * @param {number} props.index - 索引
+ * @param {WhiteBoxProcessInterface & {icon: React.ReactNode}} props.thoughtChainListItem - 思维链项数据
+ * @param {boolean} [props.isFinished] - 是否已完成
+ * @param {(meta: Partial<DocMeta>) => void} props.setDocMeta - 设置文档元数据
+ * @param {MarkdownEditorProps} [props.markdownRenderProps] - Markdown渲染配置
+ * @param {Function} [props.titleExtraRender] - 标题额外渲染函数
+ * @param {Function} [props.contentRender] - 内容渲染函数
+ *
+ * @example
+ * ```tsx
+ * <ThoughtChainListItem
+ *   thoughtChainListItem={itemData}
+ *   index={0}
+ *   prefixCls="thought-chain"
+ *   hashId="hash123"
+ *   setDocMeta={(meta) => setDocMeta(meta)}
+ *   isFinished={true}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的思维链列表项组件
+ *
+ * @remarks
+ * - 显示思维链项标题和内容
+ * - 支持折叠/展开功能
+ * - 提供状态指示
+ * - 支持文档元数据显示
+ * - 提供自定义渲染
+ * - 支持动画效果
+ * - 显示耗时信息
+ * - 支持图标显示
  */
 export const ThoughtChainListItem: React.FC<
   {

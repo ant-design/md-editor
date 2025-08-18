@@ -25,10 +25,14 @@ import { AttachmentFile } from './index';
 /**
  * 根据文件名和扩展名返回对应类型的文件图标组件
  *
- * @param file - 附件文件对象，包含文件名等信息
- * @returns React图标组件，根据文件扩展名选择适当的图标
+ * 该函数根据文件扩展名返回相应的图标组件，支持多种文件类型。
+ * 包括代码文件、文档文件、图片文件、压缩文件等。
+ *
+ * @param {Partial<AttachmentFile>} file - 附件文件对象，包含文件名等信息
+ * @returns {React.ReactElement} React图标组件，根据文件扩展名选择适当的图标
  *
  * @example
+ * ```tsx
  * // 返回Markdown文件图标
  * getFileIconByFileName({name: "document.md"})
  *
@@ -37,6 +41,7 @@ import { AttachmentFile } from './index';
  *
  * // 返回默认文件图标
  * getFileIconByFileName({name: "unknown.xyz"})
+ * ```
  */
 export const getFileIconByFileName = (file: Partial<AttachmentFile>) => {
   const fileName = file.name || '';
@@ -110,17 +115,37 @@ export const getFileIconByFileName = (file: Partial<AttachmentFile>) => {
 };
 
 /**
- * 附件文件图标组件
+ * AttachmentFileIcon 组件 - 附件文件图标组件
  *
  * 该组件根据文件类型显示不同的图标或预览。如果是图片文件，则显示图片预览；
  * 如果是其他类型文件，则显示对应的文件图标。
  *
- * @param props - 组件属性
- * @param props.file - 附件文件对象
- * @param props.className - 可选的自定义类名
- * @param props.prefixCls - 可选的类名前缀
- * @param props.hashId - 可选的哈希ID，通常用于CSS-in-JS方案
- * @returns React元素
+ * @component
+ * @description 附件文件图标组件，根据文件类型显示图标或预览
+ * @param {Object} props - 组件属性
+ * @param {AttachmentFile} props.file - 附件文件对象
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ *
+ * @example
+ * ```tsx
+ * <AttachmentFileIcon
+ *   file={fileData}
+ *   className="custom-icon"
+ *   style={{ fontSize: '24px' }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的文件图标或预览组件
+ *
+ * @remarks
+ * - 支持图片文件预览显示
+ * - 支持多种文件类型图标
+ * - 自动识别文件类型
+ * - 提供自定义样式支持
+ * - 响应式布局
+ * - 图片自适应显示
+ * - 图标居中显示
  */
 export const AttachmentFileIcon: React.FC<{
   file: AttachmentFile;

@@ -90,7 +90,45 @@ const FileComponent: FC<FileProps> = (props) => <File {...props} />;
 
 const CustomComponent: FC<CustomProps> = ({ children }) => children || null;
 
-// 主组件
+/**
+ * Workspace 组件 - 工作空间组件
+ *
+ * 该组件提供一个多标签页的工作空间界面，支持实时跟随、浏览器、任务、文件等不同类型的标签页。
+ * 每个标签页都有独立的图标、标题和内容区域，支持动态切换和自定义配置。
+ *
+ * @component
+ * @description 多标签页工作空间组件，支持多种内容类型
+ * @param {WorkspaceProps} props - 组件属性
+ * @param {string} [props.activeTabKey] - 当前激活的标签页键值
+ * @param {(key: string) => void} [props.onTabChange] - 标签页切换时的回调
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {string} [props.title='Workspace'] - 工作空间标题
+ * @param {() => void} [props.onClose] - 关闭按钮的回调函数
+ * @param {React.ReactNode} props.children - 子组件，通常是各种标签页组件
+ *
+ * @example
+ * ```tsx
+ * <Workspace
+ *   title="我的工作空间"
+ *   activeTabKey="browser"
+ *   onTabChange={(key) => console.log('切换到:', key)}
+ * >
+ *   <Workspace.Browser data={browserData} />
+ *   <Workspace.File nodes={fileNodes} />
+ *   <Workspace.Task data={taskData} />
+ * </Workspace>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的工作空间组件
+ *
+ * @remarks
+ * - 支持多种预定义标签页类型：实时跟随、浏览器、任务、文件、自定义
+ * - 每个标签页都有默认的图标和标题配置
+ * - 支持自定义标签页配置和样式
+ * - 提供标签页计数显示功能
+ * - 支持关闭按钮和标题自定义
+ */
 const Workspace: FC<WorkspaceProps> & {
   Realtime: typeof RealtimeComponent;
   Browser: typeof BrowserComponent;

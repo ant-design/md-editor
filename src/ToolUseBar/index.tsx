@@ -207,6 +207,43 @@ const ToolUseBarItem = ({
   );
 };
 
+/**
+ * ToolUseBar 组件 - 工具使用栏组件
+ *
+ * 该组件显示工具使用列表，支持工具的展开/折叠、激活状态管理等功能。
+ * 每个工具项显示工具名称、目标、时间等信息，支持点击交互。
+ *
+ * @component
+ * @description 工具使用栏组件，显示工具使用列表和状态
+ * @param {ToolUseBarProps} props - 组件属性
+ * @param {ToolUseItem[]} [props.tools] - 工具使用列表
+ * @param {string[]} [props.activeKeys] - 当前激活的工具ID列表
+ * @param {string[]} [props.defaultActiveKeys] - 默认激活的工具ID列表
+ * @param {(keys: string[]) => void} [props.onActiveKeysChange] - 激活状态变化回调
+ * @param {(tool: ToolUseItem) => void} [props.onToolClick] - 工具点击回调
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ *
+ * @example
+ * ```tsx
+ * <ToolUseBar
+ *   tools={toolList}
+ *   activeKeys={['tool1', 'tool2']}
+ *   onActiveKeysChange={(keys) => setActiveKeys(keys)}
+ *   onToolClick={(tool) => console.log('点击工具:', tool.toolName)}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的工具使用栏组件
+ *
+ * @remarks
+ * - 支持工具列表的展开/折叠
+ * - 支持工具的激活状态管理
+ * - 显示工具名称、目标、时间等信息
+ * - 支持工具点击交互
+ * - 提供加载状态显示
+ * - 支持错误状态处理
+ */
 export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   tools,
   onActiveKeysChange,

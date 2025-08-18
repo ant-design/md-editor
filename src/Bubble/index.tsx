@@ -37,25 +37,43 @@ export const runRender = (
 };
 
 /**
- * Represents a chat item component.
+ * Bubble 组件 - 聊天气泡组件
+ *
+ * 该组件是聊天气泡的核心组件，用于显示单条聊天消息。
+ * 支持左右布局、头像显示、标题、时间、消息内容等功能。
  *
  * @component
+ * @description 聊天气泡组件，用于显示单条聊天消息
+ * @param {BubbleProps & {deps?: any[], bubbleRef?: MutableRefObject<any>}} props - 组件属性
+ * @param {string} [props.placement='left'] - 气泡位置，'left' 或 'right'
+ * @param {BubbleAvatarProps} [props.avatar] - 头像配置
+ * @param {string | number | Date} [props.time] - 消息时间
+ * @param {React.ReactNode} [props.children] - 消息内容
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {BubbleRenderConfig} [props.bubbleRenderConfig] - 气泡渲染配置
+ * @param {BubbleClassNames} [props.classNames] - 自定义类名配置
+ * @param {BubbleStyles} [props.styles] - 自定义样式配置
+ * @param {Function} [props.onAvatarClick] - 头像点击回调
+ * @param {any[]} [props.deps] - 依赖数组
+ * @param {MutableRefObject} [props.bubbleRef] - 气泡引用
+ *
  * @example
  * ```tsx
  * <Bubble
- *   onAvatarClick={handleAvatarClick}
- *   className="chat-item"
  *   placement="left"
- *   avatar={avatarData}
+ *   avatar={{
+ *     avatar: "https://example.com/avatar.jpg",
+ *     title: "用户"
+ *   }}
+ *   time={new Date()}
  *   style={itemStyle}
- *   time={messageTime}
  * >
- *   {messageContent}
+ *   这是一条消息内容
  * </Bubble>
  * ```
  *
- * @param {BubbleProps} props - The props for the Bubble component.
- * @returns {React.ReactElement} The rendered Bubble component.
+ * @returns {React.ReactElement} 渲染的聊天气泡组件
  */
 export const Bubble: React.FC<
   BubbleProps & {

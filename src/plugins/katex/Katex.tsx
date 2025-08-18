@@ -4,6 +4,40 @@ import { useGetSetState } from 'react-use';
 import { CodeNode } from '../../MarkdownEditor/el';
 import './katex.min.css';
 
+/**
+ * Katex 组件 - KaTeX 数学公式渲染组件
+ *
+ * 该组件使用KaTeX库渲染数学公式，支持LaTeX语法，提供错误处理和延迟渲染。
+ * 包含公式渲染、错误状态管理、占位符显示等功能。
+ *
+ * @component
+ * @description KaTeX 数学公式渲染组件，支持LaTeX语法渲染
+ * @param {Object} props - 组件属性
+ * @param {CodeNode} props.el - 代码节点，包含公式内容
+ * @param {string} [props.el.value] - LaTeX公式字符串
+ *
+ * @example
+ * ```tsx
+ * <Katex
+ *   el={{
+ *     type: 'code',
+ *     value: '\\sum_{i=1}^{n} x_i = x_1 + x_2 + \\cdots + x_n'
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的数学公式组件
+ *
+ * @remarks
+ * - 基于KaTeX库实现数学公式渲染
+ * - 支持LaTeX数学语法
+ * - 提供延迟渲染优化性能
+ * - 包含错误处理机制
+ * - 支持占位符显示
+ * - 提供美观的样式设计
+ * - 禁用文本选择
+ * - 居中显示公式
+ */
 export const Katex = (props: { el: CodeNode }) => {
   const [state, setState] = useGetSetState({
     code: '',

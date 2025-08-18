@@ -69,6 +69,44 @@ const PlaceholderContent: FC<{
   </div>
 );
 
+/**
+ * PreviewComponent 组件 - 文件预览组件
+ *
+ * 该组件提供文件预览功能，支持多种文件类型的预览，包括图片、文档、代码等。
+ * 支持自定义预览内容和头部，提供返回、下载等操作。
+ *
+ * @component
+ * @description 文件预览组件，支持多种文件类型的预览
+ * @param {PreviewComponentProps} props - 组件属性
+ * @param {FileNode} props.file - 要预览的文件
+ * @param {React.ReactNode} [props.customContent] - 自定义预览内容
+ * @param {React.ReactNode} [props.customHeader] - 自定义头部内容
+ * @param {() => void} props.onBack - 返回按钮的回调
+ * @param {(file: FileNode) => void} [props.onDownload] - 下载按钮的回调
+ * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ *
+ * @example
+ * ```tsx
+ * <PreviewComponent
+ *   file={fileNode}
+ *   onBack={() => setPreviewFile(null)}
+ *   onDownload={(file) => downloadFile(file)}
+ *   markdownEditorProps={{
+ *     theme: 'dark'
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的文件预览组件
+ *
+ * @remarks
+ * - 支持多种文件类型的预览（图片、文档、代码、PDF等）
+ * - 支持自定义预览内容和头部
+ * - 提供HTML预览和代码查看模式
+ * - 支持Markdown文件的编辑器预览
+ * - 处理文件加载状态和错误状态
+ * - 提供文件信息显示和下载功能
+ */
 export const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   customContent,

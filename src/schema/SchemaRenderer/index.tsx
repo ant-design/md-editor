@@ -13,7 +13,14 @@ import { mdDataSchemaValidator } from '../../schema/validator';
 import { TemplateEngine } from './templateEngine';
 export * from './templateEngine';
 
-// Error Boundary to catch rendering errors
+/**
+ * ErrorBoundary 组件 - 错误边界组件
+ *
+ * 用于捕获SchemaRenderer渲染过程中的错误，提供错误处理和回退显示。
+ *
+ * @component
+ * @description 错误边界组件，捕获渲染错误并提供回退显示
+ */
 class ErrorBoundary extends Component<
   { children: React.ReactNode; fallback?: React.ReactNode },
   { hasError: boolean; error: Error | null }
@@ -70,6 +77,56 @@ export interface SchemaRendererProps {
   debug?: boolean;
 }
 
+/**
+ * SchemaRenderer 组件 - Schema渲染器组件
+ *
+ * 该组件根据JSON Schema和模板引擎渲染动态内容，支持模板语法、数据验证、错误处理等。
+ * 提供安全的内容渲染、模板解析、错误边界等功能。
+ *
+ * @component
+ * @description Schema渲染器组件，根据Schema和模板渲染动态内容
+ * @param {SchemaRendererProps} props - 组件属性
+ * @param {LowCodeSchema} props.schema - 渲染Schema定义
+ * @param {Record<string, any>} props.values - 渲染数据值
+ * @param {Object} [props.config] - 渲染配置
+ * @param {string[]} [props.config.ALLOWED_TAGS] - 允许的HTML标签
+ * @param {string[]} [props.config.ALLOWED_ATTR] - 允许的HTML属性
+ * @param {React.ReactNode} [props.fallbackContent] - 回退内容
+ * @param {boolean} [props.useDefaultValues=true] - 是否使用默认值
+ * @param {boolean} [props.debug=true] - 是否启用调试模式
+ *
+ * @example
+ * ```tsx
+ * <SchemaRenderer
+ *   schema={{
+ *     component: {
+ *       type: 'div',
+ *       template: '<h1>{{title}}</h1><p>{{content}}</p>'
+ *     }
+ *   }}
+ *   values={{
+ *     title: '欢迎',
+ *     content: '这是一个动态渲染的内容'
+ *   }}
+ *   config={{
+ *     ALLOWED_TAGS: ['h1', 'p', 'div'],
+ *     ALLOWED_ATTR: ['class', 'style']
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的动态内容组件
+ *
+ * @remarks
+ * - 根据Schema和模板引擎渲染内容
+ * - 支持Mustache模板语法
+ * - 提供数据验证功能
+ * - 包含错误边界处理
+ * - 支持安全的内容渲染
+ * - 提供调试模式
+ * - 支持默认值处理
+ * - 响应式布局适配
+ */
 export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   schema,
   values,

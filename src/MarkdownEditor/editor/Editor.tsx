@@ -72,6 +72,16 @@ export type MEditorProps = {
   placeholder?: string;
 } & MarkdownEditorProps;
 
+/**
+ * 生成表格最小尺寸配置
+ *
+ * 该函数用于设置表格的最小列数和行数，确保表格的基本结构。
+ *
+ * @param {Elements[]} elements - 编辑器元素数组
+ * @param {Object} [config] - 配置对象
+ * @param {number} [config.minColumn] - 最小列数
+ * @param {number} [config.minRows] - 最小行数
+ */
 const genTableMinSize = (
   elements: Elements[],
   config?: {
@@ -89,44 +99,48 @@ const genTableMinSize = (
 };
 
 /**
- * Slate Markdown编辑器组件
+ * SlateMarkdownEditor 组件 - Slate Markdown编辑器组件
  *
  * 基于Slate.js的Markdown编辑器，支持丰富的编辑功能，包括文本编辑、表格、代码块、媒体插入、链接等。
  * 通过MobX进行状态管理，支持多种编辑器事件和操作。
  *
- * @param {Object} props - 编辑器属性
- * @param {Function} props.eleItemRender - 自定义元素渲染函数，用于自定义编辑器中的元素渲染
- * @param {boolean} [props.reportMode] - 是否为报告模式，影响样式渲染
- * @param {MarkdownEditorInstance} [props.instance] - 编辑器实例，用于控制和访问编辑器
- * @param {Object} [props.tagInputProps] - 标签输入相关配置
- * @param {boolean} [props.tagInputProps.enable] - 是否启用标签输入功能
- * @param {string} [props.tagInputProps.prefixCls='$'] - 标签前缀字符
- * @param {Object} [props.textAreaProps] - 文本区域相关配置
- * @param {string} [props.textAreaProps.placeholder] - 文本区域占位文本
- * @param {string} [props.placeholder] - 编辑器占位文本
- * @param {Function} [props.onChange] - 内容变化回调函数
- * @param {Array} [props.initSchemaValue] - 初始化编辑器的值
- * @param {Object} [props.tableConfig] - 表格相关配置
- * @param {Object} [props.image] - 图片相关配置
- * @param {Function} [props.image.upload] - 图片上传函数
- * @param {Function} [props.fncProps] - 脚注相关配置
- * @param {Function} [props.fncProps.onFootnoteDefinitionChange] - 脚注定义变化回调
- * @param {Object} [props.comment] - 注释相关配置
- * @param {boolean} [props.comment.enable] - 是否启用注释功能
- * @param {Array} [props.comment.commentList] - 注释列表
- * @param {string} [props.prefixCls] - 组件前缀类名
+ * @component
+ * @description 基于Slate.js的Markdown编辑器组件
+ * @param {MEditorProps} props - 编辑器属性
+ * @param {Function} [props.eleItemRender] - 自定义元素渲染函数
+ * @param {Function} [props.leafRender] - 自定义叶子节点渲染函数
+ * @param {Function} [props.onChange] - 内容变化回调
+ * @param {MarkdownEditorInstance} props.instance - 编辑器实例
  * @param {string} [props.className] - 自定义CSS类名
- * @param {Object} [props.style] - 自定义样式
+ * @param {CommentDataType} [props.comment] - 评论数据
+ * @param {string} [props.prefixCls] - 前缀类名
+ * @param {boolean} [props.reportMode] - 是否为报告模式
+ * @param {string} [props.placeholder] - 占位符文本
  *
- * @returns {JSX.Element} Markdown编辑器组件
+ * @example
+ * ```tsx
+ * <SlateMarkdownEditor
+ *   instance={editorInstance}
+ *   onChange={(value) => console.log('内容变化:', value)}
+ *   placeholder="请输入Markdown内容..."
+ *   reportMode={false}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的Markdown编辑器组件
+ *
+ * @remarks
+ * - 基于Slate.js实现
+ * - 支持丰富的Markdown语法
+ * - 提供自定义渲染功能
+ * - 支持插件系统
+ * - 集成状态管理
+ * - 支持键盘快捷键
+ * - 提供粘贴处理
+ * - 支持错误边界
+ * - 响应式布局
  */
-export const SlateMarkdownEditor = ({
-  eleItemRender,
-  leafRender,
-  reportMode,
-  instance,
-  ...editorProps
-}: MEditorProps) => {
+export const SlateMarkdownEditor = (props: MEditorProps) => {
   // 所有hooks必须在组件顶部按固定顺序调用
   const {
     store,
@@ -143,8 +157,8 @@ export const SlateMarkdownEditor = ({
 
   const plugins = useContext(PluginContext);
 
-  const onKeyDown = useKeyboard(store, markdownEditorRef, editorProps);
-  const onChange = useOnchange(markdownEditorRef.current, editorProps.onChange);
+  const onKeyDown = useKeyboard(store, markdownEditorRef, props);
+  const onChange = useOnchange(markdownEditorRef.current, props.onChange);
   const high = useHighlight(store);
 
   const childrenIsEmpty = useMemo(() => {
@@ -163,14 +177,13 @@ export const SlateMarkdownEditor = ({
     return !childrenIsEmpty ? 'focus' : '';
   }, [readonly, !childrenIsEmpty]);
 
-  const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
-    placeholderContent:
-      editorProps?.textAreaProps?.placeholder || editorProps?.placeholder,
+  const { wrapSSR, hashId } = useStyle(`${props.prefixCls}-content`, {
+    placeholderContent: props?.textAreaProps?.placeholder || props?.placeholder,
   });
 
   const commentMap = useMemo(() => {
     const map = new Map<string, Map<string, CommentDataType[]>>();
-    editorProps?.comment?.commentList?.forEach((c) => {
+    props?.comment?.commentList?.forEach((c) => {
       c.updateTime = Date.now();
       const path = c.path.join(',');
       if (map.has(path)) {
@@ -194,7 +207,7 @@ export const SlateMarkdownEditor = ({
       map.set(path, childrenMap);
     });
     return map;
-  }, [editorProps?.comment?.commentList]);
+  }, [props?.comment?.commentList]);
 
   const handleSelectionChange = useDebounceFn(async () => {
     if (!readonly) {
@@ -276,10 +289,10 @@ export const SlateMarkdownEditor = ({
   }, [readonly, markdownContainerRef?.current]);
 
   useEffect(() => {
-    if (nodeRef.current !== instance) {
+    if (nodeRef.current !== props.instance) {
       initialNote();
     }
-  }, [instance, markdownEditorRef.current]);
+  }, [props.instance, markdownEditorRef.current]);
 
   useEffect(() => {
     const footnoteDefinitionList = markdownEditorRef.current.children
@@ -293,12 +306,12 @@ export const SlateMarkdownEditor = ({
           origin_url: item.url,
         };
       });
-    editorProps?.fncProps?.onFootnoteDefinitionChange?.(footnoteDefinitionList);
+    props?.fncProps?.onFootnoteDefinitionChange?.(footnoteDefinitionList);
   }, [markdownEditorRef.current?.children]);
 
   // 非hook变量声明
-  const { prefixCls = '$' } = editorProps.tagInputProps || {};
-  const baseClassName = `${editorProps.prefixCls}-content`;
+  const { prefixCls = '$' } = props.tagInputProps || {};
+  const baseClassName = `${props.prefixCls}-content`;
 
   const onSlateChange = useRefFunction((v: any[]) => {
     // 忽略初始化时的第一次变化
@@ -324,7 +337,7 @@ export const SlateMarkdownEditor = ({
 
   const checkEnd = useRefFunction((e: React.MouseEvent) => {
     // 如果启用打字机模式或为只读模式，不处理定位逻辑
-    if (editorProps?.typewriter) return;
+    if (props?.typewriter) return;
     if (readonly) {
       // 点击时清除工具栏
       setDomRect?.(null);
@@ -335,7 +348,7 @@ export const SlateMarkdownEditor = ({
     const target = e.target as HTMLDivElement;
 
     // 如果启用文本区域模式，不处理定位逻辑
-    if (editorProps.textAreaProps?.enable) {
+    if (props.textAreaProps?.enable) {
       return false;
     }
 
@@ -447,7 +460,7 @@ export const SlateMarkdownEditor = ({
   const handleKeyDown = useRefFunction(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (
-        editorProps.tagInputProps?.enable &&
+        props.tagInputProps?.enable &&
         [prefixCls].flat(2)?.includes(event?.key)
       ) {
         event.preventDefault();
@@ -471,17 +484,15 @@ export const SlateMarkdownEditor = ({
    * 初始化编辑器
    */
   const initialNote = async () => {
-    if (instance) {
-      nodeRef.current = instance;
+    if (props.instance) {
+      nodeRef.current = props.instance;
       first.current = true;
-      const tableConfig = editorProps.tableConfig;
-      genTableMinSize(editorProps.initSchemaValue || [], tableConfig);
+      const tableConfig = props.tableConfig;
+      genTableMinSize(props.initSchemaValue || [], tableConfig);
       try {
         EditorUtils.reset(
           markdownEditorRef.current,
-          editorProps.initSchemaValue?.length
-            ? editorProps.initSchemaValue
-            : undefined,
+          props.initSchemaValue?.length ? props.initSchemaValue : undefined,
         );
       } catch (e) {
         EditorUtils.deleteAll(markdownEditorRef.current);
@@ -492,10 +503,10 @@ export const SlateMarkdownEditor = ({
   };
 
   useEffect(() => {
-    if (nodeRef.current !== instance) {
+    if (nodeRef.current !== props.instance) {
       initialNote();
     }
-  }, [instance, markdownEditorRef.current]);
+  }, [props.instance, markdownEditorRef.current]);
 
   /**
    * 处理粘贴事件，会把粘贴的内容转换为对应的节点
@@ -559,7 +570,7 @@ export const SlateMarkdownEditor = ({
         await handleHtmlPaste(
           markdownEditorRef.current,
           event.clipboardData,
-          editorProps,
+          props,
         )
       ) {
         return;
@@ -572,7 +583,7 @@ export const SlateMarkdownEditor = ({
         await handleFilesPaste(
           markdownEditorRef.current,
           event.clipboardData,
-          editorProps,
+          props,
         )
       ) {
         return;
@@ -720,13 +731,13 @@ export const SlateMarkdownEditor = ({
       }
 
       // Then allow eleItemRender to process the result
-      if (!eleItemRender) return renderedDom;
+      if (!props.eleItemRender) return renderedDom;
       if (props.element.type === 'table-cell') return renderedDom;
       if (props.element.type === 'table-row') return renderedDom;
 
-      return eleItemRender(props, renderedDom) as React.ReactElement;
+      return props.eleItemRender(props, renderedDom) as React.ReactElement;
     },
-    [eleItemRender, plugins, readonly],
+    [props.eleItemRender, plugins, readonly],
   );
 
   const renderMarkdownLeaf = useCallback(
@@ -734,40 +745,40 @@ export const SlateMarkdownEditor = ({
       const defaultDom = (
         <MLeaf
           {...props}
-          fncProps={editorProps.fncProps}
-          comment={editorProps?.comment}
+          fncProps={props.fncProps}
+          comment={props?.comment}
           children={props.children}
           hashId={hashId}
-          tagInputProps={editorProps.tagInputProps}
+          tagInputProps={props.tagInputProps}
         />
       );
 
-      if (!leafRender) return defaultDom;
+      if (!props.leafRender) return defaultDom;
 
-      return leafRender(
+      return props.leafRender(
         {
           ...props,
-          fncProps: editorProps.fncProps,
-          comment: editorProps?.comment,
+          fncProps: props.fncProps,
+          comment: props?.comment,
           hashId: hashId,
-          tagInputProps: editorProps.tagInputProps,
+          tagInputProps: props.tagInputProps,
         },
         defaultDom,
       ) as React.ReactElement;
     },
     [
-      leafRender,
+      props.leafRender,
       hashId,
-      editorProps.fncProps,
-      editorProps.tagInputProps,
-      editorProps.comment,
+      props.fncProps,
+      props.tagInputProps,
+      props?.comment,
     ],
   );
 
   const decorateFn = (e: any) => {
     const decorateList: any[] | undefined = high(e) || [];
-    if (!editorProps?.comment) return decorateList;
-    if (editorProps?.comment?.enable === false) return decorateList;
+    if (!props?.comment) return decorateList;
+    if (props?.comment?.enable === false) return decorateList;
     if (commentMap.size === 0) return decorateList;
 
     try {
@@ -855,25 +866,25 @@ export const SlateMarkdownEditor = ({
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
           className={classNames(
-            editorProps.className,
+            props.className,
             `${baseClassName}-${readonlyCls}`,
             `${baseClassName}`,
             {
-              [`${baseClassName}-report`]: reportMode,
+              [`${baseClassName}-report`]: props.reportMode,
               [`${baseClassName}-edit`]: !readonly,
-              [`${baseClassName}-compact`]: editorProps.compact,
+              [`${baseClassName}-compact`]: props.compact,
             },
             hashId,
           )}
           style={
-            reportMode
+            props.reportMode
               ? {
                   fontSize: 16,
-                  ...editorProps.style,
+                  ...props.style,
                 }
               : {
                   fontSize: 14,
-                  ...editorProps.style,
+                  ...props.style,
                 }
           }
           onSelect={handleSelectionChange.run}

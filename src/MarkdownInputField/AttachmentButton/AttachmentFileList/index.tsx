@@ -22,6 +22,16 @@ export type AttachmentFileListProps = {
   onClearFileMap?: () => void;
 };
 
+/**
+ * 将KB转换为可读的文件大小格式
+ *
+ * @param {number} kb - 文件大小（KB）
+ * @returns {string} 格式化后的文件大小字符串
+ *
+ * @example
+ * kbToSize(1024) // "1 MB"
+ * kbToSize(512) // "512 KB"
+ */
 export const kbToSize = (kb: number) => {
   const sizes = ['KB', 'MB', 'GB', 'TB'];
 
@@ -30,17 +40,22 @@ export const kbToSize = (kb: number) => {
 };
 
 /**
- * @description 附件文件列表组件，用于展示已上传的附件
- * @component
+ * AttachmentFileList 组件 - 附件文件列表组件
  *
- * @param {Object} props - 组件属性
- * @param {Map<string, any>} props.fileMap - 文件映射表，键为文件唯一标识，值为文件对象
- * @param {Function} props.onDelete - 删除文件的回调函数，参数为被删除的文件
- * @param {Function} [props.onPreview] - 预览文件的回调函数，参数为被预览的文件
- * @param {Function} props.onDownload - 下载文件的回调函数，参数为被下载的文件
- * @param {Function} [props.onClearFileMap] - 清空所有文件的回调函数
+ * 该组件用于展示已上传的附件文件列表，支持文件预览、下载、删除等功能。
+ * 提供动画效果、图片预览、文件状态显示等特性。
+ *
+ * @component
+ * @description 附件文件列表组件，用于展示已上传的附件
+ * @param {AttachmentFileListProps} props - 组件属性
+ * @param {Map<string, AttachmentFile>} [props.fileMap] - 文件映射表
+ * @param {(file: AttachmentFile) => void} props.onDelete - 删除文件回调
+ * @param {(file: AttachmentFile) => void} [props.onPreview] - 预览文件回调
+ * @param {(file: AttachmentFile) => void} [props.onDownload] - 下载文件回调
+ * @param {() => void} [props.onClearFileMap] - 清空文件映射回调
  *
  * @example
+ * ```tsx
  * <AttachmentFileList
  *   fileMap={fileMap}
  *   onDelete={handleDelete}
@@ -48,8 +63,19 @@ export const kbToSize = (kb: number) => {
  *   onDownload={handleDownload}
  *   onClearFileMap={handleClearAll}
  * />
+ * ```
  *
  * @returns {React.ReactElement} 渲染的附件文件列表组件
+ *
+ * @remarks
+ * - 支持文件预览和下载
+ * - 提供文件删除功能
+ * - 集成动画效果
+ * - 支持图片预览
+ * - 显示文件状态
+ * - 响应式布局
+ * - 支持文件大小格式化
+ * - 集成Ant Design组件
  */
 export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   props,

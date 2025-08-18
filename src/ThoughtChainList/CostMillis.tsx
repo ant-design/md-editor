@@ -3,6 +3,17 @@ import { Tooltip } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext, LocalKeys } from '../i18n';
 
+/**
+ * 将毫秒转换为可读的时间格式
+ *
+ * @param {number|undefined} ms - 毫秒数
+ * @param {LocalKeys} locale - 本地化配置
+ * @returns {string} 格式化后的时间字符串
+ *
+ * @example
+ * msToTimes(1500, locale) // "1.5s"
+ * msToTimes(65000, locale) // "1m 5s"
+ */
 const msToTimes = (ms: number | undefined, locale: LocalKeys) => {
   if (!ms) {
     return '';
@@ -27,15 +38,32 @@ const msToTimes = (ms: number | undefined, locale: LocalKeys) => {
 };
 
 /**
- * CostMillis 组件用于显示一个带有提示信息的时间成本。
+ * CostMillis 组件 - 耗时显示组件
  *
- * @param props - 组件的属性对象
- * @param props.costMillis - 可选的时间成本（以毫秒为单位）
+ * 该组件用于显示操作耗时，支持毫秒到天的时间格式转换，
+ * 提供美观的UI展示和工具提示功能。
  *
- * 如果 `costMillis` 属性不存在或为 `undefined`，组件将返回 `null`。
- * 否则，组件将显示一个带有时间成本提示信息的 `Tooltip`。
+ * @component
+ * @description 耗时显示组件，显示操作耗时信息
+ * @param {Object} props - 组件属性
+ * @param {number} [props.costMillis] - 耗时（毫秒）
  *
- * @returns 如果 `costMillis` 存在，返回一个包含时间成本信息的 `Tooltip` 组件；否则返回 `null`。
+ * @example
+ * ```tsx
+ * <CostMillis costMillis={1500} />
+ * <CostMillis costMillis={65000} />
+ * <CostMillis costMillis={3600000} />
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的耗时显示组件，无耗时数据时返回null
+ *
+ * @remarks
+ * - 自动转换时间格式（毫秒、秒、分钟、小时、天）
+ * - 提供工具提示显示原始毫秒值
+ * - 支持国际化时间单位
+ * - 美观的渐变背景设计
+ * - 响应式布局适配
+ * - 图标和文字组合显示
  */
 export const CostMillis = (props: { costMillis?: number }) => {
   const { locale } = useContext(I18nContext);

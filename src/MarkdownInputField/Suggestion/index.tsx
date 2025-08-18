@@ -37,6 +37,50 @@ export const SuggestionConnext = React.createContext<{
   isRender: true,
 });
 
+/**
+ * Suggestion 组件 - 自动完成建议组件
+ *
+ * 该组件提供输入框的自动完成功能，支持静态建议列表和动态加载建议。
+ * 当用户输入时显示相关建议，支持键盘导航和点击选择。
+ *
+ * @component
+ * @description 自动完成建议组件，提供输入建议和选择功能
+ * @param {Object} props - 组件属性
+ * @param {React.ReactNode} props.children - 子组件，通常是输入框
+ * @param {TagInputProps} [props.tagInputProps] - 标签输入配置
+ * @param {Array|Function} [props.tagInputProps.items] - 建议项列表或加载函数
+ * @param {boolean} [props.tagInputProps.open] - 是否显示下拉菜单
+ * @param {(open: boolean) => void} [props.tagInputProps.onOpenChange] - 下拉菜单状态变化回调
+ * @param {Function} [props.tagInputProps.dropdownRender] - 自定义下拉菜单渲染
+ * @param {React.ReactNode} [props.tagInputProps.menu] - 自定义菜单内容
+ * @param {React.CSSProperties} [props.tagInputProps.dropdownStyle] - 下拉菜单样式
+ * @param {React.ReactNode} [props.tagInputProps.notFoundContent] - 无数据时显示的内容
+ *
+ * @example
+ * ```tsx
+ * <Suggestion
+ *   tagInputProps={{
+ *     items: [
+ *       { key: 'item1', label: '建议项1' },
+ *       { key: 'item2', label: '建议项2' }
+ *     ],
+ *     onOpenChange: (open) => console.log('下拉状态:', open)
+ *   }}
+ * >
+ *   <Input placeholder="请输入..." />
+ * </Suggestion>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的自动完成建议组件
+ *
+ * @remarks
+ * - 支持静态建议列表和动态加载
+ * - 提供键盘导航功能
+ * - 支持自定义下拉菜单渲染
+ * - 支持加载状态显示
+ * - 自动处理选择事件
+ * - 支持自定义样式和内容
+ */
 export const Suggestion: React.FC<{
   children: React.ReactNode;
   tagInputProps?: MarkdownEditorProps['tagInputProps'];

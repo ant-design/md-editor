@@ -53,19 +53,40 @@ type SendButtonProps = {
 };
 
 /**
- * 发送按钮组件
+ * SendButton 组件 - 发送按钮组件
  *
- * 一个可点击的发送按钮，根据不同状态（悬停、禁用、输入中）呈现不同的视觉效果
+ * 该组件提供一个可点击的发送按钮，根据不同状态（悬停、禁用、输入中）
+ * 呈现不同的视觉效果和动画。支持紧凑模式和自定义样式。
  *
- * @param props - 按钮组件的属性
- * @param props.isHover - 指示鼠标是否悬停在按钮上
- * @param props.disabled - 指示按钮是否禁用
- * @param props.typing - 指示是否处于输入状态
- * @param props.onClick - 点击按钮时的回调函数
- * @param props.style - 应用于按钮容器的自定义样式
- * @param props.onInit - 组件初始化时调用的可选回调函数
- * @param props.compact - 是否使用紧凑模式样式
- * @returns 发送按钮组件
+ * @component
+ * @description 发送按钮组件，支持多种状态和动画效果
+ * @param {SendButtonProps} props - 组件属性
+ * @param {boolean} props.isHover - 指示鼠标是否悬停在按钮上
+ * @param {boolean} props.disabled - 指示按钮是否禁用
+ * @param {boolean} props.typing - 指示是否处于输入状态
+ * @param {() => void} props.onClick - 点击按钮时的回调函数
+ * @param {React.CSSProperties} [props.style] - 应用于按钮容器的自定义样式
+ * @param {() => void} [props.onInit] - 组件初始化时调用的可选回调函数
+ * @param {boolean} [props.compact] - 是否使用紧凑模式样式
+ *
+ * @example
+ * ```tsx
+ * <SendButton
+ *   isHover={false}
+ *   disabled={false}
+ *   typing={false}
+ *   onClick={() => console.log('发送消息')}
+ *   compact={false}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的发送按钮组件，SSR环境下返回null
+ *
+ * @remarks
+ * - 支持悬停、禁用、输入中等多种状态
+ * - 提供流畅的动画效果
+ * - 支持紧凑模式显示
+ * - 在SSR环境下不渲染
  */
 export const SendButton: React.FC<SendButtonProps> = (props) => {
   const { isHover, disabled, typing, onClick, style } = props;

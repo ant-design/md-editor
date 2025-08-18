@@ -491,38 +491,49 @@ const ThoughtChainContent = React.memo<
 );
 
 /**
- * 思维链展示组件
+ * ThoughtChainList 组件 - 思维链列表组件
  *
- * 该组件用于展示AI思考过程中的思维链列表，以可视化方式呈现AI推理及处理步骤。
- *
- * 功能特点:
- * - 支持折叠/展开显示思维链详情
- * - 自动滚动到最新内容
- * - 显示任务进度和耗时信息
- * - 提供文档预览抽屉功能
- * - 思维链项状态可视化（加载中、完成、错误）
- * - 完成后自动折叠思维链
- * - 细粒度性能优化，减少不必要的重新渲染
+ * 该组件用于显示AI的思维链过程，包括思考步骤、工具调用、任务执行等。
+ * 提供完整的思维链可视化功能，支持折叠/展开、状态显示、文档元数据等。
  *
  * @component
- * @param {object} props - 组件属性
- * @param {Array<WhiteBoxProcessInterface>} props.thoughtChainList - 思维链数据列表
- * @param {object} props.bubble - 聊天项数据，包含状态信息
- * @param {boolean} props.bubble.isFinished - 聊天是否已完成
- * @param {number} props.bubble.endTime - 聊天结束时间戳
- * @param {number} props.bubble.createAt - 聊天创建时间戳
- * @param {boolean} props.loading - 是否正在加载中
- * @param {CSSProperties} props.style - 自定义样式
+ * @description 思维链列表组件，显示AI思维过程
+ * @param {ThoughtChainListProps} props - 组件属性
+ * @param {WhiteBoxProcessInterface[]} props.thoughtChainList - 思维链列表数据
+ * @param {boolean} [props.loading] - 是否显示加载状态
+ * @param {BubbleProps} [props.bubble] - 气泡数据
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {boolean} [props.compact] - 是否使用紧凑模式
+ * @param {MarkdownRenderConfig} [props.markdownRenderProps] - Markdown渲染配置
+ * @param {boolean} [props.finishAutoCollapse=true] - 完成后是否自动折叠
+ * @param {(meta: DocMeta | null) => void} [props.onDocMetaClick] - 文档元数据点击回调
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {Function} [props.titleRender] - 标题渲染函数
+ * @param {Function} [props.extraRender] - 额外内容渲染函数
  *
  * @example
+ * ```tsx
  * <ThoughtChainList
- *   thoughtChainList={thoughtChainData}
+ *   thoughtChainList={chainData}
  *   bubble={currentBubble}
  *   loading={isLoading}
  *   style={{ marginBottom: 16 }}
+ *   finishAutoCollapse={true}
+ *   onDocMetaClick={(meta) => console.log('文档元数据:', meta)}
  * />
+ * ```
  *
- * @returns {ReactNode} 渲染的思维链列表组件
+ * @returns {React.ReactElement} 渲染的思维链列表组件
+ *
+ * @remarks
+ * - 显示AI思维链过程
+ * - 支持思维链折叠/展开
+ * - 提供状态显示（思考中、完成、中止等）
+ * - 支持文档元数据显示
+ * - 提供时间统计
+ * - 支持自定义渲染
+ * - 提供动画效果
+ * - 支持国际化
  */
 export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
   (props) => {

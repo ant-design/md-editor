@@ -3,6 +3,41 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { CodeNode } from '../../MarkdownEditor/el';
 
+/**
+ * Mermaid 组件 - Mermaid图表渲染组件
+ *
+ * 该组件使用Mermaid库渲染图表，支持流程图、时序图、甘特图等。
+ * 提供图表渲染、错误处理、延迟渲染等功能。
+ *
+ * @component
+ * @description Mermaid图表渲染组件，支持各种Mermaid图表类型
+ * @param {Object} props - 组件属性
+ * @param {CodeNode} props.el - 代码节点，包含Mermaid图表代码
+ * @param {string} [props.el.value] - Mermaid图表代码字符串
+ *
+ * @example
+ * ```tsx
+ * <Mermaid
+ *   el={{
+ *     type: 'code',
+ *     value: 'graph TD\nA[开始] --> B[处理] --> C[结束]'
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的Mermaid图表组件
+ *
+ * @remarks
+ * - 基于Mermaid库实现图表渲染
+ * - 支持多种图表类型（流程图、时序图、甘特图等）
+ * - 提供延迟渲染优化性能
+ * - 包含错误处理机制
+ * - 支持空状态显示
+ * - 提供美观的样式设计
+ * - 禁用文本选择
+ * - 居中显示图表
+ * - 自动生成唯一ID
+ */
 export const Mermaid = (props: { el: CodeNode }) => {
   const [state, setState] = useGetSetState({
     code: '',

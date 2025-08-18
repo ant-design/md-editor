@@ -1,6 +1,35 @@
 ﻿import React from 'react';
 
-export const FunctionIcon = (props: any) => {
+/**
+ * FunctionIcon 组件 - 函数图标组件
+ *
+ * 该组件提供一个函数相关的SVG图标，使用渐变色设计，支持自定义属性。
+ * 图标采用现代化的设计风格，适合在界面中表示函数、方法等功能。
+ *
+ * @component
+ * @description 函数图标组件，提供函数相关的视觉标识
+ * @param {React.SVGProps<SVGSVGElement>} props - SVG属性
+ * @param {string} [props.width] - 图标宽度
+ * @param {string} [props.height] - 图标高度
+ * @param {string} [props.className] - CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ *
+ * @example
+ * ```tsx
+ * <FunctionIcon width="24px" height="24px" />
+ * <FunctionIcon className="custom-icon" style={{ color: 'blue' }} />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的函数图标组件
+ *
+ * @remarks
+ * - 使用SVG格式，支持无损缩放
+ * - 采用渐变色设计，视觉效果丰富
+ * - 默认尺寸为1em，继承父元素字体大小
+ * - 支持所有标准SVG属性
+ * - 响应式设计，适配不同尺寸
+ */
+export const FunctionIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -16,6 +16,9 @@ import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHan
 import { ChartAttrToolBar } from './ChartAttrToolBar';
 import { Area, Bar, Column, Line, Pie } from './ChartMark';
 
+/**
+ * 图表类型映射配置
+ */
 const ChartMap = {
   pie: {
     title: '饼图',
@@ -48,20 +51,55 @@ const ChartMap = {
 };
 
 /**
- * 生成图表组件的函数，根据图表类型和配置返回相应的图表组件。
+ * ChartRender 组件 - 图表渲染组件
  *
- * @param chartType - 图表类型，可以是 'pie'、'bar'、'line'、'column'、'area' 或 'descriptions'。
- * @param chartData - 图表数据，记录数组。
- * @param config - 图表配置对象，包括以下属性：
- *   @param config.height - 图表高度。
- *   @param config.x - x 轴字段。
- *   @param config.y - y 轴字段。
- *   @param config.rest - 其他配置。
- *   @param config.index - 可选，图表索引。
- *   @param config.chartData - 可选，图表数据。
- *   @param config.columns - 可选，列配置。
+ * 该组件用于渲染各种类型的图表，支持饼图、柱状图、折线图、面积图、表格等。
+ * 提供图表类型切换、全屏显示、下载、配置等功能。
  *
- * @returns 返回相应的图表组件。
+ * @component
+ * @description 图表渲染组件，支持多种图表类型的渲染和交互
+ * @param {Object} props - 组件属性
+ * @param {'pie'|'bar'|'line'|'column'|'area'|'descriptions'|'table'} props.chartType - 图表类型
+ * @param {Record<string, any>[]} props.chartData - 图表数据
+ * @param {Object} props.config - 图表配置
+ * @param {any} props.config.height - 图表高度
+ * @param {any} props.config.x - X轴字段
+ * @param {any} props.config.y - Y轴字段
+ * @param {any} props.config.rest - 其他配置
+ * @param {any} [props.config.index] - 图表索引
+ * @param {any} [props.config.chartData] - 图表数据
+ * @param {any} [props.config.columns] - 列配置
+ * @param {any} [props.node] - 节点数据
+ * @param {any} [props.title] - 图表标题
+ * @param {boolean} [props.isChartList] - 是否为图表列表
+ * @param {number} [props.columnLength] - 列长度
+ * @param {(value: number) => void} [props.onColumnLengthChange] - 列长度变化回调
+ *
+ * @example
+ * ```tsx
+ * <ChartRender
+ *   chartType="pie"
+ *   chartData={[{ name: "A", value: 10 }, { name: "B", value: 20 }]}
+ *   config={{
+ *     height: 300,
+ *     x: "name",
+ *     y: "value"
+ *   }}
+ *   title="销售数据"
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的图表组件
+ *
+ * @remarks
+ * - 支持多种图表类型（饼图、柱状图、折线图、面积图、表格等）
+ * - 提供图表类型切换功能
+ * - 支持全屏显示
+ * - 提供图表下载功能
+ * - 支持图表配置和自定义
+ * - 提供响应式布局
+ * - 集成国际化支持
+ * - 提供图表属性工具栏
  */
 export const ChartRender: React.FC<{
   chartType:

@@ -19,6 +19,12 @@ export type AttachmentButtonPopoverProps = {
   }[];
 };
 
+/**
+ * 支持的文件格式配置
+ *
+ * 定义系统支持的文件类型、大小限制和扩展名等信息。
+ * 包括图片、文档、音频、视频等常见文件类型。
+ */
 export const SupportedFileFormats = [
   {
     icon: <FileImageOutlined />,
@@ -57,6 +63,35 @@ export const SupportedFileFormats = [
   },
 ];
 
+/**
+ * AttachmentSupportedFormatsContent 组件 - 附件支持格式内容组件
+ *
+ * 该组件用于显示支持的文件格式信息，包括文件类型、大小限制、扩展名等。
+ * 提供文件上传格式的说明和指导。
+ *
+ * @component
+ * @description 附件支持格式内容组件，显示支持的文件格式信息
+ * @param {AttachmentButtonPopoverProps} props - 组件属性
+ * @param {React.ReactNode} [props.children] - 子组件
+ * @param {Array} [props.supportedFormats] - 自定义支持的文件格式
+ *
+ * @example
+ * ```tsx
+ * <AttachmentSupportedFormatsContent
+ *   supportedFormats={customFormats}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的支持格式内容组件
+ *
+ * @remarks
+ * - 显示支持的文件类型
+ * - 显示文件大小限制
+ * - 显示文件扩展名
+ * - 提供文件类型图标
+ * - 支持自定义格式配置
+ * - 响应式布局
+ */
 export const AttachmentSupportedFormatsContent = (
   props: AttachmentButtonPopoverProps,
 ) => {
@@ -145,6 +180,35 @@ export const AttachmentSupportedFormatsContent = (
   );
 };
 
+/**
+ * AttachmentButtonPopover 组件 - 附件按钮弹出框组件
+ *
+ * 该组件提供一个弹出框，用于显示支持的文件格式信息。
+ * 当用户悬停在附件按钮上时，显示支持的文件类型、大小限制等详细信息。
+ *
+ * @component
+ * @description 附件按钮弹出框组件，显示支持的文件格式信息
+ * @param {AttachmentButtonPopoverProps} props - 组件属性
+ * @param {React.ReactNode} [props.children] - 子组件，通常是附件按钮
+ * @param {Array} [props.supportedFormats] - 自定义支持的文件格式
+ *
+ * @example
+ * ```tsx
+ * <AttachmentButtonPopover supportedFormats={customFormats}>
+ *   <Button>上传附件</Button>
+ * </AttachmentButtonPopover>
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的弹出框组件，无支持格式时返回null
+ *
+ * @remarks
+ * - 提供悬停触发的弹出框
+ * - 显示支持的文件格式信息
+ * - 支持自定义格式配置
+ * - 集成Ant Design Popover组件
+ * - 响应式布局
+ * - 美观的信息展示
+ */
 export const AttachmentButtonPopover: React.FC<AttachmentButtonPopoverProps> = (
   props,
 ) => {

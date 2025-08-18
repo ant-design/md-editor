@@ -6,6 +6,43 @@ import { ElementProps, InlineKatexNode } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
 import './katex.min.css';
 
+/**
+ * InlineKatex 组件 - 内联KaTeX数学公式组件
+ *
+ * 该组件用于在文本中渲染内联数学公式，支持编辑和只读模式。
+ * 提供选择状态管理、公式渲染、点击交互等功能。
+ *
+ * @component
+ * @description 内联KaTeX数学公式组件，支持行内数学公式渲染
+ * @param {ElementProps<InlineKatexNode> & { style?: React.CSSProperties }} props - 组件属性
+ * @param {InlineKatexNode} props.element - 内联KaTeX节点
+ * @param {Object} props.attributes - Slate元素属性
+ * @param {React.ReactNode} props.children - 子元素
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ *
+ * @example
+ * ```tsx
+ * <InlineKatex
+ *   element={inlineKatexNode}
+ *   attributes={slateAttributes}
+ *   style={{ fontSize: '14px' }}
+ * >
+ *   {children}
+ * </InlineKatex>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的内联数学公式组件
+ *
+ * @remarks
+ * - 支持内联数学公式渲染
+ * - 提供编辑和只读模式
+ * - 支持选择状态管理
+ * - 提供点击交互功能
+ * - 基于KaTeX库实现
+ * - 支持自定义样式
+ * - 在测试环境下简化显示
+ * - 提供响应式布局
+ */
 export const InlineKatex = ({
   children,
   element,

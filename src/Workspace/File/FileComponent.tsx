@@ -335,7 +335,48 @@ const FileGroupComponent: FC<{
   );
 };
 
-// 主文件组件
+/**
+ * FileComponent 组件 - 文件管理组件
+ *
+ * 该组件提供一个完整的文件管理界面，支持文件列表显示、分组管理、
+ * 文件预览、下载等功能。支持多种文件类型的预览和自定义预览内容。
+ *
+ * @component
+ * @description 文件管理组件，支持文件列表、预览、下载等功能
+ * @param {Object} props - 组件属性
+ * @param {FileNode[]} props.nodes - 文件节点列表
+ * @param {(files: FileNode[], groupType: FileType) => void} [props.onGroupDownload] - 分组下载回调
+ * @param {(file: FileNode) => void} [props.onDownload] - 单个文件下载回调
+ * @param {(file: FileNode) => void} [props.onFileClick] - 文件点击回调
+ * @param {(type: FileType, collapsed: boolean) => void} [props.onToggleGroup] - 分组折叠/展开回调
+ * @param {(file: FileNode) => Promise<React.ReactNode | FileNode>} [props.onPreview] - 文件预览回调
+ * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ *
+ * @example
+ * ```tsx
+ * <FileComponent
+ *   nodes={fileNodes}
+ *   onDownload={(file) => console.log('下载文件:', file.name)}
+ *   onPreview={async (file) => {
+ *     // 自定义预览逻辑
+ *     return <div>预览内容</div>;
+ *   }}
+ *   markdownEditorProps={{
+ *     theme: 'dark'
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的文件管理组件，无文件时返回null
+ *
+ * @remarks
+ * - 支持文件分组显示和折叠/展开
+ * - 支持多种文件类型的预览（图片、文档、代码等）
+ * - 支持自定义预览内容和头部
+ * - 提供文件下载和分组下载功能
+ * - 支持Markdown文件的编辑器预览
+ * - 处理异步预览的竞态条件
+ */
 export const FileComponent: FC<{
   nodes: FileProps['nodes'];
   onGroupDownload?: FileProps['onGroupDownload'];

@@ -39,19 +39,33 @@ type BubbleBeforeNodeProps = {
 };
 
 /**
- * BubbleBeforeNode 组件用于在聊天项之前渲染一个节点。
+ * BubbleBeforeNode 组件 - 聊天气泡前置节点组件
  *
- * @param props - 组件的属性，包含 bubble 和上下文配置。
+ * 该组件用于在聊天气泡之前渲染思维链或任务列表节点。
+ * 主要用于显示AI的思考过程、工具调用等白盒处理信息。
  *
- * @returns 如果满足特定条件，返回一个 ThoughtChainList 组件或自定义渲染函数的结果，否则返回 null。
+ * @component
+ * @description 聊天气泡前置节点组件，用于显示思维链和任务列表
+ * @param {BubbleBeforeNodeProps} props - 组件属性
+ * @param {BubbleProps} props.bubble - 聊天气泡数据
+ * @param {any} props.bubbleListRef - 气泡列表引用
  *
- * 条件包括：
- * - bubble 的 placement 属性必须为 'left'。
- * - taskList 不为空或上下文配置中的 thoughtChain.alwaysRender 为 true。
- * - 上下文配置中的 thoughtChain.enable 不为 false。
+ * @example
+ * ```tsx
+ * <BubbleBeforeNode
+ *   bubble={bubbleData}
+ *   bubbleListRef={listRef}
+ * />
+ * ```
  *
- * 如果上下文配置中的 thoughtChain.render 存在，则调用该自定义渲染函数。
- * 否则，返回一个 ThoughtChainList 组件，传递必要的属性。
+ * @returns {React.ReactElement|null} 渲染的思维链组件或null
+ *
+ * @description
+ * 渲染条件：
+ * - 气泡位置必须为 'left'
+ * - 角色不能为 'bot'
+ * - 任务列表不为空或配置为始终渲染
+ * - 思维链功能已启用
  */
 export const BubbleBeforeNode: React.FC<BubbleBeforeNodeProps> = (props) => {
   const _ = props.bubble;

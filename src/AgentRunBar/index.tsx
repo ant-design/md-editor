@@ -86,14 +86,26 @@ interface TaskRunningProps {
 }
 
 /**
- * 任务运行状态展示组件
+ * TaskRunning 组件 - 任务运行状态组件
  *
- * 该组件用于展示任务的运行状态，包括：
- * - 任务运行时长
- * - 当前状态（运行中/完成/暂停等）
- * - 操作按钮（暂停/创建新任务/重新回放等）
+ * 该组件显示AI任务运行的状态信息，包括运行时间、状态指示、操作按钮等。
+ * 支持多种任务状态：运行中、暂停、完成、重播等，提供完整的任务管理功能。
  *
  * @component
+ * @description 任务运行状态组件，显示AI任务运行信息和操作按钮
+ * @param {TaskRunningProps} props - 组件属性
+ * @param {string} props.minutes - 任务运行时间（分钟）
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {TASK_RUNNING_STATUS} [props.taskRunningStatus] - 任务运行状态
+ * @param {TASK_STATUS} [props.taskStatus] - 任务状态
+ * @param {() => void} [props.onPause] - 暂停任务回调
+ * @param {() => void} [props.onCreateNewTask] - 创建新任务回调
+ * @param {() => void} [props.onViewResult] - 查看结果回调
+ * @param {() => void} [props.onReplay] - 重播任务回调
+ * @param {TaskRunningMessages} [props.messages] - 自定义消息文案
+ * @param {React.ReactNode} [props.icon] - 自定义图标
+ *
  * @example
  * ```tsx
  * <TaskRunning
@@ -106,6 +118,16 @@ interface TaskRunningProps {
  *   onViewResult={() => {}}
  * />
  * ```
+ *
+ * @returns {React.ReactElement} 渲染的任务运行状态组件
+ *
+ * @remarks
+ * - 支持多种任务状态显示
+ * - 提供任务操作按钮（暂停、重播、查看结果等）
+ * - 显示任务运行时间
+ * - 支持自定义消息文案
+ * - 支持自定义图标
+ * - 提供机器人状态动画
  */
 export const TaskRunning: React.FC<TaskRunningProps> = ({
   minutes,

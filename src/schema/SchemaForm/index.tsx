@@ -17,6 +17,57 @@ interface SchemaFormProps {
   readonly?: boolean;
 }
 
+/**
+ * SchemaForm 组件 - 基于Schema的表单组件
+ *
+ * 该组件根据JSON Schema自动生成表单，支持多种数据类型和验证规则。
+ * 提供动态表单生成、数据验证、只读模式等功能。
+ *
+ * @component
+ * @description 基于Schema的表单组件，自动生成表单字段和验证规则
+ * @param {SchemaFormProps} props - 组件属性
+ * @param {LowCodeSchema} props.schema - 表单Schema定义
+ * @param {Function} [props.onValuesChange] - 表单值变化回调
+ * @param {Record<string, any>} [props.initialValues] - 初始值
+ * @param {boolean} [props.readonly=false] - 是否只读模式
+ *
+ * @example
+ * ```tsx
+ * <SchemaForm
+ *   schema={{
+ *     component: {
+ *       properties: {
+ *         name: {
+ *           type: 'string',
+ *           title: '姓名',
+ *           required: true
+ *         },
+ *         age: {
+ *           type: 'number',
+ *           title: '年龄',
+ *           minimum: 0,
+ *           maximum: 150
+ *         }
+ *       }
+ *     }
+ *   }}
+ *   onValuesChange={(changed, values) => console.log(values)}
+ *   initialValues={{ name: '张三', age: 25 }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的Schema表单组件
+ *
+ * @remarks
+ * - 根据JSON Schema自动生成表单
+ * - 支持多种数据类型（string、number、array、object等）
+ * - 提供完整的验证规则支持
+ * - 支持只读模式
+ * - 提供国际化支持
+ * - 支持嵌套对象和数组
+ * - 提供动态字段添加/删除
+ * - 响应式布局适配
+ */
 export const SchemaForm: React.FC<SchemaFormProps> = ({
   schema,
   onValuesChange,

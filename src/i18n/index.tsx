@@ -1,7 +1,12 @@
 ﻿import { ConfigProvider } from 'antd';
 import React, { useContext, useState } from 'react';
 
-// 中文 key-label 映射
+/**
+ * 中文标签映射对象
+ *
+ * 包含所有界面文本的中文翻译，用于国际化支持。
+ * 提供完整的用户界面文本本地化。
+ */
 export const cnLabels = {
   table: '表格',
   column: '分栏',
@@ -293,6 +298,11 @@ export const enLabels: typeof cnLabels = {
 
 export type LocalKeys = typeof cnLabels;
 
+/**
+ * 国际化上下文
+ *
+ * 提供国际化功能的React Context，包含当前语言环境和设置语言的方法。
+ */
 export const I18nContext = React.createContext<{
   locale: LocalKeys;
   setLocale?: (locale: LocalKeys) => void;
@@ -300,6 +310,36 @@ export const I18nContext = React.createContext<{
   locale: cnLabels,
 });
 
+/**
+ * I18nProvide 组件 - 国际化提供者组件
+ *
+ * 该组件提供国际化功能，支持中英文切换，自动检测用户语言偏好。
+ * 集成Ant Design的ConfigProvider，提供完整的国际化支持。
+ *
+ * @component
+ * @description 国际化提供者组件，支持多语言切换
+ * @param {Object} props - 组件属性
+ * @param {React.ReactNode} props.children - 子组件
+ * @param {typeof cnLabels} [props.locale] - 自定义语言环境
+ *
+ * @example
+ * ```tsx
+ * <I18nProvide locale={cnLabels}>
+ *   <App />
+ * </I18nProvide>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的国际化提供者组件
+ *
+ * @remarks
+ * - 支持中英文语言切换
+ * - 自动检测用户浏览器语言
+ * - 集成Ant Design国际化
+ * - 提供语言环境上下文
+ * - 支持自定义语言配置
+ * - 响应式语言切换
+ * - 提供模板字符串编译功能
+ */
 export const I18nProvide: React.FC<{
   children: React.ReactNode;
   locale?: typeof cnLabels;

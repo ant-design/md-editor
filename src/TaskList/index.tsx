@@ -178,6 +178,42 @@ const TaskListItem = memo(
 
 TaskListItem.displayName = 'TaskListItem';
 
+/**
+ * TaskList 组件 - 任务列表组件
+ *
+ * 该组件显示任务列表，支持任务的展开/折叠、状态管理等功能。
+ * 每个任务项显示标题、内容等信息，支持点击交互和动画效果。
+ *
+ * @component
+ * @description 任务列表组件，显示任务列表和状态管理
+ * @param {ThoughtChainProps} props - 组件属性
+ * @param {TaskItem[]} props.items - 任务列表数据
+ * @param {string} [props.className] - 自定义CSS类名
+ *
+ * @example
+ * ```tsx
+ * <TaskList
+ *   items={[
+ *     {
+ *       key: 'task1',
+ *       title: '任务1',
+ *       content: '任务内容'
+ *     }
+ *   ]}
+ *   className="custom-task-list"
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的任务列表组件
+ *
+ * @remarks
+ * - 支持任务列表的展开/折叠
+ * - 支持任务状态管理
+ * - 显示任务标题和内容
+ * - 支持点击交互
+ * - 提供动画效果
+ * - 自动管理折叠状态
+ */
 export const TaskList = memo(({ items, className }: ThoughtChainProps) => {
   const prefixCls = 'task-list';
   const { wrapSSR, hashId } = useStyle(prefixCls);

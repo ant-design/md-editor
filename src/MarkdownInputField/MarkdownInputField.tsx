@@ -251,23 +251,29 @@ export function generateEdges(colors: string[]) {
 }
 
 /**
- * @component MarkdownInputField
- * @description 带发送功能的Markdown输入字段组件。允许用户编辑Markdown内容并通过按钮或快捷键发送。
+ * MarkdownInputField 组件 - Markdown输入字段组件
  *
+ * 该组件提供一个功能完整的Markdown输入框，支持实时预览、文件附件、
+ * 快捷键发送、自动完成等功能。是聊天应用中的核心输入组件。
+ *
+ * @component
+ * @description Markdown输入字段组件，支持实时预览和文件附件
  * @param {MarkdownInputFieldProps} props - 组件属性
- * @param {string} [props.value] - 输入字段的Markdown内容值
- * @param {function} [props.onChange] - 当输入内容改变时的回调函数
- * @param {function} [props.onSend] - 当内容发送时的回调函数，应返回Promise
- * @param {boolean} [props.disabled] - 是否禁用输入字段
- * @param {string} [props.className] - 自定义CSS类名
- * @param {React.CSSProperties} [props.style] - 自定义样式
- * @param {string} [props.placeholder] - 输入字段的占位文本
- * @param {string} [props.triggerSendKey='Enter'] - 触发发送的键盘快捷键，可以是'Enter'或'Mod+Enter'
- * @param {boolean} [props.typing] - 是否显示正在输入状态
- *
- * @returns {JSX.Element} 带样式和功能的Markdown输入字段组件
+ * @param {string} [props.value] - 输入框的值
+ * @param {(value: string) => void} [props.onChange] - 值变化时的回调
+ * @param {(value: string) => Promise<void>} [props.onSend] - 发送消息的回调
+ * @param {string} [props.placeholder] - 占位符文本
+ * @param {string} [props.triggerSendKey='Mod+Enter'] - 触发发送的快捷键
+ * @param {boolean} [props.disabled] - 是否禁用
+ * @param {boolean} [props.typing] - 是否正在输入
+ * @param {AttachmentProps} [props.attachment] - 附件配置
+ * @param {string[]} [props.bgColorList] - 背景颜色列表
+ * @param {React.RefObject} [props.inputRef] - 输入框引用
+ * @param {MarkdownRenderConfig} [props.markdownRenderConfig] - Markdown渲染配置
+ * @param {SuggestionProps} [props.suggestion] - 自动完成配置
  *
  * @example
+ * ```tsx
  * <MarkdownInputField
  *   value="# 标题"
  *   onChange={(value) => console.log(value)}
@@ -275,6 +281,16 @@ export function generateEdges(colors: string[]) {
  *   placeholder="请输入Markdown文本..."
  *   triggerSendKey="Mod+Enter"
  * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的Markdown输入字段组件
+ *
+ * @remarks
+ * - 支持实时Markdown预览
+ * - 支持文件附件上传
+ * - 支持快捷键发送消息
+ * - 支持自动完成功能
+ * - 支持自定义渲染配置
  */
 export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   props,

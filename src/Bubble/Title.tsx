@@ -86,9 +86,31 @@ function useStyle(prefixCls?: string) {
 }
 
 /**
- * prochat 的标题组件
- * @param param0
- * @returns
+ * BubbleTitle 组件 - 聊天气泡标题组件
+ *
+ * 该组件用于显示聊天气泡的标题信息，包括标题文本和时间。
+ * 支持左右布局，当鼠标悬停时显示时间信息。
+ *
+ * @component
+ * @description 聊天气泡标题组件，显示标题和时间信息
+ * @param {TitleProps} props - 组件属性
+ * @param {React.ReactNode} [props.title] - 标题内容
+ * @param {string | number | Date} [props.time] - 时间信息
+ * @param {'left' | 'right'} [props.placement='left'] - 布局方向
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {string} [props.prefixClass] - 前缀类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ *
+ * @example
+ * ```tsx
+ * <BubbleTitle
+ *   title="用户消息"
+ *   time={new Date()}
+ *   placement="left"
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的标题组件
  */
 export const BubbleTitle: React.FC<TitleProps> = ({
   style,

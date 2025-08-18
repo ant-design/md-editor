@@ -19,20 +19,50 @@ import { CostMillis } from './CostMillis';
 import { DotLoading } from './DotAni';
 
 /**
- * ToolCall 组件用于显示 API 调用的输入参数、输出参数以及调用状态。
+ * ToolCall 组件 - 工具调用组件
  *
- * @param props - 组件的属性。
- * @param props.isFinished - 表示 API 调用是否完成。
- * @param props.input - 包含输入参数的对象。
- * @param props.input.inputArgs - 输入参数对象。
- * @param props.input.inputArgs.parameters - 输入参数的具体值。
- * @param props.input.inputArgs.params - 输入参数的备用值。
- * @param props.output - 包含输出参数的对象。
- * @param props.output.response - 输出参数的具体值。
- * @param props.output.response.error - 输出参数中的错误信息。
- * @param props.costMillis - API 调用耗时。
+ * 该组件用于显示AI工具调用的详细信息，包括输入参数、输出结果、错误信息等。
+ * 支持编辑模式、反馈功能、状态显示等，提供完整的工具调用可视化。
  *
- * @returns 返回一个包含 API 调用输入参数、输出参数及调用状态的 JSX 元素。
+ * @component
+ * @description 工具调用组件，显示AI工具调用的详细信息
+ * @param {Object} props - 组件属性
+ * @param {string} [props['data-testid']] - 测试ID
+ * @param {boolean} [props.isFinished] - 是否已完成
+ * @param {Function} [props.onChangeItem] - 项目变更回调
+ * @param {MarkdownEditorProps} [props.markdownRenderProps] - Markdown渲染配置
+ * @param {Object} props.input - 输入参数
+ * @param {Object} props.input.inputArgs - 输入参数对象
+ * @param {Object} props.output - 输出结果
+ * @param {Object} props.output.response - 响应数据
+ * @param {string} [props.output.errorMsg] - 错误消息
+ * @param {number} [props.costMillis] - 调用耗时（毫秒）
+ * @param {string} props.info - 工具调用信息
+ * @param {string} props.category - 工具类别
+ *
+ * @example
+ * ```tsx
+ * <ToolCall
+ *   input={{ inputArgs: { query: "SELECT * FROM users" } }}
+ *   output={{ response: { data: [] } }}
+ *   info="执行SQL查询"
+ *   category="sql"
+ *   costMillis={150}
+ *   isFinished={true}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的工具调用组件
+ *
+ * @remarks
+ * - 显示工具调用输入和输出
+ * - 支持编辑模式
+ * - 提供错误信息显示
+ * - 支持反馈功能
+ * - 显示调用耗时
+ * - 支持Markdown渲染
+ * - 提供状态指示
+ * - 支持自定义配置
  */
 export const ToolCall = (
   props: {

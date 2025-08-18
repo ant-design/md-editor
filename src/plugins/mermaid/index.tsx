@@ -14,6 +14,47 @@ import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
 import { Mermaid } from '../mermaid/Mermaid';
 
+/**
+ * MermaidElement 组件 - Mermaid图表元素组件
+ *
+ * 该组件用于在Markdown编辑器中渲染Mermaid图表，支持流程图、时序图、甘特图等。
+ * 提供图表编辑、预览、复制、拖拽等功能。
+ *
+ * @component
+ * @description Mermaid图表元素组件，支持各种Mermaid图表类型
+ * @param {ElementProps<CodeNode>} props - 组件属性
+ * @param {CodeNode} props.element - 代码节点数据
+ * @param {string} [props.element.language] - 图表语言类型
+ * @param {string} [props.element.value] - Mermaid图表代码
+ * @param {boolean} [props.element.frontmatter] - 是否为前置元数据
+ * @param {Object} props.attributes - Slate元素属性
+ * @param {React.ReactNode} props.children - 子元素
+ *
+ * @example
+ * ```tsx
+ * <MermaidElement
+ *   element={{
+ *     type: 'code',
+ *     language: 'mermaid',
+ *     value: 'graph TD\nA[开始] --> B[结束]'
+ *   }}
+ *   attributes={slateAttributes}
+ *   children={slateChildren}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的Mermaid图表组件
+ *
+ * @remarks
+ * - 支持多种Mermaid图表类型（流程图、时序图、甘特图等）
+ * - 提供图表编辑和预览功能
+ * - 支持图表代码复制
+ * - 提供拖拽排序功能
+ * - 支持选择状态管理
+ * - 集成Ace编辑器
+ * - 提供国际化支持
+ * - 响应式布局适配
+ */
 export function MermaidElement(props: ElementProps<CodeNode>) {
   const { markdownEditorRef } = useEditorStore();
   const [state, setState] = useGetSetState({

@@ -5,6 +5,46 @@ import { LoadingIcon } from '../../../icons/LoadingIcon';
 import { AttachmentFileIcon } from './AttachmentFileIcon';
 import { AttachmentFile, kbToSize } from './index';
 
+/**
+ * AttachmentFileListItem 组件 - 附件文件列表项组件
+ *
+ * 该组件用于显示单个附件文件项，包括文件图标、文件名、文件大小等信息。
+ * 支持文件预览、下载、删除操作，提供动画效果和状态显示。
+ *
+ * @component
+ * @description 附件文件列表项组件，显示单个文件信息
+ * @param {Object} props - 组件属性
+ * @param {AttachmentFile} props.file - 文件对象
+ * @param {() => void} props.onDelete - 删除文件回调
+ * @param {() => void} props.onPreview - 预览文件回调
+ * @param {() => void} props.onDownload - 下载文件回调
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {string} [props.prefixCls] - 前缀类名
+ * @param {string} [props.hashId] - 哈希ID
+ *
+ * @example
+ * ```tsx
+ * <AttachmentFileListItem
+ *   file={fileData}
+ *   onDelete={() => handleDelete(fileData)}
+ *   onPreview={() => handlePreview(fileData)}
+ *   onDownload={() => handleDownload(fileData)}
+ *   className="custom-file-item"
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的附件文件列表项组件
+ *
+ * @remarks
+ * - 显示文件图标、名称和大小
+ * - 支持文件预览、下载、删除操作
+ * - 提供动画效果
+ * - 显示文件状态（上传中、完成、错误）
+ * - 支持自定义样式
+ * - 文件名自动分割显示
+ * - 文件大小格式化显示
+ * - 响应式布局
+ */
 export const AttachmentFileListItem: React.FC<{
   file: AttachmentFile;
   onDelete: () => void;

@@ -11,21 +11,22 @@ import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { Katex } from './Katex';
 
 /**
- * Katex 块级公式组件
+ * KatexElement 组件 - KaTeX 数学公式元素组件
  *
- * 功能特性：
- * - 基于 KaTeX 的数学公式渲染
- * - 支持 LaTeX 数学语法
- * - 实时渲染预览
- * - 支持拖拽排序
- * - 响应式布局适配
+ * 该组件用于在Markdown编辑器中渲染数学公式，基于KaTeX库实现。
+ * 支持块级公式渲染、拖拽排序、只读模式等功能。
  *
- * @param props - 代码节点的属性，包含 LaTeX 公式内容
- * @returns React Katex 渲染元素
+ * @component
+ * @description KaTeX 数学公式元素组件，支持LaTeX数学公式渲染
+ * @param {ElementProps<CodeNode>} props - 组件属性
+ * @param {CodeNode} props.element - 代码节点数据
+ * @param {boolean} [props.element.katex] - 是否为KaTeX公式
+ * @param {string} [props.element.value] - 公式内容
+ * @param {Object} props.attributes - Slate元素属性
+ * @param {React.ReactNode} props.children - 子元素
  *
  * @example
  * ```tsx
- * // 在 Slate 编辑器中使用
  * <KatexElement
  *   element={{
  *     type: 'katex',
@@ -36,6 +37,18 @@ import { Katex } from './Katex';
  *   children={slateChildren}
  * />
  * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的KaTeX公式组件，非KaTeX节点时返回null
+ *
+ * @remarks
+ * - 基于KaTeX库实现数学公式渲染
+ * - 支持LaTeX数学语法
+ * - 提供实时渲染预览
+ * - 支持拖拽排序功能
+ * - 响应式布局适配
+ * - 支持只读模式简化渲染
+ * - 提供隐藏内容副本用于搜索和SEO
+ * - 集成编辑器状态管理
  */
 export function KatexElement(props: ElementProps<CodeNode>) {
   const { readonly } = useEditorStore();

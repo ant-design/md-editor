@@ -13,18 +13,50 @@ import { CostMillis } from './CostMillis';
 import { FlipText } from './FlipText';
 
 /**
- * TitleInfo 组件用于显示带有元数据的标题信息。
+ * TitleInfo 组件 - 标题信息组件
  *
- * @param props - 组件的属性对象。
- * @param props.costMillis - 可选的耗时信息，以毫秒为单位。
- * @param props.category - 标题所属的类别。
- * @param props.title - 标题文本，可能包含元数据标签。
- * @param props.prefixCls - 样式前缀。
- * @param props.hashId - 样式哈希ID。
- * @param props.onMetaClick - 可选的元数据点击事件处理函数。
- * @param props.meta - 元数据对象，键为元数据标签，值为元数据数组。
+ * 该组件用于显示思维链项的标题信息，包括标题文本、耗时、类别、元数据等。
+ * 支持折叠/展开功能、元数据点击、自定义渲染等。
  *
- * @returns 返回一个包含标题信息的 JSX 元素。
+ * @component
+ * @description 标题信息组件，显示思维链项的标题和相关信息
+ * @param {Object} props - 组件属性
+ * @param {number} [props.costMillis] - 耗时（毫秒）
+ * @param {string} props.category - 标题类别
+ * @param {string} props.title - 标题文本
+ * @param {string} props.prefixCls - 样式前缀
+ * @param {string} props.hashId - 样式哈希ID
+ * @param {boolean} props.collapse - 是否折叠
+ * @param {boolean} [props.isFinished] - 是否已完成
+ * @param {(collapse: boolean) => void} props.setCollapse - 设置折叠状态
+ * @param {(meta: Partial<DocMeta>) => void} [props.onMetaClick] - 元数据点击回调
+ * @param {string} [props.instanceId] - 实例ID
+ * @param {Function} [props.titleExtraRender] - 标题额外渲染函数
+ * @param {Record<string, Array>} props.meta - 元数据对象
+ *
+ * @example
+ * ```tsx
+ * <TitleInfo
+ *   title="分析用户需求"
+ *   category="thinking"
+ *   costMillis={1500}
+ *   collapse={false}
+ *   setCollapse={(collapse) => setCollapse(collapse)}
+ *   meta={{ knowledge: [{ name: "知识库1", icon: "db", uuid: "1" }] }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的标题信息组件
+ *
+ * @remarks
+ * - 支持标题中的元数据标签解析
+ * - 提供折叠/展开功能
+ * - 显示操作耗时
+ * - 支持元数据点击交互
+ * - 提供自定义渲染扩展
+ * - 支持国际化
+ * - 美观的动画效果
+ * - 响应式布局
  */
 export const TitleInfo = (props: {
   costMillis?: number;

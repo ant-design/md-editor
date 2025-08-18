@@ -8,6 +8,46 @@ import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';
 
+/**
+ * WebSearch 组件 - 网络搜索组件
+ *
+ * 该组件用于显示网络搜索过程，包括搜索状态、搜索结果、错误信息等。
+ * 提供加载动画、打字机效果、错误处理等功能，展示网络搜索的完整过程。
+ *
+ * @component
+ * @description 网络搜索组件，显示网络搜索过程和结果
+ * @param {Object} props - 组件属性
+ * @param {boolean} [props.isFinished] - 是否已完成
+ * @param {Function} [props.onChangeItem] - 项目变更回调
+ * @param {MarkdownEditorProps} [props.markdownRenderProps] - Markdown渲染配置
+ * @param {Object} [props.output] - 输出结果
+ * @param {Object} [props.output.response] - 响应数据
+ * @param {string} [props.output.errorMsg] - 错误消息
+ * @param {string} props.info - 搜索信息
+ * @param {string} props.category - 搜索类别
+ *
+ * @example
+ * ```tsx
+ * <WebSearch
+ *   info="搜索最新信息"
+ *   category="web_search"
+ *   output={{ response: { content: "搜索结果..." } }}
+ *   isFinished={true}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的网络搜索组件
+ *
+ * @remarks
+ * - 显示网络搜索过程
+ * - 提供加载动画
+ * - 支持打字机效果
+ * - 处理错误信息
+ * - 支持Markdown渲染
+ * - 提供状态指示
+ * - 支持国际化
+ * - 美观的UI设计
+ */
 export const WebSearch = (
   props: {
     isFinished?: boolean;

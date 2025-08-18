@@ -151,10 +151,57 @@ export type BubbleListProps = {
 };
 
 /**
- * BubbleList组件
+ * BubbleList 组件 - 聊天气泡列表组件
+ *
+ * 该组件用于渲染聊天气泡列表，支持用户和助手的消息显示、加载状态、滚动事件等。
+ * 提供完整的聊天界面功能，包括消息渲染、交互操作、样式自定义等。
+ *
  * @component
- * @param {BubbleListProps} props - The component props.
- * @returns {JSX.Element} BubbleList组件的JSX元素
+ * @description 聊天气泡列表组件，渲染聊天消息列表
+ * @param {BubbleListProps} props - 组件属性
+ * @param {BubbleProps[]} [props.bubbleList=[]] - 气泡列表数据
+ * @param {React.RefObject} [props.bubbleListRef] - 气泡列表引用
+ * @param {boolean} [props.loading] - 是否显示加载状态
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {BubbleRenderConfig} [props.bubbleRenderConfig] - 气泡渲染配置
+ * @param {MarkdownRenderConfig} [props.markdownRenderConfig] - Markdown渲染配置
+ * @param {BubbleMetaData} [props.userMeta] - 用户头像元数据
+ * @param {BubbleMetaData} [props.assistantMeta] - 助手头像元数据
+ * @param {BubbleStyles} [props.styles] - 自定义样式配置
+ * @param {BubbleClassNames} [props.classNames] - 自定义类名配置
+ * @param {boolean} [props.readonly] - 是否只读模式
+ * @param {Function} [props.onScroll] - 滚动事件回调
+ * @param {Function} [props.onWheel] - 滚轮事件回调
+ * @param {Function} [props.onTouchMove] - 触摸移动事件回调
+ * @param {Function} [props.onLike] - 点赞事件回调
+ * @param {Function} [props.onDisLike] - 点踩事件回调
+ * @param {Function} [props.onReply] - 回复事件回调
+ * @param {Function} [props.onCancelLike] - 取消点赞事件回调
+ * @param {boolean|Function} [props.shouldShowCopy] - 是否显示复制按钮
+ *
+ * @example
+ * ```tsx
+ * <BubbleList
+ *   bubbleList={chatMessages}
+ *   loading={false}
+ *   userMeta={{ avatar: "user.jpg", title: "用户" }}
+ *   assistantMeta={{ avatar: "assistant.jpg", title: "助手" }}
+ *   onLike={(message) => console.log('点赞:', message)}
+ *   onReply={(message) => console.log('回复:', message)}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的聊天气泡列表组件
+ *
+ * @remarks
+ * - 支持用户和助手消息的不同布局
+ * - 提供加载状态和骨架屏
+ * - 支持消息交互操作（点赞、点踩、回复等）
+ * - 支持自定义样式和类名
+ * - 支持Markdown内容渲染
+ * - 支持滚动和触摸事件
+ * - 提供消息复制功能
  */
 export const BubbleList: React.FC<BubbleListProps> = (props) => {
   const {

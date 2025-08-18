@@ -12,9 +12,9 @@ import { ChartRender } from './ChartRender';
 
 /**
  * 转化数字，将字符串转化为数字，即使非标准数字也可以转化
- * @param val
- * @param locale
- * @returns
+ * @param {string} val - 要转换的字符串
+ * @param {any} locale - 本地化配置
+ * @returns {number|NaN} 转换后的数字或NaN
  */
 function reverseFormatNumber(val: string, locale: any) {
   let group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '');
@@ -24,6 +24,11 @@ function reverseFormatNumber(val: string, locale: any) {
   return Number.isNaN(reversedVal) ? NaN : Number(reversedVal);
 }
 
+/**
+ * 验证并格式化日期字符串
+ * @param {string} dateString - 日期字符串
+ * @returns {string} 格式化后的日期字符串
+ */
 function isValidDate(dateString: string) {
   const defaultDateFormats = [
     'YYYY-MM-DD',
@@ -51,8 +56,8 @@ function isValidDate(dateString: string) {
 
 /**
  * 转化数字，转化不成功继续用string
- * @param value
- * @returns
+ * @param {string} value - 要转换的值
+ * @returns {number|string} 转换后的数字或原字符串
  */
 const numberString = (value: string) => {
   if (!value) return value;
@@ -69,6 +74,12 @@ const numberString = (value: string) => {
   }
 };
 
+/**
+ * 按类别分组数据
+ * @param {any[]} data - 数据数组
+ * @param {any} key - 分组键
+ * @returns {Object} 分组后的数据对象
+ */
 const groupByCategory = (data: any[], key: any) => {
   return data.reduce((group, product) => {
     const category = product[key];
@@ -79,43 +90,40 @@ const groupByCategory = (data: any[], key: any) => {
 };
 
 /**
- * Chart 组件用于渲染图表元素。
+ * ChartElement 组件 - 图表元素组件
+ *
+ * 该组件用于在Markdown编辑器中渲染图表，支持多种图表类型和数据处理。
+ * 提供图表配置、数据转换、错误处理等功能。
  *
  * @component
- * @param {RenderElementProps} props - 组件的属性。
- * @returns {JSX.Element} 渲染的图表组件。
+ * @description 图表元素组件，在编辑器中渲染各种类型的图表
+ * @param {RenderElementProps} props - 组件属性
+ * @param {Object} props.element - 图表元素数据
+ * @param {Object} props.attributes - 元素属性
+ * @param {React.ReactNode} props.children - 子元素
  *
  * @example
  * ```tsx
- * <Chart element={element} attributes={attributes} children={children} />
+ * <ChartElement
+ *   element={chartElement}
+ *   attributes={attributes}
+ *   children={children}
+ * />
  * ```
  *
- * @description
- * 该组件使用 `useEditorStore` 和 `useSlate` 获取编辑器的状态和实例。
- * 使用 `useMemo` 计算图表数据，并根据 `node.otherProps?.dataSource` 生成列列表。
- * 通过 `getChartPopover` 函数生成图表配置的下拉菜单和弹出框。
+ * @returns {React.ReactElement} 渲染的图表元素组件
  *
  * @remarks
- * - 支持多种图表类型：饼图、柱状图、折线图、面积图等。
- * - 使用 `ErrorBoundary` 组件包裹图表，处理渲染错误。
- * - 支持图表的拖拽和编辑功能。
- *
- * @param {number} index - 图表配置的索引。
- * @returns {JSX.Element[]} 返回图表配置的下拉菜单和弹出框。
- *
- * @example
- * ```tsx
- * const toolBar = getChartPopover(index);
- * ```
- *
- * @description
- * 该函数生成图表配置的下拉菜单和弹出框，用于更改图表类型和配置图表属性。
- *
- * @remarks
- * - 使用 `Dropdown` 和 `Popover` 组件生成菜单和弹出框。
- * - 支持图表类型的切换和属性的更新。
+ * - 支持多种图表类型（饼图、柱状图、折线图、面积图等）
+ * - 提供数据格式转换功能
+ * - 支持日期和数字格式化
+ * - 使用ErrorBoundary处理渲染错误
+ * - 提供拖拽手柄功能
+ * - 支持图表配置和自定义
+ * - 集成编辑器状态管理
+ * - 提供响应式布局
  */
-export const ChartElement: React.FC<RenderElementProps> = (props) => {
+export const ChartElement = (props: RenderElementProps) => {
   const { store, readonly, markdownContainerRef, rootContainer } =
     useEditorStore();
   const editor = useSlate();
