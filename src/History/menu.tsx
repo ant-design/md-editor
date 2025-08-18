@@ -97,14 +97,9 @@ const MenuItem: React.FC<{
         )}
       >
         <div
-          className={classNames(
-            baseClass,
-            hashId,
-            customClassNames?.menuItemClassName,
-            {
-              [`${baseClass}-group`]: true,
-            },
-          )}
+          className={classNames(hashId, customClassNames?.menuItemClassName, {
+            [`${baseClass}-group`]: true,
+          })}
         >
           <div
             className={classNames(
@@ -221,46 +216,6 @@ export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
     [onSelect],
   );
 
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (!dataSource.length) return;
-
-      const enabledItems = dataSource.filter((item) => !item.disabled);
-      const currentIndex = enabledItems.findIndex(
-        (item) => item.key === currentSelectedKey,
-      );
-
-      let nextIndex = currentIndex;
-
-      switch (event.key) {
-        case 'ArrowDown':
-          event.preventDefault();
-          nextIndex =
-            currentIndex < enabledItems.length - 1 ? currentIndex + 1 : 0;
-          break;
-        case 'ArrowUp':
-          event.preventDefault();
-          nextIndex =
-            currentIndex > 0 ? currentIndex - 1 : enabledItems.length - 1;
-          break;
-        case 'Enter':
-        case ' ':
-          event.preventDefault();
-          if (currentSelectedKey) {
-            handleSelect(currentSelectedKey);
-          }
-          return;
-        default:
-          return;
-      }
-
-      if (enabledItems[nextIndex]) {
-        handleSelect(enabledItems[nextIndex].key);
-      }
-    },
-    [dataSource, currentSelectedKey, handleSelect],
-  );
-
   // 直接传递用户自定义的 classNames
   return wrapSSR(
     <div
@@ -269,7 +224,6 @@ export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
       role="menu"
       aria-label="菜单"
       tabIndex={0}
-      onKeyDown={handleKeyDown}
       {...restProps}
     >
       {dataSource.map((item) => (

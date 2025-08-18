@@ -435,6 +435,26 @@ export const FileComponent: FC<{
     onToggleGroup?.(type, collapsed);
   };
 
+  // 返回列表（供预览页调用）
+  const handleBackToList = () => {
+    // 使进行中的预览请求失效
+    previewRequestIdRef.current++;
+    setPreviewFile(null);
+    setCustomPreviewContent(null);
+    setCustomPreviewHeader(null);
+  };
+
+  // 预览页面的下载（供预览页调用）
+  const handleDownloadInPreview = (file: FileNode) => {
+    // 优先使用用户传入的下载方法
+    if (onDownload) {
+      onDownload(file);
+      return;
+    }
+
+    handleFileDownload(file);
+  };
+
   // 预览文件处理
   const handlePreview = async (file: FileNode) => {
     // 如果用户提供了预览方法，尝试使用用户的方法
@@ -521,25 +541,6 @@ export const FileComponent: FC<{
     }
     setCustomPreviewContent(null);
     setPreviewFile(file);
-  };
-
-  const handleBackToList = () => {
-    // 使进行中的预览请求失效
-    previewRequestIdRef.current++;
-    setPreviewFile(null);
-    setCustomPreviewContent(null);
-    setCustomPreviewHeader(null);
-  };
-
-  // 处理预览页面的下载
-  const handleDownloadInPreview = (file: FileNode) => {
-    // 优先使用用户传入的下载方法
-    if (onDownload) {
-      onDownload(file);
-      return;
-    }
-
-    handleFileDownload(file);
   };
 
   // 图片预览组件

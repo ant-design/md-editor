@@ -28,7 +28,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (
         padding: 0,
       },
       '&:hover': {
-        background: token.colorBgTextHover,
+        background: 'rgba(0, 16, 32, 0.0627)',
       },
       '&-standalone': {
         minWidth: 'inherit',

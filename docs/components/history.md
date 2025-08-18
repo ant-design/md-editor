@@ -35,6 +35,12 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 
 <code src="../demos/history-extra.tsx">自定义额外内容</code>
 
+### Agent 模式
+
+启用 Agent 模式后，支持搜索、收藏、多选与加载更多等增强能力。
+
+<code src="../demos/history-agent-mode-demo.tsx">Agent 模式</code>
+
 ## API
 
 ### History
@@ -56,15 +62,17 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 
 ### HistoryDataType
 
-| 参数            | 说明         | 类型               | 默认值 |
-| --------------- | ------------ | ------------------ | ------ |
-| id              | 会话记录ID   | `number \| string` | -      |
-| tenantId        | 租户ID       | `string`           | -      |
-| sessionTitle    | 会话标题     | `React.ReactNode`  | -      |
-| agentId         | AI代理ID     | `string`           | -      |
-| sessionId       | 会话唯一标识 | `string`           | -      |
-| gmtCreate       | 记录创建时间 | `number \| string` | -      |
-| gmtLastConverse | 最近对话时间 | `number \| string` | -      |
+| 参数            | 说明         | 类型               | 默认值  |
+| --------------- | ------------ | ------------------ | ------- |
+| id              | 会话记录ID   | `number \| string` | -       |
+| tenantId        | 租户ID       | `string`           | -       |
+| sessionTitle    | 会话标题     | `React.ReactNode`  | -       |
+| agentId         | AI代理ID     | `string`           | -       |
+| sessionId       | 会话唯一标识 | `string`           | -       |
+| gmtCreate       | 记录创建时间 | `number \| string` | -       |
+| gmtLastConverse | 最近对话时间 | `number \| string` | -       |
+| isFavorite      | 是否收藏     | `boolean`          | `false` |
+| isSelected      | 是否选中     | `boolean`          | `false` |
 
 ### HistoryChatType
 
@@ -131,6 +139,19 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 }
 ```
 
+### Agent 配置
+
+通过 `agent` 属性启用并配置 Agent 模式。组件会根据提供的回调函数自动显示对应的功能按钮：
+
+| 属性              | 类型                                               | 默认值  | 说明                |
+| ----------------- | -------------------------------------------------- | ------- | ------------------- |
+| enabled           | `boolean`                                          | `false` | 是否启用 agent 模式 |
+| onSearch          | `(keyword: string) => void`                        | -       | 搜索回调函数        |
+| onFavorite        | `(sessionId: string, isFavorite: boolean) => void` | -       | 收藏/取消收藏回调   |
+| onSelectionChange | `(selectedIds: string[]) => void`                  | -       | 多选变更回调        |
+| onLoadMore        | `() => void`                                       | -       | 加载更多回调        |
+| onNewChat         | `() => void`                                       | -       | 新对话回调函数      |
+
 ## 注意事项
 
 1. **请求函数**：`request` 函数必须返回 `Promise<HistoryDataType[]>`，用于获取历史数据
@@ -138,3 +159,5 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 3. **删除功能**：需要提供 `onDeleteItem` 回调函数才能启用删除功能
 4. **独立模式**：在独立模式下，组件直接渲染菜单，不包含下拉触发器
 5. **性能优化**：大量历史记录时建议实现虚拟滚动或分页加载
+6. **功能按钮**：新对话和加载更多按钮会根据是否提供对应的回调函数自动显示
+7. **Loading 状态**：搜索、加载更多和新对话功能都有内置的 loading 状态管理，无需外部配置
