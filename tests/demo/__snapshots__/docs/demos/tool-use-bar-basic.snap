@@ -295,7 +295,7 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool "
+          class="tool-use-bar-tool  tool-use-bar-tool-idle"
           data-testid="ToolUserItem"
         >
           <div

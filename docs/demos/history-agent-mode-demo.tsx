@@ -66,6 +66,10 @@ const HistoryAgentModeDemo: React.FC = () => {
 
   // 处理收藏
   const handleFavorite = async (sessionId: string, isFavorite: boolean) => {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
+
     const newFavorites = new Set(favorites);
     if (isFavorite) {
       newFavorites.add(sessionId);
@@ -97,17 +101,25 @@ const HistoryAgentModeDemo: React.FC = () => {
 
   // 处理新对话
   const handleNewChat = async () => {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
     message.success('创建新对话');
-    // 这里可以添加创建新对话的逻辑
   };
 
   // 处理选择会话
-  const handleSelected = (sessionId: string) => {
+  const handleSelected = async (sessionId: string) => {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
     message.success(`选择了会话: ${sessionId}`);
   };
 
   // 处理删除会话
   const handleDeleteItem = async (sessionId: string) => {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
     message.success(`删除了会话: ${sessionId}`);
   };
 
@@ -123,7 +135,8 @@ const HistoryAgentModeDemo: React.FC = () => {
           </li>
           <li>
             <strong>收藏功能：</strong>
-            悬停在历史记录上会显示收藏按钮，点击可以收藏/取消收藏
+            悬停在历史记录上会显示收藏按钮，点击可以收藏/取消收藏（支持 loading
+            状态）
           </li>
           <li>
             <strong>多选功能：</strong>每个历史记录前面都有复选框，支持多选操作
@@ -180,7 +193,7 @@ const HistoryAgentModeDemo: React.FC = () => {
           <li>点击历史记录图标打开菜单</li>
           <li>在搜索框中输入关键词进行搜索</li>
           <li>点击新对话按钮创建新的对话</li>
-          <li>悬停在历史记录上可以看到收藏和删除按钮</li>
+          <li>悬停在历史记录上可以看到收藏和删除按钮（都支持 loading 状态）</li>
           <li>勾选复选框可以选择多个会话</li>
           <li>点击加载更多按钮可以加载更多数据</li>
         </ol>

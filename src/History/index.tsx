@@ -151,6 +151,8 @@ const TimeBox: React.FC<{
   const { locale } = useContext(BubbleConfigContext) || {};
   const [isHover, setIsHover] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [favoriteLoading, setFavoriteLoading] = React.useState(false);
+  const [deleteLoading, setDeleteLoading] = React.useState(false);
   return (
     <div
       onMouseEnter={() => {
@@ -175,13 +177,21 @@ const TimeBox: React.FC<{
           {props.agent?.enabled && props.item && props.onFavorite && (
             <ActionIconBox
               scale
-              onClick={(e) => {
+              loading={favoriteLoading}
+              onClick={async (e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                props.onFavorite?.(
-                  props.item!.sessionId!,
-                  !props.item!.isFavorite,
-                );
+                try {
+                  setFavoriteLoading(true);
+                  await props.onFavorite?.(
+                    props.item!.sessionId!,
+                    !props.item!.isFavorite,
+                  );
+                } catch (error) {
+                  // 处理错误
+                } finally {
+                  setFavoriteLoading(false);
+                }
               }}
               title={props.item!.isFavorite ? '取消收藏' : '收藏'}
             >
@@ -220,10 +230,17 @@ const TimeBox: React.FC<{
                 locale?.['chat.history.delete.popconfirm'] ||
                 '确定删除该消息吗？'
               }
-              onConfirm={(e) => {
+              onConfirm={async (e) => {
                 e?.stopPropagation();
                 e?.preventDefault();
-                props?.onDeleteItem?.();
+                try {
+                  setDeleteLoading(true);
+                  await props?.onDeleteItem?.();
+                } catch (error) {
+                  // 处理错误
+                } finally {
+                  setDeleteLoading(false);
+                }
               }}
               onCancel={(e) => {
                 e?.stopPropagation();
@@ -232,6 +249,7 @@ const TimeBox: React.FC<{
             >
               <ActionIconBox
                 scale
+                loading={deleteLoading}
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
@@ -612,7 +630,7 @@ export const History: React.FC<HistoryProps> = (props) => {
 
     return (
       <Button
-        color="default"
+        color="primary"
         variant="filled"
         icon={<NewChatIcon />}
         loading={loading}
@@ -628,7 +646,6 @@ export const History: React.FC<HistoryProps> = (props) => {
         }}
         style={{
           justifyContent: 'flex-start',
-          color: '#0068E8',
         }}
       >
         新对话

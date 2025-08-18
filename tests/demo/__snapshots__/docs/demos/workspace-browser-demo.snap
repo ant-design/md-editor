@@ -45,11 +45,9 @@
                   zindex="-1"
                 >
                   <div
-                    class="ant-md-editor-drag-el empty"
+                    class="ant-md-editor-drag-el"
                     data-be="paragraph"
-                    data-empty="true"
                     data-slate-node="element"
-                    data-slate-placeholder="请输入内容..."
                   >
                     <span
                       data-slate-node="text"
@@ -60,11 +58,9 @@
                         draggable="false"
                       >
                         <span
-                          data-slate-length="0"
-                          data-slate-zero-width="n"
+                          data-slate-string="true"
                         >
-                          ﻿
-                          <br />
+                          浏览器数据内容
                         </span>
                       </span>
                     </span>

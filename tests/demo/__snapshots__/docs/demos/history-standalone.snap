@@ -18,123 +18,143 @@
         style="width: 300px; border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px; background-color: rgb(250, 250, 250);"
       >
         <div
-          aria-label="菜单"
-          class="ant-history-menu ant-agent-chat-history-menu"
-          role="menu"
-          tabindex="0"
+          style="display: flex; flex-direction: column; gap: 8px;"
         >
           <div
-            class="ant-history-menu-submenu"
+            aria-label="菜单"
+            class="ant-history-menu ant-agent-chat-history-menu"
+            role="menu"
+            tabindex="0"
           >
             <div
-              class="ant-history-menu-item ant-history-menu-item-group"
+              class="ant-history-menu-submenu"
             >
               <div
-                class="ant-history-menu-item-content"
-              >
-                2 years ago
-              </div>
-            </div>
-            <div
-              aria-selected="true"
-              class="ant-history-menu-item ant-history-menu-item-selected"
-              role="menuitem"
-              tabindex="0"
-            >
-              <div
-                class="ant-history-menu-item-content"
+                class="ant-history-menu-item-group"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
+                >
+                  2 years ago
+                </div>
+              </div>
+              <div
+                aria-selected="true"
+                class="ant-history-menu-item ant-history-menu-item-selected"
+                role="menuitem"
+                tabindex="0"
+              >
+                <div
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    项目需求分析
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        项目需求分析
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                    >
+                      09:50
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              aria-selected="false"
-              class="ant-history-menu-item"
-              role="menuitem"
-              tabindex="0"
-            >
               <div
-                class="ant-history-menu-item-content"
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    技术方案讨论
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        技术方案讨论
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                    >
+                      09:50
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              aria-selected="false"
-              class="ant-history-menu-item"
-              role="menuitem"
-              tabindex="0"
-            >
               <div
-                class="ant-history-menu-item-content"
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    UI/UX 设计评审
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        UI/UX 设计评审
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                    >
+                      09:50
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              aria-selected="false"
-              class="ant-history-menu-item"
-              role="menuitem"
-              tabindex="0"
-            >
               <div
-                class="ant-history-menu-item-content"
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    测试计划制定
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        测试计划制定
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                    >
+                      09:50
+                    </div>
                   </div>
                 </div>
               </div>

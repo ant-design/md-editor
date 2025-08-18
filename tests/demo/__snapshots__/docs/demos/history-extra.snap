@@ -18,181 +18,201 @@
         style="width: 400px; border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px; background-color: rgb(250, 250, 250);"
       >
         <div
-          aria-label="菜单"
-          class="ant-history-menu ant-agent-chat-history-menu"
-          role="menu"
-          tabindex="0"
+          style="display: flex; flex-direction: column; gap: 8px;"
         >
           <div
-            class="ant-history-menu-submenu"
+            aria-label="菜单"
+            class="ant-history-menu ant-agent-chat-history-menu"
+            role="menu"
+            tabindex="0"
           >
             <div
-              class="ant-history-menu-item ant-history-menu-item-group"
+              class="ant-history-menu-submenu"
             >
               <div
-                class="ant-history-menu-item-content"
-              >
-                2 years ago
-              </div>
-            </div>
-            <div
-              aria-selected="true"
-              class="ant-history-menu-item ant-history-menu-item-selected"
-              role="menuitem"
-              tabindex="0"
-            >
-              <div
-                class="ant-history-menu-item-content"
+                class="ant-history-menu-item-group"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
+                >
+                  2 years ago
+                </div>
+              </div>
+              <div
+                aria-selected="true"
+                class="ant-history-menu-item ant-history-menu-item-selected"
+                role="menuitem"
+                tabindex="0"
+              >
+                <div
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    重要会议记录
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
-                  </div>
-                  <div
-                    style="display: flex; gap: 4px; align-items: center;"
-                  >
-                    <span
-                      class="ant-tag ant-tag-red"
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                     >
-                      重要
-                    </span>
-                    <button
-                      class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                      type="button"
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        重要会议记录
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                     >
-                      <span>
-                        导出
+                      09:50
+                    </div>
+                    <div
+                      style="display: flex; gap: 4px; align-items: center;"
+                    >
+                      <span
+                        class="ant-tag ant-tag-red"
+                      >
+                        重要
                       </span>
-                    </button>
+                      <button
+                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
+                        type="button"
+                      >
+                        <span>
+                          导出
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              aria-selected="false"
-              class="ant-history-menu-item"
-              role="menuitem"
-              tabindex="0"
-            >
               <div
-                class="ant-history-menu-item-content"
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    日常讨论
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
-                  </div>
-                  <div
-                    style="display: flex; gap: 4px; align-items: center;"
-                  >
-                    <button
-                      class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                      type="button"
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                     >
-                      <span>
-                        导出
-                      </span>
-                    </button>
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        日常讨论
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                    >
+                      09:50
+                    </div>
+                    <div
+                      style="display: flex; gap: 4px; align-items: center;"
+                    >
+                      <button
+                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
+                        type="button"
+                      >
+                        <span>
+                          导出
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              aria-selected="false"
-              class="ant-history-menu-item"
-              role="menuitem"
-              tabindex="0"
-            >
               <div
-                class="ant-history-menu-item-content"
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    紧急问题处理
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
-                  </div>
-                  <div
-                    style="display: flex; gap: 4px; align-items: center;"
-                  >
-                    <span
-                      class="ant-tag ant-tag-red"
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                     >
-                      重要
-                    </span>
-                    <button
-                      class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                      type="button"
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        紧急问题处理
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                     >
-                      <span>
-                        导出
+                      09:50
+                    </div>
+                    <div
+                      style="display: flex; gap: 4px; align-items: center;"
+                    >
+                      <span
+                        class="ant-tag ant-tag-red"
+                      >
+                        重要
                       </span>
-                    </button>
+                      <button
+                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
+                        type="button"
+                      >
+                        <span>
+                          导出
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              aria-selected="false"
-              class="ant-history-menu-item"
-              role="menuitem"
-              tabindex="0"
-            >
               <div
-                class="ant-history-menu-item-content"
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
               >
                 <div
-                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    aria-describedby="test-id"
-                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    长期项目规划
-                  </div>
-                  <div
-                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                  >
-                    09:50
-                  </div>
-                  <div
-                    style="display: flex; gap: 4px; align-items: center;"
-                  >
-                    <button
-                      class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                      type="button"
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                     >
-                      <span>
-                        导出
-                      </span>
-                    </button>
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content;"
+                      >
+                        长期项目规划
+                      </div>
+                    </div>
+                    <div
+                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                    >
+                      09:50
+                    </div>
+                    <div
+                      style="display: flex; gap: 4px; align-items: center;"
+                    >
+                      <button
+                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
+                        type="button"
+                      >
+                        <span>
+                          导出
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
