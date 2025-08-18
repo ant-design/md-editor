@@ -66,7 +66,12 @@ const resolveTabConfig = (
   tab: TabConfiguration | undefined,
   defaultConfig: (typeof DEFAULT_CONFIG)[ComponentType],
   index?: number,
-): { key: string; icon: React.ReactNode; title: React.ReactNode; count?: number } => {
+): {
+  key: string;
+  icon: React.ReactNode;
+  title: React.ReactNode;
+  count?: number;
+} => {
   return {
     key:
       tab?.key || defaultConfig.key + (index !== undefined ? `-${index}` : ''),

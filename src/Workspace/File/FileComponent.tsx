@@ -460,17 +460,18 @@ export const FileComponent: FC<{
             typeof previewData === 'string' ||
             typeof previewData === 'number' ||
             typeof previewData === 'boolean'
-                      ) {
-              // 如果自定义内容是 ReactElement，注入控制头部/返回/下载的方法
-              const content = React.isValidElement(previewData)
-                ? React.cloneElement(previewData as React.ReactElement, {
-                    setPreviewHeader: (header: React.ReactNode) => setCustomPreviewHeader(header),
-                    back: handleBackToList,
-                    download: () => handleDownloadInPreview(file),
-                  })
-                : (previewData as React.ReactNode);
-              setCustomPreviewHeader(null);
-              setCustomPreviewContent(content);
+          ) {
+            // 如果自定义内容是 ReactElement，注入控制头部/返回/下载的方法
+            const content = React.isValidElement(previewData)
+              ? React.cloneElement(previewData as React.ReactElement, {
+                  setPreviewHeader: (header: React.ReactNode) =>
+                    setCustomPreviewHeader(header),
+                  back: handleBackToList,
+                  download: () => handleDownloadInPreview(file),
+                })
+              : (previewData as React.ReactNode);
+            setCustomPreviewHeader(null);
+            setCustomPreviewContent(content);
           } else if (
             typeof previewData === 'object' &&
             previewData !== null &&

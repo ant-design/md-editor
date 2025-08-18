@@ -264,12 +264,12 @@ export class DataSourceManager {
     };
   }
 
-    /**
+  /**
    * 清理资源
    */
   cleanupResult(result: DataSourceResult): void {
     if (!result.needsCleanup || !result.previewUrl?.startsWith('blob:')) return;
-    
+
     // 直接清理 Blob URL，不需要找到具体的策略（仅在浏览器环境中）
     if (typeof URL !== 'undefined' && URL.revokeObjectURL) {
       URL.revokeObjectURL(result.previewUrl);

@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Alert, Image, Spin, Segmented } from 'antd';
+import { Alert, Image, Segmented, Spin } from 'antd';
 import React, { type FC, useEffect, useRef, useState } from 'react';
 import {
   MarkdownEditor,
@@ -133,7 +133,9 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     mdContent: '',
     rawContent: '',
   });
-  const [htmlViewMode, setHtmlViewMode] = useState<'preview' | 'code'>('preview');
+  const [htmlViewMode, setHtmlViewMode] = useState<'preview' | 'code'>(
+    'preview',
+  );
 
   const handleDownload = () => {
     onDownload?.(file);
@@ -322,7 +324,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           <div className={`${PREFIX}__text`}>
             <MarkdownEditor
               editorRef={editorRef}
-              {...{ initValue: '', readonly: true, contentStyle: { padding: 0 } }}
+              {...{
+                initValue: '',
+                readonly: true,
+                contentStyle: { padding: 0 },
+              }}
               {...markdownEditorProps}
             />
           </div>
