@@ -24,6 +24,53 @@ export interface HtmlPreviewProps {
   segmentedItems?: Array<{ label: React.ReactNode; value: string }>;
 }
 
+/**
+ * HtmlPreview 组件 - HTML预览组件
+ *
+ * 该组件提供HTML内容的预览和代码查看功能，支持预览模式和代码模式的切换。
+ * 使用DOMPurify进行安全的内容清理，支持iframe预览和Markdown代码显示。
+ *
+ * @component
+ * @description HTML预览组件，支持预览和代码模式切换
+ * @param {HtmlPreviewProps} props - 组件属性
+ * @param {string} props.html - HTML内容字符串
+ * @param {'generating' | 'loading' | 'done' | 'error'} [props.status] - 内容状态
+ * @param {HtmlViewMode} [props.viewMode] - 当前视图模式（受控模式）
+ * @param {HtmlViewMode} [props.defaultViewMode='preview'] - 默认视图模式
+ * @param {(mode: HtmlViewMode) => void} [props.onViewModeChange] - 视图模式变化回调
+ * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ * @param {React.IframeHTMLAttributes<HTMLIFrameElement>} [props.iframeProps] - iframe属性
+ * @param {Object} [props.labels] - 自定义标签文本
+ * @param {React.ReactNode | (() => React.ReactNode)} [props.loadingRender] - 自定义加载渲染
+ * @param {React.ReactNode | (() => React.ReactNode)} [props.errorRender] - 自定义错误渲染
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {boolean} [props.showSegmented=true] - 是否显示分段控制器
+ * @param {Array<{label: React.ReactNode, value: string}>} [props.segmentedItems] - 自定义分段选项
+ *
+ * @example
+ * ```tsx
+ * <HtmlPreview
+ *   html="<h1>Hello World</h1>"
+ *   status="done"
+ *   defaultViewMode="preview"
+ *   onViewModeChange={(mode) => console.log('模式切换:', mode)}
+ *   labels={{ preview: '预览', code: '源码' }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的HTML预览组件
+ *
+ * @remarks
+ * - 支持预览模式和代码模式切换
+ * - 使用DOMPurify进行安全的内容清理
+ * - 提供iframe预览功能
+ * - 支持Markdown代码显示
+ * - 提供加载和错误状态处理
+ * - 支持自定义渲染内容
+ * - 响应式布局设计
+ * - 支持受控和非受控模式
+ */
 export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
   const {
     html,
@@ -99,7 +146,9 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
 
   return (
     <div
-            className={['workspace-html-preview', className].filter(Boolean).join(' ')}
+      className={['workspace-html-preview', className]
+        .filter(Boolean)
+        .join(' ')}
       style={style}
     >
       {showSegmented && (
@@ -124,7 +173,10 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
         </div>
       )}
 
-      <div className="workspace-html-preview__content" style={{ minHeight: 240 }}>
+      <div
+        className="workspace-html-preview__content"
+        style={{ minHeight: 240 }}
+      >
         {overlayNode}
         {mode === 'code' ? (
           <MarkdownEditor

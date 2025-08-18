@@ -1,5 +1,39 @@
 import React from 'react';
 
+/**
+ * ReloadIcon 组件 - 重新加载图标组件
+ *
+ * 该组件显示一个重新加载图标，支持点击时的旋转动画效果。
+ * 主要用于表示刷新、重新加载或重试功能的 UI 元素。
+ *
+ * @component
+ * @description 重新加载图标组件，支持点击旋转动画
+ * @param {React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>} props - SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { ReloadIcon } from './icons';
+ *
+ * // 基本用法
+ * <ReloadIcon onClick={handleReload} />
+ *
+ * // 自定义样式
+ * <ReloadIcon
+ *   onClick={handleReload}
+ *   style={{ color: 'blue' }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的重新加载图标组件
+ *
+ * @remarks
+ * - 使用 1em x 1em 的尺寸
+ * - 支持所有标准的 SVG 属性
+ * - 使用 13x13 的 viewBox
+ * - 使用 currentColor 继承父元素颜色
+ * - 点击时自动旋转 360 度
+ * - 旋转动画持续 0.5 秒，使用 ease-in-out 缓动
+ */
 export const ReloadIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>,
 ) => {

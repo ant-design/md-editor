@@ -5,6 +5,41 @@ interface EarthIconProps extends React.SVGProps<SVGSVGElement> {
   color?: string;
 }
 
+/**
+ * EarthIcon 组件 - 地球图标组件
+ *
+ * 该组件显示一个地球图标，支持自定义大小、颜色和 SVG 属性。
+ * 主要用于表示全球、网络或国际化相关的 UI 元素。
+ *
+ * @component
+ * @description 地球图标组件，支持自定义大小、颜色和 SVG 属性
+ * @param {EarthIconProps} props - 组件属性
+ * @param {number} [props.size=24] - 图标大小（像素）
+ * @param {string} [props.color='#0055CC'] - 图标颜色
+ * @param {React.SVGProps<SVGSVGElement>} props - 其他 SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { EarthIcon } from './components/icons/Earth';
+ *
+ * // 基本用法
+ * <EarthIcon size={24} />
+ *
+ * // 自定义颜色
+ * <EarthIcon size={32} color="#FF0000" />
+ *
+ * // 自定义样式
+ * <EarthIcon size={20} className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的地球图标组件
+ *
+ * @remarks
+ * - 默认大小为 24px
+ * - 默认颜色为蓝色 (#0055CC)
+ * - 支持所有标准的 SVG 属性
+ * - 使用 24x24 的 viewBox
+ */
 export const EarthIcon: React.FC<EarthIconProps> = ({
   size = 24,
   color = '#0055CC',

@@ -4,6 +4,36 @@ interface DocIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
 }
 
+/**
+ * DocIcon 组件 - 文档图标组件
+ *
+ * 该组件显示一个文档图标，支持自定义大小和 SVG 属性。
+ * 主要用于表示文档相关的 UI 元素。
+ *
+ * @component
+ * @description 文档图标组件，支持自定义大小和 SVG 属性
+ * @param {DocIconProps} props - 组件属性
+ * @param {number} [props.size=16] - 图标大小（像素）
+ * @param {React.SVGProps<SVGSVGElement>} props - 其他 SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { DocIcon } from './components/icons/DocIcon';
+ *
+ * // 基本用法
+ * <DocIcon size={24} />
+ *
+ * // 自定义样式
+ * <DocIcon size={20} className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的文档图标组件
+ *
+ * @remarks
+ * - 默认大小为 16px
+ * - 支持所有标准的 SVG 属性
+ * - 包含 data-testid="doc-icon" 用于测试
+ */
 export const DocIcon: React.FC<DocIconProps> = ({ size = 16, ...props }) => {
   return (
     <svg

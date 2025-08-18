@@ -4,6 +4,38 @@ interface DatabaseIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
 }
 
+/**
+ * DatabaseIcon 组件 - 数据库图标组件
+ *
+ * 该组件显示一个数据库图标，支持自定义大小和 SVG 属性。
+ * 主要用于表示数据库、数据存储或数据相关的 UI 元素。
+ *
+ * @component
+ * @description 数据库图标组件，支持自定义大小和 SVG 属性
+ * @param {DatabaseIconProps} props - 组件属性
+ * @param {number} [props.size=18] - 图标大小（像素）
+ * @param {React.SVGProps<SVGSVGElement>} props - 其他 SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { DatabaseIcon } from './components/icons/DatabaseIcon';
+ *
+ * // 基本用法
+ * <DatabaseIcon size={18} />
+ *
+ * // 自定义样式
+ * <DatabaseIcon size={24} className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的数据库图标组件
+ *
+ * @remarks
+ * - 默认大小为 18px
+ * - 支持所有标准的 SVG 属性
+ * - 包含 data-testid="database-icon" 用于测试
+ * - 使用 18x18 的 viewBox
+ * - 显示圆柱形数据库结构
+ */
 export const DatabaseIcon: React.FC<DatabaseIconProps> = ({
   size = 18,
   ...props

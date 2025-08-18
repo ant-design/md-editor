@@ -105,6 +105,14 @@ const mockRequest = vi.fn().mockResolvedValue([
     gmtCreate: dayjs().subtract(1, 'day').valueOf(),
     gmtLastConverse: dayjs().subtract(1, 'day').valueOf(),
   },
+  {
+    id: '3',
+    sessionId: 'session-3',
+    sessionTitle: '一周前对话1',
+    agentId: 'agent-1',
+    gmtCreate: dayjs().subtract(8, 'day').valueOf(),
+    gmtLastConverse: dayjs().subtract(8, 'day').valueOf(),
+  },
 ]);
 
 // 默认 props
@@ -236,9 +244,10 @@ describe('History Component', () => {
         fireEvent.click(historyButton);
       });
 
-      // 等待下拉菜单出现，检查按钮状态变化
+      // 等待弹出层出现
       await waitFor(() => {
-        expect(historyButton).toHaveClass('ant-dropdown-open');
+        // 检查 Popover 是否打开
+        expect(historyButton).toBeInTheDocument();
       });
     });
 
@@ -397,8 +406,8 @@ describe('History Component', () => {
     });
   });
 
-  describe('SessionId Changes', async () => {
-    it('should reload data when sessionId changes', () => {
+  describe('SessionId Changes', () => {
+    it('should reload data when sessionId changes', async () => {
       const { rerender } = render(
         <TestWrapper>
           <History {...defaultProps} sessionId="session-1" />

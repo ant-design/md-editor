@@ -4,6 +4,36 @@ import React from 'react';
 import { useCopied } from '../../../hooks/useCopied';
 import { ActionIconBox, ActionIconBoxProps } from '../../../index';
 
+/**
+ * CopyIcon 组件 - 复制图标组件
+ *
+ * 该组件显示一个复制图标，支持自定义 SVG 属性。
+ * 主要用于表示复制功能的 UI 元素。
+ *
+ * @component
+ * @description 复制图标组件，支持自定义 SVG 属性
+ * @param {React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>} props - SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { CopyIcon } from './CopyButton';
+ *
+ * // 基本用法
+ * <CopyIcon />
+ *
+ * // 自定义样式
+ * <CopyIcon className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的复制图标组件
+ *
+ * @remarks
+ * - 使用 1em x 1em 的尺寸
+ * - 支持所有标准的 SVG 属性
+ * - 使用 14x14 的 viewBox
+ * - 使用 currentColor 继承父元素颜色
+ * - 包含 data-testid="copy-icon" 用于测试
+ */
 export const CopyIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>,
 ) => {
@@ -38,6 +68,43 @@ export type CopyButtonProps = {
   'data-testid'?: string;
 } & Omit<ActionIconBoxProps, 'children'>;
 
+/**
+ * CopyButton 组件 - 复制按钮组件
+ *
+ * 该组件提供一个可点击的复制按钮，支持复制功能和状态反馈。
+ * 主要用于复制文本内容，并提供复制成功的视觉反馈。
+ *
+ * @component
+ * @description 复制按钮组件，支持复制功能和状态反馈
+ * @param {CopyButtonProps} props - 组件属性
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {Function} [props.onClick] - 点击事件回调
+ * @param {React.ReactNode} [props.children] - 自定义子元素
+ * @param {string} [props['data-testid']] - 测试标识符
+ * @param {ActionIconBoxProps} props - 其他 ActionIconBox 属性
+ *
+ * @example
+ * ```tsx
+ * import { CopyButton } from './CopyButton';
+ *
+ * // 基本用法
+ * <CopyButton onClick={() => copyText('Hello World')} />
+ *
+ * // 自定义图标
+ * <CopyButton onClick={handleCopy}>
+ *   <CustomIcon />
+ * </CopyButton>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的复制按钮组件
+ *
+ * @remarks
+ * - 使用 memo 进行性能优化
+ * - 集成 useCopied hook 管理复制状态
+ * - 点击时自动触发复制成功状态
+ * - 支持自定义图标和样式
+ * - 提供复制成功的视觉反馈
+ */
 export const CopyButton = memo<CopyButtonProps>(
   ({ className, onClick, 'data-testid': dataTestId, ...props }) => {
     const { copied, setCopied } = useCopied();

@@ -70,6 +70,32 @@ function useIconStyle(prefixCls?: string) {
   });
 }
 
+/**
+ * LoadingIcon 组件 - 加载图标组件
+ *
+ * 该组件显示一个动画的加载图标，使用 framer-motion 和 CSS 动画实现旋转和描边动画效果。
+ * 主要用于表示加载状态、处理中或等待的 UI 元素。
+ *
+ * @component
+ * @description 动画加载图标组件，支持旋转和描边动画效果
+ * @example
+ * ```tsx
+ * import { LoadingIcon } from './icons/LoadingIcon';
+ *
+ * // 基本用法
+ * <LoadingIcon />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的动画加载图标组件
+ *
+ * @remarks
+ * - 使用 framer-motion 实现位置动画
+ * - 使用 CSS Keyframes 实现旋转和描边动画
+ * - 包含渐变色彩效果
+ * - 使用 1em x 1em 的尺寸
+ * - 使用 16x16 的 viewBox
+ * - 双圆环设计，外圆为背景，内圆为动画进度
+ */
 export const LoadingIcon = () => {
   const { wrapSSR, hashId } = useIconStyle('thoughtChainList');
   return wrapSSR(

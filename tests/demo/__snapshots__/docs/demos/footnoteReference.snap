@@ -84,7 +84,6 @@
                     data-slate-node="text"
                   >
                     <span
-                      aria-describedby="test-id"
                       data-be="text"
                       data-fnc="fnc"
                       data-slate-leaf="true"
@@ -124,7 +123,6 @@
                     data-slate-node="text"
                   >
                     <span
-                      aria-describedby="test-id"
                       data-be="text"
                       data-fnc="fnc"
                       data-slate-leaf="true"

@@ -4,6 +4,38 @@ interface LoadingSpinnerIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
 }
 
+/**
+ * LoadingSpinnerIcon 组件 - 加载旋转图标组件
+ *
+ * 该组件显示一个旋转的加载图标，支持自定义大小和 SVG 属性。
+ * 主要用于表示加载状态或处理中的 UI 元素。
+ *
+ * @component
+ * @description 加载旋转图标组件，支持自定义大小和 SVG 属性
+ * @param {LoadingSpinnerIconProps} props - 组件属性
+ * @param {number} [props.size=24] - 图标大小（像素）
+ * @param {React.SVGProps<SVGSVGElement>} props - 其他 SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { LoadingSpinnerIcon } from './components/icons/LoadingSpinnerIcon';
+ *
+ * // 基本用法
+ * <LoadingSpinnerIcon size={24} />
+ *
+ * // 自定义样式
+ * <LoadingSpinnerIcon size={32} className="custom-spinner" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的加载旋转图标组件
+ *
+ * @remarks
+ * - 默认大小为 24px
+ * - 支持所有标准的 SVG 属性
+ * - 内置 CSS 动画，自动旋转
+ * - 使用 24x24 的 viewBox
+ * - 包含背景圆环和前景进度条
+ */
 export const LoadingSpinnerIcon: React.FC<LoadingSpinnerIconProps> = ({
   size = 24,
   ...props

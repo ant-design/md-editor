@@ -12,6 +12,31 @@ const icon = {
   },
 };
 
+/**
+ * FinishedIcon 组件 - 完成图标组件
+ *
+ * 该组件显示一个动画的完成图标，使用 framer-motion 实现动画效果。
+ * 主要用于表示任务完成、成功状态或确认操作的 UI 元素。
+ *
+ * @component
+ * @description 动画完成图标组件，支持动画效果
+ * @example
+ * ```tsx
+ * import { FinishedIcon } from './icons/FinishedIcon';
+ *
+ * // 基本用法
+ * <FinishedIcon />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的动画完成图标组件
+ *
+ * @remarks
+ * - 使用 framer-motion 实现动画效果
+ * - 包含隐藏和可见两种状态
+ * - 动画包括颜色变化和位置移动
+ * - 使用绿色主题色 (#52C41A)
+ * - 使用 16x16 的 viewBox
+ */
 export const FinishedIcon = () => {
   return (
     <motion.svg

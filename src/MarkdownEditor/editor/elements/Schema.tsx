@@ -5,6 +5,40 @@ import { CodeNode } from '../../el';
 import { RenderElementProps } from '../slate-react';
 import { useEditorStore } from '../store';
 
+/**
+ * Schema 组件 - 模式渲染组件
+ *
+ * 该组件用于渲染 Schema 类型的代码节点，支持自定义渲染、AgentAR 卡片渲染和默认渲染模式。
+ * 根据不同的配置和节点类型提供不同的渲染方式。
+ *
+ * @component
+ * @description 模式渲染组件，支持多种渲染模式
+ * @param {RenderElementProps<CodeNode>} props - 组件属性
+ * @param {CodeNode} props.element - 代码节点元素
+ * @param {React.ReactNode} props.children - 子组件
+ * @param {Object} props.attributes - 元素属性
+ *
+ * @example
+ * ```tsx
+ * <Schema
+ *   element={codeNode}
+ *   attributes={attributes}
+ * >
+ *   {children}
+ * </Schema>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的模式组件
+ *
+ * @remarks
+ * - 支持自定义 apaasify 渲染模式
+ * - 支持 AgentAR 卡片渲染
+ * - 提供默认的 JSON 字符串渲染
+ * - 包含隐藏的 JSON 数据用于调试
+ * - 支持点击和键盘事件处理
+ * - 响应式布局设计
+ * - 提供测试 ID 支持
+ */
 export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
   const { element: node } = props;
   const { editorProps } = useEditorStore();

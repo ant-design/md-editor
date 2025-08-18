@@ -4,6 +4,38 @@ interface MagicIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
 }
 
+/**
+ * MagicIcon 组件 - 魔法图标组件
+ *
+ * 该组件显示一个魔法棒图标，支持自定义大小和 SVG 属性。
+ * 主要用于表示魔法、AI 功能或特殊效果的 UI 元素。
+ *
+ * @component
+ * @description 魔法图标组件，支持自定义大小和 SVG 属性
+ * @param {MagicIconProps} props - 组件属性
+ * @param {number} [props.size=24] - 图标大小（像素）
+ * @param {React.SVGProps<SVGSVGElement>} props - 其他 SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { MagicIcon } from './components/icons/MagicIcon';
+ *
+ * // 基本用法
+ * <MagicIcon size={24} />
+ *
+ * // 自定义样式
+ * <MagicIcon size={32} className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的魔法图标组件
+ *
+ * @remarks
+ * - 默认大小为 24px
+ * - 支持所有标准的 SVG 属性
+ * - 使用渐变色彩效果
+ * - 包含 data-testid="magic-icon" 用于测试
+ * - 使用 24x24 的 viewBox
+ */
 export const MagicIcon: React.FC<MagicIconProps> = ({
   size = 24,
   ...props

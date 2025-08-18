@@ -17,169 +17,156 @@
       <div
         style="width: 350px; border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px; background-color: rgb(250, 250, 250);"
       >
-        <ul
-          class="ant-menu ant-menu-root ant-menu-vertical ant-menu-light ant-agent-chat-history-menu"
-          data-menu-list="true"
+        <div
+          aria-label="菜单"
+          class="ant-history-menu ant-agent-chat-history-menu"
           role="menu"
           tabindex="0"
         >
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
+          <div
+            class="ant-history-menu-submenu"
           >
             <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="06月14日"
+              class="ant-history-menu-item ant-history-menu-item-group"
             >
-              06月14日
+              <div
+                class="ant-history-menu-item-content"
+              >
+                06月14日
+              </div>
             </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
+            <div
+              aria-selected="true"
+              class="ant-history-menu-item ant-history-menu-item-selected"
+              role="menuitem"
+              tabindex="0"
             >
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-selected ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-1"
-                role="menuitem"
-                tabindex="-1"
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      重要会议记录
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      10:40
-                    </div>
+                    重要会议记录
                   </div>
-                </span>
-              </li>
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-2"
-                role="menuitem"
-                tabindex="-1"
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    10:40
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-selected="false"
+              class="ant-history-menu-item"
+              role="menuitem"
+              tabindex="0"
+            >
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      日常讨论
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      10:40
-                    </div>
+                    日常讨论
                   </div>
-                </span>
-              </li>
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-3"
-                role="menuitem"
-                tabindex="-1"
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    10:40
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-selected="false"
+              class="ant-history-menu-item"
+              role="menuitem"
+              tabindex="0"
+            >
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      紧急问题处理
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      10:40
-                    </div>
+                    紧急问题处理
                   </div>
-                </span>
-              </li>
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-4"
-                role="menuitem"
-                tabindex="-1"
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    10:40
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-selected="false"
+              class="ant-history-menu-item"
+              role="menuitem"
+              tabindex="0"
+            >
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      长期项目规划
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      10:40
-                    </div>
+                    长期项目规划
                   </div>
-                </span>
-              </li>
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-5"
-                role="menuitem"
-                tabindex="-1"
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    10:40
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-selected="false"
+              class="ant-history-menu-item"
+              role="menuitem"
+              tabindex="0"
+            >
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      历史数据分析
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      10:40
-                    </div>
+                    历史数据分析
                   </div>
-                </span>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <div
-          aria-hidden="true"
-          style="display: none;"
-        />
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    10:40
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

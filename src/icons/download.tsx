@@ -1,5 +1,30 @@
 ﻿import React, { memo } from 'react';
 
+/**
+ * ChatDownLoadIcon 组件 - 聊天下载图标组件
+ *
+ * 该组件显示一个下载图标，使用 memo 进行性能优化。
+ * 主要用于表示下载、保存或导出相关的 UI 元素。
+ *
+ * @component
+ * @description 聊天下载图标组件，支持性能优化
+ * @example
+ * ```tsx
+ * import { ChatDownLoadIcon } from './icons/download';
+ *
+ * // 基本用法
+ * <ChatDownLoadIcon />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的下载图标组件
+ *
+ * @remarks
+ * - 使用 memo 进行性能优化
+ * - 使用 1em x 1em 的尺寸
+ * - 使用 24x24 的 viewBox
+ * - 使用 currentColor 继承父元素颜色
+ * - 显示带有箭头的下载图标
+ */
 export const ChatDownLoadIcon = memo(() => {
   return (
     <svg fill="none" version="1.1" width="1em" height="1em" viewBox="0 0 24 24">

@@ -1,5 +1,35 @@
 ﻿import React from 'react';
 
+/**
+ * DocQueryIcon 组件 - 文档查询图标组件
+ *
+ * 该组件显示一个文档查询图标，支持自定义 SVG 属性。
+ * 主要用于表示文档查询、搜索或文档相关的 UI 元素。
+ *
+ * @component
+ * @description 文档查询图标组件，支持自定义 SVG 属性
+ * @param {any} props - SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { DocQueryIcon } from './icons/docQuery';
+ *
+ * // 基本用法
+ * <DocQueryIcon />
+ *
+ * // 自定义样式
+ * <DocQueryIcon className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的文档查询图标组件
+ *
+ * @remarks
+ * - 固定尺寸为 16x16 像素
+ * - 支持所有标准的 SVG 属性
+ * - 使用 21x21 的 viewBox
+ * - 包含渐变色彩效果
+ * - 显示带有文本行的文档图标
+ */
 export const DocQueryIcon = (props: any) => {
   return (
     <svg

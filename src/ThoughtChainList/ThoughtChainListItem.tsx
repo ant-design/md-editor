@@ -10,6 +10,39 @@ import { TitleInfo } from './TitleInfo';
 import { ToolCall } from './ToolCall';
 import { WebSearch } from './WebSearch';
 
+/**
+ * ThoughtChainItemDetail 组件 - 思维链项详情组件
+ *
+ * 该组件根据不同的类别渲染对应的详情内容组件。
+ * 支持 RagRetrieval、TableSql、ToolCall、DeepThink、WebSearch 等类型。
+ *
+ * @component
+ * @description 思维链项详情组件，根据类别渲染对应内容
+ * @param {Object} props - 组件属性
+ * @param {string} [props.category] - 思维链项类别
+ * @param {WhiteBoxProcessInterface} props.thoughtChainListItem - 思维链项数据
+ * @param {boolean} props.isFinished - 是否已完成
+ * @param {MarkdownEditorProps} [props.markdownRenderProps] - Markdown 渲染配置
+ * @param {(meta: DocMeta) => void} props.onMetaClick - 元数据点击回调
+ *
+ * @example
+ * ```tsx
+ * <ThoughtChainItemDetail
+ *   category="RagRetrieval"
+ *   thoughtChainListItem={item}
+ *   isFinished={true}
+ *   onMetaClick={handleMetaClick}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的详情组件或 null
+ *
+ * @remarks
+ * - 根据类别动态渲染不同组件
+ * - 支持多种思维链类型
+ * - 传递统一的属性配置
+ * - 提供测试 ID 支持
+ */
 // 详情内容组件 - 独立 memo
 const ThoughtChainItemDetail = React.memo<{
   category?: string;
@@ -81,6 +114,38 @@ const ThoughtChainItemDetail = React.memo<{
   },
 );
 
+/**
+ * ThoughtChainItemIcon 组件 - 思维链项图标容器组件
+ *
+ * 该组件用于显示思维链项的图标，支持加载和成功两种状态。
+ * 使用 Framer Motion 提供动画效果。
+ *
+ * @component
+ * @description 思维链项图标容器组件，显示状态图标
+ * @param {Object} props - 组件属性
+ * @param {string} props.prefixCls - 样式前缀
+ * @param {string} props.hashId - 样式哈希 ID
+ * @param {boolean} props.hasOutput - 是否有输出结果
+ * @param {React.ReactNode} props.icon - 图标内容
+ *
+ * @example
+ * ```tsx
+ * <ThoughtChainItemIcon
+ *   prefixCls="thought-chain"
+ *   hashId="hash-123"
+ *   hasOutput={true}
+ *   icon={<CustomIcon />}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的图标容器组件
+ *
+ * @remarks
+ * - 支持加载和成功状态样式
+ * - 使用 Framer Motion 动画
+ * - 响应式样式类名
+ * - 性能优化的 memo 组件
+ */
 // 图标容器组件 - 独立 memo
 const ThoughtChainItemIcon = React.memo<{
   prefixCls: string;
@@ -104,6 +169,39 @@ const ThoughtChainItemIcon = React.memo<{
   );
 });
 
+/**
+ * ThoughtChainItemMotion 组件 - 思维链项动画容器组件
+ *
+ * 该组件为思维链项提供动画效果，使用 Framer Motion 实现。
+ * 在测试环境下会禁用动画以提高性能。
+ *
+ * @component
+ * @description 思维链项动画容器组件，提供动画效果
+ * @param {Object} props - 组件属性
+ * @param {string} props.prefixCls - 样式前缀
+ * @param {string} props.hashId - 样式哈希 ID
+ * @param {number} props.index - 项目索引，用于延迟动画
+ * @param {React.ReactNode} props.children - 子组件内容
+ *
+ * @example
+ * ```tsx
+ * <ThoughtChainItemMotion
+ *   prefixCls="thought-chain"
+ *   hashId="hash-123"
+ *   index={0}
+ * >
+ *   <div>内容</div>
+ * </ThoughtChainItemMotion>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的动画容器组件
+ *
+ * @remarks
+ * - 使用 Framer Motion 提供动画
+ * - 测试环境下禁用动画
+ * - 支持延迟动画效果
+ * - 性能优化的 memo 组件
+ */
 // 动画容器组件 - 独立 memo
 const ThoughtChainItemMotion = React.memo<{
   prefixCls: string;

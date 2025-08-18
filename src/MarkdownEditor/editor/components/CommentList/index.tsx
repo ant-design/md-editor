@@ -18,6 +18,10 @@ import {
 import { EditorStoreContext, useEditorStore } from '../../store';
 import { useStyle } from './style';
 
+/**
+ * 导航动画变体配置
+ * 定义评论列表的展开和收起动画效果
+ */
 const navVariants = {
   open: {
     transition: { staggerChildren: 0.07, delayChildren: 0.2 },
@@ -27,6 +31,10 @@ const navVariants = {
   },
 };
 
+/**
+ * 项目动画变体配置
+ * 定义单个评论项的动画效果
+ */
 const itemVariants = {
   open: {
     y: 0,
@@ -43,6 +51,45 @@ const itemVariants = {
     },
   },
 };
+
+/**
+ * CommentList 组件 - 评论列表组件
+ *
+ * 该组件用于显示文档中的评论列表，支持评论的查看、编辑、删除和跳转功能。
+ * 使用 Framer Motion 提供流畅的动画效果，集成 Ant Design 组件。
+ *
+ * @component
+ * @description 评论列表组件，显示文档评论并提供交互功能
+ * @param {Object} props - 组件属性
+ * @param {CommentDataType[]} props.commentList - 评论数据列表
+ * @param {MarkdownEditorProps['comment']} props.comment - 评论配置对象
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {string} [props.className] - 自定义CSS类名
+ *
+ * @example
+ * ```tsx
+ * <CommentList
+ *   commentList={comments}
+ *   comment={{
+ *     onClick: (id, comment) => console.log('点击评论', id),
+ *     onEdit: (id, comment) => console.log('编辑评论', id),
+ *     onDelete: (id, comment) => console.log('删除评论', id)
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的评论列表组件
+ *
+ * @remarks
+ * - 支持评论的查看、编辑、删除操作
+ * - 提供评论位置跳转功能
+ * - 使用 Framer Motion 实现动画效果
+ * - 集成 Ant Design 组件（Avatar、Tooltip、Popconfirm）
+ * - 支持用户头像和名称显示
+ * - 显示评论时间戳
+ * - 响应式布局设计
+ * - 支持自定义样式和类名
+ */
 export const CommentList: React.FC<{
   commentList: CommentDataType[];
   comment: MarkdownEditorProps['comment'];

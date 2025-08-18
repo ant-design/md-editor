@@ -12,9 +12,10 @@
         当前会话ID: session-1
       </h3>
       <div
-        class="ant-dropdown-trigger"
+        aria-describedby="test-id"
+        class="ant-agent-chat-history-menu"
         data-testid="history-button"
-        style="display: flex; padding: 4px; align-items: center; font-size: 0.85em;"
+        style="display: flex; padding: 4px; align-items: center; font-size: 0.85em; width: max-content;"
       >
         <span
           aria-describedby="test-id"

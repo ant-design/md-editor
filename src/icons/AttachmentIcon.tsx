@@ -1,5 +1,35 @@
 ﻿import React from 'react';
 
+/**
+ * AttachmentIcon 组件 - 附件图标组件
+ *
+ * 该组件显示一个附件/回形针图标，支持自定义 SVG 属性。
+ * 主要用于表示文件附件、链接或连接相关的 UI 元素。
+ *
+ * @component
+ * @description 附件图标组件，支持自定义 SVG 属性
+ * @param {React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>} props - SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { AttachmentIcon } from './icons/AttachmentIcon';
+ *
+ * // 基本用法
+ * <AttachmentIcon />
+ *
+ * // 自定义样式
+ * <AttachmentIcon className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的附件图标组件
+ *
+ * @remarks
+ * - 使用 1em x 1em 的尺寸
+ * - 支持所有标准的 SVG 属性
+ * - 使用 12x12 的 viewBox
+ * - 使用 currentColor 继承父元素颜色
+ * - 显示回形针形状的附件图标
+ */
 export const AttachmentIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>,
 ) => {

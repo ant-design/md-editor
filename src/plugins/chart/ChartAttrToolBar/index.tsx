@@ -9,7 +9,47 @@ import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { useStyle } from './ChartAttrToolBarStyle';
 
 /**
- * 图表设置器
+ * ChartAttrToolBar 组件 - 图表属性工具栏组件
+ *
+ * 该组件提供图表编辑时的属性工具栏，支持图表配置、删除等操作。
+ * 集成到 Markdown 编辑器中，提供图表节点的交互功能。
+ *
+ * @component
+ * @description 图表属性工具栏组件，提供图表编辑功能
+ * @param {Object} props - 组件属性
+ * @param {Array} [props.options] - 工具栏选项配置
+ * @param {React.ReactNode} props.options.icon - 选项图标
+ * @param {string} [props.options.title] - 选项标题
+ * @param {React.CSSProperties} [props.options.style] - 选项样式
+ * @param {() => void} [props.options.onClick] - 选项点击回调
+ * @param {NodeEntry<ChartNode>} props.node - 图表节点
+ * @param {React.ReactNode} [props.title] - 工具栏标题
+ *
+ * @example
+ * ```tsx
+ * <ChartAttrToolBar
+ *   node={chartNode}
+ *   title="图表设置"
+ *   options={[
+ *     {
+ *       icon: <SettingIcon />,
+ *       title: "设置",
+ *       onClick: () => console.log('设置图表')
+ *     }
+ *   ]}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的图表属性工具栏组件
+ *
+ * @remarks
+ * - 集成到 Markdown 编辑器
+ * - 支持图表节点删除
+ * - 提供自定义工具栏选项
+ * - 支持只读模式
+ * - 阻止事件冒泡
+ * - 使用 Tooltip 提供提示
+ * - 响应式布局设计
  */
 export const ChartAttrToolBar: React.FC<{
   options?: {

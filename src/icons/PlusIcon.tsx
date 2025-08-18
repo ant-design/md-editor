@@ -1,5 +1,35 @@
 ﻿import React from 'react';
 
+/**
+ * PlusIcon 组件 - 加号图标组件
+ *
+ * 该组件显示一个加号图标，支持自定义 SVG 属性。
+ * 主要用于表示添加、创建或扩展相关的 UI 元素。
+ *
+ * @component
+ * @description 加号图标组件，支持自定义 SVG 属性
+ * @param {React.SVGProps<SVGSVGElement>} props - SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { PlusIcon } from './icons/PlusIcon';
+ *
+ * // 基本用法
+ * <PlusIcon />
+ *
+ * // 自定义样式
+ * <PlusIcon className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的加号图标组件
+ *
+ * @remarks
+ * - 使用 1em x 1em 的尺寸
+ * - 支持所有标准的 SVG 属性
+ * - 使用 10x10 的 viewBox
+ * - 使用 currentColor 继承父元素颜色
+ * - 显示十字形状的加号图标
+ */
 export const PlusIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg

@@ -1,5 +1,35 @@
 ﻿import React from 'react';
 
+/**
+ * CloseIcon 组件 - 关闭图标组件
+ *
+ * 该组件显示一个关闭/叉号图标，支持自定义 SVG 属性。
+ * 主要用于表示关闭、取消或删除相关的 UI 元素。
+ *
+ * @component
+ * @description 关闭图标组件，支持自定义 SVG 属性
+ * @param {React.SVGProps<SVGSVGElement>} props - SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { CloseIcon } from './icons/CloseIcon';
+ *
+ * // 基本用法
+ * <CloseIcon />
+ *
+ * // 自定义样式
+ * <CloseIcon className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的关闭图标组件
+ *
+ * @remarks
+ * - 使用 1em x 1em 的尺寸
+ * - 支持所有标准的 SVG 属性
+ * - 使用 12x12 的 viewBox
+ * - 使用 currentColor 继承父元素颜色
+ * - 显示 X 形状的关闭图标
+ */
 export const CloseIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg

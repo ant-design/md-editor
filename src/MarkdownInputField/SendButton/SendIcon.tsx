@@ -8,14 +8,56 @@ import {
 } from 'framer-motion';
 import React, { memo, useEffect, useMemo } from 'react';
 
+/**
+ * 获取数组索引的辅助函数
+ * @param _ - 数组元素（未使用）
+ * @param {number} index - 数组索引
+ * @returns {number} 数组索引
+ */
 export const getIndex = (_: any, index: number) => index;
 
+/**
+ * 使用 Flubber 库进行路径插值的自定义 Hook
+ *
+ * @param {MotionValue<number>} progress - 动画进度值
+ * @param {string[]} paths - SVG 路径数组
+ * @returns {MotionValue<string>} 插值后的路径值
+ */
 export function useFlubber(progress: MotionValue<number>, paths: string[]) {
   return useTransform(progress, paths.map(getIndex), paths, {
     mixer: (a, b) => interpolate(a, b, { maxSegmentLength: 0.1 }),
   });
 }
 
+/**
+ * IconPath 组件 - 图标路径动画组件
+ *
+ * 该组件使用 Framer Motion 和 Flubber 库实现 SVG 路径之间的平滑动画过渡。
+ * 支持路径插值和颜色动画效果。
+ *
+ * @component
+ * @description 图标路径动画组件，实现 SVG 路径平滑过渡
+ * @param {Object} props - 组件属性
+ * @param {[string, string]} props.paths - SVG 路径数组，包含起始和结束路径
+ * @param {number} props.pathIndex - 当前路径索引（0 或 1）
+ *
+ * @example
+ * ```tsx
+ * <IconPath
+ *   paths={[startPath, endPath]}
+ *   pathIndex={isActive ? 1 : 0}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement|null} 渲染的动画路径组件
+ *
+ * @remarks
+ * - 使用 Framer Motion 进行动画控制
+ * - 使用 Flubber 库进行路径插值
+ * - 支持颜色动画效果
+ * - 动画持续时间为 0.6 秒
+ * - 使用 easeInOut 缓动函数
+ */
 export const IconPath: React.FC<{
   paths: [string, string];
   pathIndex: number;
@@ -47,6 +89,40 @@ export const IconPath: React.FC<{
   ) : null;
 };
 
+/**
+ * SendIcon 组件 - 发送图标组件
+ *
+ * 该组件显示一个动态的发送图标，支持悬停、禁用、输入中等状态。
+ * 使用 Framer Motion 实现路径动画和颜色渐变效果。
+ *
+ * @component
+ * @description 发送图标组件，支持多种状态和动画效果
+ * @param {Object} props - 组件属性
+ * @param {boolean} [props.hover] - 是否处于悬停状态
+ * @param {boolean} [props.disabled] - 是否禁用状态
+ * @param {boolean} [props.typing] - 是否正在输入状态
+ * @param {() => void} [props.onInit] - 初始化回调函数
+ *
+ * @example
+ * ```tsx
+ * <SendIcon
+ *   hover={isHovered}
+ *   disabled={isDisabled}
+ *   typing={isTyping}
+ *   onInit={() => console.log('Icon initialized')}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的发送图标组件
+ *
+ * @remarks
+ * - 使用 Framer Motion 实现动画效果
+ * - 支持 SVG 路径动画
+ * - 提供渐变背景效果
+ * - 测试环境下简化显示
+ * - 响应式颜色变化
+ * - 使用 memo 优化性能
+ */
 export const SendIcon = memo(
   (props: {
     hover?: boolean;
@@ -186,6 +262,29 @@ export const SendIcon = memo(
   },
 );
 
+/**
+ * StopIcon 组件 - 停止图标组件
+ *
+ * 该组件显示一个停止图标，用于表示停止操作状态。
+ * 使用渐变背景和白色矩形设计。
+ *
+ * @component
+ * @description 停止图标组件，用于表示停止状态
+ *
+ * @example
+ * ```tsx
+ * <StopIcon />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的停止图标组件
+ *
+ * @remarks
+ * - 使用渐变背景效果
+ * - 白色矩形设计
+ * - 固定尺寸（1em x 1em）
+ * - 使用 memo 优化性能
+ * - SVG 格式图标
+ */
 export const StopIcon = memo(() => {
   return (
     <svg fill="none" version="1.1" width="1em" height="1em" viewBox="0 0 32 32">

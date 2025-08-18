@@ -4,6 +4,36 @@ interface DocumentIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
 }
 
+/**
+ * DocumentIcon 组件 - 文档图标组件
+ *
+ * 该组件显示一个文档图标，支持自定义大小和 SVG 属性。
+ * 主要用于表示文档相关的 UI 元素，与 DocIcon 类似但尺寸更大。
+ *
+ * @component
+ * @description 文档图标组件，支持自定义大小和 SVG 属性
+ * @param {DocumentIconProps} props - 组件属性
+ * @param {number} [props.size=22] - 图标大小（像素）
+ * @param {React.SVGProps<SVGSVGElement>} props - 其他 SVG 属性
+ *
+ * @example
+ * ```tsx
+ * import { DocumentIcon } from './components/icons/DocumentIcon';
+ *
+ * // 基本用法
+ * <DocumentIcon size={24} />
+ *
+ * // 自定义样式
+ * <DocumentIcon size={20} className="custom-icon" />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的文档图标组件
+ *
+ * @remarks
+ * - 默认大小为 22px（比 DocIcon 稍大）
+ * - 支持所有标准的 SVG 属性
+ * - 使用 22x22 的 viewBox
+ */
 export const DocumentIcon: React.FC<DocumentIconProps> = ({
   size = 22,
   ...props

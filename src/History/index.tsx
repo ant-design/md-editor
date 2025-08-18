@@ -1,18 +1,12 @@
 ﻿import { DeleteOutlined } from '@ant-design/icons';
-import {
-  ConfigProvider,
-  Dropdown,
-  Menu,
-  Popconfirm,
-  Space,
-  Tooltip,
-} from 'antd';
+import { ConfigProvider, Popconfirm, Popover, Space, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import useClickAway from '../hooks/useClickAway';
 import { HistoryIcon } from '../icons/HistoryIcon';
 import { ActionIconBox, BubbleConfigContext, useRefFunction } from '../index';
 import { WhiteBoxProcessInterface } from '../ThoughtChainList';
+import GroupMenu from './menu';
 
 const formatTime = (time: number | string) => {
   //如果是今天
@@ -61,6 +55,11 @@ const TimeBox: React.FC<{
       }}
       style={{
         color: 'rgba(0, 0, 0, 0.25)',
+        lineHeight: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 'max-content',
       }}
     >
       {isHover && props?.onDeleteItem ? (
@@ -242,7 +241,7 @@ export const History: React.FC<HistoryProps> = (props) => {
       if (props.groupBy) {
         return props.groupBy?.(item);
       }
-      return dayjs(item.gmtCreate).format('YYYY-MM-DD');
+      return formatTime(item.gmtCreate as number);
     });
   }, [chatList, props.groupBy]);
 
@@ -269,7 +268,6 @@ export const History: React.FC<HistoryProps> = (props) => {
             return {
               key: item.sessionId,
               type: 'item',
-
               label: (
                 <div
                   style={{
@@ -277,7 +275,7 @@ export const History: React.FC<HistoryProps> = (props) => {
                     justifyContent: 'space-between',
                     gap: 8,
                     minWidth: 140,
-                    marginLeft: props.standalone ? -12 : -8,
+                    width: '100%',
                   }}
                 >
                   <Tooltip
@@ -332,49 +330,39 @@ export const History: React.FC<HistoryProps> = (props) => {
     setOpen(false);
   }, containerRef);
   const { locale } = useContext(BubbleConfigContext) || {};
-
   if (props.standalone) {
     return (
-      <ConfigProvider
-        theme={{
-          components: {
-            Menu: {
-              colorBgTextHover: '#F0F2F5',
-              itemBorderRadius: 2,
-              itemSelectedBg: '#F0F2F5',
-            },
-          },
-        }}
-      >
-        <Menu
+      <GroupMenu
+        selectedKeys={[props.sessionId]}
+        inlineIndent={20}
+        items={items}
+        className={menuPrefixCls}
+      />
+    );
+  }
+
+  return (
+    <Popover
+      open={open}
+      onOpenChange={setOpen}
+      trigger="click"
+      className={menuPrefixCls}
+      style={{
+        maxHeight: 'min(480px,100%)',
+        overflow: 'auto',
+        maxWidth: 'min(480px,100%)',
+        borderRadius: 'inherit',
+        border: '1px solid #f0f2f5',
+      }}
+      getPopupContainer={(p) => p.parentElement || document.body}
+      content={
+        <GroupMenu
           selectedKeys={[props.sessionId]}
           inlineIndent={20}
           items={items}
           className={menuPrefixCls}
         />
-      </ConfigProvider>
-    );
-  }
-
-  return (
-    <Dropdown
-      open={open}
-      onOpenChange={setOpen}
-      menu={{
-        items: items,
-        className: menuPrefixCls,
-        style: {
-          maxHeight: 'min(480px,100%)',
-          overflow: 'auto',
-          maxWidth: 'min(480px,100%)',
-          borderRadius: 'inherit',
-          border: '1px solid #f0f2f5',
-        },
-      }}
-      getPopupContainer={(p) => {
-        return p.parentElement || document.body;
-      }}
-      trigger={['click']}
+      }
     >
       <div
         ref={containerRef}
@@ -383,6 +371,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           padding: 4,
           alignItems: 'center',
           fontSize: '0.85em',
+          width: 'max-content',
         }}
         data-testid="history-button"
       >
@@ -399,6 +388,9 @@ export const History: React.FC<HistoryProps> = (props) => {
           <HistoryIcon />
         </ActionIconBox>
       </div>
-    </Dropdown>
+    </Popover>
   );
 };
+
+export { default as GroupMenu } from './menu';
+export type { GroupMenuProps, MenuItemType } from './menu';

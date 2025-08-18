@@ -57,15 +57,12 @@ const ExtraContentHistoryDemo = () => {
       item.sessionTitle?.toString().includes('重要') ||
       item.sessionTitle?.toString().includes('紧急');
     const isToday =
-      new Date(item.gmtCreate).toDateString() === new Date().toDateString();
+      new Date(item.gmtCreate as number).toDateString() ===
+      new Date().toDateString();
 
     return (
       <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-        {isImportant && (
-          <Tag color="red" size="small">
-            重要
-          </Tag>
-        )}
+        {isImportant && <Tag color="red">重要</Tag>}
         {isToday && <Badge count="新" size="small" />}
         <Button
           size="small"

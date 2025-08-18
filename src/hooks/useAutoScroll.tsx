@@ -3,6 +3,41 @@ import { useThrottleFn } from './useThrottleFn';
 
 const SCROLL_TOLERANCE = 20; // 滚动到底部的容差阈值
 
+/**
+ * useAutoScroll Hook - 自动滚动 Hook
+ *
+ * 该 Hook 提供自动滚动功能，当容器内容增加时自动滚动到底部。
+ * 支持用户滚动锁定检测、DOM 变化监听、手动滚动等功能。
+ *
+ * @description 自动滚动 Hook，提供智能滚动到底部功能
+ * @template T - HTMLDivElement 类型
+ * @param {Object} props - Hook 配置参数
+ * @param {number} [props.SCROLL_TOLERANCE=20] - 滚动到底部的容差阈值
+ * @param {(size: {width: number, height: number}) => void} [props.onResize] - 容器尺寸变化回调
+ * @param {any[]} [props.deps] - 依赖数组，用于重新初始化 MutationObserver
+ * @param {number} [props.timeout=160] - 节流时间间隔（毫秒）
+ *
+ * @example
+ * ```tsx
+ * const { containerRef, scrollToBottom } = useAutoScroll({
+ *   SCROLL_TOLERANCE: 30,
+ *   onResize: (size) => console.log('容器尺寸:', size),
+ *   timeout: 200
+ * });
+ *
+ * @returns {Object} Hook 返回值
+ * @returns {React.RefObject<T>} returns.containerRef - 容器引用
+ * @returns {() => void} returns.scrollToBottom - 手动滚动到底部方法
+ *
+ * @remarks
+ * - 自动检测内容变化并滚动到底部
+ * - 支持用户滚动锁定检测
+ * - 使用 MutationObserver 监听 DOM 变化
+ * - 提供节流功能避免频繁滚动
+ * - 支持手动触发滚动
+ * - 智能判断是否应该自动滚动
+ * - 提供容器尺寸变化回调
+ */
 export const useAutoScroll = <T extends HTMLDivElement>(
   props: {
     SCROLL_TOLERANCE?: number;

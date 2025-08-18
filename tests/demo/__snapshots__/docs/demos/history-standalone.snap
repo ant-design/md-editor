@@ -17,193 +17,130 @@
       <div
         style="width: 300px; border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px; background-color: rgb(250, 250, 250);"
       >
-        <ul
-          class="ant-menu ant-menu-root ant-menu-vertical ant-menu-light ant-agent-chat-history-menu"
-          data-menu-list="true"
+        <div
+          aria-label="菜单"
+          class="ant-history-menu ant-agent-chat-history-menu"
           role="menu"
           tabindex="0"
         >
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
+          <div
+            class="ant-history-menu-submenu"
           >
             <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="2 years ago"
+              class="ant-history-menu-item ant-history-menu-item-group"
             >
-              2 years ago
-            </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
-            >
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-selected ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-1"
-                role="menuitem"
-                tabindex="-1"
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
-                >
-                  <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
-                  >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      项目需求分析
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      09:50
-                    </div>
-                  </div>
-                </span>
-              </li>
-            </ul>
-          </li>
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
-          >
+                2 years ago
+              </div>
+            </div>
             <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="2 years ago"
+              aria-selected="true"
+              class="ant-history-menu-item ant-history-menu-item-selected"
+              role="menuitem"
+              tabindex="0"
             >
-              2 years ago
-            </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
-            >
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-2"
-                role="menuitem"
-                tabindex="-1"
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      技术方案讨论
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      09:50
-                    </div>
+                    项目需求分析
                   </div>
-                </span>
-              </li>
-            </ul>
-          </li>
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
-          >
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    09:50
+                  </div>
+                </div>
+              </div>
+            </div>
             <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="2 years ago"
+              aria-selected="false"
+              class="ant-history-menu-item"
+              role="menuitem"
+              tabindex="0"
             >
-              2 years ago
-            </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
-            >
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-3"
-                role="menuitem"
-                tabindex="-1"
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      UI/UX 设计评审
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      09:50
-                    </div>
+                    技术方案讨论
                   </div>
-                </span>
-              </li>
-            </ul>
-          </li>
-          <li
-            class="ant-menu-item-group"
-            role="presentation"
-          >
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    09:50
+                  </div>
+                </div>
+              </div>
+            </div>
             <div
-              class="ant-menu-item-group-title"
-              role="presentation"
-              title="2 years ago"
+              aria-selected="false"
+              class="ant-history-menu-item"
+              role="menuitem"
+              tabindex="0"
             >
-              2 years ago
-            </div>
-            <ul
-              class="ant-menu-item-group-list"
-              role="group"
-            >
-              <li
-                aria-describedby="test-id"
-                class="ant-menu-item ant-menu-item-only-child"
-                data-menu-id="rc-menu-uuid-test-session-4"
-                role="menuitem"
-                tabindex="-1"
+              <div
+                class="ant-history-menu-item-content"
               >
-                <span
-                  class="ant-menu-title-content"
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
                 >
                   <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; margin-left: -12px;"
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
                   >
-                    <div
-                      aria-describedby="test-id"
-                      style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
-                    >
-                      测试计划制定
-                    </div>
-                    <div
-                      style="color: rgba(0, 0, 0, 0.25);"
-                    >
-                      09:50
-                    </div>
+                    UI/UX 设计评审
                   </div>
-                </span>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <div
-          aria-hidden="true"
-          style="display: none;"
-        />
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    09:50
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-selected="false"
+              class="ant-history-menu-item"
+              role="menuitem"
+              tabindex="0"
+            >
+              <div
+                class="ant-history-menu-item-content"
+              >
+                <div
+                  style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; width: 100%;"
+                >
+                  <div
+                    aria-describedby="test-id"
+                    style="color: rgb(102, 111, 141); max-width: max(173px,calc(100% - 64px)); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                  >
+                    测试计划制定
+                  </div>
+                  <div
+                    style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                  >
+                    09:50
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

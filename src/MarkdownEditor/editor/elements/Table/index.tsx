@@ -57,6 +57,40 @@ interface ThNode {
   children: Array<TableCustomElement | Text>;
 }
 
+/**
+ * Th 组件 - 表格头部单元格组件
+ *
+ * 该组件用于渲染表格的头部单元格，支持选择状态显示和样式自定义。
+ * 集成到 Slate 编辑器中，提供表格编辑功能。
+ *
+ * @component
+ * @description 表格头部单元格组件，渲染表格头部
+ * @param {RenderElementProps & {style?: React.CSSProperties}} props - 组件属性
+ * @param {Object} props.attributes - 元素属性
+ * @param {React.ReactNode} props.children - 子组件内容
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {Element} props.element - 表格头部元素
+ *
+ * @example
+ * ```tsx
+ * <Th
+ *   attributes={attributes}
+ *   element={headerElement}
+ *   style={{ fontWeight: 'bold' }}
+ * >
+ *   表头内容
+ * </Th>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的表格头部单元格组件
+ *
+ * @remarks
+ * - 集成 Slate 编辑器
+ * - 支持选择状态高亮
+ * - 提供自定义样式支持
+ * - 类型安全检查
+ * - 响应式布局
+ */
 export const Th: React.FC<
   RenderElementProps & {
     style?: React.CSSProperties;
@@ -91,6 +125,45 @@ export interface TdNode {
   children: Array<TableCustomElement | BaseElement['children'] | Text>;
 }
 
+/**
+ * Td 组件 - 表格数据单元格组件
+ *
+ * 该组件用于渲染表格的数据单元格，支持选择状态、对齐方式、宽度设置等功能。
+ * 集成到 Slate 编辑器中，提供表格编辑功能。
+ *
+ * @component
+ * @description 表格数据单元格组件，渲染表格数据
+ * @param {RenderElementProps & {style?: React.CSSProperties, cellPath?: number[]}} props - 组件属性
+ * @param {Object} props.attributes - 元素属性
+ * @param {React.ReactNode} props.children - 子组件内容
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {Element} props.element - 表格数据元素
+ * @param {number[]} [props.cellPath] - 单元格路径
+ *
+ * @example
+ * ```tsx
+ * <Td
+ *   attributes={attributes}
+ *   element={dataElement}
+ *   style={{ textAlign: 'center' }}
+ *   cellPath={[0, 1]}
+ * >
+ *   单元格内容
+ * </Td>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的表格数据单元格组件
+ *
+ * @remarks
+ * - 集成 Slate 编辑器
+ * - 支持选择状态高亮
+ * - 支持单元格对齐方式
+ * - 支持单元格宽度设置
+ * - 支持行合并和列合并
+ * - 支持隐藏单元格
+ * - 提供文本溢出处理
+ * - 类型安全检查
+ */
 export const Td: React.FC<
   RenderElementProps & {
     style?: React.CSSProperties;
