@@ -2,9 +2,9 @@ import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
 import React, { useState } from 'react';
 
 const SevenDaysWeatherMustache: React.FC = () => {
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState<Record<string, any>>({});
 
-  const schema = {
+  const schema: Record<string, any> = {
     version: '1.2.0',
     name: '7-Day Weather Forecast Component',
     description: 'A component displaying 7-day weather forecast data',

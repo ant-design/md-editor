@@ -13,7 +13,7 @@ const ToolUseBarAdvancedDemo = () => {
       toolName: '基础工具调用-BASE',
       toolTarget: '工具类/工具名称 操作对象',
       time: '2.3s',
-      status: isRunning ? 'loading' : 'success',
+      status: isRunning ? ('loading' as const) : ('success' as const),
       progress: progress,
       type: 'basic',
     },
@@ -22,7 +22,7 @@ const ToolUseBarAdvancedDemo = () => {
       toolName: '高级工具调用-ADVANCED',
       toolTarget: '工具类/工具名称 操作对象',
       time: '1.8s',
-      status: 'idle',
+      status: 'idle' as const,
       progress: 0,
       type: 'auto',
     },
@@ -108,11 +108,7 @@ const ToolUseBarAdvancedDemo = () => {
     <div style={{ maxWidth: 1000, margin: '0 auto' }}>
       <ToolUseBar
         tools={tools}
-        activeToolId={isRunning ? '1' : '2'}
-        workflowStatus={workflowStatus}
-        showWorkflow={showWorkflow}
-        showTaskList={showTaskList}
-        onToolClick={(id) => console.log('Tool clicked:', id)}
+        onToolClick={(id: string) => console.log('Tool clicked:', id)}
       />
     </div>
   );

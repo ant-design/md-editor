@@ -1,5 +1,5 @@
+import { ToolUseBar } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import { ToolUseBar } from '../../src/ToolUseBar';
 
 const ToolUseBarBasicDemo = () => {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
@@ -41,7 +41,7 @@ const ToolUseBarBasicDemo = () => {
       toolName: '单元测试',
       toolTarget: '运行 Jest 测试套件',
       time: '10:45',
-      status: 'pending' as const,
+      status: 'idle' as const,
     },
   ];
 

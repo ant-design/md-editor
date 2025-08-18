@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 const WorkspaceBrowserDemo: React.FC = () => {
   const [browserData] = useState({
+    content: '浏览器数据内容',
     items: [
       {
         id: '1',
@@ -12,6 +13,7 @@ const WorkspaceBrowserDemo: React.FC = () => {
         icon: '🌐',
         tags: ['UI', 'React', '组件库'],
         lastVisited: '2024-01-15 10:30:00',
+        content: '企业级 UI 设计语言和 React 组件库',
       },
       {
         id: '2',
@@ -21,6 +23,7 @@ const WorkspaceBrowserDemo: React.FC = () => {
         icon: '📝',
         tags: ['Markdown', '编辑器', '插件'],
         lastVisited: '2024-01-15 09:15:00',
+        content: 'Markdown 编辑器组件，支持多种插件',
       },
       {
         id: '3',
@@ -30,6 +33,7 @@ const WorkspaceBrowserDemo: React.FC = () => {
         icon: '🐙',
         tags: ['代码托管', '开源', '协作'],
         lastVisited: '2024-01-14 16:45:00',
+        content: '全球最大的代码托管平台',
       },
       {
         id: '4',
@@ -39,6 +43,7 @@ const WorkspaceBrowserDemo: React.FC = () => {
         icon: '💡',
         tags: ['问答', '编程', '社区'],
         lastVisited: '2024-01-14 14:20:00',
+        content: '程序员问答社区',
       },
       {
         id: '5',
@@ -48,6 +53,7 @@ const WorkspaceBrowserDemo: React.FC = () => {
         icon: '⚛️',
         tags: ['React', '文档', '教程'],
         lastVisited: '2024-01-13 11:10:00',
+        content: 'React 官方文档和教程',
       },
     ],
     categories: [

@@ -47,7 +47,9 @@ describe('GroupMenu', () => {
   it('应该正确处理选中状态', () => {
     render(<GroupMenu items={mockItems} selectedKeys={['item1']} />);
 
-    const selectedItem = screen.getByText('菜单项1').closest('[role="menuitem"]');
+    const selectedItem = screen
+      .getByText('菜单项1')
+      .closest('[role="menuitem"]');
     expect(selectedItem).toHaveAttribute('aria-selected', 'true');
   });
 
@@ -63,7 +65,9 @@ describe('GroupMenu', () => {
     const mockOnSelect = vi.fn();
     render(<GroupMenu items={mockItems} onSelect={mockOnSelect} />);
 
-    const disabledItem = screen.getByText('菜单项2').closest('[role="menuitem"]');
+    const disabledItem = screen
+      .getByText('菜单项2')
+      .closest('[role="menuitem"]');
     expect(disabledItem).toHaveAttribute('aria-disabled', 'true');
 
     fireEvent.click(screen.getByText('菜单项2'));
@@ -73,7 +77,11 @@ describe('GroupMenu', () => {
   it('应该支持键盘导航', () => {
     const mockOnSelect = vi.fn();
     const { rerender } = render(
-      <GroupMenu items={mockItems} selectedKeys={['item1']} onSelect={mockOnSelect} />,
+      <GroupMenu
+        items={mockItems}
+        selectedKeys={['item1']}
+        onSelect={mockOnSelect}
+      />,
     );
 
     const menu = screen.getByRole('menu');
@@ -84,7 +92,11 @@ describe('GroupMenu', () => {
 
     // 重新渲染组件以更新状态
     rerender(
-      <GroupMenu items={mockItems} selectedKeys={['item3']} onSelect={mockOnSelect} />,
+      <GroupMenu
+        items={mockItems}
+        selectedKeys={['item3']}
+        onSelect={mockOnSelect}
+      />,
     );
 
     // 向上箭头应该选择上一个项目
@@ -93,7 +105,11 @@ describe('GroupMenu', () => {
 
     // 重新渲染组件以更新状态
     rerender(
-      <GroupMenu items={mockItems} selectedKeys={['item1']} onSelect={mockOnSelect} />,
+      <GroupMenu
+        items={mockItems}
+        selectedKeys={['item1']}
+        onSelect={mockOnSelect}
+      />,
     );
 
     // Enter 键应该触发选择
@@ -120,71 +136,9 @@ describe('GroupMenu', () => {
 
     // 分组项目应该存在
     expect(screen.getByText('分组1')).toBeInTheDocument();
-    
+
     // 子菜单项目应该存在
     expect(screen.getByText('分组1-项目1')).toBeInTheDocument();
     expect(screen.getByText('分组1-项目2')).toBeInTheDocument();
-  });
-});
-
-    const disabledItem = screen.getByText('分组2').closest('[role="menuitem"]');
-    expect(disabledItem).toHaveAttribute('aria-disabled', 'true');
-
-    fireEvent.click(screen.getByText('分组2'));
-    expect(mockOnSelect).not.toHaveBeenCalled();
-  });
-
-  it('应该支持键盘导航', () => {
-    const mockOnSelect = vi.fn();
-    render(
-      <GroupMenu
-        groups={mockGroups}
-        selectedGroupId="group1"
-        onGroupSelect={mockOnSelect}
-      />,
-    );
-
-    const menu = screen.getByRole('menu');
-
-    // 清理之前的调用
-    mockOnSelect.mockClear();
-
-    // 向下箭头应该选择下一个可用项目（跳过禁用的group2）
-    fireEvent.keyDown(menu, { key: 'ArrowDown' });
-    expect(mockOnSelect).toHaveBeenCalledWith('group3');
-
-    // 重新渲染组件以更新状态
-    mockOnSelect.mockClear();
-    render(
-      <GroupMenu
-        groups={mockGroups}
-        selectedGroupId="group3"
-        onGroupSelect={mockOnSelect}
-      />,
-    );
-
-    // 向上箭头应该选择上一个项目
-    fireEvent.keyDown(screen.getByRole('menu'), { key: 'ArrowUp' });
-    expect(mockOnSelect).toHaveBeenCalledWith('group1');
-  });
-
-  it('应该隐藏图标当 showIcon 为 false', () => {
-    const groupsWithIcon = [
-      {
-        id: 'group1',
-        name: '分组1',
-        icon: <span data-testid="test-icon">📁</span>,
-      },
-    ];
-
-    const { rerender } = render(
-      <GroupMenu groups={groupsWithIcon} showIcon={true} />,
-    );
-
-    expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-
-    rerender(<GroupMenu groups={groupsWithIcon} showIcon={false} />);
-
-    expect(screen.queryByTestId('test-icon')).not.toBeInTheDocument();
   });
 });

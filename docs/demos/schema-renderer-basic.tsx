@@ -1,8 +1,8 @@
-import { SchemaRenderer } from '@ant-design/md-editor';
+import { LowCodeSchema, SchemaRenderer } from '@ant-design/md-editor';
 import React from 'react';
 
 const MyRendererComponent: React.FC = () => {
-  const schema = {
+  const schema: LowCodeSchema = {
     component: {
       properties: {
         title: {
@@ -26,7 +26,7 @@ const MyRendererComponent: React.FC = () => {
     },
   };
 
-  return <SchemaRenderer schema={schema} />;
+  return <SchemaRenderer schema={schema} values={schema.initialValues || {}} />;
 };
 
 export default MyRendererComponent;

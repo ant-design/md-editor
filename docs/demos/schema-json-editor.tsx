@@ -1,4 +1,8 @@
-import { SchemaRenderer, validator } from '@ant-design/md-editor';
+import {
+  LowCodeSchema,
+  SchemaRenderer,
+  validator,
+} from '@ant-design/md-editor';
 import { Button, Input, message, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 
@@ -6,7 +10,7 @@ const { TextArea } = Input;
 
 const SchemaJsonEditor: React.FC = () => {
   const [jsonInput, setJsonInput] = useState('');
-  const [schema, setSchema] = useState(null);
+  const [schema, setSchema] = useState<LowCodeSchema | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -59,7 +63,7 @@ const SchemaJsonEditor: React.FC = () => {
 
     try {
       // 解析 JSON
-      const parsedSchema = JSON.parse(jsonInput);
+      const parsedSchema = JSON.parse(jsonInput) as LowCodeSchema;
 
       // 验证 schema
       const validationResult = validator.validate(parsedSchema);
@@ -74,7 +78,8 @@ const SchemaJsonEditor: React.FC = () => {
         message.error('Schema 验证失败');
       }
     } catch (err) {
-      setError(`JSON 解析错误: ${err.message}`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setError(`JSON 解析错误: ${errorMessage}`);
       message.error('JSON 解析错误');
     } finally {
       setLoading(false);
@@ -142,7 +147,10 @@ const SchemaJsonEditor: React.FC = () => {
                 style={{ width: '100%', marginTop: '100px' }}
               />
             ) : schema ? (
-              <SchemaRenderer schema={schema} />
+              <SchemaRenderer
+                schema={schema}
+                values={schema?.initialValues || {}}
+              />
             ) : (
               <div
                 style={{

@@ -7,7 +7,7 @@ const tools = [
     toolName: '基础工具调用-BASE',
     toolTarget: '工具类/工具名称 操作对象',
     time: '2.3s',
-    status: 'success',
+    status: 'success' as const,
     progress: 75,
     type: 'basic',
   },
@@ -16,36 +16,16 @@ const tools = [
     toolName: '高级工具调用-ADVANCED',
     toolTarget: '工具类/工具名称 操作对象',
     time: '1.8s',
-    status: 'loading',
+    status: 'loading' as const,
     progress: 50,
     type: 'auto',
   },
 ];
 
-const workflowStatus = {
-  inProgress: [
-    { id: '1', name: 'Get stock Insights', status: 'completed', time: '0.8s' },
-    { id: '2', name: 'Get stock holders', status: 'pending', time: '' },
-    { id: '3', name: 'Get what analysts', status: 'pending', time: '' },
-  ],
-  completed: [
-    { id: '1', name: 'Get stock Insights', status: 'completed', time: '0.8s' },
-    { id: '2', name: 'Get stock holders', status: 'completed', time: '0.7s' },
-    { id: '3', name: 'Get what analysts', status: 'completed', time: '0.8s' },
-  ],
-  totalTime: '2.3s',
-};
-
 export default () => {
   return (
     <div>
-      <ToolUseBar
-        tools={tools}
-        activeToolId="1"
-        workflowStatus={workflowStatus}
-        showWorkflow={true}
-        showTaskList={true}
-      />
+      <ToolUseBar tools={tools} />
     </div>
   );
 };

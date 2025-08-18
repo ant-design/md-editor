@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const WeatherCardComplete: React.FC = () => {
   const [formValues, setFormValues] = useState({});
 
-  const schema = {
+  const schema: Record<string, any> = {
     version: '1.2.0',
     name: '七日天气预报',
     description: '七日天气预报组件',
