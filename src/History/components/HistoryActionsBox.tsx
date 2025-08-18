@@ -1,14 +1,49 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
+import { StarFilledIcon, StarIcon } from '../../icons';
 import { ActionIconBox, BubbleConfigContext } from '../../index';
-import { StarFilledIcon, StarIcon } from '../icons';
-import { TimeBoxProps } from '../types';
+import { HistoryActionsBoxProps } from '../types';
 
 /**
- * TimeBox 组件 - 显示时间并提供操作按钮
+ * HistoryActionsBox 组件 - 历史记录操作按钮容器组件
+ *
+ * 该组件提供一个操作按钮容器，支持收藏、删除等操作。
+ * 在悬停时显示操作按钮，提供良好的用户体验。
+ *
+ * @component
+ * @description 历史记录操作按钮容器组件，提供收藏、删除等操作功能
+ * @param {HistoryActionsBoxProps} props - 组件属性
+ * @param {React.ReactNode} props.children - 子组件，通常是时间显示
+ * @param {() => void} [props.onDeleteItem] - 删除操作回调
+ * @param {Object} [props.agent] - Agent配置
+ * @param {boolean} [props.agent.enabled] - 是否启用agent模式
+ * @param {HistoryDataType} [props.item] - 历史数据项
+ * @param {(sessionId: string, isFavorite: boolean) => void} [props.onFavorite] - 收藏操作回调
+ *
+ * @example
+ * ```tsx
+ * <HistoryActionsBox
+ *   onDeleteItem={() => handleDelete(item.sessionId)}
+ *   onFavorite={(sessionId, isFavorite) => handleFavorite(sessionId, isFavorite)}
+ *   item={historyItem}
+ *   agent={{ enabled: true }}
+ * >
+ *   <span>2024-01-01 12:00</span>
+ * </HistoryActionsBox>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的历史记录操作按钮容器组件
+ *
+ * @remarks
+ * - 支持悬停显示操作按钮
+ * - 提供收藏和删除功能
+ * - 集成确认对话框
+ * - 支持加载状态显示
+ * - 响应式布局
+ * - 国际化支持
  */
-export const TimeBox: React.FC<TimeBoxProps> = (props) => {
+export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls();
   const { locale } = useContext(BubbleConfigContext) || {};

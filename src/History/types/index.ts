@@ -93,9 +93,12 @@ export interface HistoryProps {
   };
 }
 
-export interface TimeBoxProps {
+export interface HistoryActionsBoxProps {
+  /** 子组件，通常是时间显示或其他内容 */
   children: React.ReactNode;
+  /** 删除操作回调函数 */
   onDeleteItem?: () => void;
+  /** Agent模式配置 */
   agent?: {
     /** 是否启用 agent 模式 */
     enabled?: boolean;
@@ -110,6 +113,18 @@ export interface TimeBoxProps {
     /** 是否正在加载更多 */
     loadingMore?: boolean;
   };
+  /** 历史数据项 */
   item?: HistoryDataType;
+  /** 收藏操作回调函数 */
   onFavorite?: (sessionId: string, isFavorite: boolean) => void;
 }
+
+/**
+ * @deprecated 请使用 HistoryActionsBoxProps 替代
+ */
+export interface ActionsBoxProps extends HistoryActionsBoxProps {}
+
+/**
+ * @deprecated 请使用 HistoryActionsBoxProps 替代
+ */
+export interface TimeBoxProps extends HistoryActionsBoxProps {}

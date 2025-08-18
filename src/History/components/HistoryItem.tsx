@@ -2,7 +2,7 @@ import { Checkbox, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { HistoryDataType } from '../types';
-import { TimeBox } from './TimeBox';
+import { HistoryActionsBox } from './HistoryActionsBox';
 
 interface HistoryItemProps {
   item: HistoryDataType;
@@ -67,7 +67,12 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
         }}
       >
         <Tooltip
-          open={(item.sessionTitle?.length || 10) > 10 ? undefined : false}
+          open={
+            typeof item.sessionTitle === 'string' &&
+            item.sessionTitle.length > 10
+              ? undefined
+              : false
+          }
           title={item.sessionTitle}
         >
           <div
@@ -84,7 +89,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
           </div>
         </Tooltip>
       </div>
-      <TimeBox
+      <HistoryActionsBox
         onDeleteItem={
           onDeleteItem
             ? async () => {
@@ -97,7 +102,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
         onFavorite={onFavorite}
       >
         {dayjs(item.gmtCreate).format('HH:mm')}
-      </TimeBox>
+      </HistoryActionsBox>
       {extra?.(item)}
     </div>
   );

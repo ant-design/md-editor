@@ -1,0 +1,7 @@
+// 导出所有图标组件
+export { CodeIcon } from './code';
+export { DatabaseIcon } from './database';
+export { FunctionIcon } from './function';
+export { NewChatIcon } from './NewChatIcon';
+export { StarFilledIcon } from './StarFilledIcon';
+export { StarIcon } from './StarIcon';

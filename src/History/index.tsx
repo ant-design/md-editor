@@ -4,9 +4,9 @@ import useClickAway from '../hooks/useClickAway';
 import { HistoryIcon } from '../icons/HistoryIcon';
 import { ActionIconBox, BubbleConfigContext } from '../index';
 import {
-  LoadMoreComponent,
-  NewChatComponent,
-  SearchComponent,
+  HistoryLoadMore,
+  HistoryNewChat,
+  HistorySearch,
   generateHistoryItems,
 } from './components';
 import { useHistory } from './hooks/useHistory';
@@ -93,11 +93,11 @@ export const History: React.FC<HistoryProps> = (props) => {
           gap: 8,
         }}
       >
-        <NewChatComponent
+        <HistoryNewChat
           onNewChat={handleNewChat}
           enabled={props.agent?.enabled && !!props.agent?.onNewChat}
         />
-        <SearchComponent
+        <HistorySearch
           searchKeyword={searchKeyword}
           onSearch={handleSearch}
           enabled={props.agent?.enabled && !!props.agent?.onSearch}
@@ -108,7 +108,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           items={items}
           className={menuPrefixCls}
         />
-        <LoadMoreComponent
+        <HistoryLoadMore
           onLoadMore={handleLoadMore}
           enabled={props.agent?.enabled && !!props.agent?.onLoadMore}
         />
@@ -132,12 +132,12 @@ export const History: React.FC<HistoryProps> = (props) => {
       getPopupContainer={(p) => p.parentElement || document.body}
       content={
         <div>
-          <SearchComponent
+          <HistorySearch
             searchKeyword={searchKeyword}
             onSearch={handleSearch}
             enabled={props.agent?.enabled && !!props.agent?.onSearch}
           />
-          <NewChatComponent
+          <HistoryNewChat
             onNewChat={handleNewChat}
             enabled={props.agent?.enabled && !!props.agent?.onNewChat}
           />
@@ -147,7 +147,7 @@ export const History: React.FC<HistoryProps> = (props) => {
             items={items}
             className={menuPrefixCls}
           />
-          <LoadMoreComponent
+          <HistoryLoadMore
             onLoadMore={handleLoadMore}
             enabled={props.agent?.enabled && !!props.agent?.onLoadMore}
           />
@@ -183,8 +183,6 @@ export const History: React.FC<HistoryProps> = (props) => {
 };
 
 export * from './components';
-export * from './icons';
-export { default as GroupMenu } from './menu';
-export type { GroupMenuProps, MenuItemType } from './menu';
+export * from './hooks/useHistory';
 export * from './types';
 export * from './utils';
