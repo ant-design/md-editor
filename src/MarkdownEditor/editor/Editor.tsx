@@ -708,14 +708,18 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
   };
 
   const elementRenderElement = useCallback(
-    (props: RenderElementProps) => {
+    (eleProps: RenderElementProps) => {
       const defaultDom = (
         <ErrorBoundary
           fallbackRender={() => {
             return null;
           }}
         >
-          <MElement {...props} children={props.children} readonly={readonly} />
+          <MElement
+            {...eleProps}
+            children={eleProps.children}
+            readonly={readonly}
+          />
         </ErrorBoundary>
       );
 
@@ -723,19 +727,19 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
       // First check for plugin components
       for (const plugin of plugins) {
-        const Component = plugin.elements?.[props.element.type];
+        const Component = plugin.elements?.[eleProps.element.type];
         if (Component) {
-          renderedDom = <Component {...props} />;
+          renderedDom = <Component {...eleProps} />;
           break;
         }
       }
 
       // Then allow eleItemRender to process the result
       if (!props.eleItemRender) return renderedDom;
-      if (props.element.type === 'table-cell') return renderedDom;
-      if (props.element.type === 'table-row') return renderedDom;
+      if (eleProps.element.type === 'table-cell') return renderedDom;
+      if (eleProps.element.type === 'table-row') return renderedDom;
 
-      return props.eleItemRender(props, renderedDom) as React.ReactElement;
+      return props.eleItemRender(eleProps, renderedDom) as React.ReactElement;
     },
     [props.eleItemRender, plugins, readonly],
   );
