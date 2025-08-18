@@ -48,11 +48,14 @@ describe('FootnoteDefinition Component', () => {
 
   const defaultProps = {
     element: {
-      type: 'footnoteDefinition',
+      type: 'footnoteDefinition' as const,
       identifier: 'test-id',
       children: [{ text: 'test content' }],
     },
-    attributes: {},
+    attributes: {
+      'data-slate-node': 'element' as const,
+      ref: vi.fn(),
+    },
     children: <span>test content</span>,
   };
 
@@ -111,7 +114,10 @@ describe('FootnoteDefinition Component', () => {
     it('应该处理空的 attributes', () => {
       const propsWithEmptyAttributes = {
         ...defaultProps,
-        attributes: {},
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: vi.fn(),
+        },
       };
 
       const { container } = renderWithProvider(
@@ -131,7 +137,11 @@ describe('FootnoteDefinition Component', () => {
 
       const propsWithCustomAttributes = {
         ...defaultProps,
-        attributes: customAttributes,
+        attributes: {
+          ...customAttributes,
+          'data-slate-node': 'element' as const,
+          ref: vi.fn(),
+        },
       };
 
       const { container } = renderWithProvider(

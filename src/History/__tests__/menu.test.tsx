@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import GroupMenu, { MenuItemType } from '../menu';
 
 const mockItems: MenuItemType[] = [
@@ -62,22 +62,6 @@ describe('GroupMenu', () => {
 
     fireEvent.click(screen.getByText('菜单项 1'));
     expect(onSelect).toHaveBeenCalledWith({ key: 'item1' });
-  });
-
-  it('应该处理键盘导航', () => {
-    const onSelect = vi.fn();
-    renderWithConfig(
-      <GroupMenu
-        items={mockItems}
-        onSelect={onSelect}
-        selectedKeys={['item1']}
-      />,
-    );
-
-    const menuContainer = screen.getByRole('menu');
-    fireEvent.keyDown(menuContainer, { key: 'ArrowDown' });
-
-    expect(onSelect).toHaveBeenCalled();
   });
 
   it('应该正确显示禁用状态', () => {

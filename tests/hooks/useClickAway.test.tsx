@@ -75,7 +75,7 @@ describe('useClickAway', () => {
   it('should handle undefined ref gracefully', () => {
     const undefinedRef = {
       current: undefined,
-    } as React.RefObject<HTMLDivElement>;
+    } as unknown as React.RefObject<HTMLDivElement>;
 
     expect(() => {
       renderHook(() => useClickAway(mockCallback, undefinedRef));

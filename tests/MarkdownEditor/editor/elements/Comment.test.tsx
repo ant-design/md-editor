@@ -53,8 +53,21 @@ describe('Comment', () => {
         content: 'Test comment',
         author: 'Test User',
         timestamp: '2023-01-01T00:00:00Z',
+        selection: {
+          anchor: { path: [0, 0], offset: 0 },
+          focus: { path: [0, 0], offset: 0 },
+        },
+        path: [0, 0],
+        anchorOffset: 0,
+        focusOffset: 0,
+        refContent: 'Test content',
+        commentType: 'text',
+        time: Date.now(),
+        user: {
+          name: 'Test User',
+        },
       },
-    ];
+    ] as any;
 
     it('应该正确渲染有评论的内容', () => {
       renderWithProvider(
@@ -167,14 +180,40 @@ describe('Comment', () => {
           content: 'First comment',
           author: 'User 1',
           timestamp: '2023-01-01T00:00:00Z',
+          selection: {
+            anchor: { path: [0, 0], offset: 0 },
+            focus: { path: [0, 0], offset: 0 },
+          },
+          path: [0, 0],
+          anchorOffset: 0,
+          focusOffset: 0,
+          refContent: 'Test content',
+          commentType: 'text',
+          time: Date.now(),
+          user: {
+            name: 'User 1',
+          },
         },
         {
           id: 'comment-2',
           content: 'Second comment',
           author: 'User 2',
           timestamp: '2023-01-02T00:00:00Z',
+          selection: {
+            anchor: { path: [0, 0], offset: 0 },
+            focus: { path: [0, 0], offset: 0 },
+          },
+          path: [0, 0],
+          anchorOffset: 0,
+          focusOffset: 0,
+          refContent: 'Test content',
+          commentType: 'text',
+          time: Date.now(),
+          user: {
+            name: 'User 2',
+          },
         },
-      ];
+      ] as any;
 
       renderWithProvider(
         <CommentView

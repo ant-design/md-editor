@@ -64,7 +64,7 @@ const defaultProps = {
   },
   children: 'test content',
   attributes: {
-    'data-slate-leaf': true,
+    'data-slate-leaf': true as const,
   },
   text: { text: 'test text' },
   hashId: 'test-hash',
@@ -152,7 +152,7 @@ describe('MLeaf Component', () => {
     it('应该渲染评论视图', () => {
       const mockComment = {
         commentItem: [{ id: '1', content: 'test comment' }],
-      };
+      } as any;
 
       const propsWithComment = {
         ...defaultProps,
@@ -329,7 +329,7 @@ describe('MLeaf Component', () => {
     it('应该添加函数属性', () => {
       const propsWithFnc = {
         ...defaultProps,
-        leaf: { ...defaultProps.leaf, fnc: 'test-function' },
+        leaf: { ...defaultProps.leaf, fnc: true },
       };
 
       const { container } = renderWithProvider(
@@ -339,7 +339,7 @@ describe('MLeaf Component', () => {
       );
 
       const textElement = container.querySelector('[data-be="text"]');
-      expect(textElement).toHaveAttribute('data-fnc', 'test-function');
+      expect(textElement).toHaveAttribute('data-fnc', 'true');
     });
 
     it('应该添加标识符属性', () => {
@@ -372,7 +372,9 @@ describe('MLeaf Component', () => {
     it('应该处理空的 attributes', () => {
       const propsWithEmptyAttributes = {
         ...defaultProps,
-        attributes: {},
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
       };
 
       const { container } = renderWithProvider(

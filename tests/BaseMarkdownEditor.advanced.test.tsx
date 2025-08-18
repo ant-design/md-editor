@@ -264,7 +264,7 @@ describe('BaseMarkdownEditor - 高级功能测试', () => {
       const insertAutocompleteProps = {
         trigger: '@',
         options: ['option1', 'option2'],
-      };
+      } as any;
 
       render(
         <BaseMarkdownEditor

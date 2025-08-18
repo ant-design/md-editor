@@ -26,7 +26,7 @@ vi.mock('../../src/ThoughtChainList', () => ({
 describe('BubbleBeforeNode', () => {
   const defaultProps = {
     bubble: {
-      placement: 'left',
+      placement: 'left' as const,
       originData: {
         id: 'test-bubble-id',
         role: 'user',
@@ -52,7 +52,7 @@ describe('BubbleBeforeNode', () => {
       },
     },
     bubbleListRef: { current: null },
-  };
+  } as any;
 
   const defaultContext = {
     standalone: false,
@@ -60,8 +60,9 @@ describe('BubbleBeforeNode', () => {
     thoughtChain: {
       enable: true,
       alwaysRender: false,
+      thoughtChainList: [],
     },
-  };
+  } as any;
 
   const renderWithContext = (
     props = defaultProps,

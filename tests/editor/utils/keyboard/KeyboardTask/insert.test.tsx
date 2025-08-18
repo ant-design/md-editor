@@ -43,7 +43,7 @@ vi.mock('slate', async () => {
       removeNodes: vi.fn(),
     },
     Editor: {
-      ...actual.Editor,
+      ...(actual.Editor as any),
       start: vi.fn(() => ({ path: [0, 0], offset: 0 })),
       end: vi.fn(() => ({ path: [0, 0], offset: 0 })),
       hasPath: vi.fn(() => false),

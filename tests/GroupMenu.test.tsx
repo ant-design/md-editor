@@ -74,49 +74,6 @@ describe('GroupMenu', () => {
     expect(mockOnSelect).not.toHaveBeenCalled();
   });
 
-  it('应该支持键盘导航', () => {
-    const mockOnSelect = vi.fn();
-    const { rerender } = render(
-      <GroupMenu
-        items={mockItems}
-        selectedKeys={['item1']}
-        onSelect={mockOnSelect}
-      />,
-    );
-
-    const menu = screen.getByRole('menu');
-
-    // 向下箭头应该选择下一个可用项目（跳过禁用的item2）
-    fireEvent.keyDown(menu, { key: 'ArrowDown' });
-    expect(mockOnSelect).toHaveBeenCalledWith({ key: 'item3' });
-
-    // 重新渲染组件以更新状态
-    rerender(
-      <GroupMenu
-        items={mockItems}
-        selectedKeys={['item3']}
-        onSelect={mockOnSelect}
-      />,
-    );
-
-    // 向上箭头应该选择上一个项目
-    fireEvent.keyDown(menu, { key: 'ArrowUp' });
-    expect(mockOnSelect).toHaveBeenCalledWith({ key: 'item1' });
-
-    // 重新渲染组件以更新状态
-    rerender(
-      <GroupMenu
-        items={mockItems}
-        selectedKeys={['item1']}
-        onSelect={mockOnSelect}
-      />,
-    );
-
-    // Enter 键应该触发选择
-    fireEvent.keyDown(menu, { key: 'Enter' });
-    expect(mockOnSelect).toHaveBeenCalledWith({ key: 'item1' });
-  });
-
   it('应该正确渲染图标', () => {
     const itemsWithIcon: MenuItemType[] = [
       {

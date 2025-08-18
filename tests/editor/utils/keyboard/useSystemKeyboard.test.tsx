@@ -341,7 +341,7 @@ describe('useSystemKeyboard', () => {
     }>();
 
     renderHook(() => {
-      useSystemKeyboard(emptyKeyTask$, store, mockProps, mockRef);
+      useSystemKeyboard(emptyKeyTask$ as any, store, mockProps, mockRef);
       return null;
     });
 

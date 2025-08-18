@@ -94,6 +94,9 @@ describe('ChartMark Components', () => {
     chartRef: { current: null } as any,
   } as any;
 
+  const mockChartRef = { current: null } as any;
+  const mockHtmlRef = { current: null } as any;
+
   beforeEach(() => {
     vi.clearAllMocks();
     // Mock clientWidth for container
@@ -305,8 +308,8 @@ describe('ChartMark Components', () => {
   });
 
   describe('Container Component', () => {
-      const mockChartRef = React.createRef();
-  const mockHtmlRef = React.createRef();
+    const mockChartRef = React.createRef() as any;
+    const mockHtmlRef = React.createRef() as any;
 
     beforeEach(() => {
       // Mock ResizeObserver
@@ -319,11 +322,7 @@ describe('ChartMark Components', () => {
 
     it('应该正确渲染容器', () => {
       render(
-        <Container
-          chartRef={mockChartRef}
-          htmlRef={mockHtmlRef}
-          index={0}
-        >
+        <Container chartRef={mockChartRef} htmlRef={mockHtmlRef} index={0}>
           <div>Test Content</div>
         </Container>,
       );
@@ -332,11 +331,7 @@ describe('ChartMark Components', () => {
 
     it('应该处理不同的索引值', () => {
       render(
-        <Container
-          chartRef={mockChartRef}
-          htmlRef={mockHtmlRef}
-          index={5}
-        >
+        <Container chartRef={mockChartRef} htmlRef={mockHtmlRef} index={5}>
           <div>Index 5 Content</div>
         </Container>,
       );
