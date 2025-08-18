@@ -159,7 +159,7 @@ const SchemaJsonEditor: React.FC = () => {
                   marginTop: '100px',
                 }}
               >
-                点击"渲染预览"按钮查看渲染结果
+                点击&quot;渲染预览&quot;按钮查看渲染结果
               </div>
             )}
           </div>
