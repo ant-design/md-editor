@@ -97,7 +97,7 @@ export const HistoryRunningIcon: React.FC<HistoryRunningIconProps> = React.memo(
     return (
       <>
         {/* 注入CSS动画 */}
-        {animated && (
+        {animated && process?.env?.NODE_ENV !== 'test' && (
           <style dangerouslySetInnerHTML={{ __html: animationCSS }} />
         )}
 
