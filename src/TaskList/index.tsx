@@ -124,7 +124,11 @@ const TaskListItem = memo(
       item.content && Array.isArray(item.content) && item.content.length > 0;
 
     return (
-      <div key={item.key} className={`${prefixCls}-thoughtChainItem ${hashId}`}>
+      <div
+        key={item.key}
+        className={`${prefixCls}-thoughtChainItem ${hashId}`}
+        onClick={() => onToggle(item.key)}
+      >
         <div className={`${prefixCls}-left ${hashId}`}>
           <div
             className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
@@ -144,10 +148,7 @@ const TaskListItem = memo(
           </div>
         </div>
         <div className={`${prefixCls}-right ${hashId}`}>
-          <div
-            className={`${prefixCls}-top ${hashId}`}
-            onClick={() => onToggle(item.key)}
-          >
+          <div className={`${prefixCls}-top ${hashId}`}>
             <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
             {hasContent && (
               <div className={`${prefixCls}-arrowContainer ${hashId}`}>
@@ -163,7 +164,7 @@ const TaskListItem = memo(
               </div>
             )}
           </div>
-          {isCollapsed && (
+          {!isCollapsed && (
             <div className={`${prefixCls}-body ${hashId}`}>
               <div className={`${prefixCls}-content ${hashId}`}>
                 {item.content}
@@ -237,7 +238,7 @@ export const TaskList = memo(({ items, className }: ThoughtChainProps) => {
         );
       } else {
         flag = true;
-        itemsCollapseStatus.current.set(item.key, true);
+        itemsCollapseStatus.current.set(item.key, false);
       }
     });
     if (flag) {
