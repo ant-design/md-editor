@@ -227,7 +227,6 @@
                   >
                     <label
                       class="ant-checkbox-wrapper"
-                      style="margin-top: 0px;"
                     >
                       <span
                         class="ant-checkbox ant-wave-target"
@@ -242,18 +241,16 @@
                       </span>
                     </label>
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1;"
                       >
                         如何实现 React 组件的懒加载？
                       </div>
                     </div>
-                    <div
-                      style="margin-top: 0px;"
-                    >
+                    <div>
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >
@@ -352,7 +349,6 @@
                   >
                     <label
                       class="ant-checkbox-wrapper"
-                      style="margin-top: 0px;"
                     >
                       <span
                         class="ant-checkbox ant-wave-target"
@@ -367,18 +363,16 @@
                       </span>
                     </label>
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1;"
                       >
                         TypeScript 高级类型的使用技巧
                       </div>
                     </div>
-                    <div
-                      style="margin-top: 0px;"
-                    >
+                    <div>
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >
@@ -489,7 +483,6 @@
                   >
                     <label
                       class="ant-checkbox-wrapper"
-                      style="margin-top: 0px;"
                     >
                       <span
                         class="ant-checkbox ant-wave-target"
@@ -504,18 +497,16 @@
                       </span>
                     </label>
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1;"
                       >
                         前端性能优化的最佳实践
                       </div>
                     </div>
-                    <div
-                      style="margin-top: 0px;"
-                    >
+                    <div>
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >
@@ -626,7 +617,6 @@
                   >
                     <label
                       class="ant-checkbox-wrapper"
-                      style="margin-top: 0px;"
                     >
                       <span
                         class="ant-checkbox ant-wave-target"
@@ -641,18 +631,16 @@
                       </span>
                     </label>
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1;"
                       >
                         CSS Grid 布局详解
                       </div>
                     </div>
-                    <div
-                      style="margin-top: 0px;"
-                    >
+                    <div>
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >
@@ -763,7 +751,6 @@
                   >
                     <label
                       class="ant-checkbox-wrapper"
-                      style="margin-top: 0px;"
                     >
                       <span
                         class="ant-checkbox ant-wave-target"
@@ -778,18 +765,16 @@
                       </span>
                     </label>
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1;"
                       >
                         JavaScript 异步编程模式
                       </div>
                     </div>
-                    <div
-                      style="margin-top: 0px;"
-                    >
+                    <div>
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >

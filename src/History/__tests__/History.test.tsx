@@ -335,8 +335,13 @@ describe('History Component', () => {
         expect(screen.getByRole('menu')).toBeInTheDocument();
       });
 
-      // 验证 customGroupBy 被调用
-      expect(customGroupBy).toHaveBeenCalled();
+      // 等待一段时间确保 generateHistoryItems 被调用
+      await waitFor(
+        () => {
+          expect(customGroupBy).toHaveBeenCalled();
+        },
+        { timeout: 3000 },
+      );
     });
 
     it('should apply custom sorting when sessionSort is provided', async () => {
