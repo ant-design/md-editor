@@ -32,7 +32,7 @@ nav:
   - 前端框架：React 18 + TypeScript
   - 编辑器核心：Slate.js
   - UI组件库：Ant Design
-  - 样式方案：antd-style + CSS-in-JS
+  - 样式方案：CSS-in-JS
   - 构建工具：Vite
   - 测试框架：Jest + Testing Library
 -->
@@ -45,7 +45,6 @@ nav:
 | **TypeScript** | 5.x   | 类型系统   | 提供完整的类型安全，提高代码质量           |
 | **Slate.js**   | 0.94+ | 编辑器核心 | 可定制的富文本编辑器框架                   |
 | **Ant Design** | 5.x   | UI组件库   | 企业级UI设计语言和React组件库              |
-| **antd-style** | 3.x   | 样式方案   | 基于CSS-in-JS的样式解决方案                |
 
 ### 开发工具
 

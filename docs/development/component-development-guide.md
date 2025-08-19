@@ -21,6 +21,7 @@ nav:
 - [组件命名规则](#组件命名规则)
 - [文件夹命名规则](#文件夹命名规则)
 - [className 命名规则](#classname-命名规则)
+- [样式管理方案](#样式管理方案)
 - [style.ts 开发方式](#stylets-开发方式)
 - [API 命名规则](#api-命名规则)
 - [功能开发规则](#功能开发规则)
@@ -325,11 +326,119 @@ constants/           // 常量定义
 }
 ```
 
+## 样式管理方案
+
+<!--
+  样式管理说明：
+  - 使用 @ant-design/theme-token 进行样式管理
+  - 提供类型安全的样式开发
+  - 支持主题变量和响应式设计
+  - 统一的样式组织方式
+-->
+
+### 样式管理方案
+
+1. **使用 @ant-design/theme-token**
+
+   ```tsx
+   import { createStyles } from '@ant-design/theme-token';
+
+   export const useHistoryStyles = createStyles(({ token }) => ({
+     container: {
+       display: 'flex',
+       flexDirection: 'column',
+       gap: token.paddingSM,
+     },
+     item: {
+       display: 'flex',
+       justifyContent: 'space-between',
+       alignItems: 'center',
+       padding: token.paddingSM,
+       borderRadius: token.borderRadius,
+       transition: 'all 0.2s ease',
+       '&:hover': {
+         backgroundColor: token.colorBgTextHover,
+       },
+     },
+   }));
+   ```
+
+2. **使用项目自定义样式注册**
+
+   ```tsx
+   // 使用项目自定义的 useEditorStyleRegister
+   import { useEditorStyleRegister, ChatTokenType } from '../hooks/useStyle';
+
+   export function useStyle(prefixCls?: string) {
+     return useEditorStyleRegister('ComponentName', (token: ChatTokenType) => {
+       const componentToken = {
+         ...token,
+         componentCls: `.${prefixCls}`,
+       };
+
+       return [genStyle(componentToken)];
+     });
+   }
+   ```
+
+3. **样式生成函数定义**
+
+   ```tsx
+   import { GenerateStyle } from '../hooks/useStyle';
+
+   const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+     return {
+       [token.componentCls]: {
+         // 组件基础样式
+         width: '100%',
+         backgroundColor: 'transparent',
+
+         // 子元素样式
+         '&-item': {
+           display: 'flex',
+           alignItems: 'center',
+           padding: token.paddingSM,
+
+           '&:hover': {
+             backgroundColor: token.colorBgTextHover,
+           },
+         },
+
+         // 嵌套子元素
+         '&-submenu': {
+           [`${token.componentCls}-item`]: {
+             fontSize: '13px',
+           },
+         },
+       },
+     };
+   };
+   ```
+
+4. **特性优势**
+   - 完整的 TypeScript 类型定义
+   - 更好的 IDE 智能提示
+   - 类型安全的主题变量访问
+   - 自定义 `ChatTokenType` 类型扩展
+   - 自动 CSS 变量注入
+   - 优化的运行时性能
+
+5. **CSS 变量支持**
+
+   ```tsx
+   // 自动注入的 CSS 变量
+   :root {
+     --md-editor-primary-color: #1D7AFC;
+     --md-editor-border-radius: 8px;
+     --md-editor-padding-sm: 6px;
+     // ... 更多变量
+   }
+   ```
+
 ## style.ts 开发方式
 
 <!--
   style.ts开发说明：
-  - 使用antd-style进行样式管理
   - 提供类型安全的样式开发
   - 支持主题变量和响应式设计
   - 统一的样式组织方式
@@ -339,71 +448,186 @@ constants/           // 常量定义
 
 <!--
   文件组织说明：
-  - 使用createStyles创建样式Hook
+  - 使用 useEditorStyleRegister 创建样式Hook
   - 按功能模块组织样式
   - 使用token变量保持一致性
   - 支持嵌套和伪类选择器
 -->
 
 ```tsx | pure
-// src/History/style.ts
-import { createStyles } from 'antd-style';
+// src/History/style.ts - 基于实际项目实现
+import {
+  ChatTokenType,
+  GenerateStyle,
+  useEditorStyleRegister,
+} from '../hooks/useStyle';
 
-export const useHistoryStyles = createStyles(({ token }) => ({
-  // 容器样式 - 基础布局样式
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: token.paddingSM,
-  },
+// 样式生成函数 - 定义组件的所有样式
+const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+  return {
+    [token.componentCls]: {
+      // 容器基础样式
+      width: '100%',
+      backgroundColor: 'transparent',
+      outline: 'none',
+      padding: '0',
 
-  // 列表项样式 - 列表项的基础样式和交互效果
-  item: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: token.paddingSM,
-    borderRadius: token.borderRadius,
-    transition: 'all 0.2s ease',
+      // 菜单项样式
+      '&-item': {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        cursor: 'pointer',
+        borderRadius: '8px',
+        padding: '6px 6px 6px 12px',
+        backgroundColor: 'transparent',
+        color: token.colorText || 'rgba(0, 0, 0, 0.88)',
+        fontSize: '13px',
+        fontWeight: 400,
+        position: 'relative',
+        userSelect: 'none',
+        lineHeight: '20px',
+        transition: 'all 0.2s ease',
 
-    '&:hover': {
-      backgroundColor: token.colorBgTextHover,
+        // 悬停状态
+        '&:hover:not(&-disabled)': {
+          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
+          color: '#343A45',
+        },
+
+        // 选中状态
+        '&-selected': {
+          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
+          fontWeight: 600,
+          color: '#343A45',
+        },
+
+        // 禁用状态
+        '&-disabled': {
+          cursor: 'not-allowed',
+          color: token.colorTextDisabled || 'rgba(0, 0, 0, 0.25)',
+          opacity: 0.6,
+
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        },
+
+        // 内容区域
+        '&-content': {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          flex: 1,
+          minWidth: 0,
+        },
+
+        // 图标样式
+        '&-icon': {
+          fontSize: '14px',
+          width: '16px',
+          height: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          color: 'inherit',
+        },
+
+        // 分组样式
+        '&-group': {
+          cursor: 'default',
+          backgroundColor: 'transparent',
+          height: '32px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontSize: '13px',
+          fontWeight: 500,
+          lineHeight: '20px',
+          letterSpacing: 'normal',
+          color: 'rgba(0, 25, 61, 0.3255)',
+          zIndex: 0,
+        },
+      },
+
+      // 子菜单样式
+      '&-submenu': {
+        gap: 4,
+        display: 'flex',
+        flexDirection: 'column',
+
+        [`${token.componentCls}-item`]: {
+          fontSize: '13px',
+        },
+
+        [`${token.componentCls}-submenu`]: {
+          marginLeft: '16px',
+          [`${token.componentCls}-item`]: {
+            paddingLeft: '28px',
+            fontSize: '13px',
+          },
+        },
+      },
+
+      // 子菜单标题
+      '&-submenu-title': {
+        fontSize: '13px',
+        color: token.colorTextSecondary || 'rgba(0, 0, 0, 0.45)',
+        fontWeight: 500,
+        padding: '4px 12px',
+      },
+
+      // 滚动条样式
+      '&::-webkit-scrollbar': {
+        width: '6px',
+      },
+
+      '&::-webkit-scrollbar-track': {
+        backgroundColor: 'transparent',
+      },
+
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: token.colorBorder || '#d9d9d9',
+        borderRadius: '3px',
+
+        '&:hover': {
+          backgroundColor: token.colorTextSecondary || '#bfbfbf',
+        },
+      },
+
+      // 动画效果
+      [`${token.componentCls}-item`]: {
+        animationName: 'fadeIn',
+        animationDuration: '0.2s',
+        animationTimingFunction: 'ease-in-out',
+      },
+
+      '@keyframes fadeIn': {
+        '0%': {
+          opacity: 0,
+          transform: 'translateY(-2px)',
+        },
+        '100%': {
+          opacity: 1,
+          transform: 'translateY(0)',
+        },
+      },
     },
-  },
+  };
+};
 
-  // 操作按钮样式 - 操作区域的样式和动画效果
-  actions: {
-    display: 'flex',
-    gap: token.marginXS,
-    opacity: 0,
-    transition: 'opacity 0.2s ease',
+// 导出样式Hook - 供组件使用
+export function useStyle(prefixCls?: string) {
+  return useEditorStyleRegister('GroupMenu', (token: ChatTokenType) => {
+    const groupMenuToken = {
+      ...token,
+      componentCls: `.${prefixCls}`,
+    };
 
-    '.history-item:hover &': {
-      opacity: 1,
-    },
-  },
-
-  // 按钮样式 - 按钮的基础样式和状态变体
-  button: {
-    border: 'none',
-    background: 'transparent',
-    cursor: 'pointer',
-    padding: token.paddingXS,
-    borderRadius: token.borderRadiusSM,
-
-    '&:hover': {
-      backgroundColor: token.colorBgTextHover,
-    },
-
-    '&--primary': {
-      color: token.colorPrimary,
-    },
-
-    '&--danger': {
-      color: token.colorError,
-    },
-  },
-}));
+    return [genStyle(groupMenuToken)];
+  });
+}
 ```
 
 ### 2. 样式使用方式
@@ -415,6 +639,8 @@ export const useHistoryStyles = createStyles(({ token }) => ({
   - 支持动态样式和条件样式
   - 提供类型安全的样式引用
 -->
+
+#### 方式一：使用 @ant-design/theme-token
 
 ```tsx | pure
 // 在组件中使用样式 - 导入Hook并应用样式
@@ -434,6 +660,138 @@ export const HistoryItem: React.FC<HistoryItemProps> = (props) => {
 };
 ```
 
+#### 方式二：使用项目自定义 useEditorStyleRegister
+
+```tsx | pure
+// 在组件中使用样式 - 基于实际项目实现
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext } from 'react';
+import { useStyle } from './style';
+
+export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
+  const {
+    items = [],
+    selectedKeys = [],
+    onSelect,
+    className,
+    classNames: propsClassNames = {},
+    style,
+    ...restProps
+  } = props;
+
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('history-menu');
+
+  // 注册样式
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
+  // 确定当前选中的键
+  const currentSelectedKey = selectedKeys && selectedKeys[0];
+
+  return wrapSSR(
+    <div
+      className={classNames(prefixCls, hashId, className)}
+      style={style}
+      role="menu"
+      aria-label="菜单"
+      {...restProps}
+    >
+      {items.map((item) => (
+        <div
+          key={item.key}
+          className={classNames(
+            `${prefixCls}-item`,
+            hashId,
+            propsClassNames?.menuItemClassName,
+            {
+              [`${prefixCls}-item-selected`]: currentSelectedKey === item.key,
+              [`${prefixCls}-item-disabled`]: item.disabled,
+            },
+          )}
+          onClick={() => !item.disabled && onSelect?.({ key: item.key })}
+          role="menuitem"
+        >
+          <div
+            className={classNames(
+              `${prefixCls}-item-content`,
+              hashId,
+              propsClassNames?.menuItemContentClassName,
+            )}
+          >
+            {item.icon && (
+              <span
+                className={classNames(
+                  `${prefixCls}-item-icon`,
+                  hashId,
+                  propsClassNames?.menuItemIconClassName,
+                )}
+              >
+                {item.icon}
+              </span>
+            )}
+            {item.label}
+          </div>
+        </div>
+      ))}
+    </div>,
+  );
+};
+```
+
+#### 方式三：在父组件中使用
+
+```tsx | pure
+// 在父组件中使用 GroupMenu - 基于实际项目实现
+import { ConfigProvider, Popover } from 'antd';
+import React, { useContext } from 'react';
+import GroupMenu from './menu';
+
+export const History: React.FC<HistoryProps> = (props) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
+
+  const items = generateHistoryItems({
+    filteredList,
+    selectedIds,
+    onSelectionChange: handleSelectionChange,
+    onClick: (sessionId, item) => {
+      props.onClick?.(sessionId, item);
+      setOpen(false);
+    },
+    // ... 其他配置
+  });
+
+  return (
+    <Popover
+      open={open}
+      onOpenChange={setOpen}
+      trigger="click"
+      className={menuPrefixCls}
+      content={
+        <div>
+          <HistorySearch
+            searchKeyword={searchKeyword}
+            onSearch={handleSearch}
+          />
+          <GroupMenu
+            selectedKeys={[props.sessionId]}
+            inlineIndent={20}
+            items={items}
+            className={menuPrefixCls}
+          />
+        </div>
+      }
+    >
+      <ActionIconBox title="历史记录" data-testid="history-button">
+        <HistoryIcon />
+      </ActionIconBox>
+    </Popover>
+  );
+};
+```
+
 ### 3. 样式变量管理
 
 <!--
@@ -443,6 +801,37 @@ export const HistoryItem: React.FC<HistoryItemProps> = (props) => {
   - 提供尺寸、颜色、间距等变量
   - 便于样式的统一管理和修改
 -->
+
+#### 使用 Ant Design Token
+
+```tsx | pure
+// 直接使用 Ant Design 的 token 变量
+const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+  return {
+    [token.componentCls]: {
+      // 使用 token 中的颜色变量
+      color: token.colorText,
+      backgroundColor: token.colorBgContainer,
+      borderColor: token.colorBorder,
+
+      // 使用 token 中的尺寸变量
+      padding: token.paddingSM,
+      margin: token.marginXS,
+      borderRadius: token.borderRadius,
+
+      // 使用 token 中的字体变量
+      fontSize: token.fontSize,
+      lineHeight: token.lineHeight,
+
+      '&:hover': {
+        backgroundColor: token.colorBgTextHover,
+      },
+    },
+  };
+};
+```
+
+#### 自定义样式变量
 
 ```tsx | pure
 // src/History/style.ts
@@ -475,6 +864,152 @@ export const historyToken = {
     duration: '0.2s',
     easing: 'ease',
   },
+};
+```
+
+### 4. 使用示例
+
+<!--
+  使用示例说明：
+  - 展示项目实际使用的样式管理方案
+  - 包含样式定义、组件使用、类型定义等
+  - 提供实际项目中的最佳实践
+-->
+
+#### 完整实现示例
+
+```tsx | pure
+// 1. 样式定义 (src/History/style.ts)
+import {
+  ChatTokenType,
+  GenerateStyle,
+  useEditorStyleRegister,
+} from '../hooks/useStyle';
+
+const genStyle: GenerateStyle<ChatTokenType> = (token) => ({
+  [token.componentCls]: {
+    width: '100%',
+    backgroundColor: 'transparent',
+    outline: 'none',
+    padding: '0',
+
+    '&-item': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      cursor: 'pointer',
+      borderRadius: '8px',
+      padding: '6px 6px 6px 12px',
+      backgroundColor: 'transparent',
+      color: token.colorText || 'rgba(0, 0, 0, 0.88)',
+      fontSize: '13px',
+      fontWeight: 400,
+      transition: 'all 0.2s ease',
+
+      '&:hover:not(&-disabled)': {
+        backgroundColor: 'rgba(0, 28, 57, 0.0353)',
+        color: '#343A45',
+      },
+
+      '&-selected': {
+        backgroundColor: 'rgba(0, 28, 57, 0.0353)',
+        fontWeight: 600,
+        color: '#343A45',
+      },
+
+      '&-content': {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        flex: 1,
+        minWidth: 0,
+      },
+
+      '&-icon': {
+        fontSize: '14px',
+        width: '16px',
+        height: '16px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        color: 'inherit',
+      },
+    },
+  },
+});
+
+export function useStyle(prefixCls?: string) {
+  return useEditorStyleRegister('GroupMenu', (token: ChatTokenType) => {
+    const groupMenuToken = {
+      ...token,
+      componentCls: `.${prefixCls}`,
+    };
+    return [genStyle(groupMenuToken)];
+  });
+}
+
+// 2. 组件实现 (src/History/menu.tsx)
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext } from 'react';
+import { useStyle } from './style';
+
+export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('history-menu');
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
+  return wrapSSR(
+    <div
+      className={classNames(prefixCls, hashId, props.className)}
+      role="menu"
+      aria-label="菜单"
+    >
+      {props.items?.map((item) => (
+        <div
+          key={item.key}
+          className={classNames(`${prefixCls}-item`, hashId, {
+            [`${prefixCls}-item-selected`]: props.selectedKeys?.includes(
+              item.key,
+            ),
+            [`${prefixCls}-item-disabled`]: item.disabled,
+          })}
+          onClick={() => !item.disabled && props.onSelect?.({ key: item.key })}
+          role="menuitem"
+        >
+          <div className={`${prefixCls}-item-content`}>
+            {item.icon && (
+              <span className={`${prefixCls}-item-icon`}>{item.icon}</span>
+            )}
+            {item.label}
+          </div>
+        </div>
+      ))}
+    </div>,
+  );
+};
+
+// 3. 在父组件中使用 (src/History/index.tsx)
+export const History: React.FC<HistoryProps> = (props) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
+
+  return (
+    <Popover
+      content={
+        <GroupMenu
+          selectedKeys={[props.sessionId]}
+          items={items}
+          className={menuPrefixCls}
+        />
+      }
+    >
+      <ActionIconBox title="历史记录">
+        <HistoryIcon />
+      </ActionIconBox>
+    </Popover>
+  );
 };
 ```
 
