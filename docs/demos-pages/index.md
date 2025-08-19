@@ -1,6 +1,6 @@
 ---
 nav:
-  title: 编辑器
+  title: Demo
   order: 1
 ---
 

@@ -1,6 +1,6 @@
 ---
 nav:
-  title: 编辑器
+  title: Demo
   order: 3
 ---
 
@@ -12,4 +12,4 @@ nav:
 
 ## 文件管理
 
-<code src="../demos/workspace-file-demo.tsx" background="var(--main-bg-color)" title="工作空间文件管理" iframe=600></code> 
+<code src="../demos/workspace-file-demo.tsx" background="var(--main-bg-color)" title="工作空间文件管理" iframe=600></code>
