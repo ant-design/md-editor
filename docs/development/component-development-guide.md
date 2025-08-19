@@ -338,102 +338,103 @@ constants/           // 常量定义
 
 ### 样式管理方案
 
-1. **使用 @ant-design/theme-token**
+**使用 @ant-design/theme-token**
 
-   ```tsx
-   import { createStyles } from '@ant-design/theme-token';
+```tsx | pure
+import { createStyles } from '@ant-design/theme-token';
 
-   export const useHistoryStyles = createStyles(({ token }) => ({
-     container: {
-       display: 'flex',
-       flexDirection: 'column',
-       gap: token.paddingSM,
-     },
-     item: {
-       display: 'flex',
-       justifyContent: 'space-between',
-       alignItems: 'center',
-       padding: token.paddingSM,
-       borderRadius: token.borderRadius,
-       transition: 'all 0.2s ease',
-       '&:hover': {
-         backgroundColor: token.colorBgTextHover,
-       },
-     },
-   }));
-   ```
+export const useHistoryStyles = createStyles(({ token }) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: token.paddingSM,
+  },
+  item: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: token.paddingSM,
+    borderRadius: token.borderRadius,
+    transition: 'all 0.2s ease',
+    '&:hover': {
+      backgroundColor: token.colorBgTextHover,
+    },
+  },
+}));
+```
 
-2. **使用项目自定义样式注册**
+**使用项目自定义样式注册**
 
-   ```tsx
-   // 使用项目自定义的 useEditorStyleRegister
-   import { useEditorStyleRegister, ChatTokenType } from '../hooks/useStyle';
+```tsx | pure
+// 使用项目自定义的 useEditorStyleRegister
+import { useEditorStyleRegister, ChatTokenType } from '../hooks/useStyle';
 
-   export function useStyle(prefixCls?: string) {
-     return useEditorStyleRegister('ComponentName', (token: ChatTokenType) => {
-       const componentToken = {
-         ...token,
-         componentCls: `.${prefixCls}`,
-       };
+export function useStyle(prefixCls?: string) {
+  return useEditorStyleRegister('ComponentName', (token: ChatTokenType) => {
+    const componentToken = {
+      ...token,
+      componentCls: `.${prefixCls}`,
+    };
 
-       return [genStyle(componentToken)];
-     });
-   }
-   ```
+    return [genStyle(componentToken)];
+  });
+}
+```
 
-3. **样式生成函数定义**
+**样式生成函数定义**
 
-   ```tsx
-   import { GenerateStyle } from '../hooks/useStyle';
+```tsx | pure
+import { GenerateStyle } from '../hooks/useStyle';
 
-   const genStyle: GenerateStyle<ChatTokenType> = (token) => {
-     return {
-       [token.componentCls]: {
-         // 组件基础样式
-         width: '100%',
-         backgroundColor: 'transparent',
+const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+  return {
+    [token.componentCls]: {
+      // 组件基础样式
+      width: '100%',
+      backgroundColor: 'transparent',
 
-         // 子元素样式
-         '&-item': {
-           display: 'flex',
-           alignItems: 'center',
-           padding: token.paddingSM,
+      // 子元素样式
+      '&-item': {
+        display: 'flex',
+        alignItems: 'center',
+        padding: token.paddingSM,
 
-           '&:hover': {
-             backgroundColor: token.colorBgTextHover,
-           },
-         },
+        '&:hover': {
+          backgroundColor: token.colorBgTextHover,
+        },
+      },
 
-         // 嵌套子元素
-         '&-submenu': {
-           [`${token.componentCls}-item`]: {
-             fontSize: '13px',
-           },
-         },
-       },
-     };
-   };
-   ```
+      // 嵌套子元素
+      '&-submenu': {
+        [`${token.componentCls}-item`]: {
+          fontSize: '13px',
+        },
+      },
+    },
+  };
+};
+```
 
-4. **特性优势**
-   - 完整的 TypeScript 类型定义
-   - 更好的 IDE 智能提示
-   - 类型安全的主题变量访问
-   - 自定义 `ChatTokenType` 类型扩展
-   - 自动 CSS 变量注入
-   - 优化的运行时性能
+**特性优势**
 
-5. **CSS 变量支持**
+- 完整的 TypeScript 类型定义
+- 更好的 IDE 智能提示
+- 类型安全的主题变量访问
+- 自定义 `ChatTokenType` 类型扩展
+- 自动 CSS 变量注入
+- 优化的运行时性能
 
-   ```tsx
-   // 自动注入的 CSS 变量
-   :root {
-     --md-editor-primary-color: #1D7AFC;
-     --md-editor-border-radius: 8px;
-     --md-editor-padding-sm: 6px;
-     // ... 更多变量
-   }
-   ```
+**CSS 变量支持**
+
+```tsx | pure
+ // 自动注入的 CSS 变量
+ :root {
+   --md-editor-primary-color: #1D7AFC;
+   --md-editor-border-radius: 8px;
+   --md-editor-padding-sm: 6px;
+   // ... 更多变量
+ }
+```
 
 ## style.ts 开发方式
 
