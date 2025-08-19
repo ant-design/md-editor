@@ -1099,6 +1099,20 @@ const handleAsyncOperation = async () => {
 };
 ```
 
+## Demo 开发规范
+
+Demo 应该放在 `docs/demos` 目录下，每个 Demo 应该是一个独立的文件，文件名应该以 `demo-` 开头，文件名应该以 `.tsx` 结尾。
+
+Demo 应该包含以下内容：
+
+- 组件的代码
+- 组件的样式
+- 组件的交互
+- 组件的测试
+- Demo 使用的 api 介绍
+
+Demo 应该使用 `@ant-design/md-editor` 的组件进行开发，并使用 `@ant-design/md-editor` 的 api 进行开发。不要使用src 之类的路径。
+
 ## 总结
 
 <!--
