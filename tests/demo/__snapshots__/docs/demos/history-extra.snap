@@ -9,13 +9,60 @@
       style="padding: 20px;"
     >
       <h3>
-        自定义额外内容
+        History 额外内容
       </h3>
       <p>
         当前会话ID: session-1
       </p>
+      <h4>
+        Props 说明：
+      </h4>
+      <ul>
+        <li>
+          <strong>
+            extra
+          </strong>
+          : 自定义额外内容渲染函数，可以为每个历史记录项添加自定义内容
+        </li>
+        <li>
+          <strong>
+            agentId
+          </strong>
+          : 代理ID，用于获取历史记录
+        </li>
+        <li>
+          <strong>
+            sessionId
+          </strong>
+          : 当前会话ID，变更时会触发数据重新获取
+        </li>
+        <li>
+          <strong>
+            request
+          </strong>
+          : 请求函数，用于获取历史数据
+        </li>
+        <li>
+          <strong>
+            onSelected
+          </strong>
+          : 选择历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>
+            onDeleteItem
+          </strong>
+          : 删除历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>
+            standalone
+          </strong>
+          : 设置为 true 时，直接显示菜单列表
+        </li>
+      </ul>
       <div
-        style="width: 400px; border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px; background-color: rgb(250, 250, 250);"
+        style="padding: 20px; width: 348px; margin: 0px auto; border: 1px solid rgb(217, 217, 217);"
       >
         <div
           style="display: flex; flex-direction: column; gap: 8px;"
@@ -55,7 +102,7 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
                       >
                         重要会议记录
                       </div>
@@ -73,18 +120,10 @@
                       style="display: flex; gap: 4px; align-items: center;"
                     >
                       <span
-                        class="ant-tag ant-tag-red"
+                        style="background-color: rgb(255, 77, 79); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;"
                       >
                         重要
                       </span>
-                      <button
-                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                        type="button"
-                      >
-                        <span>
-                          导出
-                        </span>
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -106,55 +145,9 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
                       >
-                        日常讨论
-                      </div>
-                    </div>
-                    <div
-                      style="margin-top: 0px;"
-                    >
-                      <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                      >
-                        2 years ago
-                      </div>
-                    </div>
-                    <div
-                      style="display: flex; gap: 4px; align-items: center;"
-                    >
-                      <button
-                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                        type="button"
-                      >
-                        <span>
-                          导出
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                aria-selected="false"
-                class="ant-history-menu-item"
-                role="menuitem"
-                tabindex="0"
-              >
-                <div
-                  class="ant-history-menu-item-content"
-                >
-                  <div
-                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
-                  >
-                    <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
-                    >
-                      <div
-                        aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      >
-                        紧急问题处理
+                        紧急任务讨论
                       </div>
                     </div>
                     <div
@@ -170,18 +163,10 @@
                       style="display: flex; gap: 4px; align-items: center;"
                     >
                       <span
-                        class="ant-tag ant-tag-red"
+                        style="background-color: rgb(255, 77, 79); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;"
                       >
                         重要
                       </span>
-                      <button
-                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                        type="button"
-                      >
-                        <span>
-                          导出
-                        </span>
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -203,9 +188,9 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
                       >
-                        长期项目规划
+                        普通对话记录
                       </div>
                     </div>
                     <div
@@ -219,16 +204,7 @@
                     </div>
                     <div
                       style="display: flex; gap: 4px; align-items: center;"
-                    >
-                      <button
-                        class="ant-btn ant-btn-link ant-btn-color-link ant-btn-variant-link ant-btn-sm"
-                        type="button"
-                      >
-                        <span>
-                          导出
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>

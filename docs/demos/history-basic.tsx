@@ -55,14 +55,44 @@ const BasicHistoryDemo = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      <h3>当前会话ID: {currentSessionId}</h3>
-      <History
-        agentId="test-agent"
-        sessionId={currentSessionId}
-        request={mockRequest}
-        onSelected={handleSelected}
-        onDeleteItem={handleDeleteItem}
-      />
+      <h3>History 基础用法</h3>
+      <p>当前会话ID: {currentSessionId}</p>
+
+      <h4>Props 说明：</h4>
+      <ul>
+        <li>
+          <strong>agentId</strong>: 代理ID，用于获取历史记录
+        </li>
+        <li>
+          <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
+        </li>
+        <li>
+          <strong>request</strong>: 请求函数，用于获取历史数据
+        </li>
+        <li>
+          <strong>onSelected</strong>: 选择历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
+        </li>
+      </ul>
+
+      <div
+        style={{
+          padding: '20px',
+          width: 348,
+          margin: '0 auto',
+          border: '1px solid #d9d9d9',
+        }}
+      >
+        <History
+          agentId="test-agent"
+          sessionId={currentSessionId}
+          request={mockRequest}
+          onClick={handleSelected}
+          onDeleteItem={handleDeleteItem}
+        />
+      </div>
     </div>
   );
 };

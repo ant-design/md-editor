@@ -53,8 +53,51 @@ const TaskHistoryDemo = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      <h3>任务类型历史记录演示</h3>
+      <h3>History Task 模式</h3>
       <p>当前会话ID: {currentSessionId}</p>
+
+      <h4>Props 说明：</h4>
+      <ul>
+        <li>
+          <strong>type=&quot;task&quot;</strong>:
+          启用任务模式，自动显示图标和描述
+        </li>
+        <li>
+          <strong>agentId</strong>: 代理ID，用于获取历史记录
+        </li>
+        <li>
+          <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
+        </li>
+        <li>
+          <strong>request</strong>: 请求函数，用于获取历史数据
+        </li>
+        <li>
+          <strong>onClick</strong>: 点击历史记录项时的回调函数（推荐使用）
+        </li>
+        <li>
+          <strong>onSelected</strong>: 选择历史记录项时的回调函数（已弃用）
+        </li>
+        <li>
+          <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
+        </li>
+        <li>
+          <strong>agent.enabled</strong>: 启用 Agent
+          模式，显示搜索、收藏、多选等功能
+        </li>
+        <li>
+          <strong>agent.onSearch</strong>: 搜索回调函数
+        </li>
+        <li>
+          <strong>agent.onLoadMore</strong>: 加载更多回调函数
+        </li>
+        <li>
+          <strong>agent.onNewChat</strong>: 新对话回调函数
+        </li>
+      </ul>
+
       <p>说明：</p>
       <ul>
         <li>任务类型使用 📋 作为默认图标</li>

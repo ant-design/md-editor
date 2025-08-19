@@ -6,428 +6,592 @@
       test
     </div>
     <div
-      style="padding: 20px; max-width: 800px; margin: 0px auto;"
+      style="padding: 20px;"
     >
-      <h1>
-        History 组件 Agent 模式演示
-      </h1>
+      <h3>
+        History Agent 模式
+      </h3>
+      <p>
+        当前会话ID: session-1
+      </p>
+      <p>
+        搜索关键词: 
+      </p>
+      <p>
+        收藏数量: 1
+      </p>
+      <p>
+        选中数量: 0
+      </p>
+      <h4>
+        Props 说明：
+      </h4>
+      <ul>
+        <li>
+          <strong>
+            agent.enabled
+          </strong>
+          : 启用 Agent 模式，显示搜索、收藏、多选等功能
+        </li>
+        <li>
+          <strong>
+            agent.onSearch
+          </strong>
+          : 搜索回调函数，处理搜索关键词
+        </li>
+        <li>
+          <strong>
+            agent.onFavorite
+          </strong>
+          : 收藏回调函数，处理收藏/取消收藏
+        </li>
+        <li>
+          <strong>
+            agent.onSelectionChange
+          </strong>
+          : 多选回调函数，处理多选状态变化
+        </li>
+        <li>
+          <strong>
+            agent.onLoadMore
+          </strong>
+          : 加载更多回调函数，处理加载更多数据
+        </li>
+        <li>
+          <strong>
+            agent.onNewChat
+          </strong>
+          : 新对话回调函数，处理创建新对话
+        </li>
+        <li>
+          <strong>
+            agentId
+          </strong>
+          : 代理ID，用于获取历史记录
+        </li>
+        <li>
+          <strong>
+            sessionId
+          </strong>
+          : 当前会话ID，变更时会触发数据重新获取
+        </li>
+        <li>
+          <strong>
+            request
+          </strong>
+          : 请求函数，用于获取历史数据
+        </li>
+        <li>
+          <strong>
+            onSelected
+          </strong>
+          : 选择历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>
+            onDeleteItem
+          </strong>
+          : 删除历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>
+            standalone
+          </strong>
+          : 设置为 true 时，直接显示菜单列表
+        </li>
+      </ul>
       <div
-        style="margin-bottom: 20px;"
-      >
-        <h3>
-          功能说明：
-        </h3>
-        <ul>
-          <li>
-            <strong>
-              搜索功能：
-            </strong>
-            在搜索框中输入关键词可以过滤历史记录
-          </li>
-          <li>
-            <strong>
-              收藏功能：
-            </strong>
-            悬停在历史记录上会显示收藏按钮，点击可以收藏/取消收藏（支持 loading 状态）
-          </li>
-          <li>
-            <strong>
-              多选功能：
-            </strong>
-            每个历史记录前面都有复选框，支持多选操作
-          </li>
-          <li>
-            <strong>
-              加载更多：
-            </strong>
-            点击底部的加载更多按钮可以加载更多历史记录
-          </li>
-          <li>
-            <strong>
-              新对话：
-            </strong>
-            点击新对话按钮可以创建新的对话会话
-          </li>
-        </ul>
-      </div>
-      <div
-        style="margin-bottom: 20px;"
-      >
-        <h3>
-          当前状态：
-        </h3>
-        <p>
-          已选择的会话: 无
-        </p>
-        <p>
-          收藏的会话: session-2
-        </p>
-        <p>
-          搜索关键词: 无
-        </p>
-      </div>
-      <div
-        style="border: 1px solid rgb(217, 217, 217); display: flex; gap: 12px; border-radius: 8px;"
+        style="padding: 20px; width: 348px; margin: 0px auto; border: 1px solid rgb(217, 217, 217);"
       >
         <div
-          style="padding: 20px; width: 348px; margin: 0px auto; border-right: 1px solid rgb(217, 217, 217);"
+          style="display: flex; flex-direction: column; gap: 8px;"
         >
-          <h3>
-            History 组件（Agent 模式）：
-          </h3>
-          <div
-            style="display: flex; flex-direction: column; gap: 8px;"
+          <button
+            class="ant-btn ant-btn-default ant-btn-color-primary ant-btn-variant-filled"
+            style="font-weight: 500; justify-content: flex-start;"
+            type="button"
           >
-            <button
-              class="ant-btn ant-btn-default ant-btn-color-primary ant-btn-variant-filled"
-              style="font-weight: 500; justify-content: flex-start;"
-              type="button"
+            <span
+              class="ant-btn-icon"
             >
-              <span
-                class="ant-btn-icon"
+              <svg
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="none"
-                  height="1em"
-                  style="font-size: 16px;"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <defs>
-                    <clippath
-                      id="a"
-                    >
-                      <rect
-                        height="16"
-                        rx="0"
-                        width="16"
-                      />
-                    </clippath>
-                  </defs>
-                  <g
-                    clip-path="url(#a)"
+                <defs>
+                  <clippath
+                    id="a"
                   >
-                    <path
-                      d="M12.198 7.487c.67 0 1.327-.203 1.888-.583.057.356.087.723.087 1.096 0 3.682-2.874 6.667-6.42 6.667a6.203 6.203 0 01-3.023-.784l-3.397.784.755-3.528A6.842 6.842 0 011.333 8c0-3.682 2.874-6.667 6.42-6.667.622 0 1.223.092 1.791.263a3.674 3.674 0 00-.803 2.301c0 1.983 1.547 3.59 3.457 3.59zM9.235 4.154l.81.312a2.77 2.77 0 011.605 1.666l.3.842.3-.842a2.77 2.77 0 011.605-1.666l.812-.312-.812-.312a2.77 2.77 0 01-1.604-1.666l-.3-.843-.3.843a2.77 2.77 0 01-1.605 1.666l-.811.312zM4.543 8c0 1.84 1.437 3.333 3.21 3.333s3.21-1.492 3.21-3.333H9.679c0 1.105-.862 2-1.926 2s-1.926-.895-1.926-2H4.543z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
                     />
-                  </g>
-                </svg>
-              </span>
-              <span>
-                新对话
-              </span>
-            </button>
+                  </clippath>
+                </defs>
+                <g
+                  clip-path="url(#a)"
+                >
+                  <path
+                    d="M12.198 7.487c.67 0 1.327-.203 1.888-.583.057.356.087.723.087 1.096 0 3.682-2.874 6.667-6.42 6.667a6.203 6.203 0 01-3.023-.784l-3.397.784.755-3.528A6.842 6.842 0 011.333 8c0-3.682 2.874-6.667 6.42-6.667.622 0 1.223.092 1.791.263a3.674 3.674 0 00-.803 2.301c0 1.983 1.547 3.59 3.457 3.59zM9.235 4.154l.81.312a2.77 2.77 0 011.605 1.666l.3.842.3-.842a2.77 2.77 0 011.605-1.666l.812-.312-.812-.312a2.77 2.77 0 01-1.604-1.666l-.3-.843-.3.843a2.77 2.77 0 01-1.605 1.666l-.811.312zM4.543 8c0 1.84 1.437 3.333 3.21 3.333s3.21-1.492 3.21-3.333H9.679c0 1.105-.862 2-1.926 2s-1.926-.895-1.926-2H4.543z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span>
+              新对话
+            </span>
+          </button>
+          <div
+            style="display: flex; align-items: center; gap: 4px; justify-content: space-between; margin-top: 12px;"
+          >
             <div
-              style="display: flex; align-items: center; gap: 4px; justify-content: space-between; margin-top: 12px;"
+              style="font-size: 12px; font-weight: 500; line-height: 20px; letter-spacing: normal; color: rgba(0, 25, 61, 0.326);"
+            >
+              历史任务
+            </div>
+            <span
+              aria-describedby="test-id"
+              aria-label="搜索"
+              class="ant-md-editor-action-icon-box"
+              role="button"
+              style="width: 40px;"
+              tabindex="0"
+            >
+              <svg
+                fill="none"
+                height="1em"
+                style="font-size: 14px; color: rgba(0, 24, 61, 0.247);"
+                viewBox="0 0 14 14"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="14"
+                      rx="0"
+                      width="14"
+                    />
+                  </clippath>
+                </defs>
+                <g
+                  clip-path="url(#a)"
+                >
+                  <path
+                    d="M9.694 10.519a5.25 5.25 0 11.825-.825l2.143 2.144a.583.583 0 11-.825.825l-2.143-2.144zm.806-4.102a4.083 4.083 0 10-8.167 0 4.083 4.083 0 008.167 0z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </g>
+              </svg>
+            </span>
+          </div>
+          <div
+            aria-label="菜单"
+            class="ant-history-menu ant-agent-chat-history-menu"
+            role="menu"
+            tabindex="0"
+          >
+            <div
+              class="ant-history-menu-submenu"
             >
               <div
-                style="font-size: 12px; font-weight: 500; line-height: 20px; letter-spacing: normal; color: rgba(0, 25, 61, 0.326);"
+                class="ant-history-menu-item-group"
               >
-                历史任务
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  今日
+                </div>
               </div>
-              <span
-                aria-describedby="test-id"
-                aria-label="搜索"
-                class="ant-md-editor-action-icon-box"
-                role="button"
-                style="width: 40px;"
+              <div
+                aria-selected="true"
+                class="ant-history-menu-item ant-history-menu-item-selected"
+                role="menuitem"
                 tabindex="0"
               >
-                <svg
-                  fill="none"
-                  height="1em"
-                  style="font-size: 14px; color: rgba(0, 24, 61, 0.247);"
-                  viewBox="0 0 14 14"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  class="ant-history-menu-item-content"
                 >
-                  <defs>
-                    <clippath
-                      id="a"
-                    >
-                      <rect
-                        height="14"
-                        rx="0"
-                        width="14"
-                      />
-                    </clippath>
-                  </defs>
-                  <g
-                    clip-path="url(#a)"
+                  <div
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    <path
-                      d="M9.694 10.519a5.25 5.25 0 11.825-.825l2.143 2.144a.583.583 0 11-.825.825l-2.143-2.144zm.806-4.102a4.083 4.083 0 10-8.167 0 4.083 4.083 0 008.167 0z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </svg>
-              </span>
+                    <label
+                      class="ant-checkbox-wrapper"
+                      style="margin-top: 0px;"
+                    >
+                      <span
+                        class="ant-checkbox ant-wave-target"
+                      >
+                        <input
+                          class="ant-checkbox-input"
+                          type="checkbox"
+                        />
+                        <span
+                          class="ant-checkbox-inner"
+                        />
+                      </span>
+                    </label>
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
+                      >
+                        如何实现 React 组件的懒加载？
+                      </div>
+                    </div>
+                    <div
+                      style="margin-top: 0px;"
+                    >
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        <div
+                          class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                        >
+                          <div
+                            class="ant-space-item"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="取消收藏"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <svg
+                                fill="none"
+                                height="1em"
+                                style="color: rgb(29, 122, 252);"
+                                viewBox="0 0 14 14"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <defs>
+                                  <clippath
+                                    id="a"
+                                  >
+                                    <rect
+                                      height="14"
+                                      rx="0"
+                                      width="14"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#a)"
+                                >
+                                  <path
+                                    d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-space-item"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="删除"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="delete"
+                                class="anticon anticon-delete"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="delete"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  <div
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                  >
+                    <label
+                      class="ant-checkbox-wrapper"
+                      style="margin-top: 0px;"
+                    >
+                      <span
+                        class="ant-checkbox ant-wave-target"
+                      >
+                        <input
+                          class="ant-checkbox-input"
+                          type="checkbox"
+                        />
+                        <span
+                          class="ant-checkbox-inner"
+                        />
+                      </span>
+                    </label>
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
+                      >
+                        TypeScript 高级类型的使用技巧
+                      </div>
+                    </div>
+                    <div
+                      style="margin-top: 0px;"
+                    >
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        <div
+                          class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                        >
+                          <div
+                            class="ant-space-item"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="收藏"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <svg
+                                fill="none"
+                                height="1em"
+                                viewBox="0 0 14 14"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <defs>
+                                  <clippath
+                                    id="a"
+                                  >
+                                    <rect
+                                      height="14"
+                                      rx="0"
+                                      width="14"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#a)"
+                                >
+                                  <path
+                                    d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-space-item"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="删除"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="delete"
+                                class="anticon anticon-delete"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="delete"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
-              aria-label="菜单"
-              class="ant-history-menu ant-agent-chat-history-menu"
-              role="menu"
-              tabindex="0"
+              class="ant-history-menu-submenu"
             >
               <div
-                class="ant-history-menu-submenu"
+                class="ant-history-menu-item-group"
               >
                 <div
-                  class="ant-history-menu-item-group"
+                  class="ant-history-menu-item-content"
                 >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    今日
-                  </div>
+                  昨日
                 </div>
+              </div>
+              <div
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
+              >
                 <div
-                  aria-selected="true"
-                  class="ant-history-menu-item ant-history-menu-item-selected"
-                  role="menuitem"
-                  tabindex="0"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    class="ant-history-menu-item-content"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                    <label
+                      class="ant-checkbox-wrapper"
+                      style="margin-top: 0px;"
                     >
-                      <label
-                        class="ant-checkbox-wrapper"
-                        style="margin-top: 0px;"
+                      <span
+                        class="ant-checkbox ant-wave-target"
                       >
+                        <input
+                          class="ant-checkbox-input"
+                          type="checkbox"
+                        />
                         <span
-                          class="ant-checkbox ant-wave-target"
-                        >
-                          <input
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                          <span
-                            class="ant-checkbox-inner"
-                          />
-                        </span>
-                      </label>
+                          class="ant-checkbox-inner"
+                        />
+                      </span>
+                    </label>
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                    >
                       <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
                       >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          如何实现 React 组件的懒加载？
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                        >
-                          <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                          >
-                            <div
-                              class="ant-space-item"
-                            >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="收藏"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <svg
-                                  fill="none"
-                                  height="1em"
-                                  viewBox="0 0 14 14"
-                                  width="1em"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <defs>
-                                    <clippath
-                                      id="a"
-                                    >
-                                      <rect
-                                        height="14"
-                                        rx="0"
-                                        width="14"
-                                      />
-                                    </clippath>
-                                  </defs>
-                                  <g
-                                    clip-path="url(#a)"
-                                  >
-                                    <path
-                                      d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
-                                      fill="currentColor"
-                                      fill-rule="evenodd"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                            </div>
-                            <div
-                              class="ant-space-item"
-                            >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="删除"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <span
-                                  aria-label="delete"
-                                  class="anticon anticon-delete"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="delete"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
+                        前端性能优化的最佳实践
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
                     <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                      style="margin-top: 0px;"
                     >
-                      <label
-                        class="ant-checkbox-wrapper"
-                        style="margin-top: 0px;"
-                      >
-                        <span
-                          class="ant-checkbox ant-wave-target"
-                        >
-                          <input
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                          <span
-                            class="ant-checkbox-inner"
-                          />
-                        </span>
-                      </label>
                       <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >
                         <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          TypeScript 高级类型的使用技巧
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                          class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
                         >
                           <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                            class="ant-space-item"
                           >
-                            <div
-                              class="ant-space-item"
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="收藏"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <svg
+                                fill="none"
+                                height="1em"
+                                viewBox="0 0 14 14"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <defs>
+                                  <clippath
+                                    id="a"
+                                  >
+                                    <rect
+                                      height="14"
+                                      rx="0"
+                                      width="14"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#a)"
+                                >
+                                  <path
+                                    d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-space-item"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="删除"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
                             >
                               <span
-                                aria-describedby="test-id"
-                                aria-label="取消收藏"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
+                                aria-label="delete"
+                                class="anticon anticon-delete"
+                                role="img"
                               >
                                 <svg
-                                  fill="none"
+                                  aria-hidden="true"
+                                  data-icon="delete"
+                                  fill="currentColor"
+                                  focusable="false"
                                   height="1em"
-                                  style="color: rgb(29, 122, 252);"
-                                  viewBox="0 0 14 14"
+                                  viewBox="64 64 896 896"
                                   width="1em"
-                                  xmlns="http://www.w3.org/2000/svg"
                                 >
-                                  <defs>
-                                    <clippath
-                                      id="a"
-                                    >
-                                      <rect
-                                        height="14"
-                                        rx="0"
-                                        width="14"
-                                      />
-                                    </clippath>
-                                  </defs>
-                                  <g
-                                    clip-path="url(#a)"
-                                  >
-                                    <path
-                                      d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358z"
-                                      fill="currentColor"
-                                      fill-rule="evenodd"
-                                    />
-                                  </g>
+                                  <path
+                                    d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                  />
                                 </svg>
                               </span>
-                            </div>
-                            <div
-                              class="ant-space-item"
-                            >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="删除"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <span
-                                  aria-label="delete"
-                                  class="anticon anticon-delete"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="delete"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -435,136 +599,136 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div
+              class="ant-history-menu-submenu"
+            >
               <div
-                class="ant-history-menu-submenu"
+                class="ant-history-menu-item-group"
               >
                 <div
-                  class="ant-history-menu-item-group"
+                  class="ant-history-menu-item-content"
                 >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    昨日
-                  </div>
+                  2 days ago
                 </div>
+              </div>
+              <div
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
+              >
                 <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    class="ant-history-menu-item-content"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                    <label
+                      class="ant-checkbox-wrapper"
+                      style="margin-top: 0px;"
                     >
-                      <label
-                        class="ant-checkbox-wrapper"
-                        style="margin-top: 0px;"
+                      <span
+                        class="ant-checkbox ant-wave-target"
                       >
+                        <input
+                          class="ant-checkbox-input"
+                          type="checkbox"
+                        />
                         <span
-                          class="ant-checkbox ant-wave-target"
-                        >
-                          <input
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                          <span
-                            class="ant-checkbox-inner"
-                          />
-                        </span>
-                      </label>
+                          class="ant-checkbox-inner"
+                        />
+                      </span>
+                    </label>
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                    >
                       <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
                       >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          前端性能优化的最佳实践
-                        </div>
+                        CSS Grid 布局详解
                       </div>
+                    </div>
+                    <div
+                      style="margin-top: 0px;"
+                    >
                       <div
-                        style="margin-top: 0px;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >
                         <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                          class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
                         >
                           <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                            class="ant-space-item"
                           >
-                            <div
-                              class="ant-space-item"
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="收藏"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <svg
+                                fill="none"
+                                height="1em"
+                                viewBox="0 0 14 14"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <defs>
+                                  <clippath
+                                    id="a"
+                                  >
+                                    <rect
+                                      height="14"
+                                      rx="0"
+                                      width="14"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#a)"
+                                >
+                                  <path
+                                    d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-space-item"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="删除"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
                             >
                               <span
-                                aria-describedby="test-id"
-                                aria-label="收藏"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
+                                aria-label="delete"
+                                class="anticon anticon-delete"
+                                role="img"
                               >
                                 <svg
-                                  fill="none"
+                                  aria-hidden="true"
+                                  data-icon="delete"
+                                  fill="currentColor"
+                                  focusable="false"
                                   height="1em"
-                                  viewBox="0 0 14 14"
+                                  viewBox="64 64 896 896"
                                   width="1em"
-                                  xmlns="http://www.w3.org/2000/svg"
                                 >
-                                  <defs>
-                                    <clippath
-                                      id="a"
-                                    >
-                                      <rect
-                                        height="14"
-                                        rx="0"
-                                        width="14"
-                                      />
-                                    </clippath>
-                                  </defs>
-                                  <g
-                                    clip-path="url(#a)"
-                                  >
-                                    <path
-                                      d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
-                                      fill="currentColor"
-                                      fill-rule="evenodd"
-                                    />
-                                  </g>
+                                  <path
+                                    d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                  />
                                 </svg>
                               </span>
-                            </div>
-                            <div
-                              class="ant-space-item"
-                            >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="删除"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <span
-                                  aria-label="delete"
-                                  class="anticon anticon-delete"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="delete"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -572,273 +736,136 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div
+              class="ant-history-menu-submenu"
+            >
               <div
-                class="ant-history-menu-submenu"
+                class="ant-history-menu-item-group"
               >
                 <div
-                  class="ant-history-menu-item-group"
+                  class="ant-history-menu-item-content"
                 >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    2 days ago
-                  </div>
-                </div>
-                <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
-                    >
-                      <label
-                        class="ant-checkbox-wrapper"
-                        style="margin-top: 0px;"
-                      >
-                        <span
-                          class="ant-checkbox ant-wave-target"
-                        >
-                          <input
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                          <span
-                            class="ant-checkbox-inner"
-                          />
-                        </span>
-                      </label>
-                      <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
-                      >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          CSS Grid 布局详解
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                        >
-                          <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                          >
-                            <div
-                              class="ant-space-item"
-                            >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="收藏"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <svg
-                                  fill="none"
-                                  height="1em"
-                                  viewBox="0 0 14 14"
-                                  width="1em"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <defs>
-                                    <clippath
-                                      id="a"
-                                    >
-                                      <rect
-                                        height="14"
-                                        rx="0"
-                                        width="14"
-                                      />
-                                    </clippath>
-                                  </defs>
-                                  <g
-                                    clip-path="url(#a)"
-                                  >
-                                    <path
-                                      d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
-                                      fill="currentColor"
-                                      fill-rule="evenodd"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                            </div>
-                            <div
-                              class="ant-space-item"
-                            >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="删除"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <span
-                                  aria-label="delete"
-                                  class="anticon anticon-delete"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="delete"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  3 days ago
                 </div>
               </div>
               <div
-                class="ant-history-menu-submenu"
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
               >
                 <div
-                  class="ant-history-menu-item-group"
+                  class="ant-history-menu-item-content"
                 >
                   <div
-                    class="ant-history-menu-item-content"
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
-                    3 days ago
-                  </div>
-                </div>
-                <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                    <label
+                      class="ant-checkbox-wrapper"
+                      style="margin-top: 0px;"
                     >
-                      <label
-                        class="ant-checkbox-wrapper"
-                        style="margin-top: 0px;"
+                      <span
+                        class="ant-checkbox ant-wave-target"
                       >
+                        <input
+                          class="ant-checkbox-input"
+                          type="checkbox"
+                        />
                         <span
-                          class="ant-checkbox ant-wave-target"
-                        >
-                          <input
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                          <span
-                            class="ant-checkbox-inner"
-                          />
-                        </span>
-                      </label>
+                          class="ant-checkbox-inner"
+                        />
+                      </span>
+                    </label>
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                    >
                       <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: -webkit-box; -webkit-line-clamp: 1; line-height: inherit;"
                       >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          JavaScript 异步编程模式
-                        </div>
+                        JavaScript 异步编程模式
                       </div>
+                    </div>
+                    <div
+                      style="margin-top: 0px;"
+                    >
                       <div
-                        style="margin-top: 0px;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
                       >
                         <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                          class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
                         >
                           <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                            class="ant-space-item"
                           >
-                            <div
-                              class="ant-space-item"
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="收藏"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <svg
+                                fill="none"
+                                height="1em"
+                                viewBox="0 0 14 14"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <defs>
+                                  <clippath
+                                    id="a"
+                                  >
+                                    <rect
+                                      height="14"
+                                      rx="0"
+                                      width="14"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#a)"
+                                >
+                                  <path
+                                    d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-space-item"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="删除"
+                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                              role="button"
+                              tabindex="0"
                             >
                               <span
-                                aria-describedby="test-id"
-                                aria-label="收藏"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
+                                aria-label="delete"
+                                class="anticon anticon-delete"
+                                role="img"
                               >
                                 <svg
-                                  fill="none"
+                                  aria-hidden="true"
+                                  data-icon="delete"
+                                  fill="currentColor"
+                                  focusable="false"
                                   height="1em"
-                                  viewBox="0 0 14 14"
+                                  viewBox="64 64 896 896"
                                   width="1em"
-                                  xmlns="http://www.w3.org/2000/svg"
                                 >
-                                  <defs>
-                                    <clippath
-                                      id="a"
-                                    >
-                                      <rect
-                                        height="14"
-                                        rx="0"
-                                        width="14"
-                                      />
-                                    </clippath>
-                                  </defs>
-                                  <g
-                                    clip-path="url(#a)"
-                                  >
-                                    <path
-                                      d="M4.853 3.81L6.2 1.08q.246-.497.8-.497t.8.497l1.348 2.73q.152.308.492.358l3.013.44q.548.08.72.608.172.527-.226.915l-2.18 2.122q-.246.24-.188.58l.515 2.997q.096.547-.355.875-.452.328-.944.066l-2.691-1.415q-.304-.16-.609 0l-2.692 1.416q-.491.26-.942-.068-.45-.327-.354-.876l.514-2.995q.058-.34-.189-.58L.853 6.132q-.4-.386-.227-.916.172-.53.724-.608l3.01-.44q.34-.05.493-.358zm1.046.517q-.424.857-1.37.995l-2.465.36 1.782 1.735q.687.669.525 1.613l-.42 2.451 2.202-1.158q.847-.445 1.694 0l2.203 1.159-.42-2.453q-.162-.943.524-1.612l1.781-1.734-2.465-.361q-.945-.139-1.368-.996L7 2.096 5.9 4.325z"
-                                      fill="currentColor"
-                                      fill-rule="evenodd"
-                                    />
-                                  </g>
+                                  <path
+                                    d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                  />
                                 </svg>
                               </span>
-                            </div>
-                            <div
-                              class="ant-space-item"
-                            >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="删除"
-                                class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <span
-                                  aria-label="delete"
-                                  class="anticon anticon-delete"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="delete"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -849,325 +876,6 @@
             </div>
           </div>
         </div>
-        <div
-          style="padding: 20px; width: 348px; margin: 0px auto;"
-        >
-          <h3>
-            History 组件（Agent 模式）：
-          </h3>
-          <div
-            style="display: flex; flex-direction: column; gap: 8px;"
-          >
-            <button
-              class="ant-btn ant-btn-default ant-btn-color-primary ant-btn-variant-filled"
-              style="font-weight: 500; justify-content: flex-start;"
-              type="button"
-            >
-              <span
-                class="ant-btn-icon"
-              >
-                <svg
-                  fill="none"
-                  height="1em"
-                  style="font-size: 16px;"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <defs>
-                    <clippath
-                      id="a"
-                    >
-                      <rect
-                        height="16"
-                        rx="0"
-                        width="16"
-                      />
-                    </clippath>
-                  </defs>
-                  <g
-                    clip-path="url(#a)"
-                  >
-                    <path
-                      d="M12.198 7.487c.67 0 1.327-.203 1.888-.583.057.356.087.723.087 1.096 0 3.682-2.874 6.667-6.42 6.667a6.203 6.203 0 01-3.023-.784l-3.397.784.755-3.528A6.842 6.842 0 011.333 8c0-3.682 2.874-6.667 6.42-6.667.622 0 1.223.092 1.791.263a3.674 3.674 0 00-.803 2.301c0 1.983 1.547 3.59 3.457 3.59zM9.235 4.154l.81.312a2.77 2.77 0 011.605 1.666l.3.842.3-.842a2.77 2.77 0 011.605-1.666l.812-.312-.812-.312a2.77 2.77 0 01-1.604-1.666l-.3-.843-.3.843a2.77 2.77 0 01-1.605 1.666l-.811.312zM4.543 8c0 1.84 1.437 3.333 3.21 3.333s3.21-1.492 3.21-3.333H9.679c0 1.105-.862 2-1.926 2s-1.926-.895-1.926-2H4.543z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </svg>
-              </span>
-              <span>
-                新对话
-              </span>
-            </button>
-            <div
-              aria-label="菜单"
-              class="ant-history-menu ant-agent-chat-history-menu"
-              role="menu"
-              tabindex="0"
-            >
-              <div
-                class="ant-history-menu-submenu"
-              >
-                <div
-                  class="ant-history-menu-item-group"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    今日
-                  </div>
-                </div>
-                <div
-                  aria-selected="true"
-                  class="ant-history-menu-item ant-history-menu-item-selected"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
-                    >
-                      <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
-                      >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          如何实现 React 组件的懒加载？
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                        >
-                          <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
-                    >
-                      <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
-                      >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          TypeScript 高级类型的使用技巧
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                        >
-                          <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-history-menu-submenu"
-              >
-                <div
-                  class="ant-history-menu-item-group"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    昨日
-                  </div>
-                </div>
-                <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
-                    >
-                      <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
-                      >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          前端性能优化的最佳实践
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                        >
-                          <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-history-menu-submenu"
-              >
-                <div
-                  class="ant-history-menu-item-group"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    2 days ago
-                  </div>
-                </div>
-                <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
-                    >
-                      <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
-                      >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          CSS Grid 布局详解
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                        >
-                          <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-history-menu-submenu"
-              >
-                <div
-                  class="ant-history-menu-item-group"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    3 days ago
-                  </div>
-                </div>
-                <div
-                  aria-selected="false"
-                  class="ant-history-menu-item"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  <div
-                    class="ant-history-menu-item-content"
-                  >
-                    <div
-                      style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
-                    >
-                      <div
-                        style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
-                      >
-                        <div
-                          aria-describedby="test-id"
-                          style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        >
-                          JavaScript 异步编程模式
-                        </div>
-                      </div>
-                      <div
-                        style="margin-top: 0px;"
-                      >
-                        <div
-                          style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
-                        >
-                          <div
-                            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        style="margin-top: 20px;"
-      >
-        <h3>
-          使用说明：
-        </h3>
-        <ol>
-          <li>
-            点击历史记录图标打开菜单
-          </li>
-          <li>
-            在搜索框中输入关键词进行搜索
-          </li>
-          <li>
-            点击新对话按钮创建新的对话
-          </li>
-          <li>
-            悬停在历史记录上可以看到收藏和删除按钮（都支持 loading 状态）
-          </li>
-          <li>
-            勾选复选框可以选择多个会话
-          </li>
-          <li>
-            点击加载更多按钮可以加载更多数据
-          </li>
-        </ol>
       </div>
     </div>
   </div>

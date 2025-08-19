@@ -1,13 +1,12 @@
+import { History, HistoryDataType } from '@ant-design/md-editor';
 import { message } from 'antd';
 import React, { useState } from 'react';
-import { History, HistoryDataType } from '../../src/History';
 
-const HistoryAgentModeDemo: React.FC = () => {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [favorites, setFavorites] = useState<Set<string>>(
-    new Set(['session-2']),
-  );
+const AgentModeHistoryDemo = () => {
+  const [currentSessionId, setCurrentSessionId] = useState('session-1');
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [favorites, setFavorites] = useState(new Set(['session-1']));
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   // 模拟历史数据
   const mockHistoryData: HistoryDataType[] = [
@@ -15,6 +14,7 @@ const HistoryAgentModeDemo: React.FC = () => {
       id: '1',
       sessionId: 'session-1',
       sessionTitle: '如何实现 React 组件的懒加载？',
+
       gmtCreate: Date.now() - 3600000,
       isFavorite: favorites.has('session-1'),
     },
@@ -111,125 +111,96 @@ const HistoryAgentModeDemo: React.FC = () => {
 
   // 处理选择会话
   const handleSelected = async (sessionId: string) => {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 2000);
-    });
+    setCurrentSessionId(sessionId);
     message.success(`选择了会话: ${sessionId}`);
   };
 
   // 处理删除会话
-  const handleDeleteItem = async (sessionId: string) => {
+  const handleDeleteItem = async () => {
+    message.loading('正在删除...');
     await new Promise((resolve) => {
-      setTimeout(resolve, 2000);
+      setTimeout(resolve, 1000);
     });
-    message.success(`删除了会话: ${sessionId}`);
+    message.success('删除成功');
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h1>History 组件 Agent 模式演示</h1>
+    <div style={{ padding: 20 }}>
+      <h3>History Agent 模式</h3>
+      <p>当前会话ID: {currentSessionId}</p>
+      <p>搜索关键词: {searchKeyword}</p>
+      <p>收藏数量: {favorites.size}</p>
+      <p>选中数量: {selectedIds.length}</p>
 
-      <div style={{ marginBottom: '20px' }}>
-        <h3>功能说明：</h3>
-        <ul>
-          <li>
-            <strong>搜索功能：</strong>在搜索框中输入关键词可以过滤历史记录
-          </li>
-          <li>
-            <strong>收藏功能：</strong>
-            悬停在历史记录上会显示收藏按钮，点击可以收藏/取消收藏（支持 loading
-            状态）
-          </li>
-          <li>
-            <strong>多选功能：</strong>每个历史记录前面都有复选框，支持多选操作
-          </li>
-          <li>
-            <strong>加载更多：</strong>
-            点击底部的加载更多按钮可以加载更多历史记录
-          </li>
-          <li>
-            <strong>新对话：</strong>
-            点击新对话按钮可以创建新的对话会话
-          </li>
-        </ul>
-      </div>
+      <h4>Props 说明：</h4>
+      <ul>
+        <li>
+          <strong>agent.enabled</strong>: 启用 Agent
+          模式，显示搜索、收藏、多选等功能
+        </li>
+        <li>
+          <strong>agent.onSearch</strong>: 搜索回调函数，处理搜索关键词
+        </li>
+        <li>
+          <strong>agent.onFavorite</strong>: 收藏回调函数，处理收藏/取消收藏
+        </li>
+        <li>
+          <strong>agent.onSelectionChange</strong>:
+          多选回调函数，处理多选状态变化
+        </li>
+        <li>
+          <strong>agent.onLoadMore</strong>: 加载更多回调函数，处理加载更多数据
+        </li>
+        <li>
+          <strong>agent.onNewChat</strong>: 新对话回调函数，处理创建新对话
+        </li>
+        <li>
+          <strong>agentId</strong>: 代理ID，用于获取历史记录
+        </li>
+        <li>
+          <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
+        </li>
+        <li>
+          <strong>request</strong>: 请求函数，用于获取历史数据
+        </li>
+        <li>
+          <strong>onSelected</strong>: 选择历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
+        </li>
+        <li>
+          <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
+        </li>
+      </ul>
 
-      <div style={{ marginBottom: '20px' }}>
-        <h3>当前状态：</h3>
-        <p>
-          已选择的会话: {selectedIds.length > 0 ? selectedIds.join(', ') : '无'}
-        </p>
-        <p>收藏的会话: {Array.from(favorites).join(', ') || '无'}</p>
-        <p>搜索关键词: {searchKeyword || '无'}</p>
-      </div>
       <div
         style={{
+          padding: '20px',
+          width: 348,
+          margin: '0 auto',
           border: '1px solid #d9d9d9',
-          display: 'flex',
-          gap: 12,
-          borderRadius: '8px',
         }}
       >
-        <div
-          style={{
-            padding: '20px',
-            width: 348,
-            margin: '0 auto',
-            borderRight: '1px solid #d9d9d9',
+        <History
+          agentId="test-agent"
+          sessionId={currentSessionId}
+          request={mockRequest}
+          onSelected={handleSelected}
+          onDeleteItem={handleDeleteItem}
+          standalone
+          agent={{
+            enabled: true,
+            onSearch: handleSearch,
+            onFavorite: handleFavorite,
+            onSelectionChange: handleSelectionChange,
+            onLoadMore: handleLoadMore,
+            onNewChat: handleNewChat,
           }}
-        >
-          <h3>History 组件（Agent 模式）：</h3>
-          <History
-            agentId="demo-agent"
-            sessionId="session-1"
-            request={mockRequest}
-            onClick={handleSelected}
-            onDeleteItem={handleDeleteItem}
-            standalone
-            agent={{
-              enabled: true,
-              onSearch: handleSearch,
-              onFavorite: handleFavorite,
-              onSelectionChange: handleSelectionChange,
-              onLoadMore: handleLoadMore,
-              onNewChat: handleNewChat,
-            }}
-          />
-        </div>
-        <div
-          style={{
-            padding: '20px',
-            width: 348,
-            margin: '0 auto',
-          }}
-        >
-          <h3>History 组件（Agent 模式）：</h3>
-          <History
-            agentId="demo-agent"
-            sessionId="session-1"
-            request={mockRequest}
-            standalone
-            agent={{
-              enabled: true,
-              onNewChat: handleNewChat,
-            }}
-          />
-        </div>
-      </div>
-
-      <div style={{ marginTop: '20px' }}>
-        <h3>使用说明：</h3>
-        <ol>
-          <li>点击历史记录图标打开菜单</li>
-          <li>在搜索框中输入关键词进行搜索</li>
-          <li>点击新对话按钮创建新的对话</li>
-          <li>悬停在历史记录上可以看到收藏和删除按钮（都支持 loading 状态）</li>
-          <li>勾选复选框可以选择多个会话</li>
-          <li>点击加载更多按钮可以加载更多数据</li>
-        </ol>
+        />
       </div>
     </div>
   );
 };
 
-export default HistoryAgentModeDemo;
+export default AgentModeHistoryDemo;
