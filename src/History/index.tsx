@@ -84,6 +84,7 @@ export const History: React.FC<HistoryProps> = (props) => {
     groupBy: props.groupBy,
     sessionSort: props.sessionSort,
     type: props.type,
+    runningId: props.agent?.runningId,
   });
 
   if (props.standalone) {
@@ -134,23 +135,17 @@ export const History: React.FC<HistoryProps> = (props) => {
       }}
       getPopupContainer={(p) => p.parentElement || document.body}
       content={
-        <div>
-          <HistorySearch
-            searchKeyword={searchKeyword}
-            onSearch={handleSearch}
-          />
-          <HistoryNewChat onNewChat={handleNewChat} />
+        <>
           <GroupMenu
             selectedKeys={[props.sessionId]}
             inlineIndent={20}
             items={items}
             className={menuPrefixCls}
           />
-          <HistoryLoadMore
-            onLoadMore={handleLoadMore}
-            enabled={props.agent?.enabled && !!props.agent?.onLoadMore}
-          />
-        </div>
+          {props.agent?.enabled && !!props.agent?.onLoadMore && (
+            <HistoryLoadMore onLoadMore={handleLoadMore} />
+          )}
+        </>
       }
     >
       <div

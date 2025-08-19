@@ -47,6 +47,8 @@ interface HistoryListConfig {
     | false;
   /** 历史记录类型 */
   type?: 'chat' | 'task';
+  /** 正在运行的记录ID列表，这些记录将显示运行图标 */
+  runningId?: string[];
 }
 
 /**
@@ -68,6 +70,7 @@ interface HistoryListConfig {
  * @param {Function} [config.customDateFormatter] - 自定义日期格式化函数
  * @param {Function} [config.groupBy] - 自定义分组函数
  * @param {Function|boolean} [config.sessionSort] - 自定义排序函数
+ * @param {string[]} [config.runningId] - 正在运行的记录ID列表
  *
  * @example
  * ```tsx
@@ -79,7 +82,8 @@ interface HistoryListConfig {
  *   onDeleteItem: handleDelete,
  *   onFavorite: handleFavorite,
  *   agent: { enabled: true },
- *   customDateFormatter: (date) => dayjs(date).format('YYYY-MM-DD')
+ *   customDateFormatter: (date) => dayjs(date).format('YYYY-MM-DD'),
+ *   runningId: ['task-1', 'task-2']
  * });
  * ```
  *
@@ -92,6 +96,7 @@ interface HistoryListConfig {
  * - 支持自定义日期格式化
  * - 集成HistoryItem组件渲染
  * - 支持多选和收藏功能
+ * - 支持运行状态图标显示
  */
 export const generateHistoryItems = ({
   filteredList,
@@ -106,6 +111,7 @@ export const generateHistoryItems = ({
   groupBy,
   sessionSort,
   type,
+  runningId,
 }: HistoryListConfig) => {
   const groupList = groupByCategory(
     filteredList || [],
@@ -154,6 +160,7 @@ export const generateHistoryItems = ({
                 onFavorite={onFavorite}
                 extra={extra}
                 type={type}
+                runningId={runningId}
               />
             ),
           };

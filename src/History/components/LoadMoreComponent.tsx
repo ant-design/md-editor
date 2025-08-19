@@ -44,11 +44,8 @@ interface HistoryLoadMoreProps {
  */
 export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
   onLoadMore,
-  enabled = false,
 }) => {
   const [loading, setLoading] = useState(false);
-
-  if (!enabled) return null;
 
   return (
     <Button
@@ -76,9 +73,3 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
     </Button>
   );
 };
-
-/**
- * @deprecated 请使用 HistoryLoadMore 替代
- */
-export const LoadMoreComponent: React.FC<HistoryLoadMoreProps> =
-  HistoryLoadMore;

@@ -5,6 +5,43 @@ import { HistoryDataType } from '../types';
 import { formatTime } from '../utils';
 import { HistoryActionsBox } from './HistoryActionsBox';
 
+export function HistoryRunningIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <defs>
+        <clipPath id="a">
+          <rect width={16} height={16} rx={0} />
+        </clipPath>
+        <linearGradient
+          x1={-0.17775046825408936}
+          y1={1}
+          x2={0.8258928656578064}
+          y2={-0.11863356828689575}
+          id="b"
+        >
+          <stop offset="21.42857164144516%" stopColor="#D7B9FF" />
+          <stop offset="62.14284896850586%" stopColor="#9BA0FF" />
+          <stop offset="100%" stopColor="#09B1FF" />
+        </linearGradient>
+      </defs>
+      <g clipPath="url(#a)">
+        <path
+          d="M5.671 4.729L3.738 2.795a.667.667 0 10-.943.943L4.73 5.671a.667.667 0 00.942-.942zM1.333 7.333H4a.667.667 0 110 1.334H1.333a.667.667 0 010-1.334zM5.867 10.8c0 .177-.07.346-.196.471l-1.933 1.933a.667.667 0 11-.943-.942l1.933-1.933a.667.667 0 011.139.471zM7.333 12a.667.667 0 111.334 0v2.667a.667.667 0 11-1.334 0V12zm5.872.262l-1.934-1.933a.667.667 0 00-.942.942l1.933 1.934a.667.667 0 00.943-.943zM12 7.333h2.667a.667.667 0 110 1.334H12a.667.667 0 010-1.334zm1.4-4.066c0 .176-.07.346-.195.471l-1.933 1.933a.667.667 0 01-.943-.942l1.933-1.934a.667.667 0 011.138.472zM7.333 1.333a.667.667 0 111.334 0V4a.667.667 0 01-1.334 0V1.333z"
+          fillRule="evenodd"
+          fill="url(#b)"
+        />
+      </g>
+    </svg>
+  );
+}
+
 /**
  * 历史记录项组件的属性接口
  */
@@ -40,6 +77,8 @@ interface HistoryItemProps {
   extra?: (item: HistoryDataType) => React.ReactElement;
   /** 历史记录类型：聊天记录或任务记录 */
   type?: 'chat' | 'task';
+  /** 正在运行的记录ID列表，这些记录将显示运行图标 */
+  runningId?: string[];
 }
 
 /**
@@ -69,6 +108,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
     onDeleteItem,
     agent,
     extra,
+    runningId,
   }) => {
     /**
      * 处理点击事件
@@ -89,6 +129,9 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
       onSelectionChange(item.sessionId!, e.target.checked);
     };
 
+    // 检查是否正在运行
+    const isRunning = runningId?.includes(String(item.id || ''));
+
     return (
       <div
         style={{
@@ -106,6 +149,20 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
             checked={selectedIds.includes(item.sessionId!)}
             onChange={handleCheckboxChange}
           />
+        )}
+
+        {/* 图标区域 */}
+        {isRunning && (
+          <div
+            style={{
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <HistoryRunningIcon style={{ width: 16, height: 16 }} />
+          </div>
         )}
 
         {/* 内容区域 */}
@@ -136,7 +193,6 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
-                display: '-webkit-box',
                 WebkitLineClamp: 1,
                 WebkitBoxOrient: 'vertical',
               }}
@@ -200,10 +256,13 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
     agent,
     extra,
     type,
+    runningId,
   }) => {
     const isTask = type === 'task';
     const shouldShowIcon = isTask && !!item.icon;
     const shouldShowDescription = isTask && !!item.description;
+    // 检查是否正在运行
+    const isRunning = runningId?.includes(String(item.id || ''));
 
     /**
      * 处理点击事件
@@ -245,7 +304,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
         )}
 
         {/* 图标区域 */}
-        {shouldShowIcon && (
+        {(shouldShowIcon || isRunning) && (
           <div
             style={{
               flexShrink: 0,
@@ -254,7 +313,9 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
               justifyContent: 'center',
             }}
           >
-            {React.isValidElement(item.icon) ? (
+            {isRunning ? (
+              <HistoryRunningIcon style={{ width: 16, height: 16 }} />
+            ) : React.isValidElement(item.icon) ? (
               item.icon
             ) : (
               <div
@@ -304,10 +365,10 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                 width: 'max-content',
                 fontWeight: 500,
                 fontSize: 14,
+                display: '-webkit-box',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
-                display: '-webkit-box',
                 WebkitLineClamp: 1,
                 WebkitBoxOrient: 'vertical',
                 lineHeight: '20px',
@@ -433,6 +494,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = React.memo(
     agent,
     extra,
     type,
+    runningId,
   }) => {
     // 自动显示配置
     const isTask = type === 'task';
@@ -451,6 +513,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = React.memo(
       agent,
       extra,
       type,
+      runningId,
     };
 
     return isMultiMode ? (

@@ -98,6 +98,8 @@ export interface HistoryProps {
     loadingMore?: boolean;
     /** 新对话回调 */
     onNewChat?: () => void;
+    /** 正在运行的记录ID列表，这些记录将显示运行图标 */
+    runningId?: string[];
   };
 }
 

@@ -354,14 +354,22 @@ describe('History Component', () => {
         </TestWrapper>,
       );
 
-      // 等待组件渲染
-      await waitFor(() => {
-        expect(screen.getByRole('menu')).toBeInTheDocument();
-      });
+      // 等待组件渲染和数据加载
+      await waitFor(
+        () => {
+          expect(screen.getByRole('menu')).toBeInTheDocument();
+        },
+        { timeout: 3000 },
+      );
 
       // 验证组件正常渲染，自定义排序参数已传递
-      const menuItems = screen.getAllByRole('menuitem');
-      expect(menuItems.length).toBeGreaterThan(0);
+      await waitFor(
+        () => {
+          const menuItems = screen.getAllByRole('menuitem');
+          expect(menuItems.length).toBeGreaterThan(0);
+        },
+        { timeout: 3000 },
+      );
     });
 
     it('should not sort when sessionSort is false', () => {
