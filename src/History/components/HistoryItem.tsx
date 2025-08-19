@@ -74,27 +74,49 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
     extra,
     runningId,
   }) => {
+    // 使用 useMemo 优化计算属性
+    const isRunning = React.useMemo(
+      () => runningId?.includes(String(item.id || '')),
+      [runningId, item.id],
+    );
+    const isSelected = React.useMemo(
+      () => selectedIds.includes(item.sessionId!),
+      [selectedIds, item.sessionId],
+    );
+
     /**
      * 处理点击事件
      * @param e - 鼠标点击事件对象
      */
-    const handleClick = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      e.preventDefault();
-      onClick(item.sessionId!, item);
-    };
+    const handleClick = React.useCallback(
+      (e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+        onClick(item.sessionId!, item);
+      },
+      [onClick, item],
+    );
 
     /**
      * 处理复选框状态变化事件
      * @param e - 复选框变化事件对象
      */
-    const handleCheckboxChange = (e: CheckboxChangeEvent) => {
-      e.stopPropagation();
-      onSelectionChange(item.sessionId!, e.target.checked);
-    };
+    const handleCheckboxChange = React.useCallback(
+      (e: CheckboxChangeEvent) => {
+        e.stopPropagation();
+        onSelectionChange(item.sessionId!, e.target.checked);
+      },
+      [onSelectionChange, item.sessionId],
+    );
 
-    // 检查是否正在运行
-    const isRunning = runningId?.includes(String(item.id || ''));
+    /**
+     * 处理删除事件
+     */
+    const handleDelete = React.useCallback(async () => {
+      if (onDeleteItem) {
+        await onDeleteItem(item.sessionId!);
+      }
+    }, [onDeleteItem, item.sessionId]);
 
     return (
       <div
@@ -109,10 +131,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
         onClick={handleClick}
       >
         {agent?.onSelectionChange && (
-          <Checkbox
-            checked={selectedIds.includes(item.sessionId!)}
-            onChange={handleCheckboxChange}
-          />
+          <Checkbox checked={isSelected} onChange={handleCheckboxChange} />
         )}
 
         {/* 图标区域 */}
@@ -174,13 +193,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
         {/* 右侧操作区域 */}
         <div>
           <HistoryActionsBox
-            onDeleteItem={
-              onDeleteItem
-                ? async () => {
-                    await onDeleteItem(item.sessionId!);
-                  }
-                : undefined
-            }
+            onDeleteItem={onDeleteItem ? handleDelete : undefined}
             agent={agent}
             item={item}
             onFavorite={onFavorite}
@@ -227,30 +240,58 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
     type,
     runningId,
   }) => {
-    const isTask = type === 'task';
-    const shouldShowIcon = isTask && !!item.icon;
-    const shouldShowDescription = isTask && !!item.description;
-    // 检查是否正在运行
-    const isRunning = runningId?.includes(String(item.id || ''));
+    // 使用 useMemo 优化计算属性
+    const isTask = React.useMemo(() => type === 'task', [type]);
+    const shouldShowIcon = React.useMemo(
+      () => isTask && !!item.icon,
+      [isTask, item.icon],
+    );
+    const shouldShowDescription = React.useMemo(
+      () => isTask && !!item.description,
+      [isTask, item.description],
+    );
+    const isRunning = React.useMemo(
+      () => runningId?.includes(String(item.id || '')),
+      [runningId, item.id],
+    );
+    const isSelected = React.useMemo(
+      () => selectedIds.includes(item.sessionId!),
+      [selectedIds, item.sessionId],
+    );
 
     /**
      * 处理点击事件
      * @param e - 鼠标点击事件对象
      */
-    const handleClick = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      e.preventDefault();
-      onClick(item.sessionId!, item);
-    };
+    const handleClick = React.useCallback(
+      (e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+        onClick(item.sessionId!, item);
+      },
+      [onClick, item],
+    );
 
     /**
      * 处理复选框状态变化事件
      * @param e - 复选框变化事件对象
      */
-    const handleCheckboxChange = (e: CheckboxChangeEvent) => {
-      e.stopPropagation();
-      onSelectionChange(item.sessionId!, e.target.checked);
-    };
+    const handleCheckboxChange = React.useCallback(
+      (e: CheckboxChangeEvent) => {
+        e.stopPropagation();
+        onSelectionChange(item.sessionId!, e.target.checked);
+      },
+      [onSelectionChange, item.sessionId],
+    );
+
+    /**
+     * 处理删除事件
+     */
+    const handleDelete = React.useCallback(async () => {
+      if (onDeleteItem) {
+        await onDeleteItem(item.sessionId!);
+      }
+    }, [onDeleteItem, item.sessionId]);
 
     return (
       <div
@@ -266,7 +307,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
       >
         {agent?.onSelectionChange && (
           <Checkbox
-            checked={selectedIds.includes(item.sessionId!)}
+            checked={isSelected}
             onChange={handleCheckboxChange}
             style={{ marginTop: 4 }}
           />
@@ -405,13 +446,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
         {/* 右侧操作区域 */}
         <div style={{ marginTop: 4 }}>
           <HistoryActionsBox
-            onDeleteItem={
-              onDeleteItem
-                ? async () => {
-                    await onDeleteItem(item.sessionId!);
-                  }
-                : undefined
-            }
+            onDeleteItem={onDeleteItem ? handleDelete : undefined}
             agent={agent}
             item={item}
             onFavorite={onFavorite}
