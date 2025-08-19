@@ -73,7 +73,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
     >
       {isHover || props.agent?.enabled ? (
         <Space>
-          {props.agent?.enabled && props.item && props.onFavorite && (
+          {props.agent?.enabled && props.item && props?.agent?.onFavorite && (
             <ActionIconBox
               scale
               loading={favoriteLoading}
@@ -82,6 +82,10 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 e.preventDefault();
                 try {
                   setFavoriteLoading(true);
+                  await props.onFavorite?.(
+                    props.item!.sessionId!,
+                    !props.item!.isFavorite,
+                  );
                   await props.onFavorite?.(
                     props.item!.sessionId!,
                     !props.item!.isFavorite,

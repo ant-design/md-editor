@@ -15,11 +15,11 @@ interface HistoryListConfig {
   /** 选择状态变化回调 */
   onSelectionChange: (sessionId: string, checked: boolean) => void;
   /** 选择记录回调 */
-  onSelected: (sessionId: string) => void;
+  onClick: (sessionId: string, item: HistoryDataType) => void;
   /** 删除记录回调 */
   onDeleteItem?: (sessionId: string) => Promise<void>;
   /** 收藏记录回调 */
-  onFavorite?: (sessionId: string, isFavorite: boolean) => Promise<void>;
+  onFavorite?: (sessionId: string, isFavorite: boolean) => void;
   /** Agent配置 */
   agent?: {
     /** 是否启用agent模式 */
@@ -95,10 +95,10 @@ export const generateHistoryItems = ({
   filteredList,
   selectedIds,
   onSelectionChange,
-  onSelected,
+  onClick,
   onDeleteItem,
-  onFavorite,
   agent,
+  onFavorite,
   extra,
   customDateFormatter,
   groupBy,
@@ -145,10 +145,10 @@ export const generateHistoryItems = ({
                 item={item}
                 selectedIds={selectedIds}
                 onSelectionChange={onSelectionChange}
-                onSelected={onSelected}
+                onClick={onClick}
                 onDeleteItem={onDeleteItem}
-                onFavorite={onFavorite}
                 agent={agent}
+                onFavorite={onFavorite}
                 extra={extra}
               />
             ),

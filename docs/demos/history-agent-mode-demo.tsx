@@ -160,31 +160,59 @@ const HistoryAgentModeDemo: React.FC = () => {
         <p>收藏的会话: {Array.from(favorites).join(', ') || '无'}</p>
         <p>搜索关键词: {searchKeyword || '无'}</p>
       </div>
-
       <div
         style={{
           border: '1px solid #d9d9d9',
+          display: 'flex',
+          gap: 12,
           borderRadius: '8px',
-          padding: '20px',
         }}
       >
-        <h3>History 组件（Agent 模式）：</h3>
-        <History
-          agentId="demo-agent"
-          sessionId="session-1"
-          request={mockRequest}
-          onSelected={handleSelected}
-          onDeleteItem={handleDeleteItem}
-          standalone
-          agent={{
-            enabled: true,
-            onSearch: handleSearch,
-            onFavorite: handleFavorite,
-            onSelectionChange: handleSelectionChange,
-            onLoadMore: handleLoadMore,
-            onNewChat: handleNewChat,
+        <div
+          style={{
+            padding: '20px',
+            width: 348,
+            margin: '0 auto',
+            borderRight: '1px solid #d9d9d9',
           }}
-        />
+        >
+          <h3>History 组件（Agent 模式）：</h3>
+          <History
+            agentId="demo-agent"
+            sessionId="session-1"
+            request={mockRequest}
+            onSelected={handleSelected}
+            onDeleteItem={handleDeleteItem}
+            standalone
+            agent={{
+              enabled: true,
+              onSearch: handleSearch,
+              onFavorite: handleFavorite,
+              onSelectionChange: handleSelectionChange,
+              onLoadMore: handleLoadMore,
+              onNewChat: handleNewChat,
+            }}
+          />
+        </div>
+        <div
+          style={{
+            padding: '20px',
+            width: 348,
+            margin: '0 auto',
+          }}
+        >
+          <h3>History 组件（Agent 模式）：</h3>
+          <History
+            agentId="demo-agent"
+            sessionId="session-1"
+            request={mockRequest}
+            standalone
+            agent={{
+              enabled: true,
+              onNewChat: handleNewChat,
+            }}
+          />
+        </div>
       </div>
 
       <div style={{ marginTop: '20px' }}>

@@ -66,7 +66,9 @@ export interface HistoryProps {
   onInit?: () => void;
   onShow?: () => void;
   request: (params: { agentId: string }) => Promise<HistoryDataType[]>;
+  /** @deprecated 请使用 onClick 替代 */
   onSelected?: (sessionId: string) => void;
+  onClick?: (sessionId: string, item: HistoryDataType) => void;
   onDeleteItem?: (sessionId: string) => void;
   customDateFormatter?: (date: number | string | Date) => string;
   groupBy?: (item: HistoryDataType) => string;
@@ -98,6 +100,7 @@ export interface HistoryActionsBoxProps {
   children: React.ReactNode;
   /** 删除操作回调函数 */
   onDeleteItem?: () => void;
+  /** 收藏操作回调函数 */
   /** Agent模式配置 */
   agent?: {
     /** 是否启用 agent 模式 */
@@ -122,9 +125,7 @@ export interface HistoryActionsBoxProps {
 /**
  * @deprecated 请使用 HistoryActionsBoxProps 替代
  */
-export interface ActionsBoxProps extends HistoryActionsBoxProps {}
-
-/**
- * @deprecated 请使用 HistoryActionsBoxProps 替代
- */
-export interface TimeBoxProps extends HistoryActionsBoxProps {}
+export interface ActionsBoxProps extends HistoryActionsBoxProps {
+  /** @deprecated 请使用 onClick 替代 */
+  onSelected?: (sessionId: string) => void;
+}

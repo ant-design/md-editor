@@ -23,7 +23,7 @@ import { HistoryProps } from './types';
  * @param {Function} props.request - 请求函数，用于获取历史数据
  * @param {Function} [props.onInit] - 组件初始化时的回调函数
  * @param {Function} [props.onShow] - 组件显示时的回调函数
- * @param {Function} [props.onSelected] - 选择历史记录项时的回调函数
+ * @param {Function} [props.onSelected] - 选择历史记录项时的回调函数 (已弃用，请使用 onClick)
  * @param {Function} [props.onDeleteItem] - 删除历史记录项时的回调函数
  * @param {Function} [props.customDateFormatter] - 日期格式化函数
  * @param {boolean} [props.standalone] - 是否以独立模式显示，为true时直接显示菜单，否则显示为下拉菜单
@@ -51,10 +51,10 @@ export const History: React.FC<HistoryProps> = (props) => {
     selectedIds,
     filteredList,
     loadHistory,
-    handleFavorite,
     handleSelectionChange,
     handleSearch,
     handleLoadMore,
+    handleFavorite,
     handleNewChat,
   } = useHistory(props);
 
@@ -66,7 +66,8 @@ export const History: React.FC<HistoryProps> = (props) => {
     filteredList,
     selectedIds,
     onSelectionChange: handleSelectionChange,
-    onSelected: (sessionId) => {
+    onClick: (sessionId, item) => {
+      props.onClick?.(sessionId, item);
       props.onSelected?.(sessionId);
       setOpen(false);
     },
@@ -93,25 +94,26 @@ export const History: React.FC<HistoryProps> = (props) => {
           gap: 8,
         }}
       >
-        <HistoryNewChat
-          onNewChat={handleNewChat}
-          enabled={props.agent?.enabled && !!props.agent?.onNewChat}
-        />
-        <HistorySearch
-          searchKeyword={searchKeyword}
-          onSearch={handleSearch}
-          enabled={props.agent?.enabled && !!props.agent?.onSearch}
-        />
+        {props.agent?.enabled && !!props.agent?.onNewChat && (
+          <HistoryNewChat onNewChat={handleNewChat} />
+        )}
+
+        {props.agent?.enabled && !!props.agent?.onSearch && (
+          <HistorySearch
+            searchKeyword={searchKeyword}
+            onSearch={handleSearch}
+          />
+        )}
+
         <GroupMenu
           selectedKeys={[props.sessionId]}
           inlineIndent={20}
           items={items}
           className={menuPrefixCls}
         />
-        <HistoryLoadMore
-          onLoadMore={handleLoadMore}
-          enabled={props.agent?.enabled && !!props.agent?.onLoadMore}
-        />
+        {props.agent?.enabled && !!props.agent?.onLoadMore && (
+          <HistoryLoadMore onLoadMore={handleLoadMore} />
+        )}
       </div>
     );
   }
@@ -135,12 +137,8 @@ export const History: React.FC<HistoryProps> = (props) => {
           <HistorySearch
             searchKeyword={searchKeyword}
             onSearch={handleSearch}
-            enabled={props.agent?.enabled && !!props.agent?.onSearch}
           />
-          <HistoryNewChat
-            onNewChat={handleNewChat}
-            enabled={props.agent?.enabled && !!props.agent?.onNewChat}
-          />
+          <HistoryNewChat onNewChat={handleNewChat} />
           <GroupMenu
             selectedKeys={[props.sessionId]}
             inlineIndent={20}

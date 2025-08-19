@@ -8,9 +8,9 @@ interface HistoryItemProps {
   item: HistoryDataType;
   selectedIds: string[];
   onSelectionChange: (sessionId: string, checked: boolean) => void;
-  onSelected: (sessionId: string) => void;
+  onClick: (sessionId: string, item: HistoryDataType) => void;
   onDeleteItem?: (sessionId: string) => Promise<void>;
-  onFavorite?: (sessionId: string, isFavorite: boolean) => Promise<void>;
+  onFavorite?: (sessionId: string, isFavorite: boolean) => void;
   agent?: {
     enabled?: boolean;
     onSearch?: (keyword: string) => void;
@@ -29,9 +29,9 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
   item,
   selectedIds,
   onSelectionChange,
-  onSelected,
-  onDeleteItem,
+  onClick,
   onFavorite,
+  onDeleteItem,
   agent,
   extra,
 }) => {
@@ -46,14 +46,13 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
         width: '100%',
       }}
     >
-      {agent?.enabled && (
+      {agent?.onSelectionChange && (
         <Checkbox
           checked={selectedIds.includes(item.sessionId!)}
           onChange={(e) => {
             e.stopPropagation();
             onSelectionChange(item.sessionId!, e.target.checked);
           }}
-          style={{ marginRight: 4 }}
         />
       )}
       <div
@@ -82,7 +81,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              onSelected(item.sessionId!);
+              onClick(item.sessionId!, item);
             }}
           >
             {item.sessionTitle}

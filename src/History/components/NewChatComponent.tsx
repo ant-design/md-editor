@@ -8,8 +8,6 @@ import { NewChatIcon } from '../../icons';
 interface HistoryNewChatProps {
   /** 创建新对话的回调函数 */
   onNewChat: () => void;
-  /** 是否启用新对话功能 */
-  enabled?: boolean;
 }
 
 /**
@@ -43,17 +41,24 @@ interface HistoryNewChatProps {
  */
 export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   onNewChat,
-  enabled = false,
 }) => {
   const [loading, setLoading] = useState(false);
-
-  if (!enabled) return null;
 
   return (
     <Button
       color="primary"
       variant="filled"
-      icon={<NewChatIcon />}
+      icon={
+        <NewChatIcon
+          style={{
+            fontSize: 16,
+          }}
+        />
+      }
+      style={{
+        fontWeight: 500,
+        justifyContent: 'flex-start',
+      }}
       loading={loading}
       onClick={async () => {
         try {

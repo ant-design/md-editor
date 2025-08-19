@@ -1,6 +1,34 @@
-import { SearchOutlined } from '@ant-design/icons';
 import { Input, Spin } from 'antd';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import useClickAway from '../../hooks/useClickAway';
+import { useDebounceFn } from '../../hooks/useDebounceFn';
+import { ActionIconBox } from '../../MarkdownEditor/editor/components';
+
+function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="1em"
+      height="1em"
+      viewBox="0 0 14 14"
+      {...props}
+    >
+      <defs>
+        <clipPath id="a">
+          <rect width={14} height={14} rx={0} />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <path
+          d="M9.694 10.519a5.25 5.25 0 11.825-.825l2.143 2.144a.583.583 0 11-.825.825l-2.143-2.144zm.806-4.102a4.083 4.083 0 10-8.167 0 4.083 4.083 0 008.167 0z"
+          fillRule="evenodd"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  );
+}
 
 /**
  * 历史记录搜索组件属性接口
@@ -10,8 +38,6 @@ interface HistorySearchProps {
   searchKeyword: string;
   /** 搜索回调函数 */
   onSearch: (value: string) => void;
-  /** 是否启用搜索功能 */
-  enabled?: boolean;
 }
 
 /**
@@ -45,15 +71,16 @@ interface HistorySearchProps {
  * - 包含错误处理机制
  * - 响应式输入框设计
  * - 条件渲染支持
+ * - 默认显示搜索图标，点击后展开搜索框
  */
-export const HistorySearch: React.FC<HistorySearchProps> = ({
-  searchKeyword,
-  onSearch,
-  enabled = false,
-}) => {
+export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
   const [loading, setLoading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-  if (!enabled) return null;
+  useClickAway(() => {
+    setIsExpanded(false);
+  }, ref);
 
   const handleSearchWithLoading = async (value: string) => {
     try {
@@ -66,16 +93,71 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
     }
   };
 
+  const handleToggleSearch = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleSearchChange = useDebounceFn(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      handleSearchWithLoading(value);
+    },
+    360,
+  );
+
+  // 展开后显示搜索框
   return (
-    <Input
-      placeholder="搜索历史记录..."
-      suffix={loading ? <Spin size="small" /> : <SearchOutlined />}
-      value={searchKeyword}
-      onChange={(e) => handleSearchWithLoading(e.target.value)}
-      allowClear
-      variant="filled"
-      disabled={loading}
-    />
+    <div
+      ref={ref}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 4,
+        justifyContent: 'space-between',
+        marginTop: 12,
+      }}
+    >
+      {isExpanded ? (
+        <Input
+          placeholder="历史任务"
+          prefix={loading ? <Spin size="small" /> : <SearchIcon />}
+          onChange={(e) => {
+            handleSearchChange.run(e);
+          }}
+          allowClear
+          variant="filled"
+          autoFocus
+        />
+      ) : (
+        <>
+          <div
+            style={{
+              fontSize: '12px',
+              fontWeight: 500,
+              lineHeight: '20px',
+              letterSpacing: 'normal',
+              color: 'rgba(0, 25, 61, 0.3255)',
+            }}
+          >
+            历史任务
+          </div>
+          <ActionIconBox
+            onClick={handleToggleSearch}
+            title="搜索"
+            style={{
+              width: 40,
+            }}
+          >
+            <SearchIcon
+              style={{
+                fontSize: 14,
+                color: 'rgba(0, 24, 61, 0.2471)',
+              }}
+            />
+          </ActionIconBox>
+        </>
+      )}
+    </div>
   );
 };
 
