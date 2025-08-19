@@ -482,7 +482,7 @@ npm run format
 
 #### Vite 配置
 
-```typescript
+```tsx | pure
 // vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -617,7 +617,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 #### 代码分割
 
-```typescript
+```tsx | pure
 // 动态导入组件
 const MarkdownEditor = lazy(() => import('./MarkdownEditor'));
 const History = lazy(() => import('./History'));
@@ -625,7 +625,7 @@ const History = lazy(() => import('./History'));
 
 #### 资源优化
 
-```typescript
+```tsx | pure
 // 图片优化
 import { optimizeImage } from './utils/image';
 
@@ -635,7 +635,7 @@ import { preloadFonts } from './utils/fonts';
 
 #### 缓存策略
 
-```typescript
+```tsx | pure
 // 服务工作者缓存
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');

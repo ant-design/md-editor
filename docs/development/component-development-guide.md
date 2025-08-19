@@ -69,7 +69,7 @@ nav:
   - 每个示例都有具体的改进建议
 -->
 
-```typescript
+```tsx | pure
 // ✅ 正确示例 - 语义化、具体、无歧义
 export const HistoryItem: React.FC<HistoryItemProps> = () => {};
 export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = () => {};
@@ -92,7 +92,7 @@ export const Search: React.FC<SearchProps> = () => {}; // 过于通用
   - 页面组件：完整的页面级组件
 -->
 
-```typescript
+```tsx | pure
 // 核心组件 - 使用模块前缀，体现组件的重要性和归属
 export const HistoryItem = () => {};
 export const HistoryActionsBox = () => {};
@@ -179,7 +179,7 @@ src/
   - 配置文件夹：使用config前缀，便于管理
 -->
 
-```typescript
+```tsx | pure
 // 测试文件夹 - 使用双下划线前缀，符合测试框架约定
 __tests__/           // 组件测试
 __snapshots__/       // 快照测试
@@ -267,7 +267,7 @@ constants/           // 常量定义
   - 便于样式的维护和扩展
 -->
 
-```typescript
+```tsx | pure
 // ✅ 正确的className命名 - 遵循BEM规范，结构清晰
 <div className="history-item">
   <div className="history-item__header">
@@ -345,7 +345,7 @@ constants/           // 常量定义
   - 支持嵌套和伪类选择器
 -->
 
-```typescript
+```tsx | pure
 // src/History/style.ts
 import { createStyles } from 'antd-style';
 
@@ -416,7 +416,7 @@ export const useHistoryStyles = createStyles(({ token }) => ({
   - 提供类型安全的样式引用
 -->
 
-```typescript
+```tsx | pure
 // 在组件中使用样式 - 导入Hook并应用样式
 import { useHistoryStyles } from './style';
 
@@ -425,13 +425,9 @@ export const HistoryItem: React.FC<HistoryItemProps> = (props) => {
 
   return (
     <div className={styles.item}>
-      <div className={styles.content}>
-        {props.children}
-      </div>
+      <div className={styles.content}>{props.children}</div>
       <div className={styles.actions}>
-        <button className={styles.button}>
-          操作
-        </button>
+        <button className={styles.button}>操作</button>
       </div>
     </div>
   );
@@ -448,7 +444,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = (props) => {
   - 便于样式的统一管理和修改
 -->
 
-```typescript
+```tsx | pure
 // src/History/style.ts
 export const historyToken = {
   // 颜色变量 - 定义统一的颜色规范
@@ -502,7 +498,7 @@ export const historyToken = {
   - 样式属性：使用标准的样式属性名
 -->
 
-```typescript
+```tsx | pure
 // ✅ 正确的Props命名 - 语义化、具体、类型安全
 interface HistoryItemProps {
   // 数据属性 - 直接描述数据内容
@@ -543,7 +539,7 @@ interface HistoryItemProps {
   - 参数命名：使用描述性的参数名
 -->
 
-```typescript
+```tsx | pure
 // 标准事件回调命名 - 遵循React事件命名规范
 onClick: (event: React.MouseEvent) => void;
 onChange: (value: string) => void;
@@ -568,7 +564,7 @@ onNewChat: () => void;
   - 类型定义：提供完整的类型信息
 -->
 
-```typescript
+```tsx | pure
 // 配置对象命名规范 - 使用Config后缀，明确表示配置对象
 interface AgentConfig {
   enabled: boolean;
@@ -609,7 +605,7 @@ interface HistoryConfig {
   - 测试验证：确保功能的正确性
 -->
 
-```typescript
+```tsx | pure
 // 1. 定义类型接口 - 先定义接口，确保类型安全
 interface ComponentProps {
   // 定义所有必要的属性
@@ -638,11 +634,7 @@ export const ComponentName: React.FC<ComponentProps> = (props) => {
   }, [dependencies]);
 
   // 渲染逻辑 - 返回JSX结构
-  return (
-    <div className={styles.container}>
-      {/* 组件内容 */}
-    </div>
-  );
+  return <div className={styles.container}>{/* 组件内容 */}</div>;
 };
 ```
 
@@ -656,7 +648,7 @@ export const ComponentName: React.FC<ComponentProps> = (props) => {
   - 返回值：返回组件需要的所有状态和方法
 -->
 
-```typescript
+```tsx | pure
 // Hook 命名规范 - 使用use前缀，返回组件需要的状态和方法
 export const useHistory = (props: HistoryProps) => {
   // 状态定义 - 明确组件的状态结构
@@ -715,7 +707,7 @@ export const useHistory = (props: HistoryProps) => {
   - 错误边界：提供组件级别的错误处理
 -->
 
-```typescript
+```tsx | pure
 // 统一的错误处理方式 - 使用try-catch-finally模式
 const handleAsyncOperation = async () => {
   try {
@@ -731,7 +723,9 @@ const handleAsyncOperation = async () => {
 };
 
 // 错误边界组件 - 提供组件级别的错误处理
-export const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [hasError, setHasError] = useState(false);
 
   if (hasError) {
@@ -769,7 +763,7 @@ export const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({ childre
   - 特殊测试：使用描述性后缀
 -->
 
-```typescript
+```tsx | pure
 // 测试文件命名规范 - 使用.test.tsx后缀，与源文件对应
 src / History / __tests__ / History.test.tsx; // 组件测试
 src / History / __tests__ / useHistory.test.ts; // Hook测试
@@ -787,7 +781,7 @@ src / History / __tests__ / History.integration.test.tsx; // 集成测试
   - 断言验证：明确的期望结果验证
 -->
 
-```typescript
+```tsx | pure
 // src/History/__tests__/History.test.tsx
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { History } from '../index';
@@ -869,7 +863,7 @@ describe('History Component', () => {
   - 覆盖率要求：确保测试完整性
 -->
 
-```typescript
+```tsx | pure
 // src/History/__tests__/utils.test.ts
 import { formatTime, groupByCategory } from '../utils';
 
@@ -955,7 +949,7 @@ describe('History Utils', () => {
   - 类型安全：避免any类型的使用
 -->
 
-```typescript
+```tsx | pure
 // 类型定义规范 - 提供完整的类型信息
 interface ComponentProps {
   // 必需属性 - 明确标记必需属性
@@ -998,7 +992,7 @@ export const useCustomHook = (): {
   - 使用示例：提供实际的使用示例
 -->
 
-````typescript
+````tsx | pure
 /**
  * 组件名称 - 组件简短描述
  *
@@ -1038,7 +1032,7 @@ export const useCustomHook = (): {
   - useRef：避免不必要的重新渲染
 -->
 
-```typescript
+```tsx | pure
 // 使用 React.memo 优化渲染 - 避免不必要的重新渲染
 export const OptimizedComponent = React.memo<ComponentProps>((props) => {
   // 组件实现
@@ -1071,7 +1065,7 @@ const intervalRef = useRef<NodeJS.Timeout>();
   - 日志记录：记录错误信息便于调试
 -->
 
-```typescript
+```tsx | pure
 // 错误边界组件 - 提供组件级别的错误处理
 export const ErrorBoundary: React.FC<{
   children: React.ReactNode;
@@ -1084,10 +1078,7 @@ export const ErrorBoundary: React.FC<{
   }
 
   return (
-    <ErrorBoundary
-      fallback={fallback}
-      onError={() => setHasError(true)}
-    >
+    <ErrorBoundary fallback={fallback} onError={() => setHasError(true)}>
       {children}
     </ErrorBoundary>
   );

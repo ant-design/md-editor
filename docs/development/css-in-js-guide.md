@@ -58,7 +58,7 @@ nav:
 
 ### 项目中的应用场景
 
-```typescript
+```tsx | pure
 // 1. 组件样式定义
 const useStyles = createStyles({
   container: {
@@ -108,7 +108,7 @@ const useResponsiveStyles = createStyles(({ token, css }) => ({
 
 #### 1. 类型安全
 
-```typescript
+```tsx | pure
 import { createStyles } from '@ant-design/cssinjs';
 
 // 完整的TypeScript支持
@@ -124,7 +124,7 @@ const useStyles = createStyles(({ token, css }) => ({
 
 #### 2. 主题集成
 
-```typescript
+```tsx | pure
 // 自动获取Ant Design主题token
 const useStyles = createStyles(({ token }) => ({
   button: {
@@ -145,7 +145,7 @@ const useStyles = createStyles(({ token }) => ({
 
 #### 3. 动态样式
 
-```typescript
+```tsx | pure
 // 基于props和状态生成样式
 const useStyles = createStyles(({ token, css }) => ({
   card: ({
@@ -164,7 +164,7 @@ const useStyles = createStyles(({ token, css }) => ({
 
 ### 与 Ant Design 集成
 
-```typescript
+```tsx | pure
 // 1. 使用Ant Design的token系统
 const useStyles = createStyles(({ token }) => ({
   // 颜色系统
@@ -209,7 +209,7 @@ const useStyles = createStyles(({ token }) => ({
 
 #### 1. 基本样式定义
 
-```typescript
+```tsx | pure
 import { createStyles } from '@ant-design/cssinjs';
 
 const useStyles = createStyles({
@@ -245,7 +245,7 @@ const useStyles = createStyles({
 
 #### 2. 使用主题token
 
-```typescript
+```tsx | pure
 const useStyles = createStyles(({ token }) => ({
   card: {
     backgroundColor: token.colorBgContainer,
@@ -280,7 +280,7 @@ const useStyles = createStyles(({ token }) => ({
 
 #### 3. 动态样式
 
-```typescript
+```tsx | pure
 const useStyles = createStyles(({ token, css }) => ({
   // 基于props的样式
   item: ({ active, disabled }: { active: boolean; disabled: boolean }) => ({
@@ -328,7 +328,7 @@ const useStyles = createStyles(({ token, css }) => ({
 
 #### 1. 基本使用
 
-```typescript
+```tsx | pure
 import React from 'react';
 import { createStyles } from '@ant-design/cssinjs';
 
@@ -360,12 +360,18 @@ export default MyComponent;
 
 #### 2. 动态样式使用
 
-```typescript
+```tsx | pure
 import React, { useState } from 'react';
 import { createStyles } from '@ant-design/cssinjs';
 
 const useStyles = createStyles(({ token }) => ({
-  button: ({ primary, size }: { primary: boolean; size: 'small' | 'large' }) => ({
+  button: ({
+    primary,
+    size,
+  }: {
+    primary: boolean;
+    size: 'small' | 'large';
+  }) => ({
     backgroundColor: primary ? token.colorPrimary : token.colorBgContainer,
     color: primary ? token.colorTextLightSolid : token.colorText,
     border: `1px solid ${primary ? token.colorPrimary : token.colorBorder}`,
@@ -375,7 +381,9 @@ const useStyles = createStyles(({ token }) => ({
     cursor: 'pointer',
 
     '&:hover': {
-      backgroundColor: primary ? token.colorPrimaryHover : token.colorBgTextHover,
+      backgroundColor: primary
+        ? token.colorPrimaryHover
+        : token.colorBgTextHover,
       borderColor: primary ? token.colorPrimaryHover : token.colorBorder,
     },
   }),
@@ -388,11 +396,7 @@ const DynamicButton: React.FC<{
 }> = ({ primary = false, size = 'small', children }) => {
   const { styles } = useStyles({ primary, size });
 
-  return (
-    <button className={styles.button}>
-      {children}
-    </button>
-  );
+  return <button className={styles.button}>{children}</button>;
 };
 
 export default DynamicButton;
@@ -400,7 +404,7 @@ export default DynamicButton;
 
 #### 3. 组合样式
 
-```typescript
+```tsx | pure
 import React from 'react';
 import { createStyles } from '@ant-design/cssinjs';
 import { cx } from '@ant-design/cssinjs';
@@ -441,12 +445,7 @@ const Button: React.FC<{
 
   return (
     <button
-      className={cx(
-        styles.base,
-        styles[variant],
-        styles[size],
-        className
-      )}
+      className={cx(styles.base, styles[variant], styles[size], className)}
     >
       {children}
     </button>
@@ -469,7 +468,7 @@ export default Button;
 
 ### 响应式设计
 
-```typescript
+```tsx | pure
 import { createStyles } from '@ant-design/cssinjs';
 
 const useStyles = createStyles(({ token, css }) => ({
@@ -522,7 +521,7 @@ const useStyles = createStyles(({ token, css }) => ({
 
 ### 动画和过渡
 
-```typescript
+```tsx | pure
 import { createStyles } from '@ant-design/cssinjs';
 
 const useStyles = createStyles(({ token, css }) => ({
@@ -601,7 +600,7 @@ const useStyles = createStyles(({ token, css }) => ({
 
 ### 全局样式
 
-```typescript
+```tsx | pure
 import { createGlobalStyle } from '@ant-design/cssinjs';
 
 // 全局样式定义
@@ -686,7 +685,7 @@ const App: React.FC = () => {
 
 ### 主题切换
 
-```typescript
+```tsx | pure
 import React, { useState } from 'react';
 import { createStyles, ThemeProvider } from '@ant-design/cssinjs';
 import { theme } from 'antd';
@@ -770,7 +769,7 @@ export default ThemeToggle;
 
 #### 1. 组件样式结构
 
-```typescript
+```tsx | pure
 // 推荐的样式文件结构
 const useStyles = createStyles(({ token, css }) => ({
   // 1. 容器样式
@@ -835,7 +834,7 @@ const useStyles = createStyles(({ token, css }) => ({
 
 #### 2. 样式复用
 
-```typescript
+```tsx | pure
 // 创建可复用的样式组合
 const useCommonStyles = createStyles(({ token }) => ({
   // 基础按钮样式
@@ -901,7 +900,7 @@ const Button: React.FC<{
     <button
       className={cx(
         styles.button,
-        styles[`button${variant.charAt(0).toUpperCase() + variant.slice(1)}`]
+        styles[`button${variant.charAt(0).toUpperCase() + variant.slice(1)}`],
       )}
     >
       {children}
@@ -914,7 +913,7 @@ const Button: React.FC<{
 
 #### 1. 样式类名命名
 
-```typescript
+```tsx | pure
 const useStyles = createStyles(({ token }) => ({
   // 使用BEM命名法
   card: {
@@ -951,7 +950,7 @@ const useStyles = createStyles(({ token }) => ({
 
 #### 2. 变量命名
 
-```typescript
+```tsx | pure
 const useStyles = createStyles(({ token }) => ({
   // 使用语义化命名
   primaryButton: {
@@ -979,7 +978,7 @@ const useStyles = createStyles(({ token }) => ({
 
 #### 1. 样式缓存
 
-```typescript
+```tsx | pure
 // 使用useMemo缓存样式计算
 const useStyles = createStyles(({ token, css }) => ({
   // 静态样式直接定义
@@ -991,7 +990,8 @@ const useStyles = createStyles(({ token, css }) => ({
   // 动态样式使用函数
   item: ({ index, total }: { index: number; total: number }) => ({
     marginBottom: index === total - 1 ? 0 : token.marginXS,
-    borderBottom: index === total - 1 ? 'none' : `1px solid ${token.colorBorder}`,
+    borderBottom:
+      index === total - 1 ? 'none' : `1px solid ${token.colorBorder}`,
   }),
 }));
 
@@ -1015,7 +1015,7 @@ const List: React.FC<{ items: string[] }> = ({ items }) => {
 
 #### 2. 条件样式优化
 
-```typescript
+```tsx | pure
 // 避免在渲染时计算样式
 const useStyles = createStyles(({ token }) => ({
   // 预定义所有状态样式
@@ -1063,7 +1063,7 @@ const Button: React.FC<{
       className={cx(
         styles.button,
         styles[`button${variant.charAt(0).toUpperCase() + variant.slice(1)}`],
-        disabled && styles.buttonDisabled
+        disabled && styles.buttonDisabled,
       )}
       disabled={disabled}
     >
@@ -1085,7 +1085,7 @@ const Button: React.FC<{
 
 ### 样式计算优化
 
-```typescript
+```tsx | pure
 // 1. 使用静态样式
 const useStyles = createStyles(({ token }) => ({
   // 静态样式，编译时确定
@@ -1114,15 +1114,13 @@ const useStyles = createStyles(({ token }) => ({
 
 ### 渲染性能优化
 
-```typescript
+```tsx | pure
 // 1. 使用React.memo避免不必要的重新渲染
 const StyledComponent = React.memo<{ active: boolean }>(({ active }) => {
   const { styles } = useStyles();
 
   return (
-    <div className={cx(styles.container, active && styles.active)}>
-      内容
-    </div>
+    <div className={cx(styles.container, active && styles.active)}>内容</div>
   );
 });
 
@@ -1148,7 +1146,7 @@ const ParentComponent: React.FC = () => {
 
 ### 包体积优化
 
-```typescript
+```tsx | pure
 // 1. 按需导入
 import { createStyles } from '@ant-design/cssinjs';
 // 而不是
@@ -1177,7 +1175,7 @@ import { useSharedStyles } from '../shared/styles';
 
 ### 样式冲突解决
 
-```typescript
+```tsx | pure
 // 1. 使用CSS Modules避免冲突
 const useStyles = createStyles(({ token, css }) => ({
   // 自动生成唯一类名
@@ -1204,7 +1202,7 @@ const useStyles = createStyles(({ token }) => ({
 
 ### 调试技巧
 
-```typescript
+```tsx | pure
 // 1. 使用开发工具调试
 const useStyles = createStyles(({ token }) => ({
   debug: {
@@ -1237,7 +1235,7 @@ const useStyles = createStyles(({ token }) => ({
 
 ### 兼容性问题
 
-```typescript
+```tsx | pure
 // 1. 浏览器兼容性处理
 const useStyles = createStyles(({ token, css }) => ({
   flexbox: {
@@ -1271,7 +1269,7 @@ const useStyles = createStyles(({ token, css }) => ({
 
 ### 性能问题排查
 
-```typescript
+```tsx | pure
 // 1. 性能监控
 const useStyles = createStyles(({ token }) => ({
   // 添加性能监控
