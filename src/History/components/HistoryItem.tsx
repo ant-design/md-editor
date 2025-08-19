@@ -4,43 +4,7 @@ import React from 'react';
 import { HistoryDataType } from '../types';
 import { formatTime } from '../utils';
 import { HistoryActionsBox } from './HistoryActionsBox';
-
-export function HistoryRunningIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={16} height={16} rx={0} />
-        </clipPath>
-        <linearGradient
-          x1={-0.17775046825408936}
-          y1={1}
-          x2={0.8258928656578064}
-          y2={-0.11863356828689575}
-          id="b"
-        >
-          <stop offset="21.42857164144516%" stopColor="#D7B9FF" />
-          <stop offset="62.14284896850586%" stopColor="#9BA0FF" />
-          <stop offset="100%" stopColor="#09B1FF" />
-        </linearGradient>
-      </defs>
-      <g clipPath="url(#a)">
-        <path
-          d="M5.671 4.729L3.738 2.795a.667.667 0 10-.943.943L4.73 5.671a.667.667 0 00.942-.942zM1.333 7.333H4a.667.667 0 110 1.334H1.333a.667.667 0 010-1.334zM5.867 10.8c0 .177-.07.346-.196.471l-1.933 1.933a.667.667 0 11-.943-.942l1.933-1.933a.667.667 0 011.139.471zM7.333 12a.667.667 0 111.334 0v2.667a.667.667 0 11-1.334 0V12zm5.872.262l-1.934-1.933a.667.667 0 00-.942.942l1.933 1.934a.667.667 0 00.943-.943zM12 7.333h2.667a.667.667 0 110 1.334H12a.667.667 0 010-1.334zm1.4-4.066c0 .176-.07.346-.195.471l-1.933 1.933a.667.667 0 01-.943-.942l1.933-1.934a.667.667 0 011.138.472zM7.333 1.333a.667.667 0 111.334 0V4a.667.667 0 01-1.334 0V1.333z"
-          fillRule="evenodd"
-          fill="url(#b)"
-        />
-      </g>
-    </svg>
-  );
-}
+import { HistoryRunningIcon } from './HistoryRunningIcon';
 
 /**
  * 历史记录项组件的属性接口
@@ -161,7 +125,12 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
               justifyContent: 'center',
             }}
           >
-            <HistoryRunningIcon style={{ width: 16, height: 16 }} />
+            <HistoryRunningIcon
+              width={16}
+              height={16}
+              animated={true}
+              duration={2}
+            />
           </div>
         )}
 
@@ -314,7 +283,28 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
             }}
           >
             {isRunning ? (
-              <HistoryRunningIcon style={{ width: 16, height: 16 }} />
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: '8px',
+                  gap: '10px',
+                  fontSize: 15,
+                  borderRadius: '200px',
+                  background: '#F1F2F4',
+                }}
+              >
+                <HistoryRunningIcon
+                  width={16}
+                  height={16}
+                  animated={true}
+                  duration={2}
+                />
+              </div>
             ) : React.isValidElement(item.icon) ? (
               item.icon
             ) : (

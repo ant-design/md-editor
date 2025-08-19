@@ -119,6 +119,7 @@ const TaskHistoryDemo = () => {
           onDeleteItem={handleDeleteItem}
           standalone
           agent={{
+            runningId: ['1'],
             enabled: true,
             onSearch: () => {},
             onLoadMore: () => {},
