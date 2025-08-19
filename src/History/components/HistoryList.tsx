@@ -45,6 +45,8 @@ interface HistoryListConfig {
   sessionSort?:
     | ((pre: HistoryDataType, current: HistoryDataType) => number | boolean)
     | false;
+  /** 历史记录类型 */
+  type?: 'chat' | 'task';
 }
 
 /**
@@ -103,6 +105,7 @@ export const generateHistoryItems = ({
   customDateFormatter,
   groupBy,
   sessionSort,
+  type,
 }: HistoryListConfig) => {
   const groupList = groupByCategory(
     filteredList || [],
@@ -150,6 +153,7 @@ export const generateHistoryItems = ({
                 agent={agent}
                 onFavorite={onFavorite}
                 extra={extra}
+                type={type}
               />
             ),
           };

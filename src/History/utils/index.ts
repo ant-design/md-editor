@@ -5,7 +5,10 @@ import dayjs from 'dayjs';
  * @param time 时间戳或时间字符串
  * @returns 格式化后的时间字符串
  */
-export const formatTime = (time: number | string): string => {
+export const formatTime = (time?: number | string): string => {
+  if (!time) {
+    return '';
+  }
   // 如果是今天
   if (dayjs().isSame(dayjs(time), 'day')) {
     return '今日';
@@ -26,13 +29,19 @@ export const formatTime = (time: number | string): string => {
  * @param key 分组键的获取函数
  * @returns 分组后的对象
  */
-export const groupByCategory = <T>(list: T[], key: (item: T) => string): Record<string, T[]> => {
-  return list.reduce((prev, curr) => {
-    const group = key(curr);
-    if (!prev[group]) {
-      prev[group] = [];
-    }
-    prev[group].push(curr);
-    return prev;
-  }, {} as Record<string, T[]>);
+export const groupByCategory = <T>(
+  list: T[],
+  key: (item: T) => string,
+): Record<string, T[]> => {
+  return list.reduce(
+    (prev, curr) => {
+      const group = key(curr);
+      if (!prev[group]) {
+        prev[group] = [];
+      }
+      prev[group].push(curr);
+      return prev;
+    },
+    {} as Record<string, T[]>,
+  );
 };

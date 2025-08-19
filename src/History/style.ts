@@ -18,8 +18,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         cursor: 'pointer',
         borderRadius: '8px',
-        height: '32px',
-        padding: '12px 6px 12px 12px',
+        padding: '6px 6px 6px 12px',
         backgroundColor: 'transparent',
         color: token.colorText || 'rgba(0, 0, 0, 0.88)',
         fontSize: '13px',
@@ -30,12 +29,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         transition: 'all 0.2s ease',
 
         '&:hover:not(&-disabled)': {
-          backgroundColor: 'rgba(0, 16, 32, 0.0627)',
+          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
           color: '#343A45',
         },
 
         '&-selected': {
-          backgroundColor: 'rgba(0, 16, 32, 0.0627)',
+          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
           fontWeight: 600,
           color: '#343A45',
         },

@@ -1,7 +1,7 @@
-import { Checkbox, Tooltip } from 'antd';
-import dayjs from 'dayjs';
+import { Checkbox, Divider, Tooltip } from 'antd';
 import React from 'react';
 import { HistoryDataType } from '../types';
+import { formatTime } from '../utils';
 import { HistoryActionsBox } from './HistoryActionsBox';
 
 interface HistoryItemProps {
@@ -20,6 +20,8 @@ interface HistoryItemProps {
     loadingMore?: boolean;
   };
   extra?: (item: HistoryDataType) => React.ReactElement;
+  /** 历史记录类型 */
+  type?: 'chat' | 'task';
 }
 
 /**
@@ -34,7 +36,15 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
   onDeleteItem,
   agent,
   extra,
+  type,
 }) => {
+  // 自动显示配置
+  const isTask = type === 'task';
+  const shouldShowIcon = isTask && !!item.icon;
+  const shouldShowDescription = isTask && !!item.description;
+  // 如果是任务类型或包含 description 和 icon 就自动打开多行模式
+  const isMultiMode = isTask || (shouldShowIcon && shouldShowDescription);
+
   return (
     <div
       style={{
@@ -45,6 +55,11 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
         alignItems: 'center',
         width: '100%',
       }}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        onClick(item.sessionId!, item);
+      }}
     >
       {agent?.onSelectionChange && (
         <Checkbox
@@ -53,18 +68,56 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
             e.stopPropagation();
             onSelectionChange(item.sessionId!, e.target.checked);
           }}
+          style={{ marginTop: isMultiMode ? 4 : 0 }}
         />
       )}
+
+      {/* 图标区域 */}
+      {shouldShowIcon && (
+        <div
+          style={{
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {React.isValidElement(item.icon) ? (
+            item.icon
+          ) : (
+            <div
+              style={{
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '8px',
+                gap: '10px',
+                fontSize: 15,
+                borderRadius: '200px',
+                background: '#F1F2F4',
+              }}
+            >
+              {item.icon || (isTask ? '📋' : '📄')}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 内容区域 */}
       <div
         style={{
           color: '#666F8D',
           overflow: 'hidden',
-          textWrap: 'nowrap',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
           flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: isMultiMode ? 4 : 0,
         }}
       >
+        {/* 标题 */}
         <Tooltip
           open={
             typeof item.sessionTitle === 'string' &&
@@ -77,31 +130,74 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
           <div
             style={{
               width: 'max-content',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              onClick(item.sessionId!, item);
+              fontWeight: 500,
+              fontSize: 14,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              lineHeight: isMultiMode ? '20px' : 'inherit',
             }}
           >
             {item.sessionTitle}
           </div>
         </Tooltip>
-      </div>
-      <HistoryActionsBox
-        onDeleteItem={
-          onDeleteItem
-            ? async () => {
-                await onDeleteItem(item.sessionId!);
+
+        {/* 描述 */}
+        {isMultiMode &&
+          shouldShowDescription &&
+          (item.description || isTask) && (
+            <Tooltip
+              open={
+                typeof item.description === 'string' &&
+                item.description.length > 20
+                  ? undefined
+                  : false
               }
-            : undefined
-        }
-        agent={agent}
-        item={item}
-        onFavorite={onFavorite}
-      >
-        {dayjs(item.gmtCreate).format('HH:mm')}
-      </HistoryActionsBox>
+              title={item.description || (isTask ? '任务' : '')}
+            >
+              <div
+                style={{
+                  fontSize: '10px',
+                  fontWeight: 'normal',
+                  lineHeight: '18px',
+                  letterSpacing: 'normal',
+                  color: '#767E8B',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'normal',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 1,
+                  WebkitBoxOrient: 'vertical',
+                }}
+              >
+                {item.description || (isTask ? '任务' : '')}
+                <Divider type="vertical" />
+                {formatTime(item.gmtCreate)}
+              </div>
+            </Tooltip>
+          )}
+      </div>
+
+      {/* 右侧操作区域 */}
+      <div style={{ marginTop: isMultiMode ? 4 : 0 }}>
+        <HistoryActionsBox
+          onDeleteItem={
+            onDeleteItem
+              ? async () => {
+                  await onDeleteItem(item.sessionId!);
+                }
+              : undefined
+          }
+          agent={agent}
+          item={item}
+          onFavorite={onFavorite}
+        >
+          {formatTime(item.gmtCreate)}
+        </HistoryActionsBox>
+      </div>
       {extra?.(item)}
     </div>
   );

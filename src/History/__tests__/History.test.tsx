@@ -28,7 +28,7 @@ vi.mock('swr', () => ({
       {
         id: '2',
         sessionId: 'session-2',
-        sessionTitle: '昨日对话1',
+        title: '昨日对话1',
         agentId: 'agent-1',
         gmtCreate: dayjs().subtract(1, 'day').valueOf(),
         gmtLastConverse: dayjs().subtract(1, 'day').valueOf(),
@@ -36,7 +36,7 @@ vi.mock('swr', () => ({
       {
         id: '3',
         sessionId: 'session-3',
-        sessionTitle: '一周前对话1',
+        title: '一周前对话1',
         agentId: 'agent-1',
         gmtCreate: dayjs().subtract(8, 'day').valueOf(),
         gmtLastConverse: dayjs().subtract(8, 'day').valueOf(),

@@ -29,6 +29,8 @@ const HistoryAgentModeDemo: React.FC = () => {
       id: '3',
       sessionId: 'session-3',
       sessionTitle: '前端性能优化的最佳实践',
+      description: '这是一个描述',
+      icon: '📄',
       gmtCreate: Date.now() - 86400000,
       isFavorite: favorites.has('session-3'),
     },
@@ -181,7 +183,7 @@ const HistoryAgentModeDemo: React.FC = () => {
             agentId="demo-agent"
             sessionId="session-1"
             request={mockRequest}
-            onSelected={handleSelected}
+            onClick={handleSelected}
             onDeleteItem={handleDeleteItem}
             standalone
             agent={{

@@ -7,6 +7,10 @@ export type HistoryDataType = {
   tenantId?: string;
   /** 会话标题 */
   sessionTitle?: React.ReactNode;
+  /** 会话描述/副标题 */
+  description?: React.ReactNode;
+  /** 会话图标 */
+  icon?: React.ReactNode;
   /** ai agent ID */
   agentId?: string;
   /** 会话唯一标识 */
@@ -63,6 +67,8 @@ export interface HistoryProps {
   agentId: string;
   standalone?: boolean;
   sessionId: string;
+  /** 历史记录类型：'chat' | 'task' */
+  type?: 'chat' | 'task';
   onInit?: () => void;
   onShow?: () => void;
   request: (params: { agentId: string }) => Promise<HistoryDataType[]>;

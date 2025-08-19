@@ -83,6 +83,7 @@ export const History: React.FC<HistoryProps> = (props) => {
     customDateFormatter: props.customDateFormatter,
     groupBy: props.groupBy,
     sessionSort: props.sessionSort,
+    type: props.type,
   });
 
   if (props.standalone) {

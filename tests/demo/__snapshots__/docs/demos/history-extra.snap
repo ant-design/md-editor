@@ -51,19 +51,23 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                       >
                         重要会议记录
                       </div>
                     </div>
                     <div
-                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      style="margin-top: 0px;"
                     >
-                      09:50
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        2 years ago
+                      </div>
                     </div>
                     <div
                       style="display: flex; gap: 4px; align-items: center;"
@@ -98,19 +102,23 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                       >
                         日常讨论
                       </div>
                     </div>
                     <div
-                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      style="margin-top: 0px;"
                     >
-                      09:50
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        2 years ago
+                      </div>
                     </div>
                     <div
                       style="display: flex; gap: 4px; align-items: center;"
@@ -140,19 +148,23 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                       >
                         紧急问题处理
                       </div>
                     </div>
                     <div
-                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      style="margin-top: 0px;"
                     >
-                      09:50
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        2 years ago
+                      </div>
                     </div>
                     <div
                       style="display: flex; gap: 4px; align-items: center;"
@@ -187,19 +199,23 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 0%;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 0;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; line-height: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                       >
                         长期项目规划
                       </div>
                     </div>
                     <div
-                      style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      style="margin-top: 0px;"
                     >
-                      09:50
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        2 years ago
+                      </div>
                     </div>
                     <div
                       style="display: flex; gap: 4px; align-items: center;"

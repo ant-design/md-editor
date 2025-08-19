@@ -41,6 +41,8 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 
 <code src="../demos/history-agent-mode-demo.tsx">Agent 模式</code>
 
+<code src="../demos/history-task-demo.tsx">Agent 任务模式</code>
+
 ## API
 
 ### History
