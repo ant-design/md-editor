@@ -27,7 +27,7 @@ nav:
 - 语义化命名，避免通用名称
 - 相关组件使用统一前缀
 
-```tsx
+```tsx | pure
 // ✅ 正确
 export const HistoryItem = () => {};
 export const HistoryActionsBox = () => {};
@@ -88,7 +88,7 @@ ComponentName/
 
 ### 使用 @ant-design/theme-token
 
-```tsx
+```tsx | pure
 import { createStyles } from '@ant-design/theme-token';
 
 export const useStyles = createStyles(({ token }) => ({
@@ -108,7 +108,7 @@ export const useStyles = createStyles(({ token }) => ({
 
 ### 使用项目自定义样式
 
-```tsx
+```tsx | pure
 import { useEditorStyleRegister, ChatTokenType } from '../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => ({
@@ -136,7 +136,7 @@ export function useStyle(prefixCls?: string) {
 
 ### Props 命名规范
 
-```tsx
+```tsx | pure
 interface ComponentProps {
   // 数据属性
   data: DataType;
@@ -157,7 +157,7 @@ interface ComponentProps {
 
 ### 事件回调命名
 
-```tsx
+```tsx | pure
 // 标准事件
 onClick: (event: React.MouseEvent) => void;
 onChange: (value: string) => void;
@@ -171,7 +171,7 @@ onLoadMore: () => Promise<void>;
 
 ### 组件开发流程
 
-```tsx
+```tsx | pure
 // 1. 定义类型
 interface ComponentProps {
   // 类型定义
@@ -198,7 +198,7 @@ export const ComponentName: React.FC<ComponentProps> = (props) => {
 
 ### Hook 开发规范
 
-```tsx
+```tsx | pure
 export const useComponent = (props: ComponentProps) => {
   // 状态定义
   const [state, setState] = useState(initialState);
@@ -228,7 +228,7 @@ export const useComponent = (props: ComponentProps) => {
 
 ### 测试文件结构
 
-```tsx
+```tsx | pure
 // ComponentName.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ComponentName } from '../index';
@@ -274,7 +274,7 @@ describe('ComponentName', () => {
 
 ### 性能优化
 
-```tsx
+```tsx | pure
 // 使用 React.memo
 export const Component = React.memo<ComponentProps>((props) => {
   // 组件实现
@@ -293,7 +293,7 @@ const expensiveValue = useMemo(() => {
 
 ### 错误处理
 
-```tsx
+```tsx | pure
 // 异步操作错误处理
 const handleAsync = async () => {
   try {
