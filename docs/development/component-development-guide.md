@@ -4,358 +4,101 @@ nav:
   order: 1
 ---
 
-# 组件开发规范文档
+# 组件开发规范
 
-> **重要说明**：本文档基于 `md-editor` 项目的 History 模块，定义了完整的组件开发规范，包括命名规则、文件组织、API设计、测试规范等。所有规范都经过实际项目验证，确保可行性和实用性。
-
-<!--
-  文档说明：
-  - 本文档适用于所有React TypeScript项目
-  - 基于History模块的最佳实践
-  - 包含完整的开发流程指导
-  - 提供大量实际代码示例
--->
+> 基于 `md-editor` 项目的实际开发经验，定义完整的组件开发规范。
 
 ## 目录
 
-- [组件命名规则](#组件命名规则)
-- [文件夹命名规则](#文件夹命名规则)
-- [className 命名规则](#classname-命名规则)
-- [样式管理方案](#样式管理方案)
-- [style.ts 开发方式](#stylets-开发方式)
-- [API 命名规则](#api-命名规则)
-- [功能开发规则](#功能开发规则)
-- [测试文件规则](#测试文件规则)
-- [代码质量规范](#代码质量规范)
+- [命名规范](#命名规范)
+- [文件组织](#文件组织)
+- [样式开发](#样式开发)
+- [API设计](#api设计)
+- [功能开发](#功能开发)
+- [测试规范](#测试规范)
+- [代码质量](#代码质量)
+- [开发检查列表](#开发检查列表)
 
-<!--
-  使用指南：
-  1. 新项目开发时，请严格按照本规范执行
-  2. 现有项目重构时，可逐步迁移到本规范
-  3. 遇到特殊情况时，可适当调整但需团队讨论
-  4. 定期回顾和更新规范，保持与时俱进
--->
+## 命名规范
 
-## 组件命名规则
+### 组件命名
 
-<!--
-  命名规则说明：
-  - 组件命名是代码可读性的基础
-  - 好的命名可以减少注释的需求
-  - 统一的命名规范有助于团队协作
-  - 命名应该自解释，避免歧义
--->
+- 使用 PascalCase
+- 语义化命名，避免通用名称
+- 相关组件使用统一前缀
 
-### 1. 组件命名原则
-
-<!--
-  核心原则：
-  - 语义化：名称应清晰表达功能和用途
-  - 一致性：相关组件使用统一前缀
-  - 唯一性：避免与项目内其他组件重名
-  - 规范性：遵循PascalCase命名法
--->
-
-- **语义化命名**：组件名称应清晰表达其功能和用途
-- **一致性**：相关组件使用统一的前缀
-- **避免重名**：确保组件名称在项目中的唯一性
-- **PascalCase**：使用大驼峰命名法
-
-### 2. 命名规范
-
-<!--
-  命名示例说明：
-  - ✅ 正确示例：清晰、具体、无歧义
-  - ❌ 错误示例：过于通用、可能重名、不够描述性
-  - 每个示例都有具体的改进建议
--->
-
-```tsx | pure
-// ✅ 正确示例 - 语义化、具体、无歧义
-export const HistoryItem: React.FC<HistoryItemProps> = () => {};
-export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = () => {};
-export const HistorySearch: React.FC<HistorySearchProps> = () => {};
-export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = () => {};
-
-// ❌ 错误示例 - 过于通用、可能重名、不够描述性
-export const Item: React.FC<ItemProps> = () => {}; // 过于通用
-export const ActionsBox: React.FC<ActionsBoxProps> = () => {}; // 可能重名
-export const Search: React.FC<SearchProps> = () => {}; // 过于通用
-```
-
-### 3. 组件分类命名
-
-<!--
-  组件分类说明：
-  - 核心组件：模块的主要功能组件
-  - 功能组件：特定功能的辅助组件
-  - 工具组件：通用的工具类组件
-  - 页面组件：完整的页面级组件
--->
-
-```tsx | pure
-// 核心组件 - 使用模块前缀，体现组件的重要性和归属
+```tsx
+// ✅ 正确
 export const HistoryItem = () => {};
 export const HistoryActionsBox = () => {};
 
-// 功能组件 - 使用模块前缀 + 功能描述，明确功能边界
-export const HistoryNewChat = () => {};
-export const HistorySearch = () => {};
-export const HistoryLoadMore = () => {};
-
-// 工具组件 - 使用功能描述，强调通用性
-export const ActionIconBox = () => {};
-export const BubbleConfigProvider = () => {};
-
-// 页面组件 - 使用页面名称，体现页面级组件的特点
-export const MarkdownEditor = () => {};
-export const Workspace = () => {};
+// ❌ 错误
+export const Item = () => {}; // 过于通用
+export const ActionsBox = () => {}; // 可能重名
 ```
 
-## 文件夹命名规则
+### 文件夹命名
 
-<!--
-  文件夹组织说明：
-  - 文件夹结构反映代码的组织逻辑
-  - 良好的文件夹结构有助于代码导航
-  - 统一的命名规范便于团队理解
-  - 合理的层次结构支持代码的可扩展性
--->
-
-### 1. 文件夹命名原则
-
-<!--
-  命名原则说明：
-  - kebab-case：符合文件系统的最佳实践
-  - 语义化：文件夹名称应反映其内容
-  - 层次清晰：通过结构体现组件关系
-  - 避免过深：通常不超过4层嵌套
--->
-
-- **kebab-case**：使用短横线分隔的小写字母
-- **语义化**：文件夹名称应反映其内容
-- **层次清晰**：通过文件夹结构体现组件关系
-
-### 2. 标准文件夹结构
-
-<!--
-  标准结构说明：
-  - 模块根目录：使用PascalCase，体现模块的重要性
-  - 功能目录：使用小写复数，体现内容的集合性
-  - 特殊目录：使用约定俗成的命名方式
-  - 文件命名：与组件命名保持一致
--->
+- 使用 kebab-case
+- 模块根目录使用 PascalCase
+- 功能目录使用小写复数
 
 ```
 src/
-├── History/                    # 模块根目录 - PascalCase
-│   ├── components/             # 组件目录 - 小写复数
-│   │   ├── HistoryItem.tsx
-│   │   ├── HistoryActionsBox.tsx
-│   │   └── index.ts
-│   ├── hooks/                  # Hook目录 - 小写复数
-│   │   └── useHistory.ts
-│   ├── types/                  # 类型定义目录 - 小写复数
-│   │   └── index.ts
-│   ├── utils/                  # 工具函数目录 - 小写复数
-│   │   └── index.ts
-│   ├── icons/                  # 图标目录 - 小写复数
-│   │   └── HistoryIcon.tsx
-│   ├── __tests__/              # 测试目录 - 双下划线
-│   │   └── History.test.tsx
-│   ├── index.tsx               # 主入口文件
-│   ├── style.ts                # 样式文件
-│   └── menu.tsx                # 子组件文件
-├── MarkdownEditor/             # 其他模块
-└── components/                 # 全局组件
+├── History/                    # 模块根目录
+│   ├── components/             # 组件目录
+│   ├── hooks/                  # Hook目录
+│   ├── types/                  # 类型定义
+│   ├── utils/                  # 工具函数
+│   ├── __tests__/              # 测试目录
+│   └── index.tsx               # 主入口
 ```
 
-### 3. 特殊文件夹命名
+### className 命名
 
-<!--
-  特殊文件夹说明：
-  - 测试文件夹：使用双下划线前缀，符合测试框架约定
-  - 文档文件夹：使用docs前缀，便于识别
-  - 工具文件夹：使用功能描述，体现用途
-  - 配置文件夹：使用config前缀，便于管理
--->
+- 遵循 BEM 方法论
+- Block: `.history-item`
+- Element: `.history-item__title`
+- Modifier: `.history-item--selected`
 
-```tsx | pure
-// 测试文件夹 - 使用双下划线前缀，符合测试框架约定
-__tests__/           // 组件测试
-__snapshots__/       // 快照测试
-__mocks__/           // Mock文件
+## 文件组织
 
-// 文档文件夹 - 使用docs前缀，便于识别和管理
-docs/                // 项目文档
-docs/components/     // 组件文档
-docs/demos/          # 演示文件
+### 标准结构
 
-// 工具文件夹 - 使用功能描述，体现具体用途
-scripts/             // 构建脚本
-utils/               // 工具函数
-constants/           // 常量定义
+```
+ComponentName/
+├── components/          # 子组件
+├── hooks/              # 自定义Hook
+├── types/              # 类型定义
+├── utils/              # 工具函数
+├── __tests__/          # 测试文件
+├── index.tsx           # 主组件
+├── style.ts            # 样式文件
+└── README.md           # 组件文档
 ```
 
-## className 命名规则
+### 文件命名
 
-<!--
-  className命名说明：
-  - className是CSS样式的入口点
-  - 良好的命名可以提高样式的可维护性
-  - BEM方法论提供了清晰的命名结构
-  - 统一的命名规范有助于样式复用
--->
+- 组件文件：`ComponentName.tsx`
+- 样式文件：`style.ts`
+- 测试文件：`ComponentName.test.tsx`
+- 类型文件：`types.ts`
 
-### 1. className 命名原则
+## 样式开发
 
-<!--
-  命名原则说明：
-  - BEM方法论：Block-Element-Modifier，提供清晰的层次结构
-  - 语义化：类名应表达组件的结构和状态
-  - 一致性：使用统一的命名规范
-  - 可维护性：类名应易于理解和修改
--->
+### 使用 @ant-design/theme-token
 
-- **BEM 方法论**：Block-Element-Modifier
-- **语义化**：类名应表达组件的结构和状态
-- **一致性**：使用统一的命名规范
-- **可维护性**：类名应易于理解和修改
-
-### 2. BEM 命名规范
-
-<!--
-  BEM规范说明：
-  - Block：独立的组件块，如.history-item
-  - Element：块内的元素，使用__连接，如.history-item__title
-  - Modifier：修饰符，使用--连接，如.history-item--selected
-  - 这种结构提供了清晰的层次关系和状态管理
--->
-
-```scss
-// Block - 块级组件，独立的UI组件
-.history-item {
-}
-.history-actions {
-}
-.history-search {
-}
-
-// Element - 元素，块内的子元素，使用__连接
-.history-item__title {
-}
-.history-item__content {
-}
-.history-actions__button {
-}
-
-// Modifier - 修饰符，表示状态或变体，使用--连接
-.history-item--selected {
-}
-.history-item--disabled {
-}
-.history-actions__button--primary {
-}
-```
-
-### 3. 实际应用示例
-
-<!--
-  应用示例说明：
-  - ✅ 正确示例：遵循BEM规范，结构清晰
-  - ❌ 错误示例：命名混乱，缺乏层次结构
-  - 好的命名可以减少CSS的复杂度
-  - 便于样式的维护和扩展
--->
-
-```tsx | pure
-// ✅ 正确的className命名 - 遵循BEM规范，结构清晰
-<div className="history-item">
-  <div className="history-item__header">
-    <span className="history-item__title">会话标题</span>
-    <div className="history-item__actions">
-      <button className="history-item__button history-item__button--favorite">
-        收藏
-      </button>
-    </div>
-  </div>
-</div>
-
-// ❌ 错误的className命名 - 命名混乱，缺乏层次结构
-<div className="item">
-  <div className="header">
-    <span className="title">会话标题</span>
-    <div className="actions">
-      <button className="btn btn-fav">收藏</button>
-    </div>
-  </div>
-</div>
-```
-
-### 4. 状态类名
-
-<!--
-  状态类名说明：
-  - 状态修饰符：表示组件的不同状态
-  - 交互状态：表示用户的交互行为
-  - 尺寸修饰符：表示组件的大小变体
-  - 这些修饰符提供了灵活的样式控制
--->
-
-```scss
-// 状态修饰符 - 表示组件的不同状态
-.history-item--loading {
-}
-.history-item--error {
-}
-.history-item--success {
-}
-
-// 交互状态 - 表示用户的交互行为
-.history-item--hover {
-}
-.history-item--active {
-}
-.history-item--focus {
-}
-
-// 尺寸修饰符 - 表示组件的大小变体
-.history-item--small {
-}
-.history-item--large {
-}
-```
-
-## 样式管理方案
-
-<!--
-  样式管理说明：
-  - 使用 @ant-design/theme-token 进行样式管理
-  - 提供类型安全的样式开发
-  - 支持主题变量和响应式设计
-  - 统一的样式组织方式
--->
-
-### 样式管理方案
-
-**使用 @ant-design/theme-token**
-
-```tsx | pure
+```tsx
 import { createStyles } from '@ant-design/theme-token';
 
-export const useHistoryStyles = createStyles(({ token }) => ({
+export const useStyles = createStyles(({ token }) => ({
   container: {
     display: 'flex',
-    flexDirection: 'column',
     gap: token.paddingSM,
   },
   item: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     padding: token.paddingSM,
     borderRadius: token.borderRadius,
-    transition: 'all 0.2s ease',
     '&:hover': {
       backgroundColor: token.colorBgTextHover,
     },
@@ -363,11 +106,20 @@ export const useHistoryStyles = createStyles(({ token }) => ({
 }));
 ```
 
-**使用项目自定义样式注册**
+### 使用项目自定义样式
 
-```tsx | pure
-// 使用项目自定义的 useEditorStyleRegister
+```tsx
 import { useEditorStyleRegister, ChatTokenType } from '../hooks/useStyle';
+
+const genStyle: GenerateStyle<ChatTokenType> = (token) => ({
+  [token.componentCls]: {
+    width: '100%',
+    '&-item': {
+      display: 'flex',
+      padding: token.paddingSM,
+    },
+  },
+});
 
 export function useStyle(prefixCls?: string) {
   return useEditorStyleRegister('ComponentName', (token: ChatTokenType) => {
@@ -375,1260 +127,181 @@ export function useStyle(prefixCls?: string) {
       ...token,
       componentCls: `.${prefixCls}`,
     };
-
     return [genStyle(componentToken)];
   });
 }
 ```
 
-**样式生成函数定义**
+## API设计
 
-```tsx | pure
-import { GenerateStyle } from '../hooks/useStyle';
+### Props 命名规范
 
-const genStyle: GenerateStyle<ChatTokenType> = (token) => {
-  return {
-    [token.componentCls]: {
-      // 组件基础样式
-      width: '100%',
-      backgroundColor: 'transparent',
-
-      // 子元素样式
-      '&-item': {
-        display: 'flex',
-        alignItems: 'center',
-        padding: token.paddingSM,
-
-        '&:hover': {
-          backgroundColor: token.colorBgTextHover,
-        },
-      },
-
-      // 嵌套子元素
-      '&-submenu': {
-        [`${token.componentCls}-item`]: {
-          fontSize: '13px',
-        },
-      },
-    },
-  };
-};
-```
-
-**特性优势**
-
-- 完整的 TypeScript 类型定义
-- 更好的 IDE 智能提示
-- 类型安全的主题变量访问
-- 自定义 `ChatTokenType` 类型扩展
-- 自动 CSS 变量注入
-- 优化的运行时性能
-
-**CSS 变量支持**
-
-```tsx | pure
- // 自动注入的 CSS 变量
- :root {
-   --md-editor-primary-color: #1D7AFC;
-   --md-editor-border-radius: 8px;
-   --md-editor-padding-sm: 6px;
-   // ... 更多变量
- }
-```
-
-## style.ts 开发方式
-
-<!--
-  style.ts开发说明：
-  - 提供类型安全的样式开发
-  - 支持主题变量和响应式设计
-  - 统一的样式组织方式
--->
-
-### 1. style.ts 文件组织
-
-<!--
-  文件组织说明：
-  - 使用 useEditorStyleRegister 创建样式Hook
-  - 按功能模块组织样式
-  - 使用token变量保持一致性
-  - 支持嵌套和伪类选择器
--->
-
-```tsx | pure
-// src/History/style.ts - 基于实际项目实现
-import {
-  ChatTokenType,
-  GenerateStyle,
-  useEditorStyleRegister,
-} from '../hooks/useStyle';
-
-// 样式生成函数 - 定义组件的所有样式
-const genStyle: GenerateStyle<ChatTokenType> = (token) => {
-  return {
-    [token.componentCls]: {
-      // 容器基础样式
-      width: '100%',
-      backgroundColor: 'transparent',
-      outline: 'none',
-      padding: '0',
-
-      // 菜单项样式
-      '&-item': {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        cursor: 'pointer',
-        borderRadius: '8px',
-        padding: '6px 6px 6px 12px',
-        backgroundColor: 'transparent',
-        color: token.colorText || 'rgba(0, 0, 0, 0.88)',
-        fontSize: '13px',
-        fontWeight: 400,
-        position: 'relative',
-        userSelect: 'none',
-        lineHeight: '20px',
-        transition: 'all 0.2s ease',
-
-        // 悬停状态
-        '&:hover:not(&-disabled)': {
-          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
-          color: '#343A45',
-        },
-
-        // 选中状态
-        '&-selected': {
-          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
-          fontWeight: 600,
-          color: '#343A45',
-        },
-
-        // 禁用状态
-        '&-disabled': {
-          cursor: 'not-allowed',
-          color: token.colorTextDisabled || 'rgba(0, 0, 0, 0.25)',
-          opacity: 0.6,
-
-          '&:hover': {
-            backgroundColor: 'transparent',
-          },
-        },
-
-        // 内容区域
-        '&-content': {
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          flex: 1,
-          minWidth: 0,
-        },
-
-        // 图标样式
-        '&-icon': {
-          fontSize: '14px',
-          width: '16px',
-          height: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          color: 'inherit',
-        },
-
-        // 分组样式
-        '&-group': {
-          cursor: 'default',
-          backgroundColor: 'transparent',
-          height: '32px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          fontSize: '13px',
-          fontWeight: 500,
-          lineHeight: '20px',
-          letterSpacing: 'normal',
-          color: 'rgba(0, 25, 61, 0.3255)',
-          zIndex: 0,
-        },
-      },
-
-      // 子菜单样式
-      '&-submenu': {
-        gap: 4,
-        display: 'flex',
-        flexDirection: 'column',
-
-        [`${token.componentCls}-item`]: {
-          fontSize: '13px',
-        },
-
-        [`${token.componentCls}-submenu`]: {
-          marginLeft: '16px',
-          [`${token.componentCls}-item`]: {
-            paddingLeft: '28px',
-            fontSize: '13px',
-          },
-        },
-      },
-
-      // 子菜单标题
-      '&-submenu-title': {
-        fontSize: '13px',
-        color: token.colorTextSecondary || 'rgba(0, 0, 0, 0.45)',
-        fontWeight: 500,
-        padding: '4px 12px',
-      },
-
-      // 滚动条样式
-      '&::-webkit-scrollbar': {
-        width: '6px',
-      },
-
-      '&::-webkit-scrollbar-track': {
-        backgroundColor: 'transparent',
-      },
-
-      '&::-webkit-scrollbar-thumb': {
-        backgroundColor: token.colorBorder || '#d9d9d9',
-        borderRadius: '3px',
-
-        '&:hover': {
-          backgroundColor: token.colorTextSecondary || '#bfbfbf',
-        },
-      },
-
-      // 动画效果
-      [`${token.componentCls}-item`]: {
-        animationName: 'fadeIn',
-        animationDuration: '0.2s',
-        animationTimingFunction: 'ease-in-out',
-      },
-
-      '@keyframes fadeIn': {
-        '0%': {
-          opacity: 0,
-          transform: 'translateY(-2px)',
-        },
-        '100%': {
-          opacity: 1,
-          transform: 'translateY(0)',
-        },
-      },
-    },
-  };
-};
-
-// 导出样式Hook - 供组件使用
-export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('GroupMenu', (token: ChatTokenType) => {
-    const groupMenuToken = {
-      ...token,
-      componentCls: `.${prefixCls}`,
-    };
-
-    return [genStyle(groupMenuToken)];
-  });
-}
-```
-
-### 2. 样式使用方式
-
-<!--
-  使用方式说明：
-  - 在组件中导入样式Hook
-  - 通过styles对象访问样式类名
-  - 支持动态样式和条件样式
-  - 提供类型安全的样式引用
--->
-
-#### 方式一：使用 @ant-design/theme-token
-
-```tsx | pure
-// 在组件中使用样式 - 导入Hook并应用样式
-import { useHistoryStyles } from './style';
-
-export const HistoryItem: React.FC<HistoryItemProps> = (props) => {
-  const { styles } = useHistoryStyles();
-
-  return (
-    <div className={styles.item}>
-      <div className={styles.content}>{props.children}</div>
-      <div className={styles.actions}>
-        <button className={styles.button}>操作</button>
-      </div>
-    </div>
-  );
-};
-```
-
-#### 方式二：使用项目自定义 useEditorStyleRegister
-
-```tsx | pure
-// 在组件中使用样式 - 基于实际项目实现
-import { ConfigProvider } from 'antd';
-import classNames from 'classnames';
-import React, { useContext } from 'react';
-import { useStyle } from './style';
-
-export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
-  const {
-    items = [],
-    selectedKeys = [],
-    onSelect,
-    className,
-    classNames: propsClassNames = {},
-    style,
-    ...restProps
-  } = props;
-
-  // 使用 ConfigProvider 获取前缀类名
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('history-menu');
-
-  // 注册样式
-  const { wrapSSR, hashId } = useStyle(prefixCls);
-
-  // 确定当前选中的键
-  const currentSelectedKey = selectedKeys && selectedKeys[0];
-
-  return wrapSSR(
-    <div
-      className={classNames(prefixCls, hashId, className)}
-      style={style}
-      role="menu"
-      aria-label="菜单"
-      {...restProps}
-    >
-      {items.map((item) => (
-        <div
-          key={item.key}
-          className={classNames(
-            `${prefixCls}-item`,
-            hashId,
-            propsClassNames?.menuItemClassName,
-            {
-              [`${prefixCls}-item-selected`]: currentSelectedKey === item.key,
-              [`${prefixCls}-item-disabled`]: item.disabled,
-            },
-          )}
-          onClick={() => !item.disabled && onSelect?.({ key: item.key })}
-          role="menuitem"
-        >
-          <div
-            className={classNames(
-              `${prefixCls}-item-content`,
-              hashId,
-              propsClassNames?.menuItemContentClassName,
-            )}
-          >
-            {item.icon && (
-              <span
-                className={classNames(
-                  `${prefixCls}-item-icon`,
-                  hashId,
-                  propsClassNames?.menuItemIconClassName,
-                )}
-              >
-                {item.icon}
-              </span>
-            )}
-            {item.label}
-          </div>
-        </div>
-      ))}
-    </div>,
-  );
-};
-```
-
-#### 方式三：在父组件中使用
-
-```tsx | pure
-// 在父组件中使用 GroupMenu - 基于实际项目实现
-import { ConfigProvider, Popover } from 'antd';
-import React, { useContext } from 'react';
-import GroupMenu from './menu';
-
-export const History: React.FC<HistoryProps> = (props) => {
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
-
-  const items = generateHistoryItems({
-    filteredList,
-    selectedIds,
-    onSelectionChange: handleSelectionChange,
-    onClick: (sessionId, item) => {
-      props.onClick?.(sessionId, item);
-      setOpen(false);
-    },
-    // ... 其他配置
-  });
-
-  return (
-    <Popover
-      open={open}
-      onOpenChange={setOpen}
-      trigger="click"
-      className={menuPrefixCls}
-      content={
-        <div>
-          <HistorySearch
-            searchKeyword={searchKeyword}
-            onSearch={handleSearch}
-          />
-          <GroupMenu
-            selectedKeys={[props.sessionId]}
-            inlineIndent={20}
-            items={items}
-            className={menuPrefixCls}
-          />
-        </div>
-      }
-    >
-      <ActionIconBox title="历史记录" data-testid="history-button">
-        <HistoryIcon />
-      </ActionIconBox>
-    </Popover>
-  );
-};
-```
-
-### 3. 样式变量管理
-
-<!--
-  变量管理说明：
-  - 定义统一的样式变量
-  - 支持主题切换和定制
-  - 提供尺寸、颜色、间距等变量
-  - 便于样式的统一管理和修改
--->
-
-#### 使用 Ant Design Token
-
-```tsx | pure
-// 直接使用 Ant Design 的 token 变量
-const genStyle: GenerateStyle<ChatTokenType> = (token) => {
-  return {
-    [token.componentCls]: {
-      // 使用 token 中的颜色变量
-      color: token.colorText,
-      backgroundColor: token.colorBgContainer,
-      borderColor: token.colorBorder,
-
-      // 使用 token 中的尺寸变量
-      padding: token.paddingSM,
-      margin: token.marginXS,
-      borderRadius: token.borderRadius,
-
-      // 使用 token 中的字体变量
-      fontSize: token.fontSize,
-      lineHeight: token.lineHeight,
-
-      '&:hover': {
-        backgroundColor: token.colorBgTextHover,
-      },
-    },
-  };
-};
-```
-
-#### 自定义样式变量
-
-```tsx | pure
-// src/History/style.ts
-export const historyToken = {
-  // 颜色变量 - 定义统一的颜色规范
-  colors: {
-    primary: '#1D7AFC',
-    secondary: 'rgba(0, 0, 0, 0.25)',
-    hover: 'rgba(0, 0, 0, 0.04)',
-    border: '#f0f0f0',
-  },
-
-  // 尺寸变量 - 定义统一的尺寸规范
-  sizes: {
-    itemHeight: '48px',
-    buttonSize: '32px',
-    iconSize: '16px',
-  },
-
-  // 间距变量 - 定义统一的间距规范
-  spacing: {
-    xs: '4px',
-    sm: '8px',
-    md: '12px',
-    lg: '16px',
-  },
-
-  // 动画变量 - 定义统一的动画规范
-  animation: {
-    duration: '0.2s',
-    easing: 'ease',
-  },
-};
-```
-
-### 4. 使用示例
-
-<!--
-  使用示例说明：
-  - 展示项目实际使用的样式管理方案
-  - 包含样式定义、组件使用、类型定义等
-  - 提供实际项目中的最佳实践
--->
-
-#### 完整实现示例
-
-```tsx | pure
-// 1. 样式定义 (src/History/style.ts)
-import {
-  ChatTokenType,
-  GenerateStyle,
-  useEditorStyleRegister,
-} from '../hooks/useStyle';
-
-const genStyle: GenerateStyle<ChatTokenType> = (token) => ({
-  [token.componentCls]: {
-    width: '100%',
-    backgroundColor: 'transparent',
-    outline: 'none',
-    padding: '0',
-
-    '&-item': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      cursor: 'pointer',
-      borderRadius: '8px',
-      padding: '6px 6px 6px 12px',
-      backgroundColor: 'transparent',
-      color: token.colorText || 'rgba(0, 0, 0, 0.88)',
-      fontSize: '13px',
-      fontWeight: 400,
-      transition: 'all 0.2s ease',
-
-      '&:hover:not(&-disabled)': {
-        backgroundColor: 'rgba(0, 28, 57, 0.0353)',
-        color: '#343A45',
-      },
-
-      '&-selected': {
-        backgroundColor: 'rgba(0, 28, 57, 0.0353)',
-        fontWeight: 600,
-        color: '#343A45',
-      },
-
-      '&-content': {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        flex: 1,
-        minWidth: 0,
-      },
-
-      '&-icon': {
-        fontSize: '14px',
-        width: '16px',
-        height: '16px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        color: 'inherit',
-      },
-    },
-  },
-});
-
-export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('GroupMenu', (token: ChatTokenType) => {
-    const groupMenuToken = {
-      ...token,
-      componentCls: `.${prefixCls}`,
-    };
-    return [genStyle(groupMenuToken)];
-  });
-}
-
-// 2. 组件实现 (src/History/menu.tsx)
-import { ConfigProvider } from 'antd';
-import classNames from 'classnames';
-import React, { useContext } from 'react';
-import { useStyle } from './style';
-
-export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('history-menu');
-  const { wrapSSR, hashId } = useStyle(prefixCls);
-
-  return wrapSSR(
-    <div
-      className={classNames(prefixCls, hashId, props.className)}
-      role="menu"
-      aria-label="菜单"
-    >
-      {props.items?.map((item) => (
-        <div
-          key={item.key}
-          className={classNames(`${prefixCls}-item`, hashId, {
-            [`${prefixCls}-item-selected`]: props.selectedKeys?.includes(
-              item.key,
-            ),
-            [`${prefixCls}-item-disabled`]: item.disabled,
-          })}
-          onClick={() => !item.disabled && props.onSelect?.({ key: item.key })}
-          role="menuitem"
-        >
-          <div className={`${prefixCls}-item-content`}>
-            {item.icon && (
-              <span className={`${prefixCls}-item-icon`}>{item.icon}</span>
-            )}
-            {item.label}
-          </div>
-        </div>
-      ))}
-    </div>,
-  );
-};
-
-// 3. 在父组件中使用 (src/History/index.tsx)
-export const History: React.FC<HistoryProps> = (props) => {
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
-
-  return (
-    <Popover
-      content={
-        <GroupMenu
-          selectedKeys={[props.sessionId]}
-          items={items}
-          className={menuPrefixCls}
-        />
-      }
-    >
-      <ActionIconBox title="历史记录">
-        <HistoryIcon />
-      </ActionIconBox>
-    </Popover>
-  );
-};
-```
-
-## API 命名规则
-
-<!--
-  API命名说明：
-  - API是组件的对外接口
-  - 良好的API设计提高组件的可用性
-  - 统一的命名规范便于理解和使用
-  - 类型安全的API设计减少错误
--->
-
-### 1. Props 命名规范
-
-<!--
-  Props命名说明：
-  - 数据属性：直接描述数据内容
-  - 事件回调：使用on前缀，清晰表达事件类型
-  - 配置属性：使用Config后缀，表示配置对象
-  - 样式属性：使用标准的样式属性名
--->
-
-```tsx | pure
-// ✅ 正确的Props命名 - 语义化、具体、类型安全
-interface HistoryItemProps {
-  // 数据属性 - 直接描述数据内容
-  item: HistoryDataType;
+```tsx
+interface ComponentProps {
+  // 数据属性
+  data: DataType;
   selectedIds: string[];
 
-  // 事件回调 - 使用on前缀，清晰表达事件类型
-  onSelectionChange: (sessionId: string, checked: boolean) => void;
-  onSelected: (sessionId: string) => void;
-  onDeleteItem?: (sessionId: string) => Promise<void>;
-  onFavorite?: (sessionId: string, isFavorite: boolean) => Promise<void>;
+  // 事件回调 - 使用on前缀
+  onSelect: (id: string) => void;
+  onDelete?: (id: string) => Promise<void>;
 
-  // 配置属性 - 使用Config后缀，表示配置对象
-  agent?: AgentConfig;
-  extra?: (item: HistoryDataType) => React.ReactElement;
+  // 配置属性 - 使用Config后缀
+  config?: ComponentConfig;
 
-  // 样式属性 - 使用标准的样式属性名
+  // 样式属性
   className?: string;
   style?: React.CSSProperties;
 }
-
-// ❌ 错误的Props命名 - 不够具体、不够描述性、缺少类型信息
-interface HistoryItemProps {
-  data: HistoryDataType; // 不够具体
-  ids: string[]; // 不够描述性
-  change: (id: string) => void; // 不够明确
-  delete?: () => void; // 缺少参数信息
-}
 ```
 
-### 2. 事件回调命名
+### 事件回调命名
 
-<!--
-  事件回调命名说明：
-  - 标准事件：使用React标准事件名
-  - 自定义事件：使用on + 动词 + 名词的格式
-  - 异步事件：使用Promise返回类型
-  - 参数命名：使用描述性的参数名
--->
-
-```tsx | pure
-// 标准事件回调命名 - 遵循React事件命名规范
+```tsx
+// 标准事件
 onClick: (event: React.MouseEvent) => void;
 onChange: (value: string) => void;
-onSubmit: (data: FormData) => void;
-onDelete: (id: string) => Promise<void>;
-onFavorite: (id: string, isFavorite: boolean) => void;
 
-// 自定义事件回调命名 - 使用on + 动词 + 名词的格式
+// 自定义事件
 onSelectionChange: (selectedIds: string[]) => void;
 onLoadMore: () => Promise<void>;
-onSearch: (keyword: string) => void;
-onNewChat: () => void;
 ```
 
-### 3. 配置对象命名
+## 功能开发
 
-<!--
-  配置对象命名说明：
-  - 使用Config后缀：明确表示配置对象
-  - 属性分组：按功能对属性进行分组
-  - 可选属性：使用?标记可选属性
-  - 类型定义：提供完整的类型信息
--->
+### 组件开发流程
 
-```tsx | pure
-// 配置对象命名规范 - 使用Config后缀，明确表示配置对象
-interface AgentConfig {
-  enabled: boolean;
-  onSearch?: (keyword: string) => void;
-  onFavorite?: (sessionId: string, isFavorite: boolean) => void;
-  onSelectionChange?: (selectedIds: string[]) => void;
-  onLoadMore?: () => void;
-  loadingMore?: boolean;
-}
-
-interface HistoryConfig {
-  agentId: string;
-  sessionId: string;
-  standalone?: boolean;
-  customDateFormatter?: (date: number | string | Date) => string;
-  groupBy?: (item: HistoryDataType) => string;
-  sessionSort?: SortFunction | false;
-}
-```
-
-## 功能开发规则
-
-<!--
-  功能开发说明：
-  - 定义标准的组件开发流程
-  - 提供Hook开发的最佳实践
-  - 统一的错误处理机制
-  - 确保代码的可维护性和可扩展性
--->
-
-### 1. 组件开发流程
-
-<!--
-  开发流程说明：
-  - 类型定义：先定义接口，确保类型安全
-  - JSDoc注释：提供完整的文档说明
-  - 组件实现：按照标准模式实现组件逻辑
-  - 测试验证：确保功能的正确性
--->
-
-```tsx | pure
-// 1. 定义类型接口 - 先定义接口，确保类型安全
+```tsx
+// 1. 定义类型
 interface ComponentProps {
-  // 定义所有必要的属性
+  // 类型定义
 }
 
-// 2. 编写JSDoc注释 - 提供完整的文档说明
+// 2. 编写JSDoc
 /**
- * ComponentName 组件 - 组件描述
- *
- * @component
- * @description 详细描述
+ * ComponentName 组件
  * @param {ComponentProps} props - 组件属性
- * @example 使用示例
- * @returns {React.ReactElement} 返回值描述
- * @remarks 重要说明
+ * @returns {React.ReactElement} 组件
  */
 
-// 3. 实现组件逻辑 - 按照标准模式实现组件逻辑
+// 3. 实现组件
 export const ComponentName: React.FC<ComponentProps> = (props) => {
-  // 状态管理 - 使用useState管理组件状态
   const [state, setState] = useState(initialState);
 
-  // 事件处理 - 使用useCallback优化性能
   const handleEvent = useCallback(() => {
-    // 事件处理逻辑
+    // 事件处理
   }, [dependencies]);
 
-  // 渲染逻辑 - 返回JSX结构
-  return <div className={styles.container}>{/* 组件内容 */}</div>;
+  return <div>{/* 组件内容 */}</div>;
 };
 ```
 
-### 2. Hook 开发规范
+### Hook 开发规范
 
-<!--
-  Hook开发说明：
-  - 状态定义：明确组件的状态结构
-  - 数据获取：使用标准的数据获取模式
-  - 事件处理：提供统一的事件处理函数
-  - 返回值：返回组件需要的所有状态和方法
--->
+```tsx
+export const useComponent = (props: ComponentProps) => {
+  // 状态定义
+  const [state, setState] = useState(initialState);
 
-```tsx | pure
-// Hook 命名规范 - 使用use前缀，返回组件需要的状态和方法
-export const useHistory = (props: HistoryProps) => {
-  // 状态定义 - 明确组件的状态结构
-  const [open, setOpen] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-
-  // 数据获取 - 使用标准的数据获取模式
-  const { data, loading, error } = useQuery({
-    queryKey: ['history', props.agentId],
-    queryFn: () => props.request({ agentId: props.agentId }),
+  // 数据获取
+  const { data, loading } = useQuery({
+    queryKey: ['key'],
+    queryFn: () => props.request(),
   });
 
-  // 事件处理函数 - 提供统一的事件处理函数
-  const handleSearch = useCallback(
-    (keyword: string) => {
-      setSearchKeyword(keyword);
-      props.agent?.onSearch?.(keyword);
-    },
-    [props.agent],
-  );
+  // 事件处理
+  const handleEvent = useCallback(() => {
+    // 处理逻辑
+  }, [dependencies]);
 
-  const handleFavorite = useCallback(
-    async (sessionId: string, isFavorite: boolean) => {
-      try {
-        await props.agent?.onFavorite?.(sessionId, isFavorite);
-      } catch (error) {
-        console.error('收藏操作失败:', error);
-      }
-    },
-    [props.agent],
-  );
-
-  // 返回值 - 返回组件需要的所有状态和方法
+  // 返回值
   return {
-    open,
-    setOpen,
-    searchKeyword,
-    selectedIds,
-    filteredList: data || [],
+    state,
+    data,
     loading,
-    error,
-    handleSearch,
-    handleFavorite,
+    handleEvent,
   };
 };
 ```
 
-### 3. 错误处理规范
+## 测试规范
 
-<!--
-  错误处理说明：
-  - 统一处理：使用统一的错误处理模式
-  - 用户反馈：提供友好的错误提示
-  - 状态管理：正确处理加载状态
-  - 错误边界：提供组件级别的错误处理
--->
+### 测试文件结构
 
-```tsx | pure
-// 统一的错误处理方式 - 使用try-catch-finally模式
-const handleAsyncOperation = async () => {
+```tsx
+// ComponentName.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ComponentName } from '../index';
+
+describe('ComponentName', () => {
+  const mockProps = {
+    // 测试数据
+  };
+
+  describe('渲染测试', () => {
+    it('应该正确渲染', () => {
+      render(<ComponentName {...mockProps} />);
+      expect(screen.getByTestId('component')).toBeInTheDocument();
+    });
+  });
+
+  describe('交互测试', () => {
+    it('应该处理点击事件', () => {
+      const onSelect = jest.fn();
+      render(<ComponentName {...mockProps} onSelect={onSelect} />);
+
+      fireEvent.click(screen.getByTestId('button'));
+      expect(onSelect).toHaveBeenCalled();
+    });
+  });
+});
+```
+
+### 测试覆盖率要求
+
+- 分支覆盖率：≥ 80%
+- 函数覆盖率：≥ 80%
+- 行覆盖率：≥ 80%
+
+## 代码质量
+
+### TypeScript 规范
+
+- 提供完整的类型定义
+- 避免使用 `any` 类型
+- 使用接口定义数据结构
+- 提供泛型支持
+
+### 性能优化
+
+```tsx
+// 使用 React.memo
+export const Component = React.memo<ComponentProps>((props) => {
+  // 组件实现
+});
+
+// 使用 useCallback
+const handleEvent = useCallback(() => {
+  // 事件处理
+}, [dependencies]);
+
+// 使用 useMemo
+const expensiveValue = useMemo(() => {
+  return computeValue(data);
+}, [data]);
+```
+
+### 错误处理
+
+```tsx
+// 异步操作错误处理
+const handleAsync = async () => {
   try {
     setLoading(true);
     await asyncOperation();
   } catch (error) {
     console.error('操作失败:', error);
-    // 可以添加错误提示
-    message.error('操作失败，请重试');
-  } finally {
-    setLoading(false);
-  }
-};
-
-// 错误边界组件 - 提供组件级别的错误处理
-export const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [hasError, setHasError] = useState(false);
-
-  if (hasError) {
-    return <div>组件加载失败，请刷新页面重试</div>;
-  }
-
-  return (
-    <ErrorBoundary
-      fallback={<div>组件加载失败</div>}
-      onError={() => setHasError(true)}
-    >
-      {children}
-    </ErrorBoundary>
-  );
-};
-```
-
-## 测试文件规则
-
-<!--
-  测试文件说明：
-  - 测试是代码质量的重要保障
-  - 统一的测试规范提高测试效率
-  - 完整的测试覆盖确保功能正确性
-  - 测试文档化便于维护和理解
--->
-
-### 1. 测试文件命名
-
-<!--
-  测试文件命名说明：
-  - 使用.test.tsx后缀：明确表示测试文件
-  - 与源文件对应：便于查找和维护
-  - 集成测试：使用.integration标识
-  - 特殊测试：使用描述性后缀
--->
-
-```tsx | pure
-// 测试文件命名规范 - 使用.test.tsx后缀，与源文件对应
-src / History / __tests__ / History.test.tsx; // 组件测试
-src / History / __tests__ / useHistory.test.ts; // Hook测试
-src / History / __tests__ / utils.test.ts; // 工具函数测试
-src / History / __tests__ / History.integration.test.tsx; // 集成测试
-```
-
-### 2. 测试文件结构
-
-<!--
-  测试文件结构说明：
-  - describe分组：按功能或组件分组
-  - 测试数据：统一的mock数据管理
-  - 测试用例：清晰的测试场景描述
-  - 断言验证：明确的期望结果验证
--->
-
-```tsx | pure
-// src/History/__tests__/History.test.tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { History } from '../index';
-
-describe('History Component', () => {
-  // 测试数据 - 统一的mock数据管理
-  const mockProps = {
-    agentId: 'test-agent',
-    sessionId: 'test-session',
-    request: jest.fn().mockResolvedValue([]),
-  };
-
-  // 测试用例 - 按功能分组，清晰的测试场景描述
-  describe('渲染测试', () => {
-    it('应该正确渲染History组件', () => {
-      render(<History {...mockProps} />);
-      expect(screen.getByTestId('history-container')).toBeInTheDocument();
-    });
-
-    it('应该显示历史记录列表', async () => {
-      const mockData = [
-        { id: '1', sessionTitle: '测试会话1' },
-        { id: '2', sessionTitle: '测试会话2' },
-      ];
-      mockProps.request.mockResolvedValue(mockData);
-
-      render(<History {...mockProps} />);
-
-      await waitFor(() => {
-        expect(screen.getByText('测试会话1')).toBeInTheDocument();
-        expect(screen.getByText('测试会话2')).toBeInTheDocument();
-      });
-    });
-  });
-
-  describe('交互测试', () => {
-    it('应该能够选择历史记录', async () => {
-      const onSelected = jest.fn();
-      render(<History {...mockProps} onSelected={onSelected} />);
-
-      const historyItem = await screen.findByText('测试会话1');
-      fireEvent.click(historyItem);
-
-      expect(onSelected).toHaveBeenCalledWith('1');
-    });
-
-    it('应该能够搜索历史记录', async () => {
-      const onSearch = jest.fn();
-      render(<History {...mockProps} agent={{ enabled: true, onSearch }} />);
-
-      const searchInput = screen.getByPlaceholderText('搜索历史记录...');
-      fireEvent.change(searchInput, { target: { value: '测试' } });
-
-      expect(onSearch).toHaveBeenCalledWith('测试');
-    });
-  });
-
-  describe('错误处理测试', () => {
-    it('应该处理请求失败的情况', async () => {
-      mockProps.request.mockRejectedValue(new Error('请求失败'));
-
-      render(<History {...mockProps} />);
-
-      await waitFor(() => {
-        expect(screen.getByText('加载失败')).toBeInTheDocument();
-      });
-    });
-  });
-});
-```
-
-### 3. 测试工具函数
-
-<!--
-  工具函数测试说明：
-  - 纯函数测试：测试输入输出关系
-  - 边界条件：测试异常情况处理
-  - 性能测试：测试函数执行效率
-  - 覆盖率要求：确保测试完整性
--->
-
-```tsx | pure
-// src/History/__tests__/utils.test.ts
-import { formatTime, groupByCategory } from '../utils';
-
-describe('History Utils', () => {
-  describe('formatTime', () => {
-    it('应该正确格式化时间', () => {
-      const timestamp = Date.now();
-      const result = formatTime(timestamp);
-      expect(result).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-    });
-
-    it('应该处理无效时间', () => {
-      expect(formatTime(0)).toBe('1970-01-01');
-      expect(formatTime('invalid')).toBe('Invalid Date');
-    });
-  });
-
-  describe('groupByCategory', () => {
-    it('应该按类别分组数据', () => {
-      const data = [
-        { id: '1', category: 'A' },
-        { id: '2', category: 'B' },
-        { id: '3', category: 'A' },
-      ];
-
-      const result = groupByCategory(data, (item) => item.category);
-
-      expect(result.A).toHaveLength(2);
-      expect(result.B).toHaveLength(1);
-    });
-  });
-});
-```
-
-### 4. 测试覆盖率要求
-
-<!--
-  覆盖率要求说明：
-  - 分支覆盖率：确保所有条件分支都被测试
-  - 函数覆盖率：确保所有函数都被调用
-  - 行覆盖率：确保所有代码行都被执行
-  - 语句覆盖率：确保所有语句都被执行
--->
-
-```json
-{
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!src/**/*.d.ts",
-      "!src/**/*.test.{ts,tsx}",
-      "!src/**/__tests__/**"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      }
-    }
-  }
-}
-```
-
-## 代码质量规范
-
-<!--
-  代码质量说明：
-  - TypeScript规范：确保类型安全
-  - 注释规范：提供清晰的文档说明
-  - 性能优化：确保代码执行效率
-  - 错误处理：提供健壮的错误处理机制
--->
-
-### 1. TypeScript 规范
-
-<!--
-  TypeScript规范说明：
-  - 类型定义：提供完整的类型信息
-  - 接口设计：使用接口定义数据结构
-  - 泛型使用：提供灵活的类型支持
-  - 类型安全：避免any类型的使用
--->
-
-```tsx | pure
-// 类型定义规范 - 提供完整的类型信息
-interface ComponentProps {
-  // 必需属性 - 明确标记必需属性
-  requiredProp: string;
-
-  // 可选属性 - 使用?标记可选属性
-  optionalProp?: number;
-
-  // 函数属性 - 提供完整的函数类型定义
-  onEvent: (param: string) => void;
-
-  // 联合类型 - 使用联合类型限制可选值
-  variant: 'primary' | 'secondary' | 'danger';
-
-  // 泛型类型 - 使用泛型提供灵活的类型支持
-  data: Array<DataItem>;
-}
-
-// 组件类型定义 - 使用React.FC确保类型安全
-export const Component: React.FC<ComponentProps> = (props) => {
-  // 组件实现
-};
-
-// Hook 类型定义 - 提供明确的返回值类型
-export const useCustomHook = (): {
-  state: StateType;
-  actions: ActionType;
-} => {
-  // Hook 实现
-};
-```
-
-### 2. 代码注释规范
-
-<!--
-  注释规范说明：
-  - JSDoc格式：使用标准JSDoc格式
-  - 参数说明：详细描述每个参数
-  - 返回值：说明函数的返回值
-  - 使用示例：提供实际的使用示例
--->
-
-````tsx | pure
-/**
- * 组件名称 - 组件简短描述
- *
- * 组件的详细描述，包括功能、使用场景等。
- *
- * @component
- * @description 组件的详细描述
- * @param {ComponentProps} props - 组件属性
- * @param {string} props.prop1 - 属性1的描述
- * @param {number} [props.prop2] - 可选属性2的描述
- *
- * @example
- * ```tsx
- * <ComponentName
- *   prop1="value1"
- *   prop2={42}
- *   onEvent={(value) => console.log(value)}
- * />
- * ```
- *
- * @returns {React.ReactElement} 返回值的描述
- *
- * @remarks
- * - 重要说明1
- * - 重要说明2
- * - 使用注意事项
- */
-````
-
-### 3. 性能优化规范
-
-<!--
-  性能优化说明：
-  - React.memo：避免不必要的重新渲染
-  - useCallback：优化事件处理函数
-  - useMemo：优化计算密集型操作
-  - useRef：避免不必要的重新渲染
--->
-
-```tsx | pure
-// 使用 React.memo 优化渲染 - 避免不必要的重新渲染
-export const OptimizedComponent = React.memo<ComponentProps>((props) => {
-  // 组件实现
-});
-
-// 使用 useCallback 优化事件处理 - 避免函数重新创建
-const handleClick = useCallback(
-  (id: string) => {
-    // 事件处理逻辑
-  },
-  [dependencies],
-);
-
-// 使用 useMemo 优化计算 - 缓存计算结果
-const expensiveValue = useMemo(() => {
-  return computeExpensiveValue(data);
-}, [data]);
-
-// 使用 useRef 避免不必要的重新渲染 - 保持引用稳定
-const intervalRef = useRef<NodeJS.Timeout>();
-```
-
-### 4. 错误边界和异常处理
-
-<!--
-  错误处理说明：
-  - 错误边界：提供组件级别的错误处理
-  - 异步处理：使用try-catch处理异步操作
-  - 用户反馈：提供友好的错误提示
-  - 日志记录：记录错误信息便于调试
--->
-
-```tsx | pure
-// 错误边界组件 - 提供组件级别的错误处理
-export const ErrorBoundary: React.FC<{
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
-}> = ({ children, fallback }) => {
-  const [hasError, setHasError] = useState(false);
-
-  if (hasError) {
-    return fallback || <div>组件加载失败</div>;
-  }
-
-  return (
-    <ErrorBoundary fallback={fallback} onError={() => setHasError(true)}>
-      {children}
-    </ErrorBoundary>
-  );
-};
-
-// 异步操作错误处理 - 使用try-catch-finally模式
-const handleAsyncOperation = async () => {
-  try {
-    setLoading(true);
-    const result = await asyncOperation();
-    setData(result);
-  } catch (error) {
-    console.error('操作失败:', error);
-    message.error('操作失败，请重试');
+    message.error('操作失败');
   } finally {
     setLoading(false);
   }
@@ -1637,35 +310,113 @@ const handleAsyncOperation = async () => {
 
 ## Demo 开发规范
 
-Demo 应该放在 `docs/demos` 目录下，每个 Demo 应该是一个独立的文件，文件名应该以 `demo-` 开头，文件名应该以 `.tsx` 结尾。
+### Demo 文件组织
 
-Demo 应该包含以下内容：
+```
+docs/demos/
+├── component-name/
+│   ├── basic.tsx              # 基础用法
+│   ├── advanced.tsx           # 高级用法
+│   └── custom.tsx             # 自定义用法
+```
 
-- 组件的代码
-- 组件的样式
-- 组件的交互
-- 组件的测试
-- Demo 使用的 api 介绍
+### Demo 内容要求
 
-Demo 应该使用 `@ant-design/md-editor` 的组件进行开发，并使用 `@ant-design/md-editor` 的 api 进行开发。不要使用src 之类的路径。
+- 完整的组件代码
+- 清晰的交互示例
+- 详细的API说明
+- 使用 `@ant-design/md-editor` 组件
 
-## 总结
+## 开发检查列表
 
-<!--
-  总结说明：
-  - 规范覆盖：涵盖了组件开发的各个方面
-  - 实用性：所有规范都经过实际项目验证
-  - 可操作性：提供了具体的实施指导
-  - 可维护性：确保代码的长期可维护性
--->
+### ✅ 命名规范检查
 
-本文档定义了完整的组件开发规范，包括：
+- [ ] 组件使用 PascalCase 命名
+- [ ] 组件名称语义化，避免通用名称
+- [ ] 相关组件使用统一前缀
+- [ ] 文件夹使用 kebab-case 命名
+- [ ] className 遵循 BEM 规范
 
-1. **命名规范**：组件、文件夹、className、API的命名规则
-2. **文件组织**：标准的文件夹结构和文件命名
-3. **样式开发**：style.ts的使用方式和样式管理
-4. **功能开发**：组件开发流程和最佳实践
-5. **测试规范**：测试文件命名、结构和覆盖率要求
-6. **代码质量**：TypeScript、注释、性能优化规范
+### ✅ 文件组织检查
 
-遵循这些规范可以确保代码的一致性、可维护性和可扩展性，提高团队开发效率和代码质量。
+- [ ] 创建标准的文件夹结构
+- [ ] 组件文件命名为 `ComponentName.tsx`
+- [ ] 样式文件命名为 `style.ts`
+- [ ] 测试文件命名为 `ComponentName.test.tsx`
+- [ ] 类型文件命名为 `types.ts`
+
+### ✅ 样式开发检查
+
+- [ ] 使用 `@ant-design/theme-token` 或项目自定义样式
+- [ ] 样式函数使用 `GenerateStyle` 类型
+- [ ] 使用 `useEditorStyleRegister` 注册样式
+- [ ] 样式变量使用 token 系统
+- [ ] 支持主题切换和响应式设计
+
+### ✅ API设计检查
+
+- [ ] Props 接口定义完整
+- [ ] 事件回调使用 `on` 前缀
+- [ ] 配置对象使用 `Config` 后缀
+- [ ] 所有属性都有类型定义
+- [ ] 可选属性使用 `?` 标记
+
+### ✅ 功能开发检查
+
+- [ ] 组件有完整的 JSDoc 注释
+- [ ] 使用 `React.FC` 定义组件类型
+- [ ] 状态管理使用 `useState`
+- [ ] 事件处理使用 `useCallback`
+- [ ] 数据获取使用 `useQuery` 或类似方案
+
+### ✅ Hook开发检查
+
+- [ ] Hook 使用 `use` 前缀命名
+- [ ] 返回组件需要的所有状态和方法
+- [ ] 使用 `useCallback` 优化事件处理
+- [ ] 使用 `useMemo` 优化计算
+- [ ] 提供完整的类型定义
+
+### ✅ 测试规范检查
+
+- [ ] 创建测试文件 `ComponentName.test.tsx`
+- [ ] 测试文件放在 `__tests__` 目录
+- [ ] 包含渲染测试和交互测试
+- [ ] 使用 `@testing-library/react` 进行测试
+- [ ] 测试覆盖率达到 80% 以上
+
+### ✅ 代码质量检查
+
+- [ ] 所有代码都有 TypeScript 类型
+- [ ] 避免使用 `any` 类型
+- [ ] 使用 `React.memo` 优化渲染
+- [ ] 实现错误边界和异常处理
+- [ ] 代码通过 ESLint 检查
+
+### ✅ Demo开发检查
+
+- [ ] Demo 文件放在 `docs/demos` 目录
+- [ ] Demo 文件名以 `demo-` 开头
+- [ ] 包含完整的组件使用示例
+- [ ] 使用 `@ant-design/md-editor` 组件
+- [ ] 提供详细的 API 说明
+
+### ✅ 文档检查
+
+- [ ] 组件有 README.md 文档
+- [ ] API 文档完整且准确
+- [ ] 提供使用示例
+- [ ] 说明组件的功能和限制
+- [ ] 文档通过拼写检查
+
+### ✅ 最终检查
+
+- [ ] 所有检查项都已完成
+- [ ] 代码可以正常运行
+- [ ] 测试全部通过
+- [ ] 文档完整准确
+- [ ] 提交代码前进行最终审查
+
+---
+
+**注意**：完成所有检查项后，组件开发才算完成。如有特殊情况，请在团队中讨论后决定。
