@@ -70,6 +70,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
         alignItems: 'center',
         justifyContent: 'center',
         width: 'max-content',
+        maxWidth: 'min(860px,100%)',
       }}
     >
       {isHover || props.agent?.enabled ? (

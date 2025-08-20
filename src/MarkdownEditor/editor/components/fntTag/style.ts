@@ -22,6 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       cursor: 'pointer',
       width: 'max-content',
+      maxWidth: 'min(860px,100%)',
       padding: 4,
       borderRadius: 12,
       '&:hover': {

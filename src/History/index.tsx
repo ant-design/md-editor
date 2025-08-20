@@ -156,6 +156,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           alignItems: 'center',
           fontSize: '0.85em',
           width: 'max-content',
+          maxWidth: 'min(860px,100%)',
         }}
         data-testid="history-button"
       >

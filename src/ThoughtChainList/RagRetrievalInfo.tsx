@@ -136,6 +136,7 @@ export const RagRetrievalInfo = (
                       background: '#FFFFFF',
                       zIndex: 0,
                       width: 'max-content',
+                      maxWidth: 'min(860px,100%)',
                     }}
                     onClick={() => {
                       if (!chunk) return;

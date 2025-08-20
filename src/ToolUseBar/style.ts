@@ -44,6 +44,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
         minHeight: '28px',
         width: 'max-content',
+        maxWidth: 'min(860px,100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
