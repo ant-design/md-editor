@@ -9,23 +9,23 @@
       style="height: 600px; width: 100%;"
     >
       <div
-        class="workspace"
+        class="ant-workspace"
       >
         <div
-          class="workspace__header"
+          class="ant-workspace-header"
         >
           <div
-            class="workspace__title"
+            class="ant-workspace-title"
           >
             实时监控工作空间
           </div>
         </div>
         <div
-          class="workspace__tabs"
+          class="ant-workspace-tabs"
         >
           <div
             aria-label="segmented control"
-            class="ant-segmented ant-segmented-block"
+            class="ant-segmented ant-workspace-segmented ant-segmented-block"
             role="radiogroup"
             tabindex="0"
           >
@@ -45,7 +45,7 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <svg
                       fill="none"
@@ -84,7 +84,7 @@
                       </g>
                     </svg>
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       Shell 终端
                     </span>
@@ -104,7 +104,7 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <svg
                       fill="none"
@@ -143,7 +143,7 @@
                       </g>
                     </svg>
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       Markdown 编辑
                     </span>
@@ -163,7 +163,7 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <svg
                       fill="none"
@@ -202,7 +202,7 @@
                       </g>
                     </svg>
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       HTML 预览
                     </span>
@@ -213,19 +213,19 @@
           </div>
         </div>
         <div
-          class="workspace__content"
+          class="ant-workspace-content"
         >
           <div
-            class="workspace-realtime-container "
+            class="ant-workspace-realtime-container"
           >
             <header
-              class="workspace-realtime-header "
+              class="ant-workspace-realtime-header"
             >
               <div
-                class="workspace-realtime-header-left"
+                class="ant-workspace-realtime-header-left"
               >
                 <div
-                  class="workspace-realtime-header-icon workspace-realtime-header-icon--default"
+                  class="ant-workspace-realtime-header-icon ant-workspace-realtime-header-icon--default"
                 >
                   <svg
                     fill="none"
@@ -248,27 +248,27 @@
                   </svg>
                 </div>
                 <div
-                  class="workspace-realtime-header-content"
+                  class="ant-workspace-realtime-header-content"
                 >
                   <div
-                    class="workspace-realtime-header-title"
+                    class="ant-workspace-realtime-header-title"
                   >
                     命令执行
                   </div>
                   <div
-                    class="workspace-realtime-header-subtitle"
+                    class="ant-workspace-realtime-header-subtitle"
                   />
                 </div>
               </div>
               <div
-                class="workspace-realtime-header-right"
+                class="ant-workspace-realtime-header-right"
               />
             </header>
             <div
-              class="chat-realtime-content"
+              class="ant-workspace-realtime-content"
             >
               <div
-                class="markdown-editor ant-md-editor workspace-realtime--shell ant-md-editor-readonly"
+                class="markdown-editor ant-md-editor ant-workspace-realtime--shell ant-md-editor-readonly"
                 style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
               >
                 <div
@@ -278,7 +278,7 @@
                   <div
                     autocapitalize="false"
                     autocorrect="false"
-                    class="workspace-realtime--shell ant-md-editor-content-readonly ant-md-editor-content"
+                    class="ant-workspace-realtime--shell ant-md-editor-content-readonly ant-md-editor-content"
                     data-slate-editor="true"
                     data-slate-node="value"
                     spellcheck="false"

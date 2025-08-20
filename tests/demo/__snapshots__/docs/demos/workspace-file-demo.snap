@@ -15,23 +15,23 @@
         style="border: 1px solid rgb(217, 217, 217); border-radius: 8px; max-width: 600px;"
       >
         <div
-          class="workspace"
+          class="ant-workspace"
         >
           <div
-            class="workspace__header"
+            class="ant-workspace-header"
           >
             <div
-              class="workspace__title"
+              class="ant-workspace-title"
             >
               文件管理
             </div>
           </div>
           <div
-            class="workspace__tabs"
+            class="ant-workspace-tabs"
           >
             <div
               aria-label="segmented control"
-              class="ant-segmented ant-segmented-block"
+              class="ant-segmented ant-workspace-segmented ant-segmented-block"
               role="radiogroup"
               tabindex="0"
             >
@@ -51,7 +51,7 @@
                     class="ant-segmented-item-label"
                   >
                     <div
-                      class="workspace__tab-item"
+                      class="ant-workspace-tab-item"
                     >
                       <svg
                         fill="none"
@@ -73,12 +73,12 @@
                         </g>
                       </svg>
                       <span
-                        class="workspace__tab-title"
+                        class="ant-workspace-tab-title"
                       >
                         文件
                       </span>
                       <span
-                        class="workspace__tab-count"
+                        class="ant-workspace-tab-count"
                       >
                         123
                       </span>
@@ -98,7 +98,7 @@
                     class="ant-segmented-item-label"
                   >
                     <div
-                      class="workspace__tab-item"
+                      class="ant-workspace-tab-item"
                     >
                       <span
                         aria-label="coffee"
@@ -120,12 +120,12 @@
                         </svg>
                       </span>
                       <span
-                        class="workspace__tab-title"
+                        class="ant-workspace-tab-title"
                       >
                         自定义
                       </span>
                       <span
-                        class="workspace__tab-count"
+                        class="ant-workspace-tab-count"
                       >
                         123
                       </span>
@@ -136,26 +136,26 @@
             </div>
           </div>
           <div
-            class="workspace__content"
+            class="ant-workspace-content"
           >
             <div
-              class="workspace-file-container"
+              class="ant-workspace-file-container "
             >
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="展开Word分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="right"
-                      class="anticon anticon-right workspace-file-group__toggle-icon"
+                      class="anticon anticon-right ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -173,7 +173,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -206,22 +206,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       Word
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       3
                     </span>
                     <div
                       aria-label="下载Word文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -249,20 +249,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起Excel表格分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -280,7 +280,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -313,22 +313,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       Excel表格
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       2
                     </span>
                     <div
                       aria-label="下载Excel表格文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -355,16 +355,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：数据统计表.xlsx"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -397,10 +397,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -410,33 +410,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             excel
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             1.2MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 10:20:00
                           </span>
@@ -444,11 +444,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：数据统计表.xlsx"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -476,12 +476,12 @@
                   </div>
                   <div
                     aria-label="文件：财务报表.xlsx"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -514,10 +514,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -527,33 +527,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             excel
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             2.8MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 16:30:00
                           </span>
@@ -561,11 +561,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：财务报表.xlsx"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -594,20 +594,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起PDF文档分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -625,7 +625,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -674,22 +674,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       PDF文档
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       2
                     </span>
                     <div
                       aria-label="下载PDF文档文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -716,16 +716,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：产品说明书.pdf"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -774,10 +774,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -787,33 +787,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             pdf
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             3.2MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 11:20:00
                           </span>
@@ -821,11 +821,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：产品说明书.pdf"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -853,12 +853,12 @@
                   </div>
                   <div
                     aria-label="文件：研究报告.pdf"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -907,10 +907,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -920,33 +920,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             pdf
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             4.5MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 13:45:00
                           </span>
@@ -954,11 +954,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：研究报告.pdf"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -987,20 +987,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起音频文件分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -1018,7 +1018,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -1052,22 +1052,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       音频文件
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       3
                     </span>
                     <div
                       aria-label="下载音频文件文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -1094,16 +1094,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：产品介绍.mp3"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -1137,10 +1137,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -1150,33 +1150,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             audio
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             5.2MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 10:30:00
                           </span>
@@ -1184,11 +1184,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：产品介绍.mp3"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -1216,12 +1216,12 @@
                   </div>
                   <div
                     aria-label="文件：用户反馈.m4a"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -1255,10 +1255,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -1268,33 +1268,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             audio
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             3.8MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 15:45:00
                           </span>
@@ -1302,11 +1302,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：用户反馈.m4a"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -1334,12 +1334,12 @@
                   </div>
                   <div
                     aria-label="文件：会议记录.wav"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -1373,10 +1373,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -1386,33 +1386,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             audio
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             12.5MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 09:15:00
                           </span>
@@ -1420,11 +1420,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：会议记录.wav"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -1453,20 +1453,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起CSV文件分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -1484,7 +1484,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -1518,22 +1518,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       CSV文件
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       3
                     </span>
                     <div
                       aria-label="下载CSV文件文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -1560,16 +1560,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：用户数据.csv"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -1603,10 +1603,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -1616,33 +1616,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             csv
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             856KB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 08:45:00
                           </span>
@@ -1650,11 +1650,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：用户数据.csv"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -1682,12 +1682,12 @@
                   </div>
                   <div
                     aria-label="文件：销售记录.csv"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -1721,10 +1721,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -1734,33 +1734,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             csv
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             1.1MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 11:25:00
                           </span>
@@ -1768,11 +1768,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：销售记录.csv"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -1800,12 +1800,12 @@
                   </div>
                   <div
                     aria-label="文件：产品目录.csv"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -1839,10 +1839,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -1852,33 +1852,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             csv
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             432KB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 15:10:00
                           </span>
@@ -1886,11 +1886,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：产品目录.csv"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -1919,20 +1919,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起Markdown文档23分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -1950,7 +1950,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -1981,22 +1981,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       Markdown文档23
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       2
                     </span>
                     <div
                       aria-label="下载Markdown文档23文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -2023,16 +2023,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：README.md"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -2063,10 +2063,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -2076,33 +2076,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             markdown
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             15KB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 13:15:00
                           </span>
@@ -2110,11 +2110,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：README.md"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -2142,12 +2142,12 @@
                   </div>
                   <div
                     aria-label="文件：API文档-文本.md"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -2178,10 +2178,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -2191,33 +2191,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             markdown
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             28KB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 13:20:00
                           </span>
@@ -2225,11 +2225,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：API文档-文本.md"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -2258,20 +2258,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起图片分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -2289,7 +2289,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -2323,22 +2323,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       图片
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       2
                     </span>
                     <div
                       aria-label="下载图片文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -2365,16 +2365,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：产品展示.jpg"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -2408,10 +2408,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -2421,33 +2421,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             image
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             1.5MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 09:30:00
                           </span>
@@ -2455,11 +2455,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：产品展示.jpg"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -2485,7 +2485,7 @@
                       </div>
                       <div
                         aria-label="下载文件：产品展示.jpg"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -2513,12 +2513,12 @@
                   </div>
                   <div
                     aria-label="文件：用户界面Base64.png"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -2552,10 +2552,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -2565,33 +2565,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             image
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             2.1MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 14:20:00
                           </span>
@@ -2599,11 +2599,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：用户界面Base64.png"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -2629,7 +2629,7 @@
                       </div>
                       <div
                         aria-label="下载文件：用户界面Base64.png"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -2658,20 +2658,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起视频分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -2689,7 +2689,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -2722,22 +2722,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       视频
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       2
                     </span>
                     <div
                       aria-label="下载视频文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -2764,16 +2764,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：产品演示.mp4"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -2806,10 +2806,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -2819,33 +2819,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             video
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             15.5MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             10:30
                           </span>
@@ -2853,11 +2853,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：产品演示.mp4"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -2885,12 +2885,12 @@
                   </div>
                   <div
                     aria-label="文件：教程.webm"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -2923,10 +2923,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -2936,33 +2936,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             video
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             12.1MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             15:20
                           </span>
@@ -2970,11 +2970,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：教程.webm"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3003,20 +3003,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起压缩包文件分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -3034,7 +3034,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -3083,22 +3083,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       压缩包文件
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       3
                     </span>
                     <div
                       aria-label="下载压缩包文件文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -3125,16 +3125,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：项目源码.zip"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -3183,10 +3183,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -3196,33 +3196,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             archive
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             25.5MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             16:30
                           </span>
@@ -3230,11 +3230,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：项目源码.zip"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3262,12 +3262,12 @@
                   </div>
                   <div
                     aria-label="文件：资源文件.rar"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -3316,10 +3316,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -3329,33 +3329,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             archive
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             18.2MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             17:45
                           </span>
@@ -3363,11 +3363,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：资源文件.rar"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3395,12 +3395,12 @@
                   </div>
                   <div
                     aria-label="文件：文档备份.7z"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -3449,10 +3449,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -3462,33 +3462,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             archive
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             8.7MB
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             18:20
                           </span>
@@ -3496,11 +3496,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="下载文件：文档备份.7z"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3529,20 +3529,20 @@
                 </div>
               </div>
               <div
-                class="workspace-file-container--group"
+                class="ant-workspace-file-container--group "
               >
                 <div
                   aria-label="收起代码示例分组"
-                  class="workspace-file-group__header"
+                  class="ant-workspace-file-group-header "
                   role="button"
                   tabindex="0"
                 >
                   <div
-                    class="workspace-file-group__header-left"
+                    class="ant-workspace-file-group-header-left "
                   >
                     <span
                       aria-label="down"
-                      class="anticon anticon-down workspace-file-group__toggle-icon"
+                      class="anticon anticon-down ant-workspace-file-group-toggle-icon "
                       role="img"
                     >
                       <svg
@@ -3560,7 +3560,7 @@
                       </svg>
                     </span>
                     <div
-                      class="workspace-file-group__type-icon"
+                      class="ant-workspace-file-group-type-icon "
                     >
                       <svg
                         fill="none"
@@ -3594,22 +3594,22 @@
                       </svg>
                     </div>
                     <span
-                      class="workspace-file-group__type-name"
+                      class="ant-workspace-file-group-type-name "
                     >
                       代码示例
                     </span>
                   </div>
                   <div
-                    class="workspace-file-group__header-right"
+                    class="ant-workspace-file-group-header-right "
                   >
                     <span
-                      class="workspace-file-group__count"
+                      class="ant-workspace-file-group-count "
                     >
                       5
                     </span>
                     <div
                       aria-label="下载代码示例文件"
-                      class="workspace-file-group__download-icon"
+                      class="ant-workspace-file-group-download-icon "
                       role="button"
                       tabindex="0"
                     >
@@ -3636,16 +3636,16 @@
                   </div>
                 </div>
                 <div
-                  class="workspace-file-group__content"
+                  class="ant-workspace-file-group-content "
                 >
                   <div
                     aria-label="文件：hello.js"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -3679,10 +3679,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -3692,33 +3692,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             javascript
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             156B
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 09:00:00
                           </span>
@@ -3726,11 +3726,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：hello.js"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3756,7 +3756,7 @@
                       </div>
                       <div
                         aria-label="下载文件：hello.js"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3784,12 +3784,12 @@
                   </div>
                   <div
                     aria-label="文件：App.tsx"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -3823,10 +3823,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -3836,33 +3836,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             react
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             521B
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 09:05:00
                           </span>
@@ -3870,11 +3870,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：App.tsx"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3900,7 +3900,7 @@
                       </div>
                       <div
                         aria-label="下载文件：App.tsx"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -3928,12 +3928,12 @@
                   </div>
                   <div
                     aria-label="文件：server.py"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -3967,10 +3967,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -3980,33 +3980,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             python
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             754B
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 09:10:00
                           </span>
@@ -4014,11 +4014,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：server.py"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -4044,7 +4044,7 @@
                       </div>
                       <div
                         aria-label="下载文件：server.py"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -4072,12 +4072,12 @@
                   </div>
                   <div
                     aria-label="文件：package.json"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -4111,10 +4111,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -4124,33 +4124,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             config
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             428B
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 09:12:00
                           </span>
@@ -4158,11 +4158,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：package.json"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -4188,7 +4188,7 @@
                       </div>
                       <div
                         aria-label="下载文件：package.json"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -4216,12 +4216,12 @@
                   </div>
                   <div
                     aria-label="文件：Dockerfile"
-                    class="workspace-file-item"
+                    class="ant-workspace-file-item "
                     role="button"
                     tabindex="0"
                   >
                     <div
-                      class="workspace-file-item__icon"
+                      class="ant-workspace-file-item-icon "
                     >
                       <svg
                         fill="none"
@@ -4255,10 +4255,10 @@
                       </svg>
                     </div>
                     <div
-                      class="workspace-file-item__info"
+                      class="ant-workspace-file-item-info "
                     >
                       <div
-                        class="workspace-file-item__name"
+                        class="ant-workspace-file-item-name "
                       >
                         <span
                           aria-describedby="test-id"
@@ -4268,33 +4268,33 @@
                         </span>
                       </div>
                       <div
-                        class="workspace-file-item__details"
+                        class="ant-workspace-file-item-details "
                       >
                         <span
                           class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
                         >
                           <span
-                            class="workspace-file-item__type"
+                            class="ant-workspace-file-item-type "
                           >
                             config
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__size"
+                            class="ant-workspace-file-item-size "
                           >
                             445B
                           </span>
                           <span
-                            class="workspace-file-item__separator"
+                            class="ant-workspace-file-item-separator "
                           >
                             |
                           </span>
                           <span
-                            class="workspace-file-item__time"
+                            class="ant-workspace-file-item-time "
                           >
                             08-01 09:15:00
                           </span>
@@ -4302,11 +4302,11 @@
                       </div>
                     </div>
                     <div
-                      class="workspace-file-item__actions"
+                      class="ant-workspace-file-item-actions "
                     >
                       <div
                         aria-label="预览文件：Dockerfile"
-                        class="workspace-file-item__preview-icon"
+                        class="ant-workspace-file-item-preview-icon "
                         role="button"
                         tabindex="0"
                       >
@@ -4332,7 +4332,7 @@
                       </div>
                       <div
                         aria-label="下载文件：Dockerfile"
-                        class="workspace-file-item__download-icon"
+                        class="ant-workspace-file-item-download-icon "
                         role="button"
                         tabindex="0"
                       >

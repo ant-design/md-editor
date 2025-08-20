@@ -9,23 +9,23 @@
       style="height: 600px; width: 100%;"
     >
       <div
-        class="workspace"
+        class="ant-workspace"
       >
         <div
-          class="workspace__header"
+          class="ant-workspace-header"
         >
           <div
-            class="workspace__title"
+            class="ant-workspace-title"
           >
             自定义内容工作空间
           </div>
         </div>
         <div
-          class="workspace__tabs"
+          class="ant-workspace-tabs"
         >
           <div
             aria-label="segmented control"
-            class="ant-segmented ant-segmented-block"
+            class="ant-segmented ant-workspace-segmented ant-segmented-block"
             role="radiogroup"
             tabindex="0"
           >
@@ -45,10 +45,10 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       图表展示
                     </span>
@@ -68,10 +68,10 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       数据统计
                     </span>
@@ -91,10 +91,10 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       数据表格
                     </span>
@@ -114,10 +114,10 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       控制面板
                     </span>
@@ -128,7 +128,7 @@
           </div>
         </div>
         <div
-          class="workspace__content"
+          class="ant-workspace-content"
         >
           <div
             class="ant-card ant-card-bordered ant-card-small"

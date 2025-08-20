@@ -26,6 +26,6 @@ describe('Workspace BrowserList', () => {
     );
 
     // 断言容器存在即可（具体样式不易直接断言）
-    expect(document.querySelector('.chat-browser-list')).toBeInTheDocument();
+    expect(document.querySelector('[class*="workspace-browser"]')).toBeInTheDocument();
   });
 }); 

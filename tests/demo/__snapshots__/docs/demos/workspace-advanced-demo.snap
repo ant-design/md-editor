@@ -9,19 +9,19 @@
       style="height: 600px; width: 100%;"
     >
       <div
-        class="workspace"
+        class="ant-workspace"
       >
         <div
-          class="workspace__header"
+          class="ant-workspace-header"
         >
           <div
-            class="workspace__title"
+            class="ant-workspace-title"
           >
             高级工作空间
           </div>
           <span
             aria-label="关闭工作空间"
-            class="anticon anticon-close workspace__close"
+            class="anticon anticon-close ant-workspace-close"
             role="img"
             tabindex="-1"
           >
@@ -42,11 +42,11 @@
           </span>
         </div>
         <div
-          class="workspace__tabs"
+          class="ant-workspace-tabs"
         >
           <div
             aria-label="segmented control"
-            class="ant-segmented ant-segmented-block"
+            class="ant-segmented ant-workspace-segmented ant-segmented-block"
             role="radiogroup"
             tabindex="0"
           >
@@ -66,7 +66,7 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <svg
                       fill="none"
@@ -105,12 +105,12 @@
                       </g>
                     </svg>
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       实时数据
                     </span>
                     <span
-                      class="workspace__tab-count"
+                      class="ant-workspace-tab-count"
                     >
                       3
                     </span>
@@ -130,7 +130,7 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <svg
                       fill="none"
@@ -169,7 +169,7 @@
                       </g>
                     </svg>
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       Markdown 编辑
                     </span>
@@ -189,7 +189,7 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <svg
                       fill="none"
@@ -211,12 +211,12 @@
                       </g>
                     </svg>
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       文件管理
                     </span>
                     <span
-                      class="workspace__tab-count"
+                      class="ant-workspace-tab-count"
                     >
                       2
                     </span>
@@ -236,10 +236,10 @@
                   class="ant-segmented-item-label"
                 >
                   <div
-                    class="workspace__tab-item"
+                    class="ant-workspace-tab-item"
                   >
                     <span
-                      class="workspace__tab-title"
+                      class="ant-workspace-tab-title"
                     >
                       自定义面板
                     </span>
@@ -250,7 +250,7 @@
           </div>
         </div>
         <div
-          class="workspace__content"
+          class="ant-workspace-content"
         />
       </div>
     </div>

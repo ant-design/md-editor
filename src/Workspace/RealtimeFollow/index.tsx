@@ -1,5 +1,6 @@
-import { Segmented, Spin } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import { ConfigProvider, Segmented, Spin } from 'antd';
+import classNames from 'classnames';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -10,7 +11,7 @@ import { HtmlPreview } from '../HtmlPreview';
 import HtmlIcon from '../icons/HtmlIcon';
 import ShellIcon from '../icons/ShellIcon';
 import ThinkIcon from '../icons/ThinkIcon';
-import './index.less';
+import { useRealtimeFollowStyle } from './style';
 
 export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
 
@@ -77,7 +78,9 @@ const getTypeConfig = (type: RealtimeFollowMode) => {
 const RealtimeHeader: React.FC<{
   data: RealtimeFollowData;
   hasBorder?: boolean;
-}> = ({ data, hasBorder }) => {
+  prefixCls?: string;
+  hashId?: string;
+}> = ({ data, hasBorder, prefixCls = 'workspace-realtime', hashId }) => {
   const config = getTypeConfig(data.type);
 
   const IconComponent = data.icon || config.icon;
@@ -86,22 +89,39 @@ const RealtimeHeader: React.FC<{
 
   return (
     <header
-      className={`workspace-realtime-header ${hasBorder ? 'workspace-realtime-header-with-border' : ''}`}
+      className={classNames(
+        `${prefixCls}-header`,
+        {
+          [`${prefixCls}-header-with-border`]: hasBorder,
+        },
+        hashId,
+      )}
     >
-      <div className="workspace-realtime-header-left">
+      <div className={classNames(`${prefixCls}-header-left`, hashId)}>
         <div
-          className={`workspace-realtime-header-icon ${data?.type === 'html' ? 'workspace-realtime-header-icon--html' : 'workspace-realtime-header-icon--default'}`}
+          className={classNames(
+            `${prefixCls}-header-icon`,
+            {
+              [`${prefixCls}-header-icon--html`]: data?.type === 'html',
+              [`${prefixCls}-header-icon--default`]: data?.type !== 'html',
+            },
+            hashId,
+          )}
         >
           <IconComponent />
         </div>
-        <div className="workspace-realtime-header-content">
-          <div className="workspace-realtime-header-title">{headerTitle}</div>
-          <div className="workspace-realtime-header-subtitle">
+        <div className={classNames(`${prefixCls}-header-content`, hashId)}>
+          <div className={classNames(`${prefixCls}-header-title`, hashId)}>
+            {headerTitle}
+          </div>
+          <div className={classNames(`${prefixCls}-header-subtitle`, hashId)}>
             {headerSubTitle}
           </div>
         </div>
       </div>
-      <div className="workspace-realtime-header-right">{data.rightContent}</div>
+      <div className={classNames(`${prefixCls}-header-right`, hashId)}>
+        {data.rightContent}
+      </div>
     </header>
   );
 };
@@ -109,6 +129,8 @@ const RealtimeHeader: React.FC<{
 // 获取不同type的MarkdownEditor配置
 const getEditorConfig = (
   type: RealtimeFollowMode,
+  prefixCls = 'workspace-realtime',
+  hashId?: string,
 ): Partial<MarkdownEditorProps> => {
   const baseConfig = {
     readonly: true,
@@ -122,7 +144,7 @@ const getEditorConfig = (
       return {
         ...baseConfig,
         contentStyle: { padding: 0 },
-        className: 'workspace-realtime--shell',
+        className: classNames(`${prefixCls}--shell`, hashId),
         codeProps: {
           showGutter: true,
           showLineNumbers: true,
@@ -133,7 +155,7 @@ const getEditorConfig = (
       return {
         ...baseConfig,
         contentStyle: { padding: 16 },
-        className: 'workspace-realtime--markdown',
+        className: classNames(`${prefixCls}--markdown`, hashId),
         height: '100%',
       };
     default:
@@ -146,7 +168,15 @@ const Overlay: React.FC<{
   status?: 'loading' | 'done' | 'error';
   loadingRender?: React.ReactNode | (() => React.ReactNode);
   errorRender?: React.ReactNode | (() => React.ReactNode);
-}> = ({ status, loadingRender, errorRender }) => {
+  prefixCls?: string;
+  hashId?: string;
+}> = ({
+  status,
+  loadingRender,
+  errorRender,
+  prefixCls = 'workspace-realtime',
+  hashId,
+}) => {
   if (status !== 'loading' && status !== 'error') return null;
   const loadingNode =
     typeof loadingRender === 'function' ? loadingRender() : loadingRender;
@@ -154,7 +184,14 @@ const Overlay: React.FC<{
     typeof errorRender === 'function' ? errorRender() : errorRender;
   return (
     <div
-      className={`workspace-realtime-overlay ${status === 'loading' ? 'workspace-realtime-overlay--loading' : 'workspace-realtime-overlay--error'}`}
+      className={classNames(
+        `${prefixCls}-overlay`,
+        {
+          [`${prefixCls}-overlay--loading`]: status === 'loading',
+          [`${prefixCls}-overlay--error`]: status === 'error',
+        },
+        hashId,
+      )}
     >
       {status === 'loading'
         ? loadingNode || <Spin />
@@ -200,7 +237,14 @@ const Overlay: React.FC<{
 export const RealtimeFollow: React.FC<{
   data: RealtimeFollowData;
   htmlViewMode?: 'preview' | 'code';
-}> = ({ data, htmlViewMode = 'preview' }) => {
+  prefixCls?: string;
+  hashId?: string;
+}> = ({
+  data,
+  htmlViewMode = 'preview',
+  prefixCls = 'workspace-realtime',
+  hashId,
+}) => {
   const mdInstance = useRef<MarkdownEditorInstance>();
   const isTestEnv = process.env.NODE_ENV === 'test';
   // 更新编辑器内容的effect（测试环境下跳过以减少解析与快照负载）
@@ -231,7 +275,7 @@ export const RealtimeFollow: React.FC<{
   if (data.type === 'html') {
     const html = typeof data.content === 'string' ? data.content : '';
     return (
-      <div className="chat-realtime-content">
+      <div className={classNames(`${prefixCls}-content`, hashId)}>
         <HtmlPreview
           html={html}
           status={isTestEnv ? 'done' : data.status}
@@ -252,7 +296,7 @@ export const RealtimeFollow: React.FC<{
     return null;
   }
 
-  const defaultProps = getEditorConfig(data.type);
+  const defaultProps = getEditorConfig(data.type, prefixCls, hashId);
   const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
@@ -262,12 +306,14 @@ export const RealtimeFollow: React.FC<{
   };
 
   return (
-    <div className="chat-realtime-content">
+    <div className={classNames(`${prefixCls}-content`, hashId)}>
       {!isTestEnv && (
         <Overlay
           status={data.status}
           loadingRender={data.loadingRender}
           errorRender={data.errorRender}
+          prefixCls={prefixCls}
+          hashId={hashId}
         />
       )}
       <MarkdownEditor
@@ -363,16 +409,29 @@ export const RealtimeFollowList: React.FC<{
 
   const headerData: RealtimeFollowData = { ...data, rightContent };
 
-  return (
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('workspace-realtime');
+
+  const { wrapSSR, hashId } = useRealtimeFollowStyle(prefixCls);
+
+  return wrapSSR(
     <div
-      className={`workspace-realtime-container ${data.className || ''}`}
+      className={classNames(`${prefixCls}-container`, data.className, hashId)}
       style={data.style}
     >
       <RealtimeHeader
         data={headerData}
         hasBorder={['html', 'markdown'].includes(data.type)}
+        prefixCls={prefixCls}
+        hashId={hashId}
       />
-      <RealtimeFollow data={data} htmlViewMode={htmlViewMode} />
-    </div>
+      <RealtimeFollow
+        data={data}
+        htmlViewMode={htmlViewMode}
+        prefixCls={prefixCls}
+        hashId={hashId}
+      />
+    </div>,
   );
 };

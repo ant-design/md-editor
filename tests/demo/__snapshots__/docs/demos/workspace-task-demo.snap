@@ -9,22 +9,22 @@
       style="height: 600px; width: 100%;"
     >
       <div
-        class="workspace"
+        class="ant-workspace"
       >
         <div
-          class="workspace__header"
+          class="ant-workspace-header"
         >
           <div
-            class="workspace__title"
+            class="ant-workspace-title"
           >
             任务管理工作空间
           </div>
         </div>
         <div
-          class="workspace__content"
+          class="ant-workspace-content"
         >
           <div
-            class="chat-task-list"
+            class="ant-workspace-task "
           >
             <div
               class="ant-thought-chain-list"

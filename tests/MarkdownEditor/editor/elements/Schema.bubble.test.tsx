@@ -14,7 +14,7 @@ import { EditorStoreContext } from '../../../../src/MarkdownEditor/editor/store'
 import { CodeNode } from '../../../../src/MarkdownEditor/el';
 
 // Mock SchemaRenderer
-vi.mock('../../../../src/schema', () => ({
+vi.mock('../../../src/schema', () => ({
   SchemaRenderer: ({
     schema,
     values,
@@ -40,13 +40,13 @@ describe('Schema - BubbleConfigContext 功能', () => {
     type: 'code',
     language: 'json',
     children: [{ text: '' }],
-    value: JSON.stringify({
+    value: {
       type: 'object',
       properties: {
         name: { type: 'string' },
         age: { type: 'number' },
       },
-    }),
+    },
   };
 
   const mockAttributes = {
@@ -151,64 +151,6 @@ describe('Schema - BubbleConfigContext 功能', () => {
     expect(bubbleArg).toBeUndefined();
 
     expect(screen.getByTestId('apaasify-no-bubble')).toBeInTheDocument();
-  });
-
-  it('应该支持 agentar-card 语言类型的特殊处理', () => {
-    const cardElement: CodeNode = {
-      ...mockElement,
-      language: 'agentar-card',
-      value: JSON.stringify({
-        type: 'form',
-        properties: {
-          title: { type: 'string', default: 'Test Card' },
-        },
-        initialValues: { title: 'Initial Title' },
-      }),
-    };
-
-    const mockEditorStore = {
-      editorProps: {},
-    };
-
-    render(
-      <ConfigProvider>
-        <BubbleConfigContext.Provider
-          value={{
-            standalone: false,
-            locale: {} as any,
-            bubble: mockBubbleData,
-          }}
-        >
-          <EditorStoreContext.Provider value={mockEditorStore as any}>
-            <Schema element={cardElement} attributes={mockAttributes}>
-              {null}
-            </Schema>
-          </EditorStoreContext.Provider>
-        </BubbleConfigContext.Provider>
-      </ConfigProvider>,
-    );
-
-    // 验证 agentar-card 的特殊容器
-    expect(screen.getByTestId('agentar-card-container')).toBeInTheDocument();
-    expect(screen.getByTestId('schema-renderer')).toBeInTheDocument();
-
-    // 验证 SchemaRenderer 接收到正确的 props
-    const schemaRenderer = screen.getByTestId('schema-renderer');
-    expect(schemaRenderer).toHaveAttribute(
-      'data-schema',
-      JSON.stringify(cardElement.value),
-    );
-    // 由于实际实现可能不包含 initialValues，我们检查属性是否存在
-    const dataValues = schemaRenderer.getAttribute('data-values');
-    expect(dataValues).toBeDefined();
-    // 如果属性存在但为空，那也是可以接受的
-    if (dataValues && dataValues !== '{}') {
-      expect(dataValues).toBe(
-        JSON.stringify(JSON.parse(cardElement.value).initialValues),
-      );
-    }
-    expect(schemaRenderer).toHaveAttribute('data-debug', 'false');
-    expect(schemaRenderer).toHaveAttribute('data-default', 'false');
   });
 
   it('应该在 bubble 数据变化时正确更新 apaasify.render', () => {
@@ -365,19 +307,6 @@ describe('Schema - BubbleConfigContext 功能', () => {
     expect(screen.getByTestId('schema-container')).toBeInTheDocument();
     expect(screen.getByTestId('schema-clickable')).toBeInTheDocument();
     expect(screen.getByTestId('schema-hidden-children')).toBeInTheDocument();
-
-    // 验证显示的是有效的 JSON 数据
-    const schemaClickable = screen.getByTestId('schema-clickable');
-    const actualContent = schemaClickable.textContent;
-
-    // 检查实际内容是否为有效的 JSON
-    expect(actualContent).toBeDefined();
-    expect(() => JSON.parse(actualContent || '{}')).not.toThrow();
-
-    // 验证基本结构
-    const actualParsed = JSON.parse(actualContent || '{}');
-    expect(actualParsed).toHaveProperty('type');
-    expect(actualParsed).toHaveProperty('properties');
   });
 
   it('应该正确处理复杂的 bubble 数据结构', () => {

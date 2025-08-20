@@ -16,18 +16,18 @@ describe('Workspace HtmlPreview', () => {
     expect(screen.getByTitle('html-preview')).toBeInTheDocument();
     // loading 覆盖层
     expect(
-      document.querySelector('.workspace-html-preview__overlay--loading'),
+      document.querySelector('[class*="workspace-html-preview"][class*="overlay--loading"]'),
     ).toBeInTheDocument();
 
     // error 覆盖层
     rerender(<HtmlPreview html={sampleHtml} status="error" />);
     expect(
-      document.querySelector('.workspace-html-preview__overlay--error'),
+      document.querySelector('[class*="workspace-html-preview"][class*="overlay--error"]'),
     ).toBeInTheDocument();
 
     // done 不显示覆盖层
     rerender(<HtmlPreview html={sampleHtml} status="done" />);
-    expect(document.querySelector('.workspace-html-preview__overlay')).toBeNull();
+    expect(document.querySelector('[class*="workspace-html-preview"][class*="overlay"]')).toBeNull();
   });
 
   it('非受控模式下通过 Segmented 切换到代码视图，iframe 消失', () => {

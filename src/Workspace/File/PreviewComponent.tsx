@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Alert, Image, Segmented, Spin } from 'antd';
+import { Alert, ConfigProvider, Image, Segmented, Spin } from 'antd';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import {
@@ -39,8 +39,6 @@ interface PreviewComponentProps {
   >;
 }
 
-const PREFIX = 'workspace-preview';
-
 // 提取通用的占位符组件
 const PlaceholderContent: FC<{
   children: React.ReactNode;
@@ -48,9 +46,19 @@ const PlaceholderContent: FC<{
   file?: FileNode;
   onDownload?: () => void;
   locale?: any;
-}> = ({ children, showFileInfo, file, onDownload, locale }) => (
-  <div className={`${PREFIX}__placeholder`}>
-    <div className={`${PREFIX}__placeholder-content`}>
+  prefixCls?: string;
+  hashId?: string;
+}> = ({
+  children,
+  showFileInfo,
+  file,
+  onDownload,
+  locale,
+  prefixCls = 'workspace-preview',
+  hashId,
+}) => (
+  <div className={`${prefixCls}-placeholder ${hashId}`}>
+    <div className={`${prefixCls}-placeholder-content ${hashId}`}>
       {children}
       {showFileInfo && file && (
         <>
@@ -67,7 +75,7 @@ const PlaceholderContent: FC<{
           {onDownload && (
             <button
               type="button"
-              className={`${PREFIX}__download-button`}
+              className={`${prefixCls}-download-button ${hashId}`}
               onClick={onDownload}
               aria-label={locale?.['workspace.file.downloadFile'] || '下载文件'}
             >
@@ -127,6 +135,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   markdownEditorProps,
 }) => {
   const { locale } = useContext(I18nContext);
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('workspace-preview');
+  const hashId = ''; // 暂时使用空字符串，后续可以通过其他方式获取
   const editorRef = useRef<MarkdownEditorInstance>();
   const [processResult, setProcessResult] = useState<FileProcessResult | null>(
     null,
@@ -256,12 +268,16 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
   const renderPreviewContent = () => {
     if (customContent) {
-      return <div className={`${PREFIX}__custom-content`}>{customContent}</div>;
+      return (
+        <div className={`${prefixCls}-custom-content ${hashId}`}>
+          {customContent}
+        </div>
+      );
     }
 
     if (!processResult) {
       return (
-        <PlaceholderContent>
+        <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
           <Spin size="large" tip="正在处理文件..." />
         </PlaceholderContent>
       );
@@ -269,7 +285,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
     if (contentState.status === 'error') {
       return (
-        <PlaceholderContent>
+        <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
           <Alert
             message="文件处理失败"
             description={contentState.error}
@@ -290,6 +306,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           file={file}
           showFileInfo
           onDownload={handleDownload}
+          prefixCls={prefixCls}
+          hashId={hashId}
         >
           <p>此文件类型不支持预览</p>
           <p>文件类型：{typeInference.fileType}</p>
@@ -311,7 +329,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           };
           const htmlStatus = toHtmlStatus(contentState);
           return (
-            <div className={`${PREFIX}__text`}>
+            <div className={`${prefixCls}-text ${hashId}`}>
               <HtmlPreview
                 html={contentState.rawContent || ''}
                 status={htmlStatus as any}
@@ -326,14 +344,14 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
         if (contentState.status === 'loading') {
           return (
-            <PlaceholderContent>
+            <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
               <Spin size="large" tip="正在加载文件内容..." />
             </PlaceholderContent>
           );
         }
 
         return (
-          <div className={`${PREFIX}__text`}>
+          <div className={`${prefixCls}-text ${hashId}`}>
             <MarkdownEditor
               editorRef={editorRef}
               {...{
@@ -350,7 +368,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'image':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent locale={locale}>
+            <PlaceholderContent
+              locale={locale}
+              prefixCls={prefixCls}
+              hashId={hashId}
+            >
               <p>
                 {locale?.['workspace.file.cannotGetImagePreview'] ||
                   '无法获取图片预览'}
@@ -360,7 +382,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         }
 
         return (
-          <div className={`${PREFIX}__image`}>
+          <div className={`${prefixCls}-image ${hashId}`}>
             <Image src={dataSource.previewUrl} alt={file.name} />
           </div>
         );
@@ -368,7 +390,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'video':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent locale={locale}>
+            <PlaceholderContent
+              locale={locale}
+              prefixCls={prefixCls}
+              hashId={hashId}
+            >
               <p>
                 {locale?.['workspace.file.cannotGetVideoPreview'] ||
                   '无法获取视频预览'}
@@ -379,7 +405,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
         return (
           <video
-            className={`${PREFIX}__video`}
+            className={`${prefixCls}-video ${hashId}`}
             src={dataSource.previewUrl}
             controls
             controlsList="nodownload"
@@ -393,7 +419,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'audio':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent locale={locale}>
+            <PlaceholderContent
+              locale={locale}
+              prefixCls={prefixCls}
+              hashId={hashId}
+            >
               <p>
                 {locale?.['workspace.file.cannotGetAudioPreview'] ||
                   '无法获取音频预览'}
@@ -404,7 +434,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
         return (
           <audio
-            className={`${PREFIX}__audio`}
+            className={`${prefixCls}-audio ${hashId}`}
             src={dataSource.previewUrl}
             controls
             controlsList="nodownload"
@@ -417,7 +447,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'pdf':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent locale={locale}>
+            <PlaceholderContent
+              locale={locale}
+              prefixCls={prefixCls}
+              hashId={hashId}
+            >
               <p>
                 {locale?.['workspace.file.cannotGetPdfPreview'] ||
                   '无法获取PDF预览'}
@@ -428,7 +462,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
         return (
           <embed
-            className={`${PREFIX}__pdf`}
+            className={`${prefixCls}-pdf ${hashId}`}
             src={dataSource.previewUrl}
             type="application/pdf"
             width="100%"
@@ -443,6 +477,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             showFileInfo
             onDownload={handleDownload}
             locale={locale}
+            prefixCls={prefixCls}
+            hashId={hashId}
           >
             <p>
               {locale?.['workspace.file.unknownFileType'] || '未知的文件类型'}
@@ -454,42 +490,44 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   };
 
   return (
-    <div className={PREFIX}>
+    <div className={`${prefixCls} ${hashId}`}>
       {customHeader ? (
-        <div className={`${PREFIX}__header`}>{customHeader}</div>
+        <div className={`${prefixCls}-header ${hashId}`}>{customHeader}</div>
       ) : (
-        <div className={`${PREFIX}__header`}>
+        <div className={`${prefixCls}-header ${hashId}`}>
           <button
             type="button"
-            className={`${PREFIX}__back-button`}
+            className={`${prefixCls}-back-button ${hashId}`}
             onClick={onBack}
             aria-label={
               locale?.['workspace.file.backToFileList'] || '返回文件列表'
             }
           >
-            <ArrowLeftOutlined className={`${PREFIX}__back-icon`} />
+            <ArrowLeftOutlined className={`${prefixCls}-back-icon ${hashId}`} />
           </button>
 
-          <div className={`${PREFIX}__file-info`}>
-            <div className={`${PREFIX}__file-title`}>
-              <span className={`${PREFIX}__file-icon`}>
+          <div className={`${prefixCls}-file-info ${hashId}`}>
+            <div className={`${prefixCls}-file-title ${hashId}`}>
+              <span className={`${prefixCls}-file-icon ${hashId}`}>
                 {getFileTypeIcon(
                   fileTypeProcessor.inferFileType(file).fileType,
                   file.icon,
                   file.name,
                 )}
               </span>
-              <span className={`${PREFIX}__file-name`}>{file.name}</span>
+              <span className={`${prefixCls}-file-name ${hashId}`}>
+                {file.name}
+              </span>
             </div>
             {file.lastModified && (
-              <div className={`${PREFIX}__generate-time`}>
+              <div className={`${prefixCls}-generate-time ${hashId}`}>
                 {locale?.['workspace.file.generationTime'] || '生成时间：'}
                 {formatLastModified(file.lastModified)}
               </div>
             )}
           </div>
 
-          <div className={`${PREFIX}__actions`}>
+          <div className={`${prefixCls}-actions ${hashId}`}>
             {!customContent && isHtmlFile() && (
               <Segmented
                 size="small"
@@ -503,7 +541,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             )}
             <button
               type="button"
-              className={`${PREFIX}__action-button`}
+              className={`${prefixCls}-action-button ${hashId}`}
               onClick={handleDownload}
               aria-label={locale?.['workspace.file.downloadFile'] || '下载文件'}
             >
@@ -512,7 +550,9 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           </div>
         </div>
       )}
-      <div className={`${PREFIX}__content`}>{renderPreviewContent()}</div>
+      <div className={`${prefixCls}-content ${hashId}`}>
+        {renderPreviewContent()}
+      </div>
     </div>
   );
 };

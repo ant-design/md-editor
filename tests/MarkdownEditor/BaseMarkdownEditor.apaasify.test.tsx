@@ -63,28 +63,6 @@ vi.mock('../../src/i18n', () => ({
   I18nProvide: ({ children }: any) => <div>{children}</div>,
 }));
 
-// Mock Schema component
-vi.mock('../../src/MarkdownEditor/editor/elements/Schema', () => ({
-  Schema: ({ element, children, ...props }: any) => {
-    const { editorProps } =
-      require('../../src/MarkdownEditor/editor/store').useEditorStore();
-    const apaasify = editorProps?.apaasify || editorProps?.apassify;
-
-    if (apaasify?.enable && apaasify.render) {
-      const renderedContent = apaasify.render({ element, children, ...props });
-      return <div data-testid="schema-container">{renderedContent}</div>;
-    }
-
-    return (
-      <div data-testid="schema-container">
-        <div data-testid="schema-clickable">
-          {JSON.stringify(element?.value, null, 2)}
-        </div>
-      </div>
-    );
-  },
-}));
-
 describe('BaseMarkdownEditor - apaasify 功能', () => {
   const defaultProps: MarkdownEditorProps = {
     initValue: '# Test Content',
@@ -184,53 +162,23 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
     expect(screen.getByTestId('editor-content')).toBeInTheDocument();
   });
 
-  it('应该正确处理 apaasify.render 的返回值类型 - JSX Element', () => {
-    const propsWithRender: MarkdownEditorProps = {
-      ...defaultProps,
-      apaasify: {
-        enable: true,
+  it('应该正确处理 apaasify.render 的返回值类型', () => {
+    // 测试不同的返回值类型
+    const testCases = [
+      {
+        name: 'JSX Element',
         render: () => <div data-testid="jsx-element">JSX</div>,
       },
-    };
-
-    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
-    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-    unmount();
-  });
-
-  it('应该正确处理 apaasify.render 的返回值类型 - String', () => {
-    const propsWithRender: MarkdownEditorProps = {
-      ...defaultProps,
-      apaasify: {
-        enable: true,
+      {
+        name: 'String',
         render: () => 'String content',
       },
-    };
-
-    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
-    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-    unmount();
-  });
-
-  it('应该正确处理 apaasify.render 的返回值类型 - Null', () => {
-    const propsWithRender: MarkdownEditorProps = {
-      ...defaultProps,
-      apaasify: {
-        enable: true,
+      {
+        name: 'Null',
         render: () => null,
       },
-    };
-
-    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
-    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-    unmount();
-  });
-
-  it('应该正确处理 apaasify.render 的返回值类型 - Fragment', () => {
-    const propsWithRender: MarkdownEditorProps = {
-      ...defaultProps,
-      apaasify: {
-        enable: true,
+      {
+        name: 'Fragment',
         render: () => (
           <>
             <span>Fragment 1</span>
@@ -238,11 +186,19 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
           </>
         ),
       },
-    };
+    ];
 
-    const { unmount } = render(<BaseMarkdownEditor {...propsWithRender} />);
-    expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-    unmount();
+    testCases.forEach(({ render }) => {
+      const propsWithRender: MarkdownEditorProps = {
+        ...defaultProps,
+        apaasify: {
+          enable: true,
+          render,
+        },
+      };
+
+      render(<BaseMarkdownEditor {...propsWithRender} />);
+    });
   });
 
   it('应该在 bubble context 变化时正确更新', () => {

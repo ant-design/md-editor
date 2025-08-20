@@ -82,11 +82,7 @@ const Demo = () => {
           tab={{
             key: 'realtimeHtml',
             title: '实时跟随（HTML）',
-            icon: (
-              <div className="workspace__tab-item">
-                <RealtimeIcon />
-              </div>
-            ),
+            icon: <RealtimeIcon />,
           }}
           data={{
             type: 'html',

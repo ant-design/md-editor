@@ -1,14 +1,21 @@
 import { CloseOutlined } from '@ant-design/icons';
-import { Segmented } from 'antd';
-import React, { type FC, useEffect, useMemo, useState } from 'react';
+import { ConfigProvider, Segmented } from 'antd';
+import classNames from 'classnames';
+import React, {
+  type FC,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { BrowserList } from './Browser';
 import { File } from './File';
 import BrowserIcon from './icons/BrowserIcon';
 import FileIcon from './icons/FileIcon';
 import RealtimeIcon from './icons/RealtimeIcon';
 import TaskIcon from './icons/TaskIcon';
-import './index.less';
 import { RealtimeFollowList } from './RealtimeFollow';
+import { useWorkspaceStyle } from './style';
 import { TaskList } from './Task';
 import type {
   BrowserProps,
@@ -20,8 +27,6 @@ import type {
   TaskProps,
   WorkspaceProps,
 } from './types';
-
-const CSS_PREFIX = 'workspace';
 
 // 组件类型枚举
 enum ComponentType {
@@ -149,6 +154,11 @@ const Workspace: FC<WorkspaceProps> & {
   onClose,
   children,
 }) => {
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('workspace');
+  const { wrapSSR, hashId } = useWorkspaceStyle(prefixCls);
+
   // 构建可用标签页
   const availableTabs = useMemo((): TabItem[] => {
     const tabs: TabItem[] = [];
@@ -205,13 +215,13 @@ const Workspace: FC<WorkspaceProps> & {
       tabs.push({
         key: tabConfig.key,
         label: (
-          <div className={`${CSS_PREFIX}__tab-item`}>
+          <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
             {tabConfig.icon}
-            <span className={`${CSS_PREFIX}__tab-title`}>
+            <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
               {tabConfig.title}
             </span>
             {tabConfig.count !== undefined && (
-              <span className={`${CSS_PREFIX}__tab-count`}>
+              <span className={classNames(`${prefixCls}-tab-count`, hashId)}>
                 {tabConfig.count}
               </span>
             )}
@@ -250,21 +260,21 @@ const Workspace: FC<WorkspaceProps> & {
     onTabChange?.(key);
   };
 
+  const containerClassName = classNames(prefixCls, className, hashId);
+
   // 无可用标签页时不渲染
   if (availableTabs.length === 0) {
     return null;
   }
 
-  const containerClassName = [CSS_PREFIX, className].filter(Boolean).join(' ');
-
-  return (
+  return wrapSSR(
     <div className={containerClassName} style={style}>
       {/* 头部区域 */}
-      <div className={`${CSS_PREFIX}__header`}>
-        <div className={`${CSS_PREFIX}__title`}>{title}</div>
+      <div className={classNames(`${prefixCls}-header`, hashId)}>
+        <div className={classNames(`${prefixCls}-title`, hashId)}>{title}</div>
         {onClose && (
           <CloseOutlined
-            className={`${CSS_PREFIX}__close`}
+            className={classNames(`${prefixCls}-close`, hashId)}
             onClick={onClose}
             aria-label="关闭工作空间"
           />
@@ -273,8 +283,9 @@ const Workspace: FC<WorkspaceProps> & {
 
       {/* 标签页导航 */}
       {availableTabs.length > 1 && (
-        <div className={`${CSS_PREFIX}__tabs`}>
+        <div className={classNames(`${prefixCls}-tabs`, hashId)}>
           <Segmented
+            className={classNames(`${prefixCls}-segmented`, hashId)}
             options={availableTabs.map((tab) => ({
               label: tab.label,
               value: tab.key,
@@ -287,8 +298,10 @@ const Workspace: FC<WorkspaceProps> & {
       )}
 
       {/* 内容区域 */}
-      <div className={`${CSS_PREFIX}__content`}>{currentTabData?.content}</div>
-    </div>
+      <div className={classNames(`${prefixCls}-content`, hashId)}>
+        {currentTabData?.content}
+      </div>
+    </div>,
   );
 };
 

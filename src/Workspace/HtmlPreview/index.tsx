@@ -1,8 +1,9 @@
-import { Segmented, Spin } from 'antd';
+import { ConfigProvider, Segmented, Spin } from 'antd';
+import classNames from 'classnames';
 import DOMPurify from 'dompurify';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { MarkdownEditor, type MarkdownEditorProps } from '../../MarkdownEditor';
-import './index.less';
+import { useHtmlPreviewStyle } from './style';
 
 export type HtmlViewMode = 'preview' | 'code';
 
@@ -107,6 +108,10 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
     code: labels?.code || '代码',
   };
 
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('workspace-html-preview');
+
   const overlayNode = (() => {
     if (status !== 'loading' && status !== 'error') return null;
     const loadingNode =
@@ -115,7 +120,10 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
       typeof errorRender === 'function' ? errorRender() : errorRender;
     return (
       <div
-        className={`workspace-html-preview__overlay ${status === 'loading' ? 'workspace-html-preview__overlay--loading' : 'workspace-html-preview__overlay--error'}`}
+        className={classNames(`${prefixCls}-overlay`, {
+          [`${prefixCls}-overlay--loading`]: status === 'loading',
+          [`${prefixCls}-overlay--error`]: status === 'error',
+        })}
       >
         {status === 'loading'
           ? loadingNode || <Spin />
@@ -144,15 +152,12 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
     };
   };
 
-  return (
-    <div
-      className={['workspace-html-preview', className]
-        .filter(Boolean)
-        .join(' ')}
-      style={style}
-    >
+  const { wrapSSR, hashId } = useHtmlPreviewStyle(prefixCls);
+
+  return wrapSSR(
+    <div className={classNames(prefixCls, className, hashId)} style={style}>
       {showSegmented && (
-        <div className="workspace-html-preview__actions">
+        <div className={classNames(`${prefixCls}-actions`, hashId)}>
           {segmentedItems && segmentedItems.length > 0 ? (
             <Segmented
               options={segmentedItems}
@@ -174,7 +179,7 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
       )}
 
       <div
-        className="workspace-html-preview__content"
+        className={classNames(`${prefixCls}-content`, hashId)}
         style={{ minHeight: 240 }}
       >
         {overlayNode}
@@ -188,7 +193,7 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
         ) : (
           <iframe
             title="html-preview"
-            className="workspace-html-preview__iframe"
+            className={classNames(`${prefixCls}-iframe`, hashId)}
             sandbox={iframeProps?.sandbox || 'allow-scripts'}
             srcDoc={iframeHtml}
             key={iframeHtml}
@@ -196,7 +201,7 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
           />
         )}
       </div>
-    </div>
+    </div>,
   );
 };
 

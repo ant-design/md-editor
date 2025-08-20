@@ -1,10 +1,11 @@
-import React, { type FC } from 'react';
+import { ConfigProvider } from 'antd';
+import React, { type FC, useContext } from 'react';
 import {
   ThoughtChainList,
   ThoughtChainListProps,
   WhiteBoxProcessInterface,
 } from '../../ThoughtChainList';
-import './index.less';
+import { useTaskStyle } from './style';
 
 export interface TaskItemInput {
   content: WhiteBoxProcessInterface[];
@@ -68,8 +69,14 @@ export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
     };
   };
 
-  return (
-    <div className="chat-task-list">
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('workspace-task');
+
+  const { wrapSSR, hashId } = useTaskStyle(prefixCls);
+
+  return wrapSSR(
+    <div className={`${prefixCls} ${hashId}`}>
       <ThoughtChainList
         {...getMergedProps(getDefaultProps())}
         thoughtChainList={data.content}
@@ -79,6 +86,6 @@ export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
           boxShadow: 'none',
         }}
       />
-    </div>
+    </div>,
   );
 };

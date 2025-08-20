@@ -1,6 +1,8 @@
-import React, { type FC } from 'react';
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { type FC, useContext } from 'react';
 import { MarkdownEditor, MarkdownEditorProps } from '../../MarkdownEditor';
-import './index.less';
+import { useBrowserStyle } from './style';
 
 export interface BrowserItemInput {
   title?: string;
@@ -67,17 +69,25 @@ export const BrowserList: FC<{ data: BrowserItemInput }> = ({ data }) => {
     };
   };
 
-  return (
-    <div className="chat-browser-list">
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('workspace-browser');
+
+  const { wrapSSR, hashId } = useBrowserStyle(prefixCls);
+
+  return wrapSSR(
+    <div className={classNames(prefixCls, hashId)}>
       {data.title && (
-        <div className="chat-browser-header">
-          <div className="chat-browser-title">{data.title}</div>
+        <div className={classNames(`${prefixCls}-header`, hashId)}>
+          <div className={classNames(`${prefixCls}-title`, hashId)}>
+            {data.title}
+          </div>
         </div>
       )}
       <MarkdownEditor
         {...getMergedProps(getDefaultProps())}
         initValue={data.content}
       />
-    </div>
+    </div>,
   );
 };
