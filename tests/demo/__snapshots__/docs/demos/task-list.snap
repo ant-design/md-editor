@@ -74,7 +74,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  aria-label="收起"
+                  aria-label="展开"
                   class="ant-md-editor-action-icon-box"
                   role="button"
                   tabindex="0"
@@ -83,7 +83,7 @@
                     class="task-list-arrow "
                     fill="none"
                     height="1em"
-                    style="transform: rotate(0deg);"
+                    style="transform: rotate(180deg);"
                     viewBox="0 0 16 16"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +184,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  aria-label="收起"
+                  aria-label="展开"
                   class="ant-md-editor-action-icon-box"
                   role="button"
                   tabindex="0"
@@ -193,7 +193,7 @@
                     class="task-list-arrow "
                     fill="none"
                     height="1em"
-                    style="transform: rotate(0deg);"
+                    style="transform: rotate(180deg);"
                     viewBox="0 0 16 16"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -509,7 +509,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  aria-label="收起"
+                  aria-label="展开"
                   class="ant-md-editor-action-icon-box"
                   role="button"
                   tabindex="0"
@@ -518,7 +518,7 @@
                     class="task-list-arrow "
                     fill="none"
                     height="1em"
-                    style="transform: rotate(0deg);"
+                    style="transform: rotate(180deg);"
                     viewBox="0 0 16 16"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
