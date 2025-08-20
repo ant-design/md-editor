@@ -43,24 +43,31 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 
 <code src="../demos/history-task-demo.tsx">Agent 任务模式</code>
 
+### ActionRef 外部控制
+
+使用 `actionRef` 可以外部触发历史记录重新加载。
+
+<code src="../demos/history-actionRef-demo.tsx">ActionRef 外部控制</code>
+
 ## API
 
 ### History
 
-| 参数                | 说明                             | 类型                                                                               | 默认值  |
-| ------------------- | -------------------------------- | ---------------------------------------------------------------------------------- | ------- |
-| agentId             | 代理ID，用于获取历史记录         | `string`                                                                           | -       |
-| sessionId           | 会话ID，变更时会触发数据重新获取 | `string`                                                                           | -       |
-| request             | 请求函数，用于获取历史数据       | `(params: { agentId: string }) => Promise<HistoryDataType[]>`                      | -       |
-| standalone          | 是否以独立模式显示               | `boolean`                                                                          | `false` |
-| onInit              | 组件初始化时的回调函数           | `() => void`                                                                       | -       |
-| onShow              | 组件显示时的回调函数             | `() => void`                                                                       | -       |
-| onSelected          | 选择历史记录项时的回调函数       | `(sessionId: string) => void`                                                      | -       |
-| onDeleteItem        | 删除历史记录项时的回调函数       | `(sessionId: string) => void`                                                      | -       |
-| customDateFormatter | 自定义日期格式化函数             | `(date: number \| string \| Date) => string`                                       | -       |
-| groupBy             | 自定义分组函数                   | `(item: HistoryDataType) => string`                                                | -       |
-| extra               | 自定义额外内容渲染函数           | `(item: HistoryDataType) => React.ReactElement`                                    | -       |
-| sessionSort         | 自定义排序函数或禁用排序         | `((pre: HistoryDataType, current: HistoryDataType) => number \| boolean) \| false` | -       |
+| 参数                | 说明                                 | 类型                                                                               | 默认值  |
+| ------------------- | ------------------------------------ | ---------------------------------------------------------------------------------- | ------- |
+| agentId             | 代理ID，用于获取历史记录             | `string`                                                                           | -       |
+| sessionId           | 会话ID，变更时会触发数据重新获取     | `string`                                                                           | -       |
+| request             | 请求函数，用于获取历史数据           | `(params: { agentId: string }) => Promise<HistoryDataType[]>`                      | -       |
+| standalone          | 是否以独立模式显示                   | `boolean`                                                                          | `false` |
+| onInit              | 组件初始化时的回调函数               | `() => void`                                                                       | -       |
+| onShow              | 组件显示时的回调函数                 | `() => void`                                                                       | -       |
+| onSelected          | 选择历史记录项时的回调函数           | `(sessionId: string) => void`                                                      | -       |
+| onDeleteItem        | 删除历史记录项时的回调函数           | `(sessionId: string) => void`                                                      | -       |
+| customDateFormatter | 自定义日期格式化函数                 | `(date: number \| string \| Date) => string`                                       | -       |
+| groupBy             | 自定义分组函数                       | `(item: HistoryDataType) => string`                                                | -       |
+| extra               | 自定义额外内容渲染函数               | `(item: HistoryDataType) => React.ReactElement`                                    | -       |
+| sessionSort         | 自定义排序函数或禁用排序             | `((pre: HistoryDataType, current: HistoryDataType) => number \| boolean) \| false` | -       |
+| actionRef           | 外部操作引用，用于触发 reload 等功能 | `React.MutableRefObject<{ reload: () => void } \| null>`                           | -       |
 
 ### HistoryDataType
 

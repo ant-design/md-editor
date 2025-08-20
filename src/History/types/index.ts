@@ -82,6 +82,10 @@ export interface HistoryProps {
   sessionSort?:
     | ((pre: HistoryDataType, current: HistoryDataType) => number | boolean)
     | false;
+  /** 外部操作引用，用于触发 reload 等功能 */
+  actionRef?: React.MutableRefObject<{
+    reload: () => void;
+  } | null>;
   /** Agent 模式配置 */
   agent?: {
     /** 是否启用 agent 模式 */

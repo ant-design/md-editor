@@ -23,6 +23,15 @@ export const useHistory = (props: HistoryProps) => {
     setChatList(msg);
   });
 
+  // 暴露 reload 方法给 actionRef
+  useEffect(() => {
+    if (props.actionRef) {
+      props.actionRef.current = {
+        reload: loadHistory,
+      };
+    }
+  }, [props.actionRef, loadHistory]);
+
   useEffect(() => {
     props.onInit?.();
     props.onShow?.();
