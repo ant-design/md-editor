@@ -166,13 +166,14 @@ const TaskListItem = memo(
               >
                 <ActionIconBox
                   title={
-                    isCollapsed
+                    !isCollapsed
                       ? locale?.['taskList.collapse'] || '收起'
                       : locale?.['taskList.expand'] || '展开'
                   }
                   iconStyle={{
                     transform: isCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
                   }}
+                  loading={false}
                   onClick={() => onToggle(item.key)}
                 >
                   <ChevronUpIcon className={`${prefixCls}-arrow ${hashId}`} />

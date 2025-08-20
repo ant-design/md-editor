@@ -1,6 +1,7 @@
 ﻿import { LoadingOutlined } from '@ant-design/icons';
 import { ConfigProvider, Tooltip, TooltipProps } from 'antd';
 import cx from 'classnames';
+import { useMergedState } from 'rc-util';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { useStyle } from './style';
 
@@ -22,6 +23,7 @@ export type ActionIconBoxProps = {
   'data-testid'?: string;
   noPadding?: boolean;
   iconStyle?: React.CSSProperties;
+  onLoadingChange?: (loading: boolean) => void;
 };
 /**
  * ActionIconBox 组件 - 操作图标盒子组件
@@ -75,16 +77,20 @@ export type ActionIconBoxProps = {
  * - 响应式交互设计
  */
 export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useMergedState(false, {
+    value: props.loading,
+    onChange: props.onLoadingChange,
+  });
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('md-editor-action-icon-box');
   const { wrapSSR, hashId } = useStyle(prefixCls, props.style || {});
+
   useEffect(() => {
     props.onInit?.();
   }, []);
 
   const icon = useMemo(() => {
-    return loading || props.loading ? (
+    return loading ? (
       <LoadingOutlined />
     ) : (
       React.cloneElement(props.children as any, {
