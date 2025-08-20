@@ -1,0 +1,213 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <h2>
+        History 组件 actionRef 示例
+      </h2>
+      <div
+        class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+        style="margin-bottom: 16px;"
+      >
+        <div
+          class="ant-space-item"
+        >
+          <button
+            class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+            type="button"
+          >
+            <span>
+              刷新历史记录
+            </span>
+          </button>
+        </div>
+        <div
+          class="ant-space-item"
+        >
+          <button
+            class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+            type="button"
+          >
+            <span>
+              添加新会话
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        style="border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px;"
+      >
+        <div
+          style="display: flex; flex-direction: column; gap: 8px;"
+        >
+          <div
+            aria-label="菜单"
+            class="ant-history-menu ant-agent-chat-history-menu"
+            role="menu"
+            tabindex="0"
+          >
+            <div
+              class="ant-history-menu-submenu"
+            >
+              <div
+                class="ant-history-menu-item-group"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  昨日
+                </div>
+              </div>
+              <div
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  <div
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                  >
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                      >
+                        关于 React Hooks 的讨论
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        昨日
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-history-menu-submenu"
+            >
+              <div
+                class="ant-history-menu-item-group"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  2 days ago
+                </div>
+              </div>
+              <div
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  <div
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                  >
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                      >
+                        TypeScript 类型系统详解
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        2 days ago
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-history-menu-submenu"
+            >
+              <div
+                class="ant-history-menu-item-group"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  3 days ago
+                </div>
+              </div>
+              <div
+                aria-selected="false"
+                class="ant-history-menu-item"
+                role="menuitem"
+                tabindex="0"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  <div
+                    style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
+                  >
+                    <div
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                    >
+                      <div
+                        aria-describedby="test-id"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                      >
+                        前端性能优化实践
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                      >
+                        3 days ago
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="margin-top: 16px; font-size: 14px; color: rgb(102, 102, 102);"
+      >
+        <p>
+          说明：
+        </p>
+        <ul>
+          <li>
+            点击"刷新历史记录"按钮可以手动触发数据重新加载
+          </li>
+          <li>
+            点击"添加新会话"按钮模拟添加新会话后自动刷新历史记录
+          </li>
+          <li>
+            打开浏览器控制台可以看到相关的日志输出
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

@@ -317,8 +317,13 @@ describe('History Component', () => {
         expect(screen.getByRole('menu')).toBeInTheDocument();
       });
 
-      // 验证 customDateFormatter 被调用
-      expect(customDateFormatter).toHaveBeenCalled();
+      await waitFor(
+        () => {
+          // 验证 customDateFormatter 被调用
+          expect(customDateFormatter).toHaveBeenCalled();
+        },
+        { timeout: 1000 },
+      );
     });
 
     it('should use custom groupBy function', async () => {
