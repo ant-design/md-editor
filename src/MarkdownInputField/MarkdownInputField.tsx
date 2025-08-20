@@ -293,9 +293,18 @@ export function generateEdges(colors: string[]) {
  * - 支持自动完成功能
  * - 支持自定义渲染配置
  */
-export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
-  props,
-) => {
+export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
+  tagInputProps = {
+    enable: true,
+    items: [
+      {
+        key: 'Bold',
+        label: 'Bold',
+      },
+    ],
+  },
+  ...props
+}) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
   const baseCls = getPrefixCls('md-input-field');
@@ -515,7 +524,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   });
 
   return wrapSSR(
-    <Suggestion tagInputProps={props.tagInputProps}>
+    <Suggestion tagInputProps={tagInputProps}>
       <div
         className={classNames(baseCls, hashId, props.className, {
           [`${baseCls}-disabled`]: props.disabled,
@@ -713,17 +722,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
                 placeholder: props.placeholder,
                 triggerSendKey: props.triggerSendKey || 'Enter',
               }}
-              tagInputProps={
-                props.tagInputProps || {
-                  enable: true,
-                  items: [
-                    {
-                      key: 'Bold',
-                      label: 'Bold',
-                    },
-                  ],
-                }
-              }
+              tagInputProps={tagInputProps}
               initValue={props.value}
               onChange={(value) => {
                 setValue(value);

@@ -744,40 +744,31 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     [props.eleItemRender, plugins, readonly],
   );
 
-  const renderMarkdownLeaf = useCallback(
-    (props: any) => {
-      const defaultDom = (
-        <MLeaf
-          {...props}
-          fncProps={props.fncProps}
-          comment={props?.comment}
-          children={props.children}
-          hashId={hashId}
-          tagInputProps={props.tagInputProps}
-        />
-      );
+  const renderMarkdownLeaf = useRefFunction((leafComponentProps) => {
+    const defaultDom = (
+      <MLeaf
+        {...leafComponentProps}
+        fncProps={props.fncProps}
+        comment={props?.comment}
+        children={leafComponentProps.children}
+        hashId={hashId}
+        tagInputProps={props.tagInputProps}
+      />
+    );
 
-      if (!props.leafRender) return defaultDom;
+    if (!props.leafRender) return defaultDom;
 
-      return props.leafRender(
-        {
-          ...props,
-          fncProps: props.fncProps,
-          comment: props?.comment,
-          hashId: hashId,
-          tagInputProps: props.tagInputProps,
-        },
-        defaultDom,
-      ) as React.ReactElement;
-    },
-    [
-      props.leafRender,
-      hashId,
-      props.fncProps,
-      props.tagInputProps,
-      props?.comment,
-    ],
-  );
+    return props.leafRender(
+      {
+        ...leafComponentProps,
+        fncProps: props.fncProps,
+        comment: props?.comment,
+        hashId: hashId,
+        tagInputProps: props.tagInputProps,
+      },
+      defaultDom,
+    ) as React.ReactElement;
+  });
 
   const decorateFn = (e: any) => {
     const decorateList: any[] | undefined = high(e) || [];
