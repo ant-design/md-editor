@@ -10,7 +10,12 @@ import { TaskList } from '../../src/TaskList';
 // Mock components that might not be available in test environment
 vi.mock('../../src/MarkdownEditor/editor/components', () => ({
   ActionIconBox: ({ children, title, onClick }: any) => (
-    <button onClick={onClick} title={title}>
+    <button
+      onClick={onClick}
+      title={title}
+      data-testid="action-icon-box"
+      type="button"
+    >
       {children}
     </button>
   ),
@@ -37,7 +42,7 @@ describe('Component Integration Tests', () => {
       it('should render new chat button in Chinese', () => {
         render(
           <I18nContext.Provider value={{ locale: cnLabels }}>
-            <HistoryNewChat onNewChat={mockOnNewChat} enabled={true} />
+            <HistoryNewChat onNewChat={mockOnNewChat} />
           </I18nContext.Provider>,
         );
 
@@ -47,7 +52,7 @@ describe('Component Integration Tests', () => {
       it('should render new chat button in English', () => {
         render(
           <I18nContext.Provider value={{ locale: enLabels }}>
-            <HistoryNewChat onNewChat={mockOnNewChat} enabled={true} />
+            <HistoryNewChat onNewChat={mockOnNewChat} />
           </I18nContext.Provider>,
         );
 
@@ -57,7 +62,7 @@ describe('Component Integration Tests', () => {
       it('should call onNewChat when clicked', () => {
         render(
           <I18nContext.Provider value={{ locale: cnLabels }}>
-            <HistoryNewChat onNewChat={mockOnNewChat} enabled={true} />
+            <HistoryNewChat onNewChat={mockOnNewChat} />
           </I18nContext.Provider>,
         );
 
@@ -118,7 +123,7 @@ describe('Component Integration Tests', () => {
       it('should render load more button in Chinese', () => {
         render(
           <I18nContext.Provider value={{ locale: cnLabels }}>
-            <HistoryLoadMore onLoadMore={mockOnLoadMore} enabled={true} />
+            <HistoryLoadMore onLoadMore={mockOnLoadMore} />
           </I18nContext.Provider>,
         );
 
@@ -128,7 +133,7 @@ describe('Component Integration Tests', () => {
       it('should render load more button in English', () => {
         render(
           <I18nContext.Provider value={{ locale: enLabels }}>
-            <HistoryLoadMore onLoadMore={mockOnLoadMore} enabled={true} />
+            <HistoryLoadMore onLoadMore={mockOnLoadMore} />
           </I18nContext.Provider>,
         );
 
@@ -138,7 +143,7 @@ describe('Component Integration Tests', () => {
       it('should call onLoadMore when clicked', () => {
         render(
           <I18nContext.Provider value={{ locale: cnLabels }}>
-            <HistoryLoadMore onLoadMore={mockOnLoadMore} enabled={true} />
+            <HistoryLoadMore onLoadMore={mockOnLoadMore} />
           </I18nContext.Provider>,
         );
 
@@ -176,7 +181,7 @@ describe('Component Integration Tests', () => {
       expect(screen.getByText('Test Task 2')).toBeInTheDocument();
 
       // Check if expand/collapse buttons have correct titles
-      const expandButtons = screen.getAllByTitle('展开');
+      const expandButtons = screen.getAllByTitle('收起');
       expect(expandButtons).toHaveLength(2);
     });
 
@@ -192,7 +197,7 @@ describe('Component Integration Tests', () => {
       expect(screen.getByText('Test Task 2')).toBeInTheDocument();
 
       // Check if expand/collapse buttons have correct titles
-      const expandButtons = screen.getAllByTitle('Expand');
+      const expandButtons = screen.getAllByTitle('Collapse');
       expect(expandButtons).toHaveLength(2);
     });
 
@@ -203,7 +208,7 @@ describe('Component Integration Tests', () => {
         </I18nContext.Provider>,
       );
 
-      const expandButtons = screen.getAllByTitle('展开');
+      const expandButtons = screen.getAllByTitle('收起');
       expect(expandButtons).toHaveLength(2);
 
       // Verify that task content is visible (expanded by default)
@@ -218,7 +223,7 @@ describe('Component Integration Tests', () => {
         'chat.history.newChat': '自定义新对话',
         'chat.history.search.placeholder': '自定义搜索',
         'taskList.expand': '自定义展开',
-      };
+      } as any;
 
       const mockOnNewChat = vi.fn();
       const mockOnSearch = vi.fn();
@@ -226,7 +231,7 @@ describe('Component Integration Tests', () => {
       render(
         <I18nContext.Provider value={{ locale: customLocale }}>
           <div>
-            <HistoryNewChat onNewChat={mockOnNewChat} enabled={true} />
+            <HistoryNewChat onNewChat={mockOnNewChat} />
             <HistorySearch onSearch={mockOnSearch} />
             <TaskList items={[]} />
           </div>
@@ -239,9 +244,9 @@ describe('Component Integration Tests', () => {
 
     it('should fallback to default text when context locale is missing', () => {
       render(
-        <I18nContext.Provider value={{ locale: {} }}>
+        <I18nContext.Provider value={{ locale: {} as any }}>
           <div>
-            <HistoryNewChat onNewChat={vi.fn()} enabled={true} />
+            <HistoryNewChat onNewChat={vi.fn()} />
             <HistorySearch onSearch={vi.fn()} />
           </div>
         </I18nContext.Provider>,
@@ -260,7 +265,7 @@ describe('Component Integration Tests', () => {
       };
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale }}>
+        <I18nContext.Provider value={{ locale: customLocale as any }}>
           <div>
             <span data-testid="task-progress">
               {customLocale['taskList.taskInProgress'].replace(
@@ -283,7 +288,7 @@ describe('Component Integration Tests', () => {
       };
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale }}>
+        <I18nContext.Provider value={{ locale: customLocale as any }}>
           <div>
             <span data-testid="file-size-error">
               {customLocale['markdownInput.fileSizeExceeded'].replace(

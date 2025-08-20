@@ -74,7 +74,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  aria-label="展开"
+                  aria-label="收起"
                   class="ant-md-editor-action-icon-box"
                   role="button"
                   tabindex="0"
@@ -184,7 +184,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  aria-label="展开"
+                  aria-label="收起"
                   class="ant-md-editor-action-icon-box"
                   role="button"
                   tabindex="0"
@@ -509,7 +509,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  aria-label="展开"
+                  aria-label="收起"
                   class="ant-md-editor-action-icon-box"
                   role="button"
                   tabindex="0"

@@ -245,14 +245,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         如何实现 React 组件的懒加载？
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -367,14 +367,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         TypeScript 高级类型的使用技巧
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -501,14 +501,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         前端性能优化的最佳实践
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -635,14 +635,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         CSS Grid 布局详解
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -769,14 +769,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         JavaScript 异步编程模式
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"

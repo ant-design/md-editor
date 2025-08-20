@@ -114,14 +114,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         重要会议记录
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         a year ago
                       </div>
@@ -146,14 +146,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         项目讨论
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         a year ago
                       </div>
@@ -178,14 +178,14 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         技术分享
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         a year ago
                       </div>

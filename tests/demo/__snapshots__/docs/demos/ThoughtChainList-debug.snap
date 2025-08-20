@@ -987,7 +987,7 @@
                           style="display: flex; flex-direction: row; gap: 4px; flex-wrap: wrap; border-radius: 12px;"
                         >
                           <div
-                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content;"
+                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content; max-width: min(860px,100%);"
                           >
                             <svg
                               data-testid="doc-icon"
@@ -1016,7 +1016,7 @@
                             </span>
                           </div>
                           <div
-                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content;"
+                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content; max-width: min(860px,100%);"
                           >
                             <svg
                               data-testid="doc-icon"

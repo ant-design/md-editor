@@ -36,9 +36,9 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
  */
 interface HistorySearchProps {
   /** 搜索关键词 */
-  searchKeyword: string;
+  searchKeyword?: string;
   /** 搜索回调函数 */
-  onSearch: (value: string) => void;
+  onSearch?: (value: string) => void;
 }
 
 /**
@@ -87,7 +87,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
   const handleSearchWithLoading = async (value: string) => {
     try {
       setLoading(true);
-      await onSearch(value);
+      await onSearch?.(value);
     } catch (error) {
       // 处理错误
     } finally {

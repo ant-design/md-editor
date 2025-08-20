@@ -286,7 +286,7 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                       >
                         Create Printable PDF from...
                       </div>
@@ -306,7 +306,7 @@
                       style="margin-top: 4px;"
                     >
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -374,7 +374,7 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                       >
                         数据分析任务
                       </div>
@@ -394,7 +394,7 @@
                       style="margin-top: 4px;"
                     >
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -462,7 +462,7 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                        style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                       >
                         代码审查
                       </div>
@@ -482,7 +482,7 @@
                       style="margin-top: 4px;"
                     >
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content;"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
                         <div
                           class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"

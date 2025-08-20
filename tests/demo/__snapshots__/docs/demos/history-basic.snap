@@ -56,7 +56,7 @@
           aria-describedby="test-id"
           class="ant-agent-chat-history-menu"
           data-testid="history-button"
-          style="display: flex; padding: 4px; align-items: center; font-size: 0.85em; width: max-content;"
+          style="display: flex; padding: 4px; align-items: center; font-size: 0.85em; width: max-content; max-width: min(860px,100%);"
         >
           <span
             aria-describedby="test-id"
