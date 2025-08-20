@@ -1,5 +1,6 @@
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import { NewChatIcon } from '../../icons';
 
 /**
@@ -42,6 +43,7 @@ interface HistoryNewChatProps {
 export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   onNewChat,
 }) => {
+  const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -72,7 +74,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
         }
       }}
     >
-      新对话
+      {locale?.['chat.history.newChat'] || '新对话'}
     </Button>
   );
 };

@@ -131,6 +131,7 @@ export const upLoadFileToServer = async (
     maxFileSize?: number;
     maxFileCount?: number;
     minFileCount?: number;
+    locale?: any;
   },
 ) => {
   const map = props.fileMap || new Map<string, AttachmentFile>();
@@ -162,7 +163,12 @@ export const upLoadFileToServer = async (
         file.status = 'error';
         map.set(file.uuid || '', file);
         props.onFileMapChange?.(map);
-        message.error(`文件大小超过 ${props.maxFileSize / 1024} KB`);
+        message.error(
+          props.locale?.['markdownInput.fileSizeExceeded']?.replace(
+            '${maxSize}',
+            `${props.maxFileSize / 1024}`,
+          ) || `文件大小超过 ${props.maxFileSize / 1024} KB`,
+        );
         continue;
       }
       const url = (await props?.upload?.(file)) || file.previewUrl;

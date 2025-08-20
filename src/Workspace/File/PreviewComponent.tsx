@@ -1,6 +1,7 @@
 import { ArrowLeftOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Alert, Image, Segmented, Spin } from 'antd';
-import React, { type FC, useEffect, useRef, useState } from 'react';
+import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import {
   MarkdownEditor,
   type MarkdownEditorInstance,
@@ -46,21 +47,31 @@ const PlaceholderContent: FC<{
   showFileInfo?: boolean;
   file?: FileNode;
   onDownload?: () => void;
-}> = ({ children, showFileInfo, file, onDownload }) => (
+  locale?: any;
+}> = ({ children, showFileInfo, file, onDownload, locale }) => (
   <div className={`${PREFIX}__placeholder`}>
     <div className={`${PREFIX}__placeholder-content`}>
       {children}
       {showFileInfo && file && (
         <>
-          <p>文件名：{file.name}</p>
-          {file.size && <p>文件大小：{file.size}</p>}
+          <p>
+            {locale?.['workspace.file.fileName'] || '文件名：'}
+            {file.name}
+          </p>
+          {file.size && (
+            <p>
+              {locale?.['workspace.file.fileSize'] || '文件大小：'}
+              {file.size}
+            </p>
+          )}
           {onDownload && (
             <button
+              type="button"
               className={`${PREFIX}__download-button`}
               onClick={onDownload}
-              aria-label="下载文件"
+              aria-label={locale?.['workspace.file.downloadFile'] || '下载文件'}
             >
-              点击下载
+              {locale?.['workspace.file.clickToDownload'] || '点击下载'}
             </button>
           )}
         </>
@@ -115,6 +126,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   onDownload,
   markdownEditorProps,
 }) => {
+  const { locale } = useContext(I18nContext);
   const editorRef = useRef<MarkdownEditorInstance>();
   const [processResult, setProcessResult] = useState<FileProcessResult | null>(
     null,
@@ -338,8 +350,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'image':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent>
-              <p>无法获取图片预览</p>
+            <PlaceholderContent locale={locale}>
+              <p>
+                {locale?.['workspace.file.cannotGetImagePreview'] ||
+                  '无法获取图片预览'}
+              </p>
             </PlaceholderContent>
           );
         }
@@ -353,8 +368,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'video':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent>
-              <p>无法获取视频预览</p>
+            <PlaceholderContent locale={locale}>
+              <p>
+                {locale?.['workspace.file.cannotGetVideoPreview'] ||
+                  '无法获取视频预览'}
+              </p>
             </PlaceholderContent>
           );
         }
@@ -375,8 +393,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'audio':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent>
-              <p>无法获取音频预览</p>
+            <PlaceholderContent locale={locale}>
+              <p>
+                {locale?.['workspace.file.cannotGetAudioPreview'] ||
+                  '无法获取音频预览'}
+              </p>
             </PlaceholderContent>
           );
         }
@@ -396,8 +417,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       case 'pdf':
         if (!dataSource.previewUrl) {
           return (
-            <PlaceholderContent>
-              <p>无法获取PDF预览</p>
+            <PlaceholderContent locale={locale}>
+              <p>
+                {locale?.['workspace.file.cannotGetPdfPreview'] ||
+                  '无法获取PDF预览'}
+              </p>
             </PlaceholderContent>
           );
         }
@@ -418,8 +442,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             file={file}
             showFileInfo
             onDownload={handleDownload}
+            locale={locale}
           >
-            <p>未知的文件类型</p>
+            <p>
+              {locale?.['workspace.file.unknownFileType'] || '未知的文件类型'}
+            </p>
             <p>文件类型：{typeInference.fileType}</p>
           </PlaceholderContent>
         );
@@ -433,9 +460,12 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       ) : (
         <div className={`${PREFIX}__header`}>
           <button
+            type="button"
             className={`${PREFIX}__back-button`}
             onClick={onBack}
-            aria-label="返回文件列表"
+            aria-label={
+              locale?.['workspace.file.backToFileList'] || '返回文件列表'
+            }
           >
             <ArrowLeftOutlined className={`${PREFIX}__back-icon`} />
           </button>
@@ -453,7 +483,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             </div>
             {file.lastModified && (
               <div className={`${PREFIX}__generate-time`}>
-                生成时间：{formatLastModified(file.lastModified)}
+                {locale?.['workspace.file.generationTime'] || '生成时间：'}
+                {formatLastModified(file.lastModified)}
               </div>
             )}
           </div>
@@ -471,9 +502,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               />
             )}
             <button
+              type="button"
               className={`${PREFIX}__action-button`}
               onClick={handleDownload}
-              aria-label="下载文件"
+              aria-label={locale?.['workspace.file.downloadFile'] || '下载文件'}
             >
               <DownloadOutlined />
             </button>

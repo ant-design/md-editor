@@ -1,6 +1,7 @@
 import { HistoryOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { I18nContext } from '../../i18n';
 
 /**
  * 历史记录加载更多组件属性接口
@@ -45,6 +46,7 @@ interface HistoryLoadMoreProps {
 export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
   onLoadMore,
 }) => {
+  const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -69,7 +71,7 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
         }
       }}
     >
-      查看更多
+      {locale?.['chat.history.loadMore'] || '查看更多'}
     </Button>
   );
 };

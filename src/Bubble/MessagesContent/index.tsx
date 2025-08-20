@@ -5,6 +5,7 @@ import {
 } from '@ant-design/md-editor/ThoughtChainList';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
+import { I18nContext } from '../../i18n';
 import { LoadingIcon } from '../../icons/LoadingIcon';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
@@ -64,6 +65,7 @@ export const BubbleMessageDisplay: React.FC<
    * @type {ChatConfigContext}
    */
   const context = useContext(BubbleConfigContext);
+  const { locale } = useContext(I18nContext);
 
   /**
    * 幻灯片模式状态
@@ -133,7 +135,7 @@ export const BubbleMessageDisplay: React.FC<
             data-testid="message-content"
           >
             <LoadingIcon />
-            {context?.locale?.['chat.message.thinking'] || '正在思考中...'}
+            {locale?.['chat.message.thinking'] || '正在思考中...'}
           </div>
         );
       }
@@ -300,10 +302,14 @@ export const BubbleMessageDisplay: React.FC<
                       ...(props?.customConfig?.PopoverProps?.titleStyle || {}),
                     }}
                   >
-                    <div>参考文档</div>
+                    <div>
+                      {locale?.['chat.message.referenceDocument'] || '参考文档'}
+                    </div>
                     {item?.origin_url ? (
                       <ActionIconBox
-                        title="查看原文"
+                        title={
+                          locale?.['chat.message.viewOriginal'] || '查看原文'
+                        }
                         tooltipProps={props?.customConfig?.TooltipProps}
                         onClick={() => {
                           if (
@@ -419,7 +425,7 @@ export const BubbleMessageDisplay: React.FC<
         content={
           props.originData?.isFinished
             ? (props.originData?.content as string) ||
-              context?.locale?.['chat.message.error'] ||
+              locale?.['chat.message.generateFailed'] ||
               '生成回答失败，请重试'
             : (props.originData?.content as string) || ''
         }

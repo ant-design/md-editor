@@ -1,8 +1,9 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import { StarFilledIcon, StarIcon } from '../../icons';
-import { ActionIconBox, BubbleConfigContext } from '../../index';
+import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';
 
 /**
@@ -46,7 +47,7 @@ import { HistoryActionsBoxProps } from '../types';
 export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls();
-  const { locale } = useContext(BubbleConfigContext) || {};
+  const { locale: i18nLocale } = useContext(I18nContext);
   const [isHover, setIsHover] = useState(false);
   const [open, setOpen] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
@@ -96,7 +97,11 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   setFavoriteLoading(false);
                 }
               }}
-              title={props.item!.isFavorite ? '取消收藏' : '收藏'}
+              title={
+                props.item!.isFavorite
+                  ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
+                  : i18nLocale?.['chat.history.favorite'] || '收藏'
+              }
             >
               {props.item!.isFavorite ? (
                 <StarFilledIcon
@@ -130,7 +135,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
               }
               placement="left"
               title={
-                locale?.['chat.history.delete.popconfirm'] ||
+                i18nLocale?.['chat.history.delete.popconfirm'] ||
                 '确定删除该消息吗？'
               }
               onConfirm={async (e) => {
@@ -157,7 +162,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   e.stopPropagation();
                   e.preventDefault();
                 }}
-                title={locale?.['chat.history.delete'] || '删除'}
+                title={i18nLocale?.['chat.history.delete'] || '删除'}
               >
                 <DeleteOutlined />
               </ActionIconBox>

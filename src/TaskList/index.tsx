@@ -1,5 +1,13 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
+import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
 import { useStyle } from './style';
 
@@ -118,6 +126,7 @@ const TaskListItem = memo(
     itemsCollapseStatus: React.MutableRefObject<Map<string, boolean>>;
     onToggle: (key: string) => void;
   }) => {
+    const { locale } = useContext(I18nContext);
     const isCollapsed = itemsCollapseStatus.current.get(item.key);
 
     const hasContent =
@@ -151,9 +160,16 @@ const TaskListItem = memo(
           <div className={`${prefixCls}-top ${hashId}`}>
             <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
             {hasContent && (
-              <div className={`${prefixCls}-arrowContainer ${hashId}`}>
+              <div
+                className={`${prefixCls}-arrowContainer ${hashId}`}
+                onClick={() => onToggle(item.key)}
+              >
                 <ActionIconBox
-                  title={isCollapsed ? '收起' : '展开'}
+                  title={
+                    isCollapsed
+                      ? locale?.['taskList.collapse'] || '收起'
+                      : locale?.['taskList.expand'] || '展开'
+                  }
                   iconStyle={{
                     transform: isCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
                   }}

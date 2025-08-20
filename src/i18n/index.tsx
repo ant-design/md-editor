@@ -149,6 +149,45 @@ export const cnLabels = {
     viewResult: '查看结果',
     replayTask: '重新回放',
   },
+  // History 组件相关
+  'chat.history': '历史记录',
+  'chat.history.delete': '删除',
+  'chat.history.delete.popconfirm': '确定删除该消息吗？',
+  'chat.history.favorite': '收藏',
+  'chat.history.unfavorite': '取消收藏',
+  'chat.history.search': '搜索',
+  'chat.history.search.placeholder': '历史任务',
+  'chat.history.newChat': '新对话',
+  'chat.history.loadMore': '查看更多',
+  'chat.history.historyTasks': '历史任务',
+  // TaskList 组件相关
+  'taskList.expand': '展开',
+  'taskList.collapse': '收起',
+  'taskList.taskList': '任务列表',
+  'taskList.taskComplete': '任务完成',
+  'taskList.taskAborted': '任务已取消',
+  'taskList.taskInProgress': '正在进行${taskName}任务',
+  'taskList.totalTimeUsed': '共耗时',
+  // Bubble 组件相关
+  'chat.message.thinking': '正在思考中...',
+  'chat.message.referenceDocument': '参考文档',
+  'chat.message.viewOriginal': '查看原文',
+  'chat.message.generateFailed': '生成回答失败，请重试',
+  'chat.message.preview': '预览',
+  // Workspace/File 组件相关
+  'workspace.file.fileName': '文件名：',
+  'workspace.file.fileSize': '文件大小：',
+  'workspace.file.clickToDownload': '点击下载',
+  'workspace.file.cannotGetImagePreview': '无法获取图片预览',
+  'workspace.file.cannotGetVideoPreview': '无法获取视频预览',
+  'workspace.file.cannotGetAudioPreview': '无法获取音频预览',
+  'workspace.file.cannotGetPdfPreview': '无法获取PDF预览',
+  'workspace.file.unknownFileType': '未知的文件类型',
+  'workspace.file.generationTime': '生成时间：',
+  'workspace.file.backToFileList': '返回文件列表',
+  'workspace.file.downloadFile': '下载文件',
+  // MarkdownInputField 组件相关
+  'markdownInput.fileSizeExceeded': '文件大小超过 ${maxSize} KB',
 };
 
 // 英文 key-label 映射
@@ -294,6 +333,45 @@ export const enLabels: typeof cnLabels = {
     viewResult: 'View result',
     replayTask: 'Replay',
   },
+  // History component related
+  'chat.history': 'History',
+  'chat.history.delete': 'Delete',
+  'chat.history.delete.popconfirm': 'Are you sure to delete this message?',
+  'chat.history.favorite': 'Favorite',
+  'chat.history.unfavorite': 'Unfavorite',
+  'chat.history.search': 'Search',
+  'chat.history.search.placeholder': 'History tasks',
+  'chat.history.newChat': 'New Chat',
+  'chat.history.loadMore': 'Load More',
+  'chat.history.historyTasks': 'History Tasks',
+  // TaskList component related
+  'taskList.expand': 'Expand',
+  'taskList.collapse': 'Collapse',
+  'taskList.taskList': 'Task List',
+  'taskList.taskComplete': 'Task Complete',
+  'taskList.taskAborted': 'Task Aborted',
+  'taskList.taskInProgress': 'Task in progress: ${taskName}',
+  'taskList.totalTimeUsed': 'Total Time Used',
+  // Bubble component related
+  'chat.message.thinking': 'Thinking...',
+  'chat.message.referenceDocument': 'Reference Document',
+  'chat.message.viewOriginal': 'View Original',
+  'chat.message.generateFailed': 'Failed to generate answer, please retry',
+  'chat.message.preview': 'Preview',
+  // Workspace/File component related
+  'workspace.file.fileName': 'File Name: ',
+  'workspace.file.fileSize': 'File Size: ',
+  'workspace.file.clickToDownload': 'Click to Download',
+  'workspace.file.cannotGetImagePreview': 'Cannot get image preview',
+  'workspace.file.cannotGetVideoPreview': 'Cannot get video preview',
+  'workspace.file.cannotGetAudioPreview': 'Cannot get audio preview',
+  'workspace.file.cannotGetPdfPreview': 'Cannot get PDF preview',
+  'workspace.file.unknownFileType': 'Unknown file type',
+  'workspace.file.generationTime': 'Generation Time: ',
+  'workspace.file.backToFileList': 'Back to File List',
+  'workspace.file.downloadFile': 'Download File',
+  // MarkdownInputField component related
+  'markdownInput.fileSizeExceeded': 'File size exceeds ${maxSize} KB',
 };
 
 export type LocalKeys = typeof cnLabels;

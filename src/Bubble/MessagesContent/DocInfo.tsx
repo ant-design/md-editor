@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
+import { I18nContext } from '../../i18n';
 import { ActionIconBox, MarkdownEditor } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { useStyle } from './docInfoStyle';
@@ -62,6 +63,7 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
   const configContext = useContext(ConfigProvider.ConfigContext);
   const baseCls = configContext?.getPrefixCls(`agent-doc-info`);
   const chatContext = useContext(BubbleConfigContext);
+  const { locale } = useContext(I18nContext);
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   const docInfoList = props.options?.filter((item) => item) || [];
@@ -71,7 +73,7 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
   return wrapSSR(
     <>
       <Drawer
-        title={'预览' + docMeta?.doc_name}
+        title={locale?.['chat.message.preview'] || '预览' + docMeta?.doc_name}
         open={!!docMeta}
         onClose={() => {
           setDocMeta(null);
@@ -303,7 +305,9 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
                   </div>
                   {item?.originUrl ? (
                     <ActionIconBox
-                      title="查看原文"
+                      title={
+                        locale?.['chat.message.viewOriginal'] || '查看原文'
+                      }
                       style={{
                         fontSize: '1em',
                       }}

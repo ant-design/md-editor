@@ -11,6 +11,7 @@ import React, {
 } from 'react';
 import { Editor, Transforms } from 'slate';
 import { useRefFunction } from '../hooks/useRefFunction';
+import { I18nContext } from '../i18n';
 import {
   BaseMarkdownEditor,
   MarkdownEditorInstance,
@@ -296,6 +297,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   props,
 ) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const { locale } = useContext(I18nContext);
   const baseCls = getPrefixCls('md-input-field');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const [isHover, setHover] = React.useState(false);
@@ -428,6 +430,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           onFileMapChange: (newFileMap) => {
             updateAttachmentFiles(newFileMap);
           },
+          locale,
         });
       } catch (error) {
         console.error('Error uploading files:', error);

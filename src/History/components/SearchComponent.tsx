@@ -1,7 +1,8 @@
 import { Input, Spin } from 'antd';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import useClickAway from '../../hooks/useClickAway';
 import { useDebounceFn } from '../../hooks/useDebounceFn';
+import { I18nContext } from '../../i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 
 function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -74,6 +75,7 @@ interface HistorySearchProps {
  * - 默认显示搜索图标，点击后展开搜索框
  */
 export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
+  const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -119,7 +121,9 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
     >
       {isExpanded ? (
         <Input
-          placeholder="历史任务"
+          placeholder={
+            locale?.['chat.history.search.placeholder'] || '历史任务'
+          }
           prefix={loading ? <Spin size="small" /> : <SearchIcon />}
           onChange={(e) => {
             handleSearchChange.run(e);
@@ -139,11 +143,11 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
               color: 'rgba(0, 25, 61, 0.3255)',
             }}
           >
-            历史任务
+            {locale?.['chat.history.historyTasks'] || '历史任务'}
           </div>
           <ActionIconBox
             onClick={handleToggleSearch}
-            title="搜索"
+            title={locale?.['chat.history.search'] || '搜索'}
             style={{
               width: 40,
             }}
