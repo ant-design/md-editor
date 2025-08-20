@@ -78,8 +78,10 @@ const HistoryActionRefDemo: React.FC = () => {
       <div style={{ marginTop: 16, fontSize: 14, color: '#666' }}>
         <p>说明：</p>
         <ul>
-          <li>点击"刷新历史记录"按钮可以手动触发数据重新加载</li>
-          <li>点击"添加新会话"按钮模拟添加新会话后自动刷新历史记录</li>
+          <li>点击&quot;刷新历史记录&quot;按钮可以手动触发数据重新加载</li>
+          <li>
+            点击&quot;添加新会话&quot;按钮模拟添加新会话后自动刷新历史记录
+          </li>
           <li>打开浏览器控制台可以看到相关的日志输出</li>
         </ul>
       </div>
