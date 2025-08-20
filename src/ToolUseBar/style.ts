@@ -4,6 +4,7 @@ import {
   GenerateStyle,
   useEditorStyleRegister,
 } from '../hooks/useStyle';
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   const rotate = new Keyframes(`lui-tool-use-bar-rotate`, {
     '100%': { transform: 'rotate(360deg)' },

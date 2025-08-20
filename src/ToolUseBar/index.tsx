@@ -1,6 +1,6 @@
 ﻿import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { ChevronUpIcon } from '../TaskList';
 import { useStyle } from './style';
 
@@ -68,6 +68,9 @@ interface ToolUseBarProps {
   activeKeys?: string[];
   defaultActiveKeys?: string[];
   onActiveKeysChange?: (activeKeys: string[]) => void;
+  expandedKeys?: string[];
+  defaultExpandedKeys?: string[];
+  onExpandedKeysChange?: (expandedKeys: string[]) => void;
   testId?: string;
 }
 
@@ -78,6 +81,9 @@ const ToolUseBarItem = ({
   onClick,
   isActive,
   onActiveChange,
+  isExpanded,
+  onExpandedChange,
+  defaultExpanded,
 }: {
   tool: ToolCall;
   prefixCls: string;
@@ -85,8 +91,17 @@ const ToolUseBarItem = ({
   onClick?: (id: string) => void;
   isActive?: boolean;
   onActiveChange?: (id: string, active: boolean) => void;
+  isExpanded?: boolean;
+  onExpandedChange?: (id: string, expanded: boolean) => void;
+  defaultExpanded?: boolean;
 }) => {
-  const [expanded, setExpanded] = useState(false);
+  // 使用 useMergedState 来管理展开状态
+  const [expanded, setExpanded] = useMergedState(defaultExpanded ?? false, {
+    value: isExpanded,
+    onChange: onExpandedChange
+      ? (value) => onExpandedChange(tool.id, value)
+      : undefined,
+  });
 
   const handleClick = () => {
     onClick?.(tool.id);
@@ -97,6 +112,7 @@ const ToolUseBarItem = ({
 
   const handleExpandClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    // 通过 setExpanded 切换状态，useMergedState 会自动处理受控和非受控模式
     setExpanded(!expanded);
   };
 
@@ -220,6 +236,9 @@ const ToolUseBarItem = ({
  * @param {string[]} [props.activeKeys] - 当前激活的工具ID列表
  * @param {string[]} [props.defaultActiveKeys] - 默认激活的工具ID列表
  * @param {(keys: string[]) => void} [props.onActiveKeysChange] - 激活状态变化回调
+ * @param {string[]} [props.expandedKeys] - 当前展开的工具ID列表
+ * @param {string[]} [props.defaultExpandedKeys] - 默认展开的工具ID列表
+ * @param {(keys: string[]) => void} [props.onExpandedKeysChange] - 展开状态变化回调
  * @param {(tool: ToolUseItem) => void} [props.onToolClick] - 工具点击回调
  * @param {string} [props.className] - 自定义CSS类名
  * @param {React.CSSProperties} [props.style] - 自定义样式
@@ -230,6 +249,8 @@ const ToolUseBarItem = ({
  *   tools={toolList}
  *   activeKeys={['tool1', 'tool2']}
  *   onActiveKeysChange={(keys) => setActiveKeys(keys)}
+ *   expandedKeys={['tool1']}
+ *   onExpandedKeysChange={(keys) => setExpandedKeys(keys)}
  *   onToolClick={(tool) => console.log('点击工具:', tool.toolName)}
  * />
  * ```
@@ -237,8 +258,8 @@ const ToolUseBarItem = ({
  * @returns {React.ReactElement} 渲染的工具使用栏组件
  *
  * @remarks
- * - 支持工具列表的展开/折叠
- * - 支持工具的激活状态管理
+ * - 支持工具列表的受控和非受控展开/折叠
+ * - 支持工具的受控和非受控激活状态管理
  * - 显示工具名称、目标、时间等信息
  * - 支持工具点击交互
  * - 提供加载状态显示
@@ -247,6 +268,7 @@ const ToolUseBarItem = ({
 export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   tools,
   onActiveKeysChange,
+  onExpandedKeysChange,
   ...props
 }) => {
   const prefixCls = 'tool-use-bar';
@@ -260,6 +282,14 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
     },
   );
 
+  const [expandedKeys, setExpandedKeys] = useMergedState(
+    props.defaultExpandedKeys || [],
+    {
+      value: props.expandedKeys,
+      onChange: onExpandedKeysChange,
+    },
+  );
+
   const handleActiveChange = (id: string, active: boolean) => {
     if (onActiveKeysChange) {
       const newActiveKeys = active
@@ -267,6 +297,13 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
         : activeKeys.filter((key) => key !== id);
       setActiveKeys(newActiveKeys);
     }
+  };
+
+  const handleExpandedChange = (id: string, expanded: boolean) => {
+    const newExpandedKeys = expanded
+      ? [...expandedKeys, id]
+      : expandedKeys.filter((key) => key !== id);
+    setExpandedKeys(newExpandedKeys);
   };
 
   if (!tools?.length)
@@ -289,6 +326,13 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
           onClick={props.onToolClick}
           isActive={activeKeys.includes(tool.id)}
           onActiveChange={handleActiveChange}
+          isExpanded={
+            onExpandedKeysChange ? expandedKeys.includes(tool.id) : undefined
+          }
+          onExpandedChange={
+            onExpandedKeysChange ? handleExpandedChange : undefined
+          }
+          defaultExpanded={props.defaultExpandedKeys?.includes(tool.id)}
           prefixCls={prefixCls}
           hashId={hashId}
         />

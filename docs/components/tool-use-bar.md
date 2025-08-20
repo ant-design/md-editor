@@ -15,17 +15,23 @@ ToolUseBar 是一个用于显示工具调用列表的组件，支持工具状态
 
 <code src="../demos/tool-use-bar-active-keys.tsx">activeKeys 功能演示</code>
 
+<code src="../demos/tool-use-bar-expanded-keys.tsx">expandedKeys 功能演示</code>
+
 ## API
 
 ### ToolUseBarProps
 
-| 属性               | 类型                           | 默认值 | 说明               |
-| ------------------ | ------------------------------ | ------ | ------------------ |
-| tools              | ToolCall[]                     | -      | 工具列表           |
-| onToolClick        | (id: string) => void           | -      | 工具点击回调       |
-| className          | string                         | -      | 自定义类名         |
-| activeKeys         | string[]                       | []     | 激活的工具 ID 数组 |
-| onActiveKeysChange | (activeKeys: string[]) => void | -      | 激活状态变化回调   |
+| 属性                 | 类型                             | 默认值 | 说明                   |
+| -------------------- | -------------------------------- | ------ | ---------------------- |
+| tools                | ToolCall[]                       | -      | 工具列表               |
+| onToolClick          | (id: string) => void             | -      | 工具点击回调           |
+| className            | string                           | -      | 自定义类名             |
+| activeKeys           | string[]                         | []     | 激活的工具 ID 数组     |
+| defaultActiveKeys    | string[]                         | []     | 默认激活的工具 ID 数组 |
+| onActiveKeysChange   | (activeKeys: string[]) => void   | -      | 激活状态变化回调       |
+| expandedKeys         | string[]                         | []     | 展开的工具 ID 数组     |
+| defaultExpandedKeys  | string[]                         | []     | 默认展开的工具 ID 数组 |
+| onExpandedKeysChange | (expandedKeys: string[]) => void | -      | 展开状态变化回调       |
 
 ### ToolCall
 
@@ -54,3 +60,7 @@ ToolUseBar 是一个用于显示工具调用列表的组件，支持工具状态
 2. 如果不提供 `onActiveKeysChange`，`activeKeys` 将不会生效
 3. 组件支持多选激活，可以同时激活多个工具项
 4. 点击已激活的工具项会取消激活状态
+5. `expandedKeys` 数组中的 ID 必须与 `tools` 中的 `id` 匹配
+6. 如果不提供 `onExpandedKeysChange`，展开状态将使用内部状态管理
+7. 只有包含 `content` 或 `errorMessage` 的工具项才会显示展开按钮
+8. 支持受控和非受控两种展开模式
