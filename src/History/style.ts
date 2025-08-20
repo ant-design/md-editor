@@ -77,6 +77,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
           fontSize: '13px',
           fontWeight: 500,
+          padding: '6px 12px 6px',
           lineHeight: '20px',
           letterSpacing: 'normal',
           color: 'rgba(0, 25, 61, 0.3255)',
