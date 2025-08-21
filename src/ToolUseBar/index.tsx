@@ -72,7 +72,8 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   const [activeKeys, setActiveKeys] = useMergedState(
     props.defaultActiveKeys || [],
     {
-      defaultValue: props.activeKeys,
+      value: props.activeKeys,
+      defaultValue: props.defaultActiveKeys,
       onChange: onActiveKeysChange,
     },
   );
