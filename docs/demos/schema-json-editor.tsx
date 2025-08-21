@@ -165,8 +165,35 @@ const SchemaJsonEditor: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>SchemaRenderer</strong>: 用于渲染 schema 的组件
+          </li>
+          <li>
+            <strong>schema</strong>: LowCodeSchema 对象，包含组件配置信息
+          </li>
+          <li>
+            <strong>values</strong>: 渲染时使用的数据值对象
+          </li>
+          <li>
+            <strong>validator.validate(schema)</strong>: 验证 schema
+            是否符合规范
+          </li>
+          <li>
+            <strong>jsonInput</strong>: JSON 输入内容的状态变量
+          </li>
+          <li>
+            <strong>error</strong>: 错误信息的状态变量
+          </li>
+          <li>
+            <strong>loading</strong>: 加载状态的状态变量
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
-
 export default SchemaJsonEditor;

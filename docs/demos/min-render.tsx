@@ -344,6 +344,35 @@ export default () => {
             </div>
           );
         })}
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>toc</code> - 是否显示目录，设置为 false 隐藏目录
+          </li>
+          <li>
+            <code>width</code> - 编辑器宽度，设置为 100% 占满容器
+          </li>
+          <li>
+            <code>typewriter</code> - 打字机模式，通过 state 控制开关
+          </li>
+          <li>
+            <code>height</code> - 编辑器高度，设置为 auto 自适应内容
+          </li>
+          <li>
+            <code>readonly</code> - 只读模式，用户无法编辑内容
+          </li>
+          <li>
+            <code>initValue</code> - 初始化的 Markdown 内容，按章节分割显示
+          </li>
+          <li>
+            <code>Modal</code> - 用于显示源代码的弹窗组件
+          </li>
+          <li>
+            <code>sourceText</code> - 当前显示的源代码内容
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

@@ -643,269 +643,90 @@
             style="height: 64px;"
           />
         </div>
-         
-        <div
-          class="markdown-editor ant-md-editor ant-md-editor-readonly ant-md-editor-report"
-          style="width: 60vw; height: 500px; display: flex; flex-direction: column; max-height: 100%;"
-        >
-          <div
-            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
-            tabindex="-1"
-          >
-            <div
-              autocapitalize="false"
-              autocorrect="false"
-              class="ant-md-editor-content-readonly ant-md-editor-content ant-md-editor-content-report"
-              data-slate-editor="true"
-              data-slate-node="value"
-              spellcheck="false"
-              style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
-              zindex="-1"
-            >
-              <div
-                data-slate-node="element"
-              >
-                <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="java"
-                  data-testid="code-container"
-                  tabindex="-1"
-                >
-                  <div
-                    contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
-                  >
-                    <div
-                      class="ace-container drag-el "
-                      data-testid="code-editor-container"
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
-                    >
-                      <div
-                        contenteditable="false"
-                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
-                      />
-                      <div
-                        data-testid="ace-editor-container"
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        data-testid="code-content-copy"
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        public class HelloWorld {    public static void main(String[] args) {       System.out.println("Hello, World");    } }
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              public class HelloWorld {
-   public static void main(String[] args) {
-      System.out.println("Hello, World");
-   }
-}
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                data-slate-node="element"
-              >
-                <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="json"
-                  data-testid="code-container"
-                  tabindex="-1"
-                >
-                  <div
-                    contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
-                  >
-                    <div
-                      class="ace-container drag-el "
-                      data-testid="code-editor-container"
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
-                    >
-                      <div
-                        contenteditable="false"
-                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
-                      />
-                      <div
-                        data-testid="ace-editor-container"
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        data-testid="code-content-copy"
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        {   "$schema": "https://json-schema.org/draft/2020-12/schema",   "$id": "https://json-schema.org/draft/2020-12/schema",   "$vocabulary": {       "https://json-schema.org/draft/2020-12/vocab/core": true,       "https://json-schema.org/draft/2020-12/vocab/applicator": true,       "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,       "https://json-schema.org/draft/2020-12/vocab/validation": true,       "https://json-schema.org/draft/2020-12/vocab/meta-data": true,       "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,       "https://json-schema.org/draft/2020-12/vocab/content": true   },   "$dynamicAnchor": "meta",   "title": "Core and Validation specifications meta-schema",   "allOf": [       {           "$ref": "meta/core"       },       {           "$ref": "meta/applicator"       },       {           "$ref": "meta/unevaluated"       },       {           "$ref": "meta/validation"       },       {           "$ref": "meta/meta-data"       },       {           "$ref": "meta/format-annotation"       },       {           "$ref": "meta/content"       }   ],   "type": [       "object",       "boolean"   ],   "$comment": "This meta-schema also defines keywords that have appeared in previous drafts in order to prevent incompatible extensions as they remain in common use.",   "properties": {       "definitions": {           "$comment": ""definitions" has been replaced by "$defs".",           "type": "object",           "additionalProperties": {               "$dynamicRef": "#meta"           },           "deprecated": true,           "default": {}       },       "dependencies": {           "$comment": ""dependencies" has been split and replaced by "dependentSchemas" and "dependentRequired" in order to serve their differing semantics.",           "type": "object",           "additionalProperties": {               "anyOf": [                   {                       "$dynamicRef": "#meta"                   },                   {                       "$ref": "meta/validation#/$defs/stringArray"                   }               ]           },           "deprecated": true,           "default": {}       },       "$recursiveAnchor": {           "$comment": ""$recursiveAnchor" has been replaced by "$dynamicAnchor".",           "$ref": "meta/core#/$defs/anchorString",           "deprecated": true       },       "$recursiveRef": {           "$comment": ""$recursiveRef" has been replaced by "$dynamicRef".",           "$ref": "meta/core#/$defs/uriReferenceString",           "deprecated": true       }   } }
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://json-schema.org/draft/2020-12/schema",
-  "$vocabulary": {
-      "https://json-schema.org/draft/2020-12/vocab/core": true,
-      "https://json-schema.org/draft/2020-12/vocab/applicator": true,
-      "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
-      "https://json-schema.org/draft/2020-12/vocab/validation": true,
-      "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
-      "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
-      "https://json-schema.org/draft/2020-12/vocab/content": true
-  },
-  "$dynamicAnchor": "meta",
-  "title": "Core and Validation specifications meta-schema",
-  "allOf": [
-      {
-          "$ref": "meta/core"
-      },
-      {
-          "$ref": "meta/applicator"
-      },
-      {
-          "$ref": "meta/unevaluated"
-      },
-      {
-          "$ref": "meta/validation"
-      },
-      {
-          "$ref": "meta/meta-data"
-      },
-      {
-          "$ref": "meta/format-annotation"
-      },
-      {
-          "$ref": "meta/content"
-      }
-  ],
-  "type": [
-      "object",
-      "boolean"
-  ],
-  "$comment": "This meta-schema also defines keywords that have appeared in previous drafts in order to prevent incompatible extensions as they remain in common use.",
-  "properties": {
-      "definitions": {
-          "$comment": ""definitions" has been replaced by "$defs".",
-          "type": "object",
-          "additionalProperties": {
-              "$dynamicRef": "#meta"
-          },
-          "deprecated": true,
-          "default": {}
-      },
-      "dependencies": {
-          "$comment": ""dependencies" has been split and replaced by "dependentSchemas" and "dependentRequired" in order to serve their differing semantics.",
-          "type": "object",
-          "additionalProperties": {
-              "anyOf": [
-                  {
-                      "$dynamicRef": "#meta"
-                  },
-                  {
-                      "$ref": "meta/validation#/$defs/stringArray"
-                  }
-              ]
-          },
-          "deprecated": true,
-          "default": {}
-      },
-      "$recursiveAnchor": {
-          "$comment": ""$recursiveAnchor" has been replaced by "$dynamicAnchor".",
-          "$ref": "meta/core#/$defs/anchorString",
-          "deprecated": true
-      },
-      "$recursiveRef": {
-          "$comment": ""$recursiveRef" has been replaced by "$dynamicRef".",
-          "$ref": "meta/core#/$defs/uriReferenceString",
-          "deprecated": true
-      }
-  }
-}
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                data-slate-node="element"
-              >
-                <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="sql"
-                  data-testid="code-container"
-                  tabindex="-1"
-                >
-                  <div
-                    contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
-                  >
-                    <div
-                      class="ace-container drag-el "
-                      data-testid="code-editor-container"
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
-                    >
-                      <div
-                        contenteditable="false"
-                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
-                      />
-                      <div
-                        data-testid="ace-editor-container"
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        data-testid="code-content-copy"
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        SELECT employees.name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id;
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              SELECT employees.name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id;
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <h4>
+            Props 说明
+          </h4>
+          <ul>
+            <li>
+              <code>
+                reportMode
+              </code>
+               - 报告模式，优化显示效果
+            </li>
+            <li>
+              <code>
+                toc
+              </code>
+               - 是否显示目录，设置为 false 隐藏目录
+            </li>
+            <li>
+              <code>
+                initValue
+              </code>
+               - 初始化的 Markdown 内容，包含代码块和 JSON Schema
+            </li>
+            <li>
+              <code>
+                toolBar
+              </code>
+               - 工具栏配置，包含最小化、启用状态和额外按钮
+            </li>
+            <li>
+              <code>
+                toolBar.min
+              </code>
+               - 工具栏最小化状态
+            </li>
+            <li>
+              <code>
+                toolBar.enable
+              </code>
+               - 工具栏启用状态
+            </li>
+            <li>
+              <code>
+                toolBar.extra
+              </code>
+               - 工具栏额外按钮，包含插入 Markdown 功能
+            </li>
+            <li>
+              <code>
+                image.upload
+              </code>
+               - 图片上传函数，支持文件和 URL 上传
+            </li>
+            <li>
+              <code>
+                readonly
+              </code>
+               - 只读模式，用户无法编辑内容
+            </li>
+            <li>
+              <code>
+                onChange
+              </code>
+               - 内容变化回调函数，输出到控制台
+            </li>
+            <li>
+              <code>
+                width
+              </code>
+               - 编辑器宽度，设置为 60vw
+            </li>
+            <li>
+              <code>
+                height
+              </code>
+               - 编辑器高度，设置为 500px
+            </li>
+            <li>
+              <code>
+                editorRef
+              </code>
+               - 编辑器引用，用于调用 store.setMDContent 方法
+            </li>
+          </ul>
         </div>
       </div>
     </div>

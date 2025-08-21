@@ -57,11 +57,27 @@ const thoughtChainData = [
 
 function App() {
   return (
-    <ThoughtChainList
-      thoughtChainList={thoughtChainData}
-      loading={false}
-      style={{ marginBottom: 16 }}
-    />
+    <>
+      <ThoughtChainList
+        thoughtChainList={thoughtChainData}
+        loading={false}
+        style={{ marginBottom: 16 }}
+      />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>thoughtChainList</code> - 思维链项目数组，包含 AI 推理步骤数据
+          </li>
+          <li>
+            <code>loading</code> - 表示组件是否处于加载状态
+          </li>
+          <li>
+            <code>style</code> - 自定义 CSS 样式
+          </li>
+        </ul>
+      </div>
+    </>
   );
 }
 export default App;

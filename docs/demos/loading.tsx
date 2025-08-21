@@ -12,6 +12,21 @@ export default () => {
         <span>加载中</span>
         <Loading />
       </div>
+
+      <div style={{ marginTop: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>Loading</strong>: 加载组件，用于显示加载状态
+          </li>
+          <li>
+            <strong>基础用法</strong>: 直接使用 &lt;Loading /&gt; 显示加载动画
+          </li>
+          <li>
+            <strong>文本中使用</strong>: 可以与其他文本内容组合使用
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

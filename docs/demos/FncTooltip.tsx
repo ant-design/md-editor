@@ -88,66 +88,67 @@ export default () => {
     },
   );
   return (
-    <MarkdownEditor
-      editorRef={editorRef}
-      width={'100vw'}
-      height={'100vh'}
-      reportMode
-      plugins={[
-        {
-          elements: {
-            code: CodeElement,
-            chart: ChartElement,
-            mermaid: MermaidElement,
+    <>
+      <MarkdownEditor
+        editorRef={editorRef}
+        width={'100vw'}
+        height={'100vh'}
+        reportMode
+        plugins={[
+          {
+            elements: {
+              code: CodeElement,
+              chart: ChartElement,
+              mermaid: MermaidElement,
+            },
           },
-        },
-      ]}
-      fncProps={{
-        onFootnoteDefinitionChange: (nodeList) => {
-          setNodeList(nodeList);
-        },
-        render: (props, _) => {
-          return funRender(props, _);
-        },
-      }}
-      onChange={(e, value) => {
-        console.log(value);
-      }}
-      image={{
-        upload: async (fileList) => {
-          return new Promise((resolve) => {
-            const file = fileList[0];
-            if (typeof file === 'string') {
-              fetch(file)
-                .then((res) => res.blob())
-                .then((blob) => {
-                  console.log(blob);
-                  const url = URL.createObjectURL(blob);
-                  resolve(url);
-                });
-            } else {
-              const url = URL.createObjectURL(file);
-              resolve(url);
-            }
-          });
-        },
-      }}
-      toolBar={{
-        hideTools: ['H1'],
-        min: true,
-      }}
-      insertAutocompleteProps={{
-        optionsRender: (options) => {
-          return options.filter((item) => {
-            return item.key !== 'head1';
-          });
-        },
-      }}
-      initValue={
-        process.env.NODE_ENV === 'test'
-          ? defaultValue
-          : defaultValue +
-            `## 公式
+        ]}
+        fncProps={{
+          onFootnoteDefinitionChange: (nodeList) => {
+            setNodeList(nodeList);
+          },
+          render: (props, _) => {
+            return funRender(props, _);
+          },
+        }}
+        onChange={(e, value) => {
+          console.log(value);
+        }}
+        image={{
+          upload: async (fileList) => {
+            return new Promise((resolve) => {
+              const file = fileList[0];
+              if (typeof file === 'string') {
+                fetch(file)
+                  .then((res) => res.blob())
+                  .then((blob) => {
+                    console.log(blob);
+                    const url = URL.createObjectURL(blob);
+                    resolve(url);
+                  });
+              } else {
+                const url = URL.createObjectURL(file);
+                resolve(url);
+              }
+            });
+          },
+        }}
+        toolBar={{
+          hideTools: ['H1'],
+          min: true,
+        }}
+        insertAutocompleteProps={{
+          optionsRender: (options) => {
+            return options.filter((item) => {
+              return item.key !== 'head1';
+            });
+          },
+        }}
+        initValue={
+          process.env.NODE_ENV === 'test'
+            ? defaultValue
+            : defaultValue +
+              `## 公式
 
 Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
 equation.
@@ -158,7 +159,73 @@ $$
 
 $x^3+x^9+x^y$
 `
-      }
-    />
+        }
+      />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>editorRef</code> - 编辑器引用，用于访问编辑器实例
+          </li>
+          <li>
+            <code>width</code> - 编辑器宽度，设置为 100vw 占满视口宽度
+          </li>
+          <li>
+            <code>height</code> - 编辑器高度，设置为 100vh 占满视口高度
+          </li>
+          <li>
+            <code>reportMode</code> - 报告模式，优化显示效果
+          </li>
+          <li>
+            <code>plugins</code> - 插件配置，包含代码、图表、mermaid 元素
+          </li>
+          <li>
+            <code>plugins[].elements</code> - 自定义元素渲染配置
+          </li>
+          <li>
+            <code>fncProps</code> - 脚注引用属性配置
+          </li>
+          <li>
+            <code>fncProps.onFootnoteDefinitionChange</code> -
+            脚注定义变化回调函数
+          </li>
+          <li>
+            <code>fncProps.render</code> - 脚注引用渲染函数，使用 Popover 包装
+          </li>
+          <li>
+            <code>onChange</code> - 内容变化回调函数，输出到控制台
+          </li>
+          <li>
+            <code>image.upload</code> - 图片上传函数，支持文件和 URL 上传
+          </li>
+          <li>
+            <code>toolBar.hideTools</code> - 隐藏工具栏中的 H1 工具
+          </li>
+          <li>
+            <code>toolBar.min</code> - 工具栏最小化状态
+          </li>
+          <li>
+            <code>insertAutocompleteProps</code> - 插入自动完成属性配置
+          </li>
+          <li>
+            <code>insertAutocompleteProps.optionsRender</code> -
+            选项渲染函数，过滤掉 head1 选项
+          </li>
+          <li>
+            <code>initValue</code> - 初始化的 Markdown
+            内容，包含脚注引用和数学公式
+          </li>
+          <li>
+            <code>nodeList</code> - 节点列表状态，存储脚注定义信息
+          </li>
+          <li>
+            <code>setNodeList</code> - 设置节点列表的函数
+          </li>
+          <li>
+            <code>funRender</code> - 自定义渲染函数，使用 useRefFunction 优化
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };

@@ -132,48 +132,6 @@ const AgentModeHistoryDemo = () => {
       <p>收藏数量: {favorites.size}</p>
       <p>选中数量: {selectedIds.length}</p>
 
-      <h4>Props 说明：</h4>
-      <ul>
-        <li>
-          <strong>agent.enabled</strong>: 启用 Agent
-          模式，显示搜索、收藏、多选等功能
-        </li>
-        <li>
-          <strong>agent.onSearch</strong>: 搜索回调函数，处理搜索关键词
-        </li>
-        <li>
-          <strong>agent.onFavorite</strong>: 收藏回调函数，处理收藏/取消收藏
-        </li>
-        <li>
-          <strong>agent.onSelectionChange</strong>:
-          多选回调函数，处理多选状态变化
-        </li>
-        <li>
-          <strong>agent.onLoadMore</strong>: 加载更多回调函数，处理加载更多数据
-        </li>
-        <li>
-          <strong>agent.onNewChat</strong>: 新对话回调函数，处理创建新对话
-        </li>
-        <li>
-          <strong>agentId</strong>: 代理ID，用于获取历史记录
-        </li>
-        <li>
-          <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
-        </li>
-        <li>
-          <strong>request</strong>: 请求函数，用于获取历史数据
-        </li>
-        <li>
-          <strong>onSelected</strong>: 选择历史记录项时的回调函数
-        </li>
-        <li>
-          <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
-        </li>
-        <li>
-          <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
-        </li>
-      </ul>
-
       <div
         style={{
           padding: '20px',
@@ -198,6 +156,51 @@ const AgentModeHistoryDemo = () => {
             onNewChat: handleNewChat,
           }}
         />
+      </div>
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>agent.enabled</strong>: 启用 Agent
+            模式，显示搜索、收藏、多选等功能
+          </li>
+          <li>
+            <strong>agent.onSearch</strong>: 搜索回调函数，处理搜索关键词
+          </li>
+          <li>
+            <strong>agent.onFavorite</strong>: 收藏回调函数，处理收藏/取消收藏
+          </li>
+          <li>
+            <strong>agent.onSelectionChange</strong>:
+            多选回调函数，处理多选状态变化
+          </li>
+          <li>
+            <strong>agent.onLoadMore</strong>:
+            加载更多回调函数，处理加载更多数据
+          </li>
+          <li>
+            <strong>agent.onNewChat</strong>: 新对话回调函数，处理创建新对话
+          </li>
+          <li>
+            <strong>agentId</strong>: 代理ID，用于获取历史记录
+          </li>
+          <li>
+            <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
+          </li>
+          <li>
+            <strong>request</strong>: 请求函数，用于获取历史数据
+          </li>
+          <li>
+            <strong>onSelected</strong>: 选择历史记录项时的回调函数
+          </li>
+          <li>
+            <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
+          </li>
+          <li>
+            <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
+          </li>
+        </ul>
       </div>
     </div>
   );

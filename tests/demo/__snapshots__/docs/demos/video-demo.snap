@@ -713,6 +713,51 @@
           </div>
         </div>
       </div>
+      <div
+        style="margin-top: 20px;"
+      >
+        <h4>
+          Props 说明：
+        </h4>
+        <ul>
+          <li>
+            <strong>
+              initValue
+            </strong>
+            : 编辑器的初始内容值，包含视频标签的 Markdown 内容
+          </li>
+          <li>
+            <strong>
+              toc
+            </strong>
+            : 是否显示目录，设置为 false 隐藏目录
+          </li>
+          <li>
+            <strong>
+              onChange
+            </strong>
+            : 内容变化时的回调函数
+          </li>
+          <li>
+            <strong>
+              readonly
+            </strong>
+            : 只读模式，禁用编辑功能
+          </li>
+          <li>
+            <strong>
+              reportMode
+            </strong>
+            : 报告模式，启用只读状态
+          </li>
+          <li>
+            <strong>
+              style
+            </strong>
+            : 编辑器容器的样式对象
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </DocumentFragment>

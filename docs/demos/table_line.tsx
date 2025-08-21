@@ -2,7 +2,7 @@
 import React from 'react';
 
 const defaultValue = `
-| 序号 | 问题描述 | 解决方式 | \n| ----- | ----- | ----- | \n| 19 | 是否有支持苹果mac的金仓安装包 | 目前还没有，不过苹果mac可以通过DBeaver连接金仓数据库，详见群里的《DBeaver配置连接人大金仓数据库.docx》 | \n| 7 | Maven项目引入使用人大金仓数据库操作 | 参考https://blog.csdn.net/qq_25094817/article/details/122808208 | \n| 15 | java类型是 LocalDateTime 对应的人大金仓db类型是什么 | timestamp | \n| 30 | 金仓数据库是否有merge into语法？ | 金仓里没有merge into，可以使用on conflict (XX) do update方式替代，群里《人大金仓KingbaseES与MySQL差异内容汇总-V1.pdf》文档里有例子可以参考下 | \n| 29 | 项目中的sys_config表，与人大金仓数据库系统表重名，造成查询失败。 | 修改数据库的data目录下的kingbase.conf文件,将search_path打开注释并修改:search_path = \"$USER\", PUBLIC, sys_catalog'然后重启数据库 | \n| 23 | 金仓外部表操作步骤 | 通过支持其操作，将常见操作步骤及问题整理，详见人大金仓使用群里的《金仓外部表使用例子.docx》 | \n| 1 | 屏蔽金仓数据库关键字，如level | level为金仓数据库关键字，业务表中如果含有关键字，在sql操作的时候会报错，在金仓库配置kingbase.conf里可以增加屏蔽关键字功能，即exclude_reserved_words=level，然后重新加载即可sys_ctl reload -D data目录 | \n| 8 | Druid 配置金仓数据库方式 | 需要配置driverClassName才能支持国产数据库\n Druid 金仓V8数据源的配置例子：\njdbc.driverClassName=com.kingbase8.Driver \njdbc.url=jdbc:kingbase8://127.0.0.1:54321/test \njdbc.username=root \njdbc.password=1qaz!QAZ\n filters= stat,log4j   \n(filters常用种类：\n监控统计用的filter:stat\n日志用的filter:log4j\n防御sql注入的filter:wall目前不支持国产数据库) | \n| 28 | 金仓数据库是否有类似执行计划的功能，比如每隔5分操作执行sql | 支持的，可以通过客户端直接进行操作，详见群里的《金仓数据库客户端计划任务使用方法.docx》 | \n| 26 | 如何默认去找自定义模式下的表。在sql里指定模式就可以吗？ select * from private.xxx | 可以的，除了这种方式，金仓还支持修改默认模式，即把默认模式修改为自定义模式。\nalter database XX set search_path=XX;\nselect sys_reload_conf(); | \n| 18 | 有类似于Oracle的sequence功能吗？  如何使用？ | 金仓也支持序列功能的，详细的可以看下数据库管理员指南的15.2章节，文档可以在数据库安装目录的doc文件夹找到，也可以联系金仓技术人员获取。 | \n| 16 | 金仓库是否支持反引号 | 金仓库支持mysql的反引号写法 | \n| 27 | mysql与金仓数据库分区表创建、插入、查询、truncate等常用操作对比 | 此部分对比内容及测试步骤已整理到群里《mysql与金仓数据库分区表创建与truncate.docx》 | \n| 13 | 用mysql的sql转储文件可以直接还原到金仓里吗 | mysql的sql转储文件不能直接导入到金仓里，提供源mysql的ip、用户名密码、库名信息，以及目标金仓库的ip、用户名密码，由金仓工程师进行迁移 | \n| 31 | 金仓数据库是否支持间隔分区？ | 暂不支持间隔分区（原生mysql也不支持） | \n| 34 | 金仓数据库支持sum()over函数吗？ | 支持，具体步骤详见群文件《sum()over()函介绍与示例.docx》 | \n| 24 | MySql里面的这种DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP在金仓中如何实现 | 金仓数据库已兼容此语法，与mysql中用法一样。 | \n| 6 | sql创建表空间方式 | 金仓数据库创建表空间的方式：\nCREATE TABLESPACE x3dpassadmin owner x3dpassadmin LOCATION '/data/tablespace/passdb'; | \n| 17 | 金仓的数据库支持XA事务么 | 支持，参考https://blog.csdn.net/lyu1026/article/details/124480665，也可以看[应用开发及迁移][客户端编程接口]JDBC指南.pdf，文档可以在数据库安装目录的doc文件夹找到，没有的同事可以联系金仓技术人员获取。 | \n| 33 | excel表格如何导入到金仓数据库里？ | 步骤详见群文件《Excel表格数据导入金仓数据库.docx》 | \n
+| 序号 | 问题描述 | 解决方式 | \n| ----- | ----- | ----- | \n| 19 | 是否有支持苹果mac的金仓安装包 | 目前还没有，不过苹果mac可以通过DBeaver连接金仓数据库，详见群里的《DBeaver配置连接人大金仓数据库.docx》 | \n| 7 | Maven项目引入使用人大金仓数据库操作 | 参考https://blog.csdn.net/qq_25094817/article/details/122808208 | \n| 15 | java类型是 LocalDateTime 对应的人大金仓db类型是什么 | timestamp | \n| 30 | 金仓数据库是否有merge into语法？ | 金仓里没有merge into，可以使用on conflict (XX) do update方式替代，群里《人大金仓KingbaseES与MySQL差异内容汇总-V1.pdf》文档里有例子可以参考下 | \n| 29 | 项目中的sys_config表，与人大金仓数据库系统表重名，造成查询失败。 | 修改数据库的data目录下的kingbase.conf文件,将search_path打开注释并修改:search_path = "$USER", PUBLIC, sys_catalog'然后重启数据库 | \n| 23 | 金仓外部表操作步骤 | 通过支持其操作，将常见操作步骤及问题整理，详见人大金仓使用群里的《金仓外部表使用例子.docx》 | \n| 1 | 屏蔽金仓数据库关键字，如level | level为金仓数据库关键字，业务表中如果含有关键字，在sql操作的时候会报错，在金仓库配置kingbase.conf里可以增加屏蔽关键字功能，即exclude_reserved_words=level，然后重新加载即可sys_ctl reload -D data目录 | \n| 8 | Druid 配置金仓数据库方式 | 需要配置driverClassName才能支持国产数据库\n Druid 金仓V8数据源的配置例子：\njdbc.driverClassName=com.kingbase8.Driver \njdbc.url=jdbc:kingbase8://127.0.0.1:54321/test \njdbc.username=root \njdbc.password=1qaz!QAZ\n filters= stat,log4j   \n(filters常用种类：\n监控统计用的filter:stat\n日志用的filter:log4j\n防御sql注入的filter:wall目前不支持国产数据库) | \n| 28 | 金仓数据库是否有类似执行计划的功能，比如每隔5分操作执行sql | 支持的，可以通过客户端直接进行操作，详见群里的《金仓数据库客户端计划任务使用方法.docx》 | \n| 26 | 如何默认去找自定义模式下的表。在sql里指定模式就可以吗？ select * from private.xxx | 可以的，除了这种方式，金仓还支持修改默认模式，即把默认模式修改为自定义模式。\nalter database XX set search_path=XX;\nselect sys_reload_conf(); | \n| 18 | 有类似于Oracle的sequence功能吗？  如何使用？ | 金仓也支持序列功能的，详细的可以看下数据库管理员指南的15.2章节，文档可以在数据库安装目录的doc文件夹找到，也可以联系金仓技术人员获取。 | \n| 16 | 金仓库是否支持反引号 | 金仓库支持mysql的反引号写法 | \n| 27 | mysql与金仓数据库分区表创建、插入、查询、truncate等常用操作对比 | 此部分对比内容及测试步骤已整理到群里《mysql与金仓数据库分区表创建与truncate.docx》 | \n| 13 | 用mysql的sql转储文件可以直接还原到金仓里吗 | mysql的sql转储文件不能直接导入到金仓里，提供源mysql的ip、用户名密码、库名信息，以及目标金仓库的ip、用户名密码，由金仓工程师进行迁移 | \n| 31 | 金仓数据库是否支持间隔分区？ | 暂不支持间隔分区（原生mysql也不支持） | \n| 34 | 金仓数据库支持sum()over函数吗？ | 支持，具体步骤详见群文件《sum()over()函介绍与示例.docx》 | \n| 24 | MySql里面的这种DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP在金仓中如何实现 | 金仓数据库已兼容此语法，与mysql中用法一样。 | \n| 6 | sql创建表空间方式 | 金仓数据库创建表空间的方式：\nCREATE TABLESPACE x3dpassadmin owner x3dpassadmin LOCATION '/data/tablespace/passdb'; | \n| 17 | 金仓的数据库支持XA事务么 | 支持，参考https://blog.csdn.net/lyu1026/article/details/124480665，也可以看[应用开发及迁移][客户端编程接口]JDBC指南.pdf，文档可以在数据库安装目录的doc文件夹找到，没有的同事可以联系金仓技术人员获取。 | \n| 33 | excel表格如何导入到金仓数据库里？ | 步骤详见群文件《Excel表格数据导入金仓数据库.docx》 | \n
 
 
 
@@ -10,12 +10,34 @@ const defaultValue = `
 `;
 export default () => {
   return (
-    <MarkdownEditor
-      width={'100vw'}
-      height={'100vh'}
-      reportMode
-      readonly
-      initValue={defaultValue}
-    />
+    <div>
+      <MarkdownEditor
+        width={'100vw'}
+        height={'100vh'}
+        reportMode
+        readonly
+        initValue={defaultValue}
+      />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>width</code> - 编辑器宽度，设置为 100vw 占满视口宽度
+          </li>
+          <li>
+            <code>height</code> - 编辑器高度，设置为 100vh 占满视口高度
+          </li>
+          <li>
+            <code>reportMode</code> - 报告模式，优化显示效果
+          </li>
+          <li>
+            <code>readonly</code> - 只读模式，用户无法编辑内容
+          </li>
+          <li>
+            <code>initValue</code> - 初始化的 Markdown 内容，包含表格数据
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };

@@ -85,6 +85,33 @@ const HistoryActionRefDemo: React.FC = () => {
           <li>打开浏览器控制台可以看到相关的日志输出</li>
         </ul>
       </div>
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>actionRef</strong>: 组件引用，用于调用组件内部方法
+          </li>
+          <li>
+            <strong>actionRef.current.reload()</strong>: 手动刷新历史记录数据
+          </li>
+          <li>
+            <strong>agentId</strong>: 代理ID，用于获取历史记录
+          </li>
+          <li>
+            <strong>sessionId</strong>: 当前会话ID
+          </li>
+          <li>
+            <strong>request</strong>: 请求函数，用于获取历史数据
+          </li>
+          <li>
+            <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
+          </li>
+          <li>
+            <strong>onClick</strong>: 点击历史记录项时的回调函数
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

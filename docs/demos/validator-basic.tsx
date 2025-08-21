@@ -70,6 +70,29 @@ const ValidatorExample: React.FC = () => {
           </div>
         ))}
       </div>
+
+      <div style={{ marginTop: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>validator.validate(schema)</strong>: 验证 schema
+            对象是否符合规范
+          </li>
+          <li>
+            <strong>validator.validate(value)</strong>: 验证单个值是否有效
+          </li>
+          <li>
+            <strong>validationResult.valid</strong>: 验证是否通过，返回布尔值
+          </li>
+          <li>
+            <strong>validationResult.errors</strong>: 验证失败时的错误信息数组
+          </li>
+          <li>
+            <strong>schema</strong>: 需要验证的 schema 对象，包含
+            version、name、component 等属性
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

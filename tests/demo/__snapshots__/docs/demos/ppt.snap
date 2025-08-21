@@ -15252,5 +15252,54 @@
         Umi 研究报告 
       </div>
     </div>
+    <div>
+      <h4>
+        Props 说明
+      </h4>
+      <ul>
+        <li>
+          <code>
+            slideMode
+          </code>
+           - 幻灯片模式状态，通过 useState 控制
+        </li>
+        <li>
+          <code>
+            setSlideMode
+          </code>
+           - 设置幻灯片模式的函数
+        </li>
+        <li>
+          <code>
+            Segmented
+          </code>
+           - 分段控制器，用于切换编辑模式和幻灯片模式
+        </li>
+        <li>
+          <code>
+            Slides
+          </code>
+           - 幻灯片组件，显示幻灯片模式
+        </li>
+        <li>
+          <code>
+            MarkdownEditor
+          </code>
+           - Markdown 编辑器组件，显示编辑模式
+        </li>
+        <li>
+          <code>
+            initValue
+          </code>
+           - 初始化的 Markdown 内容
+        </li>
+        <li>
+          <code>
+            style
+          </code>
+           - 样式配置，设置宽度为 100vw
+        </li>
+      </ul>
+    </div>
   </div>
 </DocumentFragment>

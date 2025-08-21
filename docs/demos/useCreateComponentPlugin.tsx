@@ -116,20 +116,60 @@ export default () => {
     markdownRef?.current?.store?.setContent(schema);
   }, []);
   return (
-    <BaseMarkdownEditor
-      initValue='123<md-tag context="时间"/>789'
-      editorRef={markdownRef}
-      onChange={(value) => console.log(value)}
-      width="100%"
-      plugins={[
-        mdTagPlugin,
-        mdFieldPlugin,
-        mdBoldPlugin,
-        mdDownPlugin,
-        mdAlertPlugin,
-        mdTagPlugin2,
-      ]}
-      height="400px"
-    />
+    <>
+      <BaseMarkdownEditor
+        initValue='123<md-tag context="时间"/>789'
+        editorRef={markdownRef}
+        onChange={(value) => console.log(value)}
+        width="100%"
+        plugins={[
+          mdTagPlugin,
+          mdFieldPlugin,
+          mdBoldPlugin,
+          mdDownPlugin,
+          mdAlertPlugin,
+          mdTagPlugin2,
+        ]}
+        height="400px"
+      />
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>useCreateComponentPlugin</strong>: 自定义
+            Hook，用于创建组件插件
+          </li>
+          <li>
+            <strong>tagName</strong>: HTML 标签名称，如 &apos;md-tag&apos;
+          </li>
+          <li>
+            <strong>targetType</strong>: 目标类型名称，如 &apos;customTag&apos;
+          </li>
+          <li>
+            <strong>initValue</strong>: 编辑器的初始内容值
+          </li>
+          <li>
+            <strong>editorRef</strong>: 编辑器实例引用，用于调用编辑器方法
+          </li>
+          <li>
+            <strong>onChange</strong>: 内容变化时的回调函数
+          </li>
+          <li>
+            <strong>width</strong>: 编辑器宽度
+          </li>
+          <li>
+            <strong>height</strong>: 编辑器高度
+          </li>
+          <li>
+            <strong>plugins</strong>: 插件数组，用于扩展编辑器功能
+          </li>
+          <li>
+            <strong>parserMdToSchema</strong>: 将 Markdown 解析为 schema
+            的工具函数
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };

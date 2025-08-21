@@ -96,6 +96,30 @@ const CardIMEDemo = () => {
             padding: '20px',
           }}
         />
+        <div>
+          <h4>Props 说明</h4>
+          <ul>
+            <li>
+              <code>initValue</code> - 初始化的 Markdown
+              内容，包含中文输入法测试说明
+            </li>
+            <li>
+              <code>onChange</code> - 内容变化回调函数，输出到控制台
+            </li>
+            <li>
+              <code>style</code> - 样式配置，设置最小高度和内边距
+            </li>
+            <li>
+              <code>value</code> - onChange 回调中的值参数，包含编辑器当前内容
+            </li>
+            <li>
+              <code>CardIMEDemo</code> - 中文输入法测试演示组件
+            </li>
+            <li>
+              <code>BaseMarkdownEditor</code> - 基础 Markdown 编辑器组件
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>

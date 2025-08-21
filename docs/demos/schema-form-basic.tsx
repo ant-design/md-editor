@@ -35,15 +35,44 @@ const MyFormComponent: React.FC = () => {
   };
 
   return (
-    <SchemaForm
-      schema={schema}
-      onValuesChange={handleValuesChange}
-      initialValues={{
-        name: '张三',
-        age: 25,
-        gender: '男',
-      }}
-    />
+    <div>
+      <SchemaForm
+        schema={schema}
+        onValuesChange={handleValuesChange}
+        initialValues={{
+          name: '张三',
+          age: 25,
+          gender: '男',
+        }}
+      />
+
+      <div style={{ marginTop: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>schema</strong>: 表单配置对象，包含 component.properties
+            定义
+          </li>
+          <li>
+            <strong>onValuesChange</strong>: 表单值变化时的回调函数
+          </li>
+          <li>
+            <strong>initialValues</strong>: 表单初始值对象
+          </li>
+          <li>
+            <strong>properties</strong>: 表单字段定义，包含
+            title、type、default、required 等属性
+          </li>
+          <li>
+            <strong>type</strong>: 字段类型，支持 &apos;string&apos; |
+            &apos;number&apos; 等
+          </li>
+          <li>
+            <strong>enum</strong>: 枚举值数组，用于下拉选择
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };
 

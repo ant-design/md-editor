@@ -127,39 +127,76 @@ export default () => {
   const editorRef = React.useRef<MarkdownEditorInstance>();
 
   return (
-    <MarkdownEditor
-      editorRef={editorRef}
-      width={'100vw'}
-      height={'100vh'}
-      reportMode
-      fncProps={{
-        render: (props, _) => {
-          return <Tooltip title={props.children}>{_}</Tooltip>;
-        },
-      }}
-      onChange={(e, value) => {
-        console.log(value);
-      }}
-      image={{
-        upload: async (fileList) => {
-          return new Promise((resolve) => {
-            const file = fileList[0];
-            if (typeof file === 'string') {
-              fetch(file)
-                .then((res) => res.blob())
-                .then((blob) => {
-                  console.log(blob);
-                  const url = URL.createObjectURL(blob);
-                  resolve(url);
-                });
-            } else {
-              const url = URL.createObjectURL(file);
-              resolve(url);
-            }
-          });
-        },
-      }}
-      initValue={defaultValue}
-    />
+    <>
+      <MarkdownEditor
+        editorRef={editorRef}
+        width={'100vw'}
+        height={'100vh'}
+        reportMode
+        fncProps={{
+          render: (props, _) => {
+            return <Tooltip title={props.children}>{_}</Tooltip>;
+          },
+        }}
+        onChange={(e, value) => {
+          console.log(value);
+        }}
+        image={{
+          upload: async (fileList) => {
+            return new Promise((resolve) => {
+              const file = fileList[0];
+              if (typeof file === 'string') {
+                fetch(file)
+                  .then((res) => res.blob())
+                  .then((blob) => {
+                    console.log(blob);
+                    const url = URL.createObjectURL(blob);
+                    resolve(url);
+                  });
+              } else {
+                const url = URL.createObjectURL(file);
+                resolve(url);
+              }
+            });
+          },
+        }}
+        initValue={defaultValue}
+      />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>editorRef</code> - 编辑器引用，用于访问编辑器实例
+          </li>
+          <li>
+            <code>width</code> - 编辑器宽度，设置为 100vw 占满视口宽度
+          </li>
+          <li>
+            <code>height</code> - 编辑器高度，设置为 100vh 占满视口高度
+          </li>
+          <li>
+            <code>reportMode</code> - 报告模式，优化显示效果
+          </li>
+          <li>
+            <code>fncProps</code> - 脚注引用属性配置，包含自定义渲染函数
+          </li>
+          <li>
+            <code>fncProps.render</code> - 脚注引用渲染函数，使用 Tooltip 包装
+          </li>
+          <li>
+            <code>onChange</code> - 内容变化回调函数，输出到控制台
+          </li>
+          <li>
+            <code>image.upload</code> - 图片上传函数，支持文件和 URL 上传
+          </li>
+          <li>
+            <code>initValue</code> - 初始化的 Markdown 内容，包含 HTML 代码示例
+          </li>
+          <li>
+            <code>defaultValue</code> - 默认值，包含七色旋转背景的 HTML 代码
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };

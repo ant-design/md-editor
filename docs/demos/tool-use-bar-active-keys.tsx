@@ -59,6 +59,27 @@ const ToolUseBarActiveKeysDemo = () => {
       />
 
       <div style={{ marginTop: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>tools</strong>: 工具列表数组，每个工具包含
+            id、toolName、toolTarget、time、status 等属性
+          </li>
+          <li>
+            <strong>activeKeys</strong>: 当前激活的工具 ID 数组，受控模式
+          </li>
+          <li>
+            <strong>onActiveKeysChange</strong>: 激活工具变化时的回调函数
+          </li>
+          <li>
+            <strong>onToolClick</strong>: 点击工具项时的回调函数
+          </li>
+          <li>
+            <strong>status</strong>: 工具状态，支持 &apos;success&apos; |
+            &apos;loading&apos; | &apos;error&apos; | &apos;idle&apos;
+          </li>
+        </ul>
+
         <h4>操作说明:</h4>
         <ul>
           <li>点击工具项可以激活/取消激活</li>

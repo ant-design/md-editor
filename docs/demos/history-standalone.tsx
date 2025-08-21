@@ -50,29 +50,6 @@ const StandaloneHistoryDemo = () => {
       <h3>History 独立模式</h3>
       <p>当前会话ID: {currentSessionId}</p>
 
-      <h4>Props 说明：</h4>
-      <ul>
-        <li>
-          <strong>standalone</strong>: 设置为 true
-          时，直接显示菜单列表而不是下拉菜单
-        </li>
-        <li>
-          <strong>agentId</strong>: 代理ID，用于获取历史记录
-        </li>
-        <li>
-          <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
-        </li>
-        <li>
-          <strong>request</strong>: 请求函数，用于获取历史数据
-        </li>
-        <li>
-          <strong>onSelected</strong>: 选择历史记录项时的回调函数
-        </li>
-        <li>
-          <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
-        </li>
-      </ul>
-
       <div
         style={{
           padding: '20px',
@@ -89,6 +66,31 @@ const StandaloneHistoryDemo = () => {
           onDeleteItem={handleDeleteItem}
           standalone
         />
+      </div>
+
+      <div style={{ marginTop: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>standalone</strong>: 设置为 true
+            时，直接显示菜单列表而不是下拉菜单
+          </li>
+          <li>
+            <strong>agentId</strong>: 代理ID，用于获取历史记录
+          </li>
+          <li>
+            <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
+          </li>
+          <li>
+            <strong>request</strong>: 请求函数，用于获取历史数据
+          </li>
+          <li>
+            <strong>onClick</strong>: 选择历史记录项时的回调函数
+          </li>
+          <li>
+            <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
+          </li>
+        </ul>
       </div>
     </div>
   );

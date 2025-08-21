@@ -138,6 +138,44 @@ export default () => {
         width={'calc(99vw - 16px)'}
         initValue={defaultValue}
       />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>readonly</code> - 只读模式，用户无法编辑内容
+          </li>
+          <li>
+            <code>style</code> - 样式配置，设置边框样式
+          </li>
+          <li>
+            <code>toc</code> - 是否显示目录，设置为 false 隐藏目录
+          </li>
+          <li>
+            <code>width</code> - 编辑器宽度，设置为 calc(99vw - 16px) 占满视口
+          </li>
+          <li>
+            <code>initValue</code> - 初始化的 Markdown 内容，包含多种图表配置
+          </li>
+          <li>
+            <code>chartType</code> - 图表类型，如 bar、column、pie、line、area
+          </li>
+          <li>
+            <code>x</code> - X 轴数据字段
+          </li>
+          <li>
+            <code>y</code> - Y 轴数据字段
+          </li>
+          <li>
+            <code>title</code> - 图表标题
+          </li>
+          <li>
+            <code>colorLegend</code> - 颜色图例字段
+          </li>
+          <li>
+            <code>groupBy</code> - 分组字段
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

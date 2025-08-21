@@ -75,16 +75,32 @@ const HtmlToMarkdownDemo: React.FC = () => {
           />
 
           <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
-            <button onClick={handleConvert} style={{ padding: '8px 16px' }}>
+            <button
+              type="button"
+              onClick={handleConvert}
+              style={{ padding: '8px 16px' }}
+            >
               转换为 Markdown
             </button>
-            <button onClick={handleCheckHtml} style={{ padding: '8px 16px' }}>
+            <button
+              type="button"
+              onClick={handleCheckHtml}
+              style={{ padding: '8px 16px' }}
+            >
               检测是否为 HTML
             </button>
-            <button onClick={handleExtractText} style={{ padding: '8px 16px' }}>
+            <button
+              type="button"
+              onClick={handleExtractText}
+              style={{ padding: '8px 16px' }}
+            >
               提取纯文本
             </button>
-            <button onClick={handleCleanHtml} style={{ padding: '8px 16px' }}>
+            <button
+              type="button"
+              onClick={handleCleanHtml}
+              style={{ padding: '8px 16px' }}
+            >
               清理 HTML
             </button>
           </div>
@@ -199,6 +215,31 @@ const HtmlToMarkdownDemo: React.FC = () => {
             </ul>
           </div>
         </div>
+      </div>
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>htmlToMarkdown(html)</strong>: 将 HTML 字符串转换为 Markdown
+            格式
+          </li>
+          <li>
+            <strong>isHtml(text)</strong>: 检测文本是否包含 HTML 标签
+          </li>
+          <li>
+            <strong>extractTextFromHtml(html)</strong>: 从 HTML 中提取纯文本内容
+          </li>
+          <li>
+            <strong>cleanHtml(html)</strong>: 清理 HTML 中的多余空白和换行
+          </li>
+          <li>
+            <strong>htmlInput</strong>: HTML 输入内容的状态变量
+          </li>
+          <li>
+            <strong>markdownOutput</strong>: Markdown 输出内容的状态变量
+          </li>
+        </ul>
       </div>
     </div>
   );

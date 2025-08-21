@@ -1354,6 +1354,75 @@
           </div>
         </div>
       </div>
+      <div
+        style="margin-top: 20px; padding: 20px;"
+      >
+        <h4>
+          Props 说明：
+        </h4>
+        <ul>
+          <li>
+            <strong>
+              fileMap
+            </strong>
+            : 文件映射对象，Map&lt;string, AttachmentFile&gt; 类型
+          </li>
+          <li>
+            <strong>
+              AttachmentFile
+            </strong>
+            : 附件文件对象，包含以下属性：
+          </li>
+          <li>
+            <strong>
+              name
+            </strong>
+            : 文件名
+          </li>
+          <li>
+            <strong>
+              url
+            </strong>
+            : 文件下载链接
+          </li>
+          <li>
+            <strong>
+              type
+            </strong>
+            : 文件 MIME 类型
+          </li>
+          <li>
+            <strong>
+              status
+            </strong>
+            : 文件状态，如 'done'
+          </li>
+          <li>
+            <strong>
+              previewUrl
+            </strong>
+            : 文件预览链接
+          </li>
+          <li>
+            <strong>
+              size
+            </strong>
+            : 文件大小（字节）
+          </li>
+          <li>
+            <strong>
+              uuid
+            </strong>
+            : 文件唯一标识符
+          </li>
+          <li>
+            <strong>
+              lastModified
+            </strong>
+            : 最后修改时间戳
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </DocumentFragment>

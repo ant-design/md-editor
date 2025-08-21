@@ -146,6 +146,35 @@ export default function ParseMarkdownPluginDemo() {
           console.log('Editor value changed:', value);
         }}
       />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>initValue</code> - 初始化的 Markdown
+            内容，包含自定义代码块和引用块示例
+          </li>
+          <li>
+            <code>plugins</code> - 插件数组，包含自定义代码块插件和引用块插件
+          </li>
+          <li>
+            <code>onChange</code> - 内容变化回调函数，输出到控制台
+          </li>
+          <li>
+            <code>customCodeBlockPlugin</code> - 自定义代码块插件，处理 custom
+            语言标识的代码块
+          </li>
+          <li>
+            <code>customBlockquotePlugin</code> -
+            自定义引用块插件，为引用块添加特殊样式
+          </li>
+          <li>
+            <code>parseMarkdown</code> - 解析 Markdown 的插件配置
+          </li>
+          <li>
+            <code>elements</code> - 自定义元素渲染配置
+          </li>
+        </ul>
+      </div>
 
       <div
         style={{

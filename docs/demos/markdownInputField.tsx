@@ -398,6 +398,60 @@ export default () => {
           />
         </g>
       </svg>
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>markdownRef</code> - Markdown 编辑器引用，用于访问编辑器实例
+          </li>
+          <li>
+            <code>markdownRefTwo</code> - 第二个 Markdown 编辑器引用
+          </li>
+          <li>
+            <code>list</code> - 列表状态，使用 Set 存储字符串集合
+          </li>
+          <li>
+            <code>setList</code> - 设置列表状态的函数
+          </li>
+          <li>
+            <code>send</code> - 发送函数，异步处理输入值并添加到列表
+          </li>
+          <li>
+            <code>borderRadius</code> - 边框圆角状态
+          </li>
+          <li>
+            <code>setBorderRadius</code> - 设置边框圆角的函数
+          </li>
+          <li>
+            <code>colorList</code> - 颜色列表状态，包含四个颜色值
+          </li>
+          <li>
+            <code>setColorList</code> - 设置颜色列表的函数
+          </li>
+          <li>
+            <code>genColorList</code> - 生成的颜色列表，通过 generateEdges
+            函数处理
+          </li>
+          <li>
+            <code>TagRender</code> - 自定义标签渲染组件，包含下拉菜单功能
+          </li>
+          <li>
+            <code>onSelect</code> - 选择回调函数
+          </li>
+          <li>
+            <code>defaultDom</code> - 默认 DOM 元素
+          </li>
+          <li>
+            <code>placeholder</code> - 占位符文本
+          </li>
+          <li>
+            <code>readonly</code> - 只读状态
+          </li>
+          <li>
+            <code>generateEdges</code> - 生成边缘颜色的工具函数
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

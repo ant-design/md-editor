@@ -232,26 +232,66 @@ const sampleSchema = {
 
 const DemoPage: React.FC = () => {
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#f0f2f5',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <SchemaRenderer
-        schema={sampleSchema}
-        values={{
-          温度: '25',
-          湿度: '65',
-          风速: '15',
-          风向: '东南',
-          气压: '1013',
+    <>
+      <div
+        style={{
+          minHeight: '100vh',
+          background: '#f0f2f5',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-      />
-    </div>
+      >
+        <SchemaRenderer
+          schema={sampleSchema}
+          values={{
+            温度: '25',
+            湿度: '65',
+            风速: '15',
+            风向: '东南',
+            气压: '1013',
+          }}
+        />
+      </div>
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>schema</strong>: 低代码模式配置对象，包含组件配置信息
+          </li>
+          <li>
+            <strong>values</strong>: 渲染时使用的数据值对象
+          </li>
+          <li>
+            <strong>schema.version</strong>: schema 版本号
+          </li>
+          <li>
+            <strong>schema.name</strong>: 组件名称
+          </li>
+          <li>
+            <strong>schema.description</strong>: 组件描述
+          </li>
+          <li>
+            <strong>schema.component.properties</strong>: 组件属性定义
+          </li>
+          <li>
+            <strong>schema.component.type</strong>: 组件类型，如
+            &apos;html&apos;
+          </li>
+          <li>
+            <strong>schema.component.schema</strong>:
+            组件的模板字符串，支持变量插值
+          </li>
+          <li>
+            <strong>schema.theme</strong>: 主题配置对象
+          </li>
+          <li>
+            <strong>schema.previewSettings</strong>: 预览设置配置
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 

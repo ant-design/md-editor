@@ -243,6 +243,73 @@
             style="height: 64px;"
           />
         </div>
+        <div>
+          <h4>
+            Props 说明
+          </h4>
+          <ul>
+            <li>
+              <code>
+                initValue
+              </code>
+               - 初始化的 JSON 格式内容，包含卡片结构数据
+            </li>
+            <li>
+              <code>
+                onChange
+              </code>
+               - 内容变化回调函数，输出到控制台
+            </li>
+            <li>
+              <code>
+                style
+              </code>
+               - 样式配置，设置最小高度和内边距
+            </li>
+            <li>
+              <code>
+                demoContent
+              </code>
+               - 演示内容数组，包含卡片和段落元素
+            </li>
+            <li>
+              <code>
+                type
+              </code>
+               - 元素类型，如 paragraph、card、image、media 等
+            </li>
+            <li>
+              <code>
+                children
+              </code>
+               - 子元素数组，包含文本或媒体内容
+            </li>
+            <li>
+              <code>
+                url
+              </code>
+               - 媒体文件的 URL 地址
+            </li>
+            <li>
+              <code>
+                mediaType
+              </code>
+               - 媒体类型，如 image、video
+            </li>
+            <li>
+              <code>
+                alt
+              </code>
+               - 图片的替代文本
+            </li>
+            <li>
+              <code>
+                block
+              </code>
+               - 是否为块级元素，false 表示内联
+            </li>
+          </ul>
+        </div>
       </div>
       <div
         style="margin-top: 20px; padding: 16px; background-color: rgb(248, 249, 250); border-radius: 8px; border: 1px solid rgb(222, 226, 230);"

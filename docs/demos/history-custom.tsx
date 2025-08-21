@@ -88,39 +88,6 @@ const CustomHistoryDemo = () => {
       <h3>History 自定义配置</h3>
       <p>当前会话ID: {currentSessionId}</p>
 
-      <h4>Props 说明：</h4>
-      <ul>
-        <li>
-          <strong>customDateFormatter</strong>:
-          自定义日期格式化函数，用于显示分组标题
-        </li>
-        <li>
-          <strong>groupBy</strong>:
-          自定义分组函数，用于将历史记录按自定义规则分组
-        </li>
-        <li>
-          <strong>sessionSort</strong>: 自定义排序函数，用于对历史记录进行排序
-        </li>
-        <li>
-          <strong>agentId</strong>: 代理ID，用于获取历史记录
-        </li>
-        <li>
-          <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
-        </li>
-        <li>
-          <strong>request</strong>: 请求函数，用于获取历史数据
-        </li>
-        <li>
-          <strong>onSelected</strong>: 选择历史记录项时的回调函数
-        </li>
-        <li>
-          <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
-        </li>
-        <li>
-          <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
-        </li>
-      </ul>
-
       <div
         style={{
           padding: '20px',
@@ -140,6 +107,41 @@ const CustomHistoryDemo = () => {
           sessionSort={customSort}
           standalone
         />
+      </div>
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>customDateFormatter</strong>:
+            自定义日期格式化函数，用于显示分组标题
+          </li>
+          <li>
+            <strong>groupBy</strong>:
+            自定义分组函数，用于将历史记录按自定义规则分组
+          </li>
+          <li>
+            <strong>sessionSort</strong>: 自定义排序函数，用于对历史记录进行排序
+          </li>
+          <li>
+            <strong>agentId</strong>: 代理ID，用于获取历史记录
+          </li>
+          <li>
+            <strong>sessionId</strong>: 当前会话ID，变更时会触发数据重新获取
+          </li>
+          <li>
+            <strong>request</strong>: 请求函数，用于获取历史数据
+          </li>
+          <li>
+            <strong>onClick</strong>: 点击历史记录项时的回调函数
+          </li>
+          <li>
+            <strong>onDeleteItem</strong>: 删除历史记录项时的回调函数
+          </li>
+          <li>
+            <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
+          </li>
+        </ul>
       </div>
     </div>
   );

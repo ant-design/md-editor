@@ -2794,5 +2794,72 @@ while i &lt; len(fruits):
         </div>
       </div>
     </div>
+    <div>
+      <h4>
+        Props 说明
+      </h4>
+      <ul>
+        <li>
+          <code>
+            id
+          </code>
+           - 编辑器 ID，用于标识第一个编辑器实例
+        </li>
+        <li>
+          <code>
+            editorRef
+          </code>
+           - 编辑器引用，用于访问编辑器实例和方法
+        </li>
+        <li>
+          <code>
+            style
+          </code>
+           - 样式配置，设置宽度为 100vw
+        </li>
+        <li>
+          <code>
+            readonly
+          </code>
+           - 只读模式，用户无法编辑内容
+        </li>
+        <li>
+          <code>
+            initValue
+          </code>
+           - 初始化的 Markdown 内容，包含 Python 代码示例
+        </li>
+        <li>
+          <code>
+            instance
+          </code>
+           - useRef 创建的编辑器实例引用
+        </li>
+        <li>
+          <code>
+            defaultValue
+          </code>
+           - 默认值，包含 Python 遍历数组的示例代码
+        </li>
+        <li>
+          <code>
+            parserMarkdownToSlateNode
+          </code>
+           - Markdown 解析函数，将 Markdown 转换为 Slate 节点
+        </li>
+        <li>
+          <code>
+            store.updateNodeList
+          </code>
+           - 更新节点列表的方法
+        </li>
+        <li>
+          <code>
+            useEffect
+          </code>
+           - 副作用钩子，用于实现打字机效果
+        </li>
+      </ul>
+    </div>
   </div>
 </DocumentFragment>

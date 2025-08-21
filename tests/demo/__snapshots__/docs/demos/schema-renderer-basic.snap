@@ -5,88 +5,129 @@
     <div>
       test
     </div>
-    <div
-      style="padding: 16px; border: 1px solid rgb(245, 194, 199); border-radius: 8px; background: rgb(248, 215, 218); color: rgb(132, 32, 41); box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 10px 0px;"
-    >
+    <div>
       <div
-        style="display: flex; align-items: center; margin-bottom: 12px;"
+        style="padding: 16px; border: 1px solid rgb(245, 194, 199); border-radius: 8px; background: rgb(248, 215, 218); color: rgb(132, 32, 41); box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 10px 0px;"
       >
-        <svg
-          fill="none"
-          height="20"
-          style="margin-right: 8px;"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          style="display: flex; align-items: center; margin-bottom: 12px;"
         >
-          <path
-            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-            stroke="#842029"
-            stroke-width="2"
-          />
-          <path
-            d="M12 8V12"
-            stroke="#842029"
-            stroke-linecap="round"
-            stroke-width="2"
-          />
-          <circle
-            cx="12"
-            cy="16"
-            fill="#842029"
-            r="1"
-          />
-        </svg>
-        <h3
-          style="margin: 0px; font-size: 16px; font-weight: 600;"
+          <svg
+            fill="none"
+            height="20"
+            style="margin-right: 8px;"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="#842029"
+              stroke-width="2"
+            />
+            <path
+              d="M12 8V12"
+              stroke="#842029"
+              stroke-linecap="round"
+              stroke-width="2"
+            />
+            <circle
+              cx="12"
+              cy="16"
+              fill="#842029"
+              r="1"
+            />
+          </svg>
+          <h3
+            style="margin: 0px; font-size: 16px; font-weight: 600;"
+          >
+            Schema 验证失败
+          </h3>
+        </div>
+        <div
+          style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 6px; font-size: 14px;"
         >
-          Schema 验证失败
-        </h3>
+          <ul
+            style="margin: 0px; padding-left: 20px; list-style-type: circle;"
+          >
+            <li
+              style="margin-bottom: 8px;"
+            >
+              <div
+                style="font-weight: 500;"
+              >
+                <span
+                  style="margin-left: 0px;"
+                >
+                  must have required property 'version'
+                </span>
+              </div>
+            </li>
+            <li
+              style="margin-bottom: 8px;"
+            >
+              <div
+                style="font-weight: 500;"
+              >
+                <span
+                  style="margin-left: 0px;"
+                >
+                  must have required property 'name'
+                </span>
+              </div>
+            </li>
+            <li
+              style="margin-bottom: 8px;"
+            >
+              <div
+                style="font-weight: 500;"
+              >
+                <span
+                  style="margin-left: 0px;"
+                >
+                  must have required property 'description'
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
       <div
-        style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 6px; font-size: 14px;"
+        style="margin-top: 20px;"
       >
-        <ul
-          style="margin: 0px; padding-left: 20px; list-style-type: circle;"
-        >
-          <li
-            style="margin-bottom: 8px;"
-          >
-            <div
-              style="font-weight: 500;"
-            >
-              <span
-                style="margin-left: 0px;"
-              >
-                must have required property 'version'
-              </span>
-            </div>
+        <h4>
+          Props 说明：
+        </h4>
+        <ul>
+          <li>
+            <strong>
+              schema
+            </strong>
+            : 低代码模式配置对象，包含 component 配置
           </li>
-          <li
-            style="margin-bottom: 8px;"
-          >
-            <div
-              style="font-weight: 500;"
-            >
-              <span
-                style="margin-left: 0px;"
-              >
-                must have required property 'name'
-              </span>
-            </div>
+          <li>
+            <strong>
+              values
+            </strong>
+            : 渲染时使用的数据值对象
           </li>
-          <li
-            style="margin-bottom: 8px;"
-          >
-            <div
-              style="font-weight: 500;"
-            >
-              <span
-                style="margin-left: 0px;"
-              >
-                must have required property 'description'
-              </span>
-            </div>
+          <li>
+            <strong>
+              component.properties
+            </strong>
+            : 组件属性定义，包含 title、type、default 等
+          </li>
+          <li>
+            <strong>
+              component.type
+            </strong>
+            : 组件类型，如 'html'
+          </li>
+          <li>
+            <strong>
+              component.schema
+            </strong>
+            : 组件的模板字符串，支持变量插值
           </li>
         </ul>
       </div>

@@ -94,6 +94,32 @@ const ToolUseBarExpandedKeysDemo: React.FC = () => {
         onToolClick={(id: string) => console.log('Tool clicked:', id)}
       />
 
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>tools</strong>: 工具列表数组，每个工具包含
+            id、toolName、toolTarget、time、status、content、errorMessage 等属性
+          </li>
+          <li>
+            <strong>expandedKeys</strong>: 当前展开的工具 ID 数组，受控模式
+          </li>
+          <li>
+            <strong>onExpandedKeysChange</strong>: 展开状态变化时的回调函数
+          </li>
+          <li>
+            <strong>onToolClick</strong>: 点击工具项时的回调函数
+          </li>
+          <li>
+            <strong>content</strong>: 工具项的详细内容，React 节点
+          </li>
+          <li>
+            <strong>errorMessage</strong>: 错误信息，当 status 为
+            &apos;error&apos; 时显示
+          </li>
+        </ul>
+      </div>
+
       <div
         style={{
           marginTop: 16,

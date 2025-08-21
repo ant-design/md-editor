@@ -27,20 +27,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
     originData,
     htmlRef,
   }: any) => {
-    console.log('MarkdownPreview props:', {
-      content,
-      isFinished,
-      typing,
-      extra: extra ? 'has-extra' : 'no-extra',
-      docListNode: docListNode ? 'has-doc-list' : 'no-doc-list',
-      slidesMode,
-      fncProps: fncProps ? 'has-fnc-props' : 'no-fnc-props',
-      markdownRenderConfig: markdownRenderConfig ? 'has-config' : 'no-config',
-      style: style ? 'has-style' : 'no-style',
-      originData: originData ? 'has-origin-data' : 'no-origin-data',
-      htmlRef: htmlRef ? 'has-html-ref' : 'no-html-ref',
-    });
-
     return (
       <div data-testid="markdown-preview">
         <div data-testid="content">{content}</div>

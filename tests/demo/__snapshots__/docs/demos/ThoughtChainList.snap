@@ -7547,6 +7547,97 @@
           </div>
         </div>
       </div>
+      <div>
+        <h4>
+          Props 说明
+        </h4>
+        <ul>
+          <li>
+            <code>
+              loading
+            </code>
+             - 加载状态，设置为 false 表示已加载完成
+          </li>
+          <li>
+            <code>
+              thoughtChainList
+            </code>
+             - 思维链列表数据，包含多个不同类型的思维节点
+          </li>
+          <li>
+            <code>
+              thoughtChainList[].category
+            </code>
+             - 思维节点类型，如 TableSql、RagRetrieval、DeepThink、ToolCall
+          </li>
+          <li>
+            <code>
+              thoughtChainList[].info
+            </code>
+             - 思维节点信息描述，支持模板变量
+          </li>
+          <li>
+            <code>
+              thoughtChainList[].input
+            </code>
+             - 输入参数，包含具体的输入数据
+          </li>
+          <li>
+            <code>
+              thoughtChainList[].meta
+            </code>
+             - 元数据，包含模板变量的具体值
+          </li>
+          <li>
+            <code>
+              thoughtChainList[].runId
+            </code>
+             - 运行 ID，用于标识不同的执行实例
+          </li>
+          <li>
+            <code>
+              thoughtChainList[].output
+            </code>
+             - 输出结果，包含执行后的数据
+          </li>
+          <li>
+            <code>
+              output.data
+            </code>
+             - 输出数据内容
+          </li>
+          <li>
+            <code>
+              output.type
+            </code>
+             - 输出类型，如 END 表示执行完成
+          </li>
+          <li>
+            <code>
+              output.columns
+            </code>
+             - 表格列名数组
+          </li>
+          <li>
+            <code>
+              output.tableData
+            </code>
+             - 表格数据对象
+          </li>
+          <li>
+            <code>
+              output.chunks
+            </code>
+             - 检索结果块数组
+          </li>
+          <li>
+            <code>
+              output.response
+            </code>
+             - 工具调用响应
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </DocumentFragment>

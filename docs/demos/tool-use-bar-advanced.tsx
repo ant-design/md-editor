@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react';
 const ToolUseBarAdvancedDemo = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [showWorkflow, setShowWorkflow] = useState(true);
-  const [showTaskList, setShowTaskList] = useState(true);
 
   const tools = [
     {
@@ -27,64 +25,6 @@ const ToolUseBarAdvancedDemo = () => {
       type: 'auto',
     },
   ];
-
-  const workflowStatus = {
-    inProgress: [
-      {
-        id: '1',
-        name: 'Get stock Insights',
-        status: progress > 0 ? 'completed' : 'pending',
-        time: '0.8s',
-      },
-      {
-        id: '2',
-        name: 'Get stock holders',
-        status: progress > 33 ? 'completed' : 'pending',
-        time: '0.7s',
-      },
-      {
-        id: '3',
-        name: 'Get what analysts',
-        status: progress > 66 ? 'completed' : 'pending',
-        time: '0.8s',
-      },
-    ],
-    completed: [
-      {
-        id: '1',
-        name: 'Get stock Insights',
-        status: progress > 0 ? 'completed' : 'pending',
-        time: '0.8s',
-      },
-      {
-        id: '2',
-        name: 'Get stock holders',
-        status: progress > 33 ? 'completed' : 'pending',
-        time: '0.7s',
-      },
-      {
-        id: '3',
-        name: 'Get what analysts',
-        status: progress > 66 ? 'completed' : 'pending',
-        time: '0.8s',
-      },
-    ],
-    totalTime: progress >= 100 ? '2.3s' : '--',
-  };
-
-  const startWorkflow = () => {
-    setIsRunning(true);
-    setProgress(0);
-  };
-
-  const stopWorkflow = () => {
-    setIsRunning(false);
-  };
-
-  const resetWorkflow = () => {
-    setIsRunning(false);
-    setProgress(0);
-  };
 
   // 模拟工作流程执行
   useEffect(() => {
@@ -110,6 +50,34 @@ const ToolUseBarAdvancedDemo = () => {
         tools={tools}
         onToolClick={(id: string) => console.log('Tool clicked:', id)}
       />
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>tools</strong>: 工具列表数组，每个工具包含
+            id、toolName、toolTarget、time、status、progress、type 等属性
+          </li>
+          <li>
+            <strong>onToolClick</strong>: 点击工具项时的回调函数
+          </li>
+          <li>
+            <strong>status</strong>: 工具状态，支持 &apos;success&apos; |
+            &apos;loading&apos; | &apos;error&apos; | &apos;idle&apos;
+          </li>
+          <li>
+            <strong>progress</strong>: 进度百分比，0-100 的数值，动态更新
+          </li>
+          <li>
+            <strong>type</strong>: 工具类型，如 &apos;basic&apos; |
+            &apos;auto&apos;
+          </li>
+          <li>
+            <strong>workflowStatus</strong>: 工作流状态对象，包含
+            inProgress、completed、totalTime 等属性
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

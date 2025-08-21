@@ -585,6 +585,91 @@
           </div>
         </div>
       </div>
+      <div>
+        <h4>
+          Props 说明
+        </h4>
+        <ul>
+          <li>
+            <code>
+              schema
+            </code>
+             - SchemaForm 组件的 schema 属性，包含完整的组件配置
+          </li>
+          <li>
+            <code>
+              onValuesChange
+            </code>
+             - 表单值变化回调函数，更新 formValues 状态
+          </li>
+          <li>
+            <code>
+              formValues
+            </code>
+             - 表单值状态，通过 useState 管理
+          </li>
+          <li>
+            <code>
+              setFormValues
+            </code>
+             - 设置表单值的函数
+          </li>
+          <li>
+            <code>
+              sampleSchema
+            </code>
+             - 示例 schema 配置，包含天气卡片组件的完整定义
+          </li>
+          <li>
+            <code>
+              version
+            </code>
+             - schema 版本号
+          </li>
+          <li>
+            <code>
+              name
+            </code>
+             - 组件名称
+          </li>
+          <li>
+            <code>
+              description
+            </code>
+             - 组件描述
+          </li>
+          <li>
+            <code>
+              component.properties
+            </code>
+             - 组件属性定义，包含天气、温度、湿度等字段
+          </li>
+          <li>
+            <code>
+              component.type
+            </code>
+             - 组件类型，设置为 html
+          </li>
+          <li>
+            <code>
+              component.schema
+            </code>
+             - 组件的 HTML 模板
+          </li>
+          <li>
+            <code>
+              theme
+            </code>
+             - 主题配置，包含颜色、间距、字体等
+          </li>
+          <li>
+            <code>
+              previewSettings
+            </code>
+             - 预览设置，包含视口和环境配置
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </DocumentFragment>

@@ -976,6 +976,49 @@ export default () => {
         height={'auto'}
         readonly
       />
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>editorRef</strong>: 编辑器实例引用，用于调用编辑器方法
+          </li>
+          <li>
+            <strong>toc</strong>: 是否显示目录，设置为 false 隐藏目录
+          </li>
+          <li>
+            <strong>plugins</strong>: 插件数组，用于扩展编辑器功能
+          </li>
+          <li>
+            <strong>plugins[].elements</strong>: 自定义元素渲染配置
+          </li>
+          <li>
+            <strong>width</strong>: 编辑器宽度
+          </li>
+          <li>
+            <strong>typewriter</strong>: 打字机模式，启用打字机效果
+          </li>
+          <li>
+            <strong>height</strong>: 编辑器高度，设置为 &apos;auto&apos; 自适应
+          </li>
+          <li>
+            <strong>readonly</strong>: 只读模式，禁用编辑功能
+          </li>
+          <li>
+            <strong>useAutoScroll</strong>: 自动滚动 Hook，提供 containerRef
+          </li>
+          <li>
+            <strong>store.updateNodeList</strong>: 更新节点列表的方法
+          </li>
+          <li>
+            <strong>store.setMDContent</strong>: 设置 Markdown 内容的方法
+          </li>
+          <li>
+            <strong>parserMarkdownToSlateNode</strong>: 将 Markdown 解析为 Slate
+            节点的工具函数
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

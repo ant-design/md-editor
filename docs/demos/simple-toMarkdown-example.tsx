@@ -117,6 +117,7 @@ export default function SimpleToMarkdownExample() {
 
       <div style={{ marginBottom: '20px' }}>
         <button
+          type="button"
           onClick={handleExportMarkdown}
           style={{
             padding: '8px 16px',
@@ -155,6 +156,44 @@ export default function SimpleToMarkdownExample() {
         >
           点击上面的"导出 Markdown"按钮查看结果
         </pre>
+      </div>
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>editorRef</strong>: 编辑器实例引用，用于调用编辑器方法
+          </li>
+          <li>
+            <strong>initValue</strong>: 编辑器的初始内容值
+          </li>
+          <li>
+            <strong>plugins</strong>: 插件数组，用于扩展编辑器功能
+          </li>
+          <li>
+            <strong>plugins[].parseMarkdown</strong>: parseMarkdown 插件配置数组
+          </li>
+          <li>
+            <strong>plugins[].toMarkdown</strong>: toMarkdown 插件配置数组
+          </li>
+          <li>
+            <strong>plugins[].elements</strong>: 自定义元素渲染配置
+          </li>
+          <li>
+            <strong>parseMarkdown[].match</strong>:
+            匹配函数，用于判断是否应用转换
+          </li>
+          <li>
+            <strong>parseMarkdown[].convert</strong>:
+            转换函数，用于转换匹配的节点
+          </li>
+          <li>
+            <strong>toMarkdown[].match</strong>: 匹配函数，用于判断是否应用转换
+          </li>
+          <li>
+            <strong>toMarkdown[].convert</strong>: 转换函数，用于转换匹配的节点
+          </li>
+        </ul>
       </div>
     </div>
   );

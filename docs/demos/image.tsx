@@ -71,6 +71,34 @@ export default () => {
         }}
         initValue={defaultValue}
       />
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>width</strong>: 编辑器宽度
+          </li>
+          <li>
+            <strong>reportMode</strong>: 报告模式，启用只读状态
+          </li>
+          <li>
+            <strong>readonly</strong>: 只读模式
+          </li>
+          <li>
+            <strong>image.upload</strong>: 图片上传函数，处理文件上传逻辑
+          </li>
+          <li>
+            <strong>image.render</strong>:
+            自定义图片渲染函数，可以自定义图片显示样式
+          </li>
+          <li>
+            <strong>initValue</strong>: 编辑器的初始内容值
+          </li>
+          <li>
+            <strong>onChange</strong>: 内容变化时的回调函数
+          </li>
+        </ul>
+      </div>
     </>
   );
 };

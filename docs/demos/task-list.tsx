@@ -68,6 +68,29 @@ export default () => {
     <div style={{ padding: 24 }}>
       <h3>Tesla 股票分析任务列表示例</h3>
       <TaskList items={items} />
+
+      <div style={{ marginTop: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>items</strong>: 任务列表数组，每个任务包含
+            key、title、content、status 等属性
+          </li>
+          <li>
+            <strong>key</strong>: 任务的唯一标识符
+          </li>
+          <li>
+            <strong>title</strong>: 任务标题
+          </li>
+          <li>
+            <strong>content</strong>: 任务内容，可以是 React 节点数组
+          </li>
+          <li>
+            <strong>status</strong>: 任务状态，支持 'success' | 'pending' |
+            'loading'
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

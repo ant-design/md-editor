@@ -127,3 +127,15 @@ export default () => {
     );
   });
 };
+
+// Props 说明
+/*
+<h4>Props 说明</h4>
+<ul>
+  <li><code>width</code> - 编辑器宽度，设置为 100% 占满容器</li>
+  <li><code>height</code> - 编辑器高度，设置为 auto 自适应内容</li>
+  <li><code>readonly</code> - 只读模式，用户无法编辑内容</li>
+  <li><code>initValue</code> - 初始化的 Markdown 内容，按章节分割显示</li>
+  <li><code>onChange</code> - 内容变化回调函数，输出到控制台</li>
+</ul>
+*/

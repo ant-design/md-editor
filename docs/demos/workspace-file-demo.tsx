@@ -23,7 +23,7 @@ const VariableAnalysisPreview: React.FC<{
   setPreviewHeader?: (h: React.ReactNode) => void;
   back?: () => void;
   download?: () => void;
-}> = ({ file, setPreviewHeader, back, download }) => {
+}> = ({ file, setPreviewHeader, back }) => {
   const [mode, setMode] = useState<'list' | 'detail'>('list');
   const [current, setCurrent] = useState<{
     id: string;
@@ -109,6 +109,7 @@ const VariableAnalysisPreview: React.FC<{
     return (
       <div style={{ padding: 16 }} aria-label="变量详情">
         <button
+          type="button"
           onClick={handleBack}
           onKeyDown={(e) => e.key === 'Enter' && handleBack()}
           aria-label="返回列表"
@@ -300,7 +301,7 @@ const VariableAnalysisPreview: React.FC<{
 };
 
 const WorkspaceFileDemo: React.FC = () => {
-  const [nodes, setNodes] = useState<(FileNode | GroupNode)[]>([
+  const [nodes] = useState<(FileNode | GroupNode)[]>([
     {
       name: 'Word',
       type: 'word',

@@ -69,18 +69,22 @@ const ToolUseBarBasicDemo = () => {
       />
 
       <div style={{ marginTop: '20px' }}>
-        <h4>功能说明:</h4>
+        <h4>Props 说明：</h4>
         <ul>
-          <li>✅ 成功状态 (success) - 绿色</li>
-          <li>⏳ 加载状态 (loading) - 带有旋转动画</li>
-          <li>❌ 错误状态 (error) - 红色，显示错误信息</li>
-          <li>⏸️ 空闲状态 (idle) - 默认样式</li>
-          <li>📄 展开/收起 - 有内容或错误信息的工具项会显示展开按钮</li>
+          <li>
+            <strong>tools</strong>: 工具列表数组，每个工具包含
+            id、toolName、toolTarget、time、status 等属性
+          </li>
+          <li>
+            <strong>activeKeys</strong>: 当前激活的工具 ID 数组
+          </li>
+          <li>
+            <strong>onActiveKeysChange</strong>: 激活工具变化时的回调函数
+          </li>
+          <li>
+            <strong>onToolClick</strong>: 点击工具项时的回调函数
+          </li>
         </ul>
-        <p>
-          <strong>操作提示:</strong>{' '}
-          点击工具项右侧的箭头图标可以展开/收起详细内容
-        </p>
       </div>
     </div>
   );

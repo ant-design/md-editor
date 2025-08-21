@@ -78,15 +78,34 @@ const App = () => {
   const [value, setValue] = React.useState('');
 
   return (
-    <MarkdownInputField
-      value={value}
-      onChange={(newValue) => setValue(newValue)}
-      placeholder="请输入内容..."
-      onSend={async (text) => {
-        console.log('发送内容:', text);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }}
-    />
+    <>
+      <MarkdownInputField
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        placeholder="请输入内容..."
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }}
+      />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>value</code> - 当前的 markdown 文本值
+          </li>
+          <li>
+            <code>onChange</code> - 当输入值改变时触发的回调函数
+          </li>
+          <li>
+            <code>placeholder</code> - 输入字段的占位文本
+          </li>
+          <li>
+            <code>onSend</code> - 当内容发送时触发的异步回调函数
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 export default App;
@@ -100,15 +119,34 @@ import { MarkdownInputField } from '@ant-design/md-editor';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
-    <MarkdownInputField
-      value={value}
-      onChange={setValue}
-      placeholder="按Ctrl+Enter发送消息..."
-      triggerSendKey="Mod+Enter"
-      style={{ minHeight: '200px' }}
-      borderRadius={8}
-      bgColorList={['#4A90E2', '#50E3C2', '#F5A623', '#D0021B']}
-    />
+    <>
+      <MarkdownInputField
+        value={value}
+        onChange={setValue}
+        placeholder="按Ctrl+Enter发送消息..."
+        triggerSendKey="Mod+Enter"
+        style={{ minHeight: '200px' }}
+        borderRadius={8}
+        bgColorList={['#4A90E2', '#50E3C2', '#F5A623', '#D0021B']}
+      />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>triggerSendKey</code> - 触发发送操作的键盘快捷键
+          </li>
+          <li>
+            <code>style</code> - 应用于输入字段的内联样式
+          </li>
+          <li>
+            <code>borderRadius</code> - 边框圆角大小
+          </li>
+          <li>
+            <code>bgColorList</code> - 背景颜色列表
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 ```
@@ -121,27 +159,54 @@ import { MarkdownInputField } from '@ant-design/md-editor';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
-    <MarkdownInputField
-      value={value}
-      onChange={setValue}
-      attachment={{
-        enable: true,
-        accept: '.pdf,.doc,.docx,image/*',
-        maxSize: 10 * 1024 * 1024, // 10MB
-        onUpload: async (file) => {
-          // 模拟上传文件
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          return {
-            url: URL.createObjectURL(file),
-            name: file.name,
-          };
-        },
-        onDelete: async (file) => {
-          console.log('删除文件:', file);
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        },
-      }}
-    />
+    <>
+      <MarkdownInputField
+        value={value}
+        onChange={setValue}
+        attachment={{
+          enable: true,
+          accept: '.pdf,.doc,.docx,image/*',
+          maxSize: 10 * 1024 * 1024, // 10MB
+          onUpload: async (file) => {
+            // 模拟上传文件
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            return {
+              url: URL.createObjectURL(file),
+              name: file.name,
+            };
+          },
+          onDelete: async (file) => {
+            console.log('删除文件:', file);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+          },
+        }}
+      />
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>attachment</code> - 附件配置
+            <ul>
+              <li>
+                <code>enable</code> - 是否启用附件功能
+              </li>
+              <li>
+                <code>accept</code> - 接受的文件类型
+              </li>
+              <li>
+                <code>maxSize</code> - 文件最大大小限制
+              </li>
+              <li>
+                <code>onUpload</code> - 文件上传回调函数
+              </li>
+              <li>
+                <code>onDelete</code> - 文件删除回调函数
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 ```
@@ -154,27 +219,48 @@ import { MarkdownInputField } from '@ant-design/md-editor';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
-    <div
-      style={{
-        padding: 20,
-      }}
-    >
-      <MarkdownInputField
-        value={value}
-        onChange={setValue}
-        toolsRender={(props) => [
-          <button key="custom" onClick={() => console.log('自定义按钮')}>
-            自定义
-          </button>,
-        ]}
-        actionsRender={(props, defaultActions) => [
-          <button key="custom" onClick={() => console.log('自定义按钮')}>
-            自定义
-          </button>,
-          ...defaultActions,
-        ]}
-      />
-    </div>
+    <>
+      <div
+        style={{
+          padding: 20,
+        }}
+      >
+        <MarkdownInputField
+          value={value}
+          onChange={setValue}
+          toolsRender={(props) => [
+            <button key="custom" onClick={() => console.log('自定义按钮')}>
+              自定义
+            </button>,
+          ]}
+          actionsRender={(props, defaultActions) => [
+            <button key="custom" onClick={() => console.log('自定义按钮')}>
+              自定义
+            </button>,
+            ...defaultActions,
+          ]}
+        />
+      </div>
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>toolsRender</code> - 自定义渲染操作按钮前内容的函数
+          </li>
+          <li>
+            <code>actionsRender</code> - 自定义渲染操作按钮的函数
+            <ul>
+              <li>
+                <code>props</code> - 组件属性
+              </li>
+              <li>
+                <code>defaultActions</code> - 默认的操作按钮数组
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 ```

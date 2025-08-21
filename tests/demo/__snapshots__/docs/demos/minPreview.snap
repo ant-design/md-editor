@@ -9952,6 +9952,87 @@ dark:
           style="height: 64px;"
         />
       </div>
+      <div
+        style="margin-top: 20px; padding: 20px;"
+      >
+        <h4>
+          Props 说明：
+        </h4>
+        <ul>
+          <li>
+            <strong>
+              editorRef
+            </strong>
+            : 编辑器实例引用，用于调用编辑器方法
+          </li>
+          <li>
+            <strong>
+              toc
+            </strong>
+            : 是否显示目录，设置为 false 隐藏目录
+          </li>
+          <li>
+            <strong>
+              toolBar.enable
+            </strong>
+            : 是否启用工具栏
+          </li>
+          <li>
+            <strong>
+              toolBar.hideTools
+            </strong>
+            : 隐藏的工具按钮数组
+          </li>
+          <li>
+            <strong>
+              toolBar.extra
+            </strong>
+            : 额外的工具栏按钮
+          </li>
+          <li>
+            <strong>
+              comment.enable
+            </strong>
+            : 是否启用评论功能
+          </li>
+          <li>
+            <strong>
+              readonly
+            </strong>
+            : 只读模式，禁用编辑功能
+          </li>
+          <li>
+            <strong>
+              reportMode
+            </strong>
+            : 报告模式，启用只读状态
+          </li>
+          <li>
+            <strong>
+              image.upload
+            </strong>
+            : 图片上传函数，处理文件上传逻辑
+          </li>
+          <li>
+            <strong>
+              style
+            </strong>
+            : 编辑器容器的样式对象
+          </li>
+          <li>
+            <strong>
+              initValue
+            </strong>
+            : 编辑器的初始内容值
+          </li>
+          <li>
+            <strong>
+              onChange
+            </strong>
+            : 内容变化时的回调函数
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </DocumentFragment>

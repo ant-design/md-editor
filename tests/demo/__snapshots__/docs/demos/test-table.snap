@@ -7774,6 +7774,99 @@
           </div>
         </div>
       </div>
+      <div
+        style="margin-top: 20px; padding: 20px;"
+      >
+        <h4>
+          Props 说明：
+        </h4>
+        <ul>
+          <li>
+            <strong>
+              editorRef
+            </strong>
+            : 编辑器实例引用，用于调用编辑器方法
+          </li>
+          <li>
+            <strong>
+              width
+            </strong>
+            : 编辑器宽度
+          </li>
+          <li>
+            <strong>
+              height
+            </strong>
+            : 编辑器高度
+          </li>
+          <li>
+            <strong>
+              reportMode
+            </strong>
+            : 报告模式，启用只读状态
+          </li>
+          <li>
+            <strong>
+              readonly
+            </strong>
+            : 只读模式，禁用编辑功能
+          </li>
+          <li>
+            <strong>
+              style
+            </strong>
+            : 编辑器容器的样式对象
+          </li>
+          <li>
+            <strong>
+              contentStyle
+            </strong>
+            : 内容区域的样式对象
+          </li>
+          <li>
+            <strong>
+              onChange
+            </strong>
+            : 内容变化时的回调函数
+          </li>
+          <li>
+            <strong>
+              tableConfig
+            </strong>
+            : 表格配置对象
+          </li>
+          <li>
+            <strong>
+              tableConfig.excelMode
+            </strong>
+            : 启用 Excel 模式
+          </li>
+          <li>
+            <strong>
+              tableConfig.minColumn
+            </strong>
+            : 最小列数
+          </li>
+          <li>
+            <strong>
+              tableConfig.minRows
+            </strong>
+            : 最小行数
+          </li>
+          <li>
+            <strong>
+              initSchemaValue
+            </strong>
+            : 初始 schema 值
+          </li>
+          <li>
+            <strong>
+              initValue
+            </strong>
+            : 初始内容值
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </DocumentFragment>

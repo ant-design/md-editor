@@ -157,11 +157,38 @@ export default () => {
     }, 1000);
   }, []);
   return (
-    <MarkdownEditor
-      width={'100vw'}
-      height={'100vh'}
-      initValue={defaultValue}
-      editorRef={markdownRef}
-    />
+    <>
+      <MarkdownEditor
+        width={'100vw'}
+        height={'100vh'}
+        initValue={defaultValue}
+        editorRef={markdownRef}
+      />
+
+      <div style={{ marginTop: '20px', padding: '20px' }}>
+        <h4>Props 说明：</h4>
+        <ul>
+          <li>
+            <strong>width</strong>: 编辑器宽度
+          </li>
+          <li>
+            <strong>height</strong>: 编辑器高度
+          </li>
+          <li>
+            <strong>initValue</strong>: 编辑器的初始内容值
+          </li>
+          <li>
+            <strong>editorRef</strong>: 编辑器实例引用，用于调用编辑器方法
+          </li>
+          <li>
+            <strong>store.updateNodeList</strong>: 更新节点列表的方法
+          </li>
+          <li>
+            <strong>parserMdToSchema</strong>: 将 Markdown 解析为 schema
+            的工具函数
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
