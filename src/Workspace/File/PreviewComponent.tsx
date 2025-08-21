@@ -15,6 +15,7 @@ import {
   wrapContentInCodeBlock,
 } from '../utils/codeLanguageUtils';
 import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
+import { useFileStyle } from './style';
 import { getFileTypeIcon } from './utils';
 
 interface PreviewComponentProps {
@@ -137,8 +138,9 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   const { locale } = useContext(I18nContext);
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('workspace-preview');
-  const hashId = ''; // 暂时使用空字符串，后续可以通过其他方式获取
+  const filePrefixCls = getPrefixCls('workspace-file');
+  const { wrapSSR, hashId } = useFileStyle(filePrefixCls);
+  const prefixCls = `${filePrefixCls}-preview`;
   const editorRef = useRef<MarkdownEditorInstance>();
   const [processResult, setProcessResult] = useState<FileProcessResult | null>(
     null,
@@ -489,7 +491,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   };
 
-  return (
+  return wrapSSR(
     <div className={`${prefixCls} ${hashId}`}>
       {customHeader ? (
         <div className={`${prefixCls}-header ${hashId}`}>{customHeader}</div>
@@ -553,6 +555,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       <div className={`${prefixCls}-content ${hashId}`}>
         {renderPreviewContent()}
       </div>
-    </div>
+    </div>,
   );
 };
