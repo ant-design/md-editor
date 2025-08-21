@@ -79,7 +79,7 @@ export interface HistoryProps {
   onDeleteItem?: (sessionId: string) => void;
   customDateFormatter?: (date: number | string | Date) => string;
   groupBy?: (item: HistoryDataType) => string;
-  groupLabelRender: HistoryListConfig['groupLabelRender'];
+  groupLabelRender?: HistoryListConfig['groupLabelRender'];
   extra?: (item: HistoryDataType) => React.ReactElement;
   sessionSort?:
     | ((pre: HistoryDataType, current: HistoryDataType) => number | boolean)
