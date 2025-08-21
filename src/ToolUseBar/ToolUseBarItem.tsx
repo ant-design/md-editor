@@ -166,24 +166,29 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
                 </div>
               )}
             </div>
-            <div
-              className={classNames(`${prefixCls}-tool-name ${hashId}`, {
-                [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
-              })}
-            >
-              {tool.toolName}
-            </div>
+            {tool.toolName && (
+              <div
+                className={classNames(`${prefixCls}-tool-name ${hashId}`, {
+                  [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
+                })}
+              >
+                {tool.toolName}
+              </div>
+            )}
           </div>
         </div>
-        <div
-          className={classNames(`${prefixCls}-tool-target ${hashId}`, {
-            [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
-          })}
-        >
-          {tool.toolTarget}
-        </div>
-        <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
-
+        {tool.toolTarget && (
+          <div
+            className={classNames(`${prefixCls}-tool-target ${hashId}`, {
+              [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
+            })}
+          >
+            {tool.toolTarget}
+          </div>
+        )}
+        {tool.time && (
+          <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
+        )}
         {showContent && (
           <div
             className={`${prefixCls}-tool-expand ${hashId}`}
