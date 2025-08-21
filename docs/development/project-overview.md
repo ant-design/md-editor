@@ -157,13 +157,13 @@ md-editor/
 
 #### 1. MarkdownEditor 模块
 
-<!--
-  编辑器模块说明：
-  - 基于Slate.js实现
-  - 支持丰富的编辑功能
-  - 提供插件化扩展
-  - 完整的类型定义
--->
+MarkdownEditor 是整个项目的核心模块，基于 Slate.js 构建，提供了强大而灵活的 Markdown 编辑功能。
+
+**技术特点：**
+- **基于 Slate.js**: 利用 Slate.js 的可扩展架构，提供丰富的编辑能力
+- **插件化设计**: 通过插件系统支持功能扩展，如数学公式、图表等
+- **完整类型定义**: 基于 TypeScript，提供完整的类型安全保障
+- **高性能渲染**: 优化的渲染机制，支持大文档编辑
 
 ```
 src/MarkdownEditor/
@@ -171,60 +171,94 @@ src/MarkdownEditor/
 ├── editor/                   # 编辑器核心
 │   ├── Editor.tsx           # 主编辑器组件
 │   ├── components/          # 编辑器组件
+│   │   ├── Editable.tsx     # 可编辑区域
+│   │   ├── Toolbar.tsx      # 工具栏组件
+│   │   └── FloatBar.tsx     # 浮动工具栏
 │   ├── elements/            # 元素渲染器
+│   │   ├── Paragraph.tsx    # 段落元素
+│   │   ├── Heading.tsx      # 标题元素
+│   │   ├── List.tsx         # 列表元素
+│   │   └── Table.tsx        # 表格元素
 │   ├── plugins/             # 编辑器插件
+│   │   ├── withMarkdown.ts  # Markdown 插件
+│   │   ├── withShortcuts.ts # 快捷键插件
+│   │   └── withHistory.ts   # 历史记录插件
 │   ├── tools/               # 工具栏
+│   │   ├── BoldTool.tsx     # 加粗工具
+│   │   ├── ItalicTool.tsx   # 斜体工具
+│   │   └── LinkTool.tsx     # 链接工具
 │   └── utils/               # 编辑器工具
+│       ├── serialize.ts     # 序列化工具
+│       ├── deserialize.ts   # 反序列化工具
+│       └── transforms.ts    # 变换操作
 ├── hooks/                   # 编辑器Hooks
+│   ├── useEditor.ts         # 编辑器核心Hook
+│   ├── useSelection.ts      # 选择状态Hook
+│   └── useCommands.ts       # 命令系统Hook
 ├── utils/                   # 编辑器工具
+│   ├── markdown.ts          # Markdown 解析
+│   ├── hotkeys.ts          # 热键处理
+│   └── clipboard.ts        # 剪贴板处理
 └── index.ts                 # 模块导出
 ```
 
 **主要功能：**
 
-- 富文本编辑
-- 实时预览
-- 语法高亮
-- 快捷键支持
-- 插件系统
+- **富文本编辑**: 支持完整的 Markdown 语法编辑
+- **实时预览**: 提供所见即所得的编辑体验
+- **语法高亮**: 多语言代码块语法高亮
+- **快捷键支持**: 完整的键盘快捷键系统
+- **插件系统**: 可扩展的插件架构
+- **协作编辑**: 支持多人协作编辑功能
 
 #### 2. MarkdownInputField 模块
 
-<!--
-  输入字段模块说明：
-  - 提供输入框功能
-  - 支持附件上传
-  - 集成发送按钮
-  - 提供建议功能
--->
+MarkdownInputField 提供了一个功能丰富的输入组件，专门为快速输入和处理 Markdown 内容而设计。
+
+**技术特点：**
+- **轻量级输入**: 相比完整编辑器，提供更轻量的输入体验
+- **附件处理**: 完整的文件上传和预览功能
+- **智能建议**: 基于上下文的内容建议和自动补全
+- **快速发送**: 支持快捷键发送和内容验证
 
 ```
 src/MarkdownInputField/
 ├── MarkdownInputField.tsx    # 主输入组件
 ├── AttachmentButton/         # 附件按钮
+│   ├── index.tsx            # 附件按钮主组件
+│   ├── FileUploader.tsx     # 文件上传器
+│   └── FilePreview.tsx      # 文件预览
 ├── FileMapView/             # 文件映射视图
+│   ├── index.tsx            # 文件视图主组件
+│   ├── FileItem.tsx         # 文件项组件
+│   └── FileActions.tsx      # 文件操作
 ├── SendButton/              # 发送按钮
+│   ├── index.tsx            # 发送按钮主组件
+│   └── SendStatus.tsx       # 发送状态
 ├── Suggestion/              # 建议功能
+│   ├── index.tsx            # 建议主组件
+│   ├── SuggestionList.tsx   # 建议列表
+│   └── SuggestionItem.tsx   # 建议项
 └── style.ts                 # 样式文件
 ```
 
 **主要功能：**
 
-- Markdown输入
-- 附件上传
-- 文件预览
-- 智能建议
-- 发送功能
+- **Markdown 输入**: 支持基础 Markdown 语法输入
+- **附件上传**: 拖拽上传、粘贴上传等多种方式
+- **文件预览**: 支持图片、视频、文档等多种格式预览
+- **智能建议**: 自动补全、模板建议、历史记录建议
+- **发送功能**: 快捷键发送、内容验证、发送状态提示
 
 #### 3. History 模块
 
-<!--
-  历史记录模块说明：
-  - 管理编辑历史
-  - 支持搜索和过滤
-  - 提供收藏功能
-  - 支持批量操作
--->
+History 模块负责管理用户的编辑历史和会话记录，提供强大的历史管理功能。
+
+**技术特点：**
+- **高效存储**: 使用 IndexedDB 进行本地存储，支持大量历史记录
+- **智能搜索**: 全文搜索、标签过滤、时间范围筛选
+- **收藏管理**: 重要内容收藏和分类管理
+- **批量操作**: 支持批量删除、导出、分享等操作
 
 ```
 src/History/
