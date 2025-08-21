@@ -3,8 +3,8 @@ import {
   Bubble,
   MessageBubbleData,
 } from '@ant-design/md-editor';
-import { Button, Space, message } from 'antd';
-import React, { useRef, useState } from 'react';
+import { message } from 'antd';
+import React, { useRef } from 'react';
 
 // 创建模拟文件的辅助函数
 const createMockFile = (
@@ -131,7 +131,6 @@ Bubble 组件是一个功能丰富的聊天气泡组件，支持：
 
 export default () => {
   const bubbleRef = useRef<any>();
-  const [isLoading, setIsLoading] = useState(false);
 
   // 处理点赞/点踩事件
   const handleLike = async (bubble: MessageBubbleData) => {
@@ -150,27 +149,10 @@ export default () => {
     console.log('回复内容:', content);
   };
 
-  // 模拟生成新消息
-  const simulateNewMessage = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      message.success('新消息生成完成！');
-    }, 2000);
-  };
-
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
       {/* 操作区域 */}
       <div style={{ marginBottom: 24 }}>
-        <Space>
-          <Button type="primary" onClick={simulateNewMessage}>
-            模拟生成新消息
-          </Button>
-          <Button onClick={() => setIsLoading(!isLoading)} disabled={isLoading}>
-            切换加载状态
-          </Button>
-        </Space>
         <div style={{ marginTop: 8, color: '#666', fontSize: 14 }}>
           💡 点击消息下方的操作按钮可以体验交互功能
         </div>
@@ -208,22 +190,6 @@ export default () => {
           onDisLike={handleDisLike}
           onReply={handleReply}
         />
-
-        {/* Loading message */}
-        <Bubble
-          avatar={mockMessage.meta!}
-          placement="left"
-          loading={isLoading}
-          bubbleRef={bubbleRef}
-          originData={{
-            ...mockMessage,
-            id: '4',
-            content: isLoading ? '正在思考中...' : '点击上方按钮体验加载状态',
-            isFinished: !isLoading,
-          }}
-          onLike={handleLike}
-          onDisLike={handleDisLike}
-        />
       </div>
 
       {/* 功能说明 */}
@@ -244,9 +210,6 @@ export default () => {
           </li>
           <li>
             <strong>丰富内容：</strong>支持 Markdown 格式、文件附件展示
-          </li>
-          <li>
-            <strong>加载状态：</strong>支持消息生成过程中的加载动画
           </li>
           <li>
             <strong>交互操作：</strong>点赞、点踩、回复等操作反馈

@@ -7,7 +7,7 @@ group:
   order: 3
 ---
 
-# Schema
+# Schema - 低代码渲染
 
 本文档介绍如何使用 Schema 系统来创建和配置组件。
 
