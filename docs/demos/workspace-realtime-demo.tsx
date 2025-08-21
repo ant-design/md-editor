@@ -80,7 +80,7 @@ $E = mc^2$
     </div>
     <p>当前时间: <span id="time"></span></p>
     <script>
-        document.getElementById('time').textContent = new Date().toLocaleString();
+        document.getElementById('time').textContent = '2023-12-21 10:30:56';
     </script>
 </body>
 </html>`;

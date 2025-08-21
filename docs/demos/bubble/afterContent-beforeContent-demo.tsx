@@ -45,7 +45,7 @@ console.log('Hello, World!');
       >
         📝 <strong>消息信息</strong>
         <br />
-        创建时间: {new Date(messageData?.createAt).toLocaleString()}
+        创建时间: 2023-12-21 10:30:56
         <br />
         模型: {messageData?.model || '未知'}
         <br />

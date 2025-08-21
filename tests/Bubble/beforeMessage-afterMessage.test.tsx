@@ -9,8 +9,8 @@ describe('Bubble beforeMessageRender and afterMessageRender', () => {
     id: 'test-message-1',
     content: '这是一个测试消息',
     role: 'assistant',
-    createAt: Date.now(),
-    updateAt: Date.now(),
+    createAt: 1703123456789,
+    updateAt: 1703123456789,
     isFinished: true,
   };
 
@@ -188,9 +188,7 @@ describe('Bubble beforeMessageRender and afterMessageRender', () => {
   it('应该能正确处理复杂的渲染内容', () => {
     const beforeMessageRender = (props: any) => (
       <div data-testid="before-message">
-        <span>
-          创建时间: {new Date(props.originData?.createAt).toLocaleString()}
-        </span>
+        <span>创建时间: 2023-12-21 10:30:56</span>
         <span>角色: {props.originData?.role}</span>
       </div>
     );

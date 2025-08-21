@@ -64,6 +64,7 @@
     "lodash-es": "^4.17.21",
     "lottie-react": "^2.4.1",
     "mermaid": "^11.7.0",
+    "mockdate": "^3.0.5",
     "mustache": "^4.2.0",
     "nanoid": "^5.1.5",
     "partial-json": "^0.1.7",

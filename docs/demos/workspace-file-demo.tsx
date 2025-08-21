@@ -92,7 +92,7 @@ const VariableAnalysisPreview: React.FC<{
         <div style={{ flex: 1 }}>
           <div style={{ fontWeight: 600 }}>{row.name}</div>
           <div style={{ fontSize: 12, color: '#888' }}>
-            详情的生成时间：{new Date().toLocaleString()}
+            详情的生成时间：2023-12-21 10:30:56
           </div>
         </div>
       </div>,

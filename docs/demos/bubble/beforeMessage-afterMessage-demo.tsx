@@ -49,7 +49,7 @@ console.log('Hello, World!');
         <br />
         发送者: {messageData?.name || '未知'}
         <br />
-        创建时间: {new Date(messageData?.createAt).toLocaleString()}
+        创建时间: 2023-12-21 10:30:56
       </div>
     );
   };

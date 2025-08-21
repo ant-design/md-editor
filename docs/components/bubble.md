@@ -362,7 +362,7 @@ const customBeforeContentRender = (props, defaultDom) => {
         color: '#666',
       }}
     >
-      📝 消息创建时间: {new Date(props.originData?.createAt).toLocaleString()}
+      📝 消息创建时间: 2023-12-21 10:30:56
     </div>
   );
 };

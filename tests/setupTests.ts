@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom';
 import { MotionGlobalConfig } from 'framer-motion';
 import { JSDOM } from 'jsdom';
+import MockDate from 'mockdate';
 import React from 'react';
 import { vi } from 'vitest';
 import { setupLottieMock } from './_mocks_/lottieMock';
 import { setupGlobalMocks } from './_mocks_/sharedMocks';
-
 MotionGlobalConfig.skipAnimations = true;
 
 // 设置全局mocks
@@ -19,6 +19,7 @@ globalThis.window = new JSDOM().window;
 
 globalThis.document = window.document;
 
+MockDate.set('2023-12-21 10:30:56');
 // 设置正确的文档类型，修复KaTeX警告
 Object.defineProperty(document, 'doctype', {
   value: {

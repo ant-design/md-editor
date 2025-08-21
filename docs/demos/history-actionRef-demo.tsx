@@ -8,19 +8,19 @@ const mockHistoryData = [
     id: '1',
     sessionId: 'session-1',
     sessionTitle: '关于 React Hooks 的讨论',
-    gmtCreate: Date.now() - 86400000, // 1天前
+    gmtCreate: 1703039856789, // 1天前
   },
   {
     id: '2',
     sessionId: 'session-2',
     sessionTitle: 'TypeScript 类型系统详解',
-    gmtCreate: Date.now() - 172800000, // 2天前
+    gmtCreate: 1702953456789, // 2天前
   },
   {
     id: '3',
     sessionId: 'session-3',
     sessionTitle: '前端性能优化实践',
-    gmtCreate: Date.now() - 259200000, // 3天前
+    gmtCreate: 1702867056789, // 3天前
   },
 ];
 

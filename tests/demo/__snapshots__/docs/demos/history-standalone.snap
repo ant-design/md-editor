@@ -35,7 +35,7 @@
                 <div
                   class="ant-history-menu-item-content"
                 >
-                  2 years ago
+                  今日
                 </div>
               </div>
               <div
@@ -64,10 +64,23 @@
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
-                        2 years ago
+                        今日
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-history-menu-submenu"
+            >
+              <div
+                class="ant-history-menu-item-group"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  昨日
                 </div>
               </div>
               <div
@@ -96,10 +109,23 @@
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
-                        2 years ago
+                        昨日
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-history-menu-submenu"
+            >
+              <div
+                class="ant-history-menu-item-group"
+              >
+                <div
+                  class="ant-history-menu-item-content"
+                >
+                  2 days ago
                 </div>
               </div>
               <div
@@ -128,7 +154,7 @@
                       <div
                         style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                       >
-                        2 years ago
+                        2 days ago
                       </div>
                     </div>
                   </div>

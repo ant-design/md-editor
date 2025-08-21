@@ -51,8 +51,7 @@ const ExtraHistoryDemo = () => {
       item.sessionTitle?.toString().includes('重要') ||
       item.sessionTitle?.toString().includes('紧急');
     const isToday =
-      new Date(item.gmtCreate as number).toDateString() ===
-      new Date().toDateString();
+      new Date(item.gmtCreate as number).toDateString() === 'Thu Dec 21 2023';
 
     return (
       <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>

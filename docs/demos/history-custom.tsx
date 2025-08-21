@@ -49,7 +49,7 @@ const CustomHistoryDemo = () => {
   // 自定义日期格式化函数
   const customDateFormatter = (date: number | string | Date) => {
     const dateObj = new Date(date);
-    const today = new Date();
+    const today = new Date('2023-12-21');
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
@@ -65,7 +65,7 @@ const CustomHistoryDemo = () => {
   // 自定义分组函数
   const customGroupBy = (item: HistoryDataType) => {
     const date = new Date(item.gmtCreate as number);
-    const today = new Date();
+    const today = new Date('2023-12-21');
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 

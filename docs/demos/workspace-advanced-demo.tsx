@@ -159,9 +159,7 @@ $\\sum_{i=1}^{n} x_i = x_1 + x_2 + \\cdots + x_n$
         <Space>
           <Button
             size="small"
-            onClick={() =>
-              setCustomTitle('新标题 - ' + new Date().toLocaleTimeString())
-            }
+            onClick={() => setCustomTitle('新标题 - 10:30:56')}
           >
             更新标题
           </Button>
