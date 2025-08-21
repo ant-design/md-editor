@@ -1,6 +1,7 @@
 ﻿import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React from 'react';
+import { useRefFunction } from '../hooks/useRefFunction';
 import { ToolCall, ToolUseBarItem } from './ToolUseBarItem';
 import { useStyle } from './style';
 
@@ -84,21 +85,23 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
     },
   );
 
-  const handleActiveChange = (id: string, active: boolean) => {
+  const handleActiveChange = useRefFunction((id: string, active: boolean) => {
     if (onActiveKeysChange) {
       const newActiveKeys = active
         ? [...activeKeys, id]
         : activeKeys.filter((key) => key !== id);
       setActiveKeys(newActiveKeys);
     }
-  };
+  });
 
-  const handleExpandedChange = (id: string, expanded: boolean) => {
-    const newExpandedKeys = expanded
-      ? [...expandedKeys, id]
-      : expandedKeys.filter((key) => key !== id);
-    setExpandedKeys(newExpandedKeys);
-  };
+  const handleExpandedChange = useRefFunction(
+    (id: string, expanded: boolean) => {
+      const newExpandedKeys = expanded
+        ? [...expandedKeys, id]
+        : expandedKeys.filter((key) => key !== id);
+      setExpandedKeys(newExpandedKeys);
+    },
+  );
 
   if (!tools?.length)
     return (

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 type TaskStatus = 'success' | 'pending';
 
 export default () => {
+  const [activeKeys, setActiveKeys] = useState<string[]>([]);
   const [items] = useState([
     {
       key: '1',
@@ -26,6 +27,10 @@ export default () => {
       content: [
         <ToolUseBar
           key="1"
+          activeKeys={activeKeys}
+          onActiveKeysChange={(keys) => {
+            setActiveKeys(keys);
+          }}
           tools={[
             {
               id: '1',
