@@ -71,6 +71,7 @@ export const History: React.FC<HistoryProps> = (props) => {
       props.onSelected?.(sessionId);
       setOpen(false);
     },
+    groupLabelRender: props.groupLabelRender,
     onDeleteItem: props.onDeleteItem
       ? async (sessionId) => {
           await props.onDeleteItem?.(sessionId);

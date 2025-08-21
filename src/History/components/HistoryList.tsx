@@ -7,7 +7,7 @@ import { HistoryItem } from './HistoryItem';
 /**
  * 历史记录列表配置接口
  */
-interface HistoryListConfig {
+export interface HistoryListConfig {
   /** 过滤后的历史记录列表 */
   filteredList: HistoryDataType[];
   /** 选中的记录ID列表 */
@@ -39,6 +39,17 @@ interface HistoryListConfig {
   extra?: (item: HistoryDataType) => React.ReactElement;
   /** 自定义日期格式化函数 */
   customDateFormatter?: (date: number | string | Date) => string;
+  /**
+   * 自定义分组标签渲染函数
+   * @param key 分组键
+   * @param List 分组后的历史记录列表
+   * @returns 自定义渲染的分组标签
+   */
+  groupLabelRender?: (
+    key: string,
+    List: HistoryDataType[],
+    defaultLabel: React.ReactNode,
+  ) => React.ReactNode;
   /** 自定义分组函数 */
   groupBy?: (item: HistoryDataType) => string;
   /** 自定义排序函数 */
@@ -110,6 +121,7 @@ export const generateHistoryItems = ({
   customDateFormatter,
   groupBy,
   sessionSort,
+  groupLabelRender,
   type,
   runningId,
 }: HistoryListConfig) => {
@@ -126,14 +138,14 @@ export const generateHistoryItems = ({
   const items = Object.keys(groupList).map((key) => {
     const list = groupList[key];
     const firstItem = list?.at(0);
-
+    const label =
+      customDateFormatter && firstItem?.gmtCreate
+        ? customDateFormatter(firstItem.gmtCreate)
+        : formatTime(firstItem?.gmtCreate as number);
     return {
       key: `group-${key}`,
       type: 'group' as const,
-      label:
-        customDateFormatter && firstItem?.gmtCreate
-          ? customDateFormatter(firstItem.gmtCreate)
-          : formatTime(firstItem?.gmtCreate as number),
+      label: groupLabelRender ? groupLabelRender(key, list, label) : label,
       children: list
         ?.sort((a: HistoryDataType, b: HistoryDataType) => {
           if (sessionSort === false) {

@@ -26,16 +26,16 @@ export const formatTime = (time?: number | string): string => {
 /**
  * 按指定键对数组进行分组
  * @param list 要分组的数组
- * @param key 分组键的获取函数
+ * @param getCategoryKey 分组键的获取函数
  * @returns 分组后的对象
  */
 export const groupByCategory = <T>(
   list: T[],
-  key: (item: T) => string,
+  getCategoryKey: (item: T) => string,
 ): Record<string, T[]> => {
   return list.reduce(
     (prev, curr) => {
-      const group = key(curr);
+      const group = getCategoryKey(curr);
       if (!prev[group]) {
         prev[group] = [];
       }

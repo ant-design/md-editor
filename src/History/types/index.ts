@@ -1,4 +1,5 @@
 import { WhiteBoxProcessInterface } from '../../ThoughtChainList';
+import { HistoryListConfig } from '../components/HistoryList';
 
 export type HistoryDataType = {
   /** 会话记录ID，自增主键 */
@@ -78,6 +79,7 @@ export interface HistoryProps {
   onDeleteItem?: (sessionId: string) => void;
   customDateFormatter?: (date: number | string | Date) => string;
   groupBy?: (item: HistoryDataType) => string;
+  groupLabelRender: HistoryListConfig['groupLabelRender'];
   extra?: (item: HistoryDataType) => React.ReactElement;
   sessionSort?:
     | ((pre: HistoryDataType, current: HistoryDataType) => number | boolean)
