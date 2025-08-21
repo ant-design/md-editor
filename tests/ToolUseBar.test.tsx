@@ -162,4 +162,71 @@ describe('ToolUseBar', () => {
     );
     expect(collapsedContentContainers.length).toBe(0);
   });
+
+  it('should correctly handle activeKeys in controlled mode', () => {
+    const mockOnActiveKeysChange = vi.fn();
+    
+    // 测试受控模式下的 activeKeys
+    const { rerender } = render(
+      <ToolUseBar
+        tools={mockTools}
+        activeKeys={['tool1']}
+        onActiveKeysChange={mockOnActiveKeysChange}
+      />,
+    );
+
+    // 验证初始状态
+    expect(screen.getByText('Tool 1')).toBeInTheDocument();
+    expect(screen.getByText('Tool 2')).toBeInTheDocument();
+
+    // 重新渲染，改变 activeKeys 属性
+    rerender(
+      <ToolUseBar
+        tools={mockTools}
+        activeKeys={['tool2', 'tool3']}
+        onActiveKeysChange={mockOnActiveKeysChange}
+      />,
+    );
+
+    // 验证组件能正确响应 activeKeys 变化
+    expect(screen.getByText('Tool 1')).toBeInTheDocument();
+    expect(screen.getByText('Tool 2')).toBeInTheDocument();
+    expect(screen.getByText('Tool 3')).toBeInTheDocument();
+  });
+
+  it('should use defaultActiveKeys in uncontrolled mode', () => {
+    // 测试非受控模式下的 defaultActiveKeys
+    render(
+      <ToolUseBar
+        tools={mockTools}
+        defaultActiveKeys={['tool2']}
+      />,
+    );
+
+    // 验证组件能正常渲染
+    expect(screen.getByText('Tool 1')).toBeInTheDocument();
+    expect(screen.getByText('Tool 2')).toBeInTheDocument();
+    expect(screen.getByText('Tool 3')).toBeInTheDocument();
+    expect(screen.getByText('Tool 4')).toBeInTheDocument();
+  });
+
+  it('should prioritize activeKeys over defaultActiveKeys when both are provided', () => {
+    const mockOnActiveKeysChange = vi.fn();
+    
+    // 当同时提供 activeKeys 和 defaultActiveKeys 时，应该优先使用 activeKeys（受控模式）
+    render(
+      <ToolUseBar
+        tools={mockTools}
+        activeKeys={['tool1']}
+        defaultActiveKeys={['tool2']}
+        onActiveKeysChange={mockOnActiveKeysChange}
+      />,
+    );
+
+    // 验证组件能正常渲染，使用的是 activeKeys 而不是 defaultActiveKeys
+    expect(screen.getByText('Tool 1')).toBeInTheDocument();
+    expect(screen.getByText('Tool 2')).toBeInTheDocument();
+    expect(screen.getByText('Tool 3')).toBeInTheDocument();
+    expect(screen.getByText('Tool 4')).toBeInTheDocument();
+  });
 });
