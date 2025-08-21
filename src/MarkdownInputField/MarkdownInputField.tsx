@@ -232,6 +232,11 @@ export type MarkdownInputFieldProps = {
    * ```
    */
   leafRender?: MarkdownEditorProps['leafRender'];
+
+  /**
+   * Markdown 编辑器的其他配置项
+   */
+  markdownProps?: MarkdownEditorProps;
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -303,6 +308,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       },
     ],
   },
+  markdownProps,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -730,6 +736,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               }}
               titlePlaceholderContent={props.placeholder}
               toc={false}
+              {...markdownProps}
             />
           </div>
           {props.toolsRender ? (
