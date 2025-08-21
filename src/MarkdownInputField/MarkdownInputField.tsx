@@ -14,6 +14,7 @@ import { useRefFunction } from '../hooks/useRefFunction';
 import { I18nContext } from '../i18n';
 import {
   BaseMarkdownEditor,
+  Elements,
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
@@ -112,6 +113,32 @@ export type MarkdownInputFieldProps = {
    * @example onStop={() => console.log('Sending...')}
    */
   onStop?: () => void;
+
+  /**
+   * 当输入字段获得焦点时触发的回调函数。
+   * @description 通过 markdownProps.onFocus 传递，当编辑器获得焦点时触发
+   * @param value 当前的 markdown 文本值
+   * @param schema 当前的编辑器 schema
+   * @example onFocus={(value, schema) => console.log('Input focused:', value)}
+   */
+  onFocus?: (
+    value: string,
+    schema: Elements[],
+    e: React.FocusEvent<HTMLDivElement, Element>,
+  ) => void;
+
+  /**
+   * 当输入字段获得焦点时触发的回调函数。
+   * @description 通过 markdownProps.onFocus 传递，当编辑器获得焦点时触发
+   * @param value 当前的 markdown 文本值
+   * @param schema 当前的编辑器 schema
+   * @example onFocus={(value, schema) => console.log('Input focused:', value)}
+   */
+  onBlur?: (
+    value: string,
+    schema: Elements[],
+    e: React.MouseEvent<HTMLDivElement, Element>,
+  ) => void;
 
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
   bgColorList?: [string, string, string, string];
@@ -309,6 +336,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     ],
   },
   markdownProps,
+  onBlur,
+  onFocus,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -734,6 +763,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 setValue(value);
                 props.onChange?.(value);
               }}
+              onFocus={onFocus}
+              onBlur={onBlur}
               titlePlaceholderContent={props.placeholder}
               toc={false}
               {...markdownProps}

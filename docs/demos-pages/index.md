@@ -46,15 +46,19 @@ nav:
 
 ## 气泡组件
 
-<code src="../demos/bubble/basic.tsx" background="var(--main-bg-color)" title="气泡基础" iframe=540></code>
+<code src="../demos/bubble/basic.tsx" background="var(--main-bg-color)" title="气泡基础功能" iframe=540></code>
 
-<code src="../demos/bubble/custom-render.tsx" background="var(--main-bg-color)" title="气泡自定义渲染" iframe=540></code>
+<code src="../demos/bubble/custom-render.tsx" background="var(--main-bg-color)" title="自定义渲染" iframe=540></code>
 
-<code src="../demos/bubble/file-view.tsx" background="var(--main-bg-color)" title="气泡文件视图" iframe=540></code>
+<code src="../demos/bubble/extra-render.tsx" background="var(--main-bg-color)" title="自定义操作区域" iframe=540></code>
 
-<code src="../demos/bubble/list.tsx" background="var(--main-bg-color)" title="气泡列表" iframe=540></code>
+<code src="../demos/bubble/file-view.tsx" background="var(--main-bg-color)" title="文件附件展示" iframe=540></code>
 
-<code src="../demos/bubble/pure.tsx" background="var(--main-bg-color)" title="气泡纯模式" iframe=540></code>
+<code src="../demos/bubble/pure.tsx" background="var(--main-bg-color)" title="Pure 简洁模式" iframe=540></code>
+
+<code src="../demos/bubble/list.tsx" background="var(--main-bg-color)" title="消息列表管理" iframe=540></code>
+
+<code src="../demos/bubble/advanced-features.tsx" background="var(--main-bg-color)" title="高级功能演示" iframe=600></code>
 
 ## 表单与Schema
 

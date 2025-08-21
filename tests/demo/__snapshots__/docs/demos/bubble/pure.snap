@@ -6,151 +6,1567 @@
       test
     </div>
     <div
-      style="display: flex; flex-direction: column; gap: 16px;"
+      style="max-width: 900px; margin: 0px auto; padding: 24px;"
     >
       <div
-        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-        style="gap: 12px;"
+        class="ant-card ant-card-bordered"
+        style="margin-bottom: 24px;"
       >
         <div
-          animate="visible"
-          class="ant-agent-list-bubble-container"
-          initial="hidden"
-          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-          variants="[object Object]"
-          whileinview="visible"
+          class="ant-card-head"
         >
           <div
-            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+            class="ant-card-head-wrapper"
+          >
+            <div
+              class="ant-card-head-title"
+            >
+              <div
+                style="display: flex; align-items: center; gap: 8px;"
+              >
+                <span>
+                  🎨
+                </span>
+                <h4
+                  class="ant-typography"
+                  style="margin: 0px;"
+                >
+                  Pure 模式演示
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <div
+            style="margin-bottom: 16px;"
           >
             <span
-              class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
-              data-testid="bubble-avatar"
-              style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+              class="ant-typography ant-typography-secondary"
             >
-              <img
-                alt="avatar"
-                src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-              />
+              Pure 模式提供更简洁的聊天气泡样式，适用于需要低调展示的场景。
             </span>
-            <span>
-              Agentar
-            </span>
+          </div>
+          <div
+            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-large ant-space-gap-col-large"
+          >
             <div
-              class="ant-agent-list-bubble-title ant-flex"
-              data-testid="bubble-title"
-              style="flex-direction: row; gap: 8px;"
+              class="ant-space-item"
             >
-              Ant Design
+              <div>
+                <span
+                  class="ant-typography"
+                >
+                  <strong>
+                    Pure 模式: 
+                  </strong>
+                </span>
+                <button
+                  aria-checked="true"
+                  class="ant-switch ant-switch-checked"
+                  role="switch"
+                  type="button"
+                >
+                  <div
+                    class="ant-switch-handle"
+                  />
+                  <span
+                    class="ant-switch-inner"
+                  >
+                    <span
+                      class="ant-switch-inner-checked"
+                    >
+                      开启
+                    </span>
+                    <span
+                      class="ant-switch-inner-unchecked"
+                    >
+                      关闭
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              class="ant-space-item"
+            >
+              <div>
+                <span
+                  class="ant-typography"
+                >
+                  <strong>
+                    对比模式: 
+                  </strong>
+                </span>
+                <button
+                  aria-checked="false"
+                  class="ant-switch"
+                  role="switch"
+                  type="button"
+                >
+                  <div
+                    class="ant-switch-handle"
+                  />
+                  <span
+                    class="ant-switch-inner"
+                  >
+                    <span
+                      class="ant-switch-inner-checked"
+                    >
+                      开启
+                    </span>
+                    <span
+                      class="ant-switch-inner-unchecked"
+                    >
+                      关闭
+                    </span>
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left ant-agent-list-bubble-container-pure"
-            data-testid="chat-message"
-            initial="hidden"
-            style="display: flex; gap: 4px; flex-direction: column;"
-            variants="[object Object]"
-            whileinview="visible"
+            style="margin-top: 16px; padding: 12px; background: rgb(232, 244, 253); border-radius: 6px; font-size: 14px;"
+          >
+            <span
+              class="ant-typography"
+            >
+              <strong>
+                当前模式：
+              </strong>
+              ✨ Pure 模式 - 简洁无边框设计
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-card ant-card-bordered"
+      >
+        <div
+          class="ant-card-head"
+        >
+          <div
+            class="ant-card-head-wrapper"
           >
             <div
-              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-              data-testid="message-before"
-              variants="[object Object]"
-            />
+              class="ant-card-head-title"
+            >
+              ✨ Pure模式展示
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <div
+            style="display: flex; flex-direction: column; gap: 16px;"
+          >
             <div
-              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-pure"
-              data-testid="message-content"
-              style="min-width: 0px;"
-              variants="[object Object]"
+              class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+              style="gap: 12px;"
             >
               <div
-                style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                animate="visible"
+                class="ant-agent-list-bubble-container"
+                initial="hidden"
+                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+                variants="[object Object]"
+                whileinview="visible"
               >
                 <div
-                  class="markdown-editor ant-md-editor ant-md-editor-readonly"
-                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                  class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+                >
+                  <span
+                    class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+                    data-testid="bubble-avatar"
+                    style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+                  >
+                    <img
+                      alt="avatar"
+                      src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                    />
+                  </span>
+                  <span>
+                    Agentar
+                  </span>
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  >
+                    Design System
+                  </div>
+                </div>
+                <div
+                  animate="visible"
+                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left ant-agent-list-bubble-container-pure"
+                  data-testid="chat-message"
+                  initial="hidden"
+                  style="display: flex; gap: 4px; flex-direction: column;"
+                  variants="[object Object]"
+                  whileinview="visible"
                 >
                   <div
-                    style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
-                    tabindex="-1"
+                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                    data-testid="message-before"
+                    variants="[object Object]"
+                  />
+                  <div
+                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-pure"
+                    data-testid="message-content"
+                    style="min-width: 0px;"
+                    variants="[object Object]"
                   >
                     <div
-                      autocapitalize="false"
-                      autocorrect="false"
-                      class="ant-md-editor-content-readonly ant-md-editor-content"
-                      data-slate-editor="true"
-                      data-slate-node="value"
-                      spellcheck="false"
-                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                      zindex="-1"
+                      style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                     >
                       <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                       >
-                        <span
-                          data-slate-node="text"
+                        <div
+                          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                          tabindex="-1"
+                        >
+                          <div
+                            autocapitalize="false"
+                            autocorrect="false"
+                            class="ant-md-editor-content-readonly ant-md-editor-content"
+                            data-slate-editor="true"
+                            data-slate-node="value"
+                            spellcheck="false"
+                            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                            zindex="-1"
+                          >
+                            <div
+                              data-slate-node="element"
+                              data-testid="markdown-heading"
+                              id="pure-模式说明"
+                              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    Pure 模式说明
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    Pure 模式是 Bubble 组件的简洁版本，特点：
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-list-container relative"
+                              data-be="list"
+                              data-slate-node="element"
+                            >
+                              <ul
+                                class="ant-md-editor-list ul"
+                              >
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          🎨 
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                        style="font-weight: bold;"
+                                      >
+                                        <span
+                                          data-testid="markdown-bold"
+                                        >
+                                          <span
+                                            data-slate-string="true"
+                                          >
+                                            无边框无阴影
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          ：更简洁的视觉效果
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          📱 
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                        style="font-weight: bold;"
+                                      >
+                                        <span
+                                          data-testid="markdown-bold"
+                                        >
+                                          <span
+                                            data-slate-string="true"
+                                          >
+                                            适配场景
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          ：嵌入式对话、邮件预览等
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          ⚡ 
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                        style="font-weight: bold;"
+                                      >
+                                        <span
+                                          data-testid="markdown-bold"
+                                        >
+                                          <span
+                                            data-slate-string="true"
+                                          >
+                                            轻量级
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          ：减少视觉干扰，突出内容
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          🔧 
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                        style="font-weight: bold;"
+                                      >
+                                        <span
+                                          data-testid="markdown-bold"
+                                        >
+                                          <span
+                                            data-slate-string="true"
+                                          >
+                                            易集成
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          ：更容易融入现有设计系统
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    适用于需要低调显示的聊天场景。
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="ant-chat-item-extra"
+                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                      >
+                        <div />
+                        <div
+                          animate="visible"
+                          class="ant-chat-item-extra-action-box"
+                          initial="hidden"
+                          style="display: flex; gap: 8px; align-items: center;"
+                          variants="[object Object]"
+                          whileinview="visible"
                         >
                           <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            aria-describedby="test-id"
+                            aria-label="复制"
+                            class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                            data-testid="chat-item-copy-button"
+                            role="button"
+                            style="color: var(--color-icon-secondary);"
+                            tabindex="0"
                           >
                             <span
-                              data-slate-string="true"
+                              aria-label="copy"
+                              class="anticon anticon-copy"
+                              role="img"
                             >
-                              这是一条使用 pure 模式的消息，没有阴影和边框。
+                              <svg
+                                aria-hidden="true"
+                                data-icon="copy"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                />
+                              </svg>
                             </span>
                           </span>
-                        </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div
+              class="ant-agent-list ant-agent-list-right ant-flex ant-flex-align-stretch ant-flex-vertical"
+              style="gap: 12px;"
+            >
+              <div
+                animate="visible"
+                class="ant-agent-list-bubble-container"
+                initial="hidden"
+                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+                variants="[object Object]"
+                whileinview="visible"
+              >
                 <div
-                  class="ant-chat-item-extra"
-                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                  animate="visible"
+                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-right ant-agent-list-bubble-container-pure"
+                  data-testid="chat-message"
+                  initial="hidden"
+                  style="display: flex; gap: 4px; flex-direction: column;"
+                  variants="[object Object]"
+                  whileinview="visible"
                 >
-                  <div />
                   <div
-                    animate="visible"
-                    class="ant-chat-item-extra-action-box"
-                    initial="hidden"
-                    style="display: flex; gap: 8px; align-items: center;"
+                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-right"
+                    data-testid="message-before"
                     variants="[object Object]"
-                    whileinview="visible"
+                  />
+                  <div
+                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-right ant-agent-list-bubble-content-pure"
+                    data-testid="message-content"
+                    style="min-width: 0px;"
+                    variants="[object Object]"
                   >
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                      data-testid="chat-item-copy-button"
-                      role="button"
-                      style="color: var(--color-icon-secondary);"
-                      tabindex="0"
+                    <div
+                      class="agent-item-default-content"
+                      data-testid="message-content"
+                      style="line-height: 24px;"
                     >
-                      <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                      <div
+                        style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <div
+                          class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
+                          <div
+                            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(255, 255, 255);"
+                            tabindex="-1"
+                          >
+                            <div
+                              autocapitalize="false"
+                              autocorrect="false"
+                              class="ant-md-editor-content-readonly ant-md-editor-content"
+                              data-slate-editor="true"
+                              data-slate-node="value"
+                              spellcheck="false"
+                              style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                              zindex="-1"
+                            >
+                              <div
+                                class="ant-md-editor-drag-el"
+                                data-be="paragraph"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      这样看起来确实更简洁！什么时候使用 Pure 模式比较合适？
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+              style="gap: 12px;"
+            >
+              <div
+                animate="visible"
+                class="ant-agent-list-bubble-container"
+                initial="hidden"
+                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+                variants="[object Object]"
+                whileinview="visible"
+              >
+                <div
+                  class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+                >
+                  <span
+                    class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+                    data-testid="bubble-avatar"
+                    style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+                  >
+                    <img
+                      alt="avatar"
+                      src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                    />
+                  </span>
+                  <span>
+                    Agentar
+                  </span>
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  >
+                    Design System
+                  </div>
+                </div>
+                <div
+                  animate="visible"
+                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left ant-agent-list-bubble-container-pure"
+                  data-testid="chat-message"
+                  initial="hidden"
+                  style="display: flex; gap: 4px; flex-direction: column;"
+                  variants="[object Object]"
+                  whileinview="visible"
+                >
+                  <div
+                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                    data-testid="message-before"
+                    variants="[object Object]"
+                  />
+                  <div
+                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-pure"
+                    data-testid="message-content"
+                    style="min-width: 0px;"
+                    variants="[object Object]"
+                  >
+                    <div
+                      style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                    >
+                      <div
+                        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                      >
+                        <div
+                          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                          tabindex="-1"
+                        >
+                          <div
+                            autocapitalize="false"
+                            autocorrect="false"
+                            class="ant-md-editor-content-readonly ant-md-editor-content"
+                            data-slate-editor="true"
+                            data-slate-node="value"
+                            spellcheck="false"
+                            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                            zindex="-1"
+                          >
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    Pure 模式的最佳使用场景：
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              data-slate-node="element"
+                              data-testid="markdown-heading"
+                              id="🔸-嵌入式聊天"
+                              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    🔸 嵌入式聊天
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    当聊天框作为页面的一部分时，pure 模式不会抢夺用户注意力。
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              data-slate-node="element"
+                              data-testid="markdown-heading"
+                              id="🔸-邮件-消息预览"
+                              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    🔸 邮件/消息预览
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    在预览模式中，简洁的样式更适合展示内容摘要。
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              data-slate-node="element"
+                              data-testid="markdown-heading"
+                              id="🔸-移动端适配"
+                              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    🔸 移动端适配
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    在小屏幕设备上，pure 模式可以节省更多空间。
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              data-slate-node="element"
+                              data-testid="markdown-heading"
+                              id="🔸-白色背景"
+                              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    🔸 白色背景
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    当页面背景为白色时，pure 模式能更好地融入整体设计。
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              data-slate-node="element"
+                            >
+                              <div
+                                class="ace-el drag-el"
+                                contenteditable="false"
+                                data-be="code"
+                                data-lang="tsx"
+                                data-testid="code-container"
+                                tabindex="-1"
+                              >
+                                <div
+                                  contenteditable="false"
+                                  style="background-color: transparent; user-select: none;"
+                                >
+                                  <div
+                                    class="ace-container drag-el "
+                                    data-testid="code-editor-container"
+                                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                                  >
+                                    <div
+                                      contenteditable="false"
+                                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
+                                    />
+                                    <div
+                                      data-testid="ace-editor-container"
+                                      style="height: 200px; line-height: 22px;"
+                                    />
+                                    <div
+                                      data-testid="code-content-copy"
+                                      style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                    >
+                                      // 启用 Pure 模式很简单 &lt;Bubble pure originData={message} /&gt;
+                                      <span
+                                        data-slate-node="text"
+                                      >
+                                        <span
+                                          data-be="text"
+                                          data-slate-leaf="true"
+                                          draggable="false"
+                                        >
+                                          <span
+                                            data-slate-string="true"
+                                          >
+                                            // 启用 Pure 模式很简单
+&lt;Bubble pure originData={message} /&gt;
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="ant-chat-item-extra"
+                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                      >
+                        <div />
+                        <div
+                          animate="visible"
+                          class="ant-chat-item-extra-action-box"
+                          initial="hidden"
+                          style="display: flex; gap: 8px; align-items: center;"
+                          variants="[object Object]"
+                          whileinview="visible"
+                        >
+                          <span
+                            aria-describedby="test-id"
+                            aria-label="复制"
+                            class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                            data-testid="chat-item-copy-button"
+                            role="button"
+                            style="color: var(--color-icon-secondary);"
+                            tabindex="0"
+                          >
+                            <span
+                              aria-label="copy"
+                              class="anticon anticon-copy"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="copy"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-agent-list ant-agent-list-right ant-flex ant-flex-align-stretch ant-flex-vertical"
+              style="gap: 12px;"
+            >
+              <div
+                animate="visible"
+                class="ant-agent-list-bubble-container"
+                initial="hidden"
+                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+                variants="[object Object]"
+                whileinview="visible"
+              >
+                <div
+                  animate="visible"
+                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-right ant-agent-list-bubble-container-pure"
+                  data-testid="chat-message"
+                  initial="hidden"
+                  style="display: flex; gap: 4px; flex-direction: column;"
+                  variants="[object Object]"
+                  whileinview="visible"
+                >
+                  <div
+                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-right"
+                    data-testid="message-before"
+                    variants="[object Object]"
+                  />
+                  <div
+                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-right ant-agent-list-bubble-content-pure"
+                    data-testid="message-content"
+                    style="min-width: 0px;"
+                    variants="[object Object]"
+                  >
+                    <div
+                      class="agent-item-default-content"
+                      data-testid="message-content"
+                      style="line-height: 24px;"
+                    >
+                      <div
+                        style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                      >
+                        <div
+                          class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
+                        >
+                          <div
+                            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(255, 255, 255);"
+                            tabindex="-1"
+                          >
+                            <div
+                              autocapitalize="false"
+                              autocorrect="false"
+                              class="ant-md-editor-content-readonly ant-md-editor-content"
+                              data-slate-editor="true"
+                              data-slate-node="value"
+                              spellcheck="false"
+                              style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                              zindex="-1"
+                            >
+                              <div
+                                class="ant-md-editor-drag-el"
+                                data-be="paragraph"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      太棒了！我现在明白了 Pure 模式的优势。能看看和普通模式的对比吗？
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+              style="gap: 12px;"
+            >
+              <div
+                animate="visible"
+                class="ant-agent-list-bubble-container"
+                initial="hidden"
+                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+                variants="[object Object]"
+                whileinview="visible"
+              >
+                <div
+                  class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+                >
+                  <span
+                    class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+                    data-testid="bubble-avatar"
+                    style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+                  >
+                    <img
+                      alt="avatar"
+                      src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                    />
+                  </span>
+                  <span>
+                    Agentar
+                  </span>
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  >
+                    Design System
+                  </div>
+                </div>
+                <div
+                  animate="visible"
+                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left ant-agent-list-bubble-container-pure"
+                  data-testid="chat-message"
+                  initial="hidden"
+                  style="display: flex; gap: 4px; flex-direction: column;"
+                  variants="[object Object]"
+                  whileinview="visible"
+                >
+                  <div
+                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                    data-testid="message-before"
+                    variants="[object Object]"
+                  />
+                  <div
+                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-pure"
+                    data-testid="message-content"
+                    style="min-width: 0px;"
+                    variants="[object Object]"
+                  >
+                    <div
+                      style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                    >
+                      <div
+                        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                      >
+                        <div
+                          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                          tabindex="-1"
+                        >
+                          <div
+                            autocapitalize="false"
+                            autocorrect="false"
+                            class="ant-md-editor-content-readonly ant-md-editor-content"
+                            data-slate-editor="true"
+                            data-slate-node="value"
+                            spellcheck="false"
+                            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                            zindex="-1"
+                          >
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    当然可以！下面你可以通过切换开关来对比两种模式的视觉效果。
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                  style="font-weight: bold;"
+                                >
+                                  <span
+                                    data-testid="markdown-bold"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      普通模式特点：
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-list-container relative"
+                              data-be="list"
+                              data-slate-node="element"
+                            >
+                              <ul
+                                class="ant-md-editor-list ul"
+                              >
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          有边框和阴影
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          立体感更强
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          适合独立聊天窗口
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                  style="font-weight: bold;"
+                                >
+                                  <span
+                                    data-testid="markdown-bold"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      Pure 模式特点：
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                            <div
+                              class="ant-md-editor-list-container relative"
+                              data-be="list"
+                              data-slate-node="element"
+                            >
+                              <ul
+                                class="ant-md-editor-list ul"
+                              >
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          无边框无阴影
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          平面简洁设计
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="ant-md-editor-list-item"
+                                  data-be="list-item"
+                                  data-slate-node="element"
+                                >
+                                  <div
+                                    class="ant-md-editor-drag-el"
+                                    data-be="paragraph"
+                                    data-slate-node="element"
+                                  >
+                                    <span
+                                      data-slate-node="text"
+                                    >
+                                      <span
+                                        data-be="text"
+                                        data-slate-leaf="true"
+                                        draggable="false"
+                                      >
+                                        <span
+                                          data-slate-string="true"
+                                        >
+                                          更好地融入页面布局
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    试试切换下方的开关，感受两种模式的差异！
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="ant-chat-item-extra"
+                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                      >
+                        <div />
+                        <div
+                          animate="visible"
+                          class="ant-chat-item-extra-action-box"
+                          initial="hidden"
+                          style="display: flex; gap: 8px; align-items: center;"
+                          variants="[object Object]"
+                          whileinview="visible"
+                        >
+                          <span
+                            aria-describedby="test-id"
+                            aria-label="复制"
+                            class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                            data-testid="chat-item-copy-button"
+                            role="button"
+                            style="color: var(--color-icon-secondary);"
+                            tabindex="0"
+                          >
+                            <span
+                              aria-label="copy"
+                              class="anticon anticon-copy"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="copy"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -159,111 +1575,123 @@
         </div>
       </div>
       <div
-        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-        style="gap: 12px;"
+        class="ant-card ant-card-bordered ant-card-small"
+        style="margin-top: 24px;"
       >
         <div
-          animate="visible"
-          class="ant-agent-list-bubble-container"
-          initial="hidden"
-          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-          variants="[object Object]"
-          whileinview="visible"
+          class="ant-card-head"
         >
           <div
-            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+            class="ant-card-head-wrapper"
           >
-            <span
-              class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
-              data-testid="bubble-avatar"
-              style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
-            >
-              <img
-                alt="avatar"
-                src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
-              />
-            </span>
-            <span>
-              Agentar
-            </span>
             <div
-              class="ant-agent-list-bubble-title ant-flex"
-              data-testid="bubble-title"
-              style="flex-direction: row; gap: 8px;"
+              class="ant-card-head-title"
             >
-              用户
+              📖 使用指南
             </div>
           </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left ant-agent-list-bubble-container-pure"
-            data-testid="chat-message"
-            initial="hidden"
-            style="display: flex; gap: 4px; flex-direction: column;"
-            variants="[object Object]"
-            whileinview="visible"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;"
           >
-            <div
-              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-              data-testid="message-before"
-              variants="[object Object]"
-            />
-            <div
-              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-pure"
-              data-testid="message-content"
-              style="min-width: 0px;"
-              variants="[object Object]"
-            >
-              <div
-                class="agent-item-default-content"
-                data-testid="message-content"
-                style="line-height: 24px;"
+            <div>
+              <h5
+                class="ant-typography"
               >
+                🎨 视觉差异
+              </h5>
+              <ul
+                style="margin: 0px; padding-left: 20px; line-height: 1.8;"
+              >
+                <li>
+                  <strong>
+                    普通模式：
+                  </strong>
+                  有边框、阴影，立体感强
+                </li>
+                <li>
+                  <strong>
+                    Pure 模式：
+                  </strong>
+                  无边框、阴影，扁平简洁
+                </li>
+                <li>
+                  <strong>
+                    布局：
+                  </strong>
+                  Pure 模式占用空间更少
+                </li>
+                <li>
+                  <strong>
+                    融合度：
+                  </strong>
+                  Pure 模式更易融入页面
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h5
+                class="ant-typography"
+              >
+                🔧 使用场景
+              </h5>
+              <ul
+                style="margin: 0px; padding-left: 20px; line-height: 1.8;"
+              >
+                <li>
+                  <strong>
+                    嵌入式聊天：
+                  </strong>
+                  页面内聊天组件
+                </li>
+                <li>
+                  <strong>
+                    消息预览：
+                  </strong>
+                  邮件、通知预览
+                </li>
+                <li>
+                  <strong>
+                    移动端：
+                  </strong>
+                  节省屏幕空间
+                </li>
+                <li>
+                  <strong>
+                    白色背景：
+                  </strong>
+                  更好的视觉一致性
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h5
+                class="ant-typography"
+              >
+                ⚙️ 代码示例
+              </h5>
+              <div
+                style="background: rgb(246, 248, 250); padding: 12px; border-radius: 6px; font-family: monospace; font-size: 12px;"
+              >
+                <div>
+                  // 启用 Pure 模式
+                </div>
                 <div
-                  style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                  style="color: rgb(215, 58, 73);"
                 >
-                  <div
-                    class="markdown-editor ant-md-editor ant-md-editor-readonly"
-                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
-                  >
-                    <div
-                      style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(255, 255, 255);"
-                      tabindex="-1"
-                    >
-                      <div
-                        autocapitalize="false"
-                        autocorrect="false"
-                        class="ant-md-editor-content-readonly ant-md-editor-content"
-                        data-slate-editor="true"
-                        data-slate-node="value"
-                        spellcheck="false"
-                        style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                        zindex="-1"
-                      >
-                        <div
-                          class="ant-md-editor-drag-el"
-                          data-be="paragraph"
-                          data-slate-node="element"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                这是一条用户发送的 pure 模式消息。
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  &lt;Bubble pure /&gt;
+                </div>
+                <br />
+                <div>
+                  // 禁用 Pure 模式
+                </div>
+                <div
+                  style="color: rgb(215, 58, 73);"
+                >
+                  &lt;Bubble pure={false} /&gt;
                 </div>
               </div>
             </div>

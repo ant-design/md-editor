@@ -58,6 +58,7 @@ export default () => {
 | `triggerSendKey` | `'Enter' \| 'Mod+Enter'`                         | `'Enter'` | 触发发送操作的键盘快捷键           |
 | `onSend`         | `(value: string) => Promise<void>`               | -         | 当内容发送时触发的异步回调函数     |
 | `onStop`         | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
+| `onFocus`        | `(value: string, schema: Elements[]) => void`    | -         | 当输入字段获得焦点时触发的回调函数 |
 | `tagInputProps`  | `MarkdownEditorProps['tagInputProps']`           | -         | 标签输入的相关属性                 |
 | `bgColorList`    | `[string, string, string, string]`               | -         | 背景颜色列表                       |
 | `borderRadius`   | `number`                                         | `12`      | 边框圆角大小                       |
@@ -295,6 +296,54 @@ const App = () => {
   );
 };
 export default App;
+```
+
+### 焦点事件处理
+
+```tsx
+import { MarkdownInputField } from '@ant-design/md-editor';
+
+export default () => {
+  const [value, setValue] = React.useState('');
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  return (
+    <>
+      <MarkdownInputField
+        value={value}
+        onChange={setValue}
+        placeholder="点击输入框获得焦点..."
+        onFocus={(value, schema) => {
+          console.log('输入框获得焦点:', { value, schema });
+          setIsFocused(true);
+        }}
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }}
+      />
+      <div style={{ marginTop: 16 }}>
+        <p>当前焦点状态: {isFocused ? '已获得焦点' : '未获得焦点'}</p>
+      </div>
+      <div>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>onFocus</code> - 当输入字段获得焦点时触发的回调函数
+            <ul>
+              <li>
+                <code>value</code> - 当前的 markdown 文本值
+              </li>
+              <li>
+                <code>schema</code> - 当前的编辑器 schema
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
 ```
 
 ### 自定义叶子节点渲染

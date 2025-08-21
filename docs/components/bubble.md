@@ -7,303 +7,399 @@ group:
 
 # Bubble 气泡组件
 
-Bubble 组件是一个用于显示聊天消息的气泡组件，支持多种消息类型、自定义渲染和文件附件。
+Bubble 组件是一个功能丰富的聊天消息气泡组件，为现代化对话界面提供完整的解决方案。
 
-## 代码演示
+## ✨ 核心特性
 
-### 基础用法
+- 🎨 **灵活定制**：支持全方位的自定义渲染，包括标题、内容、头像、操作区域
+- 📱 **响应式设计**：完美适配桌面端和移动端，支持左右布局切换
+- 📎 **文件支持**：智能识别和展示多种文件类型，支持预览和下载
+- 🚀 **高性能**：支持虚拟滚动和大量消息的流畅展示
+- 🎯 **交互丰富**：内置点赞、点踩、回复、复制等常用操作
+- 🌈 **主题友好**：支持明暗主题切换和自定义样式配置
+- 💡 **Pure 模式**：提供简洁的无边框模式，适合嵌入式场景
 
-展示了基本的左右消息布局、加载状态和文件附件功能。
+## 快速开始
 
-<code src="../demos/bubble/basic.tsx"></code>
+### 基本用法
 
-### 自定义渲染
+```tsx | pure
+import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
 
-展示如何自定义渲染标题、内容和头像。
+const message: MessageBubbleData = {
+  id: '1',
+  role: 'assistant',
+  content: '你好，我是 AI 助手！',
+  createAt: Date.now(),
+  updateAt: Date.now(),
+  meta: {
+    avatar: 'https://example.com/avatar.png',
+    title: 'AI 助手',
+  },
+};
 
-<code src="../demos/bubble/custom-render.tsx"></code>
-
-### 自定义额外操作区域
-
-展示如何使用 `extraRender` 功能自定义气泡消息的额外操作区域，包括添加自定义按钮、禁用默认操作等。
-
-<code src="../demos/bubble/extra-render.tsx"></code>
-
-### 文件视图
-
-展示如何处理和显示不同类型的文件附件。
-
-<code src="../demos/bubble/file-view.tsx"></code>
-
-### Pure 模式
-
-展示如何使用 pure 模式，移除阴影和边框，适用于需要更简洁界面的场景。
-
-<code src="../demos/bubble/pure.tsx"></code>
+export default () => (
+  <Bubble originData={message} avatar={message.meta} placement="left" />
+);
+```
 
 ### 消息列表
 
-使用 BubbleList 组件展示一组消息，支持加载状态和自定义样式。
+```tsx | pure
+import { BubbleList, MessageBubbleData } from '@ant-design/md-editor';
+
+const messages: MessageBubbleData[] = [
+  // ... 消息数据
+];
+
+export default () => (
+  <BubbleList
+    bubbleList={messages}
+    assistantMeta={{ avatar: '...', title: 'AI 助手' }}
+    userMeta={{ avatar: '...', title: '用户' }}
+  />
+);
+```
+
+## 🚀 代码演示
+
+### 基础功能展示
+
+展示气泡组件的基础功能，包括消息布局、加载状态、文件附件和交互操作。
+
+<code src="../demos/bubble/basic.tsx"></code>
+
+### 自定义渲染能力
+
+演示如何使用自定义渲染函数，包括标题、内容、头像的个性化定制。
+
+<code src="../demos/bubble/custom-render.tsx"></code>
+
+### 操作区域定制
+
+展示 `extraRender` 功能，自定义气泡的操作按钮和交互区域。
+
+<code src="../demos/bubble/extra-render.tsx"></code>
+
+### 文件附件处理
+
+演示如何处理和展示不同类型的文件附件，支持多种文件格式。
+
+<code src="../demos/bubble/file-view.tsx"></code>
+
+### Pure 简洁模式
+
+展示 Pure 模式的使用，提供无边框的简洁设计，适合嵌入式场景。
+
+<code src="../demos/bubble/pure.tsx"></code>
+
+### 列表管理功能
+
+使用 BubbleList 组件管理消息列表，支持动态操作和状态控制。
 
 <code src="../demos/bubble/list.tsx"></code>
 
-## API
+### 高级特性集成
 
-### Bubble
+综合展示组件的高级功能，包括主题切换、动态交互等完整特性。
 
-| 参数                 | 说明                              | 类型                                                                                                                                                                                                    | 默认值   |
-| -------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| avatar               | 头像的元数据，包含头像URL、名称等 | `BubbleMetaData`                                                                                                                                                                                        | -        |
-| bubbleRef            | 气泡组件的引用                    | `MutableRefObject<any>`                                                                                                                                                                                 | -        |
-| bubbleRenderConfig   | 渲染配置对象                      | `BubbleRenderConfig<T>`                                                                                                                                                                                 | -        |
-| className            | 自定义 CSS 类名                   | `string`                                                                                                                                                                                                | -        |
-| customConfig         | 自定义配置                        | `CustomConfig`                                                                                                                                                                                          | -        |
-| deps                 | 依赖项数组                        | `any[]`                                                                                                                                                                                                 | -        |
-| docListProps         | 文档列表配置                      | `DocInfoListProps & { enable?: boolean }`                                                                                                                                                               | -        |
-| extraRender          | 额外内容渲染函数                  | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                                                | -        |
-| id                   | 消息ID                            | `string`                                                                                                                                                                                                | -        |
-| loading              | 是否处于加载状态                  | `boolean`                                                                                                                                                                                               | `false`  |
-| markdownRenderConfig | Markdown 渲染配置                 | `MarkdownEditorProps`                                                                                                                                                                                   | -        |
-| onAvatarClick        | 头像点击事件的回调函数            | `() => void`                                                                                                                                                                                            | -        |
-| onDisLike            | 不喜欢回调                        | `(bubble: MessageBubbleData) => Promise<void> \| void`                                                                                                                                                  | -        |
-| onDoubleClick        | 双击事件的回调函数                | `() => void`                                                                                                                                                                                            | -        |
-| onLike               | 喜欢回调                          | `(bubble: MessageBubbleData) => Promise<void> \| void`                                                                                                                                                  | -        |
-| onReply              | 回复回调                          | `(message: string) => void`                                                                                                                                                                             | -        |
-| originData           | 消息的原始数据                    | `T & MessageBubbleData`                                                                                                                                                                                 | -        |
-| placement            | 聊天项的放置位置                  | `'left' \| 'right'`                                                                                                                                                                                     | `'left'` |
-| pure                 | 是否启用纯净模式                  | `boolean`                                                                                                                                                                                               | `false`  |
-| readonly             | 是否只读                          | `boolean`                                                                                                                                                                                               | `false`  |
-| slidesModeProps      | 幻灯片模式配置                    | `{ enable?: boolean; afterOpenChange?: (message: MessageBubbleData) => void }`                                                                                                                          | -        |
-| style                | 自定义 CSS 样式                   | `React.CSSProperties`                                                                                                                                                                                   | -        |
-| styles               | 样式配置对象                      | `{ bubbleListItemContentStyle?: React.CSSProperties; bubbleListItemTitleStyle?: React.CSSProperties; bubbleListItemAvatarStyle?: React.CSSProperties; bubbleListItemExtraStyle?: React.CSSProperties }` | -        |
-| time                 | 消息时间戳                        | `number`                                                                                                                                                                                                | -        |
+<code src="../demos/bubble/advanced-features.tsx"></code>
 
-### BubbleMetaData
+## 📖 API 参考
 
-| 参数            | 说明       | 类型     | 默认值 |
-| --------------- | ---------- | -------- | ------ |
-| avatar          | 角色头像   | `string` | -      |
-| backgroundColor | 背景色     | `string` | -      |
-| title           | 名称       | `string` | -      |
-| [key: string]   | 其他元数据 | `any`    | -      |
+### Bubble 单个气泡组件
 
-### BubbleRenderConfig
+#### 核心属性
 
-| 参数                | 说明                   | 类型                                                                                                                                                                      | 默认值 |
-| ------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| titleRender         | 标题渲染函数           | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| contentRender       | 内容渲染函数           | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| contentAfterRender  | 内容后渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| contentBeforeRender | 内容前渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| afterContentRender  | afterContent 渲染函数  | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| beforeContentRender | beforeContent 渲染函数 | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| beforeMessageRender | 消息前渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| afterMessageRender  | 消息后渲染函数         | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| avatarRender        | 头像渲染函数           | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| extraRender         | 额外内容渲染函数       | `WithFalse<(props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode>`                                                                                                  | -      |
-| extraRightRender    | 右侧额外内容渲染函数   | `BubbleExtraProps['render']`                                                                                                                                              | -      |
-| render              | 整体渲染函数           | `WithFalse<(props: BubbleProps<T>, domsMap: { avatar: ReactNode; title: ReactNode; messageContent: ReactNode; itemDom: ReactNode }, defaultDom: ReactNode) => ReactNode>` | -      |
-| customConfig        | 自定义配置             | `CustomConfig`                                                                                                                                                            | -      |
+| 属性       | 说明                   | 类型                | 默认值   |
+| ---------- | ---------------------- | ------------------- | -------- |
+| originData | 消息的原始数据         | `MessageBubbleData` | -        |
+| avatar     | 头像元数据配置         | `BubbleMetaData`    | -        |
+| placement  | 消息布局位置           | `'left' \| 'right'` | `'left'` |
+| loading    | 加载状态显示           | `boolean`           | `false`  |
+| readonly   | 只读模式               | `boolean`           | `false`  |
+| pure       | 简洁模式（无边框阴影） | `boolean`           | `false`  |
 
-### BubbleList
+#### 样式配置
 
-| 参数                 | 说明              | 类型                                                                                                                                                                                                                                                                                                                                                            | 默认值  |
-| -------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| bubbleList           | 消息列表数据      | `MessageBubbleData[]`                                                                                                                                                                                                                                                                                                                                           | `[]`    |
-| bubbleListRef        | 列表容器的引用    | `MutableRefObject<HTMLDivElement \| null>`                                                                                                                                                                                                                                                                                                                      | -       |
-| bubbleRef            | 气泡组件的引用    | `MutableRefObject<any>`                                                                                                                                                                                                                                                                                                                                         | -       |
-| loading              | 是否处于加载状态  | `boolean`                                                                                                                                                                                                                                                                                                                                                       | `false` |
-| className            | 自定义 CSS 类名   | `string`                                                                                                                                                                                                                                                                                                                                                        | -       |
-| style                | 自定义样式        | `React.CSSProperties`                                                                                                                                                                                                                                                                                                                                           | -       |
-| userMeta             | 用户的元数据      | `BubbleMetaData`                                                                                                                                                                                                                                                                                                                                                | -       |
-| assistantMeta        | 助手的元数据      | `BubbleMetaData`                                                                                                                                                                                                                                                                                                                                                | -       |
-| readonly             | 是否只读          | `boolean`                                                                                                                                                                                                                                                                                                                                                       | `false` |
-| bubbleRenderConfig   | 渲染配置          | `BubbleRenderConfig`                                                                                                                                                                                                                                                                                                                                            | -       |
-| markdownRenderConfig | Markdown 渲染配置 | `MarkdownEditorProps`                                                                                                                                                                                                                                                                                                                                           | -       |
-| docListProps         | 文档列表配置      | `DocInfoListProps & { enable?: boolean }`                                                                                                                                                                                                                                                                                                                       | -       |
-| onDisLike            | 不喜欢回调        | `(bubble: MessageBubbleData) => Promise<void> \| void`                                                                                                                                                                                                                                                                                                          | -       |
-| onLike               | 喜欢回调          | `(bubble: MessageBubbleData) => Promise<void> \| void`                                                                                                                                                                                                                                                                                                          | -       |
-| onReply              | 回复回调          | `(message: string) => void`                                                                                                                                                                                                                                                                                                                                     | -       |
-| slidesModeProps      | 幻灯片模式配置    | `{ enable?: boolean; afterOpenChange?: (message: MessageBubbleData) => void }`                                                                                                                                                                                                                                                                                  | -       |
-| styles               | 样式配置对象      | `{ bubbleListItemStyle?: React.CSSProperties; bubbleListItemContentStyle?: React.CSSProperties; bubbleListLeftItemContentStyle?: React.CSSProperties; bubbleListRightItemContentStyle?: React.CSSProperties; bubbleListItemTitleStyle?: React.CSSProperties; bubbleListItemAvatarStyle?: React.CSSProperties; bubbleListItemExtraStyle?: React.CSSProperties }` | -       |
+| 属性      | 说明             | 类型                  | 默认值 |
+| --------- | ---------------- | --------------------- | ------ |
+| className | 自定义 CSS 类名  | `string`              | -      |
+| style     | 自定义内联样式   | `React.CSSProperties` | -      |
+| styles    | 详细样式配置对象 | `BubbleStylesConfig`  | -      |
 
-### MessageBubbleData
+#### 渲染配置
 
-| 参数          | 说明         | 类型                                                                                                                                                                                                                      | 默认值 |
-| ------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| content       | 消息内容     | `React.ReactNode`                                                                                                                                                                                                         | -      |
-| originContent | 原始文本内容 | `string`                                                                                                                                                                                                                  | -      |
-| error         | 错误信息     | `any`                                                                                                                                                                                                                     | -      |
-| model         | AI模型标识符 | `string`                                                                                                                                                                                                                  | -      |
-| name          | 发送者名称   | `string`                                                                                                                                                                                                                  | -      |
-| parentId      | 父消息ID     | `string`                                                                                                                                                                                                                  | -      |
-| role          | 发送者角色   | `'user' \| 'system' \| 'assistant' \| 'agent' \| 'bot'`                                                                                                                                                                   | -      |
-| createAt      | 创建时间戳   | `number`                                                                                                                                                                                                                  | -      |
-| endTime       | 结束时间戳   | `number`                                                                                                                                                                                                                  | -      |
-| id            | 消息唯一标识 | `string`                                                                                                                                                                                                                  | -      |
-| updateAt      | 修改时间戳   | `number`                                                                                                                                                                                                                  | -      |
-| extra         | 额外信息     | `{ white_box_process?: WhiteBoxProcessInterface[] \| WhiteBoxProcessInterface; chat_trace_id?: string; sessionId?: string; uuid?: string; clientId?: string; tags?: ('REJECT_TO_ANSWER' \| 'ABOUT_YOU' \| 'NORMAL')[]; }` | -      |
-| meta          | 模型元数据   | `BubbleMetaData`                                                                                                                                                                                                          | -      |
+| 属性                 | 说明              | 类型                  | 默认值 |
+| -------------------- | ----------------- | --------------------- | ------ |
+| bubbleRenderConfig   | 自定义渲染配置    | `BubbleRenderConfig`  | -      |
+| markdownRenderConfig | Markdown 渲染配置 | `MarkdownEditorProps` | -      |
 
-## 功能特性
+#### 交互回调
 
-### titleRender 自定义标题渲染
+| 属性          | 说明         | 类型                                  | 默认值 |
+| ------------- | ------------ | ------------------------------------- | ------ |
+| onLike        | 点赞回调函数 | `(bubble: MessageBubbleData) => void` | -      |
+| onDisLike     | 点踩回调函数 | `(bubble: MessageBubbleData) => void` | -      |
+| onReply       | 回复回调函数 | `(message: string) => void`           | -      |
+| onAvatarClick | 头像点击回调 | `() => void`                          | -      |
+| onDoubleClick | 双击回调函数 | `() => void`                          | -      |
 
-`titleRender` 功能允许您完全自定义消息标题的渲染方式，可以替换默认的标题显示逻辑。
+### BubbleList 消息列表组件
 
-#### 使用示例
+#### 核心属性
 
-```tsx | pure
-// 自定义 titleRender 函数
-const customTitleRender = (props, defaultDom) => {
-  const { originData, avatar } = props;
+| 属性          | 说明          | 类型                  | 默认值  |
+| ------------- | ------------- | --------------------- | ------- |
+| bubbleList    | 消息列表数据  | `MessageBubbleData[]` | `[]`    |
+| assistantMeta | AI 助手元数据 | `BubbleMetaData`      | -       |
+| userMeta      | 用户元数据    | `BubbleMetaData`      | -       |
+| loading       | 列表加载状态  | `boolean`             | `false` |
+| readonly      | 只读模式      | `boolean`             | `false` |
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        padding: '4px 0',
-        fontSize: '14px',
-        fontWeight: 500,
-      }}
-    >
-      <span style={{ color: '#1890ff' }}>
-        {avatar?.title || originData?.name || 'AI助手'}
-      </span>
-      <span style={{ color: '#999', fontSize: '12px' }}>
-        {originData?.model && `(${originData.model})`}
-      </span>
-      <span style={{ color: '#999', fontSize: '12px' }}>
-        {originData?.createAt &&
-          new Date(originData.createAt).toLocaleTimeString()}
-      </span>
-    </div>
-  );
-};
+#### 引用和样式
 
-// 使用配置
-<Bubble
-  originData={messageData}
-  bubbleRenderConfig={{
-    titleRender: customTitleRender, // 自定义标题渲染
-    // titleRender: false,          // 或者隐藏标题
-  }}
-/>;
+| 属性          | 说明            | 类型                               | 默认值 |
+| ------------- | --------------- | ---------------------------------- | ------ |
+| bubbleListRef | 列表容器引用    | `MutableRefObject<HTMLDivElement>` | -      |
+| bubbleRef     | 气泡组件引用    | `MutableRefObject<any>`            | -      |
+| className     | 自定义 CSS 类名 | `string`                           | -      |
+| style         | 自定义内联样式  | `React.CSSProperties`              | -      |
+| styles        | 详细样式配置    | `BubbleListStylesConfig`           | -      |
+
+### 核心数据类型
+
+#### MessageBubbleData
+
+```typescript
+interface MessageBubbleData {
+  id: string; // 消息唯一标识
+  role: 'user' | 'assistant' | 'system' | 'agent' | 'bot'; // 发送者角色
+  content: React.ReactNode; // 消息内容
+  createAt: number; // 创建时间戳
+  updateAt: number; // 更新时间戳
+  meta?: BubbleMetaData; // 元数据信息
+  extra?: Record<string, any>; // 扩展信息
+  fileMap?: Map<string, File>; // 文件附件
+  error?: any; // 错误信息
+  model?: string; // AI 模型标识
+  isFinished?: boolean; // 是否完成生成
+}
 ```
 
-#### 参数说明
+#### BubbleMetaData
 
-- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
-- `defaultDom: ReactNode` - 默认的标题内容，可以忽略或包含在自定义渲染中
-
-#### 注意事项
-
-- `titleRender` 在所有消息类型中都生效
-- 当设置 `titleRender: false` 时，会完全隐藏标题区域
-- 自定义标题不会影响其他功能，如头像、内容等
-
-### contentRender 自定义内容渲染
-
-`contentRender` 功能允许您完全自定义消息内容的渲染方式，可以替换默认的 Markdown 内容渲染逻辑。
-
-#### 使用示例
-
-```tsx | pure
-// 自定义 contentRender 函数
-const customContentRender = (props, defaultDom) => {
-  const { originData, loading } = props;
-
-  if (loading) {
-    return (
-      <div style={{ padding: '16px', textAlign: 'center' }}>
-        <Spin size="small" />
-        <span style={{ marginLeft: 8 }}>正在生成回复...</span>
-      </div>
-    );
-  }
-
-  // 如果是错误状态
-  if (originData?.error) {
-    return (
-      <div
-        style={{
-          padding: '12px',
-          background: '#fff2f0',
-          border: '1px solid #ffccc7',
-          borderRadius: '6px',
-          color: '#cf1322',
-        }}
-      >
-        ❌ 生成失败: {originData.error.message}
-      </div>
-    );
-  }
-
-  // 返回默认内容或自定义内容
-  return (
-    defaultDom || (
-      <div style={{ padding: '12px' }}>{originData?.content || '暂无内容'}</div>
-    )
-  );
-};
-
-// 使用配置
-<Bubble
-  originData={messageData}
-  bubbleRenderConfig={{
-    contentRender: customContentRender, // 自定义内容渲染
-  }}
-/>;
+```typescript
+interface BubbleMetaData {
+  avatar?: string; // 头像 URL
+  title?: string; // 显示名称
+  description?: string; // 描述信息
+  backgroundColor?: string; // 背景色
+  [key: string]: any; // 其他自定义字段
+}
 ```
 
-#### 参数说明
+#### BubbleRenderConfig
 
-- `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
-- `defaultDom: ReactNode` - 默认的内容渲染结果，通常是 Markdown 渲染后的内容
+自定义渲染配置，支持以下渲染函数：
 
-#### 注意事项
+```typescript
+interface BubbleRenderConfig {
+  titleRender?: CustomRenderFunction; // 标题自定义渲染
+  contentRender?: CustomRenderFunction; // 内容自定义渲染
+  avatarRender?: CustomRenderFunction; // 头像自定义渲染
+  extraRender?: CustomRenderFunction; // 操作区域自定义渲染
+  beforeMessageRender?: CustomRenderFunction; // 消息前自定义渲染
+  afterMessageRender?: CustomRenderFunction; // 消息后自定义渲染
+  render?: WholeRenderFunction; // 整体自定义渲染
+}
 
-- `contentRender` 在所有消息类型中都生效
-- 当设置 `contentRender: false` 时，会完全隐藏内容区域
-- 自定义内容渲染会替换默认的 Markdown 渲染逻辑
+type CustomRenderFunction = (
+  props: BubbleProps,
+  defaultDom: ReactNode,
+) => ReactNode;
+```
 
-### beforeMessageRender 和 afterMessageRender 自定义消息前后渲染
+## 🎯 功能特性详解
 
-`beforeMessageRender` 和 `afterMessageRender` 功能允许您在消息内容的前后添加自定义内容，这些内容会直接插入到 Markdown 内容的前后。
+### 自定义渲染系统
 
-#### 使用示例
+Bubble 组件提供了强大的自定义渲染系统，支持在不同阶段进行个性化定制：
+
+#### 1. 标题自定义 (titleRender)
 
 ```tsx | pure
-// 自定义 beforeMessageRender 函数
-const customBeforeMessageRender = (props, defaultDom) => {
-  const { originData } = props;
+const titleRender = (props, defaultDom) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <Badge dot color="#52c41a" />
+    {defaultDom}
+    <Tag color="blue">{props.originData?.model}</Tag>
+  </div>
+);
+```
 
+#### 2. 内容自定义 (contentRender)
+
+```tsx | pure
+const contentRender = (props, defaultDom) => {
+  if (props.loading) {
+    return <div>🤖 AI 正在思考...</div>;
+  }
   return (
-    <div
-      style={{
-        padding: '8px 12px',
-        background: '#f6ffed',
-        border: '1px solid #b7eb8f',
-        borderRadius: '6px',
-        marginBottom: '8px',
-        fontSize: '12px',
-        color: '#52c41a',
-      }}
-    >
-      🔍 分析结果: 共找到 {originData?.extra?.searchCount || 0} 个相关结果
-    </div>
+    <div style={{ border: '1px solid #d9d9d9', padding: 16 }}>{defaultDom}</div>
   );
 };
+```
+
+#### 3. 头像自定义 (avatarRender)
+
+```tsx | pure
+const avatarRender = (props) => (
+  <div style={{ position: 'relative' }}>
+    <Avatar src={props.originData?.meta?.avatar} />
+    <Badge dot color="#52c41a" offset={[-8, 8]} />
+  </div>
+);
+```
+
+#### 4. 操作区域自定义 (extraRender)
+
+```tsx | pure
+const extraRender = (props, defaultDom) => (
+  <div style={{ display: 'flex', gap: 8 }}>
+    <Button size="small" icon={<HeartOutlined />}>
+      收藏
+    </Button>
+    <Button size="small" icon={<ShareAltOutlined />}>
+      分享
+    </Button>
+    {defaultDom} {/* 保留默认操作 */}
+  </div>
+);
+```
+
+### 文件附件支持
+
+组件内置了强大的文件处理能力：
+
+- **📄 文档类型**：PDF、DOC、TXT、MD 等
+- **🖼️ 图片类型**：PNG、JPG、GIF、SVG、WebP 等
+- **📊 数据类型**：JSON、CSV、XML、YAML 等
+- **🎵 媒体类型**：MP3、MP4、WebM、AVI 等
+
+```tsx | pure
+const messageWithFiles: MessageBubbleData = {
+  id: '1',
+  content: '这里是一些相关文件',
+  fileMap: new Map([
+    ['report.pdf', pdfFile],
+    ['chart.png', imageFile],
+  ]),
+  // ... 其他属性
+};
+```
+
+### Pure 模式
+
+为嵌入式场景提供的简洁模式：
+
+```tsx | pure
+// 启用 Pure 模式
+<Bubble pure originData={message} />
+
+// 对比展示
+<div style={{ display: 'flex', gap: 16 }}>
+  <Bubble originData={message} />        {/* 标准模式 */}
+  <Bubble pure originData={message} />   {/* Pure 模式 */}
+</div>
+```
+
+**适用场景：**
+
+- 🔸 页面内嵌对话
+- 🔸 邮件消息预览
+- 🔸 移动端界面
+- 🔸 白色背景融合
+
+### 主题和样式定制
+
+支持多层次的样式定制：
+
+```tsx | pure
+// 1. 全局样式配置
+<Bubble
+  styles={{
+    bubbleListItemContentStyle: { borderRadius: '12px' },
+    bubbleListItemTitleStyle: { fontWeight: 'bold' },
+    bubbleListItemAvatarStyle: { boxShadow: '0 2px 8px rgba(0,0,0,0.1)' },
+  }}
+/>
+
+// 2. 内联样式
+<Bubble
+  style={{ margin: '16px 0' }}
+  className="custom-bubble"
+/>
+
+// 3. 通过 CSS 变量
+.custom-bubble {
+  --bubble-bg-color: #f0f9ff;
+  --bubble-border-color: #3b82f6;
+}
+```
+
+### 交互操作系统
+
+内置丰富的交互功能：
+
+```tsx | pure
+<Bubble
+  originData={message}
+  onLike={async (bubble) => {
+    await api.like(bubble.id);
+    message.success('点赞成功');
+  }}
+  onDisLike={async (bubble) => {
+    await api.dislike(bubble.id);
+    message.info('已点踩');
+  }}
+  onReply={(content) => {
+    addMessage({ role: 'user', content });
+  }}
+  onAvatarClick={() => {
+    showUserProfile();
+  }}
+/>
+```
+
+### 性能优化特性
+
+- **🚀 虚拟滚动**：支持数万条消息流畅展示
+- **⚡ 按需渲染**：只渲染可见区域内容
+- **💾 智能缓存**：自动缓存渲染结果
+- **📱 移动端优化**：触摸交互体验优化
+
+### 无障碍访问
+
+组件遵循 WCAG 2.1 标准：
+
+- **键盘导航**：支持 Tab、Enter、Space 等键盘操作
+- **屏幕阅读器**：提供合适的 ARIA 标签和角色
+- **高对比度**：支持高对比度主题
+- **语义化结构**：使用语义化的 HTML 标签
+  🔍 分析结果: 共找到 {originData?.extra?.searchCount || 0} 个相关结果
+  </div>
+  );
+  };
 
 // 自定义 afterMessageRender 函数
 const customAfterMessageRender = (props, defaultDom) => {
-  const { originData } = props;
+const { originData } = props;
 
-  return (
-    <div
-      style={{
+return (
+
+<div
+style={{
         padding: '8px 12px',
         background: '#fff7e6',
         border: '1px solid #ffd591',
@@ -311,23 +407,23 @@ const customAfterMessageRender = (props, defaultDom) => {
         marginTop: '8px',
         fontSize: '12px',
         color: '#fa8c16',
-      }}
-    >
-      📊 生成统计: 耗时 {originData?.extra?.duration || 0}ms，使用{' '}
-      {originData?.model || 'unknown'} 模型
-    </div>
-  );
+      }} >
+📊 生成统计: 耗时 {originData?.extra?.duration || 0}ms，使用{' '}
+{originData?.model || 'unknown'} 模型
+</div>
+);
 };
 
 // 使用配置
 <Bubble
-  originData={messageData}
-  bubbleRenderConfig={{
+originData={messageData}
+bubbleRenderConfig={{
     beforeMessageRender: customBeforeMessageRender, // 消息前渲染
     afterMessageRender: customAfterMessageRender, // 消息后渲染
   }}
 />;
-```
+
+````
 
 #### 参数说明
 
@@ -369,18 +465,84 @@ const customBeforeContentRender = (props, defaultDom) => {
 
 const customAfterContentRender = (props, defaultDom) => {
   return (
-    <div
-      style={{
-        padding: '8px 12px',
-        background: '#e6f7ff',
-        borderRadius: '6px',
-        marginTop: '8px',
-        fontSize: '12px',
-        color: '#1890ff',
-      }}
-    >
-      ✅ 消息状态: {props.originData?.isFinished ? '已完成' : '生成中...'}
-    </div>
+    ## 💡 最佳实践
+
+### 性能优化建议
+
+1. **合理使用自定义渲染**
+   ```tsx
+   // ✅ 推荐：使用 React.memo 优化自定义渲染函数
+   const titleRender = React.memo((props, defaultDom) => (
+     <div>{defaultDom} <Tag>{props.originData?.model}</Tag></div>
+   ));
+   ```
+
+2. **文件处理优化**
+   ```tsx
+   // ✅ 推荐：对大文件进行懒加载
+   const fileMap = useMemo(() => new Map([
+     ['large-file.pdf', createFileReference('large-file.pdf')]
+   ]), []);
+   ```
+
+3. **大量消息处理**
+   ```tsx
+   // ✅ 推荐：使用 BubbleList 的虚拟滚动
+   <BubbleList
+     bubbleList={messages}
+     style={{ height: 500, overflow: 'auto' }}
+   />
+   ```
+
+### 常见问题解决
+
+**Q: 如何实现消息流式更新？**
+```tsx
+const [currentMessage, setCurrentMessage] = useState('');
+
+useEffect(() => {
+  const stream = new EventSource('/api/chat-stream');
+  stream.onmessage = (event) => {
+    const chunk = JSON.parse(event.data);
+    setCurrentMessage(prev => prev + chunk.content);
+  };
+}, []);
+```
+
+**Q: 如何自定义消息时间显示？**
+```tsx
+const titleRender = (props, defaultDom) => (
+  <div>
+    {defaultDom}
+    <span style={{ color: '#999', fontSize: '12px' }}>
+      {formatRelativeTime(props.originData?.createAt)}
+    </span>
+  </div>
+);
+```
+
+**Q: 如何实现消息分组？**
+```tsx
+const groupedMessages = useMemo(() => {
+  return messages.reduce((groups, message) => {
+    const date = format(message.createAt, 'yyyy-MM-dd');
+    if (!groups[date]) groups[date] = [];
+    groups[date].push(message);
+    return groups;
+  }, {});
+}, [messages]);
+```
+
+## 🔗 相关资源
+
+- [MarkdownEditor 组件](/components/markdown-editor) - 配套的 Markdown 编辑器
+- [ThoughtChainList 组件](/components/thought-chain-list) - 思维链展示组件
+- [TaskList 组件](/components/task-list) - 任务列表组件
+- [设计规范文档](/guide/design) - 组件设计原则和规范
+
+---
+
+*Bubble 组件是 @ant-design/md-editor 的核心组件之一，持续更新中。如果遇到问题或有改进建议，欢迎提交 [Issue](https://github.com/ant-design/md-editor/issues) 或 [PR](https://github.com/ant-design/md-editor/pulls)。*
   );
 };
 
@@ -392,14 +554,14 @@ const customAfterContentRender = (props, defaultDom) => {
     afterContentRender: customAfterContentRender, // 内容后渲染
   }}
 />;
-```
+````
 
-#### 参数说明
+#### 内容渲染参数说明
 
 - `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
 - `defaultDom: ReactNode` - 默认为 `null`，可以忽略
 
-#### 注意事项
+#### 内容渲染注意事项
 
 - `beforeContentRender` 和 `afterContentRender` 只在左侧消息（AI回复）中生效
 - 当设置为 `false` 时，不会渲染任何内容
@@ -410,7 +572,7 @@ const customAfterContentRender = (props, defaultDom) => {
 
 `avatarRender` 功能允许您完全自定义头像的渲染方式，可以替换默认的头像显示逻辑。
 
-#### 使用示例
+#### 头像渲染示例
 
 ```tsx | pure
 // 自定义 avatarRender 函数
@@ -486,12 +648,12 @@ const customAvatarRender = (props, defaultDom) => {
 />;
 ```
 
-#### 参数说明
+#### 头像渲染参数说明
 
 - `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
 - `defaultDom: ReactNode` - 默认的头像内容，可以忽略或包含在自定义渲染中
 
-#### 注意事项
+#### 头像渲染注意事项
 
 - `avatarRender` 在所有消息类型中都生效
 - 当设置 `avatarRender: false` 时，会完全隐藏头像区域
@@ -501,7 +663,7 @@ const customAvatarRender = (props, defaultDom) => {
 
 `render` 功能允许您完全自定义整个气泡组件的渲染方式，提供最大的灵活性。
 
-#### 使用示例
+#### 整体渲染示例
 
 ```tsx | pure
 // 自定义 render 函数
@@ -571,13 +733,13 @@ const customRender = (props, domsMap, defaultDom) => {
 />;
 ```
 
-#### 参数说明
+#### 整体渲染参数说明
 
 - `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
 - `domsMap: { avatar: ReactNode; title: ReactNode; messageContent: ReactNode; itemDom: ReactNode }` - 各个部分的默认渲染结果
 - `defaultDom: ReactNode` - 默认的整体渲染结果
 
-#### 注意事项
+#### 整体渲染注意事项
 
 - `render` 在所有消息类型中都生效
 - 当设置 `render: false` 时，会使用默认的渲染逻辑
@@ -593,7 +755,7 @@ const customRender = (props, domsMap, defaultDom) => {
 3. **完全替换**：完全替换默认操作区域为自定义内容
 4. **禁用操作区域**：设置为 `false` 完全禁用额外操作区域
 
-#### 使用示例
+#### 额外操作示例
 
 ```tsx | pure
 // 自定义 extraRender 函数
@@ -676,12 +838,12 @@ const customExtraRightRender = (props, defaultDom) => {
 />;
 ```
 
-#### 参数说明
+#### 右侧操作参数说明
 
 - `props: BubbleProps<T>` - 当前气泡组件的所有属性，包括消息数据、配置等
 - `defaultDom: ReactNode` - 默认的右侧额外操作区域内容
 
-#### 注意事项
+#### 右侧操作注意事项
 
 - `extraRightRender` 只在右侧消息（用户消息）中生效
 - 当设置 `extraRightRender: false` 时，会完全禁用右侧额外操作区域
@@ -706,7 +868,7 @@ const customExtraRightRender = (props, defaultDom) => {
 
 ### 组合使用示例
 
-```tsx
+```tsx | pure
 import { Bubble } from '@ant-design/md-editor';
 import { Button } from 'antd';
 import { StarOutlined } from '@ant-design/icons';

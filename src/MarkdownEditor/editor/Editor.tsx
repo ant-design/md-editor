@@ -889,6 +889,13 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
               event.preventDefault();
             }
           }}
+          onFocus={(e) => {
+            props.onFocus?.(
+              parserSlateNodeToMarkdown(markdownEditorRef.current.children),
+              markdownEditorRef.current.children,
+              e,
+            );
+          }}
           onBlur={() => {
             // 失去焦点时清除工具栏
             setDomRect?.(null);

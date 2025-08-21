@@ -265,7 +265,11 @@ export type MarkdownEditorProps = {
    * @param schema
    * @returns
    */
-  onBlur?: (value: string, schema: Elements[]) => void;
+  onBlur?: (
+    value: string,
+    schema: Elements[],
+    e: React.MouseEvent<HTMLDivElement, Element>,
+  ) => void;
   /**
    * 焦点事件回调
    * @description 当编辑器获得焦点时触发
@@ -273,7 +277,11 @@ export type MarkdownEditorProps = {
    * @param schema
    * @returns
    */
-  onFocus?: (value: string, schema: Elements[]) => void;
+  onFocus?: (
+    value: string,
+    schema: Elements[],
+    e: React.FocusEvent<HTMLDivElement, Element>,
+  ) => void;
 
   /**
    * 是否开启报告模式,展示效果会发生变化
@@ -550,11 +558,11 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             props.plugins,
           ),
           markdownEditorRef.current?.children,
+          event as any,
         );
         setIsEditorFocused(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
