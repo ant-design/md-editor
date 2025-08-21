@@ -106,6 +106,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'rgba(20, 22, 28, 0.03)',
         boxSizing: 'border-box',
         border: '0px solid rgba(20, 22, 28, 0.07)',
+
+        // 鼠标悬浮时显示操作区
+        [`${token.componentCls}-item-actions`]: {
+          opacity: 1,
+          visibility: 'visible',
+          pointerEvents: 'auto',
+        },
+      },
+
+      // 键盘聚焦时也显示操作区，提升可访问性
+      '&:focus-within': {
+        [`${token.componentCls}-item-actions`]: {
+          opacity: 1,
+          visibility: 'visible',
+          pointerEvents: 'auto',
+        },
       },
 
       // 文件图标
@@ -159,6 +175,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: '4px',
+        // 默认隐藏，仅在 hover/focus 时显示
+        opacity: 0,
+        visibility: 'hidden',
+        pointerEvents: 'none',
+        transition: 'opacity 0.2s ease, visibility 0.2s ease',
       },
 
       // 操作图标
