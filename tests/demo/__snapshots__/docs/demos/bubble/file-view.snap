@@ -106,7 +106,9 @@
                   class="ant-chat-item-extra"
                   style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
                 >
-                  <div />
+                  <div
+                    style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
+                  />
                   <div
                     animate="visible"
                     class="ant-chat-item-extra-action-box"
@@ -505,7 +507,9 @@
                   class="ant-chat-item-extra"
                   style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
                 >
-                  <div />
+                  <div
+                    style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
+                  />
                   <div
                     animate="visible"
                     class="ant-chat-item-extra-action-box"

@@ -142,43 +142,6 @@ export const BubbleMessageDisplay: React.FC<
       return null;
     }
 
-    if (
-      content === '...' ||
-      React.isValidElement(content) ||
-      props.placement !== 'left' ||
-      props?.originData?.extra?.tags?.includes?.('REJECT_TO_ANSWER') ||
-      props.originData?.role === 'bot'
-    ) {
-      return (
-        <div
-          style={{
-            lineHeight: '24px',
-          }}
-          className="agent-item-default-content"
-          data-testid="message-content"
-          onDoubleClick={props.onDoubleClick}
-        >
-          <MarkdownPreview
-            beforeContent={beforeContent}
-            afterContent={afterContent}
-            {...props.markdownRenderConfig}
-            isFinished={true}
-            style={
-              props.originData?.role === 'bot'
-                ? {}
-                : {
-                    color: '#FFF',
-                  }
-            }
-            extra={null}
-            typing={false}
-            originData={props.originData}
-            content={props.originData?.content as string}
-          />
-        </div>
-      );
-    }
-
     const defaultExtra =
       props?.bubbleRenderConfig?.extraRender === false ? null : (
         <BubbleExtra
@@ -228,6 +191,42 @@ export const BubbleMessageDisplay: React.FC<
           )
         : defaultExtra;
 
+    if (
+      content === '...' ||
+      React.isValidElement(content) ||
+      props.placement !== 'left' ||
+      props?.originData?.extra?.tags?.includes?.('REJECT_TO_ANSWER') ||
+      props.originData?.role === 'bot'
+    ) {
+      return (
+        <div
+          style={{
+            lineHeight: '24px',
+          }}
+          className="agent-item-default-content"
+          data-testid="message-content"
+          onDoubleClick={props.onDoubleClick}
+        >
+          <MarkdownPreview
+            beforeContent={beforeContent}
+            afterContent={afterContent}
+            {...props.markdownRenderConfig}
+            isFinished={true}
+            style={
+              props.originData?.role === 'bot'
+                ? {}
+                : {
+                    color: '#FFF',
+                  }
+            }
+            extra={extra}
+            typing={false}
+            originData={props.originData}
+            content={props.originData?.content as string}
+          />
+        </div>
+      );
+    }
     // answerStatus= 'EXCEPTION'时 一定是异常情况
     if (
       props.originData?.extra?.answerStatus === 'EXCEPTION' ||

@@ -126,7 +126,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   }, [isFinished]);
 
   const isPaddingHidden = useMemo(() => {
-    return extra && !typing;
+    return !!extra;
   }, [extra, typing]);
 
   useEffect(() => {

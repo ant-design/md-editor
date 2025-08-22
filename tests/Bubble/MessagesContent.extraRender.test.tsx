@@ -212,28 +212,6 @@ describe('BubbleMessageDisplay - extraRender 功能测试', () => {
       expect(screen.getByTestId('exception')).toBeInTheDocument();
       expect(screen.queryByTestId('exception-extra')).not.toBeInTheDocument();
     });
-
-    it('在右侧消息（用户消息）中不应该渲染 extra 内容', () => {
-      const customExtraRender = vi.fn(() => (
-        <div data-testid="right-custom-extra">Right Custom Extra</div>
-      ));
-
-      const props = {
-        ...defaultProps,
-        placement: 'right' as const,
-        bubbleRenderConfig: {
-          extraRender: customExtraRender,
-        },
-      };
-
-      render(<BubbleMessageDisplay {...props} />);
-
-      // 右侧消息不应该调用 extraRender
-      expect(customExtraRender).not.toHaveBeenCalled();
-      expect(
-        screen.queryByTestId('right-custom-extra'),
-      ).not.toBeInTheDocument();
-    });
   });
 
   describe('defaultExtra 变量测试', () => {

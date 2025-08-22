@@ -9,6 +9,7 @@ import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ActionIconBox } from '../../index';
+import LoadingLottie from '../../TaskList/LoadingLottie';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData, WithFalse } from '../type';
 import { CopyButton } from './CopyButton';
@@ -272,9 +273,15 @@ export const BubbleExtra = ({
     }
   }, [alreadyFeedback, context?.locale]);
 
+  const typing =
+    originalData?.isAborted !== true &&
+    originalData?.isFinished === false &&
+    originalData?.extra?.isHistory === undefined &&
+    originalData?.isFinished !== undefined;
+
   const like = useMemo(
     () =>
-      shouldShowLike ? (
+      shouldShowLike && !typing ? (
         <ActionIconBox
           data-testid="like-button"
           scale
@@ -311,13 +318,14 @@ export const BubbleExtra = ({
       shouldShowLike,
       alreadyFeedback,
       originalData?.isFinished,
+      typing,
       props.onCancelLike,
     ],
   );
 
   const disLike = useMemo(
     () =>
-      shouldShowDisLike ? (
+      shouldShowDisLike && !typing ? (
         <ActionIconBox
           data-testid="dislike-button"
           style={{
@@ -339,7 +347,7 @@ export const BubbleExtra = ({
           <DislikeOutlined />
         </ActionIconBox>
       ) : null,
-    [shouldShowDisLike, alreadyFeedback, originalData?.isFinished],
+    [shouldShowDisLike, alreadyFeedback, originalData?.isFinished, typing],
   );
 
   /**
@@ -408,7 +416,7 @@ export const BubbleExtra = ({
 
   const slidesModeButton = useMemo(
     () =>
-      props.slidesModeProps?.enable ? (
+      props.slidesModeProps?.enable && !typing ? (
         <ActionIconBox
           onClick={props.onOpenSlidesMode}
           title="幻灯片模式"
@@ -419,7 +427,7 @@ export const BubbleExtra = ({
           <SelectOutlined />
         </ActionIconBox>
       ) : null,
-    [props.slidesModeProps?.enable, props.onOpenSlidesMode],
+    [props.slidesModeProps?.enable, typing, props.onOpenSlidesMode],
   );
 
   const dom = useMemo(
@@ -478,6 +486,7 @@ export const BubbleExtra = ({
       );
     }
     if (!originalData?.extra?.preMessage?.content) return null;
+    if (typing) return null;
 
     return (
       <ActionIconBox
@@ -511,19 +520,11 @@ export const BubbleExtra = ({
         </div>
       </ActionIconBox>
     );
-  }, [originalData?.isAborted, originalData?.isFinished]);
+  }, [originalData?.isAborted, typing, originalData?.isFinished]);
 
   useEffect(() => {
     props.onRenderExtraNull?.(!dom && !reSend);
   }, [dom]);
-
-  const typing =
-    originalData?.isAborted !== true &&
-    originalData?.isFinished === false &&
-    originalData?.extra?.isHistory === undefined &&
-    originalData?.isFinished !== undefined;
-
-  if (typing) return null;
 
   if (!dom && !reSend) return null;
 
@@ -547,7 +548,28 @@ export const BubbleExtra = ({
         ...props.style,
       }}
     >
-      {reSend || <div />}
+      <div
+        style={{
+          fontSize: context?.compact ? '11px' : '13px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+        }}
+      >
+        {typing && originalData.content !== '...' ? (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+            }}
+          >
+            <LoadingLottie size={context?.compact ? 20 : 16} />
+            <span>生成中...</span>
+          </div>
+        ) : null}
+        {reSend || null}
+      </div>
       {originalData?.isAborted
         ? copyDom
         : props.rightRender === false
