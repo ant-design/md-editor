@@ -190,10 +190,10 @@ export default () => {
         <Bubble
           avatar={mockMessage.meta!}
           placement="left"
-          loading={isLoading}
           bubbleRef={bubbleRef}
           originData={{
             ...mockMessage,
+            typing: isLoading,
             content: isLoading ? '正在思考中，请稍候...' : mockMessage.content,
             isFinished: !isLoading,
           }}
@@ -206,10 +206,10 @@ export default () => {
         <Bubble
           avatar={mockFileMessage.meta!}
           placement="left"
-          loading={isFileLoading}
           bubbleRef={bubbleRef}
           originData={{
             ...mockFileMessage,
+            typing: isFileLoading,
             content: isFileLoading
               ? '正在处理文件，请稍候...'
               : mockFileMessage.content,

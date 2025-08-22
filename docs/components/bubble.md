@@ -69,6 +69,12 @@ export default () => (
 
 <code src="../demos/bubble/basic.tsx"></code>
 
+### 加载状态演示
+
+演示 Bubble 组件的加载状态功能，包括消息生成和文件上传的加载效果。
+
+<code src="../demos/bubble/loading.tsx"></code>
+
 ### 自定义渲染能力
 
 演示如何使用自定义渲染函数，包括标题、内容、头像的个性化定制。

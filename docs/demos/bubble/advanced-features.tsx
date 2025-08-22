@@ -486,57 +486,6 @@ export default () => {
           </TabPane>
         </Tabs>
       </Card>
-
-      {/* 功能特性说明 */}
-      <Card title="✨ 功能特性" style={{ marginTop: 24 }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: 20,
-          }}
-        >
-          <div>
-            <h4>🎨 主题定制</h4>
-            <ul>
-              <li>多种内置主题（明亮、深色、彩色）</li>
-              <li>自定义主题色彩</li>
-              <li>动态主题切换</li>
-              <li>CSS-in-JS 样式支持</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>🔧 自定义渲染</h4>
-            <ul>
-              <li>标题自定义渲染</li>
-              <li>内容自定义渲染</li>
-              <li>头像自定义渲染</li>
-              <li>额外操作区域渲染</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>📎 文件支持</h4>
-            <ul>
-              <li>多种文件类型识别</li>
-              <li>文件预览功能</li>
-              <li>文件下载支持</li>
-              <li>自定义文件处理</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>🚀 交互功能</h4>
-            <ul>
-              <li>点赞/点踩反馈</li>
-              <li>消息回复功能</li>
-              <li>内容复制分享</li>
-              <li>自定义操作按钮</li>
-            </ul>
-          </div>
-        </div>
-      </Card>
     </div>
   );
 };

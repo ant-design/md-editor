@@ -48,7 +48,9 @@ describe('Workspace PreviewComponent', () => {
     render(<PreviewComponent file={mdFile} onBack={vi.fn()} />);
     // 断言编辑器容器存在（通过占位 class 或文本特征判断）
     expect(
-      document.querySelector('[class*="workspace-preview"][class*="text"]'),
+      document.querySelector(
+        '[class*="workspace-file-preview"][class*="text"]',
+      ),
     ).toBeInTheDocument();
   });
 
@@ -70,7 +72,7 @@ describe('Workspace PreviewComponent', () => {
   it('图片文件：渲染图片预览', () => {
     render(<PreviewComponent file={imgFile} onBack={vi.fn()} />);
     const container = document.querySelector(
-      '[class*="workspace-preview"][class*="image"]',
+      '[class*="workspace-file-preview"][class*="image"]',
     );
     expect(container).not.toBeNull();
   });
@@ -95,8 +97,9 @@ describe('Workspace PreviewComponent', () => {
 
     // 占位中的下载按钮（与头部下载按钮重名，限定作用域到占位容器）
     const placeholder = document.querySelector(
-      '[class*="workspace-preview"][class*="placeholder"]',
+      '[class*="workspace-file-preview"][class*="placeholder"]',
     ) as HTMLElement;
+    expect(placeholder).not.toBeNull();
     const dlBtn = within(placeholder).getByRole('button', { name: '下载文件' });
     fireEvent.click(dlBtn);
     expect(onDownload).toHaveBeenCalled();

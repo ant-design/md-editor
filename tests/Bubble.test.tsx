@@ -37,7 +37,7 @@ describe('Bubble', () => {
   const defaultProps: BubbleProps<Record<string, any>> = {
     placement: 'left' as const,
     avatar: {
-      title: 'Test User',
+      name: 'Test User',
       avatar: 'test-avatar.jpg',
     },
     time: 1716537600000,
@@ -398,5 +398,214 @@ describe('Bubble', () => {
         }),
       }),
     );
+  });
+
+  describe('preMessageSameRole', () => {
+    it('should hide avatar and title when preMessage has same role as current message', () => {
+      const propsWithPreMessage = {
+        ...defaultProps,
+        preMessage: {
+          content: 'Previous message',
+          createAt: 1716537500000,
+          id: '122',
+          role: 'user' as const,
+          updateAt: 1716537500000,
+        },
+        originData: {
+          content: 'Current message',
+          createAt: 1716537600000,
+          id: '123',
+          role: 'user' as const,
+          updateAt: 1716537600000,
+        },
+      };
+
+      render(
+        <BubbleConfigProvide>
+          <Bubble {...propsWithPreMessage} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证消息内容存在
+      expect(screen.getByText('Current message')).toBeInTheDocument();
+
+      // 验证头像和标题被隐藏（因为角色相同）
+      expect(screen.queryByText('Test User')).not.toBeInTheDocument();
+    });
+
+    it('should show avatar and title when preMessage has different role from current message', () => {
+      const propsWithPreMessage = {
+        ...defaultProps,
+        preMessage: {
+          content: 'Previous assistant message',
+          createAt: 1716537500000,
+          id: '122',
+          role: 'assistant' as const,
+          updateAt: 1716537500000,
+        },
+        originData: {
+          content: 'Current user message',
+          createAt: 1716537600000,
+          id: '123',
+          role: 'user' as const,
+          updateAt: 1716537600000,
+        },
+      };
+
+      render(
+        <BubbleConfigProvide>
+          <Bubble {...propsWithPreMessage} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证消息内容存在
+      expect(screen.getByText('Current user message')).toBeInTheDocument();
+
+      // 验证头像和标题显示（因为角色不同）
+      expect(screen.getByText('Test User')).toBeInTheDocument();
+    });
+
+    it('should show avatar and title when preMessage is undefined', () => {
+      render(
+        <BubbleConfigProvide>
+          <Bubble {...defaultProps} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证消息内容存在
+      expect(screen.getByText('Test message content')).toBeInTheDocument();
+
+      // 验证头像和标题显示（因为没有前一条消息）
+      expect(screen.getByText('Test User')).toBeInTheDocument();
+    });
+
+    it('should hide avatar and title when placement is right regardless of preMessageSameRole', () => {
+      const propsWithPreMessage = {
+        ...defaultProps,
+        placement: 'right' as const,
+        preMessage: {
+          content: 'Previous message',
+          createAt: 1716537500000,
+          id: '122',
+          role: 'user' as const,
+          updateAt: 1716537500000,
+        },
+        originData: {
+          content: 'Current message',
+          createAt: 1716537600000,
+          id: '123',
+          role: 'user' as const,
+          updateAt: 1716537600000,
+        },
+      };
+
+      render(
+        <BubbleConfigProvide>
+          <Bubble {...propsWithPreMessage} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证消息内容存在
+      expect(screen.getByText('Current message')).toBeInTheDocument();
+
+      // 验证头像和标题被隐藏（因为 placement 是 right）
+      expect(screen.queryByText('Test User')).not.toBeInTheDocument();
+    });
+
+    it('should handle preMessage with undefined role', () => {
+      const propsWithPreMessage = {
+        ...defaultProps,
+        preMessage: {
+          content: 'Previous message',
+          createAt: 1716537500000,
+          id: '122',
+          role: undefined,
+          updateAt: 1716537500000,
+        },
+        originData: {
+          content: 'Current message',
+          createAt: 1716537600000,
+          id: '123',
+          role: 'user' as const,
+          updateAt: 1716537600000,
+        },
+      };
+
+      render(
+        <BubbleConfigProvide>
+          <Bubble {...propsWithPreMessage} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证消息内容存在
+      expect(screen.getByText('Current message')).toBeInTheDocument();
+
+      // 验证头像和标题显示（因为角色不同，undefined !== 'user'）
+      expect(screen.getByText('Test User')).toBeInTheDocument();
+    });
+
+    it('should handle current message with undefined role', () => {
+      const propsWithPreMessage = {
+        ...defaultProps,
+        preMessage: {
+          content: 'Previous message',
+          createAt: 1716537500000,
+          id: '122',
+          role: 'user' as const,
+          updateAt: 1716537500000,
+        },
+        originData: {
+          content: 'Current message',
+          createAt: 1716537600000,
+          id: '123',
+          role: undefined,
+          updateAt: 1716537600000,
+        },
+      };
+
+      render(
+        <BubbleConfigProvide>
+          <Bubble {...propsWithPreMessage} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证消息内容存在
+      expect(screen.getByText('Current message')).toBeInTheDocument();
+
+      // 验证头像和标题显示（因为角色不同，'user' !== undefined）
+      expect(screen.getByText('Test User')).toBeInTheDocument();
+    });
+
+    it('should handle both messages with undefined roles', () => {
+      const propsWithPreMessage = {
+        ...defaultProps,
+        preMessage: {
+          content: 'Previous message',
+          createAt: 1716537500000,
+          id: '122',
+          role: undefined,
+          updateAt: 1716537500000,
+        },
+        originData: {
+          content: 'Current message',
+          createAt: 1716537600000,
+          id: '123',
+          role: undefined,
+          updateAt: 1716537600000,
+        },
+      };
+
+      render(
+        <BubbleConfigProvide>
+          <Bubble {...propsWithPreMessage} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证消息内容存在
+      expect(screen.getByText('Current message')).toBeInTheDocument();
+
+      // 验证头像和标题显示（因为角色相同，undefined === undefined）
+      expect(screen.queryByText('Test User')).not.toBeInTheDocument();
+    });
   });
 });

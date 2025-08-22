@@ -4,6 +4,7 @@ import { ConfigProvider, Flex } from 'antd';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
 import React from 'react';
+import { LoadingIcon } from '../icons/LoadingIcon';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { BubbleConfigContext } from './BubbleConfigProvide';
@@ -93,6 +94,23 @@ export const Bubble: React.FC<
     styles,
   } = props;
 
+  const typing = useMemo(() => {
+    return (
+      props.originData?.isAborted !== true &&
+      props.originData?.isFinished === false &&
+      props?.originData?.extra?.isHistory === undefined &&
+      props.originData?.isFinished !== undefined
+    );
+  }, [
+    props.originData?.isAborted,
+    props.originData?.isFinished,
+    props.originData?.extra?.isHistory,
+  ]);
+
+  const preMessageSameRole = useMemo(() => {
+    return props.preMessage?.role === props.originData?.role;
+  }, [props.preMessage, props.originData]);
+
   const [hidePadding, setHidePadding] = React.useState(false);
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -103,30 +121,28 @@ export const Bubble: React.FC<
 
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
-  const titleDom = useMemo(
-    () =>
-      runRender(
-        bubbleRenderConfig?.titleRender,
-        props,
-        <BubbleTitle
-          className={classNames?.bubbleListItemTitleClassName}
-          style={styles?.bubbleListItemTitleStyle}
-          prefixClass={cx(`${prefixClass}-bubble-title`)}
-          title={avatar?.title}
-          placement={placement}
-          time={time}
-        />,
-      ),
-    [
+  const titleDom = useMemo(() => {
+    runRender(
       bubbleRenderConfig?.titleRender,
-      classNames?.bubbleListItemTitleClassName,
-      props.originData?.updateAt,
-      time,
-      styles?.bubbleListItemTitleStyle,
-      avatar?.title,
-      placement,
-    ],
-  );
+      props,
+      <BubbleTitle
+        className={classNames?.bubbleListItemTitleClassName}
+        style={styles?.bubbleListItemTitleStyle}
+        prefixClass={cx(`${prefixClass}-bubble-title`)}
+        title={avatar?.title}
+        placement={placement}
+        time={time}
+      />,
+    );
+  }, [
+    bubbleRenderConfig?.titleRender,
+    classNames?.bubbleListItemTitleClassName,
+    props.originData?.updateAt,
+    time,
+    styles?.bubbleListItemTitleStyle,
+    avatar?.title,
+    placement,
+  ]);
 
   const avatarDom = useMemo(
     () =>
@@ -267,8 +283,8 @@ export const Bubble: React.FC<
           }}
           className={cx(`${prefixClass}-bubble-container`, hashId)}
         >
-          {placement === 'right' ? null : (
-            <motion.div
+          {placement === 'right' || preMessageSameRole ? null : (
+            <div
               className={cx(
                 `${prefixClass}-bubble-avatar-title`,
                 `${prefixClass}-bubble-avatar-title-${placement}`,
@@ -276,9 +292,10 @@ export const Bubble: React.FC<
               )}
             >
               {avatarDom}
+              {typing && <LoadingIcon style={{ fontSize: 16 }} />}
               <span>{avatar?.name ?? 'Agentar'}</span>
               {titleDom}
-            </motion.div>
+            </div>
           )}
           <motion.div
             style={{

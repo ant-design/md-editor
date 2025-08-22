@@ -96,7 +96,7 @@ function useIconStyle(prefixCls?: string) {
  * - 使用 16x16 的 viewBox
  * - 双圆环设计，外圆为背景，内圆为动画进度
  */
-export const LoadingIcon = () => {
+export const LoadingIcon = (props: { style?: React.CSSProperties }) => {
   const { wrapSSR, hashId } = useIconStyle('thoughtChainList');
   return wrapSSR(
     <motion.svg
@@ -115,6 +115,7 @@ export const LoadingIcon = () => {
       transition={{
         fill: { duration: 0.5, ease: 'easeInOut' },
       }}
+      style={props.style}
     >
       <defs>
         <linearGradient

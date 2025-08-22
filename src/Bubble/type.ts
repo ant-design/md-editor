@@ -370,11 +370,6 @@ export interface BubbleProps<T = Record<string, any>>
   bubbleRenderConfig?: BubbleRenderConfig<T>;
 
   /**
-   * 是否加载中
-   */
-  loading?: boolean;
-
-  /**
    * 头像点击事件
    */
   onAvatarClick?: () => void;
@@ -482,4 +477,9 @@ export interface BubbleProps<T = Record<string, any>>
    * @optional
    */
   shouldShowCopy?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
+
+  /**
+   * 预加载消息
+   */
+  preMessage?: MessageBubbleData;
 }
