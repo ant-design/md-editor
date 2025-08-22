@@ -529,13 +529,6 @@
                               <span>
                                 Agentar
                               </span>
-                              <div
-                                class="ant-agent-list-bubble-title ant-flex"
-                                data-testid="bubble-title"
-                                style="flex-direction: row; gap: 8px;"
-                              >
-                                Advanced Assistant
-                              </div>
                             </div>
                             <div
                               animate="visible"
@@ -920,13 +913,6 @@
                               <span>
                                 Agentar
                               </span>
-                              <div
-                                class="ant-agent-list-bubble-title ant-flex"
-                                data-testid="bubble-title"
-                                style="flex-direction: row; gap: 8px;"
-                              >
-                                产品体验师
-                              </div>
                             </div>
                             <div
                               animate="visible"
@@ -1036,13 +1022,6 @@
                               <span>
                                 Agentar
                               </span>
-                              <div
-                                class="ant-agent-list-bubble-title ant-flex"
-                                data-testid="bubble-title"
-                                style="flex-direction: row; gap: 8px;"
-                              >
-                                Advanced Assistant
-                              </div>
                             </div>
                             <div
                               animate="visible"

@@ -109,13 +109,6 @@
               <span>
                 Agentar
               </span>
-              <div
-                class="ant-agent-list-bubble-title ant-flex"
-                data-testid="bubble-title"
-                style="flex-direction: row; gap: 8px;"
-              >
-                AI 助手
-              </div>
             </div>
             <div
               animate="visible"
@@ -410,13 +403,6 @@
               <span>
                 Agentar
               </span>
-              <div
-                class="ant-agent-list-bubble-title ant-flex"
-                data-testid="bubble-title"
-                style="flex-direction: row; gap: 8px;"
-              >
-                AI 助手
-              </div>
             </div>
             <div
               animate="visible"

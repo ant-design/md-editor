@@ -18,6 +18,7 @@ Bubble 组件是一个功能丰富的聊天消息气泡组件，为现代化对�
 - 🎯 **交互丰富**：内置点赞、点踩、回复、复制等常用操作
 - 🌈 **主题友好**：支持明暗主题切换和自定义样式配置
 - 💡 **Pure 模式**：提供简洁的无边框模式，适合嵌入式场景
+- 🔄 **消息连续性优化**：智能隐藏连续消息的重复头像和标题，提升对话体验
 
 ## 快速开始
 
@@ -99,6 +100,12 @@ export default () => (
 
 <code src="../demos/bubble/pure.tsx"></code>
 
+### 消息连续性优化
+
+演示 `preMessageSameRole` 功能，展示如何通过传入前一条消息来优化连续对话的视觉体验。
+
+<code src="../demos/bubble/preMessageSameRole.tsx"></code>
+
 ### 列表管理功能
 
 使用 BubbleList 组件管理消息列表，支持动态操作和状态控制。
@@ -143,13 +150,14 @@ export default () => (
 
 #### 交互回调
 
-| 属性          | 说明         | 类型                                  | 默认值 |
-| ------------- | ------------ | ------------------------------------- | ------ |
-| onLike        | 点赞回调函数 | `(bubble: MessageBubbleData) => void` | -      |
-| onDisLike     | 点踩回调函数 | `(bubble: MessageBubbleData) => void` | -      |
-| onReply       | 回复回调函数 | `(message: string) => void`           | -      |
-| onAvatarClick | 头像点击回调 | `() => void`                          | -      |
-| onDoubleClick | 双击回调函数 | `() => void`                          | -      |
+| 属性          | 说明           | 类型                                  | 默认值 |
+| ------------- | -------------- | ------------------------------------- | ------ |
+| onLike        | 点赞回调函数   | `(bubble: MessageBubbleData) => void` | -      |
+| onDisLike     | 点踩回调函数   | `(bubble: MessageBubbleData) => void` | -      |
+| onReply       | 回复回调函数   | `(message: string) => void`           | -      |
+| onAvatarClick | 头像点击回调   | `() => void`                          | -      |
+| onDoubleClick | 双击回调函数   | `() => void`                          | -      |
+| preMessage    | 前一条消息数据 | `MessageBubbleData \| undefined`      | -      |
 
 ### BubbleList 消息列表组件
 
@@ -227,6 +235,217 @@ type CustomRenderFunction = (
 ```
 
 ## 🎯 功能特性详解
+
+### 消息连续性优化 (preMessageSameRole)
+
+`preMessageSameRole` 是一个智能的消息连续性优化功能，用于提升连续对话的视觉体验。当连续的消息来自同一角色时，会自动隐藏重复的头像和标题信息，让对话更加简洁流畅。
+
+#### 功能原理
+
+组件会自动比较当前消息与前一条消息的角色：
+
+- 如果角色相同，隐藏头像和标题区域
+- 如果角色不同，显示完整的头像和标题信息
+- 右侧布局（用户消息）始终隐藏头像和标题
+
+#### 使用示例
+
+```tsx | pure
+import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+
+// 连续的用户消息
+const userMessages: MessageBubbleData[] = [
+  {
+    id: '1',
+    role: 'user',
+    content: '你好，我想了解一下产品功能',
+    createAt: Date.now() - 60000,
+    updateAt: Date.now() - 60000,
+  },
+  {
+    id: '2',
+    role: 'user',
+    content: '能详细介绍一下吗？',
+    createAt: Date.now() - 30000,
+    updateAt: Date.now() - 30000,
+  },
+];
+
+// 连续的助手消息
+const assistantMessages: MessageBubbleData[] = [
+  {
+    id: '3',
+    role: 'assistant',
+    content: '当然可以，我们的产品具有以下特点...',
+    createAt: Date.now() - 20000,
+    updateAt: Date.now() - 20000,
+  },
+  {
+    id: '4',
+    role: 'assistant',
+    content: '此外，还支持多种高级功能...',
+    createAt: Date.now() - 10000,
+    updateAt: Date.now() - 10000,
+  },
+];
+
+const App = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* 第一条用户消息 - 显示头像和标题 */}
+      <Bubble
+        originData={userMessages[0]}
+        avatar={{ name: '用户', avatar: 'user-avatar.jpg' }}
+        placement="right"
+      />
+
+      {/* 第二条用户消息 - 隐藏头像和标题（preMessageSameRole 生效） */}
+      <Bubble
+        originData={userMessages[1]}
+        avatar={{ name: '用户', avatar: 'user-avatar.jpg' }}
+        placement="right"
+        preMessage={userMessages[0]} // 传入前一条消息
+      />
+
+      {/* 第一条助手消息 - 显示头像和标题 */}
+      <Bubble
+        originData={assistantMessages[0]}
+        avatar={{ name: 'AI助手', avatar: 'ai-avatar.jpg' }}
+        placement="left"
+      />
+
+      {/* 第二条助手消息 - 隐藏头像和标题（preMessageSameRole 生效） */}
+      <Bubble
+        originData={assistantMessages[1]}
+        avatar={{ name: 'AI助手', avatar: 'ai-avatar.jpg' }}
+        placement="left"
+        preMessage={assistantMessages[0]} // 传入前一条消息
+      />
+    </div>
+  );
+};
+```
+
+#### 在消息列表中的应用
+
+```tsx | pure
+import { BubbleList } from '@ant-design/md-editor';
+
+const messages: MessageBubbleData[] = [
+  // 用户消息
+  {
+    id: '1',
+    role: 'user',
+    content: '你好',
+    createAt: Date.now() - 60000,
+    updateAt: Date.now() - 60000,
+  },
+  {
+    id: '2',
+    role: 'user',
+    content: '我想咨询一个问题',
+    createAt: Date.now() - 50000,
+    updateAt: Date.now() - 50000,
+  },
+
+  // 助手消息
+  {
+    id: '3',
+    role: 'assistant',
+    content: '您好！很高兴为您服务',
+    createAt: Date.now() - 40000,
+    updateAt: Date.now() - 40000,
+  },
+  {
+    id: '4',
+    role: 'assistant',
+    content: '请详细描述您的问题',
+    createAt: Date.now() - 30000,
+    updateAt: Date.now() - 30000,
+  },
+
+  // 用户消息
+  {
+    id: '5',
+    role: 'user',
+    content: '关于产品定价的问题',
+    createAt: Date.now() - 20000,
+    updateAt: Date.now() - 20000,
+  },
+];
+
+const App = () => (
+  <BubbleList
+    bubbleList={messages}
+    assistantMeta={{ name: 'AI助手', avatar: 'ai-avatar.jpg' }}
+    userMeta={{ name: '用户', avatar: 'user-avatar.jpg' }}
+  />
+);
+```
+
+#### 边界情况处理
+
+组件智能处理各种边界情况：
+
+```tsx | pure
+// 1. 前一条消息未定义
+<Bubble
+  originData={currentMessage}
+  preMessage={undefined} // 始终显示头像和标题
+/>
+
+// 2. 角色未定义的情况
+<Bubble
+  originData={{ ...currentMessage, role: undefined }}
+  preMessage={{ ...prevMessage, role: undefined }}
+  // 两个角色都为 undefined 时，视为相同角色，隐藏头像标题
+/>
+
+// 3. 右侧布局优先级
+<Bubble
+  originData={currentMessage}
+  placement="right"
+  preMessage={prevMessage}
+  // 无论 preMessageSameRole 如何，右侧布局都隐藏头像标题
+/>
+```
+
+#### 视觉效果对比
+
+**启用 preMessageSameRole 前：**
+
+```
+👤 用户                    👤 用户
+你好                      我想咨询一个问题
+
+🤖 AI助手                  🤖 AI助手
+您好！很高兴为您服务       请详细描述您的问题
+```
+
+**启用 preMessageSameRole 后：**
+
+```
+👤 用户
+你好
+我想咨询一个问题
+
+🤖 AI助手
+您好！很高兴为您服务
+请详细描述您的问题
+```
+
+#### 配置选项
+
+| 属性         | 类型                             | 说明                         | 默认值      |
+| ------------ | -------------------------------- | ---------------------------- | ----------- |
+| `preMessage` | `MessageBubbleData \| undefined` | 前一条消息数据，用于角色比较 | `undefined` |
+
+#### 注意事项
+
+- 该功能仅在左侧布局（`placement="left"`）中生效
+- 右侧布局（`placement="right"`）始终隐藏头像和标题，不受此功能影响
+- 当 `preMessage` 为 `undefined` 时，始终显示头像和标题
+- 角色比较使用严格相等（`===`），包括 `undefined` 值的处理
 
 ### 自定义渲染系统
 

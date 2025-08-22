@@ -236,36 +236,6 @@
                 whileinview="visible"
               >
                 <div
-                  class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
-                >
-                  <span
-                    class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
-                    data-testid="bubble-avatar"
-                    style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
-                  >
-                    <img
-                      alt="avatar"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-                    />
-                  </span>
-                  <span>
-                    Agentar
-                  </span>
-                  <div
-                    class="ant-agent-list-bubble-title ant-flex"
-                    data-testid="bubble-title"
-                    style="flex-direction: row; gap: 8px;"
-                  >
-                    Ant Design Assistant
-                    <time
-                      class="ant-agent-list-bubble-title-time"
-                      data-testid="bubble-time"
-                    >
-                      2024-02-27 17:20:00
-                    </time>
-                  </div>
-                </div>
-                <div
                   animate="visible"
                   class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
                   data-testid="chat-message"
@@ -947,19 +917,6 @@
                   <span>
                     Agentar
                   </span>
-                  <div
-                    class="ant-agent-list-bubble-title ant-flex"
-                    data-testid="bubble-title"
-                    style="flex-direction: row; gap: 8px;"
-                  >
-                    Ant Design Assistant
-                    <time
-                      class="ant-agent-list-bubble-title-time"
-                      data-testid="bubble-time"
-                    >
-                      2024-02-27 17:20:00
-                    </time>
-                  </div>
                 </div>
                 <div
                   animate="visible"
