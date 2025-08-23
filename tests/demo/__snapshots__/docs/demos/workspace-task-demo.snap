@@ -157,7 +157,7 @@
                                 style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                               >
                                 <div
-                                  class="flex justify-center space-x-2"
+                                  class="flex justify-center"
                                 >
                                   数据分析任务
                                 </div>
@@ -810,7 +810,7 @@
                                 style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                               >
                                 <div
-                                  class="flex justify-center space-x-2"
+                                  class="flex justify-center"
                                 >
                                   模型训练
                                 </div>

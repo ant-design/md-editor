@@ -7200,7 +7200,7 @@
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
                           <div
-                            class="flex justify-center space-x-2"
+                            class="flex justify-center"
                           >
                             推理完成
                           </div>

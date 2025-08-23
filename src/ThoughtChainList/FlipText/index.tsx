@@ -64,10 +64,10 @@ export function FlipText({
   className,
 }: FlipTextProps) {
   if (process.env.NODE_ENV === 'test') {
-    return <div className="flex justify-center space-x-2">{word}</div>;
+    return <div className="flex justify-center">{word}</div>;
   }
   return (
-    <div className="flex justify-center space-x-2">
+    <div className="flex justify-center">
       {word.split('').map((char, i) => (
         <motion.span
           key={i + '_' + char}
