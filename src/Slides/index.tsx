@@ -75,7 +75,7 @@ export function Slides(props: { initValue: string }) {
       deckRef.current = new Reveal(deckDivRef.current!, {
         transition: 'slide',
       });
-      deckRef.current.initialize({}).then(() => {
+      deckRef.current?.initialize?.({}).then(() => {
         console.log('Reveal.js initialized.');
       });
       return () => {
