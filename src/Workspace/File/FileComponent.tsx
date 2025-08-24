@@ -424,6 +424,7 @@ export const FileComponent: FC<{
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
+  actionRef?: FileProps['actionRef'];
 }> = ({
   nodes,
   onGroupDownload,
@@ -432,6 +433,7 @@ export const FileComponent: FC<{
   onToggleGroup,
   onPreview,
   markdownEditorProps,
+  actionRef,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
@@ -581,6 +583,23 @@ export const FileComponent: FC<{
     setCustomPreviewContent(null);
     setPreviewFile(file);
   };
+
+  // 通过 actionRef 暴露可编程接口
+  React.useEffect(() => {
+    if (!actionRef) return;
+    actionRef.current = {
+      openPreview: (file: FileNode) => {
+        const fileWithId = ensureNodeWithId(file);
+        void handlePreview(fileWithId);
+      },
+      backToList: () => {
+        handleBackToList();
+      },
+    };
+    return () => {
+      actionRef.current = null;
+    };
+  }, [actionRef, handlePreview, handleBackToList]);
 
   // 图片预览组件
   const ImagePreviewComponent = (

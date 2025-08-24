@@ -323,6 +323,12 @@ export interface GroupNode extends BaseNode {
   type: FileType;
 }
 
+// 文件组件外部可调用方法
+export interface FileActionRef {
+  openPreview: (file: FileNode) => void;
+  backToList: () => void;
+}
+
 // 文件组件属性
 export interface FileProps extends BaseChildProps {
   nodes: (GroupNode | FileNode)[];
@@ -340,6 +346,10 @@ export interface FileProps extends BaseChildProps {
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
+  /**
+   * 对外暴露的操作引用，允许外部主动打开预览或返回列表
+   */
+  actionRef?: React.MutableRefObject<FileActionRef | null>;
 }
 
 export interface CustomProps extends BaseChildProps {

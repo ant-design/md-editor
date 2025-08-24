@@ -25,6 +25,8 @@ group:
 
 <code src="../demos/workspace-advanced-demo.tsx">高级用法</code>
 
+<code src="../demos/workspace-file-actionref-demo.tsx">编程式打开预览</code>
+
 ## API
 
 ### Workspace
@@ -107,7 +109,15 @@ group:
 | onToggleGroup       | 组展开/收起回调                                               | `(groupType: FileType, collapsed: boolean) => void`                            | -      |
 | onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => FileNode \| ReactNode \| Promise<FileNode \| ReactNode>`  | -      |
 | markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
+| actionRef           | 对外操作引用（编程式打开/返回）                                | `React.MutableRefObject<FileActionRef \| null>`                                 | -      |
 | tab                 | 标签页配置                                                    | `TabConfiguration`                                                             | -      |
+
+#### FileActionRef
+
+| 方法         | 说明                   | 类型                                   |
+| ------------ | ---------------------- | -------------------------------------- |
+| openPreview  | 编程式打开文件预览页   | `(file: FileNode) => void`             |
+| backToList   | 从预览页返回到文件列表 | `() => void`                           |
 
 #### FileNode
 

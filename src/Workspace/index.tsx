@@ -27,6 +27,7 @@ import type {
   TaskProps,
   WorkspaceProps,
 } from './types';
+export type { FileActionRef } from './types';
 
 // 组件类型枚举
 enum ComponentType {
