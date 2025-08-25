@@ -452,6 +452,7 @@ describe('History Component', () => {
       render(
         <History
           {...defaultProps}
+          standalone
           slots={{ beforeHistoryList: () => <div>beforeHistoryList</div> }}
         />,
       );
