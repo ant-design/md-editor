@@ -122,7 +122,7 @@ export const Bubble: React.FC<
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
   const titleDom = useMemo(() => {
-    runRender(
+    return runRender(
       bubbleRenderConfig?.titleRender,
       props,
       <BubbleTitle

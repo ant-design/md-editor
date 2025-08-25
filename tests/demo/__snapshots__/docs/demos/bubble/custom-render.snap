@@ -136,6 +136,90 @@
               <span>
                 Agentar
               </span>
+              <div
+                style="display: flex; align-items: center; gap: 8px;"
+              >
+                <span
+                  style="font-size: 16px;"
+                >
+                  <span
+                    aria-label="robot"
+                    class="anticon anticon-robot"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="robot"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M300 328a60 60 0 10120 0 60 60 0 10-120 0zM852 64H172c-17.7 0-32 14.3-32 32v660c0 17.7 14.3 32 32 32h680c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-32 660H204V128h616v596zM604 328a60 60 0 10120 0 60 60 0 10-120 0zm250.2 556H169.8c-16.5 0-29.8 14.3-29.8 32v36c0 4.4 3.3 8 7.4 8h729.1c4.1 0 7.4-3.6 7.4-8v-36c.1-17.7-13.2-32-29.7-32zM664 508H360c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  style="flex: 1 1 0%;"
+                >
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  >
+                    Code Assistant
+                  </div>
+                </span>
+                <span
+                  class="ant-tag ant-tag-green"
+                >
+                  <span
+                    aria-label="check-circle"
+                    class="anticon anticon-check-circle"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="check-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0051.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                    </svg>
+                  </span>
+                  <span>
+                    已完成
+                  </span>
+                </span>
+                <span
+                  class="ant-tag ant-tag-red"
+                >
+                  高优先级
+                </span>
+                <span
+                  class="ant-tag ant-tag-blue"
+                  style="font-size: 12px;"
+                >
+                  代码优化
+                </span>
+                <span
+                  class="ant-tag ant-tag-blue"
+                  style="font-size: 12px;"
+                >
+                  性能
+                </span>
+              </div>
             </div>
             <div
               animate="visible"
@@ -657,6 +741,90 @@ const OptimizedComponent = React.memo(({ data }) =&gt; {
               <span>
                 Agentar
               </span>
+              <div
+                style="display: flex; align-items: center; gap: 8px;"
+              >
+                <span
+                  style="font-size: 16px;"
+                >
+                  <span
+                    aria-label="robot"
+                    class="anticon anticon-robot"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="robot"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M300 328a60 60 0 10120 0 60 60 0 10-120 0zM852 64H172c-17.7 0-32 14.3-32 32v660c0 17.7 14.3 32 32 32h680c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-32 660H204V128h616v596zM604 328a60 60 0 10120 0 60 60 0 10-120 0zm250.2 556H169.8c-16.5 0-29.8 14.3-29.8 32v36c0 4.4 3.3 8 7.4 8h729.1c4.1 0 7.4-3.6 7.4-8v-36c.1-17.7-13.2-32-29.7-32zM664 508H360c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  style="flex: 1 1 0%;"
+                >
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  >
+                    Code Assistant
+                  </div>
+                </span>
+                <span
+                  class="ant-tag ant-tag-blue"
+                >
+                  <span
+                    aria-label="clock-circle"
+                    class="anticon anticon-clock-circle"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="clock-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                      <path
+                        d="M686.7 638.6L544.1 535.5V288c0-4.4-3.6-8-8-8H488c-4.4 0-8 3.6-8 8v275.4c0 2.6 1.2 5 3.3 6.5l165.4 120.6c3.6 2.6 8.6 1.8 11.2-1.7l28.6-39c2.6-3.7 1.8-8.7-1.8-11.2z"
+                      />
+                    </svg>
+                  </span>
+                  <span>
+                    进行中
+                  </span>
+                </span>
+                <span
+                  class="ant-tag ant-tag-default"
+                >
+                  普通
+                </span>
+                <span
+                  class="ant-tag ant-tag-blue"
+                  style="font-size: 12px;"
+                >
+                  实现指南
+                </span>
+                <span
+                  class="ant-tag ant-tag-blue"
+                  style="font-size: 12px;"
+                >
+                  React
+                </span>
+              </div>
             </div>
             <div
               animate="visible"

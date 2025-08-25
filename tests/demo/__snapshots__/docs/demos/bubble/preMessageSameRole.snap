@@ -332,6 +332,11 @@
                   <span>
                     AI助手
                   </span>
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  />
                 </div>
                 <div
                   animate="visible"

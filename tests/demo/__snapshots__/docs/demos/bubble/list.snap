@@ -1137,6 +1137,19 @@
                   <span>
                     Agentar
                   </span>
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  >
+                    Ant Design Assistant
+                    <time
+                      class="ant-agent-list-bubble-title-time"
+                      data-testid="bubble-time"
+                    >
+                      2024-02-27 17:20:00
+                    </time>
+                  </div>
                 </div>
                 <div
                   animate="visible"
@@ -1630,6 +1643,19 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                   <span>
                     Agentar
                   </span>
+                  <div
+                    class="ant-agent-list-bubble-title ant-flex"
+                    data-testid="bubble-title"
+                    style="flex-direction: row; gap: 8px;"
+                  >
+                    Ant Design Assistant
+                    <time
+                      class="ant-agent-list-bubble-title-time"
+                      data-testid="bubble-time"
+                    >
+                      2024-02-27 17:20:00
+                    </time>
+                  </div>
                 </div>
                 <div
                   animate="visible"
