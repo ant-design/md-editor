@@ -7,23 +7,46 @@ group:
 
 # Workspace 工作空间
 
-支持动态插入工作空间内容，内置实时跟随、任务、文件Tab。
+Workspace 是一个功能强大的工作空间组件，提供了标签页式的内容管理界面。支持多种内容类型的展示，包括实时跟随、任务管理、文件预览、浏览器内容等，为用户提供统一的工作环境。
+
+## ✨ 功能特点
+
+- 🔄 **实时跟随**: 支持 shell、markdown、html 等内容的实时更新显示
+- 📋 **任务管理**: 内置任务列表和任务状态管理功能
+- 📁 **文件预览**: 支持多种文件格式的预览和下载
+- 🌐 **浏览器集成**: 可嵌入浏览器内容和网页预览
+- 🎛️ **自定义内容**: 支持自定义组件和内容渲染
+- 📱 **响应式设计**: 适配不同屏幕尺寸，提供良好的用户体验
 
 ## 代码演示
 
-<code src="../demos/workspace-demo.tsx">基础用法</code>
+### 基础用法
 
-<code src="../demos/workspace-file-demo.tsx">文件管理</code>
+<code src="../demos/workspace-demo.tsx" title="基础工作空间" description="展示工作空间的基本功能和标签页切换">基础用法</code>
 
-<code src="../demos/workspace-realtime-demo.tsx">实时跟随</code>
+### 文件管理
 
-<code src="../demos/workspace-task-demo.tsx">任务管理</code>
+<code src="../demos/workspace-file-demo.tsx" title="文件管理" description="演示文件上传、预览、下载等文件管理功能">文件管理</code>
 
-<code src="../demos/workspace-custom-demo.tsx">自定义内容</code>
+### 实时跟随
 
-<code src="../demos/workspace-browser-demo.tsx">浏览器</code>
+<code src="../demos/workspace-realtime-demo.tsx" title="实时跟随" description="展示实时内容更新和跟随功能">实时跟随</code>
 
-<code src="../demos/workspace-advanced-demo.tsx">高级用法</code>
+### 任务管理
+
+<code src="../demos/workspace-task-demo.tsx" title="任务管理" description="演示任务创建、编辑、状态管理等功能">任务管理</code>
+
+### 自定义内容
+
+<code src="../demos/workspace-custom-demo.tsx" title="自定义内容" description="展示如何添加自定义组件和内容">自定义内容</code>
+
+### 浏览器
+
+<code src="../demos/workspace-browser-demo.tsx" title="浏览器集成" description="演示浏览器内容嵌入和网页预览功能">浏览器</code>
+
+### 高级用法
+
+<code src="../demos/workspace-advanced-demo.tsx" title="高级用法" description="展示复杂场景下的工作空间配置和使用">高级用法</code>
 
 <code src="../demos/workspace-file-actionref-demo.tsx">编程式打开预览</code>
 

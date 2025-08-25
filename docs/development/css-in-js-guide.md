@@ -1157,10 +1157,49 @@ import { createStyles } from '@ant-design/cssinjs';
 // shared/styles.ts
 export const useSharedStyles = createStyles(({ token }) => ({
   // 共享样式
+  button: {
+    padding: `${token.paddingXS}px ${token.padding}px`,
+    borderRadius: token.borderRadius,
+    border: `1px solid ${token.colorBorder}`,
+    cursor: 'pointer',
+    transition: 'all 0.2s ease-in-out',
+  },
+  
+  card: {
+    backgroundColor: token.colorBgContainer,
+    border: `1px solid ${token.colorBorder}`,
+    borderRadius: token.borderRadius,
+    padding: token.padding,
+    boxShadow: token.boxShadow,
+  },
 }));
 
 // 在组件中使用
 import { useSharedStyles } from '../shared/styles';
+
+// 3. 树摇优化
+// 确保未使用的样式能被打包工具移除
+export const useOptimizedStyles = createStyles(({ token }) => ({
+  // 只定义实际使用的样式
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+}));
+
+// 4. 样式合并优化
+const useStyles = createStyles(({ token }) => ({
+  // 合并相关样式，减少CSS规则数量
+  layout: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: token.margin,
+    padding: token.padding,
+    backgroundColor: token.colorBgContainer,
+    border: `1px solid ${token.colorBorder}`,
+    borderRadius: token.borderRadius,
+  },
+}));
 ```
 
 ## 常见问题
