@@ -305,15 +305,18 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
             display: flex;
             flex-direction: column;
           }
-            a{
+          a {
             text-decoration: none;
-            }
-            a:hover{
-              text-decoration: underline;
-            }
-            a:visited{
-             color: inherit;
-            }
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+          a:visited {
+            color: inherit;
+          }
+          a:active {
+            color: inherit;
+          }
         `;
         shadowRoot.appendChild(style);
       } catch (styleError) {
