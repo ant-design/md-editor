@@ -108,6 +108,9 @@ export const History: React.FC<HistoryProps> = (props) => {
           />
         )}
 
+        {!!props.slots?.beforeHistoryList &&
+          props.slots.beforeHistoryList(filteredList)}
+
         <GroupMenu
           selectedKeys={[props.sessionId]}
           inlineIndent={20}
