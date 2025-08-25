@@ -211,6 +211,7 @@ export const BubbleMessageDisplay: React.FC<
             beforeContent={beforeContent}
             afterContent={afterContent}
             {...props.markdownRenderConfig}
+            markdownRenderConfig={props.markdownRenderConfig}
             isFinished={true}
             style={
               props.originData?.role === 'bot'
