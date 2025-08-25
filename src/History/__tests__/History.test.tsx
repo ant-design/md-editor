@@ -141,7 +141,6 @@ const TestWrapper: React.FC<{ children: React.ReactNode; locale?: any }> = ({
     </ConfigProvider>
   );
 };
-
 describe('History Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -446,6 +445,18 @@ describe('History Component', () => {
         expect(mockRequest).toHaveBeenCalled();
       });
       // 应该重新调用请求
+    });
+  });
+  describe('slots', () => {
+    it('should render beforeHistoryList when slots.beforeHistoryList is provided', () => {
+      render(
+        <History
+          {...defaultProps}
+          standalone
+          slots={{ beforeHistoryList: () => <div>beforeHistoryList</div> }}
+        />,
+      );
+      expect(screen.getByText('beforeHistoryList')).toBeInTheDocument();
     });
   });
 });

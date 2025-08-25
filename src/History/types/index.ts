@@ -107,6 +107,10 @@ export interface HistoryProps {
     /** 正在运行的记录ID列表，这些记录将显示运行图标 */
     runningId?: string[];
   };
+  /** 插槽 */
+  slots?: {
+    beforeHistoryList?: (list: HistoryDataType[]) => React.ReactNode;
+  };
 }
 
 export interface HistoryActionsBoxProps {
