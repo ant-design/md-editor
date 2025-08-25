@@ -29,6 +29,7 @@ import { MElement, MLeaf } from './elements';
 import { useDebounceFn } from '@ant-design/pro-components';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { PluginContext } from '../plugin';
+import { useOptimizedPaste } from './hooks/useOptimizedPaste';
 import {
   handleFilesPaste,
   handleHtmlPaste,
@@ -160,6 +161,19 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
   const onKeyDown = useKeyboard(store, markdownEditorRef, props);
   const onChange = useOnchange(markdownEditorRef.current, props.onChange);
   const high = useHighlight(store);
+
+  // 使用优化的粘贴处理
+  const { debouncedPaste, optimizedInsertText, cleanup } = useOptimizedPaste({
+    onPasteStart: () => {
+      // 可以在这里显示粘贴开始的状态
+    },
+    onPasteEnd: () => {
+      // 可以在这里清理粘贴结束的状态
+    },
+    onPasteError: (error) => {
+      console.error('粘贴处理失败:', error);
+    },
+  });
 
   const childrenIsEmpty = useMemo(() => {
     if (!markdownEditorRef.current?.children) return false;
@@ -293,6 +307,13 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       initialNote();
     }
   }, [props.instance, markdownEditorRef.current]);
+
+  // 清理粘贴处理资源
+  useEffect(() => {
+    return () => {
+      cleanup();
+    };
+  }, [cleanup]);
 
   useEffect(() => {
     const footnoteDefinitionList = markdownEditorRef.current.children
@@ -514,6 +535,18 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
    * @param {React.ClipboardEvent<HTMLDivElement>} e
    */
   const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
+    // 使用防抖的粘贴处理
+    debouncedPaste(async () => {
+      await handlePasteEvent(event);
+    });
+  };
+
+  /**
+   * 实际的粘贴处理逻辑
+   */
+  const handlePasteEvent = async (
+    event: React.ClipboardEvent<HTMLDivElement>,
+  ) => {
     const currentTextSelection = markdownEditorRef.current.selection;
     if (
       currentTextSelection &&
@@ -611,7 +644,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
       // 如果是表格或者代码块，直接插入文本
       if (shouldInsertTextDirectly(markdownEditorRef.current, selection)) {
-        Transforms.insertText(markdownEditorRef.current, text);
+        await optimizedInsertText(markdownEditorRef.current, text);
         return;
       }
 

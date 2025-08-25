@@ -52,7 +52,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backgroundColor: '#FFF',
         width: '100%',
         zIndex: 9,
-        maxHeight: 120,
+        maxHeight: 400,
         height: '100%',
         borderRadius: 'inherit',
         overflowY: 'auto',

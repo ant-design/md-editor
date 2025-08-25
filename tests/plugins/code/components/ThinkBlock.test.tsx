@@ -56,7 +56,6 @@ describe('ThinkBlock', () => {
       render(<ThinkBlock element={mockCodeNode} />);
 
       const thinkBlock = screen.getByTestId('think-block');
-      const computedStyle = window.getComputedStyle(thinkBlock);
 
       // 检查颜色
       expect(thinkBlock).toHaveStyle({ color: '#8b8b8b' });
