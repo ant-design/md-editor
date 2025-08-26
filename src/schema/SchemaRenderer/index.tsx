@@ -292,31 +292,36 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
         const style = document.createElement('style');
         const safeTheme = safeSchema.theme || {};
         const safeTypography = safeTheme.typography || {};
+        style.innerHTML = `
+:host {
+  display: block;
+  font-family: ${safeTypography.fontFamily || 'inherit'};
+  font-size: ${safeTypography.fontSizes?.[2] ?? '14'}px;
+  line-height: ${safeTypography.lineHeights?.normal ?? 1.6};
+}
 
-        style.textContent = `
-          :host {
-            display: block;
-            font-family: ${safeTypography.fontFamily || 'inherit'};
-            font-size: ${safeTypography.fontSizes?.[2] ?? '14'}px;
-            line-height: ${safeTypography.lineHeights?.normal ?? 1.6};
-          }
-          * {
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-          }
-          a {
-            text-decoration: none;
-          }
-          a:hover {
-            text-decoration: underline;
-          }
-          a:visited {
-            color: inherit;
-          }
-          a:active {
-            color: inherit;
-          }
+div {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:active {
+  color: inherit;
+}
+
         `;
         shadowRoot.appendChild(style);
       } catch (styleError) {
