@@ -553,9 +553,7 @@ export const BubbleExtra = ({
               reply: reSend,
             },
           );
-          return rightContent !== null && rightContent !== undefined
-            ? rightContent
-            : dom;
+          return rightContent ?? dom;
         })();
 
   // 如果没有任何内容，直接返回 null
@@ -623,9 +621,7 @@ export const BubbleExtra = ({
                   reply: reSend,
                 },
               );
-              return rightContent !== null && rightContent !== undefined
-                ? rightContent
-                : dom;
+              return rightContent ?? dom;
             })()}
     </div>
   );
