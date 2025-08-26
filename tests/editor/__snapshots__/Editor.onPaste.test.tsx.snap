@@ -2993,7 +2993,134 @@ ls -la | grep "test"
                 <span
                   data-slate-string="true"
                 >
-                  &lt;/details&gt;
+                  &lt;/details&gt;# Main Title with *italic* and **bold**
+
+## Subtitle with \`inline code\`
+
+This paragraph has **bold with *nested italic* text** and \`code with **bold** inside\`.
+
+### Lists with complex nesting
+
+1. First ordered item
+   - Unordered sub-item
+   - Another sub-item with **bold**
+     1. Nested ordered item
+     2. Another nested item with [link](https://example.com)
+2. Second ordered item
+   &gt; Blockquote inside list
+   &gt; 
+   &gt; With multiple lines
+3. Third item with code block:
+   
+   \`\`\`python
+   def nested_function():
+       return "code in list"
+   \`\`\`
+
+### Complex table with formatting
+
+| **Bold Header** | *Italic Header* | \`Code Header\` | Link Header |
+|:----------------|:---------------:|----------------:|-------------|
+| **Bold cell**   | *Italic cell*   | \`code cell\`   | [Link](https://example.com) |
+| Multi-line&lt;br&gt;cell content | Cell with \`inline code\` | **Bold** and *italic* | Normal cell |
+| \`\`\`&lt;br&gt;code&lt;br&gt;block&lt;br&gt;\`\`\` | &gt; Blockquote&lt;br&gt;&gt; in cell | - List&lt;br&gt;- In cell | ![Image](https://example.com/img.jpg) |
+
+### Blockquotes with nesting
+
+&gt; This is a blockquote
+&gt; 
+&gt; &gt; This is a nested blockquote
+&gt; &gt; 
+&gt; &gt; With **bold** and *italic* text
+&gt; 
+&gt; Back to first level with:
+&gt; 
+&gt; - List in blockquote
+&gt; - Another item
+&gt; 
+&gt; \`\`\`javascript
+&gt; // Code block in blockquote
+&gt; console.log("nested code");
+&gt; \`\`\`
+
+### Code blocks with different languages
+
+\`\`\`typescript
+interface ComplexType {
+  name: string;
+  values: number[];
+  nested: {
+    prop: boolean;
+  };
+}
+\`\`\`
+
+\`\`\`bash
+# Shell commands
+echo "Hello World"
+ls -la | grep "test"
+\`\`\`
+
+### Links and images with complex syntax
+
+[Simple link](https://example.com)
+
+[Link with title](https://example.com "This is a title")
+
+[Reference link][ref1]
+
+![Image with alt text](https://example.com/image.jpg "Image title")
+
+![Reference image][img1]
+
+### Horizontal rules and breaks
+
+---
+
+Text after horizontal rule
+
+***
+
+Another horizontal rule style
+
+### Escape characters and special cases
+
+This has \\*escaped asterisks\\* and \\[escaped brackets\\].
+
+\`\`\`
+Code block with \`backticks\` inside
+\`\`\`
+
+### Footnotes and references
+
+This text has a footnote[^1] and another[^note].
+
+[^1]: This is the first footnote.
+[^note]: This is a named footnote with **formatting**.
+
+### Reference definitions
+
+[ref1]: https://example.com/reference "Reference title"
+[img1]: https://example.com/ref-image.jpg "Reference image"
+
+### HTML mixed with Markdown
+
+&lt;div align="center"&gt;
+
+**Centered content** with HTML wrapper
+
+&lt;/div&gt;
+
+&lt;details&gt;
+&lt;summary&gt;Collapsible section&lt;/summary&gt;
+
+Content inside collapsible section with **markdown** formatting.
+
+\`\`\`javascript
+console.log("Code in collapsible");
+\`\`\`
+
+&lt;/details&gt;
                 </span>
               </span>
             </span>
