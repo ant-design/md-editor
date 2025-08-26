@@ -114,10 +114,11 @@ md-editor/
    - 设计 API 接口和组件结构
 
 2. **分支管理**
+
    ```bash
    # 创建功能分支
    git checkout -b feature/your-feature-name
-   
+
    # 开发过程中定期同步主分支
    git fetch origin
    git rebase origin/main
@@ -168,26 +169,25 @@ git commit -m "test: add unit tests for markdown parser"
 
 #### 1. 组件 Memoization
 
-```tsx
+```tsx | pure
 // 使用 React.memo 避免不必要的重新渲染
-const MElement = React.memo<ElementProps>(({ element, children, ...props }) => {
-  return (
-    <div {...props}>
-      {children}
-    </div>
-  );
-}, (prevProps, nextProps) => {
-  // 自定义比较逻辑
-  return (
-    prevProps.element === nextProps.element &&
-    prevProps.children === nextProps.children
-  );
-});
+const MElement = React.memo<ElementProps>(
+  ({ element, children, ...props }) => {
+    return <div {...props}>{children}</div>;
+  },
+  (prevProps, nextProps) => {
+    // 自定义比较逻辑
+    return (
+      prevProps.element === nextProps.element &&
+      prevProps.children === nextProps.children
+    );
+  },
+);
 ```
 
 #### 2. 虚拟滚动
 
-```tsx
+```tsx | pure
 // 对于大量内容，使用虚拟滚动优化性能
 import { FixedSizeList as List } from 'react-window';
 
@@ -199,11 +199,7 @@ const VirtualizedEditor: React.FC = () => {
   );
 
   return (
-    <List
-      height={600}
-      itemCount={itemCount}
-      itemSize={35}
-    >
+    <List height={600} itemCount={itemCount} itemSize={35}>
       {renderItem}
     </List>
   );
@@ -212,7 +208,7 @@ const VirtualizedEditor: React.FC = () => {
 
 #### 3. 懒加载和代码分割
 
-```tsx
+```tsx | pure
 // 插件懒加载
 const KatexPlugin = lazy(() => import('../plugins/katex'));
 const MermaidPlugin = lazy(() => import('../plugins/mermaid'));
@@ -232,7 +228,7 @@ const Editor: React.FC = () => {
 
 #### 1. 清理事件监听器
 
-```tsx
+```tsx | pure
 const useEditorEvents = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -240,7 +236,7 @@ const useEditorEvents = () => {
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
@@ -250,7 +246,7 @@ const useEditorEvents = () => {
 
 #### 2. 避免内存泄漏
 
-```tsx
+```tsx | pure
 const useAsyncOperation = () => {
   const [data, setData] = useState(null);
   const abortControllerRef = useRef<AbortController>();
@@ -258,13 +254,13 @@ const useAsyncOperation = () => {
   const fetchData = async () => {
     // 取消之前的请求
     abortControllerRef.current?.abort();
-    
+
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
     try {
       const response = await fetch('/api/data', {
-        signal: controller.signal
+        signal: controller.signal,
       });
       const result = await response.json();
       setData(result);
@@ -299,29 +295,25 @@ Unit Tests (大量)
 
 ### 单元测试
 
-```tsx
+```tsx | pure
 // Editor.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MarkdownEditor } from '../MarkdownEditor';
 
 describe('MarkdownEditor', () => {
   it('should render with initial value', () => {
-    render(
-      <MarkdownEditor initValue="# Hello World" />
-    );
-    
+    render(<MarkdownEditor initValue="# Hello World" />);
+
     expect(screen.getByText('Hello World')).toBeInTheDocument();
   });
 
   it('should handle text input', () => {
     const onChange = jest.fn();
-    render(
-      <MarkdownEditor onChange={onChange} />
-    );
-    
+    render(<MarkdownEditor onChange={onChange} />);
+
     const editor = screen.getByRole('textbox');
     fireEvent.input(editor, { target: { value: '# Test' } });
-    
+
     expect(onChange).toHaveBeenCalledWith('# Test', expect.any(Array));
   });
 });
@@ -329,17 +321,12 @@ describe('MarkdownEditor', () => {
 
 ### 集成测试
 
-```tsx
+```tsx | pure
 // EditorIntegration.test.tsx
 describe('Editor Integration', () => {
   it('should work with plugins', async () => {
-    render(
-      <MarkdownEditor
-        initValue="$$E=mc^2$$"
-        plugins={[katexPlugin]}
-      />
-    );
-    
+    render(<MarkdownEditor initValue="$$E=mc^2$$" plugins={[katexPlugin]} />);
+
     await waitFor(() => {
       expect(screen.getByRole('math')).toBeInTheDocument();
     });
@@ -349,23 +336,23 @@ describe('Editor Integration', () => {
 
 ### E2E 测试
 
-```typescript
+```typescript | pure
 // e2e/editor.spec.ts
 import { test, expect } from '@playwright/test';
 
 test('complete editing workflow', async ({ page }) => {
   await page.goto('/');
-  
+
   // 输入内容
   await page.fill('[data-testid="editor"]', '# Hello World');
-  
+
   // 验证预览
   await expect(page.locator('h1')).toContainText('Hello World');
-  
+
   // 测试工具栏功能
   await page.click('[data-testid="bold-button"]');
   await page.type('[data-testid="editor"]', 'bold text');
-  
+
   await expect(page.locator('strong')).toContainText('bold text');
 });
 ```
@@ -376,14 +363,17 @@ test('complete editing workflow', async ({ page }) => {
 
 #### 1. React Developer Tools
 
-```tsx
+```tsx | pure
 // 在组件中添加调试信息
 const Editor: React.FC = () => {
   // React DevTools 中可以看到这个值
-  const debugInfo = useMemo(() => ({
-    nodeCount: editor.children.length,
-    selectionPath: editor.selection?.anchor.path
-  }), [editor]);
+  const debugInfo = useMemo(
+    () => ({
+      nodeCount: editor.children.length,
+      selectionPath: editor.selection?.anchor.path,
+    }),
+    [editor],
+  );
 
   return <div data-debug={JSON.stringify(debugInfo)}>...</div>;
 };
@@ -391,7 +381,7 @@ const Editor: React.FC = () => {
 
 #### 2. 性能分析
 
-```tsx
+```tsx | pure
 // 使用 React Profiler 分析性能
 import { Profiler } from 'react';
 
@@ -401,12 +391,12 @@ const onRenderCallback = (id, phase, actualDuration) => {
 
 <Profiler id="Editor" onRender={onRenderCallback}>
   <MarkdownEditor />
-</Profiler>
+</Profiler>;
 ```
 
 #### 3. 错误边界
 
-```tsx
+```tsx | pure
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -434,7 +424,7 @@ class ErrorBoundary extends React.Component {
 
 ### 日志系统
 
-```tsx
+```tsx | pure
 // utils/logger.ts
 export const logger = {
   debug: (message: string, data?: any) => {
@@ -442,18 +432,19 @@ export const logger = {
       console.log(`[DEBUG] ${message}`, data);
     }
   },
-  
+
   error: (message: string, error?: Error) => {
     console.error(`[ERROR] ${message}`, error);
     // 生产环境中发送到错误监控服务
   },
-  
+
   performance: (label: string, fn: () => void) => {
     const start = performance.now();
     fn();
+    faq;
     const end = performance.now();
     console.log(`[PERF] ${label}: ${end - start}ms`);
-  }
+  },
 };
 ```
 
@@ -464,6 +455,7 @@ export const logger = {
 #### Q: 启动项目时出现 "Cannot resolve module" 错误
 
 A: 检查以下几点：
+
 1. 确保已运行 `pnpm install`
 2. 删除 `node_modules` 和 `pnpm-lock.yaml`，重新安装
 3. 检查 Node.js 版本是否符合要求
@@ -477,6 +469,7 @@ pnpm install
 #### Q: TypeScript 类型错误
 
 A: 常见解决方案：
+
 1. 重启 TypeScript 服务：`Ctrl+Shift+P` → "TypeScript: Restart TS Server"
 2. 检查类型导入路径是否正确
 3. 确保所有依赖的类型包已安装
@@ -486,20 +479,19 @@ A: 常见解决方案：
 #### Q: 大文档编辑时出现卡顿
 
 A: 优化建议：
+
 1. 启用虚拟滚动
 2. 减少不必要的重新渲染
 3. 使用 `React.memo` 优化组件
 4. 考虑分页或懒加载
 
-```tsx
+```tsx | pure
 // 示例：优化大文档渲染
 const OptimizedEditor = React.memo(() => {
   const [visibleRange, setVisibleRange] = useState({ start: 0, end: 100 });
-  
+
   return (
-    <VirtualList
-      onVisibleRangeChange={setVisibleRange}
-    >
+    <VirtualList onVisibleRangeChange={setVisibleRange}>
       {/* 只渲染可见范围内的内容 */}
     </VirtualList>
   );
@@ -509,6 +501,7 @@ const OptimizedEditor = React.memo(() => {
 #### Q: 插件加载慢
 
 A: 优化策略：
+
 1. 使用动态导入 (`React.lazy`)
 2. 实现插件预加载机制
 3. 缓存插件资源
@@ -518,6 +511,7 @@ A: 优化策略：
 #### Q: 在某些浏览器中功能异常
 
 A: 检查清单：
+
 1. 浏览器版本支持情况
 2. Polyfill 是否正确加载
 3. CSS 兼容性问题
@@ -528,29 +522,33 @@ A: 检查清单：
 ### 贡献流程
 
 1. **Fork 项目**
+
    ```bash
    # 在 GitHub 上 Fork 项目，然后克隆你的 Fork
    git clone https://github.com/your-username/md-editor.git
    ```
 
 2. **创建分支**
+
    ```bash
    git checkout -b feature/your-feature
    ```
 
 3. **开发和测试**
+
    ```bash
    # 开发功能
    pnpm start
-   
+
    # 运行测试
    pnpm test
-   
+
    # 代码检查
    pnpm lint
    ```
 
 4. **提交代码**
+
    ```bash
    git add .
    git commit -m "feat: add your feature"

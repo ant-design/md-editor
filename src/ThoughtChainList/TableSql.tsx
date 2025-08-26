@@ -239,7 +239,11 @@ export const TableSql = (
                 <ActionIconBox
                   title={locale?.copy}
                   onClick={() => {
-                    copy(props.input?.sql || '');
+                    try {
+                      copy(props.input?.sql || '');
+                    } catch (error) {
+                      console.error('复制失败:', error);
+                    }
                   }}
                 >
                   <CopyOutlined />
@@ -337,9 +341,17 @@ export const TableSql = (
                   <ActionIconBox
                     title={locale?.copy}
                     onClick={() => {
-                      copy(
-                        JSON.stringify(props.output?.tableData || {}, null, 2),
-                      );
+                      try {
+                        copy(
+                          JSON.stringify(
+                            props.output?.tableData || {},
+                            null,
+                            2,
+                          ),
+                        );
+                      } catch (error) {
+                        console.error('复制失败:', error);
+                      }
                     }}
                   >
                     <CopyOutlined />
@@ -417,7 +429,11 @@ export const TableSql = (
                   <ActionIconBox
                     title={locale?.copy}
                     onClick={() => {
-                      copy(errorMsg);
+                      try {
+                        copy(errorMsg);
+                      } catch (error) {
+                        console.error('复制失败:', error);
+                      }
                     }}
                   >
                     <CopyOutlined />

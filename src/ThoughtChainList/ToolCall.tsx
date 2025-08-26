@@ -265,7 +265,13 @@ export const ToolCall = (
                 <ActionIconBox
                   title={locale?.copy}
                   onClick={() => {
-                    copy(JSON.stringify(props.input?.inputArgs || {}, null, 2));
+                    try {
+                      copy(
+                        JSON.stringify(props.input?.inputArgs || {}, null, 2),
+                      );
+                    } catch (error) {
+                      console.error('复制失败:', error);
+                    }
                   }}
                 >
                   <CopyOutlined />
@@ -368,9 +374,13 @@ export const ToolCall = (
                   <ActionIconBox
                     title={locale?.copy}
                     onClick={() => {
-                      copy(
-                        JSON.stringify(props.output?.response || {}, null, 2),
-                      );
+                      try {
+                        copy(
+                          JSON.stringify(props.output?.response || {}, null, 2),
+                        );
+                      } catch (error) {
+                        console.error('复制失败:', error);
+                      }
                     }}
                   >
                     <CopyOutlined />
@@ -452,7 +462,11 @@ export const ToolCall = (
                   <ActionIconBox
                     title={locale?.copy}
                     onClick={() => {
-                      copy(errorMsg);
+                      try {
+                        copy(errorMsg);
+                      } catch (error) {
+                        console.error('复制失败:', error);
+                      }
                     }}
                   >
                     <CopyOutlined />

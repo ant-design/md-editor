@@ -163,7 +163,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
   const high = useHighlight(store);
 
   // 使用优化的粘贴处理
-  const { debouncedPaste, optimizedInsertText, cleanup } = useOptimizedPaste({
+  const { optimizedInsertText, cleanup } = useOptimizedPaste({
     onPasteStart: () => {
       // 可以在这里显示粘贴开始的状态
     },
@@ -397,84 +397,95 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       event: React.ClipboardEvent<HTMLDivElement>,
       operationType: 'copy' | 'cut',
     ): boolean => {
-      // 1. 如果事件已被处理，则直接返回
-      if (isEventHandled(event)) {
-        return false;
-      }
-
-      // 2. 检查目标元素是否可编辑，如果不可编辑，则从DOM选区中获取编辑器选区
-      if (
-        operationType === 'copy' &&
-        !hasEditableTarget(markdownEditorRef.current, event.target)
-      ) {
-        const domSelection = window.getSelection();
-        markdownEditorRef.current.selection = getSelectionFromDomSelection(
-          markdownEditorRef.current,
-          domSelection!,
-        );
-      } else if (operationType === 'cut') {
-        const domSelection = window.getSelection();
-        markdownEditorRef.current.selection = getSelectionFromDomSelection(
-          markdownEditorRef.current,
-          domSelection!,
-        );
-      }
-
-      // 如果无法获取选区，则直接返回
-      if (!markdownEditorRef.current.selection) {
-        return false;
-      }
-
-      // 3. 处理复制/剪切选中内容
-      if (markdownEditorRef.current?.selection) {
-        event.clipboardData?.clearData();
-        const editor = markdownEditorRef.current;
-        // 复制HTML内容
-        const tempDiv = document.createElement('div');
-        const domRange = ReactEditor.toDOMRange(
-          editor,
-          editor.selection as Range,
-        );
-        const selectedHtml = domRange.cloneContents();
-        tempDiv.appendChild(selectedHtml);
-        event.clipboardData.setData('text/html', tempDiv.innerHTML);
-        tempDiv?.remove();
-
-        // 设置Slate编辑器特定的片段数据，用于保留格式信息
-        event.clipboardData.setData(
-          'application/x-slate-md-fragment',
-          JSON.stringify(editor?.getFragment() || []),
-        );
-        event.clipboardData.setData(
-          'text/plain',
-          parserSlateNodeToMarkdown(editor?.getFragment()),
-        );
-        event.clipboardData.setData(
-          'text/markdown',
-          parserSlateNodeToMarkdown(editor?.getFragment()),
-        );
-
-        // 4. 设置剪贴板的片段数据
-        ReactEditor.setFragmentData(
-          markdownEditorRef.current,
-          event.clipboardData,
-          operationType,
-        );
-
-        // 5. 如果是剪切操作，删除选中内容
-        if (operationType === 'cut') {
-          Transforms.delete(markdownEditorRef.current, {
-            at: markdownEditorRef.current.selection!,
-          });
+      try {
+        // 1. 如果事件已被处理，则直接返回
+        if (isEventHandled(event)) {
+          return false;
         }
 
-        // 阻止默认行为和事件冒泡
-        event.preventDefault();
+        // 2. 检查目标元素是否可编辑，如果不可编辑，则从DOM选区中获取编辑器选区
+        if (
+          operationType === 'copy' &&
+          !hasEditableTarget(markdownEditorRef.current, event.target)
+        ) {
+          const domSelection = window.getSelection();
+          markdownEditorRef.current.selection = getSelectionFromDomSelection(
+            markdownEditorRef.current,
+            domSelection!,
+          );
+        } else if (operationType === 'cut') {
+          const domSelection = window.getSelection();
+          markdownEditorRef.current.selection = getSelectionFromDomSelection(
+            markdownEditorRef.current,
+            domSelection!,
+          );
+        }
 
-        return true;
+        // 如果无法获取选区，则直接返回
+        if (!markdownEditorRef.current.selection) {
+          return false;
+        }
+
+        // 3. 处理复制/剪切选中内容
+        if (markdownEditorRef.current?.selection) {
+          event.clipboardData?.clearData();
+          const editor = markdownEditorRef.current;
+
+          try {
+            // 复制HTML内容
+            const tempDiv = document.createElement('div');
+            const domRange = ReactEditor.toDOMRange(
+              editor,
+              editor.selection as Range,
+            );
+            const selectedHtml = domRange.cloneContents();
+            tempDiv.appendChild(selectedHtml);
+            event.clipboardData.setData('text/html', tempDiv.innerHTML);
+            tempDiv?.remove();
+
+            // 设置Slate编辑器特定的片段数据，用于保留格式信息
+            event.clipboardData.setData(
+              'application/x-slate-md-fragment',
+              JSON.stringify(editor?.getFragment() || []),
+            );
+            event.clipboardData.setData(
+              'text/plain',
+              parserSlateNodeToMarkdown(editor?.getFragment()),
+            );
+            event.clipboardData.setData(
+              'text/markdown',
+              parserSlateNodeToMarkdown(editor?.getFragment()),
+            );
+
+            // 4. 设置剪贴板的片段数据
+            ReactEditor.setFragmentData(
+              markdownEditorRef.current,
+              event.clipboardData,
+              operationType,
+            );
+
+            // 5. 如果是剪切操作，删除选中内容
+            if (operationType === 'cut') {
+              Transforms.delete(markdownEditorRef.current, {
+                at: markdownEditorRef.current.selection!,
+              });
+            }
+
+            // 阻止默认行为和事件冒泡
+            event.preventDefault();
+
+            return true;
+          } catch (innerError) {
+            console.error('Error during clipboard operation:', innerError);
+            return false;
+          }
+        }
+
+        return false;
+      } catch (error) {
+        console.error('Clipboard copy/cut operation failed:', error);
+        return false;
       }
-
-      return false;
     },
   );
 
@@ -535,10 +546,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
    * @param {React.ClipboardEvent<HTMLDivElement>} e
    */
   const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
-    // 使用防抖的粘贴处理
-    debouncedPaste(async () => {
-      await handlePasteEvent(event);
-    });
+    await handlePasteEvent(event);
   };
 
   /**

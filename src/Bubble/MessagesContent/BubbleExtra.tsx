@@ -404,7 +404,12 @@ export const BubbleExtra = ({
             color: 'var(--color-icon-secondary)',
           }}
           onClick={() => {
-            copy(bubble.originData?.content || '');
+            try {
+              copy(bubble.originData?.content || '');
+            } catch (error) {
+              // 复制失败时静默处理
+              console.error('复制失败:', error);
+            }
           }}
           showTitle={false}
         >
@@ -526,7 +531,35 @@ export const BubbleExtra = ({
     props.onRenderExtraNull?.(!dom && !reSend);
   }, [dom]);
 
-  if (!dom && !reSend) return null;
+  // 检查是否有任何内容需要渲染
+  const hasLeftContent = (typing && originalData.content !== '...') || reSend;
+  const hasRightContent = originalData?.isAborted
+    ? copyDom
+    : props.rightRender === false
+      ? false
+      : (() => {
+          const rightContent = props.rightRender?.(
+            {
+              ...props,
+              bubble,
+              onReply,
+              onRenderExtraNull: props.onRenderExtraNull,
+              slidesModeProps: props.slidesModeProps,
+            },
+            {
+              like,
+              disLike,
+              copy: copyDom,
+              reply: reSend,
+            },
+          );
+          return rightContent !== null && rightContent !== undefined
+            ? rightContent
+            : dom;
+        })();
+
+  // 如果没有任何内容，直接返回 null
+  if (!hasLeftContent && !hasRightContent) return null;
 
   if (!copyDom && originalData?.isAborted && !reSend) {
     return null;
@@ -574,21 +607,26 @@ export const BubbleExtra = ({
         ? copyDom
         : props.rightRender === false
           ? null
-          : props.rightRender?.(
-              {
-                ...props,
-                bubble,
-                onReply,
-                onRenderExtraNull: props.onRenderExtraNull,
-                slidesModeProps: props.slidesModeProps,
-              },
-              {
-                like,
-                disLike,
-                copy: copyDom,
-                reply: reSend,
-              },
-            ) || dom}
+          : (() => {
+              const rightContent = props.rightRender?.(
+                {
+                  ...props,
+                  bubble,
+                  onReply,
+                  onRenderExtraNull: props.onRenderExtraNull,
+                  slidesModeProps: props.slidesModeProps,
+                },
+                {
+                  like,
+                  disLike,
+                  copy: copyDom,
+                  reply: reSend,
+                },
+              );
+              return rightContent !== null && rightContent !== undefined
+                ? rightContent
+                : dom;
+            })()}
     </div>
   );
 };

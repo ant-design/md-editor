@@ -1,6 +1,7 @@
 import { CopyOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
+import copy from 'copy-to-clipboard';
 import React, {
   useCallback,
   useContext,
@@ -59,73 +60,33 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
 
     // 缓存复制处理函数
     const handleCopy = useCallback(() => {
-      if (location.protocol !== 'https:') {
-        document.execCommand(
-          'copy',
-          false,
-          parserSlateNodeToMarkdown([element]),
-        );
-        return;
-      }
-
-      const clipboardItems: ClipboardItems = [];
-      navigator?.clipboard.write([
-        new ClipboardItem({
-          'application/x-slate-md-fragment': new Blob(
-            [JSON.stringify(element)],
-            { type: 'application/x-slate-md-fragment' },
-          ),
-        }),
-      ]);
-
-      if (actions.copy === 'html') {
-        clipboardItems.push(
-          new ClipboardItem({
-            'text/plain': new Blob([tableTargetRef.current?.innerHTML || ''], {
-              type: 'text/plain',
-            }),
-          }),
-        );
-      }
-
-      if (actions.copy === 'md') {
-        clipboardItems.push(
-          new ClipboardItem({
-            'text/plain': new Blob([parserSlateNodeToMarkdown([element])], {
-              type: 'text/plain',
-            }),
-          }),
-        );
-      }
-
-      if (actions.copy === 'csv') {
-        const otherProps = element?.otherProps as any;
-        if (otherProps?.columns && otherProps?.dataSource) {
-          clipboardItems.push(
-            new ClipboardItem({
-              'text/plain': new Blob(
-                [
-                  otherProps.columns
-                    .map((col: Record<string, any>) => col.title)
-                    .join(',') +
-                    '\n' +
-                    otherProps.dataSource
-                      .map((row: Record<string, any>) =>
-                        Object.values(row).join(','),
-                      )
-                      .join('\n'),
-                ],
-                { type: 'text/plain' },
-              ),
-            }),
-          );
-        }
-      }
-
       try {
-        navigator?.clipboard.write(clipboardItems);
+        let contentToCopy = '';
+
+        // 根据复制类型确定要复制的内容
+        if (actions.copy === 'html') {
+          contentToCopy = tableTargetRef.current?.innerHTML || '';
+        } else if (actions.copy === 'csv') {
+          const otherProps = element?.otherProps as any;
+          if (otherProps?.columns && otherProps?.dataSource) {
+            contentToCopy =
+              otherProps.columns
+                .map((col: Record<string, any>) => col.title)
+                .join(',') +
+              '\n' +
+              otherProps.dataSource
+                .map((row: Record<string, any>) => Object.values(row).join(','))
+                .join('\n');
+          }
+        } else {
+          // 默认复制 Markdown 格式
+          contentToCopy = parserSlateNodeToMarkdown([element]);
+        }
+
+        // 使用 copy-to-clipboard 库进行复制
+        copy(contentToCopy);
       } catch (error) {
-        console.warn('Failed to copy to clipboard:', error);
+        console.error('Copy failed:', error);
       }
     }, [element, actions.copy]);
 

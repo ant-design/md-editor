@@ -25,6 +25,7 @@ nav:
 **A:** 检查以下几个方面：
 
 1. **确认安装状态**
+
    ```bash
    npm list @ant-design/md-editor
    # 或
@@ -32,11 +33,12 @@ nav:
    ```
 
 2. **重新安装依赖**
+
    ```bash
    # 清理 node_modules
    rm -rf node_modules package-lock.json
    npm install
-   
+
    # 或使用 pnpm
    rm -rf node_modules pnpm-lock.yaml
    pnpm install
@@ -52,11 +54,13 @@ nav:
 **A:** 确保正确配置 TypeScript：
 
 1. **安装类型依赖**
+
    ```bash
    npm install --save-dev @types/react @types/react-dom
    ```
 
 2. **配置 tsconfig.json**
+
    ```json
    {
      "compilerOptions": {
@@ -70,10 +74,11 @@ nav:
    ```
 
 3. **使用正确的导入语法**
-   ```tsx
+
+   ```tsx | pure
    // ✅ 正确
    import { MarkdownEditor } from '@ant-design/md-editor';
-   
+
    // ❌ 错误
    import MarkdownEditor from '@ant-design/md-editor';
    ```
@@ -82,7 +87,7 @@ nav:
 
 **A:** 配置 Webpack 正确处理 md-editor：
 
-```javascript
+```tsx | pure
 // webpack.config.js
 module.exports = {
   resolve: {
@@ -110,14 +115,16 @@ module.exports = {
 **A:** 检查以下配置：
 
 1. **确保容器有固定高度**
-   ```tsx
-   <MarkdownEditor 
-     height="400px"  // 必须设置高度
+
+   ```tsx | pure
+   <MarkdownEditor
+     height="400px" // 必须设置高度
      width="100%"
    />
    ```
 
 2. **检查 CSS 样式冲突**
+
    ```css
    /* 确保编辑器容器可见 */
    .markdown-editor-container {
@@ -127,7 +134,7 @@ module.exports = {
    ```
 
 3. **检查控制台错误**
-   ```javascript
+   ```tsx | pure
    // 添加错误边界
    <ErrorBoundary fallback={<div>编辑器加载失败</div>}>
      <MarkdownEditor />
@@ -138,18 +145,18 @@ module.exports = {
 
 **A:** 确保正确配置图片上传：
 
-```tsx
+```tsx | pure
 const handleImageUpload = async (files: File[]) => {
   try {
     // 实现上传逻辑
     const formData = new FormData();
-    files.forEach(file => formData.append('images', file));
-    
+    files.forEach((file) => formData.append('images', file));
+
     const response = await fetch('/api/upload', {
       method: 'POST',
       body: formData,
     });
-    
+
     const data = await response.json();
     return data.urls; // 返回图片 URL 数组
   } catch (error) {
@@ -160,16 +167,16 @@ const handleImageUpload = async (files: File[]) => {
 
 <MarkdownEditor
   image={{
-    upload: handleImageUpload
+    upload: handleImageUpload,
   }}
-/>
+/>;
 ```
 
 ### Q: 粘贴内容格式不正确
 
 **A:** 自定义粘贴处理：
 
-```tsx
+````tsx | pure
 const customPastePlugin = {
   onPaste: (text: string, html?: string) => {
     // 处理特殊格式
@@ -177,45 +184,52 @@ const customPastePlugin = {
       // 处理表格粘贴
       return handleTablePaste(html);
     }
-    
+
     if (text.includes('```')) {
       // 处理代码块粘贴
       return handleCodePaste(text);
     }
-    
+
     return false; // 使用默认处理
-  }
+  },
 };
 
-<MarkdownEditor plugins={[customPastePlugin]} />
-```
+<MarkdownEditor plugins={[customPastePlugin]} />;
+````
 
 ### Q: 数学公式不显示
 
 **A:** 确保 KaTeX 配置正确：
 
 1. **检查公式语法**
+
    ```markdown
    // ✅ 正确的行内公式
    这是行内公式 $E=mc^2$ 示例
-   
+
    // ✅ 正确的块级公式
+
    $$
    \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
    $$
-   
+
    // ❌ 错误的语法
-   $E=mc^2  // 缺少结束符
+   $E=mc^2 // 缺少结束符
    ```
 
 2. **检查 KaTeX 插件**
-   ```tsx
+
+   ```tsx | pure
    import { MarkdownEditor } from '@ant-design/md-editor';
-   
+
    // 确保启用 KaTeX 插件
-   <MarkdownEditor 
-     plugins={[/* 包含 KaTeX 插件 */]}
-   />
+   <MarkdownEditor
+     plugins={
+       [
+         /* 包含 KaTeX 插件 */
+       ]
+     }
+   />;
    ```
 
 ## ⚡ 性能和优化问题
@@ -225,30 +239,34 @@ const customPastePlugin = {
 **A:** 实施性能优化策略：
 
 1. **启用虚拟滚动**
-   ```tsx
-   <MarkdownEditor
-     virtualScrolling={true}
-     maxVisibleLines={100}
-   />
+
+   ```tsx | pure
+   <MarkdownEditor virtualScrolling={true} maxVisibleLines={100} />
    ```
 
 2. **使用 React.memo 优化组件**
-   ```tsx
-   const OptimizedEditor = React.memo(MarkdownEditor, (prevProps, nextProps) => {
-     return prevProps.initValue === nextProps.initValue;
-   });
+
+   ```tsx | pure
+   const OptimizedEditor = React.memo(
+     MarkdownEditor,
+     (prevProps, nextProps) => {
+       return prevProps.initValue === nextProps.initValue;
+     },
+   );
    ```
 
 3. **防抖输入处理**
-   ```tsx
+
+   ```tsx | pure
    const debouncedOnChange = useMemo(
-     () => debounce((value: string) => {
-       console.log('内容变化:', value);
-     }, 300),
-     []
+     () =>
+       debounce((value: string) => {
+         console.log('内容变化:', value);
+       }, 300),
+     [],
    );
-   
-   <MarkdownEditor onChange={debouncedOnChange} />
+
+   <MarkdownEditor onChange={debouncedOnChange} />;
    ```
 
 ### Q: 内存使用过高
@@ -256,14 +274,15 @@ const customPastePlugin = {
 **A:** 优化内存使用：
 
 1. **清理事件监听器**
-   ```tsx
+
+   ```tsx | pure
    useEffect(() => {
      const handleKeydown = (e: KeyboardEvent) => {
        // 处理快捷键
      };
-     
+
      document.addEventListener('keydown', handleKeydown);
-     
+
      return () => {
        document.removeEventListener('keydown', handleKeydown);
      };
@@ -271,16 +290,17 @@ const customPastePlugin = {
    ```
 
 2. **避免内存泄漏**
-   ```tsx
+
+   ```tsx | pure
    const useAsyncData = () => {
      const abortControllerRef = useRef<AbortController>();
-     
+
      useEffect(() => {
        return () => {
          abortControllerRef.current?.abort();
        };
      }, []);
-     
+
      // ... 使用 AbortController
    };
    ```
@@ -291,7 +311,7 @@ const customPastePlugin = {
 
 **A:** 正确配置主题：
 
-```tsx
+```tsx | pure
 import { ConfigProvider } from 'antd';
 import { MarkdownEditor } from '@ant-design/md-editor';
 
@@ -304,7 +324,7 @@ const customTheme = {
 
 <ConfigProvider theme={customTheme}>
   <MarkdownEditor />
-</ConfigProvider>
+</ConfigProvider>;
 ```
 
 ### Q: CSS 样式冲突
@@ -312,6 +332,7 @@ const customTheme = {
 **A:** 解决样式冲突：
 
 1. **使用 CSS Modules**
+
    ```css
    /* editor.module.css */
    .editorContainer {
@@ -320,6 +341,7 @@ const customTheme = {
    ```
 
 2. **提高选择器优先级**
+
    ```css
    /* 使用更具体的选择器 */
    .my-app .markdown-editor .editor-content {
@@ -328,7 +350,7 @@ const customTheme = {
    ```
 
 3. **使用 CSS-in-JS**
-   ```tsx
+   ```tsx | pure
    const useStyles = createStyles(({ token }) => ({
      editor: {
        backgroundColor: token.colorBgContainer,
@@ -343,7 +365,7 @@ const customTheme = {
 
 **A:** 配置暗色主题：
 
-```tsx
+```tsx | pure
 import { ConfigProvider, theme } from 'antd';
 
 <ConfigProvider
@@ -352,7 +374,7 @@ import { ConfigProvider, theme } from 'antd';
   }}
 >
   <MarkdownEditor />
-</ConfigProvider>
+</ConfigProvider>;
 ```
 
 ## 🔌 插件相关问题
@@ -362,23 +384,26 @@ import { ConfigProvider, theme } from 'antd';
 **A:** 检查插件配置：
 
 1. **确保插件格式正确**
-   ```tsx
+
+   ```tsx | pure
    const myPlugin: MarkdownEditorPlugin = {
-     parseMarkdown: [{
-       match: (node) => node.type === 'custom',
-       convert: (node) => ({ type: 'custom-element', children: [] })
-     }],
+     parseMarkdown: [
+       {
+         match: (node) => node.type === 'custom',
+         convert: (node) => ({ type: 'custom-element', children: [] }),
+       },
+     ],
      elements: {
        'custom-element': ({ children, attributes }) => (
          <div {...attributes}>{children}</div>
-       )
-     }
+       ),
+     },
    };
    ```
 
 2. **正确传递插件**
-   ```tsx
-   <MarkdownEditor 
+   ```tsx | pure
+   <MarkdownEditor
      plugins={[myPlugin]} // 确保传递为数组
    />
    ```
@@ -388,15 +413,14 @@ import { ConfigProvider, theme } from 'antd';
 **A:** 解决插件冲突：
 
 1. **调整插件顺序**
-   ```tsx
+
+   ```tsx | pure
    // 后面的插件优先级更高
-   <MarkdownEditor 
-     plugins={[basePlugin, conflictingPlugin]} 
-   />
+   <MarkdownEditor plugins={[basePlugin, conflictingPlugin]} />
    ```
 
 2. **使用条件插件**
-   ```tsx
+   ```tsx | pure
    const conditionalPlugins = useMemo(() => {
      const plugins = [basePlugin];
      if (enableAdvanced) {
@@ -413,30 +437,36 @@ import { ConfigProvider, theme } from 'antd';
 **A:** 解决类型问题：
 
 1. **使用正确的类型导入**
-   ```tsx
-   import type { 
+
+   ```tsx | pure
+   import type {
      MarkdownEditorProps,
      MarkdownEditorInstance,
-     Elements
+     Elements,
    } from '@ant-design/md-editor';
    ```
 
 2. **扩展类型定义**
-   ```tsx
+
+   ```tsx | pure
    // 扩展插件类型
    interface CustomElementProps extends ElementProps {
      customProp?: string;
    }
-   
-   const CustomElement: React.FC<CustomElementProps> = ({ customProp, ...props }) => {
+
+   const CustomElement: React.FC<CustomElementProps> = ({
+     customProp,
+     ...props
+   }) => {
      // 组件实现
    };
    ```
 
 3. **类型断言（谨慎使用）**
-   ```tsx
+
+   ```tsx | pure
    const editorRef = useRef<MarkdownEditorInstance>(null);
-   
+
    const handleSave = () => {
      const content = editorRef.current?.getValue() as string;
    };
@@ -449,13 +479,15 @@ import { ConfigProvider, theme } from 'antd';
 **A:** 解决构建问题：
 
 1. **检查依赖版本兼容性**
+
    ```bash
    npm outdated
    npm audit
    ```
 
 2. **配置 Babel**
-   ```javascript
+
+   ```tsx | pure
    // .babelrc
    {
      "presets": [
@@ -467,7 +499,7 @@ import { ConfigProvider, theme } from 'antd';
    ```
 
 3. **优化 bundle 大小**
-   ```javascript
+   ```tsx | pure
    // webpack.config.js
    module.exports = {
      optimization: {
@@ -483,19 +515,21 @@ import { ConfigProvider, theme } from 'antd';
 **A:** 检查部署环境：
 
 1. **检查静态资源路径**
-   ```javascript
+
+   ```tsx | pure
    // 确保资源路径正确
-   publicPath: process.env.NODE_ENV === 'production' ? '/your-app/' : '/'
+   publicPath: process.env.NODE_ENV === 'production' ? '/your-app/' : '/';
    ```
 
 2. **检查环境变量**
+
    ```bash
    # 设置正确的环境变量
    NODE_ENV=production
    ```
 
 3. **检查浏览器兼容性**
-   ```javascript
+   ```tsx | pure
    // 添加必要的 polyfill
    import 'core-js/stable';
    import 'regenerator-runtime/runtime';
@@ -505,9 +539,9 @@ import { ConfigProvider, theme } from 'antd';
 
 ### 启用调试模式
 
-```tsx
+```tsx | pure
 // 开发环境启用详细日志
-<MarkdownEditor 
+<MarkdownEditor
   debug={process.env.NODE_ENV === 'development'}
   onError={(error) => console.error('编辑器错误:', error)}
 />
@@ -524,7 +558,7 @@ import { ConfigProvider, theme } from 'antd';
    - 识别性能瓶颈
 
 3. **Console 调试**
-   ```javascript
+   ```tsx | pure
    // 在控制台中访问编辑器实例
    window.editorInstance = editorRef.current;
    ```
