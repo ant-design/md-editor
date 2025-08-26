@@ -7,6 +7,7 @@ import {
 import { Alert, ConfigProvider, Image, Spin, Typography } from 'antd';
 
 import React, { type FC, useContext, useRef, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
@@ -241,7 +242,7 @@ const FileItemComponent: FC<{
       }
       onClick={handleClick}
       className={`${prefixCls}-item ${hashId}`}
-      ariaLabel={`文件：${fileWithId.name}`}
+      ariaLabel={`${locale?.['workspace.file'] || '文件'}：${fileWithId.name}`}
     />
   );
 };
@@ -260,6 +261,7 @@ const GroupHeader: FC<{
   prefixCls = 'workspace-file',
   hashId,
 }) => {
+  const { locale } = useContext(I18nContext);
   const groupTypeInfo = fileTypeProcessor.inferFileType(group);
   const groupType = group.type || groupTypeInfo.fileType;
 
@@ -308,14 +310,14 @@ const GroupHeader: FC<{
               icon={<DownloadOutlined />}
               onClick={handleDownload}
               className={`${prefixCls}-group-download-icon ${hashId}`}
-              ariaLabel={`下载${group.name}文件`}
+              ariaLabel={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
             />
           </div>
         </>
       }
       onClick={handleToggle}
       className={`${prefixCls}-group-header ${hashId}`}
-      ariaLabel={`${group.collapsed ? '展开' : '收起'}${group.name}分组`}
+      ariaLabel={`${group.collapsed ? locale?.['workspace.expand'] || '展开' : locale?.['workspace.collapse'] || '收起'}${group.name}${locale?.['workspace.group'] || '分组'}`}
     />
   );
 };
@@ -457,6 +459,7 @@ export const FileComponent: FC<{
 
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const { locale } = useContext(I18nContext);
   const prefixCls = getPrefixCls('workspace-file');
 
   const { wrapSSR, hashId } = useFileStyle(prefixCls);
@@ -505,7 +508,10 @@ export const FileComponent: FC<{
       setPreviewFile(file);
       setCustomPreviewContent(
         <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
-          <Spin size="large" tip="正在加载预览..." />
+          <Spin
+            size="large"
+            tip={locale?.['workspace.loadingPreview'] || '正在加载预览...'}
+          />
         </div>,
       );
 
@@ -559,9 +565,14 @@ export const FileComponent: FC<{
           <div style={{ padding: 24 }}>
             <Alert
               type="error"
-              message="预览加载失败"
+              message={
+                locale?.['workspace.previewLoadFailed'] || '预览加载失败'
+              }
               description={
-                err instanceof Error ? err.message : '获取预览内容时发生错误'
+                err instanceof Error
+                  ? err.message
+                  : locale?.['workspace.previewError'] ||
+                    '获取预览内容时发生错误'
               }
               showIcon
             />

@@ -188,6 +188,68 @@ export const cnLabels = {
   'workspace.file.downloadFile': '下载文件',
   // MarkdownInputField 组件相关
   'markdownInput.fileSizeExceeded': '文件大小超过 ${maxSize} KB',
+  // 文档信息相关
+  'docInfo.name': '名称',
+  'docInfo.updateTime': '更新时间',
+  'docInfo.type': '类型',
+  'docInfo.content': '内容',
+  'docInfo.referenceContent': '引用内容',
+  'docInfo.items': '项',
+  'docInfo.expand': '展开',
+  'docInfo.collapse': '收起',
+  // 幻灯片模式相关
+  'slides.closeSlidesMode': '关闭幻灯片模式',
+  // 任务相关
+  'task.default': '任务',
+  // 错误信息相关
+  'error.unexpected': '出现点意外情况，请重新发送',
+  // 聊天相关
+  'chat.message.aborted': '回答已停止生成',
+  'chat.message.retrySend': '重新生成',
+  'chat.message.copy': '复制',
+  'chat.message.like': '喜欢',
+  'chat.message.cancel-like': '取消点赞',
+  'chat.message.feedback-success': '已经反馈过了哦',
+  'chat.message.dislike': '不喜欢',
+  'chat.message.exception': '消息发送失败,请稍后重试',
+  'chat.message.error': '消息发送失败,请稍后重试',
+  'chat.message.error.retry': '重试',
+  'chat.message.timeout': '消息发送超时,请稍后重试',
+  'chat.message.copy.success': '复制成功',
+  'chat.message.copy.error': '复制失败',
+  'chat.inputArea.placeholder': '请输入问题',
+  'chat.inputArea.max_input_length': '输入内容过长，请控制在1000字以内',
+  'chat.list.helloMessage': '您好，我是您的专属客服，有什么可以帮助您的吗？',
+  'chat.newsession.popconfirm': '您确定要结束当前会话吗？',
+  'chat.newsession': '新建会话',
+  'chat.close': '关闭',
+  'chat.helloMessage.pre_hello_text': '您好，我是',
+  // HtmlPreview 组件相关
+  'htmlPreview.preview': '预览',
+  'htmlPreview.code': '代码',
+  'htmlPreview.renderFailed': '页面渲染失败',
+  // Workspace 组件相关
+  'workspace.realtimeFollow': '实时跟随',
+  'workspace.browser': '浏览器',
+  'workspace.task': '任务',
+  'workspace.file': '文件',
+  'workspace.custom': '自定义',
+  'workspace.terminalExecution': '终端执行',
+  'workspace.createHtmlFile': '创建 HTML 文件',
+  'workspace.markdownContent': 'Markdown 内容',
+  'workspace.closeWorkspace': '关闭工作空间',
+  'workspace.expand': '展开',
+  'workspace.collapse': '收起',
+  'workspace.group': '分组',
+  'workspace.loadingPreview': '正在加载预览...',
+  'workspace.previewLoadFailed': '预览加载失败',
+  'workspace.previewError': '获取预览内容时发生错误',
+  'workspace.processingFile': '正在处理文件...',
+  'workspace.fileProcessFailed': '文件处理失败',
+  'workspace.loadingFileContent': '正在加载文件内容...',
+  'workspace.textContentLoadFailed': '加载文本内容失败',
+  'workspace.fileProcessError': '文件处理失败',
+  'workspace.download': '下载',
 };
 
 // 英文 key-label 映射
@@ -372,6 +434,72 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.downloadFile': 'Download File',
   // MarkdownInputField component related
   'markdownInput.fileSizeExceeded': 'File size exceeds ${maxSize} KB',
+  // Document info related
+  'docInfo.name': 'Name',
+  'docInfo.updateTime': 'Update Time',
+  'docInfo.type': 'Type',
+  'docInfo.content': 'Content',
+  'docInfo.referenceContent': 'Reference Content',
+  'docInfo.items': 'items',
+  'docInfo.expand': 'Expand',
+  'docInfo.collapse': 'Collapse',
+  // Slides mode related
+  'slides.closeSlidesMode': 'Close Slides Mode',
+  // Task related
+  'task.default': 'Task',
+  // Error messages related
+  'error.unexpected': 'Something unexpected happened, please resend',
+  // Chat related
+  'chat.message.aborted': 'Answer has stopped being generated',
+  'chat.message.retrySend': 'Re-generate',
+  'chat.message.copy': 'Copy',
+  'chat.message.like': 'Like',
+  'chat.message.cancel-like': 'Cancel Like',
+  'chat.message.feedback-success': 'Feedback has been received',
+  'chat.message.dislike': 'Dislike',
+  'chat.message.exception': 'Message delivery failed, please try again later',
+  'chat.message.error': 'Message delivery failed, please try again later',
+  'chat.message.error.retry': 'Retry',
+  'chat.message.timeout': 'Message delivery timeout, please try again later',
+  'chat.message.copy.success': 'Copy successful',
+  'chat.message.copy.error': 'Copy failed',
+  'chat.inputArea.placeholder':
+    'Please enter a question or "/" to get the template',
+  'chat.inputArea.max_input_length':
+    'Input content is too long, please keep it under 1000 characters',
+  'chat.list.helloMessage':
+    'Hello, I am your dedicated customer service, how can I help you?',
+  'chat.newsession.popconfirm':
+    'Are you sure you want to end the current session?',
+  'chat.newsession': 'New session',
+  'chat.close': 'Close',
+  'chat.helloMessage.pre_hello_text': 'Hello, I am',
+  // HtmlPreview 组件相关
+  'htmlPreview.preview': 'Preview',
+  'htmlPreview.code': 'Code',
+  'htmlPreview.renderFailed': 'Page rendering failed',
+  // Workspace 组件相关
+  'workspace.realtimeFollow': 'Real-time follow',
+  'workspace.browser': 'Browser',
+  'workspace.task': 'Task',
+  'workspace.file': 'File',
+  'workspace.custom': 'Custom',
+  'workspace.terminalExecution': 'Terminal execution',
+  'workspace.createHtmlFile': 'Create HTML file',
+  'workspace.markdownContent': 'Markdown content',
+  'workspace.closeWorkspace': 'Close workspace',
+  'workspace.expand': 'Expand',
+  'workspace.collapse': 'Collapse',
+  'workspace.group': 'Group',
+  'workspace.loadingPreview': 'Loading preview...',
+  'workspace.previewLoadFailed': 'Preview loading failed',
+  'workspace.previewError': 'Error getting preview content',
+  'workspace.processingFile': 'Processing file...',
+  'workspace.fileProcessFailed': 'File processing failed',
+  'workspace.loadingFileContent': 'Loading file content...',
+  'workspace.textContentLoadFailed': 'Failed to load text content',
+  'workspace.fileProcessError': 'File processing failed',
+  'workspace.download': 'Download',
 };
 
 export type LocalKeys = typeof cnLabels;

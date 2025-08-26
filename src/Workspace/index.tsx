@@ -8,6 +8,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { I18nContext } from '../i18n';
 import { BrowserList } from './Browser';
 import { File } from './File';
 import BrowserIcon from './icons/BrowserIcon';
@@ -39,33 +40,33 @@ enum ComponentType {
 }
 
 // 默认配置映射
-const DEFAULT_CONFIG = {
+const DEFAULT_CONFIG = (locale: any) => ({
   [ComponentType.REALTIME]: {
     key: ComponentType.REALTIME,
     icon: <RealtimeIcon />,
-    title: '实时跟随',
+    title: locale?.['workspace.realtimeFollow'] || '实时跟随',
   },
   [ComponentType.BROWSER]: {
     key: ComponentType.BROWSER,
     icon: <BrowserIcon />,
-    title: '浏览器',
+    title: locale?.['workspace.browser'] || '浏览器',
   },
   [ComponentType.TASK]: {
     key: ComponentType.TASK,
     icon: <TaskIcon />,
-    title: '任务',
+    title: locale?.['workspace.task'] || '任务',
   },
   [ComponentType.FILE]: {
     key: ComponentType.FILE,
     icon: <FileIcon />,
-    title: '文件',
+    title: locale?.['workspace.file'] || '文件',
   },
   [ComponentType.CUSTOM]: {
     key: 'custom',
     icon: null,
-    title: '自定义',
+    title: locale?.['workspace.custom'] || '自定义',
   },
-} as const;
+});
 
 // 解析标签配置的工具函数
 const resolveTabConfig = (
@@ -157,12 +158,14 @@ const Workspace: FC<WorkspaceProps> & {
 }) => {
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const { locale } = useContext(I18nContext);
   const prefixCls = getPrefixCls('workspace');
   const { wrapSSR, hashId } = useWorkspaceStyle(prefixCls);
 
   // 构建可用标签页
   const availableTabs = useMemo((): TabItem[] => {
     const tabs: TabItem[] = [];
+    const defaultConfig = DEFAULT_CONFIG(locale);
 
     React.Children.forEach(children, (child, index) => {
       if (!React.isValidElement(child)) return;
@@ -176,35 +179,35 @@ const Workspace: FC<WorkspaceProps> & {
         case RealtimeComponent:
           tabConfig = resolveTabConfig(
             props.tab,
-            DEFAULT_CONFIG[ComponentType.REALTIME],
+            defaultConfig[ComponentType.REALTIME],
           );
           content = <RealtimeComponent {...props} />;
           break;
         case BrowserComponent:
           tabConfig = resolveTabConfig(
             props.tab,
-            DEFAULT_CONFIG[ComponentType.BROWSER],
+            defaultConfig[ComponentType.BROWSER],
           );
           content = <BrowserComponent {...props} />;
           break;
         case TaskComponent:
           tabConfig = resolveTabConfig(
             props.tab,
-            DEFAULT_CONFIG[ComponentType.TASK],
+            defaultConfig[ComponentType.TASK],
           );
           content = <TaskComponent {...props} />;
           break;
         case FileComponent:
           tabConfig = resolveTabConfig(
             props.tab,
-            DEFAULT_CONFIG[ComponentType.FILE],
+            defaultConfig[ComponentType.FILE],
           );
           content = <FileComponent {...props} />;
           break;
         case CustomComponent:
           tabConfig = resolveTabConfig(
             props.tab,
-            DEFAULT_CONFIG[ComponentType.CUSTOM],
+            defaultConfig[ComponentType.CUSTOM],
             index,
           );
           content = <CustomComponent {...props} />;
@@ -277,7 +280,7 @@ const Workspace: FC<WorkspaceProps> & {
           <CloseOutlined
             className={classNames(`${prefixCls}-close`, hashId)}
             onClick={onClose}
-            aria-label="关闭工作空间"
+            aria-label={locale?.['workspace.closeWorkspace'] || '关闭工作空间'}
           />
         )}
       </div>

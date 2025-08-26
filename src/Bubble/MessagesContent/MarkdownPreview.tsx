@@ -157,7 +157,10 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
           <div
             style={{ position: 'absolute', top: 20, right: 20, zIndex: 9999 }}
           >
-            <ActionIconBox title={'关闭幻灯片模式'} onClick={onCloseSlides}>
+            <ActionIconBox
+              title={locale?.['slides.closeSlidesMode'] || '关闭幻灯片模式'}
+              onClick={onCloseSlides}
+            >
               <CloseCircleFilled />
             </ActionIconBox>
           </div>
@@ -215,7 +218,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
         border: '1px solid ' + token.colorErrorBorder,
       }}
     >
-      {locale?.['chat.message.exception'] || '出现点意外情况，请重新发送'}
+      {locale?.['error.unexpected'] || '出现点意外情况，请重新发送'}
     </div>
   );
 
