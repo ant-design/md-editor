@@ -67,6 +67,12 @@ export default () => {
       ],
       status: 'pending' as TaskStatus,
     },
+    {
+      key: '4',
+      title: '任务获取失败',
+      content: [<div key="1">Get stock chart 获取股票图表</div>],
+      status: 'error' as TaskStatus,
+    },
   ]);
 
   return (
