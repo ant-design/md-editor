@@ -11,6 +11,10 @@ import {
   ChartData,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
+import { Segmented, Dropdown, Button } from 'antd';
+import { DownOutlined, DownloadOutlined } from '@ant-design/icons';
+import TimeIcon from './icons/TimeIcon';
+import './style.less';
 
 // 注册 Chart.js 组件
 ChartJS.register(
@@ -179,7 +183,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
   return (
     <div 
-      className={className}
+      className={`radar-chart-container ${className || ''}`}
       style={{ 
         width, 
         height, 
@@ -190,13 +194,69 @@ const RadarChart: React.FC<RadarChartProps> = ({
         border: config.theme === 'light' ? '1px solid #e8e8e8' : 'none',
       }}
     >
-      <Radar
-        ref={chartRef}
-        data={processedData}
-        options={options}
-        width={width - 40}
-        height={height - 40}
-      />
+
+      {/* 头部 */}
+      <div className="chart-header">
+        {/* 左侧标题 */}
+        <div className="header-title">
+          2025年第一季度短视频用户分布分析
+        </div>
+        
+        {/* 右侧时间+下载按钮 */}
+        <div className="header-actions">
+          <TimeIcon className="time-icon" />
+          <span className="data-time">
+            数据时间: 2025-06-30 00:00:00
+          </span>
+          <DownloadOutlined className="download-btn" />
+        </div>
+      </div>
+
+      <div className="filter-container">
+        {/* 地区筛选器 */}
+        <div className="region-filter">
+          <Dropdown
+            menu={{
+              items: [
+                { key: 'global', label: '全球' },
+                { key: 'china', label: '中国' },
+                { key: 'us', label: '美国' },
+                { key: 'eu', label: '欧洲' },
+                { key: 'asia', label: '亚洲' },
+                { key: 'africa', label: '非洲' },
+                { key: 'oceania', label: '大洋洲' }
+              ]
+            }}
+            trigger={['click']}
+          >
+              <Button
+                type="default"
+                size="small"
+                className="region-dropdown-btn"
+              >
+                <span>全球</span>
+                <DownOutlined className="dropdown-icon" />
+              </Button>
+          </Dropdown>
+        </div>
+
+        <Segmented
+          options={[
+            { label: '年龄', value: 'age' },
+            { label: '性别', value: 'gender' }
+          ]}
+          defaultValue="age"
+          size="small"
+          className="segmented-filter custom-segmented"
+        />
+      </div>
+      <div className="chart-wrapper">
+        <Radar
+          ref={chartRef}
+          data={processedData}
+          options={options}
+        />
+      </div>
     </div>
   );
 };
