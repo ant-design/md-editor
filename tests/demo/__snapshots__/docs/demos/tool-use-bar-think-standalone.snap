@@ -30,21 +30,21 @@
             data-testid="ToolUseBarThink"
           >
             <div
-              class="tool-use-bar-think-bar "
+              class="tool-use-bar-think-bar"
               data-testid="tool-use-bar-think-bar"
             >
               <div
-                class="tool-use-bar-think-header "
+                class="tool-use-bar-think-header"
                 data-testid="tool-use-bar-think-header"
               >
                 <div
-                  class="tool-use-bar-think-header-left "
+                  class="tool-use-bar-think-header-left"
                 >
                   <div
-                    class="tool-use-bar-think-image-wrapper "
+                    class="tool-use-bar-think-image-wrapper"
                   >
                     <div
-                      class="tool-use-bar-think-image "
+                      class="tool-use-bar-think-image"
                     >
                       <svg
                         fill="none"
@@ -77,24 +77,24 @@
                     </div>
                   </div>
                   <div
-                    class="tool-use-bar-think-name "
+                    class="tool-use-bar-think-name"
                   >
                     思考中...
                   </div>
                 </div>
               </div>
               <div
-                class="tool-use-bar-think-target "
+                class="tool-use-bar-think-target"
               >
                 分析需求
               </div>
               <div
-                class="tool-use-bar-think-time "
+                class="tool-use-bar-think-time"
               >
                 2.3s
               </div>
               <div
-                class="tool-use-bar-think-expand "
+                class="tool-use-bar-think-expand"
               >
                 <svg
                   fill="none"
@@ -134,24 +134,12 @@
               <div
                 class="tool-use-bar-think-content"
               >
-                <div
-                  style="padding: 12px;"
-                >
-                  <p>
-                    思考过程内容：
-                  </p>
-                  <ul>
-                    <li>
-                      分析用户需求
-                    </li>
-                    <li>
-                      制定解决方案
-                    </li>
-                    <li>
-                      评估可行性
-                    </li>
-                  </ul>
-                </div>
+                好的，我现在需要帮用户汇总谷歌I/O 2025大会的重要信息。首先，我得仔细看看用户提供的搜索结果，找出相关的信息点。
+      用户给了19个网页的结果，我需要逐一浏览，提取关键内容。
+      首先，大会的时间和地点。网页1、2、5、10、12、16都提到了时间，大部分说是在5月20日至21日举行，地点是加州山景城的Shoreline Amphitheatre。网页3和12提到具体日程，主题演讲在凌晨1点开始，开发者主题演讲在4：30 am。不过要注意时区转换，比如网页5提到北京时间是5月21日凌晨，这可能对国内用户来说需要换算时间。
+      接下来是大会的主要内容和亮点。AI肯定是重点，多个网页提到Gemini的更新，比如网页3、9、10、11、13、18. Gemini 2 5 Pro模型会被详细介绍，可能还有订阅服务的变化。网页18还提到250美元的UItra会员，这可能和Gemini Advanced有关。
+      此外，Project Astra作为下一代AI助手，网页3、10、13都有提到，可能涉及移动和可穿戴设备。
+      需要整合这些信息，分时间地点、核心内容、硬件动态、其他产品、合作与竞争几个部分。注意引用多个网页，避免重复引用同一个网页。比如AI部分可以引用网页3、9、10、11、13、18，智能眼镜引用4、6、7、8、19等。确保每个点都有对应的引用，并且正确标注。
               </div>
             </div>
           </div>
@@ -168,25 +156,25 @@
             无浮动按钮
           </p>
           <div
-            class="tool-use-bar-think tool-use-bar-think-expanded"
+            class="tool-use-bar-think tool-use-bar-think-expanded tool-use-bar-think-success"
             data-testid="ToolUseBarThink"
           >
             <div
-              class="tool-use-bar-think-bar "
+              class="tool-use-bar-think-bar"
               data-testid="tool-use-bar-think-bar"
             >
               <div
-                class="tool-use-bar-think-header "
+                class="tool-use-bar-think-header"
                 data-testid="tool-use-bar-think-header"
               >
                 <div
-                  class="tool-use-bar-think-header-left "
+                  class="tool-use-bar-think-header-left"
                 >
                   <div
-                    class="tool-use-bar-think-image-wrapper "
+                    class="tool-use-bar-think-image-wrapper"
                   >
                     <div
-                      class="tool-use-bar-think-image "
+                      class="tool-use-bar-think-image"
                     >
                       <svg
                         fill="none"
@@ -219,24 +207,24 @@
                     </div>
                   </div>
                   <div
-                    class="tool-use-bar-think-name "
+                    class="tool-use-bar-think-name"
                   >
                     思考完成
                   </div>
                 </div>
               </div>
               <div
-                class="tool-use-bar-think-target "
+                class="tool-use-bar-think-target"
               >
                 分析需求
               </div>
               <div
-                class="tool-use-bar-think-time "
+                class="tool-use-bar-think-time"
               >
                 2.3s
               </div>
               <div
-                class="tool-use-bar-think-expand "
+                class="tool-use-bar-think-expand"
               >
                 <svg
                   fill="none"
@@ -276,24 +264,12 @@
               <div
                 class="tool-use-bar-think-content"
               >
-                <div
-                  style="padding: 12px;"
-                >
-                  <p>
-                    思考过程内容：
-                  </p>
-                  <ul>
-                    <li>
-                      分析用户需求
-                    </li>
-                    <li>
-                      制定解决方案
-                    </li>
-                    <li>
-                      评估可行性
-                    </li>
-                  </ul>
-                </div>
+                好的，我现在需要帮用户汇总谷歌I/O 2025大会的重要信息。首先，我得仔细看看用户提供的搜索结果，找出相关的信息点。
+      用户给了19个网页的结果，我需要逐一浏览，提取关键内容。
+      首先，大会的时间和地点。网页1、2、5、10、12、16都提到了时间，大部分说是在5月20日至21日举行，地点是加州山景城的Shoreline Amphitheatre。网页3和12提到具体日程，主题演讲在凌晨1点开始，开发者主题演讲在4：30 am。不过要注意时区转换，比如网页5提到北京时间是5月21日凌晨，这可能对国内用户来说需要换算时间。
+      接下来是大会的主要内容和亮点。AI肯定是重点，多个网页提到Gemini的更新，比如网页3、9、10、11、13、18. Gemini 2 5 Pro模型会被详细介绍，可能还有订阅服务的变化。网页18还提到250美元的UItra会员，这可能和Gemini Advanced有关。
+      此外，Project Astra作为下一代AI助手，网页3、10、13都有提到，可能涉及移动和可穿戴设备。
+      需要整合这些信息，分时间地点、核心内容、硬件动态、其他产品、合作与竞争几个部分。注意引用多个网页，避免重复引用同一个网页。比如AI部分可以引用网页3、9、10、11、13、18，智能眼镜引用4、6、7、8、19等。确保每个点都有对应的引用，并且正确标注。
               </div>
             </div>
           </div>
@@ -314,21 +290,21 @@
             data-testid="ToolUseBarThink"
           >
             <div
-              class="tool-use-bar-think-bar "
+              class="tool-use-bar-think-bar"
               data-testid="tool-use-bar-think-bar"
             >
               <div
-                class="tool-use-bar-think-header "
+                class="tool-use-bar-think-header"
                 data-testid="tool-use-bar-think-header"
               >
                 <div
-                  class="tool-use-bar-think-header-left "
+                  class="tool-use-bar-think-header-left"
                 >
                   <div
-                    class="tool-use-bar-think-image-wrapper "
+                    class="tool-use-bar-think-image-wrapper"
                   >
                     <div
-                      class="tool-use-bar-think-image "
+                      class="tool-use-bar-think-image"
                     >
                       <svg
                         fill="none"
@@ -361,24 +337,24 @@
                     </div>
                   </div>
                   <div
-                    class="tool-use-bar-think-name "
+                    class="tool-use-bar-think-name"
                   >
                     思考失败
                   </div>
                 </div>
               </div>
               <div
-                class="tool-use-bar-think-target "
+                class="tool-use-bar-think-target"
               >
                 分析需求
               </div>
               <div
-                class="tool-use-bar-think-time "
+                class="tool-use-bar-think-time"
               >
                 5.2s
               </div>
               <div
-                class="tool-use-bar-think-expand "
+                class="tool-use-bar-think-expand"
               >
                 <svg
                   fill="none"
@@ -418,24 +394,12 @@
               <div
                 class="tool-use-bar-think-content"
               >
-                <div
-                  style="padding: 12px;"
-                >
-                  <p>
-                    思考过程内容：
-                  </p>
-                  <ul>
-                    <li>
-                      分析用户需求
-                    </li>
-                    <li>
-                      制定解决方案
-                    </li>
-                    <li>
-                      评估可行性
-                    </li>
-                  </ul>
-                </div>
+                好的，我现在需要帮用户汇总谷歌I/O 2025大会的重要信息。首先，我得仔细看看用户提供的搜索结果，找出相关的信息点。
+      用户给了19个网页的结果，我需要逐一浏览，提取关键内容。
+      首先，大会的时间和地点。网页1、2、5、10、12、16都提到了时间，大部分说是在5月20日至21日举行，地点是加州山景城的Shoreline Amphitheatre。网页3和12提到具体日程，主题演讲在凌晨1点开始，开发者主题演讲在4：30 am。不过要注意时区转换，比如网页5提到北京时间是5月21日凌晨，这可能对国内用户来说需要换算时间。
+      接下来是大会的主要内容和亮点。AI肯定是重点，多个网页提到Gemini的更新，比如网页3、9、10、11、13、18. Gemini 2 5 Pro模型会被详细介绍，可能还有订阅服务的变化。网页18还提到250美元的UItra会员，这可能和Gemini Advanced有关。
+      此外，Project Astra作为下一代AI助手，网页3、10、13都有提到，可能涉及移动和可穿戴设备。
+      需要整合这些信息，分时间地点、核心内容、硬件动态、其他产品、合作与竞争几个部分。注意引用多个网页，避免重复引用同一个网页。比如AI部分可以引用网页3、9、10、11、13、18，智能眼镜引用4、6、7、8、19等。确保每个点都有对应的引用，并且正确标注。
               </div>
             </div>
           </div>

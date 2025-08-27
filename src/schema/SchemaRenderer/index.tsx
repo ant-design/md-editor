@@ -304,10 +304,14 @@ div {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  white-space: normal;
+  overflow-wrap: normal;
 }
 
 a {
   text-decoration: none;
+  white-space: normal;
+  overflow-wrap: normal;
 }
 
 a:hover {
