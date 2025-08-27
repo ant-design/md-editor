@@ -47,6 +47,8 @@ export interface AreaChartConfig {
   showGrid?: boolean;
   xTitle?: string;
   yTitle?: string;
+  xPosition?: 'top' | 'bottom';
+  yPosition?: 'left' | 'right';
 }
 
 interface AreaChartProps {
@@ -134,6 +136,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
     },
     scales: {
       x: {
+        position: (config.xPosition || 'bottom') as any,
         title: {
           display: !!config.xTitle,
           text: config.xTitle,
@@ -158,6 +161,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
         },
       },
       y: {
+        position: (config.yPosition || 'left') as any,
         beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
         min: config.yMin,
         max: config.yMax,

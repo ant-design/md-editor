@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import AreaChart, { AreaChartConfig } from '@ant-design/md-editor/plugins/chart/AreaChart';
 
 const DynamicAreaChartExample: React.FC = () => {
   const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('light');
   const [legendPosition, setLegendPosition] = useState<'top' | 'left' | 'bottom' | 'right'>('bottom');
+  const [quadrant, setQuadrant] = useState<'I' | 'II' | 'III' | 'IV'>('I');
 
-  const [config, setConfig] = useState<AreaChartConfig>({
+  const [baseConfig, setBaseConfig] = useState<AreaChartConfig>({
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
       {
@@ -29,10 +30,18 @@ const DynamicAreaChartExample: React.FC = () => {
     showGrid: true,
   });
 
+  const transformConfigByQuadrant = (cfg: AreaChartConfig, q: 'I'|'II'|'III'|'IV'): AreaChartConfig => {
+    const xPosition: 'top'|'bottom' = (q === 'II' || q === 'III') ? 'top' : 'bottom';
+    const yPosition: 'left'|'right' = (q === 'I' || q === 'II') ? 'left' : 'right';
+    return { ...cfg, xPosition, yPosition };
+  };
+
+  const config = useMemo(() => transformConfigByQuadrant({ ...baseConfig, theme: currentTheme, legendPosition }, quadrant), [baseConfig, currentTheme, legendPosition, quadrant]);
+
   const handleThemeChange = () => {
     const next = currentTheme === 'dark' ? 'light' : 'dark';
     setCurrentTheme(next);
-    setConfig(prev => ({ ...prev, theme: next }));
+    setBaseConfig(prev => ({ ...prev, theme: next }));
   };
 
   const handleLegendPositionChange = () => {
@@ -40,17 +49,23 @@ const DynamicAreaChartExample: React.FC = () => {
     const idx = positions.indexOf(legendPosition);
     const next = positions[(idx + 1) % positions.length];
     setLegendPosition(next);
-    setConfig(prev => ({ ...prev, legendPosition: next }));
+    setBaseConfig(prev => ({ ...prev, legendPosition: next }));
   };
 
   const handleRandomize = () => {
-    setConfig(prev => ({
+    setBaseConfig(prev => ({
       ...prev,
       datasets: prev.datasets.map(ds => ({
         ...ds,
         data: ds.data.map(() => Math.floor(Math.random() * 360)),
       })),
     }));
+  };
+
+  const handleQuadrantToggle = () => {
+    const order: Array<'I'|'II'|'III'|'IV'> = ['I','II','III','IV'];
+    const next = order[(order.indexOf(quadrant) + 1) % order.length];
+    setQuadrant(next);
   };
 
   return (
@@ -101,6 +116,21 @@ const DynamicAreaChartExample: React.FC = () => {
           }}
         >
           随机更新数据
+        </button>
+
+        <button
+          type="button"
+          onClick={handleQuadrantToggle}
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#0f172a',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
+          切换象限（当前：{quadrant}）
         </button>
       </div>
 

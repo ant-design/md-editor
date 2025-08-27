@@ -37,6 +37,8 @@ export interface BarChartConfig {
   barThickness?: number;
   categoryPercentage?: number;
   barPercentage?: number;
+  xPosition?: 'top' | 'bottom';
+  yPosition?: 'left' | 'right';
 }
 
 interface BarChartProps {
@@ -118,6 +120,7 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
     },
     scales: {
       x: {
+        position: (config.xPosition || 'bottom') as any,
         title: {
           display: !!config.xTitle,
           text: config.xTitle,
@@ -142,6 +145,7 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
         },
       },
       y: {
+        position: (config.yPosition || 'left') as any,
         beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
         min: config.yMin,
         max: config.yMax,

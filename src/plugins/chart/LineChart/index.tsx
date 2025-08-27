@@ -48,6 +48,8 @@ export interface LineChartConfig {
   showGrid?: boolean;
   xTitle?: string;
   yTitle?: string;
+  xPosition?: 'top' | 'bottom';
+  yPosition?: 'left' | 'right';
 }
 
 interface LineChartProps {
@@ -135,6 +137,7 @@ const LineChart: React.FC<LineChartProps> = ({
     },
     scales: {
       x: {
+        position: (config.xPosition || 'bottom') as any,
         title: {
           display: !!config.xTitle,
           text: config.xTitle,
@@ -159,6 +162,7 @@ const LineChart: React.FC<LineChartProps> = ({
         },
       },
       y: {
+        position: (config.yPosition || 'left') as any,
         beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
         min: config.yMin,
         max: config.yMax,
