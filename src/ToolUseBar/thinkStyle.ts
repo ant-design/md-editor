@@ -32,10 +32,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       cursor: 'pointer',
       '&:hover': {
-        background: 'rgba(20, 22, 28, 0.06)',
+        boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
       },
       borderRadius: '12px',
-      background: 'rgba(0, 28, 57, 0.0353)',
       boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
       boxSizing: 'border-box',
       minHeight: '28px',
@@ -46,6 +45,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       zIndex: 1,
       '&-expanded': {
         gap: 0,
+      },
+      '&-success': {
+        background: 'rgba(0, 28, 57, 0.0353)',
+        boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
       },
       '&-loading': {},
       '&-bar': {

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNamesFn from 'classnames';
 import { useMergedState } from 'rc-util';
 import React from 'react';
 import { ThinkIcon } from '../icons/ThinkIcon';
@@ -69,6 +69,36 @@ export interface ToolUseBarThinkProps {
   floatingExpanded?: boolean;
   defaultFloatingExpanded?: boolean;
   onFloatingExpandedChange?: (floatingExpanded: boolean) => void;
+  classNames?: {
+    root?: string;
+    bar?: string;
+    header?: string;
+    headerLeft?: string;
+    imageWrapper?: string;
+    image?: string;
+    name?: string;
+    target?: string;
+    time?: string;
+    expand?: string;
+    container?: string;
+    content?: string;
+    floatingExpand?: string;
+  };
+  styles?: {
+    root?: React.CSSProperties;
+    bar?: React.CSSProperties;
+    header?: React.CSSProperties;
+    headerLeft?: React.CSSProperties;
+    imageWrapper?: React.CSSProperties;
+    image?: React.CSSProperties;
+    name?: React.CSSProperties;
+    target?: React.CSSProperties;
+    time?: React.CSSProperties;
+    expand?: React.CSSProperties;
+    container?: React.CSSProperties;
+    content?: React.CSSProperties;
+    floatingExpand?: React.CSSProperties;
+  };
 }
 
 export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
@@ -85,6 +115,8 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   floatingExpanded,
   defaultFloatingExpanded = false,
   onFloatingExpandedChange,
+  classNames,
+  styles,
 }) => {
   const prefixCls = 'tool-use-bar-think';
   const { wrapSSR, hashId } = useStyle(prefixCls);
@@ -123,56 +155,128 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   return wrapSSR(
     <div
       data-testid={testId || 'ToolUseBarThink'}
-      className={classNames(prefixCls, hashId, {
+      className={classNamesFn(prefixCls, hashId, classNames?.root, {
         [`${prefixCls}-expanded`]: !expandedState,
         [`${prefixCls}-loading`]: status === 'loading',
+        [`${prefixCls}-active`]: expandedState,
+        [`${prefixCls}-success`]: status === 'success',
       })}
+      style={styles?.root}
     >
       <div
-        className={`${prefixCls}-bar ${hashId}`}
+        className={classNamesFn(`${prefixCls}-bar`, hashId, classNames?.bar)}
         data-testid="tool-use-bar-think-bar"
+        style={styles?.bar}
       >
         <div
-          className={`${prefixCls}-header ${hashId}`}
+          className={classNamesFn(
+            `${prefixCls}-header`,
+            hashId,
+            classNames?.header,
+          )}
           data-testid="tool-use-bar-think-header"
+          style={styles?.header}
         >
-          <div className={`${prefixCls}-header-left ${hashId}`}>
-            <div className={`${prefixCls}-image-wrapper ${hashId}`}>
+          <div
+            className={classNamesFn(
+              `${prefixCls}-header-left`,
+              hashId,
+              classNames?.headerLeft,
+            )}
+            style={styles?.headerLeft}
+          >
+            <div
+              className={classNamesFn(
+                `${prefixCls}-image-wrapper`,
+                hashId,
+                classNames?.imageWrapper,
+              )}
+              style={styles?.imageWrapper}
+            >
               {icon || (
-                <div className={`${prefixCls}-image ${hashId}`}>
+                <div
+                  className={classNamesFn(
+                    `${prefixCls}-image`,
+                    hashId,
+                    classNames?.image,
+                  )}
+                  style={styles?.image}
+                >
                   {defaultIcon}
                 </div>
               )}
             </div>
             {toolName && (
-              <div className={`${prefixCls}-name ${hashId}`}>{toolName}</div>
+              <div
+                className={classNamesFn(
+                  `${prefixCls}-name`,
+                  hashId,
+                  classNames?.name,
+                )}
+                style={styles?.name}
+              >
+                {toolName}
+              </div>
             )}
           </div>
         </div>
         {toolTarget && (
-          <div className={`${prefixCls}-target ${hashId}`}>{toolTarget}</div>
+          <div
+            className={classNamesFn(
+              `${prefixCls}-target`,
+              hashId,
+              classNames?.target,
+            )}
+            style={styles?.target}
+          >
+            {toolTarget}
+          </div>
         )}
-        {time && <div className={`${prefixCls}-time ${hashId}`}>{time}</div>}
-        <div
-          className={`${prefixCls}-expand ${hashId}`}
-          onClick={handleToggleExpand}
-        >
-          {expandedState ? <ExpandDownIcon /> : <ExpandIcon />}
-        </div>
+        {time && (
+          <div
+            className={classNamesFn(
+              `${prefixCls}-time`,
+              hashId,
+              classNames?.time,
+            )}
+            style={styles?.time}
+          >
+            {time}
+          </div>
+        )}
+        {thinkContent && (
+          <div
+            className={classNamesFn(
+              `${prefixCls}-expand`,
+              hashId,
+              classNames?.expand,
+            )}
+            onClick={handleToggleExpand}
+            style={styles?.expand}
+          >
+            {expandedState ? <ExpandDownIcon /> : <ExpandIcon />}
+          </div>
+        )}
       </div>
       {thinkContent && (
         <div
-          className={classNames(`${prefixCls}-container`, hashId, {
-            [`${prefixCls}-container-expanded`]: expandedState,
-            [`${prefixCls}-container-loading`]:
-              status === 'loading' && !floatingExpandedState,
-            [`${prefixCls}-container-floating-expanded`]: floatingExpandedState,
-          })}
+          className={classNamesFn(
+            `${prefixCls}-container`,
+            hashId,
+            classNames?.container,
+            {
+              [`${prefixCls}-container-expanded`]: expandedState,
+              [`${prefixCls}-container-loading`]:
+                status === 'loading' && !floatingExpandedState,
+              [`${prefixCls}-container-floating-expanded`]:
+                floatingExpandedState,
+            },
+          )}
           data-testid="tool-use-bar-think-container"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          style={
-            expandedState
+          style={{
+            ...(expandedState
               ? {}
               : {
                   height: 1,
@@ -181,17 +285,30 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                   overflow: 'hidden',
                   minHeight: 0,
                   visibility: 'hidden',
-                }
-          }
+                }),
+            ...styles?.container,
+          }}
         >
-          <div className={classNames(`${prefixCls}-content`, hashId)}>
+          <div
+            className={classNamesFn(
+              `${prefixCls}-content`,
+              hashId,
+              classNames?.content,
+            )}
+            style={styles?.content}
+          >
             {thinkContent}
           </div>
           {status === 'loading' && isHovered && (
             <div
-              className={`${prefixCls}-floating-expand ${hashId}`}
+              className={classNamesFn(
+                `${prefixCls}-floating-expand`,
+                hashId,
+                classNames?.floatingExpand,
+              )}
               onClick={handleToggleFloatingExpand}
               data-testid="tool-use-bar-think-floating-expand"
+              style={styles?.floatingExpand}
             >
               {floatingExpandedState ? <ExpandDownIcon /> : <ExpandIcon />}
               {floatingExpandedState ? '收起' : '展开'}
