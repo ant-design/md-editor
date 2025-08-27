@@ -9,6 +9,8 @@ import React, {
 
 import { cnLabels, enLabels } from './locales';
 
+export { cnLabels, enLabels };
+
 export type LocalKeys = typeof cnLabels;
 
 /**
@@ -51,7 +53,7 @@ export function detectUserLanguage(): 'zh-CN' | 'en-US' {
     const browserLanguages = navigator.languages || [navigator.language];
 
     for (const lang of browserLanguages) {
-      const langLower = lang.toLowerCase();
+      const langLower = lang?.toLowerCase() || 'zh-CN';
       if (langLower.startsWith('zh')) {
         return 'zh-CN';
       }

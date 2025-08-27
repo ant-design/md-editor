@@ -119,6 +119,7 @@ const FileItemComponent: FC<{
   prefixCls = 'workspace-file',
   hashId,
 }) => {
+  const { locale } = useContext(I18nContext);
   // 确保文件有唯一ID
   const fileWithId = ensureNodeWithId(file);
   const fileTypeInfo = fileTypeProcessor.inferFileType(fileWithId);
@@ -464,10 +465,6 @@ export const FileComponent: FC<{
 
   const { wrapSSR, hashId } = useFileStyle(prefixCls);
 
-  if (!nodes || nodes.length === 0) {
-    return null;
-  }
-
   // 处理分组折叠/展开
   const handleToggleGroup = (type: FileType, collapsed: boolean) => {
     // 更新内部状态
@@ -611,6 +608,10 @@ export const FileComponent: FC<{
       actionRef.current = null;
     };
   }, [actionRef, handlePreview, handleBackToList]);
+
+  if (!nodes || nodes.length === 0) {
+    return null;
+  }
 
   // 图片预览组件
   const ImagePreviewComponent = (

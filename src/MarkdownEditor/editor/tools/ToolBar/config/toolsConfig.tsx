@@ -40,30 +40,30 @@ export const useToolsConfig = () => {
     {
       key: 'bold',
       type: 'bold',
-      title: locale['toolbar.bold'],
+      title: locale?.['toolbar.bold'] || '加粗',
       icon: <BoldOutlined />,
     },
     {
       key: 'italic',
-      title: locale['toolbar.italic'],
+      title: locale?.['toolbar.italic'] || '斜体',
       type: 'italic',
       icon: <ItalicOutlined />,
     },
     {
       key: 'strikethrough',
-      title: locale['toolbar.strikethrough'],
+      title: locale?.['toolbar.strikethrough'] || '删除线',
       type: 'strikethrough',
       icon: <StrikethroughOutlined />,
     },
     {
       key: 'inline-code',
-      title: locale['toolbar.inlineCode'],
+      title: locale?.['toolbar.inlineCode'] || '行内代码',
       type: 'code',
       icon: <LineCode />,
     },
     {
       key: 'align-left',
-      title: locale['toolbar.alignLeft'],
+      title: locale?.['toolbar.alignLeft'] || '左对齐',
       type: 'align-left',
       icon: <AlignLeftOutlined />,
       onClick: (editor: any) => {
@@ -76,7 +76,7 @@ export const useToolsConfig = () => {
     },
     {
       key: 'align-center',
-      title: locale['toolbar.alignCenter'],
+      title: locale?.['toolbar.alignCenter'] || '居中对齐',
       type: 'align-center',
       icon: <AlignCenterOutlined />,
       onClick: (editor: any) => {
@@ -89,7 +89,7 @@ export const useToolsConfig = () => {
     },
     {
       key: 'align-right',
-      title: locale['toolbar.alignRight'],
+      title: locale?.['toolbar.alignRight'] || '右对齐',
       type: 'align-right',
       icon: <AlignRightOutlined />,
       onClick: (editor: any) => {
