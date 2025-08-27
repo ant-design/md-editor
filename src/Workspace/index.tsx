@@ -40,38 +40,44 @@ enum ComponentType {
 }
 
 // 默认配置映射
-const DEFAULT_CONFIG = (locale: any) => ({
-  [ComponentType.REALTIME]: {
-    key: ComponentType.REALTIME,
-    icon: <RealtimeIcon />,
-    title: locale?.['workspace.realtimeFollow'] || '实时跟随',
-  },
-  [ComponentType.BROWSER]: {
-    key: ComponentType.BROWSER,
-    icon: <BrowserIcon />,
-    title: locale?.['workspace.browser'] || '浏览器',
-  },
-  [ComponentType.TASK]: {
-    key: ComponentType.TASK,
-    icon: <TaskIcon />,
-    title: locale?.['workspace.task'] || '任务',
-  },
-  [ComponentType.FILE]: {
-    key: ComponentType.FILE,
-    icon: <FileIcon />,
-    title: locale?.['workspace.file'] || '文件',
-  },
-  [ComponentType.CUSTOM]: {
-    key: 'custom',
-    icon: null,
-    title: locale?.['workspace.custom'] || '自定义',
-  },
-});
+const DEFAULT_CONFIG = (locale: any) =>
+  ({
+    [ComponentType.REALTIME]: {
+      key: ComponentType.REALTIME,
+      icon: <RealtimeIcon />,
+      title: locale?.['workspace.realtimeFollow'] || '实时跟随',
+      label: locale?.['workspace.realtimeFollow'] || '实时跟随',
+    },
+    [ComponentType.BROWSER]: {
+      key: ComponentType.BROWSER,
+      icon: <BrowserIcon />,
+      title: locale?.['workspace.browser'] || '浏览器',
+      label: locale?.['workspace.browser'] || '浏览器',
+    },
+    [ComponentType.TASK]: {
+      key: ComponentType.TASK,
+      icon: <TaskIcon />,
+      title: locale?.['workspace.task'] || '任务',
+      label: locale?.['workspace.task'] || '任务',
+    },
+    [ComponentType.FILE]: {
+      key: ComponentType.FILE,
+      icon: <FileIcon />,
+      title: locale?.['workspace.file'] || '文件',
+      label: locale?.['workspace.file'] || '文件',
+    },
+    [ComponentType.CUSTOM]: {
+      key: 'custom',
+      icon: null,
+      title: locale?.['workspace.custom'] || '自定义',
+      label: locale?.['workspace.custom'] || '自定义',
+    },
+  }) as Record<ComponentType, TabItem>;
 
 // 解析标签配置的工具函数
 const resolveTabConfig = (
   tab: TabConfiguration | undefined,
-  defaultConfig: (typeof DEFAULT_CONFIG)[ComponentType],
+  defaultConfig: TabItem,
   index?: number,
 ): {
   key: string;
@@ -83,7 +89,7 @@ const resolveTabConfig = (
     key:
       tab?.key || defaultConfig.key + (index !== undefined ? `-${index}` : ''),
     icon: tab?.icon ?? defaultConfig.icon,
-    title: tab?.title || defaultConfig.title,
+    title: tab?.title || defaultConfig.label,
     count: tab?.count,
   };
 };

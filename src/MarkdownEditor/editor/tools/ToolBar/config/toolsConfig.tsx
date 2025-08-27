@@ -6,7 +6,8 @@ import {
   ItalicOutlined,
   StrikethroughOutlined,
 } from '@ant-design/icons';
-import React from 'react';
+import React, { useContext } from 'react';
+import { I18nContext } from '../../../../../i18n';
 import { EditorUtils } from '../../../utils/editorUtils';
 
 const LineCode = React.memo(() => {
@@ -32,70 +33,75 @@ export const isCodeNode = (editor: any) => {
   return node && ((node as any)[0] as any).type === 'code';
 };
 
-export const toolsConfig = [
-  {
-    key: 'bold',
-    type: 'bold',
-    title: '加粗',
-    icon: <BoldOutlined />,
-  },
-  {
-    key: 'italic',
-    title: '斜体',
-    type: 'italic',
-    icon: <ItalicOutlined />,
-  },
-  {
-    key: 'strikethrough',
-    title: '删除线',
-    type: 'strikethrough',
-    icon: <StrikethroughOutlined />,
-  },
-  {
-    key: 'inline-code',
-    title: '行内代码',
-    type: 'code',
-    icon: <LineCode />,
-  },
-  {
-    key: 'align-left',
-    title: '左对齐',
-    type: 'align-left',
-    icon: <AlignLeftOutlined />,
-    onClick: (editor: any) => {
-      if (!isCodeNode(editor)) {
-        EditorUtils.setAlignment(editor, 'left');
-      }
+export const useToolsConfig = () => {
+  const { locale } = useContext(I18nContext);
+
+  return [
+    {
+      key: 'bold',
+      type: 'bold',
+      title: locale['toolbar.bold'],
+      icon: <BoldOutlined />,
     },
-    isActive: (editor: any) => EditorUtils?.isAlignmentActive?.(editor, 'left'),
-  },
-  {
-    key: 'align-center',
-    title: '居中对齐',
-    type: 'align-center',
-    icon: <AlignCenterOutlined />,
-    onClick: (editor: any) => {
-      if (!isCodeNode(editor)) {
-        EditorUtils.setAlignment(editor, 'center');
-      }
+    {
+      key: 'italic',
+      title: locale['toolbar.italic'],
+      type: 'italic',
+      icon: <ItalicOutlined />,
     },
-    isActive: (editor: any) =>
-      EditorUtils?.isAlignmentActive?.(editor, 'center'),
-  },
-  {
-    key: 'align-right',
-    title: '右对齐',
-    type: 'align-right',
-    icon: <AlignRightOutlined />,
-    onClick: (editor: any) => {
-      if (!isCodeNode(editor)) {
-        EditorUtils.setAlignment(editor, 'right');
-      }
+    {
+      key: 'strikethrough',
+      title: locale['toolbar.strikethrough'],
+      type: 'strikethrough',
+      icon: <StrikethroughOutlined />,
     },
-    isActive: (editor: any) =>
-      EditorUtils?.isAlignmentActive?.(editor, 'right'),
-  },
-];
+    {
+      key: 'inline-code',
+      title: locale['toolbar.inlineCode'],
+      type: 'code',
+      icon: <LineCode />,
+    },
+    {
+      key: 'align-left',
+      title: locale['toolbar.alignLeft'],
+      type: 'align-left',
+      icon: <AlignLeftOutlined />,
+      onClick: (editor: any) => {
+        if (!isCodeNode(editor)) {
+          EditorUtils.setAlignment(editor, 'left');
+        }
+      },
+      isActive: (editor: any) =>
+        EditorUtils?.isAlignmentActive?.(editor, 'left'),
+    },
+    {
+      key: 'align-center',
+      title: locale['toolbar.alignCenter'],
+      type: 'align-center',
+      icon: <AlignCenterOutlined />,
+      onClick: (editor: any) => {
+        if (!isCodeNode(editor)) {
+          EditorUtils.setAlignment(editor, 'center');
+        }
+      },
+      isActive: (editor: any) =>
+        EditorUtils?.isAlignmentActive?.(editor, 'center'),
+    },
+    {
+      key: 'align-right',
+      title: locale['toolbar.alignRight'],
+      type: 'align-right',
+      icon: <AlignRightOutlined />,
+      onClick: (editor: any) => {
+        if (!isCodeNode(editor)) {
+          EditorUtils.setAlignment(editor, 'right');
+        }
+      },
+      isActive: (editor: any) =>
+        EditorUtils?.isAlignmentActive?.(editor, 'right'),
+    },
+  ];
+};
 
 export type ToolsKeyType =
   | 'redo'

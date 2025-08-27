@@ -16,6 +16,8 @@ export interface TabConfiguration {
 export interface TabItem {
   key: string;
   label: ReactNode;
+  title?: ReactNode;
+  icon?: ReactNode;
   content?: ReactNode;
 }
 

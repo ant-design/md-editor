@@ -9,9 +9,11 @@ export type {
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './hooks/useAutoScroll';
+export { useLanguage } from './hooks/useLanguage';
 export * from './hooks/useRefFunction';
 export * from './hooks/useStyle';
 export * from './hooks/useThrottleFn';
+export * from './i18n';
 export * from './MarkdownEditor';
 export * from './MarkdownEditor/editor/components/index';
 export { ReadonlyTable } from './MarkdownEditor/editor/elements/Table/Table';
