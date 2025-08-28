@@ -17,7 +17,6 @@ nav:
 
 ## 散点图
 <code src="../demos/charts/scatter.tsx" background="var(--main-bg-color)" iframe=540></code>
-<code src="../demos/charts/radar.tsx" background="var(--main-bg-color)" iframe=540></code>
 
 ## 柱状图
 <code src="../demos/charts/bar/bar.tsx" background="var(--main-bg-color)" iframe=540></code>
