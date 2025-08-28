@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -11,6 +11,10 @@ import {
   ChartData,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
+import { Segmented, Dropdown, Button } from 'antd';
+import { DownOutlined, DownloadOutlined } from '@ant-design/icons';
+import TimeIcon from './icons/TimeIcon';
+import './style.less';
 
 // 注册 Chart.js 组件
 ChartJS.register(
@@ -33,7 +37,9 @@ export interface RadarChartDataItem {
 }
 
 // 雷达图配置接口
-export interface RadarChartConfig {
+export interface RadarChartConfigItem {
+  type: string;
+  typeName: string;
   labels: string[];
   datasets: RadarChartDataItem[];
   maxValue?: number;
@@ -45,19 +51,33 @@ export interface RadarChartConfig {
 }
 
 interface RadarChartProps {
-  config: RadarChartConfig;
+  configs: RadarChartConfigItem[];
   width?: number;
   height?: number;
   className?: string;
 }
 
 const RadarChart: React.FC<RadarChartProps> = ({ 
-  config,
+  configs,
   width = 600, 
   height = 400, 
   className 
 }) => {
   const chartRef = useRef<ChartJS<'radar'>>(null);
+  
+  // 状态管理
+  const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type);
+  
+  // 根据筛选器选择对应的配置
+  const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
+  
+  // 筛选器的枚举
+  const filterEnum = configs.map(config => {
+    return {
+      label: config.typeName,
+      value: config.type,
+    }
+  });
 
   // 默认颜色配置
   const defaultColors = [
@@ -75,8 +95,8 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
   // 处理数据，应用默认颜色和样式
   const processedData: ChartData<'radar'> = {
-    labels: config.labels,
-    datasets: config.datasets.map((dataset, index) => ({
+    labels: currentConfig.labels,
+    datasets: currentConfig.datasets.map((dataset: RadarChartDataItem, index: number) => ({
       label: dataset.label,
       data: dataset.data,
       borderColor: dataset.borderColor || defaultColors[index % defaultColors.length],
@@ -99,10 +119,10 @@ const RadarChart: React.FC<RadarChartProps> = ({
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: config.showLegend !== false,
-        position: (config.legendPosition || 'right') as 'top' | 'left' | 'bottom' | 'right',
+        display: currentConfig.showLegend !== false,
+        position: (currentConfig.legendPosition || 'right') as 'top' | 'left' | 'bottom' | 'right',
         labels: {
-          color: config.theme === 'light' ? '#767E8B' : '#fff',
+          color: currentConfig.theme === 'light' ? '#767E8B' : '#fff',
           font: {
             size: 12,
             weight: 'normal',
@@ -113,12 +133,12 @@ const RadarChart: React.FC<RadarChartProps> = ({
         },
       },
       tooltip: {
-        backgroundColor: config.theme === 'light' 
+        backgroundColor: currentConfig.theme === 'light' 
           ? 'rgba(255, 255, 255, 0.95)' 
           : 'rgba(0, 0, 0, 0.8)',
-        titleColor: config.theme === 'light' ? '#333' : '#fff',
-        bodyColor: config.theme === 'light' ? '#333' : '#fff',
-        borderColor: config.theme === 'light' 
+        titleColor: currentConfig.theme === 'light' ? '#333' : '#fff',
+        bodyColor: currentConfig.theme === 'light' ? '#333' : '#fff',
+        borderColor: currentConfig.theme === 'light' 
           ? 'rgba(0, 0, 0, 0.2)' 
           : 'rgba(255, 255, 255, 0.2)',
         borderWidth: 1,
@@ -134,11 +154,11 @@ const RadarChart: React.FC<RadarChartProps> = ({
     scales: {
       r: {
         beginAtZero: true,
-        max: config.maxValue || 100,
-        min: config.minValue || 0,
+        max: currentConfig.maxValue || 100,
+        min: currentConfig.minValue || 0,
         ticks: {
-          stepSize: config.stepSize || 20,
-          color: config.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+          stepSize: currentConfig.stepSize || 20,
+          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
           font: {
             size: 10,
           },
@@ -149,19 +169,19 @@ const RadarChart: React.FC<RadarChartProps> = ({
           }
         },
         grid: {
-          color: config.theme === 'light' 
+          color: currentConfig.theme === 'light' 
             ? 'rgba(0, 0, 0, 0.1)' 
             : 'rgba(255, 255, 255, 0.2)',
           lineWidth: 1,
         },
         angleLines: {
-          color: config.theme === 'light' 
+          color: currentConfig.theme === 'light' 
             ? 'rgba(0, 0, 0, 0.1)' 
             : 'rgba(255, 255, 255, 0.2)',
           lineWidth: 1,
         },
         pointLabels: {
-          color: config.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
           font: {
             size: 12,
             weight: 500,
@@ -179,24 +199,78 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
   return (
     <div 
-      className={className}
+      className={`radar-chart-container ${className || ''}`}
       style={{ 
         width, 
         height, 
-        backgroundColor: config.theme === 'light' ? '#fff' : '#1a1a1a',
+        backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
         borderRadius: '8px',
         padding: '20px',
         position: 'relative',
-        border: config.theme === 'light' ? '1px solid #e8e8e8' : 'none',
+        border: currentConfig.theme === 'light' ? '1px solid #e8e8e8' : 'none',
       }}
     >
-      <Radar
-        ref={chartRef}
-        data={processedData}
-        options={options}
-        width={width - 40}
-        height={height - 40}
-      />
+
+      {/* 头部 */}
+      <div className="chart-header">
+        {/* 左侧标题 */}
+        <div className="header-title">
+          2025年第一季度短视频用户分布分析
+        </div>
+        
+        {/* 右侧时间+下载按钮 */}
+        <div className="header-actions">
+          <TimeIcon className="time-icon" />
+          <span className="data-time">
+            数据时间: 2025-06-30 00:00:00
+          </span>
+          <DownloadOutlined className="download-btn" />
+        </div>
+      </div>
+
+      <div className="filter-container">
+        {/* 地区筛选器 */}
+        <div className="region-filter">
+          <Dropdown
+            menu={{
+              items: [
+                { key: 'global', label: '全球' },
+                { key: 'china', label: '中国' },
+                { key: 'us', label: '美国' },
+                { key: 'eu', label: '欧洲' },
+                { key: 'asia', label: '亚洲' },
+                { key: 'africa', label: '非洲' },
+                { key: 'oceania', label: '大洋洲' }
+              ]
+            }}
+            trigger={['click']}
+          >
+              <Button
+                type="default"
+                size="small"
+                className="region-dropdown-btn"
+              >
+                <span>全球</span>
+                <DownOutlined className="dropdown-icon" />
+              </Button>
+          </Dropdown>
+        </div>
+
+        <Segmented
+          options={filterEnum}
+          onChange={(value) => setSelectedFilter(value as string)}
+          defaultValue="age"
+          size="small"
+          className="segmented-filter custom-segmented"
+        />
+      </div>
+      <div className="chart-wrapper">
+        <Radar
+          ref={chartRef}
+          data={processedData}
+          options={options}
+        />
+      </div>
     </div>
   );
 };

@@ -420,7 +420,10 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   ? undefined
                   : false
               }
-              title={item.description || (isTask ? '任务' : '')}
+              title={
+                item.description ||
+                (isTask ? locale?.['task.default'] || '任务' : '')
+              }
             >
               <div
                 style={{
@@ -437,7 +440,8 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   WebkitBoxOrient: 'vertical',
                 }}
               >
-                {item.description || (isTask ? '任务' : '')}
+                {item.description ||
+                  (isTask ? locale?.['task.default'] || '任务' : '')}
                 <Divider type="vertical" />
                 {formatTime(item.gmtCreate)}
               </div>

@@ -132,7 +132,7 @@
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px,100%); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -409,7 +409,7 @@
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px,100%); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -686,7 +686,7 @@
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px,100%); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -1038,7 +1038,7 @@
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(490px,100%); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(490px); flex: 1 1 0%;"
           >
             <div
               animate="visible"
@@ -1410,7 +1410,7 @@
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px,100%); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -1590,7 +1590,7 @@
         >
           <div
             class="ant-md-input-field-editor ant-md-input-field-editor-disabled"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px,100%); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"

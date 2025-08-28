@@ -46,6 +46,8 @@ export type ChatConfigType = {
     'chat.message.dislike': string;
     'chat.message.exception': string;
     'chat.helloMessage.pre_hello_text': string;
+    'slides.closeSlidesMode': string;
+    'error.unexpected': string;
   };
   bubble?: BubbleProps<{
     /**
@@ -85,6 +87,8 @@ export const zhCN: ChatConfigType['locale'] = {
   'chat.message.dislike': '不喜欢',
   'chat.helloMessage.pre_hello_text': '您好，我是',
   'chat.message.thinking': '思考中',
+  'slides.closeSlidesMode': '关闭幻灯片模式',
+  'error.unexpected': '出现点意外情况，请重新发送',
 };
 
 export const enUS: ChatConfigType['locale'] = {
@@ -116,6 +120,8 @@ export const enUS: ChatConfigType['locale'] = {
   'chat.message.timeout': 'Message delivery timeout, please try again later.',
   'chat.message.copy.error': 'Copy Failure',
   'chat.message.thinking': 'thinking',
+  'slides.closeSlidesMode': 'Close Slides Mode',
+  'error.unexpected': 'Something unexpected happened, please resend',
 };
 
 export const BubbleConfigContext = React.createContext<
