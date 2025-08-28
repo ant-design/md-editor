@@ -533,12 +533,12 @@ export const BubbleExtra = ({
 
   // 检查是否有任何内容需要渲染
   const hasLeftContent = (typing && originalData.content !== '...') || reSend;
-  const hasRightContent = originalData?.isAborted
-    ? copyDom
-    : props.rightRender === false
-      ? false
-      : (() => {
-          const rightContent = props.rightRender?.(
+
+  const rightDom =
+    props.rightRender === false
+      ? null
+      : props.rightRender
+        ? props.rightRender?.(
             {
               ...props,
               bubble,
@@ -552,9 +552,14 @@ export const BubbleExtra = ({
               copy: copyDom,
               reply: reSend,
             },
-          );
-          return rightContent ?? dom;
-        })();
+          )
+        : dom;
+
+  const hasRightContent = originalData?.isAborted
+    ? copyDom
+    : props.rightRender === false
+      ? false
+      : !!rightDom;
 
   // 如果没有任何内容，直接返回 null
   if (!hasLeftContent && !hasRightContent) return null;
@@ -601,28 +606,7 @@ export const BubbleExtra = ({
         ) : null}
         {reSend || null}
       </div>
-      {originalData?.isAborted
-        ? copyDom
-        : props.rightRender === false
-          ? null
-          : (() => {
-              const rightContent = props.rightRender?.(
-                {
-                  ...props,
-                  bubble,
-                  onReply,
-                  onRenderExtraNull: props.onRenderExtraNull,
-                  slidesModeProps: props.slidesModeProps,
-                },
-                {
-                  like,
-                  disLike,
-                  copy: copyDom,
-                  reply: reSend,
-                },
-              );
-              return rightContent ?? dom;
-            })()}
+      {originalData?.isAborted ? copyDom : rightDom}
     </div>
   );
 };
