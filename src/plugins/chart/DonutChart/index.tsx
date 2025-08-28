@@ -8,6 +8,8 @@ import {
 } from 'chart.js';
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import classNames from 'classnames';
+import { useStyle } from './style';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -76,13 +78,15 @@ const DonutChart: React.FC<DonutChartProps> = ({
   height = 200,
   className,
 }) => {
-  return (
+  const baseClassName = 'md-editor-donut-chart';
+  const { wrapSSR, hashId } = useStyle(baseClassName);
+
+  return wrapSSR(
     <div
-      className={className}
+      className={classNames(baseClassName, hashId, className)}
       style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(auto-fit, minmax(${width}px, 1fr))`,
-        gap: '16px',
+        // 使用 CSS 变量传递动态尺寸
+        ['--donut-item-min-width' as any]: `${width}px`,
       }}
     >
       {configs.map((cfg, idx) => {
@@ -151,13 +155,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
           <div key={idx}>
             {/* Toolbar */}
             {cfg.showToolbar && (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: 8,
-                }}
-              >
+              <div className={`${baseClassName}-toolbar ${hashId}`}>
                 {/* 头部组件：标题、时间、下载、筛选 */}
                 图表头部组件
               </div>
@@ -165,7 +163,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
 
             {/* Doughnut 图 + legend */}
             {isSingleValueMode ? (
-              <div style={{ width: '100%', height }}>
+              <div
+                className={`${baseClassName}-single ${hashId}`}
+                style={{ ['--donut-chart-height' as any]: `${height}px` }}
+              >
                 <Doughnut
                   data={data}
                   options={options}
@@ -173,55 +174,28 @@ const DonutChart: React.FC<DonutChartProps> = ({
                 />
               </div>
             ) : (
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div style={{ width, height }}>
+              <div className={`${baseClassName}-row ${hashId}`}>
+                <div
+                  className={`${baseClassName}-chart ${hashId}`}
+                  style={{
+                    ['--donut-chart-width' as any]: `${width}px`,
+                    ['--donut-chart-height' as any]: `${height}px`,
+                  }}
+                >
                   <Doughnut data={data} options={options} />
                 </div>
                 {cfg.showLegend && (
-                  <div style={{ marginLeft: 12 }}>
+                  <div className={`${baseClassName}-legend ${hashId}`}>
                     {cfg.datasets.map((d, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          fontSize: 12,
-                          marginBottom: 6,
-                        }}
-                      >
+                      <div key={i} className={`${baseClassName}-legend-item ${hashId}`}>
                         <span
-                          style={{
-                            display: 'inline-block',
-                            width: 12,
-                            height: 12,
-                            borderRadius: 4,
-                            background: backgroundColors[i] || '#ccc',
-                            marginRight: 6,
-                          }}
+                          className={`${baseClassName}-legend-color ${hashId}`}
+                          style={{ ['--donut-legend-color' as any]: backgroundColors[i] || '#ccc' }}
                         />
-                        <span
-                          style={{
-                            flex: 1,
-                            color: '#767E8B',
-                            fontSize: 13,
-                          }}
-                        >
-                          {d.label}
-                        </span>
-                        <span
-                          style={{
-                            color: '#343A45',
-                            fontSize: 13,
-                            fontWeight: 500,
-                            marginLeft: 15,
-                          }}
-                        >
+                        <span className={`${baseClassName}-legend-label ${hashId}`}>{d.label}</span>
+                        <span className={`${baseClassName}-legend-value ${hashId}`}>
                           <span>{d.value}</span>
-                          <span
-                            style={{
-                              marginLeft: 8,
-                            }}
-                          >
+                          <span className={`${baseClassName}-legend-percent ${hashId}`}>
                             {((d.value / total) * 100).toFixed(0)}%
                           </span>
                         </span>
@@ -234,7 +208,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
           </div>
         );
       })}
-    </div>
+    </div>,
   );
 };
 export default DonutChart;
