@@ -1,54 +1,61 @@
 import React, { useState } from 'react';
-import RadarChart, { RadarChartConfig } from '@ant-design/md-editor/plugins/chart/RadarChart';
+import RadarChart, { RadarChartConfigItem } from '@ant-design/md-editor/plugins/chart/RadarChart';
 
 // 实际使用示例：动态数据雷达图
 const DynamicRadarChartExample: React.FC = () => {
-  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('light');
-  const [legendPosition, setLegendPosition] = useState<'top' | 'left' | 'bottom' | 'right'>('right');
-
-  // 动态配置示例
-  const [config, setConfig] = useState<RadarChartConfig>({
-    labels: ['技术', '设计', '产品', '运营', '市场', '销售'],
-    datasets: [
-      {
-        label: '当前能力',
-        data: [75, 60, 80, 65, 70, 55],
-        borderColor: '#388BFF',
-      },
-      {
-        label: '目标能力',
-        data: [90, 85, 95, 80, 85, 75],
-        borderColor: '#917EF7',
-      },
-    ],
-    maxValue: 100,
-    theme: currentTheme,
-    legendPosition: legendPosition,
-  });
-
-  // 切换主题
-  const handleThemeChange = () => {
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setCurrentTheme(newTheme);
-    setConfig(prev => ({ ...prev, theme: newTheme }));
-  };
-
-  // 切换图例位置
-  const handleLegendPositionChange = () => {
-    const positions: Array<'top' | 'left' | 'bottom' | 'right'> = ['top', 'right', 'bottom', 'left'];
-    const currentIndex = positions.indexOf(legendPosition);
-    const nextPosition = positions[(currentIndex + 1) % positions.length];
-    setLegendPosition(nextPosition);
-    setConfig(prev => ({ ...prev, legendPosition: nextPosition }));
-  };
+  // 雷达图配置数组
+  const [configs, setConfigs] = useState<RadarChartConfigItem[]>([
+    {
+      type: 'age',
+      typeName: '年龄',
+      labels: ['技术', '设计', '产品', '运营', '市场', '销售'],
+      datasets: [
+        {
+          label: '当前能力',
+          data: [75, 60, 80, 65, 70, 55],
+          borderColor: '#388BFF',
+        },
+        {
+          label: '目标能力',
+          data: [90, 85, 95, 80, 85, 75],
+          borderColor: '#917EF7',
+        },
+      ],
+      maxValue: 100,
+      theme: 'light',
+      legendPosition: 'right',
+    },
+    {
+      type: 'gender',
+      typeName: '性别',
+      labels: ['创新', '执行', '沟通', '学习', '团队', '领导'],
+      datasets: [
+        {
+          label: '现状评估',
+          data: [65, 80, 70, 85, 75, 60],
+          borderColor: '#15e7e4',
+        },
+        {
+          label: '期望水平',
+          data: [85, 90, 80, 95, 85, 80],
+          borderColor: '#F45BB5',
+        },
+      ],
+      maxValue: 100,
+      theme: 'light',
+      legendPosition: 'right',
+    },
+  ]);
 
   // 更新数据
   const handleDataUpdate = () => {
-    const newData = config.datasets.map(dataset => ({
-      ...dataset,
-      data: dataset.data.map(() => Math.floor(Math.random() * 100)),
-    }));
-    setConfig(prev => ({ ...prev, datasets: newData }));
+    setConfigs(prev => prev.map(config => ({
+      ...config,
+      datasets: config.datasets.map(dataset => ({
+        ...dataset,
+        data: dataset.data.map(() => Math.floor(Math.random() * 100)),
+      })),
+    })));
   };
 
   return (
@@ -56,36 +63,6 @@ const DynamicRadarChartExample: React.FC = () => {
       <h2 style={{ marginBottom: '20px', color: '#333' }}>动态雷达图使用示例</h2>
       
       <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-        <button 
-          type="button"
-          onClick={handleThemeChange}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: currentTheme === 'dark' ? '#1677ff' : '#333',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
-          切换主题 ({currentTheme === 'dark' ? '深色' : '浅色'})
-        </button>
-        
-        <button 
-          type="button"
-          onClick={handleLegendPositionChange}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#8954FC',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
-          切换图例位置 ({legendPosition})
-        </button>
-        
         <button 
           type="button"
           onClick={handleDataUpdate}
@@ -104,7 +81,7 @@ const DynamicRadarChartExample: React.FC = () => {
 
       <div style={{ marginBottom: '20px' }}>
         <RadarChart 
-          config={config}
+          configs={configs}
           width={700} 
           height={500} 
         />
@@ -124,7 +101,7 @@ const DynamicRadarChartExample: React.FC = () => {
           overflow: 'auto',
           fontSize: '12px'
         }}>
-          {JSON.stringify(config, null, 2)}
+          {JSON.stringify(configs, null, 2)}
         </pre>
       </div>
     </div>

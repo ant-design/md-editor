@@ -1,76 +1,93 @@
 import React, { useRef, useState } from 'react';
 import {
   Chart as ChartJS,
-  RadialLinearScale,
+  LinearScale,
   PointElement,
   LineElement,
-  Filler,
   Tooltip,
   Legend,
   ChartOptions,
   ChartData,
 } from 'chart.js';
-import { Radar } from 'react-chartjs-2';
+import { Scatter } from 'react-chartjs-2';
 import { Segmented, Dropdown, Button } from 'antd';
 import { DownOutlined, DownloadOutlined } from '@ant-design/icons';
-import TimeIcon from './icons/TimeIcon';
+import TimeIcon from '../RadarChart/icons/TimeIcon';
 import './style.less';
 
 // 注册 Chart.js 组件
 ChartJS.register(
-  RadialLinearScale,
+  LinearScale,
   PointElement,
   LineElement,
-  Filler,
   Tooltip,
   Legend
 );
 
-// 雷达图数据项接口
-export interface RadarChartDataItem {
-  label: string;
-  data: number[];
-  borderColor?: string;
-  backgroundColor?: string;
-  pointBackgroundColor?: string;
-  pointBorderColor?: string;
+// 数据类型定义
+export interface ScatterChartDataItem {
+  x: number;
+  y: number;
 }
 
-// 雷达图配置接口
-export interface RadarChartConfigItem {
+export interface ScatterChartDataset {
+  label: string;
+  data: ScatterChartDataItem[];
+  backgroundColor: string;
+  borderColor: string;
+}
+
+export interface ScatterChartConfigItem {
   type: string;
   typeName: string;
-  labels: string[];
-  datasets: RadarChartDataItem[];
-  maxValue?: number;
-  minValue?: number;
-  stepSize?: number;
-  theme?: 'dark' | 'light';
+  title: string;
+  datasets: ScatterChartDataset[];
+  theme?: 'light' | 'dark';
   showLegend?: boolean;
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  xAxisMin?: number;
+  xAxisMax?: number;
+  yAxisMin?: number;
+  yAxisMax?: number;
+  xAxisStep?: number;
+  yAxisStep?: number;
 }
 
-interface RadarChartProps {
-  configs: RadarChartConfigItem[];
+export interface ScatterChartProps {
+  configs: ScatterChartConfigItem[];
   width?: number;
   height?: number;
   className?: string;
 }
 
-const RadarChart: React.FC<RadarChartProps> = ({ 
+export interface ScatterChartProps {
+  configs: ScatterChartConfigItem[];
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+// 默认颜色配置
+const defaultColors = [
+  { backgroundColor: 'rgba(147, 112, 219, 0.6)', borderColor: 'rgba(147, 112, 219, 1)' }, // 紫色
+  { backgroundColor: 'rgba(0, 255, 255, 0.6)', borderColor: 'rgba(0, 255, 255, 1)' }, // 青色
+];
+
+const ScatterChart: React.FC<ScatterChartProps> = ({
   configs,
-  width = 600, 
-  height = 400, 
-  className 
+  width = 800,
+  height = 600,
+  className,
 }) => {
-  const chartRef = useRef<ChartJS<'radar'>>(null);
+  const chartRef = useRef<any>(null);
   
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type);
   
   // 根据筛选器选择对应的配置
   const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
-  
   // 筛选器的枚举
   const filterEnum = configs.map(config => {
     return {
@@ -78,49 +95,27 @@ const RadarChart: React.FC<RadarChartProps> = ({
       value: config.type,
     }
   });
-
-  // 默认颜色配置
-  const defaultColors = [
-    '#1677ff', // 蓝色
-    '#8954FC', // 紫色
-    '#15e7e4', // 青色
-    '#F45BB5', // 粉色
-    '#00A6FF', // 天蓝色
-    '#33E59B', // 绿色
-    '#D666E4', // 紫红色
-    '#6151FF', // 靛蓝色
-    '#BF3C93', // 玫红色
-    '#005EE0', // 深蓝色
-  ];
-
-  // 处理数据，应用默认颜色和样式
-  const processedData: ChartData<'radar'> = {
-    labels: currentConfig.labels,
-    datasets: currentConfig.datasets.map((dataset: RadarChartDataItem, index: number) => ({
-      label: dataset.label,
-      data: dataset.data,
-      borderColor: dataset.borderColor || defaultColors[index % defaultColors.length],
-      backgroundColor: dataset.backgroundColor || 
-        `${dataset.borderColor || defaultColors[index % defaultColors.length]}20`,
-      borderWidth: 2,
-      pointBackgroundColor: dataset.pointBackgroundColor || 
-        dataset.borderColor || defaultColors[index % defaultColors.length],
-      pointBorderColor: dataset.pointBorderColor || '#fff',
-      pointBorderWidth: 2,
-      pointRadius: 4,
-      pointHoverRadius: 6,
-      fill: true,
+  
+  // 处理数据，应用默认颜色
+  const processedData: ChartData<'scatter'> = {
+    datasets: currentConfig.datasets.map((dataset: ScatterChartDataset, index: number) => ({
+      ...dataset,
+      backgroundColor: dataset.backgroundColor || defaultColors[index % defaultColors.length].backgroundColor,
+      borderColor: dataset.borderColor || defaultColors[index % defaultColors.length].borderColor,
+      pointRadius: 6,
+      pointHoverRadius: 8,
     })),
   };
 
   // 图表配置选项
-  const options: ChartOptions<'radar'> = {
+  const options: ChartOptions<'scatter'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
         display: currentConfig.showLegend !== false,
-        position: (currentConfig.legendPosition || 'right') as 'top' | 'left' | 'bottom' | 'right',
+        position: (currentConfig.legendPosition || 'bottom') as 'top' | 'left' | 'bottom' | 'right',
+        align: 'start',
         labels: {
           color: currentConfig.theme === 'light' ? '#767E8B' : '#fff',
           font: {
@@ -146,60 +141,82 @@ const RadarChart: React.FC<RadarChartProps> = ({
         displayColors: true,
         callbacks: {
           label: (context) => {
-            return `${context.dataset.label}: ${context.parsed.r}`;
+            return `${context.dataset.label}: (${context.parsed.x}, ${context.parsed.y})`;
           },
         },
       },
     },
     scales: {
-      r: {
-        beginAtZero: true,
-        max: currentConfig.maxValue || 100,
-        min: currentConfig.minValue || 0,
-        ticks: {
-          stepSize: currentConfig.stepSize || 20,
-          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
-          font: {
-            size: 10,
-          },
-          backdropColor: 'transparent',
-          callback: function(value: any) {
-            // 在每个坐标轴旁边显示刻度值
-            return value;
-          }
-        },
-        grid: {
-          color: currentConfig.theme === 'light' 
-            ? 'rgba(0, 0, 0, 0.1)' 
-            : 'rgba(255, 255, 255, 0.2)',
-          lineWidth: 1,
-        },
-        angleLines: {
-          color: currentConfig.theme === 'light' 
-            ? 'rgba(0, 0, 0, 0.1)' 
-            : 'rgba(255, 255, 255, 0.2)',
-          lineWidth: 1,
-        },
-        pointLabels: {
-          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+    x: {
+      type: 'linear',
+      position: 'bottom',
+      title: {
+        display: true,
+        text: currentConfig.xAxisLabel || '月份',
+        color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
           font: {
             size: 12,
             weight: 500,
           },
-          padding: 15,
+        },
+        min: currentConfig.xAxisMin || 1,
+        max: currentConfig.xAxisMax || 12,
+        ticks: {
+          stepSize: currentConfig.xAxisStep || 1,
+          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+          font: {
+            size: 10,
+          },
+          callback: function(value: any) {
+            return `${value}月`;
+          }
+        },
+        grid: {
+          color: 'rgba(0, 16, 32, 0.0627)',
+          lineWidth: 1,
+        },
+      },
+      y: {
+        type: 'linear',
+        position: 'right',
+        title: {
+          display: true,
+          text: currentConfig.yAxisLabel || '数值',
+          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+          font: {
+            family: 'PingFang SC',
+            size: 12,
+            weight: 'normal',
+          },
+          align: 'center',
+        },
+        min: currentConfig.yAxisMin || 0,
+        max: currentConfig.yAxisMax || 100,
+        ticks: {
+          stepSize: currentConfig.yAxisStep || 10,
+          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+          font: {
+            family: 'PingFang SC',
+            size: 12,
+            weight: 'normal',
+          },
+        },
+        grid: {
+          color: 'rgba(0, 16, 32, 0.0627)',
+          lineWidth: 1,
         },
       },
     },
     elements: {
       point: {
-        hoverRadius: 6,
+        hoverRadius: 8,
       },
     },
   };
 
   return (
     <div 
-      className={`radar-chart-container ${className || ''}`}
+      className={`scatter-chart-container ${className || ''}`}
       style={{ 
         width, 
         height, 
@@ -210,12 +227,11 @@ const RadarChart: React.FC<RadarChartProps> = ({
         border: currentConfig.theme === 'light' ? '1px solid #e8e8e8' : 'none',
       }}
     >
-
       {/* 头部 */}
       <div className="chart-header">
         {/* 左侧标题 */}
         <div className="header-title">
-          2025年第一季度短视频用户分布分析
+          {currentConfig.title}
         </div>
         
         {/* 右侧时间+下载按钮 */}
@@ -258,14 +274,15 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
         <Segmented
           options={filterEnum}
-          onChange={(value) => setSelectedFilter(value as string)}
           defaultValue="age"
           size="small"
           className="segmented-filter custom-segmented"
+          onChange={(value) => setSelectedFilter(value as string)}
         />
       </div>
+
       <div className="chart-wrapper">
-        <Radar
+        <Scatter
           ref={chartRef}
           data={processedData}
           options={options}
@@ -275,4 +292,4 @@ const RadarChart: React.FC<RadarChartProps> = ({
   );
 };
 
-export default RadarChart;
+export default ScatterChart;
