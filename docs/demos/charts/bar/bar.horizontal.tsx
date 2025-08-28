@@ -32,11 +32,30 @@ const HorizontalBarChartExample: React.FC = () => {
     <div style={{ padding: 20, backgroundColor: '#f5f5f5' }}>
       <h3 style={{ margin: '0 0 12px' }}>条形图（横向柱状图）</h3>
       <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
-        <Button onClick={() => setCurrentTheme(p => (p === 'dark' ? 'light' : 'dark'))}>切换主题（{currentTheme}）</Button>
-        <Button onClick={() => setLegendPosition(p => (['top','right','bottom','left'] as const)[((['top','right','bottom','left'] as const).indexOf(p)+1)%4])}>切换图例位置（{legendPosition}）</Button>
-        <Button onClick={() => setQuadrant(p => (['I','II','III','IV'] as const)[((['I','II','III','IV'] as const).indexOf(p)+1)%4])}>切换象限（{quadrant}）</Button>
+        <Button type="primary" onClick={() => setCurrentTheme(p => (p === 'dark' ? 'light' : 'dark'))}>切换主题（{currentTheme}）</Button>
+        <Button type="primary" onClick={() => setLegendPosition(p => (['top','right','bottom','left'] as const)[((['top','right','bottom','left'] as const).indexOf(p)+1)%4])}>切换图例位置（{legendPosition}）</Button>
+        <Button type="primary" onClick={() => setQuadrant(p => (['I','II','III','IV'] as const)[((['I','II','III','IV'] as const).indexOf(p)+1)%4])}>切换象限（{quadrant}）</Button>
       </div>
       <BarChart config={config} width={700} height={500} />
+
+      <div style={{
+        backgroundColor: '#fff',
+        padding: '15px',
+        borderRadius: '8px',
+        border: '1px solid #e8e8e8',
+        marginTop: '20px'
+      }}>
+        <h4 style={{ marginTop: 0, color: '#333' }}>当前配置信息：</h4>
+        <pre style={{
+          backgroundColor: '#f5f5f5',
+          padding: '10px',
+          borderRadius: '4px',
+          overflow: 'auto',
+          fontSize: '12px'
+        }}>
+          {JSON.stringify(config, null, 2)}
+        </pre>
+      </div>
     </div>
   );
 };
