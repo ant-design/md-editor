@@ -24,38 +24,65 @@ ChartJS.register(
 );
 
 export interface LineChartDataset {
+  /** 数据集标签，用于图例显示 */
   label: string;
+  /** 数据值数组，与labels一一对应 */
   data: number[];
+  /** 线条颜色，默认为主题色 */
   borderColor?: string;
+  /** 背景颜色，用于填充区域 */
   backgroundColor?: string;
+  /** 数据点背景色，默认使用borderColor */
   pointBackgroundColor?: string;
+  /** 数据点边框色，默认为白色 */
   pointBorderColor?: string;
+  /** 线条宽度，默认为3 */
   borderWidth?: number;
+  /** 曲线平滑度，0-1之间，0为直线，1为平滑曲线 */
   tension?: number;
+  /** 是否填充线条下方的区域，默认为false */
   fill?: boolean;
 }
 
 export interface LineChartConfig {
+  /** X轴标签数组，定义每个数据点的标签 */
   labels: string[];
+  /** 数据集数组，包含要显示的数据系列 */
   datasets: LineChartDataset[];
+  /** Y轴最大值，设置后Y轴不会超过此值 */
   yMax?: number;
+  /** Y轴最小值，设置后Y轴不会低于此值 */
   yMin?: number;
+  /** Y轴刻度步长，控制刻度间隔 */
   yStepSize?: number;
+  /** 图表主题，影响颜色和背景 */
   theme?: 'dark' | 'light';
+  /** 是否显示图例，默认true */
   showLegend?: boolean;
+  /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
+  /** 图例水平对齐方式 */
   legendAlign?: 'start' | 'center' | 'end';
+  /** 是否显示网格线，默认true */
   showGrid?: boolean;
+  /** X轴标题文本 */
   xTitle?: string;
+  /** Y轴标题文本 */
   yTitle?: string;
+  /** X轴位置 */
   xPosition?: 'top' | 'bottom';
+  /** Y轴位置 */
   yPosition?: 'left' | 'right';
 }
 
 interface LineChartProps {
+  /** 折线图配置对象 */
   config: LineChartConfig;
+  /** 图表宽度，默认600px */
   width?: number;
+  /** 图表高度，默认400px */
   height?: number;
+  /** 自定义CSS类名 */
   className?: string;
 }
 
@@ -84,7 +111,7 @@ const LineChart: React.FC<LineChartProps> = ({
     labels: config.labels,
     datasets: config.datasets.map((dataset, index) => {
       const base = dataset.borderColor || defaultColors[index % defaultColors.length];
-      return {
+      const datasetConfig = {
         label: dataset.label,
         data: dataset.data,
         borderColor: base,
@@ -94,12 +121,13 @@ const LineChart: React.FC<LineChartProps> = ({
         borderWidth: 3,
         tension: 0,
         fill: dataset.fill ?? false,
-      } as any;
+      };
+      return datasetConfig;
     }),
   };
 
   const isLight = config.theme === 'light';
-  const axisTextColor = 'rgba(0, 25, 61, 0.3255)';
+  const axisTextColor = isLight ? 'rgba(0, 25, 61, 0.3255)' : 'rgba(255, 255, 255, 0.8)';
   const gridColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)';
 
   const options: ChartOptions<'line'> = {
@@ -108,8 +136,8 @@ const LineChart: React.FC<LineChartProps> = ({
     plugins: {
       legend: {
         display: config.showLegend !== false,
-        position: (config.legendPosition || 'bottom') as any,
-        align: (config.legendAlign || 'start') as any,
+        position: config.legendPosition || 'bottom',
+        align: config.legendAlign || 'start',
         labels: {
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
@@ -137,7 +165,7 @@ const LineChart: React.FC<LineChartProps> = ({
     },
     scales: {
       x: {
-        position: (config.xPosition || 'bottom') as any,
+        position: config.xPosition || 'bottom',
         title: {
           display: !!config.xTitle,
           text: config.xTitle,
@@ -162,7 +190,7 @@ const LineChart: React.FC<LineChartProps> = ({
         },
       },
       y: {
-        position: (config.yPosition || 'left') as any,
+        position: config.yPosition || 'left',
         beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
         min: config.yMin,
         max: config.yMax,
