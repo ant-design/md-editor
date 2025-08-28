@@ -2,6 +2,7 @@ import { ConfigProvider, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 import React, { useContext, useMemo, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import { MarkdownEditor, type MarkdownEditorProps } from '../../MarkdownEditor';
 import { useHtmlPreviewStyle } from './style';
 
@@ -95,6 +96,8 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
   const [innerMode, setInnerMode] = useState<HtmlViewMode>(defaultViewMode);
   const mode = isControlled ? (viewMode as HtmlViewMode) : innerMode;
 
+  const { locale } = useContext(I18nContext);
+
   const handleModeChange = (m: HtmlViewMode) => {
     if (!isControlled) setInnerMode(m);
     onViewModeChange?.(m);
@@ -104,8 +107,8 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
   const iframeHtml = useMemo(() => DOMPurify.sanitize(html || ''), [html]);
 
   const labelsMap = {
-    preview: labels?.preview || '预览',
-    code: labels?.code || '代码',
+    preview: labels?.preview || locale?.['htmlPreview.preview'] || '预览',
+    code: labels?.code || locale?.['htmlPreview.code'] || '代码',
   };
 
   // 使用 ConfigProvider 获取前缀类名
@@ -127,7 +130,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
       >
         {status === 'loading'
           ? loadingNode || <Spin />
-          : errorNode || <span>页面渲染失败</span>}
+          : errorNode || (
+              <span>
+                {locale?.['htmlPreview.renderFailed'] || '页面渲染失败'}
+              </span>
+            )}
       </div>
     );
   })();

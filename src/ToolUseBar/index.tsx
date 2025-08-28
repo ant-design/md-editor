@@ -4,6 +4,8 @@ import React from 'react';
 import { useRefFunction } from '../hooks/useRefFunction';
 import { ToolCall, ToolUseBarItem } from './ToolUseBarItem';
 import { useStyle } from './style';
+export * from './ToolUseBarItem';
+export * from './ToolUseBarThink';
 
 interface ToolUseBarProps {
   tools?: ToolCall[];
