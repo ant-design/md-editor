@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Button } from 'antd';
 import AreaChart, { AreaChartConfig } from '@ant-design/md-editor/plugins/chart/AreaChart';
 
 const DynamicAreaChartExample: React.FC = () => {
@@ -73,65 +74,33 @@ const DynamicAreaChartExample: React.FC = () => {
       <h2 style={{ marginBottom: '20px', color: '#333' }}>动态面积图使用示例</h2>
 
       <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-        <button
-          type="button"
+        <Button
+          type="primary"
           onClick={handleThemeChange}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: currentTheme === 'dark' ? '#1677ff' : '#333',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
         >
           切换主题 ({currentTheme === 'dark' ? '深色' : '浅色'})
-        </button>
+        </Button>
 
-        <button
-          type="button"
+        <Button
+          type="primary"
           onClick={handleLegendPositionChange}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#8954FC',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
         >
           切换图例位置 ({legendPosition})
-        </button>
+        </Button>
 
-        <button
-          type="button"
+        <Button
+          type="primary"
           onClick={handleRandomize}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#F45BB5',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
         >
           随机更新数据
-        </button>
+        </Button>
 
-        <button
-          type="button"
+        <Button
+          type="primary"
           onClick={handleQuadrantToggle}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#0f172a',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
         >
           切换象限（当前：{quadrant}）
-        </button>
+        </Button>
       </div>
 
       <div style={{ marginBottom: '20px' }}>
