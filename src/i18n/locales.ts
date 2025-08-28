@@ -166,7 +166,7 @@ export const cnLabels = {
   'taskList.taskInProgress': '正在进行${taskName}任务',
   'taskList.totalTimeUsed': '共耗时',
   // Bubble 组件相关
-  'chat.message.thinking': '正在思考中...',
+  'chat.message.thinking': '思考中...',
   'chat.message.referenceDocument': '参考文档',
   'chat.message.viewOriginal': '查看原文',
   'chat.message.generateFailed': '生成回答失败，请重试',
@@ -203,6 +203,7 @@ export const cnLabels = {
   // 聊天相关
   'chat.message.aborted': '回答已停止生成',
   'chat.message.retrySend': '重新生成',
+  'chat.message.generating': '生成中...',
   'chat.message.copy': '复制',
   'chat.message.like': '喜欢',
   'chat.message.cancel-like': '取消点赞',
@@ -462,6 +463,7 @@ export const enLabels: typeof cnLabels = {
   // Chat related
   'chat.message.aborted': 'Answer has stopped being generated',
   'chat.message.retrySend': 'Re-generate',
+  'chat.message.generating': 'Generating...',
   'chat.message.copy': 'Copy',
   'chat.message.like': 'Like',
   'chat.message.cancel-like': 'Cancel Like',

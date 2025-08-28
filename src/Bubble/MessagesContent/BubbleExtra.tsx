@@ -601,7 +601,9 @@ export const BubbleExtra = ({
             }}
           >
             <LoadingLottie size={context?.compact ? 20 : 16} />
-            <span>生成中...</span>
+            <span>
+              {context?.locale?.['chat.message.generating'] || '生成中...'}
+            </span>
           </div>
         ) : null}
         {reSend || null}
