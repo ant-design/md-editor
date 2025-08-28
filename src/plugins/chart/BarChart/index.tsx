@@ -105,7 +105,8 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
         barPercentage: config.barPercentage ?? 0.8,
         stack: config.stacked ? 'stack' : undefined,
         borderRadius: ((ctx: any) => {
-          const value = Number(ctx?.raw ?? 0);
+          const rawValue = ctx?.raw;
+          const value = typeof rawValue === 'number' ? rawValue : Number(rawValue ?? 0);
           const isHorizontal = (config.indexAxis || 'x') === 'y';
           const radius = 6;
           const chart = ctx?.chart as import('chart.js').Chart<'bar'>;
@@ -132,27 +133,23 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
             isTopOfStack = dsIndex === topIndex;
           }
 
-          if (!isTopOfStack) return 0 as any;
+          if (!isTopOfStack) return 0;
 
           if (isHorizontal) {
             if (value >= 0) {
-              return { topRight: radius, bottomRight: radius, topLeft: 0, bottomLeft: 0 } as any;
+              return { topRight: radius, bottomRight: radius, topLeft: 0, bottomLeft: 0 };
+            } else {
+              return { topLeft: radius, bottomLeft: radius, topRight: 0, bottomRight: 0 };
             }
-            return { topLeft: radius, bottomLeft: radius, topRight: 0, bottomRight: 0 } as any;
+          } else {
+            if (value >= 0) {
+              return { topLeft: radius, topRight: radius, bottomLeft: 0, bottomRight: 0 };
+            } else {
+              return { bottomLeft: radius, bottomRight: radius, topLeft: 0, topRight: 0 };
+            }
           }
-          if (value >= 0) {
-            return { topLeft: radius, topRight: radius, bottomLeft: 0, bottomRight: 0 } as any;
-          }
-          return { bottomLeft: radius, bottomRight: radius, topLeft: 0, topRight: 0 } as any;
         }) as any,
-        borderSkipped: ((ctx: any) => {
-          const value = ctx?.raw as number;
-          const isHorizontal = (config.indexAxis || 'x') === 'y';
-          if (isHorizontal) {
-            return value >= 0 ? 'left' : 'right';
-          }
-          return value >= 0 ? 'bottom' : 'top';
-        }) as any,
+        borderSkipped: false,
       } as any;
     }),
   };
