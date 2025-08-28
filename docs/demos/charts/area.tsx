@@ -7,29 +7,58 @@ const DynamicAreaChartExample: React.FC = () => {
   const [legendPosition, setLegendPosition] = useState<'top' | 'left' | 'bottom' | 'right'>('bottom');
   const [quadrant, setQuadrant] = useState<'I' | 'II' | 'III' | 'IV'>('I');
 
-  const [baseConfig, setBaseConfig] = useState<AreaChartConfig>({
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    datasets: [
-      {
-        label: '本周访客',
-        data: [120, 132, 101, 134, 90, 230, 210],
-        borderColor: '#388BFF',
-      },
-      {
-        label: '上周访客',
-        data: [220, 182, 191, 234, 290, 330, 310],
-        borderColor: '#917EF7',
-      },
-    ],
-    yMin: 0,
-    yMax: 400,
-    yStepSize: 50,
-    theme: currentTheme,
-    legendPosition,
-    xTitle: '日期',
-    yTitle: '访客数',
-    showGrid: true,
-  });
+  const [baseConfigs, setBaseConfigs] = useState<AreaChartConfig[]>([
+    {
+      type: 'visitor',
+      typeName: '访客数据',
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [
+        {
+          label: '本周访客',
+          data: [120, 132, 101, 134, 90, 230, 210],
+          borderColor: '#388BFF',
+        },
+        {
+          label: '上周访客',
+          data: [220, 182, 191, 234, 290, 330, 310],
+          borderColor: '#917EF7',
+        },
+      ],
+      yMin: 0,
+      yMax: 400,
+      yStepSize: 50,
+      theme: currentTheme,
+      legendPosition,
+      xTitle: '日期',
+      yTitle: '访客数',
+      showGrid: true,
+    },
+    {
+      type: 'revenue',
+      typeName: '营收数据',
+      labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+      datasets: [
+        {
+          label: '本年营收',
+          data: [45000, 52000, 48000, 61000, 55000, 67000],
+          borderColor: '#33E59B',
+        },
+        {
+          label: '去年营收',
+          data: [38000, 41000, 42000, 48000, 45000, 52000],
+          borderColor: '#F45BB5',
+        },
+      ],
+      yMin: 30000,
+      yMax: 70000,
+      yStepSize: 10000,
+      theme: currentTheme,
+      legendPosition,
+      xTitle: '月份',
+      yTitle: '营收金额',
+      showGrid: true,
+    },
+  ]);
 
   const transformConfigByQuadrant = (cfg: AreaChartConfig, q: 'I'|'II'|'III'|'IV'): AreaChartConfig => {
     const xPosition: 'top'|'bottom' = (q === 'II' || q === 'III') ? 'top' : 'bottom';
@@ -37,12 +66,14 @@ const DynamicAreaChartExample: React.FC = () => {
     return { ...cfg, xPosition, yPosition };
   };
 
-  const config = useMemo(() => transformConfigByQuadrant({ ...baseConfig, theme: currentTheme, legendPosition }, quadrant), [baseConfig, currentTheme, legendPosition, quadrant]);
+  const configs = useMemo(() => baseConfigs.map(config =>
+    transformConfigByQuadrant({ ...config, theme: currentTheme, legendPosition }, quadrant)
+  ), [baseConfigs, currentTheme, legendPosition, quadrant]);
 
   const handleThemeChange = () => {
     const next = currentTheme === 'dark' ? 'light' : 'dark';
     setCurrentTheme(next);
-    setBaseConfig(prev => ({ ...prev, theme: next }));
+    setBaseConfigs(prev => prev.map(config => ({ ...config, theme: next })));
   };
 
   const handleLegendPositionChange = () => {
@@ -50,17 +81,17 @@ const DynamicAreaChartExample: React.FC = () => {
     const idx = positions.indexOf(legendPosition);
     const next = positions[(idx + 1) % positions.length];
     setLegendPosition(next);
-    setBaseConfig(prev => ({ ...prev, legendPosition: next }));
+    setBaseConfigs(prev => prev.map(config => ({ ...config, legendPosition: next })));
   };
 
   const handleRandomize = () => {
-    setBaseConfig(prev => ({
-      ...prev,
-      datasets: prev.datasets.map(ds => ({
+    setBaseConfigs(prev => prev.map(config => ({
+      ...config,
+      datasets: config.datasets.map(ds => ({
         ...ds,
-        data: ds.data.map(() => Math.floor(Math.random() * 360)),
+        data: ds.data.map(() => Math.floor(Math.random() * (config.yMax || 400))),
       })),
-    }));
+    })));
   };
 
   const handleQuadrantToggle = () => {
@@ -105,7 +136,8 @@ const DynamicAreaChartExample: React.FC = () => {
 
       <div style={{ marginBottom: '20px' }}>
         <AreaChart
-          config={config}
+          configs={configs}
+          title="动态面积图使用示例"
           width={700}
           height={500}
         />
@@ -125,7 +157,7 @@ const DynamicAreaChartExample: React.FC = () => {
           overflow: 'auto',
           fontSize: '12px',
         }}>
-          {JSON.stringify(config, null, 2)}
+          {JSON.stringify(configs, null, 2)}
         </pre>
       </div>
     </div>

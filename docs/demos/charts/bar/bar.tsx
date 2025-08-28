@@ -7,33 +7,66 @@ const DynamicBarChartExample: React.FC = () => {
   const [legendPosition, setLegendPosition] = useState<'top' | 'left' | 'bottom' | 'right'>('bottom');
   const [quadrant, setQuadrant] = useState<'I' | 'II' | 'III' | 'IV'>('I');
 
-  const [baseConfig, setBaseConfig] = useState<BarChartConfig>({
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    datasets: [
-      {
-        label: '本周访客',
-        data: [120, 132, 101, 134, 90, 230, 210],
-        borderColor: '#388BFF',
-        backgroundColor: '#388BFF',
-      },
-      {
-        label: '上周访客',
-        data: [220, 182, 191, 234, 290, 330, 310],
-        borderColor: '#917EF7',
-        backgroundColor: '#917EF7',
-      },
-    ],
-    yMin: 0,
-    yMax: 400,
-    yStepSize: 50,
-    theme: currentTheme,
-    legendPosition,
-    xTitle: '日期',
-    yTitle: '访客数',
-    showGrid: true,
-    categoryPercentage: 0.7,
-    barPercentage: 0.8,
-  });
+  const [baseConfigs, setBaseConfigs] = useState<BarChartConfig[]>([
+    {
+      type: 'visitor',
+      typeName: '访客数据',
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [
+        {
+          label: '本周访客',
+          data: [120, 132, 101, 134, 90, 230, 210],
+          borderColor: '#388BFF',
+          backgroundColor: '#388BFF',
+        },
+        {
+          label: '上周访客',
+          data: [220, 182, 191, 234, 290, 330, 310],
+          borderColor: '#917EF7',
+          backgroundColor: '#917EF7',
+        },
+      ],
+      yMin: 0,
+      yMax: 400,
+      yStepSize: 50,
+      theme: currentTheme,
+      legendPosition,
+      xTitle: '日期',
+      yTitle: '访客数',
+      showGrid: true,
+      categoryPercentage: 0.7,
+      barPercentage: 0.8,
+    },
+    {
+      type: 'sales',
+      typeName: '销售数据',
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: '本年销售额',
+          data: [85000, 92000, 88000, 105000],
+          borderColor: '#33E59B',
+          backgroundColor: '#33E59B',
+        },
+        {
+          label: '去年销售额',
+          data: [72000, 78000, 81000, 89000],
+          borderColor: '#F45BB5',
+          backgroundColor: '#F45BB5',
+        },
+      ],
+      yMin: 60000,
+      yMax: 110000,
+      yStepSize: 10000,
+      theme: currentTheme,
+      legendPosition,
+      xTitle: '季度',
+      yTitle: '销售额',
+      showGrid: true,
+      categoryPercentage: 0.7,
+      barPercentage: 0.8,
+    },
+  ]);
 
   const transformConfigByQuadrant = (cfg: BarChartConfig, q: 'I'|'II'|'III'|'IV'): BarChartConfig => {
     const xPosition: 'top'|'bottom' = (q === 'II' || q === 'III') ? 'top' : 'bottom';
@@ -41,12 +74,14 @@ const DynamicBarChartExample: React.FC = () => {
     return { ...cfg, xPosition, yPosition };
   };
 
-  const config = useMemo(() => transformConfigByQuadrant({ ...baseConfig, theme: currentTheme, legendPosition }, quadrant), [baseConfig, currentTheme, legendPosition, quadrant]);
+  const configs = useMemo(() => baseConfigs.map(config =>
+    transformConfigByQuadrant({ ...config, theme: currentTheme, legendPosition }, quadrant)
+  ), [baseConfigs, currentTheme, legendPosition, quadrant]);
 
   const handleThemeChange = () => {
     const next = currentTheme === 'dark' ? 'light' : 'dark';
     setCurrentTheme(next);
-    setBaseConfig(prev => ({ ...prev, theme: next }));
+    setBaseConfigs(prev => prev.map(config => ({ ...config, theme: next })));
   };
 
   const handleLegendPositionChange = () => {
@@ -54,17 +89,17 @@ const DynamicBarChartExample: React.FC = () => {
     const idx = positions.indexOf(legendPosition);
     const next = positions[(idx + 1) % positions.length];
     setLegendPosition(next);
-    setBaseConfig(prev => ({ ...prev, legendPosition: next }));
+    setBaseConfigs(prev => prev.map(config => ({ ...config, legendPosition: next })));
   };
 
   const handleRandomize = () => {
-    setBaseConfig(prev => ({
-      ...prev,
-      datasets: prev.datasets.map(ds => ({
+    setBaseConfigs(prev => prev.map(config => ({
+      ...config,
+      datasets: config.datasets.map(ds => ({
         ...ds,
-        data: ds.data.map(() => Math.floor(Math.random() * 360)),
+        data: ds.data.map(() => Math.floor(Math.random() * (config.yMax || 400))),
       })),
-    }));
+    })));
   };
 
   const handleQuadrantToggle = () => {
@@ -109,7 +144,8 @@ const DynamicBarChartExample: React.FC = () => {
 
       <div style={{ marginBottom: '20px' }}>
         <BarChart
-          config={config}
+          configs={configs}
+          title="动态柱状图使用示例"
           width={700}
           height={500}
         />
@@ -129,7 +165,7 @@ const DynamicBarChartExample: React.FC = () => {
           overflow: 'auto',
           fontSize: '12px',
         }}>
-          {JSON.stringify(config, null, 2)}
+          {JSON.stringify(configs, null, 2)}
         </pre>
       </div>
     </div>
