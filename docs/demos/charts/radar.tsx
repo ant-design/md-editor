@@ -77,10 +77,22 @@ const DynamicRadarChartExample: React.FC = () => {
         >
           随机更新数据
         </button>
+        
+        <div style={{
+          padding: '8px 12px',
+          backgroundColor: '#fff',
+          border: '1px solid #d9d9d9',
+          borderRadius: '4px',
+          fontSize: '12px',
+          color: '#666'
+        }}>
+          💡 点击图表右上角的下载按钮可以下载图表为PNG格式
+        </div>
       </div>
 
       <div style={{ marginBottom: '20px' }}>
         <RadarChart 
+          title="2025年第一季度短视频用户分布分析"
           configs={configs}
           width={700} 
           height={500} 
