@@ -127,7 +127,7 @@ const LineChart: React.FC<LineChartProps> = ({
   };
 
   const isLight = config.theme === 'light';
-  const axisTextColor = 'rgba(0, 25, 61, 0.3255)';
+  const axisTextColor = isLight ? 'rgba(0, 25, 61, 0.3255)' : 'rgba(255, 255, 255, 0.8)';
   const gridColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)';
 
   const options: ChartOptions<'line'> = {
