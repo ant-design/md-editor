@@ -1,10 +1,9 @@
-import { FilterOption } from '@ant-design/md-editor/plugins/chart/components';
 import DonutCharts, {
   DonutChartConfig,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React, { useMemo, useState } from 'react';
 const originData = {
-  sex: [
+  性别: [
     {
       title: '男性用户',
       datasets: [
@@ -24,7 +23,7 @@ const originData = {
       showTooltip: false,
     },
   ],
-  age: [
+  年龄: [
     {
       title: '18-25岁',
       datasets: [
@@ -64,11 +63,8 @@ const originData = {
   ],
 };
 const DonutSingleDemo: React.FC = () => {
-  const [selectedFilter, setSelectedFilter] = useState('age');
-  const filterOptions: FilterOption[] = [
-    { label: '年龄', value: 'age' },
-    { label: '性别', value: 'sex' },
-  ];
+  const [selectedFilter, setSelectedFilter] = useState('年龄');
+  const filterList: string[] = ['年龄', '性别', '年龄'];
 
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value);
@@ -89,7 +85,7 @@ const DonutSingleDemo: React.FC = () => {
         width={128}
         height={128}
         title="2025年第一季度短视频用户分布分析"
-        filterOptions={filterOptions}
+        filterList={filterList}
         selectedFilter={selectedFilter}
         onFilterChange={handleFilterChange}
       />

@@ -9,12 +9,7 @@ import {
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import {
-  ChartFilter,
-  ChartToolBar,
-  downloadChart,
-  FilterOption,
-} from '../components';
+import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import { useStyle } from './style';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -46,7 +41,7 @@ export interface DonutChartProps {
   showToolbar?: boolean;
   onDownload?: () => void;
   /** 筛选项列表，不传时不显示筛选器 */
-  filterOptions?: FilterOption[];
+  filterList?: string[];
   /** 当前选中的筛选值 */
   selectedFilter?: string;
   /** 筛选变化回调函数 */
@@ -94,13 +89,35 @@ const DonutChart: React.FC<DonutChartProps> = ({
   title,
   showToolbar = true,
   onDownload,
-  filterOptions,
+  filterList,
   selectedFilter,
   onFilterChange,
 }) => {
   const baseClassName = 'md-editor-donut-chart';
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const chartRef = useRef<ChartJS<'doughnut'>>(null);
+
+  // 验证 filterList 是否有重复项
+  if (filterList && filterList.length > 0) {
+    const uniqueItems = new Set(filterList);
+    if (uniqueItems.size !== filterList.length) {
+      // 找出重复的项
+      const seen = new Set<string>();
+      const duplicates = new Set<string>();
+
+      filterList.forEach((item) => {
+        if (seen.has(item)) {
+          duplicates.add(item);
+        } else {
+          seen.add(item);
+        }
+      });
+
+      throw new Error(
+        `DonutChart filterList 包含重复项: [${Array.from(duplicates).join(', ')}]. 每个筛选项必须唯一。`,
+      );
+    }
+  }
 
   // 下载图表
   const handleDownload = () => {
@@ -112,9 +129,14 @@ const DonutChart: React.FC<DonutChartProps> = ({
       {showToolbar && (
         <div>
           <ChartToolBar title={title} onDownload={handleDownload} />
-          {filterOptions && filterOptions.length > 0 && (
+          {filterList && filterList.length > 0 && (
             <ChartFilter
-              filterOptions={filterOptions}
+              filterOptions={filterList.map((item) => {
+                return {
+                  label: item,
+                  value: item,
+                };
+              })}
               selectedFilter={selectedFilter || ''}
               onFilterChange={onFilterChange || (() => {})}
             />
