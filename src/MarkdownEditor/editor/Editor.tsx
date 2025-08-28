@@ -591,7 +591,6 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     }
 
     const types = event.clipboardData?.types || ['text/plain'];
-
     // 1. 首先尝试处理 slate-md-fragment
     if (types.includes('application/x-slate-md-fragment')) {
       if (
