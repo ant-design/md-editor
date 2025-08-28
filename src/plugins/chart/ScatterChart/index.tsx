@@ -85,7 +85,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type);
-  const [selectedRegion, setSelectedRegion] = useState('global');
+  // const [selectedRegion, setSelectedRegion] = useState('global');
   
   // 根据筛选器选择对应的配置
   const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
@@ -241,8 +241,6 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        selectedRegion={selectedRegion}
-        onRegionChange={setSelectedRegion}
       />
 
       <div className="chart-wrapper">
