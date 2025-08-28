@@ -24,37 +24,63 @@ ChartJS.register(
 );
 
 export interface AreaChartDataset {
+  /** 数据集标签，用于图例显示 */
   label: string;
+  /** 数据值数组，与labels一一对应 */
   data: number[];
+  /** 线条颜色，默认为主题色 */
   borderColor?: string;
+  /** 填充区域颜色，默认使用borderColor的透明版本 */
   backgroundColor?: string;
+  /** 数据点背景色，默认使用borderColor */
   pointBackgroundColor?: string;
+  /** 数据点边框色，默认为白色 */
   pointBorderColor?: string;
+  /** 线条宽度，默认为3 */
   borderWidth?: number;
+  /** 曲线平滑度，0-1之间，0为直线，1为平滑曲线 */
   tension?: number;
 }
 
 export interface AreaChartConfig {
+  /** X轴标签数组，定义每个数据点的标签 */
   labels: string[];
+  /** 数据集数组，包含要显示的数据系列 */
   datasets: AreaChartDataset[];
+  /** Y轴最大值，设置后Y轴不会超过此值 */
   yMax?: number;
+  /** Y轴最小值，设置后Y轴不会低于此值 */
   yMin?: number;
+  /** Y轴刻度步长，控制刻度间隔 */
   yStepSize?: number;
+  /** 图表主题，影响颜色和背景 */
   theme?: 'dark' | 'light';
+  /** 是否显示图例，默认true */
   showLegend?: boolean;
+  /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
+  /** 图例水平对齐方式 */
   legendAlign?: 'start' | 'center' | 'end';
+  /** 是否显示网格线，默认true */
   showGrid?: boolean;
+  /** X轴标题文本 */
   xTitle?: string;
+  /** Y轴标题文本 */
   yTitle?: string;
+  /** X轴位置 */
   xPosition?: 'top' | 'bottom';
+  /** Y轴位置 */
   yPosition?: 'left' | 'right';
 }
 
 interface AreaChartProps {
+  /** 面积图配置对象 */
   config: AreaChartConfig;
+  /** 图表宽度，默认600px */
   width?: number;
+  /** 图表高度，默认400px */
   height?: number;
+  /** 自定义CSS类名 */
   className?: string;
 }
 
