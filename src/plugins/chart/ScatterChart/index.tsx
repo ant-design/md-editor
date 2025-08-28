@@ -10,9 +10,7 @@ import {
   ChartData,
 } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
-import { Segmented, Dropdown, Button } from 'antd';
-import { DownOutlined, DownloadOutlined } from '@ant-design/icons';
-import TimeIcon from '../RadarChart/icons/TimeIcon';
+import { ChartToolBar, ChartFilter, downloadChart } from '../components';
 import './style.less';
 
 // 注册 Chart.js 组件
@@ -57,6 +55,7 @@ export interface ScatterChartConfigItem {
 
 export interface ScatterChartProps {
   configs: ScatterChartConfigItem[];
+  title: string;
   width?: number;
   height?: number;
   className?: string;
@@ -80,11 +79,13 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   width = 800,
   height = 600,
   className,
+  title
 }) => {
-  const chartRef = useRef<any>(null);
+  const chartRef = useRef<ChartJS<'scatter'>>(null);
   
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type);
+  // const [selectedRegion, setSelectedRegion] = useState('global');
   
   // 根据筛选器选择对应的配置
   const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
@@ -214,6 +215,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     },
   };
 
+  const handleDownload = () => {
+    downloadChart(chartRef.current, 'scatter-chart');
+  };
+
   return (
     <div 
       className={`scatter-chart-container ${className || ''}`}
@@ -227,59 +232,18 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         border: currentConfig.theme === 'light' ? '1px solid #e8e8e8' : 'none',
       }}
     >
-      {/* 头部 */}
-      <div className="chart-header">
-        {/* 左侧标题 */}
-        <div className="header-title">
-          {currentConfig.title}
-        </div>
-        
-        {/* 右侧时间+下载按钮 */}
-        <div className="header-actions">
-          <TimeIcon className="time-icon" />
-          <span className="data-time">
-            数据时间: 2025-06-30 00:00:00
-          </span>
-          <DownloadOutlined className="download-btn" />
-        </div>
-      </div>
+      <ChartToolBar
+        title={title}
+        theme={currentConfig.theme}
+        onDownload={handleDownload}
+      />
 
-      <div className="filter-container">
-        {/* 地区筛选器 */}
-        <div className="region-filter">
-          <Dropdown
-            menu={{
-              items: [
-                { key: 'global', label: '全球' },
-                { key: 'china', label: '中国' },
-                { key: 'us', label: '美国' },
-                { key: 'eu', label: '欧洲' },
-                { key: 'asia', label: '亚洲' },
-                { key: 'africa', label: '非洲' },
-                { key: 'oceania', label: '大洋洲' }
-              ]
-            }}
-            trigger={['click']}
-          >
-              <Button
-                type="default"
-                size="small"
-                className="region-dropdown-btn"
-              >
-                <span>全球</span>
-                <DownOutlined className="dropdown-icon" />
-              </Button>
-          </Dropdown>
-        </div>
-
-        <Segmented
-          options={filterEnum}
-          defaultValue="age"
-          size="small"
-          className="segmented-filter custom-segmented"
-          onChange={(value) => setSelectedFilter(value as string)}
-        />
-      </div>
+      <ChartFilter
+        filterOptions={filterEnum}
+        selectedFilter={selectedFilter}
+        onFilterChange={setSelectedFilter}
+        theme={currentConfig.theme}
+      />
 
       <div className="chart-wrapper">
         <Scatter

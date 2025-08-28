@@ -11,9 +11,7 @@ import {
   ChartData,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
-import { Segmented, Dropdown, Button } from 'antd';
-import { DownOutlined, DownloadOutlined } from '@ant-design/icons';
-import TimeIcon from './icons/TimeIcon';
+import { ChartToolBar, ChartFilter, downloadChart } from '../components';
 import './style.less';
 
 // 注册 Chart.js 组件
@@ -52,6 +50,7 @@ export interface RadarChartConfigItem {
 
 interface RadarChartProps {
   configs: RadarChartConfigItem[];
+  title: string;
   width?: number;
   height?: number;
   className?: string;
@@ -59,6 +58,7 @@ interface RadarChartProps {
 
 const RadarChart: React.FC<RadarChartProps> = ({ 
   configs,
+  title,
   width = 600, 
   height = 400, 
   className 
@@ -67,6 +67,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type);
+  // const [selectedRegion, setSelectedRegion] = useState('global');
   
   // 根据筛选器选择对应的配置
   const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
@@ -197,6 +198,10 @@ const RadarChart: React.FC<RadarChartProps> = ({
     },
   };
 
+  const handleDownload = () => {
+    downloadChart(chartRef.current, 'radar-chart');
+  };
+
   return (
     <div 
       className={`radar-chart-container ${className || ''}`}
@@ -211,59 +216,18 @@ const RadarChart: React.FC<RadarChartProps> = ({
       }}
     >
 
-      {/* 头部 */}
-      <div className="chart-header">
-        {/* 左侧标题 */}
-        <div className="header-title">
-          2025年第一季度短视频用户分布分析
-        </div>
-        
-        {/* 右侧时间+下载按钮 */}
-        <div className="header-actions">
-          <TimeIcon className="time-icon" />
-          <span className="data-time">
-            数据时间: 2025-06-30 00:00:00
-          </span>
-          <DownloadOutlined className="download-btn" />
-        </div>
-      </div>
+      <ChartToolBar
+        title={title ||"2025年第一季度短视频用户分布分析"}
+        theme={currentConfig.theme}
+        onDownload={handleDownload}
+      />
 
-      <div className="filter-container">
-        {/* 地区筛选器 */}
-        <div className="region-filter">
-          <Dropdown
-            menu={{
-              items: [
-                { key: 'global', label: '全球' },
-                { key: 'china', label: '中国' },
-                { key: 'us', label: '美国' },
-                { key: 'eu', label: '欧洲' },
-                { key: 'asia', label: '亚洲' },
-                { key: 'africa', label: '非洲' },
-                { key: 'oceania', label: '大洋洲' }
-              ]
-            }}
-            trigger={['click']}
-          >
-              <Button
-                type="default"
-                size="small"
-                className="region-dropdown-btn"
-              >
-                <span>全球</span>
-                <DownOutlined className="dropdown-icon" />
-              </Button>
-          </Dropdown>
-        </div>
-
-        <Segmented
-          options={filterEnum}
-          onChange={(value) => setSelectedFilter(value as string)}
-          defaultValue="age"
-          size="small"
-          className="segmented-filter custom-segmented"
-        />
-      </div>
+      <ChartFilter
+        filterOptions={filterEnum}
+        selectedFilter={selectedFilter}
+        onFilterChange={setSelectedFilter}
+        theme={currentConfig.theme}
+      />
       <div className="chart-wrapper">
         <Radar
           ref={chartRef}

@@ -1,0 +1,39 @@
+export { default as ChartToolBar } from './ChartToolBar';
+export { default as ChartFilter } from './ChartFilter';
+export type { ChartToolBarProps } from './ChartToolBar';
+export type { ChartFilterProps, FilterOption, RegionOption } from './ChartFilter'; 
+
+// 通用图表下载工具函数
+export const downloadChart = (
+  chartInstance: any, 
+  filename: string = 'chart', 
+  format: 'png' | 'jpeg' = 'png',
+  quality: number = 1
+): boolean => {
+  if (!chartInstance) {
+    console.error('Chart instance is not available');
+    return false;
+  }
+
+  try {
+    // 使用 Chart.js 原生的 toBase64Image 方法
+    const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
+    const base64Image = chartInstance.toBase64Image(mimeType, quality);
+    
+    // 创建下载链接
+    const link = document.createElement('a');
+    link.download = `${filename}-${new Date().getTime()}.${format}`;
+    link.href = base64Image;
+    
+    // 触发下载
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    console.log(`Chart downloaded successfully as ${format.toUpperCase()}`);
+    return true;
+  } catch (error) {
+    console.error('Error downloading chart:', error);
+    return false;
+  }
+}; 
