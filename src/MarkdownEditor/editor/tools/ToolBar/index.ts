@@ -12,7 +12,7 @@ export { UndoRedoButtons } from './components/UndoRedoButtons';
 export { useToolBarLogic } from './hooks/useToolBarLogic';
 
 // Config
-export { isCodeNode, toolsConfig } from './config/toolsConfig';
+export { isCodeNode, useToolsConfig } from './config/toolsConfig';
 
 // Main component
 export * from './BaseBar';

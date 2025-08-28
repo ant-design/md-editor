@@ -17,6 +17,10 @@ ToolUseBar 是一个用于显示工具调用列表的组件，支持工具状态
 
 <code src="../demos/tool-use-bar-expanded-keys.tsx">expandedKeys 功能演示</code>
 
+<code src="../demos/tool-use-bar-think-standalone.tsx">ToolUseBarThink 独立组件</code>
+
+<code src="../demos/tool-use-bar-think-simple.tsx">ToolUseBarThink 简单示例</code>
+
 ## API
 
 ### ToolUseBarProps
@@ -53,6 +57,39 @@ ToolUseBar 是一个用于显示工具调用列表的组件，支持工具状态
 - `success`: 成功状态
 - `error`: 错误状态
 - `active`: 激活状态（通过 activeKeys 控制）
+
+## ToolUseBarThink 独立组件
+
+ToolUseBarThink 是一个专门为 Think 功能设计的独立组件，拥有独特的样式和功能。
+
+### ToolUseBarThinkProps
+
+| 属性             | 类型                                        | 默认值 | 说明                    |
+| ---------------- | ------------------------------------------- | ------ | ----------------------- |
+| id               | string                                      | -      | 组件唯一标识            |
+| toolName         | React.ReactNode                             | -      | 工具名称                |
+| toolTarget       | React.ReactNode                             | -      | 工具目标                |
+| time             | React.ReactNode                             | -      | 工具执行时间            |
+| icon             | React.ReactNode                             | -      | 自定义图标              |
+| thinkContent     | React.ReactNode                             | -      | Think 模块完整内容      |
+| isThinkLoading   | boolean                                     | false  | Think 模块 loading 状态 |
+| status           | 'idle' \| 'loading' \| 'success' \| 'error' | 'idle' | 组件状态                |
+| onClick          | (id: string) => void                        | -      | 点击回调                |
+| isActive         | boolean                                     | false  | 是否激活                |
+| onActiveChange   | (id: string, active: boolean) => void       | -      | 激活状态变化回调        |
+| isExpanded       | boolean                                     | -      | 是否展开                |
+| onExpandedChange | (id: string, expanded: boolean) => void     | -      | 展开状态变化回调        |
+| defaultExpanded  | boolean                                     | false  | 默认展开状态            |
+| testId           | string                                      | -      | 测试 ID                 |
+
+### ToolUseBarThink 特性
+
+- **独立组件**: 专门为 Think 功能设计的独立组件
+- **专用样式**: 拥有独特的蓝色主题样式
+- **Loading 状态**: 显示 8 行占位符，支持展开收起
+- **完整内容**: 支持显示 thinkContent 完整内容
+- **状态管理**: 支持激活状态和展开状态管理
+- **自定义图标**: 默认使用 ThinkIcon，支持自定义
 
 ## 注意事项
 

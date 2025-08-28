@@ -1,6 +1,7 @@
 import { ConfigProvider, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -48,28 +49,28 @@ export interface RealtimeFollowData {
 }
 
 // 获取不同type的配置信息
-const getTypeConfig = (type: RealtimeFollowMode) => {
+const getTypeConfig = (type: RealtimeFollowMode, locale?: any) => {
   switch (type) {
     case 'shell':
       return {
         icon: ShellIcon,
-        title: '终端执行',
+        title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
     case 'html':
       return {
         icon: HtmlIcon,
-        title: '创建 HTML 文件',
+        title: locale?.['workspace.createHtmlFile'] || '创建 HTML 文件',
       };
     case 'markdown':
     case 'md':
       return {
         icon: ThinkIcon,
-        title: 'Markdown 内容',
+        title: locale?.['workspace.markdownContent'] || 'Markdown 内容',
       };
     default:
       return {
         icon: ShellIcon,
-        title: '终端执行',
+        title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
   }
 };
@@ -81,7 +82,8 @@ const RealtimeHeader: React.FC<{
   prefixCls?: string;
   hashId?: string;
 }> = ({ data, hasBorder, prefixCls = 'workspace-realtime', hashId }) => {
-  const config = getTypeConfig(data.type);
+  const { locale } = useContext(I18nContext);
+  const config = getTypeConfig(data.type, locale);
 
   const IconComponent = data.icon || config.icon;
   const headerTitle = data.title || config.title;
@@ -376,9 +378,10 @@ export const RealtimeFollowList: React.FC<{
     data.onViewModeChange?.(mode);
   };
 
+  const { locale } = useContext(I18nContext);
   const labels = {
-    preview: data.labels?.preview || '预览',
-    code: data.labels?.code || '代码',
+    preview: data.labels?.preview || locale?.['htmlPreview.preview'] || '预览',
+    code: data.labels?.code || locale?.['htmlPreview.code'] || '代码',
   };
 
   // 右侧：优先使用外部自定义 rightContent，其次使用 segmentedItems，再次使用默认的预览/代码

@@ -7,7 +7,7 @@ import { I18nContext } from '../../../../i18n';
 import { useEditorStore } from '../../store';
 import { getInsertOptions } from '../InsertAutocomplete';
 import type { ToolsKeyType as ConfigToolsKeyType } from './config/toolsConfig';
-import { toolsConfig } from './config/toolsConfig';
+import { useToolsConfig } from './config/toolsConfig';
 import { useToolBarLogic } from './hooks/useToolBarLogic';
 
 // Components
@@ -102,6 +102,7 @@ export const BaseToolBar = React.memo<{
   } = useEditorStore();
 
   const i18n = useContext(I18nContext);
+  const toolsConfig = useToolsConfig();
 
   const toolBarLogic = useToolBarLogic({
     markdownEditorRef,

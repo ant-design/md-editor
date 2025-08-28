@@ -118,7 +118,7 @@
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px,100%); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
