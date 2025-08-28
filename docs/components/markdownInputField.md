@@ -112,6 +112,47 @@ const App = () => {
 export default App;
 ```
 
+### 启用语音输入按钮
+
+```tsx
+import { MarkdownInputField } from '@ant-design/md-editor';
+import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
+
+export default () => {
+  const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+    let timer: any;
+    return {
+      start: async () => {
+        // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
+        let i = 0;
+        timer = setInterval(() => {
+          i += 1;
+          onPartial(`语音片段${i} `);
+        }, 500);
+      },
+      stop: async () => {
+        clearInterval(timer);
+      },
+    };
+  };
+
+  return (
+    <MarkdownInputField
+      placeholder="请开始讲话..."
+      voiceInput={{ enable: true, createRecognizer }}
+      onSend={async (text) => {
+        console.log('发送内容:', text);
+      }}
+    />
+  );
+};
+```
+
+> 交互说明：
+> - 第一次点击语音按钮开始录音，实时将转写文本写入输入框。
+> - 再次点击语音按钮结束录音。
+> - 录音过程中点击发送按钮将先停止录音，再发送当前输入内容。
+
 ### 自定义触发键和样式
 
 ```tsx
