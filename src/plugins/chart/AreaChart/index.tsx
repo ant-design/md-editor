@@ -109,7 +109,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
     labels: config.labels,
     datasets: config.datasets.map((dataset, index) => {
       const base = dataset.borderColor || defaultColors[index % defaultColors.length];
-      return {
+      const datasetConfig = {
         label: dataset.label,
         data: dataset.data,
         borderColor: base,
@@ -119,7 +119,8 @@ const AreaChart: React.FC<AreaChartProps> = ({
         borderWidth: 3,
         tension: dataset.tension ?? 0,
         fill: true,
-      } as any;
+      };
+      return datasetConfig;
     }),
   };
 
@@ -133,8 +134,8 @@ const AreaChart: React.FC<AreaChartProps> = ({
     plugins: {
       legend: {
         display: config.showLegend !== false,
-        position: (config.legendPosition || 'bottom') as any,
-        align: (config.legendAlign || 'start') as any,
+        position: config.legendPosition || 'bottom',
+        align: config.legendAlign || 'start',
         labels: {
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
@@ -162,7 +163,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
     },
     scales: {
       x: {
-        position: (config.xPosition || 'bottom') as any,
+        position: config.xPosition || 'bottom',
         title: {
           display: !!config.xTitle,
           text: config.xTitle,
@@ -187,7 +188,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
         },
       },
       y: {
-        position: (config.yPosition || 'left') as any,
+        position: (config.yPosition || 'left'),
         beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
         min: config.yMin,
         max: config.yMax,

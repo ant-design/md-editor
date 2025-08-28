@@ -116,7 +116,7 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
           if (config.stacked && chart) {
             const dsIndex = ctx?.datasetIndex as number;
             const dIndex = ctx?.dataIndex as number;
-            const currentStack = (chart.data.datasets?.[dsIndex] as any)?.stack;
+            const currentStack = chart.data.datasets?.[dsIndex]?.stack;
             const sameStackIndexes = chart.data.datasets
               .map((_, i) => i)
               .filter((i) => {
@@ -148,9 +148,9 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
               return { bottomLeft: radius, bottomRight: radius, topLeft: 0, topRight: 0 };
             }
           }
-        }) as any,
+        }),
         borderSkipped: false,
-      } as any;
+      };
     }),
   };
 
@@ -161,12 +161,12 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
   const options: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: (config.indexAxis || 'x') as any,
+    indexAxis: config.indexAxis || 'x',    
     plugins: {
       legend: {
         display: config.showLegend !== false,
-        position: (config.legendPosition || 'bottom') as any,
-        align: (config.legendAlign || 'start') as any,
+        position: config.legendPosition || 'bottom',
+        align: config.legendAlign || 'start',
         labels: {
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
@@ -188,7 +188,7 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
     scales: {
       x: {
         stacked: !!config.stacked,
-        position: (config.xPosition || 'bottom') as any,
+        position: config.xPosition || 'bottom',
         title: {
           display: !!config.xTitle,
           text: config.xTitle,
@@ -214,7 +214,7 @@ const BarChart: React.FC<BarChartProps> = ({ config, width = 600, height = 400, 
       },
       y: {
         stacked: !!config.stacked,
-        position: (config.yPosition || 'left') as any,
+        position: config.yPosition || 'left',
         beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
         min: config.yMin,
         max: config.yMax,

@@ -111,7 +111,7 @@ const LineChart: React.FC<LineChartProps> = ({
     labels: config.labels,
     datasets: config.datasets.map((dataset, index) => {
       const base = dataset.borderColor || defaultColors[index % defaultColors.length];
-      return {
+      const datasetConfig = {
         label: dataset.label,
         data: dataset.data,
         borderColor: base,
@@ -121,7 +121,8 @@ const LineChart: React.FC<LineChartProps> = ({
         borderWidth: 3,
         tension: 0,
         fill: dataset.fill ?? false,
-      } as any;
+      };
+      return datasetConfig;
     }),
   };
 
@@ -135,8 +136,8 @@ const LineChart: React.FC<LineChartProps> = ({
     plugins: {
       legend: {
         display: config.showLegend !== false,
-        position: (config.legendPosition || 'bottom') as any,
-        align: (config.legendAlign || 'start') as any,
+        position: config.legendPosition || 'bottom',
+        align: config.legendAlign || 'start',
         labels: {
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
@@ -164,7 +165,7 @@ const LineChart: React.FC<LineChartProps> = ({
     },
     scales: {
       x: {
-        position: (config.xPosition || 'bottom') as any,
+        position: config.xPosition || 'bottom',
         title: {
           display: !!config.xTitle,
           text: config.xTitle,
@@ -189,7 +190,7 @@ const LineChart: React.FC<LineChartProps> = ({
         },
       },
       y: {
-        position: (config.yPosition || 'left') as any,
+        position: config.yPosition || 'left',
         beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
         min: config.yMin,
         max: config.yMax,
