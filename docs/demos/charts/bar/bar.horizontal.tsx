@@ -49,10 +49,10 @@ const HorizontalBarChartExample: React.FC = () => {
   ), [baseConfigs, currentTheme, legendPosition, quadrant]);
 
   return (
-    <div style={{ padding: 20, backgroundColor: '#f5f5f5' }}>
+    <div style={{ padding: 20 }}>
       <h3 style={{ margin: '0 0 12px' }}>条形图（横向柱状图）</h3>
       <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
-        <Button type="primary" onClick={() => setCurrentTheme(p => (p === 'dark' ? 'light' : 'dark'))}>切换主题（{currentTheme}）</Button>
+        <Button type="primary" onClick={() => setCurrentTheme(p => (p === 'dark' ? 'light' : 'dark'))}>切换主题 ({currentTheme === 'dark' ? '深色' : '浅色'})</Button>
         <Button type="primary" onClick={() => setLegendPosition(p => (['top','right','bottom','left'] as const)[((['top','right','bottom','left'] as const).indexOf(p)+1)%4])}>切换图例位置（{legendPosition}）</Button>
         <Button type="primary" onClick={() => setQuadrant(p => (['I','II','III','IV'] as const)[((['I','II','III','IV'] as const).indexOf(p)+1)%4])}>切换象限（{quadrant}）</Button>
       </div>

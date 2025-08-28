@@ -109,7 +109,7 @@ const DynamicBarChartExample: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '20px', backgroundColor: '#f5f5f5' }}>
+    <div style={{ padding: '20px' }}>
       <h2 style={{ marginBottom: '20px', color: '#333' }}>动态柱状图使用示例</h2>
 
       <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
