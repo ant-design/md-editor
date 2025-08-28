@@ -8,8 +8,8 @@ nav:
 
 ## 饼图
 
-<code src="../demos/charts/donut-single.tsx" background="var(--main-bg-color)"  title="单值饼图" iframe=250></code>
-<code src="../demos/charts/donut-multi.tsx" background="var(--main-bg-color)"  title="多值饼图" iframe=300></code>
+<code src="../demos/charts/donut-single.tsx" background="var(--main-bg-color)"  title="单值饼图" iframe=400></code>
+<code src="../demos/charts/donut-multi.tsx" background="var(--main-bg-color)"  title="多值饼图" iframe=400></code>
 
 ## 雷达图
 
