@@ -7,6 +7,7 @@ export interface ChartToolBarProps {
   title: string;
   dataTime?: string;
   className?: string;
+  theme?: 'light' | 'dark';
   onDownload?: () => void;
 }
 
@@ -14,6 +15,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   title,
   dataTime = '2025-06-30 00:00:00',
   className = '',
+  theme = 'light',
   onDownload,
 }) => {
   const handleDownload = () => {
@@ -23,7 +25,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   };
 
   return (
-    <div className={`chart-header ${className}`}>
+    <div className={`chart-header ${theme} ${className}`}>
       {/* 左侧标题 */}
       <div className="header-title">
         {title}

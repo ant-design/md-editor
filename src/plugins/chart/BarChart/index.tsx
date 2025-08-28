@@ -294,6 +294,7 @@ const BarChart: React.FC<BarChartProps> = ({
     >
       <ChartToolBar
         title={title}
+        theme={currentConfig.theme}
         onDownload={handleDownload}
       />
 
@@ -301,6 +302,7 @@ const BarChart: React.FC<BarChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        theme={currentConfig.theme}
       />
 
       <div className="chart-wrapper">

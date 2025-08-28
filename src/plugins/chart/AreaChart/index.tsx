@@ -269,6 +269,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
     >
       <ChartToolBar
         title={title}
+        theme={currentConfig.theme}
         onDownload={handleDownload}
       />
 
@@ -276,6 +277,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        theme={currentConfig.theme}
       />
 
       <div className="chart-wrapper">

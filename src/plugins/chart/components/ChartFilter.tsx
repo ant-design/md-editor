@@ -21,6 +21,7 @@ export interface ChartFilterProps {
   selectedRegion?: string;
   onRegionChange?: (region: string) => void;
   className?: string;
+  theme?: 'light' | 'dark';
 }
 
 const ChartFilter: React.FC<ChartFilterProps> = ({
@@ -39,6 +40,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   selectedRegion = 'global',
   onRegionChange,
   className = '',
+  theme = 'light',
 }) => {
   const handleRegionChange = (region: string) => {
     if (onRegionChange) {
@@ -47,7 +49,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   };
 
   return (
-    <div className={`filter-container ${className}`}>
+    <div className={`filter-container ${theme} ${className}`}>
       {/* 地区筛选器 */}
       <div className="region-filter">
         <Dropdown

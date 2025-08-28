@@ -271,6 +271,7 @@ const LineChart: React.FC<LineChartProps> = ({
     >
       <ChartToolBar
         title={title}
+        theme={currentConfig.theme}
         onDownload={handleDownload}
       />
 
@@ -278,6 +279,7 @@ const LineChart: React.FC<LineChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        theme={currentConfig.theme}
       />
 
       <div className="chart-wrapper">

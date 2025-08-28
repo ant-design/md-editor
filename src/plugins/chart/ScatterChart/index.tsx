@@ -234,6 +234,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     >
       <ChartToolBar
         title={title}
+        theme={currentConfig.theme}
         onDownload={handleDownload}
       />
 
@@ -241,6 +242,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        theme={currentConfig.theme}
       />
 
       <div className="chart-wrapper">

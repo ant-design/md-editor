@@ -218,6 +218,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
       <ChartToolBar
         title={title ||"2025年第一季度短视频用户分布分析"}
+        theme={currentConfig.theme}
         onDownload={handleDownload}
       />
 
@@ -225,6 +226,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        theme={currentConfig.theme}
       />
       <div className="chart-wrapper">
         <Radar

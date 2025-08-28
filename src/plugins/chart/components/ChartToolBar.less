@@ -32,7 +32,7 @@
       font-weight: normal;
       line-height: 20px;
       letter-spacing: 0em;
-    
+
       font-variation-settings: "opsz" auto;
       /* gray/gray-文本-浅色注释 */
       /* 样式描述：--gray-a9 */
@@ -44,6 +44,35 @@
       color: rgba(0, 25, 61, 0.3255);
       padding: 4px 2px;
       height: auto;
+
+      &:hover {
+        color: #1677ff;
+      }
+    }
+  }
+
+  // Dark theme styles
+  &.dark {
+    .header-title {
+      color: #fff;
+    }
+
+    .header-actions {
+      .time-icon {
+        color: #fff;
+      }
+
+      .data-time {
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .download-btn {
+        color: rgba(255, 255, 255, 0.65);
+
+        &:hover {
+          color: #40a9ff;
+        }
+      }
     }
   }
 } 
