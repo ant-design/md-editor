@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +12,8 @@ import {
   ChartData,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { ChartToolBar, ChartFilter, downloadChart } from '../components';
+import './style.less';
 
 ChartJS.register(
   CategoryScale,
@@ -45,6 +47,10 @@ export interface LineChartDataset {
 }
 
 export interface LineChartConfig {
+  /** 配置类型标识符 */
+  type: string;
+  /** 配置类型名称，用于筛选器显示 */
+  typeName: string;
   /** X轴标签数组，定义每个数据点的标签 */
   labels: string[];
   /** 数据集数组，包含要显示的数据系列 */
@@ -76,8 +82,10 @@ export interface LineChartConfig {
 }
 
 interface LineChartProps {
-  /** 折线图配置对象 */
-  config: LineChartConfig;
+  /** 折线图配置对象数组 */
+  configs: LineChartConfig[];
+  /** 图表标题 */
+  title: string;
   /** 图表宽度，默认600px */
   width?: number;
   /** 图表高度，默认400px */
@@ -100,16 +108,29 @@ const defaultColors = [
 ];
 
 const LineChart: React.FC<LineChartProps> = ({
-  config,
+  configs,
+  title,
   width = 600,
   height = 400,
   className,
 }) => {
   const chartRef = useRef<ChartJS<'line'>>(null);
 
+  // 状态管理
+  const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type || 'default');
+
+  // 根据筛选器选择对应的配置
+  const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
+
+  // 筛选器的枚举
+  const filterEnum = configs.map(config => ({
+    label: config.typeName || config.type || '默认',
+    value: config.type || 'default',
+  }));
+
   const processedData: ChartData<'line'> = {
-    labels: config.labels,
-    datasets: config.datasets.map((dataset, index) => {
+    labels: currentConfig.labels,
+    datasets: currentConfig.datasets.map((dataset, index) => {
       const base = dataset.borderColor || defaultColors[index % defaultColors.length];
       const datasetConfig = {
         label: dataset.label,
@@ -126,7 +147,7 @@ const LineChart: React.FC<LineChartProps> = ({
     }),
   };
 
-  const isLight = config.theme === 'light';
+  const isLight = currentConfig.theme === 'light';
   const axisTextColor = isLight ? 'rgba(0, 25, 61, 0.3255)' : 'rgba(255, 255, 255, 0.8)';
   const gridColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)';
 
@@ -135,9 +156,9 @@ const LineChart: React.FC<LineChartProps> = ({
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: config.showLegend !== false,
-        position: config.legendPosition || 'bottom',
-        align: config.legendAlign || 'start',
+        display: currentConfig.showLegend !== false,
+        position: currentConfig.legendPosition || 'bottom',
+        align: currentConfig.legendAlign || 'start',
         labels: {
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
@@ -165,16 +186,16 @@ const LineChart: React.FC<LineChartProps> = ({
     },
     scales: {
       x: {
-        position: config.xPosition || 'bottom',
+        position: currentConfig.xPosition || 'bottom',
         title: {
-          display: !!config.xTitle,
-          text: config.xTitle,
+          display: !!currentConfig.xTitle,
+          text: currentConfig.xTitle,
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
-          display: config.showGrid !== false,
+          display: currentConfig.showGrid !== false,
           color: gridColor,
           lineWidth: 1,
           drawTicks: false,
@@ -190,26 +211,26 @@ const LineChart: React.FC<LineChartProps> = ({
         },
       },
       y: {
-        position: config.yPosition || 'left',
-        beginAtZero: config.yMin === undefined ? true : config.yMin === 0,
-        min: config.yMin,
-        max: config.yMax,
+        position: currentConfig.yPosition || 'left',
+        beginAtZero: currentConfig.yMin === undefined ? true : currentConfig.yMin === 0,
+        min: currentConfig.yMin,
+        max: currentConfig.yMax,
         title: {
-          display: !!config.yTitle,
-          text: config.yTitle,
+          display: !!currentConfig.yTitle,
+          text: currentConfig.yTitle,
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
-          display: config.showGrid !== false,
+          display: currentConfig.showGrid !== false,
           color: gridColor,
           lineWidth: 1,
           drawTicks: false,
           tickLength: 0,
         },
         ticks: {
-          stepSize: config.yStepSize,
+          stepSize: currentConfig.yStepSize,
           color: axisTextColor,
           font: { size: 12 },
           padding: 12,
@@ -231,9 +252,13 @@ const LineChart: React.FC<LineChartProps> = ({
     },
   };
 
+  const handleDownload = () => {
+    downloadChart(chartRef.current, 'line-chart');
+  };
+
   return (
     <div
-      className={className}
+      className={`line-chart-container ${className || ''}`}
       style={{
         width,
         height,
@@ -244,7 +269,20 @@ const LineChart: React.FC<LineChartProps> = ({
         border: isLight ? '1px solid #e8e8e8' : 'none',
       }}
     >
-      <Line ref={chartRef} data={processedData} options={options} width={width - 40} height={height - 40} />
+      <ChartToolBar
+        title={title}
+        onDownload={handleDownload}
+      />
+
+      <ChartFilter
+        filterOptions={filterEnum}
+        selectedFilter={selectedFilter}
+        onFilterChange={setSelectedFilter}
+      />
+
+      <div className="chart-wrapper">
+        <Line ref={chartRef} data={processedData} options={options} />
+      </div>
     </div>
   );
 };

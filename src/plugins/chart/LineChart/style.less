@@ -1,0 +1,18 @@
+.line-chart-container {
+  // 折线图容器样式
+  .chart-wrapper {
+    width: 100%;
+    height: calc(100% - 120px); // 减去头部和筛选器的高度
+    min-height: 300px; // 最小高度
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; // 防止内容溢出
+  }
+
+  // 确保图表不会超出容器边界
+  canvas {
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+}
