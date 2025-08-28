@@ -13,8 +13,6 @@ const DonutMultiDemo: React.FC = () => {
         { label: 'C 产品', value: 25 },
         { label: 'D 产品', value: 25 },
       ],
-      theme: 'light',
-      cutout: '70%',
       showLegend: true,
     },
   ];

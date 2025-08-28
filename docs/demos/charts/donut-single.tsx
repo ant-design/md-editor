@@ -12,8 +12,6 @@ const originData = {
         { label: '其他', value: 55 },
       ],
       backgroundColor: ['#917EF7', '#F7F8F9'],
-      cutout: '75%',
-      showLegend: false,
       showTooltip: false,
     },
     {
@@ -23,8 +21,6 @@ const originData = {
         { label: '其他', value: 45 },
       ],
       backgroundColor: ['#2AD8FC', '#F7F8F9'],
-      cutout: '75%',
-      showLegend: false,
       showTooltip: false,
     },
   ],
@@ -36,8 +32,6 @@ const originData = {
         { label: '其他年龄', value: 75 },
       ],
       backgroundColor: ['#917EF7', '#F7F8F9'],
-      cutout: '75%',
-      showLegend: false,
       showTooltip: false,
     },
     {
@@ -47,8 +41,6 @@ const originData = {
         { label: '其他年龄', value: 53 },
       ],
       backgroundColor: ['#2AD8FC', '#F7F8F9'],
-      cutout: '75%',
-      showLegend: false,
       showTooltip: false,
     },
     {
@@ -58,8 +50,6 @@ const originData = {
         { label: '其他年龄', value: 67 },
       ],
       backgroundColor: ['#388BFF', '#F7F8F9'],
-      cutout: '75%',
-      showLegend: false,
       showTooltip: false,
     },
     {
@@ -69,8 +59,6 @@ const originData = {
         { label: '其他年龄', value: 62 },
       ],
       backgroundColor: ['#718AB6', '#F7F8F9'],
-      cutout: '75%',
-      showLegend: false,
       showTooltip: false,
     },
   ],
