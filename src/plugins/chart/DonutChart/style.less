@@ -1,0 +1,57 @@
+.donut-chart-container {
+  .chart-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 24px;
+    width: 100%;
+    height: calc(100% - 120px);
+    min-height: 300px;
+  }
+
+  .donut-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .donut-legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .legend-row {
+    display: grid;
+    grid-template-columns: 16px 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    font-family: PingFang SC;
+    font-size: 14px;
+    color: #343A45;
+  }
+
+  .legend-row .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .legend-row .name {
+    color: #343A45;
+  }
+
+  .legend-row .value {
+    color: #343A45;
+    font-weight: 600;
+  }
+
+  .legend-row .percent {
+    color: rgba(0, 25, 61, 0.52);
+    margin-left: 8px;
+  }
+} 
