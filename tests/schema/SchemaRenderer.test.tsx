@@ -331,6 +331,7 @@ describe('SchemaRenderer', () => {
       expect(container.querySelector('.schemaRenderer')).toBeInTheDocument();
     });
   });
+
   it('应该支持 values 为字符串但 schema 定义为 array/object', async () => {
     const props = {
       schema: {
