@@ -84,11 +84,11 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | icon                | 自定义图标组件                                                       | `React.ComponentType`                              | -           |
 | typewriter          | 是否启用打字机效果（md/shell 默认启用）                              | `boolean`                                          | -           |
 | rightContent        | 自定义右侧内容（优先级高于下方的 segmentedItems/默认视图切换）       | `React.ReactNode`                                  | -           |
-| loadingRender       | 自定义加载渲染                                                       | `React.ReactNode \| () => React.ReactNode`         | -           |
 | errorRender         | 自定义异常渲染                                                       | `React.ReactNode \| () => React.ReactNode`         | -           |
 | className           | 额外类名                                                             | `string`                                           | -           |
 | style               | 内联样式                                                             | `React.CSSProperties`                              | -           |
 | status              | 渲染状态（仅覆盖层处理，html 由 HtmlPreview 内部处理）               | `'loading' \| 'done' \| 'error'`                   | -           |
+| loadingRender       | 自定义加载渲染，非必传                                                       | `React.ReactNode \| () => React.ReactNode`         | -           |
 | viewMode            | html 受控视图模式                                                    | `'preview' \| 'code'`                              | -           |
 | defaultViewMode     | html 非受控默认视图模式                                              | `'preview' \| 'code'`                              | `'preview'` |
 | onViewModeChange    | 视图模式变更回调（html）                                             | `(mode: 'preview' \| 'code') => void`              | -           |
@@ -133,6 +133,8 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => FileNode \| ReactNode \| Promise<FileNode \| ReactNode>`  | -      |
 | markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
 | actionRef           | 对外操作引用（编程式打开/返回）                                | `React.MutableRefObject<FileActionRef \| null>`                                 | -      |
+| loading             | 是否显示加载状态                                              | `boolean`                                                                      | -      |
+| loadingRender       | 自定义加载渲染函数，非必传                                           | `() => React.ReactNode`                                                        | -      |
 | tab                 | 标签页配置                                                    | `TabConfiguration`                                                             | -      |
 
 #### FileActionRef
