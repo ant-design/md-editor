@@ -608,7 +608,8 @@ const MLeafComponent = (
           >
             <div
               style={{
-                width: 'max(50vw, 200px)',
+                width: 'max-content',
+                maxWidth: 'min(50vw, 200px)',
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
               }}
