@@ -291,8 +291,6 @@ export const BubbleExtra = ({
           }}
           active={alreadyFeedback}
           title={likeButtonTitle}
-          loading={feedbackLoading}
-          onLoadingChange={setFeedbackLoading}
           onClick={async (e: any) => {
             e?.preventDefault?.();
             e?.stopPropagation?.();

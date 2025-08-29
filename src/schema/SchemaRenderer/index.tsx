@@ -8,6 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import partialParse from '../../MarkdownEditor/editor/parser/json-parse';
 import { LowCodeSchema } from '../../schema/types';
 import { mdDataSchemaValidator } from '../../schema/validator';
 import { TemplateEngine } from './templateEngine';
@@ -175,11 +176,39 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
           )
         : {};
 
+      // 先合并 values
       const mergedData = merge(
         defaultValues,
         initialValues || {},
         values || {},
       );
+
+      // 类型转换：如果 properties 定义为 array/object，但 values 里是 string，则尝试转换
+      Object.entries(properties || {}).forEach(([key, property]) => {
+        const val = mergedData[key];
+        if (property.type === 'array' && typeof val === 'string') {
+          try {
+            // 尝试 JSON.parse，否则用逗号分割
+            mergedData[key] = partialParse(val);
+            if (!Array.isArray(mergedData[key])) {
+              mergedData[key] = val.split(',').map((s) => s.trim());
+            }
+          } catch {
+            mergedData[key] = val.split(',').map((s) => s.trim());
+          }
+        }
+        if (property.type === 'object' && typeof val === 'string') {
+          try {
+            try {
+              mergedData[key] = partialParse(val);
+            } catch (error) {
+              mergedData[key] = val;
+            }
+          } catch {
+            mergedData[key] = {};
+          }
+        }
+      });
 
       // 添加 fallback 值：如果数据在 properties 定义但是 mergedData 中没有
       const dataWithFallbacks = { ...mergedData };
