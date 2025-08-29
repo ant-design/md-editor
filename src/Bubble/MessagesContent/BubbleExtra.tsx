@@ -7,7 +7,7 @@
 import { ConfigProvider, Divider } from 'antd';
 import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { ActionIconBox } from '../../index';
 import LoadingLottie from '../../TaskList/LoadingLottie';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
@@ -215,6 +215,7 @@ export const BubbleExtra = ({
 }: BubbleExtraProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const context = useContext(BubbleConfigContext);
+  const [feedbackLoading, setFeedbackLoading] = useState(false);
 
   // 获取聊天项的原始数据
   const originalData = bubble?.originData;
@@ -290,6 +291,8 @@ export const BubbleExtra = ({
           }}
           active={alreadyFeedback}
           title={likeButtonTitle}
+          loading={feedbackLoading}
+          onLoadingChange={setFeedbackLoading}
           onClick={async (e: any) => {
             e?.preventDefault?.();
             e?.stopPropagation?.();
@@ -319,6 +322,7 @@ export const BubbleExtra = ({
       alreadyFeedback,
       originalData?.isFinished,
       typing,
+      feedbackLoading,
       props.onCancelLike,
     ],
   );
@@ -332,6 +336,8 @@ export const BubbleExtra = ({
             color: 'var(--color-icon-secondary)',
           }}
           scale
+          loading={feedbackLoading}
+          onLoadingChange={setFeedbackLoading}
           active={alreadyFeedback}
           title={getDislikeButtonTitle}
           onClick={async () => {
@@ -347,7 +353,13 @@ export const BubbleExtra = ({
           <DislikeOutlined />
         </ActionIconBox>
       ) : null,
-    [shouldShowDisLike, alreadyFeedback, originalData?.isFinished, typing],
+    [
+      shouldShowDisLike,
+      feedbackLoading,
+      alreadyFeedback,
+      originalData?.isFinished,
+      typing,
+    ],
   );
 
   /**
