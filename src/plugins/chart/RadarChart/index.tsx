@@ -1,17 +1,17 @@
-import React, { useRef, useState } from 'react';
 import {
-  Chart as ChartJS,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
-  ChartOptions,
   ChartData,
+  Chart as ChartJS,
+  ChartOptions,
+  Filler,
+  Legend,
+  LineElement,
+  PointElement,
+  RadialLinearScale,
+  Tooltip,
 } from 'chart.js';
+import React, { useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
-import { ChartToolBar, ChartFilter, downloadChart } from '../components';
+import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import './style.less';
 
 // 注册 Chart.js 组件
@@ -21,7 +21,7 @@ ChartJS.register(
   LineElement,
   Filler,
   Tooltip,
-  Legend
+  Legend,
 );
 
 // 雷达图数据项接口 - 扁平化数据格式
@@ -30,12 +30,12 @@ export interface RadarChartDataItem {
   label: string;
   type: string;
   score: number;
-  customCategory?: string;
+  filterLable?: string;
 }
 
 // 雷达图配置接口 - 移除 type 字段，因为 type 现在是 Record 的 key
 export interface RadarChartConfigItem {
-  datasets: Array<(string|number)[]>;
+  datasets: Array<(string | number)[]>;
   maxValue?: number;
   minValue?: number;
   stepSize?: number;
@@ -66,56 +66,59 @@ const defaultColors = [
   '#005EE0', // 深蓝色
 ];
 
-const RadarChart: React.FC<RadarChartProps> = ({ 
+const RadarChart: React.FC<RadarChartProps> = ({
   data,
   title,
-  width = 600, 
-  height = 400, 
-  className 
+  width = 600,
+  height = 400,
+  className,
 }) => {
   const chartRef = useRef<ChartJS<'radar'>>(null);
-  
+
   // 从扁平化数据中提取分类
-  const categories = Array.from(new Set(data.map(item => item.category)));
-  
-  // 从数据中提取 customCategory，过滤掉 undefined 值
-  const validCustomCategories = data
-    .map(item => item.customCategory)
+  const categories = Array.from(new Set(data.map((item) => item.category)));
+
+  // 从数据中提取 filterLable，过滤掉 undefined 值
+  const validFilterLables = data
+    .map((item) => item.filterLable)
     .filter((category): category is string => category !== undefined);
-  
-  const customCategories: string[] | undefined = validCustomCategories.length > 0 
-    ? Array.from(new Set(validCustomCategories))
-    : undefined;
-  
+
+  const filterLables: string[] | undefined =
+    validFilterLables.length > 0
+      ? Array.from(new Set(validFilterLables))
+      : undefined;
+
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState(categories[0]);
-  const [selectedCustomCategory, setSelectedCustomCategory] = useState(
-    customCategories && customCategories.length > 0 ? customCategories[0] : undefined
+  const [selectedFilterLable, setSelectedFilterLable] = useState(
+    filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );
-  
+
   // 根据选定的分类筛选数据
-  const filteredData = data.filter(item => {
+  const filteredData = data.filter((item) => {
     const categoryMatch = item.category === selectedFilter;
-    // 如果没有 customCategories 或 selectedCustomCategory，只按 category 筛选
-    if (!customCategories || !selectedCustomCategory) {
+    // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
+    if (!filterLables || !selectedFilterLable) {
       return categoryMatch;
     }
-    // 如果有 customCategory 筛选，需要同时匹配 category 和 customCategory
-    return categoryMatch && item.customCategory === selectedCustomCategory;
+    // 如果有 filterLable 筛选，需要同时匹配 category 和 filterLable
+    return categoryMatch && item.filterLable === selectedFilterLable;
   });
-  
+
   // 提取标签和数据集
-  const labels = Array.from(new Set(filteredData.map(item => item.label)));
-  const datasetTypes = Array.from(new Set(filteredData.map(item => item.type)));
-  
+  const labels = Array.from(new Set(filteredData.map((item) => item.label)));
+  const datasetTypes = Array.from(
+    new Set(filteredData.map((item) => item.type)),
+  );
+
   // 构建数据集
   const datasets = datasetTypes.map((type, index) => {
-    const typeData = filteredData.filter(item => item.type === type);
-    const scores = labels.map(label => {
-      const item = typeData.find(d => d.label === label);
+    const typeData = filteredData.filter((item) => item.type === type);
+    const scores = labels.map((label) => {
+      const item = typeData.find((d) => d.label === label);
       return item ? item.score : 0;
     });
-    
+
     return {
       label: type,
       data: scores,
@@ -137,15 +140,15 @@ const RadarChart: React.FC<RadarChartProps> = ({
     showLegend: true,
     legendPosition: 'right' as const,
   };
-  
+
   // 筛选器的枚举
-  const filterEnum = categories?.map(category => ({
+  const filterEnum = categories?.map((category) => ({
     label: category,
     value: category,
   }));
 
-  // 根据 customCategory 筛选数据 - 只有当 customCategories 存在时才生成
-  const filteredDataByCustomCategory = customCategories?.map(item => ({
+  // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
+  const filteredDataByFilterLable = filterLables?.map((item) => ({
     key: item,
     label: item,
   }));
@@ -163,7 +166,11 @@ const RadarChart: React.FC<RadarChartProps> = ({
     plugins: {
       legend: {
         display: currentConfig.showLegend !== false,
-        position: (currentConfig.legendPosition || 'right') as 'top' | 'left' | 'bottom' | 'right',
+        position: (currentConfig.legendPosition || 'right') as
+          | 'top'
+          | 'left'
+          | 'bottom'
+          | 'right',
         labels: {
           color: currentConfig.theme === 'light' ? '#767E8B' : '#fff',
           font: {
@@ -176,14 +183,16 @@ const RadarChart: React.FC<RadarChartProps> = ({
         },
       },
       tooltip: {
-        backgroundColor: currentConfig.theme === 'light' 
-          ? 'rgba(255, 255, 255, 0.95)' 
-          : 'rgba(0, 0, 0, 0.8)',
+        backgroundColor:
+          currentConfig.theme === 'light'
+            ? 'rgba(255, 255, 255, 0.95)'
+            : 'rgba(0, 0, 0, 0.8)',
         titleColor: currentConfig.theme === 'light' ? '#333' : '#fff',
         bodyColor: currentConfig.theme === 'light' ? '#333' : '#fff',
-        borderColor: currentConfig.theme === 'light' 
-          ? 'rgba(0, 0, 0, 0.2)' 
-          : 'rgba(255, 255, 255, 0.2)',
+        borderColor:
+          currentConfig.theme === 'light'
+            ? 'rgba(0, 0, 0, 0.2)'
+            : 'rgba(255, 255, 255, 0.2)',
         borderWidth: 1,
         cornerRadius: 8,
         displayColors: true,
@@ -201,30 +210,38 @@ const RadarChart: React.FC<RadarChartProps> = ({
         min: 0,
         ticks: {
           stepSize: 20,
-          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+          color:
+            currentConfig.theme === 'light'
+              ? 'rgba(0, 25, 61, 0.3255)'
+              : '#fff',
           font: {
             size: 10,
           },
           backdropColor: 'transparent',
-          callback: function(value: any) {
+          callback: function (value: any) {
             // 在每个坐标轴旁边显示刻度值
             return value;
-          }
+          },
         },
         grid: {
-          color: currentConfig.theme === 'light' 
-            ? 'rgba(0, 0, 0, 0.1)' 
-            : 'rgba(255, 255, 255, 0.2)',
+          color:
+            currentConfig.theme === 'light'
+              ? 'rgba(0, 0, 0, 0.1)'
+              : 'rgba(255, 255, 255, 0.2)',
           lineWidth: 1,
         },
         angleLines: {
-          color: currentConfig.theme === 'light' 
-            ? 'rgba(0, 0, 0, 0.1)' 
-            : 'rgba(255, 255, 255, 0.2)',
+          color:
+            currentConfig.theme === 'light'
+              ? 'rgba(0, 0, 0, 0.1)'
+              : 'rgba(255, 255, 255, 0.2)',
           lineWidth: 1,
         },
         pointLabels: {
-          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+          color:
+            currentConfig.theme === 'light'
+              ? 'rgba(0, 25, 61, 0.3255)'
+              : '#fff',
           font: {
             size: 12,
             weight: 500,
@@ -245,11 +262,11 @@ const RadarChart: React.FC<RadarChartProps> = ({
   };
 
   return (
-    <div 
+    <div
       className={`radar-chart-container ${className || ''}`}
-      style={{ 
-        width, 
-        height, 
+      style={{
+        width,
+        height,
         backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
         borderRadius: '8px',
         padding: '20px',
@@ -257,9 +274,8 @@ const RadarChart: React.FC<RadarChartProps> = ({
         border: currentConfig.theme === 'light' ? '1px solid #e8e8e8' : 'none',
       }}
     >
-
       <ChartToolBar
-        title={title ||"2025年第一季度短视频用户分布分析"}
+        title={title || '2025年第一季度短视频用户分布分析'}
         onDownload={handleDownload}
       />
 
@@ -267,19 +283,15 @@ const RadarChart: React.FC<RadarChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        {...(customCategories && {
-          customOptions: filteredDataByCustomCategory,
-          selectedCustionSelection: selectedCustomCategory,
-          onSelectionChange: setSelectedCustomCategory,
+        {...(filterLables && {
+          customOptions: filteredDataByFilterLable,
+          selectedCustionSelection: selectedFilterLable,
+          onSelectionChange: setSelectedFilterLable,
         })}
         theme={currentConfig.theme}
       />
       <div className="chart-wrapper">
-        <Radar
-          ref={chartRef}
-          data={processedData}
-          options={options}
-        />
+        <Radar ref={chartRef} data={processedData} options={options} />
       </div>
     </div>
   );

@@ -5,55 +5,55 @@ import RadarChart, { RadarChartDataItem } from '@ant-design/md-editor/plugins/ch
 const DynamicRadarChartExample: React.FC = () => {
   // 雷达图扁平化数据（固定数据）
   const initialData: RadarChartDataItem[] = [
-    { category: "年龄", label: "技术", type: "当前能力", score: 75, customCategory: "全球" },
-    { category: "年龄", label: "设计", type: "当前能力", score: 60, customCategory: "全球" },
-    { category: "年龄", label: "产品", type: "当前能力", score: 80, customCategory: "全球"},
-    { category: "年龄", label: "运营", type: "当前能力", score: 65, customCategory: "全球" },
-    { category: "年龄", label: "市场", type: "当前能力", score: 70, customCategory: "全球"},
-    { category: "年龄", label: "销售", type: "当前能力", score: 55, customCategory: "全球"},
-    { category: "年龄", label: "技术", type: "目标能力", score: 90, customCategory: "全球"},
-    { category: "年龄", label: "设计", type: "目标能力", score: 85, customCategory: "全球"},
-    { category: "年龄", label: "产品", type: "目标能力", score: 95, customCategory: "全球"},
-    { category: "年龄", label: "运营", type: "目标能力", score: 80, customCategory: "全球"},
-    { category: "年龄", label: "市场", type: "目标能力", score: 85, customCategory: "全球"},
-    { category: "年龄", label: "销售", type: "目标能力", score: 75, customCategory: "全球"},
-    { category: "性别", label: "创新", type: "现状评估", score: 65, customCategory: "全球"},
-    { category: "性别", label: "执行", type: "现状评估", score: 80, customCategory: "全球"},
-    { category: "性别", label: "沟通", type: "现状评估", score: 70, customCategory: "全球"},
-    { category: "性别", label: "学习", type: "现状评估", score: 85, customCategory: "全球"},
-    { category: "性别", label: "团队", type: "现状评估", score: 75, customCategory: "全球"},
-    { category: "性别", label: "领导", type: "现状评估", score: 60, customCategory: "全球"},
-    { category: "性别", label: "创新", type: "期望水平", score: 85, customCategory: "全球"},
-    { category: "性别", label: "执行", type: "期望水平", score: 90, customCategory: "全球"},
-    { category: "性别", label: "沟通", type: "期望水平", score: 80, customCategory: "全球"},
-    { category: "性别", label: "学习", type: "期望水平", score: 95, customCategory: "全球"},
-    { category: "性别", label: "团队", type: "期望水平", score: 85, customCategory: "全球"},
-    { category: "性别", label: "领导", type: "期望水平", score: 80, customCategory: "全球" },
+    { category: "年龄", label: "技术", type: "当前能力", score: 75, filterLable: "全球" },
+    { category: "年龄", label: "设计", type: "当前能力", score: 60, filterLable: "全球" },
+    { category: "年龄", label: "产品", type: "当前能力", score: 80, filterLable: "全球"},
+    { category: "年龄", label: "运营", type: "当前能力", score: 65, filterLable: "全球" },
+    { category: "年龄", label: "市场", type: "当前能力", score: 70, filterLable: "全球"},
+    { category: "年龄", label: "销售", type: "当前能力", score: 55, filterLable: "全球"},
+    { category: "年龄", label: "技术", type: "目标能力", score: 90, filterLable: "全球"},
+    { category: "年龄", label: "设计", type: "目标能力", score: 85, filterLable: "全球"},
+    { category: "年龄", label: "产品", type: "目标能力", score: 95, filterLable: "全球"},
+    { category: "年龄", label: "运营", type: "目标能力", score: 80, filterLable: "全球"},
+    { category: "年龄", label: "市场", type: "目标能力", score: 85, filterLable: "全球"},
+    { category: "年龄", label: "销售", type: "目标能力", score: 75, filterLable: "全球"},
+    { category: "性别", label: "创新", type: "现状评估", score: 65, filterLable: "全球"},
+    { category: "性别", label: "执行", type: "现状评估", score: 80, filterLable: "全球"},
+    { category: "性别", label: "沟通", type: "现状评估", score: 70, filterLable: "全球"},
+    { category: "性别", label: "学习", type: "现状评估", score: 85, filterLable: "全球"},
+    { category: "性别", label: "团队", type: "现状评估", score: 75, filterLable: "全球"},
+    { category: "性别", label: "领导", type: "现状评估", score: 60, filterLable: "全球"},
+    { category: "性别", label: "创新", type: "期望水平", score: 85, filterLable: "全球"},
+    { category: "性别", label: "执行", type: "期望水平", score: 90, filterLable: "全球"},
+    { category: "性别", label: "沟通", type: "期望水平", score: 80, filterLable: "全球"},
+    { category: "性别", label: "学习", type: "期望水平", score: 95, filterLable: "全球"},
+    { category: "性别", label: "团队", type: "期望水平", score: 85, filterLable: "全球"},
+    { category: "性别", label: "领导", type: "期望水平", score: 80, filterLable: "全球" },
     
-    { category: "年龄", label: "技术", type: "当前能力", score: 65, customCategory: "美国" },
-    { category: "年龄", label: "设计", type: "当前能力", score: 55, customCategory: "美国" },
-    { category: "年龄", label: "产品", type: "当前能力", score: 70, customCategory: "美国"},
-    { category: "年龄", label: "运营", type: "当前能力", score: 58, customCategory: "美国" },
-    { category: "年龄", label: "市场", type: "当前能力", score: 62, customCategory: "美国"},
-    { category: "年龄", label: "销售", type: "当前能力", score: 48, customCategory: "美国"},
-    { category: "年龄", label: "技术", type: "目标能力", score: 85, customCategory: "美国"},
-    { category: "年龄", label: "设计", type: "目标能力", score: 78, customCategory: "美国"},
-    { category: "年龄", label: "产品", type: "目标能力", score: 88, customCategory: "美国"},
-    { category: "年龄", label: "运营", type: "目标能力", score: 75, customCategory: "美国"},
-    { category: "年龄", label: "市场", type: "目标能力", score: 82, customCategory: "美国"},
-    { category: "年龄", label: "销售", type: "目标能力", score: 72, customCategory: "美国"},
-    { category: "性别", label: "创新", type: "现状评估", score: 58, customCategory: "美国"},
-    { category: "性别", label: "执行", type: "现状评估", score: 72, customCategory: "美国"},
-    { category: "性别", label: "沟通", type: "现状评估", score: 63, customCategory: "美国"},
-    { category: "性别", label: "学习", type: "现状评估", score: 78, customCategory: "美国"},
-    { category: "性别", label: "团队", type: "现状评估", score: 68, customCategory: "美国"},
-    { category: "性别", label: "领导", type: "现状评估", score: 52, customCategory: "美国"},
-    { category: "性别", label: "创新", type: "期望水平", score: 78, customCategory: "美国"},
-    { category: "性别", label: "执行", type: "期望水平", score: 85, customCategory: "美国"},
-    { category: "性别", label: "沟通", type: "期望水平", score: 75, customCategory: "美国"},
-    { category: "性别", label: "学习", type: "期望水平", score: 90, customCategory: "美国"},
-    { category: "性别", label: "团队", type: "期望水平", score: 80, customCategory: "美国"},
-    { category: "性别", label: "领导", type: "期望水平", score: 75, customCategory: "美国" },
+    { category: "年龄", label: "技术", type: "当前能力", score: 65, filterLable: "美国" },
+    { category: "年龄", label: "设计", type: "当前能力", score: 55, filterLable: "美国" },
+    { category: "年龄", label: "产品", type: "当前能力", score: 70, filterLable: "美国"},
+    { category: "年龄", label: "运营", type: "当前能力", score: 58, filterLable: "美国" },
+    { category: "年龄", label: "市场", type: "当前能力", score: 62, filterLable: "美国"},
+    { category: "年龄", label: "销售", type: "当前能力", score: 48, filterLable: "美国"},
+    { category: "年龄", label: "技术", type: "目标能力", score: 85, filterLable: "美国"},
+    { category: "年龄", label: "设计", type: "目标能力", score: 78, filterLable: "美国"},
+    { category: "年龄", label: "产品", type: "目标能力", score: 88, filterLable: "美国"},
+    { category: "年龄", label: "运营", type: "目标能力", score: 75, filterLable: "美国"},
+    { category: "年龄", label: "市场", type: "目标能力", score: 82, filterLable: "美国"},
+    { category: "年龄", label: "销售", type: "目标能力", score: 72, filterLable: "美国"},
+    { category: "性别", label: "创新", type: "现状评估", score: 58, filterLable: "美国"},
+    { category: "性别", label: "执行", type: "现状评估", score: 72, filterLable: "美国"},
+    { category: "性别", label: "沟通", type: "现状评估", score: 63, filterLable: "美国"},
+    { category: "性别", label: "学习", type: "现状评估", score: 78, filterLable: "美国"},
+    { category: "性别", label: "团队", type: "现状评估", score: 68, filterLable: "美国"},
+    { category: "性别", label: "领导", type: "现状评估", score: 52, filterLable: "美国"},
+    { category: "性别", label: "创新", type: "期望水平", score: 78, filterLable: "美国"},
+    { category: "性别", label: "执行", type: "期望水平", score: 85, filterLable: "美国"},
+    { category: "性别", label: "沟通", type: "期望水平", score: 75, filterLable: "美国"},
+    { category: "性别", label: "学习", type: "期望水平", score: 90, filterLable: "美国"},
+    { category: "性别", label: "团队", type: "期望水平", score: 80, filterLable: "美国"},
+    { category: "性别", label: "领导", type: "期望水平", score: 75, filterLable: "美国" },
   ];
 
   const [data, setData] = useState<RadarChartDataItem[]>(initialData);
@@ -91,7 +91,7 @@ const DynamicRadarChartExample: React.FC = () => {
           fontSize: '12px',
           color: '#666'
         }}>
-          💡 固定数据：使用预设的扁平化数据，包含 customCategory 字段支持二级筛选。
+          💡 固定数据：使用预设的扁平化数据，包含 filterLable 字段支持二级筛选。
         </div>
       </div>
 
@@ -139,28 +139,28 @@ const DynamicRadarChartExample: React.FC = () => {
           margin: 0,
           overflow: 'auto'
         }}>
-{`// 扁平化数据格式：包含 customCategory 字段
+{`// 扁平化数据格式：包含 filterLable 字段
 [
   { 
     category: "年龄", 
     label: "技术", 
     type: "当前能力", 
     score: 75, 
-    customCategory: "全球" 
+    filterLable: "全球" 
   },
   { 
     category: "年龄", 
     label: "设计", 
     type: "当前能力", 
     score: 60, 
-    customCategory: "全球" 
+    filterLable: "全球" 
   },
   { 
     category: "年龄", 
     label: "技术", 
     type: "当前能力", 
     score: 65, 
-    customCategory: "美国" 
+    filterLable: "美国" 
   }
   // ... 更多数据
 ]`}
