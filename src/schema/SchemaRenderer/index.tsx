@@ -76,6 +76,7 @@ export interface SchemaRendererProps {
   fallbackContent?: React.ReactNode;
   useDefaultValues?: boolean;
   debug?: boolean;
+  onRenderSuccess?: (html: string) => void;
 }
 
 /**
@@ -135,6 +136,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   fallbackContent,
   debug = true,
   useDefaultValues = true,
+  onRenderSuccess,
 }) => {
   const [renderError, setRenderError] = useState<string | null>(null);
 
@@ -293,7 +295,6 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
 
   useEffect(() => {
     if (!containerRef.current || !renderedHtml) return;
-
     try {
       // 获取或创建Shadow DOM
       let shadowRoot = containerRef.current.shadowRoot;
@@ -312,7 +313,6 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
       // 创建一个临时容器来解析HTML
       const tempContainer = document.createElement('div');
       tempContainer.innerHTML = renderedHtml;
-
       // 清空shadowRoot内容
       shadowRoot.innerHTML = '';
 
@@ -475,6 +475,8 @@ a:active {
           console.error('Even fallback rendering failed:', fallbackError);
         }
       }
+
+      onRenderSuccess?.(renderedHtml);
     } catch (error) {
       console.error('Critical rendering error:', error);
       setRenderError(
