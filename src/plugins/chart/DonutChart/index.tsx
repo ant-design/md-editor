@@ -104,6 +104,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const chartRef = useRef<ChartJS<'doughnut'>>(null);
 
+  // 状态管理：跟踪哪些数据项被隐藏
+  const [hiddenDataIndices, setHiddenDataIndices] = useState<Set<number>>(new Set());
+
   // 自动分类功能
   const autoCategoryData = useMemo(() => {
     if (!enableAutoCategory || !data) {
@@ -150,6 +153,19 @@ const DonutChart: React.FC<DonutChartProps> = ({
   // 处理内部分类变化
   const handleInternalCategoryChange = (category: string) => {
     setInternalSelectedCategory(category);
+  };
+
+  // 处理图例项点击
+  const handleLegendItemClick = (index: number) => {
+    setHiddenDataIndices(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
   };
 
   // 验证 filterList 是否有重复项
@@ -214,8 +230,33 @@ const DonutChart: React.FC<DonutChartProps> = ({
         }}
       >
         {finalConfigs.map((cfg, idx) => {
-          const labels = filteredData.map((d) => d.label);
-          const values = filteredData.map((d) => d.value);
+          // 获取当前配置对应的数据项
+          const currentDataItem = filteredData[idx];
+          
+          // 判断是否为单值模式（有多个配置时，每个配置对应一个独立的单值饼图）
+          const isSingleValueMode = finalConfigs.length > 1 && currentDataItem;
+          
+          // 处理单值模式的数据
+          let chartData = filteredData;
+          if (isSingleValueMode && currentDataItem) {
+            // 单值模式：为当前数据项创建独立的饼图
+            const mainValue = currentDataItem.value;
+            const remainingValue = Math.max(0, 100 - mainValue); // 确保剩余值不为负数
+            chartData = [
+              currentDataItem,
+              {
+                label: '剩余',
+                value: remainingValue,
+                category: currentDataItem.category,
+              }
+            ];
+          }
+          
+          // 过滤掉被隐藏的数据项
+          const visibleData = chartData.filter((_, index) => !hiddenDataIndices.has(index));
+          
+          const labels = visibleData.map((d) => d.label);
+          const values = visibleData.map((d) => d.value);
           const total = values.reduce((sum, v) => sum + v, 0);
           const backgroundColors = cfg.backgroundColor || [
             '#917EF7',
@@ -235,18 +276,18 @@ const DonutChart: React.FC<DonutChartProps> = ({
             datasets: [
               {
                 data: values,
-                backgroundColor: backgroundColors.slice(0, values.length),
+                backgroundColor: isSingleValueMode 
+                  ? [backgroundColors[0], '#F7F8F9'] // 单值模式：剩余部分使用浅灰色
+                  : backgroundColors.slice(0, values.length),
                 borderColor: cfg.borderColor || '#fff',
                 borderWidth: 1,
-                spacing: values.length === 2 ? 0 : 6,
+                spacing: isSingleValueMode ? 0 : 6, // 单值模式：无间距
                 borderRadius: 4,
                 hoverOffset: 6,
               },
             ],
           };
 
-          const isSingleValueMode = values.length === 2;
-          const firstValue = values[0];
           const cutout = cfg.cutout ?? '75%';
 
           // 依据主题计算 tooltip 颜色
@@ -291,7 +332,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     ref={chartRef}
                     data={data}
                     options={options}
-                    plugins={[createCenterTextPlugin(firstValue, labels[0])]}
+                    plugins={[createCenterTextPlugin(
+                      ((currentDataItem.value / total) * 100),
+                      currentDataItem.label
+                    )]}
                   />
                 </div>
               ) : (
@@ -307,35 +351,52 @@ const DonutChart: React.FC<DonutChartProps> = ({
                   </div>
                   {cfg.showLegend && (
                     <div className={`${baseClassName}-legend ${hashId}`}>
-                      {filteredData.map((d, i) => (
-                        <div
-                          key={i}
-                          className={`${baseClassName}-legend-item ${hashId}`}
-                        >
-                          <span
-                            className={`${baseClassName}-legend-color ${hashId}`}
+                      {chartData.map((d, i) => {
+                        const isHidden = hiddenDataIndices.has(i);
+                        return (
+                          <div
+                            key={i}
+                            className={`${baseClassName}-legend-item ${hashId}`}
                             style={{
-                              ['--donut-legend-color' as any]:
-                                backgroundColors[i] || '#ccc',
+                              opacity: isHidden ? 0.5 : 1,
+                              cursor: 'pointer',
                             }}
-                          />
-                          <span
-                            className={`${baseClassName}-legend-label ${hashId}`}
+                            onClick={() => handleLegendItemClick(i)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                handleLegendItemClick(i);
+                              }
+                            }}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`${isHidden ? '显示' : '隐藏'} ${d.label}`}
                           >
-                            {d.label}
-                          </span>
-                          <span
-                            className={`${baseClassName}-legend-value ${hashId}`}
-                          >
-                            <span>{d.value}</span>
                             <span
-                              className={`${baseClassName}-legend-percent ${hashId}`}
+                              className={`${baseClassName}-legend-color ${hashId}`}
+                              style={{
+                                ['--donut-legend-color' as any]:
+                                  backgroundColors[i] || '#ccc',
+                              }}
+                            />
+                            <span
+                              className={`${baseClassName}-legend-label ${hashId}`}
                             >
-                              {((d.value / total) * 100).toFixed(0)}%
+                              {d.label}
                             </span>
-                          </span>
-                        </div>
-                      ))}
+                            <span
+                              className={`${baseClassName}-legend-value ${hashId}`}
+                            >
+                              <span>{d.value}</span>
+                              <span
+                                className={`${baseClassName}-legend-percent ${hashId}`}
+                              >
+                                {((d.value / total) * 100).toFixed(0)}%
+                              </span>
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
