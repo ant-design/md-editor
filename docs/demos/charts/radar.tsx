@@ -104,24 +104,6 @@ const DynamicRadarChartExample: React.FC = () => {
         />
       </div>
 
-      <div style={{ 
-        backgroundColor: '#fff', 
-        padding: '15px', 
-        borderRadius: '8px',
-        border: '1px solid #e8e8e8'
-      }}>
-        <h4 style={{ marginTop: 0, color: '#333' }}>当前配置信息：</h4>
-        <pre style={{ 
-          backgroundColor: '#f5f5f5', 
-          padding: '10px', 
-          borderRadius: '4px',
-          overflow: 'auto',
-          fontSize: '12px'
-        }}>
-          {JSON.stringify(data, null, 2)}
-        </pre>
-      </div>
-
       {/* 数据格式说明 */}
       <div style={{ 
         marginTop: '20px',

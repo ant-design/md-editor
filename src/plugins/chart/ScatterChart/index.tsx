@@ -125,7 +125,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   const currentConfig = {
     theme: 'light' as const,
     showLegend: true,
-    legendPosition: 'right' as const,
+    legendPosition: 'bottom' as const,
   };
 
   // 筛选器的枚举 - 从分类生成

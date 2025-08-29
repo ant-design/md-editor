@@ -150,33 +150,6 @@ const ScatterChartDemo: React.FC = () => {
         />
       </div>
 
-      {/* 数据信息 */}
-      <div
-        style={{
-          marginTop: '20px',
-          padding: '16px',
-          border: '1px solid #e8e8e8',
-          borderRadius: '8px',
-        }}
-      >
-        <h3>当前数据信息：</h3>
-        <pre
-          style={{
-            background: '#f5f5f5',
-            padding: '12px',
-            borderRadius: '4px',
-            overflow: 'auto',
-          }}
-        >
-          {JSON.stringify(data.slice(0, 8), null, 2)} {/* 显示前8条数据 */}
-        </pre>
-        <p style={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>
-          总共 {data.length} 条数据，包含{' '}
-          {Array.from(new Set(data.map((d) => d.category))).length} 个分类，
-          {Array.from(new Set(data.map((d) => d.type))).length} 个数据组
-        </p>
-      </div>
-
       {/* 默认颜色说明 */}
       <div
         style={{
