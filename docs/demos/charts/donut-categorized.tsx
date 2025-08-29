@@ -1,4 +1,4 @@
-import DonutCharts, {
+import DonutChart, {
   DonutChartDatum,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React from 'react';
@@ -35,7 +35,7 @@ const DonutCategorizedDemo: React.FC = () => {
         字段进行分类，可以通过筛选器切换不同分类视图。
       </p>
       <p>支持自动分类功能，当数据包含 category 字段时会自动启用分类筛选。</p>
-      <DonutCharts
+      <DonutChart
         data={data}
         width={260}
         height={200}

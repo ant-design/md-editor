@@ -1,4 +1,4 @@
-import DonutCharts, {
+import DonutChart, {
   DonutChartConfig,
   DonutChartDatum,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
@@ -15,7 +15,7 @@ const DonutMultiDemo: React.FC = () => {
   return (
     <div style={{ padding: 12, color: '#767E8B', fontSize: 12 }}>
       <p>多值饼图：用于展示多个分类的占比结构，如各品类销量占比。</p>
-      <DonutCharts
+      <DonutChart
         data={data}
         width={260}
         height={200}

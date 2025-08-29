@@ -1,4 +1,4 @@
-import DonutCharts, {
+import DonutChart, {
   DonutChartConfig,
   DonutChartDatum,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
@@ -52,7 +52,7 @@ const DonutSingleDemo: React.FC = () => {
       <p>单值饼图：用于展示单一指标的占比，如完成率、进度、CPU 使用率等。</p>
       <p>完成率筛选下：展示任务完成率75%、代码覆盖率85%、测试通过率92%。</p>
       <p>使用率筛选下：展示CPU使用率65%、内存使用率78%、磁盘使用率45%。</p>
-      <DonutCharts
+      <DonutChart
         key={selectedFilter}
         data={chartData}
         configs={configs}

@@ -1,4 +1,4 @@
-import DonutCharts, {
+import DonutChart, {
   DonutChartConfig,
   DonutChartDatum,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
@@ -29,7 +29,7 @@ const DonutGenderDemo: React.FC = () => {
     <div style={{ padding: 12, color: '#767E8B', fontSize: 12 }}>
       <p>性别分布饼图：展示男性30%和女性70%的两个独立单值饼图</p>
       <p>每个饼图中心显示对应的百分比和标签</p>
-      <DonutCharts
+      <DonutChart
         data={genderData}
         configs={genderConfigs}
         width={120}
@@ -41,4 +41,4 @@ const DonutGenderDemo: React.FC = () => {
   );
 };
 
-export default DonutGenderDemo; 
+export default DonutGenderDemo;
