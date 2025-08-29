@@ -658,7 +658,7 @@ export const FileComponent: FC<{
         </div>
       ) : (
         // 使用默认的Spin组件
-        <Spin spinning={!!loading} tip={locale.loading}>
+        <Spin spinning={!!loading}>
           <div className={`${prefixCls}-container ${hashId}`}>
             {nodes.map((node: FileNode | GroupNode) => {
               const nodeWithId = ensureNodeWithId(node);
