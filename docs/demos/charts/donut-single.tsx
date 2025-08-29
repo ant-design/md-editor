@@ -1,11 +1,13 @@
 import DonutCharts, {
   DonutChartConfig,
+  DonutChartDatum,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React, { useMemo, useState } from 'react';
+
 const originData = {
   性别: [
     {
-      datasets: [
+      data: [
         { label: '男性', value: 45 },
         { label: '其他', value: 55 },
       ],
@@ -13,7 +15,7 @@ const originData = {
       showTooltip: false,
     },
     {
-      datasets: [
+      data: [
         { label: '女性', value: 55 },
         { label: '其他', value: 45 },
       ],
@@ -23,7 +25,7 @@ const originData = {
   ],
   年龄: [
     {
-      datasets: [
+      data: [
         { label: '18岁以下', value: 15 },
         { label: '其他年龄', value: 75 },
       ],
@@ -31,7 +33,7 @@ const originData = {
       showTooltip: false,
     },
     {
-      datasets: [
+      data: [
         { label: '18-30岁', value: 47 },
         { label: '其他年龄', value: 53 },
       ],
@@ -39,7 +41,7 @@ const originData = {
       showTooltip: false,
     },
     {
-      datasets: [
+      data: [
         { label: '31-40岁', value: 33 },
         { label: '其他年龄', value: 67 },
       ],
@@ -47,7 +49,7 @@ const originData = {
       showTooltip: false,
     },
     {
-      datasets: [
+      data: [
         { label: '40岁以上', value: 38 },
         { label: '其他年龄', value: 62 },
       ],
@@ -56,6 +58,7 @@ const originData = {
     },
   ],
 };
+
 const DonutSingleDemo: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState('年龄');
   const filterList: string[] = ['年龄', '性别'];
@@ -70,11 +73,20 @@ const DonutSingleDemo: React.FC = () => {
     return originData[selectedFilter as FilterKey] ?? [];
   }, [selectedFilter]);
 
+  // 根据筛选条件动态生成数据
+  const chartData = useMemo((): DonutChartDatum[] => {
+    type FilterKey = keyof typeof originData;
+    const configs = originData[selectedFilter as FilterKey] ?? [];
+    // 取第一个配置的数据作为主要数据
+    return configs[0]?.data ?? [];
+  }, [selectedFilter]);
+
   return (
     <div style={{ padding: 12, color: '#767E8B', fontSize: 12 }}>
       <p>单值饼图：用于展示单一指标的占比，如完成率、进度、CPU 使用率等。</p>
       <DonutCharts
         key={selectedFilter}
+        data={chartData}
         configs={singleValueConfigs}
         width={128}
         height={128}
