@@ -59,7 +59,8 @@ const mockMessage: MessageBubbleData = {
 const mockUserMessage: MessageBubbleData = {
   id: '2',
   role: 'user',
-  content: '你好！我想了解 Bubble 组件的基本用法和特性。',
+  content:
+    '你好！我想了解 Bubble 组件的基本用法和特性。[https://ant.design/components/bubble-cn](https://ant.design/components/bubble-cn)',
   createAt: Date.now() - 30000, // 30秒前
   updateAt: Date.now() - 30000,
   isFinished: true,

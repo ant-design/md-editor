@@ -217,7 +217,7 @@ export const BubbleMessageDisplay: React.FC<
               props.originData?.role === 'bot'
                 ? {}
                 : {
-                    color: '#FFF',
+                    color: '#343A45',
                   }
             }
             extra={extra}
