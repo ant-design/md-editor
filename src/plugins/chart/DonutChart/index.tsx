@@ -21,7 +21,6 @@ export interface DonutChartDatum {
 }
 
 export interface DonutChartConfig {
-  datasets: DonutChartDatum[];
   lastModified?: string;
   theme?: 'light' | 'dark';
   cutout?: string | number;
@@ -33,7 +32,8 @@ export interface DonutChartConfig {
 }
 
 export interface DonutChartProps {
-  configs: DonutChartConfig[];
+  data: DonutChartDatum[];
+  configs?: DonutChartConfig[];
   width?: number;
   height?: number;
   className?: string;
@@ -84,6 +84,7 @@ const createCenterTextPlugin = (
 });
 
 const DonutChart: React.FC<DonutChartProps> = ({
+  data,
   configs,
   width = 200,
   height = 200,
@@ -96,17 +97,20 @@ const DonutChart: React.FC<DonutChartProps> = ({
   onFilterChange,
   enableAutoCategory = true,
 }) => {
+  // 默认配置：当 configs 不传时，使用默认配置，showLegend 默认为 true
+  const defaultConfigs: DonutChartConfig[] = [{ showLegend: true }];
+  const finalConfigs = configs || defaultConfigs;
   const baseClassName = 'md-editor-donut-chart';
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const chartRef = useRef<ChartJS<'doughnut'>>(null);
 
   // 自动分类功能
   const autoCategoryData = useMemo(() => {
-    if (!enableAutoCategory || !configs[0]?.datasets) {
+    if (!enableAutoCategory || !data) {
       return null;
     }
 
-    const allData = configs[0].datasets;
+    const allData = data;
     const categories = [
       ...new Set(allData.map((item) => item.category).filter(Boolean)),
     ];
@@ -119,7 +123,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
       categories,
       allData,
     };
-  }, [configs, enableAutoCategory]);
+  }, [data, enableAutoCategory]);
 
   // 内部分类状态管理
   const [internalSelectedCategory, setInternalSelectedCategory] =
@@ -133,22 +137,15 @@ const DonutChart: React.FC<DonutChartProps> = ({
   }, [autoCategoryData, internalSelectedCategory]);
 
   // 根据分类过滤数据
-  const filteredConfigs = useMemo(() => {
+  const filteredData = useMemo(() => {
     if (!autoCategoryData || !internalSelectedCategory) {
-      return configs;
+      return data;
     }
 
-    const filteredData = autoCategoryData.allData.filter(
+    return autoCategoryData.allData.filter(
       (item) => item.category === internalSelectedCategory,
     );
-
-    return [
-      {
-        ...configs[0],
-        datasets: filteredData,
-      },
-    ];
-  }, [configs, autoCategoryData, internalSelectedCategory]);
+  }, [data, autoCategoryData, internalSelectedCategory]);
 
   // 处理内部分类变化
   const handleInternalCategoryChange = (category: string) => {
@@ -216,9 +213,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
           ['--donut-item-min-width' as any]: `${width}px`,
         }}
       >
-        {filteredConfigs.map((cfg, idx) => {
-          const labels = cfg.datasets.map((d) => d.label);
-          const values = cfg.datasets.map((d) => d.value);
+        {finalConfigs.map((cfg, idx) => {
+          const labels = filteredData.map((d) => d.label);
+          const values = filteredData.map((d) => d.value);
           const total = values.reduce((sum, v) => sum + v, 0);
           const backgroundColors = cfg.backgroundColor || [
             '#917EF7',
@@ -226,6 +223,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
             '#388BFF',
             '#718AB6',
             '#FACC15',
+            '#33E59B', // 绿色
+            '#D666E4', // 紫红色
+            '#6151FF', // 靛蓝色
+            '#BF3C93', // 玫红色
+            '#005EE0', // 深蓝色
           ];
 
           const data = {
@@ -305,7 +307,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
                   </div>
                   {cfg.showLegend && (
                     <div className={`${baseClassName}-legend ${hashId}`}>
-                      {cfg.datasets.map((d, i) => (
+                      {filteredData.map((d, i) => (
                         <div
                           key={i}
                           className={`${baseClassName}-legend-item ${hashId}`}
