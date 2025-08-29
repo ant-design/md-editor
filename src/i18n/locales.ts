@@ -5,10 +5,12 @@
  * 提供完整的用户界面文本本地化。
  */
 export const cnLabels = {
+  attachmentSingleMax: '单个最大',
   table: '表格',
   column: '分栏',
   quote: '引用',
   code: '代码',
+  attachmentSupportedFormats: '支持上传的文件类型和格式：',
   localeImage: '本地图片',
   'b-list': '无序列表',
   'n-list': '有序列表',
@@ -265,10 +267,12 @@ export const cnLabels = {
  * 提供完整的用户界面文本本地化。
  */
 export const enLabels: typeof cnLabels = {
+  attachmentSingleMax: 'Single max',
   undo: 'Undo',
   redo: 'Redo',
   switchLanguage: 'Switch Language',
   insertLink: 'Insert Link',
+  attachmentSupportedFormats: 'Supported file types and formats:',
   clearFormatting: 'Clear Formatting',
   queryKeyWords: 'Query Keywords',
   searchResults: 'Search Results',
