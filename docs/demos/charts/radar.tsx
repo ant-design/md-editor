@@ -1,60 +1,66 @@
 import React, { useState } from 'react';
-import RadarChart, { RadarChartConfigItem } from '@ant-design/md-editor/plugins/chart/RadarChart';
+import RadarChart, { RadarChartDataItem } from '@ant-design/md-editor/plugins/chart/RadarChart';
 
 // 实际使用示例：动态数据雷达图
 const DynamicRadarChartExample: React.FC = () => {
-  // 雷达图配置对象 - 使用 Record<string, RadarChartConfigItem> 格式
-  const [configs, setConfigs] = useState<Record<string, RadarChartConfigItem>>({
-    '年龄': {
-      labels: ['技术', '设计', '产品', '运营', '市场', '销售'],
-      datasets: [
-        {
-          label: '当前能力',
-          data: [75, 60, 80, 65, 70, 55],
-        },
-        {
-          label: '目标能力',
-          data: [90, 85, 95, 80, 85, 75],
-        },
-      ],
-      maxValue: 100,
-    },
-    '性别': {
-      labels: ['创新', '执行', '沟通', '学习', '团队', '领导'],
-      datasets: [
-        {
-          label: '现状评估',
-          data: [65, 80, 70, 85, 75, 60],
-        },
-        {
-          label: '期望水平',
-          data: [85, 90, 80, 95, 85, 80],
-        },
-        {
-          label: '测试能力',
-          data: [90, 85, 95, 80, 85, 75],
-        }
-      ],
-      maxValue: 100,
-    },
-  });
+  // 雷达图扁平化数据（固定数据）
+  const initialData: RadarChartDataItem[] = [
+    { category: "年龄", label: "技术", type: "当前能力", score: 75, customCategory: "全球" },
+    { category: "年龄", label: "设计", type: "当前能力", score: 60, customCategory: "全球" },
+    { category: "年龄", label: "产品", type: "当前能力", score: 80, customCategory: "全球"},
+    { category: "年龄", label: "运营", type: "当前能力", score: 65, customCategory: "全球" },
+    { category: "年龄", label: "市场", type: "当前能力", score: 70, customCategory: "全球"},
+    { category: "年龄", label: "销售", type: "当前能力", score: 55, customCategory: "全球"},
+    { category: "年龄", label: "技术", type: "目标能力", score: 90, customCategory: "全球"},
+    { category: "年龄", label: "设计", type: "目标能力", score: 85, customCategory: "全球"},
+    { category: "年龄", label: "产品", type: "目标能力", score: 95, customCategory: "全球"},
+    { category: "年龄", label: "运营", type: "目标能力", score: 80, customCategory: "全球"},
+    { category: "年龄", label: "市场", type: "目标能力", score: 85, customCategory: "全球"},
+    { category: "年龄", label: "销售", type: "目标能力", score: 75, customCategory: "全球"},
+    { category: "性别", label: "创新", type: "现状评估", score: 65, customCategory: "全球"},
+    { category: "性别", label: "执行", type: "现状评估", score: 80, customCategory: "全球"},
+    { category: "性别", label: "沟通", type: "现状评估", score: 70, customCategory: "全球"},
+    { category: "性别", label: "学习", type: "现状评估", score: 85, customCategory: "全球"},
+    { category: "性别", label: "团队", type: "现状评估", score: 75, customCategory: "全球"},
+    { category: "性别", label: "领导", type: "现状评估", score: 60, customCategory: "全球"},
+    { category: "性别", label: "创新", type: "期望水平", score: 85, customCategory: "全球"},
+    { category: "性别", label: "执行", type: "期望水平", score: 90, customCategory: "全球"},
+    { category: "性别", label: "沟通", type: "期望水平", score: 80, customCategory: "全球"},
+    { category: "性别", label: "学习", type: "期望水平", score: 95, customCategory: "全球"},
+    { category: "性别", label: "团队", type: "期望水平", score: 85, customCategory: "全球"},
+    { category: "性别", label: "领导", type: "期望水平", score: 80, customCategory: "全球" },
+    
+    { category: "年龄", label: "技术", type: "当前能力", score: 65, customCategory: "美国" },
+    { category: "年龄", label: "设计", type: "当前能力", score: 55, customCategory: "美国" },
+    { category: "年龄", label: "产品", type: "当前能力", score: 70, customCategory: "美国"},
+    { category: "年龄", label: "运营", type: "当前能力", score: 58, customCategory: "美国" },
+    { category: "年龄", label: "市场", type: "当前能力", score: 62, customCategory: "美国"},
+    { category: "年龄", label: "销售", type: "当前能力", score: 48, customCategory: "美国"},
+    { category: "年龄", label: "技术", type: "目标能力", score: 85, customCategory: "美国"},
+    { category: "年龄", label: "设计", type: "目标能力", score: 78, customCategory: "美国"},
+    { category: "年龄", label: "产品", type: "目标能力", score: 88, customCategory: "美国"},
+    { category: "年龄", label: "运营", type: "目标能力", score: 75, customCategory: "美国"},
+    { category: "年龄", label: "市场", type: "目标能力", score: 82, customCategory: "美国"},
+    { category: "年龄", label: "销售", type: "目标能力", score: 72, customCategory: "美国"},
+    { category: "性别", label: "创新", type: "现状评估", score: 58, customCategory: "美国"},
+    { category: "性别", label: "执行", type: "现状评估", score: 72, customCategory: "美国"},
+    { category: "性别", label: "沟通", type: "现状评估", score: 63, customCategory: "美国"},
+    { category: "性别", label: "学习", type: "现状评估", score: 78, customCategory: "美国"},
+    { category: "性别", label: "团队", type: "现状评估", score: 68, customCategory: "美国"},
+    { category: "性别", label: "领导", type: "现状评估", score: 52, customCategory: "美国"},
+    { category: "性别", label: "创新", type: "期望水平", score: 78, customCategory: "美国"},
+    { category: "性别", label: "执行", type: "期望水平", score: 85, customCategory: "美国"},
+    { category: "性别", label: "沟通", type: "期望水平", score: 75, customCategory: "美国"},
+    { category: "性别", label: "学习", type: "期望水平", score: 90, customCategory: "美国"},
+    { category: "性别", label: "团队", type: "期望水平", score: 80, customCategory: "美国"},
+    { category: "性别", label: "领导", type: "期望水平", score: 75, customCategory: "美国" },
+  ];
 
-  // 更新数据
-  const handleDataUpdate = () => {
-    setConfigs(prev => 
-      Object.fromEntries(
-        Object.entries(prev).map(([key, config]) => [
-          key,
-          {
-            ...config,
-            datasets: config.datasets.map(dataset => ({
-              ...dataset,
-              data: dataset.data.map(() => Math.floor(Math.random() * 100)),
-            })),
-          }
-        ])
-      )
-    );
+  const [data, setData] = useState<RadarChartDataItem[]>(initialData);
+
+  // 重置数据到初始状态
+  const handleDataReset = () => {
+    setData([...initialData]);
   };
 
   return (
@@ -64,17 +70,17 @@ const DynamicRadarChartExample: React.FC = () => {
       <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
         <button 
           type="button"
-          onClick={handleDataUpdate}
+          onClick={handleDataReset}
           style={{
             padding: '8px 16px',
-            backgroundColor: '#F45BB5',
+            backgroundColor: '#388BFF',
             color: '#fff',
             border: 'none',
             borderRadius: '4px',
             cursor: 'pointer',
           }}
         >
-          随机更新数据
+          重置数据
         </button>
         
         <div style={{
@@ -85,14 +91,14 @@ const DynamicRadarChartExample: React.FC = () => {
           fontSize: '12px',
           color: '#666'
         }}>
-          💡 简化配置：只需要 labels 和 datasets，borderColor 会自动应用默认颜色序列（#388BFF, #917EF7, #2AD8FC）。点击右上角下载按钮可保存图表。
+          💡 固定数据：使用预设的扁平化数据，包含 customCategory 字段支持二级筛选。
         </div>
       </div>
 
       <div style={{ marginBottom: '20px' }}>
         <RadarChart 
           title="2025年第一季度短视频用户分布分析"
-          configs={configs}
+          data={data}
           width={700} 
           height={500} 
         />
@@ -112,7 +118,52 @@ const DynamicRadarChartExample: React.FC = () => {
           overflow: 'auto',
           fontSize: '12px'
         }}>
-          {JSON.stringify(configs, null, 2)}
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      </div>
+
+      {/* 数据格式说明 */}
+      <div style={{ 
+        marginTop: '20px',
+        backgroundColor: '#f0f8ff', 
+        padding: '15px', 
+        borderRadius: '8px',
+        border: '1px solid #e8e8e8'
+      }}>
+        <h4 style={{ marginTop: 0, color: '#333' }}>扁平化数据格式示例（含二级筛选）：</h4>
+        <pre style={{ 
+          backgroundColor: '#fff', 
+          padding: '10px', 
+          borderRadius: '4px',
+          fontSize: '11px',
+          margin: 0,
+          overflow: 'auto'
+        }}>
+{`// 扁平化数据格式：包含 customCategory 字段
+[
+  { 
+    category: "年龄", 
+    label: "技术", 
+    type: "当前能力", 
+    score: 75, 
+    customCategory: "全球" 
+  },
+  { 
+    category: "年龄", 
+    label: "设计", 
+    type: "当前能力", 
+    score: 60, 
+    customCategory: "全球" 
+  },
+  { 
+    category: "年龄", 
+    label: "技术", 
+    type: "当前能力", 
+    score: 65, 
+    customCategory: "美国" 
+  }
+  // ... 更多数据
+]`}
         </pre>
       </div>
 

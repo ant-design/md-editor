@@ -22,22 +22,17 @@ ChartJS.register(
   Legend
 );
 
-// 数据类型定义
+// 散点图数据项接口 - 扁平化数据格式
 export interface ScatterChartDataItem {
+  category: string;
+  type: string;
   x: number;
   y: number;
+  customCategory?: string;
 }
 
-export interface ScatterChartDataset {
-  label: string;
-  data: ScatterChartDataItem[];
-  backgroundColor?: string;
-  borderColor?: string;
-}
-
-// 移除 type 字段，因为 type 现在是 Record 的 key
 export interface ScatterChartConfigItem {
-  datasets: ScatterChartDataset[];
+  datasets: Array<(string|{x: number, y: number})[]>;
   theme?: 'light' | 'dark';
   showLegend?: boolean;
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
@@ -52,7 +47,7 @@ export interface ScatterChartConfigItem {
 }
 
 export interface ScatterChartProps {
-  configs: Record<string, ScatterChartConfigItem>;
+  data: ScatterChartDataItem[];
   title: string;
   width?: number;
   height?: number;
@@ -69,7 +64,7 @@ const defaultColors = [
 ];
 
 const ScatterChart: React.FC<ScatterChartProps> = ({
-  configs,
+  data,
   width = 800,
   height = 600,
   className,
@@ -77,33 +72,75 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
 }) => {
   const chartRef = useRef<ChartJS<'scatter'>>(null);
   
-  // 状态管理 - 使用 Record 的第一个 key 作为默认值
-  const [selectedFilter, setSelectedFilter] = useState(Object.keys(configs)[0]);
+  // 从扁平化数据中提取分类
+  const categories = Array.from(new Set(data.map(item => item.category)));
   
-  // 根据筛选器选择对应的配置，并应用默认值
-  const rawConfig = configs[selectedFilter] || configs[Object.keys(configs)[0]];
-  const currentConfig = {
-    ...rawConfig,
-    theme: rawConfig.theme || 'light',
-    showLegend: rawConfig.showLegend !== false,
-    legendPosition: rawConfig.legendPosition || 'right',
-  } as const;
+  // 从数据中提取 customCategory，过滤掉 undefined 值
+  const validCustomCategories = data
+    .map(item => item.customCategory)
+    .filter((category): category is string => category !== undefined);
   
-  // 筛选器的枚举 - 从 Record 生成
-  const filterEnum = Object.entries(configs).map(([type]) => ({
-    label: type,
-    value: type,
-  }));
+  const customCategories: string[] | undefined = validCustomCategories.length > 0 
+    ? ['全部', ...Array.from(new Set(validCustomCategories))]
+    : undefined;
   
-  // 处理数据，应用默认颜色
-  const processedData: ChartData<'scatter'> = {
-    datasets: currentConfig.datasets.map((dataset: ScatterChartDataset, index: number) => ({
-      ...dataset,
-      backgroundColor: dataset.backgroundColor || defaultColors[index % defaultColors.length].backgroundColor,
-      borderColor: dataset.borderColor || defaultColors[index % defaultColors.length].borderColor,
+  // 状态管理 - 使用第一个分类作为默认值
+  const [selectedFilter, setSelectedFilter] = useState(categories[0]);
+  const [selectedCustomCategory, setSelectedCustomCategory] = useState(
+    customCategories && customCategories.length > 0 ? customCategories[0] : undefined
+  );
+  
+  // 根据选定的分类筛选数据
+  const filteredData = data.filter(item => {
+    const categoryMatch = item.category === selectedFilter;
+    // 如果没有 customCategories 或 selectedCustomCategory，只按 category 筛选
+    if (!customCategories || !selectedCustomCategory || selectedCustomCategory === '全部') {
+      return categoryMatch;
+    }
+    // 如果有 customCategory 筛选，需要同时匹配 category 和 customCategory
+    return categoryMatch && item.customCategory === selectedCustomCategory;
+  });
+  
+  // 提取数据集类型
+  const datasetTypes = Array.from(new Set(filteredData.map(item => item.type)));
+  
+  // 构建数据集
+  const datasets = datasetTypes.map((type, index) => {
+    const typeData = filteredData.filter(item => item.type === type);
+    const coordinates = typeData.map(item => ({ x: item.x, y: item.y }));
+    
+    return {
+      label: type,
+      data: coordinates,
+      backgroundColor: defaultColors[index % defaultColors.length].backgroundColor,
+      borderColor: defaultColors[index % defaultColors.length].borderColor,
       pointRadius: 6,
       pointHoverRadius: 8,
-    })),
+    };
+  });
+
+  // 构建当前配置（应用默认值）
+  const currentConfig = {
+    theme: 'light' as const,
+    showLegend: true,
+    legendPosition: 'right' as const,
+  };
+  
+  // 筛选器的枚举 - 从分类生成
+  const filterEnum = categories.map(category => ({
+    label: category,
+    value: category,
+  }));
+
+  // 根据 customCategory 筛选数据 - 只有当 customCategories 存在时才生成
+  const filteredDataByCustomCategory = customCategories?.map(item => ({
+    key: item,
+    label: item,
+  }));
+
+  // 处理数据，应用默认颜色
+  const processedData: ChartData<'scatter'> = {
+    datasets: datasets,
   };
 
   // 图表配置选项
@@ -146,22 +183,22 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       },
     },
     scales: {
-    x: {
-      type: 'linear',
-      position: 'bottom',
-      title: {
-        display: true,
-        text: currentConfig.xAxisLabel || '月份',
-        color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: '月份', // 使用默认标签
+          color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
           font: {
             size: 12,
             weight: 500,
           },
         },
-        min: currentConfig.xAxisMin || 1,
-        max: currentConfig.xAxisMax || 12,
+        min: 1, // 使用默认值
+        max: 12, // 使用默认值
         ticks: {
-          stepSize: currentConfig.xAxisStep || 1,
+          stepSize: 1, // 使用默认值
           color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
           font: {
             size: 10,
@@ -180,7 +217,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         position: 'right',
         title: {
           display: true,
-          text: currentConfig.yAxisLabel || '数值',
+          text: '数值', // 使用默认标签
           color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
           font: {
             family: 'PingFang SC',
@@ -189,10 +226,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
           },
           align: 'center',
         },
-        min: currentConfig.yAxisMin || 0,
-        max: currentConfig.yAxisMax || 100,
+        min: 0, // 使用默认值
+        max: 100, // 使用默认值
         ticks: {
-          stepSize: currentConfig.yAxisStep || 10,
+          stepSize: 10, // 使用默认值
           color: currentConfig.theme === 'light' ? 'rgba(0, 25, 61, 0.3255)' : '#fff',
           font: {
             family: 'PingFang SC',
@@ -232,7 +269,6 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     >
       <ChartToolBar
         title={title}
-        theme={currentConfig.theme}
         onDownload={handleDownload}
       />
 
@@ -240,6 +276,11 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        {...(customCategories && {
+          customOptions: filteredDataByCustomCategory,
+          selectedCustionSelection: selectedCustomCategory,
+          onSelectionChange: setSelectedCustomCategory,
+        })}
         theme={currentConfig.theme}
       />
 

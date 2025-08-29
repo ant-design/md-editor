@@ -17,9 +17,9 @@ export interface ChartFilterProps {
   filterOptions: FilterOption[];
   selectedFilter: string;
   onFilterChange: (value: string) => void;
-  regionOptions?: RegionOption[];
-  selectedRegion?: string;
-  onRegionChange?: (region: string) => void;
+  customOptions?: RegionOption[];
+  selectedCustionSelection?: string;
+  onSelectionChange?: (region: string) => void;
   className?: string;
   theme?: 'light' | 'dark';
 }
@@ -28,33 +28,25 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   filterOptions,
   selectedFilter,
   onFilterChange,
-  regionOptions = [
-    { key: 'global', label: '全球' },
-    { key: 'china', label: '中国' },
-    { key: 'us', label: '美国' },
-    { key: 'eu', label: '欧洲' },
-    { key: 'asia', label: '亚洲' },
-    { key: 'africa', label: '非洲' },
-    { key: 'oceania', label: '大洋洲' }
-  ],
-  selectedRegion = 'global',
-  onRegionChange,
+  customOptions,
+  selectedCustionSelection,
+  onSelectionChange,
   className = '',
   theme = 'light',
 }) => {
   const handleRegionChange = (region: string) => {
-    if (onRegionChange) {
-      onRegionChange(region);
+    if (onSelectionChange) {
+      onSelectionChange(region);
     }
   };
 
   return (
     <div className={`filter-container ${theme} ${className}`}>
       {/* 地区筛选器 */}
-      <div className="region-filter">
+      {customOptions && customOptions.length > 0 && <div className="region-filter">
         <Dropdown
           menu={{
-            items: regionOptions,
+            items: customOptions,
             onClick: ({ key }) => handleRegionChange(key),
           }}
           trigger={['click']}
@@ -64,11 +56,11 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
             size="small"
             className="region-dropdown-btn"
           >
-            <span>{regionOptions.find(r => r.key === selectedRegion)?.label || '全球'}</span>
+            <span>{customOptions.find(r => r.key === selectedCustionSelection)?.label || '全球'}</span>
             <DownOutlined className="dropdown-icon" />
           </Button>
         </Dropdown>
-      </div>
+      </div>}
 
       <Segmented
         options={filterOptions}
