@@ -29,28 +29,18 @@ const generateSampleData = (): ScatterChartDataset[] => {
     {
       label: 'A组',
       data: groupAData,
-      backgroundColor: 'rgba(147, 112, 219, 0.6)', // 紫色
-      borderColor: 'rgba(147, 112, 219, 1)'
     },
     {
-      label: 'B组',
+      label: 'B组',  
       data: groupBData,
-      backgroundColor: 'rgba(0, 255, 255, 0.6)', // 青色
-      borderColor: 'rgba(0, 255, 255, 1)'
     }
   ];
 };
 
 const ScatterChartDemo: React.FC = () => {
-  const configs: ScatterChartConfigItem[] = [
-    {
-      type: 'age',
-      typeName: '年龄',
-      title: '计算机近三个月资金流向 - 年龄分析',
+  const configs: Record<string, ScatterChartConfigItem> = {
+    '年龄': {
       datasets: generateSampleData(),
-      theme: 'light',
-      showLegend: true,
-      legendPosition: 'bottom',
       xAxisLabel: '月份',
       yAxisLabel: '资金流向',
       xAxisMin: 1,
@@ -60,14 +50,8 @@ const ScatterChartDemo: React.FC = () => {
       xAxisStep: 1,
       yAxisStep: 10
     },
-    {
-      type: 'gender',
-      typeName: '性别',
-      title: '计算机近三个月资金流向 - 性别分析',
+    "性别": {
       datasets: generateSampleData(),
-      theme: 'light',
-      showLegend: true,
-      legendPosition: 'bottom',
       xAxisLabel: '月份',
       yAxisLabel: '资金流向',
       xAxisMin: 1,
@@ -77,7 +61,7 @@ const ScatterChartDemo: React.FC = () => {
       xAxisStep: 1,
       yAxisStep: 10
     }
-  ];
+  };
 
 
 
@@ -97,7 +81,7 @@ const ScatterChartDemo: React.FC = () => {
         color: '#666',
         display: 'inline-block'
       }}>
-        💡 点击图表右上角的下载按钮可以下载图表为PNG格式
+        💡 简化配置：只需要 datasets 数据，backgroundColor 和 borderColor 会自动应用默认颜色序列（#388BFF, #917EF7, #2AD8FC）。点击右上角下载按钮可保存图表。
       </div>
 
       {/* 散点图组件 */}
@@ -117,6 +101,31 @@ const ScatterChartDemo: React.FC = () => {
         <pre style={{ background: '#f5f5f5', padding: '12px', borderRadius: '4px', overflow: 'auto' }}>
           {JSON.stringify(configs, null, 2)}
         </pre>
+      </div>
+
+      {/* 默认颜色说明 */}
+      <div style={{ 
+        marginTop: '20px', 
+        padding: '16px', 
+        border: '1px solid #e8e8e8', 
+        borderRadius: '8px',
+        backgroundColor: '#fafafa'
+      }}>
+        <h4 style={{ margin: '0 0 12px 0', color: '#333' }}>默认颜色序列：</h4>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ width: '16px', height: '16px', backgroundColor: '#388BFF', borderRadius: '50%' }}></div>
+            <span style={{ fontSize: '12px', color: '#666' }}>第一个：#388BFF</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ width: '16px', height: '16px', backgroundColor: '#917EF7', borderRadius: '50%' }}></div>
+            <span style={{ fontSize: '12px', color: '#666' }}>第二个：#917EF7</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ width: '16px', height: '16px', backgroundColor: '#2AD8FC', borderRadius: '50%' }}></div>
+            <span style={{ fontSize: '12px', color: '#666' }}>第三个：#2AD8FC</span>
+          </div>
+        </div>
       </div>
 
 

@@ -11,13 +11,6 @@ nav:
 <code src="../demos/charts/donut-single.tsx" background="var(--main-bg-color)"  title="单值饼图" iframe=400></code>
 <code src="../demos/charts/donut-multi.tsx" background="var(--main-bg-color)"  title="多值饼图" iframe=400></code>
 
-## 雷达图
-
-<code src="../demos/charts/radar.tsx" background="var(--main-bg-color)"  title="雷达图" iframe=540></code>
-
-## 散点图
-
-<code src="../demos/charts/scatter.tsx" background="var(--main-bg-color)"  title="散点图" iframe=540></code>
 ## 折线图
 <code src="../demos/charts/line.tsx" background="var(--main-bg-color)" iframe=540></code>
 

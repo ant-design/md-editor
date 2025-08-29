@@ -34,10 +34,8 @@ export interface RadarChartDataItem {
   pointBorderColor?: string;
 }
 
-// 雷达图配置接口
+// 雷达图配置接口 - 移除 type 字段，因为 type 现在是 Record 的 key
 export interface RadarChartConfigItem {
-  type: string;
-  typeName: string;
   labels: string[];
   datasets: RadarChartDataItem[];
   maxValue?: number;
@@ -49,7 +47,7 @@ export interface RadarChartConfigItem {
 }
 
 interface RadarChartProps {
-  configs: RadarChartConfigItem[];
+  configs: Record<string, RadarChartConfigItem>;
   title: string;
   width?: number;
   height?: number;
@@ -66,25 +64,28 @@ const RadarChart: React.FC<RadarChartProps> = ({
   const chartRef = useRef<ChartJS<'radar'>>(null);
   
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type);
-  // const [selectedRegion, setSelectedRegion] = useState('global');
+  const [selectedFilter, setSelectedFilter] = useState(Object.keys(configs)[0]);
   
-  // 根据筛选器选择对应的配置
-  const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
+  // 根据筛选器选择对应的配置，并应用默认值
+  const rawConfig = configs[selectedFilter];
+  const currentConfig = {
+    ...rawConfig,
+    theme: rawConfig.theme || 'light',
+    showLegend: rawConfig.showLegend !== false,
+    legendPosition: rawConfig.legendPosition || 'right',
+  } as const;
   
   // 筛选器的枚举
-  const filterEnum = configs.map(config => {
-    return {
-      label: config.typeName,
-      value: config.type,
-    }
-  });
+  const filterEnum = Object.entries(configs).map(([key]) => ({
+    label: key,
+    value: key,
+  }));
 
   // 默认颜色配置
   const defaultColors = [
-    '#1677ff', // 蓝色
-    '#8954FC', // 紫色
-    '#15e7e4', // 青色
+    '#388BFF', // 第一个颜色：蓝色
+    '#917EF7', // 第二个颜色：紫色
+    '#2AD8FC', // 第三个颜色：青色
     '#F45BB5', // 粉色
     '#00A6FF', // 天蓝色
     '#33E59B', // 绿色
@@ -217,7 +218,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
     >
 
       <ChartToolBar
-        title={title ||"2025年第一季度短视频用户分布分析"}
+        title={title}
         theme={currentConfig.theme}
         onDownload={handleDownload}
       />

@@ -31,14 +31,12 @@ export interface ScatterChartDataItem {
 export interface ScatterChartDataset {
   label: string;
   data: ScatterChartDataItem[];
-  backgroundColor: string;
-  borderColor: string;
+  backgroundColor?: string;
+  borderColor?: string;
 }
 
+// 移除 type 字段，因为 type 现在是 Record 的 key
 export interface ScatterChartConfigItem {
-  type: string;
-  typeName: string;
-  title: string;
   datasets: ScatterChartDataset[];
   theme?: 'light' | 'dark';
   showLegend?: boolean;
@@ -54,15 +52,8 @@ export interface ScatterChartConfigItem {
 }
 
 export interface ScatterChartProps {
-  configs: ScatterChartConfigItem[];
+  configs: Record<string, ScatterChartConfigItem>;
   title: string;
-  width?: number;
-  height?: number;
-  className?: string;
-}
-
-export interface ScatterChartProps {
-  configs: ScatterChartConfigItem[];
   width?: number;
   height?: number;
   className?: string;
@@ -70,8 +61,11 @@ export interface ScatterChartProps {
 
 // 默认颜色配置
 const defaultColors = [
-  { backgroundColor: 'rgba(147, 112, 219, 0.6)', borderColor: 'rgba(147, 112, 219, 1)' }, // 紫色
-  { backgroundColor: 'rgba(0, 255, 255, 0.6)', borderColor: 'rgba(0, 255, 255, 1)' }, // 青色
+  { backgroundColor: '#917EF7', borderColor: '#917EF7' }, // 第一个颜色：紫色
+  { backgroundColor: '#2AD8FC', borderColor: '#2AD8FC' }, // 第二个颜色：蓝色
+  { backgroundColor: 'rgba(42, 216, 252, 0.6)', borderColor: '#2AD8FC' }, // 第三个颜色：青色
+  { backgroundColor: 'rgba(244, 91, 181, 0.6)', borderColor: '#F45BB5' }, // 粉色
+  { backgroundColor: 'rgba(0, 166, 255, 0.6)', borderColor: '#00A6FF' }, // 天蓝色
 ];
 
 const ScatterChart: React.FC<ScatterChartProps> = ({
@@ -83,19 +77,23 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
 }) => {
   const chartRef = useRef<ChartJS<'scatter'>>(null);
   
-  // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type);
-  // const [selectedRegion, setSelectedRegion] = useState('global');
+  // 状态管理 - 使用 Record 的第一个 key 作为默认值
+  const [selectedFilter, setSelectedFilter] = useState(Object.keys(configs)[0]);
   
-  // 根据筛选器选择对应的配置
-  const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
-  // 筛选器的枚举
-  const filterEnum = configs.map(config => {
-    return {
-      label: config.typeName,
-      value: config.type,
-    }
-  });
+  // 根据筛选器选择对应的配置，并应用默认值
+  const rawConfig = configs[selectedFilter] || configs[Object.keys(configs)[0]];
+  const currentConfig = {
+    ...rawConfig,
+    theme: rawConfig.theme || 'light',
+    showLegend: rawConfig.showLegend !== false,
+    legendPosition: rawConfig.legendPosition || 'right',
+  } as const;
+  
+  // 筛选器的枚举 - 从 Record 生成
+  const filterEnum = Object.entries(configs).map(([type]) => ({
+    label: type,
+    value: type,
+  }));
   
   // 处理数据，应用默认颜色
   const processedData: ChartData<'scatter'> = {
