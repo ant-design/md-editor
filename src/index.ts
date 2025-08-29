@@ -56,3 +56,6 @@ export * from './TaskList';
 export * from './ThoughtChainList';
 export * from './ToolUseBar';
 export * from './Workspace';
+
+// 新增：图表插件对外导出
+export * from './plugins/chart';

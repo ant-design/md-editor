@@ -10,6 +10,35 @@ import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
 import { ChartRender } from './ChartRender';
 
+export { ChartRender } from './ChartRender';
+export { ChartAttrToolBar } from './ChartAttrToolBar';
+export * from './ChartMark';
+
+// 图表组件
+export { default as AreaChart } from './AreaChart';
+export { default as BarChart } from './BarChart';
+export { default as LineChart } from './LineChart';
+export { default as DonutChart } from './DonutChart';
+export { default as RadarChart } from './RadarChart';
+export { default as ScatterChart } from './ScatterChart';
+
+// 类型导出
+export type { AreaChartConfig, AreaChartDataset } from './AreaChart';
+export type { BarChartConfig, BarChartDataset } from './BarChart';
+export type { LineChartConfig, LineChartDataset } from './LineChart';
+export type { DonutChartConfig, DonutChartDatum, DonutChartProps } from './DonutChart';
+export type { RadarChartConfigItem, RadarChartDataItem } from './RadarChart';
+export type { ScatterChartConfigItem, ScatterChartDataItem, ScatterChartProps } from './ScatterChart';
+
+// 工具与常量
+export { defaultColorList } from './const';
+export { stringFormatNumber, debounce as chartDebounce } from './utils';
+
+// 复用组件与类型
+export { ChartToolBar, ChartFilter, downloadChart } from './components';
+export type { ChartToolBarProps } from './components';
+export type { ChartFilterProps, FilterOption, RegionOption } from './components';
+
 /**
  * 转化数字，将字符串转化为数字，即使非标准数字也可以转化
  * @param {string} val - 要转换的字符串
