@@ -15,4 +15,41 @@
     max-width: 100% !important;
     max-height: 100% !important;
   }
+
+  // 移动端响应式样式
+  @media (max-width: 768px) {
+    // 移动端优化
+    .chart-wrapper {
+      height: calc(100% - 100px); // 移动端减少更多空间
+      min-height: 250px; // 移动端最小高度
+    }
+
+    // 移动端图表标题样式优化
+    .chart-title {
+      font-size: 14px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    // 移动端筛选器样式优化
+    .chart-filter {
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      
+      .filter-button {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+    }
+  }
+
+  // 超小屏幕优化 (375px以下)
+  @media (max-width: 375px) {
+    padding: 8px;
+    
+    .chart-wrapper {
+      min-height: 220px;
+    }
+  }
 } 

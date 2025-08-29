@@ -9,7 +9,7 @@ import {
   RadialLinearScale,
   Tooltip,
 } from 'chart.js';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import './style.less';
@@ -73,6 +73,24 @@ const RadarChart: React.FC<RadarChartProps> = ({
   height = 400,
   className,
 }) => {
+  // 响应式尺寸计算
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
+  const isMobile = windowWidth <= 768;
+  const responsiveWidth = isMobile ? '100%' : width;
+  // 雷达图保持正方形比例，移动端使用屏幕宽度的85%，最大400px
+  const responsiveHeight = isMobile ? Math.min(windowWidth * 0.85, 400) : height;
+
+  // 监听窗口大小变化
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
   const chartRef = useRef<ChartJS<'radar'>>(null);
 
   // 从扁平化数据中提取分类
@@ -124,12 +142,12 @@ const RadarChart: React.FC<RadarChartProps> = ({
       data: scores,
       borderColor: defaultColors[index % defaultColors.length],
       backgroundColor: `${defaultColors[index % defaultColors.length]}20`,
-      borderWidth: 2,
+      borderWidth: isMobile ? 1.5 : 2,
       pointBackgroundColor: defaultColors[index % defaultColors.length],
       pointBorderColor: '#fff',
-      pointBorderWidth: 2,
-      pointRadius: 4,
-      pointHoverRadius: 6,
+      pointBorderWidth: isMobile ? 1 : 2,
+      pointRadius: isMobile ? 3 : 4,
+      pointHoverRadius: isMobile ? 5 : 6,
       fill: true,
     };
   });
@@ -166,18 +184,18 @@ const RadarChart: React.FC<RadarChartProps> = ({
     plugins: {
       legend: {
         display: currentConfig.showLegend !== false,
-        position: (currentConfig.legendPosition || 'right') as
+        position: isMobile ? 'bottom' : ((currentConfig.legendPosition || 'right') as
           | 'top'
           | 'left'
           | 'bottom'
-          | 'right',
+          | 'right'),
         labels: {
           color: currentConfig.theme === 'light' ? '#767E8B' : '#fff',
           font: {
-            size: 12,
+            size: isMobile ? 10 : 12,
             weight: 'normal',
           },
-          padding: 20,
+          padding: isMobile ? 10 : 20,
           usePointStyle: true,
           pointStyle: 'rectRounded',
         },
@@ -194,8 +212,15 @@ const RadarChart: React.FC<RadarChartProps> = ({
             ? 'rgba(0, 0, 0, 0.2)'
             : 'rgba(255, 255, 255, 0.2)',
         borderWidth: 1,
-        cornerRadius: 8,
+        cornerRadius: isMobile ? 6 : 8,
         displayColors: true,
+        titleFont: {
+          size: isMobile ? 11 : 12,
+        },
+        bodyFont: {
+          size: isMobile ? 10 : 11,
+        },
+        padding: isMobile ? 8 : 12,
         callbacks: {
           label: (context) => {
             return `${context.dataset.label}: ${context.parsed.r}`;
@@ -209,13 +234,13 @@ const RadarChart: React.FC<RadarChartProps> = ({
         max: 100, // Assuming max score is 100 for now
         min: 0,
         ticks: {
-          stepSize: 20,
+          stepSize: isMobile ? 25 : 20, // 移动端减少刻度线以避免拥挤
           color:
             currentConfig.theme === 'light'
               ? 'rgba(0, 25, 61, 0.3255)'
               : '#fff',
           font: {
-            size: 10,
+            size: isMobile ? 8 : 10,
           },
           backdropColor: 'transparent',
           callback: function (value: any) {
@@ -243,16 +268,16 @@ const RadarChart: React.FC<RadarChartProps> = ({
               ? 'rgba(0, 25, 61, 0.3255)'
               : '#fff',
           font: {
-            size: 12,
+            size: isMobile ? 10 : 12,
             weight: 500,
           },
-          padding: 15,
+          padding: isMobile ? 10 : 15,
         },
       },
     },
     elements: {
       point: {
-        hoverRadius: 6,
+        hoverRadius: isMobile ? 4 : 6,
       },
     },
   };
@@ -265,13 +290,16 @@ const RadarChart: React.FC<RadarChartProps> = ({
     <div
       className={`radar-chart-container ${className || ''}`}
       style={{
-        width,
-        height,
+        width: responsiveWidth,
+        height: responsiveHeight,
         backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
-        borderRadius: '8px',
-        padding: '20px',
+        borderRadius: isMobile ? '6px' : '8px',
+        padding: isMobile ? '12px' : '20px',
         position: 'relative',
         border: currentConfig.theme === 'light' ? '1px solid #e8e8e8' : 'none',
+        margin: isMobile ? '0 auto' : 'initial',
+        maxWidth: isMobile ? '100%' : 'none',
+        boxSizing: 'border-box',
       }}
     >
       <ChartToolBar
