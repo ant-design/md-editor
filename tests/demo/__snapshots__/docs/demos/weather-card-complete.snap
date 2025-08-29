@@ -19,7 +19,7 @@
           style="max-width: 400px; padding: 24px; background: rgb(255, 255, 255); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"
         >
           <div
-            class="ant-form-item ant-form-item-vertical"
+            class="ant-form-item"
           >
             <div
               class="ant-row ant-form-item-row"
@@ -101,7 +101,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -144,7 +144,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -244,7 +244,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -281,7 +281,7 @@
                                           class="ant-card-body"
                                         >
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -389,7 +389,7 @@
                                             </div>
                                           </div>
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -508,7 +508,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -680,7 +680,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -723,7 +723,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -823,7 +823,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -860,7 +860,7 @@
                                           class="ant-card-body"
                                         >
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -968,7 +968,7 @@
                                             </div>
                                           </div>
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -1087,7 +1087,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -1259,7 +1259,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -1302,7 +1302,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -1402,7 +1402,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -1439,7 +1439,7 @@
                                           class="ant-card-body"
                                         >
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -1547,7 +1547,7 @@
                                             </div>
                                           </div>
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -1666,7 +1666,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -1838,7 +1838,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -1881,7 +1881,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -1981,7 +1981,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -2018,7 +2018,7 @@
                                           class="ant-card-body"
                                         >
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -2126,7 +2126,7 @@
                                             </div>
                                           </div>
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -2245,7 +2245,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -2417,7 +2417,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -2460,7 +2460,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -2560,7 +2560,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -2597,7 +2597,7 @@
                                           class="ant-card-body"
                                         >
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -2705,7 +2705,7 @@
                                             </div>
                                           </div>
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -2824,7 +2824,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -2996,7 +2996,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -3039,7 +3039,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -3139,7 +3139,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -3176,7 +3176,7 @@
                                           class="ant-card-body"
                                         >
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -3284,7 +3284,7 @@
                                             </div>
                                           </div>
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -3403,7 +3403,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -3575,7 +3575,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -3618,7 +3618,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -3718,7 +3718,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -3755,7 +3755,7 @@
                                           class="ant-card-body"
                                         >
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -3863,7 +3863,7 @@
                                             </div>
                                           </div>
                                           <div
-                                            class="ant-form-item ant-form-item-vertical"
+                                            class="ant-form-item"
                                             style="margin-bottom: 16px;"
                                           >
                                             <div
@@ -3982,7 +3982,7 @@
                             class="ant-space-item"
                           >
                             <div
-                              class="ant-form-item ant-form-item-vertical"
+                              class="ant-form-item"
                               style="margin: 0px;"
                             >
                               <div
@@ -4097,7 +4097,7 @@
                       </div>
                     </div>
                     <div
-                      class="ant-form-item ant-form-item-vertical"
+                      class="ant-form-item"
                     >
                       <div
                         class="ant-row ant-form-item-row"

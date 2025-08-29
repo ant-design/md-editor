@@ -11,6 +11,133 @@ import {
 // Mock framer-motion to speed up tests
 vi.mock('framer-motion', () => framerMotionMock);
 
+// Mock Chart.js to avoid DOM access issues in test environment
+vi.mock('chart.js', () => ({
+  Chart: {
+    register: vi.fn(),
+  },
+  CategoryScale: vi.fn(),
+  LinearScale: vi.fn(),
+  PointElement: vi.fn(),
+  LineElement: vi.fn(),
+  BarElement: vi.fn(),
+  ArcElement: vi.fn(),
+  Title: vi.fn(),
+  Tooltip: vi.fn(),
+  Legend: vi.fn(),
+  Filler: vi.fn(),
+  RadialLinearScale: vi.fn(),
+  TimeScale: vi.fn(),
+  TimeSeriesScale: vi.fn(),
+  Decimation: vi.fn(),
+  Zoom: vi.fn(),
+}));
+
+// Mock react-chartjs-2
+vi.mock('react-chartjs-2', () => ({
+  Line: ({ data }: any) => (
+    <div
+      data-testid="line-chart"
+      data-labels={JSON.stringify(data?.labels)}
+      data-datasets={JSON.stringify(data?.datasets)}
+    >
+      Line Chart
+    </div>
+  ),
+  Bar: ({ data }: any) => (
+    <div
+      data-testid="bar-chart"
+      data-labels={JSON.stringify(data?.labels)}
+      data-datasets={JSON.stringify(data?.datasets)}
+    >
+      Bar Chart
+    </div>
+  ),
+  Doughnut: ({ data }: any) => (
+    <div
+      data-testid="doughnut-chart"
+      data-labels={JSON.stringify(data?.labels)}
+      data-datasets={JSON.stringify(data?.datasets)}
+    >
+      Doughnut Chart
+    </div>
+  ),
+  Pie: ({ data }: any) => (
+    <div
+      data-testid="pie-chart"
+      data-labels={JSON.stringify(data?.labels)}
+      data-datasets={JSON.stringify(data?.datasets)}
+    >
+      Pie Chart
+    </div>
+  ),
+  Radar: ({ data }: any) => (
+    <div
+      data-testid="radar-chart"
+      data-labels={JSON.stringify(data?.labels)}
+      data-datasets={JSON.stringify(data?.datasets)}
+    >
+      Radar Chart
+    </div>
+  ),
+  Scatter: ({ data }: any) => (
+    <div
+      data-testid="scatter-chart"
+      data-labels={JSON.stringify(data?.labels)}
+      data-datasets={JSON.stringify(data?.datasets)}
+    >
+      Scatter Chart
+    </div>
+  ),
+}));
+
+// Mock rc-resize-observer
+vi.mock('rc-resize-observer', () => ({
+  default: ({ children, onResize }: any) => (
+    <div data-testid="resize-observer" onClick={() => onResize?.()}>
+      {children}
+    </div>
+  ),
+}));
+
+// Mock DonutChart component
+vi.mock('@ant-design/md-editor/plugins/chart/DonutChart', () => ({
+  default: ({ data, title, width, height }: any) => (
+    <div
+      data-testid="donut-chart"
+      data-title={title}
+      data-width={width}
+      data-height={height}
+      data-data={JSON.stringify(data)}
+    >
+      Donut Chart - {title}
+    </div>
+  ),
+}));
+
+// Mock chart components
+vi.mock('@ant-design/md-editor/plugins/chart/components', () => ({
+  ChartToolBar: ({ title, onDownload }: any) => (
+    <div data-testid="chart-toolbar" onClick={onDownload}>
+      {title}
+    </div>
+  ),
+  ChartFilter: ({ filterOptions, selectedFilter, onFilterChange }: any) => (
+    <div data-testid="chart-filter">
+      {filterOptions?.map((option: any, index: number) => (
+        <button
+          key={index}
+          onClick={() => onFilterChange?.(option.value)}
+          data-selected={selectedFilter === option.value}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  ),
+  downloadChart: vi.fn(),
+}));
+
 // 设置动画相关的全局mock
 setupAnimationMocks();
 

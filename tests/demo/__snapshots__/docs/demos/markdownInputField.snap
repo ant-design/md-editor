@@ -301,16 +301,20 @@
             </div>
           </div>
           <div
-            class="ant-md-input-field-send-actions"
-            contenteditable="false"
+            data-testid="resize-observer"
           >
             <div
-              class="ant-md-input-field-send-button"
-              data-testid="send-button"
+              class="ant-md-input-field-send-actions"
+              contenteditable="false"
             >
               <div
-                style="width: 1em; height: 1em;"
-              />
+                class="ant-md-input-field-send-button"
+                data-testid="send-button"
+              >
+                <div
+                  style="width: 1em; height: 1em;"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -578,16 +582,20 @@
             </div>
           </div>
           <div
-            class="ant-md-input-field-send-actions"
-            contenteditable="false"
+            data-testid="resize-observer"
           >
             <div
-              class="ant-md-input-field-send-button"
-              data-testid="send-button"
+              class="ant-md-input-field-send-actions"
+              contenteditable="false"
             >
               <div
-                style="width: 1em; height: 1em;"
-              />
+                class="ant-md-input-field-send-button"
+                data-testid="send-button"
+              >
+                <div
+                  style="width: 1em; height: 1em;"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -930,16 +938,20 @@
             </div>
           </div>
           <div
-            class="ant-md-input-field-send-actions"
-            contenteditable="false"
+            data-testid="resize-observer"
           >
             <div
-              class="ant-md-input-field-send-button"
-              data-testid="send-button"
+              class="ant-md-input-field-send-actions"
+              contenteditable="false"
             >
               <div
-                style="width: 1em; height: 1em;"
-              />
+                class="ant-md-input-field-send-button"
+                data-testid="send-button"
+              >
+                <div
+                  style="width: 1em; height: 1em;"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1278,40 +1290,44 @@
             </div>
           </div>
           <div
-            class="ant-md-input-field-send-actions"
-            contenteditable="false"
+            data-testid="resize-observer"
           >
             <div
-              class="ant-md-editor-attachment-button"
-              data-testid="attachment-button"
-            >
-              <svg
-                aria-describedby="test-id"
-                fill="none"
-                height="1em"
-                version="1.1"
-                viewBox="0 0 12.076727867126465 12.392213821411133"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <g>
-                  <path
-                    d="M3.50024,8.033940000000001L8.31124,3.22861L8.31036,3.22772Q8.385,3.15316,8.42541,3.0557Q8.465810000000001,2.95824,8.465810000000001,2.85274Q8.465810000000001,2.80054,8.45563,2.74934Q8.44544,2.69814,8.42547,2.64991Q8.40549,2.60169,8.37649,2.55828Q8.34749,2.51488,8.31058,2.47797Q8.27366,2.4410600000000002,8.230260000000001,2.4120600000000003Q8.18686,2.38306,8.13863,2.36308Q8.090399999999999,2.3430999999999997,8.03921,2.33292Q7.98801,2.32274,7.93581,2.32274Q7.83047,2.32274,7.73313,2.3630199999999997Q7.6358,2.4032999999999998,7.56126,2.47775L7.56038,2.4768600000000003L2.74938,7.2822Q2.26143,7.77015,2.26143,8.459900000000001Q2.26143,9.14966,2.74916,9.63739Q3.23689,10.12512,3.92664,10.12512Q4.6164,10.12512,5.10413,9.63739L9.97136,4.78149Q10.79225,3.95976,10.79135,2.79919Q10.79055,1.63862,9.96918,0.8187Q9.14781,-0.001222999999999974,7.98724,0.000001999999999946489Q6.82667,0.0012259999999999494,6.00703,0.822881L1.15116,5.67875Q-0.0002809999999999757,6.83099,0,8.45975Q0.0002809999999999757,10.08851,1.15199,11.24025Q2.3037,12.39195,3.93246,12.39225Q5.56122,12.39245,6.71333,11.24115L11.92115,6.03339L11.92025,6.0325Q11.99475,5.95796,12.03515,5.86056Q12.07545,5.76316,12.07545,5.65774Q12.07545,5.60554,12.06525,5.55434Q12.05515,5.50314,12.03515,5.45491Q12.01515,5.40669,11.98615,5.36328Q11.95715,5.31988,11.92025,5.28297Q11.88335,5.24606,11.83995,5.21706Q11.79655,5.18806,11.74825,5.16808Q11.70005,5.1481,11.64885,5.13792Q11.59765,5.12774,11.54545,5.12774Q11.44005,5.12774,11.34265,5.16808Q11.24525,5.20842,11.17075,5.28297L11.16985,5.28209L5.96229,10.48962Q5.12141,11.32995,3.93265,11.32975Q2.74388,11.32955,1.90329,10.48892Q1.062705,9.64834,1.0625,8.45957Q1.062295,7.2708,1.90246,6.43005L6.75925,1.57326Q7.268,1.063261,7.98836,1.0625010000000001Q8.70872,1.061741,9.21855,1.57066Q9.72837,2.07959,9.72888,2.79995Q9.72939,3.52031,9.22093,4.029310000000001L4.35283,8.88609Q3.92664,9.31227,3.50046,8.88609Q3.07428,8.459900000000001,3.50024,8.033940000000001Z"
-                    fill="currentColor"
-                    fill-opacity="1"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </div>
-            <div
-              class="ant-md-input-field-send-button"
-              data-testid="send-button"
+              class="ant-md-input-field-send-actions"
+              contenteditable="false"
             >
               <div
-                style="width: 1em; height: 1em;"
-              />
+                class="ant-md-editor-attachment-button"
+                data-testid="attachment-button"
+              >
+                <svg
+                  aria-describedby="test-id"
+                  fill="none"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 12.076727867126465 12.392213821411133"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g>
+                    <path
+                      d="M3.50024,8.033940000000001L8.31124,3.22861L8.31036,3.22772Q8.385,3.15316,8.42541,3.0557Q8.465810000000001,2.95824,8.465810000000001,2.85274Q8.465810000000001,2.80054,8.45563,2.74934Q8.44544,2.69814,8.42547,2.64991Q8.40549,2.60169,8.37649,2.55828Q8.34749,2.51488,8.31058,2.47797Q8.27366,2.4410600000000002,8.230260000000001,2.4120600000000003Q8.18686,2.38306,8.13863,2.36308Q8.090399999999999,2.3430999999999997,8.03921,2.33292Q7.98801,2.32274,7.93581,2.32274Q7.83047,2.32274,7.73313,2.3630199999999997Q7.6358,2.4032999999999998,7.56126,2.47775L7.56038,2.4768600000000003L2.74938,7.2822Q2.26143,7.77015,2.26143,8.459900000000001Q2.26143,9.14966,2.74916,9.63739Q3.23689,10.12512,3.92664,10.12512Q4.6164,10.12512,5.10413,9.63739L9.97136,4.78149Q10.79225,3.95976,10.79135,2.79919Q10.79055,1.63862,9.96918,0.8187Q9.14781,-0.001222999999999974,7.98724,0.000001999999999946489Q6.82667,0.0012259999999999494,6.00703,0.822881L1.15116,5.67875Q-0.0002809999999999757,6.83099,0,8.45975Q0.0002809999999999757,10.08851,1.15199,11.24025Q2.3037,12.39195,3.93246,12.39225Q5.56122,12.39245,6.71333,11.24115L11.92115,6.03339L11.92025,6.0325Q11.99475,5.95796,12.03515,5.86056Q12.07545,5.76316,12.07545,5.65774Q12.07545,5.60554,12.06525,5.55434Q12.05515,5.50314,12.03515,5.45491Q12.01515,5.40669,11.98615,5.36328Q11.95715,5.31988,11.92025,5.28297Q11.88335,5.24606,11.83995,5.21706Q11.79655,5.18806,11.74825,5.16808Q11.70005,5.1481,11.64885,5.13792Q11.59765,5.12774,11.54545,5.12774Q11.44005,5.12774,11.34265,5.16808Q11.24525,5.20842,11.17075,5.28297L11.16985,5.28209L5.96229,10.48962Q5.12141,11.32995,3.93265,11.32975Q2.74388,11.32955,1.90329,10.48892Q1.062705,9.64834,1.0625,8.45957Q1.062295,7.2708,1.90246,6.43005L6.75925,1.57326Q7.268,1.063261,7.98836,1.0625010000000001Q8.70872,1.061741,9.21855,1.57066Q9.72837,2.07959,9.72888,2.79995Q9.72939,3.52031,9.22093,4.029310000000001L4.35283,8.88609Q3.92664,9.31227,3.50046,8.88609Q3.07428,8.459900000000001,3.50024,8.033940000000001Z"
+                      fill="currentColor"
+                      fill-opacity="1"
+                      fill-rule="evenodd"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div
+                class="ant-md-input-field-send-button"
+                data-testid="send-button"
+              >
+                <div
+                  style="width: 1em; height: 1em;"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1482,16 +1498,20 @@
             </div>
           </div>
           <div
-            class="ant-md-input-field-send-actions"
-            contenteditable="false"
+            data-testid="resize-observer"
           >
             <div
-              class="ant-md-input-field-send-button"
-              data-testid="send-button"
+              class="ant-md-input-field-send-actions"
+              contenteditable="false"
             >
               <div
-                style="width: 1em; height: 1em;"
-              />
+                class="ant-md-input-field-send-button"
+                data-testid="send-button"
+              >
+                <div
+                  style="width: 1em; height: 1em;"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1759,16 +1779,20 @@
             </div>
           </div>
           <div
-            class="ant-md-input-field-send-actions"
-            contenteditable="false"
+            data-testid="resize-observer"
           >
             <div
-              class="ant-md-input-field-send-button ant-md-input-field-send-button-disabled"
-              data-testid="send-button"
+              class="ant-md-input-field-send-actions"
+              contenteditable="false"
             >
               <div
-                style="width: 1em; height: 1em;"
-              />
+                class="ant-md-input-field-send-button ant-md-input-field-send-button-disabled"
+                data-testid="send-button"
+              >
+                <div
+                  style="width: 1em; height: 1em;"
+                />
+              </div>
             </div>
           </div>
         </div>

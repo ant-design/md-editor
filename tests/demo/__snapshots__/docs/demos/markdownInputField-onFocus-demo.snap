@@ -171,16 +171,20 @@
             </div>
           </div>
           <div
-            class="ant-md-input-field-send-actions"
-            contenteditable="false"
+            data-testid="resize-observer"
           >
             <div
-              class="ant-md-input-field-send-button"
-              data-testid="send-button"
+              class="ant-md-input-field-send-actions"
+              contenteditable="false"
             >
               <div
-                style="width: 1em; height: 1em;"
-              />
+                class="ant-md-input-field-send-button"
+                data-testid="send-button"
+              >
+                <div
+                  style="width: 1em; height: 1em;"
+                />
+              </div>
             </div>
           </div>
         </div>
