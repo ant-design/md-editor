@@ -428,6 +428,8 @@ export const FileComponent: FC<{
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
   actionRef?: FileProps['actionRef'];
+  loading?: FileProps['loading'];
+  loadingRender?: FileProps['loadingRender'];
 }> = ({
   nodes,
   onGroupDownload,
@@ -437,6 +439,8 @@ export const FileComponent: FC<{
   onPreview,
   markdownEditorProps,
   actionRef,
+  loading,
+  loadingRender,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
@@ -647,49 +651,59 @@ export const FileComponent: FC<{
   // 渲染文件列表
   return wrapSSR(
     <>
-      <div className={`${prefixCls}-container ${hashId}`}>
-        {nodes.map((node: FileNode | GroupNode) => {
-          const nodeWithId = ensureNodeWithId(node);
+      {loading && loadingRender ? (
+        // 使用自定义loading渲染函数
+        <div className={`${prefixCls}-container ${hashId}`}>
+          {loadingRender()}
+        </div>
+      ) : (
+        // 使用默认的Spin组件
+        <Spin spinning={!!loading}>
+          <div className={`${prefixCls}-container ${hashId}`}>
+            {nodes.map((node: FileNode | GroupNode) => {
+              const nodeWithId = ensureNodeWithId(node);
 
-          if ('children' in nodeWithId) {
-            // 分组节点，使用内部状态覆盖外部的 collapsed 属性
-            const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
-            const groupNode: GroupNode = {
-              ...nodeWithId,
-              collapsed:
-                collapsedGroups[nodeTypeInfo.fileType] ?? nodeWithId.collapsed,
-              // 确保子节点也有唯一ID
-              children: nodeWithId.children.map(ensureNodeWithId),
-            };
-            return (
-              <FileGroupComponent
-                key={nodeWithId.id}
-                group={groupNode}
-                onToggle={handleToggleGroup}
-                onGroupDownload={onGroupDownload}
-                onDownload={onDownload}
-                onFileClick={onFileClick}
-                onPreview={handlePreview}
-                prefixCls={prefixCls}
-                hashId={hashId}
-              />
-            );
-          }
+              if ('children' in nodeWithId) {
+                // 分组节点，使用内部状态覆盖外部的 collapsed 属性
+                const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
+                const groupNode: GroupNode = {
+                  ...nodeWithId,
+                  collapsed:
+                    collapsedGroups[nodeTypeInfo.fileType] ?? nodeWithId.collapsed,
+                  // 确保子节点也有唯一ID
+                  children: nodeWithId.children.map(ensureNodeWithId),
+                };
+                return (
+                  <FileGroupComponent
+                    key={nodeWithId.id}
+                    group={groupNode}
+                    onToggle={handleToggleGroup}
+                    onGroupDownload={onGroupDownload}
+                    onDownload={onDownload}
+                    onFileClick={onFileClick}
+                    onPreview={handlePreview}
+                    prefixCls={prefixCls}
+                    hashId={hashId}
+                  />
+                );
+              }
 
-          // 文件节点
-          return (
-            <FileItemComponent
-              key={nodeWithId.id}
-              file={nodeWithId as FileNode}
-              onClick={onFileClick}
-              onDownload={onDownload}
-              onPreview={handlePreview}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            />
-          );
-        })}
-      </div>
+              // 文件节点
+              return (
+                <FileItemComponent
+                  key={nodeWithId.id}
+                  file={nodeWithId as FileNode}
+                  onClick={onFileClick}
+                  onDownload={onDownload}
+                  onPreview={handlePreview}
+                  prefixCls={prefixCls}
+                  hashId={hashId}
+                />
+              );
+            })}
+          </div>
+        </Spin>
+      )}
       {ImagePreviewComponent}
     </>,
   );

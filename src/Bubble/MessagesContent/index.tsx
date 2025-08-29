@@ -135,7 +135,7 @@ export const BubbleMessageDisplay: React.FC<
             data-testid="message-content"
           >
             <LoadingIcon />
-            {locale?.['chat.message.thinking'] || '正在思考中...'}
+            {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );
       }

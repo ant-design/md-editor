@@ -1,8 +1,9 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 
 import React from 'react';
 import { useCopied } from '../../../hooks/useCopied';
 import { ActionIconBox, ActionIconBoxProps } from '../../../index';
+import { BubbleConfigContext } from '../../BubbleConfigProvide';
 
 /**
  * CopyIcon 组件 - 复制图标组件
@@ -108,6 +109,11 @@ export type CopyButtonProps = {
 export const CopyButton = memo<CopyButtonProps>(
   ({ className, onClick, 'data-testid': dataTestId, ...props }) => {
     const { copied, setCopied } = useCopied();
+    const context = useContext(BubbleConfigContext);
+
+    const copySuccessText =
+      context?.locale?.['chat.message.copy.success'] || '复制成功';
+
     return (
       <ActionIconBox
         onClick={async (e) => {
@@ -116,7 +122,7 @@ export const CopyButton = memo<CopyButtonProps>(
         }}
         {...props}
         data-testid={dataTestId}
-        title={copied ? '✅ 复制成功' : props.title}
+        title={copied ? `✅ ${copySuccessText}` : props.title}
       >
         {props.children || <CopyIcon className={className} />}
       </ActionIconBox>

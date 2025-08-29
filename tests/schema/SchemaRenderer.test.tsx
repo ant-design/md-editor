@@ -331,4 +331,46 @@ describe('SchemaRenderer', () => {
       expect(container.querySelector('.schemaRenderer')).toBeInTheDocument();
     });
   });
+
+  it('应该支持 values 为字符串但 schema 定义为 array/object', async () => {
+    const props = {
+      schema: {
+        version: '1.0.0',
+        name: 'ArrayObjectComponent',
+        description: '数组和对象类型测试',
+        component: {
+          type: 'mustache' as const,
+          schema: '<div>数组:{{#arr}} {{.}}{{/arr}}, 对象: {{obj.name}}</div>',
+          properties: {
+            arr: {
+              type: 'array' as const,
+              title: '数组',
+            },
+            obj: {
+              type: 'object' as const,
+              title: '对象',
+            },
+          },
+        },
+      },
+      values: {
+        arr: 'a,b,c',
+        obj: '{"name":"张三"}',
+      },
+    };
+    let renderedHtml = '';
+    render(
+      <SchemaRenderer
+        {...props}
+        onRenderSuccess={(html) => {
+          renderedHtml = html;
+        }}
+      />,
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    expect(renderedHtml).toContain('数组: a b c');
+    expect(renderedHtml).toContain('对象: 张三');
+  });
 });

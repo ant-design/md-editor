@@ -352,6 +352,16 @@ export interface FileProps extends BaseChildProps {
    * 对外暴露的操作引用，允许外部主动打开预览或返回列表
    */
   actionRef?: React.MutableRefObject<FileActionRef | null>;
+  /**
+   * 是否显示加载状态
+   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   */
+  loading?: boolean;
+  /**
+   * 自定义加载渲染函数
+   * @description 当loading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
+   */
+  loadingRender?: () => React.ReactNode;
 }
 
 export interface CustomProps extends BaseChildProps {

@@ -1,6 +1,7 @@
 import { Checkbox, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React from 'react';
+import { I18nContext } from '../../i18n';
 import { HistoryDataType } from '../types';
 import { formatTime } from '../utils';
 import { HistoryActionsBox } from './HistoryActionsBox';
@@ -243,6 +244,8 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
   }) => {
     // 使用 useMemo 优化计算属性
     const isTask = React.useMemo(() => type === 'task', [type]);
+
+    const { locale } = React.useContext(I18nContext);
     const shouldShowIcon = React.useMemo(
       () => isTask && !!item.icon,
       [isTask, item.icon],

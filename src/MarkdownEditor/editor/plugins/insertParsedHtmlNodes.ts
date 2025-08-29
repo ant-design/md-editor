@@ -5,10 +5,7 @@ import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
 import { debugLog, EditorUtils } from '../utils';
 import { docxDeserializer } from '../utils/docx/docxDeserializer';
-import {
-  generateOperationId,
-  performanceMonitor,
-} from '../utils/performanceMonitor';
+
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
 // 性能优化常量
@@ -376,17 +373,12 @@ export const insertParsedHtmlNodes = async (
     return false;
   }
 
-  // 性能监控
-  const operationId = generateOperationId();
-  performanceMonitor.startMonitoring(operationId, 'html', html.length);
-
   // 2. 显示解析提示
   const hideLoading = message.loading('parsing...', 0);
 
   try {
     // 3. 异步解析 HTML
     const fragmentList = await parseHtmlOptimized(html, rtl);
-
     if (!fragmentList?.length) {
       hideLoading();
       return false;
@@ -578,22 +570,23 @@ export const insertParsedHtmlNodes = async (
       if (!item.type) {
         return { type: 'paragraph', children: [item] };
       }
+      if (item.type === 'code') {
+        return {
+          ...item,
+          type: 'code',
+          value: Node.string(item),
+          language: item.language || 'txt',
+        };
+      }
       return item;
     });
-
     await insertNodesBatch(editor, processedNodes);
-
-    // 结束性能监控
-    performanceMonitor.endMonitoring(operationId);
 
     return true;
   } catch (error) {
     console.error('插入HTML节点失败:', error);
     hideLoading();
     message.error('Content parsing failed, please try again');
-
-    // 结束性能监控
-    performanceMonitor.endMonitoring(operationId);
 
     return false;
   }

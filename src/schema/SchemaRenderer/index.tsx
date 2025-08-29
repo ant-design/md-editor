@@ -8,6 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import partialParse from '../../MarkdownEditor/editor/parser/json-parse';
 import { LowCodeSchema } from '../../schema/types';
 import { mdDataSchemaValidator } from '../../schema/validator';
 import { TemplateEngine } from './templateEngine';
@@ -75,6 +76,7 @@ export interface SchemaRendererProps {
   fallbackContent?: React.ReactNode;
   useDefaultValues?: boolean;
   debug?: boolean;
+  onRenderSuccess?: (html: string) => void;
 }
 
 /**
@@ -134,6 +136,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   fallbackContent,
   debug = true,
   useDefaultValues = true,
+  onRenderSuccess,
 }) => {
   const [renderError, setRenderError] = useState<string | null>(null);
 
@@ -175,11 +178,39 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
           )
         : {};
 
+      // 先合并 values
       const mergedData = merge(
         defaultValues,
         initialValues || {},
         values || {},
       );
+
+      // 类型转换：如果 properties 定义为 array/object，但 values 里是 string，则尝试转换
+      Object.entries(properties || {}).forEach(([key, property]) => {
+        const val = mergedData[key];
+        if (property.type === 'array' && typeof val === 'string') {
+          try {
+            // 尝试 JSON.parse，否则用逗号分割
+            mergedData[key] = partialParse(val);
+            if (!Array.isArray(mergedData[key])) {
+              mergedData[key] = val.split(',').map((s) => s.trim());
+            }
+          } catch {
+            mergedData[key] = val.split(',').map((s) => s.trim());
+          }
+        }
+        if (property.type === 'object' && typeof val === 'string') {
+          try {
+            try {
+              mergedData[key] = partialParse(val);
+            } catch (error) {
+              mergedData[key] = val;
+            }
+          } catch {
+            mergedData[key] = {};
+          }
+        }
+      });
 
       // 添加 fallback 值：如果数据在 properties 定义但是 mergedData 中没有
       const dataWithFallbacks = { ...mergedData };
@@ -264,7 +295,6 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
 
   useEffect(() => {
     if (!containerRef.current || !renderedHtml) return;
-
     try {
       // 获取或创建Shadow DOM
       let shadowRoot = containerRef.current.shadowRoot;
@@ -283,7 +313,6 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
       // 创建一个临时容器来解析HTML
       const tempContainer = document.createElement('div');
       tempContainer.innerHTML = renderedHtml;
-
       // 清空shadowRoot内容
       shadowRoot.innerHTML = '';
 
@@ -299,9 +328,50 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   font-size: ${safeTypography.fontSizes?.[2] ?? '14'}px;
   line-height: ${safeTypography.lineHeights?.normal ?? 1.6};
 }
-
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 div {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   white-space: normal;
@@ -405,6 +475,8 @@ a:active {
           console.error('Even fallback rendering failed:', fallbackError);
         }
       }
+
+      onRenderSuccess?.(renderedHtml);
     } catch (error) {
       console.error('Critical rendering error:', error);
       setRenderError(
