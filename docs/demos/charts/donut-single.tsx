@@ -5,7 +5,6 @@ import React, { useMemo, useState } from 'react';
 const originData = {
   性别: [
     {
-      title: '男性用户',
       datasets: [
         { label: '男性', value: 45 },
         { label: '其他', value: 55 },
@@ -14,7 +13,6 @@ const originData = {
       showTooltip: false,
     },
     {
-      title: '女性用户',
       datasets: [
         { label: '女性', value: 55 },
         { label: '其他', value: 45 },
@@ -25,7 +23,6 @@ const originData = {
   ],
   年龄: [
     {
-      title: '18-25岁',
       datasets: [
         { label: '18岁以下', value: 15 },
         { label: '其他年龄', value: 75 },
@@ -34,7 +31,6 @@ const originData = {
       showTooltip: false,
     },
     {
-      title: '18-30岁',
       datasets: [
         { label: '18-30岁', value: 47 },
         { label: '其他年龄', value: 53 },
@@ -43,7 +39,6 @@ const originData = {
       showTooltip: false,
     },
     {
-      title: '31-40岁',
       datasets: [
         { label: '31-40岁', value: 33 },
         { label: '其他年龄', value: 67 },
@@ -52,7 +47,6 @@ const originData = {
       showTooltip: false,
     },
     {
-      title: '40岁以上',
       datasets: [
         { label: '40岁以上', value: 38 },
         { label: '其他年龄', value: 62 },
@@ -64,7 +58,7 @@ const originData = {
 };
 const DonutSingleDemo: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState('年龄');
-  const filterList: string[] = ['年龄', '性别', '年龄'];
+  const filterList: string[] = ['年龄', '性别'];
 
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value);

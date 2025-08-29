@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import classNames from 'classnames';
-import React, { useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import { useStyle } from './style';
@@ -15,13 +15,13 @@ import { useStyle } from './style';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export interface DonutChartDatum {
+  category?: string; // 分类
   label: string;
   value: number;
 }
 
 export interface DonutChartConfig {
   datasets: DonutChartDatum[];
-  title?: string;
   lastModified?: string;
   theme?: 'light' | 'dark';
   cutout?: string | number;
@@ -37,7 +37,7 @@ export interface DonutChartProps {
   width?: number;
   height?: number;
   className?: string;
-  title: string;
+  title?: string;
   showToolbar?: boolean;
   onDownload?: () => void;
   /** 筛选项列表，不传时不显示筛选器 */
@@ -46,6 +46,8 @@ export interface DonutChartProps {
   selectedFilter?: string;
   /** 筛选变化回调函数 */
   onFilterChange?: (value: string) => void;
+  /** 是否启用自动分类功能 */
+  enableAutoCategory?: boolean;
 }
 
 // 中心文字插件
@@ -92,10 +94,66 @@ const DonutChart: React.FC<DonutChartProps> = ({
   filterList,
   selectedFilter,
   onFilterChange,
+  enableAutoCategory = true,
 }) => {
   const baseClassName = 'md-editor-donut-chart';
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const chartRef = useRef<ChartJS<'doughnut'>>(null);
+
+  // 自动分类功能
+  const autoCategoryData = useMemo(() => {
+    if (!enableAutoCategory || !configs[0]?.datasets) {
+      return null;
+    }
+
+    const allData = configs[0].datasets;
+    const categories = [
+      ...new Set(allData.map((item) => item.category).filter(Boolean)),
+    ];
+
+    if (categories.length <= 1) {
+      return null; // 只有一个分类或没有分类，不需要分类功能
+    }
+
+    return {
+      categories,
+      allData,
+    };
+  }, [configs, enableAutoCategory]);
+
+  // 内部分类状态管理
+  const [internalSelectedCategory, setInternalSelectedCategory] =
+    useState<string>('');
+
+  // 初始化内部分类状态
+  React.useEffect(() => {
+    if (autoCategoryData && !internalSelectedCategory) {
+      setInternalSelectedCategory(autoCategoryData.categories[0] || '');
+    }
+  }, [autoCategoryData, internalSelectedCategory]);
+
+  // 根据分类过滤数据
+  const filteredConfigs = useMemo(() => {
+    if (!autoCategoryData || !internalSelectedCategory) {
+      return configs;
+    }
+
+    const filteredData = autoCategoryData.allData.filter(
+      (item) => item.category === internalSelectedCategory,
+    );
+
+    return [
+      {
+        ...configs[0],
+        datasets: filteredData,
+      },
+    ];
+  }, [configs, autoCategoryData, internalSelectedCategory]);
+
+  // 处理内部分类变化
+  const handleInternalCategoryChange = (category: string) => {
+    setInternalSelectedCategory(category);
+  };
 
   // 验证 filterList 是否有重复项
   if (filterList && filterList.length > 0) {
@@ -124,21 +182,29 @@ const DonutChart: React.FC<DonutChartProps> = ({
     onDownload ? onDownload() : downloadChart(chartRef.current, 'donut-chart');
   };
 
+  // 确定是否显示筛选器
+  const shouldShowFilter =
+    (filterList && filterList.length > 0) || autoCategoryData;
+  const finalFilterList =
+    filterList || (autoCategoryData ? autoCategoryData.categories : []);
+  const finalSelectedFilter = selectedFilter || internalSelectedCategory;
+  const finalOnFilterChange = onFilterChange || handleInternalCategoryChange;
+
   return wrapSSR(
     <>
       {showToolbar && (
         <div>
-          <ChartToolBar title={title} onDownload={handleDownload} />
-          {filterList && filterList.length > 0 && (
+          {title && <ChartToolBar title={title} onDownload={handleDownload} />}
+          {shouldShowFilter && (
             <ChartFilter
-              filterOptions={filterList.map((item) => {
+              filterOptions={finalFilterList.map((item) => {
                 return {
-                  label: item,
-                  value: item,
+                  label: item || '',
+                  value: item || '',
                 };
               })}
-              selectedFilter={selectedFilter || ''}
-              onFilterChange={onFilterChange || (() => {})}
+              selectedFilter={finalSelectedFilter || ''}
+              onFilterChange={finalOnFilterChange}
             />
           )}
         </div>
@@ -150,10 +216,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
           ['--donut-item-min-width' as any]: `${width}px`,
         }}
       >
-        {configs.map((cfg, idx) => {
+        {filteredConfigs.map((cfg, idx) => {
           const labels = cfg.datasets.map((d) => d.label);
           const values = cfg.datasets.map((d) => d.value);
-
           const total = values.reduce((sum, v) => sum + v, 0);
           const backgroundColors = cfg.backgroundColor || [
             '#917EF7',

@@ -6,7 +6,6 @@ import React from 'react';
 const DonutMultiDemo: React.FC = () => {
   const multiValueConfigs: DonutChartConfig[] = [
     {
-      title: '各品类销量占比',
       datasets: [
         { label: 'A 产品', value: 25 },
         { label: 'B 产品', value: 40 },
