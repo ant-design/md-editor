@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import './index.css';
+import { useStyle } from './style';
 
 /**
  * DotLoading 组件 - 点状加载动画组件
@@ -27,6 +27,8 @@ import './index.css';
  * - 样式定义在 index.css 文件中
  */
 export const DotLoading = () => {
+  useStyle('md-editor-loader');
+
   return (
     <div
       data-testid="dot-loading"

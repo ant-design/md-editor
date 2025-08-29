@@ -40,7 +40,6 @@ import {
   useSystemKeyboard,
 } from './editor/utils/keyboard';
 import { ElementProps, Elements, ListItemNode, SchemaNode } from './el';
-import './index.css';
 import { MarkdownEditorPlugin, PluginContext } from './plugin';
 import { useStyle } from './style';
 import { exportHtml } from './utils/exportHtml';

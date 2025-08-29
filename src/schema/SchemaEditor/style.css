@@ -1,0 +1,240 @@
+.schema-editor {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+}
+
+.schema-editor-container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.schema-editor-left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  border-right: 1px solid #e1e5e9;
+}
+
+.schema-editor-right {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HTML编辑器样式 */
+.schema-editor-html {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.schema-editor-html-header {
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e1e5e9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schema-editor-html-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.schema-editor-html-content {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.schema-editor-html-content .ace_editor {
+  height: 100% !important;
+  font-size: 13px;
+}
+
+/* JSON编辑器样式 */
+.schema-editor-json {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.schema-editor-json-header {
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e1e5e9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schema-editor-json-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.schema-editor-json-content {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.schema-editor-json-content .ace_editor {
+  height: 100% !important;
+  font-size: 13px;
+}
+
+/* 预览区域样式 */
+.schema-editor-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.schema-editor-preview-header {
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e1e5e9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schema-editor-preview-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.schema-editor-error {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #c53030;
+  max-width: 300px;
+  word-break: break-word;
+}
+
+.schema-editor-preview-content {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;
+  background: #ffffff;
+}
+
+.schema-editor-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6c757d;
+  text-align: center;
+}
+
+.schema-editor-fallback p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .schema-editor-container {
+    flex-direction: column;
+  }
+
+  .schema-editor-left {
+    border-right: none;
+    border-bottom: 1px solid #e1e5e9;
+  }
+
+  .schema-editor-html,
+  .schema-editor-json {
+    min-height: 200px;
+  }
+}
+
+/* 滚动条样式 */
+.schema-editor-preview-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.schema-editor-preview-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.schema-editor-preview-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.schema-editor-preview-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 编辑器主题适配 */
+.schema-editor .ace_editor {
+  background: #ffffff;
+  color: #333333;
+}
+
+.schema-editor .ace_editor.ace_dark {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+/* 焦点状态 */
+.schema-editor-html-content:focus-within,
+.schema-editor-json-content:focus-within {
+  box-shadow: inset 0 0 0 2px #3182ce;
+}
+
+/* 加载状态 */
+.schema-editor-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6c757d;
+}
+
+.schema-editor-loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e1e5e9;
+  border-top: 2px solid #3182ce;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -52,6 +52,7 @@ export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
+export * from './schema/SchemaEditor';
 export * from './TaskList';
 export * from './ThoughtChainList';
 export * from './ToolUseBar';
