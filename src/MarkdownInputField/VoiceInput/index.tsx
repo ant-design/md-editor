@@ -19,7 +19,6 @@ export type CreateRecognizer = (handlers: {
 type VoiceInputButtonProps = {
   recording: boolean;
   disabled?: boolean;
-  compact?: boolean;
   onStart: () => Promise<void>;
   onStop: () => Promise<void>;
   style?: React.CSSProperties;
@@ -45,7 +44,6 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (
       role="button"
       aria-pressed={recording}
       className={classNames(baseCls, hashId, {
-        [`${baseCls}-compact`]: props.compact,
         [`${baseCls}-disabled`]: disabled,
         [`${baseCls}-recording`]: recording,
       })}

@@ -172,13 +172,9 @@ export type MarkdownInputFieldProps = {
 
   /**
    * 语音输入配置
-   * @description 由外部提供语音转写实现，组件仅负责控制与UI
+   * @description 由外部提供语音转写实现，组件仅负责控制与UI，传空不展示语音输入按钮
    */
-  voiceInput?: {
-    enable?: boolean;
-    createRecognizer: CreateRecognizer;
-    compact?: boolean;
-  };
+  voiceRecognizer?: CreateRecognizer;
 
   /**
    * 自定义操作按钮渲染函数
@@ -383,9 +379,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const recognizerRef = React.useRef<{ start: () => Promise<void>; stop: () => Promise<void> }>();
 
   const startRecording = useRefFunction(async () => {
-    if (!props.voiceInput?.enable || !props.voiceInput?.createRecognizer) return;
+    if (!props.voiceRecognizer) return;
     if (recording) return;
-    recognizerRef.current = await props.voiceInput.createRecognizer({
+    recognizerRef.current = await props.voiceRecognizer({
       onPartial: (text: string) => {
         const current = markdownEditorRef?.current?.store?.getMDContent() || '';
         const next = `${current}${text}`;
@@ -563,10 +559,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           disabled={!fileUploadDone}
         />
       ) : null,
-      props.voiceInput?.enable ? (
+      props.voiceRecognizer ? (
         <VoiceInputButton
           key="voice-input-button"
-          compact={props.voiceInput?.compact}
           recording={recording}
           disabled={props.disabled}
           onStart={startRecording}
@@ -610,7 +605,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     sendMessage,
     props.onSend,
     props.onStop,
-    props.voiceInput?.enable,
+    props.voiceRecognizer,
   ]);
 
   const handleFileRemoval = useRefFunction(async (file: AttachmentFile) => {

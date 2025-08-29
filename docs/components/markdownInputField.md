@@ -126,8 +126,8 @@ export default () => {
         // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
         let i = 0;
         timer = setInterval(() => {
-          i += 1;
           onPartial(`语音片段${i} `);
+          i += 1;
         }, 500);
       },
       stop: async () => {
@@ -139,7 +139,8 @@ export default () => {
   return (
     <MarkdownInputField
       placeholder="请开始讲话..."
-      voiceInput={{ enable: true, createRecognizer }}
+      voiceRecognizer={createRecognizer}
+      onChange={(a) => console.log(a)}
       onSend={async (text) => {
         console.log('发送内容:', text);
       }}
