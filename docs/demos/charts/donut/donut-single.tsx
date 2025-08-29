@@ -64,6 +64,43 @@ const DonutSingleDemo: React.FC = () => {
         onFilterChange={handleFilterChange}
         enableAutoCategory={false} // 禁用自动分类，因为我们手动控制
       />
+      {/* 数据格式说明 */}
+      <div
+        style={{
+          marginTop: 12,
+          backgroundColor: '#f0f8ff',
+          padding: 12,
+          borderRadius: 8,
+          border: '1px solid #e8e8e8',
+          color: '#333',
+        }}
+      >
+        <h4 style={{ marginTop: 0 }}>扁平化数据格式示例（单值 + 二级筛选）：</h4>
+        <pre
+          style={{
+            backgroundColor: '#fff',
+            padding: 10,
+            borderRadius: 4,
+            fontSize: 11,
+            margin: 0,
+            overflow: 'auto',
+          }}
+        >
+{`// 单值饼图：每一项为一个指标；可选 category 用于外部筛选
+[
+  { label: "任务完成率", value: 75, category: "项目进度" },
+  { label: "代码覆盖率", value: 85, category: "项目进度" },
+  { label: "测试通过率", value: 92, category: "项目进度" }
+]
+
+// 配置：与数据长度对应的配置数组（示意）
+[
+  { backgroundColor: ["#917EF7", "#F7F8F9"], showLegend: false },
+  { backgroundColor: ["#2AD8FC", "#F7F8F9"], showLegend: false },
+  { backgroundColor: ["#388BFF", "#F7F8F9"], showLegend: false }
+]`}
+        </pre>
+      </div>
     </div>
   );
 };

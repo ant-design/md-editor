@@ -8,10 +8,10 @@ nav:
 
 ## 饼图
 
-<code src="../demos/charts/donut-gender.tsx" background="var(--main-bg-color)"  title="多个单值饼图" iframe=350></code>
-<code src="../demos/charts/donut-single.tsx" background="var(--main-bg-color)"  title="带分类的单值饼图" iframe=450></code>
-<code src="../demos/charts/donut-multi.tsx" background="var(--main-bg-color)"  title="多值饼图" iframe=400></code>
-<code src="../demos/charts/donut-categorized.tsx" background="var(--main-bg-color)"  title="有分类的多值饼图" iframe=450></code>
+<code src="../demos/charts/donut/donut-gender.tsx" background="var(--main-bg-color)"  title="多个单值饼图" iframe=540></code>
+<code src="../demos/charts/donut/donut-single.tsx" background="var(--main-bg-color)"  title="带分类的单值饼图" iframe=540></code>
+<code src="../demos/charts/donut/donut-multi.tsx" background="var(--main-bg-color)"  title="多值饼图" iframe=540></code>
+<code src="../demos/charts/donut/donut-categorized.tsx" background="var(--main-bg-color)"  title="有分类的多值饼图" iframe=540></code>
 
 ## 折线图
 

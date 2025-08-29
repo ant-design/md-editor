@@ -41,6 +41,38 @@ const DonutCategorizedDemo: React.FC = () => {
         height={200}
         title="2025年第一季度销售数据分析"
       />
+      {/* 数据格式说明 */}
+      <div
+        style={{
+          marginTop: 12,
+          backgroundColor: '#f0f8ff',
+          padding: 12,
+          borderRadius: 8,
+          border: '1px solid #e8e8e8',
+          color: '#333',
+        }}
+      >
+        <h4 style={{ marginTop: 0 }}>扁平化数据格式示例（含分类）：</h4>
+        <pre
+          style={{
+            backgroundColor: '#fff',
+            padding: 10,
+            borderRadius: 4,
+            fontSize: 11,
+            margin: 0,
+            overflow: 'auto',
+          }}
+        >
+{`// 当包含 category 字段时，自动启用分类筛选；不包含则按单一分类展示
+[
+  { category: "电子产品", label: "智能手机", value: 35 },
+  { category: "电子产品", label: "笔记本电脑", value: 25 },
+  { category: "地区分布", label: "华东地区", value: 40 },
+  // 不含 category 的情况（单分类）：
+  { label: "总计", value: 100 }
+]`}
+        </pre>
+      </div>
     </div>
   );
 };
