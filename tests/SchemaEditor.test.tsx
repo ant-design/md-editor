@@ -4,16 +4,18 @@ import { vi } from 'vitest';
 import { SchemaEditor } from '../src/schema/SchemaEditor';
 import { LowCodeSchema } from '../src/schema/types';
 
-// Mock AceEditor to avoid DOM manipulation issues in tests
-vi.mock('../src/plugins/code/components/AceEditor', () => ({
-  AceEditor: vi.fn(() => ({
-    dom: { current: null },
-    editorRef: { current: null },
-    setLanguage: vi.fn(),
-    focusEditor: vi.fn(),
-    isSelected: false,
-    onSelectionChange: undefined,
-  })),
+// Mock AceEditorWrapper to avoid DOM manipulation issues in tests
+vi.mock('../src/schema/SchemaEditor/AceEditorWrapper', () => ({
+  AceEditorWrapper: vi.fn(({ value, language, onChange, readonly }) => (
+    <div
+      data-testid="ace-editor"
+      data-value={value}
+      data-language={language}
+      data-readonly={readonly}
+    >
+      {value}
+    </div>
+  )),
 }));
 
 // Mock SchemaRenderer

@@ -1,30 +1,10 @@
-import { Keyframes } from '@ant-design/cssinjs';
-import {
-  ChatTokenType,
-  GenerateStyle,
-  useEditorStyleRegister,
-} from '../../hooks/useStyle';
+import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
+import { useEditorStyleRegister } from '../../hooks/useStyle';
 
-// 定义加载动画关键帧
-const l3 = new Keyframes('l3', {
-  '20%': {
-    backgroundPosition: '0% 0%, 50% 50%, 100% 50%',
-  },
-  '40%': {
-    backgroundPosition: '0% 100%, 50% 0%, 100% 50%',
-  },
-  '60%': {
-    backgroundPosition: '0% 50%, 50% 100%, 100% 0%',
-  },
-  '80%': {
-    backgroundPosition: '0% 50%, 50% 50%, 100% 100%',
-  },
-});
-
-const genStyle: GenerateStyle<ChatTokenType> = () => {
+const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     // 加载器样式
-    '.md-editor-loader': {
+    [`${token.componentCls}`]: {
       width: '20px',
       display: 'inline-flex',
       aspectRatio: 2,
@@ -37,7 +17,10 @@ const genStyle: GenerateStyle<ChatTokenType> = () => {
         'var(--_g) 100% 50%',
       ].join(', '),
       backgroundSize: 'calc(100% / 3) 50%',
-      animation: `${l3.getName()} 1s infinite linear`,
+      animationName: 'l3',
+      animationDuration: '1s',
+      animationTimingFunction: 'linear',
+      animationIterationCount: 'infinite',
     },
   };
 };
@@ -47,12 +30,13 @@ const genStyle: GenerateStyle<ChatTokenType> = () => {
  * @param prefixCls 样式前缀
  * @returns 样式对象
  */
-export function useStyle(prefixCls?: string) {
+export function useDotAniStyle(prefixCls?: string) {
   return useEditorStyleRegister('DotAni', (token: ChatTokenType) => {
-    const componentToken = {
+    const dotAniToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
-    return [genStyle(componentToken)];
+
+    return [genStyle(dotAniToken)];
   });
 }

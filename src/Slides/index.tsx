@@ -3,7 +3,8 @@ import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
 import { BaseMarkdownEditor } from '../MarkdownEditor';
 
-import { useStyle } from './style';
+import classNames from 'classnames';
+import { useSlidesStyle } from './style';
 
 /**
  * 将Markdown内容分割为幻灯片
@@ -66,7 +67,7 @@ const splitMarkdown = (markdown: string) => {
  * - 自动初始化Reveal.js
  */
 export function Slides(props: { initValue: string }) {
-  useStyle('reveal');
+  const { wrapSSR, hashId } = useSlidesStyle('reveal');
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<any | null>(null); // reference to deck reveal instance
 
@@ -93,9 +94,9 @@ export function Slides(props: { initValue: string }) {
     init();
   }, []);
 
-  return (
+  return wrapSSR(
     <div
-      className="reveal"
+      className={classNames('reveal', hashId)}
       ref={deckDivRef}
       style={{
         height: '100vh',
@@ -134,6 +135,6 @@ export function Slides(props: { initValue: string }) {
           }) as React.ReactNode[]
         }
       </div>
-    </div>
+    </div>,
   );
 }

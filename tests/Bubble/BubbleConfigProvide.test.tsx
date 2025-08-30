@@ -28,9 +28,7 @@ const TestComponent = () => {
       <div data-testid="bubble-content">
         {context?.bubble?.originData?.content}
       </div>
-      <div data-testid="bubble-uuid">
-        {context?.bubble?.originData?.uuid}
-      </div>
+      <div data-testid="bubble-uuid">{context?.bubble?.originData?.uuid}</div>
     </div>
   );
 };

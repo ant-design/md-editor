@@ -1,5 +1,6 @@
-﻿import React from 'react';
-import { useStyle } from './style';
+﻿import classNames from 'classnames';
+import React from 'react';
+import { useDotAniStyle } from './style';
 
 /**
  * DotLoading 组件 - 点状加载动画组件
@@ -27,14 +28,14 @@ import { useStyle } from './style';
  * - 样式定义在 index.css 文件中
  */
 export const DotLoading = () => {
-  useStyle('md-editor-loader');
+  const { wrapSSR, hashId } = useDotAniStyle('md-editor-loader');
 
-  return (
+  return wrapSSR(
     <div
       data-testid="dot-loading"
-      className="md-editor-loader"
+      className={classNames('md-editor-loader', hashId)}
       role="progressbar"
       aria-label="Loading"
-    />
+    />,
   );
 };

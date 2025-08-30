@@ -1,36 +1,27 @@
-import { Keyframes } from '@ant-design/cssinjs';
-import {
-  ChatTokenType,
-  GenerateStyle,
-  useEditorStyleRegister,
-} from '../../hooks/useStyle';
-
-// 定义旋转动画关键帧
-const spin = new Keyframes('spin', {
-  '0%': { transform: 'rotate(0deg)' },
-  '100%': { transform: 'rotate(360deg)' },
-});
+import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
+import { useEditorStyleRegister } from '../../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     // 主容器样式
-    '.schema-editor': {
+    [`${token.componentCls}`]: {
       display: 'flex',
       flexDirection: 'column',
       background: '#ffffff',
       border: '1px solid #e1e5e9',
       borderRadius: '8px',
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     },
 
-    '.schema-editor-container': {
+    [`${token.componentCls}-container`]: {
       display: 'flex',
       flex: 1,
       minHeight: 0,
     },
 
-    '.schema-editor-left': {
+    [`${token.componentCls}-left`]: {
       display: 'flex',
       flexDirection: 'column',
       flex: 1,
@@ -38,7 +29,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderRight: '1px solid #e1e5e9',
     },
 
-    '.schema-editor-right': {
+    [`${token.componentCls}-right`]: {
       flex: 1,
       minWidth: 0,
       display: 'flex',
@@ -46,14 +37,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     // HTML编辑器样式
-    '.schema-editor-html': {
+    [`${token.componentCls}-html`]: {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
       borderBottom: '1px solid #e1e5e9',
     },
 
-    '.schema-editor-html-header': {
+    [`${token.componentCls}-html-header`]: {
       padding: '12px 16px',
       background: '#f8f9fa',
       borderBottom: '1px solid #e1e5e9',
@@ -62,32 +53,32 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'space-between',
     },
 
-    '.schema-editor-html-header h3': {
+    [`${token.componentCls}-html-header h3`]: {
       margin: 0,
       fontSize: '14px',
       fontWeight: 600,
       color: '#495057',
     },
 
-    '.schema-editor-html-content': {
+    [`${token.componentCls}-html-content`]: {
       flex: 1,
       minHeight: 0,
       position: 'relative',
     },
 
-    '.schema-editor-html-content .ace_editor': {
+    [`${token.componentCls}-html-content .ace_editor`]: {
       height: '100% !important',
       fontSize: '13px',
     },
 
     // JSON编辑器样式
-    '.schema-editor-json': {
+    [`${token.componentCls}-json`]: {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
     },
 
-    '.schema-editor-json-header': {
+    [`${token.componentCls}-json-header`]: {
       padding: '12px 16px',
       background: '#f8f9fa',
       borderBottom: '1px solid #e1e5e9',
@@ -96,33 +87,33 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'space-between',
     },
 
-    '.schema-editor-json-header h3': {
+    [`${token.componentCls}-json-header h3`]: {
       margin: 0,
       fontSize: '14px',
       fontWeight: 600,
       color: '#495057',
     },
 
-    '.schema-editor-json-content': {
+    [`${token.componentCls}-json-content`]: {
       flex: 1,
       minHeight: 0,
       position: 'relative',
     },
 
-    '.schema-editor-json-content .ace_editor': {
+    [`${token.componentCls}-json-content .ace_editor`]: {
       height: '100% !important',
       fontSize: '13px',
     },
 
     // 预览区域样式
-    '.schema-editor-preview': {
+    [`${token.componentCls}-preview`]: {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
       minHeight: 0,
     },
 
-    '.schema-editor-preview-header': {
+    [`${token.componentCls}-preview-header`]: {
       padding: '12px 16px',
       background: '#f8f9fa',
       borderBottom: '1px solid #e1e5e9',
@@ -131,14 +122,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'space-between',
     },
 
-    '.schema-editor-preview-header h3': {
+    [`${token.componentCls}-preview-header h3`]: {
       margin: 0,
       fontSize: '14px',
       fontWeight: 600,
       color: '#495057',
     },
 
-    '.schema-editor-error': {
+    [`${token.componentCls}-error`]: {
       background: '#fff5f5',
       border: '1px solid #fed7d7',
       borderRadius: '4px',
@@ -149,14 +140,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       wordBreak: 'break-word',
     },
 
-    '.schema-editor-preview-content': {
+    [`${token.componentCls}-preview-content`]: {
       flex: 1,
       padding: '16px',
       overflow: 'auto',
       background: '#ffffff',
     },
 
-    '.schema-editor-fallback': {
+    [`${token.componentCls}-fallback`]: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -166,64 +157,65 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       textAlign: 'center',
     },
 
-    '.schema-editor-fallback p': {
+    [`${token.componentCls}-fallback p`]: {
       margin: '4px 0',
       fontSize: '14px',
     },
 
     // 响应式设计
     '@media (max-width: 768px)': {
-      '.schema-editor-container': {
+      [`${token.componentCls}-container`]: {
         flexDirection: 'column',
       },
 
-      '.schema-editor-left': {
+      [`${token.componentCls}-left`]: {
         borderRight: 'none',
         borderBottom: '1px solid #e1e5e9',
       },
 
-      '.schema-editor-html, .schema-editor-json': {
+      [`${token.componentCls}-html, ${token.componentCls}-json`]: {
         minHeight: '200px',
       },
     },
 
     // 滚动条样式
-    '.schema-editor-preview-content::-webkit-scrollbar': {
+    [`${token.componentCls}-preview-content::-webkit-scrollbar`]: {
       width: '6px',
     },
 
-    '.schema-editor-preview-content::-webkit-scrollbar-track': {
+    [`${token.componentCls}-preview-content::-webkit-scrollbar-track`]: {
       background: '#f1f1f1',
       borderRadius: '3px',
     },
 
-    '.schema-editor-preview-content::-webkit-scrollbar-thumb': {
+    [`${token.componentCls}-preview-content::-webkit-scrollbar-thumb`]: {
       background: '#c1c1c1',
       borderRadius: '3px',
     },
 
-    '.schema-editor-preview-content::-webkit-scrollbar-thumb:hover': {
+    [`${token.componentCls}-preview-content::-webkit-scrollbar-thumb:hover`]: {
       background: '#a8a8a8',
     },
 
     // 编辑器主题适配
-    '.schema-editor .ace_editor': {
+    [`${token.componentCls} .ace_editor`]: {
       background: '#ffffff',
       color: '#333333',
     },
 
-    '.schema-editor .ace_editor.ace_dark': {
+    [`${token.componentCls} .ace_editor.ace_dark`]: {
       background: '#2d3748',
       color: '#e2e8f0',
     },
 
     // 焦点状态
-    '.schema-editor-html-content:focus-within, .schema-editor-json-content:focus-within': {
-      boxShadow: 'inset 0 0 0 2px #3182ce',
-    },
+    [`${token.componentCls}-html-content:focus-within, ${token.componentCls}-json-content:focus-within`]:
+      {
+        boxShadow: 'inset 0 0 0 2px #3182ce',
+      },
 
     // 加载状态
-    '.schema-editor-loading': {
+    [`${token.componentCls}-loading`]: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -231,30 +223,29 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       color: '#6c757d',
     },
 
-    '.schema-editor-loading::after': {
+    [`${token.componentCls}-loading::after`]: {
       content: "''",
       width: '20px',
       height: '20px',
       border: '2px solid #e1e5e9',
       borderTop: '2px solid #3182ce',
       borderRadius: '50%',
-      animation: `${spin.getName()} 1s linear infinite`,
+      animationName: 'spin',
+      animationDuration: '1s',
+      animationTimingFunction: 'linear',
+      animationIterationCount: 'infinite',
       marginLeft: '8px',
     },
   };
 };
 
-/**
- * SchemaEditor 样式 Hook
- * @param prefixCls 样式前缀
- * @returns 样式对象
- */
-export function useStyle(prefixCls?: string) {
+export function useSchemaEditorStyle(prefixCls?: string) {
   return useEditorStyleRegister('SchemaEditor', (token: ChatTokenType) => {
-    const componentToken = {
+    const schemaEditorToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
-    return [genStyle(componentToken)];
+
+    return [genStyle(schemaEditorToken)];
   });
 }

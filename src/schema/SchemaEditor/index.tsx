@@ -1,9 +1,10 @@
+import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { SchemaRenderer } from '../SchemaRenderer';
 import { LowCodeSchema } from '../types';
 import { mdDataSchemaValidator } from '../validator';
 import { AceEditorWrapper } from './AceEditorWrapper';
-import { useStyle } from './style';
+import { useSchemaEditorStyle } from './style';
 
 export interface SchemaEditorProps {
   /** 初始schema数据 */
@@ -44,7 +45,7 @@ export function SchemaEditor({
   showPreview = true,
   previewConfig,
 }: SchemaEditorProps) {
-  useStyle('schema-editor');
+  const { wrapSSR, hashId } = useSchemaEditorStyle('schema-editor');
   const [schema, setSchema] = useState<LowCodeSchema>(() => {
     return (
       initialSchema || {
@@ -152,22 +153,22 @@ export function SchemaEditor({
     if (!showPreview) return null;
 
     return (
-      <div className="schema-editor-preview">
-        <div className="schema-editor-preview-header">
+      <div className={classNames('schema-editor-preview', hashId)}>
+        <div className={classNames('schema-editor-preview-header', hashId)}>
           <h3>实时预览</h3>
           {validationError && (
-            <div className="schema-editor-error">
+            <div className={classNames('schema-editor-error', hashId)}>
               <span>⚠️ {validationError}</span>
             </div>
           )}
         </div>
-        <div className="schema-editor-preview-content">
+        <div className={classNames('schema-editor-preview-content', hashId)}>
           <SchemaRenderer
             schema={schema}
             values={values}
             config={previewConfig}
             fallbackContent={
-              <div className="schema-editor-fallback">
+              <div className={classNames('schema-editor-fallback', hashId)}>
                 <p>预览加载失败</p>
                 <p>请检查schema格式是否正确</p>
               </div>
@@ -176,16 +177,16 @@ export function SchemaEditor({
         </div>
       </div>
     );
-  }, [showPreview, schema, values, validationError, previewConfig]);
+  }, [showPreview, schema, values, validationError, previewConfig, hashId]);
 
   // 渲染HTML编辑器
   const renderHtmlEditor = useMemo(() => {
     return (
-      <div className="schema-editor-html">
-        <div className="schema-editor-html-header">
+      <div className={classNames('schema-editor-html', hashId)}>
+        <div className={classNames('schema-editor-html-header', hashId)}>
           <h3>HTML模板</h3>
         </div>
-        <div className="schema-editor-html-content">
+        <div className={classNames('schema-editor-html-content', hashId)}>
           <AceEditorWrapper
             value={htmlContent}
             language="html"
@@ -195,16 +196,16 @@ export function SchemaEditor({
         </div>
       </div>
     );
-  }, [htmlContent, handleHtmlChange, readonly]);
+  }, [htmlContent, handleHtmlChange, readonly, hashId]);
 
   // 渲染JSON编辑器
   const renderJsonEditor = useMemo(() => {
     return (
-      <div className="schema-editor-json">
-        <div className="schema-editor-json-header">
+      <div className={classNames('schema-editor-json', hashId)}>
+        <div className={classNames('schema-editor-json-header', hashId)}>
           <h3>Schema JSON</h3>
         </div>
-        <div className="schema-editor-json-content">
+        <div className={classNames('schema-editor-json-content', hashId)}>
           <AceEditorWrapper
             value={schemaString}
             language="json"
@@ -214,21 +215,23 @@ export function SchemaEditor({
         </div>
       </div>
     );
-  }, [schemaString, handleJsonChange, readonly]);
+  }, [schemaString, handleJsonChange, readonly, hashId]);
 
-  return (
+  return wrapSSR(
     <div
-      className={`schema-editor ${className}`}
+      className={classNames('schema-editor', className, hashId)}
       style={{ height: typeof height === 'number' ? `${height}px` : height }}
     >
-      <div className="schema-editor-container">
-        <div className="schema-editor-left">
+      <div className={classNames('schema-editor-container', hashId)}>
+        <div className={classNames('schema-editor-left', hashId)}>
           {renderHtmlEditor}
           {renderJsonEditor}
         </div>
-        <div className="schema-editor-right">{renderPreview}</div>
+        <div className={classNames('schema-editor-right', hashId)}>
+          {renderPreview}
+        </div>
       </div>
-    </div>
+    </div>,
   );
 }
 

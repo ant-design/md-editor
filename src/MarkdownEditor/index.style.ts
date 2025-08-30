@@ -100,36 +100,41 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     // 溢出阴影容器样式
-    '.markdown-editor .overflow-shadow-container::before, .markdown-editor .overflow-shadow-container::after': {
-      content: "''",
-      position: 'absolute',
-      top: '13px',
-      bottom: '8px',
-      width: '10px',
-      opacity: 0,
-      transition: 'opacity 0.1s',
-      zIndex: 100,
-      pointerEvents: 'none',
-      userSelect: 'none',
-      height: 'calc(100% - 32px)',
-    },
+    '.markdown-editor .overflow-shadow-container::before, .markdown-editor .overflow-shadow-container::after':
+      {
+        content: "''",
+        position: 'absolute',
+        top: '13px',
+        bottom: '8px',
+        width: '10px',
+        opacity: 0,
+        transition: 'opacity 0.1s',
+        zIndex: 100,
+        pointerEvents: 'none',
+        userSelect: 'none',
+        height: 'calc(100% - 32px)',
+      },
 
     '.markdown-editor .overflow-shadow-container::after': {
       right: '-4px',
-      background: 'linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
+      background:
+        'linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
     },
 
-    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-right)::after': {
-      opacity: 1,
-    },
+    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-right)::after':
+      {
+        opacity: 1,
+      },
 
-    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-left)::before': {
-      opacity: 1,
-    },
+    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-left)::before':
+      {
+        opacity: 1,
+      },
 
     '.markdown-editor .overflow-shadow-container::before': {
       left: '3px',
-      background: 'linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
+      background:
+        'linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
     },
 
     // 移动标记样式
@@ -216,7 +221,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       lineHeight: '1.3em',
       borderRadius: '0.125em',
       color: 'rgb(13 148 136 / 1)',
-      fontFamily: 'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji"',
+      fontFamily:
+        'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji"',
 
       '&:before, &:after': {
         content: "'$'",
@@ -234,9 +240,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     // 组合模式样式
-    'div.composition .ant-md-editor-content-edit > div.empty:first-child::before': {
-      display: 'none',
-    },
+    'div.composition .ant-md-editor-content-edit > div.empty:first-child::before':
+      {
+        display: 'none',
+      },
 
     // 标签弹窗输入样式
     '.tag-popup-input-warp': {
@@ -284,15 +291,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       height: 'auto !important',
     },
 
-    '.handsontable.ht-wrapper .ht_master .htCore thead tr:last-child th:first-child': {
-      height: 'auto !important',
-    },
+    '.handsontable.ht-wrapper .ht_master .htCore thead tr:last-child th:first-child':
+      {
+        height: 'auto !important',
+      },
 
     // 打字机效果样式
-    '.ant-md-editor-content .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type span[data-slate-string]': {
-      borderRight: '0.15em solid #1677ff',
-      animation: `${typing.getName()} 3.5s steps(30, end), ${blinkCaret.getName()} 0.5s step-end infinite`,
-    },
+    '.ant-md-editor-content .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type span[data-slate-string]':
+      {
+        borderRight: '0.15em solid #1677ff',
+        animation: `${typing.getName()} 3.5s steps(30, end), ${blinkCaret.getName()} 0.5s step-end infinite`,
+      },
 
     // 全局样式
     '*': {

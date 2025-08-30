@@ -111,7 +111,7 @@ describe('Schema - BubbleConfigContext 功能', () => {
     const [propsArg, bubbleArg] = mockApaasifyRender.mock.calls[0];
     expect(propsArg).toBeDefined();
     expect(propsArg.element).toEqual(mockElement);
-    expect(bubbleArg).toEqual(mockBubbleData.originData);
+    expect(bubbleArg).toEqual(mockBubbleData);
 
     // 验证渲染结果
     expect(screen.getByTestId('apaasify-rendered')).toBeInTheDocument();
