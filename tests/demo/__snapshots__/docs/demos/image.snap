@@ -79,7 +79,7 @@
                   style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 200px; height: 200px;"
                 >
                   <div
-                    style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
+                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
                   >
                     <span
                       aria-label="loading"
@@ -242,7 +242,7 @@
                   style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 200px; height: 200px;"
                 >
                   <div
-                    style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
+                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
                   >
                     <span
                       aria-label="loading"
@@ -405,7 +405,7 @@
                   style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 400px; height: 400px;"
                 >
                   <div
-                    style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
+                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
                   >
                     <span
                       aria-label="loading"

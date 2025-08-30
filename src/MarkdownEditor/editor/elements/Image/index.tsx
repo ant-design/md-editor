@@ -40,13 +40,31 @@ import { getMediaType } from '../../utils/dom';
 export const ImageAndError: React.FC<ImageProps> = (props) => {
   const { editorProps } = useEditorStore();
   const [error, setError] = React.useState(false);
+
+  // 图片加载失败时显示为链接
   if (error) {
     return (
-      <a href={props.src} target="_blank" rel="noopener noreferrer">
-        {props.alt || props.src}
+      <a
+        href={props.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: '#1890ff',
+          textDecoration: 'underline',
+          wordBreak: 'break-all',
+          display: 'inline-block',
+          maxWidth: '100%',
+          padding: '8px 12px',
+          border: '1px dashed #d9d9d9',
+          borderRadius: '6px',
+          backgroundColor: '#fafafa',
+        }}
+      >
+        {props.alt || props.src || '图片链接'}
       </a>
     );
   }
+
   if (editorProps?.image?.render) {
     return editorProps.image.render?.(
       {
@@ -64,14 +82,17 @@ export const ImageAndError: React.FC<ImageProps> = (props) => {
       />,
     );
   }
+
   return (
-    <Image
-      {...props}
-      width={Number(props.width) || props.width || 400}
-      onError={() => {
-        setError(true);
-      }}
-    />
+    <div data-testid="image-container">
+      <Image
+        {...props}
+        width={Number(props.width) || props.width || 400}
+        onError={() => {
+          setError(true);
+        }}
+      />
+    </div>
   );
 };
 
@@ -99,6 +120,7 @@ export const ResizeImage = ({
   selected?: boolean;
 }) => {
   const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
   const radio = useRef<number>(1);
   const [size, setSize] = React.useState({
     width: defaultSize?.width || 400,
@@ -121,6 +143,32 @@ export const ResizeImage = ({
       `${(size.width || 0) / radio.current}px`,
     );
   }, 160);
+
+  // 如果图片加载失败，显示为链接
+  if (error) {
+    return (
+      <a
+        href={props.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: '#1890ff',
+          textDecoration: 'underline',
+          wordBreak: 'break-all',
+          display: 'inline-block',
+          maxWidth: '100%',
+          padding: '8px 12px',
+          border: '1px dashed #d9d9d9',
+          borderRadius: '6px',
+          backgroundColor: '#fafafa',
+          fontSize: '14px',
+          lineHeight: '1.5',
+        }}
+      >
+        {props.alt || props.src}
+      </a>
+    );
+  }
 
   return (
     <div
@@ -204,6 +252,9 @@ export const ResizeImage = ({
               width: width,
               height: width / radio.current,
             });
+          }}
+          onError={() => {
+            setError(true);
           }}
           alt={'image'}
           referrerPolicy={'no-referrer'}
@@ -290,6 +341,32 @@ export function EditorImage({
   }, [element?.url]);
 
   const imageDom = useMemo(() => {
+    // 如果图片加载失败，显示为链接
+    if (!state().loadSuccess) {
+      return (
+        <a
+          href={state()?.url || element?.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: '#1890ff',
+            textDecoration: 'underline',
+            wordBreak: 'break-all',
+            display: 'inline-block',
+            maxWidth: '100%',
+            padding: '8px 12px',
+            border: '1px dashed #d9d9d9',
+            borderRadius: '6px',
+            backgroundColor: '#fafafa',
+            fontSize: '14px',
+            lineHeight: '1.5',
+          }}
+        >
+          {element?.alt || state()?.url || element?.url || '图片链接'}
+        </a>
+      );
+    }
+
     return !readonly ? (
       <ResizeImage
         defaultSize={{
@@ -322,7 +399,13 @@ export function EditorImage({
         height={element.height}
       />
     );
-  }, [state().type, state()?.url, readonly, state().selected]);
+  }, [
+    state().type,
+    state()?.url,
+    readonly,
+    state().selected,
+    state().loadSuccess,
+  ]);
 
   return (
     <div
