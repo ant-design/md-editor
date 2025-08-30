@@ -5,6 +5,7 @@ import {
   FileType,
   GroupNode,
 } from '@ant-design/md-editor/Workspace/types';
+import { Button } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 
 // 自定义 markdownEditorProps 配置
@@ -301,6 +302,7 @@ const VariableAnalysisPreview: React.FC<{
 };
 
 const WorkspaceFileDemo: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [nodes] = useState<(FileNode | GroupNode)[]>([
     {
       name: 'Word',
@@ -657,6 +659,16 @@ graph TD
     <div style={{ padding: '20px' }}>
       <h2>文件组件演示</h2>
 
+      <div style={{ marginBottom: '16px' }}>
+        <Button
+          type="primary"
+          onClick={() => setLoading(!loading)}
+          style={{ marginRight: '8px' }}
+        >
+          {loading ? '停止加载' : '显示加载'}
+        </Button>
+      </div>
+
       <div
         style={{
           border: '1px solid #d9d9d9',
@@ -670,6 +682,7 @@ graph TD
               count: 123,
             }}
             nodes={nodes}
+            loading={loading}
             onDownload={handleDownload}
             onPreview={handlePreview}
             onGroupDownload={handleGroupDownload}

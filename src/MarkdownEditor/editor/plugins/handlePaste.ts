@@ -207,8 +207,59 @@ export const handleHttpLinkPaste = (
   store: any,
 ) => {
   if (text.startsWith('http')) {
-    if (['image', 'video', 'audio'].includes(getMediaType(text))) {
-      if (text.startsWith('http')) {
+    // 添加更严格的URL类型判断，避免误识别
+    const mediaType = getMediaType(text);
+
+    // 检查是否为明确的媒体类型
+    if (['image', 'video', 'audio'].includes(mediaType)) {
+      // 进一步验证URL是否真的包含媒体文件
+      const isValidMediaUrl = (url: string, type: string): boolean => {
+        if (!url) return false;
+
+        // 检查是否为blob URL或data URL
+        if (url.startsWith('blob:') || url.startsWith('data:')) {
+          return true;
+        }
+
+        // 根据媒体类型检查文件扩展名
+        const mediaExtensions = {
+          image: [
+            '.jpg',
+            '.jpeg',
+            '.png',
+            '.gif',
+            '.svg',
+            '.webp',
+            '.bmp',
+            '.ico',
+          ],
+          video: ['.mp4', '.webm', '.ogg', '.avi', '.mov', '.wmv', '.flv'],
+          audio: ['.mp3', '.wav', '.ogg', '.aac', '.m4a', '.flac'],
+        };
+
+        const extensions =
+          mediaExtensions[type as keyof typeof mediaExtensions] || [];
+        const hasValidExtension = extensions.some((ext) =>
+          url.toLowerCase().includes(ext),
+        );
+
+        // 检查URL是否包含媒体相关的路径
+        const mediaPaths = {
+          image: ['/image', '/img', '/photo', '/picture', '/avatar', '/icon'],
+          video: ['/video', '/media', '/movie', '/clip'],
+          audio: ['/audio', '/music', '/sound', '/voice'],
+        };
+
+        const paths = mediaPaths[type as keyof typeof mediaPaths] || [];
+        const hasMediaPath = paths.some((path) =>
+          url.toLowerCase().includes(path),
+        );
+
+        return hasValidExtension || hasMediaPath;
+      };
+
+      // 只有当URL确实是媒体文件时才作为媒体处理
+      if (isValidMediaUrl(text, mediaType)) {
         const path = EditorUtils.findMediaInsertPath(editor);
         if (!path) return false;
         Transforms.insertNodes(
@@ -221,10 +272,11 @@ export const handleHttpLinkPaste = (
         );
         return true;
       }
-    } else {
-      store.insertLink(text);
-      return true;
     }
+
+    // 如果不是明确的媒体文件，或者验证失败，则作为链接处理
+    store.insertLink(text);
+    return true;
   }
   return false;
 };

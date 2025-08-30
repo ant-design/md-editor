@@ -9,7 +9,7 @@ const TestI18nComponent: React.FC<{ locale: any }> = ({ locale }) => {
     <div>
       {/* Bubble 组件相关测试 */}
       <div data-testid="chat-message-thinking">
-        {locale?.['chat.message.thinking'] || '正在思考中...'}
+        {locale?.['chat.message.thinking'] || '思考中...'}
       </div>
       <div data-testid="chat-message-reference-document">
         {locale?.['chat.message.referenceDocument'] || '参考文档'}
@@ -142,7 +142,7 @@ describe('Internationalization Tests', () => {
       );
 
       expect(screen.getByTestId('chat-message-thinking')).toHaveTextContent(
-        '正在思考中...',
+        '思考中...',
       );
       expect(
         screen.getByTestId('chat-message-reference-document'),
@@ -456,7 +456,7 @@ describe('Internationalization Tests', () => {
       render(<TestI18nComponent locale={undefined} />);
 
       expect(screen.getByTestId('chat-message-thinking')).toHaveTextContent(
-        '正在思考中...',
+        '思考中...',
       );
       expect(screen.getByTestId('workspace-file-name')).toHaveTextContent(
         '文件名：',
@@ -511,7 +511,7 @@ describe('Internationalization Tests', () => {
       );
 
       expect(screen.getByTestId('chat-message-thinking')).toHaveTextContent(
-        '正在思考中...',
+        '思考中...',
       );
       expect(screen.getByTestId('workspace-file-name')).toHaveTextContent(
         '文件名：',

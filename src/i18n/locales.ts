@@ -5,10 +5,12 @@
  * 提供完整的用户界面文本本地化。
  */
 export const cnLabels = {
+  attachmentSingleMax: '单个最大',
   table: '表格',
   column: '分栏',
   quote: '引用',
   code: '代码',
+  attachmentSupportedFormats: '支持上传的文件类型和格式：',
   localeImage: '本地图片',
   'b-list': '无序列表',
   'n-list': '有序列表',
@@ -166,7 +168,7 @@ export const cnLabels = {
   'taskList.taskInProgress': '正在进行${taskName}任务',
   'taskList.totalTimeUsed': '共耗时',
   // Bubble 组件相关
-  'chat.message.thinking': '正在思考中...',
+  'chat.message.thinking': '思考中...',
   'chat.message.referenceDocument': '参考文档',
   'chat.message.viewOriginal': '查看原文',
   'chat.message.generateFailed': '生成回答失败，请重试',
@@ -203,6 +205,7 @@ export const cnLabels = {
   // 聊天相关
   'chat.message.aborted': '回答已停止生成',
   'chat.message.retrySend': '重新生成',
+  'chat.message.generating': '生成中...',
   'chat.message.copy': '复制',
   'chat.message.like': '喜欢',
   'chat.message.cancel-like': '取消点赞',
@@ -264,10 +267,12 @@ export const cnLabels = {
  * 提供完整的用户界面文本本地化。
  */
 export const enLabels: typeof cnLabels = {
+  attachmentSingleMax: 'Single max',
   undo: 'Undo',
   redo: 'Redo',
   switchLanguage: 'Switch Language',
   insertLink: 'Insert Link',
+  attachmentSupportedFormats: 'Supported file types and formats:',
   clearFormatting: 'Clear Formatting',
   queryKeyWords: 'Query Keywords',
   searchResults: 'Search Results',
@@ -462,6 +467,7 @@ export const enLabels: typeof cnLabels = {
   // Chat related
   'chat.message.aborted': 'Answer has stopped being generated',
   'chat.message.retrySend': 'Re-generate',
+  'chat.message.generating': 'Generating...',
   'chat.message.copy': 'Copy',
   'chat.message.like': 'Like',
   'chat.message.cancel-like': 'Cancel Like',
