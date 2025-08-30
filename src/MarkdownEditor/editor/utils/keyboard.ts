@@ -637,13 +637,19 @@ export class KeyboardTask {
         });
 
         selectNodeList?.forEach((mapNode) => {
+          // 保留原始文本节点的格式信息
+          const textNodes =
+            mapNode[0].type === 'paragraph'
+              ? mapNode[0].children
+              : [{ text: Node.string(mapNode[0]) }];
+
           const item = {
             type: 'list-item',
             checked: mode === 'task' ? false : undefined,
             children: [
               {
                 type: 'paragraph',
-                children: [{ text: Node.string(mapNode[0]) }],
+                children: textNodes,
               },
             ],
           } as ListItemNode;

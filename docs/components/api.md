@@ -13,12 +13,14 @@ MarkdownEditor 是一个功能强大的 Markdown 编辑器组件，基于 React 
 ## 🌟 功能特点
 
 ### 核心功能
+
 - ✍️ **富文本编辑**: 支持完整的 Markdown 语法，包括标题、列表、表格、代码块等
 - 🎯 **实时预览**: 所见即所得的编辑体验，支持双栏或单栏模式
 - 🎨 **语法高亮**: 基于 Prism.js 的多语言代码高亮显示
 - 📊 **数学公式**: 基于 KaTeX 的数学公式渲染支持
 
 ### 扩展功能
+
 - 💬 **评论系统**: 内置评论功能，支持@提及用户
 - 🖼️ **图片处理**: 支持图片上传、拖拽插入、自定义渲染
 - 📑 **目录生成**: 自动生成文档目录(TOC)，支持锚点跳转
@@ -26,6 +28,7 @@ MarkdownEditor 是一个功能强大的 Markdown 编辑器组件，基于 React 
 - ⌨️ **打字机模式**: 专注写作的打字机效果
 
 ### 高级特性
+
 - 🧰 **工具栏定制**: 可自定义工具栏和浮动工具栏
 - 🔌 **插件系统**: 支持自定义插件扩展功能
 - 🎨 **元素渲染**: 支持自定义元素和叶子节点渲染
@@ -64,25 +67,38 @@ export default () => {
   return (
     <MarkdownEditor
       editorRef={editorRef}
-      initValue="# 高级配置示例"
+      initValue={`# 高级配置示例  \n * 数据表1 \n * 数据表二 8. 绘制表格
+
+| 作品名称        | 在线地址   |  上线日期  |
+| :--------  | :-----  | :----:  |
+| 逍遥自在轩 | [https://niceshare.site](https://niceshare.site/?ref=markdown.lovejade.cn) |2024-04-26|
+| 玉桃文飨轩 | [https://share.lovejade.cn](https://share.lovejade.cn/?ref=markdown.lovejade.cn) |2022-08-26|
+| 缘知随心庭 | [https://fine.niceshare.site](https://fine.niceshare.site/?ref=markdown.lovejade.cn) |2022-02-26|
+| 静轩之别苑 | [http://quickapp.lovejade.cn](http://quickapp.lovejade.cn/?ref=markdown.lovejade.cn) |2019-01-12|
+| 晚晴幽草轩 | [https://www.jeffjade.com](https://www.jeffjade.com/?ref=markdown.lovejade.cn) |2014-09-20|
+
+---`}
       height="600px"
       toolBar={{
         enable: true,
         extra: [
-          <button key="save" onClick={() => console.log(editorRef.current?.getValue())}>
+          <button
+            key="save"
+            onClick={() => console.log(editorRef.current?.getValue())}
+          >
             保存
-          </button>
-        ]
+          </button>,
+        ],
       }}
       image={{
         upload: async (files) => {
           // 自定义图片上传逻辑
           return ['https://example.com/image.png'];
-        }
+        },
       }}
       comment={{
         enable: true,
-        onSubmit: (id, comment) => console.log('新评论:', comment)
+        onSubmit: (id, comment) => console.log('新评论:', comment),
       }}
       onChange={(value, schema) => console.log('内容变化:', value)}
     />
@@ -94,109 +110,109 @@ export default () => {
 
 ### 基础属性
 
-| 属性 | 类型 | 默认值 | 描述 |
-| --- | --- | --- | --- |
-| **布局配置** |
-| className | `string` | - | 自定义 CSS 类名 |
-| width | `string \| number` | `'100%'` | 编辑器宽度 |
-| height | `string \| number` | `'auto'` | 编辑器高度 |
-| style | `React.CSSProperties` | - | 容器自定义样式 |
-| contentStyle | `React.CSSProperties` | - | 内容区域自定义样式 |
-| editorStyle | `React.CSSProperties` | - | 编辑器区域自定义样式 |
-| **内容配置** |
-| initValue | `string` | - | 初始 Markdown 文本内容 |
-| initSchemaValue | `Elements[]` | - | 初始 Schema 数据结构 |
-| readonly | `boolean` | `false` | 是否为只读模式 |
-| **功能开关** |
-| toc | `boolean` | `true` | 是否显示目录 |
-| reportMode | `boolean` | `false` | 是否开启报告模式 |
-| slideMode | `boolean` | `false` | 是否开启 PPT 模式 |
-| typewriter | `boolean` | `false` | 是否开启打字机模式 |
+| 属性            | 类型                  | 默认值   | 描述                   |
+| --------------- | --------------------- | -------- | ---------------------- |
+| **布局配置**    |
+| className       | `string`              | -        | 自定义 CSS 类名        |
+| width           | `string \| number`    | `'100%'` | 编辑器宽度             |
+| height          | `string \| number`    | `'auto'` | 编辑器高度             |
+| style           | `React.CSSProperties` | -        | 容器自定义样式         |
+| contentStyle    | `React.CSSProperties` | -        | 内容区域自定义样式     |
+| editorStyle     | `React.CSSProperties` | -        | 编辑器区域自定义样式   |
+| **内容配置**    |
+| initValue       | `string`              | -        | 初始 Markdown 文本内容 |
+| initSchemaValue | `Elements[]`          | -        | 初始 Schema 数据结构   |
+| readonly        | `boolean`             | `false`  | 是否为只读模式         |
+| **功能开关**    |
+| toc             | `boolean`             | `true`   | 是否显示目录           |
+| reportMode      | `boolean`             | `false`  | 是否开启报告模式       |
+| slideMode       | `boolean`             | `false`  | 是否开启 PPT 模式      |
+| typewriter      | `boolean`             | `false`  | 是否开启打字机模式     |
 
 ### 工具栏配置 (toolBar)
 
-| 属性 | 类型 | 默认值 | 描述 |
-| --- | --- | --- | --- |
-| enable | `boolean` | `true` | 是否启用工具栏 |
-| min | `boolean` | `false` | 是否使用最小化工具栏 |
-| extra | `React.ReactNode[]` | - | 额外的自定义工具栏项目 |
-| hideTools | `ToolsKeyType[]` | - | 需要隐藏的工具栏选项 |
+| 属性      | 类型                | 默认值  | 描述                   |
+| --------- | ------------------- | ------- | ---------------------- |
+| enable    | `boolean`           | `true`  | 是否启用工具栏         |
+| min       | `boolean`           | `false` | 是否使用最小化工具栏   |
+| extra     | `React.ReactNode[]` | -       | 额外的自定义工具栏项目 |
+| hideTools | `ToolsKeyType[]`    | -       | 需要隐藏的工具栏选项   |
 
 **ToolsKeyType 可选值:**
 `'bold'` | `'italic'` | `'strikethrough'` | `'code'` | `'heading'` | `'quote'` | `'unordered-list'` | `'ordered-list'` | `'link'` | `'image'` | `'table'` | `'code-block'` | `'divider'` | `'formula'` | `'undo'` | `'redo'`
 
 ### 图片配置 (image)
 
-| 属性 | 类型 | 描述 |
-| --- | --- | --- |
-| upload | `(files: File[] \| string[]) => Promise<string[] \| string>` | 图片上传函数，返回图片 URL |
-| render | `(props: ImageProps, defaultDom: React.ReactNode) => React.ReactNode` | 自定义图片渲染函数 |
+| 属性   | 类型                                                                  | 描述                       |
+| ------ | --------------------------------------------------------------------- | -------------------------- |
+| upload | `(files: File[] \| string[]) => Promise<string[] \| string>`          | 图片上传函数，返回图片 URL |
+| render | `(props: ImageProps, defaultDom: React.ReactNode) => React.ReactNode` | 自定义图片渲染函数         |
 
 ### 评论配置 (comment)
 
-| 属性 | 类型 | 描述 |
-| --- | --- | --- |
-| enable | `boolean` | 是否启用评论功能 |
-| onSubmit | `(id: string, comment: CommentDataType) => void` | 评论提交回调 |
-| commentList | `CommentDataType[]` | 评论列表数据 |
-| deleteConfirmText | `string` | 删除评论确认文本 |
-| loadMentions | `(keyword: string) => Promise<{name: string; avatar?: string}[]>` | 加载@提及用户列表 |
-| mentionsPlaceholder | `string` | @提及输入框占位符 |
-| onDelete | `(id: string \| number, item: CommentDataType) => void` | 删除评论回调 |
-| onEdit | `(id: string \| number, item: CommentDataType) => void` | 编辑评论回调 |
-| onClick | `(id: string \| number, item: CommentDataType) => void` | 点击评论回调 |
+| 属性                | 类型                                                              | 描述              |
+| ------------------- | ----------------------------------------------------------------- | ----------------- |
+| enable              | `boolean`                                                         | 是否启用评论功能  |
+| onSubmit            | `(id: string, comment: CommentDataType) => void`                  | 评论提交回调      |
+| commentList         | `CommentDataType[]`                                               | 评论列表数据      |
+| deleteConfirmText   | `string`                                                          | 删除评论确认文本  |
+| loadMentions        | `(keyword: string) => Promise<{name: string; avatar?: string}[]>` | 加载@提及用户列表 |
+| mentionsPlaceholder | `string`                                                          | @提及输入框占位符 |
+| onDelete            | `(id: string \| number, item: CommentDataType) => void`           | 删除评论回调      |
+| onEdit              | `(id: string \| number, item: CommentDataType) => void`           | 编辑评论回调      |
+| onClick             | `(id: string \| number, item: CommentDataType) => void`           | 点击评论回调      |
 
 ### 代码配置 (codeProps)
 
-| 属性 | 类型 | 描述 |
-| --- | --- | --- |
-| Languages | `string[]` | 支持的编程语言列表 |
-| hideToolBar | `boolean` | 是否隐藏代码块工具栏 |
+| 属性        | 类型       | 描述                 |
+| ----------- | ---------- | -------------------- |
+| Languages   | `string[]` | 支持的编程语言列表   |
+| hideToolBar | `boolean`  | 是否隐藏代码块工具栏 |
 
 ### 表格配置 (tableConfig)
 
-| 属性 | 类型 | 描述 |
-| --- | --- | --- |
-| minRows | `number` | 最小行数 |
-| minColumn | `number` | 最小列数 |
-| excelMode | `boolean` | 是否启用 Excel 模式 |
-| previewTitle | `ReactNode` | 预览模式标题 |
-| actions | `TableActions` | 表格操作配置 |
+| 属性         | 类型           | 描述                |
+| ------------ | -------------- | ------------------- |
+| minRows      | `number`       | 最小行数            |
+| minColumn    | `number`       | 最小列数            |
+| excelMode    | `boolean`      | 是否启用 Excel 模式 |
+| previewTitle | `ReactNode`    | 预览模式标题        |
+| actions      | `TableActions` | 表格操作配置        |
 
 ### 高级配置
 
-| 属性 | 类型 | 描述 |
-| --- | --- | --- |
-| **引用和回调** |
-| editorRef | `React.MutableRefObject<MarkdownEditorInstance>` | 编辑器实例引用 |
-| rootContainer | `React.MutableRefObject<HTMLDivElement>` | 根容器引用 |
-| onChange | `(value: string, schema: Elements[]) => void` | 内容变化回调 |
-| **自定义渲染** |
-| eleItemRender | `(props: ElementProps, defaultDom: React.ReactNode) => React.ReactElement` | 自定义元素渲染 |
-| leafRender | `(props: RenderLeafProps, defaultDom: React.ReactNode) => React.ReactElement` | 自定义叶子节点渲染 |
-| **插件系统** |
-| plugins | `MarkdownEditorPlugin[]` | 编辑器插件配置 |
-| **其他功能** |
-| insertAutocompleteProps | `InsertAutocompleteProps` | 插入自动补全配置 |
-| titlePlaceholderContent | `string` | 标题占位符内容 |
-| anchorProps | `AnchorProps` | 锚点链接配置 |
-| fncProps | `FootnoteProps` | 脚注配置 |
+| 属性                    | 类型                                                                          | 描述               |
+| ----------------------- | ----------------------------------------------------------------------------- | ------------------ |
+| **引用和回调**          |
+| editorRef               | `React.MutableRefObject<MarkdownEditorInstance>`                              | 编辑器实例引用     |
+| rootContainer           | `React.MutableRefObject<HTMLDivElement>`                                      | 根容器引用         |
+| onChange                | `(value: string, schema: Elements[]) => void`                                 | 内容变化回调       |
+| **自定义渲染**          |
+| eleItemRender           | `(props: ElementProps, defaultDom: React.ReactNode) => React.ReactElement`    | 自定义元素渲染     |
+| leafRender              | `(props: RenderLeafProps, defaultDom: React.ReactNode) => React.ReactElement` | 自定义叶子节点渲染 |
+| **插件系统**            |
+| plugins                 | `MarkdownEditorPlugin[]`                                                      | 编辑器插件配置     |
+| **其他功能**            |
+| insertAutocompleteProps | `InsertAutocompleteProps`                                                     | 插入自动补全配置   |
+| titlePlaceholderContent | `string`                                                                      | 标题占位符内容     |
+| anchorProps             | `AnchorProps`                                                                 | 锚点链接配置       |
+| fncProps                | `FootnoteProps`                                                               | 脚注配置           |
 
 ## 🔧 编辑器实例方法 (MarkdownEditorInstance)
 
 通过 `editorRef` 可以获取编辑器实例，调用以下方法：
 
-| 方法 | 类型 | 描述 |
-| --- | --- | --- |
-| getValue | `() => string` | 获取当前编辑器的 Markdown 内容 |
-| setValue | `(value: string) => void` | 设置编辑器内容 |
-| getSchema | `() => Elements[]` | 获取当前文档的 Schema 结构 |
-| insertText | `(text: string) => void` | 在光标位置插入文本 |
-| focus | `() => void` | 聚焦编辑器 |
-| blur | `() => void` | 失焦编辑器 |
-| clear | `() => void` | 清空编辑器内容 |
-| undo | `() => void` | 撤销操作 |
-| redo | `() => void` | 重做操作 |
+| 方法       | 类型                      | 描述                           |
+| ---------- | ------------------------- | ------------------------------ |
+| getValue   | `() => string`            | 获取当前编辑器的 Markdown 内容 |
+| setValue   | `(value: string) => void` | 设置编辑器内容                 |
+| getSchema  | `() => Elements[]`        | 获取当前文档的 Schema 结构     |
+| insertText | `(text: string) => void`  | 在光标位置插入文本             |
+| focus      | `() => void`              | 聚焦编辑器                     |
+| blur       | `() => void`              | 失焦编辑器                     |
+| clear      | `() => void`              | 清空编辑器内容                 |
+| undo       | `() => void`              | 撤销操作                       |
+| redo       | `() => void`              | 重做操作                       |
 
 ## 📝 使用示例
 
@@ -250,8 +266,8 @@ export default () => {
           </Button>,
           <Button key="preview" size="small">
             预览
-          </Button>
-        ]
+          </Button>,
+        ],
       }}
       height="400px"
     />
@@ -292,7 +308,7 @@ export default () => {
     <MarkdownEditor
       initValue="# 图片上传示例\n\n拖拽图片到编辑器或使用工具栏上传按钮"
       image={{
-        upload: handleImageUpload
+        upload: handleImageUpload,
       }}
       height="400px"
     />
@@ -315,13 +331,13 @@ export default () => {
       content: comment.content,
       author: comment.author || '匿名用户',
       time: new Date().toISOString(),
-      ...comment
+      ...comment,
     };
-    setComments(prev => [...prev, newComment]);
+    setComments((prev) => [...prev, newComment]);
   };
 
   const handleCommentDelete = (id: string | number) => {
-    setComments(prev => prev.filter(c => c.id !== id));
+    setComments((prev) => prev.filter((c) => c.id !== id));
   };
 
   return (
@@ -348,14 +364,23 @@ export default () => {
         loadMentions: async (keyword) => {
           // 模拟加载用户列表
           const users = [
-            { name: 'Alice', avatar: 'https://avatars.githubusercontent.com/u/1' },
-            { name: 'Bob', avatar: 'https://avatars.githubusercontent.com/u/2' },
-            { name: 'Charlie', avatar: 'https://avatars.githubusercontent.com/u/3' }
+            {
+              name: 'Alice',
+              avatar: 'https://avatars.githubusercontent.com/u/1',
+            },
+            {
+              name: 'Bob',
+              avatar: 'https://avatars.githubusercontent.com/u/2',
+            },
+            {
+              name: 'Charlie',
+              avatar: 'https://avatars.githubusercontent.com/u/3',
+            },
           ];
-          return users.filter(user => 
-            user.name.toLowerCase().includes(keyword.toLowerCase())
+          return users.filter((user) =>
+            user.name.toLowerCase().includes(keyword.toLowerCase()),
           );
-        }
+        },
       }}
       height="500px"
     />
@@ -378,12 +403,14 @@ export default () => {
         // 自定义加粗样式
         if (leaf.bold) {
           return (
-            <strong style={{ 
-              color: '#1890ff', 
-              backgroundColor: '#e6f7ff',
-              padding: '2px 4px',
-              borderRadius: '4px'
-            }}>
+            <strong
+              style={{
+                color: '#1890ff',
+                backgroundColor: '#e6f7ff',
+                padding: '2px 4px',
+                borderRadius: '4px',
+              }}
+            >
               {children}
             </strong>
           );
@@ -392,12 +419,14 @@ export default () => {
         // 自定义斜体样式
         if (leaf.italic) {
           return (
-            <em style={{ 
-              color: '#722ed1', 
-              backgroundColor: '#f9f0ff',
-              padding: '2px 4px',
-              borderRadius: '4px'
-            }}>
+            <em
+              style={{
+                color: '#722ed1',
+                backgroundColor: '#f9f0ff',
+                padding: '2px 4px',
+                borderRadius: '4px',
+              }}
+            >
               {children}
             </em>
           );
@@ -406,14 +435,16 @@ export default () => {
         // 自定义行内代码样式
         if (leaf.code) {
           return (
-            <code style={{
-              color: '#d83931',
-              backgroundColor: '#fff2f0',
-              border: '1px solid #ffccc7',
-              padding: '2px 6px',
-              borderRadius: '4px',
-              fontFamily: 'Monaco, Consolas, monospace'
-            }}>
+            <code
+              style={{
+                color: '#d83931',
+                backgroundColor: '#fff2f0',
+                border: '1px solid #ffccc7',
+                padding: '2px 6px',
+                borderRadius: '4px',
+                fontFamily: 'Monaco, Consolas, monospace',
+              }}
+            >
               {children}
             </code>
           );
