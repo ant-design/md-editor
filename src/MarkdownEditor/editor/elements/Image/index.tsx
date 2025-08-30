@@ -138,8 +138,8 @@ export const ResizeImage = ({
       {loading ? (
         <div
           style={{
-            width: '100px',
-            height: '100px',
+            width: '24px',
+            height: '24px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -149,7 +149,7 @@ export const ResizeImage = ({
         >
           <LoadingOutlined
             style={{
-              fontSize: 24,
+              fontSize: 16,
               color: '#1890ff',
             }}
           />

@@ -28,9 +28,71 @@ export const ELEMENT_TAGS = {
   H5: () => ({ type: 'head', level: 5 }),
   TABLE: () => ({ type: 'table' }),
   IMG: (el: HTMLImageElement) => {
-    return EditorUtils.createMediaNode(el.src, 'image', {
-      alt: el.alt,
-      downloadUrl: el.src && /^https?:/.test(el.src) ? el.src : undefined,
+    // 添加更严格的图片URL验证，避免将普通URL误识别为图片
+    const src = el.src;
+    const alt = el.alt;
+
+    // 检查是否为有效的图片URL
+    const isValidImageUrl = (url: string): boolean => {
+      if (!url) return false;
+
+      // 检查是否为blob URL或data URL
+      if (url.startsWith('blob:') || url.startsWith('data:')) {
+        return true;
+      }
+
+      // 检查是否为有效的HTTP/HTTPS URL
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return false;
+      }
+
+      // 检查URL是否包含图片文件扩展名
+      const imageExtensions = [
+        '.jpg',
+        '.jpeg',
+        '.png',
+        '.gif',
+        '.svg',
+        '.webp',
+        '.bmp',
+        '.ico',
+      ];
+      const hasImageExtension = imageExtensions.some((ext) =>
+        url.toLowerCase().includes(ext),
+      );
+
+      // 检查URL是否包含图片相关的路径
+      const imagePaths = [
+        '/image',
+        '/img',
+        '/photo',
+        '/picture',
+        '/avatar',
+        '/icon',
+      ];
+      const hasImagePath = imagePaths.some((path) =>
+        url.toLowerCase().includes(path),
+      );
+
+      // 检查Content-Type（如果可能的话）
+      const hasImageContentType =
+        url.includes('image/') || url.includes('img/');
+
+      // 如果URL看起来像图片，或者是明确的图片URL，则认为是有效的
+      return hasImageExtension || hasImagePath || hasImageContentType;
+    };
+
+    // 如果URL不是有效的图片URL，则作为普通文本处理
+    if (!isValidImageUrl(src)) {
+      return {
+        type: 'paragraph',
+        children: [{ text: src || alt || '图片链接' }],
+      };
+    }
+
+    return EditorUtils.createMediaNode(src, 'image', {
+      alt: alt,
+      downloadUrl: src && /^https?:/.test(src) ? src : undefined,
     });
   },
   TR: () => ({ type: 'table-row' }),
