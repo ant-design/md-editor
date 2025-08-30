@@ -49,7 +49,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     rgba(0, 221, 255, 0.62) 270deg,
     rgba(46, 255, 127, 0.7) 360deg
   )`,
-            animation: `spin 2s linear infinite`,
+            animationName: 'spin',
+            animationDuration: '2s',
+            animationTimingFunction: 'linear',
+            animationIterationCount: 'infinite',
           },
         },
       },

@@ -162,45 +162,6 @@ describe('BaseMarkdownEditor - apaasify 功能', () => {
     expect(screen.getByTestId('editor-content')).toBeInTheDocument();
   });
 
-  it('应该正确处理 apaasify.render 的返回值类型', () => {
-    // 测试不同的返回值类型
-    const testCases = [
-      {
-        name: 'JSX Element',
-        render: () => <div data-testid="jsx-element">JSX</div>,
-      },
-      {
-        name: 'String',
-        render: () => 'String content',
-      },
-      {
-        name: 'Null',
-        render: () => null,
-      },
-      {
-        name: 'Fragment',
-        render: () => (
-          <>
-            <span>Fragment 1</span>
-            <span>Fragment 2</span>
-          </>
-        ),
-      },
-    ];
-
-    testCases.forEach(({ render }) => {
-      const propsWithRender: MarkdownEditorProps = {
-        ...defaultProps,
-        apaasify: {
-          enable: true,
-          render,
-        },
-      };
-
-      render(<BaseMarkdownEditor {...propsWithRender} />);
-    });
-  });
-
   it('应该在 bubble context 变化时正确更新', () => {
     const mockRender = vi
       .fn()

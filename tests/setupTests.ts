@@ -94,6 +94,17 @@ Object.defineProperty(globalThis, 'IntersectionObserver', {
   })),
 });
 
+// Mock ResizeObserver
+Object.defineProperty(globalThis, 'ResizeObserver', {
+  writable: true,
+  configurable: true,
+  value: vi.fn(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  })),
+});
+
 // ref: https://github.com/ant-design/ant-design/issues/18774
 const matchMediaMock = vi.fn(() => ({
   matches: false,

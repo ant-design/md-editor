@@ -1,0 +1,365 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px; max-width: 1400px; margin: 0px auto;"
+    >
+      <div
+        style="margin-bottom: 20px;"
+      >
+        <h1
+          style="color: rgb(51, 51, 51); margin-bottom: 10px;"
+        >
+          SchemaEditor 演示
+        </h1>
+        <p
+          style="color: rgb(102, 102, 102); margin-bottom: 20px;"
+        >
+          这是一个强大的schema编辑和预览工具，支持实时编辑、语法高亮、错误提示等功能。
+        </p>
+        <div
+          style="margin-bottom: 20px;"
+        >
+          <h3
+            style="margin-bottom: 10px;"
+          >
+            快速示例：
+          </h3>
+          <div
+            style="display: flex; gap: 10px; flex-wrap: wrap;"
+          >
+            <button
+              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 14px;"
+              type="button"
+            >
+              基础HTML
+            </button>
+            <button
+              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 14px;"
+              type="button"
+            >
+              表单组件
+            </button>
+            <button
+              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 14px;"
+              type="button"
+            >
+              数据表格
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="schema-editor"
+        style="height: 700px;"
+      >
+        <div
+          class="schema-editor-container"
+        >
+          <div
+            class="schema-editor-left"
+          >
+            <div
+              class="schema-editor-html"
+            >
+              <div
+                class="schema-editor-html-header"
+              >
+                <h3>
+                  HTML模板
+                </h3>
+              </div>
+              <div
+                class="schema-editor-html-content"
+              >
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 100%; width: 100%;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 11"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                    style="display: none;"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                  <div
+                    class="ace_tooltip"
+                    role="tooltip"
+                    style="display: none; pointer-events: auto;"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="schema-editor-json"
+            >
+              <div
+                class="schema-editor-json-header"
+              >
+                <h3>
+                  Schema JSON
+                </h3>
+              </div>
+              <div
+                class="schema-editor-json-content"
+              >
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 100%; width: 100%;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 16"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                    style="display: none;"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                  <div
+                    class="ace_tooltip"
+                    role="tooltip"
+                    style="display: none; pointer-events: auto;"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="schema-editor-right"
+          >
+            <div
+              class="schema-editor-preview"
+            >
+              <div
+                class="schema-editor-preview-header"
+              >
+                <h3>
+                  实时预览
+                </h3>
+                <div
+                  class="schema-editor-error"
+                >
+                  <span>
+                    ⚠️ must have required property 'properties'
+                  </span>
+                </div>
+              </div>
+              <div
+                class="schema-editor-preview-content"
+              >
+                <div
+                  class="schema-editor-fallback"
+                >
+                  <p>
+                    预览加载失败
+                  </p>
+                  <p>
+                    请检查schema格式是否正确
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="margin-top: 20px; padding: 15px; background: rgb(248, 249, 250); border-radius: 4px;"
+      >
+        <h3
+          style="margin-bottom: 10px;"
+        >
+          功能说明：
+        </h3>
+        <ul
+          style="margin: 0px; padding-left: 20px; color: rgb(102, 102, 102);"
+        >
+          <li>
+            左侧HTML模板编辑器：使用AceEditor提供语法高亮和智能提示
+          </li>
+          <li>
+            左侧Schema JSON编辑器：可以编辑完整的schema结构
+          </li>
+          <li>
+            右侧实时预览：实时显示编辑结果，支持模板变量替换
+          </li>
+          <li>
+            错误提示：自动检测schema格式错误并显示提示
+          </li>
+          <li>
+            响应式设计：支持不同屏幕尺寸的适配
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
