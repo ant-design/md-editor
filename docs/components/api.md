@@ -67,7 +67,12 @@ export default () => {
   return (
     <MarkdownEditor
       editorRef={editorRef}
-      initValue={`# 高级配置示例  \n * 数据表1 \n * 数据表二 8. 绘制表格
+      initValue={`# 高级配置示例 
+4 Do not wear yourself out to get rich;  
+Stop and show understanding.
+5 You will fix your eyes on wealth, and it is no more,  
+For it will surely sprout wings and fly off to the sky like an eagle
+ \n * 数据表1 \n * 数据表二 8. 绘制表格
 
 | 作品名称        | 在线地址   |  上线日期  |
 | :--------  | :-----  | :----:  |

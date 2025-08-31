@@ -24,6 +24,8 @@ export const FloatBar = (props: { readonly: boolean }) => {
     left: 0,
     top: 0,
     url: '',
+    initialLeft: 0,
+    initialTop: 0,
   });
 
   const sel = React.useRef<BaseRange>();
@@ -43,10 +45,15 @@ export const FloatBar = (props: { readonly: boolean }) => {
 
         let top = state.open && !force ? state.top : domRect.top - 32;
 
+        const finalLeft = Math.max(left, 4);
+        const finalTop = Math.max(top, 4);
+
         setState({
           open: true,
-          left: Math.max(left, 4),
-          top: Math.max(top, 4),
+          left: finalLeft,
+          top: finalTop,
+          initialLeft: force ? domRect.x : state.initialLeft,
+          initialTop: force ? domRect.top : state.initialTop,
         });
       } else {
         setState({ open: false });
@@ -118,9 +125,23 @@ export const FloatBar = (props: { readonly: boolean }) => {
           top: state.top,
           position: 'fixed',
           opacity: state.open ? 1 : 0,
-          transition:
-            'opacity 0.2s ease-in-out,width 0.2s ease-in-out, top 0.2s ease-in-out',
           display: state.open ? undefined : 'none',
+        }}
+        initial={{
+          left: state.initialLeft,
+          top: state.initialTop,
+          scale: 0.8,
+          opacity: 0,
+        }}
+        animate={{
+          left: state.left,
+          top: state.top,
+          scale: 1,
+          opacity: state.open ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.2,
+          ease: 'easeOut',
         }}
         layout
         onMouseDown={(e) => {

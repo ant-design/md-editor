@@ -3,7 +3,7 @@ import copy from 'copy-to-clipboard';
 import isHotkey from 'is-hotkey';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
-import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
+import { Editor, Element, Node, Path, Range, Text, Transforms } from 'slate';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { AttachNode, ListItemNode, MediaNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
@@ -587,7 +587,7 @@ export class KeyboardTask {
    * @param mode 列表类型 'ordered'(有序列表), 'unordered'(无序列表), 'task'(任务列表)
    */
   list(mode: 'ordered' | 'unordered' | 'task') {
-    const [curNode, curPath] = this.curNodes;
+    const [curNode] = this.curNodes;
     if (curNode && ['paragraph', 'head'].includes(curNode[0].type)) {
       const parent = Editor.parent(this.editor, curNode[1]);
 
@@ -622,26 +622,14 @@ export class KeyboardTask {
         }
       } else {
         const childrenList: ListItemNode[] = [];
-        const selectNodeList = [...this.curNodes];
+        const selection = this.editor.selection;
 
-        //删除选中的节点
-        selectNodeList.forEach(() => {
-          Transforms.delete(this.editor);
-        });
-
-        Transforms.delete(this.editor, {
-          at: curPath,
-        });
-        Transforms.delete(this.editor, {
-          at: curNode[1],
-        });
-
-        selectNodeList?.forEach((mapNode) => {
-          // 保留原始文本节点的格式信息
+        if (!selection || Range.isCollapsed(selection)) {
+          // 如果没有选区或选区已折叠，使用当前节点
           const textNodes =
-            mapNode[0].type === 'paragraph'
-              ? mapNode[0].children
-              : [{ text: Node.string(mapNode[0]) }];
+            curNode[0].type === 'paragraph'
+              ? curNode[0].children
+              : [{ text: Node.string(curNode[0]) }];
 
           const item = {
             type: 'list-item',
@@ -654,7 +642,93 @@ export class KeyboardTask {
             ],
           } as ListItemNode;
           childrenList.push(item);
-        });
+
+          // 删除原节点
+          Transforms.delete(this.editor, { at: curNode[1] });
+        } else {
+          // 有选区时，获取选区内的所有节点
+          const selectedNodes = Array.from(
+            Editor.nodes(this.editor, {
+              at: selection,
+              match: (n) =>
+                Element.isElement(n) && ['paragraph', 'head'].includes(n.type),
+            }),
+          );
+
+          if (selectedNodes.length === 0) {
+            // 如果没有选中块级元素，尝试选中文本节点
+            const textNodes = Array.from(
+              Editor.nodes(this.editor, {
+                at: selection,
+                match: (n) => Text.isText(n),
+              }),
+            );
+
+            if (textNodes.length > 0) {
+              // 获取文本节点的父节点
+              const parentPath = Path.parent(textNodes[0][1]);
+              const [parentNode] = Editor.node(this.editor, parentPath);
+
+              if (
+                Element.isElement(parentNode) &&
+                ['paragraph', 'head'].includes(parentNode.type)
+              ) {
+                selectedNodes.push([parentNode, parentPath]);
+              }
+            }
+          }
+
+          // 处理选中的节点
+          for (const [node, path] of selectedNodes) {
+            // 检查节点是否完全被选中
+            const nodeRange = Editor.range(this.editor, path);
+            const isFullySelected =
+              Range.equals(selection, nodeRange) ||
+              (Range.includes(selection, nodeRange) &&
+                Range.includes(nodeRange, selection));
+
+            if (isFullySelected) {
+              // 完全选中的节点，直接删除并转换为列表项
+              const textNodes =
+                node.type === 'paragraph'
+                  ? node.children
+                  : [{ text: Node.string(node) }];
+
+              const item = {
+                type: 'list-item',
+                checked: mode === 'task' ? false : undefined,
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: textNodes,
+                  },
+                ],
+              } as ListItemNode;
+              childrenList.push(item);
+
+              Transforms.delete(this.editor, { at: path });
+            } else {
+              // 部分选中的节点，使用选区内容创建列表项
+              const selectedText = Editor.string(this.editor, selection);
+
+              if (selectedText.trim()) {
+                const item = {
+                  type: 'list-item',
+                  checked: mode === 'task' ? false : undefined,
+                  children: [
+                    {
+                      type: 'paragraph',
+                      children: [{ text: selectedText }],
+                    },
+                  ],
+                } as ListItemNode;
+                childrenList.push(item);
+                // 删除选中的内容
+                Transforms.delete(this.editor, { at: selection });
+              }
+            }
+          }
+        }
 
         Transforms.insertNodes(
           this.editor,
@@ -664,7 +738,7 @@ export class KeyboardTask {
             task: mode === 'task',
             children: childrenList,
           },
-          { at: curNode[1], select: true },
+          { at: this.editor.selection || curNode[1], select: true },
         );
       }
     } else if (curNode && curNode[0].type === 'list-item') {

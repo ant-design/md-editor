@@ -933,4 +933,4 @@ export default function CompactDemo() {
 
 ### 复杂demo
 
-<code src="./thought-chain-list/big.tsx" background="var(--main-bg-color)"  title="复杂demo" iframe="540"></code>
+<code src="./thought-chain-list/big.tsx" background="var(--main-bg-color)"  iframe="540"></code>
