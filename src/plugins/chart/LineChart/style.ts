@@ -7,7 +7,7 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      // 柱状图容器样式
+      // 折线图容器样式
       '.chart-wrapper': {
         width: '100%',
         height: 'calc(100% - 120px)',
@@ -65,12 +65,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('BarChart', (token) => {
-    const barToken = {
+  return useEditorStyleRegister('LineChart', (token) => {
+    const lineToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(barToken)];
+    return [genStyle(lineToken)];
   });
 }

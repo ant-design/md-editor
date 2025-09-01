@@ -8,10 +8,10 @@ import {
   LinearScale,
   Tooltip,
 } from 'chart.js';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
-import './style.less';
+import { useStyle } from './style';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -111,6 +111,28 @@ const BarChart: React.FC<BarChartProps> = ({
   stacked = false,
   indexAxis = 'x',
 }) => {
+  // 响应式尺寸计算
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
+  const isMobile = windowWidth <= 768;
+  const responsiveWidth = isMobile ? '100%' : width;
+  const responsiveHeight = isMobile ? Math.min(windowWidth * 0.8, 400) : height;
+
+  // 监听窗口大小变化
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  // 样式注册
+  const baseClassName = 'bar-chart-container';
+  const { wrapSSR, hashId } = useStyle(baseClassName);
+
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
   // 从数据中提取唯一的类别作为筛选选项
@@ -309,8 +331,8 @@ const BarChart: React.FC<BarChartProps> = ({
         align: legendAlign,
         labels: {
           color: axisTextColor,
-          font: { size: 12, weight: 'normal' },
-          padding: 12,
+          font: { size: isMobile ? 10 : 12, weight: 'normal' },
+          padding: isMobile ? 10 : 12,
           usePointStyle: true,
           pointStyle: 'rect',
         },
@@ -323,7 +345,7 @@ const BarChart: React.FC<BarChartProps> = ({
         bodyColor: isLight ? '#333' : '#fff',
         borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.2)',
         borderWidth: 1,
-        cornerRadius: 8,
+        cornerRadius: isMobile ? 6 : 8,
         displayColors: true,
       },
     },
@@ -335,7 +357,7 @@ const BarChart: React.FC<BarChartProps> = ({
           display: !!xTitle,
           text: xTitle,
           color: axisTextColor,
-          font: { size: 12, weight: 'normal' },
+          font: { size: isMobile ? 10 : 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
@@ -347,8 +369,8 @@ const BarChart: React.FC<BarChartProps> = ({
         },
         ticks: {
           color: axisTextColor,
-          font: { size: 12 },
-          padding: 12,
+          font: { size: isMobile ? 10 : 12 },
+          padding: isMobile ? 10 : 12,
         },
         border: {
           color: gridColor,
@@ -362,7 +384,7 @@ const BarChart: React.FC<BarChartProps> = ({
           display: !!yTitle,
           text: yTitle,
           color: axisTextColor,
-          font: { size: 12, weight: 'normal' },
+          font: { size: isMobile ? 10 : 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
@@ -374,8 +396,8 @@ const BarChart: React.FC<BarChartProps> = ({
         },
         ticks: {
           color: axisTextColor,
-          font: { size: 12 },
-          padding: 12,
+          font: { size: isMobile ? 10 : 12 },
+          padding: isMobile ? 10 : 12,
         },
         border: {
           color: gridColor,
@@ -388,17 +410,20 @@ const BarChart: React.FC<BarChartProps> = ({
     downloadChart(chartRef.current, 'bar-chart');
   };
 
-  return (
+  return wrapSSR(
     <div
-      className={`bar-chart-container ${className || ''}`}
+      className={`${baseClassName} ${hashId} ${className || ''}`}
       style={{
-        width,
-        height,
+        width: responsiveWidth,
+        height: responsiveHeight,
         backgroundColor: isLight ? '#fff' : '#1a1a1a',
-        borderRadius: '8px',
-        padding: '20px',
+        borderRadius: isMobile ? '6px' : '8px',
+        padding: isMobile ? '12px' : '20px',
         position: 'relative',
         border: isLight ? '1px solid #e8e8e8' : 'none',
+        margin: isMobile ? '0 auto' : 'initial',
+        maxWidth: isMobile ? '100%' : 'none',
+        boxSizing: 'border-box',
       }}
     >
       <ChartToolBar title={title} theme={theme} onDownload={handleDownload} />
