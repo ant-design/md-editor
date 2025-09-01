@@ -292,6 +292,7 @@
                       </div>
                       <div
                         class="tool-use-bar-tool-target "
+                        title="操作..."
                       >
                         操作...
                       </div>
@@ -362,6 +363,7 @@
                       </div>
                       <div
                         class="tool-use-bar-tool-target "
+                        title="操作..."
                       >
                         操作...
                       </div>
@@ -432,6 +434,7 @@
                       </div>
                       <div
                         class="tool-use-bar-tool-target "
+                        title="操作..."
                       >
                         操作...
                       </div>

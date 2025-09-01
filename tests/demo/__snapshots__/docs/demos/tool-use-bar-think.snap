@@ -78,6 +78,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target  tool-use-bar-tool-target-loading"
+              title="分析用户需求"
             >
               分析用户需求
             </div>
@@ -148,6 +149,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="总结要点"
             >
               总结要点
             </div>
@@ -218,6 +220,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="baidu.com"
             >
               baidu.com
             </div>

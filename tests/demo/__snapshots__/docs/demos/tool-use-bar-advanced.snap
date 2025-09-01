@@ -72,6 +72,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="工具类/工具名称 操作对象"
             >
               工具类/工具名称 操作对象
             </div>
@@ -142,6 +143,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="工具类/工具名称 操作对象"
             >
               工具类/工具名称 操作对象
             </div>

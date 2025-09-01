@@ -54,15 +54,16 @@
               class="ant-segmented-group"
             >
               <label
-                class="ant-segmented-item"
+                class="ant-segmented-item ant-segmented-item-selected"
               >
                 <input
+                  checked=""
                   class="ant-segmented-item-input"
                   name="test-id"
                   type="radio"
                 />
                 <div
-                  aria-selected="false"
+                  aria-selected="true"
                   class="ant-segmented-item-label"
                 >
                   <div
@@ -251,7 +252,137 @@
         </div>
         <div
           class="ant-workspace-content"
-        />
+        >
+          <div
+            class="ant-workspace-realtime-container"
+          >
+            <header
+              class="ant-workspace-realtime-header"
+            >
+              <div
+                class="ant-workspace-realtime-header-left"
+              >
+                <div
+                  class="ant-workspace-realtime-header-icon ant-workspace-realtime-header-icon--default"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    version="1.1"
+                    viewBox="0 0 20 20"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g>
+                      <path
+                        d="M0,17L0,3Q0,1.75736,0.87868,0.87868Q1.75736,0,3,0L17,0Q18.2426,0,19.1213,0.87868Q20,1.75736,20,3L20,17Q20,18.2426,19.1213,19.1213Q18.2426,20,17,20L3,20Q1.75736,20,0.87868,19.1213Q0,18.2426,0,17ZM2,17Q2,18,3,18L17,18Q18,18,18,17L18,3Q18,2,17,2L3,2Q2,2,2,3L2,17ZM7.70711,6.29289L5.70723,4.29301C5.51957,4.10536,5.26522,4,5,4C4.44772,4,4,4.44772,4,5C4,5.26522,4.10536,5.51957,4.29289,5.70711L5.58579,7L4.29289,8.29289C4.10536,8.48043,4,8.73478,4,9C4,9.55228,4.44772,10,5,10C5.26522,10,5.51957,9.89464,5.70711,9.70711L7.70711,7.70711C8.09763,7.31658,8.09763,6.68342,7.70711,6.29289ZM9,10L13,10C13.5523,10,14,10.4477,14,11C14,11.5523,13.5523,12,13,12L9,12C8.44771,12,8,11.5523,8,11C8,10.4477,8.44771,10,9,10Z"
+                        fill="#14161C"
+                        fill-opacity="1"
+                        fill-rule="evenodd"
+                        style="mix-blend-mode: normal;"
+                      />
+                    </g>
+                  </svg>
+                </div>
+                <div
+                  class="ant-workspace-realtime-header-content"
+                >
+                  <div
+                    class="ant-workspace-realtime-header-title"
+                  >
+                    Shell 终端
+                  </div>
+                  <div
+                    class="ant-workspace-realtime-header-subtitle"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-workspace-realtime-header-right"
+              />
+            </header>
+            <div
+              class="ant-workspace-realtime-content"
+            >
+              <div
+                class="markdown-editor ant-md-editor ant-workspace-realtime--shell ant-md-editor-readonly"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
+              >
+                <div
+                  style="padding: 0px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  tabindex="-1"
+                >
+                  <div
+                    autocapitalize="false"
+                    autocorrect="false"
+                    class="ant-workspace-realtime--shell ant-md-editor-content-readonly ant-md-editor-content"
+                    data-slate-editor="true"
+                    data-slate-node="value"
+                    spellcheck="false"
+                    style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                    zindex="-1"
+                  >
+                    <div
+                      data-slate-node="element"
+                    >
+                      <div
+                        class="ace-el drag-el"
+                        contenteditable="false"
+                        data-be="code"
+                        data-lang="bash"
+                        data-testid="code-container"
+                        tabindex="-1"
+                      >
+                        <div
+                          contenteditable="false"
+                          style="background-color: transparent; user-select: none;"
+                        >
+                          <div
+                            class="ace-container drag-el "
+                            data-testid="code-editor-container"
+                            style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                          >
+                            <div
+                              contenteditable="false"
+                              style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
+                            />
+                            <div
+                              data-testid="ace-editor-container"
+                              style="height: 200px; line-height: 22px;"
+                            />
+                            <div
+                              data-testid="code-content-copy"
+                              style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                            >
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  <span
+                                    data-slate-length="0"
+                                    data-slate-zero-width="n"
+                                  >
+                                    ﻿
+                                    <br />
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

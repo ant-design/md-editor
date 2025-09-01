@@ -44,7 +44,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
         minHeight: '28px',
         width: 'max-content',
-        maxWidth: 'min(860px,100%)',
+        maxWidth: 'min(800px,100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -104,6 +104,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 500,
         lineHeight: '20px',
         letterSpacing: 'normal',
+        display: '-webkit-box',
+        WebkitLineClamp: 1,
+        WebkitBoxOrient: 'vertical',
+        lineClamp: 1,
         color: '#767E8B',
         '&-loading': {
           position: 'relative',
@@ -180,6 +184,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 'normal',
         lineHeight: '20px',
         flex: 1,
+        display: '-webkit-box',
+        WebkitLineClamp: 1,
+        WebkitBoxOrient: 'vertical',
+        lineClamp: 1,
+        overflow: 'hidden',
+        textWrap: 'nowrap ',
         color: '#959DA8',
         marginRight: 30,
         '&-loading': {
@@ -250,7 +260,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
     },
-  };
+  } as any;
 };
 
 export function useStyle(prefixCls?: string) {
