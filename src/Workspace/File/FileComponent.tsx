@@ -420,6 +420,7 @@ export const FileComponent: FC<{
   onFileClick?: FileProps['onFileClick'];
   onToggleGroup?: FileProps['onToggleGroup'];
   onPreview?: FileProps['onPreview'];
+  onBack?: FileProps['onBack'];
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置
@@ -437,6 +438,7 @@ export const FileComponent: FC<{
   onFileClick,
   onToggleGroup,
   onPreview,
+  onBack,
   markdownEditorProps,
   actionRef,
   loading,
@@ -487,6 +489,19 @@ export const FileComponent: FC<{
     setPreviewFile(null);
     setCustomPreviewContent(null);
     setCustomPreviewHeader(null);
+  };
+
+  // 包装后的返回逻辑，允许外部拦截
+  const handleBack = async () => {
+    if (previewFile) {
+      try {
+        const result = await (onBack?.(previewFile) as any);
+        if (result === false) return;
+      } catch (_) {
+        // 外部抛错不应阻断默认行为
+      }
+    }
+    handleBackToList();
   };
 
   // 预览页面的下载（供预览页调用）
@@ -637,7 +652,7 @@ export const FileComponent: FC<{
       <>
         <PreviewComponent
           file={previewFile}
-          onBack={handleBackToList}
+          onBack={handleBack}
           onDownload={handleDownloadInPreview}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
