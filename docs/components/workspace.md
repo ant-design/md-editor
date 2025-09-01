@@ -27,6 +27,9 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 ### 文件管理
 
 <code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能">文件管理</code>
+<code src="../demos/workspace-file-custom-preview-flow.tsx">文件-自定义预览</code>
+
+<code src="../demos/workspace-file-actionref-demo.tsx">actionRef外部打开预览</code>
 
 ### 实时跟随
 
@@ -40,15 +43,9 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 <code src="../demos/workspace-custom-demo.tsx" description="展示如何添加自定义组件和内容">自定义内容</code>
 
-### 浏览器
-
-<code src="../demos/workspace-browser-demo.tsx" description="演示浏览器内容嵌入和网页预览功能">浏览器</code>
-
 ### 高级用法
 
 <code src="../demos/workspace-advanced-demo.tsx" description="展示复杂场景下的工作空间配置和使用">高级用法</code>
-
-<code src="../demos/workspace-file-actionref-demo.tsx">编程式打开预览</code>
 
 ## API
 
@@ -132,7 +129,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | onToggleGroup       | 组展开/收起回调                                               | `(groupType: FileType, collapsed: boolean) => void`                            | -      |
 | onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => FileNode \| ReactNode \| Promise<FileNode \| ReactNode>`  | -      |
 | markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
-| actionRef           | 对外操作引用（编程式打开/返回）                               | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
+| actionRef           | 对外操作引用（打开预览/返回）                                 | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
 | loading             | 是否显示加载状态                                              | `boolean`                                                                      | -      |
 | loadingRender       | 自定义加载渲染函数，非必传                                    | `() => React.ReactNode`                                                        | -      |
 | tab                 | 标签页配置                                                    | `TabConfiguration`                                                             | -      |
@@ -141,7 +138,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 | 方法        | 说明                   | 类型                       |
 | ----------- | ---------------------- | -------------------------- |
-| openPreview | 编程式打开文件预览页   | `(file: FileNode) => void` |
+| openPreview | 外部打开文件预览页     | `(file: FileNode) => void` |
 | backToList  | 从预览页返回到文件列表 | `() => void`               |
 
 #### FileNode

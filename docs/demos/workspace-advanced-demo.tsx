@@ -3,7 +3,7 @@ import { Button, Card, Space, Switch, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const WorkspaceAdvancedDemo: React.FC = () => {
-  const [activeTabKey, setActiveTabKey] = useState<string>('');
+  const [activeTabKey, setActiveTabKey] = useState<string>('realtime');
   const [showCloseButton, setShowCloseButton] = useState(true);
   const [customTitle, setCustomTitle] = useState('高级工作空间');
   const [fileNodes, setFileNodes] = useState<any[]>([]);
