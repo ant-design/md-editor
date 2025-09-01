@@ -1,11 +1,11 @@
 import DonutChart, {
-  DonutChartDatum,
+  DonutChartData,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React from 'react';
 
 const DonutCategorizedDemo: React.FC = () => {
   // 带分类的多值饼图数据
-  const data: DonutChartDatum[] = [
+  const data: DonutChartData[] = [
     // 按产品类别分类的数据
     { category: '电子产品', label: '智能手机', value: 35, filterLable: '全球' },
     {

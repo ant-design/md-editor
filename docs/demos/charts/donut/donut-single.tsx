@@ -1,11 +1,11 @@
 import DonutChart, {
-  DonutChartDatum,
+  DonutChartData,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React from 'react';
 
 const DonutGenderDemo: React.FC = () => {
   // 性别数据：男性30%，女性70%
-  const data: DonutChartDatum[] = [
+  const data: DonutChartData[] = [
     { label: '男性', value: 30 },
     { label: '女性', value: 70 },
   ];

@@ -14,7 +14,7 @@ import { useStyle } from './style';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export interface DonutChartDatum {
+export interface DonutChartData {
   category?: string; // 分类
   label: string;
   value: number;
@@ -33,7 +33,7 @@ export interface DonutChartConfig {
 }
 
 export interface DonutChartProps {
-  data: DonutChartDatum[];
+  data: DonutChartData[];
   configs?: DonutChartConfig[];
   width?: number;
   height?: number;

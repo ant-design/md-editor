@@ -1,10 +1,10 @@
 import DonutChart, {
-  DonutChartDatum,
+  DonutChartData,
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React from 'react';
 
 const DonutMultiDemo: React.FC = () => {
-  const data: DonutChartDatum[] = [
+  const data: DonutChartData[] = [
     { label: 'A 产品', value: 25 },
     { label: 'B 产品', value: 40 },
     { label: 'C 产品', value: 25 },

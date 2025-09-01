@@ -35,7 +35,7 @@ export type {
 } from './BarChart';
 export type {
   DonutChartConfig,
-  DonutChartDatum,
+  DonutChartData,
   DonutChartProps,
 } from './DonutChart';
 export type {
