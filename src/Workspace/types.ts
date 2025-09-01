@@ -342,6 +342,11 @@ export interface FileProps extends BaseChildProps {
     file: FileNode,
   ) => FileNode | ReactNode | Promise<FileNode | ReactNode>;
   /**
+   * 自定义预览页返回行为
+   * @description 返回 false 可阻止组件默认的返回列表行为
+   */
+  onBack?: (file: FileNode) => void | boolean | Promise<void | boolean>;
+  /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置
    */

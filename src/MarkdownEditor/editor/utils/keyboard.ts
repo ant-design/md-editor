@@ -695,8 +695,8 @@ export class KeyboardTask {
             if (isFullySelected) {
               // 完全选中的节点，直接删除并转换为列表项
               const textNodes =
-                node.type === 'paragraph'
-                  ? node.children
+                (node as any).type === 'paragraph'
+                  ? (node as any).children
                   : [{ text: Node.string(node) }];
 
               const item = {

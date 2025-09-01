@@ -4,15 +4,30 @@ import type {
   FileNode,
   GroupNode,
 } from '@ant-design/md-editor/Workspace/types';
-import React, { useMemo, useState } from 'react';
+import { message } from 'antd';
+import React, {
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 // 支持“列表 -> 查看详情 -> 返回列表”的自定义预览组件（独立示例）
-const VariableAnalysisPreview: React.FC<{
-  file: FileNode;
-  setPreviewHeader?: (h: React.ReactNode) => void;
-  back?: () => void;
-  download?: () => void;
-}> = ({ file, setPreviewHeader, back }) => {
+type VariableAnalysisPreviewRef = {
+  getMode: () => 'list' | 'detail';
+  toList: () => void;
+};
+
+const VariableAnalysisPreview = React.forwardRef<
+  VariableAnalysisPreviewRef,
+  {
+    file: FileNode;
+    setPreviewHeader?: (h: React.ReactNode) => void;
+    back?: () => void;
+    download?: () => void;
+  }
+>(({ file, setPreviewHeader }, ref) => {
   const [mode, setMode] = useState<'list' | 'detail'>('list');
   const [current, setCurrent] = useState<{
     id: string;
@@ -23,6 +38,27 @@ const VariableAnalysisPreview: React.FC<{
     iv: string | number;
     ks: string | number;
   } | null>(null);
+
+  // 当模式切换回 list 时，清理详情态数据与头部
+  useEffect(() => {
+    if (mode === 'list') {
+      setCurrent(null);
+      setPreviewHeader?.(undefined);
+    }
+  }, [mode, setPreviewHeader]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      getMode: () => mode,
+      toList: () => {
+        setMode('list');
+        setCurrent(null);
+        setPreviewHeader?.(undefined);
+      },
+    }),
+    [mode, setPreviewHeader],
+  );
 
   const rows = useMemo(
     () => [
@@ -69,17 +105,6 @@ const VariableAnalysisPreview: React.FC<{
   const handleViewDetail = (row: (typeof rows)[number]) => {
     setCurrent(row);
     setMode('detail');
-    setPreviewHeader?.(
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-        <div style={{ flex: 1, display: 'flex', gap: 4 }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <ArrowLeftOutlined onClick={handleBack} />
-            返回上一级
-          </span>
-          <div style={{ fontWeight: 600 }}>【{row.name}】详情</div>
-        </div>
-      </div>,
-    );
   };
 
   const handleBack = () => {
@@ -91,6 +116,15 @@ const VariableAnalysisPreview: React.FC<{
   if (mode === 'detail' && current) {
     return (
       <div style={{ padding: 16 }} aria-label="变量详情">
+        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+          <div style={{ flex: 1, display: 'flex', gap: 4 }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <ArrowLeftOutlined onClick={handleBack} />
+              返回上一级
+            </span>
+            <div style={{ fontWeight: 600 }}>【{current.name}】详情</div>
+          </div>
+        </div>
         <h3 style={{ margin: '8px 0' }}>变量详情 - {current.name}</h3>
         <div
           style={{
@@ -264,7 +298,7 @@ const VariableAnalysisPreview: React.FC<{
       </table>
     </div>
   );
-};
+});
 
 const WorkspaceFileCustomPreviewFlow: React.FC = () => {
   const [nodes] = useState<(FileNode | GroupNode)[]>([
@@ -290,13 +324,14 @@ const WorkspaceFileCustomPreviewFlow: React.FC = () => {
       ],
     },
   ]);
+  const previewRef = useRef<VariableAnalysisPreviewRef | null>(null);
 
   const handlePreview = async (
     file: FileNode,
   ): Promise<FileNode | React.ReactNode> => {
     // 场景一：后端返回 JSON 列表数据 → 自定义展示
     if (file.id === 'customPreviewListDemo') {
-      return <VariableAnalysisPreview file={file} />;
+      return <VariableAnalysisPreview ref={previewRef} file={file} />;
     }
 
     // 场景二：后端返回 HTML 片段或需要自定义展示 → 直接返回 ReactNode，仅替换内容区
@@ -342,17 +377,23 @@ console.log(sum(1, 2));`}
   };
 
   const handleDownload = (file: FileNode) => {
-    // 直接使用组件内置下载逻辑的兜底：当提供了 url/content/file 时会自动触发下载
-    // 这里打印日志用于示例可观察
-    // eslint-disable-next-line no-console
-    console.log('下载文件：', file.name);
+    message.info(`下载文件：${file.name}`);
   };
 
   const handleGroupDownload = (files: FileNode[]) => {
-    // 这里仅做演示：打印被批量下载的文件名
-    // 实际项目可在此将多个文件打包等
-    // eslint-disable-next-line no-console
-    console.log('分组下载：', files.map((f) => f.name).join(', '));
+    message.info(`分组下载：${files.map((f) => f.name).join(', ')}`);
+  };
+
+  // 自定义返回示例：返回前先执行自定义逻辑，然后继续默认返回
+  const handleBackFromPreview = async (file: FileNode) => {
+    // 处于详情态：切回列表态并阻止默认返回（留在预览页）
+    if (previewRef.current?.getMode() === 'detail') {
+      previewRef.current.toList();
+      message.info(`自定义返回：${file.name}`);
+      return false;
+    }
+    // 列表态：允许执行默认返回（退出预览页，回到文件列表）
+    return true;
   };
 
   return (
@@ -371,6 +412,7 @@ console.log(sum(1, 2));`}
             onDownload={handleDownload}
             onGroupDownload={handleGroupDownload}
             onPreview={handlePreview}
+            onBack={handleBackFromPreview}
           />
         </Workspace>
       </div>
