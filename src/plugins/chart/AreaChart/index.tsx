@@ -42,7 +42,24 @@ export interface AreaChartDataItem {
   filterLable?: string;
 }
 
-interface AreaChartProps {
+export interface AreaChartConfigItem {
+  datasets: Array<(string | { x: number; y: number })[]>;
+  theme?: 'light' | 'dark';
+  showLegend?: boolean;
+  legendPosition?: 'top' | 'left' | 'bottom' | 'right';
+  legendAlign?: 'start' | 'center' | 'end';
+  showGrid?: boolean;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  xAxisMin?: number;
+  xAxisMax?: number;
+  yAxisMin?: number;
+  yAxisMax?: number;
+  xAxisStep?: number;
+  yAxisStep?: number;
+}
+
+export interface AreaChartProps {
   /** 图表标题 */
   title: string;
   /** 扁平化数据数组 */

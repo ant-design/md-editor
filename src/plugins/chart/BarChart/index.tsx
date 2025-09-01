@@ -32,7 +32,26 @@ export interface BarChartDataItem {
   filterLable?: string;
 }
 
-interface BarChartProps {
+export interface BarChartConfigItem {
+  datasets: Array<(string | { x: number; y: number })[]>;
+  theme?: 'light' | 'dark';
+  showLegend?: boolean;
+  legendPosition?: 'top' | 'left' | 'bottom' | 'right';
+  legendAlign?: 'start' | 'center' | 'end';
+  showGrid?: boolean;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  xAxisMin?: number;
+  xAxisMax?: number;
+  yAxisMin?: number;
+  yAxisMax?: number;
+  xAxisStep?: number;
+  yAxisStep?: number;
+  stacked?: boolean;
+  indexAxis?: 'x' | 'y';
+}
+
+export interface BarChartProps {
   /** 图表标题 */
   title: string;
   /** 扁平化数据数组 */

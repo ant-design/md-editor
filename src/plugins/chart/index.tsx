@@ -23,14 +23,26 @@ export { default as RadarChart } from './RadarChart';
 export { default as ScatterChart } from './ScatterChart';
 
 // 类型导出
-export type { AreaChartDataItem } from './AreaChart';
-export type { BarChartDataItem } from './BarChart';
+export type {
+  AreaChartConfigItem,
+  AreaChartDataItem,
+  AreaChartProps,
+} from './AreaChart';
+export type {
+  BarChartConfigItem,
+  BarChartDataItem,
+  BarChartProps,
+} from './BarChart';
 export type {
   DonutChartConfig,
   DonutChartDatum,
   DonutChartProps,
 } from './DonutChart';
-export type { LineChartDataItem } from './LineChart';
+export type {
+  LineChartConfigItem,
+  LineChartDataItem,
+  LineChartProps,
+} from './LineChart';
 export type { RadarChartConfigItem, RadarChartDataItem } from './RadarChart';
 export type {
   ScatterChartConfigItem,
