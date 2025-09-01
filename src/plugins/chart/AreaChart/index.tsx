@@ -98,20 +98,17 @@ const AreaChart: React.FC<AreaChartProps> = ({
 }) => {
   const chartRef = useRef<ChartJS<'line'>>(null);
 
-  // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>('all');
-
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
     const uniqueCategories = [...new Set(data.map((item) => item.category))];
     return uniqueCategories;
   }, [data]);
 
+  // 状态管理
+  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0]);
+
   // 筛选数据
   const filteredData = useMemo(() => {
-    if (selectedFilter === 'all') {
-      return data;
-    }
     return data.filter((item) => item.category === selectedFilter);
   }, [data, selectedFilter]);
 
