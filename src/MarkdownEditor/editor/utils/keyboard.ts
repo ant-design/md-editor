@@ -653,7 +653,7 @@ export class KeyboardTask {
               match: (n) =>
                 Element.isElement(n) && ['paragraph', 'head'].includes(n.type),
             }),
-          );
+          ) as Array<[Element & { type: string; children: any[] }, Path]>;
 
           if (selectedNodes.length === 0) {
             // 如果没有选中块级元素，尝试选中文本节点
@@ -673,13 +673,18 @@ export class KeyboardTask {
                 Element.isElement(parentNode) &&
                 ['paragraph', 'head'].includes(parentNode.type)
               ) {
-                selectedNodes.push([parentNode, parentPath]);
+                selectedNodes.push([
+                  parentNode as Element & { type: string; children: any[] },
+                  parentPath,
+                ]);
               }
             }
           }
 
           // 处理选中的节点
-          for (const [node, path] of selectedNodes) {
+          for (const [node, path] of selectedNodes as Array<
+            [Element & { type: string; children: any[] }, Path]
+          >) {
             // 检查节点是否完全被选中
             const nodeRange = Editor.range(this.editor, path);
             const isFullySelected =
