@@ -1,85 +1,132 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
-import BarChart, { BarChartConfig } from '@ant-design/md-editor/plugins/chart/BarChart';
+import BarChart, { BarChartDataItem } from '@ant-design/md-editor/plugins/chart/BarChart';
 
 const StackedBarChartExample: React.FC = () => {
-  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('light');
-  const [legendPosition, setLegendPosition] = useState<'top' | 'left' | 'bottom' | 'right'>('bottom');
-  const [quadrant, setQuadrant] = useState<'I' | 'II' | 'III' | 'IV'>('I');
+  // 扁平化数据结构 - 堆叠柱状图
+  const [data, setData] = useState<BarChartDataItem[]>([
+    // 流量来源数据
+    { category: '流量来源', type: '直接访问', x: 1, y: 120, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '直接访问', x: 2, y: 132, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '直接访问', x: 3, y: 101, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '直接访问', x: 4, y: 134, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '直接访问', x: 5, y: 90, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '直接访问', x: 6, y: 230, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '直接访问', x: 7, y: 210, xtitle: '日期', ytitle: 'PV' },
 
-  const [baseConfigs, setBaseConfigs] = useState<BarChartConfig[]>([
-    {
-      type: 'traffic',
-      typeName: '流量来源',
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: [
-        { label: '直接访问', data: [120, 132, 101, 134, 90, 230, 210], borderColor: '#1677ff', backgroundColor: '#1677ff' },
-        { label: '搜索引擎', data: [220, 182, 191, 234, 290, 330, 310], borderColor: '#8954FC', backgroundColor: '#8954FC' },
-        { label: '外链引荐', data: [150, 232, 201, 154, 190, 330, 410], borderColor: '#15e7e4', backgroundColor: '#15e7e4' },
-      ],
-      theme: currentTheme,
-      legendPosition,
-      xTitle: '日期',
-      yTitle: 'PV',
-      yMin: 0,
-      showGrid: true,
-      stacked: true,
-    },
-    {
-      type: 'department',
-      typeName: '部门预算',
-      labels: ['市场部', '销售部', '技术部', '人事部', '财务部'],
-      datasets: [
-        { label: '人力成本', data: [45000, 52000, 68000, 28000, 35000], borderColor: '#FF6B6B', backgroundColor: '#FF6B6B' },
-        { label: '运营成本', data: [28000, 35000, 42000, 18000, 22000], borderColor: '#4ECDC4', backgroundColor: '#4ECDC4' },
-        { label: '设备成本', data: [18000, 25000, 55000, 12000, 15000], borderColor: '#45B7D1', backgroundColor: '#45B7D1' },
-      ],
-      theme: currentTheme,
-      legendPosition,
-      xTitle: '部门',
-      yTitle: '预算金额',
-      yMin: 0,
-      showGrid: true,
-      stacked: true,
-    },
+    { category: '流量来源', type: '搜索引擎', x: 1, y: 220, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '搜索引擎', x: 2, y: 182, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '搜索引擎', x: 3, y: 191, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '搜索引擎', x: 4, y: 234, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '搜索引擎', x: 5, y: 290, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '搜索引擎', x: 6, y: 330, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '搜索引擎', x: 7, y: 310, xtitle: '日期', ytitle: 'PV' },
+
+    { category: '流量来源', type: '外链引荐', x: 1, y: 150, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '外链引荐', x: 2, y: 232, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '外链引荐', x: 3, y: 201, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '外链引荐', x: 4, y: 154, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '外链引荐', x: 5, y: 190, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '外链引荐', x: 6, y: 330, xtitle: '日期', ytitle: 'PV' },
+    { category: '流量来源', type: '外链引荐', x: 7, y: 410, xtitle: '日期', ytitle: 'PV' },
+
+    // 部门预算数据
+    { category: '部门预算', type: '人力成本', x: 1, y: 45000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '人力成本', x: 2, y: 52000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '人力成本', x: 3, y: 68000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '人力成本', x: 4, y: 28000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '人力成本', x: 5, y: 35000, xtitle: '部门', ytitle: '预算金额' },
+
+    { category: '部门预算', type: '运营成本', x: 1, y: 28000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '运营成本', x: 2, y: 35000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '运营成本', x: 3, y: 42000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '运营成本', x: 4, y: 18000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '运营成本', x: 5, y: 22000, xtitle: '部门', ytitle: '预算金额' },
+
+    { category: '部门预算', type: '设备成本', x: 1, y: 18000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '设备成本', x: 2, y: 25000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '设备成本', x: 3, y: 55000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '设备成本', x: 4, y: 12000, xtitle: '部门', ytitle: '预算金额' },
+    { category: '部门预算', type: '设备成本', x: 5, y: 15000, xtitle: '部门', ytitle: '预算金额' },
   ]);
 
-  const transformByQuadrant = (cfg: BarChartConfig, q: 'I'|'II'|'III'|'IV'): BarChartConfig => {
-    const xPosition: 'top'|'bottom' = (q === 'II' || q === 'III') ? 'top' : 'bottom';
-    const yPosition: 'left'|'right' = (q === 'I' || q === 'II') ? 'left' : 'right';
-    return { ...cfg, xPosition, yPosition };
+  const handleRandomize = () => {
+    setData(prev => prev.map(item => ({
+      ...item,
+      y: item.category === '流量来源'
+        ? Math.floor(Math.random() * 500)  // 流量来源数据范围 0-500
+        : Math.floor(Math.random() * 80000) + 10000  // 预算数据范围 10000-90000
+    })));
   };
-
-  const configs = useMemo(() => baseConfigs.map(config =>
-    transformByQuadrant({ ...config, theme: currentTheme, legendPosition }, quadrant)
-  ), [baseConfigs, currentTheme, legendPosition, quadrant]);
 
   return (
     <div style={{ padding: 20 }}>
       <h3 style={{ margin: '0 0 12px' }}>堆叠柱状图</h3>
       <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
-        <Button type="primary" onClick={() => setCurrentTheme(p => (p === 'dark' ? 'light' : 'dark'))}>切换主题 ({currentTheme === 'dark' ? '深色' : '浅色'})</Button>
-        <Button type="primary" onClick={() => setLegendPosition(p => (['top','right','bottom','left'] as const)[((['top','right','bottom','left'] as const).indexOf(p)+1)%4])}>切换图例位置（{legendPosition}）</Button>
-        <Button type="primary" onClick={() => setQuadrant(p => (['I','II','III','IV'] as const)[((['I','II','III','IV'] as const).indexOf(p)+1)%4])}>切换象限（{quadrant}）</Button>
-      </div>
-      <BarChart configs={configs} title="堆叠柱状图" width={700} height={500} />
+        <Button
+          type="primary"
+          onClick={handleRandomize}
+        >
+          随机更新数据
+        </Button>
 
+        <div style={{
+          padding: '8px 12px',
+          backgroundColor: '#fff',
+          border: '1px solid #d9d9d9',
+          borderRadius: '4px',
+          fontSize: '12px',
+          color: '#666'
+        }}>
+          💡 使用扁平化数据结构，包含 xtitle 和 ytitle 字段，支持二级筛选。
+        </div>
+      </div>
+
+      <BarChart
+        title="堆叠柱状图"
+        data={data}
+        width={700}
+        height={500}
+        stacked={true}
+      />
+
+      {/* 数据格式说明 */}
       <div style={{
-        backgroundColor: '#fff',
+        marginTop: '20px',
+        backgroundColor: '#f0f8ff',
         padding: '15px',
         borderRadius: '8px',
-        border: '1px solid #e8e8e8',
-        marginTop: '20px'
+        border: '1px solid #e8e8e8'
       }}>
-        <h4 style={{ marginTop: 0, color: '#333' }}>当前配置信息：</h4>
+        <h4 style={{ marginTop: 0, color: '#333' }}>扁平化数据格式示例：</h4>
         <pre style={{
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#fff',
           padding: '10px',
           borderRadius: '4px',
-          overflow: 'auto',
-          fontSize: '12px'
+          fontSize: '11px',
+          margin: 0,
+          overflow: 'auto'
         }}>
-          {JSON.stringify(configs, null, 2)}
+{`// 扁平化数据格式：包含 xtitle 和 ytitle 字段
+[
+  {
+    category: "流量来源",
+    type: "直接访问",
+    x: 1,
+    y: 120,
+    xtitle: "日期",
+    ytitle: "PV"
+  },
+  {
+    category: "部门预算",
+    type: "人力成本",
+    x: 1,
+    y: 45000,
+    xtitle: "部门",
+    ytitle: "预算金额"
+  },
+  // ... 更多数据
+]`}
         </pre>
       </div>
     </div>

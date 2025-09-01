@@ -1,49 +1,49 @@
-import React, { useRef, useState } from 'react';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
-  Tooltip,
-  Legend,
-  ChartOptions,
+  CategoryScale,
   ChartData,
+  Chart as ChartJS,
+  ChartOptions,
+  Legend,
+  LinearScale,
+  Tooltip,
 } from 'chart.js';
+import React, { useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartToolBar, ChartFilter, downloadChart } from '../components';
+import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import './style.less';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-export interface BarChartDataset {
-  /** 数据集标签，用于图例显示 */
-  label: string;
-  /** 数据值数组，与labels一一对应 */
-  data: number[];
-  /** 柱子边框颜色，默认为主题色 */
-  borderColor?: string;
-  /** 柱子填充颜色，默认使用borderColor */
-  backgroundColor?: string;
-  /** 边框宽度，默认为0（无边框） */
-  borderWidth?: number;
+export interface BarChartDataItem {
+  /** 数据类别 */
+  category: string;
+  /** 数据类型 */
+  type: string;
+  /** X轴值 */
+  x: number;
+  /** Y轴值 */
+  y: number;
+  /** X轴标题 */
+  xtitle?: string;
+  /** Y轴标题 */
+  ytitle?: string;
+  /** 筛选标签 */
+  filterLable?: string;
 }
 
-export interface BarChartConfig {
-  /** 配置类型标识符 */
-  type: string;
-  /** 配置类型名称，用于筛选器显示 */
-  typeName: string;
-  /** X轴标签数组，定义每个数据点的标签 */
-  labels: string[];
-  /** 数据集数组，包含要显示的数据系列 */
-  datasets: BarChartDataset[];
-  /** Y轴最大值，设置后Y轴不会超过此值 */
-  yMax?: number;
-  /** Y轴最小值，设置后Y轴不会低于此值 */
-  yMin?: number;
-  /** Y轴刻度步长，控制刻度间隔 */
-  yStepSize?: number;
-  /** 图表主题，影响颜色和背景 */
+interface BarChartProps {
+  /** 图表标题 */
+  title: string;
+  /** 扁平化数据数组 */
+  data: BarChartDataItem[];
+  /** 图表宽度，默认600px */
+  width?: number;
+  /** 图表高度，默认400px */
+  height?: number;
+  /** 自定义CSS类名 */
+  className?: string;
+  /** 图表主题 */
   theme?: 'dark' | 'light';
   /** 是否显示图例，默认true */
   showLegend?: boolean;
@@ -53,16 +53,6 @@ export interface BarChartConfig {
   legendAlign?: 'start' | 'center' | 'end';
   /** 是否显示网格线，默认true */
   showGrid?: boolean;
-  /** X轴标题文本 */
-  xTitle?: string;
-  /** Y轴标题文本 */
-  yTitle?: string;
-  /** 柱子固定厚度（像素），设置后所有柱子宽度相同 */
-  barThickness?: number;
-  /** 类别宽度百分比，0-1之间，控制柱子组的宽度 */
-  categoryPercentage?: number;
-  /** 单个柱子宽度百分比，0-1之间，相对于类别宽度 */
-  barPercentage?: number;
   /** X轴位置 */
   xPosition?: 'top' | 'bottom';
   /** Y轴位置 */
@@ -71,19 +61,6 @@ export interface BarChartConfig {
   stacked?: boolean;
   /** 图表轴向，'x'为垂直柱状图，'y'为水平柱状图 */
   indexAxis?: 'x' | 'y';
-}
-
-interface BarChartProps {
-  /** 柱状图配置对象数组 */
-  configs: BarChartConfig[];
-  /** 图表标题 */
-  title: string;
-  /** 图表宽度，默认600px */
-  width?: number;
-  /** 图表高度，默认400px */
-  height?: number;
-  /** 自定义CSS类名 */
-  className?: string;
 }
 
 const defaultColors = [
@@ -100,50 +77,98 @@ const defaultColors = [
 ];
 
 const BarChart: React.FC<BarChartProps> = ({
-  configs,
   title,
+  data,
   width = 600,
   height = 400,
-  className
+  className,
+  theme = 'light',
+  showLegend = true,
+  legendPosition = 'bottom',
+  legendAlign = 'start',
+  showGrid = true,
+  xPosition = 'bottom',
+  yPosition = 'left',
+  stacked = false,
+  indexAxis = 'x',
 }) => {
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
+  // 从数据中提取唯一的类别作为筛选选项
+  const categories = useMemo(() => {
+    const uniqueCategories = [...new Set(data.map((item) => item.category))];
+    return uniqueCategories;
+  }, [data]);
+
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type || 'default');
+  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0]);
 
-  // 根据筛选器选择对应的配置
-  const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
+  // 筛选数据
+  const filteredData = useMemo(() => {
+    return data.filter((item) => item.category === selectedFilter);
+  }, [data, selectedFilter]);
 
-  // 筛选器的枚举
-  const filterEnum = configs.map(config => ({
-    label: config.typeName || config.type || '默认',
-    value: config.type || 'default',
-  }));
+  // 从数据中提取唯一的类型
+  const types = useMemo(() => {
+    return [...new Set(filteredData.map((item) => item.type))];
+  }, [filteredData]);
 
-  const processedData: ChartData<'bar'> = {
-    labels: currentConfig.labels,
-    datasets: currentConfig.datasets.map((dataset, index) => {
-      const base = dataset.borderColor || defaultColors[index % defaultColors.length];
+  // 从数据中提取唯一的x值并排序
+  const xValues = useMemo(() => {
+    const uniqueX = [...new Set(filteredData.map((item) => item.x))];
+    return uniqueX.sort((a, b) => a - b);
+  }, [filteredData]);
+
+  // 从数据中获取xtitle和ytitle
+  const xTitle = useMemo(() => {
+    const titles = [
+      ...new Set(filteredData.map((item) => item.xtitle).filter(Boolean)),
+    ];
+    return titles[0] || '';
+  }, [filteredData]);
+
+  const yTitle = useMemo(() => {
+    const titles = [
+      ...new Set(filteredData.map((item) => item.ytitle).filter(Boolean)),
+    ];
+    return titles[0] || '';
+  }, [filteredData]);
+
+  // 构建Chart.js数据结构
+  const processedData: ChartData<'bar'> = useMemo(() => {
+    const labels = xValues.map((x) => x.toString());
+
+    const datasets = types.map((type, index) => {
+      const baseColor = defaultColors[index % defaultColors.length];
+
+      // 为每个类型收集数据点
+      const typeData = xValues.map((x) => {
+        const dataPoint = filteredData.find(
+          (item) => item.type === type && item.x === x,
+        );
+        return dataPoint ? dataPoint.y : null;
+      });
+
       return {
-        label: dataset.label,
-        data: dataset.data,
-        borderColor: base,
-        backgroundColor: dataset.backgroundColor || base,
+        label: type,
+        data: typeData,
+        borderColor: baseColor,
+        backgroundColor: baseColor,
         borderWidth: 0,
-        barThickness: currentConfig.barThickness,
-        categoryPercentage: currentConfig.categoryPercentage ?? 0.7,
-        barPercentage: currentConfig.barPercentage ?? 0.8,
-        stack: currentConfig.stacked ? 'stack' : undefined,
-        borderRadius: ((ctx: any) => {
+        categoryPercentage: 0.7,
+        barPercentage: 0.8,
+        stack: stacked ? 'stack' : undefined,
+        borderRadius: (ctx: any) => {
           const rawValue = ctx?.raw;
-          const value = typeof rawValue === 'number' ? rawValue : Number(rawValue ?? 0);
-          const isHorizontal = (currentConfig.indexAxis || 'x') === 'y';
+          const value =
+            typeof rawValue === 'number' ? rawValue : Number(rawValue ?? 0);
+          const isHorizontal = indexAxis === 'y';
           const radius = 6;
           const chart = ctx?.chart as import('chart.js').Chart<'bar'>;
 
           // When stacked, only the outermost (top) segment of the same sign gets radius
           let isTopOfStack = true;
-          if (currentConfig.stacked && chart) {
+          if (stacked && chart) {
             const dsIndex = ctx?.datasetIndex as number;
             const dIndex = ctx?.dataIndex as number;
             const currentStack = chart.data.datasets?.[dsIndex]?.stack;
@@ -159,7 +184,9 @@ const BarChart: React.FC<BarChartProps> = ({
                 return (v >= 0 && value >= 0) || (v < 0 && value < 0);
               });
             // top means the last dataset in rendering order among same sign
-            const topIndex = sameStackIndexes.length ? Math.max(...sameStackIndexes) : dsIndex;
+            const topIndex = sameStackIndexes.length
+              ? Math.max(...sameStackIndexes)
+              : dsIndex;
             isTopOfStack = dsIndex === topIndex;
           }
 
@@ -167,36 +194,68 @@ const BarChart: React.FC<BarChartProps> = ({
 
           if (isHorizontal) {
             if (value >= 0) {
-              return { topRight: radius, bottomRight: radius, topLeft: 0, bottomLeft: 0 };
+              return {
+                topRight: radius,
+                bottomRight: radius,
+                topLeft: 0,
+                bottomLeft: 0,
+              };
             } else {
-              return { topLeft: radius, bottomLeft: radius, topRight: 0, bottomRight: 0 };
+              return {
+                topLeft: radius,
+                bottomLeft: radius,
+                topRight: 0,
+                bottomRight: 0,
+              };
             }
           } else {
             if (value >= 0) {
-              return { topLeft: radius, topRight: radius, bottomLeft: 0, bottomRight: 0 };
+              return {
+                topLeft: radius,
+                topRight: radius,
+                bottomLeft: 0,
+                bottomRight: 0,
+              };
             } else {
-              return { bottomLeft: radius, bottomRight: radius, topLeft: 0, topRight: 0 };
+              return {
+                bottomLeft: radius,
+                bottomRight: radius,
+                topLeft: 0,
+                topRight: 0,
+              };
             }
           }
-        }),
+        },
         borderSkipped: false,
       };
-    }),
-  };
+    });
 
-  const isLight = currentConfig.theme === 'light';
-  const axisTextColor = isLight ? 'rgba(0, 25, 61, 0.3255)' : 'rgba(255, 255, 255, 0.8)';
+    return { labels, datasets };
+  }, [filteredData, types, xValues, stacked, indexAxis]);
+
+  // 筛选器选项
+  const filterOptions = useMemo(() => {
+    return categories.map((category) => ({
+      label: category,
+      value: category,
+    }));
+  }, [categories]);
+
+  const isLight = theme === 'light';
+  const axisTextColor = isLight
+    ? 'rgba(0, 25, 61, 0.3255)'
+    : 'rgba(255, 255, 255, 0.8)';
   const gridColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)';
 
   const options: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: currentConfig.indexAxis || 'x',    
+    indexAxis,
     plugins: {
       legend: {
-        display: currentConfig.showLegend !== false,
-        position: currentConfig.legendPosition || 'bottom',
-        align: currentConfig.legendAlign || 'start',
+        display: showLegend,
+        position: legendPosition,
+        align: legendAlign,
         labels: {
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
@@ -206,7 +265,9 @@ const BarChart: React.FC<BarChartProps> = ({
         },
       },
       tooltip: {
-        backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.85)',
+        backgroundColor: isLight
+          ? 'rgba(255,255,255,0.95)'
+          : 'rgba(0,0,0,0.85)',
         titleColor: isLight ? '#333' : '#fff',
         bodyColor: isLight ? '#333' : '#fff',
         borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.2)',
@@ -217,17 +278,17 @@ const BarChart: React.FC<BarChartProps> = ({
     },
     scales: {
       x: {
-        stacked: !!currentConfig.stacked,
-        position: currentConfig.xPosition || 'bottom',
+        stacked,
+        position: xPosition,
         title: {
-          display: !!currentConfig.xTitle,
-          text: currentConfig.xTitle,
+          display: !!xTitle,
+          text: xTitle,
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
-          display: currentConfig.showGrid !== false,
+          display: showGrid,
           color: gridColor,
           lineWidth: 1,
           drawTicks: false,
@@ -243,27 +304,24 @@ const BarChart: React.FC<BarChartProps> = ({
         },
       },
       y: {
-        stacked: !!currentConfig.stacked,
-        position: currentConfig.yPosition || 'left',
-        beginAtZero: currentConfig.yMin === undefined ? true : currentConfig.yMin === 0,
-        min: currentConfig.yMin,
-        max: currentConfig.yMax,
+        stacked,
+        position: yPosition,
+        beginAtZero: true,
         title: {
-          display: !!currentConfig.yTitle,
-          text: currentConfig.yTitle,
+          display: !!yTitle,
+          text: yTitle,
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
-          display: currentConfig.showGrid !== false,
+          display: showGrid,
           color: gridColor,
           lineWidth: 1,
           drawTicks: false,
           tickLength: 0,
         },
         ticks: {
-          stepSize: currentConfig.yStepSize,
           color: axisTextColor,
           font: { size: 12 },
           padding: 12,
@@ -292,17 +350,13 @@ const BarChart: React.FC<BarChartProps> = ({
         border: isLight ? '1px solid #e8e8e8' : 'none',
       }}
     >
-      <ChartToolBar
-        title={title}
-        theme={currentConfig.theme}
-        onDownload={handleDownload}
-      />
+      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} />
 
       <ChartFilter
-        filterOptions={filterEnum}
+        filterOptions={filterOptions}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        theme={currentConfig.theme}
+        theme={theme}
       />
 
       <div className="chart-wrapper">
@@ -313,5 +367,3 @@ const BarChart: React.FC<BarChartProps> = ({
 };
 
 export default BarChart;
-
-
