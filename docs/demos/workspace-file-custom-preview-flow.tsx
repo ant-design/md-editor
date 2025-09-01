@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Workspace } from '@ant-design/md-editor';
+import { Workspace, type FileActionRef } from '@ant-design/md-editor';
 import type {
   FileNode,
   GroupNode,
@@ -26,8 +26,9 @@ const VariableAnalysisPreview = React.forwardRef<
     setPreviewHeader?: (h: React.ReactNode) => void;
     back?: () => void;
     download?: () => void;
+    fileActionRef?: React.MutableRefObject<FileActionRef | null>;
   }
->(({ file, setPreviewHeader }, ref) => {
+>(({ file, setPreviewHeader, fileActionRef }, ref) => {
   const [mode, setMode] = useState<'list' | 'detail'>('list');
   const [current, setCurrent] = useState<{
     id: string;
@@ -44,8 +45,14 @@ const VariableAnalysisPreview = React.forwardRef<
     if (mode === 'list') {
       setCurrent(null);
       setPreviewHeader?.(undefined);
+      // 还原标题区域为原始文件信息
+      fileActionRef?.current?.updatePreviewHeader?.({
+        name: file.name,
+        lastModified: file.lastModified,
+        icon: file.icon,
+      });
     }
-  }, [mode, setPreviewHeader]);
+  }, [mode, setPreviewHeader, fileActionRef, file]);
 
   useImperativeHandle(
     ref,
@@ -105,12 +112,22 @@ const VariableAnalysisPreview = React.forwardRef<
   const handleViewDetail = (row: (typeof rows)[number]) => {
     setCurrent(row);
     setMode('detail');
+    // 进入详情态：通过 actionRef.updatePreviewHeader 更新预览标题区域
+    fileActionRef?.current?.updatePreviewHeader?.({
+      name: `变量详情 - ${row.name}`,
+      lastModified: new Date().toLocaleString(),
+    });
   };
 
   const handleBack = () => {
     setMode('list');
     setCurrent(null);
     setPreviewHeader?.(undefined);
+    fileActionRef?.current?.updatePreviewHeader?.({
+      name: file.name,
+      lastModified: file.lastModified,
+      icon: file.icon,
+    });
   };
 
   if (mode === 'detail' && current) {
@@ -325,13 +342,20 @@ const WorkspaceFileCustomPreviewFlow: React.FC = () => {
     },
   ]);
   const previewRef = useRef<VariableAnalysisPreviewRef | null>(null);
+  const fileActionRef = useRef<FileActionRef | null>(null);
 
   const handlePreview = async (
     file: FileNode,
   ): Promise<FileNode | React.ReactNode> => {
     // 场景一：后端返回 JSON 列表数据 → 自定义展示
     if (file.id === 'customPreviewListDemo') {
-      return <VariableAnalysisPreview ref={previewRef} file={file} />;
+      return (
+        <VariableAnalysisPreview
+          ref={previewRef}
+          file={file}
+          fileActionRef={fileActionRef}
+        />
+      );
     }
 
     // 场景二：后端返回 HTML 片段或需要自定义展示 → 直接返回 ReactNode，仅替换内容区
@@ -413,6 +437,7 @@ console.log(sum(1, 2));`}
             onGroupDownload={handleGroupDownload}
             onPreview={handlePreview}
             onBack={handleBackFromPreview}
+            actionRef={fileActionRef}
           />
         </Workspace>
       </div>

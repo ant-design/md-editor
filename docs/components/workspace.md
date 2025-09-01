@@ -130,17 +130,18 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => FileNode \| ReactNode \| Promise<FileNode \| ReactNode>`  | -      |
 | onBack              | 预览页返回回调（返回 false 阻止默认返回）                     | `(file: FileNode) => void \| boolean \| Promise<void \| boolean>`             | -      |
 | markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
-| actionRef           | 对外操作引用（打开预览/返回）                                 | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
+| actionRef           | 对外操作引用（打开预览/返回/更新预览标题）                    | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
 | loading             | 是否显示加载状态                                              | `boolean`                                                                      | -      |
 | loadingRender       | 自定义加载渲染函数，非必传                                    | `() => React.ReactNode`                                                        | -      |
 | tab                 | 标签页配置                                                    | `TabConfiguration`                                                             | -      |
 
 #### FileActionRef
 
-| 方法        | 说明                   | 类型                       |
-| ----------- | ---------------------- | -------------------------- |
-| openPreview | 外部打开文件预览页     | `(file: FileNode) => void` |
-| backToList  | 从预览页返回到文件列表 | `() => void`               |
+| 方法                | 说明                                   | 类型                                 |
+| ------------------- | -------------------------------------- | ------------------------------------ |
+| openPreview         | 外部打开文件预览页                     | `(file: FileNode) => void`           |
+| backToList          | 从预览页返回到文件列表                 | `() => void`                         |
+| updatePreviewHeader | 更新预览标题区域展示（仅影响头部展示） | `(partial: Partial<FileNode>) => void` |
 
 #### FileNode
 

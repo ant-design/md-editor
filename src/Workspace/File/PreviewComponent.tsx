@@ -38,6 +38,10 @@ interface PreviewComponentProps {
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
+  /**
+   * 仅用于覆盖默认头部区域展示的文件信息（不影响实际预览内容）
+   */
+  headerFileOverride?: Partial<FileNode>;
 }
 
 // 提取通用的占位符组件
@@ -134,6 +138,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   onBack,
   onDownload,
   markdownEditorProps,
+  headerFileOverride,
 }) => {
   const { locale } = useContext(I18nContext);
   // 使用 ConfigProvider 获取前缀类名
@@ -510,21 +515,29 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
           <div className={`${prefixCls}-file-info ${hashId}`}>
             <div className={`${prefixCls}-file-title ${hashId}`}>
-              <span className={`${prefixCls}-file-icon ${hashId}`}>
-                {getFileTypeIcon(
-                  fileTypeProcessor.inferFileType(file).fileType,
-                  file.icon,
-                  file.name,
-                )}
-              </span>
-              <span className={`${prefixCls}-file-name ${hashId}`}>
-                {file.name}
-              </span>
+              {(() => {
+                const headerFile = headerFileOverride
+                  ? { ...file, ...headerFileOverride }
+                  : file;
+                const fileType = fileTypeProcessor.inferFileType(file).fileType;
+                return (
+                  <>
+                    <span className={`${prefixCls}-file-icon ${hashId}`}>
+                      {getFileTypeIcon(fileType, headerFile.icon, headerFile.name)}
+                    </span>
+                    <span className={`${prefixCls}-file-name ${hashId}`}>
+                      {headerFile.name}
+                    </span>
+                  </>
+                );
+              })()}
             </div>
-            {file.lastModified && (
+            {(headerFileOverride?.lastModified ?? file.lastModified) && (
               <div className={`${prefixCls}-generate-time ${hashId}`}>
                 {locale?.['workspace.file.generationTime'] || '生成时间：'}
-                {formatLastModified(file.lastModified)}
+                {formatLastModified(
+                  (headerFileOverride?.lastModified ?? file.lastModified) as any,
+                )}
               </div>
             )}
           </div>

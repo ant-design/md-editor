@@ -329,6 +329,10 @@ export interface GroupNode extends BaseNode {
 export interface FileActionRef {
   openPreview: (file: FileNode) => void;
   backToList: () => void;
+  /**
+   * 跨页更新预览标题区域的文件信息（仅影响标题展示，不改变实际预览内容）
+   */
+  updatePreviewHeader?: (partial: Partial<FileNode>) => void;
 }
 
 // 文件组件属性

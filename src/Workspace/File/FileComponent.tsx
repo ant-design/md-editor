@@ -450,6 +450,9 @@ export const FileComponent: FC<{
 
   const [customPreviewHeader, setCustomPreviewHeader] =
     useState<React.ReactNode | null>(null);
+  // 标题区域文件信息覆盖，仅影响展示
+  const [headerFileOverride, setHeaderFileOverride] =
+    useState<Partial<FileNode> | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
@@ -489,6 +492,7 @@ export const FileComponent: FC<{
     setPreviewFile(null);
     setCustomPreviewContent(null);
     setCustomPreviewHeader(null);
+    setHeaderFileOverride(null);
   };
 
   // 包装后的返回逻辑，允许外部拦截
@@ -622,6 +626,9 @@ export const FileComponent: FC<{
       backToList: () => {
         handleBackToList();
       },
+      updatePreviewHeader: (partial) => {
+        setHeaderFileOverride((prev) => ({ ...(prev || {}), ...partial }));
+      },
     };
     return () => {
       actionRef.current = null;
@@ -656,6 +663,7 @@ export const FileComponent: FC<{
           onDownload={handleDownloadInPreview}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
+          headerFileOverride={headerFileOverride || undefined}
           markdownEditorProps={markdownEditorProps}
         />
         {ImagePreviewComponent}
