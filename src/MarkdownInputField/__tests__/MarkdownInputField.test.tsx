@@ -201,7 +201,7 @@ describe('MarkdownInputField - voiceInput', () => {
   });
 
   it('should append partial text from recognizer and trigger onChange', async () => {
-    let handlersRef: any;
+    let handlersRef: Parameters<typeof createRecognizer>[0];
     const start = vi.fn().mockResolvedValue(undefined);
     const stop = vi.fn().mockResolvedValue(undefined);
     const createRecognizer = vi.fn().mockImplementation(async (handlers) => {

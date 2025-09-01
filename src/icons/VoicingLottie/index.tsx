@@ -73,7 +73,7 @@ export const VoicingLottie: React.FC<LottieVoiceProps> = ({
   };
 
   return (
-    <div style={containerStyle} className={className}>
+    <div style={containerStyle} className={className}  aria-hidden="true">
       <Lottie animationData={voicingLottie} loop={loop} autoplay={autoplay} />
     </div>
   );

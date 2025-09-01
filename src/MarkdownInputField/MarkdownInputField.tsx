@@ -30,12 +30,13 @@ import {
   AttachmentFileList,
 } from './AttachmentButton/AttachmentFileList';
 import { SendButton } from './SendButton';
+import { useStyle } from './style';
+import { Suggestion } from './Suggestion';
 import {
   VoiceInputButton,
   type CreateRecognizer,
+  type VoiceRecognizer,
 } from './VoiceInput';
-import { useStyle } from './style';
-import { Suggestion } from './Suggestion';
 
 /**
  * Markdown 输入字段的属性接口
@@ -376,32 +377,47 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   // 语音输入
   const [recording, setRecording] = useState(false);
-  const recognizerRef = React.useRef<{ start: () => Promise<void>; stop: () => Promise<void> }>();
+  const recognizerRef = React.useRef<VoiceRecognizer | null>(null);
+  const pendingRef = React.useRef(false);
 
   const startRecording = useRefFunction(async () => {
     if (!props.voiceRecognizer) return;
-    if (recording) return;
-    recognizerRef.current = await props.voiceRecognizer({
-      onPartial: (text: string) => {
-        const current = markdownEditorRef?.current?.store?.getMDContent() || '';
-        const next = `${current}${text}`;
-        markdownEditorRef?.current?.store?.setMDContent(next);
-        setValue(next); // 自动触发onChange
-      },
-      onError: () => {
-        setRecording(false);
-      },
-    });
-    await recognizerRef.current?.start();
-    setRecording(true);
+    if (recording || pendingRef.current) return;
+    pendingRef.current = true;
+    try {
+      const recognizer = await props.voiceRecognizer({
+        onPartial: (text: string) => {
+          const current =
+            markdownEditorRef?.current?.store?.getMDContent() || '';
+          const next = `${current}${text}`;
+          markdownEditorRef?.current?.store?.setMDContent(next);
+          setValue(next); // 自动触发onChange
+        },
+        onError: () => {
+          setRecording(false);
+          recognizerRef.current = null;
+          pendingRef.current = false;
+        },
+      });
+      recognizerRef.current = recognizer;
+      await recognizerRef.current.start();
+      setRecording(true);
+    } catch (e) {
+      recognizerRef.current = null;
+    } finally {
+      pendingRef.current = false;
+    }
   });
 
   const stopRecording = useRefFunction(async () => {
-    if (!recording) return;
+    if (!recording || pendingRef.current) return;
+    pendingRef.current = true;
     try {
       await recognizerRef.current?.stop();
     } finally {
       setRecording(false);
+      recognizerRef.current = null;
+      pendingRef.current = false;
     }
   });
 
@@ -409,6 +425,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     if (!markdownEditorRef.current) return;
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
+
+  useEffect(() => {
+    return () => {
+      if (recording) {
+        recognizerRef.current?.stop().catch(() => void 0);
+      }
+    };
+  }, [recording]);
 
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
@@ -434,9 +458,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
    * />
    * ```
    */
-  const sendMessage = useRefFunction(() => {
+  const sendMessage = useRefFunction(async () => {
     if (props.disabled) return;
     if (props.typing) return;
+    // 如果处于录音中：优先停止录音或输入
+    if (recording) await stopRecording();
     const mdValue = markdownEditorRef?.current?.store?.getMDContent();
 
     // 如果mdValue和value不一致，并且mdValue不为空，则调用onChange
@@ -574,15 +600,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         isHover={isHover}
         disabled={props.disabled}
         onClick={() => {
-          // 如果处于录音/输入/加载中：优先停止录音或输入
-          if (recording) {
-            stopRecording().then(() => {
-              if (props.onSend) {
-                sendMessage();
-              }
-            });
-            return;
-          }
           if (props.typing || isLoading) {
             setIsLoading(false);
             props.onStop?.();

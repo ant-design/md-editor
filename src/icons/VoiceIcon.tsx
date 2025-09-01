@@ -37,14 +37,14 @@ export const VoiceIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="none"
       version="1.1"
-      width="16"
-      height="16"
+      width="1em"
+      height="1em"
       viewBox="0 0 16 16"
       {...props}
     >
       <defs>
         <clipPath id="master_svg0_3472_36150/397_98475">
-          <rect x="0" y="0" width="16" height="16" rx="0" />
+          <rect x="0" y="0" width="1em" height="1em" rx="0" />
         </clipPath>
       </defs>
       <g clipPath="url(#master_svg0_3472_36150/397_98475)">
