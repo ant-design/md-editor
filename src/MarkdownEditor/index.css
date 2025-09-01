@@ -211,6 +211,7 @@
 div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
   display: none;
 }
+
 .tag-popup-input-warp {
   position: relative;
   margin: 0 4px;
