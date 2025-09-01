@@ -3472,474 +3472,476 @@
                   </span>
                 </span>
                 <div
-                  class="ant-md-editor-description ant-md-editor-drag-el"
+                  class="ant-md-editor-content-table-container"
                   data-be="table"
                   data-slate-node="element"
-                  data-testid="description-container"
+                  draggable="false"
                 >
-                  <table
-                    class="ant-md-editor-description-table"
-                    data-testid="description-table"
+                  <div
+                    aria-describedby="test-id"
+                    class="ant-md-editor-content-table"
+                    style="flex: 1 1 0%; min-width: 0;"
                   >
-                    <tbody>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
+                    <table
+                      class="ant-md-editor-content-table-editor-table"
+                      style="user-select: none;"
+                    >
+                      <colgroup>
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                        <col
+                          style="width: 120px; min-width: 120px; max-width: 120px;"
+                        />
+                      </colgroup>
+                      <tbody
+                        style="user-select: none;"
                       >
-                        <td
+                        <tr
                           data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                         >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  业务
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    业务
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  收入
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    增值服务
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
-                      >
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  增值服务
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    网络游戏
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  135,303
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    社交网络收入
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
-                      >
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  网络游戏
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    网络广告
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  138,259
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    其他
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
-                      >
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  社交网络收入
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    金融科技
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  142,368
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    云
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
-                      >
-                        <td
+                            </div>
+                          </td>
+                        </tr>
+                        <tr
                           data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                         >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  网络广告
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    收入
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  144,188
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    135,303
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
-                      >
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  其他
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    138,259
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  135,471
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    142,368
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
-                      >
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  金融科技
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    144,188
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  134,034
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    135,471
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        class="ant-md-editor-description-row"
-                        data-testid="description-row"
-                      >
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  云
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    134,034
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-slate-node="element"
-                          style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
+                            </div>
+                          </td>
+                          <td
                             data-slate-node="element"
+                            style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: right; width: auto; padding: 8px; vertical-align: middle;"
                           >
-                            <span
-                              data-slate-node="text"
+                            <div
+                              class="ant-md-editor-drag-el"
+                              data-be="paragraph"
+                              data-slate-node="element"
                             >
                               <span
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-string="true"
+                                  data-be="text"
+                                  data-slate-leaf="true"
+                                  draggable="false"
                                 >
-                                  140,093
+                                  <span
+                                    data-slate-string="true"
+                                  >
+                                    140,093
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
                 <span
                   data-be="card-after"

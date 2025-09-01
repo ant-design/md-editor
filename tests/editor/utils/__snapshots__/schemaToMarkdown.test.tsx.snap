@@ -206,446 +206,544 @@ exports[`should convert markdown to schema in
             "align": "right",
             "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "业务",
+                    "children": [
+                      {
+                        "text": "业务",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 0,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2021Q1",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 1,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2021Q2",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 2,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2021Q3",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 3,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2021Q4",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 4,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2022Q1",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 5,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2022Q2",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 6,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2022Q3",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 7,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2022Q4",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 8,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2023Q1",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 9,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2023Q2",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 10,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2023Q3",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 11,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "2023Q4",
+                      },
+                    ],
+                    "type": "paragraph",
+                  },
+                ],
+                "cols": 12,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
               },
             ],
-            "cols": 0,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
+            "type": "table-row",
           },
           {
             "align": "right",
             "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "收入",
+                    "children": [
+                      {
+                        "text": "收入",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 0,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 0,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "2021Q1",
+                    "children": [
+                      {
+                        "text": "135,303",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 1,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 1,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "135,303",
+                    "children": [
+                      {
+                        "text": "138,259",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 2,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 1,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "2021Q2",
+                    "children": [
+                      {
+                        "text": "142,368",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 3,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 2,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "138,259",
+                    "children": [
+                      {
+                        "text": "144,188",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 4,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 2,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "2021Q3",
+                    "children": [
+                      {
+                        "text": "135,471",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 5,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 3,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "142,368",
+                    "children": [
+                      {
+                        "text": "134,034",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 6,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 3,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "2021Q4",
+                    "children": [
+                      {
+                        "text": "140,093",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 7,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 4,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "144,188",
+                    "children": [
+                      {
+                        "text": "144,954",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 8,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 4,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "2022Q1",
+                    "children": [
+                      {
+                        "text": "149,986",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 9,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 5,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "135,471",
+                    "children": [
+                      {
+                        "text": "149,208",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 10,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 5,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "2022Q2",
+                    "children": [
+                      {
+                        "text": "154,625",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 11,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
-            ],
-            "cols": 6,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
               {
+                "align": "right",
                 "children": [
                   {
-                    "text": "134,034",
+                    "children": [
+                      {
+                        "text": "155,200",
+                      },
+                    ],
+                    "type": "paragraph",
                   },
                 ],
-                "type": "paragraph",
+                "cols": 12,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
               },
             ],
-            "cols": 6,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "2022Q3",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 7,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "140,093",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 7,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "2022Q4",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 8,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "144,954",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 8,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "2023Q1",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 9,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "149,986",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 9,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "2023Q2",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 10,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "149,208",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 10,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "2023Q3",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 11,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "154,625",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 11,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "2023Q4",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 12,
-            "rows": 0,
-            "title": true,
-            "type": "table-cell",
-          },
-          {
-            "align": "right",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "155,200",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "cols": 12,
-            "rows": 1,
-            "title": false,
-            "type": "table-cell",
+            "type": "table-row",
           },
         ],
-        "type": "description",
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+            {
+              "dataIndex": "2022Q1",
+              "key": "2022Q1",
+              "title": "2022Q1",
+            },
+            {
+              "dataIndex": "2022Q2",
+              "key": "2022Q2",
+              "title": "2022Q2",
+            },
+            {
+              "dataIndex": "2022Q3",
+              "key": "2022Q3",
+              "title": "2022Q3",
+            },
+            {
+              "dataIndex": "2022Q4",
+              "key": "2022Q4",
+              "title": "2022Q4",
+            },
+            {
+              "dataIndex": "2023Q1",
+              "key": "2023Q1",
+              "title": "2023Q1",
+            },
+            {
+              "dataIndex": "2023Q2",
+              "key": "2023Q2",
+              "title": "2023Q2",
+            },
+            {
+              "dataIndex": "2023Q3",
+              "key": "2023Q3",
+              "title": "2023Q3",
+            },
+            {
+              "dataIndex": "2023Q4",
+              "key": "2023Q4",
+              "title": "2023Q4",
+            },
+          ],
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "2022Q1": "135,471",
+              "2022Q2": "134,034",
+              "2022Q3": "140,093",
+              "2022Q4": "144,954",
+              "2023Q1": "149,986",
+              "2023Q2": "149,208",
+              "2023Q3": "154,625",
+              "2023Q4": "155,200",
+              "业务": "收入",
+            },
+          ],
+        },
+        "type": "table",
       },
       {
         "children": [
@@ -5474,8 +5572,8 @@ exports[`should convert schema to markdown in
 
 exports[`should convert schema to markdown in 
 | 业务      chunk 1`] = `
-"| 业务 | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
-| :--- | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ |
+"| 业务 |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |  2022Q1 |  2022Q2 |  2022Q3 |  2022Q4 |  2023Q1 |  2023Q2 |  2023Q3 |  2023Q4 |
+| ---: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: |
 | 收入 | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 | 134,034 | 140,093 | 144,954 | 149,986 | 149,208 | 154,625 | 155,200 |"
 `;
 
