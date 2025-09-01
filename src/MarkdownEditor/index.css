@@ -212,28 +212,6 @@ div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
   display: none;
 }
 
-.tag-popup-input:not(.tag-popup-input-composition).empty::before {
-  color: var(--markdown-input-field-tag-placeholder-color);
-  content: attr(title); /* element attribute*/
-  opacity: 0.5;
-  user-select: none;
-  position: absolute;
-  left: 4px;
-  top: 0;
-}
-
-.tag-popup-input:hover::before {
-  opacity: 0.6;
-}
-
-.tag-popup-input.empty::after {
-  content: attr(title); /* element attribute*/
-  opacity: 0;
-  height: 0.5px;
-  overflow: hidden;
-  user-select: none;
-}
-
 .handsontable thead tr th .relative .colHeader {
   white-space: pre;
 }

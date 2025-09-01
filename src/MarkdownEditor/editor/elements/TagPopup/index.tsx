@@ -210,18 +210,18 @@ export const TagPopup = (props: RenderProps) => {
   const defaultDom = (
     <div
       ref={domRef}
-      className={classNames('tag-popup-input', {
+      className={classNames(`${baseCls}-tag-popup-input`, hashId, {
         empty: !props.text?.trim(),
       })}
       onMouseEnter={() => {
         const target = domRef.current;
         if (!target) return;
-        target?.classList.add('tag-popup-input-focus');
+        target?.classList.add(`${baseCls}-tag-popup-input-focus`);
       }}
       onMouseLeave={() => {
         const target = domRef.current;
         if (!target) return;
-        target?.classList.remove('tag-popup-input-focus');
+        target?.classList.remove(`${baseCls}-tag-popup-input-focus`);
       }}
       title={placeholder}
     >

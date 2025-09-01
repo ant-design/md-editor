@@ -17,7 +17,7 @@ const blinkCaret = new Keyframes('blink-caret', {
   '50%': { borderColor: '#1677ff' },
 });
 
-const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+const genStyle: GenerateStyle<ChatTokenType> = () => {
   return {
     // 拖拽手柄样式
     '.ant-md-editor-drag-handle': {
