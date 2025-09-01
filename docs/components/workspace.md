@@ -27,9 +27,9 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 ### 文件管理
 
 <code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能"></code>
-<code src="../demos/workspace-file-custom-preview-flow.tsx"></code>
+<code src="../demos/workspace-file-custom-preview-flow.tsx">文件-自定义预览</code>
 
-<code src="../demos/workspace-file-actionref-demo.tsx"></code>
+<code src="../demos/workspace-file-actionref-demo.tsx">actionRef外部打开</code>
 
 ### 实时跟随
 
