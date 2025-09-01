@@ -28,8 +28,9 @@ export function fixStrongWithSpecialChars() {
             child.value &&
             typeof child.value === 'string'
           ) {
-            // 匹配包含特殊字符的加粗文本（美元符号、百分号、其他数字相关符号）
-            const strongPattern = /\*\*([^*\n]*[$%#@&+\-=\w\d.]+[^*\n]*?)\*\*/g;
+            // 匹配包含特殊字符的加粗文本（美元符号、百分号、引号、书名号、其他数字相关符号）
+            const strongPattern =
+              /\*\*([^*\n]*[$%#@&+\-=\w\d.，。、；：！？""''（）【】《》]+[^*\n]*?)\*\*/g;
 
             if (strongPattern.test(child.value)) {
               // 重置正则表达式
@@ -91,8 +92,9 @@ export function fixStrongWithSpecialChars() {
     // 处理所有文本节点（作为备用方案）
     visit(tree, 'text', (node: any, index: number | undefined, parent: any) => {
       if (node.value && typeof node.value === 'string') {
-        // 匹配包含特殊字符的加粗文本（美元符号、百分号、其他数字相关符号）
-        const strongPattern = /\*\*([^*\n]*[$%#@&+\-=\w\d.]+[^*\n]*?)\*\*/g;
+        // 匹配包含特殊字符的加粗文本（美元符号、百分号、引号、书名号、其他数字相关符号）
+        const strongPattern =
+          /\*\*([^*\n]*[$%#@&+\-=\w\d.，。、；：！？""''（）【】《》]+[^*\n]*?)\*\*/g;
 
         if (strongPattern.test(node.value)) {
           // 重置正则表达式
