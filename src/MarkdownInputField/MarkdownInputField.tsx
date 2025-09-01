@@ -428,9 +428,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   useEffect(() => {
     return () => {
-      if (recording) {
-        recognizerRef.current?.stop().catch(() => void 0);
-      }
+      recognizerRef.current?.stop().catch(() => void 0);
     };
   }, [recording]);
 
@@ -472,17 +470,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
     if (props.onSend && mdValue) {
       setIsLoading(true);
-      props
-        .onSend(mdValue)
-        .then(() => {
-          markdownEditorRef?.current?.store?.clearContent();
-          props.onChange?.('');
-          setValue('');
-          setFileMap?.(new Map());
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      try {
+        await props.onSend(mdValue);
+        markdownEditorRef?.current?.store?.clearContent();
+        props.onChange?.('');
+        setValue('');
+        setFileMap?.(new Map());
+      } finally {
+        setIsLoading(false);
+      }
     }
   });
 
