@@ -150,7 +150,7 @@ export const TagPopup = (props: RenderProps) => {
 
   const suggestionConnext = useContext(SuggestionConnext);
   const antdContext = useContext(ConfigProvider.ConfigContext);
-  const baseCls = antdContext?.getPrefixCls('md-editor-tag-popup');
+  const baseCls = antdContext?.getPrefixCls('md-editor-tag-popup-input');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   const currentNodePath = useRef<number[]>();
@@ -245,7 +245,6 @@ export const TagPopup = (props: RenderProps) => {
   return wrapSSR(
     <div
       className={classNames(
-        'tag-popup-input-warp',
         baseCls,
         hashId,
         props.className,
