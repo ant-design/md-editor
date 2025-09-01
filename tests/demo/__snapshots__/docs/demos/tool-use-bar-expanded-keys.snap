@@ -139,6 +139,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="baidu.com"
             >
               baidu.com
             </div>
@@ -254,6 +255,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="xxx.docx"
             >
               xxx.docx
             </div>
@@ -357,6 +359,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="xx.md"
             >
               xx.md
             </div>
@@ -460,6 +463,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target  tool-use-bar-tool-target-loading"
+              title="report.pdf"
             >
               report.pdf
             </div>
