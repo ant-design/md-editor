@@ -22,30 +22,30 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 ### 基础用法
 
-<code src="../demos/workspace-demo.tsx" description="展示工作空间的基本功能和标签页切换">基础用法</code>
+<code src="../demos/workspace-demo.tsx" description="展示工作空间的基本功能和标签页切换"></code>
 
 ### 文件管理
 
-<code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能">文件管理</code>
-<code src="../demos/workspace-file-custom-preview-flow.tsx">文件-自定义预览</code>
+<code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能"></code>
+<code src="../demos/workspace-file-custom-preview-flow.tsx"></code>
 
-<code src="../demos/workspace-file-actionref-demo.tsx">actionRef外部打开</code>
+<code src="../demos/workspace-file-actionref-demo.tsx"></code>
 
 ### 实时跟随
 
-<code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能">实时跟随</code>
+<code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能"></code>
 
 ### 任务管理
 
-<code src="../demos/workspace-task-demo.tsx" description="演示任务创建、编辑、状态管理等功能">任务管理</code>
+<code src="../demos/workspace-task-demo.tsx" description="演示任务创建、编辑、状态管理等功能"></code>
 
 ### 自定义内容
 
-<code src="../demos/workspace-custom-demo.tsx" description="展示如何添加自定义组件和内容">自定义内容</code>
+<code src="../demos/workspace-custom-demo.tsx" description="展示如何添加自定义组件和内容"></code>
 
 ### 高级用法
 
-<code src="../demos/workspace-advanced-demo.tsx" description="展示复杂场景下的工作空间配置和使用">高级用法</code>
+<code src="../demos/workspace-advanced-demo.tsx" description="展示复杂场景下的工作空间配置和使用"></code>
 
 ## API
 
