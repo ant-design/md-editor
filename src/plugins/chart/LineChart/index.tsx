@@ -104,13 +104,37 @@ const LineChart: React.FC<LineChartProps> = ({
     return uniqueCategories;
   }, [data]);
 
+  // 从数据中提取 filterLable，过滤掉 undefined 值
+  const validFilterLables = useMemo(() => {
+    return data
+      .map((item) => item.filterLable)
+      .filter((filterLable): filterLable is string => filterLable !== undefined);
+  }, [data]);
+
+  const filterLables = useMemo(() => {
+    return validFilterLables.length > 0
+      ? [...new Set(validFilterLables)]
+      : undefined;
+  }, [validFilterLables]);
+
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0]);
+  const [selectedFilterLable, setSelectedFilterLable] = useState(
+    filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
+  );
 
   // 筛选数据
   const filteredData = useMemo(() => {
-    return data.filter((item) => item.category === selectedFilter);
-  }, [data, selectedFilter]);
+    const categoryMatch = data.filter((item) => item.category === selectedFilter);
+
+    // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
+    if (!filterLables || !selectedFilterLable) {
+      return categoryMatch;
+    }
+
+    // 如果有 filterLable 筛选，需要同时匹配 category 和 filterLable
+    return categoryMatch.filter((item) => item.filterLable === selectedFilterLable);
+  }, [data, selectedFilter, filterLables, selectedFilterLable]);
 
   // 从数据中提取唯一的类型
   const types = useMemo(() => {
@@ -176,6 +200,14 @@ const LineChart: React.FC<LineChartProps> = ({
       value: category,
     }));
   }, [categories]);
+
+  // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
+  const filteredDataByFilterLable = useMemo(() => {
+    return filterLables?.map((item) => ({
+      key: item,
+      label: item,
+    }));
+  }, [filterLables]);
 
   const isLight = theme === 'light';
   const axisTextColor = isLight
@@ -306,6 +338,11 @@ const LineChart: React.FC<LineChartProps> = ({
         filterOptions={filterOptions}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        {...(filterLables && {
+          customOptions: filteredDataByFilterLable,
+          selectedCustionSelection: selectedFilterLable,
+          onSelectionChange: setSelectedFilterLable,
+        })}
         theme={theme}
       />
 
