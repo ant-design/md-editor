@@ -1,9 +1,10 @@
 import { runFunction } from '@ant-design/pro-components';
-import { MenuProps } from 'antd';
+import { ConfigProvider, MenuProps } from 'antd';
 import classNames from 'classnames';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { SuggestionConnext } from '../../../../MarkdownInputField/Suggestion';
 import { ReactEditor, useSlate } from '../../slate-react';
+import { useStyle } from './style';
 
 type TagPopupItem = Array<{
   label: string;
@@ -148,6 +149,9 @@ export const TagPopup = (props: RenderProps) => {
   const domRef = useRef<HTMLDivElement>(null);
 
   const suggestionConnext = useContext(SuggestionConnext);
+  const antdContext = useContext(ConfigProvider.ConfigContext);
+  const baseCls = antdContext?.getPrefixCls('md-editor-tag-popup');
+  const { wrapSSR, hashId } = useStyle(baseCls);
 
   const currentNodePath = useRef<number[]>();
 
@@ -238,10 +242,12 @@ export const TagPopup = (props: RenderProps) => {
       )
     : defaultDom;
 
-  return (
+  return wrapSSR(
     <div
       className={classNames(
         'tag-popup-input-warp',
+        baseCls,
+        hashId,
         props.className,
         props.prefixCls,
         props.tagTextClassName,
@@ -252,8 +258,6 @@ export const TagPopup = (props: RenderProps) => {
           text: props.text,
           placeholder,
         }),
-        display: 'inline-flex',
-        position: 'relative',
       }}
       onClick={(e) => {
         e.preventDefault();
@@ -286,6 +290,6 @@ export const TagPopup = (props: RenderProps) => {
       }}
     >
       {renderDom}
-    </div>
+    </div>,
   );
 };
