@@ -1419,13 +1419,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                           style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 400px; height: 400px;"
                         >
                           <div
-                            style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
+                            style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
                           >
                             <span
                               aria-label="loading"
                               class="anticon anticon-loading anticon-spin"
                               role="img"
-                              style="font-size: 24px; color: rgb(24, 144, 255);"
+                              style="font-size: 16px; color: rgb(24, 144, 255);"
                             >
                               <svg
                                 aria-hidden="true"
@@ -2138,13 +2138,13 @@ ls -la | grep "test"
           style="display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; width: 400px; height: 400px;"
         >
           <div
-            style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
+            style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.05); border-radius: 12px;"
           >
             <span
               aria-label="loading"
               class="anticon anticon-loading anticon-spin"
               role="img"
-              style="font-size: 24px; color: rgb(24, 144, 255);"
+              style="font-size: 16px; color: rgb(24, 144, 255);"
             >
               <svg
                 aria-hidden="true"

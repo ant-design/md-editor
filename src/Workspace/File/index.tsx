@@ -1,6 +1,11 @@
 export { FileComponent as File } from './FileComponent';
 
 // 导出类型和工具函数
-export type { FileNode, FileProps, FileType, GroupNode } from '../types';
-export type { FileActionRef } from '../types';
+export type {
+  FileActionRef,
+  FileNode,
+  FileProps,
+  FileType,
+  GroupNode,
+} from '../types';
 export { getFileTypeIcon } from './utils';

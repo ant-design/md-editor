@@ -22,31 +22,31 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 ### 基础用法
 
-<code src="../demos/workspace-demo.tsx" title="基础工作空间" description="展示工作空间的基本功能和标签页切换">基础用法</code>
+<code src="../demos/workspace-demo.tsx" description="展示工作空间的基本功能和标签页切换">基础用法</code>
 
 ### 文件管理
 
-<code src="../demos/workspace-file-demo.tsx" title="文件管理" description="演示文件上传、预览、下载等文件管理功能">文件管理</code>
+<code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能">文件管理</code>
 
 ### 实时跟随
 
-<code src="../demos/workspace-realtime-demo.tsx" title="实时跟随" description="展示实时内容更新和跟随功能">实时跟随</code>
+<code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能">实时跟随</code>
 
 ### 任务管理
 
-<code src="../demos/workspace-task-demo.tsx" title="任务管理" description="演示任务创建、编辑、状态管理等功能">任务管理</code>
+<code src="../demos/workspace-task-demo.tsx" description="演示任务创建、编辑、状态管理等功能">任务管理</code>
 
 ### 自定义内容
 
-<code src="../demos/workspace-custom-demo.tsx" title="自定义内容" description="展示如何添加自定义组件和内容">自定义内容</code>
+<code src="../demos/workspace-custom-demo.tsx" description="展示如何添加自定义组件和内容">自定义内容</code>
 
 ### 浏览器
 
-<code src="../demos/workspace-browser-demo.tsx" title="浏览器集成" description="演示浏览器内容嵌入和网页预览功能">浏览器</code>
+<code src="../demos/workspace-browser-demo.tsx" description="演示浏览器内容嵌入和网页预览功能">浏览器</code>
 
 ### 高级用法
 
-<code src="../demos/workspace-advanced-demo.tsx" title="高级用法" description="展示复杂场景下的工作空间配置和使用">高级用法</code>
+<code src="../demos/workspace-advanced-demo.tsx" description="展示复杂场景下的工作空间配置和使用">高级用法</code>
 
 <code src="../demos/workspace-file-actionref-demo.tsx">编程式打开预览</code>
 
@@ -88,7 +88,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | className           | 额外类名                                                             | `string`                                           | -           |
 | style               | 内联样式                                                             | `React.CSSProperties`                              | -           |
 | status              | 渲染状态（仅覆盖层处理，html 由 HtmlPreview 内部处理）               | `'loading' \| 'done' \| 'error'`                   | -           |
-| loadingRender       | 自定义加载渲染，非必传                                                       | `React.ReactNode \| () => React.ReactNode`         | -           |
+| loadingRender       | 自定义加载渲染，非必传                                               | `React.ReactNode \| () => React.ReactNode`         | -           |
 | viewMode            | html 受控视图模式                                                    | `'preview' \| 'code'`                              | -           |
 | defaultViewMode     | html 非受控默认视图模式                                              | `'preview' \| 'code'`                              | `'preview'` |
 | onViewModeChange    | 视图模式变更回调（html）                                             | `(mode: 'preview' \| 'code') => void`              | -           |
@@ -132,17 +132,17 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | onToggleGroup       | 组展开/收起回调                                               | `(groupType: FileType, collapsed: boolean) => void`                            | -      |
 | onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => FileNode \| ReactNode \| Promise<FileNode \| ReactNode>`  | -      |
 | markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
-| actionRef           | 对外操作引用（编程式打开/返回）                                | `React.MutableRefObject<FileActionRef \| null>`                                 | -      |
+| actionRef           | 对外操作引用（编程式打开/返回）                               | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
 | loading             | 是否显示加载状态                                              | `boolean`                                                                      | -      |
-| loadingRender       | 自定义加载渲染函数，非必传                                           | `() => React.ReactNode`                                                        | -      |
+| loadingRender       | 自定义加载渲染函数，非必传                                    | `() => React.ReactNode`                                                        | -      |
 | tab                 | 标签页配置                                                    | `TabConfiguration`                                                             | -      |
 
 #### FileActionRef
 
-| 方法         | 说明                   | 类型                                   |
-| ------------ | ---------------------- | -------------------------------------- |
-| openPreview  | 编程式打开文件预览页   | `(file: FileNode) => void`             |
-| backToList   | 从预览页返回到文件列表 | `() => void`                           |
+| 方法        | 说明                   | 类型                       |
+| ----------- | ---------------------- | -------------------------- |
+| openPreview | 编程式打开文件预览页   | `(file: FileNode) => void` |
+| backToList  | 从预览页返回到文件列表 | `() => void`               |
 
 #### FileNode
 

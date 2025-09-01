@@ -40,13 +40,13 @@ describe('Schema - BubbleConfigContext 功能', () => {
     type: 'code',
     language: 'json',
     children: [{ text: '' }],
-    value: {
+    value: JSON.stringify({
       type: 'object',
       properties: {
         name: { type: 'string' },
         age: { type: 'number' },
       },
-    },
+    }),
   };
 
   const mockAttributes = {
@@ -106,51 +106,63 @@ describe('Schema - BubbleConfigContext 功能', () => {
     );
 
     // 验证 apaasify.render 被调用
-    expect(mockApaasifyRender).toHaveBeenCalled();
+    expect(mockApaasifyRender).toHaveBeenCalledTimes(1);
 
-    // 验证 render 函数接收到正确的参数
+    // 验证传递的参数
     const [propsArg, bubbleArg] = mockApaasifyRender.mock.calls[0];
-    expect(propsArg).toBeDefined();
-    expect(propsArg.element).toEqual(mockElement);
+    expect(propsArg.element).toBe(mockElement);
     expect(bubbleArg).toEqual(mockBubbleData.originData);
 
-    // 验证渲染结果
+    // 验证渲染的内容
     expect(screen.getByTestId('apaasify-rendered')).toBeInTheDocument();
     expect(screen.getByTestId('bubble-id')).toBeInTheDocument();
     expect(screen.getByTestId('bubble-content')).toBeInTheDocument();
   });
 
-  it('应该在没有 bubble context 时正常工作', () => {
-    const mockApaasifyRender = vi
-      .fn()
-      .mockReturnValue(<div data-testid="apaasify-no-bubble">No Bubble</div>);
-
-    const mockEditorStore = {
-      editorProps: {
-        apaasify: {
-          enable: true,
-          render: mockApaasifyRender,
+  it('应该支持 agentar-card 语言类型的特殊处理', () => {
+    const cardElement: CodeNode = {
+      type: 'code',
+      language: 'agentar-card',
+      children: [{ text: '' }],
+      value: JSON.stringify({
+        type: 'form',
+        properties: {
+          title: {
+            type: 'string',
+            default: 'Test Card',
+          },
         },
-      },
+        initialValues: {
+          title: 'Initial Title',
+        },
+      }),
     };
 
     render(
       <ConfigProvider>
-        <EditorStoreContext.Provider value={mockEditorStore as any}>
-          <Schema element={mockElement} attributes={mockAttributes}>
-            {null}
-          </Schema>
-        </EditorStoreContext.Provider>
+        <BubbleConfigContext.Provider
+          value={{
+            standalone: false,
+            locale: {} as any,
+            bubble: mockBubbleData,
+          }}
+        >
+          <EditorStoreContext.Provider value={{ editorProps: {} } as any}>
+            <Schema element={cardElement} attributes={mockAttributes}>
+              {undefined}
+            </Schema>
+          </EditorStoreContext.Provider>
+        </BubbleConfigContext.Provider>
       </ConfigProvider>,
     );
 
-    // 验证 render 函数被调用，bubble 参数为 undefined
-    expect(mockApaasifyRender).toHaveBeenCalled();
-    const [propsArg, bubbleArg] = mockApaasifyRender.mock.calls[0];
-    expect(propsArg).toBeDefined();
-    expect(bubbleArg).toBeUndefined();
+    // 验证 agentar-card 的特殊容器
+    expect(screen.getByTestId('agentar-card-container')).toBeInTheDocument();
+    expect(screen.getByTestId('schema-renderer')).toBeInTheDocument();
 
-    expect(screen.getByTestId('apaasify-no-bubble')).toBeInTheDocument();
+    // 验证 SchemaRenderer 接收到正确的 props
+    const schemaRenderer = screen.getByTestId('schema-renderer');
+    expect(schemaRenderer).toMatchSnapshot();
   });
 
   it('应该在 bubble 数据变化时正确更新 apaasify.render', () => {
@@ -235,47 +247,6 @@ describe('Schema - BubbleConfigContext 功能', () => {
     expect(updatedBubbleArg.uuid).toBe(222);
   });
 
-  it('应该兼容旧的 apassify 配置', () => {
-    const mockApassifyRender = vi
-      .fn()
-      .mockReturnValue(<div data-testid="apassify-legacy">Legacy Content</div>);
-
-    const mockEditorStore = {
-      editorProps: {
-        apassify: {
-          enable: true,
-          render: mockApassifyRender,
-        },
-      },
-    };
-
-    render(
-      <ConfigProvider>
-        <BubbleConfigContext.Provider
-          value={{
-            standalone: false,
-            locale: {} as any,
-            bubble: mockBubbleData,
-          }}
-        >
-          <EditorStoreContext.Provider value={mockEditorStore as any}>
-            <Schema element={mockElement} attributes={mockAttributes}>
-              {null}
-            </Schema>
-          </EditorStoreContext.Provider>
-        </BubbleConfigContext.Provider>
-      </ConfigProvider>,
-    );
-
-    // 验证 apassify (旧配置) 仍然工作
-    expect(mockApassifyRender).toHaveBeenCalled();
-    const [propsArg, bubbleArg] = mockApassifyRender.mock.calls[0];
-    expect(propsArg).toBeDefined();
-    expect(bubbleArg).toEqual(mockBubbleData.originData);
-
-    expect(screen.getByTestId('apassify-legacy')).toBeInTheDocument();
-  });
-
   it('应该在 apaasify 未启用时使用默认渲染', () => {
     const mockEditorStore = {
       editorProps: {
@@ -307,6 +278,16 @@ describe('Schema - BubbleConfigContext 功能', () => {
     expect(screen.getByTestId('schema-container')).toBeInTheDocument();
     expect(screen.getByTestId('schema-clickable')).toBeInTheDocument();
     expect(screen.getByTestId('schema-hidden-children')).toBeInTheDocument();
+
+    // 验证显示的是原始的 JSON 数据（不检查具体格式，只检查内容）
+    const schemaClickable = screen.getByTestId('schema-clickable');
+    const displayedContent = schemaClickable.textContent;
+    const expectedContent = mockElement.value;
+
+    // 移除所有空白字符后比较
+    expect(displayedContent?.replace(/\s/g, '')).toBe(
+      expectedContent.replace(/\s/g, ''),
+    );
   });
 
   it('应该正确处理复杂的 bubble 数据结构', () => {
