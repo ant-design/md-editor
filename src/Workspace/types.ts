@@ -371,6 +371,11 @@ export interface FileProps extends BaseChildProps {
    * @description 当loading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
    */
   loadingRender?: () => React.ReactNode;
+  /**
+   * 自定义空状态渲染
+   * @description 当文件列表为空且非loading状态时，优先使用该渲染；未提供时使用默认的 Empty
+   */
+  emptyRender?: React.ReactNode | (() => React.ReactNode);
 }
 
 export interface CustomProps extends BaseChildProps {

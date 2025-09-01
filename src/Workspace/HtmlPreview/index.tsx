@@ -1,4 +1,4 @@
-import { ConfigProvider, Segmented, Spin } from 'antd';
+import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 import React, { useContext, useMemo, useState } from 'react';
@@ -24,6 +24,7 @@ export interface HtmlPreviewProps {
   // 是否在组件内部渲染 Segmented；如为 false，父级可自定义外部切换
   showSegmented?: boolean;
   segmentedItems?: Array<{ label: React.ReactNode; value: string }>;
+  emptyRender?: React.ReactNode | (() => React.ReactNode);
 }
 
 /**
@@ -89,6 +90,7 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
     style,
     showSegmented = true,
     segmentedItems,
+    emptyRender,
   } = props;
 
   const status = inputStatus === 'generating' ? 'loading' : inputStatus;
@@ -161,6 +163,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
 
   const { wrapSSR, hashId } = useHtmlPreviewStyle(prefixCls);
 
+  const isEmpty = (html ?? '').trim() === '';
+  const shouldShowEmpty = isEmpty && status !== 'loading' && status !== 'error';
+  const emptyNode =
+    typeof emptyRender === 'function' ? emptyRender() : emptyRender;
+
   return wrapSSR(
     <div className={classNames(prefixCls, className, hashId)} style={style}>
       {showSegmented && (
@@ -190,7 +197,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
         style={{ minHeight: 240 }}
       >
         {overlayNode}
-        {mode === 'code' ? (
+        {shouldShowEmpty ? (
+          <div className={classNames(`${prefixCls}-empty`, hashId)}>
+            {emptyNode || <Empty />}
+          </div>
+        ) : mode === 'code' ? (
           <MarkdownEditor
             {...getMergedMdConfig()}
             readonly

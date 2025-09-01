@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Alert, ConfigProvider, Image, Spin, Typography } from 'antd';
 
+import { Empty } from 'antd';
 import React, { type FC, useContext, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
@@ -387,6 +388,7 @@ const FileGroupComponent: FC<{
  * @param {(type: FileType, collapsed: boolean) => void} [props.onToggleGroup] - 分组折叠/展开回调
  * @param {(file: FileNode) => Promise<React.ReactNode | FileNode>} [props.onPreview] - 文件预览回调
  * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ * @param {React.ReactNode | (() => React.ReactNode)} [props.emptyRender] - 自定义空状态渲染
  *
  * @example
  * ```tsx
@@ -400,6 +402,7 @@ const FileGroupComponent: FC<{
  *   markdownEditorProps={{
  *     theme: 'dark'
  *   }}
+ *   emptyRender={<MyEmpty />}
  * />
  * ```
  *
@@ -431,6 +434,7 @@ export const FileComponent: FC<{
   actionRef?: FileProps['actionRef'];
   loading?: FileProps['loading'];
   loadingRender?: FileProps['loadingRender'];
+  emptyRender?: FileProps['emptyRender'];
 }> = ({
   nodes,
   onGroupDownload,
@@ -443,6 +447,7 @@ export const FileComponent: FC<{
   actionRef,
   loading,
   loadingRender,
+  emptyRender,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
@@ -635,8 +640,14 @@ export const FileComponent: FC<{
     };
   }, [actionRef, handlePreview, handleBackToList]);
 
-  if (!nodes || nodes.length === 0) {
-    return null;
+  if ((!nodes || nodes.length === 0) && !loading) {
+    return wrapSSR(
+      <div className={`${prefixCls}-container ${hashId}`}>
+        {typeof emptyRender === 'function'
+          ? emptyRender()
+          : (emptyRender ?? <Empty />)}
+      </div>,
+    );
   }
 
   // 图片预览组件
