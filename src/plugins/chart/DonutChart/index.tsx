@@ -18,6 +18,7 @@ export interface DonutChartDatum {
   category?: string; // 分类
   label: string;
   value: number;
+  filterLable?: string;
 }
 
 export interface DonutChartConfig {
@@ -48,6 +49,8 @@ export interface DonutChartProps {
   onFilterChange?: (value: string) => void;
   /** 是否启用自动分类功能 */
   enableAutoCategory?: boolean;
+  /** 是否启用单值模式：每条数据渲染一个独立环形图并自动着色 */
+  singleMode?: boolean;
 }
 
 // 中心文字插件
@@ -96,6 +99,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   selectedFilter,
   onFilterChange,
   enableAutoCategory = true,
+  singleMode = false,
 }) => {
   // 默认配置：当 configs 不传时，使用默认配置，showLegend 默认为 true
   const defaultConfigs: DonutChartConfig[] = [{ showLegend: true }];
@@ -104,8 +108,45 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const chartRef = useRef<ChartJS<'doughnut'>>(null);
 
+  // 默认色板
+  const defaultColors = [
+    '#917EF7',
+    '#2AD8FC',
+    '#388BFF',
+    '#718AB6',
+    '#FACC15',
+    '#33E59B', // 绿色
+    '#D666E4', // 紫红色
+    '#6151FF', // 靛蓝色
+    '#BF3C93', // 玫红色
+    '#005EE0', // 深蓝色
+  ];
+
   // 状态管理：跟踪哪些数据项被隐藏
-  const [hiddenDataIndices, setHiddenDataIndices] = useState<Set<number>>(new Set());
+  const [hiddenDataIndices, setHiddenDataIndices] = useState<Set<number>>(
+    new Set(),
+  );
+
+  // 提取 filterLables
+  const validFilterLables = useMemo(() => {
+    return data
+      .map((item) => item.filterLable)
+      .filter((filterLable): filterLable is string => filterLable !== undefined);
+  }, [data]);
+
+  const filterLables = useMemo(() => {
+    return validFilterLables.length > 0
+      ? [...new Set(validFilterLables)]
+      : undefined;
+  }, [validFilterLables]);
+
+  const [selectedFilterLable, setSelectedFilterLable] = useState(
+    filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
+  );
+
+  const filteredDataByFilterLable = useMemo(() => {
+    return filterLables?.map((item) => ({ key: item, label: item }));
+  }, [filterLables]);
 
   // 自动分类功能
   const autoCategoryData = useMemo(() => {
@@ -139,16 +180,24 @@ const DonutChart: React.FC<DonutChartProps> = ({
     }
   }, [autoCategoryData, internalSelectedCategory]);
 
-  // 根据分类过滤数据
+  // 选中的分类（优先外部 selectedFilter，其次内部）
+  const selectedCategory = selectedFilter || internalSelectedCategory;
+
+  // 根据分类与 filterLable 过滤数据（对齐 LineChart）
   const filteredData = useMemo(() => {
-    if (!autoCategoryData || !internalSelectedCategory) {
-      return data;
+    // 先按分类过滤（如果有选中分类）
+    const byCategory = selectedCategory
+      ? data.filter((item) => item.category === selectedCategory)
+      : data;
+
+    // 若没有 filterLables 或未选择，则仅返回分类过滤结果
+    if (!filterLables || !selectedFilterLable) {
+      return byCategory;
     }
 
-    return autoCategoryData.allData.filter(
-      (item) => item.category === internalSelectedCategory,
-    );
-  }, [data, autoCategoryData, internalSelectedCategory]);
+    // 同时匹配 filterLable
+    return byCategory.filter((item) => item.filterLable === selectedFilterLable);
+  }, [data, selectedCategory, filterLables, selectedFilterLable]);
 
   // 处理内部分类变化
   const handleInternalCategoryChange = (category: string) => {
@@ -157,7 +206,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
 
   // 处理图例项点击
   const handleLegendItemClick = (index: number) => {
-    setHiddenDataIndices(prev => {
+    setHiddenDataIndices((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(index)) {
         newSet.delete(index);
@@ -203,6 +252,20 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const finalSelectedFilter = selectedFilter || internalSelectedCategory;
   const finalOnFilterChange = onFilterChange || handleInternalCategoryChange;
 
+  // 计算 ChartFilter 主题（若 configs 提供则继承之）
+  const chartFilterTheme: 'light' | 'dark' =
+    (finalConfigs[0]?.theme as 'light' | 'dark') || 'light';
+
+  // 渲染用的配置：单值模式且未传 configs 时，根据过滤后的数据长度自动生成
+  const renderConfigs: DonutChartConfig[] =
+    singleMode && !configs
+      ? Array.from({ length: filteredData.length }, (_, i) => ({
+          showLegend: false,
+          showTooltip: false,
+          backgroundColor: [defaultColors[i % defaultColors.length], '#F7F8F9'],
+        }))
+      : finalConfigs;
+
   return wrapSSR(
     <>
       {showToolbar && (
@@ -218,6 +281,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
               })}
               selectedFilter={finalSelectedFilter || ''}
               onFilterChange={finalOnFilterChange}
+              {...(filterLables && {
+                customOptions: filteredDataByFilterLable,
+                selectedCustionSelection: selectedFilterLable,
+                onSelectionChange: setSelectedFilterLable,
+              })}
+              theme={chartFilterTheme}
             />
           )}
         </div>
@@ -229,13 +298,13 @@ const DonutChart: React.FC<DonutChartProps> = ({
           ['--donut-item-min-width' as any]: `${width}px`,
         }}
       >
-        {finalConfigs.map((cfg, idx) => {
+        {renderConfigs.map((cfg, idx) => {
           // 获取当前配置对应的数据项
           const currentDataItem = filteredData[idx];
-          
+
           // 判断是否为单值模式（有多个配置时，每个配置对应一个独立的单值饼图）
-          const isSingleValueMode = finalConfigs.length > 1 && currentDataItem;
-          
+          const isSingleValueMode = Boolean(singleMode && currentDataItem);
+
           // 处理单值模式的数据
           let chartData = filteredData;
           if (isSingleValueMode && currentDataItem) {
@@ -248,36 +317,31 @@ const DonutChart: React.FC<DonutChartProps> = ({
                 label: '剩余',
                 value: remainingValue,
                 category: currentDataItem.category,
-              }
+              },
             ];
           }
-          
+
           // 过滤掉被隐藏的数据项
-          const visibleData = chartData.filter((_, index) => !hiddenDataIndices.has(index));
-          
+          const visibleData = chartData.filter(
+            (_, index) => !hiddenDataIndices.has(index),
+          );
+
           const labels = visibleData.map((d) => d.label);
           const values = visibleData.map((d) => d.value);
           const total = values.reduce((sum, v) => sum + v, 0);
-          const backgroundColors = cfg.backgroundColor || [
-            '#917EF7',
-            '#2AD8FC',
-            '#388BFF',
-            '#718AB6',
-            '#FACC15',
-            '#33E59B', // 绿色
-            '#D666E4', // 紫红色
-            '#6151FF', // 靛蓝色
-            '#BF3C93', // 玫红色
-            '#005EE0', // 深蓝色
-          ];
+          const backgroundColors = cfg.backgroundColor || defaultColors;
+
+          const mainColor =
+            cfg.backgroundColor?.[0] ??
+            defaultColors[idx % defaultColors.length];
 
           const data = {
             labels,
             datasets: [
               {
                 data: values,
-                backgroundColor: isSingleValueMode 
-                  ? [backgroundColors[0], '#F7F8F9'] // 单值模式：剩余部分使用浅灰色
+                backgroundColor: isSingleValueMode
+                  ? [mainColor, '#F7F8F9'] // 单值模式：剩余部分使用浅灰色
                   : backgroundColors.slice(0, values.length),
                 borderColor: cfg.borderColor || '#fff',
                 borderWidth: 1,
@@ -332,10 +396,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     ref={chartRef}
                     data={data}
                     options={options}
-                    plugins={[createCenterTextPlugin(
-                      ((currentDataItem.value / total) * 100),
-                      currentDataItem.label
-                    )]}
+                    plugins={[
+                      createCenterTextPlugin(
+                        (currentDataItem.value / total) * 100,
+                        currentDataItem.label,
+                      ),
+                    ]}
                   />
                 </div>
               ) : (
