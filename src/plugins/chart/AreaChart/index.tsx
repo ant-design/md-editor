@@ -1,18 +1,18 @@
-import React, { useRef, useState } from 'react';
 import {
-  Chart as ChartJS,
   CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
-  ChartOptions,
   ChartData,
+  Chart as ChartJS,
+  ChartOptions,
+  Filler,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Tooltip,
 } from 'chart.js';
+import React, { useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { ChartToolBar, ChartFilter, downloadChart } from '../components';
+import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import './style.less';
 
 ChartJS.register(
@@ -25,41 +25,35 @@ ChartJS.register(
   Legend,
 );
 
-export interface AreaChartDataset {
-  /** 数据集标签，用于图例显示 */
-  label: string;
-  /** 数据值数组，与labels一一对应 */
-  data: number[];
-  /** 线条颜色，默认为主题色 */
-  borderColor?: string;
-  /** 填充区域颜色，默认使用borderColor的透明版本 */
-  backgroundColor?: string;
-  /** 数据点背景色，默认使用borderColor */
-  pointBackgroundColor?: string;
-  /** 数据点边框色，默认为白色 */
-  pointBorderColor?: string;
-  /** 线条宽度，默认为3 */
-  borderWidth?: number;
-  /** 曲线平滑度，0-1之间，0为直线，1为平滑曲线 */
-  tension?: number;
+export interface AreaChartDataItem {
+  /** 数据类别 */
+  category: string;
+  /** 数据类型 */
+  type: string;
+  /** X轴值 */
+  x: number;
+  /** Y轴值 */
+  y: number;
+  /** X轴标题 */
+  xtitle?: string;
+  /** Y轴标题 */
+  ytitle?: string;
+  /** 筛选标签 */
+  filterLable?: string;
 }
 
-export interface AreaChartConfig {
-  /** 配置类型标识符 */
-  type: string;
-  /** 配置类型名称，用于筛选器显示 */
-  typeName: string;
-  /** X轴标签数组，定义每个数据点的标签 */
-  labels: string[];
-  /** 数据集数组，包含要显示的数据系列 */
-  datasets: AreaChartDataset[];
-  /** Y轴最大值，设置后Y轴不会超过此值 */
-  yMax?: number;
-  /** Y轴最小值，设置后Y轴不会低于此值 */
-  yMin?: number;
-  /** Y轴刻度步长，控制刻度间隔 */
-  yStepSize?: number;
-  /** 图表主题，影响颜色和背景 */
+interface AreaChartProps {
+  /** 图表标题 */
+  title: string;
+  /** 扁平化数据数组 */
+  data: AreaChartDataItem[];
+  /** 图表宽度，默认600px */
+  width?: number;
+  /** 图表高度，默认400px */
+  height?: number;
+  /** 自定义CSS类名 */
+  className?: string;
+  /** 图表主题 */
   theme?: 'dark' | 'light';
   /** 是否显示图例，默认true */
   showLegend?: boolean;
@@ -69,27 +63,10 @@ export interface AreaChartConfig {
   legendAlign?: 'start' | 'center' | 'end';
   /** 是否显示网格线，默认true */
   showGrid?: boolean;
-  /** X轴标题文本 */
-  xTitle?: string;
-  /** Y轴标题文本 */
-  yTitle?: string;
   /** X轴位置 */
   xPosition?: 'top' | 'bottom';
   /** Y轴位置 */
   yPosition?: 'left' | 'right';
-}
-
-interface AreaChartProps {
-  /** 面积图配置对象数组 */
-  configs: AreaChartConfig[];
-  /** 图表标题 */
-  title: string;
-  /** 图表宽度，默认600px */
-  width?: number;
-  /** 图表高度，默认400px */
-  height?: number;
-  /** 自定义CSS类名 */
-  className?: string;
 }
 
 const defaultColors = [
@@ -106,47 +83,107 @@ const defaultColors = [
 ];
 
 const AreaChart: React.FC<AreaChartProps> = ({
-  configs,
   title,
+  data,
   width = 600,
   height = 400,
   className,
+  theme = 'light',
+  showLegend = true,
+  legendPosition = 'bottom',
+  legendAlign = 'start',
+  showGrid = true,
+  xPosition = 'bottom',
+  yPosition = 'left',
 }) => {
   const chartRef = useRef<ChartJS<'line'>>(null);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState(configs[0]?.type || 'default');
+  const [selectedFilter, setSelectedFilter] = useState<string>('all');
 
-  // 根据筛选器选择对应的配置
-  const currentConfig = configs.find(config => config.type === selectedFilter) || configs[0];
+  // 从数据中提取唯一的类别作为筛选选项
+  const categories = useMemo(() => {
+    const uniqueCategories = [...new Set(data.map((item) => item.category))];
+    return uniqueCategories;
+  }, [data]);
 
-  // 筛选器的枚举
-  const filterEnum = configs.map(config => ({
-    label: config.typeName || config.type || '默认',
-    value: config.type || 'default',
-  }));
+  // 筛选数据
+  const filteredData = useMemo(() => {
+    if (selectedFilter === 'all') {
+      return data;
+    }
+    return data.filter((item) => item.category === selectedFilter);
+  }, [data, selectedFilter]);
 
-  const processedData: ChartData<'line'> = {
-    labels: currentConfig.labels,
-    datasets: currentConfig.datasets.map((dataset, index) => {
-      const base = dataset.borderColor || defaultColors[index % defaultColors.length];
-      const datasetConfig = {
-        label: dataset.label,
-        data: dataset.data,
-        borderColor: base,
-        backgroundColor: dataset.backgroundColor || `${base}20`,
-        pointBackgroundColor: dataset.pointBackgroundColor || base,
-        pointBorderColor: dataset.pointBorderColor || '#fff',
+  // 从数据中提取唯一的类型
+  const types = useMemo(() => {
+    return [...new Set(filteredData.map((item) => item.type))];
+  }, [filteredData]);
+
+  // 从数据中提取唯一的x值并排序
+  const xValues = useMemo(() => {
+    const uniqueX = [...new Set(filteredData.map((item) => item.x))];
+    return uniqueX.sort((a, b) => a - b);
+  }, [filteredData]);
+
+  // 从数据中获取xtitle和ytitle
+  const xTitle = useMemo(() => {
+    const titles = [
+      ...new Set(filteredData.map((item) => item.xtitle).filter(Boolean)),
+    ];
+    return titles[0] || '';
+  }, [filteredData]);
+
+  const yTitle = useMemo(() => {
+    const titles = [
+      ...new Set(filteredData.map((item) => item.ytitle).filter(Boolean)),
+    ];
+    return titles[0] || '';
+  }, [filteredData]);
+
+  // 构建Chart.js数据结构
+  const processedData: ChartData<'line'> = useMemo(() => {
+    const labels = xValues.map((x) => x.toString());
+
+    const datasets = types.map((type, index) => {
+      const baseColor = defaultColors[index % defaultColors.length];
+
+      // 为每个类型收集数据点
+      const typeData = xValues.map((x) => {
+        const dataPoint = filteredData.find(
+          (item) => item.type === type && item.x === x,
+        );
+        return dataPoint ? dataPoint.y : null;
+      });
+
+      return {
+        label: type,
+        data: typeData,
+        borderColor: baseColor,
+        backgroundColor: `${baseColor}20`,
+        pointBackgroundColor: baseColor,
+        pointBorderColor: '#fff',
         borderWidth: 3,
-        tension: dataset.tension ?? 0,
+        tension: 0,
         fill: true,
       };
-      return datasetConfig;
-    }),
-  };
+    });
 
-  const isLight = currentConfig.theme === 'light';
-  const axisTextColor = isLight ? 'rgba(0, 25, 61, 0.3255)' : 'rgba(255, 255, 255, 0.8)';
+    return { labels, datasets };
+  }, [filteredData, types, xValues]);
+
+  // 筛选器选项
+  const filterOptions = useMemo(() => {
+    return categories.map((category) => ({
+      label: category,
+      value: category,
+    }));
+  }, [categories]);
+
+  const isLight = theme === 'light';
+  const axisTextColor = isLight
+    ? 'rgba(0, 25, 61, 0.3255)'
+    : 'rgba(255, 255, 255, 0.8)';
   const gridColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)';
 
   const options: ChartOptions<'line'> = {
@@ -154,9 +191,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: currentConfig.showLegend !== false,
-        position: currentConfig.legendPosition || 'bottom',
-        align: currentConfig.legendAlign || 'start',
+        display: showLegend,
+        position: legendPosition,
+        align: legendAlign,
         labels: {
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
@@ -166,7 +203,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
         },
       },
       tooltip: {
-        backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.85)',
+        backgroundColor: isLight
+          ? 'rgba(255,255,255,0.95)'
+          : 'rgba(0,0,0,0.85)',
         titleColor: isLight ? '#333' : '#fff',
         bodyColor: isLight ? '#333' : '#fff',
         borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.2)',
@@ -184,16 +223,16 @@ const AreaChart: React.FC<AreaChartProps> = ({
     },
     scales: {
       x: {
-        position: currentConfig.xPosition || 'bottom',
+        position: xPosition,
         title: {
-          display: !!currentConfig.xTitle,
-          text: currentConfig.xTitle,
+          display: !!xTitle,
+          text: xTitle,
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
-          display: currentConfig.showGrid !== false,
+          display: showGrid,
           color: gridColor,
           lineWidth: 1,
           drawTicks: false,
@@ -209,26 +248,23 @@ const AreaChart: React.FC<AreaChartProps> = ({
         },
       },
       y: {
-        position: (currentConfig.yPosition || 'left'),
-        beginAtZero: currentConfig.yMin === undefined ? true : currentConfig.yMin === 0,
-        min: currentConfig.yMin,
-        max: currentConfig.yMax,
+        position: yPosition,
+        beginAtZero: true,
         title: {
-          display: !!currentConfig.yTitle,
-          text: currentConfig.yTitle,
+          display: !!yTitle,
+          text: yTitle,
           color: axisTextColor,
           font: { size: 12, weight: 'normal' },
           align: 'end',
         },
         grid: {
-          display: currentConfig.showGrid !== false,
+          display: showGrid,
           color: gridColor,
           lineWidth: 1,
           drawTicks: false,
           tickLength: 0,
         },
         ticks: {
-          stepSize: currentConfig.yStepSize,
           color: axisTextColor,
           font: { size: 12 },
           padding: 12,
@@ -267,17 +303,13 @@ const AreaChart: React.FC<AreaChartProps> = ({
         border: isLight ? '1px solid #e8e8e8' : 'none',
       }}
     >
-      <ChartToolBar
-        title={title}
-        theme={currentConfig.theme}
-        onDownload={handleDownload}
-      />
+      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} />
 
       <ChartFilter
-        filterOptions={filterEnum}
+        filterOptions={filterOptions}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        theme={currentConfig.theme}
+        theme={theme}
       />
 
       <div className="chart-wrapper">
@@ -288,5 +320,3 @@ const AreaChart: React.FC<AreaChartProps> = ({
 };
 
 export default AreaChart;
-
-
