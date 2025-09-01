@@ -1,0 +1,51 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 12px; color: rgb(118, 126, 139); font-size: 12px;"
+    >
+      <p>
+        带分类的饼图：当包含 filterLable 字段时，自动启用下拉筛选；当包含 category 字段时，自动启用分类筛选；
+      </p>
+      <div
+        data-data="[{"category":"电子产品","label":"智能手机","value":35,"filterLable":"全球"},{"category":"电子产品","label":"笔记本电脑","value":25,"filterLable":"全球"},{"category":"电子产品","label":"平板电脑","value":15,"filterLable":"全球"},{"category":"电子产品","label":"智能手表","value":10,"filterLable":"全球"},{"category":"电子产品","label":"耳机","value":15,"filterLable":"全球"},{"category":"电子产品","label":"智能手机","value":30,"filterLable":"中国"},{"category":"电子产品","label":"笔记本电脑","value":30,"filterLable":"中国"},{"category":"电子产品","label":"平板电脑","value":15,"filterLable":"中国"},{"category":"电子产品","label":"智能手表","value":10,"filterLable":"中国"},{"category":"电子产品","label":"耳机","value":15,"filterLable":"中国"},{"category":"地区分布","label":"华东地区","value":40,"filterLable":"全球"},{"category":"地区分布","label":"华北地区","value":25,"filterLable":"全球"},{"category":"地区分布","label":"华南地区","value":20,"filterLable":"全球"},{"category":"地区分布","label":"西部地区","value":10,"filterLable":"全球"},{"category":"地区分布","label":"东北地区","value":5,"filterLable":"全球"},{"category":"地区分布","label":"华东地区","value":35,"filterLable":"中国"},{"category":"地区分布","label":"华北地区","value":25,"filterLable":"中国"},{"category":"地区分布","label":"华南地区","value":20,"filterLable":"中国"},{"category":"地区分布","label":"西部地区","value":15,"filterLable":"中国"},{"category":"地区分布","label":"东北地区","value":5,"filterLable":"中国"},{"category":"年龄分布","label":"18-25岁","value":30,"filterLable":"全球"},{"category":"年龄分布","label":"26-35岁","value":35,"filterLable":"全球"},{"category":"年龄分布","label":"36-45岁","value":20,"filterLable":"全球"},{"category":"年龄分布","label":"46-55岁","value":10,"filterLable":"全球"},{"category":"年龄分布","label":"55岁以上","value":5,"filterLable":"全球"},{"category":"年龄分布","label":"18-25岁","value":28,"filterLable":"中国"},{"category":"年龄分布","label":"26-35岁","value":33,"filterLable":"中国"},{"category":"年龄分布","label":"36-45岁","value":22,"filterLable":"中国"},{"category":"年龄分布","label":"46-55岁","value":12,"filterLable":"中国"},{"category":"年龄分布","label":"55岁以上","value":5,"filterLable":"中国"}]"
+        data-height="200"
+        data-testid="donut-chart"
+        data-title="2025年第一季度销售数据分析"
+        data-width="260"
+      >
+        Donut Chart - 2025年第一季度销售数据分析
+      </div>
+      <div
+        style="margin-top: 12px; background-color: rgb(240, 248, 255); padding: 12px; border-radius: 8px; border: 1px solid rgb(232, 232, 232); color: rgb(51, 51, 51);"
+      >
+        <h4
+          style="margin-top: 0px;"
+        >
+          扁平化数据格式示例：
+        </h4>
+        <pre
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
+        >
+          // 当包含 filterLable 字段时，自动启用下拉筛选；当包含 category 字段时，自动启用分类筛选；
+[
+  { category: '电子产品', label: '平板电脑', value: 15, filterLable: '全球' },
+  { category: '电子产品', label: '智能手表', value: 10, filterLable: '全球' },
+  { category: '电子产品', label: '耳机', value: 15, filterLable: '全球' },
+  { category: "电子产品", label: "智能手机", value: 30, filterLable: "中国" },
+  { category: '年龄分布', label: '18-25岁', value: 28, filterLable: '中国' },
+  { category: '年龄分布', label: '26-35岁', value: 33, filterLable: '中国' },
+  { category: '年龄分布', label: '36-45岁', value: 22, filterLable: '中国' },
+  { category: '年龄分布', label: '46-55岁', value: 12, filterLable: '中国' },
+  { category: '年龄分布', label: '55岁以上', value: 5, filterLable: '中国' },
+  // ... 其他条目
+]
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

@@ -6,25 +6,19 @@
       test
     </div>
     <div
-      style="padding: 12px; color: rgb(118, 126, 139); font-size: 12px;"
+      style="padding: 12px; font-size: 12px;"
     >
       <p>
-        单值饼图：用于展示单一指标的占比，如完成率、进度、CPU 使用率等。
-      </p>
-      <p>
-        完成率筛选下：展示任务完成率75%、代码覆盖率85%、测试通过率92%。
-      </p>
-      <p>
-        使用率筛选下：展示CPU使用率65%、内存使用率78%、磁盘使用率45%。
+        单值饼图-性别分布：展示男性30%和女性70%的两个独立单值饼图
       </p>
       <div
-        data-data="[{"label":"任务完成率","value":75,"category":"项目进度"},{"label":"代码覆盖率","value":85,"category":"项目进度"},{"label":"测试通过率","value":92,"category":"项目进度"}]"
-        data-height="128"
+        data-data="[{"label":"男性","value":30},{"label":"女性","value":70}]"
+        data-height="120"
         data-testid="donut-chart"
-        data-title="项目进度与系统监控"
-        data-width="128"
+        data-title="用户性别分布"
+        data-width="120"
       >
-        Donut Chart - 项目进度与系统监控
+        Donut Chart - 用户性别分布
       </div>
       <div
         style="margin-top: 12px; background-color: rgb(240, 248, 255); padding: 12px; border-radius: 8px; border: 1px solid rgb(232, 232, 232); color: rgb(51, 51, 51);"
@@ -32,23 +26,15 @@
         <h4
           style="margin-top: 0px;"
         >
-          扁平化数据格式示例（单值 + 二级筛选）：
+          扁平化数据格式示例（单值 + 自定义配置）：
         </h4>
         <pre
           style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
         >
-          // 单值饼图：每一项为一个指标；可选 category 用于外部筛选
+          // 数据：两个单值项
 [
-  { label: "任务完成率", value: 75, category: "项目进度" },
-  { label: "代码覆盖率", value: 85, category: "项目进度" },
-  { label: "测试通过率", value: 92, category: "项目进度" }
-]
-
-// 配置：与数据长度对应的配置数组（示意）
-[
-  { backgroundColor: ["#917EF7", "#F7F8F9"], showLegend: false },
-  { backgroundColor: ["#2AD8FC", "#F7F8F9"], showLegend: false },
-  { backgroundColor: ["#388BFF", "#F7F8F9"], showLegend: false }
+  { label: "男性", value: 30 },
+  { label: "女性", value: 70 }
 ]
         </pre>
       </div>

@@ -34,8 +34,8 @@
         style="margin-bottom: 20px;"
       >
         <div
-          class="bar-chart-container "
-          style="width: 700px; height: 500px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232);"
+          class="bar-chart-container  "
+          style="width: 700px; height: 500px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
         >
           <div
             data-testid="chart-toolbar"

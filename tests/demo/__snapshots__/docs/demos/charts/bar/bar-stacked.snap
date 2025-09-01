@@ -1,0 +1,103 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <h3
+        style="margin: 0px 0px 12px;"
+      >
+        堆叠柱状图
+      </h3>
+      <div
+        style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;"
+      >
+        <button
+          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+          type="button"
+        >
+          <span>
+            随机更新数据
+          </span>
+        </button>
+        <div
+          style="padding: 8px 12px; background-color: rgb(255, 255, 255); border: 1px solid rgb(217, 217, 217); border-radius: 4px; font-size: 12px; color: rgb(102, 102, 102);"
+        >
+          💡 使用扁平化数据结构，包含 xtitle 和 ytitle 字段，支持二级筛选。
+        </div>
+      </div>
+      <div
+        class="bar-chart-container  "
+        style="width: 700px; height: 500px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
+      >
+        <div
+          data-testid="chart-toolbar"
+        >
+          堆叠柱状图
+        </div>
+        <div
+          data-testid="chart-filter"
+        >
+          <button
+            data-selected="true"
+          >
+            流量来源
+          </button>
+          <button
+            data-selected="false"
+          >
+            部门预算
+          </button>
+        </div>
+        <div
+          class="chart-wrapper"
+        >
+          <div
+            data-datasets="[{"label":"直接访问","data":[120,132,101,134,90,230,210],"borderColor":"#1677ff","backgroundColor":"#1677ff","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"搜索引擎","data":[220,182,191,234,290,330,310],"borderColor":"#8954FC","backgroundColor":"#8954FC","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"外链引荐","data":[150,232,201,154,190,330,410],"borderColor":"#15e7e4","backgroundColor":"#15e7e4","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false}]"
+            data-labels="["1","2","3","4","5","6","7"]"
+            data-testid="bar-chart"
+          >
+            Bar Chart
+          </div>
+        </div>
+      </div>
+      <div
+        style="margin-top: 20px; background-color: rgb(240, 248, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232);"
+      >
+        <h4
+          style="margin-top: 0px; color: rgb(51, 51, 51);"
+        >
+          扁平化数据格式示例：
+        </h4>
+        <pre
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
+        >
+          // 扁平化数据格式：包含 xtitle 和 ytitle 字段
+[
+  {
+    category: "流量来源",
+    type: "直接访问",
+    x: 1,
+    y: 120,
+    xtitle: "日期",
+    ytitle: "PV"
+  },
+  {
+    category: "部门预算",
+    type: "人力成本",
+    x: 1,
+    y: 45000,
+    xtitle: "部门",
+    ytitle: "预算金额"
+  },
+  // ... 更多数据
+]
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
