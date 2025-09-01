@@ -1,0 +1,45 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 12px; color: rgb(118, 126, 139); font-size: 12px;"
+    >
+      <p>
+        多值饼图：用于展示多个分类的占比结构，如各品类销量占比。
+      </p>
+      <div
+        data-data="[{"label":"A 产品","value":25},{"label":"B 产品","value":40},{"label":"C 产品","value":25},{"label":"D 产品","value":25}]"
+        data-height="200"
+        data-testid="donut-chart"
+        data-title="2025年第一季度短视频用户分布分析"
+        data-width="260"
+      >
+        Donut Chart - 2025年第一季度短视频用户分布分析
+      </div>
+      <div
+        style="margin-top: 12px; background-color: rgb(240, 248, 255); padding: 12px; border-radius: 8px; border: 1px solid rgb(232, 232, 232); color: rgb(51, 51, 51);"
+      >
+        <h4
+          style="margin-top: 0px;"
+        >
+          扁平化数据格式示例（多值）：
+        </h4>
+        <pre
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
+        >
+          // 多值饼图：每一项为一个分类的占比
+[
+  { label: "A 产品", value: 25 },
+  { label: "B 产品", value: 40 },
+  { label: "C 产品", value: 25 },
+  { label: "D 产品", value: 25 }
+]
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

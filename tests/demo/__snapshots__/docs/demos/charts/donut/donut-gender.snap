@@ -1,0 +1,52 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 12px; font-size: 12px;"
+    >
+      <p>
+        性别分布饼图：展示男性30%和女性70%的两个独立单值饼图
+      </p>
+      <p>
+        每个饼图中心显示对应的百分比和标签
+      </p>
+      <div
+        data-data="[{"label":"男性","value":30},{"label":"女性","value":70}]"
+        data-height="120"
+        data-testid="donut-chart"
+        data-title="用户性别分布"
+        data-width="120"
+      >
+        Donut Chart - 用户性别分布
+      </div>
+      <div
+        style="margin-top: 12px; background-color: rgb(240, 248, 255); padding: 12px; border-radius: 8px; border: 1px solid rgb(232, 232, 232); color: rgb(51, 51, 51);"
+      >
+        <h4
+          style="margin-top: 0px;"
+        >
+          扁平化数据格式示例（单值 + 自定义配置）：
+        </h4>
+        <pre
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
+        >
+          // 数据：两个单值项
+[
+  { label: "男性", value: 30 },
+  { label: "女性", value: 70 }
+]
+
+// 配置：与数据长度对应的配置数组
+[
+  { backgroundColor: ["#388BFF", "#F7F8F9"], showTooltip: false, showLegend: false },
+  { backgroundColor: ["#FF6B9D", "#F7F8F9"], showTooltip: false, showLegend: false }
+]
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

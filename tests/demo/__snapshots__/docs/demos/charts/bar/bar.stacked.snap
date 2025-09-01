@@ -21,25 +21,14 @@
           type="button"
         >
           <span>
-            切换主题 (浅色)
+            随机更新数据
           </span>
         </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
+        <div
+          style="padding: 8px 12px; background-color: rgb(255, 255, 255); border: 1px solid rgb(217, 217, 217); border-radius: 4px; font-size: 12px; color: rgb(102, 102, 102);"
         >
-          <span>
-            切换图例位置（bottom）
-          </span>
-        </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
-        >
-          <span>
-            切换象限（I）
-          </span>
-        </button>
+          💡 使用扁平化数据结构，包含 xtitle 和 ytitle 字段，支持二级筛选。
+        </div>
       </div>
       <div
         class="bar-chart-container "
@@ -69,7 +58,7 @@
         >
           <div
             data-datasets="[{"label":"直接访问","data":[120,132,101,134,90,230,210],"borderColor":"#1677ff","backgroundColor":"#1677ff","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"搜索引擎","data":[220,182,191,234,290,330,310],"borderColor":"#8954FC","backgroundColor":"#8954FC","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"外链引荐","data":[150,232,201,154,190,330,410],"borderColor":"#15e7e4","backgroundColor":"#15e7e4","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false}]"
-            data-labels="["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]"
+            data-labels="["1","2","3","4","5","6","7"]"
             data-testid="bar-chart"
           >
             Bar Chart
@@ -77,141 +66,35 @@
         </div>
       </div>
       <div
-        style="background-color: rgb(255, 255, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232); margin-top: 20px;"
+        style="margin-top: 20px; background-color: rgb(240, 248, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232);"
       >
         <h4
           style="margin-top: 0px; color: rgb(51, 51, 51);"
         >
-          当前配置信息：
+          扁平化数据格式示例：
         </h4>
         <pre
-          style="background-color: rgb(245, 245, 245); padding: 10px; border-radius: 4px; overflow: auto; font-size: 12px;"
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
         >
-          [
+          // 扁平化数据格式：包含 xtitle 和 ytitle 字段
+[
   {
-    "type": "traffic",
-    "typeName": "流量来源",
-    "labels": [
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat",
-      "Sun"
-    ],
-    "datasets": [
-      {
-        "label": "直接访问",
-        "data": [
-          120,
-          132,
-          101,
-          134,
-          90,
-          230,
-          210
-        ],
-        "borderColor": "#1677ff",
-        "backgroundColor": "#1677ff"
-      },
-      {
-        "label": "搜索引擎",
-        "data": [
-          220,
-          182,
-          191,
-          234,
-          290,
-          330,
-          310
-        ],
-        "borderColor": "#8954FC",
-        "backgroundColor": "#8954FC"
-      },
-      {
-        "label": "外链引荐",
-        "data": [
-          150,
-          232,
-          201,
-          154,
-          190,
-          330,
-          410
-        ],
-        "borderColor": "#15e7e4",
-        "backgroundColor": "#15e7e4"
-      }
-    ],
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "日期",
-    "yTitle": "PV",
-    "yMin": 0,
-    "showGrid": true,
-    "stacked": true,
-    "xPosition": "bottom",
-    "yPosition": "left"
+    category: "流量来源",
+    type: "直接访问",
+    x: 1,
+    y: 120,
+    xtitle: "日期",
+    ytitle: "PV"
   },
   {
-    "type": "department",
-    "typeName": "部门预算",
-    "labels": [
-      "市场部",
-      "销售部",
-      "技术部",
-      "人事部",
-      "财务部"
-    ],
-    "datasets": [
-      {
-        "label": "人力成本",
-        "data": [
-          45000,
-          52000,
-          68000,
-          28000,
-          35000
-        ],
-        "borderColor": "#FF6B6B",
-        "backgroundColor": "#FF6B6B"
-      },
-      {
-        "label": "运营成本",
-        "data": [
-          28000,
-          35000,
-          42000,
-          18000,
-          22000
-        ],
-        "borderColor": "#4ECDC4",
-        "backgroundColor": "#4ECDC4"
-      },
-      {
-        "label": "设备成本",
-        "data": [
-          18000,
-          25000,
-          55000,
-          12000,
-          15000
-        ],
-        "borderColor": "#45B7D1",
-        "backgroundColor": "#45B7D1"
-      }
-    ],
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "部门",
-    "yTitle": "预算金额",
-    "yMin": 0,
-    "showGrid": true,
-    "stacked": true,
-    "xPosition": "bottom",
-    "yPosition": "left"
-  }
+    category: "部门预算",
+    type: "人力成本",
+    x: 1,
+    y: 45000,
+    xtitle: "部门",
+    ytitle: "预算金额"
+  },
+  // ... 更多数据
 ]
         </pre>
       </div>

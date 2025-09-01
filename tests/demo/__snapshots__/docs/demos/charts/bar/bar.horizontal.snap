@@ -21,25 +21,14 @@
           type="button"
         >
           <span>
-            切换主题 (浅色)
+            随机更新数据
           </span>
         </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
+        <div
+          style="padding: 8px 12px; background-color: rgb(255, 255, 255); border: 1px solid rgb(217, 217, 217); border-radius: 4px; font-size: 12px; color: rgb(102, 102, 102);"
         >
-          <span>
-            切换图例位置（bottom）
-          </span>
-        </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
-        >
-          <span>
-            切换象限（I）
-          </span>
-        </button>
+          💡 使用扁平化数据结构，包含 xtitle 和 ytitle 字段，支持二级筛选。
+        </div>
       </div>
       <div
         class="bar-chart-container "
@@ -69,7 +58,7 @@
         >
           <div
             data-datasets="[{"label":"销量","data":[320,452,301,334,390],"borderColor":"#1677ff","backgroundColor":"#1677ff","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
-            data-labels="["产品A","产品B","产品C","产品D","产品E"]"
+            data-labels="["1","2","3","4","5"]"
             data-testid="bar-chart"
           >
             Bar Chart
@@ -77,83 +66,35 @@
         </div>
       </div>
       <div
-        style="background-color: rgb(255, 255, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232); margin-top: 20px;"
+        style="margin-top: 20px; background-color: rgb(240, 248, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232);"
       >
         <h4
           style="margin-top: 0px; color: rgb(51, 51, 51);"
         >
-          当前配置信息：
+          扁平化数据格式示例：
         </h4>
         <pre
-          style="background-color: rgb(245, 245, 245); padding: 10px; border-radius: 4px; overflow: auto; font-size: 12px;"
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
         >
-          [
+          // 扁平化数据格式：包含 xtitle 和 ytitle 字段
+[
   {
-    "type": "product",
-    "typeName": "产品销量",
-    "labels": [
-      "产品A",
-      "产品B",
-      "产品C",
-      "产品D",
-      "产品E"
-    ],
-    "datasets": [
-      {
-        "label": "销量",
-        "data": [
-          320,
-          452,
-          301,
-          334,
-          390
-        ],
-        "borderColor": "#1677ff",
-        "backgroundColor": "#1677ff"
-      }
-    ],
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "销量",
-    "yTitle": "产品",
-    "showGrid": true,
-    "indexAxis": "y",
-    "xPosition": "bottom",
-    "yPosition": "left"
+    category: "产品销量",
+    type: "销量",
+    x: 1,
+    y: 320,
+    xtitle: "销量",
+    ytitle: "产品"
   },
   {
-    "type": "region",
-    "typeName": "地区销售额",
-    "labels": [
-      "华北",
-      "华东",
-      "华南",
-      "西南",
-      "西北"
-    ],
-    "datasets": [
-      {
-        "label": "销售额",
-        "data": [
-          125000,
-          168000,
-          142000,
-          89000,
-          76000
-        ],
-        "borderColor": "#33E59B",
-        "backgroundColor": "#33E59B"
-      }
-    ],
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "销售额",
-    "yTitle": "地区",
-    "showGrid": true,
-    "indexAxis": "y",
-    "xPosition": "bottom",
-    "yPosition": "left"
-  }
+    category: "地区销售额",
+    type: "销售额",
+    x: 1,
+    y: 125000,
+    xtitle: "销售额",
+    ytitle: "地区"
+  },
+  // ... 更多数据
 ]
         </pre>
       </div>

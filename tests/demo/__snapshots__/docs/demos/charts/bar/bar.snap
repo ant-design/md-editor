@@ -21,33 +21,14 @@
           type="button"
         >
           <span>
-            切换主题 (浅色)
-          </span>
-        </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
-        >
-          <span>
-            切换图例位置 (bottom)
-          </span>
-        </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
-        >
-          <span>
             随机更新数据
           </span>
         </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
+        <div
+          style="padding: 8px 12px; background-color: rgb(255, 255, 255); border: 1px solid rgb(217, 217, 217); border-radius: 4px; font-size: 12px; color: rgb(102, 102, 102);"
         >
-          <span>
-            切换象限（当前：I）
-          </span>
-        </button>
+          💡 使用扁平化数据结构，包含 xtitle 和 ytitle 字段，支持二级筛选。
+        </div>
       </div>
       <div
         style="margin-bottom: 20px;"
@@ -79,8 +60,8 @@
             class="chart-wrapper"
           >
             <div
-              data-datasets="[{"label":"本周访客","data":[120,132,101,134,90,230,210],"borderColor":"#388BFF","backgroundColor":"#388BFF","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"上周访客","data":[220,182,191,234,290,330,310],"borderColor":"#917EF7","backgroundColor":"#917EF7","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
-              data-labels="["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]"
+              data-datasets="[{"label":"本周访客","data":[120,132,101,134,90,230,210],"borderColor":"#1677ff","backgroundColor":"#1677ff","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"上周访客","data":[220,182,191,234,290,330,310],"borderColor":"#8954FC","backgroundColor":"#8954FC","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
+              data-labels="["1","2","3","4","5","6","7"]"
               data-testid="bar-chart"
             >
               Bar Chart
@@ -89,118 +70,35 @@
         </div>
       </div>
       <div
-        style="background-color: rgb(255, 255, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232);"
+        style="margin-top: 20px; background-color: rgb(240, 248, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232);"
       >
         <h4
           style="margin-top: 0px; color: rgb(51, 51, 51);"
         >
-          当前配置信息：
+          扁平化数据格式示例：
         </h4>
         <pre
-          style="background-color: rgb(245, 245, 245); padding: 10px; border-radius: 4px; overflow: auto; font-size: 12px;"
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
         >
-          [
+          // 扁平化数据格式：包含 xtitle 和 ytitle 字段
+[
   {
-    "type": "visitor",
-    "typeName": "访客数据",
-    "labels": [
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat",
-      "Sun"
-    ],
-    "datasets": [
-      {
-        "label": "本周访客",
-        "data": [
-          120,
-          132,
-          101,
-          134,
-          90,
-          230,
-          210
-        ],
-        "borderColor": "#388BFF",
-        "backgroundColor": "#388BFF"
-      },
-      {
-        "label": "上周访客",
-        "data": [
-          220,
-          182,
-          191,
-          234,
-          290,
-          330,
-          310
-        ],
-        "borderColor": "#917EF7",
-        "backgroundColor": "#917EF7"
-      }
-    ],
-    "yMin": 0,
-    "yMax": 400,
-    "yStepSize": 50,
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "日期",
-    "yTitle": "访客数",
-    "showGrid": true,
-    "categoryPercentage": 0.7,
-    "barPercentage": 0.8,
-    "xPosition": "bottom",
-    "yPosition": "left"
+    category: "访客数据",
+    type: "本周访客",
+    x: 1,
+    y: 120,
+    xtitle: "日期",
+    ytitle: "访客数"
   },
   {
-    "type": "sales",
-    "typeName": "销售数据",
-    "labels": [
-      "Q1",
-      "Q2",
-      "Q3",
-      "Q4"
-    ],
-    "datasets": [
-      {
-        "label": "本年销售额",
-        "data": [
-          85000,
-          92000,
-          88000,
-          105000
-        ],
-        "borderColor": "#33E59B",
-        "backgroundColor": "#33E59B"
-      },
-      {
-        "label": "去年销售额",
-        "data": [
-          72000,
-          78000,
-          81000,
-          89000
-        ],
-        "borderColor": "#F45BB5",
-        "backgroundColor": "#F45BB5"
-      }
-    ],
-    "yMin": 60000,
-    "yMax": 110000,
-    "yStepSize": 10000,
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "季度",
-    "yTitle": "销售额",
-    "showGrid": true,
-    "categoryPercentage": 0.7,
-    "barPercentage": 0.8,
-    "xPosition": "bottom",
-    "yPosition": "left"
-  }
+    category: "销售数据",
+    type: "本年销售额",
+    x: 1,
+    y: 85000,
+    xtitle: "季度",
+    ytitle: "销售额"
+  },
+  // ... 更多数据
 ]
         </pre>
       </div>

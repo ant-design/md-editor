@@ -21,25 +21,14 @@
           type="button"
         >
           <span>
-            切换主题 (浅色)
+            随机更新数据
           </span>
         </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
+        <div
+          style="padding: 8px 12px; background-color: rgb(255, 255, 255); border: 1px solid rgb(217, 217, 217); border-radius: 4px; font-size: 12px; color: rgb(102, 102, 102);"
         >
-          <span>
-            切换图例位置（bottom）
-          </span>
-        </button>
-        <button
-          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-          type="button"
-        >
-          <span>
-            切换象限（I）
-          </span>
-        </button>
+          💡 使用扁平化数据结构，包含 xtitle 和 ytitle 字段，支持二级筛选。
+        </div>
       </div>
       <div
         class="bar-chart-container "
@@ -68,8 +57,8 @@
           class="chart-wrapper"
         >
           <div
-            data-datasets="[{"label":"利润","data":[120,-60,80,-30],"borderColor":"#33E59B","backgroundColor":"#33E59B","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"成本","data":[-90,-40,-50,-20],"borderColor":"#F45BB5","backgroundColor":"#F45BB5","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
-            data-labels="["Q1","Q2","Q3","Q4"]"
+            data-datasets="[{"label":"利润","data":[120,-60,80,-30],"borderColor":"#1677ff","backgroundColor":"#1677ff","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"成本","data":[-90,-40,-50,-20],"borderColor":"#8954FC","backgroundColor":"#8954FC","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
+            data-labels="["1","2","3","4"]"
             data-testid="bar-chart"
           >
             Bar Chart
@@ -77,105 +66,43 @@
         </div>
       </div>
       <div
-        style="background-color: rgb(255, 255, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232); margin-top: 20px;"
+        style="margin-top: 20px; background-color: rgb(240, 248, 255); padding: 15px; border-radius: 8px; border: 1px solid rgb(232, 232, 232);"
       >
         <h4
           style="margin-top: 0px; color: rgb(51, 51, 51);"
         >
-          当前配置信息：
+          扁平化数据格式示例：
         </h4>
         <pre
-          style="background-color: rgb(245, 245, 245); padding: 10px; border-radius: 4px; overflow: auto; font-size: 12px;"
+          style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
         >
-          [
+          // 扁平化数据格式：包含 xtitle 和 ytitle 字段
+[
   {
-    "type": "finance",
-    "typeName": "财务数据",
-    "labels": [
-      "Q1",
-      "Q2",
-      "Q3",
-      "Q4"
-    ],
-    "datasets": [
-      {
-        "label": "利润",
-        "data": [
-          120,
-          -60,
-          80,
-          -30
-        ],
-        "borderColor": "#33E59B",
-        "backgroundColor": "#33E59B"
-      },
-      {
-        "label": "成本",
-        "data": [
-          -90,
-          -40,
-          -50,
-          -20
-        ],
-        "borderColor": "#F45BB5",
-        "backgroundColor": "#F45BB5"
-      }
-    ],
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "季度",
-    "yTitle": "金额",
-    "yMin": -200,
-    "yMax": 200,
-    "yStepSize": 50,
-    "showGrid": true,
-    "xPosition": "bottom",
-    "yPosition": "left"
+    category: "财务数据",
+    type: "利润",
+    x: 1,
+    y: 120,
+    xtitle: "季度",
+    ytitle: "金额"
   },
   {
-    "type": "temperature",
-    "typeName": "温度变化",
-    "labels": [
-      "1月",
-      "2月",
-      "3月",
-      "4月"
-    ],
-    "datasets": [
-      {
-        "label": "最高温",
-        "data": [
-          15,
-          22,
-          28,
-          32
-        ],
-        "borderColor": "#FF6B6B",
-        "backgroundColor": "#FF6B6B"
-      },
-      {
-        "label": "最低温",
-        "data": [
-          -5,
-          -2,
-          5,
-          12
-        ],
-        "borderColor": "#4ECDC4",
-        "backgroundColor": "#4ECDC4"
-      }
-    ],
-    "theme": "light",
-    "legendPosition": "bottom",
-    "xTitle": "月份",
-    "yTitle": "温度(°C)",
-    "yMin": -10,
-    "yMax": 35,
-    "yStepSize": 5,
-    "showGrid": true,
-    "xPosition": "bottom",
-    "yPosition": "left"
-  }
+    category: "财务数据",
+    type: "成本",
+    x: 1,
+    y: -90,
+    xtitle: "季度",
+    ytitle: "金额"
+  },
+  {
+    category: "温度变化",
+    type: "最高温",
+    x: 1,
+    y: 15,
+    xtitle: "月份",
+    ytitle: "温度(°C)"
+  },
+  // ... 更多数据
 ]
         </pre>
       </div>
