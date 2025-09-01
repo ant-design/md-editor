@@ -11,7 +11,7 @@ const data = [
   { label: '磁盘使用率', value: 45, category: '系统监控' },
 ];
 
-const DonutSingleDemo: React.FC = () => {
+const DonutSingleCategorizedDemo: React.FC = () => {
   return (
     <div style={{ padding: 12, color: '#767E8B', fontSize: 12 }}>
       <p>
@@ -64,4 +64,4 @@ const DonutSingleDemo: React.FC = () => {
   );
 };
 
-export default DonutSingleDemo;
+export default DonutSingleCategorizedDemo;

@@ -3,7 +3,7 @@ import DonutChart, {
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React from 'react';
 
-const DonutGenderDemo: React.FC = () => {
+const DonutSingleDemo: React.FC = () => {
   // 性别数据：男性30%，女性70%
   const data: DonutChartData[] = [
     { label: '男性', value: 30 },
@@ -56,4 +56,4 @@ const DonutGenderDemo: React.FC = () => {
   );
 };
 
-export default DonutGenderDemo;
+export default DonutSingleDemo;

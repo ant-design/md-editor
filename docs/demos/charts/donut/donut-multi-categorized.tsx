@@ -3,7 +3,7 @@ import DonutChart, {
 } from '@ant-design/md-editor/plugins/chart/DonutChart';
 import React from 'react';
 
-const DonutCategorizedDemo: React.FC = () => {
+const DonutMultiCategorizedDemo: React.FC = () => {
   // 带分类的多值饼图数据
   const data: DonutChartData[] = [
     // 按产品类别分类的数据
@@ -112,4 +112,4 @@ const DonutCategorizedDemo: React.FC = () => {
   );
 };
 
-export default DonutCategorizedDemo;
+export default DonutMultiCategorizedDemo;
