@@ -37,6 +37,38 @@ const DynamicAreaChartExample: React.FC = () => {
     { category: '营收数据', type: '去年营收', x: 5, y: 45000, xtitle: '月份', ytitle: '营收金额' },
     { category: '营收数据', type: '去年营收', x: 6, y: 52000, xtitle: '月份', ytitle: '营收金额' },
 
+    // 全球数据（带filterLable）
+    { category: '访客数据', type: '本周访客', x: 1, y: 120, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '本周访客', x: 2, y: 132, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '本周访客', x: 3, y: 101, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '本周访客', x: 4, y: 134, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '本周访客', x: 5, y: 90, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '本周访客', x: 6, y: 230, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '本周访客', x: 7, y: 210, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+
+    { category: '访客数据', type: '上周访客', x: 1, y: 220, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '上周访客', x: 2, y: 182, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '上周访客', x: 3, y: 191, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '上周访客', x: 4, y: 234, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '上周访客', x: 5, y: 290, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '上周访客', x: 6, y: 330, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+    { category: '访客数据', type: '上周访客', x: 7, y: 310, xtitle: '日期', ytitle: '访客数', filterLable: '全球' },
+
+    // 营收数据类别 - 全球
+    { category: '营收数据', type: '本年营收', x: 1, y: 45000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '本年营收', x: 2, y: 52000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '本年营收', x: 3, y: 48000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '本年营收', x: 4, y: 61000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '本年营收', x: 5, y: 55000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '本年营收', x: 6, y: 67000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+
+    { category: '营收数据', type: '去年营收', x: 1, y: 38000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '去年营收', x: 2, y: 41000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '去年营收', x: 3, y: 42000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '去年营收', x: 4, y: 48000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '去年营收', x: 5, y: 45000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+    { category: '营收数据', type: '去年营收', x: 6, y: 52000, xtitle: '月份', ytitle: '营收金额', filterLable: '全球' },
+
     // 美国数据（带filterLable）
     { category: '访客数据', type: '本周访客', x: 1, y: 180, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
     { category: '访客数据', type: '本周访客', x: 2, y: 195, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
@@ -46,12 +78,27 @@ const DynamicAreaChartExample: React.FC = () => {
     { category: '访客数据', type: '本周访客', x: 6, y: 280, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
     { category: '访客数据', type: '本周访客', x: 7, y: 260, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
 
+    { category: '访客数据', type: '上周访客', x: 1, y: 280, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
+    { category: '访客数据', type: '上周访客', x: 2, y: 240, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
+    { category: '访客数据', type: '上周访客', x: 3, y: 220, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
+    { category: '访客数据', type: '上周访客', x: 4, y: 290, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
+    { category: '访客数据', type: '上周访客', x: 5, y: 350, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
+    { category: '访客数据', type: '上周访客', x: 6, y: 390, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
+    { category: '访客数据', type: '上周访客', x: 7, y: 370, xtitle: '日期', ytitle: '访客数', filterLable: '美国' },
+
     { category: '营收数据', type: '本年营收', x: 1, y: 55000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
     { category: '营收数据', type: '本年营收', x: 2, y: 62000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
     { category: '营收数据', type: '本年营收', x: 3, y: 58000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
     { category: '营收数据', type: '本年营收', x: 4, y: 71000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
     { category: '营收数据', type: '本年营收', x: 5, y: 65000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
     { category: '营收数据', type: '本年营收', x: 6, y: 77000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
+
+    { category: '营收数据', type: '去年营收', x: 1, y: 48000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
+    { category: '营收数据', type: '去年营收', x: 2, y: 51000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
+    { category: '营收数据', type: '去年营收', x: 3, y: 52000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
+    { category: '营收数据', type: '去年营收', x: 4, y: 58000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
+    { category: '营收数据', type: '去年营收', x: 5, y: 55000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
+    { category: '营收数据', type: '去年营收', x: 6, y: 62000, xtitle: '月份', ytitle: '营收金额', filterLable: '美国' },
   ]);
 
   const handleRandomize = () => {

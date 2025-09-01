@@ -5,19 +5,32 @@ import BarChart, { BarChartDataItem } from '@ant-design/md-editor/plugins/chart/
 const HorizontalBarChartExample: React.FC = () => {
   // 扁平化数据结构 - 条形图（水平柱状图）
   const [data, setData] = useState<BarChartDataItem[]>([
-    // 产品销量数据
-    { category: '产品销量', type: '销量', x: 1, y: 320, xtitle: '销量', ytitle: '产品' },
-    { category: '产品销量', type: '销量', x: 2, y: 452, xtitle: '销量', ytitle: '产品' },
-    { category: '产品销量', type: '销量', x: 3, y: 301, xtitle: '销量', ytitle: '产品' },
-    { category: '产品销量', type: '销量', x: 4, y: 334, xtitle: '销量', ytitle: '产品' },
-    { category: '产品销量', type: '销量', x: 5, y: 390, xtitle: '销量', ytitle: '产品' },
+    // 产品销量数据 - 全球
+    { category: '产品销量', type: '销量', x: 1, y: 320, xtitle: '销量', ytitle: '产品', filterLable: '全球' },
+    { category: '产品销量', type: '销量', x: 2, y: 452, xtitle: '销量', ytitle: '产品', filterLable: '全球' },
+    { category: '产品销量', type: '销量', x: 3, y: 301, xtitle: '销量', ytitle: '产品', filterLable: '全球' },
+    { category: '产品销量', type: '销量', x: 4, y: 334, xtitle: '销量', ytitle: '产品', filterLable: '全球' },
+    { category: '产品销量', type: '销量', x: 5, y: 390, xtitle: '销量', ytitle: '产品', filterLable: '全球' },
 
-    // 地区销售额数据
-    { category: '地区销售额', type: '销售额', x: 1, y: 125000, xtitle: '销售额', ytitle: '地区' },
-    { category: '地区销售额', type: '销售额', x: 2, y: 168000, xtitle: '销售额', ytitle: '地区' },
-    { category: '地区销售额', type: '销售额', x: 3, y: 142000, xtitle: '销售额', ytitle: '地区' },
-    { category: '地区销售额', type: '销售额', x: 4, y: 89000, xtitle: '销售额', ytitle: '地区' },
-    { category: '地区销售额', type: '销售额', x: 5, y: 76000, xtitle: '销售额', ytitle: '地区' },
+    // 地区销售额数据 - 全球
+    { category: '地区销售额', type: '销售额', x: 1, y: 125000, xtitle: '销售额', ytitle: '地区', filterLable: '全球' },
+    { category: '地区销售额', type: '销售额', x: 2, y: 168000, xtitle: '销售额', ytitle: '地区', filterLable: '全球' },
+    { category: '地区销售额', type: '销售额', x: 3, y: 142000, xtitle: '销售额', ytitle: '地区', filterLable: '全球' },
+    { category: '地区销售额', type: '销售额', x: 4, y: 89000, xtitle: '销售额', ytitle: '地区', filterLable: '全球' },
+    { category: '地区销售额', type: '销售额', x: 5, y: 76000, xtitle: '销售额', ytitle: '地区', filterLable: '全球' },
+
+    // 美国数据（带filterLable）
+    { category: '产品销量', type: '销量', x: 1, y: 420, xtitle: '销量', ytitle: '产品', filterLable: '美国' },
+    { category: '产品销量', type: '销量', x: 2, y: 552, xtitle: '销量', ytitle: '产品', filterLable: '美国' },
+    { category: '产品销量', type: '销量', x: 3, y: 401, xtitle: '销量', ytitle: '产品', filterLable: '美国' },
+    { category: '产品销量', type: '销量', x: 4, y: 434, xtitle: '销量', ytitle: '产品', filterLable: '美国' },
+    { category: '产品销量', type: '销量', x: 5, y: 490, xtitle: '销量', ytitle: '产品', filterLable: '美国' },
+
+    { category: '地区销售额', type: '销售额', x: 1, y: 185000, xtitle: '销售额', ytitle: '地区', filterLable: '美国' },
+    { category: '地区销售额', type: '销售额', x: 2, y: 228000, xtitle: '销售额', ytitle: '地区', filterLable: '美国' },
+    { category: '地区销售额', type: '销售额', x: 3, y: 192000, xtitle: '销售额', ytitle: '地区', filterLable: '美国' },
+    { category: '地区销售额', type: '销售额', x: 4, y: 139000, xtitle: '销售额', ytitle: '地区', filterLable: '美国' },
+    { category: '地区销售额', type: '销售额', x: 5, y: 116000, xtitle: '销售额', ytitle: '地区', filterLable: '美国' },
   ]);
 
   const handleRandomize = () => {
