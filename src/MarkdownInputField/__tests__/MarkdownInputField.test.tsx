@@ -288,4 +288,70 @@ describe('MarkdownInputField - voiceInput', () => {
     // ensure order: stop before send
     expect(events.indexOf('stop')).toBeLessThan(events.indexOf('send'));
   });
+
+  it('should handle recognizer error and reset recording state', async () => {
+    let handlersRef: any;
+    const start = vi.fn().mockResolvedValue(undefined);
+    const stop = vi.fn().mockResolvedValue(undefined);
+    const createRecognizer = vi.fn().mockImplementation(async (handlers) => {
+      handlersRef = handlers;
+      return { start, stop };
+    });
+
+    render(<MarkdownInputField voiceRecognizer={createRecognizer} />);
+
+    const voiceBtn = screen.getByTestId('voice-input-button');
+
+    // start recording
+    fireEvent.click(voiceBtn);
+    await vi.waitFor(() => {
+      expect(start).toHaveBeenCalled();
+    });
+    await vi.waitFor(() => {
+      expect(voiceBtn).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    // trigger recognizer error callback
+    handlersRef.onError?.();
+
+    // recording should be reset
+    await vi.waitFor(() => {
+      expect(voiceBtn).toHaveAttribute('aria-pressed', 'false');
+    });
+
+    // can start again (pending/reset/refs cleared)
+    fireEvent.click(voiceBtn);
+    await vi.waitFor(() => {
+      expect(createRecognizer).toHaveBeenCalledTimes(2);
+      expect(start).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  it('should recover when recognizer creation fails (catch branch)', async () => {
+    const start = vi.fn().mockResolvedValue(undefined);
+    const stop = vi.fn().mockResolvedValue(undefined);
+    const createRecognizer = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('init fail'))
+      .mockResolvedValue({ start, stop });
+
+    render(<MarkdownInputField voiceRecognizer={createRecognizer} />);
+
+    const voiceBtn = screen.getByTestId('voice-input-button');
+
+    // first click -> creation fails, should not enter recording
+    fireEvent.click(voiceBtn);
+    await vi.waitFor(() => {
+      expect(createRecognizer).toHaveBeenCalledTimes(1);
+    });
+    expect(voiceBtn).toHaveAttribute('aria-pressed', 'false');
+
+    // second click -> creation succeeds, start is called
+    fireEvent.click(voiceBtn);
+    await vi.waitFor(() => {
+      expect(createRecognizer).toHaveBeenCalledTimes(2);
+      expect(start).toHaveBeenCalledTimes(1);
+      expect(voiceBtn).toHaveAttribute('aria-pressed', 'true');
+    });
+  });
 });

@@ -120,7 +120,7 @@ import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputFie
 
 export default () => {
   const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setInterval>;
     return {
       start: async () => {
         // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段

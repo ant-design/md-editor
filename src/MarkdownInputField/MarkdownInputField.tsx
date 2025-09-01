@@ -430,7 +430,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     return () => {
       recognizerRef.current?.stop().catch(() => void 0);
     };
-  }, [recording]);
+  }, []);
 
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
