@@ -1,5 +1,9 @@
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Workspace } from '@ant-design/md-editor';
-import type { FileNode, GroupNode } from '@ant-design/md-editor/Workspace/types';
+import type {
+  FileNode,
+  GroupNode,
+} from '@ant-design/md-editor/Workspace/types';
 import React, { useMemo, useState } from 'react';
 
 // 支持“列表 -> 查看详情 -> 返回列表”的自定义预览组件（独立示例）
@@ -67,9 +71,12 @@ const VariableAnalysisPreview: React.FC<{
     setMode('detail');
     setPreviewHeader?.(
       <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 600 }}>{row.name}</div>
-          <div style={{ fontSize: 12, color: '#888' }}>详情的生成时间：2023-12-21 10:30:56</div>
+        <div style={{ flex: 1, display: 'flex', gap: 4 }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <ArrowLeftOutlined onClick={handleBack} />
+            返回上一级
+          </span>
+          <div style={{ fontWeight: 600 }}>【{row.name}】详情</div>
         </div>
       </div>,
     );
@@ -84,15 +91,6 @@ const VariableAnalysisPreview: React.FC<{
   if (mode === 'detail' && current) {
     return (
       <div style={{ padding: 16 }} aria-label="变量详情">
-        <button
-          type="button"
-          onClick={handleBack}
-          onKeyDown={(e) => e.key === 'Enter' && handleBack()}
-          aria-label="返回列表"
-          style={{ marginBottom: 12 }}
-        >
-          返回
-        </button>
         <h3 style={{ margin: '8px 0' }}>变量详情 - {current.name}</h3>
         <div
           style={{
@@ -122,39 +120,133 @@ const VariableAnalysisPreview: React.FC<{
     );
   }
 
-  if (mode === 'list') {
-    setPreviewHeader?.(
-      <div>
-        <div onClick={back}>返回</div>
-        自定义预览列表
-      </div>,
-    );
-  }
-
   return (
     <div style={{ padding: 16 }} aria-label="变量分析列表">
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th style={{ textAlign: 'left', padding: '8px 6px', borderBottom: '1px solid #eee' }}>名称</th>
-            <th style={{ textAlign: 'left', padding: '8px 6px', borderBottom: '1px solid #eee' }}>类型</th>
-            <th style={{ textAlign: 'left', padding: '8px 6px', borderBottom: '1px solid #eee' }}>分箱方式</th>
-            <th style={{ textAlign: 'left', padding: '8px 6px', borderBottom: '1px solid #eee' }}>分箱数</th>
-            <th style={{ textAlign: 'left', padding: '8px 6px', borderBottom: '1px solid #eee' }}>IV</th>
-            <th style={{ textAlign: 'left', padding: '8px 6px', borderBottom: '1px solid #eee' }}>KS</th>
-            <th style={{ textAlign: 'left', padding: '8px 6px', borderBottom: '1px solid #eee' }}>操作</th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              名称
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              类型
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              分箱方式
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              分箱数
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              IV
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              KS
+            </th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 6px',
+                borderBottom: '1px solid #eee',
+              }}
+            >
+              操作
+            </th>
           </tr>
         </thead>
         <tbody>
           {rows.map((row) => (
             <tr key={row.id}>
-              <td style={{ padding: '8px 6px', borderBottom: '1px solid #f5f5f5' }}>{row.name}</td>
-              <td style={{ padding: '8px 6px', borderBottom: '1px solid #f5f5f5' }}>{row.type}</td>
-              <td style={{ padding: '8px 6px', borderBottom: '1px solid #f5f5f5' }}>{row.binMethod}</td>
-              <td style={{ padding: '8px 6px', borderBottom: '1px solid #f5f5f5' }}>{row.binCount}</td>
-              <td style={{ padding: '8px 6px', borderBottom: '1px solid #f5f5f5' }}>{row.iv}</td>
-              <td style={{ padding: '8px 6px', borderBottom: '1px solid #f5f5f5' }}>{row.ks}</td>
-              <td style={{ padding: '8px 6px', borderBottom: '1px solid #f5f5f5' }}>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.name}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.type}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.binMethod}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.binCount}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.iv}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
+                {row.ks}
+              </td>
+              <td
+                style={{
+                  padding: '8px 6px',
+                  borderBottom: '1px solid #f5f5f5',
+                }}
+              >
                 <a
                   role="button"
                   tabIndex={0}
@@ -187,16 +279,13 @@ const WorkspaceFileCustomPreviewFlow: React.FC = () => {
           size: '2.3MB',
           lastModified: '08-20 12:30',
           canPreview: true,
-          canDownload: false,
         },
-        // 场景二：仅替换内容区（后端返回 HTML 片段 / 自定义展示）
         {
           id: 'customPreviewDomID1',
           name: '变量分析说明.html',
           size: '12KB',
           lastModified: '08-20 13:10',
           canPreview: true,
-          canDownload: false,
         },
       ],
     },
@@ -205,6 +294,7 @@ const WorkspaceFileCustomPreviewFlow: React.FC = () => {
   const handlePreview = async (
     file: FileNode,
   ): Promise<FileNode | React.ReactNode> => {
+    // 场景一：后端返回 JSON 列表数据 → 自定义展示
     if (file.id === 'customPreviewListDemo') {
       return <VariableAnalysisPreview file={file} />;
     }
@@ -215,7 +305,8 @@ const WorkspaceFileCustomPreviewFlow: React.FC = () => {
         <div style={{ padding: 16 }} aria-label="HTML 片段预览">
           <h3 style={{ margin: '8px 0' }}>变量分析说明</h3>
           <p style={{ color: '#555', lineHeight: '20px' }}>
-            以下为服务端返回的片段内容（以 ReactNode 形式直接渲染，仅替换内容区，不改动头部与工具栏）。
+            以下为服务端返回的片段内容（以 ReactNode
+            形式直接渲染，仅替换内容区，不改动头部与工具栏）。
           </p>
           <ul style={{ paddingLeft: 18, margin: '12px 0' }}>
             <li>支持列表、标题、段落等基础排版</li>
@@ -231,10 +322,16 @@ const WorkspaceFileCustomPreviewFlow: React.FC = () => {
               border: '1px solid #eee',
             }}
           >
-{`const sum = (a: number, b: number) => a + b;
+            {`const sum = (a: number, b: number) => a + b;
 console.log(sum(1, 2));`}
           </pre>
-          <blockquote style={{ borderLeft: '3px solid #ddd', paddingLeft: 10, color: '#666' }}>
+          <blockquote
+            style={{
+              borderLeft: '3px solid #ddd',
+              paddingLeft: 10,
+              color: '#666',
+            }}
+          >
             该区域完全由业务自定义渲染逻辑控制。
           </blockquote>
         </div>
@@ -242,6 +339,20 @@ console.log(sum(1, 2));`}
     }
 
     return undefined;
+  };
+
+  const handleDownload = (file: FileNode) => {
+    // 直接使用组件内置下载逻辑的兜底：当提供了 url/content/file 时会自动触发下载
+    // 这里打印日志用于示例可观察
+    // eslint-disable-next-line no-console
+    console.log('下载文件：', file.name);
+  };
+
+  const handleGroupDownload = (files: FileNode[]) => {
+    // 这里仅做演示：打印被批量下载的文件名
+    // 实际项目可在此将多个文件打包等
+    // eslint-disable-next-line no-console
+    console.log('分组下载：', files.map((f) => f.name).join(', '));
   };
 
   return (
@@ -257,6 +368,8 @@ console.log(sum(1, 2));`}
           <Workspace.File
             tab={{ count: 1 }}
             nodes={nodes}
+            onDownload={handleDownload}
+            onGroupDownload={handleGroupDownload}
             onPreview={handlePreview}
           />
         </Workspace>
@@ -265,4 +378,4 @@ console.log(sum(1, 2));`}
   );
 };
 
-export default WorkspaceFileCustomPreviewFlow; 
+export default WorkspaceFileCustomPreviewFlow;
