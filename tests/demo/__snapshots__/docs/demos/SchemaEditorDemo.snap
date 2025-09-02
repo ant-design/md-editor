@@ -172,6 +172,7 @@
                   </div>
                   <div
                     class="ace_tooltip"
+                    id="gt1"
                     role="tooltip"
                     style="display: none; pointer-events: auto;"
                   />
@@ -287,6 +288,7 @@
                   </div>
                   <div
                     class="ace_tooltip"
+                    id="gt2"
                     role="tooltip"
                     style="display: none; pointer-events: auto;"
                   />
