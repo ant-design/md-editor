@@ -120,20 +120,24 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
   it('点击播放后进入播放态，出现停止播报区域', () => {
     // Mock 浏览器 SpeechSynthesis 支持
-    (global as any).window = {
-      ...(global as any).window,
-      speechSynthesis: {
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: {
         speak: vi.fn(),
         cancel: vi.fn(),
         pause: vi.fn(),
         resume: vi.fn(),
       },
-    };
-    (global as any).SpeechSynthesisUtterance = vi.fn().mockImplementation(function (this: any, txt: string) {
+    });
+    const MockUtter = vi.fn().mockImplementation(function (this: any, txt: string) {
       this.text = txt;
       this.rate = 1;
       this.onend = null;
       this.onerror = null;
+    });
+    Object.defineProperty(global, 'SpeechSynthesisUtterance', {
+      configurable: true,
+      value: MockUtter,
     });
 
     render(
@@ -150,9 +154,11 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
   });
 
   it('外部 useSpeech 适配器提供时，即使无浏览器支持也应显示并可切换播放态', () => {
-    // 移除 speechSynthesis
-    (global as any).window = { ...(global as any).window };
-    delete (global as any).window.speechSynthesis;
+    // 移除 speechSynthesis 支持
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: undefined,
+    });
 
     const mockAdapter = vi.fn().mockImplementation(() => {
       let playing = false;
@@ -195,8 +201,10 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
   });
 
   it('不支持 Web Speech 时，语音按钮应禁用（aria-disabled=true）', () => {
-    (global as any).window = { ...(global as any).window };
-    delete (global as any).window.speechSynthesis;
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: undefined,
+    });
 
     render(
       <BubbleConfigProvide>
@@ -209,20 +217,24 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
   });
 
   it('播放态下 hover 会调用 pause 与 resume', () => {
-    (global as any).window = {
-      ...(global as any).window,
-      speechSynthesis: {
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: {
         speak: vi.fn(),
         cancel: vi.fn(),
         pause: vi.fn(),
         resume: vi.fn(),
       },
-    };
-    (global as any).SpeechSynthesisUtterance = vi.fn().mockImplementation(function (this: any, txt: string) {
+    });
+    const MockUtter = vi.fn().mockImplementation(function (this: any, txt: string) {
       this.text = txt;
       this.rate = 1;
       this.onend = null;
       this.onerror = null;
+    });
+    Object.defineProperty(global, 'SpeechSynthesisUtterance', {
+      configurable: true,
+      value: MockUtter,
     });
 
     render(
@@ -242,20 +254,24 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
   });
 
   it('再次点击停止区域会调用 cancel 停止播报', () => {
-    (global as any).window = {
-      ...(global as any).window,
-      speechSynthesis: {
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: {
         speak: vi.fn(),
         cancel: vi.fn(),
         pause: vi.fn(),
         resume: vi.fn(),
       },
-    };
-    (global as any).SpeechSynthesisUtterance = vi.fn().mockImplementation(function (this: any, txt: string) {
+    });
+    const MockUtter = vi.fn().mockImplementation(function (this: any, txt: string) {
       this.text = txt;
       this.rate = 1;
       this.onend = null;
       this.onerror = null;
+    });
+    Object.defineProperty(global, 'SpeechSynthesisUtterance', {
+      configurable: true,
+      value: MockUtter,
     });
 
     render(
@@ -313,8 +329,10 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
   it('hover 播放按钮会展示 lottie（非播放态）', () => {
     // 无需浏览器支持，仅验证 hover 渲染切换
-    (global as any).window = { ...(global as any).window };
-    delete (global as any).window.speechSynthesis;
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: undefined,
+    });
 
     render(
       <BubbleConfigProvide>
