@@ -254,9 +254,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: 1.1,
         wordBreak: 'break-all',
       },
-      '& &-comment': {
+      '& &-comment-comment': {
         borderBottom: '2px solid rgba(250, 173, 20, 0.4)',
         cursor: 'pointer',
+      },
+      '& &-comment-highlight': {
+        padding: 2,
+        borderRadius: '4px',
+        backgroundColor: 'rgba(250, 173, 20, 0.4)',
+        borderBottom: 0,
       },
       '& &-high-text': {
         borderRadius: '12px',

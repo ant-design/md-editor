@@ -166,6 +166,7 @@
                         </span>
                       </span>
                       <span
+                        class="ant-md-editor-content-comment-comment"
                         data-be="comment-text"
                         data-testid="comment-view"
                         id="comment-36"
@@ -376,6 +377,7 @@
                         </span>
                       </span>
                       <span
+                        class="ant-md-editor-content-comment-comment"
                         data-be="comment-text"
                         data-testid="comment-view"
                         id="comment-51"

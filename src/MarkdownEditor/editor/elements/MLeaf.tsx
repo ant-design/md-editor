@@ -308,6 +308,7 @@ const CommentViewComponent: React.FC<{
 
   return (
     <CommentView
+      hashId={props.hashId}
       id={`comment-${props.leaf?.id}`}
       comment={comment}
       commentItem={leaf?.comment ? (leaf.data as any) : null}
