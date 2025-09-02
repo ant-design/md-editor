@@ -124,7 +124,6 @@
                 </div>
                 <div
                   class="ace_tooltip"
-                  id="gt5"
                   role="tooltip"
                   style="display: none; pointer-events: auto;"
                 />
@@ -240,7 +239,6 @@
                 </div>
                 <div
                   class="ace_tooltip"
-                  id="gt6"
                   role="tooltip"
                   style="display: none; pointer-events: auto;"
                 />
