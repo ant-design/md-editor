@@ -7,6 +7,8 @@ function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
       fill="none"
       width={32}
       height={32}
+      role="img"
+      aria-label="PauseIcon"
       viewBox="0 0 32 32"
       {...props}
     >

@@ -24,7 +24,9 @@ const pauseIconRotate = new Keyframes('pauseIconRotate', {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      width: 326,
+      minWidth: 398,
+      width: 'max-content',
+      maxWidth: 'min(800px,100%)',
       height: 56,
       padding: 8,
       gap: 4,
@@ -33,23 +35,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       borderRadius: 200,
-      background:
-        'linear-gradient(180deg, rgba(248, 249, 251, 0%) 0%, #f8f9fb 33%)',
-      boxSizing: 'border-box',
-      border: '1px solid rgba(0, 30, 75, 0.07)',
-      boxShadow: '0 1.5px 4px -1px rgba(0, 1, 3, 7%)',
-
+      background: '#FFFFFF',
+      boxShadow:
+        '0px 0px 1px 0px rgba(0, 15, 41, 0.05),0px 6px 16px 0px rgba(0, 15, 41, 0.08)',
       '&-left': {
         display: 'flex',
         alignItems: 'center',
         gap: 4,
+        fontSize: '13px',
+        lineHeight: '20px',
+        color: '#343A45',
 
         span: {
-          fontSize: 14,
+          fontSize: '13px',
+          lineHeight: '20px',
           fontWeight: 600,
-          lineHeight: '22px',
-          letterSpacing: 'normal',
-          color: 'rgba(0, 2, 7, 0.87)',
+          color: '#343A45',
         },
 
         '.task-running-icon-wrapper': {
@@ -67,6 +68,35 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
 
+      '&-left-content': {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+      },
+
+      '&-left-main-text': {
+        fontSize: '13px',
+        lineHeight: '20px',
+        fontWeight: 600,
+        color: '#343A45',
+      },
+
+      '&-left-text': {
+        fontSize: '12px',
+        fontWeight: 'normal',
+        lineHeight: '20px',
+        display: 'flex',
+        alignItems: 'center',
+        letterSpacing: 'normal',
+        color: 'rgba(0, 25, 61, 0.3255)',
+      },
+
+      '&-button-wrapper': {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+
       '&-pause': {
         width: 32,
         color: '#343A45',
@@ -81,6 +111,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       button: {
         borderRadius: 200,
       },
+
       // 旋转动画样式
       '.pause-icon-ring': {
         transition: 'transform 0.1s ',
