@@ -1,8 +1,19 @@
+import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
 } from '../hooks/useStyle';
+
+// 定义旋转动画
+const pauseIconRotate = new Keyframes('pauseIconRotate', {
+  '0%': {
+    transform: 'rotate(0deg)',
+  },
+  '100%': {
+    transform: 'rotate(360deg)',
+  },
+});
 
 /**
  * 生成任务运行组件的样式
@@ -58,21 +69,26 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-pause': {
         width: 32,
+        color: '#343A45',
         height: 32,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 6,
-        gap: 8,
         zIndex: 0,
-        borderRadius: 200,
-        background: 'rgba(0, 30, 75, 7%)',
-        backdropFilter: 'blur(20px)',
         cursor: 'pointer',
       },
 
       button: {
         borderRadius: 200,
+      },
+      // 旋转动画样式
+      '.pause-icon-ring': {
+        transition: 'transform 0.1s ',
+        transformOrigin: '16px 16px',
+        animationName: pauseIconRotate,
+        animationDuration: '1s',
+        animationTimingFunction: 'linear',
+        animationIterationCount: 'infinite',
       },
     },
   };
