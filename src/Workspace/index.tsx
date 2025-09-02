@@ -335,4 +335,6 @@ export type {
   WorkspaceProps,
 } from './types';
 
+export * from './File';
+
 export default Workspace;
