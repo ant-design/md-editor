@@ -40,7 +40,7 @@
                 style="max-width: 400px; padding: 24px; background: rgb(255, 255, 255); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"
               >
                 <div
-                  class="ant-form-item"
+                  class="ant-form-item ant-form-item-vertical"
                 >
                   <div
                     class="ant-row ant-form-item-row"
@@ -137,7 +137,7 @@
                   </div>
                 </div>
                 <div
-                  class="ant-form-item"
+                  class="ant-form-item ant-form-item-vertical"
                 >
                   <div
                     class="ant-row ant-form-item-row"
@@ -248,7 +248,7 @@
                   </div>
                 </div>
                 <div
-                  class="ant-form-item"
+                  class="ant-form-item ant-form-item-vertical"
                 >
                   <div
                     class="ant-row ant-form-item-row"
@@ -359,7 +359,7 @@
                   </div>
                 </div>
                 <div
-                  class="ant-form-item"
+                  class="ant-form-item ant-form-item-vertical"
                 >
                   <div
                     class="ant-row ant-form-item-row"
@@ -470,7 +470,7 @@
                   </div>
                 </div>
                 <div
-                  class="ant-form-item"
+                  class="ant-form-item ant-form-item-vertical"
                 >
                   <div
                     class="ant-row ant-form-item-row"
