@@ -20,7 +20,7 @@ export default () => {
       let count = 0;
       timer = setInterval(() => {
         count++;
-        setMinutes((count / 60).toFixed(1));
+        setMinutes(`${(count / 60).toFixed(1)}s`);
       }, 1000);
     }
     return () => clearInterval(timer);
@@ -62,7 +62,7 @@ export default () => {
       <h3 style={{ marginTop: 24 }}>不同状态展示</h3>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <TaskRunning
-          minutes="1.5"
+          minutes="1.5s"
           taskStatus={TASK_STATUS.SUCCESS}
           taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
           onPause={handlePause}

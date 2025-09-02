@@ -1,9 +1,65 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { SendIcon } from './SendIcon';
 import { useStyle } from './style';
+
+function SendIcon(
+  props: React.SVGProps<SVGSVGElement> & {
+    hover?: boolean;
+    disabled?: boolean;
+    typing?: boolean;
+    onInit?: () => void;
+  },
+) {
+  useEffect(() => {
+    props.onInit?.();
+  }, []);
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="1em"
+      height="1em"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      <defs>
+        <clipPath id="a">
+          <rect x={8} y={8} width={16} height={16} rx={0} />
+        </clipPath>
+      </defs>
+      <motion.circle
+        cx="50%"
+        cy="50%"
+        r="0.5em"
+        animate={{
+          fill: props.hover || props.typing ? '#14161C' : '#001C39',
+          fillOpacity: props.hover || props.typing ? 1 : 0.03530000150203705,
+        }}
+        transition={{
+          duration: 0.6,
+          ease: 'easeInOut',
+        }}
+      ></motion.circle>
+      <g clipPath="url(#a)">
+        <motion.path
+          d="M16.667 12.943l3.528 3.528a.667.667 0 00.943-.942l-4.666-4.667a.665.665 0 00-.943 0l-4.667 4.667a.667.667 0 10.943.942l3.528-3.528v7.724a.667.667 0 101.334 0v-7.724z"
+          fillRule="evenodd"
+          animate={{
+            fill: props.hover || props.typing ? '#fff' : '#00183D',
+            fillOpacity: props.hover || props.typing ? 1 : 0.24709999561309814,
+          }}
+          transition={{
+            duration: 0.2,
+            ease: 'easeInOut',
+          }}
+        ></motion.path>
+      </g>
+    </svg>
+  );
+}
 
 /**
  * Props for the SendButton component.
