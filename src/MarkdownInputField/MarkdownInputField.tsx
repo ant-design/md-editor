@@ -173,7 +173,9 @@ export type MarkdownInputFieldProps = {
 
   /**
    * 语音输入配置
-   * @description 由外部提供语音转写实现，组件仅负责控制与UI，传空不展示语音输入按钮
+   * @description 由外部提供语音转写实现，组件仅负责控制与UI，传空不展示语音输入按钮。
+   *
+   * onPartial 约定：增量追加（append-delta）：`onPartial(text)` 仅包含“需要追加”的最新片段。
    */
   voiceRecognizer?: CreateRecognizer;
 
@@ -395,6 +397,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         },
         onError: () => {
           setRecording(false);
+          recognizerRef.current?.stop?.().catch(() => void 0);
           recognizerRef.current = null;
           pendingRef.current = false;
         },

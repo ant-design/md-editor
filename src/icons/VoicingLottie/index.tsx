@@ -1,6 +1,7 @@
 import Lottie from 'lottie-react';
 import React from 'react';
 import voicingLottie from './voicing.json';
+import classNames from 'classnames';
 
 export interface LottieVoiceProps {
   /**
@@ -64,7 +65,7 @@ export const VoicingLottie: React.FC<LottieVoiceProps> = ({
   loop = true,
   className,
   style,
-  size = 32,
+  size,
 }) => {
   const containerStyle: React.CSSProperties = {
     width: size,
@@ -73,7 +74,14 @@ export const VoicingLottie: React.FC<LottieVoiceProps> = ({
   };
 
   return (
-    <div style={containerStyle} className={className}  aria-hidden="true">
+    <div
+      style={containerStyle}
+      className={classNames(
+        'inline-flex items-center justify-center',
+        className,
+      )}
+      aria-hidden="true"
+    >
       <Lottie animationData={voicingLottie} loop={loop} autoplay={autoplay} />
     </div>
   );

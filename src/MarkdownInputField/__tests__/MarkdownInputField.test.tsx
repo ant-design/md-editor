@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { MarkdownInputField } from '../MarkdownInputField';
+import { CreateRecognizer } from '../VoiceInput';
 
 describe('MarkdownInputField - toolsRender', () => {
   it('should render custom tools when toolsRender is provided', () => {
@@ -201,7 +202,7 @@ describe('MarkdownInputField - voiceInput', () => {
   });
 
   it('should append partial text from recognizer and trigger onChange', async () => {
-    let handlersRef: Parameters<typeof createRecognizer>[0];
+    let handlersRef: Parameters<CreateRecognizer>[0];
     const start = vi.fn().mockResolvedValue(undefined);
     const stop = vi.fn().mockResolvedValue(undefined);
     const createRecognizer = vi.fn().mockImplementation(async (handlers) => {
@@ -290,7 +291,7 @@ describe('MarkdownInputField - voiceInput', () => {
   });
 
   it('should handle recognizer error and reset recording state', async () => {
-    let handlersRef: any;
+    let handlersRef: Parameters<CreateRecognizer>[0];
     const start = vi.fn().mockResolvedValue(undefined);
     const stop = vi.fn().mockResolvedValue(undefined);
     const createRecognizer = vi.fn().mockImplementation(async (handlers) => {
@@ -312,7 +313,7 @@ describe('MarkdownInputField - voiceInput', () => {
     });
 
     // trigger recognizer error callback
-    handlersRef.onError?.();
+    handlersRef.onError?.(new Error('test error'));
 
     // recording should be reset
     await vi.waitFor(() => {
