@@ -1,9 +1,20 @@
-﻿import {
+﻿import { Keyframes } from '@ant-design/cssinjs';
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
 } from '../../hooks/useStyle';
+
+// 定义旋转动画
+const pauseIconRotate = new Keyframes('pauseIconRotate', {
+  '0%': {
+    transform: 'rotate(0deg)',
+  },
+  '100%': {
+    transform: 'rotate(360deg)',
+  },
+});
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -17,10 +28,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       cursor: 'pointer',
       '&&-disabled': {
         cursor: 'not-allowed',
-        opacity: 0.5,
+        opacity: 1,
       },
-      '&&-loading': {
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      // 旋转动画样式
+      '.pause-icon-ring': {
+        transition: 'transform 0.1s ',
+        transformOrigin: '16px 16px',
+        animationName: pauseIconRotate,
+        animationDuration: '1s',
+        animationTimingFunction: 'linear',
+        animationIterationCount: 'infinite',
       },
     },
   };

@@ -766,9 +766,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             zIndex: 9,
             flexDirection: 'column',
             boxSizing: 'border-box',
-            borderRadius: (props.borderRadius || 12) - 1 || 10,
+            borderRadius: (props.borderRadius || 12) - 2 || 10,
             cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-            opacity: isLoading || props.disabled ? 0.5 : 1,
+            opacity: props.disabled ? 0.5 : 1,
           }}
         >
           <div

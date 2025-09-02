@@ -15,7 +15,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '1px',
+      padding: '2px',
       borderRadius: '12px',
       minHeight: '32px',
       maxWidth: 980,
@@ -70,11 +70,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backgroundColor: 'rgba(0,0,0,0.04)',
         cursor: 'not-allowed',
         padding: 0,
-        '&:hover': {
-          [`${token.componentCls}-background`]: {
-            opacity: 0,
-          },
-        },
       },
       '&-send-tools': {
         boxSizing: 'border-box',

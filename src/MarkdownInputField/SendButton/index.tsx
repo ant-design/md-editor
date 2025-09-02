@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import PauseIcon from '../../AgentRunBar/icons/PauseIcon';
 import { useStyle } from './style';
 
 function SendIcon(
@@ -16,6 +17,9 @@ function SendIcon(
   useEffect(() => {
     props.onInit?.();
   }, []);
+  if (props.typing) {
+    return <PauseIcon />;
+  }
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -35,8 +39,8 @@ function SendIcon(
         cy="50%"
         r="0.5em"
         animate={{
-          fill: props.hover || props.typing ? '#14161C' : '#001C39',
-          fillOpacity: props.hover || props.typing ? 1 : 0.03530000150203705,
+          fill: props.hover ? '#14161C' : '#001C39',
+          fillOpacity: props.hover ? 1 : 0.03530000150203705,
         }}
         transition={{
           duration: 0.6,
@@ -48,8 +52,8 @@ function SendIcon(
           d="M16.667 12.943l3.528 3.528a.667.667 0 00.943-.942l-4.666-4.667a.665.665 0 00-.943 0l-4.667 4.667a.667.667 0 10.943.942l3.528-3.528v7.724a.667.667 0 101.334 0v-7.724z"
           fillRule="evenodd"
           animate={{
-            fill: props.hover || props.typing ? '#fff' : '#00183D',
-            fillOpacity: props.hover || props.typing ? 1 : 0.24709999561309814,
+            fill: props.hover ? '#fff' : '#00183D',
+            fillOpacity: props.hover ? 1 : 0.24709999561309814,
           }}
           transition={{
             duration: 0.2,
