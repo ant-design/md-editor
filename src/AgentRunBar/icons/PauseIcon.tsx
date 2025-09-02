@@ -36,7 +36,7 @@ function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
         stroke="currentColor"
         fill="none"
         transform=""
-        strokeDasharray="42, 914"
+        strokeDasharray="18, 914"
       ></circle>
       <g clipPath="url(#a)">
         <path
