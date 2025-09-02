@@ -72,19 +72,18 @@ export default () => {
         />
 
         <TaskRunning
-          minutes="0.5"
-          taskStatus={TASK_STATUS.ERROR}
-          taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
+          minutes="2.0"
+          taskStatus={TASK_STATUS.PAUSE}
+          taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
           onPause={handlePause}
           onCreateNewTask={handleCreateNewTask}
           onReplay={handleReplay}
           onViewResult={handleViewResult}
         />
-
         <TaskRunning
           minutes="2.0"
-          taskStatus={TASK_STATUS.PAUSE}
-          taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
+          taskStatus={TASK_STATUS.RUNNING}
+          taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
           onPause={handlePause}
           onCreateNewTask={handleCreateNewTask}
           onReplay={handleReplay}

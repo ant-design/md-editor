@@ -1,12 +1,9 @@
-import {
-  PauseCircleFilled,
-  PlusOutlined,
-  UndoOutlined,
-} from '@ant-design/icons';
+import { PlusOutlined, UndoOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { I18nContext } from '../i18n';
+import PauseIcon from './icons/PauseIcon';
 import Robot from './Robot';
 import { useStyle } from './style';
 
@@ -222,7 +219,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
       {taskStatus === TASK_STATUS.RUNNING ? (
         taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
           <div className={`${baseCls}-pause ${hashId}`} onClick={onPause}>
-            <PauseCircleFilled />
+            <PauseIcon />
           </div>
         ) : (
           <Button
