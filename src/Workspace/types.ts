@@ -16,6 +16,8 @@ export interface TabConfiguration {
 export interface TabItem {
   key: string;
   label: ReactNode;
+  title?: ReactNode;
+  icon?: ReactNode;
   content?: ReactNode;
 }
 
@@ -327,6 +329,10 @@ export interface GroupNode extends BaseNode {
 export interface FileActionRef {
   openPreview: (file: FileNode) => void;
   backToList: () => void;
+  /**
+   * 跨页更新预览标题区域的文件信息（仅影响标题展示，不改变实际预览内容）
+   */
+  updatePreviewHeader?: (partial: Partial<FileNode>) => void;
 }
 
 // 文件组件属性
@@ -340,6 +346,11 @@ export interface FileProps extends BaseChildProps {
     file: FileNode,
   ) => FileNode | ReactNode | Promise<FileNode | ReactNode>;
   /**
+   * 自定义预览页返回行为
+   * @description 返回 false 可阻止组件默认的返回列表行为
+   */
+  onBack?: (file: FileNode) => void | boolean | Promise<void | boolean>;
+  /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置
    */
@@ -350,6 +361,21 @@ export interface FileProps extends BaseChildProps {
    * 对外暴露的操作引用，允许外部主动打开预览或返回列表
    */
   actionRef?: React.MutableRefObject<FileActionRef | null>;
+  /**
+   * 是否显示加载状态
+   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   */
+  loading?: boolean;
+  /**
+   * 自定义加载渲染函数
+   * @description 当loading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
+   */
+  loadingRender?: () => React.ReactNode;
+  /**
+   * 自定义空状态渲染
+   * @description 当文件列表为空且非loading状态时，优先使用该渲染；未提供时使用默认的 Empty
+   */
+  emptyRender?: React.ReactNode | (() => React.ReactNode);
 }
 
 export interface CustomProps extends BaseChildProps {

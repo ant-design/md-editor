@@ -30,11 +30,6 @@ import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import mdastParser from './remarkParse';
 
-type DescriptionNode = {
-  type: 'description';
-  children: Elements[];
-};
-
 // 类型定义
 type CodeElement = {
   type: string;
@@ -487,38 +482,12 @@ const parseTableOrChart = (
     }),
   };
 
-  if (!isChart && dataSource.length < 2 && columns.length > 4) {
-    return EditorUtils.wrapperCardNode(parserTableToDescription(children));
-  }
-
   const node: TableNode | ChartNode = {
     type: isChart ? 'chart' : 'table',
     children: children,
     otherProps,
   } as any;
   return EditorUtils.wrapperCardNode(node);
-};
-
-const parserTableToDescription = (children: TableRowNode[]) => {
-  const header = children[0];
-  const body = children.slice(1);
-
-  const newChildren = body
-    .map((row: any) => {
-      const list = row.children
-        .map((item: any, index: number) => {
-          return [header.children[index], item];
-        })
-        .flat(1);
-      return list;
-    })
-    .flat(1);
-
-  const node: DescriptionNode = {
-    type: 'description',
-    children: newChildren,
-  };
-  return node;
 };
 
 /**

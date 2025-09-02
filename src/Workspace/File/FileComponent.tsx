@@ -6,7 +6,9 @@ import {
 } from '@ant-design/icons';
 import { Alert, ConfigProvider, Image, Spin, Typography } from 'antd';
 
+import { Empty } from 'antd';
 import React, { type FC, useContext, useRef, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
@@ -118,6 +120,7 @@ const FileItemComponent: FC<{
   prefixCls = 'workspace-file',
   hashId,
 }) => {
+  const { locale } = useContext(I18nContext);
   // 确保文件有唯一ID
   const fileWithId = ensureNodeWithId(file);
   const fileTypeInfo = fileTypeProcessor.inferFileType(fileWithId);
@@ -241,7 +244,7 @@ const FileItemComponent: FC<{
       }
       onClick={handleClick}
       className={`${prefixCls}-item ${hashId}`}
-      ariaLabel={`文件：${fileWithId.name}`}
+      ariaLabel={`${locale?.['workspace.file'] || '文件'}：${fileWithId.name}`}
     />
   );
 };
@@ -260,6 +263,7 @@ const GroupHeader: FC<{
   prefixCls = 'workspace-file',
   hashId,
 }) => {
+  const { locale } = useContext(I18nContext);
   const groupTypeInfo = fileTypeProcessor.inferFileType(group);
   const groupType = group.type || groupTypeInfo.fileType;
 
@@ -308,14 +312,14 @@ const GroupHeader: FC<{
               icon={<DownloadOutlined />}
               onClick={handleDownload}
               className={`${prefixCls}-group-download-icon ${hashId}`}
-              ariaLabel={`下载${group.name}文件`}
+              ariaLabel={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
             />
           </div>
         </>
       }
       onClick={handleToggle}
       className={`${prefixCls}-group-header ${hashId}`}
-      ariaLabel={`${group.collapsed ? '展开' : '收起'}${group.name}分组`}
+      ariaLabel={`${group.collapsed ? locale?.['workspace.expand'] || '展开' : locale?.['workspace.collapse'] || '收起'}${group.name}${locale?.['workspace.group'] || '分组'}`}
     />
   );
 };
@@ -384,6 +388,7 @@ const FileGroupComponent: FC<{
  * @param {(type: FileType, collapsed: boolean) => void} [props.onToggleGroup] - 分组折叠/展开回调
  * @param {(file: FileNode) => Promise<React.ReactNode | FileNode>} [props.onPreview] - 文件预览回调
  * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ * @param {React.ReactNode | (() => React.ReactNode)} [props.emptyRender] - 自定义空状态渲染
  *
  * @example
  * ```tsx
@@ -397,6 +402,7 @@ const FileGroupComponent: FC<{
  *   markdownEditorProps={{
  *     theme: 'dark'
  *   }}
+ *   emptyRender={<MyEmpty />}
  * />
  * ```
  *
@@ -417,6 +423,7 @@ export const FileComponent: FC<{
   onFileClick?: FileProps['onFileClick'];
   onToggleGroup?: FileProps['onToggleGroup'];
   onPreview?: FileProps['onPreview'];
+  onBack?: FileProps['onBack'];
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置
@@ -425,6 +432,9 @@ export const FileComponent: FC<{
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
   actionRef?: FileProps['actionRef'];
+  loading?: FileProps['loading'];
+  loadingRender?: FileProps['loadingRender'];
+  emptyRender?: FileProps['emptyRender'];
 }> = ({
   nodes,
   onGroupDownload,
@@ -432,8 +442,12 @@ export const FileComponent: FC<{
   onFileClick,
   onToggleGroup,
   onPreview,
+  onBack,
   markdownEditorProps,
   actionRef,
+  loading,
+  loadingRender,
+  emptyRender,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
@@ -441,6 +455,9 @@ export const FileComponent: FC<{
 
   const [customPreviewHeader, setCustomPreviewHeader] =
     useState<React.ReactNode | null>(null);
+  // 标题区域文件信息覆盖，仅影响展示
+  const [headerFileOverride, setHeaderFileOverride] =
+    useState<Partial<FileNode> | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
@@ -457,13 +474,10 @@ export const FileComponent: FC<{
 
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const { locale } = useContext(I18nContext);
   const prefixCls = getPrefixCls('workspace-file');
 
   const { wrapSSR, hashId } = useFileStyle(prefixCls);
-
-  if (!nodes || nodes.length === 0) {
-    return null;
-  }
 
   // 处理分组折叠/展开
   const handleToggleGroup = (type: FileType, collapsed: boolean) => {
@@ -483,6 +497,20 @@ export const FileComponent: FC<{
     setPreviewFile(null);
     setCustomPreviewContent(null);
     setCustomPreviewHeader(null);
+    setHeaderFileOverride(null);
+  };
+
+  // 包装后的返回逻辑，允许外部拦截
+  const handleBack = async () => {
+    if (previewFile) {
+      try {
+        const result = await (onBack?.(previewFile) as any);
+        if (result === false) return;
+      } catch (_) {
+        // 外部抛错不应阻断默认行为
+      }
+    }
+    handleBackToList();
   };
 
   // 预览页面的下载（供预览页调用）
@@ -505,7 +533,10 @@ export const FileComponent: FC<{
       setPreviewFile(file);
       setCustomPreviewContent(
         <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
-          <Spin size="large" tip="正在加载预览..." />
+          <Spin
+            size="large"
+            tip={locale?.['workspace.loadingPreview'] || '正在加载预览...'}
+          />
         </div>,
       );
 
@@ -559,9 +590,14 @@ export const FileComponent: FC<{
           <div style={{ padding: 24 }}>
             <Alert
               type="error"
-              message="预览加载失败"
+              message={
+                locale?.['workspace.previewLoadFailed'] || '预览加载失败'
+              }
               description={
-                err instanceof Error ? err.message : '获取预览内容时发生错误'
+                err instanceof Error
+                  ? err.message
+                  : locale?.['workspace.previewError'] ||
+                    '获取预览内容时发生错误'
               }
               showIcon
             />
@@ -595,11 +631,24 @@ export const FileComponent: FC<{
       backToList: () => {
         handleBackToList();
       },
+      updatePreviewHeader: (partial) => {
+        setHeaderFileOverride((prev) => ({ ...(prev || {}), ...partial }));
+      },
     };
     return () => {
       actionRef.current = null;
     };
   }, [actionRef, handlePreview, handleBackToList]);
+
+  if ((!nodes || nodes.length === 0) && !loading) {
+    return wrapSSR(
+      <div className={`${prefixCls}-container ${hashId}`}>
+        {typeof emptyRender === 'function'
+          ? emptyRender()
+          : (emptyRender ?? <Empty />)}
+      </div>,
+    );
+  }
 
   // 图片预览组件
   const ImagePreviewComponent = (
@@ -621,10 +670,11 @@ export const FileComponent: FC<{
       <>
         <PreviewComponent
           file={previewFile}
-          onBack={handleBackToList}
+          onBack={handleBack}
           onDownload={handleDownloadInPreview}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
+          headerFileOverride={headerFileOverride || undefined}
           markdownEditorProps={markdownEditorProps}
         />
         {ImagePreviewComponent}
@@ -635,49 +685,61 @@ export const FileComponent: FC<{
   // 渲染文件列表
   return wrapSSR(
     <>
-      <div className={`${prefixCls}-container ${hashId}`}>
-        {nodes.map((node: FileNode | GroupNode) => {
-          const nodeWithId = ensureNodeWithId(node);
+      {loading && loadingRender ? (
+        // 使用自定义loading渲染函数
+        <div className={`${prefixCls}-container ${hashId}`}>
+          {loadingRender()}
+        </div>
+      ) : (
+        // 使用默认的Spin组件
+        <Spin spinning={!!loading}>
+          <div className={`${prefixCls}-container ${hashId}`}>
+            {nodes.map((node: FileNode | GroupNode) => {
+              const nodeWithId = ensureNodeWithId(node);
 
-          if ('children' in nodeWithId) {
-            // 分组节点，使用内部状态覆盖外部的 collapsed 属性
-            const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
-            const groupNode: GroupNode = {
-              ...nodeWithId,
-              collapsed:
-                collapsedGroups[nodeTypeInfo.fileType] ?? nodeWithId.collapsed,
-              // 确保子节点也有唯一ID
-              children: nodeWithId.children.map(ensureNodeWithId),
-            };
-            return (
-              <FileGroupComponent
-                key={nodeWithId.id}
-                group={groupNode}
-                onToggle={handleToggleGroup}
-                onGroupDownload={onGroupDownload}
-                onDownload={onDownload}
-                onFileClick={onFileClick}
-                onPreview={handlePreview}
-                prefixCls={prefixCls}
-                hashId={hashId}
-              />
-            );
-          }
+              if ('children' in nodeWithId) {
+                // 分组节点，使用内部状态覆盖外部的 collapsed 属性
+                const nodeTypeInfo =
+                  fileTypeProcessor.inferFileType(nodeWithId);
+                const groupNode: GroupNode = {
+                  ...nodeWithId,
+                  collapsed:
+                    collapsedGroups[nodeTypeInfo.fileType] ??
+                    nodeWithId.collapsed,
+                  // 确保子节点也有唯一ID
+                  children: nodeWithId.children.map(ensureNodeWithId),
+                };
+                return (
+                  <FileGroupComponent
+                    key={nodeWithId.id}
+                    group={groupNode}
+                    onToggle={handleToggleGroup}
+                    onGroupDownload={onGroupDownload}
+                    onDownload={onDownload}
+                    onFileClick={onFileClick}
+                    onPreview={handlePreview}
+                    prefixCls={prefixCls}
+                    hashId={hashId}
+                  />
+                );
+              }
 
-          // 文件节点
-          return (
-            <FileItemComponent
-              key={nodeWithId.id}
-              file={nodeWithId as FileNode}
-              onClick={onFileClick}
-              onDownload={onDownload}
-              onPreview={handlePreview}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            />
-          );
-        })}
-      </div>
+              // 文件节点
+              return (
+                <FileItemComponent
+                  key={nodeWithId.id}
+                  file={nodeWithId as FileNode}
+                  onClick={onFileClick}
+                  onDownload={onDownload}
+                  onPreview={handlePreview}
+                  prefixCls={prefixCls}
+                  hashId={hashId}
+                />
+              );
+            })}
+          </div>
+        </Spin>
+      )}
       {ImagePreviewComponent}
     </>,
   );

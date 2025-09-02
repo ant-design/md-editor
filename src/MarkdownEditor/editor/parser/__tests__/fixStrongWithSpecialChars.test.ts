@@ -143,4 +143,209 @@ describe('fixStrongWithSpecialChars', () => {
       expect(strong.children[0].type).toBe('text');
     });
   });
+
+  // 新增测试用例：测试中文标点符号
+  it('should handle Chinese punctuation marks', () => {
+    const testCases = [
+      { input: '**重要提醒！**', expected: '重要提醒！' },
+      { input: '**请注意：**', expected: '请注意：' },
+      { input: '**问题？**', expected: '问题？' },
+      { input: '**说明，**', expected: '说明，' },
+      { input: '**列表；**', expected: '列表；' },
+      { input: '**内容。**', expected: '内容。' },
+      { input: '**项目、**', expected: '项目、' },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const parser = createParser();
+      const ast = parser.parse(input);
+      const result = parser.runSync(ast) as any;
+
+      const paragraph = result.children[0] as any;
+      const strong = paragraph.children[0];
+
+      expect(strong.type).toBe('strong');
+      expect(strong.children[0].value).toBe(expected);
+    });
+  });
+
+  // 新增测试用例：测试引号
+  it('should handle quotation marks', () => {
+    const testCases = [
+      { input: '**"重要信息"**', expected: '"重要信息"' },
+      { input: "**'关键数据'**", expected: "'关键数据'" },
+      { input: '**"Hello World"**', expected: '"Hello World"' },
+      { input: "**'Test Data'**", expected: "'Test Data'" },
+      { input: '**"中文"英文"**', expected: '"中文"英文"' },
+      { input: "**'Mixed'Content'**", expected: "'Mixed'Content'" },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const parser = createParser();
+      const ast = parser.parse(input);
+      const result = parser.runSync(ast) as any;
+
+      const paragraph = result.children[0] as any;
+      const strong = paragraph.children[0];
+
+      expect(strong.type).toBe('strong');
+      expect(strong.children[0].value).toBe(expected);
+    });
+  });
+
+  // 新增测试用例：测试书名号
+  it('should handle Chinese book title marks', () => {
+    const testCases = [
+      { input: '**《重要文档》**', expected: '《重要文档》' },
+      { input: '**【注意事项】**', expected: '【注意事项】' },
+      { input: '**《技术规范》**', expected: '《技术规范》' },
+      { input: '**【操作指南】**', expected: '【操作指南】' },
+      { input: '**《中文》English**', expected: '《中文》English' },
+      { input: '**【Mixed】Content**', expected: '【Mixed】Content' },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const parser = createParser();
+      const ast = parser.parse(input);
+      const result = parser.runSync(ast) as any;
+
+      const paragraph = result.children[0] as any;
+      const strong = paragraph.children[0];
+
+      expect(strong.type).toBe('strong');
+      expect(strong.children[0].value).toBe(expected);
+    });
+  });
+
+  // 新增测试用例：测试括号
+  it('should handle Chinese parentheses', () => {
+    const testCases = [
+      { input: '**（重要说明）**', expected: '（重要说明）' },
+      { input: '**（Technical Note）**', expected: '（Technical Note）' },
+      { input: '**（Mixed内容）**', expected: '（Mixed内容）' },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const parser = createParser();
+      const ast = parser.parse(input);
+      const result = parser.runSync(ast) as any;
+
+      const paragraph = result.children[0] as any;
+      const strong = paragraph.children[0];
+
+      expect(strong.type).toBe('strong');
+      expect(strong.children[0].value).toBe(expected);
+    });
+  });
+
+  // 新增测试用例：测试混合内容
+  it('should handle mixed content with various symbols', () => {
+    const testCases = [
+      {
+        input: '**$9.698M（重要）**',
+        expected: '$9.698M（重要）',
+      },
+      {
+        input: '**"关键数据"57%**',
+        expected: '"关键数据"57%',
+      },
+      {
+        input: '**《文档》！**',
+        expected: '《文档》！',
+      },
+      {
+        input: '**【注意】$100**',
+        expected: '【注意】$100',
+      },
+      {
+        input: '**"Hello"（World）**',
+        expected: '"Hello"（World）',
+      },
+      {
+        input: '**《技术》"规范"**',
+        expected: '《技术》"规范"',
+      },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const parser = createParser();
+      const ast = parser.parse(input);
+      const result = parser.runSync(ast) as any;
+
+      const paragraph = result.children[0] as any;
+      const strong = paragraph.children[0];
+
+      expect(strong.type).toBe('strong');
+      expect(strong.children[0].value).toBe(expected);
+    });
+  });
+
+  // 新增测试用例：测试复杂段落中的混合内容
+  it('should handle complex paragraphs with mixed bold content', () => {
+    const parser = createParser();
+    const markdown =
+      '收入为 **$9.698M（重要）**，请注意 **"关键数据"** 和 **《技术文档》**！';
+
+    const ast = parser.parse(markdown);
+    const result = parser.runSync(ast) as any;
+
+    const paragraph = result.children[0] as any;
+    expect(paragraph.type).toBe('paragraph');
+    expect(paragraph.children).toHaveLength(7);
+
+    // "收入为 "
+    expect(paragraph.children[0].type).toBe('text');
+    expect(paragraph.children[0].value).toBe('收入为 ');
+
+    // "**$9.698M（重要）**"
+    expect(paragraph.children[1].type).toBe('strong');
+    expect(paragraph.children[1].children[0].value).toBe('$9.698M（重要）');
+
+    // "，请注意 "
+    expect(paragraph.children[2].type).toBe('text');
+    expect(paragraph.children[2].value).toBe('，请注意 ');
+
+    // "**"关键数据"**"
+    expect(paragraph.children[3].type).toBe('strong');
+    expect(paragraph.children[3].children[0].value).toBe('"关键数据"');
+
+    // " 和 "
+    expect(paragraph.children[4].type).toBe('text');
+    expect(paragraph.children[4].value).toBe(' 和 ');
+
+    // "**《技术文档》**"
+    expect(paragraph.children[5].type).toBe('strong');
+    expect(paragraph.children[5].children[0].value).toBe('《技术文档》');
+
+    // "！"
+    expect(paragraph.children[6].type).toBe('text');
+    expect(paragraph.children[6].value).toBe('！');
+  });
+
+  // 新增测试用例：测试边界情况
+  it('should handle edge cases with new symbols', () => {
+    const testCases = [
+      { input: '**！**', desc: '只有感叹号' },
+      { input: '**"**', desc: '只有引号开始' },
+      { input: '**"**', desc: '只有引号结束' },
+      { input: '**《**', desc: '只有书名号开始' },
+      { input: '**》**', desc: '只有书名号结束' },
+      { input: '**（**', desc: '只有括号开始' },
+      { input: '**）**', desc: '只有括号结束' },
+      { input: '**，**', desc: '只有逗号' },
+      { input: '**。**', desc: '只有句号' },
+    ];
+
+    testCases.forEach(({ input, desc }) => {
+      const parser = createParser();
+      const ast = parser.parse(input);
+      const result = parser.runSync(ast) as any;
+
+      const paragraph = result.children[0] as any;
+      const strong = paragraph.children[0];
+
+      expect(strong.type, `Failed for: ${desc}`).toBe('strong');
+      expect(strong.children[0].type, `Failed for: ${desc}`).toBe('text');
+    });
+  });
 });

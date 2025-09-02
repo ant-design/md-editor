@@ -130,9 +130,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        background:
-          'linear-gradient(0deg, #1677FF, #1677FF), linear-gradient(0deg, #00315D, #00315D), #FFFFFF',
-        color: '#fff',
+        background: '#c6e1fe',
+        color: '#343A45',
         borderRadius: '12px 6px 12px 12px',
         '&&-pure': {
           background: '#1677FF',

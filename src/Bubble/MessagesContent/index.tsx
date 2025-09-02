@@ -135,7 +135,7 @@ export const BubbleMessageDisplay: React.FC<
             data-testid="message-content"
           >
             <LoadingIcon />
-            {locale?.['chat.message.thinking'] || '正在思考中...'}
+            {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );
       }
@@ -218,7 +218,7 @@ export const BubbleMessageDisplay: React.FC<
               props.originData?.role === 'bot'
                 ? {}
                 : {
-                    color: '#FFF',
+                    color: '#343A45',
                   }
             }
             extra={extra}

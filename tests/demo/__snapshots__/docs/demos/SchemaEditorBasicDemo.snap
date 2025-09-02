@@ -1,0 +1,278 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      class="schema-editor"
+      style="height: 600px;"
+    >
+      <div
+        class="schema-editor-container"
+      >
+        <div
+          class="schema-editor-left"
+        >
+          <div
+            class="schema-editor-html"
+          >
+            <div
+              class="schema-editor-html-header"
+            >
+              <h3>
+                HTML模板
+              </h3>
+            </div>
+            <div
+              class="schema-editor-html-content"
+            >
+              <div
+                class=" ace_editor ace_hidpi ace-tm"
+                style="height: 100%; width: 100%;"
+              >
+                <textarea
+                  aria-autocomplete="both"
+                  aria-haspopup="false"
+                  aria-label="Cursor at row 7"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  class="ace_text-input"
+                  role="textbox"
+                  spellcheck="false"
+                  style="opacity: 0; font-size: 1px;"
+                  wrap="off"
+                />
+                <div
+                  aria-hidden="true"
+                  class="ace_gutter"
+                  style="display: none;"
+                >
+                  <div
+                    class="ace_layer ace_gutter-layer ace_folding-enabled"
+                    style="height: 1000000px;"
+                  />
+                </div>
+                <div
+                  class="ace_scroller"
+                  style="line-height: 0px;"
+                >
+                  <div
+                    class="ace_content"
+                  >
+                    <div
+                      class="ace_layer ace_print-margin-layer"
+                    >
+                      <div
+                        class="ace_print-margin"
+                        style="left: 4px; visibility: hidden;"
+                      />
+                    </div>
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_text-layer"
+                      style="height: 1000000px; margin: 0px 4px;"
+                    />
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                    >
+                      <div
+                        class="ace_cursor"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-v"
+                  style="display: none; width: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="width: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-h"
+                  style="display: none; height: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="height: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                >
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  />
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  >
+                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                  </div>
+                </div>
+                <div
+                  class="ace_tooltip"
+                  id="gt5"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="schema-editor-json"
+          >
+            <div
+              class="schema-editor-json-header"
+            >
+              <h3>
+                Schema JSON
+              </h3>
+            </div>
+            <div
+              class="schema-editor-json-content"
+            >
+              <div
+                class=" ace_editor ace_hidpi ace-tm"
+                style="height: 100%; width: 100%;"
+              >
+                <textarea
+                  aria-autocomplete="both"
+                  aria-haspopup="false"
+                  aria-label="Cursor at row 25"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  class="ace_text-input"
+                  role="textbox"
+                  spellcheck="false"
+                  style="opacity: 0; font-size: 1px;"
+                  wrap="off"
+                />
+                <div
+                  aria-hidden="true"
+                  class="ace_gutter"
+                  style="display: none;"
+                >
+                  <div
+                    class="ace_layer ace_gutter-layer ace_folding-enabled"
+                    style="height: 1000000px;"
+                  />
+                </div>
+                <div
+                  class="ace_scroller"
+                  style="line-height: 0px;"
+                >
+                  <div
+                    class="ace_content"
+                  >
+                    <div
+                      class="ace_layer ace_print-margin-layer"
+                    >
+                      <div
+                        class="ace_print-margin"
+                        style="left: 4px; visibility: hidden;"
+                      />
+                    </div>
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_text-layer"
+                      style="height: 1000000px; margin: 0px 4px;"
+                    />
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                    >
+                      <div
+                        class="ace_cursor"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-v"
+                  style="display: none; width: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="width: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-h"
+                  style="display: none; height: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="height: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                >
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  />
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  >
+                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                  </div>
+                </div>
+                <div
+                  class="ace_tooltip"
+                  id="gt6"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="schema-editor-right"
+        >
+          <div
+            class="schema-editor-preview"
+          >
+            <div
+              class="schema-editor-preview-header"
+            >
+              <h3>
+                实时预览
+              </h3>
+            </div>
+            <div
+              class="schema-editor-preview-content"
+            >
+              <div
+                class="schemaRenderer"
+                data-testid="schema-renderer"
+                style="font-size: 14px; line-height: 1.6; width: max-content; margin: 1em;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

@@ -335,7 +335,7 @@ describe('ThoughtChainList', () => {
     it('should show loading state when loading prop is true', () => {
       const loadingData: WhiteBoxProcessInterface = {
         category: 'DeepThink',
-        info: '正在思考中...',
+        info: '思考中...',
         runId: 'loading-001',
         isLoading: true,
       };
