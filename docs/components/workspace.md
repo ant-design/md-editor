@@ -22,30 +22,34 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 ### 基础用法
 
-<code src="../demos/workspace-demo.tsx" description="展示工作空间的基本功能和标签页切换">基础用法</code>
+<code src="../demos/workspace-demo.tsx" description="展示工作空间的基本功能和标签页切换"></code>
 
 ### 文件管理
 
-<code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能">文件管理</code>
+<code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能"></code>
 <code src="../demos/workspace-file-custom-preview-flow.tsx">文件-自定义预览</code>
 
 <code src="../demos/workspace-file-actionref-demo.tsx">actionRef外部打开</code>
-
+<!-- <code src="../demos/workspace-file-previewComponent.tsx">导出文件预览组件</code> -->
 ### 实时跟随
 
-<code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能">实时跟随</code>
+<code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能"></code>
 
 ### 任务管理
 
-<code src="../demos/workspace-task-demo.tsx" description="演示任务创建、编辑、状态管理等功能">任务管理</code>
+<code src="../demos/workspace-task-demo.tsx" description="演示任务创建、编辑、状态管理等功能"></code>
+
+### 空状态
+
+<code src="../demos/workspace-realtime-empty-demo.tsx" description="演示任务创建、编辑、状态管理等功能"></code>
 
 ### 自定义内容
 
-<code src="../demos/workspace-custom-demo.tsx" description="展示如何添加自定义组件和内容">自定义内容</code>
+<code src="../demos/workspace-custom-demo.tsx" description="展示如何添加自定义组件和内容"></code>
 
 ### 高级用法
 
-<code src="../demos/workspace-advanced-demo.tsx" description="展示复杂场景下的工作空间配置和使用">高级用法</code>
+<code src="../demos/workspace-advanced-demo.tsx" description="展示复杂场景下的工作空间配置和使用"></code>
 
 ## API
 
@@ -86,6 +90,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | style               | 内联样式                                                             | `React.CSSProperties`                              | -           |
 | status              | 渲染状态（仅覆盖层处理，html 由 HtmlPreview 内部处理）               | `'loading' \| 'done' \| 'error'`                   | -           |
 | loadingRender       | 自定义加载渲染，非必传                                               | `React.ReactNode \| () => React.ReactNode`         | -           |
+| emptyRender         | 自定义空状态渲染（内容为空时优先显示）                               | `React.ReactNode \| () => React.ReactNode`         | -           |
 | viewMode            | html 受控视图模式                                                    | `'preview' \| 'code'`                              | -           |
 | defaultViewMode     | html 非受控默认视图模式                                              | `'preview' \| 'code'`                              | `'preview'` |
 | onViewModeChange    | 视图模式变更回调（html）                                             | `(mode: 'preview' \| 'code') => void`              | -           |
@@ -127,20 +132,22 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | onDownload          | 单文件下载回调                                                | `(file: FileNode) => void`                                                     | -      |
 | onFileClick         | 文件点击回调                                                  | `(file: FileNode) => void`                                                     | -      |
 | onToggleGroup       | 组展开/收起回调                                               | `(groupType: FileType, collapsed: boolean) => void`                            | -      |
-| onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => FileNode \| ReactNode \| Promise<FileNode \| ReactNode>`  | -      |
-| onBack              | 预览页返回回调（返回 false 阻止默认返回）                     | `(file: FileNode) => void \| boolean \| Promise<void \| boolean>`             | -      |
+| onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => void \| false \| FileNode \| ReactNode \| Promise<void \| false \| FileNode \| ReactNode>`  | -      |
+| onBack              | 预览页返回回调（返回 false 阻止默认返回）                     | `(file: FileNode) => void \| boolean \| Promise<void \| boolean>`              | -      |
 | markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
-| actionRef           | 对外操作引用（打开预览/返回）                                 | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
+| actionRef           | 对外操作引用（打开预览/返回/更新预览标题）                    | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
 | loading             | 是否显示加载状态                                              | `boolean`                                                                      | -      |
 | loadingRender       | 自定义加载渲染函数，非必传                                    | `() => React.ReactNode`                                                        | -      |
+| emptyRender         | 自定义空状态渲染（列表为空且非 loading 时优先显示）           | `React.ReactNode \| () => React.ReactNode`                                     | -      |
 | tab                 | 标签页配置                                                    | `TabConfiguration`                                                             | -      |
 
 #### FileActionRef
 
-| 方法        | 说明                   | 类型                       |
-| ----------- | ---------------------- | -------------------------- |
-| openPreview | 外部打开文件预览页     | `(file: FileNode) => void` |
-| backToList  | 从预览页返回到文件列表 | `() => void`               |
+| 方法                | 说明                                   | 类型                                   |
+| ------------------- | -------------------------------------- | -------------------------------------- |
+| openPreview         | 外部打开文件预览页                     | `(file: FileNode) => void`             |
+| backToList          | 从预览页返回到文件列表                 | `() => void`                           |
+| updatePreviewHeader | 更新预览标题区域展示（仅影响头部展示） | `(partial: Partial<FileNode>) => void` |
 
 #### FileNode
 
@@ -174,7 +181,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 #### FileType
 
-文件类型键值，内置常见文本/图片/视频/音频/办公文档/压缩包/代码等类型（如 `plainText`、`markdown`、`image`、`video`、`audio`、`pdf`、`word`、`excel`、`archive`、`javascript`、`typescript`、`react`、`python`、`java`、`cpp`、`c`、`csharp`、`go`、`rust`、`php`、`ruby`、`shell`、`powershell`、`sql`、`lua`、`perl`、`scala`、`config`）。
+文件类型键值，内置常见文本/图片/视频/音频/办公文档/压缩包/代码等类型（如 `plainText`、`markdown`、`image`、`video`、`audio`、`pdf`、`word`、`excel`、`archive`、`javascript`、`typescript`、`react`、`python`、`java`、`cpp`、`c`、`csharp`、`go`、`rust`、`php`、`ruby`、`shell`、`powershell`、`sql`、`lua`、`perl`、`scala`、`config`)。
 
 ### Workspace.Browser
 

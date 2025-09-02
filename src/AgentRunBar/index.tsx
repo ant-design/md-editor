@@ -1,12 +1,9 @@
-import {
-  PauseCircleFilled,
-  PlusOutlined,
-  UndoOutlined,
-} from '@ant-design/icons';
+import { PlusOutlined, UndoOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { I18nContext } from '../i18n';
+import PauseIcon from './icons/PauseIcon';
 import Robot from './Robot';
 import { useStyle } from './style';
 
@@ -176,44 +173,50 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
                   ? 'default'
                   : 'thinking'
             }
-            size={34}
+            size={36}
           />
         </div>
         {/* 文字区 */}
         {taskStatus === TASK_STATUS.RUNNING ? (
           taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-            <div>
-              <div>
-                <span>{finalMessages.running}，</span>
-                <span>
-                  {finalMessages.timeUsedPrefix} {minutes}
-                </span>
+            <div className={`${baseCls}-left-content ${hashId}`}>
+              <div className={`${baseCls}-left-main-text ${hashId}`}>
+                {finalMessages.running && (
+                  <span>{finalMessages.running}，</span>
+                )}
+                {finalMessages.timeUsedPrefix && (
+                  <span>
+                    {finalMessages.timeUsedPrefix} {minutes}
+                  </span>
+                )}
               </div>
-              <div className={`${baseCls}-left-text ${hashId}`}>
-                {finalMessages.calling}
-              </div>
+              {finalMessages.calling && (
+                <div className={`${baseCls}-left-text ${hashId}`}>
+                  {finalMessages.calling}
+                </div>
+              )}
             </div>
           ) : taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE ? (
-            <div>
+            <div className={`${baseCls}-left-content ${hashId}`}>
               <span>{finalMessages.taskCompleted}</span>
             </div>
           ) : (
-            <div>
+            <div className={`${baseCls}-left-content ${hashId}`}>
               <span>{finalMessages.taskStopped}</span>
             </div>
           )
         ) : taskStatus === TASK_STATUS.SUCCESS ? (
           taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-            <div>
+            <div className={`${baseCls}-left-content ${hashId}`}>
               <span>{finalMessages.taskReplaying}</span>
             </div>
           ) : (
-            <div>
+            <div className={`${baseCls}-left-content ${hashId}`}>
               <span>{finalMessages.taskCompleted}</span>
             </div>
           )
         ) : (
-          <div>
+          <div className={`${baseCls}-left-content ${hashId}`}>
             <span>{finalMessages.taskStopped}</span>
           </div>
         )}
@@ -222,9 +225,35 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
       {taskStatus === TASK_STATUS.RUNNING ? (
         taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
           <div className={`${baseCls}-pause ${hashId}`} onClick={onPause}>
-            <PauseCircleFilled />
+            <PauseIcon />
           </div>
         ) : (
+          <div className={`${baseCls}-button-wrapper ${hashId}`}>
+            <Button
+              type="primary"
+              onClick={onCreateNewTask}
+              icon={<PlusOutlined />}
+            >
+              {finalMessages.createNewTask}
+            </Button>
+          </div>
+        )
+      ) : taskStatus === TASK_STATUS.SUCCESS ? (
+        taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
+          <div className={`${baseCls}-button-wrapper ${hashId}`}>
+            <Button type="primary" onClick={onViewResult}>
+              {finalMessages.viewResult}
+            </Button>
+          </div>
+        ) : (
+          <div className={`${baseCls}-button-wrapper ${hashId}`}>
+            <Button type="primary" onClick={onReplay} icon={<UndoOutlined />}>
+              {finalMessages.replayTask}
+            </Button>
+          </div>
+        )
+      ) : (
+        <div className={`${baseCls}-button-wrapper ${hashId}`}>
           <Button
             type="primary"
             onClick={onCreateNewTask}
@@ -232,25 +261,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
           >
             {finalMessages.createNewTask}
           </Button>
-        )
-      ) : taskStatus === TASK_STATUS.SUCCESS ? (
-        taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-          <Button type="primary" onClick={onViewResult}>
-            {finalMessages.viewResult}
-          </Button>
-        ) : (
-          <Button type="primary" onClick={onReplay} icon={<UndoOutlined />}>
-            {finalMessages.replayTask}
-          </Button>
-        )
-      ) : (
-        <Button
-          type="primary"
-          onClick={onCreateNewTask}
-          icon={<PlusOutlined />}
-        >
-          {finalMessages.createNewTask}
-        </Button>
+        </div>
       )}
     </div>,
   );

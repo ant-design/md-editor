@@ -11,11 +11,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       width: '100%',
       height: '100%',
       display: 'flex',
-      boxShadow: `0 1px 2px 0 rgba(0, 0, 0, 0.03),0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)`,
+      boxShadow: `0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)`,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#E6ECF4',
       padding: '2px',
       borderRadius: '12px',
       minHeight: '32px',
@@ -27,9 +26,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
       },
       '&:hover': {
-        boxShadow:
-          '0px 2px 9px 0px rgba(202, 218, 255, 0.3671),0px 1px 7px 0px rgba(51, 0, 123, 0.07),0px 0px 1px 0px rgba(74, 0, 255, 0.0806),inset 0px 1px 4px 0px rgba(225, 235, 240, 0.5),inset 0px 1px 1px 0px rgba(204, 214, 220, 0.5)',
-
+        boxShadow: 'none',
+        backgroundImage:
+          'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%)',
         [`${token.componentCls}-background`]: {
           opacity: 1,
         },
@@ -71,11 +70,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backgroundColor: 'rgba(0,0,0,0.04)',
         cursor: 'not-allowed',
         padding: 0,
-        '&:hover': {
-          [`${token.componentCls}-background`]: {
-            opacity: 0,
-          },
-        },
       },
       '&-send-tools': {
         boxSizing: 'border-box',

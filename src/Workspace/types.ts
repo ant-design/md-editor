@@ -329,6 +329,10 @@ export interface GroupNode extends BaseNode {
 export interface FileActionRef {
   openPreview: (file: FileNode) => void;
   backToList: () => void;
+  /**
+   * 跨页更新预览标题区域的文件信息（仅影响标题展示，不改变实际预览内容）
+   */
+  updatePreviewHeader?: (partial: Partial<FileNode>) => void;
 }
 
 // 文件组件属性
@@ -340,7 +344,12 @@ export interface FileProps extends BaseChildProps {
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
   onPreview?: (
     file: FileNode,
-  ) => FileNode | ReactNode | Promise<FileNode | ReactNode>;
+  ) =>
+    | void
+    | false
+    | FileNode
+    | ReactNode
+    | Promise<void | false | FileNode | ReactNode>;
   /**
    * 自定义预览页返回行为
    * @description 返回 false 可阻止组件默认的返回列表行为
@@ -367,6 +376,11 @@ export interface FileProps extends BaseChildProps {
    * @description 当loading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
    */
   loadingRender?: () => React.ReactNode;
+  /**
+   * 自定义空状态渲染
+   * @description 当文件列表为空且非loading状态时，优先使用该渲染；未提供时使用默认的 Empty
+   */
+  emptyRender?: React.ReactNode | (() => React.ReactNode);
 }
 
 export interface CustomProps extends BaseChildProps {

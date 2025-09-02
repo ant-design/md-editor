@@ -32,6 +32,11 @@ import {
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
+import {
+  VoiceInputButton,
+  type CreateRecognizer,
+  type VoiceRecognizer,
+} from './VoiceInput';
 
 /**
  * Markdown 输入字段的属性接口
@@ -165,6 +170,14 @@ export type MarkdownInputFieldProps = {
   attachment?: {
     enable?: boolean;
   } & AttachmentButtonProps;
+
+  /**
+   * 语音输入配置
+   * @description 由外部提供语音转写实现，组件仅负责控制与UI，传空不展示语音输入按钮。
+   *
+   * onPartial 约定：增量追加（append-delta）：`onPartial(text)` 仅包含“需要追加”的最新片段。
+   */
+  voiceRecognizer?: CreateRecognizer;
 
   /**
    * 自定义操作按钮渲染函数
@@ -364,10 +377,63 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     onChange: props.attachment?.onFileMapChange,
   });
 
+  // 语音输入
+  const [recording, setRecording] = useState(false);
+  const recognizerRef = React.useRef<VoiceRecognizer | null>(null);
+  const pendingRef = React.useRef(false);
+
+  const startRecording = useRefFunction(async () => {
+    if (!props.voiceRecognizer) return;
+    if (recording || pendingRef.current) return;
+    pendingRef.current = true;
+    try {
+      const recognizer = await props.voiceRecognizer({
+        onPartial: (text: string) => {
+          const current =
+            markdownEditorRef?.current?.store?.getMDContent() || '';
+          const next = `${current}${text}`;
+          markdownEditorRef?.current?.store?.setMDContent(next);
+          setValue(next); // 自动触发onChange
+        },
+        onError: () => {
+          setRecording(false);
+          recognizerRef.current?.stop?.().catch(() => void 0);
+          recognizerRef.current = null;
+          pendingRef.current = false;
+        },
+      });
+      recognizerRef.current = recognizer;
+      await recognizerRef.current.start();
+      setRecording(true);
+    } catch (e) {
+      recognizerRef.current = null;
+    } finally {
+      pendingRef.current = false;
+    }
+  });
+
+  const stopRecording = useRefFunction(async () => {
+    if (!recording || pendingRef.current) return;
+    pendingRef.current = true;
+    try {
+      await recognizerRef.current?.stop();
+    } finally {
+      setRecording(false);
+      recognizerRef.current = null;
+      pendingRef.current = false;
+    }
+  });
+
   useEffect(() => {
     if (!markdownEditorRef.current) return;
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
+
+  useEffect(() => {
+    return () => {
+      recognizerRef.current?.stop().catch(() => void 0);
+    };
+  }, []);
 
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
@@ -393,9 +459,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
    * />
    * ```
    */
-  const sendMessage = useRefFunction(() => {
+  const sendMessage = useRefFunction(async () => {
     if (props.disabled) return;
     if (props.typing) return;
+    // 如果处于录音中：优先停止录音或输入
+    if (recording) await stopRecording();
     const mdValue = markdownEditorRef?.current?.store?.getMDContent();
 
     // 如果mdValue和value不一致，并且mdValue不为空，则调用onChange
@@ -405,17 +473,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
     if (props.onSend && mdValue) {
       setIsLoading(true);
-      props
-        .onSend(mdValue)
-        .then(() => {
-          markdownEditorRef?.current?.store?.clearContent();
-          props.onChange?.('');
-          setValue('');
-          setFileMap?.(new Map());
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      try {
+        await props.onSend(mdValue);
+        markdownEditorRef?.current?.store?.clearContent();
+        props.onChange?.('');
+        setValue('');
+        setFileMap?.(new Map());
+      } finally {
+        setIsLoading(false);
+      }
     }
   });
 
@@ -426,7 +492,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
    */
   const colorList = useMemo(() => {
     return generateEdges(
-      props.bgColorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
+      props.bgColorList || ['#CD36FF', '#FFD972', '#eff0f1'],
     );
   }, [props.bgColorList?.join(',')]);
 
@@ -518,9 +584,18 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           disabled={!fileUploadDone}
         />
       ) : null,
+      props.voiceRecognizer ? (
+        <VoiceInputButton
+          key="voice-input-button"
+          recording={recording}
+          disabled={props.disabled}
+          onStart={startRecording}
+          onStop={stopRecording}
+        />
+      ) : null,
       <SendButton
         key="send-button"
-        typing={!!props.typing || isLoading}
+        typing={!!props.typing || isLoading || recording}
         isHover={isHover}
         disabled={props.disabled}
         onClick={() => {
@@ -542,9 +617,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     isHover,
     props.disabled,
     props.typing,
+    recording,
     sendMessage,
     props.onSend,
     props.onStop,
+    props.voiceRecognizer,
   ]);
 
   const handleFileRemoval = useRefFunction(async (file: AttachmentFile) => {
@@ -649,20 +726,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             height="100%"
           >
             <defs>
-              <linearGradient
-                x1="2.463307335887066e-16"
-                y1="0.5"
-                x2="0.9838055372238159"
-                y2="0.5"
-                id="master_svg1_55_47405"
-              >
+              <radialGradient cx="0.5" cy="1" r="0.5" id="master_svg1_55_47405">
                 {colorList.map((color, index) => {
                   return (
                     <stop
                       key={index}
                       offset={`${(index * 100) / colorList.length}%`}
                       stopColor={color[0]}
-                      stopOpacity="0.6300000071525574"
+                      stopOpacity="0.4"
                     >
                       <animate
                         attributeName="stop-color"
@@ -673,7 +744,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     </stop>
                   );
                 })}
-              </linearGradient>
+              </radialGradient>
             </defs>
             <g>
               <rect
@@ -697,7 +768,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             boxSizing: 'border-box',
             borderRadius: (props.borderRadius || 12) - 2 || 10,
             cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-            opacity: isLoading || props.disabled ? 0.5 : 1,
+            opacity: props.disabled ? 0.5 : 1,
           }}
         >
           <div

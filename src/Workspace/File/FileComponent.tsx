@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Alert, ConfigProvider, Image, Spin, Typography } from 'antd';
 
+import { Empty } from 'antd';
 import React, { type FC, useContext, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
@@ -387,6 +388,7 @@ const FileGroupComponent: FC<{
  * @param {(type: FileType, collapsed: boolean) => void} [props.onToggleGroup] - 分组折叠/展开回调
  * @param {(file: FileNode) => Promise<React.ReactNode | FileNode>} [props.onPreview] - 文件预览回调
  * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ * @param {React.ReactNode | (() => React.ReactNode)} [props.emptyRender] - 自定义空状态渲染
  *
  * @example
  * ```tsx
@@ -400,6 +402,7 @@ const FileGroupComponent: FC<{
  *   markdownEditorProps={{
  *     theme: 'dark'
  *   }}
+ *   emptyRender={<MyEmpty />}
  * />
  * ```
  *
@@ -431,6 +434,7 @@ export const FileComponent: FC<{
   actionRef?: FileProps['actionRef'];
   loading?: FileProps['loading'];
   loadingRender?: FileProps['loadingRender'];
+  emptyRender?: FileProps['emptyRender'];
 }> = ({
   nodes,
   onGroupDownload,
@@ -443,6 +447,7 @@ export const FileComponent: FC<{
   actionRef,
   loading,
   loadingRender,
+  emptyRender,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
@@ -450,6 +455,9 @@ export const FileComponent: FC<{
 
   const [customPreviewHeader, setCustomPreviewHeader] =
     useState<React.ReactNode | null>(null);
+  // 标题区域文件信息覆盖，仅影响展示
+  const [headerFileOverride, setHeaderFileOverride] =
+    useState<Partial<FileNode> | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
@@ -489,6 +497,7 @@ export const FileComponent: FC<{
     setPreviewFile(null);
     setCustomPreviewContent(null);
     setCustomPreviewHeader(null);
+    setHeaderFileOverride(null);
   };
 
   // 包装后的返回逻辑，允许外部拦截
@@ -530,11 +539,18 @@ export const FileComponent: FC<{
           />
         </div>,
       );
-
       try {
         const previewData = await onPreview(file);
         // 如果在等待过程中用户已返回列表或触发了新的预览请求，忽略本次结果
         if (previewRequestIdRef.current !== currentCallId) return;
+
+        // 当用户返回 false：阻止内部预览逻辑，交由外部处理（如自定义弹窗）
+        if (previewData === false) {
+          setCustomPreviewContent(null);
+          setCustomPreviewHeader(null);
+          setPreviewFile(null);
+          return;
+        }
 
         if (previewData) {
           // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
@@ -577,6 +593,7 @@ export const FileComponent: FC<{
         return;
       } catch (err) {
         if (previewRequestIdRef.current !== currentCallId) return;
+
         setCustomPreviewContent(
           <div style={{ padding: 24 }}>
             <Alert
@@ -622,14 +639,23 @@ export const FileComponent: FC<{
       backToList: () => {
         handleBackToList();
       },
+      updatePreviewHeader: (partial) => {
+        setHeaderFileOverride((prev) => ({ ...(prev || {}), ...partial }));
+      },
     };
     return () => {
       actionRef.current = null;
     };
   }, [actionRef, handlePreview, handleBackToList]);
 
-  if (!nodes || nodes.length === 0) {
-    return null;
+  if ((!nodes || nodes.length === 0) && !loading) {
+    return wrapSSR(
+      <div className={`${prefixCls}-container ${hashId}`}>
+        {typeof emptyRender === 'function'
+          ? emptyRender()
+          : (emptyRender ?? <Empty />)}
+      </div>,
+    );
   }
 
   // 图片预览组件
@@ -656,6 +682,7 @@ export const FileComponent: FC<{
           onDownload={handleDownloadInPreview}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
+          headerFileOverride={headerFileOverride || undefined}
           markdownEditorProps={markdownEditorProps}
         />
         {ImagePreviewComponent}
