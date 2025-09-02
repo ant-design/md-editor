@@ -5,41 +5,12 @@ exports[`word parse > docxDeserializer 1`] = `
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -118,41 +89,12 @@ exports[`word parse > docxDeserializer 1`] = `
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -471,41 +413,12 @@ investing in energy infrastructure loans.",
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -684,41 +597,12 @@ across 16 offices on three continents.
 ",
       },
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -910,41 +794,12 @@ STWD: Driven by the",
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1004,41 +859,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
 ",
       },
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image012.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image012.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
       {
         "text": "
@@ -1088,41 +914,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image014.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image014.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1142,41 +939,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image016.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image016.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1188,41 +956,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image018.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image018.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1230,41 +969,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image020.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image020.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
       {
         "text": "
@@ -1284,41 +994,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image022.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image022.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1326,41 +1007,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image024.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image024.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1380,41 +1032,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image026.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image026.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1443,41 +1066,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image028.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image028.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",
@@ -1493,41 +1087,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "children": [
       {
-        "block": false,
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "block": false,
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "downloadUrl": undefined,
-            "height": undefined,
-            "mediaType": "image",
-            "type": "image",
-            "url": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image029.gif",
-            "width": undefined,
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "file:///C:/Users/wasd2/AppData/Local/Temp/msohtmlclip1/01/clip_image029.gif",
           },
         ],
-        "type": "card",
+        "type": "paragraph",
       },
     ],
     "type": "paragraph",

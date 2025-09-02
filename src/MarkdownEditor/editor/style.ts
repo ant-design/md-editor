@@ -4,7 +4,7 @@
   resetComponent,
   useEditorStyleRegister,
 } from '../../hooks/useStyle';
-import './keyframes.css';
+// 关键帧动画已移至 index.style.ts
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {

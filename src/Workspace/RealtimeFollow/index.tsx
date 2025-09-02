@@ -1,6 +1,7 @@
-import { ConfigProvider, Segmented, Spin } from 'antd';
+import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -34,6 +35,8 @@ export interface RealtimeFollowData {
   className?: string;
   style?: React.CSSProperties;
   errorRender?: React.ReactNode | (() => React.ReactNode);
+  // 新增：内容为空时的渲染
+  emptyRender?: React.ReactNode | (() => React.ReactNode);
   // 通用状态：适用于任意类型（html/shell/markdown）
   status?: 'loading' | 'done' | 'error';
 
@@ -48,28 +51,28 @@ export interface RealtimeFollowData {
 }
 
 // 获取不同type的配置信息
-const getTypeConfig = (type: RealtimeFollowMode) => {
+const getTypeConfig = (type: RealtimeFollowMode, locale?: any) => {
   switch (type) {
     case 'shell':
       return {
         icon: ShellIcon,
-        title: '终端执行',
+        title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
     case 'html':
       return {
         icon: HtmlIcon,
-        title: '创建 HTML 文件',
+        title: locale?.['workspace.createHtmlFile'] || '创建 HTML 文件',
       };
     case 'markdown':
     case 'md':
       return {
         icon: ThinkIcon,
-        title: 'Markdown 内容',
+        title: locale?.['workspace.markdownContent'] || 'Markdown 内容',
       };
     default:
       return {
         icon: ShellIcon,
-        title: '终端执行',
+        title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
   }
 };
@@ -81,7 +84,8 @@ const RealtimeHeader: React.FC<{
   prefixCls?: string;
   hashId?: string;
 }> = ({ data, hasBorder, prefixCls = 'workspace-realtime', hashId }) => {
-  const config = getTypeConfig(data.type);
+  const { locale } = useContext(I18nContext);
+  const config = getTypeConfig(data.type, locale);
 
   const IconComponent = data.icon || config.icon;
   const headerTitle = data.title || config.title;
@@ -287,6 +291,8 @@ export const RealtimeFollow: React.FC<{
           loadingRender={isTestEnv ? undefined : data.loadingRender}
           errorRender={isTestEnv ? undefined : data.errorRender}
           showSegmented={false}
+          // 透传空状态渲染
+          emptyRender={isTestEnv ? undefined : data.emptyRender}
         />
       </div>
     );
@@ -305,6 +311,18 @@ export const RealtimeFollow: React.FC<{
       : (data.typewriter ?? defaultProps.typewriter),
   };
 
+  const contentStr = String((data as any).content ?? '');
+  const isEmpty = contentStr.trim() === '';
+  const shouldShowEmpty =
+    !isTestEnv &&
+    isEmpty &&
+    data.status !== 'loading' &&
+    data.status !== 'error';
+  const emptyNode =
+    typeof data.emptyRender === 'function'
+      ? data.emptyRender()
+      : data.emptyRender;
+
   return (
     <div className={classNames(`${prefixCls}-content`, hashId)}>
       {!isTestEnv && (
@@ -316,11 +334,17 @@ export const RealtimeFollow: React.FC<{
           hashId={hashId}
         />
       )}
-      <MarkdownEditor
-        {...mergedProps}
-        editorRef={mdInstance}
-        initValue={String(data.content)}
-      />
+      {shouldShowEmpty ? (
+        <div className={classNames(`${prefixCls}-empty`, hashId)}>
+          {emptyNode || <Empty />}
+        </div>
+      ) : (
+        <MarkdownEditor
+          {...mergedProps}
+          editorRef={mdInstance}
+          initValue={String(data.content)}
+        />
+      )}
     </div>
   );
 };
@@ -376,9 +400,10 @@ export const RealtimeFollowList: React.FC<{
     data.onViewModeChange?.(mode);
   };
 
+  const { locale } = useContext(I18nContext);
   const labels = {
-    preview: data.labels?.preview || '预览',
-    code: data.labels?.code || '代码',
+    preview: data.labels?.preview || locale?.['htmlPreview.preview'] || '预览',
+    code: data.labels?.code || locale?.['htmlPreview.code'] || '代码',
   };
 
   // 右侧：优先使用外部自定义 rightContent，其次使用 segmentedItems，再次使用默认的预览/代码

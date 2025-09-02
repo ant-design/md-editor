@@ -84,24 +84,24 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
           column={1}
           items={[
             {
-              label: '名称',
+              label: locale?.['docInfo.name'] || '名称',
               span: 1,
               children: docMeta?.doc_name || docMeta?.answer,
             },
             {
-              label: '更新时间',
+              label: locale?.['docInfo.updateTime'] || '更新时间',
               span: 1,
               children: dayjs(docMeta?.upload_time).format(
                 'YYYY-MM-DD HH:mm:ss',
               ),
             },
             {
-              label: '类型',
+              label: locale?.['docInfo.type'] || '类型',
               span: 1,
               children: docMeta?.type,
             },
             {
-              label: '内容',
+              label: locale?.['docInfo.content'] || '内容',
               span: 1,
               children: docMeta?.origin_text,
             },
@@ -133,7 +133,8 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
               fontSize: '0.9em',
             }}
           >
-            引用内容{':'}{' '}
+            {locale?.['docInfo.referenceContent'] || '引用内容'}
+            {':'}{' '}
             <span
               style={{
                 fontWeight: 'bold',
@@ -141,7 +142,7 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
             >
               {docInfoList.length}{' '}
             </span>
-            项
+            {locale?.['docInfo.items'] || '项'}
           </span>
 
           <div
@@ -166,7 +167,9 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
                 gap: 4,
               }}
             >
-              {!expanded ? '收起' : '展开'}
+              {!expanded
+                ? locale?.['docInfo.collapse'] || '收起'
+                : locale?.['docInfo.expand'] || '展开'}
               <RightOutlined
                 style={{
                   fontSize: '0.9em',

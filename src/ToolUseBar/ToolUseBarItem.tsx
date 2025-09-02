@@ -182,6 +182,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             className={classNames(`${prefixCls}-tool-target ${hashId}`, {
               [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
             })}
+            title={tool.toolTarget?.toString() ?? undefined}
           >
             {tool.toolTarget}
           </div>

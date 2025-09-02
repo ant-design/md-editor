@@ -223,67 +223,71 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     return map;
   }, [props?.comment?.commentList]);
 
-  const handleSelectionChange = useDebounceFn(async () => {
-    if (!readonly) {
-      // 非只读模式下的选区处理
-      const event = new CustomEvent<BaseSelection>(
-        MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-        {
-          detail: markdownEditorRef.current.selection,
-        },
-      );
-      markdownContainerRef?.current?.dispatchEvent(event);
-      return;
-    }
-    if (typeof window === 'undefined') return;
-    // 只读模式下的选区处理
-    const domSelection = window.getSelection();
-    if (!domSelection) {
-      setDomRect?.(null);
-      return;
-    }
-
-    try {
-      const selection = getSelectionFromDomSelection(
-        markdownEditorRef.current,
-        domSelection,
-      );
-
-      if (selection) {
-        // 更新编辑器的选区
-        markdownEditorRef.current.selection = selection;
-
-        // 触发选区变化事件
+  const handleSelectionChange = useDebounceFn(
+    async (e: React.ReactEventHandler<HTMLDivElement>) => {
+      if (!readonly) {
+        // 非只读模式下的选区处理
         const event = new CustomEvent<BaseSelection>(
           MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
           {
-            detail: selection,
+            ...e,
+            detail: markdownEditorRef.current.selection,
           },
         );
         markdownContainerRef?.current?.dispatchEvent(event);
+        return;
+      }
+      if (typeof window === 'undefined') return;
+      // 只读模式下的选区处理
+      const domSelection = window.getSelection();
+      if (!domSelection) {
+        setDomRect?.(null);
+        return;
+      }
 
-        // 只有在有实际选中文本时才显示工具栏
-        if (!Range.isCollapsed(selection)) {
-          const range = ReactEditor.toDOMRange(
-            markdownEditorRef.current,
-            selection,
+      try {
+        const selection = getSelectionFromDomSelection(
+          markdownEditorRef.current,
+          domSelection,
+        );
+
+        if (selection) {
+          // 更新编辑器的选区
+          markdownEditorRef.current.selection = selection;
+
+          // 触发选区变化事件
+          const event = new CustomEvent<BaseSelection>(
+            MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+            {
+              detail: selection,
+            },
           );
-          const rect = range?.getBoundingClientRect();
-          if (rect) {
-            setDomRect?.(rect);
+          markdownContainerRef?.current?.dispatchEvent(event);
+
+          // 只有在有实际选中文本时才显示工具栏
+          if (!Range.isCollapsed(selection)) {
+            const range = ReactEditor.toDOMRange(
+              markdownEditorRef.current,
+              selection,
+            );
+            const rect = range?.getBoundingClientRect();
+            if (rect) {
+              setDomRect?.(rect);
+            } else {
+              setDomRect?.(null);
+            }
           } else {
             setDomRect?.(null);
           }
         } else {
           setDomRect?.(null);
         }
-      } else {
-        setDomRect?.(null);
+      } catch (error) {
+        console.error('Selection change error:', error);
       }
-    } catch (error) {
-      console.error('Selection change error:', error);
-    }
-  }, 100);
+    },
+    16,
+  );
 
   // 添加选区变化的监听
   useEffect(() => {
@@ -591,7 +595,6 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     }
 
     const types = event.clipboardData?.types || ['text/plain'];
-
     // 1. 首先尝试处理 slate-md-fragment
     if (types.includes('application/x-slate-md-fragment')) {
       if (

@@ -366,7 +366,7 @@ describe('TagPopup Component', () => {
     });
 
     it('应该支持自定义下拉菜单渲染', () => {
-      const dropdownRender = vi.fn((defaultNode, props) => (
+      const dropdownRender = vi.fn((defaultNode) => (
         <div data-testid="custom-dropdown">
           {defaultNode}
           <div>Custom Dropdown Content</div>

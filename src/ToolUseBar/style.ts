@@ -44,7 +44,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
         minHeight: '28px',
         width: 'max-content',
-        maxWidth: 'min(860px,100%)',
+        maxWidth: 'min(800px,100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -104,6 +104,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 500,
         lineHeight: '20px',
         letterSpacing: 'normal',
+        display: '-webkit-box',
+        WebkitLineClamp: 1,
+        WebkitBoxOrient: 'vertical',
+        lineClamp: 1,
         color: '#767E8B',
         '&-loading': {
           position: 'relative',
@@ -111,9 +115,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
           WebkitBackgroundClip: 'text',
           color: 'transparent',
-          animation: 'maskMove 2s linear infinite',
           backgroundSize: '200% auto',
           animationName: maskMove,
+          animationDuration: '2s',
+          animationTimingFunction: 'linear',
+          animationIterationCount: 'infinite',
         },
       },
 
@@ -150,9 +156,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
             WebkitMaskComposite: 'xor',
             maskComposite: 'exclude',
-            animation:
-              'spin 1.2s cubic-bezier(0.55, 0.06, 0.68, 0.19) infinite',
             animationName: rotate,
+            animationDuration: '1.2s',
+            animationTimingFunction: 'cubic-bezier(0.55, 0.06, 0.68, 0.19)',
+            animationIterationCount: 'infinite',
           },
           '&::after': {
             content: '""',
@@ -180,6 +187,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 'normal',
         lineHeight: '20px',
         flex: 1,
+        display: '-webkit-box',
+        WebkitLineClamp: 1,
+        WebkitBoxOrient: 'vertical',
+        lineClamp: 1,
+        overflow: 'hidden',
+        textWrap: 'nowrap ',
         color: '#959DA8',
         marginRight: 30,
         '&-loading': {
@@ -188,9 +201,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
           WebkitBackgroundClip: 'text',
           color: 'transparent',
-          animation: 'maskMove 2s linear infinite',
           backgroundSize: '200% auto',
           animationName: maskMove,
+          animationDuration: '2s',
+          animationTimingFunction: 'linear',
+          animationIterationCount: 'infinite',
         },
       },
       '&-tool-time': {
@@ -250,7 +265,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
     },
-  };
+  } as any;
 };
 
 export function useStyle(prefixCls?: string) {

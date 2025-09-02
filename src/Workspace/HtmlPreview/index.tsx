@@ -1,7 +1,8 @@
-import { ConfigProvider, Segmented, Spin } from 'antd';
+import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 import React, { useContext, useMemo, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import { MarkdownEditor, type MarkdownEditorProps } from '../../MarkdownEditor';
 import { useHtmlPreviewStyle } from './style';
 
@@ -23,6 +24,7 @@ export interface HtmlPreviewProps {
   // 是否在组件内部渲染 Segmented；如为 false，父级可自定义外部切换
   showSegmented?: boolean;
   segmentedItems?: Array<{ label: React.ReactNode; value: string }>;
+  emptyRender?: React.ReactNode | (() => React.ReactNode);
 }
 
 /**
@@ -88,12 +90,15 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
     style,
     showSegmented = true,
     segmentedItems,
+    emptyRender,
   } = props;
 
   const status = inputStatus === 'generating' ? 'loading' : inputStatus;
   const isControlled = viewMode !== undefined;
   const [innerMode, setInnerMode] = useState<HtmlViewMode>(defaultViewMode);
   const mode = isControlled ? (viewMode as HtmlViewMode) : innerMode;
+
+  const { locale } = useContext(I18nContext);
 
   const handleModeChange = (m: HtmlViewMode) => {
     if (!isControlled) setInnerMode(m);
@@ -104,8 +109,8 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
   const iframeHtml = useMemo(() => DOMPurify.sanitize(html || ''), [html]);
 
   const labelsMap = {
-    preview: labels?.preview || '预览',
-    code: labels?.code || '代码',
+    preview: labels?.preview || locale?.['htmlPreview.preview'] || '预览',
+    code: labels?.code || locale?.['htmlPreview.code'] || '代码',
   };
 
   // 使用 ConfigProvider 获取前缀类名
@@ -127,7 +132,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
       >
         {status === 'loading'
           ? loadingNode || <Spin />
-          : errorNode || <span>页面渲染失败</span>}
+          : errorNode || (
+              <span>
+                {locale?.['htmlPreview.renderFailed'] || '页面渲染失败'}
+              </span>
+            )}
       </div>
     );
   })();
@@ -153,6 +162,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
   };
 
   const { wrapSSR, hashId } = useHtmlPreviewStyle(prefixCls);
+
+  const isEmpty = (html ?? '').trim() === '';
+  const shouldShowEmpty = isEmpty && status !== 'loading' && status !== 'error';
+  const emptyNode =
+    typeof emptyRender === 'function' ? emptyRender() : emptyRender;
 
   return wrapSSR(
     <div className={classNames(prefixCls, className, hashId)} style={style}>
@@ -183,7 +197,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
         style={{ minHeight: 240 }}
       >
         {overlayNode}
-        {mode === 'code' ? (
+        {shouldShowEmpty ? (
+          <div className={classNames(`${prefixCls}-empty`, hashId)}>
+            {emptyNode || <Empty />}
+          </div>
+        ) : mode === 'code' ? (
           <MarkdownEditor
             {...getMergedMdConfig()}
             readonly

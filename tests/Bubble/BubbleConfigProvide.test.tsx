@@ -10,10 +10,9 @@ import { describe, expect, it } from 'vitest';
 import {
   BubbleConfigContext,
   ChatConfigType,
-  enUS,
-  zhCN,
 } from '../../src/Bubble/BubbleConfigProvide';
 import { BubbleProps } from '../../src/Bubble/type';
+import { cnLabels, enLabels } from '../../src/i18n/locales';
 
 // 测试组件，用于获取 context 值
 const TestComponent = () => {
@@ -28,31 +27,29 @@ const TestComponent = () => {
       <div data-testid="bubble-content">
         {context?.bubble?.originData?.content}
       </div>
-      <div data-testid="bubble-uuid">
-        {context?.bubble?.originData?.uuid}
-      </div>
+      <div data-testid="bubble-uuid">{context?.bubble?.originData?.uuid}</div>
     </div>
   );
 };
 
 describe('BubbleConfigProvide', () => {
   describe('默认 locale 配置', () => {
-    it('zhCN 应该包含所有必需的 locale 键', () => {
-      expect(zhCN).toHaveProperty('chat.inputArea.placeholder');
-      expect(zhCN).toHaveProperty('chat.message.thinking');
-      expect(zhCN).toHaveProperty('chat.message.copy');
-      expect(zhCN['chat.inputArea.placeholder']).toBe('请输入问题');
-      expect(zhCN['chat.message.thinking']).toBe('思考中');
+    it('cnLabels 应该包含所有必需的 locale 键', () => {
+      expect(cnLabels).toHaveProperty('chat.inputArea.placeholder');
+      expect(cnLabels).toHaveProperty('chat.message.thinking');
+      expect(cnLabels).toHaveProperty('chat.message.copy');
+      expect(cnLabels['chat.inputArea.placeholder']).toBe('请输入问题');
+      expect(cnLabels['chat.message.thinking']).toBe('思考中...');
     });
 
     it('enUS 应该包含所有必需的 locale 键', () => {
-      expect(enUS).toHaveProperty('chat.inputArea.placeholder');
-      expect(enUS).toHaveProperty('chat.message.thinking');
-      expect(enUS).toHaveProperty('chat.message.copy');
-      expect(enUS['chat.inputArea.placeholder']).toBe(
+      expect(enLabels).toHaveProperty('chat.inputArea.placeholder');
+      expect(enLabels).toHaveProperty('chat.message.thinking');
+      expect(enLabels).toHaveProperty('chat.message.copy');
+      expect(enLabels['chat.inputArea.placeholder']).toBe(
         'Please enter a question or "/" to get the template',
       );
-      expect(enUS['chat.message.thinking']).toBe('thinking');
+      expect(enLabels['chat.message.thinking']).toBe('Thinking...');
     });
   });
 
@@ -62,7 +59,7 @@ describe('BubbleConfigProvide', () => {
         <BubbleConfigContext.Provider
           value={{
             standalone: false,
-            locale: zhCN,
+            locale: cnLabels,
           }}
         >
           <TestComponent />
@@ -94,7 +91,7 @@ describe('BubbleConfigProvide', () => {
       const config: ChatConfigType = {
         standalone: true,
         compact: true,
-        locale: zhCN,
+        locale: cnLabels,
         bubble: mockBubble,
       };
 
@@ -115,7 +112,7 @@ describe('BubbleConfigProvide', () => {
     it('应该支持 thoughtChain 配置', () => {
       const config: ChatConfigType = {
         standalone: false,
-        locale: enUS,
+        locale: enLabels,
         thoughtChain: {
           enable: true,
           alwaysRender: true,
@@ -133,7 +130,7 @@ describe('BubbleConfigProvide', () => {
     it('应该支持 tracert 配置', () => {
       const config: ChatConfigType = {
         standalone: false,
-        locale: zhCN,
+        locale: cnLabels,
         tracert: {
           enable: true,
         },
@@ -150,7 +147,7 @@ describe('BubbleConfigProvide', () => {
         sessionId: 'test-session',
         standalone: true,
         compact: false,
-        locale: zhCN,
+        locale: cnLabels,
         bubble: {
           placement: 'right',
           originData: {

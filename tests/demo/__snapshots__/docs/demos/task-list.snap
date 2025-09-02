@@ -292,6 +292,7 @@
                       </div>
                       <div
                         class="tool-use-bar-tool-target "
+                        title="操作..."
                       >
                         操作...
                       </div>
@@ -362,6 +363,7 @@
                       </div>
                       <div
                         class="tool-use-bar-tool-target "
+                        title="操作..."
                       >
                         操作...
                       </div>
@@ -432,6 +434,7 @@
                       </div>
                       <div
                         class="tool-use-bar-tool-target "
+                        title="操作..."
                       >
                         操作...
                       </div>
@@ -491,7 +494,11 @@
             </div>
             <div
               class="task-list-content-left "
-            />
+            >
+              <div
+                class="task-list-dash-line "
+              />
+            </div>
           </div>
           <div
             class="task-list-right "
@@ -563,6 +570,100 @@
                   style="color: rgb(24, 144, 255);"
                 >
                   Get stock insights 编辑文件 股票洞察.md
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="task-list-thoughtChainItem "
+        >
+          <div
+            class="task-list-left "
+          >
+            <div
+              class="task-list-status task-list-status-error "
+            >
+              <svg
+                fill="none"
+                height="14.666666984558105"
+                viewBox="0 0 14.666666984558105 14.666666984558105"
+                width="14.666666984558105"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M.586 10.955l3.125 3.126q.586.585 1.414.586h4.416q.828 0 1.414-.586l3.126-3.125q.585-.586.586-1.415V5.125q0-.828-.586-1.414L10.956.586Q10.37 0 9.54 0H5.125q-.828 0-1.414.586L.586 3.71Q0 4.297 0 5.125v4.416q0 .828.586 1.414zm4.54 2.378q-.277 0-.472-.195L1.53 10.013q-.196-.196-.196-.472V5.125q0-.276.196-.47l3.125-3.126q.196-.196.471-.196h4.416q.276 0 .471.196l3.126 3.125q.195.196.195.471v4.416q0 .276-.195.471l-3.125 3.126q-.196.195-.472.195H5.125zm4.874-8c0 .177-.07.347-.195.472L8.276 7.333l1.528 1.529a.667.667 0 11-.942.942L7.333 8.276 5.805 9.805a.667.667 0 01-.943-.943L6.39 7.333 4.86 5.805a.667.667 0 11.944-.943l1.528 1.529 1.529-1.529A.667.667 0 0110 5.333z"
+                  fill="#F15B50"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div
+              class="task-list-content-left "
+            />
+          </div>
+          <div
+            class="task-list-right "
+          >
+            <div
+              class="task-list-top "
+            >
+              <div
+                class="task-list-title "
+              >
+                任务获取失败
+              </div>
+              <div
+                class="task-list-arrowContainer "
+              >
+                <span
+                  aria-describedby="test-id"
+                  aria-label="收起"
+                  class="ant-md-editor-action-icon-box"
+                  role="button"
+                  tabindex="0"
+                >
+                  <svg
+                    class="task-list-arrow "
+                    fill="none"
+                    height="1em"
+                    style="transform: rotate(180deg);"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <clippath
+                        id="a"
+                      >
+                        <rect
+                          height="16"
+                          rx="0"
+                          width="16"
+                        />
+                      </clippath>
+                    </defs>
+                    <g
+                      clip-path="url(#a)"
+                    >
+                      <path
+                        d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div
+              class="task-list-body "
+            >
+              <div
+                class="task-list-content "
+              >
+                <div>
+                  Get stock chart 获取股票图表
                 </div>
               </div>
             </div>

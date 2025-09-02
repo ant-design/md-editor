@@ -7,7 +7,7 @@
 import { ConfigProvider, Divider } from 'antd';
 import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { ActionIconBox } from '../../index';
 import LoadingLottie from '../../TaskList/LoadingLottie';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
@@ -215,6 +215,7 @@ export const BubbleExtra = ({
 }: BubbleExtraProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const context = useContext(BubbleConfigContext);
+  const [feedbackLoading, setFeedbackLoading] = useState(false);
 
   // 获取聊天项的原始数据
   const originalData = bubble?.originData;
@@ -319,6 +320,7 @@ export const BubbleExtra = ({
       alreadyFeedback,
       originalData?.isFinished,
       typing,
+      feedbackLoading,
       props.onCancelLike,
     ],
   );
@@ -332,6 +334,8 @@ export const BubbleExtra = ({
             color: 'var(--color-icon-secondary)',
           }}
           scale
+          loading={feedbackLoading}
+          onLoadingChange={setFeedbackLoading}
           active={alreadyFeedback}
           title={getDislikeButtonTitle}
           onClick={async () => {
@@ -347,7 +351,13 @@ export const BubbleExtra = ({
           <DislikeOutlined />
         </ActionIconBox>
       ) : null,
-    [shouldShowDisLike, alreadyFeedback, originalData?.isFinished, typing],
+    [
+      shouldShowDisLike,
+      feedbackLoading,
+      alreadyFeedback,
+      originalData?.isFinished,
+      typing,
+    ],
   );
 
   /**
@@ -533,12 +543,12 @@ export const BubbleExtra = ({
 
   // 检查是否有任何内容需要渲染
   const hasLeftContent = (typing && originalData.content !== '...') || reSend;
-  const hasRightContent = originalData?.isAborted
-    ? copyDom
-    : props.rightRender === false
-      ? false
-      : (() => {
-          const rightContent = props.rightRender?.(
+
+  const rightDom =
+    props.rightRender === false
+      ? null
+      : props.rightRender
+        ? props.rightRender?.(
             {
               ...props,
               bubble,
@@ -552,9 +562,14 @@ export const BubbleExtra = ({
               copy: copyDom,
               reply: reSend,
             },
-          );
-          return rightContent ?? dom;
-        })();
+          )
+        : dom;
+
+  const hasRightContent = originalData?.isAborted
+    ? copyDom
+    : props.rightRender === false
+      ? false
+      : !!rightDom;
 
   // 如果没有任何内容，直接返回 null
   if (!hasLeftContent && !hasRightContent) return null;
@@ -596,33 +611,12 @@ export const BubbleExtra = ({
             }}
           >
             <LoadingLottie size={context?.compact ? 20 : 16} />
-            <span>生成中...</span>
+            <span>{context?.locale?.['chat.message.generating'] || ''}</span>
           </div>
         ) : null}
         {reSend || null}
       </div>
-      {originalData?.isAborted
-        ? copyDom
-        : props.rightRender === false
-          ? null
-          : (() => {
-              const rightContent = props.rightRender?.(
-                {
-                  ...props,
-                  bubble,
-                  onReply,
-                  onRenderExtraNull: props.onRenderExtraNull,
-                  slidesModeProps: props.slidesModeProps,
-                },
-                {
-                  like,
-                  disLike,
-                  copy: copyDom,
-                  reply: reSend,
-                },
-              );
-              return rightContent ?? dom;
-            })()}
+      {originalData?.isAborted ? copyDom : rightDom}
     </div>
   );
 };

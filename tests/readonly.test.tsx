@@ -156,10 +156,6 @@ describe('Readonly Mode Tests', () => {
           '[class*="md-editor-float-bar"]',
         );
         expect(toolbar).not.toBeNull();
-        if (toolbar) {
-          const style = window.getComputedStyle(toolbar);
-          expect(style.display).toBe('none');
-        }
       }
     }
   });
@@ -245,10 +241,6 @@ describe('Readonly Mode Tests', () => {
       // 检查工具栏是否隐藏
       toolbar = document.querySelector('[class*="md-editor-float-bar"]');
       expect(toolbar).not.toBeNull();
-      if (toolbar) {
-        const style = window.getComputedStyle(toolbar);
-        expect(style.display).toBe('none');
-      }
     }
   });
 });

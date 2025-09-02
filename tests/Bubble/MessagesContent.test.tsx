@@ -323,7 +323,7 @@ describe('BubbleMessageDisplay', () => {
   const defaultContext = {
     standalone: false,
     locale: {
-      'chat.message.thinking': '正在思考中...',
+      'chat.message.thinking': '思考中...',
       'chat.message.error': '生成回答失败，请重试',
       'chat.message.like': '喜欢',
       'chat.message.dislike': '不喜欢',
@@ -376,7 +376,7 @@ describe('BubbleMessageDisplay', () => {
       renderWithContext(props);
 
       expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
-      expect(screen.getByText('正在思考中...')).toBeInTheDocument();
+      expect(screen.getByText('思考中...')).toBeInTheDocument();
     });
 
     it('应该渲染异常状态', () => {

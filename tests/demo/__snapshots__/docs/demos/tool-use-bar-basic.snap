@@ -78,6 +78,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="搜索 "react" 相关文件"
             >
               搜索 "react" 相关文件
             </div>
@@ -181,6 +182,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target  tool-use-bar-tool-target-loading"
+              title="分析 src/components 目录"
             >
               分析 src/components 目录
             </div>
@@ -251,6 +253,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="格式化 TypeScript 文件"
             >
               格式化 TypeScript 文件
             </div>
@@ -354,6 +357,7 @@
             </div>
             <div
               class="tool-use-bar-tool-target "
+              title="运行 Jest 测试套件"
             >
               运行 Jest 测试套件
             </div>

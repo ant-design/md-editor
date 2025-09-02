@@ -1,6 +1,7 @@
 import { Checkbox, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React from 'react';
+import { I18nContext } from '../../i18n';
 import { HistoryDataType } from '../types';
 import { formatTime } from '../utils';
 import { HistoryActionsBox } from './HistoryActionsBox';
@@ -243,6 +244,8 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
   }) => {
     // 使用 useMemo 优化计算属性
     const isTask = React.useMemo(() => type === 'task', [type]);
+
+    const { locale } = React.useContext(I18nContext);
     const shouldShowIcon = React.useMemo(
       () => isTask && !!item.icon,
       [isTask, item.icon],
@@ -420,7 +423,10 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   ? undefined
                   : false
               }
-              title={item.description || (isTask ? '任务' : '')}
+              title={
+                item.description ||
+                (isTask ? locale?.['task.default'] || '任务' : '')
+              }
             >
               <div
                 style={{
@@ -437,7 +443,8 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   WebkitBoxOrient: 'vertical',
                 }}
               >
-                {item.description || (isTask ? '任务' : '')}
+                {item.description ||
+                  (isTask ? locale?.['task.default'] || '任务' : '')}
                 <Divider type="vertical" />
                 {formatTime(item.gmtCreate)}
               </div>

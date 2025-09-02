@@ -1,13 +1,12 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
-import { IEditor } from '../../../BaseMarkdownEditor';
+import { useRefFunction } from '../../../../hooks/useRefFunction';
+import { IEditor, MARKDOWN_EDITOR_EVENTS } from '../../../BaseMarkdownEditor';
 import { useEditorStore } from '../../store';
 import { getSelRect } from '../../utils/dom';
-import { useLocalState } from '../../utils/useLocalState';
 import { BaseToolBar } from './BaseBar';
 import { useStyle } from './floatBarStyle';
 import { ReadonlyBaseBar } from './ReadonlyBaseBar';
@@ -17,60 +16,83 @@ const fileMap = new Map<string, IEditor>();
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = (props: { readonly: boolean }) => {
+  const floatBarRef = useRef<HTMLDivElement>(null);
   const { domRect, setDomRect, markdownContainerRef, markdownEditorRef } =
     useEditorStore();
-  const [state, setState] = useLocalState({
-    open: false,
-    left: 0,
-    top: 0,
-    url: '',
-  });
+  const [isOpen, setIsOpen] = useState(false);
 
   const sel = React.useRef<BaseRange>();
 
-  const resize = useCallback(
-    (force = false) => {
-      if (domRect) {
-        let left = domRect.x;
-        left = left - ((props.readonly ? 65 : 178) - domRect.width) / 2;
+  const resize = useRefFunction((force = false) => {
+    if (domRect && floatBarRef.current) {
+      let left = domRect.x;
+      left = left - ((props.readonly ? 65 : 178) - domRect.width) / 2;
 
-        const container = markdownContainerRef.current!;
-        if (left < 4) left = 4;
-        const barWidth = props.readonly ? 65 : 232;
+      const container = markdownContainerRef.current!;
+      if (left < 4) left = 4;
+      const barWidth = props.readonly ? 65 : 232;
 
-        if (left > container.clientWidth - barWidth)
-          left = container.clientWidth - barWidth / 2;
+      if (left > container.clientWidth - barWidth)
+        left = container.clientWidth - barWidth / 2;
 
-        let top = state.open && !force ? state.top : domRect.top - 32;
+      let top =
+        isOpen && !force
+          ? parseFloat(floatBarRef.current.style.top || '0')
+          : domRect.top - 32;
 
-        setState({
-          open: true,
-          left: Math.max(left, 4),
-          top: Math.max(top, 4),
-        });
-      } else {
-        setState({ open: false });
-      }
-    },
-    [props.readonly, state.open, domRect, markdownContainerRef],
-  );
+      const finalLeft = Math.max(left, 4);
+      const finalTop = Math.max(top, 4);
+      console.log(finalLeft, finalTop);
+
+      floatBarRef.current.style.left = finalLeft + 'px';
+      floatBarRef.current.style.top = finalTop + 'px';
+
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  });
 
   useEffect(() => {
     if (domRect && markdownEditorRef.current) {
       resize(true);
       sel.current = markdownEditorRef.current.selection!;
     } else {
-      setState({ open: false });
+      setIsOpen(false);
       fileMap.clear();
     }
   }, [domRect]);
+
+  useEffect(() => {
+    const resizeFn = (e: MouseEvent) => {
+      if (markdownEditorRef.current && floatBarRef.current) {
+        floatBarRef.current.style.top = e.clientY + 20 + 'px';
+        floatBarRef.current.style.left = e.clientX + 'px';
+        resize(true);
+      }
+    };
+    if (markdownContainerRef.current) {
+      markdownContainerRef.current?.addEventListener(
+        MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+        resizeFn as EventListener,
+      );
+    }
+    return () => {
+      if (markdownContainerRef.current) {
+        markdownContainerRef.current?.removeEventListener(
+          MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+          resizeFn as EventListener,
+        );
+      }
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const close = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
-        setState({ open: false });
+        setIsOpen(false);
         fileMap.clear();
         if (!sel.current) return;
         //@ts-ignore
@@ -87,11 +109,11 @@ export const FloatBar = (props: { readonly: boolean }) => {
     return () => {
       markdownContainerRef?.current?.removeEventListener('keydown', close);
     };
-  }, [state.open]);
+  }, [isOpen]);
 
   useEffect(() => {
     const change = () => {
-      if (state.open) {
+      if (isOpen) {
         const rect = getSelRect();
         if (rect) {
           setDomRect?.(rect);
@@ -112,17 +134,13 @@ export const FloatBar = (props: { readonly: boolean }) => {
 
   return ReactDOM.createPortal(
     wrapSSR(
-      <motion.div
+      <div
         style={{
-          left: state.left,
-          top: state.top,
           position: 'fixed',
-          opacity: state.open ? 1 : 0,
-          transition:
-            'opacity 0.2s ease-in-out,width 0.2s ease-in-out, top 0.2s ease-in-out',
-          display: state.open ? undefined : 'none',
+          opacity: isOpen ? 1 : 0,
+          transition: 'all 0.3s ease-out',
         }}
-        layout
+        ref={floatBarRef}
         onMouseDown={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -134,7 +152,7 @@ export const FloatBar = (props: { readonly: boolean }) => {
         ) : (
           <BaseToolBar prefix={baseClassName} hashId={hashId} />
         )}
-      </motion.div>,
+      </div>,
     ),
     document.body,
   );

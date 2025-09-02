@@ -63,7 +63,7 @@ const WorkspaceFileActionRefDemo: React.FC = () => {
       <Card size="small" style={{ marginBottom: 12 }}>
         <Space>
           <Button size="small" type="primary" onClick={handleOpenReadme}>
-            打开 README 预览（编程式）
+            打开 README 预览（actionRef外部打开）
           </Button>
           <Button size="small" onClick={handleBack}>
             返回文件列表

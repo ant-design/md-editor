@@ -5,7 +5,8 @@
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Popover } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { I18nContext } from '../../i18n';
 import { kbToSize } from './AttachmentFileList';
 
 export type AttachmentButtonPopoverProps = {
@@ -95,7 +96,7 @@ export const SupportedFileFormats = [
 export const AttachmentSupportedFormatsContent = (
   props: AttachmentButtonPopoverProps,
 ) => {
-  // 默认支持的文件格式
+  const { locale } = useContext(I18nContext);
   const supportedFormats = useMemo(() => {
     if (props.supportedFormats) {
       return props.supportedFormats;
@@ -114,7 +115,7 @@ export const AttachmentSupportedFormatsContent = (
         lineHeight: '1.5em',
       }}
     >
-      支持上传的文件类型和格式：
+      {locale?.attachmentSupportedFormats || '支持上传的文件类型和格式：'}
       <div
         style={{
           fontSize: '1em',
@@ -163,7 +164,10 @@ export const AttachmentSupportedFormatsContent = (
                   gap: 4,
                 }}
               >
-                <div>单个最大 {kbToSize(format.maxSize)}</div>
+                <div>
+                  {locale?.attachmentSingleMax || '单个最大'}{' '}
+                  {kbToSize(format.maxSize)}
+                </div>
                 <div
                   style={{
                     color: 'rgba(0, 0, 0, 0.45)',

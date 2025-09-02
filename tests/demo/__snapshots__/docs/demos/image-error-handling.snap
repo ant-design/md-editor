@@ -1,0 +1,89 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <h2>
+        图片加载失败处理演示
+      </h2>
+      <p>
+        当图片加载失败时，会自动转换为可点击的链接：
+      </p>
+      <div
+        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; border: 1px solid rgb(217, 217, 217); border-radius: 6px;"
+      >
+        <div
+          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+          tabindex="-1"
+        >
+          <div
+            autocapitalize="false"
+            autocorrect="false"
+            class="ant-md-editor-content-readonly ant-md-editor-content"
+            data-slate-editor="true"
+            data-slate-node="value"
+            spellcheck="false"
+            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+            zindex="-1"
+          >
+            <div
+              class="ant-md-editor-drag-el empty"
+              data-be="paragraph"
+              data-empty="true"
+              data-slate-node="element"
+              data-slate-placeholder="请输入内容..."
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="margin-top: 20px;"
+      >
+        <h3>
+          功能说明：
+        </h3>
+        <ul>
+          <li>
+            当图片URL无效或加载失败时，会自动显示为可点击的链接
+          </li>
+          <li>
+            链接样式为蓝色，带有虚线边框，便于识别
+          </li>
+          <li>
+            点击链接可以在新标签页中打开原始URL
+          </li>
+          <li>
+            支持alt文本显示，如果没有alt则显示URL
+          </li>
+          <li>
+            在编辑模式和只读模式下都有效
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
