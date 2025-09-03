@@ -477,15 +477,23 @@ export const BubbleExtra = ({
 
   const voiceDom = useMemo(() => {
     if (!shouldShowVoice) return null;
+    if (shouldShowCopy) return null;
     return (
       <VoiceButton
         text={bubble.originData?.content || ''}
         defaultRate={1}
         rateOptions={[1.5, 1.25, 1, 0.75]}
-        useSpeech={typeof props.useSpeech === 'function' ? props.useSpeech : undefined}
+        useSpeech={
+          typeof props.useSpeech === 'function' ? props.useSpeech : undefined
+        }
       />
     );
-  }, [shouldShowVoice, props.useSpeech, bubble.originData?.content, context?.compact]);
+  }, [
+    shouldShowVoice,
+    props.useSpeech,
+    bubble.originData?.content,
+    context?.compact,
+  ]);
 
   const slidesModeButton = useMemo(
     () =>

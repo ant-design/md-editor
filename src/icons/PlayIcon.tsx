@@ -40,7 +40,7 @@ export const PlayIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
       width="1em"
       height="1em"
       viewBox="0 0 14 14"
-      >
+    >
       <defs>
         <clipPath id="master_svg0_3460_33211/1432_039324">
           <rect x="0" y="0" width="1em" height="1em" rx="0" />

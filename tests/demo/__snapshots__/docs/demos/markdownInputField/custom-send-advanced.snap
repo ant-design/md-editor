@@ -499,19 +499,6 @@
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <defs>
-                        <clippath
-                          id="a"
-                        >
-                          <rect
-                            height="16"
-                            rx="0"
-                            width="16"
-                            x="8"
-                            y="8"
-                          />
-                        </clippath>
-                      </defs>
                       <circle
                         animate="[object Object]"
                         cx="50%"
