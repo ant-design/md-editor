@@ -3246,7 +3246,7 @@ response:
                         class="ant-md-editor-drag-el"
                         data-be="chart"
                         data-slate-node="element"
-                        style="flex: 1 1 0%; min-width: min(256px, 100%); max-width: 100%;"
+                        style="flex: 1 1 0%; min-width: min(256px, 100%); max-width: 100%; margin: 1em 0px;"
                       >
                         <div
                           class="ant-md-editor-chart-box"

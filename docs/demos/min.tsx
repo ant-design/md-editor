@@ -1,7 +1,11 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 import React from 'react';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
-const defaultValue = `
+const defaultValue =
+  newEnergyFundContent +
+  `
+
 ## 创始人
 
 Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米」，由蚂蚁金服开发并广泛应用于复杂前端项目

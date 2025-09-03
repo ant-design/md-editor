@@ -1,10 +1,10 @@
 ﻿import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
 import { Button } from 'antd';
 import React from 'react';
-import { defaultValue } from './shared/defaultValue';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 export default () => {
-  const [value, setValue] = React.useState(() => defaultValue);
+  const [value, setValue] = React.useState(() => newEnergyFundContent);
 
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   return (
@@ -113,7 +113,7 @@ export default () => {
           console.log(value, _);
           setValue(value);
         }}
-        initValue={defaultValue}
+        initValue={newEnergyFundContent}
       />
 
       <div style={{ marginTop: '20px', padding: '20px' }}>

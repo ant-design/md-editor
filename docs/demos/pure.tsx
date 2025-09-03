@@ -1,13 +1,13 @@
 ﻿import { BaseMarkdownEditor } from '@ant-design/md-editor';
 import React from 'react';
-import { defaultValue } from './shared/defaultValue';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 export default () => {
   return (
     <div>
       <BaseMarkdownEditor
         reportMode
-        initValue={defaultValue}
+        initValue={newEnergyFundContent}
         style={{
           width: '100vw',
           height: '100vh',

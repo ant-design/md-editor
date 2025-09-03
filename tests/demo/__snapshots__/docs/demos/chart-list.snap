@@ -27,6 +27,49 @@
             zindex="-1"
           >
             <div
+              data-slate-node="element"
+              data-testid="markdown-heading"
+              id="图表展示"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    图表展示
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              class="ant-md-editor-drag-el"
+              data-be="paragraph"
+              data-slate-node="element"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    以下是一些重要的数据图表：
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
               data-be="card"
               data-slate-node="element"
               role="button"
@@ -58,7 +101,7 @@
                 class="ant-md-editor-drag-el"
                 data-be="chart"
                 data-slate-node="element"
-                style="flex: 1 1 0%; min-width: min(256px, 100%); max-width: 100%;"
+                style="flex: 1 1 0%; min-width: min(256px, 100%); max-width: 100%; margin: 1em 0px;"
               >
                 <div
                   class="ant-md-editor-chart-box"
@@ -1019,7 +1062,7 @@
                 class="ant-md-editor-drag-el"
                 data-be="chart"
                 data-slate-node="element"
-                style="flex: 1 1 0%; min-width: min(256px, 100%); max-width: 100%;"
+                style="flex: 1 1 0%; min-width: min(256px, 100%); max-width: 100%; margin: 1em 0px;"
               >
                 <div
                   class="ant-md-editor-chart-box"

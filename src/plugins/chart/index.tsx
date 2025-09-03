@@ -165,6 +165,7 @@ export const ChartElement = (props: RenderElementProps) => {
           flex: 1,
           minWidth: `min(${Math.min(minWidth, 856)}px, 100%)`,
           maxWidth: '100%',
+          margin: '1em 0',
         }}
         ref={htmlRef}
         onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
