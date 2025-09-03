@@ -45,27 +45,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '13px',
         lineHeight: '20px',
         color: '#343A45',
+      },
 
-        span: {
-          fontSize: '13px',
-          lineHeight: '20px',
-          fontWeight: 600,
-          color: '#343A45',
-        },
-
-        '.task-running-icon-wrapper': {
-          marginRight: 9,
-          display: 'flex',
-          padding: 6,
-        },
-
-        '.task-running-text': {
-          fontSize: 12,
-          fontWeight: 'normal',
-          lineHeight: '20px',
-          letterSpacing: 'normal',
-          color: 'rgba(0, 3, 9, 45%)',
-        },
+      '&-left-icon-wrapper': {
+        marginRight: 9,
+        display: 'flex',
+        padding: 6,
       },
 
       '&-left-content': {
@@ -111,7 +96,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       button: {
         borderRadius: 200,
       },
-
       // 旋转动画样式
       '.pause-icon-ring': {
         transition: 'transform 0.1s ',
@@ -130,9 +114,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  *
  * 该 Hook 用于生成任务运行组件所需的样式，包括：
  * - 容器样式
- * - 左侧区域样式（图标和文本）
- * - 暂停按钮样式
- * - 其他按钮样式
+ * - 左侧区域样式（图标、标题和描述）
+ * - 按钮区域样式（暂停、操作按钮）
+ * - 动画效果
  *
  * @param prefixCls - 组件类名前缀
  * @returns 包含样式和 SSR 包装器的对象

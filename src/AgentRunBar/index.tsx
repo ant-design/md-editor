@@ -2,7 +2,6 @@ import { PlusOutlined, UndoOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { I18nContext } from '../i18n';
 import PauseIcon from './icons/PauseIcon';
 import Robot from './Robot';
 import { useStyle } from './style';
@@ -42,8 +41,6 @@ export enum TASK_RUNNING_STATUS {
  * @interface TaskRunningProps
  */
 interface TaskRunningProps {
-  /** 任务运行时长（分钟） */
-  minutes: string;
   /** 任务状态 */
   taskStatus: TASK_STATUS;
   /** 任务运行状态 */
@@ -59,27 +56,10 @@ interface TaskRunningProps {
   className?: string;
   style?: React.CSSProperties;
   icon?: React.ReactNode;
-  /** 自定义文案配置，可选 */
-  messages?: {
-    /** 运行中文案 */
-    running?: string;
-    /** 已耗时前缀文案 */
-    timeUsedPrefix?: string;
-    /** 调用中文案 */
-    calling?: string;
-    /** 任务完成文案 */
-    taskCompleted?: string;
-    /** 任务停止文案 */
-    taskStopped?: string;
-    /** 任务回放中文案 */
-    taskReplaying?: string;
-    /** 创建新任务按钮文案 */
-    createNewTask?: string;
-    /** 查看结果按钮文案 */
-    viewResult?: string;
-    /** 重新回放按钮文案 */
-    replayTask?: string;
-  };
+  /** 标题文案 */
+  title?: string;
+  /** 描述文案 */
+  description?: string;
 }
 
 /**
@@ -91,7 +71,6 @@ interface TaskRunningProps {
  * @component
  * @description 任务运行状态组件，显示AI任务运行信息和操作按钮
  * @param {TaskRunningProps} props - 组件属性
- * @param {string} props.minutes - 任务运行时间（分钟）
  * @param {string} [props.className] - 自定义CSS类名
  * @param {React.CSSProperties} [props.style] - 自定义样式
  * @param {TASK_RUNNING_STATUS} [props.taskRunningStatus] - 任务运行状态
@@ -100,13 +79,15 @@ interface TaskRunningProps {
  * @param {() => void} [props.onCreateNewTask] - 创建新任务回调
  * @param {() => void} [props.onViewResult] - 查看结果回调
  * @param {() => void} [props.onReplay] - 重播任务回调
- * @param {TaskRunningMessages} [props.messages] - 自定义消息文案
+ * @param {string} [props.title] - 标题文案
+ * @param {string} [props.description] - 描述文案
  * @param {React.ReactNode} [props.icon] - 自定义图标
  *
  * @example
  * ```tsx
  * <TaskRunning
- *   minutes="5"
+ *   title="正在运行中"
+ *   description="任务执行中..."
  *   taskStatus={TASK_STATUS.RUNNING}
  *   taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
  *   onCreateNewTask={() => {}}
@@ -121,15 +102,11 @@ interface TaskRunningProps {
  * @remarks
  * - 支持多种任务状态显示
  * - 提供任务操作按钮（暂停、重播、查看结果等）
- * - 显示任务运行时间
- * - 支持自定义消息文案
+ * - 支持自定义标题和描述文案
  * - 支持自定义图标
  * - 提供机器人状态动画
  */
-export const TaskRunning: React.FC<TaskRunningProps> = ({
-  minutes,
-  ...rest
-}) => {
+export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
   const {
     className,
     taskRunningStatus,
@@ -138,27 +115,13 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
     onCreateNewTask,
     onViewResult,
     onReplay,
-    messages,
+    title,
+    description,
   } = rest;
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const { locale } = useContext(I18nContext);
   const baseCls = context?.getPrefixCls('task-running');
   const { wrapSSR, hashId } = useStyle(baseCls);
-
-  // 合并默认文案和自定义文案
-  const finalMessages = {
-    running: messages?.running || locale?.agentRunBar.running,
-    timeUsedPrefix:
-      messages?.timeUsedPrefix || locale?.agentRunBar.timeUsedPrefix,
-    calling: messages?.calling || locale?.agentRunBar.calling,
-    taskCompleted: messages?.taskCompleted || locale?.agentRunBar.taskCompleted,
-    taskStopped: messages?.taskStopped || locale?.agentRunBar.taskStopped,
-    taskReplaying: messages?.taskReplaying || locale?.agentRunBar.taskReplaying,
-    createNewTask: messages?.createNewTask || locale?.agentRunBar.createNewTask,
-    viewResult: messages?.viewResult || locale?.agentRunBar.viewResult,
-    replayTask: messages?.replayTask || locale?.agentRunBar.replayTask,
-  };
 
   return wrapSSR(
     <div className={classNames(baseCls, hashId, className)} style={rest.style}>
@@ -177,49 +140,16 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
           />
         </div>
         {/* 文字区 */}
-        {taskStatus === TASK_STATUS.RUNNING ? (
-          taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <div className={`${baseCls}-left-main-text ${hashId}`}>
-                {finalMessages.running && (
-                  <span>{finalMessages.running}，</span>
-                )}
-                {finalMessages.timeUsedPrefix && (
-                  <span>
-                    {finalMessages.timeUsedPrefix} {minutes}
-                  </span>
-                )}
-              </div>
-              {finalMessages.calling && (
-                <div className={`${baseCls}-left-text ${hashId}`}>
-                  {finalMessages.calling}
-                </div>
-              )}
+        <div className={`${baseCls}-left-content ${hashId}`}>
+          {title && (
+            <div className={`${baseCls}-left-main-text ${hashId}`}>{title}</div>
+          )}
+          {description && (
+            <div className={`${baseCls}-left-text ${hashId}`}>
+              {description}
             </div>
-          ) : taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE ? (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskCompleted}</span>
-            </div>
-          ) : (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskStopped}</span>
-            </div>
-          )
-        ) : taskStatus === TASK_STATUS.SUCCESS ? (
-          taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskReplaying}</span>
-            </div>
-          ) : (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskCompleted}</span>
-            </div>
-          )
-        ) : (
-          <div className={`${baseCls}-left-content ${hashId}`}>
-            <span>{finalMessages.taskStopped}</span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       {/* 按钮区 */}
       {taskStatus === TASK_STATUS.RUNNING ? (
@@ -230,36 +160,43 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
         ) : (
           <div className={`${baseCls}-button-wrapper ${hashId}`}>
             <Button
-              type="primary"
+              color="default"
+              variant="solid"
               onClick={onCreateNewTask}
               icon={<PlusOutlined />}
             >
-              {finalMessages.createNewTask}
+              创建新任务
             </Button>
           </div>
         )
       ) : taskStatus === TASK_STATUS.SUCCESS ? (
         taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
           <div className={`${baseCls}-button-wrapper ${hashId}`}>
-            <Button type="primary" onClick={onViewResult}>
-              {finalMessages.viewResult}
+            <Button color="default" variant="solid" onClick={onViewResult}>
+              查看结果
             </Button>
           </div>
         ) : (
           <div className={`${baseCls}-button-wrapper ${hashId}`}>
-            <Button type="primary" onClick={onReplay} icon={<UndoOutlined />}>
-              {finalMessages.replayTask}
+            <Button
+              color="default"
+              variant="solid"
+              onClick={onReplay}
+              icon={<UndoOutlined />}
+            >
+              重新执行
             </Button>
           </div>
         )
       ) : (
         <div className={`${baseCls}-button-wrapper ${hashId}`}>
           <Button
-            type="primary"
+            color="default"
+            variant="solid"
             onClick={onCreateNewTask}
             icon={<PlusOutlined />}
           >
-            {finalMessages.createNewTask}
+            创建新任务
           </Button>
         </div>
       )}

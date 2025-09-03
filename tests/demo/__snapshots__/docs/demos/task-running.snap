@@ -37,17 +37,12 @@
             <div
               class="ant-task-running-left-main-text "
             >
-              <span>
-                正在运行中，
-              </span>
-              <span>
-                已耗时 0
-              </span>
+              正在运行中
             </div>
             <div
               class="ant-task-running-left-text "
             >
-              正在调用
+              任务执行中...
             </div>
           </div>
         </div>
@@ -131,7 +126,7 @@
               >
                 <img
                   alt="robot"
-                  src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
+                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
                   style="width: 100%; height: 100%;"
                 />
               </div>
@@ -139,9 +134,16 @@
             <div
               class="ant-task-running-left-content "
             >
-              <span>
+              <div
+                class="ant-task-running-left-main-text "
+              >
                 任务已完成
-              </span>
+              </div>
+              <div
+                class="ant-task-running-left-text "
+              >
+                任务执行成功
+              </div>
             </div>
           </div>
           <div
@@ -175,7 +177,7 @@
                 </span>
               </span>
               <span>
-                重新回放
+                重新执行
               </span>
             </button>
           </div>
@@ -195,7 +197,7 @@
               >
                 <img
                   alt="robot"
-                  src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
+                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
                   style="width: 100%; height: 100%;"
                 />
               </div>
@@ -203,9 +205,16 @@
             <div
               class="ant-task-running-left-content "
             >
-              <span>
-                任务已停止
-              </span>
+              <div
+                class="ant-task-running-left-main-text "
+              >
+                任务已暂停
+              </div>
+              <div
+                class="ant-task-running-left-text "
+              >
+                任务执行已暂停
+              </div>
             </div>
           </div>
           <div
@@ -262,7 +271,7 @@
               >
                 <img
                   alt="robot"
-                  src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
+                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
                   style="width: 100%; height: 100%;"
                 />
               </div>
@@ -273,17 +282,12 @@
               <div
                 class="ant-task-running-left-main-text "
               >
-                <span>
-                  正在运行中，
-                </span>
-                <span>
-                  已耗时 2.0
-                </span>
+                正在运行中
               </div>
               <div
                 class="ant-task-running-left-text "
               >
-                正在调用
+                任务执行中...
               </div>
             </div>
           </div>
@@ -354,9 +358,15 @@
         <ul>
           <li>
             <strong>
-              minutes
+              title
             </strong>
-            : 任务运行时间（分钟），字符串格式
+            : 标题文案，显示主要的任务状态信息
+          </li>
+          <li>
+            <strong>
+              description
+            </strong>
+            : 描述文案，显示任务的详细描述信息
           </li>
           <li>
             <strong>

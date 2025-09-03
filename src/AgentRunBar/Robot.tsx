@@ -89,7 +89,7 @@ const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
           }}
           src={
             (icon as string) ||
-            'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original'
+            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp'
           }
           alt="robot"
         />
