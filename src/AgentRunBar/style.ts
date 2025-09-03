@@ -28,8 +28,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       width: 'max-content',
       maxWidth: 'min(800px,100%)',
       height: 56,
-      padding: 8,
-      gap: 4,
+      padding: '8px 16px',
+      gap: 12,
       zIndex: 2,
       display: 'flex',
       justifyContent: 'space-between',
@@ -71,16 +71,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '12px',
         fontWeight: 'normal',
         lineHeight: '20px',
-        display: 'flex',
         alignItems: 'center',
         letterSpacing: 'normal',
+        display: '-webkit-box',
+        '-webkit-line-clamp': '1',
+        lineClamp: 1,
+        '-webkit-box-orient': 'vertical',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
         color: 'rgba(0, 25, 61, 0.3255)',
       },
 
       '&-button-wrapper': {
         display: 'flex',
         alignItems: 'center',
+        gap: 8,
         justifyContent: 'center',
+        '> * ': {
+          cursor: 'pointer',
+        },
       },
 
       '&-pause': {

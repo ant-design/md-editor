@@ -10,6 +10,8 @@ describe('TaskRunning Component', () => {
     taskRunningStatus: TASK_RUNNING_STATUS.RUNNING,
     onCreateNewTask: vi.fn(),
     onPause: vi.fn(),
+    onResume: vi.fn(),
+    onStop: vi.fn(),
     onReplay: vi.fn(),
     onViewResult: vi.fn(),
   };
@@ -19,7 +21,8 @@ describe('TaskRunning Component', () => {
     render(<TaskRunning {...baseProps} />);
 
     // 应该渲染基本的组件结构，但没有文案内容
-    expect(screen.getByRole('button', { name: /暂停/i })).toBeInTheDocument();
+    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
   });
 
   // 测试自定义标题和描述
@@ -52,8 +55,8 @@ describe('TaskRunning Component', () => {
     expect(screen.getByText('任务执行中...')).toBeInTheDocument();
   });
 
-  // 测试不同状态下的按钮文案
-  it('should render correct button text for different states', () => {
+  // 测试不同状态下的按钮显示
+  it('should render correct buttons for different states', () => {
     const { rerender } = render(
       <TaskRunning
         {...baseProps}
@@ -62,28 +65,32 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    // 测试重新回放按钮
+    // 任务已完成状态：查看按钮 + 重新执行按钮 + 新任务按钮
+    expect(screen.getByText('查看')).toBeInTheDocument();
     expect(screen.getByText('重新执行')).toBeInTheDocument();
+    expect(screen.getByText('新任务')).toBeInTheDocument();
 
-    // 测试创建新任务按钮
+    // 任务运行中状态：暂停按钮 + 停止按钮
     rerender(
       <TaskRunning
         {...baseProps}
         taskStatus={TASK_STATUS.RUNNING}
-        taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
-      />,
-    );
-    expect(screen.getByText('创建新任务')).toBeInTheDocument();
-
-    // 测试查看结果按钮
-    rerender(
-      <TaskRunning
-        {...baseProps}
-        taskStatus={TASK_STATUS.SUCCESS}
         taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
       />,
     );
-    expect(screen.getByText('查看结果')).toBeInTheDocument();
+    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+
+    // 任务已暂停状态：继续按钮 + 新任务按钮
+    rerender(
+      <TaskRunning
+        {...baseProps}
+        taskStatus={TASK_STATUS.PAUSE}
+        taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
+      />,
+    );
+    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByText('新任务')).toBeInTheDocument();
   });
 
   // 测试不同任务状态下的渲染
@@ -92,14 +99,18 @@ describe('TaskRunning Component', () => {
       <TaskRunning {...baseProps} taskStatus={TASK_STATUS.ERROR} />,
     );
 
+    // 任务出错状态：重新执行按钮 + 新任务按钮
+    expect(screen.getByText('重新执行')).toBeInTheDocument();
+    expect(screen.getByText('新任务')).toBeInTheDocument();
+
+    rerender(<TaskRunning {...baseProps} taskStatus={TASK_STATUS.STOPPED} />);
+
+    // 任务已停止状态：创建新任务按钮
     expect(screen.getByText('创建新任务')).toBeInTheDocument();
 
     rerender(<TaskRunning {...baseProps} taskStatus={TASK_STATUS.CANCELLED} />);
 
-    expect(screen.getByText('创建新任务')).toBeInTheDocument();
-
-    rerender(<TaskRunning {...baseProps} taskStatus={TASK_STATUS.PAUSE} />);
-
+    // 任务已取消状态：创建新任务按钮
     expect(screen.getByText('创建新任务')).toBeInTheDocument();
   });
 
@@ -113,27 +124,10 @@ describe('TaskRunning Component', () => {
       />,
     );
 
+    // 任务已完成：查看按钮 + 重新执行按钮 + 新任务按钮
+    expect(screen.getByText('查看')).toBeInTheDocument();
     expect(screen.getByText('重新执行')).toBeInTheDocument();
-
-    rerender(
-      <TaskRunning
-        {...baseProps}
-        taskStatus={TASK_STATUS.SUCCESS}
-        taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
-      />,
-    );
-
-    expect(screen.getByText('查看结果')).toBeInTheDocument();
-
-    rerender(
-      <TaskRunning
-        {...baseProps}
-        taskStatus={TASK_STATUS.RUNNING}
-        taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
-      />,
-    );
-
-    expect(screen.getByText('创建新任务')).toBeInTheDocument();
+    expect(screen.getByText('新任务')).toBeInTheDocument();
 
     rerender(
       <TaskRunning
@@ -143,7 +137,9 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    expect(screen.getByText('创建新任务')).toBeInTheDocument();
+    // 任务已暂停：继续按钮 + 新任务按钮
+    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByText('新任务')).toBeInTheDocument();
   });
 
   // 测试自定义图标
@@ -154,15 +150,66 @@ describe('TaskRunning Component', () => {
     expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
   });
 
+  // 测试图标提示
+  it('should render with icon tooltip', () => {
+    render(
+      <TaskRunning
+        {...baseProps}
+        icon="https://example.com/icon.png"
+        iconTooltip="AI助手图标提示"
+      />,
+    );
+
+    // 检查图标是否被Tooltip包装
+    const iconElements = screen.getAllByRole('img');
+    expect(iconElements.length).toBeGreaterThan(0);
+    // 检查是否有自定义图标
+    const customIcon = iconElements.find(
+      (img) => (img as HTMLImageElement).src === 'https://example.com/icon.png',
+    );
+    expect(customIcon).toBeInTheDocument();
+  });
+
   // 测试暂停功能
   it('should call onPause when pause button is clicked', () => {
     const onPause = vi.fn();
     render(<TaskRunning {...baseProps} onPause={onPause} />);
 
-    const pauseButton = screen.getByRole('button', { name: /暂停/i });
+    // 在运行中状态下，应该显示暂停按钮
+    const pauseButton = screen.getByLabelText('PauseIcon');
     fireEvent.click(pauseButton);
 
     expect(onPause).toHaveBeenCalledTimes(1);
+  });
+
+  // 测试继续功能
+  it('should call onResume when resume button is clicked', () => {
+    const onResume = vi.fn();
+    render(
+      <TaskRunning
+        {...baseProps}
+        taskStatus={TASK_STATUS.PAUSE}
+        taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
+        onResume={onResume}
+      />,
+    );
+
+    // 在暂停状态下，应该显示继续按钮（PlayIcon）
+    const resumeButton = screen.getByLabelText('PlayIcon');
+    fireEvent.click(resumeButton);
+
+    expect(onResume).toHaveBeenCalledTimes(1);
+  });
+
+  // 测试停止功能
+  it('should call onStop when stop button is clicked', () => {
+    const onStop = vi.fn();
+    render(<TaskRunning {...baseProps} onStop={onStop} />);
+
+    const stopButton = screen.getByLabelText('StopIcon');
+    fireEvent.click(stopButton);
+
+    expect(onStop).toHaveBeenCalledTimes(1);
   });
 
   // 测试创建新任务功能
@@ -171,7 +218,7 @@ describe('TaskRunning Component', () => {
     render(
       <TaskRunning
         {...baseProps}
-        taskStatus={TASK_STATUS.RUNNING}
+        taskStatus={TASK_STATUS.STOPPED}
         taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
         onCreateNewTask={onCreateNewTask}
       />,
@@ -190,12 +237,12 @@ describe('TaskRunning Component', () => {
       <TaskRunning
         {...baseProps}
         taskStatus={TASK_STATUS.SUCCESS}
-        taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
+        taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
         onViewResult={onViewResult}
       />,
     );
 
-    const viewButton = screen.getByText('查看结果');
+    const viewButton = screen.getByText('查看');
     fireEvent.click(viewButton);
 
     expect(onViewResult).toHaveBeenCalledTimes(1);
@@ -234,14 +281,15 @@ describe('TaskRunning Component', () => {
 
     const taskRunningElement = container.firstChild as HTMLElement;
     expect(taskRunningElement).toHaveClass(customClassName);
-    expect(taskRunningElement).toHaveStyle(customStyle);
+    expect(taskRunningElement).toHaveStyle('background-color: rgb(255, 0, 0)');
   });
 
   // 测试机器人状态变化
-  it('should render robot with correct status based on running status', () => {
+  it('should render robot with correct status based on task status', () => {
     const { rerender } = render(
       <TaskRunning
         {...baseProps}
+        taskStatus={TASK_STATUS.SUCCESS}
         taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
       />,
     );
@@ -253,6 +301,7 @@ describe('TaskRunning Component', () => {
     rerender(
       <TaskRunning
         {...baseProps}
+        taskStatus={TASK_STATUS.PAUSE}
         taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
       />,
     );
@@ -263,11 +312,75 @@ describe('TaskRunning Component', () => {
     rerender(
       <TaskRunning
         {...baseProps}
+        taskStatus={TASK_STATUS.RUNNING}
         taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
       />,
     );
 
     // 机器人应该显示为 thinking 状态
     expect(robotElement).toBeInTheDocument();
+  });
+
+  // 测试按钮组的条件渲染
+  it('should conditionally render buttons based on callback availability', () => {
+    const { rerender } = render(
+      <TaskRunning
+        {...baseProps}
+        onPause={undefined as any}
+        onStop={undefined as any}
+        onCreateNewTask={undefined as any}
+      />,
+    );
+
+    // 如果没有提供回调函数，相应的按钮不应该显示
+    expect(screen.queryByLabelText('PauseIcon')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('StopIcon')).not.toBeInTheDocument();
+    expect(screen.queryByText('创建新任务')).not.toBeInTheDocument();
+
+    // 重新渲染，提供所有回调函数
+    rerender(<TaskRunning {...baseProps} />);
+
+    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+  });
+
+  // 测试状态组合的按钮显示
+  it('should show correct buttons for different status combinations', () => {
+    // 测试 RUNNING + RUNNING 状态
+    const { rerender } = render(
+      <TaskRunning
+        {...baseProps}
+        taskStatus={TASK_STATUS.RUNNING}
+        taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
+      />,
+    );
+
+    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+
+    // 测试 RUNNING + PAUSE 状态
+    rerender(
+      <TaskRunning
+        {...baseProps}
+        taskStatus={TASK_STATUS.RUNNING}
+        taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
+      />,
+    );
+
+    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByText('新任务')).toBeInTheDocument();
+
+    // 测试 SUCCESS + COMPLETE 状态
+    rerender(
+      <TaskRunning
+        {...baseProps}
+        taskStatus={TASK_STATUS.SUCCESS}
+        taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
+      />,
+    );
+
+    expect(screen.getByText('查看')).toBeInTheDocument();
+    expect(screen.getByText('重新执行')).toBeInTheDocument();
+    expect(screen.getByText('新任务')).toBeInTheDocument();
   });
 });

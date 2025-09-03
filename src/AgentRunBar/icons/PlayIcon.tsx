@@ -1,16 +1,16 @@
 ﻿import { Tooltip } from 'antd';
 import * as React from 'react';
 
-export function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
+export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <Tooltip title="暂停">
+    <Tooltip title="继续">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         width={32}
         height={32}
         role="img"
-        aria-label="PauseIcon"
+        aria-label="PlayIcon"
         viewBox="0 0 32 32"
         {...props}
       >
@@ -56,7 +56,7 @@ export function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
           />
           <g clipPath="url(#b)">
             <path
-              d="M11.333 11.333v9.334q0 .552.39.942.391.391.944.391H14q.552 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942Q14.553 10 14 10h-1.333q-.553 0-.943.39-.39.391-.39.943zm5.334 0v9.334q0 .552.39.942.39.391.943.391h1.333q.553 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942-.39-.391-.943-.391H18q-.552 0-.943.39-.39.391-.39.943z"
+              d="M11.333 22V10a.667.667 0 011.028-.56l9.333 6a.667.667 0 010 1.12l-9.333 6a.667.667 0 01-1.028-.56z"
               fillRule="evenodd"
               fill="#767E8B"
             />
