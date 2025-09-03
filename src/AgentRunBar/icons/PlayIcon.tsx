@@ -16,7 +16,7 @@ export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
       >
         <defs>
           <filter
-            id="a"
+            id="objectBoundingBoxsss"
             filterUnits="objectBoundingBox"
             colorInterpolationFilters="sRGB"
             x={0}
@@ -46,7 +46,7 @@ export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
             <rect x={8} y={8} width={16} height={16} rx={0} />
           </clipPath>
         </defs>
-        <g filter="url(#a)">
+        <g filter="url(#objectBoundingBoxsss)">
           <rect
             width={32}
             height={32}

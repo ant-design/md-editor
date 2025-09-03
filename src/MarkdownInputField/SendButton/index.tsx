@@ -29,11 +29,6 @@ function SendIcon(
       viewBox="0 0 32 32"
       {...props}
     >
-      <defs>
-        <clipPath id="a">
-          <rect x={8} y={8} width={16} height={16} rx={0} />
-        </clipPath>
-      </defs>
       <motion.circle
         cx="50%"
         cy="50%"
