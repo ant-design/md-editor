@@ -77,9 +77,9 @@ export type BubbleExtraProps = {
 
   /**
    * 外部语音适配器
-   * @description 传入播报适配器替换默认播报；传入 ture 使用默认语音播报
+   * @description 传入播报适配器替换默认播报
    */
-  useSpeech?: UseSpeechAdapter | boolean;
+  useSpeech?: UseSpeechAdapter;
 
   /**
    * 额外操作组件的自定义样式
@@ -445,38 +445,8 @@ export const BubbleExtra = ({
     [shouldShowCopy, context?.locale, bubble.originData?.content],
   );
 
-  /**
-   * 判断是否应该显示语音选项。
-   * 逻辑与 shouldShowCopy 基本一致，但不依赖 clipboard 能力。
-   */
-  const shouldShowVoice = useMemo(() => {
-    const defaultConditions =
-      originalData?.content &&
-      !originalData?.extra?.answerStatus &&
-      originalData?.content !==
-        (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
-
-    if (!defaultConditions) {
-      return false;
-    }
-
-    if (typeof props.shouldShowVoice === 'function') {
-      return props.shouldShowVoice(bubble);
-    } else if (typeof props.shouldShowVoice === 'boolean') {
-      return props.shouldShowVoice;
-    }
-
-    return true;
-  }, [
-    props.shouldShowVoice,
-    bubble,
-    originalData?.content,
-    originalData?.extra?.answerStatus,
-    context?.locale,
-  ]);
-
   const voiceDom = useMemo(() => {
-    if (!shouldShowVoice) return null;
+    if (!props.shouldShowVoice) return null;
     return (
       <VoiceButton
         text={bubble.originData?.content || ''}
@@ -485,7 +455,7 @@ export const BubbleExtra = ({
         useSpeech={typeof props.useSpeech === 'function' ? props.useSpeech : undefined}
       />
     );
-  }, [shouldShowVoice, props.useSpeech, bubble.originData?.content, context?.compact]);
+  }, [props.shouldShowVoice, props.useSpeech, bubble.originData?.content]);
 
   const slidesModeButton = useMemo(
     () =>

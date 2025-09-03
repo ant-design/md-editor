@@ -194,6 +194,7 @@ export const Bubble: React.FC<
       onCancelLike={props.onCancelLike}
       shouldShowCopy={props.shouldShowCopy}
       useSpeech={props.useSpeech}
+      shouldShowVoice={props.shouldShowVoice}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );
