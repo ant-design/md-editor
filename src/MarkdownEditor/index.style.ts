@@ -161,7 +161,7 @@ const genStyle: GenerateStyle<ChatTokenType> = () => {
       borderRadius: '0.25em',
       border: '1px solid #0000001a',
       marginBottom: '0.5em',
-      fontSize: '14px',
+      fontSize: '13px',
       minWidth: 'min(320px, 100%)',
       marginTop: '8px',
     },

@@ -122,7 +122,7 @@ const CardIMEDemo = () => {
         </div>
       </div>
 
-      <div style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
+      <div style={{ marginTop: '20px', fontSize: '13px', color: '#666' }}>
         <p>
           <strong>测试提示：</strong>
         </p>

@@ -55,6 +55,7 @@ const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
   return (
     <div
       className={classNames(className)}
+      data-testid="robot"
       style={
         React.isValidElement(icon)
           ? {
@@ -63,7 +64,6 @@ const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
               alignItems: 'center',
               justifyContent: 'center',
               position: 'relative',
-              marginRight: 8,
               ...style,
             }
           : {
@@ -74,7 +74,6 @@ const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
               alignItems: 'center',
               justifyContent: 'center',
               position: 'relative',
-              marginRight: 8,
               ...style,
             }
       }

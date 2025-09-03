@@ -35,7 +35,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         opacity: 1,
         boxSizing: 'border-box',
         color: 'var(--color-icon-secondary)',
-        fontSize: '14px',
+        fontSize: '13px',
         border: '1px solid #E6ECF4',
 
         '&:hover': {

@@ -21,7 +21,7 @@
             🔧 技术修复详情：
           </h3>
           <div
-            style="font-size: 14px; line-height: 1.6;"
+            style="font-size: 13px; line-height: 1.6;"
           >
             <p>
               <strong>
@@ -87,7 +87,7 @@
             data-slate-node="value"
             role="textbox"
             spellcheck="false"
-            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 13px;"
             zindex="-1"
           >
             <div

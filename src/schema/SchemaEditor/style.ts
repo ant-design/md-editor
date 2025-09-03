@@ -55,7 +55,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-html-header h3`]: {
       margin: 0,
-      fontSize: '14px',
+      fontSize: '13px',
       fontWeight: 600,
       color: '#495057',
     },
@@ -89,7 +89,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-json-header h3`]: {
       margin: 0,
-      fontSize: '14px',
+      fontSize: '13px',
       fontWeight: 600,
       color: '#495057',
     },
@@ -124,7 +124,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-preview-header h3`]: {
       margin: 0,
-      fontSize: '14px',
+      fontSize: '13px',
       fontWeight: 600,
       color: '#495057',
     },
@@ -159,7 +159,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-fallback p`]: {
       margin: '4px 0',
-      fontSize: '14px',
+      fontSize: '13px',
     },
 
     // 响应式设计

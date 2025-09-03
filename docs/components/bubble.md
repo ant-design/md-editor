@@ -823,7 +823,7 @@ const customAvatarRender = (props, defaultDom) => {
           alignItems: 'center',
           justifyContent: 'center',
           color: 'white',
-          fontSize: '14px',
+          fontSize: '13px',
           fontWeight: 'bold',
         }}
       >
@@ -860,7 +860,7 @@ const customAvatarRender = (props, defaultDom) => {
         alignItems: 'center',
         justifyContent: 'center',
         color: 'white',
-        fontSize: '14px',
+        fontSize: '13px',
         fontWeight: 'bold',
       }}
     >

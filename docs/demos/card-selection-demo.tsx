@@ -216,7 +216,7 @@ const CardSelectionDemo = () => {
         >
           <div>
             <h4>视觉效果：</h4>
-            <ul style={{ fontSize: '14px', margin: 0, paddingLeft: '20px' }}>
+            <ul style={{ fontSize: '13px', margin: 0, paddingLeft: '20px' }}>
               <li>动态边框：transparent → #1890ff</li>
               <li>背景色：transparent → rgba(24, 144, 255, 0.05)</li>
               <li>阴影效果：多层阴影叠加</li>
@@ -225,7 +225,7 @@ const CardSelectionDemo = () => {
           </div>
           <div>
             <h4>交互功能：</h4>
-            <ul style={{ fontSize: '14px', margin: 0, paddingLeft: '20px' }}>
+            <ul style={{ fontSize: '13px', margin: 0, paddingLeft: '20px' }}>
               <li>点击选中：onClick 事件处理</li>
               <li>删除操作：工具栏删除按钮</li>
               <li>输入重定向：card-after 智能处理</li>

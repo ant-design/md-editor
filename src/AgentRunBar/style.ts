@@ -41,16 +41,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-left': {
         display: 'flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 8,
         fontSize: '13px',
         lineHeight: '20px',
         color: '#343A45',
       },
 
       '&-left-icon-wrapper': {
-        marginRight: 9,
         display: 'flex',
-        padding: 6,
+        padding: 2,
+        width: 40,
+        height: 40,
       },
 
       '&-left-content': {

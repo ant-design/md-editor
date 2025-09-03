@@ -126,7 +126,7 @@ const HtmlToMarkdownDemo: React.FC = () => {
                   padding: '10px',
                   backgroundColor: '#f8f9fa',
                   borderRadius: '4px',
-                  fontSize: '14px',
+                  fontSize: '13px',
                 }}
               >
                 {extractedText}
@@ -155,7 +155,7 @@ const HtmlToMarkdownDemo: React.FC = () => {
 
           <div style={{ marginTop: '10px' }}>
             <h4>功能说明：</h4>
-            <ul style={{ fontSize: '14px', lineHeight: '1.6' }}>
+            <ul style={{ fontSize: '13px', lineHeight: '1.6' }}>
               <li>
                 <strong>转换为 Markdown</strong>：将 HTML 内容转换为 Markdown
                 格式
@@ -192,7 +192,7 @@ const HtmlToMarkdownDemo: React.FC = () => {
         >
           <div>
             <h4>块级元素</h4>
-            <ul style={{ fontSize: '14px' }}>
+            <ul style={{ fontSize: '13px' }}>
               <li>&lt;h1&gt; - &lt;h6&gt; → # - ######</li>
               <li>&lt;p&gt; → 段落</li>
               <li>&lt;blockquote&gt; → &gt;</li>
@@ -204,7 +204,7 @@ const HtmlToMarkdownDemo: React.FC = () => {
           </div>
           <div>
             <h4>内联元素</h4>
-            <ul style={{ fontSize: '14px' }}>
+            <ul style={{ fontSize: '13px' }}>
               <li>&lt;strong&gt;, &lt;b&gt; → **粗体**</li>
               <li>&lt;em&gt;, &lt;i&gt; → *斜体*</li>
               <li>&lt;del&gt;, &lt;s&gt; → ~~删除线~~</li>

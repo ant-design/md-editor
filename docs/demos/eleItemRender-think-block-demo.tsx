@@ -77,7 +77,7 @@ const CustomThinkBlock: React.FC<{ element: CodeNode }> = ({ element }) => {
           style={{
             fontWeight: '600',
             color: '#495057',
-            fontSize: '14px',
+            fontSize: '13px',
           }}
         >
           🤔 AI 思考过程
@@ -89,7 +89,7 @@ const CustomThinkBlock: React.FC<{ element: CodeNode }> = ({ element }) => {
           color: '#495057',
           lineHeight: '1.6',
           whiteSpace: 'pre-wrap',
-          fontSize: '14px',
+          fontSize: '13px',
         }}
       >
         {content}
@@ -179,7 +179,7 @@ const AdvancedThinkBlock: React.FC<{ element: CodeNode }> = ({ element }) => {
             style={{
               fontWeight: '600',
               color: '#2d3748',
-              fontSize: '14px',
+              fontSize: '13px',
             }}
           >
             💭 深度思考
@@ -218,7 +218,7 @@ const AdvancedThinkBlock: React.FC<{ element: CodeNode }> = ({ element }) => {
           color: '#4a5568',
           lineHeight: '1.7',
           whiteSpace: 'pre-wrap',
-          fontSize: '14px',
+          fontSize: '13px',
           transition: 'all 0.3s ease',
           maxHeight: isExpanded ? 'none' : '120px',
           overflow: 'hidden',

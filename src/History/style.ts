@@ -58,7 +58,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         '&-icon': {
-          fontSize: '14px',
+          fontSize: '13px',
           width: '16px',
           height: '16px',
           display: 'flex',
