@@ -236,7 +236,7 @@ const useStyles = createStyles({
     },
 
     '.subtitle': {
-      fontSize: '14px',
+      fontSize: '13px',
       color: '#666',
     },
   },
@@ -1164,7 +1164,7 @@ export const useSharedStyles = createStyles(({ token }) => ({
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
   },
-  
+
   card: {
     backgroundColor: token.colorBgContainer,
     border: `1px solid ${token.colorBorder}`,

@@ -539,11 +539,18 @@ export const FileComponent: FC<{
           />
         </div>,
       );
-
       try {
         const previewData = await onPreview(file);
         // 如果在等待过程中用户已返回列表或触发了新的预览请求，忽略本次结果
         if (previewRequestIdRef.current !== currentCallId) return;
+
+        // 当用户返回 false：阻止内部预览逻辑，交由外部处理（如自定义弹窗）
+        if (previewData === false) {
+          setCustomPreviewContent(null);
+          setCustomPreviewHeader(null);
+          setPreviewFile(null);
+          return;
+        }
 
         if (previewData) {
           // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
@@ -586,6 +593,7 @@ export const FileComponent: FC<{
         return;
       } catch (err) {
         if (previewRequestIdRef.current !== currentCallId) return;
+
         setCustomPreviewContent(
           <div style={{ padding: 24 }}>
             <Alert

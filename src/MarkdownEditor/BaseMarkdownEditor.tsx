@@ -787,6 +787,12 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                     useCustomContainer={true}
                   />
                 )
+              ) : showCommentList?.length ? (
+                <CommentList
+                  pure
+                  commentList={showCommentList}
+                  comment={props.comment}
+                />
               ) : null}
             </div>
             {readonly || props?.textAreaProps?.enable ? null : (

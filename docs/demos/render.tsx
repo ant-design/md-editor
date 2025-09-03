@@ -1,7 +1,7 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 import { Card } from 'antd';
 import React from 'react';
-import { defaultValue } from './shared/defaultValue';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 export default () => {
   return (
@@ -9,7 +9,7 @@ export default () => {
       <MarkdownEditor
         width={'100vw'}
         height={'100vh'}
-        initValue={defaultValue}
+        initValue={newEnergyFundContent}
         eleItemRender={(props, defaultDom) => {
           if (
             props.element.type !== 'table-cell' &&

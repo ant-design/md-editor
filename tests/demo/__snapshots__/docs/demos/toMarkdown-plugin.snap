@@ -136,7 +136,7 @@
                 style="border: 2px solid rgb(255, 107, 107); border-radius: 8px; padding: 16px; background-color: rgb(255, 245, 245); margin: 16px 0px;"
               >
                 <div
-                  style="color: rgb(255, 107, 107); font-weight: bold; margin-bottom: 8px; font-size: 14px;"
+                  style="color: rgb(255, 107, 107); font-weight: bold; margin-bottom: 8px; font-size: 13px;"
                 >
                   ⚠️ 警告
                 </div>

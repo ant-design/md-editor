@@ -45,62 +45,49 @@
             xmlns:xlink="http://www.w3.org/1999/xlink"
           >
             <defs>
-              <lineargradient
+              <radialgradient
+                cx="0.5"
+                cy="1"
                 id="master_svg1_55_47405"
-                x1="2.463307335887066e-16"
-                x2="0.9838055372238159"
-                y1="0.5"
-                y2="0.5"
+                r="0.5"
               >
                 <stop
                   offset="0%"
                   stop-color="#CD36FF"
-                  stop-opacity="0.6300000071525574"
+                  stop-opacity="0.4"
                 >
                   <animate
                     attributeName="stop-color"
                     dur="4s"
                     repeatCount="indefinite"
-                    values="#CD36FF; #FFD972; #5EBFFF; #6FFFA7;#CD36FF"
+                    values="#CD36FF; #FFD972; #eff0f1; #CD36FF;#CD36FF"
                   />
                 </stop>
                 <stop
-                  offset="25%"
+                  offset="33.333333333333336%"
                   stop-color="#FFD972"
-                  stop-opacity="0.6300000071525574"
+                  stop-opacity="0.4"
                 >
                   <animate
                     attributeName="stop-color"
                     dur="4s"
                     repeatCount="indefinite"
-                    values="#FFD972; #5EBFFF; #6FFFA7; #CD36FF;#FFD972"
+                    values="#FFD972; #eff0f1; #CD36FF; #FFD972;#FFD972"
                   />
                 </stop>
                 <stop
-                  offset="50%"
-                  stop-color="#5EBFFF"
-                  stop-opacity="0.6300000071525574"
+                  offset="66.66666666666667%"
+                  stop-color="#eff0f1"
+                  stop-opacity="0.4"
                 >
                   <animate
                     attributeName="stop-color"
                     dur="4s"
                     repeatCount="indefinite"
-                    values="#5EBFFF; #6FFFA7; #CD36FF; #FFD972;#5EBFFF"
+                    values="#eff0f1; #CD36FF; #FFD972; #eff0f1;#eff0f1"
                   />
                 </stop>
-                <stop
-                  offset="75%"
-                  stop-color="#6FFFA7"
-                  stop-opacity="0.6300000071525574"
-                >
-                  <animate
-                    attributeName="stop-color"
-                    dur="4s"
-                    repeatCount="indefinite"
-                    values="#6FFFA7; #CD36FF; #FFD972; #5EBFFF;#6FFFA7"
-                  />
-                </stop>
-              </lineargradient>
+              </radialgradient>
             </defs>
             <g>
               <rect
@@ -178,9 +165,29 @@
               class="ant-md-input-field-send-button"
               data-testid="send-button"
             >
-              <div
-                style="width: 1em; height: 1em;"
-              />
+              <svg
+                fill="none"
+                height="1em"
+                viewBox="0 0 32 32"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  animate="[object Object]"
+                  cx="50%"
+                  cy="50%"
+                  r="0.5em"
+                  transition="[object Object]"
+                />
+                <g>
+                  <path
+                    animate="[object Object]"
+                    d="M16.667 12.943l3.528 3.528a.667.667 0 00.943-.942l-4.666-4.667a.665.665 0 00-.943 0l-4.667 4.667a.667.667 0 10.943.942l3.528-3.528v7.724a.667.667 0 101.334 0v-7.724z"
+                    fill-rule="evenodd"
+                    transition="[object Object]"
+                  />
+                </g>
+              </svg>
             </div>
           </div>
         </div>

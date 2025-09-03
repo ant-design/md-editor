@@ -94,7 +94,7 @@ const CustomSendButtonDemo: React.FC = () => {
             padding: '16px',
             background: '#f5f5f5',
             borderRadius: '8px',
-            fontSize: '14px',
+            fontSize: '13px',
           }}
         >
           <h4 style={{ margin: '0 0 8px 0' }}>功能说明：</h4>

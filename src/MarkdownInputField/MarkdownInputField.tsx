@@ -492,7 +492,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
    */
   const colorList = useMemo(() => {
     return generateEdges(
-      props.bgColorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
+      props.bgColorList || ['#CD36FF', '#FFD972', '#eff0f1'],
     );
   }, [props.bgColorList?.join(',')]);
 
@@ -726,20 +726,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             height="100%"
           >
             <defs>
-              <linearGradient
-                x1="2.463307335887066e-16"
-                y1="0.5"
-                x2="0.9838055372238159"
-                y2="0.5"
-                id="master_svg1_55_47405"
-              >
+              <radialGradient cx="0.5" cy="1" r="0.5" id="master_svg1_55_47405">
                 {colorList.map((color, index) => {
                   return (
                     <stop
                       key={index}
                       offset={`${(index * 100) / colorList.length}%`}
                       stopColor={color[0]}
-                      stopOpacity="0.6300000071525574"
+                      stopOpacity="0.4"
                     >
                       <animate
                         attributeName="stop-color"
@@ -750,7 +744,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     </stop>
                   );
                 })}
-              </linearGradient>
+              </radialGradient>
             </defs>
             <g>
               <rect
@@ -774,7 +768,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             boxSizing: 'border-box',
             borderRadius: (props.borderRadius || 12) - 2 || 10,
             cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-            opacity: isLoading || props.disabled ? 0.5 : 1,
+            opacity: props.disabled ? 0.5 : 1,
           }}
         >
           <div

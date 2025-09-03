@@ -5,7 +5,7 @@ import {
   parserMarkdownToSlateNode,
 } from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
-import { defaultValue } from './shared/defaultValue';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 const Mdlist = [
   { data: { content: '', type: 'TEXT' }, type: 'data' },
@@ -904,11 +904,11 @@ export default () => {
   const instance = useRef<MarkdownEditorInstance>();
   useEffect(() => {
     let md = '';
-    const list = defaultValue.split('');
+    const list = newEnergyFundContent.split('');
     const run = async () => {
       if (process.env.NODE_ENV === 'test') {
         instance.current?.store.updateNodeList(
-          parserMarkdownToSlateNode(defaultValue).schema,
+          parserMarkdownToSlateNode(newEnergyFundContent).schema,
         );
         return;
       }

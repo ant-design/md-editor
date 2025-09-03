@@ -735,6 +735,7 @@ const MLeafComponent = (
     <CommentView
       id={`comment-${props.leaf?.id}`}
       comment={props.comment}
+      hashId={props.hashId}
       commentItem={leaf?.comment ? (leaf.data as any) : null}
     >
       {dom}

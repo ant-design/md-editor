@@ -28,8 +28,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       width: 'max-content',
       maxWidth: 'min(800px,100%)',
       height: 56,
-      padding: 8,
-      gap: 4,
+      padding: '8px 16px',
+      gap: 12,
       zIndex: 2,
       display: 'flex',
       justifyContent: 'space-between',
@@ -41,31 +41,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-left': {
         display: 'flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 8,
         fontSize: '13px',
         lineHeight: '20px',
         color: '#343A45',
+      },
 
-        span: {
-          fontSize: '13px',
-          lineHeight: '20px',
-          fontWeight: 600,
-          color: '#343A45',
-        },
-
-        '.task-running-icon-wrapper': {
-          marginRight: 9,
-          display: 'flex',
-          padding: 6,
-        },
-
-        '.task-running-text': {
-          fontSize: 12,
-          fontWeight: 'normal',
-          lineHeight: '20px',
-          letterSpacing: 'normal',
-          color: 'rgba(0, 3, 9, 45%)',
-        },
+      '&-left-icon-wrapper': {
+        display: 'flex',
+        padding: 2,
+        width: 40,
+        height: 40,
       },
 
       '&-left-content': {
@@ -85,16 +71,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '12px',
         fontWeight: 'normal',
         lineHeight: '20px',
-        display: 'flex',
         alignItems: 'center',
         letterSpacing: 'normal',
+        display: '-webkit-box',
+        '-webkit-line-clamp': '1',
+        lineClamp: 1,
+        '-webkit-box-orient': 'vertical',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
         color: 'rgba(0, 25, 61, 0.3255)',
       },
 
       '&-button-wrapper': {
         display: 'flex',
         alignItems: 'center',
+        gap: 8,
         justifyContent: 'center',
+        '> * ': {
+          cursor: 'pointer',
+        },
       },
 
       '&-pause': {
@@ -111,7 +106,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       button: {
         borderRadius: 200,
       },
-
       // 旋转动画样式
       '.pause-icon-ring': {
         transition: 'transform 0.1s ',
@@ -130,9 +124,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  *
  * 该 Hook 用于生成任务运行组件所需的样式，包括：
  * - 容器样式
- * - 左侧区域样式（图标和文本）
- * - 暂停按钮样式
- * - 其他按钮样式
+ * - 左侧区域样式（图标、标题和描述）
+ * - 按钮区域样式（暂停、操作按钮）
+ * - 动画效果
  *
  * @param prefixCls - 组件类名前缀
  * @returns 包含样式和 SSR 包装器的对象

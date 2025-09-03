@@ -516,7 +516,7 @@
           代码示例
         </h3>
         <pre
-          style="background: rgb(246, 248, 250); padding: 16px; border-radius: 6px; overflow: auto; font-size: 14px;"
+          style="background: rgb(246, 248, 250); padding: 16px; border-radius: 6px; overflow: auto; font-size: 13px;"
         >
           // 自定义 beforeMessageRender 渲染函数
 const customBeforeMessageRender = (props) =&gt; {

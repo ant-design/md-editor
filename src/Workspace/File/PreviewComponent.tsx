@@ -18,7 +18,7 @@ import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
 import { useFileStyle } from './style';
 import { getFileTypeIcon } from './utils';
 
-interface PreviewComponentProps {
+export interface PreviewComponentProps {
   file: FileNode;
   /**
    * 提供自定义内容以替换预览区域
@@ -29,7 +29,7 @@ interface PreviewComponentProps {
    * 自定义头部（当提供时，将完全替换默认头部：返回、图标、标题、时间、下载等均由外部控制）
    */
   customHeader?: React.ReactNode;
-  onBack: () => void;
+  onBack?: () => void;
   onDownload?: (file: FileNode) => void;
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
@@ -312,7 +312,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         <PlaceholderContent
           file={file}
           showFileInfo
-          onDownload={handleDownload}
+          onDownload={onDownload ? handleDownload : undefined}
           prefixCls={prefixCls}
           hashId={hashId}
         >
@@ -482,7 +482,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           <PlaceholderContent
             file={file}
             showFileInfo
-            onDownload={handleDownload}
+            onDownload={onDownload ? handleDownload : undefined}
             locale={locale}
             prefixCls={prefixCls}
             hashId={hashId}
@@ -502,16 +502,20 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
         <div className={`${prefixCls}-header ${hashId}`}>{customHeader}</div>
       ) : (
         <div className={`${prefixCls}-header ${hashId}`}>
-          <button
-            type="button"
-            className={`${prefixCls}-back-button ${hashId}`}
-            onClick={onBack}
-            aria-label={
-              locale?.['workspace.file.backToFileList'] || '返回文件列表'
-            }
-          >
-            <ArrowLeftOutlined className={`${prefixCls}-back-icon ${hashId}`} />
-          </button>
+          {onBack && (
+            <button
+              type="button"
+              className={`${prefixCls}-back-button ${hashId}`}
+              onClick={onBack}
+              aria-label={
+                locale?.['workspace.file.backToFileList'] || '返回文件列表'
+              }
+            >
+              <ArrowLeftOutlined
+                className={`${prefixCls}-back-icon ${hashId}`}
+              />
+            </button>
+          )}
 
           <div className={`${prefixCls}-file-info ${hashId}`}>
             <div className={`${prefixCls}-file-title ${hashId}`}>
@@ -523,7 +527,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
                 return (
                   <>
                     <span className={`${prefixCls}-file-icon ${hashId}`}>
-                      {getFileTypeIcon(fileType, headerFile.icon, headerFile.name)}
+                      {getFileTypeIcon(
+                        fileType,
+                        headerFile.icon,
+                        headerFile.name,
+                      )}
                     </span>
                     <span className={`${prefixCls}-file-name ${hashId}`}>
                       {headerFile.name}
@@ -536,7 +544,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               <div className={`${prefixCls}-generate-time ${hashId}`}>
                 {locale?.['workspace.file.generationTime'] || '生成时间：'}
                 {formatLastModified(
-                  (headerFileOverride?.lastModified ?? file.lastModified) as any,
+                  (headerFileOverride?.lastModified ??
+                    file.lastModified) as any,
                 )}
               </div>
             )}
@@ -554,14 +563,18 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
                 onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}
               />
             )}
-            <button
-              type="button"
-              className={`${prefixCls}-action-button ${hashId}`}
-              onClick={handleDownload}
-              aria-label={locale?.['workspace.file.downloadFile'] || '下载文件'}
-            >
-              <DownloadOutlined />
-            </button>
+            {onDownload && (
+              <button
+                type="button"
+                className={`${prefixCls}-action-button ${hashId}`}
+                onClick={handleDownload}
+                aria-label={
+                  locale?.['workspace.file.downloadFile'] || '下载文件'
+                }
+              >
+                <DownloadOutlined />
+              </button>
+            )}
           </div>
         </div>
       )}

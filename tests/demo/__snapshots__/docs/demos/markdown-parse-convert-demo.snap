@@ -17,7 +17,7 @@
           Markdown 解析与转换 Demo
         </h1>
         <p
-          style="color: rgb(102, 102, 102); font-size: 14px; margin-bottom: 24px;"
+          style="color: rgb(102, 102, 102); font-size: 13px; margin-bottom: 24px;"
         >
           展示如何使用插件系统实现 Markdown 的双向解析与转换功能
         </p>

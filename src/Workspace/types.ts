@@ -344,7 +344,12 @@ export interface FileProps extends BaseChildProps {
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
   onPreview?: (
     file: FileNode,
-  ) => FileNode | ReactNode | Promise<FileNode | ReactNode>;
+  ) =>
+    | void
+    | false
+    | FileNode
+    | ReactNode
+    | Promise<void | false | FileNode | ReactNode>;
   /**
    * 自定义预览页返回行为
    * @description 返回 false 可阻止组件默认的返回列表行为

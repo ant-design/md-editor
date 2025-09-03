@@ -213,7 +213,11 @@ describe('MarkdownInputField - voiceInput', () => {
     const handleChange = vi.fn();
 
     render(
-      <MarkdownInputField value="" onChange={handleChange} voiceRecognizer={createRecognizer} />,
+      <MarkdownInputField
+        value=""
+        onChange={handleChange}
+        voiceRecognizer={createRecognizer}
+      />,
     );
 
     const voiceBtn = screen.getByTestId('voice-input-button');
@@ -262,7 +266,12 @@ describe('MarkdownInputField - voiceInput', () => {
     const handleChange = vi.fn();
 
     render(
-      <MarkdownInputField value="" onChange={handleChange} voiceRecognizer={createRecognizer} onSend={handleSend} />,
+      <MarkdownInputField
+        value=""
+        onChange={handleChange}
+        voiceRecognizer={createRecognizer}
+        onSend={handleSend}
+      />,
     );
 
     // start recording

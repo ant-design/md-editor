@@ -25,7 +25,7 @@ import './katex.min.css';
  * <InlineKatex
  *   element={inlineKatexNode}
  *   attributes={slateAttributes}
- *   style={{ fontSize: '14px' }}
+ *   style={{ fontSize: '13px' }}
  * >
  *   {children}
  * </InlineKatex>

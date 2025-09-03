@@ -338,7 +338,7 @@ describe('ToolCall Component', () => {
   describe('MarkdownEditor 集成测试', () => {
     it('应该传递正确的 markdownRenderProps', () => {
       const markdownProps = {
-        style: { fontSize: '14px' },
+        style: { fontSize: '13px' },
         contentStyle: { padding: '10px' },
       };
       render(<ToolCall {...mockProps} markdownRenderProps={markdownProps} />);

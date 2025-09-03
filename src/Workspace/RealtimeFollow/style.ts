@@ -48,7 +48,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         [`&-title`]: {
-          fontSize: '14px',
+          fontSize: '13px',
           fontWeight: 500,
           color: '#343a45',
         },

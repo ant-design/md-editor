@@ -325,7 +325,7 @@
               视觉效果：
             </h4>
             <ul
-              style="font-size: 14px; margin: 0px; padding-left: 20px;"
+              style="font-size: 13px; margin: 0px; padding-left: 20px;"
             >
               <li>
                 动态边框：transparent → #1890ff
@@ -346,7 +346,7 @@
               交互功能：
             </h4>
             <ul
-              style="font-size: 14px; margin: 0px; padding-left: 20px;"
+              style="font-size: 13px; margin: 0px; padding-left: 20px;"
             >
               <li>
                 点击选中：onClick 事件处理

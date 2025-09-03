@@ -150,7 +150,7 @@ export const BubbleMessageDisplay: React.FC<
           rightRender={props?.bubbleRenderConfig?.extraRightRender}
           onReply={props.onReply}
           onCancelLike={props.onCancelLike}
-          shouldShowCopy={props.shouldShowCopy} 
+          shouldShowCopy={props.shouldShowCopy}
           useSpeech={props.useSpeech}
           shouldShowVoice={props.shouldShowVoice}
           onDisLike={

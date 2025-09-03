@@ -67,7 +67,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           // 下载图标
           [`&-download-icon`]: {
-            fontSize: '14px',
+            fontSize: '13px',
             color: '#6c757d',
             cursor: 'pointer',
             padding: '4px',
@@ -144,7 +144,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 文件名
       [`&-name`]: {
-        fontSize: '14px',
+        fontSize: '13px',
         color: '#343a40',
         fontWeight: 400,
         lineHeight: 1.4,
@@ -184,7 +184,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 操作图标
       [`&-preview-icon, &-download-icon`]: {
-        fontSize: '14px',
+        fontSize: '13px',
         color: '#6c757d',
         cursor: 'pointer',
         padding: '4px',
@@ -267,7 +267,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 文件名
       [`&-file-name`]: {
-        fontSize: '14px',
+        fontSize: '13px',
         fontWeight: 500,
         color: '#343a40',
       },
@@ -305,7 +305,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         svg: {
-          fontSize: '14px',
+          fontSize: '13px',
         },
       },
 
@@ -341,7 +341,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         p: {
           margin: '8px 0',
-          fontSize: '14px',
+          fontSize: '13px',
         },
       },
     },

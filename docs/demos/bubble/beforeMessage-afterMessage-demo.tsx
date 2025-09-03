@@ -106,7 +106,7 @@ console.log('Hello, World!');
             padding: '16px',
             borderRadius: '6px',
             overflow: 'auto',
-            fontSize: '14px',
+            fontSize: '13px',
           }}
         >
           {`// 自定义 beforeMessageRender 渲染函数

@@ -69,7 +69,6 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
     stop();
   };
 
-
   const handlePlayingMouseEnter = () => {
     setIsPlayingHovered(true);
     if (isPlaying) {

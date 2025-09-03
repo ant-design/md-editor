@@ -30,7 +30,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 <code src="../demos/workspace-file-custom-preview-flow.tsx">文件-自定义预览</code>
 
 <code src="../demos/workspace-file-actionref-demo.tsx">actionRef外部打开</code>
-
+<!-- <code src="../demos/workspace-file-previewComponent.tsx">导出文件预览组件</code> -->
 ### 实时跟随
 
 <code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能"></code>
@@ -132,7 +132,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | onDownload          | 单文件下载回调                                                | `(file: FileNode) => void`                                                     | -      |
 | onFileClick         | 文件点击回调                                                  | `(file: FileNode) => void`                                                     | -      |
 | onToggleGroup       | 组展开/收起回调                                               | `(groupType: FileType, collapsed: boolean) => void`                            | -      |
-| onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => FileNode \| ReactNode \| Promise<FileNode \| ReactNode>`  | -      |
+| onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => void \| false \| FileNode \| ReactNode \| Promise<void \| false \| FileNode \| ReactNode>`  | -      |
 | onBack              | 预览页返回回调（返回 false 阻止默认返回）                     | `(file: FileNode) => void \| boolean \| Promise<void \| boolean>`              | -      |
 | markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
 | actionRef           | 对外操作引用（打开预览/返回/更新预览标题）                    | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
