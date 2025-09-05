@@ -56,7 +56,7 @@ export function toArrayBuffer(buffer: any) {
 }
 
 export const download = (data: Blob | Uint8Array, fileName: string) => {
-  data = data instanceof Uint8Array ? new Blob([data]) : data;
+  data = data instanceof Uint8Array ? new Blob([data as BlobPart]) : data;
   const link = document.createElement('a');
   if (link.download !== undefined) {
     const url = URL.createObjectURL(data);

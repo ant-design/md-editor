@@ -126,12 +126,6 @@ export default () => {
     }
   }, [messages]);
 
-  // 删除指定消息
-  const deleteMessage = useCallback((id: string) => {
-    setMessages((prev) => prev.filter((msg) => msg.id !== id));
-    message.success(`已删除消息: ${id}`);
-  }, []);
-
   // 清空所有消息
   const clearAllMessages = useCallback(() => {
     setMessages([]);
@@ -262,11 +256,9 @@ export default () => {
         <BubbleList
           bubbleRef={bubbleRef}
           bubbleList={messages}
-          autoScroll={autoScroll}
           onLike={handleLike}
           onDisLike={handleDisLike}
           onReply={handleReply}
-          onDelete={deleteMessage}
           style={{
             maxHeight: 500,
             overflowY: 'auto',
