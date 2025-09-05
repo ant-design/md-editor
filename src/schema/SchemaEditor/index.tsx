@@ -9,6 +9,7 @@ import { RunIcon } from '../../icons/RunIcon';
 import { CopyIcon } from '../../icons/CopyIcon';
 import { EmptyIcon } from '../../icons/EmptyIcon';
 import { Button, message } from 'antd';
+import copy from 'copy-to-clipboard';
 
 export interface SchemaEditorProps {
   /** 初始schema数据 */
@@ -167,13 +168,22 @@ export function SchemaEditor({
 
   // 复制函数
   const handleCopyContent = useCallback((content: string, type: 'html' | 'json') => {
-    navigator.clipboard.writeText(content).then(() => {
-      const successMessage = type === 'html' ? 'HTML内容已复制到剪贴板' : 'JSON内容已复制到剪贴板';
-      message.success(successMessage);
-    }).catch((error) => {
-      console.error('复制失败:', error);
+    if (!content || !content.trim()) {
+      message.warning('无可复制的内容');
+      return;
+    }
+
+    try {
+      const ok = copy(content);
+      if (ok) {
+        message.success(`${type === 'html' ? 'HTML' : 'JSON'}内容已复制到剪贴板`);
+      } else {
+        message.error('复制失败');
+      }
+    } catch (error) {
       message.error('复制失败');
-    });
+      console.error('复制失败', error);
+    }
   }, []);
 
   // 处理复制HTML内容
