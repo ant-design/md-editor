@@ -33,7 +33,7 @@ describe('SchemaForm i18n tests', () => {
 
   it('should render form labels in Chinese', () => {
     render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <SchemaForm schema={mockSchema} />
       </I18nContext.Provider>,
     );
@@ -44,7 +44,7 @@ describe('SchemaForm i18n tests', () => {
 
   it('should render form labels in English', () => {
     render(
-      <I18nContext.Provider value={{ locale: enLabels }}>
+      <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
         <SchemaForm schema={mockSchema} />
       </I18nContext.Provider>,
     );

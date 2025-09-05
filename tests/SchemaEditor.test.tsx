@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SchemaEditor } from '../src/schema/SchemaEditor';
 import { LowCodeSchema } from '../src/schema/types';
 

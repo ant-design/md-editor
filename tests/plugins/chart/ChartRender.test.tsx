@@ -149,6 +149,7 @@ describe('ChartRender', () => {
       updateChart: '更新',
       fullScreen: '全屏',
     } as any,
+    language: 'zh-CN' as const,
   };
 
   beforeEach(() => {
