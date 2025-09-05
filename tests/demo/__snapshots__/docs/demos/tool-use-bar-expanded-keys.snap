@@ -76,29 +76,29 @@
         </div>
       </div>
       <div
-        class="tool-use-bar"
+        class="ant-tool-use-bar"
         data-testid="ToolUse"
       >
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-success"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-success"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -129,25 +129,25 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   Search Code
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="baidu.com"
             >
               baidu.com
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               1.3s
             </div>
             <div
-              class="tool-use-bar-tool-expand "
+              class="ant-tool-use-bar-tool-expand "
             >
               <svg
                 fill="none"
@@ -179,11 +179,11 @@
             </div>
           </div>
           <div
-            class="tool-use-bar-tool-container "
+            class="ant-tool-use-bar-tool-container "
             data-testid="tool-user-item-tool-container "
           >
             <div
-              class="tool-use-bar-tool-content "
+              class="ant-tool-use-bar-tool-content "
             >
               <div>
                 这是搜索代码的详细内容，包含了一些执行结果和相关信息。
@@ -192,25 +192,25 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-error"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-error"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -241,25 +241,25 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   Read File
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="xxx.docx"
             >
               xxx.docx
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               2.3s
             </div>
             <div
-              class="tool-use-bar-tool-expand "
+              class="ant-tool-use-bar-tool-expand "
             >
               <svg
                 fill="none"
@@ -292,25 +292,25 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-success"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-success"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -341,25 +341,25 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   Edit File
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="xx.md"
             >
               xx.md
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               2.3s
             </div>
             <div
-              class="tool-use-bar-tool-expand "
+              class="ant-tool-use-bar-tool-expand "
             >
               <svg
                 fill="none"
@@ -392,25 +392,25 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-loading"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-loading"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper tool-use-bar-tool-image-wrapper-rotating tool-use-bar-tool-image-wrapper-loading"
+                  class="ant-tool-use-bar-tool-image-wrapper ant-tool-use-bar-tool-image-wrapper-rotating ant-tool-use-bar-tool-image-wrapper-loading"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -441,20 +441,20 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name  tool-use-bar-tool-name-loading"
+                  class="ant-tool-use-bar-tool-name  ant-tool-use-bar-tool-name-loading"
                 >
                   Generate Report
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target  tool-use-bar-tool-target-loading"
+              class="ant-tool-use-bar-tool-target  ant-tool-use-bar-tool-target-loading"
               title="report.pdf"
             >
               report.pdf
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               5.1s
             </div>

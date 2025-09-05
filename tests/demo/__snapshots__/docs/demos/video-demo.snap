@@ -12,7 +12,7 @@
         视频支持功能演示
       </h1>
       <div
-        class="markdown-editor ant-md-editor ant-md-editor-readonly ant-md-editor-report"
+        class="ant-md-editor markdown-editor ant-md-editor-readonly ant-md-editor-report"
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div

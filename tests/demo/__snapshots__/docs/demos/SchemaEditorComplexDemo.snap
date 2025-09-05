@@ -6,30 +6,30 @@
       test
     </div>
     <div
-      class="schema-editor"
+      class="ant-schema-editor"
       style="height: 700px;"
     >
       <div
-        class="schema-editor-container"
+        class="ant-schema-editor-container"
       >
         <div
-          class="schema-editor-left"
+          class="ant-schema-editor-left"
         >
           <div
-            class="schema-editor-preview"
+            class="ant-schema-editor-preview"
           >
             <div
-              class="schema-editor-preview-header"
+              class="ant-schema-editor-preview-header"
             >
               <h3>
                 实时预览
               </h3>
             </div>
             <div
-              class="schema-editor-preview-content"
+              class="ant-schema-editor-preview-content"
             >
               <div
-                class="schema-editor-preview-content-empty"
+                class="ant-schema-editor-preview-content-empty"
               >
                 <svg
                   fill="none"
@@ -283,13 +283,13 @@
           </div>
         </div>
         <div
-          class="schema-editor-right"
+          class="ant-schema-editor-right"
         >
           <div
-            class="schema-editor-html"
+            class="ant-schema-editor-html"
           >
             <div
-              class="schema-editor-html-header"
+              class="ant-schema-editor-html-header"
             >
               <h3>
                 HTML模板
@@ -359,7 +359,7 @@
               </div>
             </div>
             <div
-              class="schema-editor-html-content"
+              class="ant-schema-editor-html-content"
             >
               <div
                 class=" ace_editor ace_hidpi ace-tm"
@@ -464,10 +464,10 @@
             </div>
           </div>
           <div
-            class="schema-editor-json"
+            class="ant-schema-editor-json"
           >
             <div
-              class="schema-editor-json-header"
+              class="ant-schema-editor-json-header"
             >
               <h3>
                 Schema JSON
@@ -506,7 +506,7 @@
               </div>
             </div>
             <div
-              class="schema-editor-json-content"
+              class="ant-schema-editor-json-content"
             >
               <div
                 class=" ace_editor ace_hidpi ace-tm"

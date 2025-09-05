@@ -15,7 +15,7 @@
         当图片加载失败时，会自动转换为可点击的链接：
       </p>
       <div
-        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+        class="ant-md-editor markdown-editor ant-md-editor-readonly"
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; border: 1px solid rgb(217, 217, 217); border-radius: 6px;"
       >
         <div

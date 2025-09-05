@@ -6,7 +6,7 @@
       test
     </div>
     <div
-      class="markdown-editor ant-md-editor ant-md-editor-readonly"
+      class="ant-md-editor markdown-editor ant-md-editor-readonly"
       id="test-1"
       style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
@@ -1463,7 +1463,7 @@ while i &lt; len(arr):
       </div>
     </div>
     <div
-      class="markdown-editor ant-md-editor ant-md-editor-readonly"
+      class="ant-md-editor markdown-editor ant-md-editor-readonly"
       style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div

@@ -6,7 +6,7 @@
       test
     </div>
     <div
-      class="markdown-editor ant-md-editor ant-md-editor-edit ant-md-editor-report"
+      class="ant-md-editor markdown-editor ant-md-editor-edit ant-md-editor-report"
       style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
@@ -546,7 +546,7 @@
       />
     </div>
     <div
-      class="markdown-editor ant-md-editor ant-md-editor-readonly ant-md-editor-report"
+      class="ant-md-editor markdown-editor ant-md-editor-readonly ant-md-editor-report"
       style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div

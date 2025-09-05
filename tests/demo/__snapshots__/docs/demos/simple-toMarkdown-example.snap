@@ -25,7 +25,7 @@
         style="border: 1px solid rgb(217, 217, 217); border-radius: 6px;"
       >
         <div
-          class="markdown-editor ant-md-editor ant-md-editor-edit"
+          class="ant-md-editor markdown-editor ant-md-editor-edit"
           style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
         >
           <div

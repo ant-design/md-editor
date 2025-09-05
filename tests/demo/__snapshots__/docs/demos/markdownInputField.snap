@@ -134,7 +134,7 @@
             style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
-              class="markdown-editor ant-md-editor ant-md-editor-edit"
+              class="ant-md-editor markdown-editor ant-md-editor-edit"
               style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
@@ -427,7 +427,7 @@
             style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
-              class="markdown-editor ant-md-editor ant-md-editor-edit"
+              class="ant-md-editor markdown-editor ant-md-editor-edit"
               style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
@@ -711,7 +711,7 @@
             style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
-              class="markdown-editor ant-md-editor ant-md-editor-edit"
+              class="ant-md-editor markdown-editor ant-md-editor-edit"
               style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
@@ -1153,7 +1153,7 @@
               </span>
             </div>
             <div
-              class="markdown-editor ant-md-editor ant-md-editor-edit"
+              class="ant-md-editor markdown-editor ant-md-editor-edit"
               style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
@@ -1458,7 +1458,7 @@
             style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
-              class="markdown-editor ant-md-editor ant-md-editor-edit"
+              class="ant-md-editor markdown-editor ant-md-editor-edit"
               style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
@@ -1645,7 +1645,7 @@
             style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
           >
             <div
-              class="markdown-editor ant-md-editor ant-md-editor-edit"
+              class="ant-md-editor markdown-editor ant-md-editor-edit"
               style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div

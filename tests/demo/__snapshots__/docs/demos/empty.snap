@@ -12,11 +12,11 @@
         style="border: 1px solid rgb(240, 240, 240); width: 40vw; margin: 20px auto;"
       >
         <div
-          class="markdown-editor ant-md-editor ant-md-editor-edit ant-md-editor-report"
+          class="ant-md-editor markdown-editor ant-md-editor-edit ant-md-editor-report"
           style="width: 60vw; height: 500px; display: flex; flex-direction: column; max-height: 100%;"
         >
           <div
-            class="md-editor-toolbar-container ant-md-editor-min-toolbar"
+            class="ant-md-editor-toolbar-container ant-md-editor-min-toolbar"
             style="width: 100%; max-width: 100%; position: sticky; z-index: 99; top: 0px;"
           >
             <div

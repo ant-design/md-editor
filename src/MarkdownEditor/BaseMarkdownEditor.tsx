@@ -725,12 +725,18 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         >
           <div
             id={props.id ? String(props.id) || undefined : undefined}
-            className={classNames(baseClassName, hashId, props.className, {
-              [`${baseClassName}-readonly`]: readonly,
-              [`${baseClassName}-edit`]: !readonly,
-              [`${baseClassName}-report`]: props.reportMode,
-              [`${baseClassName}-slide`]: props.slideMode,
-            })}
+            className={classNames(
+              baseClassName,
+              'markdown-editor',
+              hashId,
+              props.className,
+              {
+                [`${baseClassName}-readonly`]: readonly,
+                [`${baseClassName}-edit`]: !readonly,
+                [`${baseClassName}-report`]: props.reportMode,
+                [`${baseClassName}-slide`]: props.slideMode,
+              },
+            )}
             style={{
               width: width || '100%',
               height: height || 'auto',

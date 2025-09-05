@@ -223,29 +223,29 @@
                 class="task-list-content "
               >
                 <div
-                  class="tool-use-bar"
+                  class="ant-tool-use-bar"
                   data-testid="ToolUse"
                 >
                   <div
-                    class="tool-use-bar-tool "
+                    class="ant-tool-use-bar-tool "
                     data-testid="ToolUserItem"
                   >
                     <div
-                      class="tool-use-bar-tool-bar "
+                      class="ant-tool-use-bar-tool-bar "
                       data-testid="tool-user-item-tool-bar"
                     >
                       <div
-                        class="tool-use-bar-tool-header "
+                        class="ant-tool-use-bar-tool-header "
                         data-testid="tool-user-item-tool-header"
                       >
                         <div
-                          class="tool-use-bar-tool-header-left "
+                          class="ant-tool-use-bar-tool-header-left "
                         >
                           <div
-                            class="tool-use-bar-tool-image-wrapper"
+                            class="ant-tool-use-bar-tool-image-wrapper"
                           >
                             <div
-                              class="tool-use-bar-tool-image "
+                              class="ant-tool-use-bar-tool-image "
                             >
                               <svg
                                 fill="none"
@@ -276,45 +276,45 @@
                             </div>
                           </div>
                           <div
-                            class="tool-use-bar-tool-name "
+                            class="ant-tool-use-bar-tool-name "
                           >
                             工具类/工具名称
                           </div>
                         </div>
                       </div>
                       <div
-                        class="tool-use-bar-tool-target "
+                        class="ant-tool-use-bar-tool-target "
                         title="操作..."
                       >
                         操作...
                       </div>
                       <div
-                        class="tool-use-bar-tool-time "
+                        class="ant-tool-use-bar-tool-time "
                       >
                         3
                       </div>
                     </div>
                   </div>
                   <div
-                    class="tool-use-bar-tool "
+                    class="ant-tool-use-bar-tool "
                     data-testid="ToolUserItem"
                   >
                     <div
-                      class="tool-use-bar-tool-bar "
+                      class="ant-tool-use-bar-tool-bar "
                       data-testid="tool-user-item-tool-bar"
                     >
                       <div
-                        class="tool-use-bar-tool-header "
+                        class="ant-tool-use-bar-tool-header "
                         data-testid="tool-user-item-tool-header"
                       >
                         <div
-                          class="tool-use-bar-tool-header-left "
+                          class="ant-tool-use-bar-tool-header-left "
                         >
                           <div
-                            class="tool-use-bar-tool-image-wrapper"
+                            class="ant-tool-use-bar-tool-image-wrapper"
                           >
                             <div
-                              class="tool-use-bar-tool-image "
+                              class="ant-tool-use-bar-tool-image "
                             >
                               <svg
                                 fill="none"
@@ -345,45 +345,45 @@
                             </div>
                           </div>
                           <div
-                            class="tool-use-bar-tool-name "
+                            class="ant-tool-use-bar-tool-name "
                           >
                             工具类/工具名称
                           </div>
                         </div>
                       </div>
                       <div
-                        class="tool-use-bar-tool-target "
+                        class="ant-tool-use-bar-tool-target "
                         title="操作..."
                       >
                         操作...
                       </div>
                       <div
-                        class="tool-use-bar-tool-time "
+                        class="ant-tool-use-bar-tool-time "
                       >
                         3
                       </div>
                     </div>
                   </div>
                   <div
-                    class="tool-use-bar-tool "
+                    class="ant-tool-use-bar-tool "
                     data-testid="ToolUserItem"
                   >
                     <div
-                      class="tool-use-bar-tool-bar "
+                      class="ant-tool-use-bar-tool-bar "
                       data-testid="tool-user-item-tool-bar"
                     >
                       <div
-                        class="tool-use-bar-tool-header "
+                        class="ant-tool-use-bar-tool-header "
                         data-testid="tool-user-item-tool-header"
                       >
                         <div
-                          class="tool-use-bar-tool-header-left "
+                          class="ant-tool-use-bar-tool-header-left "
                         >
                           <div
-                            class="tool-use-bar-tool-image-wrapper"
+                            class="ant-tool-use-bar-tool-image-wrapper"
                           >
                             <div
-                              class="tool-use-bar-tool-image "
+                              class="ant-tool-use-bar-tool-image "
                             >
                               <svg
                                 fill="none"
@@ -414,20 +414,20 @@
                             </div>
                           </div>
                           <div
-                            class="tool-use-bar-tool-name "
+                            class="ant-tool-use-bar-tool-name "
                           >
                             工具类/工具名称
                           </div>
                         </div>
                       </div>
                       <div
-                        class="tool-use-bar-tool-target "
+                        class="ant-tool-use-bar-tool-target "
                         title="操作..."
                       >
                         操作...
                       </div>
                       <div
-                        class="tool-use-bar-tool-time "
+                        class="ant-tool-use-bar-tool-time "
                       >
                         3
                       </div>
