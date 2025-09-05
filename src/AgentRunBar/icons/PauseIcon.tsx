@@ -1,9 +1,14 @@
 ﻿import { Tooltip } from 'antd';
 import * as React from 'react';
 
-export function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
+interface PauseIconProps extends React.SVGProps<SVGSVGElement> {
+  title?: string;
+}
+
+export function PauseIcon(props: PauseIconProps) {
+  const { title = '暂停', ...svgProps } = props;
   return (
-    <Tooltip title="暂停">
+    <Tooltip title={title}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -12,7 +17,7 @@ export function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
         role="img"
         aria-label="PauseIcon"
         viewBox="0 0 32 32"
-        {...props}
+        {...svgProps}
       >
         <defs>
           <filter

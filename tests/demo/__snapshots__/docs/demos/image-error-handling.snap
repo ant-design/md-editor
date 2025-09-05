@@ -33,11 +33,9 @@
             zindex="-1"
           >
             <div
-              class="ant-md-editor-drag-el empty"
+              class="ant-md-editor-drag-el"
               data-be="paragraph"
-              data-empty="true"
               data-slate-node="element"
-              data-slate-placeholder="请输入内容..."
             >
               <span
                 data-slate-node="text"
@@ -48,11 +46,473 @@
                   draggable="false"
                 >
                   <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
+                    data-slate-string="true"
                   >
-                    ﻿
-                    <br />
+                    正常图片：
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="media"
+                  data-testid="media-container"
+                  draggable="false"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+                >
+                  <div
+                    aria-describedby="test-id"
+                    class="md-editor-media"
+                    contenteditable="false"
+                    draggable="false"
+                    style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column;"
+                    tabindex="-1"
+                  >
+                    <div
+                      data-testid="image-container"
+                    >
+                      <div
+                        class="ant-image"
+                        crossorigin="anonymous"
+                        draggable="false"
+                        referrerpolicy="no-referrer"
+                        style="width: 400px;"
+                      >
+                        <img
+                          alt="image"
+                          class="ant-image-img"
+                          crossorigin="anonymous"
+                          draggable="false"
+                          referrerpolicy="no-referrer"
+                          src="https://picsum.photos/400/300"
+                          style="max-width: 800px;"
+                          width="400"
+                        />
+                        <div
+                          class="ant-image-mask"
+                        >
+                          <div
+                            class="ant-image-mask-info"
+                          >
+                            <span
+                              aria-label="eye"
+                              class="anticon anticon-eye"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="eye"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                                />
+                              </svg>
+                            </span>
+                            Preview
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              class="ant-md-editor-drag-el"
+              data-be="paragraph"
+              data-slate-node="element"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    无效图片URL（会显示为链接）：
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="image"
+                data-slate-node="element"
+                data-testid="image-container"
+                draggable="false"
+                style="cursor: pointer; position: relative; user-select: none;"
+              >
+                <div
+                  aria-describedby="test-id"
+                  class="md-editor-media"
+                  contenteditable="false"
+                  draggable="false"
+                  style="padding: 4px; display: flex;"
+                  tabindex="-1"
+                >
+                  <div
+                    data-testid="image-container"
+                  >
+                    <div
+                      class="ant-image"
+                      draggable="false"
+                      referrerpolicy="no-referrer"
+                      style="width: 400px;"
+                    >
+                      <img
+                        alt="image"
+                        class="ant-image-img"
+                        draggable="false"
+                        referrerpolicy="no-referrer"
+                        src="https://invalid-image-url.com/image.jpg"
+                        style="max-width: 800px;"
+                        width="400"
+                      />
+                      <div
+                        class="ant-image-mask"
+                      >
+                        <div
+                          class="ant-image-mask-info"
+                        >
+                          <span
+                            aria-label="eye"
+                            class="anticon anticon-eye"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="eye"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                              />
+                            </svg>
+                          </span>
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="display: none;"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              class="ant-md-editor-drag-el"
+              data-be="paragraph"
+              data-slate-node="element"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    另一个无效图片：
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              role="button"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="image"
+                data-slate-node="element"
+                data-testid="image-container"
+                draggable="false"
+                style="cursor: pointer; position: relative; user-select: none;"
+              >
+                <div
+                  aria-describedby="test-id"
+                  class="md-editor-media"
+                  contenteditable="false"
+                  draggable="false"
+                  style="padding: 4px; display: flex;"
+                  tabindex="-1"
+                >
+                  <div
+                    data-testid="image-container"
+                  >
+                    <div
+                      class="ant-image"
+                      draggable="false"
+                      referrerpolicy="no-referrer"
+                      style="width: 400px;"
+                    >
+                      <img
+                        alt="image"
+                        class="ant-image-img"
+                        draggable="false"
+                        referrerpolicy="no-referrer"
+                        src="https://example.com/nonexistent-image.png"
+                        style="max-width: 800px;"
+                        width="400"
+                      />
+                      <div
+                        class="ant-image-mask"
+                      >
+                        <div
+                          class="ant-image-mask-info"
+                        >
+                          <span
+                            aria-label="eye"
+                            class="anticon anticon-eye"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="eye"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                              />
+                            </svg>
+                          </span>
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="display: none;"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
                   </span>
                 </span>
               </span>

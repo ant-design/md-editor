@@ -374,7 +374,7 @@
                       data-be="paragraph"
                       data-empty="true"
                       data-slate-node="element"
-                      data-slate-placeholder="请输入内容..."
+                      data-slate-placeholder="请输入"
                     >
                       <span
                         data-slate-node="text"

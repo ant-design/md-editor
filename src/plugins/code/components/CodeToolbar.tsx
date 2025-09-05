@@ -246,7 +246,10 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
       >
         {/* 关闭按钮（仅公式和 mermaid 显示） */}
         {element.katex || element.language === 'mermaid' ? (
-          <ActionIconBox title="关闭" onClick={onCloseClick}>
+          <ActionIconBox
+            title={i18n?.locale?.close || '关闭'}
+            onClick={onCloseClick}
+          >
             <CloseCircleOutlined />
           </ActionIconBox>
         ) : null}
@@ -254,7 +257,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         {/* HTML 运行按钮（仅 HTML 语言显示） */}
         {element?.language === 'html' ? (
           <ActionIconBox
-            title="运行代码"
+            title={i18n?.locale?.runCode || '运行代码'}
             style={{
               fontSize: '0.9em',
               lineHeight: '1.75em',
@@ -311,7 +314,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
 
         {/* 收起按钮 */}
         <ActionIconBox
-          title="收起"
+          title={i18n?.locale?.collapse || '收起'}
           style={{
             fontSize: '0.9em',
             lineHeight: '1.75em',

@@ -92,11 +92,18 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-title ant-flex"
-                data-testid="bubble-title"
-                style="flex-direction: row; gap: 8px;"
+                style="display: flex; align-items: center; gap: 8px;"
               >
-                Code Assistant
+                <span
+                  style="font-weight: 600;"
+                >
+                  Code Assistant
+                </span>
+                <span
+                  style="color: rgb(102, 102, 102); font-size: 12px;"
+                >
+                  代码助手 v2.1
+                </span>
               </div>
             </div>
             <div
@@ -889,11 +896,18 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-title ant-flex"
-                data-testid="bubble-title"
-                style="flex-direction: row; gap: 8px;"
+                style="display: flex; align-items: center; gap: 8px;"
               >
-                Code Assistant
+                <span
+                  style="font-weight: 600;"
+                >
+                  Code Assistant
+                </span>
+                <span
+                  style="color: rgb(102, 102, 102); font-size: 12px;"
+                >
+                  代码助手 v2.1
+                </span>
               </div>
             </div>
             <div

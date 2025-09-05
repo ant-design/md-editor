@@ -147,6 +147,9 @@ export const cnLabels = {
     createNewTask: '创建新任务',
     viewResult: '查看结果',
     replayTask: '重新回放',
+    play: '继续',
+    pause: '暂停',
+    stop: '停止',
   },
   // History 组件相关
   'chat.history': '历史记录',
@@ -409,6 +412,9 @@ export const enLabels: typeof cnLabels = {
     createNewTask: 'Create new task',
     viewResult: 'View result',
     replayTask: 'Replay',
+    play: 'Play',
+    pause: 'Pause',
+    stop: 'Stop',
   },
   // History component related
   'chat.history': 'History',

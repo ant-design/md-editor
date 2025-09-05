@@ -413,6 +413,38 @@ export type MarkdownEditorProps = {
    * @default false
    */
   compact?: boolean;
+
+  /**
+   * 粘贴配置
+   * @description 配置粘贴到编辑器时支持的内容类型
+   * @example
+   * ```tsx
+   * <BaseMarkdownEditor
+   *   pasteConfig={{
+   *     enabled: true,
+   *     allowedTypes: ['text/plain', 'text/html', 'text/markdown']
+   *   }}
+   * />
+   * ```
+   */
+  pasteConfig?: {
+    /**
+     * 是否启用粘贴功能
+     * @default true
+     */
+    enabled?: boolean;
+    /**
+     * 允许的粘贴内容类型
+     * @default ['application/x-slate-md-fragment', 'text/html', 'Files', 'text/markdown', 'text/plain']
+     */
+    allowedTypes?: Array<
+      | 'application/x-slate-md-fragment'
+      | 'text/html'
+      | 'Files'
+      | 'text/markdown'
+      | 'text/plain'
+    >;
+  };
 };
 
 // 组合器函数

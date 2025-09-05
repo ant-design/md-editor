@@ -44,6 +44,10 @@ nav:
 
 <code src="../demos/htmlrun.tsx"  background="var(--main-bg-color)" iframe=540 ></code>
 
+### html 混排
+
+<code src="../demos/dance-effect.tsx"  background="var(--main-bg-color)" iframe=540 ></code>
+
 ## 特殊功能
 
 ### 引用展示
