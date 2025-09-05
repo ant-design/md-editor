@@ -308,7 +308,9 @@ const customTitleRender = (props: any) => {
             onLike={handleLike}
             onDisLike={handleDisLike}
             onReply={handleReply}
-            titleRender={getTitleRender()}
+            bubbleRenderConfig={{
+              titleRender: getTitleRender(),
+            }}
           />
         ))}
       </div>

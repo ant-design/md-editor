@@ -89,7 +89,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '20px',
         height: '20px',
         color: '#767E8B',
-        fontSize: '14px',
+        fontSize: '13px',
         cursor: 'pointer',
         borderRadius: '4px',
         transition: 'all 0.2s ease',
@@ -251,7 +251,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-tool-content-error-icon': {
         alignItems: 'center',
-        fontSize: '14px',
+        fontSize: '13px',
         fontWeight: 500,
         lineHeight: '12px',
         letterSpacing: 'normal',

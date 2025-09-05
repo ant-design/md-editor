@@ -95,7 +95,7 @@
         style="border: 1px solid rgb(225, 228, 232); border-radius: 8px; overflow: hidden;"
       >
         <div
-          class="markdown-editor ant-md-editor ant-md-editor-edit"
+          class="ant-md-editor markdown-editor ant-md-editor-edit"
           style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-height: 400px; padding: 20px;"
         >
           <div
@@ -106,7 +106,7 @@
               aria-multiline="true"
               autocapitalize="false"
               autocorrect="false"
-              class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-edit"
+              class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
               contenteditable="true"
               data-slate-editor="true"
               data-slate-node="value"
@@ -325,7 +325,7 @@
               视觉效果：
             </h4>
             <ul
-              style="font-size: 14px; margin: 0px; padding-left: 20px;"
+              style="font-size: 13px; margin: 0px; padding-left: 20px;"
             >
               <li>
                 动态边框：transparent → #1890ff
@@ -346,7 +346,7 @@
               交互功能：
             </h4>
             <ul
-              style="font-size: 14px; margin: 0px; padding-left: 20px;"
+              style="font-size: 13px; margin: 0px; padding-left: 20px;"
             >
               <li>
                 点击选中：onClick 事件处理

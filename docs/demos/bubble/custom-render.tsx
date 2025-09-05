@@ -184,7 +184,8 @@ const handleClick = useCallback(() => {
     props: BubbleProps,
     defaultDom: React.ReactNode,
   ) => {
-    const { originData, loading } = props;
+    const { originData } = props;
+    const loading = false; // 示例中假设不处于加载状态
 
     if (loading) {
       return (

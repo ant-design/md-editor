@@ -79,7 +79,7 @@
       </div>
       <div>
         <div
-          class="markdown-editor ant-md-editor ant-md-editor-edit"
+          class="ant-md-editor markdown-editor ant-md-editor-edit"
           style="width: 100%; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
         >
           <div
@@ -90,7 +90,7 @@
               aria-multiline="true"
               autocapitalize="false"
               autocorrect="false"
-              class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-edit"
+              class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
               contenteditable="true"
               data-slate-editor="true"
               data-slate-node="value"

@@ -9,7 +9,7 @@ import { ChartElement } from '@ant-design/md-editor/plugins/chart';
 import { CodeElement } from '@ant-design/md-editor/plugins/code';
 import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
 import React, { useEffect, useRef } from 'react';
-import { defaultValue } from './shared/defaultValue';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 const Mdlist = [
   { data: { content: '', type: 'TEXT' }, type: 'data' },
@@ -909,11 +909,11 @@ export default () => {
   const { containerRef } = useAutoScroll();
   useEffect(() => {
     let md = '';
-    const list = defaultValue.split('');
+    const list = newEnergyFundContent.split('');
     const run = async () => {
       if (process.env.NODE_ENV === 'test') {
         instance.current?.store.updateNodeList(
-          parserMarkdownToSlateNode(defaultValue).schema,
+          parserMarkdownToSlateNode(newEnergyFundContent).schema,
         );
         return;
       }

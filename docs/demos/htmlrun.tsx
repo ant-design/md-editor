@@ -60,7 +60,7 @@ const defaultValue = `以下是使用HTML、CSS和JavaScript实现的七色旋�
         #speed-label {
             color: white;
             font-family: Arial;
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
             display: block;
             margin-top: 5px;

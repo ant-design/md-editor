@@ -507,7 +507,7 @@ export const ChartRender: React.FC<{
                 style: { padding: 0 },
                 icon: (
                   <ActionIconBox
-                    title="重新渲染"
+                    title={i18n?.locale?.rerender || '重新渲染'}
                     onClick={() => chartRef.current?.render()}
                   >
                     <ReloadOutlined />
@@ -518,7 +518,7 @@ export const ChartRender: React.FC<{
                 style: { padding: 0 },
                 icon: (
                   <ActionIconBox
-                    title="下载"
+                    title={i18n?.locale?.download || '下载'}
                     onClick={() => {
                       const csvString = chartData
                         .map((item) => {

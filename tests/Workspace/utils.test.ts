@@ -70,7 +70,7 @@ describe('Workspace Utils', () => {
   });
 
   describe('formatLastModified', () => {
-    let originalDate: Date;
+    let originalDate: DateConstructor;
 
     beforeEach(() => {
       // 保存原始Date构造函数

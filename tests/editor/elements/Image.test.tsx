@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { ImageAndError } from '../../../src/MarkdownEditor/editor/elements/Image';
 
 // Mock the editor store

@@ -147,6 +147,9 @@ export const cnLabels = {
     createNewTask: '创建新任务',
     viewResult: '查看结果',
     replayTask: '重新回放',
+    play: '继续',
+    pause: '暂停',
+    stop: '停止',
   },
   // History 组件相关
   'chat.history': '历史记录',
@@ -258,6 +261,22 @@ export const cnLabels = {
   'toolbar.alignLeft': '左对齐',
   'toolbar.alignCenter': '居中对齐',
   'toolbar.alignRight': '右对齐',
+  // SchemaEditor 相关
+  'schemaEditor.realtimePreview': '实时预览',
+  'schemaEditor.htmlTemplate': 'HTML模板',
+  'schemaEditor.schemaJson': 'Schema JSON',
+  'schemaEditor.run': '运行',
+  'schemaEditor.copy': '复制',
+  'schemaEditor.copySuccess': '内容已复制到剪贴板',
+  'schemaEditor.copyFailed': '复制失败',
+  'schemaEditor.noContentToCopy': '无可复制的内容',
+  'schemaEditor.validationFailed': '验证失败',
+  'schemaEditor.schemaSerializationError': 'Schema序列化错误',
+  'schemaEditor.schemaParseError': 'Schema解析错误',
+  'schemaEditor.previewLoadFailed': '预览加载失败',
+  'schemaEditor.checkSchemaFormat': '请检查schema格式是否正确',
+  'schemaEditor.inputSchemaToPreview': '右侧输入schema后，在这里展示卡片预览',
+  'schemaEditor.untitledSchema': 'Untitled Schema',
 };
 
 /**
@@ -409,6 +428,9 @@ export const enLabels: typeof cnLabels = {
     createNewTask: 'Create new task',
     viewResult: 'View result',
     replayTask: 'Replay',
+    play: 'Play',
+    pause: 'Pause',
+    stop: 'Stop',
   },
   // History component related
   'chat.history': 'History',
@@ -524,4 +546,22 @@ export const enLabels: typeof cnLabels = {
   'toolbar.alignLeft': 'Left Align',
   'toolbar.alignCenter': 'Center Align',
   'toolbar.alignRight': 'Right Align',
+  // SchemaEditor related
+  'schemaEditor.realtimePreview': 'Real-time Preview',
+  'schemaEditor.htmlTemplate': 'HTML Template',
+  'schemaEditor.schemaJson': 'Schema JSON',
+  'schemaEditor.run': 'Run',
+  'schemaEditor.copy': 'Copy',
+  'schemaEditor.copySuccess': 'Content copied to clipboard',
+  'schemaEditor.copyFailed': 'Copy failed',
+  'schemaEditor.noContentToCopy': 'No content to copy',
+  'schemaEditor.validationFailed': 'Validation failed',
+  'schemaEditor.schemaSerializationError': 'Schema serialization error',
+  'schemaEditor.schemaParseError': 'Schema parse error',
+  'schemaEditor.previewLoadFailed': 'Preview load failed',
+  'schemaEditor.checkSchemaFormat':
+    'Please check if the schema format is correct',
+  'schemaEditor.inputSchemaToPreview':
+    'Enter schema on the right to show card preview here',
+  'schemaEditor.untitledSchema': 'Untitled Schema',
 };

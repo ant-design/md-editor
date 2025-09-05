@@ -194,7 +194,7 @@ export default function ExtraRenderDemo() {
           </Button>
         </Space>
 
-        <div style={{ fontSize: '14px', color: '#666', marginBottom: 16 }}>
+        <div style={{ fontSize: '13px', color: '#666', marginBottom: 16 }}>
           <strong>当前模式说明：</strong>
           {customMode === 'default' &&
             ' 使用默认的额外操作区域（点赞、点踩、复制等）'}

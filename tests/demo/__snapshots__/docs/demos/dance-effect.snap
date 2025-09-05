@@ -1,0 +1,418 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      class="ant-md-editor markdown-editor ant-md-editor-edit ant-md-editor-report"
+      style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
+    >
+      <div
+        style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+        tabindex="-1"
+      >
+        <div
+          aria-multiline="true"
+          autocapitalize="false"
+          autocorrect="false"
+          class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-report ant-md-editor-content-edit"
+          contenteditable="true"
+          data-slate-editor="true"
+          data-slate-node="value"
+          role="textbox"
+          spellcheck="false"
+          style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
+          zindex="-1"
+        >
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  要使用 HTML 和 CSS 实现一个“跳舞”的效果，我们可以结合 CSS 动画来让某个元素产生“跳舞”的动画。下面是一个简单的例子，展示如何使一个“人”图标形象地“跳舞”。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            data-slate-node="element"
+            data-testid="markdown-heading"
+            id="html-部分"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  HTML 部分
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  我们需要一个 HTML 文件来放置我们的“跳舞”的元素。我们将使用一个简单的 
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <code
+                  class="ant-md-editor-content-inline-code"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    div
+                  </span>
+                </code>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   元素，并对其应用样式。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            data-slate-node="element"
+          >
+            <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-testid="code-container"
+              tabindex="-1"
+            >
+              <div
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
+              >
+                <div
+                  class="ace-container drag-el "
+                  data-testid="code-editor-container"
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                >
+                  <div
+                    contenteditable="false"
+                    style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
+                  />
+                  <div
+                    data-testid="ace-editor-container"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    data-testid="code-content-copy"
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                  >
+                    &lt;!DOCTYPE html&gt; &lt;html lang="zh"&gt; &lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;title&gt;跳舞效果&lt;/title&gt; &lt;link rel="stylesheet" href="styles.css"&gt; &lt;/head&gt; &lt;body&gt;     &lt;div class="dancer"&gt;         ♥     &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!DOCTYPE html&gt;
+&lt;html lang="zh"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;跳舞效果&lt;/title&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="dancer"&gt;
+        ♥
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-slate-node="element"
+            data-testid="markdown-heading"
+            id="css-部分"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  CSS 部分
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  CSS 部分负责设计和动画。我们使用transform和keyframes来创建一个类似于跳舞的动作。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            data-slate-node="element"
+          >
+            <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="css"
+              data-testid="code-container"
+              tabindex="-1"
+            >
+              <div
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
+              >
+                <div
+                  class="ace-container drag-el "
+                  data-testid="code-editor-container"
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                >
+                  <div
+                    contenteditable="false"
+                    style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
+                  />
+                  <div
+                    data-testid="ace-editor-container"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    data-testid="code-content-copy"
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                  >
+                    /* styles.css */ body {     display: flex;     justify-content: center;     align-items: center;     height: 100vh;     background-color: #282c34;     margin: 0; }  .dancer {     font-size: 3em;     color: #61dafb;     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #4c5089, 0 0 30px #4c5089, 0 0 50px #4c5089, 0 0 60px #4c5089;     animation: dance 2s ease-in-out infinite; }  @keyframes dance {     0% { transform: rotate(0) translateX(0) scale(1); }     25% { transform: rotate(-5deg) translateX(30px) scale(1.1); }     50% { transform: rotate(5deg) translateX(-30px) scale(1.2); }     75% { transform: rotate(-2deg) translateX(15px) scale(1.1); }     100% { transform: rotate(0) translateX(0) scale(1); } }
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          /* styles.css */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    margin: 0;
+}
+
+.dancer {
+    font-size: 3em;
+    color: #61dafb;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #4c5089, 0 0 30px #4c5089, 0 0 50px #4c5089, 0 0 60px #4c5089;
+    animation: dance 2s ease-in-out infinite;
+}
+
+@keyframes dance {
+    0% { transform: rotate(0) translateX(0) scale(1); }
+    25% { transform: rotate(-5deg) translateX(30px) scale(1.1); }
+    50% { transform: rotate(5deg) translateX(-30px) scale(1.2); }
+    75% { transform: rotate(-2deg) translateX(15px) scale(1.1); }
+    100% { transform: rotate(0) translateX(0) scale(1); }
+}
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  这个示例中，使用了一个简单的 
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <code
+                  class="ant-md-editor-content-inline-code"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    ♥
+                  </span>
+                </code>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   图标来代表跳舞的“人”。通过调整 CSS 动画的关键帧，我们模拟了人物的位置移动、旋转和大小变化，从而实现了上述的“跳舞”效果。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  要更丰富地展示这个效果，你可以尝试改变跳舞的关键帧，调整动画的持续时间，或者改变图像的形状和大小等。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-length="0"
+                  data-slate-zero-width="n"
+                >
+                  ﻿
+                  <br />
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-md-editor-focus"
+        style="height: 64px;"
+      />
+    </div>
+  </div>
+</DocumentFragment>

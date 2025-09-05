@@ -136,7 +136,7 @@ describe('Internationalization Tests', () => {
   describe('Chinese Labels (cnLabels)', () => {
     it('should render Bubble component labels in Chinese', () => {
       render(
-        <I18nContext.Provider value={{ locale: cnLabels }}>
+        <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
           <TestI18nComponent locale={cnLabels} />
         </I18nContext.Provider>,
       );
@@ -160,7 +160,7 @@ describe('Internationalization Tests', () => {
 
     it('should render Workspace/File component labels in Chinese', () => {
       render(
-        <I18nContext.Provider value={{ locale: cnLabels }}>
+        <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
           <TestI18nComponent locale={cnLabels} />
         </I18nContext.Provider>,
       );
@@ -202,7 +202,7 @@ describe('Internationalization Tests', () => {
 
     it('should render MarkdownInputField component labels in Chinese', () => {
       render(
-        <I18nContext.Provider value={{ locale: cnLabels }}>
+        <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
           <TestI18nComponent locale={cnLabels} />
         </I18nContext.Provider>,
       );
@@ -214,7 +214,7 @@ describe('Internationalization Tests', () => {
 
     it('should render History component labels in Chinese', () => {
       render(
-        <I18nContext.Provider value={{ locale: cnLabels }}>
+        <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
           <TestI18nComponent locale={cnLabels} />
         </I18nContext.Provider>,
       );
@@ -251,7 +251,7 @@ describe('Internationalization Tests', () => {
 
     it('should render TaskList component labels in Chinese', () => {
       render(
-        <I18nContext.Provider value={{ locale: cnLabels }}>
+        <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
           <TestI18nComponent locale={cnLabels} />
         </I18nContext.Provider>,
       );
@@ -281,7 +281,7 @@ describe('Internationalization Tests', () => {
   describe('English Labels (enLabels)', () => {
     it('should render Bubble component labels in English', () => {
       render(
-        <I18nContext.Provider value={{ locale: enLabels }}>
+        <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
           <TestI18nComponent locale={enLabels} />
         </I18nContext.Provider>,
       );
@@ -305,7 +305,7 @@ describe('Internationalization Tests', () => {
 
     it('should render Workspace/File component labels in English', () => {
       render(
-        <I18nContext.Provider value={{ locale: enLabels }}>
+        <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
           <TestI18nComponent locale={enLabels} />
         </I18nContext.Provider>,
       );
@@ -347,7 +347,7 @@ describe('Internationalization Tests', () => {
 
     it('should render MarkdownInputField component labels in English', () => {
       render(
-        <I18nContext.Provider value={{ locale: enLabels }}>
+        <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
           <TestI18nComponent locale={enLabels} />
         </I18nContext.Provider>,
       );
@@ -359,7 +359,7 @@ describe('Internationalization Tests', () => {
 
     it('should render History component labels in English', () => {
       render(
-        <I18nContext.Provider value={{ locale: enLabels }}>
+        <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
           <TestI18nComponent locale={enLabels} />
         </I18nContext.Provider>,
       );
@@ -396,7 +396,7 @@ describe('Internationalization Tests', () => {
 
     it('should render TaskList component labels in English', () => {
       render(
-        <I18nContext.Provider value={{ locale: enLabels }}>
+        <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
           <TestI18nComponent locale={enLabels} />
         </I18nContext.Provider>,
       );
@@ -490,7 +490,9 @@ describe('Internationalization Tests', () => {
       };
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale }}>
+        <I18nContext.Provider
+          value={{ locale: customLocale as any, language: 'zh-CN' }}
+        >
           <TestI18nComponent locale={customLocale} />
         </I18nContext.Provider>,
       );
@@ -505,7 +507,7 @@ describe('Internationalization Tests', () => {
 
     it('should fallback to default when context locale is empty', () => {
       render(
-        <I18nContext.Provider value={{ locale: {} }}>
+        <I18nContext.Provider value={{ locale: {} as any, language: 'zh-CN' }}>
           <TestI18nComponent locale={{}} />
         </I18nContext.Provider>,
       );

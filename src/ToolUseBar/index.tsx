@@ -1,6 +1,7 @@
-﻿import classNames from 'classnames';
+﻿import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRefFunction } from '../hooks/useRefFunction';
 import { ToolCall, ToolUseBarItem } from './ToolUseBarItem';
 import { useStyle } from './style';
@@ -68,7 +69,8 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   onExpandedKeysChange,
   ...props
 }) => {
-  const prefixCls = 'tool-use-bar';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('tool-use-bar');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const [activeKeys, setActiveKeys] = useMergedState(

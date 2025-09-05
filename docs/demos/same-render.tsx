@@ -4,7 +4,13 @@
   parserMdToSchema,
 } from '@ant-design/md-editor';
 import React, { useEffect } from 'react';
-const defaultValue = `# 现代代码编辑器技术解析与实现示例
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
+
+const defaultValue =
+  newEnergyFundContent +
+  `
+
+## 现代代码编辑器技术解析与实现示例
 
 ## 1. 编辑器核心功能架构
 ### 1.1 基础功能模块

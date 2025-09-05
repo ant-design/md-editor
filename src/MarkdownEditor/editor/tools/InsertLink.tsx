@@ -2,8 +2,9 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { useRefFunction } from '@ant-design/md-editor/hooks/useRefFunction';
 import { Input, InputRef, Modal, Tooltip } from 'antd';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
 import { Selection, Text, Transforms } from 'slate';
+import { I18nContext } from '../../../i18n';
 import { IEditor } from '../../BaseMarkdownEditor';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
@@ -73,6 +74,7 @@ type DocItem = IEditor & { path: string; parentPath?: string };
 export const InsertLink = () => {
   const { markdownContainerRef, openInsertLink$, domRect, markdownEditorRef } =
     useEditorStore();
+  const { locale } = useContext(I18nContext);
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
 
@@ -254,7 +256,7 @@ export const InsertLink = () => {
             flex: 1,
           }}
         />
-        <Tooltip title={'移除链接'}>
+        <Tooltip title={locale?.removeLink || '移除链接'}>
           <div
             style={{
               cursor: 'pointer',

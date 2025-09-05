@@ -6,11 +6,24 @@
       test
     </div>
     <div
-      style="padding: 24px;"
+      style="padding: 24px; max-width: 1200px;"
     >
+      <h2>
+        AgentRunBar 任务运行状态组件
+      </h2>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 24px;"
+      >
+        展示AI任务运行的各种状态和操作按钮，支持运行中、暂停、停止、完成等状态管理
+      </p>
       <h3>
-        基础用法
+        基础用法 - 状态循环展示
       </h3>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 16px;"
+      >
+        点击"新任务"按钮可以循环展示不同状态，运行中状态会在5秒后自动变为完成或错误状态
+      </p>
       <div
         class="ant-task-running"
       >
@@ -22,7 +35,8 @@
           >
             <div
               class=""
-              style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; margin-right: 8px;"
+              data-testid="robot"
+              style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
             >
               <img
                 alt="robot"
@@ -37,332 +51,1113 @@
             <div
               class="ant-task-running-left-main-text "
             >
-              <span>
-                正在运行中，
-              </span>
-              <span>
-                已耗时 0
-              </span>
+              任务运行中
             </div>
             <div
               class="ant-task-running-left-text "
             >
-              正在调用
+              AI模型正在训练中，请耐心等待...
             </div>
           </div>
         </div>
         <div
-          class="ant-task-running-pause "
+          class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
         >
-          <svg
-            aria-label="PauseIcon"
-            fill="none"
-            height="32"
-            role="img"
-            viewBox="0 0 32 32"
-            width="32"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="ant-space-item"
           >
-            <defs>
-              <clippath
-                id="a"
-              >
-                <rect
-                  height="16"
-                  rx="0"
-                  width="16"
-                  x="8"
-                  y="8"
-                />
-              </clippath>
-            </defs>
-            <circle
-              cx="50%"
-              cy="50%"
-              fill="none"
-              r="14"
-              stroke="#F2F2F2"
-              stroke-width="3"
-            />
-            <circle
-              class="pause-icon-ring"
-              cx="50%"
-              cy="50%"
-              fill="none"
-              id="ring"
-              r="14"
-              stroke="currentColor"
-              stroke-dasharray="42, 914"
-              stroke-linecap="round"
-              stroke-width="3"
-              transform=""
-            />
-            <g
-              clip-path="url(#a)"
+            <div
+              class="ant-task-running-pause "
             >
-              <path
-                d="M10.667 14.053c0-1.445 0-1.968.203-2.367.18-.351.465-.637.816-.816.4-.203.922-.203 2.367-.203h3.894c1.445 0 1.968 0 2.367.203.351.18.637.465.816.816.203.4.203.922.203 2.367v3.894c0 1.445 0 1.968-.203 2.367a1.867 1.867 0 01-.816.816c-.4.203-.922.203-2.367.203h-3.894c-1.445 0-1.968 0-2.367-.203a1.867 1.867 0 01-.816-.816c-.203-.4-.203-.922-.203-2.367v-3.894z"
-                fill="currentColor"
-              />
-            </g>
-          </svg>
+              <svg
+                aria-describedby="test-id"
+                aria-label="PauseIcon"
+                fill="none"
+                height="32"
+                role="img"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <filter
+                    color-interpolation-filters="sRGB"
+                    filterUnits="objectBoundingBox"
+                    height="1"
+                    id="dadadadadadadadad"
+                    width="1"
+                    x="0"
+                    y="0"
+                  >
+                    <feflood
+                      flood-opacity="0"
+                      result="BackgroundImageFix"
+                    />
+                    <feblend
+                      in="SourceGraphic"
+                      in2="BackgroundImageFix"
+                      result="shape"
+                    />
+                    <fegaussianblur
+                      in="BackgroundImageFix"
+                      stdDeviation="10"
+                    />
+                    <fecomposite
+                      in2="SourceAlpha"
+                      operator="in"
+                      result="effect1_foregroundBlur"
+                    />
+                    <feblend
+                      in="SourceGraphic"
+                      in2="effect1_foregroundBlur"
+                      result="shape"
+                    />
+                  </filter>
+                  <clippath
+                    id="b"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                      x="8"
+                      y="8"
+                    />
+                  </clippath>
+                </defs>
+                <g
+                  filter="url(#dadadadadadadadad)"
+                >
+                  <rect
+                    fill="#001C39"
+                    fill-opacity="0.03530000150203705"
+                    height="32"
+                    rx="16"
+                    width="32"
+                  />
+                  <g
+                    clip-path="url(#b)"
+                  >
+                    <path
+                      d="M11.333 11.333v9.334q0 .552.39.942.391.391.944.391H14q.552 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942Q14.553 10 14 10h-1.333q-.553 0-.943.39-.39.391-.39.943zm5.334 0v9.334q0 .552.39.942.39.391.943.391h1.333q.553 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942-.39-.391-.943-.391H18q-.552 0-.943.39-.39.391-.39.943z"
+                      fill="#767E8B"
+                      fill-rule="evenodd"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div
+            class="ant-space-item"
+          >
+            <div
+              class="ant-task-running-pause "
+            >
+              <svg
+                aria-describedby="test-id"
+                aria-label="StopIcon"
+                fill="none"
+                height="32"
+                role="img"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                      x="8"
+                      y="8"
+                    />
+                  </clippath>
+                </defs>
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  fill="none"
+                  r="14"
+                  stroke="#F2F2F2"
+                  stroke-width="3"
+                />
+                <circle
+                  class="pause-icon-ring"
+                  cx="50%"
+                  cy="50%"
+                  fill="none"
+                  id="ring"
+                  r="14"
+                  stroke="currentColor"
+                  stroke-dasharray="18, 914"
+                  stroke-linecap="round"
+                  stroke-width="3"
+                  transform=""
+                />
+                <g>
+                  <path
+                    d="M10.667 14.053c0-1.445 0-1.968.203-2.367.18-.351.465-.637.816-.816.4-.203.922-.203 2.367-.203h3.894c1.445 0 1.968 0 2.367.203.351.18.637.465.816.816.203.4.203.922.203 2.367v3.894c0 1.445 0 1.968-.203 2.367a1.867 1.867 0 01-.816.816c-.4.203-.922.203-2.367.203h-3.894c-1.445 0-1.968 0-2.367-.203a1.867 1.867 0 01-.816-.816c-.203-.4-.203-.922-.203-2.367v-3.894z"
+                    fill="currentColor"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
       <h3
-        style="margin-top: 24px;"
+        style="margin-top: 32px;"
       >
-        不同状态展示
+        静态状态展示
       </h3>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 16px;"
+      >
+        以下是组件支持的所有状态的静态展示，每种状态都有对应的操作按钮和交互逻辑
+      </p>
       <div
-        style="display: flex; flex-direction: column; gap: 16px;"
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px;"
       >
         <div
-          class="ant-task-running"
+          style="border: 1px solid rgb(240, 240, 240); border-radius: 8px; padding: 16px;"
         >
+          <h4
+            style="margin: 0px 0px 12px 0px; color: rgb(24, 144, 255);"
+          >
+            状态1: 任务运行中
+          </h4>
           <div
-            class="ant-task-running-left "
+            class="ant-task-running"
           >
             <div
-              class="ant-task-running-left-icon-wrapper "
+              class="ant-task-running-left "
             >
               <div
-                class=""
-                style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; margin-right: 8px;"
+                class="ant-task-running-left-icon-wrapper "
               >
-                <img
-                  alt="robot"
-                  src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
-                  style="width: 100%; height: 100%;"
-                />
-              </div>
-            </div>
-            <div
-              class="ant-task-running-left-content "
-            >
-              <span>
-                任务已完成
-              </span>
-            </div>
-          </div>
-          <div
-            class="ant-task-running-button-wrapper "
-          >
-            <button
-              class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-              type="button"
-            >
-              <span
-                class="ant-btn-icon"
-              >
-                <span
-                  aria-label="undo"
-                  class="anticon anticon-undo"
-                  role="img"
+                <div
+                  class=""
+                  data-testid="robot"
+                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="undo"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <path
-                      d="M511.4 124C290.5 124.3 112 303 112 523.9c0 128 60.2 242 153.8 315.2l-37.5 48c-4.1 5.3-.3 13 6.3 12.9l167-.8c5.2 0 9-4.9 7.7-9.9L369.8 727a8 8 0 00-14.1-3L315 776.1c-10.2-8-20-16.7-29.3-26a318.64 318.64 0 01-68.6-101.7C200.4 609 192 567.1 192 523.9s8.4-85.1 25.1-124.5c16.1-38.1 39.2-72.3 68.6-101.7 29.4-29.4 63.6-52.5 101.7-68.6C426.9 212.4 468.8 204 512 204s85.1 8.4 124.5 25.1c38.1 16.1 72.3 39.2 101.7 68.6 29.4 29.4 52.5 63.6 68.6 101.7 16.7 39.4 25.1 81.3 25.1 124.5s-8.4 85.1-25.1 124.5a318.64 318.64 0 01-68.6 101.7c-7.5 7.5-15.3 14.5-23.4 21.2a7.93 7.93 0 00-1.2 11.1l39.4 50.5c2.8 3.5 7.9 4.1 11.4 1.3C854.5 760.8 912 649.1 912 523.9c0-221.1-179.4-400.2-400.6-399.9z"
-                    />
-                  </svg>
-                </span>
-              </span>
-              <span>
-                重新回放
-              </span>
-            </button>
-          </div>
-        </div>
-        <div
-          class="ant-task-running"
-        >
-          <div
-            class="ant-task-running-left "
-          >
-            <div
-              class="ant-task-running-left-icon-wrapper "
-            >
-              <div
-                class=""
-                style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; margin-right: 8px;"
-              >
-                <img
-                  alt="robot"
-                  src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
-                  style="width: 100%; height: 100%;"
-                />
-              </div>
-            </div>
-            <div
-              class="ant-task-running-left-content "
-            >
-              <span>
-                任务已停止
-              </span>
-            </div>
-          </div>
-          <div
-            class="ant-task-running-button-wrapper "
-          >
-            <button
-              class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-              type="button"
-            >
-              <span
-                class="ant-btn-icon"
-              >
-                <span
-                  aria-label="plus"
-                  class="anticon anticon-plus"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="plus"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <path
-                      d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
-                    />
-                    <path
-                      d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
-                    />
-                  </svg>
-                </span>
-              </span>
-              <span>
-                创建新任务
-              </span>
-            </button>
-          </div>
-        </div>
-        <div
-          class="ant-task-running"
-        >
-          <div
-            class="ant-task-running-left "
-          >
-            <div
-              class="ant-task-running-left-icon-wrapper "
-            >
-              <div
-                class=""
-                style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; margin-right: 8px;"
-              >
-                <img
-                  alt="robot"
-                  src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
-                  style="width: 100%; height: 100%;"
-                />
-              </div>
-            </div>
-            <div
-              class="ant-task-running-left-content "
-            >
-              <div
-                class="ant-task-running-left-main-text "
-              >
-                <span>
-                  正在运行中，
-                </span>
-                <span>
-                  已耗时 2.0
-                </span>
-              </div>
-              <div
-                class="ant-task-running-left-text "
-              >
-                正在调用
-              </div>
-            </div>
-          </div>
-          <div
-            class="ant-task-running-pause "
-          >
-            <svg
-              aria-label="PauseIcon"
-              fill="none"
-              height="32"
-              role="img"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <clippath
-                  id="a"
-                >
-                  <rect
-                    height="16"
-                    rx="0"
-                    width="16"
-                    x="8"
-                    y="8"
+                  <img
+                    alt="robot"
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
+                    style="width: 100%; height: 100%;"
                   />
-                </clippath>
-              </defs>
-              <circle
-                cx="50%"
-                cy="50%"
-                fill="none"
-                r="14"
-                stroke="#F2F2F2"
-                stroke-width="3"
-              />
-              <circle
-                class="pause-icon-ring"
-                cx="50%"
-                cy="50%"
-                fill="none"
-                id="ring"
-                r="14"
-                stroke="currentColor"
-                stroke-dasharray="42, 914"
-                stroke-linecap="round"
-                stroke-width="3"
-                transform=""
-              />
-              <g
-                clip-path="url(#a)"
+                </div>
+              </div>
+              <div
+                class="ant-task-running-left-content "
               >
-                <path
-                  d="M10.667 14.053c0-1.445 0-1.968.203-2.367.18-.351.465-.637.816-.816.4-.203.922-.203 2.367-.203h3.894c1.445 0 1.968 0 2.367.203.351.18.637.465.816.816.203.4.203.922.203 2.367v3.894c0 1.445 0 1.968-.203 2.367a1.867 1.867 0 01-.816.816c-.4.203-.922.203-2.367.203h-3.894c-1.445 0-1.968 0-2.367-.203a1.867 1.867 0 01-.816-.816c-.203-.4-.203-.922-.203-2.367v-3.894z"
-                  fill="currentColor"
-                />
-              </g>
-            </svg>
+                <div
+                  class="ant-task-running-left-main-text "
+                >
+                  任务运行中, 已耗时1小时20分12秒。 4/6 模型训练
+                </div>
+                <div
+                  class="ant-task-running-left-text "
+                >
+                  AI模型正在训练中，请耐心等待...
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+            >
+              <div
+                class="ant-space-item"
+              >
+                <div
+                  class="ant-task-running-pause "
+                >
+                  <svg
+                    aria-describedby="test-id"
+                    aria-label="PauseIcon"
+                    fill="none"
+                    height="32"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <filter
+                        color-interpolation-filters="sRGB"
+                        filterUnits="objectBoundingBox"
+                        height="1"
+                        id="dadadadadadadadad"
+                        width="1"
+                        x="0"
+                        y="0"
+                      >
+                        <feflood
+                          flood-opacity="0"
+                          result="BackgroundImageFix"
+                        />
+                        <feblend
+                          in="SourceGraphic"
+                          in2="BackgroundImageFix"
+                          result="shape"
+                        />
+                        <fegaussianblur
+                          in="BackgroundImageFix"
+                          stdDeviation="10"
+                        />
+                        <fecomposite
+                          in2="SourceAlpha"
+                          operator="in"
+                          result="effect1_foregroundBlur"
+                        />
+                        <feblend
+                          in="SourceGraphic"
+                          in2="effect1_foregroundBlur"
+                          result="shape"
+                        />
+                      </filter>
+                      <clippath
+                        id="b"
+                      >
+                        <rect
+                          height="16"
+                          rx="0"
+                          width="16"
+                          x="8"
+                          y="8"
+                        />
+                      </clippath>
+                    </defs>
+                    <g
+                      filter="url(#dadadadadadadadad)"
+                    >
+                      <rect
+                        fill="#001C39"
+                        fill-opacity="0.03530000150203705"
+                        height="32"
+                        rx="16"
+                        width="32"
+                      />
+                      <g
+                        clip-path="url(#b)"
+                      >
+                        <path
+                          d="M11.333 11.333v9.334q0 .552.39.942.391.391.944.391H14q.552 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942Q14.553 10 14 10h-1.333q-.553 0-.943.39-.39.391-.39.943zm5.334 0v9.334q0 .552.39.942.39.391.943.391h1.333q.553 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942-.39-.391-.943-.391H18q-.552 0-.943.39-.39.391-.39.943z"
+                          fill="#767E8B"
+                          fill-rule="evenodd"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="ant-space-item"
+              >
+                <div
+                  class="ant-task-running-pause "
+                >
+                  <svg
+                    aria-describedby="test-id"
+                    aria-label="StopIcon"
+                    fill="none"
+                    height="32"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <clippath
+                        id="a"
+                      >
+                        <rect
+                          height="16"
+                          rx="0"
+                          width="16"
+                          x="8"
+                          y="8"
+                        />
+                      </clippath>
+                    </defs>
+                    <circle
+                      cx="50%"
+                      cy="50%"
+                      fill="none"
+                      r="14"
+                      stroke="#F2F2F2"
+                      stroke-width="3"
+                    />
+                    <circle
+                      class="pause-icon-ring"
+                      cx="50%"
+                      cy="50%"
+                      fill="none"
+                      id="ring"
+                      r="14"
+                      stroke="currentColor"
+                      stroke-dasharray="18, 914"
+                      stroke-linecap="round"
+                      stroke-width="3"
+                      transform=""
+                    />
+                    <g>
+                      <path
+                        d="M10.667 14.053c0-1.445 0-1.968.203-2.367.18-.351.465-.637.816-.816.4-.203.922-.203 2.367-.203h3.894c1.445 0 1.968 0 2.367.203.351.18.637.465.816.816.203.4.203.922.203 2.367v3.894c0 1.445 0 1.968-.203 2.367a1.867 1.867 0 01-.816.816c-.4.203-.922.203-2.367.203h-3.894c-1.445 0-1.968 0-2.367-.203a1.867 1.867 0 01-.816-.816c-.203-.4-.203-.922-.203-2.367v-3.894z"
+                        fill="currentColor"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-top: 12px; font-size: 12px; color: rgb(153, 153, 153);"
+          >
+            包含：暂停按钮 + 停止按钮
+          </div>
+        </div>
+        <div
+          style="border: 1px solid rgb(240, 240, 240); border-radius: 8px; padding: 16px;"
+        >
+          <h4
+            style="margin: 0px 0px 12px 0px; color: rgb(250, 173, 20);"
+          >
+            状态2: 任务已暂停
+          </h4>
+          <div
+            class="ant-task-running"
+          >
+            <div
+              class="ant-task-running-left "
+            >
+              <div
+                class="ant-task-running-left-icon-wrapper "
+              >
+                <div
+                  class=""
+                  data-testid="robot"
+                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                >
+                  <img
+                    alt="robot"
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
+                    style="width: 100%; height: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-task-running-left-content "
+              >
+                <div
+                  class="ant-task-running-left-main-text "
+                >
+                  任务已暂停
+                </div>
+                <div
+                  class="ant-task-running-left-text "
+                >
+                  任务执行已暂停，点击继续按钮恢复执行
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-task-running-button-wrapper "
+            >
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="plus"
+                    class="anticon anticon-plus"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="plus"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                      />
+                      <path
+                        d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  新任务
+                </span>
+              </button>
+              <div
+                class="ant-task-running-play "
+              >
+                <svg
+                  aria-describedby="test-id"
+                  aria-label="PlayIcon"
+                  fill="none"
+                  height="32"
+                  role="img"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <filter
+                      color-interpolation-filters="sRGB"
+                      filterUnits="objectBoundingBox"
+                      height="1"
+                      id="objectBoundingBoxsss"
+                      width="1"
+                      x="0"
+                      y="0"
+                    >
+                      <feflood
+                        flood-opacity="0"
+                        result="BackgroundImageFix"
+                      />
+                      <feblend
+                        in="SourceGraphic"
+                        in2="BackgroundImageFix"
+                        result="shape"
+                      />
+                      <fegaussianblur
+                        in="BackgroundImageFix"
+                        stdDeviation="10"
+                      />
+                      <fecomposite
+                        in2="SourceAlpha"
+                        operator="in"
+                        result="effect1_foregroundBlur"
+                      />
+                      <feblend
+                        in="SourceGraphic"
+                        in2="effect1_foregroundBlur"
+                        result="shape"
+                      />
+                    </filter>
+                    <clippath
+                      id="b"
+                    >
+                      <rect
+                        height="16"
+                        rx="0"
+                        width="16"
+                        x="8"
+                        y="8"
+                      />
+                    </clippath>
+                  </defs>
+                  <g
+                    filter="url(#objectBoundingBoxsss)"
+                  >
+                    <rect
+                      fill="#001C39"
+                      fill-opacity="0.03530000150203705"
+                      height="32"
+                      rx="16"
+                      width="32"
+                    />
+                    <g
+                      clip-path="url(#b)"
+                    >
+                      <path
+                        d="M11.333 22V10a.667.667 0 011.028-.56l9.333 6a.667.667 0 010 1.12l-9.333 6a.667.667 0 01-1.028-.56z"
+                        fill="#767E8B"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-top: 12px; font-size: 12px; color: rgb(153, 153, 153);"
+          >
+            包含：继续按钮 + 新任务按钮
+          </div>
+        </div>
+        <div
+          style="border: 1px solid rgb(240, 240, 240); border-radius: 8px; padding: 16px;"
+        >
+          <h4
+            style="margin: 0px 0px 12px 0px; color: rgb(255, 77, 79);"
+          >
+            状态3: 任务已停止
+          </h4>
+          <div
+            class="ant-task-running"
+          >
+            <div
+              class="ant-task-running-left "
+            >
+              <div
+                class="ant-task-running-left-icon-wrapper "
+              >
+                <div
+                  class=""
+                  data-testid="robot"
+                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                >
+                  <img
+                    alt="robot"
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
+                    style="width: 100%; height: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-task-running-left-content "
+              >
+                <div
+                  class="ant-task-running-left-main-text "
+                >
+                  任务已停止
+                </div>
+                <div
+                  class="ant-task-running-left-text "
+                >
+                  任务执行已停止，无法恢复，请创建新任务
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-task-running-button-wrapper "
+            >
+              <button
+                class="ant-btn ant-btn-primary ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="plus"
+                    class="anticon anticon-plus"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="plus"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                      />
+                      <path
+                        d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  创建新任务
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            style="margin-top: 12px; font-size: 12px; color: rgb(153, 153, 153);"
+          >
+            包含：创建新任务按钮
+          </div>
+        </div>
+        <div
+          style="border: 1px solid rgb(240, 240, 240); border-radius: 8px; padding: 16px;"
+        >
+          <h4
+            style="margin: 0px 0px 12px 0px; color: rgb(82, 196, 26);"
+          >
+            状态4: 任务已完成
+          </h4>
+          <div
+            class="ant-task-running"
+          >
+            <div
+              class="ant-task-running-left "
+            >
+              <div
+                class="ant-task-running-left-icon-wrapper "
+              >
+                <div
+                  class=""
+                  data-testid="robot"
+                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                >
+                  <img
+                    alt="robot"
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
+                    style="width: 100%; height: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-task-running-left-content "
+              >
+                <div
+                  class="ant-task-running-left-main-text "
+                >
+                  任务已完成, 耗时10小时02分10秒
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-task-running-button-wrapper "
+            >
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="eye"
+                    class="anticon anticon-eye"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="eye"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  查看
+                </span>
+              </button>
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="undo"
+                    class="anticon anticon-undo"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="undo"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M511.4 124C290.5 124.3 112 303 112 523.9c0 128 60.2 242 153.8 315.2l-37.5 48c-4.1 5.3-.3 13 6.3 12.9l167-.8c5.2 0 9-4.9 7.7-9.9L369.8 727a8 8 0 00-14.1-3L315 776.1c-10.2-8-20-16.7-29.3-26a318.64 318.64 0 01-68.6-101.7C200.4 609 192 567.1 192 523.9s8.4-85.1 25.1-124.5c16.1-38.1 39.2-72.3 68.6-101.7 29.4-29.4 63.6-52.5 101.7-68.6C426.9 212.4 468.8 204 512 204s85.1 8.4 124.5 25.1c38.1 16.1 72.3 39.2 101.7 68.6 29.4 29.4 52.5 63.6 68.6 101.7 16.7 39.4 25.1 81.3 25.1 124.5s-8.4 85.1-25.1 124.5a318.64 318.64 0 01-68.6 101.7c-7.5 7.5-15.3 14.5-23.4 21.2a7.93 7.93 0 00-1.2 11.1l39.4 50.5c2.8 3.5 7.9 4.1 11.4 1.3C854.5 760.8 912 649.1 912 523.9c0-221.1-179.4-400.2-400.6-399.9z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  重新执行
+                </span>
+              </button>
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="plus"
+                    class="anticon anticon-plus"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="plus"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                      />
+                      <path
+                        d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  新任务
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            style="margin-top: 12px; font-size: 12px; color: rgb(153, 153, 153);"
+          >
+            包含：查看按钮 + 重新执行按钮 + 新任务按钮
+          </div>
+        </div>
+        <div
+          style="border: 1px solid rgb(240, 240, 240); border-radius: 8px; padding: 16px;"
+        >
+          <h4
+            style="margin: 0px 0px 12px 0px; color: rgb(255, 77, 79);"
+          >
+            状态5: 任务出错
+          </h4>
+          <div
+            class="ant-task-running"
+          >
+            <div
+              class="ant-task-running-left "
+            >
+              <div
+                class="ant-task-running-left-icon-wrapper "
+              >
+                <div
+                  class=""
+                  data-testid="robot"
+                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                >
+                  <img
+                    alt="robot"
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
+                    style="width: 100%; height: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-task-running-left-content "
+              >
+                <div
+                  class="ant-task-running-left-main-text "
+                >
+                  任务执行出错
+                </div>
+                <div
+                  class="ant-task-running-left-text "
+                >
+                  任务执行过程中发生错误，请重新执行或创建新任务
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-task-running-button-wrapper "
+            >
+              <button
+                class="ant-btn ant-btn-primary ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="undo"
+                    class="anticon anticon-undo"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="undo"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M511.4 124C290.5 124.3 112 303 112 523.9c0 128 60.2 242 153.8 315.2l-37.5 48c-4.1 5.3-.3 13 6.3 12.9l167-.8c5.2 0 9-4.9 7.7-9.9L369.8 727a8 8 0 00-14.1-3L315 776.1c-10.2-8-20-16.7-29.3-26a318.64 318.64 0 01-68.6-101.7C200.4 609 192 567.1 192 523.9s8.4-85.1 25.1-124.5c16.1-38.1 39.2-72.3 68.6-101.7 29.4-29.4 63.6-52.5 101.7-68.6C426.9 212.4 468.8 204 512 204s85.1 8.4 124.5 25.1c38.1 16.1 72.3 39.2 101.7 68.6 29.4 29.4 52.5 63.6 68.6 101.7 16.7 39.4 25.1 81.3 25.1 124.5s-8.4 85.1-25.1 124.5a318.64 318.64 0 01-68.6 101.7c-7.5 7.5-15.3 14.5-23.4 21.2a7.93 7.93 0 00-1.2 11.1l39.4 50.5c2.8 3.5 7.9 4.1 11.4 1.3C854.5 760.8 912 649.1 912 523.9c0-221.1-179.4-400.2-400.6-399.9z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  重新执行
+                </span>
+              </button>
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="plus"
+                    class="anticon anticon-plus"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="plus"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                      />
+                      <path
+                        d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  新任务
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            style="margin-top: 12px; font-size: 12px; color: rgb(153, 153, 153);"
+          >
+            包含：重新执行按钮 + 新任务按钮
+          </div>
+        </div>
+        <div
+          style="border: 1px solid rgb(240, 240, 240); border-radius: 8px; padding: 16px;"
+        >
+          <h4
+            style="margin: 0px 0px 12px 0px; color: rgb(153, 153, 153);"
+          >
+            状态6: 任务已取消
+          </h4>
+          <div
+            class="ant-task-running"
+          >
+            <div
+              class="ant-task-running-left "
+            >
+              <div
+                class="ant-task-running-left-icon-wrapper "
+              >
+                <div
+                  class=""
+                  data-testid="robot"
+                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                >
+                  <img
+                    alt="robot"
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
+                    style="width: 100%; height: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-task-running-left-content "
+              >
+                <div
+                  class="ant-task-running-left-main-text "
+                >
+                  任务已取消
+                </div>
+                <div
+                  class="ant-task-running-left-text "
+                >
+                  任务已被用户取消，请创建新任务
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-task-running-button-wrapper "
+            >
+              <button
+                class="ant-btn ant-btn-primary ant-btn-color-default ant-btn-variant-solid"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <span
+                    aria-label="plus"
+                    class="anticon anticon-plus"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="plus"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                      />
+                      <path
+                        d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span>
+                  创建新任务
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            style="margin-top: 12px; font-size: 12px; color: rgb(153, 153, 153);"
+          >
+            包含：创建新任务按钮
           </div>
         </div>
       </div>
       <div
-        style="margin-top: 20px; padding: 20px;"
+        style="margin-top: 32px; padding: 24px; background-color: rgb(250, 250, 250); border-radius: 8px;"
       >
         <h4>
-          Props 说明：
+          组件特性说明：
         </h4>
-        <ul>
+        <ul
+          style="line-height: 1.8;"
+        >
           <li>
             <strong>
-              minutes
+              状态管理
             </strong>
-            : 任务运行时间（分钟），字符串格式
+            : 支持运行中、暂停、停止、完成、出错等多种任务状态
+          </li>
+          <li>
+            <strong>
+              动态按钮
+            </strong>
+            : 根据任务状态自动显示对应的操作按钮
+          </li>
+          <li>
+            <strong>
+              进度显示
+            </strong>
+            : 支持显示任务进度和耗时信息
+          </li>
+          <li>
+            <strong>
+              机器人动画
+            </strong>
+            : 内置机器人图标，支持思考、暂停、完成等状态动画
+          </li>
+          <li>
+            <strong>
+              响应式设计
+            </strong>
+            : 自适应不同屏幕尺寸，支持移动端
+          </li>
+          <li>
+            <strong>
+              主题定制
+            </strong>
+            : 支持自定义主题色和样式
+          </li>
+          <li>
+            <strong>
+              图标提示
+            </strong>
+            : 支持为图标添加tooltip提示信息
+          </li>
+        </ul>
+        <h4
+          style="margin-top: 20px;"
+        >
+          状态按钮说明：
+        </h4>
+        <ul
+          style="line-height: 1.8;"
+        >
+          <li>
+            <strong>
+              任务运行中
+            </strong>
+            : 显示暂停按钮 + 停止按钮
+          </li>
+          <li>
+            <strong>
+              任务已暂停
+            </strong>
+            : 显示继续按钮 + 新任务按钮
+          </li>
+          <li>
+            <strong>
+              任务已停止
+            </strong>
+            : 显示创建新任务按钮
+          </li>
+          <li>
+            <strong>
+              任务已完成
+            </strong>
+            : 显示查看按钮 + 重新执行按钮 + 新任务按钮
+          </li>
+          <li>
+            <strong>
+              任务出错
+            </strong>
+            : 显示重新执行按钮 + 新任务按钮
+          </li>
+          <li>
+            <strong>
+              任务已取消
+            </strong>
+            : 显示创建新任务按钮
+          </li>
+        </ul>
+        <h4
+          style="margin-top: 20px;"
+        >
+          Props 说明：
+        </h4>
+        <ul
+          style="line-height: 1.8;"
+        >
+          <li>
+            <strong>
+              title
+            </strong>
+            : 标题文案，显示主要的任务状态信息
+          </li>
+          <li>
+            <strong>
+              description
+            </strong>
+            : 描述文案，显示任务的详细描述信息
           </li>
           <li>
             <strong>
               taskStatus
             </strong>
-            : 任务状态，支持 TASK_STATUS.RUNNING | SUCCESS | ERROR | PAUSE
+            : 任务状态，支持 TASK_STATUS.RUNNING | SUCCESS | ERROR | PAUSE | STOPPED | CANCELLED
           </li>
           <li>
             <strong>
@@ -378,6 +1173,18 @@
           </li>
           <li>
             <strong>
+              onResume
+            </strong>
+            : 继续任务时的回调函数
+          </li>
+          <li>
+            <strong>
+              onStop
+            </strong>
+            : 停止任务时的回调函数
+          </li>
+          <li>
+            <strong>
               onCreateNewTask
             </strong>
             : 创建新任务时的回调函数
@@ -386,13 +1193,25 @@
             <strong>
               onReplay
             </strong>
-            : 重新播放任务时的回调函数
+            : 重新执行任务时的回调函数
           </li>
           <li>
             <strong>
               onViewResult
             </strong>
             : 查看结果时的回调函数
+          </li>
+          <li>
+            <strong>
+              icon
+            </strong>
+            : 自定义图标，支持图片URL或React组件
+          </li>
+          <li>
+            <strong>
+              iconTooltip
+            </strong>
+            : 图标提示文案，鼠标悬停时显示
           </li>
         </ul>
       </div>

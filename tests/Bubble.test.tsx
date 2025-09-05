@@ -519,7 +519,7 @@ describe('Bubble', () => {
           content: 'Previous message',
           createAt: 1716537500000,
           id: '122',
-          role: undefined,
+          role: undefined as any,
           updateAt: 1716537500000,
         },
         originData: {
@@ -558,7 +558,7 @@ describe('Bubble', () => {
           content: 'Current message',
           createAt: 1716537600000,
           id: '123',
-          role: undefined,
+          role: undefined as any,
           updateAt: 1716537600000,
         },
       };
@@ -583,14 +583,14 @@ describe('Bubble', () => {
           content: 'Previous message',
           createAt: 1716537500000,
           id: '122',
-          role: undefined,
+          role: undefined as any,
           updateAt: 1716537500000,
         },
         originData: {
           content: 'Current message',
           createAt: 1716537600000,
           id: '123',
-          role: undefined,
+          role: undefined as any,
           updateAt: 1716537600000,
         },
       };

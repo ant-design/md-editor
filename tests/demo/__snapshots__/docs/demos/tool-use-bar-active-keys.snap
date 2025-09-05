@@ -15,29 +15,29 @@
         当前激活的工具: 无
       </p>
       <div
-        class="tool-use-bar"
+        class="ant-tool-use-bar"
         data-testid="ToolUse"
       >
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-success"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-success"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -57,9 +57,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -70,45 +68,45 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   文件搜索
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="搜索 "react" 相关文件"
             >
               搜索 "react" 相关文件
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               10:30
             </div>
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-loading"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-loading"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper tool-use-bar-tool-image-wrapper-rotating tool-use-bar-tool-image-wrapper-loading"
+                  class="ant-tool-use-bar-tool-image-wrapper ant-tool-use-bar-tool-image-wrapper-rotating ant-tool-use-bar-tool-image-wrapper-loading"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -128,9 +126,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -141,45 +137,45 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name  tool-use-bar-tool-name-loading"
+                  class="ant-tool-use-bar-tool-name  ant-tool-use-bar-tool-name-loading"
                 >
                   代码分析
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target  tool-use-bar-tool-target-loading"
+              class="ant-tool-use-bar-tool-target  ant-tool-use-bar-tool-target-loading"
               title="分析 src/components 目录"
             >
               分析 src/components 目录
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               10:35
             </div>
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-error"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-error"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -199,9 +195,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -212,45 +206,45 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   代码格式化
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="格式化 TypeScript 文件"
             >
               格式化 TypeScript 文件
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               10:40
             </div>
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-idle"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-idle"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -270,9 +264,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -283,20 +275,20 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   单元测试
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="运行 Jest 测试套件"
             >
               运行 Jest 测试套件
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               10:45
             </div>

@@ -37,5 +37,3 @@ export function useStyle(prefixCls?: string) {
     return [resetComponent(componentToken), genStyle(componentToken)];
   });
 }
-
-

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Node } from 'slate';
+import { I18nContext } from '../../../i18n';
 import { ElementProps, ParagraphNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
@@ -15,6 +16,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
     readonly,
     editorProps,
   } = useEditorStore();
+  const { locale } = useContext(I18nContext);
   const [selected, path] = useSelStatus(props.element);
   const isLatest = useMemo(() => {
     if (markdownEditorRef.current?.children.length === 0) return false;
@@ -48,7 +50,9 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         data-align={props.element.align}
         data-slate-placeholder={
           isEmpty
-            ? editorProps.titlePlaceholderContent || '请输入内容...'
+            ? editorProps.titlePlaceholderContent ||
+              locale?.inputPlaceholder ||
+              '请输入内容...'
             : undefined
         }
         onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}

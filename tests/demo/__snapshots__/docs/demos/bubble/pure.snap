@@ -223,7 +223,7 @@
                       style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                     >
                       <div
-                        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                        class="ant-md-editor markdown-editor ant-md-editor-readonly"
                         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                       >
                         <div
@@ -233,7 +233,7 @@
                           <div
                             autocapitalize="false"
                             autocorrect="false"
-                            class="ant-md-editor-content-readonly ant-md-editor-content"
+                            class="ant-md-editor-content ant-md-editor-content-readonly"
                             data-slate-editor="true"
                             data-slate-node="value"
                             spellcheck="false"
@@ -657,7 +657,7 @@
                         style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                       >
                         <div
-                          class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                          class="ant-md-editor markdown-editor ant-md-editor-readonly"
                           style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                         >
                           <div
@@ -667,7 +667,7 @@
                             <div
                               autocapitalize="false"
                               autocorrect="false"
-                              class="ant-md-editor-content-readonly ant-md-editor-content"
+                              class="ant-md-editor-content ant-md-editor-content-readonly"
                               data-slate-editor="true"
                               data-slate-node="value"
                               spellcheck="false"
@@ -810,7 +810,7 @@
                       style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                     >
                       <div
-                        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                        class="ant-md-editor markdown-editor ant-md-editor-readonly"
                         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                       >
                         <div
@@ -820,7 +820,7 @@
                           <div
                             autocapitalize="false"
                             autocorrect="false"
-                            class="ant-md-editor-content-readonly ant-md-editor-content"
+                            class="ant-md-editor-content ant-md-editor-content-readonly"
                             data-slate-editor="true"
                             data-slate-node="value"
                             spellcheck="false"
@@ -1169,7 +1169,7 @@
                         style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                       >
                         <div
-                          class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                          class="ant-md-editor markdown-editor ant-md-editor-readonly"
                           style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                         >
                           <div
@@ -1179,7 +1179,7 @@
                             <div
                               autocapitalize="false"
                               autocorrect="false"
-                              class="ant-md-editor-content-readonly ant-md-editor-content"
+                              class="ant-md-editor-content ant-md-editor-content-readonly"
                               data-slate-editor="true"
                               data-slate-node="value"
                               spellcheck="false"
@@ -1322,7 +1322,7 @@
                       style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                     >
                       <div
-                        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                        class="ant-md-editor markdown-editor ant-md-editor-readonly"
                         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                       >
                         <div
@@ -1332,7 +1332,7 @@
                           <div
                             autocapitalize="false"
                             autocorrect="false"
-                            class="ant-md-editor-content-readonly ant-md-editor-content"
+                            class="ant-md-editor-content ant-md-editor-content-readonly"
                             data-slate-editor="true"
                             data-slate-node="value"
                             spellcheck="false"

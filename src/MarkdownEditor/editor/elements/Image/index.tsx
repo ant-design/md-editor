@@ -161,7 +161,7 @@ export const ResizeImage = ({
           border: '1px dashed #d9d9d9',
           borderRadius: '6px',
           backgroundColor: '#fafafa',
-          fontSize: '14px',
+          fontSize: '13px',
           lineHeight: '1.5',
         }}
       >
@@ -358,7 +358,7 @@ export function EditorImage({
             border: '1px dashed #d9d9d9',
             borderRadius: '6px',
             backgroundColor: '#fafafa',
-            fontSize: '14px',
+            fontSize: '13px',
             lineHeight: '1.5',
           }}
         >

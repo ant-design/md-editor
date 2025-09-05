@@ -42,7 +42,7 @@ const customCodeBlockPlugin: MarkdownEditorPlugin = {
             color: '#ff6b6b',
             fontWeight: 'bold',
             marginBottom: '8px',
-            fontSize: '14px',
+            fontSize: '13px',
           }}
         >
           ⚠️ 警告

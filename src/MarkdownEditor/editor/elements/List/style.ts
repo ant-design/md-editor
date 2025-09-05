@@ -14,9 +14,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginTop: '0.5em',
         marginBottom: '0.5em',
       },
-      'li::marker': {
-        color: 'rgb(107 114 128 /1)',
-      },
       'div[data-be="paragraph"]': {
         display: 'block',
         marginBottom: '0 !important',

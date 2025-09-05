@@ -1,4 +1,4 @@
-﻿import { MarkdownEditor, parserMdToSchema } from '@ant-design/md-editor';
+﻿import { MarkdownEditor } from '@ant-design/md-editor';
 import React from 'react';
 
 const defaultValue = `
@@ -7,7 +7,6 @@ const defaultValue = `
 ![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/origina?width=400&height=400)
 `;
 export default () => {
-  console.log(parserMdToSchema(defaultValue));
   return (
     <>
       <MarkdownEditor

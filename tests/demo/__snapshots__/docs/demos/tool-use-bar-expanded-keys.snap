@@ -76,29 +76,29 @@
         </div>
       </div>
       <div
-        class="tool-use-bar"
+        class="ant-tool-use-bar"
         data-testid="ToolUse"
       >
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-success"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-success"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -118,9 +118,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -131,25 +129,25 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   Search Code
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="baidu.com"
             >
               baidu.com
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               1.3s
             </div>
             <div
-              class="tool-use-bar-tool-expand "
+              class="ant-tool-use-bar-tool-expand "
             >
               <svg
                 fill="none"
@@ -170,9 +168,7 @@
                     />
                   </clippath>
                 </defs>
-                <g
-                  clip-path="url(#a)"
-                >
+                <g>
                   <path
                     d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
                     fill="currentColor"
@@ -183,11 +179,11 @@
             </div>
           </div>
           <div
-            class="tool-use-bar-tool-container "
+            class="ant-tool-use-bar-tool-container "
             data-testid="tool-user-item-tool-container "
           >
             <div
-              class="tool-use-bar-tool-content "
+              class="ant-tool-use-bar-tool-content "
             >
               <div>
                 这是搜索代码的详细内容，包含了一些执行结果和相关信息。
@@ -196,25 +192,25 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-error"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-error"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -234,9 +230,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -247,25 +241,25 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   Read File
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="xxx.docx"
             >
               xxx.docx
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               2.3s
             </div>
             <div
-              class="tool-use-bar-tool-expand "
+              class="ant-tool-use-bar-tool-expand "
             >
               <svg
                 fill="none"
@@ -286,9 +280,7 @@
                     />
                   </clippath>
                 </defs>
-                <g
-                  clip-path="url(#a)"
-                >
+                <g>
                   <path
                     d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
                     fill="currentColor"
@@ -300,25 +292,25 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-success"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-success"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper"
+                  class="ant-tool-use-bar-tool-image-wrapper"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -338,9 +330,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -351,25 +341,25 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name "
+                  class="ant-tool-use-bar-tool-name "
                 >
                   Edit File
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target "
+              class="ant-tool-use-bar-tool-target "
               title="xx.md"
             >
               xx.md
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               2.3s
             </div>
             <div
-              class="tool-use-bar-tool-expand "
+              class="ant-tool-use-bar-tool-expand "
             >
               <svg
                 fill="none"
@@ -390,9 +380,7 @@
                     />
                   </clippath>
                 </defs>
-                <g
-                  clip-path="url(#a)"
-                >
+                <g>
                   <path
                     d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
                     fill="currentColor"
@@ -404,25 +392,25 @@
           </div>
         </div>
         <div
-          class="tool-use-bar-tool  tool-use-bar-tool-loading"
+          class="ant-tool-use-bar-tool  ant-tool-use-bar-tool-loading"
           data-testid="ToolUserItem"
         >
           <div
-            class="tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar "
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header "
               data-testid="tool-user-item-tool-header"
             >
               <div
-                class="tool-use-bar-tool-header-left "
+                class="ant-tool-use-bar-tool-header-left "
               >
                 <div
-                  class="tool-use-bar-tool-image-wrapper tool-use-bar-tool-image-wrapper-rotating tool-use-bar-tool-image-wrapper-loading"
+                  class="ant-tool-use-bar-tool-image-wrapper ant-tool-use-bar-tool-image-wrapper-rotating ant-tool-use-bar-tool-image-wrapper-loading"
                 >
                   <div
-                    class="tool-use-bar-tool-image "
+                    class="ant-tool-use-bar-tool-image "
                   >
                     <svg
                       fill="none"
@@ -442,9 +430,7 @@
                           />
                         </clippath>
                       </defs>
-                      <g
-                        clip-path="url(#a)"
-                      >
+                      <g>
                         <path
                           d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
                           fill="currentColor"
@@ -455,20 +441,20 @@
                   </div>
                 </div>
                 <div
-                  class="tool-use-bar-tool-name  tool-use-bar-tool-name-loading"
+                  class="ant-tool-use-bar-tool-name  ant-tool-use-bar-tool-name-loading"
                 >
                   Generate Report
                 </div>
               </div>
             </div>
             <div
-              class="tool-use-bar-tool-target  tool-use-bar-tool-target-loading"
+              class="ant-tool-use-bar-tool-target  ant-tool-use-bar-tool-target-loading"
               title="report.pdf"
             >
               report.pdf
             </div>
             <div
-              class="tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time "
             >
               5.1s
             </div>

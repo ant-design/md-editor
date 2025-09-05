@@ -34,7 +34,7 @@
         style="border: 1px solid rgb(226, 232, 240); border-radius: 8px; overflow: hidden;"
       >
         <div
-          class="markdown-editor ant-md-editor ant-md-editor-edit"
+          class="ant-md-editor markdown-editor ant-md-editor-edit"
           style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-height: 600px;"
         >
           <div
@@ -45,7 +45,7 @@
               aria-multiline="true"
               autocapitalize="false"
               autocorrect="false"
-              class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-edit"
+              class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
               contenteditable="true"
               data-slate-editor="true"
               data-slate-node="value"
@@ -166,13 +166,13 @@
                       style="width: 12px; height: 12px; border-radius: 50%; background-color: rgb(0, 123, 255); animation: pulse 2s infinite;"
                     />
                     <span
-                      style="font-weight: 600; color: rgb(73, 80, 87); font-size: 14px;"
+                      style="font-weight: 600; color: rgb(73, 80, 87); font-size: 13px;"
                     >
                       🤔 AI 思考过程
                     </span>
                   </div>
                   <div
-                    style="color: rgb(73, 80, 87); line-height: 1.6; white-space: pre-wrap; font-size: 14px;"
+                    style="color: rgb(73, 80, 87); line-height: 1.6; white-space: pre-wrap; font-size: 13px;"
                   >
                     这是一个默认的 think 代码块
 它会显示为灰色的思考内容
@@ -241,7 +241,7 @@
                         style="width: 8px; height: 8px; border-radius: 50%; background-color: rgb(102, 126, 234); animation: bounce 1.5s infinite;"
                       />
                       <span
-                        style="font-weight: 600; color: rgb(45, 55, 72); font-size: 14px;"
+                        style="font-weight: 600; color: rgb(45, 55, 72); font-size: 13px;"
                       >
                         💭 深度思考
                       </span>
@@ -254,7 +254,7 @@
                     </button>
                   </div>
                   <div
-                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 14px; transition: all 0.3s ease; max-height: 120px; overflow: hidden;"
+                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 13px; transition: all 0.3s ease; max-height: 120px; overflow: hidden;"
                   >
                     这是一个会被自定义渲染的 think 代码块
 通过 eleItemRender 函数，我们可以：
@@ -329,7 +329,7 @@
                         style="width: 8px; height: 8px; border-radius: 50%; background-color: rgb(102, 126, 234); animation: bounce 1.5s infinite;"
                       />
                       <span
-                        style="font-weight: 600; color: rgb(45, 55, 72); font-size: 14px;"
+                        style="font-weight: 600; color: rgb(45, 55, 72); font-size: 13px;"
                       >
                         💭 深度思考
                       </span>
@@ -342,7 +342,7 @@
                     </button>
                   </div>
                   <div
-                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 14px; transition: all 0.3s ease; max-height: 120px; overflow: hidden;"
+                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 13px; transition: all 0.3s ease; max-height: 120px; overflow: hidden;"
                   >
                     这是一个较长的 think 代码块，用于演示展开/收起功能。
 

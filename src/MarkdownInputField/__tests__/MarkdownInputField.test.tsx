@@ -202,7 +202,7 @@ describe('MarkdownInputField - voiceInput', () => {
   });
 
   it('should append partial text from recognizer and trigger onChange', async () => {
-    let handlersRef: Parameters<CreateRecognizer>[0];
+    let handlersRef: Parameters<CreateRecognizer>[0] | undefined;
     const start = vi.fn().mockResolvedValue(undefined);
     const stop = vi.fn().mockResolvedValue(undefined);
     const createRecognizer = vi.fn().mockImplementation(async (handlers) => {
@@ -213,7 +213,11 @@ describe('MarkdownInputField - voiceInput', () => {
     const handleChange = vi.fn();
 
     render(
-      <MarkdownInputField value="" onChange={handleChange} voiceRecognizer={createRecognizer} />,
+      <MarkdownInputField
+        value=""
+        onChange={handleChange}
+        voiceRecognizer={createRecognizer}
+      />,
     );
 
     const voiceBtn = screen.getByTestId('voice-input-button');
@@ -225,13 +229,13 @@ describe('MarkdownInputField - voiceInput', () => {
     });
 
     // simulate partial text
-    handlersRef.onPartial('hello ');
+    handlersRef?.onPartial('hello ');
     await vi.waitFor(() => {
       expect(handleChange).toHaveBeenCalledWith('hello ', expect.anything());
     });
 
     // another partial should append
-    handlersRef.onPartial('world');
+    handlersRef?.onPartial('world');
     await vi.waitFor(() => {
       expect(handleChange).toHaveBeenLastCalledWith(
         'helloworld',
@@ -262,7 +266,12 @@ describe('MarkdownInputField - voiceInput', () => {
     const handleChange = vi.fn();
 
     render(
-      <MarkdownInputField value="" onChange={handleChange} voiceRecognizer={createRecognizer} onSend={handleSend} />,
+      <MarkdownInputField
+        value=""
+        onChange={handleChange}
+        voiceRecognizer={createRecognizer}
+        onSend={handleSend}
+      />,
     );
 
     // start recording
@@ -272,7 +281,7 @@ describe('MarkdownInputField - voiceInput', () => {
     });
 
     // inject some partial text so there is content to send
-    handlersRef.onPartial('msg');
+    handlersRef?.onPartial('msg');
     await vi.waitFor(() => {
       expect(handleChange).toHaveBeenCalledWith('msg', expect.anything());
     });
@@ -291,7 +300,7 @@ describe('MarkdownInputField - voiceInput', () => {
   });
 
   it('should handle recognizer error and reset recording state', async () => {
-    let handlersRef: Parameters<CreateRecognizer>[0];
+    let handlersRef: Parameters<CreateRecognizer>[0] | undefined;
     const start = vi.fn().mockResolvedValue(undefined);
     const stop = vi.fn().mockResolvedValue(undefined);
     const createRecognizer = vi.fn().mockImplementation(async (handlers) => {
@@ -313,7 +322,7 @@ describe('MarkdownInputField - voiceInput', () => {
     });
 
     // trigger recognizer error callback
-    handlersRef.onError?.(new Error('test error'));
+    handlersRef?.onError?.(new Error('test error'));
 
     // recording should be reset
     await vi.waitFor(() => {

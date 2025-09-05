@@ -20,7 +20,7 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
           <rect width={14} height={14} rx={0} />
         </clipPath>
       </defs>
-      <g clipPath="url(#a)">
+      <g>
         <path
           d="M9.694 10.519a5.25 5.25 0 11.825-.825l2.143 2.144a.583.583 0 11-.825.825l-2.143-2.144zm.806-4.102a4.083 4.083 0 10-8.167 0 4.083 4.083 0 008.167 0z"
           fillRule="evenodd"

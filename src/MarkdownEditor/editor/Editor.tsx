@@ -559,6 +559,12 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
   const handlePasteEvent = async (
     event: React.ClipboardEvent<HTMLDivElement>,
   ) => {
+    // 检查粘贴配置
+    const pasteConfig = props.pasteConfig;
+    if (pasteConfig?.enabled === false) {
+      return; // 如果禁用粘贴功能，直接返回
+    }
+
     const currentTextSelection = markdownEditorRef.current.selection;
     if (
       currentTextSelection &&
@@ -595,8 +601,24 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     }
 
     const types = event.clipboardData?.types || ['text/plain'];
+
+    // 默认允许的类型
+    const defaultAllowedTypes = [
+      'application/x-slate-md-fragment',
+      'text/html',
+      'Files',
+      'text/markdown',
+      'text/plain',
+    ];
+
+    // 获取允许的类型
+    const allowedTypes = pasteConfig?.allowedTypes || defaultAllowedTypes;
+
     // 1. 首先尝试处理 slate-md-fragment
-    if (types.includes('application/x-slate-md-fragment')) {
+    if (
+      types.includes('application/x-slate-md-fragment') &&
+      allowedTypes.includes('application/x-slate-md-fragment')
+    ) {
       if (
         handleSlateMarkdownFragment(
           markdownEditorRef.current,
@@ -609,7 +631,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     }
 
     // 2. 然后尝试处理 HTML
-    if (types.includes('text/html')) {
+    if (types.includes('text/html') && allowedTypes.includes('text/html')) {
       if (
         await handleHtmlPaste(
           markdownEditorRef.current,
@@ -622,7 +644,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     }
 
     // 3. 处理文件
-    if (types.includes('Files')) {
+    if (types.includes('Files') && allowedTypes.includes('Files')) {
       if (
         await handleFilesPaste(
           markdownEditorRef.current,
@@ -634,7 +656,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       }
     }
 
-    if (types.includes('text/markdown')) {
+    if (
+      types.includes('text/markdown') &&
+      allowedTypes.includes('text/markdown')
+    ) {
       const text =
         event.clipboardData?.getData?.('text/markdown')?.trim() || '';
       if (text) {
@@ -647,7 +672,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       return;
     }
     // 4. 处理纯文本
-    if (types.includes('text/plain')) {
+    if (types.includes('text/plain') && allowedTypes.includes('text/plain')) {
       const text = event.clipboardData?.getData?.('text/plain')?.trim() || '';
       if (!text) return;
 
@@ -906,9 +931,9 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           onCompositionEnd={onCompositionEnd}
           className={classNames(
             props.className,
-            `${baseClassName}-${readonlyCls}`,
-            `${baseClassName}`,
+            baseClassName,
             {
+              [`${baseClassName}-${readonlyCls}`]: readonlyCls,
               [`${baseClassName}-report`]: props.reportMode,
               [`${baseClassName}-edit`]: !readonly,
               [`${baseClassName}-compact`]: props.compact,

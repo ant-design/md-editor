@@ -17,7 +17,7 @@
           Markdown 解析与转换 Demo
         </h1>
         <p
-          style="color: rgb(102, 102, 102); font-size: 14px; margin-bottom: 24px;"
+          style="color: rgb(102, 102, 102); font-size: 13px; margin-bottom: 24px;"
         >
           展示如何使用插件系统实现 Markdown 的双向解析与转换功能
         </p>
@@ -180,7 +180,7 @@
                     class="ant-card-body"
                   >
                     <div
-                      class="markdown-editor ant-md-editor ant-md-editor-edit"
+                      class="ant-md-editor markdown-editor ant-md-editor-edit"
                       style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-height: 400px;"
                     >
                       <div
@@ -191,7 +191,7 @@
                           aria-multiline="true"
                           autocapitalize="false"
                           autocorrect="false"
-                          class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-edit"
+                          class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
                           contenteditable="true"
                           data-slate-editor="true"
                           data-slate-node="value"

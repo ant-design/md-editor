@@ -1,0 +1,366 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 24px; max-width: 1200px;"
+    >
+      <h2>
+        AgentRunBar 组件测试
+      </h2>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 24px;"
+      >
+        测试AgentRunBar组件的各种状态和交互功能
+      </p>
+      <div
+        class="ant-card ant-card-bordered"
+        style="margin-bottom: 24px;"
+      >
+        <div
+          class="ant-card-head"
+        >
+          <div
+            class="ant-card-head-wrapper"
+          >
+            <div
+              class="ant-card-head-title"
+            >
+              状态控制
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <div
+            class="ant-row"
+            style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          >
+            <div
+              class="ant-col ant-col-xs-24 ant-col-sm-12 ant-col-md-8 ant-col-lg-6"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <button
+                class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                style="width: 100%; text-align: left;"
+                type="button"
+              >
+                <span>
+                  运行中 - 完整控制
+                </span>
+              </button>
+            </div>
+            <div
+              class="ant-col ant-col-xs-24 ant-col-sm-12 ant-col-md-8 ant-col-lg-6"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                style="width: 100%; text-align: left;"
+                type="button"
+              >
+                <span>
+                  运行中 - 基础控制
+                </span>
+              </button>
+            </div>
+            <div
+              class="ant-col ant-col-xs-24 ant-col-sm-12 ant-col-md-8 ant-col-lg-6"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                style="width: 100%; text-align: left;"
+                type="button"
+              >
+                <span>
+                  已暂停
+                </span>
+              </button>
+            </div>
+            <div
+              class="ant-col ant-col-xs-24 ant-col-sm-12 ant-col-md-8 ant-col-lg-6"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                style="width: 100%; text-align: left;"
+                type="button"
+              >
+                <span>
+                  已停止
+                </span>
+              </button>
+            </div>
+            <div
+              class="ant-col ant-col-xs-24 ant-col-sm-12 ant-col-md-8 ant-col-lg-6"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                style="width: 100%; text-align: left;"
+                type="button"
+              >
+                <span>
+                  已完成
+                </span>
+              </button>
+            </div>
+            <div
+              class="ant-col ant-col-xs-24 ant-col-sm-12 ant-col-md-8 ant-col-lg-6"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                style="width: 100%; text-align: left;"
+                type="button"
+              >
+                <span>
+                  运行中 - 基础控制 (重复)
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-card ant-card-bordered"
+        style="margin-bottom: 24px;"
+      >
+        <div
+          class="ant-card-head"
+          style="border-left: 4px solid rgb(24, 144, 255);"
+        >
+          <div
+            class="ant-card-head-wrapper"
+          >
+            <div
+              class="ant-card-head-title"
+            >
+              当前状态: 运行中 - 完整控制
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <div
+            class="ant-task-running"
+          >
+            <div
+              class="ant-task-running-left "
+            >
+              <div
+                class="ant-task-running-left-icon-wrapper "
+              >
+                <div
+                  class=""
+                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                >
+                  <img
+                    alt="robot"
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
+                    style="width: 100%; height: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-task-running-left-content "
+              >
+                <div
+                  class="ant-task-running-left-main-text "
+                >
+                  任务运行中, 已耗时1小时20分12秒。 4/6 模型训练
+                </div>
+                <div
+                  class="ant-task-running-left-text "
+                >
+                  AI模型正在训练中，请耐心等待...
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-task-running-pause "
+            >
+              <svg
+                aria-label="PauseIcon"
+                fill="none"
+                height="32"
+                role="img"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clippath
+                    id="a"
+                  >
+                    <rect
+                      height="16"
+                      rx="0"
+                      width="16"
+                      x="8"
+                      y="8"
+                    />
+                  </clippath>
+                </defs>
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  fill="none"
+                  r="14"
+                  stroke="#F2F2F2"
+                  stroke-width="3"
+                />
+                <circle
+                  class="pause-icon-ring"
+                  cx="50%"
+                  cy="50%"
+                  fill="none"
+                  id="ring"
+                  r="14"
+                  stroke="currentColor"
+                  stroke-dasharray="18, 914"
+                  stroke-linecap="round"
+                  stroke-width="3"
+                  transform=""
+                />
+                <g
+                  clip-path="url(#a)"
+                >
+                  <path
+                    d="M10.667 14.053c0-1.445 0-1.968.203-2.367.18-.351.465-.637.816-.816.4-.203.922-.203 2.367-.203h3.894c1.445 0 1.968 0 2.367.203.351.18.637.465.816.816.203.4.203.922.203 2.367v3.894c0 1.445 0 1.968-.203 2.367a1.867 1.867 0 01-.816.816c-.4.203-.922.203-2.367.203h-3.894c-1.445 0-1.968 0-2.367-.203a1.867 1.867 0 01-.816-.816c-.203-.4-.203-.922-.203-2.367v-3.894z"
+                    fill="currentColor"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-card ant-card-bordered"
+        style="margin-bottom: 24px;"
+      >
+        <div
+          class="ant-card-head"
+        >
+          <div
+            class="ant-card-head-wrapper"
+          >
+            <div
+              class="ant-card-head-title"
+            >
+              状态信息
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <div
+            class="ant-row"
+            style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          >
+            <div
+              class="ant-col ant-col-8"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <div
+                style="text-align: center;"
+              >
+                <div
+                  style="font-size: 24px; font-weight: bold; color: rgb(24, 144, 255);"
+                >
+                  running
+                </div>
+                <div
+                  style="font-size: 14px; color: rgb(102, 102, 102);"
+                >
+                  任务状态
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-col ant-col-8"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <div
+                style="text-align: center;"
+              >
+                <div
+                  style="font-size: 24px; font-weight: bold; color: rgb(24, 144, 255);"
+                >
+                  running
+                </div>
+                <div
+                  style="font-size: 14px; color: rgb(102, 102, 102);"
+                >
+                  运行状态
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-col ant-col-8"
+              style="padding-left: 8px; padding-right: 8px;"
+            >
+              <div
+                style="text-align: center;"
+              >
+                <div
+                  style="font-size: 24px; font-weight: bold; color: rgb(24, 144, 255);"
+                >
+                  1
+                </div>
+                <div
+                  style="font-size: 14px; color: rgb(102, 102, 102);"
+                >
+                  当前状态
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-card ant-card-bordered"
+      >
+        <div
+          class="ant-card-head"
+        >
+          <div
+            class="ant-card-head-wrapper"
+          >
+            <div
+              class="ant-card-head-title"
+            >
+              操作日志
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-card-body"
+        >
+          <div
+            style="background-color: rgb(245, 245, 245); padding: 16px; border-radius: 4px; min-height: 100px;"
+          >
+            <p
+              style="margin: 0px; color: rgb(102, 102, 102);"
+            >
+              点击上方按钮切换不同状态，观察组件的变化和可用的操作按钮。
+            </p>
+            <p
+              style="margin: 8px 0px 0px 0px; color: rgb(153, 153, 153); font-size: 12px;"
+            >
+              当前状态: 运行中 - 完整控制 | 任务状态: running | 运行状态: running
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

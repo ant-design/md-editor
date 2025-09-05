@@ -1,0 +1,350 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <h3
+        style="margin-bottom: 12px;"
+      >
+        暴露文件预览组件
+      </h3>
+      <div
+        class="ant-spin-nested-loading"
+      >
+        <div
+          class="ant-spin-container"
+        >
+          <div
+            class="ant-workspace-file-container "
+          >
+            <div
+              aria-label="文件：README1.md"
+              class="ant-workspace-file-item "
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="ant-workspace-file-item-icon "
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  version="1.1"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g>
+                    <g>
+                      <path
+                        d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
+                        fill="#23D6DC"
+                        fill-opacity="1"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                    <g>
+                      <path
+                        d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
+                        fill="#A2F7FA"
+                        fill-opacity="1"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div
+                class="ant-workspace-file-item-info "
+              >
+                <div
+                  class="ant-workspace-file-item-name "
+                >
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                  >
+                    README1.md
+                  </span>
+                </div>
+                <div
+                  class="ant-workspace-file-item-details "
+                >
+                  <span
+                    class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                  >
+                    <span
+                      class="ant-workspace-file-item-type "
+                    >
+                      markdown
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-separator "
+                    >
+                      |
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-size "
+                    >
+                      15KB
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-separator "
+                    >
+                      |
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-time "
+                    >
+                      08-01 13:15:00
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="ant-workspace-file-item-actions "
+              >
+                <div
+                  aria-label="预览文件：README1.md"
+                  class="ant-workspace-file-item-preview-icon "
+                  role="button"
+                  tabindex="0"
+                >
+                  <span
+                    aria-label="eye"
+                    class="anticon anticon-eye"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="eye"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  aria-label="下载文件：README1.md"
+                  class="ant-workspace-file-item-download-icon "
+                  role="button"
+                  tabindex="0"
+                >
+                  <span
+                    aria-label="download"
+                    class="anticon anticon-download"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="download"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-label="文件：README2.md"
+              class="ant-workspace-file-item "
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="ant-workspace-file-item-icon "
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  version="1.1"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g>
+                    <g>
+                      <path
+                        d="M2.6666667461395264,13.333333373069763C2.6666667461395264,14.069733373069763,3.2636207461395266,14.666633373069763,3.9999967461395265,14.666633373069763L11.999996746139526,14.666633373069763C12.736366746139526,14.666633373069763,13.333366746139527,14.069733373069763,13.333366746139527,13.333333373069763L13.333366746139527,4.666663373069763L9.999996746139526,1.3333333730697632L3.9999967461395265,1.3333333730697632C3.2636207461395266,1.3333333730697632,2.6666667461395264,1.9302873730697632,2.6666667461395264,2.6666633730697633L2.6666667461395264,13.333333373069763ZM4.9999967461395265,10.666663373069763L3.9999967461395265,10.666663373069763L3.9999967461395265,6.666663373069763L5.333336746139526,6.666663373069763L6.333336746139526,8.333333373069763L7.333336746139526,6.666663373069763L8.666666746139526,6.666663373069763L8.666666746139526,10.666663373069763L7.666666746139526,10.666663373069763L7.666666746139526,8.000003373069763L6.333336746139526,10.000003373069763L4.9999967461395265,8.000003373069763L4.9999967461395265,10.666663373069763ZM9.333336746139526,8.666663373069763L10.666666746139526,10.666663373069763L11.999996746139526,8.666663373069763L11.333336746139526,8.666663373069763L11.333336746139526,6.666663373069763L9.999996746139526,6.666663373069763L9.999996746139526,8.666663373069763L9.333336746139526,8.666663373069763Z"
+                        fill="#23D6DC"
+                        fill-opacity="1"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                    <g>
+                      <path
+                        d="M10,3.6666633730697633C10,4.218953373069763,10.447715,4.666663373069763,11,4.666663373069763L13.33333,4.666663373069763L10,1.3333333730697632L10,3.6666633730697633Z"
+                        fill="#A2F7FA"
+                        fill-opacity="1"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div
+                class="ant-workspace-file-item-info "
+              >
+                <div
+                  class="ant-workspace-file-item-name "
+                >
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                  >
+                    README2.md
+                  </span>
+                </div>
+                <div
+                  class="ant-workspace-file-item-details "
+                >
+                  <span
+                    class="ant-typography ant-typography-secondary ant-typography-ellipsis ant-typography-ellipsis-single-line"
+                  >
+                    <span
+                      class="ant-workspace-file-item-type "
+                    >
+                      markdown
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-separator "
+                    >
+                      |
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-size "
+                    >
+                      150KB
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-separator "
+                    >
+                      |
+                    </span>
+                    <span
+                      class="ant-workspace-file-item-time "
+                    >
+                      08-01 13:16:00
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="ant-workspace-file-item-actions "
+              >
+                <div
+                  aria-label="预览文件：README2.md"
+                  class="ant-workspace-file-item-preview-icon "
+                  role="button"
+                  tabindex="0"
+                >
+                  <span
+                    aria-label="eye"
+                    class="anticon anticon-eye"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="eye"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  aria-label="下载文件：README2.md"
+                  class="ant-workspace-file-item-download-icon "
+                  role="button"
+                  tabindex="0"
+                >
+                  <span
+                    aria-label="download"
+                    class="anticon anticon-download"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="download"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M505.7 661a8 8 0 0012.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-image ant-image-error"
+      >
+        <img
+          class="ant-image-img"
+          src=""
+          style="display: none;"
+        />
+        <div
+          class="ant-image-mask"
+          style="display: none;"
+        >
+          <div
+            class="ant-image-mask-info"
+          >
+            <span
+              aria-label="eye"
+              class="anticon anticon-eye"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="eye"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                />
+              </svg>
+            </span>
+            Preview
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

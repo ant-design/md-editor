@@ -521,7 +521,7 @@
             data-slate-node="value"
             role="textbox"
             spellcheck="false"
-            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 13px;"
             zindex="-1"
           >
             <div
@@ -1942,7 +1942,7 @@
                       title=""
                     >
                       <span
-                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px;"
                       >
                         表格编辑演示
                       </span>
@@ -1956,7 +1956,7 @@
                         title=""
                       >
                         <span
-                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px;"
                         >
                           表格功能特性
                         </span>
@@ -1970,7 +1970,7 @@
                           title=""
                         >
                           <span
-                            style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                            style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px;"
                           >
                             1. 基本表格操作
                           </span>
@@ -1985,7 +1985,7 @@
                           title=""
                         >
                           <span
-                            style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                            style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px;"
                           >
                             2. 表格编辑功能
                           </span>
@@ -2000,7 +2000,7 @@
                           title=""
                         >
                           <span
-                            style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                            style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px;"
                           >
                             3. 快捷键
                           </span>
@@ -2016,7 +2016,7 @@
                         title=""
                       >
                         <span
-                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px;"
                         >
                           示例表格
                         </span>
@@ -2031,7 +2031,7 @@
                         title=""
                       >
                         <span
-                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px;"
                         >
                           使用方法
                         </span>

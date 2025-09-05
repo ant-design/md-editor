@@ -284,7 +284,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
     } catch (error) {
       console.error('Error applying theme styles:', error);
       return {
-        fontSize: '14px',
+        fontSize: '13px',
         lineHeight: 1.6,
         width: 'max-content',
       };
@@ -538,7 +538,7 @@ a:active {
               background: 'rgba(255,255,255,0.5)',
               padding: '8px',
               borderRadius: '4px',
-              fontSize: '14px',
+              fontSize: '13px',
               margin: 0,
             }}
           >
@@ -604,7 +604,7 @@ a:active {
               background: 'rgba(255,255,255,0.5)',
               padding: '12px',
               borderRadius: '6px',
-              fontSize: '14px',
+              fontSize: '13px',
             }}
           >
             {Array.isArray(validationResult.errors) ? (

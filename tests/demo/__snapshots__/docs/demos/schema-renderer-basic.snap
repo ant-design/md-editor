@@ -45,7 +45,7 @@
           </h3>
         </div>
         <div
-          style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 6px; font-size: 14px;"
+          style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 6px; font-size: 13px;"
         >
           <ul
             style="margin: 0px; padding-left: 20px; list-style-type: circle;"

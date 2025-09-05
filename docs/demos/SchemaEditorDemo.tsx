@@ -186,7 +186,7 @@ export default function SchemaEditorDemo() {
                   borderRadius: '4px',
                   background: '#fff',
                   cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: '13px',
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.background = '#f8f9fa';
