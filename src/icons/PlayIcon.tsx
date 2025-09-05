@@ -32,7 +32,6 @@ import React from 'react';
 export const PlayIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
-      {...props}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="none"
@@ -40,7 +39,8 @@ export const PlayIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
       width="1em"
       height="1em"
       viewBox="0 0 14 14"
-    >
+      {...props}
+      >
       <defs>
         <clipPath id="master_svg0_3460_33211/1432_039324">
           <rect x="0" y="0" width="1em" height="1em" rx="0" />

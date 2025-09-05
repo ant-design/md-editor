@@ -68,18 +68,15 @@ export type BubbleExtraProps = {
 
   /**
    * 控制语音按钮的显示
-   * @description 控制语音播放按钮是否显示的函数或布尔值
-   * - 如果传入函数，则调用函数判断是否显示，函数接收 bubble 作为参数
-   * - 如果传入布尔值，则直接使用该值控制显示
-   * - 如果未传入（undefined），则使用默认逻辑判断
+   * @description 控制语音按钮是否显示的函数或布尔值
    */
-  shouldShowVoice?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
+  shouldShowVoice?: boolean;
 
   /**
    * 外部语音适配器
-   * @description 传入播报适配器替换默认播报；传入 ture 使用默认语音播报
+   * @description 传入播报适配器替换默认播报
    */
-  useSpeech?: UseSpeechAdapter | boolean;
+  useSpeech?: UseSpeechAdapter;
 
   /**
    * 额外操作组件的自定义样式
@@ -445,55 +442,31 @@ export const BubbleExtra = ({
     [shouldShowCopy, context?.locale, bubble.originData?.content],
   );
 
+  const voiceDom = useMemo(() => {
   /**
    * 判断是否应该显示语音选项。
-   * 逻辑与 shouldShowCopy 基本一致，但不依赖 clipboard 能力。
-   */
-  const shouldShowVoice = useMemo(() => {
-    const defaultConditions =
-      originalData?.content &&
-      !originalData?.extra?.answerStatus &&
-      originalData?.content !==
-        (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
-
-    if (!defaultConditions) {
-      return false;
-    }
-
-    if (typeof props.shouldShowVoice === 'function') {
-      return props.shouldShowVoice(bubble);
-    } else if (typeof props.shouldShowVoice === 'boolean') {
-      return props.shouldShowVoice;
-    }
-
-    return true;
-  }, [
-    props.shouldShowVoice,
-    bubble,
-    originalData?.content,
-    originalData?.extra?.answerStatus,
-    context?.locale,
-  ]);
-
-  const voiceDom = useMemo(() => {
-    if (!shouldShowVoice) return null;
-    if (shouldShowCopy) return null;
+   *
+   * 语音选项显示需要满足以下条件：
+   * 基础条件（必须全部满足）：
+   *    - 聊天项的原始数据包含内容
+   *    - 聊天项的原始数据在额外字段中没有回答状态
+   *    - 聊天项的内容不等于本地化的 'chat.message.aborted' 消息或其默认值 '回答已停止生成'
+   * */
+    const defaultShow = !!originalData?.content &&
+     !originalData?.extra?.answerStatus &&
+     !typing &&
+     originalData?.content !==
+     (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
+    if (!props.shouldShowVoice || !defaultShow) return null;
     return (
       <VoiceButton
         text={bubble.originData?.content || ''}
         defaultRate={1}
         rateOptions={[1.5, 1.25, 1, 0.75]}
-        useSpeech={
-          typeof props.useSpeech === 'function' ? props.useSpeech : undefined
-        }
+        useSpeech={props.useSpeech}
       />
     );
-  }, [
-    shouldShowVoice,
-    props.useSpeech,
-    bubble.originData?.content,
-    context?.compact,
-  ]);
+  }, [props.shouldShowVoice, props.useSpeech, bubble.originData?.content]);
 
   const slidesModeButton = useMemo(
     () =>
