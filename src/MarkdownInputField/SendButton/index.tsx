@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import PauseIcon from '../../AgentRunBar/icons/PauseIcon';
+import { StopIcon } from '../../AgentRunBar/icons/StopIcon';
 import { useStyle } from './style';
 
 function SendIcon(
@@ -18,7 +18,7 @@ function SendIcon(
     props.onInit?.();
   }, []);
   if (props.typing) {
-    return <PauseIcon />;
+    return <StopIcon />;
   }
   return (
     <svg
@@ -29,11 +29,6 @@ function SendIcon(
       viewBox="0 0 32 32"
       {...props}
     >
-      <defs>
-        <clipPath id="a">
-          <rect x={8} y={8} width={16} height={16} rx={0} />
-        </clipPath>
-      </defs>
       <motion.circle
         cx="50%"
         cy="50%"
@@ -47,7 +42,7 @@ function SendIcon(
           ease: 'easeInOut',
         }}
       ></motion.circle>
-      <g clipPath="url(#a)">
+      <g>
         <motion.path
           d="M16.667 12.943l3.528 3.528a.667.667 0 00.943-.942l-4.666-4.667a.665.665 0 00-.943 0l-4.667 4.667a.667.667 0 10.943.942l3.528-3.528v7.724a.667.667 0 101.334 0v-7.724z"
           fillRule="evenodd"

@@ -8,7 +8,7 @@ import { CodeElement } from '@ant-design/md-editor/plugins/code';
 import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
 import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { defaultValue } from './shared/defaultValue';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 export default () => {
   const editorRef = React.useRef<MarkdownEditorInstance>();
@@ -78,116 +78,117 @@ export default () => {
   }, []);
   return (
     <>
-      <MarkdownEditor
-        editorRef={editorRef}
-        width={'100vw'}
-        height={'100vh'}
-        reportMode
-        readonly
-        plugins={[
-          {
-            elements: {
-              code: CodeElement,
-              chart: ChartElement,
-              mermaid: MermaidElement,
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '16px 40px',
+          gap: '24px',
+          alignSelf: 'stretch',
+          zIndex: 1,
+          width: 'min(830px,100%)',
+          margin: '0 auto',
+        }}
+      >
+        <MarkdownEditor
+          editorRef={editorRef}
+          width={'100vw'}
+          height={'100vh'}
+          reportMode
+          readonly
+          plugins={[
+            {
+              elements: {
+                code: CodeElement,
+                chart: ChartElement,
+                mermaid: MermaidElement,
+              },
             },
-          },
-        ]}
-        fncProps={{
-          render: (props, _) => {
-            return <Tooltip title={props.children}>{_}</Tooltip>;
-          },
-        }}
-        onChange={(e, value) => {
-          console.log(value);
-        }}
-        comment={{
-          enable: true,
-          commentList: list,
-          loadMentions: async () => {
-            return [
-              {
-                name: '张志东',
-                id: '1',
-                avatar:
-                  'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-              },
-              {
-                name: '马化腾',
-                id: '2',
-                avatar:
-                  'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-              },
-            ];
-          },
-          onDelete: async (id) => {
-            setList(list.filter((i) => i.id !== id));
-          },
-          onSubmit: async (id, data) => {
-            console.log(id, data);
-            setList([
-              ...list,
-              {
-                ...data,
-                user: {
+          ]}
+          fncProps={{
+            render: (props, _) => {
+              return <Tooltip title={props.children}>{_}</Tooltip>;
+            },
+          }}
+          onChange={(e, value) => {
+            console.log(value);
+          }}
+          comment={{
+            enable: true,
+            commentList: list,
+            loadMentions: async () => {
+              return [
+                {
                   name: '张志东',
+                  id: '1',
                   avatar:
                     'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
                 },
-                id: list.length + 1,
-                time: 1703123456789,
-              } as any,
-            ]);
-          },
-        }}
-        image={{
-          upload: async (fileList) => {
-            return new Promise((resolve) => {
-              const file = fileList[0];
-              if (typeof file === 'string') {
-                fetch(file)
-                  .then((res) => res.blob())
-                  .then((blob) => {
-                    console.log(blob);
-                    const url = URL.createObjectURL(blob);
-                    resolve(url);
-                  });
-              } else {
-                const url = URL.createObjectURL(file);
-                resolve(url);
-              }
-            });
-          },
-        }}
-        toolBar={{
-          hideTools: ['H1'],
-          min: true,
-        }}
-        insertAutocompleteProps={{
-          optionsRender: (options) => {
-            return options.filter((item) => {
-              return item.key !== 'head1';
-            });
-          },
-        }}
-        compact
-        initValue={
-          process.env.NODE_ENV === 'test'
-            ? defaultValue
-            : defaultValue +
-              `## 公式
-
-Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
-equation.
-
-$$
-L = \frac{1}{2} \rho v^2 S C_L
-$$
-
-$x^3+x^9+x^y$
-`
-        }
-      />
+                {
+                  name: '马化腾',
+                  id: '2',
+                  avatar:
+                    'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                },
+              ];
+            },
+            onDelete: async (id) => {
+              setList(list.filter((i) => i.id !== id));
+            },
+            onSubmit: async (id, data) => {
+              console.log(id, data);
+              setList([
+                ...list,
+                {
+                  ...data,
+                  user: {
+                    name: '张志东',
+                    avatar:
+                      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                  },
+                  id: list.length + 1,
+                  time: 1703123456789,
+                } as any,
+              ]);
+            },
+          }}
+          image={{
+            upload: async (fileList) => {
+              return new Promise((resolve) => {
+                const file = fileList[0];
+                if (typeof file === 'string') {
+                  fetch(file)
+                    .then((res) => res.blob())
+                    .then((blob) => {
+                      console.log(blob);
+                      const url = URL.createObjectURL(blob);
+                      resolve(url);
+                    });
+                } else {
+                  const url = URL.createObjectURL(file);
+                  resolve(url);
+                }
+              });
+            },
+          }}
+          toolBar={{
+            hideTools: ['H1'],
+            min: true,
+          }}
+          insertAutocompleteProps={{
+            optionsRender: (options) => {
+              return options.filter((item) => {
+                return item.key !== 'head1';
+              });
+            },
+          }}
+          initValue={
+            process.env.NODE_ENV === 'test'
+              ? newEnergyFundContent
+              : newEnergyFundContent
+          }
+        />
+      </div>
 
       <div style={{ marginTop: '20px', padding: '20px' }}>
         <h4>Props 说明：</h4>

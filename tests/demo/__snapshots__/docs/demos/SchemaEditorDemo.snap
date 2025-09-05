@@ -33,19 +33,19 @@
             style="display: flex; gap: 10px; flex-wrap: wrap;"
           >
             <button
-              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 14px;"
+              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 13px;"
               type="button"
             >
               基础HTML
             </button>
             <button
-              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 14px;"
+              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 13px;"
               type="button"
             >
               表单组件
             </button>
             <button
-              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 14px;"
+              style="padding: 8px 16px; border: 1px solid rgb(221, 221, 221); border-radius: 4px; background: rgb(255, 255, 255); cursor: pointer; font-size: 13px;"
               type="button"
             >
               数据表格

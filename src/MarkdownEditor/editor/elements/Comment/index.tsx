@@ -1,4 +1,6 @@
-﻿import React, { useContext } from 'react';
+﻿import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext, useMemo } from 'react';
 import {
   CommentDataType,
   MarkdownEditorProps,
@@ -10,20 +12,34 @@ export const CommentView = (props: {
   comment: MarkdownEditorProps['comment'];
   commentItem: CommentDataType[];
   id: string;
+  hashId: string;
 }) => {
   const { setShowComment } = useContext(EditorStoreContext) || {};
+  const context = useContext(ConfigProvider.ConfigContext);
+  const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
+  const thisComment = useMemo(() => {
+    return props.commentItem?.find?.(
+      (c) => `${c.id}` === props.id.split('-').at(-1),
+    );
+  }, [props.id]);
   if (!props.commentItem?.length) {
     return <>{props.children}</>;
   }
+  const type = thisComment?.commentType || 'comment';
   return (
     <span
       data-be="comment-text"
       data-testid="comment-view"
       id={props.id}
+      className={classNames(props.hashId, {
+        [`${mdEditorBaseClass}-comment-${type}`]: type,
+      })}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        setShowComment?.(props.commentItem);
+        setShowComment?.(
+          props.commentItem?.filter((item: any) => Boolean(item.content)),
+        );
       }}
     >
       {props.children}

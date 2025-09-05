@@ -233,7 +233,7 @@ export const tableRenderElement = (
             borderBottomWidth: '1px',
             borderBottomStyle: 'solid',
             borderBottomColor: '#e5e7eb',
-            fontSize: '14px',
+            fontSize: '13px',
             textTransform: 'uppercase',
             backgroundColor: '#f1f5f9',
           }}

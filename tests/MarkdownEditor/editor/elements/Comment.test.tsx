@@ -71,7 +71,12 @@ describe('Comment', () => {
 
     it('应该正确渲染有评论的内容', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={mockCommentItem} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={mockCommentItem}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>Test content</span>
         </CommentView>,
       );
@@ -85,7 +90,12 @@ describe('Comment', () => {
 
     it('应该处理点击事件', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={mockCommentItem} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={mockCommentItem}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>Test content</span>
         </CommentView>,
       );
@@ -102,7 +112,12 @@ describe('Comment', () => {
       const mockStopPropagation = vi.fn();
 
       renderWithProvider(
-        <CommentView comment={{}} commentItem={mockCommentItem} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={mockCommentItem}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>Test content</span>
         </CommentView>,
       );
@@ -121,7 +136,12 @@ describe('Comment', () => {
 
     it('应该在没有评论时直接渲染子元素', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={[]} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>Test content</span>
         </CommentView>,
       );
@@ -134,7 +154,12 @@ describe('Comment', () => {
 
     it('应该在没有评论项时直接渲染子元素', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={undefined as any} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={undefined as any}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>Test content</span>
         </CommentView>,
       );
@@ -147,7 +172,12 @@ describe('Comment', () => {
 
     it('应该处理空的评论项数组', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={[]} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>Test content</span>
         </CommentView>,
       );
@@ -159,7 +189,12 @@ describe('Comment', () => {
 
     it('应该处理复杂的子元素', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={mockCommentItem} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={mockCommentItem}
+          id="test-id"
+          hashId="test-hash"
+        >
           <div>
             <span>Complex content</span>
             <p>With multiple elements</p>
@@ -220,6 +255,7 @@ describe('Comment', () => {
           comment={{}}
           commentItem={multipleCommentItems}
           id="test-id"
+          hashId="test-hash"
         >
           <span>Test content</span>
         </CommentView>,
@@ -341,7 +377,12 @@ describe('Comment', () => {
   describe('边界情况测试', () => {
     it('应该处理空的子元素', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={[]} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           {null}
         </CommentView>,
       );
@@ -351,7 +392,12 @@ describe('Comment', () => {
 
     it('应该处理空的字符串子元素', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={[]} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           {''}
         </CommentView>,
       );
@@ -361,7 +407,12 @@ describe('Comment', () => {
 
     it('应该处理数字子元素', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={[]} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           {123}
         </CommentView>,
       );
@@ -371,7 +422,12 @@ describe('Comment', () => {
 
     it('应该处理布尔子元素', () => {
       renderWithProvider(
-        <CommentView comment={{}} commentItem={[]} id="test-id">
+        <CommentView
+          comment={{}}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           {true}
         </CommentView>,
       );

@@ -193,6 +193,7 @@ export const Bubble: React.FC<
       pure={props.pure}
       onCancelLike={props.onCancelLike}
       shouldShowCopy={props.shouldShowCopy}
+      useSpeech={props.useSpeech}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );

@@ -14,6 +14,7 @@ import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData, WithFalse } from '../type';
 import { CopyButton } from './CopyButton';
 import { ReloadIcon } from './icons';
+import { UseSpeechAdapter, VoiceButton } from './VoiceButton';
 
 /**
  * 聊天项额外操作组件的属性接口
@@ -64,6 +65,21 @@ export type BubbleExtraProps = {
    * @optional
    */
   shouldShowCopy?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
+
+  /**
+   * 控制语音按钮的显示
+   * @description 控制语音播放按钮是否显示的函数或布尔值
+   * - 如果传入函数，则调用函数判断是否显示，函数接收 bubble 作为参数
+   * - 如果传入布尔值，则直接使用该值控制显示
+   * - 如果未传入（undefined），则使用默认逻辑判断
+   */
+  shouldShowVoice?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
+
+  /**
+   * 外部语音适配器
+   * @description 传入播报适配器替换默认播报；传入 ture 使用默认语音播报
+   */
+  useSpeech?: UseSpeechAdapter | boolean;
 
   /**
    * 额外操作组件的自定义样式
@@ -429,6 +445,56 @@ export const BubbleExtra = ({
     [shouldShowCopy, context?.locale, bubble.originData?.content],
   );
 
+  /**
+   * 判断是否应该显示语音选项。
+   * 逻辑与 shouldShowCopy 基本一致，但不依赖 clipboard 能力。
+   */
+  const shouldShowVoice = useMemo(() => {
+    const defaultConditions =
+      originalData?.content &&
+      !originalData?.extra?.answerStatus &&
+      originalData?.content !==
+        (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
+
+    if (!defaultConditions) {
+      return false;
+    }
+
+    if (typeof props.shouldShowVoice === 'function') {
+      return props.shouldShowVoice(bubble);
+    } else if (typeof props.shouldShowVoice === 'boolean') {
+      return props.shouldShowVoice;
+    }
+
+    return true;
+  }, [
+    props.shouldShowVoice,
+    bubble,
+    originalData?.content,
+    originalData?.extra?.answerStatus,
+    context?.locale,
+  ]);
+
+  const voiceDom = useMemo(() => {
+    if (!shouldShowVoice) return null;
+    if (shouldShowCopy) return null;
+    return (
+      <VoiceButton
+        text={bubble.originData?.content || ''}
+        defaultRate={1}
+        rateOptions={[1.5, 1.25, 1, 0.75]}
+        useSpeech={
+          typeof props.useSpeech === 'function' ? props.useSpeech : undefined
+        }
+      />
+    );
+  }, [
+    shouldShowVoice,
+    props.useSpeech,
+    bubble.originData?.content,
+    context?.compact,
+  ]);
+
   const slidesModeButton = useMemo(
     () =>
       props.slidesModeProps?.enable && !typing ? (
@@ -447,7 +513,7 @@ export const BubbleExtra = ({
 
   const dom = useMemo(
     () =>
-      copyDom || like || disLike ? (
+      voiceDom || copyDom || like || disLike ? (
         <motion.div
           style={{
             display: 'flex',
@@ -475,8 +541,9 @@ export const BubbleExtra = ({
           animate="visible"
           className={`${prefixCls}-action-box`}
         >
+          {voiceDom ? voiceDom : null}
           {copyDom ? copyDom : null}
-          {copyDom && (like || disLike) && (
+          {(voiceDom || copyDom) && (like || disLike) && (
             <Divider
               type="vertical"
               style={{
@@ -489,7 +556,7 @@ export const BubbleExtra = ({
           {slidesModeButton ? slidesModeButton : null}
         </motion.div>
       ) : null,
-    [copyDom, like, disLike, prefixCls, slidesModeButton],
+    [voiceDom, copyDom, like, disLike, prefixCls, slidesModeButton],
   );
 
   const reSend = useMemo(() => {

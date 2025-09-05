@@ -2,9 +2,9 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useStyle } from './style';
-import VoicingLottie from '../../icons/VoicingLottie';
 import { VoiceIcon } from '../../icons/VoiceIcon';
+import VoicingLottie from '../../icons/VoicingLottie';
+import { useStyle } from './style';
 
 export type VoiceRecognizer = {
   start: () => Promise<void>;
@@ -30,9 +30,7 @@ type VoiceInputButtonProps = {
  * - recording=true：录音中
  * 外部通过 `createRecognizer` 提供语音识别实现。
  */
-export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (
-  props,
-) => {
+export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
   const { recording, disabled, onStart, onStop, style } = props;
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const baseCls = getPrefixCls('md-input-field-voice-button');
@@ -69,5 +67,3 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (
 };
 
 export default VoiceInputButton;
-
-

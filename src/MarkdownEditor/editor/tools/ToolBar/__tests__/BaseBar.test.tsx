@@ -187,7 +187,7 @@ describe('BaseToolBar', () => {
 
   it('renders basic tools when showEditor is true', () => {
     render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <BaseToolBar {...defaultProps} />
       </I18nContext.Provider>,
     );
@@ -200,7 +200,7 @@ describe('BaseToolBar', () => {
 
   it('renders formatting tools', () => {
     render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <BaseToolBar {...defaultProps} />
       </I18nContext.Provider>,
     );
@@ -213,7 +213,7 @@ describe('BaseToolBar', () => {
 
   it('hides tools when hideTools prop is provided', () => {
     render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <BaseToolBar {...defaultProps} hideTools={['bold', 'italic']} />
       </I18nContext.Provider>,
     );
@@ -227,7 +227,7 @@ describe('BaseToolBar', () => {
 
   it('renders in minimal mode when min prop is true', () => {
     render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <BaseToolBar {...defaultProps} min={true} />
       </I18nContext.Provider>,
     );
@@ -239,7 +239,7 @@ describe('BaseToolBar', () => {
 
   it('handles click events on tools', () => {
     const { container } = render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <BaseToolBar {...defaultProps} />
       </I18nContext.Provider>,
     );
@@ -259,7 +259,7 @@ describe('BaseToolBar', () => {
   it('renders extra content when provided', () => {
     const extraContent = <div data-testid="extra-content">Extra Content</div>;
     render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <BaseToolBar {...defaultProps} extra={[extraContent]} />
       </I18nContext.Provider>,
     );
@@ -285,7 +285,7 @@ describe('BaseToolBar', () => {
     vi.mocked(useEditorStore).mockReturnValue(mockStore);
 
     const { container } = render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
+      <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
         <BaseToolBar {...defaultProps} />
       </I18nContext.Provider>,
     );

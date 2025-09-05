@@ -5,6 +5,7 @@ import { AttachmentFile } from '../MarkdownInputField/FileMapView';
 import { WhiteBoxProcessInterface } from '../ThoughtChainList';
 import { BubbleExtraProps } from './MessagesContent/BubbleExtra';
 import { DocInfoListProps } from './MessagesContent/DocInfo';
+import type { UseSpeechAdapter } from './MessagesContent/VoiceButton';
 
 /**
  * 基础样式属性
@@ -477,6 +478,12 @@ export interface BubbleProps<T = Record<string, any>>
    * @optional
    */
   shouldShowCopy?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
+
+  /**
+   * 外部语音适配器
+   * @description 替换默认 Web Speech 实现，接入自定义 TTS 能力
+   */
+  useSpeech?: UseSpeechAdapter | boolean;
 
   /**
    * 预加载消息

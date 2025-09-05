@@ -8,38 +8,17 @@ const ImageErrorHandlingDemo: React.FC = () => {
       <p>当图片加载失败时，会自动转换为可点击的链接：</p>
 
       <MarkdownEditor
-        initValue={[
-          {
-            type: 'paragraph',
-            children: [{ text: '正常图片：' }],
-          },
-          {
-            type: 'media',
-            url: 'https://picsum.photos/400/300',
-            alt: '正常图片',
-            children: [{ text: '' }],
-          },
-          {
-            type: 'paragraph',
-            children: [{ text: '无效图片URL（会显示为链接）：' }],
-          },
-          {
-            type: 'media',
-            url: 'https://invalid-image-url.com/image.jpg',
-            alt: '无效图片',
-            children: [{ text: '' }],
-          },
-          {
-            type: 'paragraph',
-            children: [{ text: '另一个无效图片：' }],
-          },
-          {
-            type: 'media',
-            url: 'https://example.com/nonexistent-image.png',
-            alt: '不存在的图片',
-            children: [{ text: '' }],
-          },
-        ]}
+        initValue={`正常图片：
+
+![正常图片](https://picsum.photos/400/300)
+
+无效图片URL（会显示为链接）：
+
+![无效图片](https://invalid-image-url.com/image.jpg)
+
+另一个无效图片：
+
+![不存在的图片](https://example.com/nonexistent-image.png)`}
         readonly
         style={{ border: '1px solid #d9d9d9', borderRadius: '6px' }}
       />

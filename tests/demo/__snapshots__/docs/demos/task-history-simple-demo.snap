@@ -540,7 +540,7 @@
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 数据分析任务
                               </div>
@@ -643,7 +643,7 @@
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 模型训练
                               </div>
@@ -702,7 +702,7 @@
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 系统备份
                               </div>
@@ -774,7 +774,7 @@
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 报告生成
                               </div>

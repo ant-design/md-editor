@@ -95,6 +95,7 @@ export const CommentList: React.FC<{
   comment: MarkdownEditorProps['comment'];
   style?: React.CSSProperties;
   className?: string;
+  pure?: boolean;
 }> = (props) => {
   const { markdownEditorRef } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
@@ -103,11 +104,13 @@ export const CommentList: React.FC<{
   const { wrapSSR, hashId } = useStyle(baseCls);
   return wrapSSR(
     <>
-      <div
-        style={{
-          width: '300px',
-        }}
-      />
+      {!props.pure ? (
+        <div
+          style={{
+            width: '300px',
+          }}
+        />
+      ) : null}
       <motion.div
         style={props.style}
         className={classNames(hashId, props.className, baseCls)}

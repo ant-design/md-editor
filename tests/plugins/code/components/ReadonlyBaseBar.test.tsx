@@ -194,9 +194,8 @@ describe('ReadonlyBaseBar', () => {
 
     it('应该渲染所有按钮', () => {
       render(<ReadonlyBaseBar {...defaultProps} />);
-
       const buttons = screen.getAllByRole('button');
-      expect(buttons).toHaveLength(2); // 评论按钮和复制按钮
+      expect(buttons).toHaveLength(3); // 评论按钮和复制按钮
     });
   });
 

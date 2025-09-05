@@ -41,7 +41,7 @@ describe('Component Integration Tests', () => {
 
       it('should render new chat button in Chinese', () => {
         render(
-          <I18nContext.Provider value={{ locale: cnLabels }}>
+          <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
             <HistoryNewChat onNewChat={mockOnNewChat} />
           </I18nContext.Provider>,
         );
@@ -51,7 +51,7 @@ describe('Component Integration Tests', () => {
 
       it('should render new chat button in English', () => {
         render(
-          <I18nContext.Provider value={{ locale: enLabels }}>
+          <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
             <HistoryNewChat onNewChat={mockOnNewChat} />
           </I18nContext.Provider>,
         );
@@ -61,7 +61,7 @@ describe('Component Integration Tests', () => {
 
       it('should call onNewChat when clicked', () => {
         render(
-          <I18nContext.Provider value={{ locale: cnLabels }}>
+          <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
             <HistoryNewChat onNewChat={mockOnNewChat} />
           </I18nContext.Provider>,
         );
@@ -76,7 +76,7 @@ describe('Component Integration Tests', () => {
 
       it('should render search text in Chinese', () => {
         render(
-          <I18nContext.Provider value={{ locale: cnLabels }}>
+          <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
             <HistorySearch onSearch={mockOnSearch} />
           </I18nContext.Provider>,
         );
@@ -86,7 +86,7 @@ describe('Component Integration Tests', () => {
 
       it('should render search text in English', () => {
         render(
-          <I18nContext.Provider value={{ locale: enLabels }}>
+          <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
             <HistorySearch onSearch={mockOnSearch} />
           </I18nContext.Provider>,
         );
@@ -96,7 +96,7 @@ describe('Component Integration Tests', () => {
 
       it('should render search button title in Chinese', () => {
         render(
-          <I18nContext.Provider value={{ locale: cnLabels }}>
+          <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
             <HistorySearch onSearch={mockOnSearch} />
           </I18nContext.Provider>,
         );
@@ -107,7 +107,7 @@ describe('Component Integration Tests', () => {
 
       it('should render search button title in English', () => {
         render(
-          <I18nContext.Provider value={{ locale: enLabels }}>
+          <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
             <HistorySearch onSearch={mockOnSearch} />
           </I18nContext.Provider>,
         );
@@ -122,7 +122,7 @@ describe('Component Integration Tests', () => {
 
       it('should render load more button in Chinese', () => {
         render(
-          <I18nContext.Provider value={{ locale: cnLabels }}>
+          <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
             <HistoryLoadMore onLoadMore={mockOnLoadMore} />
           </I18nContext.Provider>,
         );
@@ -132,7 +132,7 @@ describe('Component Integration Tests', () => {
 
       it('should render load more button in English', () => {
         render(
-          <I18nContext.Provider value={{ locale: enLabels }}>
+          <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
             <HistoryLoadMore onLoadMore={mockOnLoadMore} />
           </I18nContext.Provider>,
         );
@@ -142,7 +142,7 @@ describe('Component Integration Tests', () => {
 
       it('should call onLoadMore when clicked', () => {
         render(
-          <I18nContext.Provider value={{ locale: cnLabels }}>
+          <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
             <HistoryLoadMore onLoadMore={mockOnLoadMore} />
           </I18nContext.Provider>,
         );
@@ -171,7 +171,7 @@ describe('Component Integration Tests', () => {
 
     it('should render task list with Chinese labels', () => {
       render(
-        <I18nContext.Provider value={{ locale: cnLabels }}>
+        <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
           <TaskList items={mockItems} />
         </I18nContext.Provider>,
       );
@@ -187,7 +187,7 @@ describe('Component Integration Tests', () => {
 
     it('should render task list with English labels', () => {
       render(
-        <I18nContext.Provider value={{ locale: enLabels }}>
+        <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
           <TaskList items={mockItems} />
         </I18nContext.Provider>,
       );
@@ -203,7 +203,7 @@ describe('Component Integration Tests', () => {
 
     it('should render expand buttons with correct titles', () => {
       render(
-        <I18nContext.Provider value={{ locale: cnLabels }}>
+        <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
           <TaskList items={mockItems} />
         </I18nContext.Provider>,
       );
@@ -229,7 +229,7 @@ describe('Component Integration Tests', () => {
       const mockOnSearch = vi.fn();
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale }}>
+        <I18nContext.Provider value={{ locale: customLocale as any, language: 'zh-CN' }}>
           <div>
             <HistoryNewChat onNewChat={mockOnNewChat} />
             <HistorySearch onSearch={mockOnSearch} />
@@ -244,7 +244,7 @@ describe('Component Integration Tests', () => {
 
     it('should fallback to default text when context locale is missing', () => {
       render(
-        <I18nContext.Provider value={{ locale: {} as any }}>
+        <I18nContext.Provider value={{ locale: {} as any, language: 'zh-CN' }}>
           <div>
             <HistoryNewChat onNewChat={vi.fn()} />
             <HistorySearch onSearch={vi.fn()} />
@@ -265,7 +265,7 @@ describe('Component Integration Tests', () => {
       };
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale as any }}>
+        <I18nContext.Provider value={{ locale: customLocale as any, language: 'zh-CN' }}>
           <div>
             <span data-testid="task-progress">
               {customLocale['taskList.taskInProgress'].replace(
@@ -288,7 +288,7 @@ describe('Component Integration Tests', () => {
       };
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale as any }}>
+        <I18nContext.Provider value={{ locale: customLocale as any, language: 'zh-CN' }}>
           <div>
             <span data-testid="file-size-error">
               {customLocale['markdownInput.fileSizeExceeded'].replace(

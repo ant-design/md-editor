@@ -90,7 +90,7 @@
               功能说明：
             </h4>
             <ul
-              style="font-size: 14px; line-height: 1.6;"
+              style="font-size: 13px; line-height: 1.6;"
             >
               <li>
                 <strong>
@@ -134,7 +134,7 @@
               块级元素
             </h4>
             <ul
-              style="font-size: 14px;"
+              style="font-size: 13px;"
             >
               <li>
                 &lt;h1&gt; - &lt;h6&gt; → # - ######
@@ -164,7 +164,7 @@
               内联元素
             </h4>
             <ul
-              style="font-size: 14px;"
+              style="font-size: 13px;"
             >
               <li>
                 &lt;strong&gt;, &lt;b&gt; → **粗体**

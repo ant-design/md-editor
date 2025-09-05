@@ -1,4 +1,8 @@
-﻿import { CommentOutlined, CopyFilled } from '@ant-design/icons';
+﻿import {
+  CommentOutlined,
+  CopyFilled,
+  HighlightFilled,
+} from '@ant-design/icons';
 import { Input, message, Modal } from 'antd';
 import classnames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -44,6 +48,72 @@ export const ReadonlyBaseBar = (props: {
     let list = [];
 
     if (editorProps?.comment?.enable && editorProps?.comment?.onSubmit) {
+      list.push(
+        <div
+          role="button"
+          key="highlight"
+          className={classnames(`${baseClassName}-item`, hashId)}
+          onClick={async () => {
+            if (typeof window === 'undefined') return;
+            const domSelection = window.getSelection();
+            const editor = markdownEditorRef.current;
+            let selection = editor.selection;
+            if (!selection) {
+              if (domSelection) {
+                selection = getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  domSelection!,
+                );
+              }
+
+              if (!selection) {
+                return;
+              }
+            }
+
+            let texts: string[] = [];
+            let title = '';
+            const fragments = Node.fragment(editor, selection);
+            for (let i = 0; i < fragments.length; i++) {
+              texts.push(Node.string(fragments[i]));
+            }
+            for (const str of texts) {
+              title += str;
+            }
+            const { focus, anchor } = selection;
+            const [start, end] = Point.isAfter(focus, anchor)
+              ? [anchor, focus]
+              : [focus, anchor];
+            const anchorOffset = getPointStrOffset(editor, start);
+            const focusOffset = getPointStrOffset(editor, end);
+
+            const comment: CommentDataType = {
+              selection: { anchor: start, focus: end },
+              path: start.path,
+              time: Date.now(),
+              id: Date.now(),
+              content: '',
+              anchorOffset: anchorOffset,
+              focusOffset: focusOffset,
+              refContent: title,
+              commentType: 'highlight',
+            };
+            await editorProps?.comment?.onSubmit?.(comment.id + '', comment);
+            // 更新时间戳,触发一下dom的rerender，不然不给我更新
+            Transforms.setNodes(
+              editor,
+              {
+                updateTimestamp: Date.now(),
+              },
+              {
+                at: comment.path,
+              },
+            );
+          }}
+        >
+          <HighlightFilled />
+        </div>,
+      );
       list.push(
         <div
           role="button"

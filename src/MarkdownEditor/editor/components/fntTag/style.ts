@@ -3,33 +3,12 @@
   GenerateStyle,
   useEditorStyleRegister,
 } from '../../../../hooks/useStyle';
+import { FNC_TAG_STYLES } from '../../tagStyles';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      background: '#D6EEFF',
-      border: '0.4px solid #E6ECF4',
-      fontSize: '0.9em',
-      fontWeight: 600,
-      height: '14px',
-      minWidth: '14px',
-      margin: '0 2px',
-      lineHeight: '14px',
-      textAlign: 'center',
-      justifyContent: 'center',
-      transition: 'all 0.3s',
-      display: 'inline-flex',
-      alignItems: 'center',
-      cursor: 'pointer',
-      width: 'max-content',
-      maxWidth: 'min(860px,100%)',
-      padding: 4,
-      borderRadius: 12,
-      '&:hover': {
-        background: '#19213D',
-        border: '0.4px solid #E6ECF4',
-        color: '#FFFFFF',
-      },
+      ...FNC_TAG_STYLES,
     },
   };
 };

@@ -42,7 +42,6 @@ export const FloatBar = (props: { readonly: boolean }) => {
 
       const finalLeft = Math.max(left, 4);
       const finalTop = Math.max(top, 4);
-      console.log(finalLeft, finalTop);
 
       floatBarRef.current.style.left = finalLeft + 'px';
       floatBarRef.current.style.top = finalTop + 'px';

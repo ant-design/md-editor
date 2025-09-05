@@ -88,6 +88,12 @@ export default () => (
 
 <code src="../demos/bubble/extra-render.tsx"></code>
 
+### 语音播报（TTS）
+
+展示内置的语音播报按钮及倍速选择功能：
+
+<code src="../demos/bubble/voice.tsx"></code>
+
 ### 文件附件处理
 
 演示如何处理和展示不同类型的文件附件，支持多种文件格式。
@@ -817,7 +823,7 @@ const customAvatarRender = (props, defaultDom) => {
           alignItems: 'center',
           justifyContent: 'center',
           color: 'white',
-          fontSize: '14px',
+          fontSize: '13px',
           fontWeight: 'bold',
         }}
       >
@@ -854,7 +860,7 @@ const customAvatarRender = (props, defaultDom) => {
         alignItems: 'center',
         justifyContent: 'center',
         color: 'white',
-        fontSize: '14px',
+        fontSize: '13px',
         fontWeight: 'bold',
       }}
     >

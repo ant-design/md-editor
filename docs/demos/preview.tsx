@@ -8,7 +8,7 @@ import { CodeElement } from '@ant-design/md-editor/plugins/code';
 import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
 import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { defaultValue } from './shared/defaultValue';
+import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 export default () => {
   const editorRef = React.useRef<MarkdownEditorInstance>();
@@ -184,19 +184,8 @@ export default () => {
         }}
         initValue={
           process.env.NODE_ENV === 'test'
-            ? defaultValue
-            : defaultValue +
-              `## 公式
-
-Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
-equation.
-
-$$
-L = \frac{1}{2} \rho v^2 S C_L
-$$
-
-$x^3+x^9+x^y$
-`
+            ? newEnergyFundContent
+            : newEnergyFundContent
         }
       />
 

@@ -210,7 +210,7 @@ const CustomSendButtonDemo: React.FC = () => {
           <h4 style={{ margin: '0 0 12px 0', color: '#1890ff' }}>
             💡 实现要点
           </h4>
-          <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+          <div style={{ fontSize: '13px', lineHeight: '1.6' }}>
             <p>
               <strong>actionsRender 函数参数：</strong>
             </p>

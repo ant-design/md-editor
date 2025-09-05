@@ -92,7 +92,7 @@ const markdownParseConvertPlugin: MarkdownEditorPlugin = {
                 color: '#d48806',
                 fontWeight: 'bold',
                 marginBottom: '8px',
-                fontSize: '14px',
+                fontSize: '13px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
@@ -133,7 +133,7 @@ const markdownParseConvertPlugin: MarkdownEditorPlugin = {
                 color: '#1890ff',
                 fontWeight: 'bold',
                 marginBottom: '8px',
-                fontSize: '14px',
+                fontSize: '13px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
@@ -174,7 +174,7 @@ const markdownParseConvertPlugin: MarkdownEditorPlugin = {
                 color: '#389e0d',
                 fontWeight: 'bold',
                 marginBottom: '8px',
-                fontSize: '14px',
+                fontSize: '13px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
@@ -424,7 +424,7 @@ export default function MarkdownParseConvertDemo() {
         <h1 style={{ marginBottom: '8px', color: '#1890ff' }}>
           Markdown 解析与转换 Demo
         </h1>
-        <p style={{ color: '#666', fontSize: '14px', marginBottom: '24px' }}>
+        <p style={{ color: '#666', fontSize: '13px', marginBottom: '24px' }}>
           展示如何使用插件系统实现 Markdown 的双向解析与转换功能
         </p>
       </div>

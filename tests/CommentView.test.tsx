@@ -102,7 +102,12 @@ describe('CommentView Component', () => {
   describe('CommentView', () => {
     it('应该在没有评论数据时直接渲染子元素', () => {
       const { container } = renderWithProvider(
-        <CommentView comment={mockComment} commentItem={[]} id="test-id">
+        <CommentView
+          comment={mockComment}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>测试文本</span>
         </CommentView>,
       );
@@ -119,6 +124,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -138,6 +144,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -167,7 +174,12 @@ describe('CommentView Component', () => {
 
     it('应该处理空的 commentItem 数组', () => {
       const { container } = renderWithProvider(
-        <CommentView comment={mockComment} commentItem={[]} id="test-id">
+        <CommentView
+          comment={mockComment}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>测试文本</span>
         </CommentView>,
       );
@@ -184,6 +196,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={undefined as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -201,6 +214,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={null as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -218,6 +232,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           <div>
             <span>复杂</span>
@@ -259,6 +274,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={multipleComments}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -277,6 +293,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           {null}
         </CommentView>,
@@ -295,6 +312,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           {42}
         </CommentView>,
@@ -313,6 +331,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           {true}
         </CommentView>,
@@ -333,6 +352,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -351,7 +371,12 @@ describe('CommentView Component', () => {
 
     it('应该处理长度为 0 的 commentItem 数组', () => {
       const { container } = renderWithProvider(
-        <CommentView comment={mockComment} commentItem={[]} id="test-id">
+        <CommentView
+          comment={mockComment}
+          commentItem={[]}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>测试文本</span>
         </CommentView>,
       );
@@ -368,6 +393,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={undefined as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -385,6 +411,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={null as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -402,6 +429,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={false as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -415,7 +443,12 @@ describe('CommentView Component', () => {
 
     it('应该处理 commentItem 为 0 的情况', () => {
       const { container } = renderWithProvider(
-        <CommentView comment={mockComment} commentItem={0 as any} id="test-id">
+        <CommentView
+          comment={mockComment}
+          commentItem={0 as any}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>测试文本</span>
         </CommentView>,
       );
@@ -428,7 +461,12 @@ describe('CommentView Component', () => {
 
     it('应该处理 commentItem 为空字符串的情况', () => {
       const { container } = renderWithProvider(
-        <CommentView comment={mockComment} commentItem={'' as any} id="test-id">
+        <CommentView
+          comment={mockComment}
+          commentItem={'' as any}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>测试文本</span>
         </CommentView>,
       );
@@ -445,6 +483,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={NaN as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -462,6 +501,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={Infinity as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -479,6 +519,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={-Infinity as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -492,7 +533,12 @@ describe('CommentView Component', () => {
 
     it('应该处理 commentItem 为负数的情况', () => {
       const { container } = renderWithProvider(
-        <CommentView comment={mockComment} commentItem={-1 as any} id="test-id">
+        <CommentView
+          comment={mockComment}
+          commentItem={-1 as any}
+          id="test-id"
+          hashId="test-hash"
+        >
           <span>测试文本</span>
         </CommentView>,
       );
@@ -509,6 +555,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={0.5 as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -526,6 +573,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={{ length: 0 } as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -543,6 +591,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={(() => []) as any}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,
@@ -560,6 +609,7 @@ describe('CommentView Component', () => {
           comment={mockComment}
           commentItem={mockCommentData}
           id="test-id"
+          hashId="test-hash"
         >
           <span>测试文本</span>
         </CommentView>,

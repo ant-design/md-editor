@@ -1,9 +1,10 @@
-import { PlusOutlined, UndoOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider } from 'antd';
+import { EyeOutlined, PlusOutlined, UndoOutlined } from '@ant-design/icons';
+import { Button, ConfigProvider, Space, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { I18nContext } from '../i18n';
-import PauseIcon from './icons/PauseIcon';
+import { PauseIcon } from './icons/PauseIcon';
+import { PlayIcon } from './icons/PlayIcon';
+import { StopIcon } from './icons/StopIcon';
 import Robot from './Robot';
 import { useStyle } from './style';
 
@@ -20,6 +21,8 @@ export enum TASK_STATUS {
   ERROR = 'error',
   /** 任务已暂停 */
   PAUSE = 'pause',
+  /** 任务已停止 */
+  STOPPED = 'stopped',
   /** 任务已取消 */
   CANCELLED = 'cancelled',
 }
@@ -42,8 +45,6 @@ export enum TASK_RUNNING_STATUS {
  * @interface TaskRunningProps
  */
 interface TaskRunningProps {
-  /** 任务运行时长（分钟） */
-  minutes: string;
   /** 任务状态 */
   taskStatus: TASK_STATUS;
   /** 任务运行状态 */
@@ -51,36 +52,206 @@ interface TaskRunningProps {
   /** 创建新任务的回调函数 */
   onCreateNewTask: () => void;
   /** 暂停任务的回调函数 */
-  onPause: () => void;
-  /** 重新回放任务的回调函数 */
-  onReplay: () => void;
+  onPause?: () => void;
+  /** 继续任务的回调函数 */
+  onResume?: () => void;
+  /** 停止任务的回调函数 */
+  onStop?: () => void;
+  /** 重新执行任务的回调函数 */
+  onReplay?: () => void;
   /** 查看任务结果的回调函数 */
-  onViewResult: () => void;
+  onViewResult?: () => void;
   className?: string;
   style?: React.CSSProperties;
+  /** 自定义图标 */
   icon?: React.ReactNode;
-  /** 自定义文案配置，可选 */
-  messages?: {
-    /** 运行中文案 */
-    running?: string;
-    /** 已耗时前缀文案 */
-    timeUsedPrefix?: string;
-    /** 调用中文案 */
-    calling?: string;
-    /** 任务完成文案 */
-    taskCompleted?: string;
-    /** 任务停止文案 */
-    taskStopped?: string;
-    /** 任务回放中文案 */
-    taskReplaying?: string;
-    /** 创建新任务按钮文案 */
-    createNewTask?: string;
-    /** 查看结果按钮文案 */
-    viewResult?: string;
-    /** 重新回放按钮文案 */
-    replayTask?: string;
-  };
+  /** 图标提示文案 */
+  iconTooltip?: string;
+  /** 标题文案 */
+  title?: string;
+  /** 描述文案 */
+  description?: string;
 }
+
+/**
+ * 渲染按钮组的函数
+ * @param status 任务状态
+ * @param runningStatus 运行状态
+ * @param callbacks 回调函数对象
+ * @param baseCls 基础类名
+ * @param hashId 哈希ID
+ * @returns 按钮组JSX
+ */
+const renderButtonGroup = (
+  status: TASK_STATUS,
+  runningStatus: TASK_RUNNING_STATUS,
+  callbacks: {
+    onCreateNewTask?: () => void;
+    onPause?: () => void;
+    onResume?: () => void;
+    onStop?: () => void;
+    onReplay?: () => void;
+    onViewResult?: () => void;
+  },
+  baseCls: string,
+  hashId: string,
+) => {
+  const { onCreateNewTask, onPause, onResume, onStop, onReplay, onViewResult } =
+    callbacks;
+
+  // 任务运行中状态
+  if (
+    status === TASK_STATUS.RUNNING &&
+    runningStatus === TASK_RUNNING_STATUS.RUNNING
+  ) {
+    return (
+      <Space>
+        {onPause && (
+          <div className={`${baseCls}-pause ${hashId}`} onClick={onPause}>
+            <PauseIcon />
+          </div>
+        )}
+        {onStop && (
+          <div className={`${baseCls}-pause ${hashId}`} onClick={onStop}>
+            <StopIcon />
+          </div>
+        )}
+      </Space>
+    );
+  }
+
+  // 任务已暂停状态
+  if (
+    status === TASK_STATUS.PAUSE ||
+    (status === TASK_STATUS.RUNNING &&
+      runningStatus === TASK_RUNNING_STATUS.PAUSE)
+  ) {
+    return (
+      <div className={`${baseCls}-button-wrapper ${hashId}`}>
+        {onCreateNewTask && (
+          <Button
+            onClick={onCreateNewTask}
+            icon={<PlusOutlined />}
+            color="default"
+            variant="solid"
+          >
+            新任务
+          </Button>
+        )}
+        {onResume && (
+          <div className={`${baseCls}-play ${hashId}`} onClick={onResume}>
+            <PlayIcon />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // 任务已停止状态
+  if (status === TASK_STATUS.STOPPED || status === TASK_STATUS.CANCELLED) {
+    return (
+      <div className={`${baseCls}-button-wrapper ${hashId}`}>
+        {onCreateNewTask && (
+          <Button
+            type="primary"
+            onClick={onCreateNewTask}
+            icon={<PlusOutlined />}
+            color="default"
+            variant="solid"
+          >
+            创建新任务
+          </Button>
+        )}
+      </div>
+    );
+  }
+
+  // 任务已完成状态
+  if (
+    status === TASK_STATUS.SUCCESS &&
+    runningStatus === TASK_RUNNING_STATUS.COMPLETE
+  ) {
+    return (
+      <div className={`${baseCls}-button-wrapper ${hashId}`}>
+        {onViewResult && (
+          <Button
+            onClick={onViewResult}
+            icon={<EyeOutlined />}
+            color="default"
+            variant="solid"
+          >
+            查看
+          </Button>
+        )}
+        {onReplay && (
+          <Button
+            onClick={onReplay}
+            icon={<UndoOutlined />}
+            color="default"
+            variant="solid"
+          >
+            重新执行
+          </Button>
+        )}
+        {onCreateNewTask && (
+          <Button
+            onClick={onCreateNewTask}
+            icon={<PlusOutlined />}
+            color="default"
+            variant="solid"
+          >
+            新任务
+          </Button>
+        )}
+      </div>
+    );
+  }
+
+  // 任务出错状态
+  if (status === TASK_STATUS.ERROR) {
+    return (
+      <div className={`${baseCls}-button-wrapper ${hashId}`}>
+        {onReplay && (
+          <Button
+            type="primary"
+            onClick={onReplay}
+            icon={<UndoOutlined />}
+            color="default"
+            variant="solid"
+          >
+            重新执行
+          </Button>
+        )}
+        {onCreateNewTask && (
+          <Button
+            onClick={onCreateNewTask}
+            icon={<PlusOutlined />}
+            color="default"
+            variant="solid"
+          >
+            新任务
+          </Button>
+        )}
+      </div>
+    );
+  }
+
+  // 默认状态
+  return (
+    <div className={`${baseCls}-button-wrapper ${hashId}`}>
+      {onCreateNewTask && (
+        <Button
+          onClick={onCreateNewTask}
+          icon={<PlusOutlined />}
+          color="default"
+          variant="solid"
+        >
+          创建新任务
+        </Button>
+      )}
+    </div>
+  );
+};
 
 /**
  * TaskRunning 组件 - 任务运行状态组件
@@ -91,28 +262,36 @@ interface TaskRunningProps {
  * @component
  * @description 任务运行状态组件，显示AI任务运行信息和操作按钮
  * @param {TaskRunningProps} props - 组件属性
- * @param {string} props.minutes - 任务运行时间（分钟）
  * @param {string} [props.className] - 自定义CSS类名
  * @param {React.CSSProperties} [props.style] - 自定义样式
  * @param {TASK_RUNNING_STATUS} [props.taskRunningStatus] - 任务运行状态
  * @param {TASK_STATUS} [props.taskStatus] - 任务状态
  * @param {() => void} [props.onPause] - 暂停任务回调
+ * @param {() => void} [props.onResume] - 继续任务回调
+ * @param {() => void} [props.onStop] - 停止任务回调
  * @param {() => void} [props.onCreateNewTask] - 创建新任务回调
  * @param {() => void} [props.onViewResult] - 查看结果回调
  * @param {() => void} [props.onReplay] - 重播任务回调
- * @param {TaskRunningMessages} [props.messages] - 自定义消息文案
+ * @param {string} [props.title] - 标题文案
+ * @param {string} [props.description] - 描述文案
  * @param {React.ReactNode} [props.icon] - 自定义图标
+ * @param {string} [props.iconTooltip] - 图标提示文案
  *
  * @example
  * ```tsx
  * <TaskRunning
- *   minutes="5"
+ *   title="正在运行中"
+ *   description="任务执行中..."
  *   taskStatus={TASK_STATUS.RUNNING}
  *   taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
  *   onCreateNewTask={() => {}}
  *   onPause={() => {}}
+ *   onResume={() => {}}
+ *   onStop={() => {}}
  *   onReplay={() => {}}
  *   onViewResult={() => {}}
+ *   icon="https://example.com/icon.png"
+ *   iconTooltip="AI助手图标"
  * />
  * ```
  *
@@ -120,148 +299,87 @@ interface TaskRunningProps {
  *
  * @remarks
  * - 支持多种任务状态显示
- * - 提供任务操作按钮（暂停、重播、查看结果等）
- * - 显示任务运行时间
- * - 支持自定义消息文案
- * - 支持自定义图标
+ * - 提供任务操作按钮（暂停、继续、停止、重播、查看结果等）
+ * - 支持自定义标题和描述文案
+ * - 支持自定义图标和图标提示
  * - 提供机器人状态动画
  */
-export const TaskRunning: React.FC<TaskRunningProps> = ({
-  minutes,
-  ...rest
-}) => {
+export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
   const {
     className,
     taskRunningStatus,
     taskStatus,
     onPause,
+    onResume,
     onCreateNewTask,
     onViewResult,
     onReplay,
-    messages,
+    onStop,
+    title,
+    description,
+    icon,
+    iconTooltip,
   } = rest;
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const { locale } = useContext(I18nContext);
   const baseCls = context?.getPrefixCls('task-running');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
-  // 合并默认文案和自定义文案
-  const finalMessages = {
-    running: messages?.running || locale?.agentRunBar.running,
-    timeUsedPrefix:
-      messages?.timeUsedPrefix || locale?.agentRunBar.timeUsedPrefix,
-    calling: messages?.calling || locale?.agentRunBar.calling,
-    taskCompleted: messages?.taskCompleted || locale?.agentRunBar.taskCompleted,
-    taskStopped: messages?.taskStopped || locale?.agentRunBar.taskStopped,
-    taskReplaying: messages?.taskReplaying || locale?.agentRunBar.taskReplaying,
-    createNewTask: messages?.createNewTask || locale?.agentRunBar.createNewTask,
-    viewResult: messages?.viewResult || locale?.agentRunBar.viewResult,
-    replayTask: messages?.replayTask || locale?.agentRunBar.replayTask,
+  // 获取机器人状态
+  const getRobotStatus = () => {
+    if (taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE) {
+      return 'dazing';
+    }
+    if (
+      taskRunningStatus === TASK_RUNNING_STATUS.PAUSE ||
+      taskStatus === TASK_STATUS.PAUSE
+    ) {
+      return 'default';
+    }
+    if (
+      taskStatus === TASK_STATUS.SUCCESS ||
+      taskStatus === TASK_STATUS.ERROR
+    ) {
+      return 'default';
+    }
+    return 'thinking';
   };
 
   return wrapSSR(
     <div className={classNames(baseCls, hashId, className)} style={rest.style}>
       <div className={`${baseCls}-left ${hashId}`}>
         <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
-          <Robot
-            icon={rest.icon}
-            status={
-              taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE
-                ? 'dazing'
-                : taskRunningStatus === TASK_RUNNING_STATUS.PAUSE
-                  ? 'default'
-                  : 'thinking'
-            }
-            size={36}
-          />
+          <Tooltip title={iconTooltip}>
+            <Robot icon={icon} status={getRobotStatus()} size={36} />
+          </Tooltip>
         </div>
         {/* 文字区 */}
-        {taskStatus === TASK_STATUS.RUNNING ? (
-          taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <div className={`${baseCls}-left-main-text ${hashId}`}>
-                {finalMessages.running && (
-                  <span>{finalMessages.running}，</span>
-                )}
-                {finalMessages.timeUsedPrefix && (
-                  <span>
-                    {finalMessages.timeUsedPrefix} {minutes}
-                  </span>
-                )}
-              </div>
-              {finalMessages.calling && (
-                <div className={`${baseCls}-left-text ${hashId}`}>
-                  {finalMessages.calling}
-                </div>
-              )}
+        <div className={`${baseCls}-left-content ${hashId}`}>
+          {title && (
+            <div className={`${baseCls}-left-main-text ${hashId}`}>{title}</div>
+          )}
+          {description && (
+            <div className={`${baseCls}-left-text ${hashId}`}>
+              {description}
             </div>
-          ) : taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE ? (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskCompleted}</span>
-            </div>
-          ) : (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskStopped}</span>
-            </div>
-          )
-        ) : taskStatus === TASK_STATUS.SUCCESS ? (
-          taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskReplaying}</span>
-            </div>
-          ) : (
-            <div className={`${baseCls}-left-content ${hashId}`}>
-              <span>{finalMessages.taskCompleted}</span>
-            </div>
-          )
-        ) : (
-          <div className={`${baseCls}-left-content ${hashId}`}>
-            <span>{finalMessages.taskStopped}</span>
-          </div>
-        )}
-      </div>
-      {/* 按钮区 */}
-      {taskStatus === TASK_STATUS.RUNNING ? (
-        taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-          <div className={`${baseCls}-pause ${hashId}`} onClick={onPause}>
-            <PauseIcon />
-          </div>
-        ) : (
-          <div className={`${baseCls}-button-wrapper ${hashId}`}>
-            <Button
-              type="primary"
-              onClick={onCreateNewTask}
-              icon={<PlusOutlined />}
-            >
-              {finalMessages.createNewTask}
-            </Button>
-          </div>
-        )
-      ) : taskStatus === TASK_STATUS.SUCCESS ? (
-        taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
-          <div className={`${baseCls}-button-wrapper ${hashId}`}>
-            <Button type="primary" onClick={onViewResult}>
-              {finalMessages.viewResult}
-            </Button>
-          </div>
-        ) : (
-          <div className={`${baseCls}-button-wrapper ${hashId}`}>
-            <Button type="primary" onClick={onReplay} icon={<UndoOutlined />}>
-              {finalMessages.replayTask}
-            </Button>
-          </div>
-        )
-      ) : (
-        <div className={`${baseCls}-button-wrapper ${hashId}`}>
-          <Button
-            type="primary"
-            onClick={onCreateNewTask}
-            icon={<PlusOutlined />}
-          >
-            {finalMessages.createNewTask}
-          </Button>
+          )}
         </div>
+      </div>
+
+      {/* 按钮区 */}
+      {renderButtonGroup(
+        taskStatus,
+        taskRunningStatus,
+        {
+          onCreateNewTask,
+          onPause,
+          onResume,
+          onStop,
+          onReplay,
+          onViewResult,
+        },
+        baseCls,
+        hashId,
       )}
     </div>,
   );
