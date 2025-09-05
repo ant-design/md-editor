@@ -628,7 +628,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       // 代码样式增强
-      'code:not(&-inline-code)': {
+      'code.ant-md-editor-content-code:not(&-inline-code)': {
         borderRadius: '6px',
         background: 'rgba(0, 37, 110, 0.07)',
         padding: '4px 6px',
