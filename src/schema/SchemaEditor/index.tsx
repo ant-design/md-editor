@@ -1,4 +1,4 @@
-import { Button, message } from 'antd';
+import { Button, ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import React, {
@@ -16,7 +16,7 @@ import { SchemaRenderer } from '../SchemaRenderer';
 import { LowCodeSchema } from '../types';
 import { mdDataSchemaValidator } from '../validator';
 import { AceEditorWrapper } from './AceEditorWrapper';
-import { useSchemaEditorStyle } from './style';
+import { useStyle } from './style';
 
 export interface SchemaEditorProps {
   /** 初始schema数据 */
@@ -57,7 +57,10 @@ export function SchemaEditor({
   showPreview = true,
   previewConfig,
 }: SchemaEditorProps) {
-  const { wrapSSR, hashId } = useSchemaEditorStyle('schema-editor');
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('schema-editor');
+  const { wrapSSR, hashId } = useStyle(prefixCls);
   const { locale } = useContext(I18nContext);
   const [schema, setSchema] = useState<LowCodeSchema>(() => {
     return (
@@ -227,23 +230,23 @@ export function SchemaEditor({
     if (!showPreview) return null;
 
     return (
-      <div className={classNames('schema-editor-preview', hashId)}>
-        <div className={classNames('schema-editor-preview-header', hashId)}>
+      <div className={classNames(`${prefixCls}-preview`, hashId)}>
+        <div className={classNames(`${prefixCls}-preview-header`, hashId)}>
           <h3>{locale['schemaEditor.realtimePreview']}</h3>
           {validationError && (
-            <div className={classNames('schema-editor-error', hashId)}>
+            <div className={classNames(`${prefixCls}-error`, hashId)}>
               <span>⚠️ {validationError}</span>
             </div>
           )}
         </div>
-        <div className={classNames('schema-editor-preview-content', hashId)}>
+        <div className={classNames(`${prefixCls}-preview-content`, hashId)}>
           {isSchemaRendered ? (
             <SchemaRenderer
               schema={renderedSchema}
               values={values}
               config={previewConfig}
               fallbackContent={
-                <div className={classNames('schema-editor-fallback', hashId)}>
+                <div className={classNames(`${prefixCls}-fallback`, hashId)}>
                   <p>{locale['schemaEditor.previewLoadFailed']}</p>
                   <p>{locale['schemaEditor.checkSchemaFormat']}</p>
                 </div>
@@ -252,7 +255,7 @@ export function SchemaEditor({
           ) : (
             <div
               className={classNames(
-                'schema-editor-preview-content-empty',
+                `${prefixCls}-preview-content-empty`,
                 hashId,
               )}
             >
@@ -272,13 +275,14 @@ export function SchemaEditor({
     previewConfig,
     hashId,
     locale,
+    prefixCls,
   ]);
 
   // 渲染HTML编辑器
   const renderHtmlEditor = useMemo(() => {
     return (
-      <div className={classNames('schema-editor-html', hashId)}>
-        <div className={classNames('schema-editor-html-header', hashId)}>
+      <div className={classNames(`${prefixCls}-html`, hashId)}>
+        <div className={classNames(`${prefixCls}-html-header`, hashId)}>
           <h3>{locale['schemaEditor.htmlTemplate']}</h3>
           <div style={{ display: 'flex' }}>
             <Button
@@ -295,7 +299,7 @@ export function SchemaEditor({
             />
           </div>
         </div>
-        <div className={classNames('schema-editor-html-content', hashId)}>
+        <div className={classNames(`${prefixCls}-html-content`, hashId)}>
           <AceEditorWrapper
             value={htmlContent}
             language="html"
@@ -313,13 +317,14 @@ export function SchemaEditor({
     locale,
     handleRunClick,
     handleCopyHtml,
+    prefixCls,
   ]);
 
   // 渲染JSON编辑器
   const renderJsonEditor = useMemo(() => {
     return (
-      <div className={classNames('schema-editor-json', hashId)}>
-        <div className={classNames('schema-editor-json-header', hashId)}>
+      <div className={classNames(`${prefixCls}-json`, hashId)}>
+        <div className={classNames(`${prefixCls}-json-header`, hashId)}>
           <h3>{locale['schemaEditor.schemaJson']}</h3>
           <div style={{ display: 'flex' }}>
             <Button
@@ -329,7 +334,7 @@ export function SchemaEditor({
             />
           </div>
         </div>
-        <div className={classNames('schema-editor-json-content', hashId)}>
+        <div className={classNames(`${prefixCls}-json-content`, hashId)}>
           <AceEditorWrapper
             value={schemaString}
             language="json"
@@ -346,18 +351,19 @@ export function SchemaEditor({
     hashId,
     locale,
     handleCopyJson,
+    prefixCls,
   ]);
 
   return wrapSSR(
     <div
-      className={classNames('schema-editor', className, hashId)}
+      className={classNames(prefixCls, className, hashId)}
       style={{ height: typeof height === 'number' ? `${height}px` : height }}
     >
-      <div className={classNames('schema-editor-container', hashId)}>
-        <div className={classNames('schema-editor-left', hashId)}>
+      <div className={classNames(`${prefixCls}-container`, hashId)}>
+        <div className={classNames(`${prefixCls}-left`, hashId)}>
           {renderPreview}
         </div>
-        <div className={classNames('schema-editor-right', hashId)}>
+        <div className={classNames(`${prefixCls}-right`, hashId)}>
           {renderHtmlEditor}
           {renderJsonEditor}
         </div>

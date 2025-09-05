@@ -725,18 +725,12 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         >
           <div
             id={props.id ? String(props.id) || undefined : undefined}
-            className={classNames(
-              'markdown-editor',
-              baseClassName,
-              hashId,
-              props.className,
-              {
-                [baseClassName + '-readonly']: readonly,
-                [baseClassName + '-edit']: !readonly,
-                [baseClassName + '-report']: props.reportMode,
-                [baseClassName + '-slide']: props.slideMode,
-              },
-            )}
+            className={classNames(baseClassName, hashId, props.className, {
+              [`${baseClassName}-readonly`]: readonly,
+              [`${baseClassName}-edit`]: !readonly,
+              [`${baseClassName}-report`]: props.reportMode,
+              [`${baseClassName}-slide`]: props.slideMode,
+            })}
             style={{
               width: width || '100%',
               height: height || 'auto',
@@ -755,8 +749,8 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                   zIndex: 99,
                   top: 0,
                 }}
-                className={classNames('md-editor-toolbar-container', {
-                  [baseClassName + '-min-toolbar']: toolBar.min,
+                className={classNames(`${baseClassName}-toolbar-container`, {
+                  [`${baseClassName}-min-toolbar`]: toolBar.min,
                 })}
               >
                 <ToolBar

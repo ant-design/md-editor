@@ -37,9 +37,9 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
   useSpeech,
 }) => {
   const configContext = React.useContext(ConfigProvider.ConfigContext);
-  const baseCls =
+  const prefixCls =
     configContext?.getPrefixCls(`agent-voice-button`) || 'agent-voice-button';
-  const { wrapSSR, hashId } = useStyle(baseCls);
+  const { wrapSSR, hashId } = useStyle(prefixCls);
   const [isPlayHover, setIsPlayHover] = useState<boolean>(false);
   const [isPlayingHovered, setIsPlayingHovered] = useState(false);
 
@@ -101,13 +101,13 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
       normalizedRateOptions.map((r) => ({
         key: String(r),
         label: (
-          <div className={`${baseCls}-rateItem ${hashId}`}>
+          <div className={`${prefixCls}-rateItem ${hashId}`}>
             <span>{`${r}x`}</span>
             {r === rate ? <span>✓</span> : null}
           </div>
         ),
       })),
-    [normalizedRateOptions, rate],
+    [normalizedRateOptions, rate, prefixCls, hashId],
   );
 
   const rateDisplay = useMemo(() => `${rate}x`, [rate]);
@@ -125,7 +125,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           onMouseEnter={() => setIsPlayHover(true)}
           onMouseLeave={() => setIsPlayHover(false)}
           onClick={handleClick}
-          className={`${baseCls}-playBox ${hashId}`}
+          className={`${prefixCls}-playBox ${hashId}`}
           role="button"
           tabIndex={0}
           aria-label={'语音播报'}
@@ -142,9 +142,9 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           </Tooltip>
         </div>
       ) : (
-        <div className={`${baseCls}-playingWrap ${hashId}`}>
+        <div className={`${prefixCls}-playingWrap ${hashId}`}>
           <div
-            className={`${baseCls}-playingBox ${hashId}`}
+            className={`${prefixCls}-playingBox ${hashId}`}
             onMouseEnter={handlePlayingMouseEnter}
             onMouseLeave={handlePlayingMouseLeave}
             onClick={handleStop}
@@ -172,7 +172,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               },
             }}
           >
-            <div className={`${baseCls}-rateBox ${hashId}`}>
+            <div className={`${prefixCls}-rateBox ${hashId}`}>
               <span style={{ fontSize: 12 }}>
                 {rate === 1 ? '倍速' : rateDisplay}
               </span>

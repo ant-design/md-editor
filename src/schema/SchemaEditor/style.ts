@@ -254,13 +254,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       color: '#e2e8f0',
     },
 
-    // 焦点状态
-    // 原先一直存在，但样式修改后视觉上显现突出，故注释
-    // [`${token.componentCls}-html-content:focus-within, ${token.componentCls}-json-content:focus-within`]:
-    // {
-    //   boxShadow: 'inset 0 0 0 2px #3182ce',
-    // },
-
     // 加载状态
     [`${token.componentCls}-loading`]: {
       display: 'flex',
@@ -286,7 +279,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   };
 };
 
-export function useSchemaEditorStyle(prefixCls?: string) {
+export function useStyle(prefixCls?: string) {
   return useEditorStyleRegister('SchemaEditor', (token: ChatTokenType) => {
     const schemaEditorToken = {
       ...token,
