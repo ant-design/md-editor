@@ -10,15 +10,15 @@ const ImageErrorHandlingDemo: React.FC = () => {
       <MarkdownEditor
         initValue={`正常图片：
 
-![正常图片](https://picsum.photos/400/300)
+![正常图片](https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original)
 
 无效图片URL（会显示为链接）：
 
-![无效图片](https://invalid-image-url.com/image.jpg)
+![无效图片](https://xxx/image.jpg)
 
 另一个无效图片：
 
-![不存在的图片](https://example.com/nonexistent-image.png)`}
+![不存在的图片](https://xxxe.png)`}
         readonly
         style={{ border: '1px solid #d9d9d9', borderRadius: '6px' }}
       />

@@ -17,7 +17,7 @@
           aria-multiline="true"
           autocapitalize="false"
           autocorrect="false"
-          class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-edit"
+          class="ant-md-editor-content- ant-md-editor-content ant-md-editor-content-edit"
           contenteditable="true"
           data-slate-editor="true"
           data-slate-node="value"
@@ -7512,29 +7512,6 @@ class EditorCore {
                   data-slate-string="true"
                 >
                   本文展示了现代代码编辑器的核心技术实现方案，涵盖从基础架构到高级功能的完整技术栈。实际开发中需要根据具体需求在性能、扩展性和易用性之间进行权衡。建议通过开源项目（如VS Code、Atom）研究更多实现细节，持续优化编辑器的人机交互体验。
-                </span>
-              </span>
-            </span>
-          </div>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
-            <span
-              data-slate-node="text"
-            >
-              <span
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-length="0"
-                  data-slate-zero-width="n"
-                >
-                  ﻿
-                  <br />
                 </span>
               </span>
             </span>

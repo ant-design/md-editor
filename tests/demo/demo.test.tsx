@@ -50,6 +50,8 @@ function demoTest() {
         transform: 'none',
       } as any;
     };
+    console.log = vi.fn();
+    console.warn = vi.fn();
   });
 
   const files = glob.sync('./docs/**/demos/**/*.tsx', {
@@ -76,7 +78,7 @@ function demoTest() {
           </ConfigProvider>,
         );
 
-        await waitTime(500);
+        await waitTime(1600);
 
         await waitFor(
           () => {

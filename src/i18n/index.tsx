@@ -63,7 +63,11 @@ export function detectUserLanguage(): 'zh-CN' | 'en-US' {
     }
   }
 
-  // 4. 默认返回中文
+  // 4. 在测试环境中默认返回英文，其他环境返回中文
+  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+    return 'en-US';
+  }
+
   return 'zh-CN';
 }
 

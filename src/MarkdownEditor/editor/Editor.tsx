@@ -931,9 +931,9 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           onCompositionEnd={onCompositionEnd}
           className={classNames(
             props.className,
-            `${baseClassName}-${readonlyCls}`,
-            `${baseClassName}`,
+            baseClassName,
             {
+              [`${baseClassName}-${readonlyCls}`]: readonlyCls,
               [`${baseClassName}-report`]: props.reportMode,
               [`${baseClassName}-edit`]: !readonly,
               [`${baseClassName}-compact`]: props.compact,
