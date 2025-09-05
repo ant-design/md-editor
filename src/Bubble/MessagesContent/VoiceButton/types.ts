@@ -44,5 +44,3 @@ export type UseSpeechSynthesisResult = {
 export type UseSpeechAdapter = (
   options: UseSpeechSynthesisOptions,
 ) => UseSpeechSynthesisResult;
-
-

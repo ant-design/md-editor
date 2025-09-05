@@ -40,7 +40,7 @@ export interface LottieVoiceProps {
  *
  * @example
  * ```tsx
-* <VoicePlayLottie
+ * <VoicePlayLottie
  *   autoplay={true}
  *   loop={true}
  *   size={48}

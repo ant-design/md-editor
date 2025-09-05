@@ -7,7 +7,7 @@ group:
   order: 3
 ---
 
-# SchemaEditor 组件
+# SchemaEditor - schema 编辑工具
 
 SchemaEditor 是一个强大的 schema 编辑和预览工具，提供 HTML 模板和 JSON schema 的实时编辑功能，底层使用 AceEditor 来编辑 schema 中的 HTML 内容。
 

@@ -443,20 +443,21 @@ export const BubbleExtra = ({
   );
 
   const voiceDom = useMemo(() => {
-  /**
-   * 判断是否应该显示语音选项。
-   *
-   * 语音选项显示需要满足以下条件：
-   * 基础条件（必须全部满足）：
-   *    - 聊天项的原始数据包含内容
-   *    - 聊天项的原始数据在额外字段中没有回答状态
-   *    - 聊天项的内容不等于本地化的 'chat.message.aborted' 消息或其默认值 '回答已停止生成'
-   * */
-    const defaultShow = !!originalData?.content &&
-     !originalData?.extra?.answerStatus &&
-     !typing &&
-     originalData?.content !==
-     (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
+    /**
+     * 判断是否应该显示语音选项。
+     *
+     * 语音选项显示需要满足以下条件：
+     * 基础条件（必须全部满足）：
+     *    - 聊天项的原始数据包含内容
+     *    - 聊天项的原始数据在额外字段中没有回答状态
+     *    - 聊天项的内容不等于本地化的 'chat.message.aborted' 消息或其默认值 '回答已停止生成'
+     * */
+    const defaultShow =
+      !!originalData?.content &&
+      !originalData?.extra?.answerStatus &&
+      !typing &&
+      originalData?.content !==
+        (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
     if (!props.shouldShowVoice || !defaultShow) return null;
     return (
       <VoiceButton

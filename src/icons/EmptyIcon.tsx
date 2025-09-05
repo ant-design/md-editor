@@ -53,15 +53,33 @@ export const EmptyIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
           <stop offset="0%" stopColor="#0F192C" stopOpacity="1" />
           <stop offset="100%" stopColor="#6448FF" stopOpacity="1" />
         </linearGradient>
-        <linearGradient x1="0.5918598771095276" y1="1" x2="1.2793496858987" y2="0.6906462574430394" id="master_svg3_2_1365">
+        <linearGradient
+          x1="0.5918598771095276"
+          y1="1"
+          x2="1.2793496858987"
+          y2="0.6906462574430394"
+          id="master_svg3_2_1365"
+        >
           <stop offset="0%" stopColor="#0F192C" stopOpacity="1" />
           <stop offset="100%" stopColor="#6448FF" stopOpacity="1" />
         </linearGradient>
-        <linearGradient x1="0.4285028576850891" y1="1" x2="-0.12307909104890216" y2="0.4537226971184611" id="master_svg4_2_1362">
+        <linearGradient
+          x1="0.4285028576850891"
+          y1="1"
+          x2="-0.12307909104890216"
+          y2="0.4537226971184611"
+          id="master_svg4_2_1362"
+        >
           <stop offset="0%" stopColor="#0F192C" stopOpacity="1" />
           <stop offset="100%" stopColor="#6448FF" stopOpacity="1" />
         </linearGradient>
-        <linearGradient x1="0" y1="0.17398935556411743" x2="0.22189602887130774" y2="1.0689527288478575" id="master_svg5_2_1359">
+        <linearGradient
+          x1="0"
+          y1="0.17398935556411743"
+          x2="0.22189602887130774"
+          y2="1.0689527288478575"
+          id="master_svg5_2_1359"
+        >
           <stop offset="0%" stopColor="#0F192C" stopOpacity="1" />
           <stop offset="100%" stopColor="#6448FF" stopOpacity="1" />
         </linearGradient>
@@ -73,7 +91,13 @@ export const EmptyIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
           <stop offset="0%" stopColor="#A390F1" stopOpacity="1" />
           <stop offset="100%" stopColor="#CE96FF" stopOpacity="1" />
         </linearGradient>
-        <linearGradient x1="0.5775338411331177" y1="0.6283370852470398" x2="0.06251772926056487" y2="1.072491922125925" id="master_svg8_2_1356">
+        <linearGradient
+          x1="0.5775338411331177"
+          y1="0.6283370852470398"
+          x2="0.06251772926056487"
+          y2="1.072491922125925"
+          id="master_svg8_2_1356"
+        >
           <stop offset="0%" stopColor="#FDFEFF" stopOpacity="1" />
           <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
         </linearGradient>
