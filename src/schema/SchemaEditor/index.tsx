@@ -5,6 +5,11 @@ import { LowCodeSchema } from '../types';
 import { mdDataSchemaValidator } from '../validator';
 import { AceEditorWrapper } from './AceEditorWrapper';
 import { useSchemaEditorStyle } from './style';
+import { RunIcon } from '../../icons/RunIcon';
+import { CopyIcon } from '../../icons/CopyIcon';
+import { EmptyIcon } from '../../icons/EmptyIcon';
+import { Button, message } from 'antd';
+import copy from 'copy-to-clipboard';
 
 export interface SchemaEditorProps {
   /** 初始schema数据 */
@@ -60,10 +65,12 @@ export function SchemaEditor({
     );
   });
 
-  const [values] = useState<Record<string, any>>(initialValues);
+  const [values, setValues] = useState<Record<string, any>>(initialValues || {});
   const [schemaString, setSchemaString] = useState<string>('');
   const [htmlContent, setHtmlContent] = useState<string>('');
   const [validationError, setValidationError] = useState<string>('');
+  const [renderedSchema, setRenderedSchema] = useState<LowCodeSchema>({} as LowCodeSchema);
+  const [isSchemaRendered, setIsSchemaRendered] = useState<boolean>(false);
 
   // 将schema转换为JSON字符串
   const schemaToJson = useCallback((schemaData: LowCodeSchema): string => {
@@ -148,6 +155,47 @@ export function SchemaEditor({
     [jsonToSchema, handleSchemaChange],
   );
 
+  // 处理运行按钮点击
+  const handleRunClick = useCallback(() => {
+    setRenderedSchema({ ...schema });
+
+    // 更新values状态，使用schema中的initialValues
+    if (schema.initialValues) {
+      setValues(schema.initialValues);
+    }
+    setIsSchemaRendered(true);
+  }, [schema, setRenderedSchema, setValues, setIsSchemaRendered]);
+
+  // 复制函数
+  const handleCopyContent = useCallback((content: string, type: 'html' | 'json') => {
+    if (!content || !content.trim()) {
+      message.warning('无可复制的内容');
+      return;
+    }
+
+    try {
+      const ok = copy(content);
+      if (ok) {
+        message.success(`${type === 'html' ? 'HTML' : 'JSON'}内容已复制到剪贴板`);
+      } else {
+        message.error('复制失败');
+      }
+    } catch (error) {
+      message.error('复制失败');
+      console.error('复制失败', error);
+    }
+  }, []);
+
+  // 处理复制HTML内容
+  const handleCopyHtml = useCallback(() => {
+    handleCopyContent(htmlContent, 'html');
+  }, [htmlContent, handleCopyContent]);
+
+  // 处理复制JSON内容
+  const handleCopyJson = useCallback(() => {
+    handleCopyContent(schemaString, 'json');
+  }, [schemaString, handleCopyContent]);
+
   // 渲染预览区域
   const renderPreview = useMemo(() => {
     if (!showPreview) return null;
@@ -163,21 +211,27 @@ export function SchemaEditor({
           )}
         </div>
         <div className={classNames('schema-editor-preview-content', hashId)}>
-          <SchemaRenderer
-            schema={schema}
-            values={values}
-            config={previewConfig}
-            fallbackContent={
-              <div className={classNames('schema-editor-fallback', hashId)}>
-                <p>预览加载失败</p>
-                <p>请检查schema格式是否正确</p>
-              </div>
-            }
-          />
+          {isSchemaRendered ?
+            <SchemaRenderer
+              schema={renderedSchema}
+              values={values}
+              config={previewConfig}
+              fallbackContent={
+                <div className={classNames('schema-editor-fallback', hashId)}>
+                  <p>预览加载失败</p>
+                  <p>请检查schema格式是否正确</p>
+                </div>
+              }
+            /> :
+            <div className={classNames('schema-editor-preview-content-empty', hashId)}>
+              <EmptyIcon style={{ width: 80, height: 80 }} />
+              <p>右侧输入schema后，在这里展示卡片预览</p>
+            </div>
+          }
         </div>
       </div>
     );
-  }, [showPreview, schema, values, validationError, previewConfig, hashId]);
+  }, [showPreview, isSchemaRendered, renderedSchema, values, validationError, previewConfig, hashId]);
 
   // 渲染HTML编辑器
   const renderHtmlEditor = useMemo(() => {
@@ -185,6 +239,20 @@ export function SchemaEditor({
       <div className={classNames('schema-editor-html', hashId)}>
         <div className={classNames('schema-editor-html-header', hashId)}>
           <h3>HTML模板</h3>
+          <div style={{ display: 'flex' }}>
+            <Button
+              type="text"
+              icon={<RunIcon style={{ width: 14, height: 14 }} />}
+              onClick={handleRunClick}
+            >
+              运行
+            </Button>
+            <Button
+              type="text"
+              icon={<CopyIcon style={{ width: 14, height: 14 }} />}
+              onClick={handleCopyHtml}
+            />
+          </div>
         </div>
         <div className={classNames('schema-editor-html-content', hashId)}>
           <AceEditorWrapper
@@ -204,6 +272,20 @@ export function SchemaEditor({
       <div className={classNames('schema-editor-json', hashId)}>
         <div className={classNames('schema-editor-json-header', hashId)}>
           <h3>Schema JSON</h3>
+          <div style={{ display: 'flex' }}>
+            <Button
+              type="text"
+              icon={<RunIcon style={{ width: 14, height: 14 }} />}
+              onClick={handleRunClick}
+            >
+              运行
+            </Button>
+            <Button
+              type="text"
+              icon={<CopyIcon style={{ width: 14, height: 14 }} />}
+              onClick={handleCopyJson}
+            />
+          </div>
         </div>
         <div className={classNames('schema-editor-json-content', hashId)}>
           <AceEditorWrapper
@@ -224,11 +306,11 @@ export function SchemaEditor({
     >
       <div className={classNames('schema-editor-container', hashId)}>
         <div className={classNames('schema-editor-left', hashId)}>
-          {renderHtmlEditor}
-          {renderJsonEditor}
+          {renderPreview}
         </div>
         <div className={classNames('schema-editor-right', hashId)}>
-          {renderPreview}
+          {renderHtmlEditor}
+          {renderJsonEditor}
         </div>
       </div>
     </div>,

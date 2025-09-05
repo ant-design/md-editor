@@ -65,8 +65,8 @@ export const AceEditorWrapper: React.FC<AceEditorWrapperProps> = ({
       tabSize: 4,
       readOnly: readonly,
       showPrintMargin: false,
-      showLineNumbers: false,
-      showGutter: false,
+      showLineNumbers: true,
+      showGutter: true,
       ...options,
     });
 
