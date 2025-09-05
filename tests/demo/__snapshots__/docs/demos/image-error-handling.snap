@@ -25,7 +25,7 @@
           <div
             autocapitalize="false"
             autocorrect="false"
-            class="ant-md-editor-content-readonly ant-md-editor-content"
+            class="ant-md-editor-content ant-md-editor-content-readonly"
             data-slate-editor="true"
             data-slate-node="value"
             spellcheck="false"
@@ -115,7 +115,7 @@
                           crossorigin="anonymous"
                           draggable="false"
                           referrerpolicy="no-referrer"
-                          src="https://picsum.photos/400/300"
+                          src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original"
                           style="max-width: 800px;"
                           width="400"
                         />
@@ -276,7 +276,7 @@
                         class="ant-image-img"
                         draggable="false"
                         referrerpolicy="no-referrer"
-                        src="https://invalid-image-url.com/image.jpg"
+                        src="https://xxx/image.jpg"
                         style="max-width: 800px;"
                         width="400"
                       />
@@ -436,7 +436,7 @@
                         class="ant-image-img"
                         draggable="false"
                         referrerpolicy="no-referrer"
-                        src="https://example.com/nonexistent-image.png"
+                        src="https://xxxe.png"
                         style="max-width: 800px;"
                         width="400"
                       />
