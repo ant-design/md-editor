@@ -18,6 +18,8 @@
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
+    "check:demo": "node scripts/checkDemoFiles.js",
+    "report:demo": "node scripts/generateDemoReport.js",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky install && dumi setup",
     "prepublishOnly": "father doctor && npm run test && npm run build",

@@ -48,17 +48,11 @@ nav:
 
 <code src="../demos/bubble/basic.tsx" background="var(--main-bg-color)" iframe=540></code>
 
-<code src="../demos/bubble/custom-render.tsx" background="var(--main-bg-color)" iframe=540></code>
-
 <code src="../demos/bubble/extra-render.tsx" background="var(--main-bg-color)" iframe=540></code>
 
 <code src="../demos/bubble/file-view.tsx" background="var(--main-bg-color)" iframe=540></code>
 
 <code src="../demos/bubble/pure.tsx" background="var(--main-bg-color)" iframe=540></code>
-
-<code src="../demos/bubble/list.tsx" background="var(--main-bg-color)" iframe=540></code>
-
-<code src="../demos/bubble/advanced-features.tsx" background="var(--main-bg-color)" iframe=600></code>
 
 ## 表单与Schema
 
