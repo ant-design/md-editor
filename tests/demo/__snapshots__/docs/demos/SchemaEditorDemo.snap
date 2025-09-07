@@ -425,6 +425,7 @@
                     aria-haspopup="false"
                     aria-label="Cursor at row 11"
                     autocapitalize="off"
+                    autocomplete="off"
                     autocorrect="off"
                     class="ace_text-input"
                     role="textbox"
@@ -511,6 +512,7 @@
                   </div>
                   <div
                     class="ace_tooltip"
+                    id="gt3"
                     role="tooltip"
                     style="display: none; pointer-events: auto;"
                   />
@@ -571,6 +573,7 @@
                     aria-haspopup="false"
                     aria-label="Cursor at row 16"
                     autocapitalize="off"
+                    autocomplete="off"
                     autocorrect="off"
                     class="ace_text-input"
                     role="textbox"
@@ -657,6 +660,7 @@
                   </div>
                   <div
                     class="ace_tooltip"
+                    id="gt4"
                     role="tooltip"
                     style="display: none; pointer-events: auto;"
                   />
