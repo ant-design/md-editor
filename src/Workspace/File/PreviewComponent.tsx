@@ -1,5 +1,17 @@
-import { ArrowLeftOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Alert, ConfigProvider, Image, Segmented, Spin } from 'antd';
+import {
+  ArrowLeftOutlined,
+  DownloadOutlined,
+  ExportOutlined,
+} from '@ant-design/icons';
+import {
+  Alert,
+  Button,
+  ConfigProvider,
+  Image,
+  Segmented,
+  Spin,
+  Tooltip,
+} from 'antd';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import {
@@ -31,6 +43,11 @@ export interface PreviewComponentProps {
   customHeader?: React.ReactNode;
   onBack?: () => void;
   onDownload?: (file: FileNode) => void;
+  /** 分享回调 */
+  onShare?: (
+    file: FileNode,
+    options?: { anchorEl?: HTMLElement; origin?: string },
+  ) => void;
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置
@@ -82,7 +99,7 @@ const PlaceholderContent: FC<{
               type="button"
               className={`${prefixCls}-download-button ${hashId}`}
               onClick={onDownload}
-              aria-label={locale?.['workspace.file.downloadFile'] || '下载文件'}
+              aria-label={locale?.['workspace.file.download'] || '下载文件'}
             >
               {locale?.['workspace.file.clickToDownload'] || '点击下载'}
             </button>
@@ -137,6 +154,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   customHeader,
   onBack,
   onDownload,
+  onShare,
   markdownEditorProps,
   headerFileOverride,
 }) => {
@@ -170,6 +188,13 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
 
   const handleDownload = () => {
     onDownload?.(file);
+  };
+
+  const handleShare = (e: React.MouseEvent) => {
+    onShare?.(file, {
+      anchorEl: e.currentTarget as HTMLElement,
+      origin: 'preview',
+    });
   };
 
   // 处理文件（当未提供 customContent 时）
@@ -556,24 +581,42 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               <Segmented
                 size="small"
                 options={[
-                  { label: locale?.['htmlPreview.preview'] || '预览', value: 'preview' },
-                  { label: locale?.['htmlPreview.code'] || '代码', value: 'code' },
+                  {
+                    label: locale?.['htmlPreview.preview'] || '预览',
+                    value: 'preview',
+                  },
+                  {
+                    label: locale?.['htmlPreview.code'] || '代码',
+                    value: 'code',
+                  },
                 ]}
                 value={htmlViewMode}
                 onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}
               />
             )}
+            {onShare && file.canShare === true && (
+              <Tooltip title={locale?.['workspace.file.share'] || '分享'}>
+                <Button
+                  size="small"
+                  type="text"
+                  className={`${prefixCls}-item-action-btn ${hashId}`}
+                  icon={<ExportOutlined />}
+                  aria-label={locale?.['workspace.file.share'] || '分享'}
+                  onClick={handleShare}
+                />
+              </Tooltip>
+            )}
             {onDownload && (
-              <button
-                type="button"
-                className={`${prefixCls}-action-button ${hashId}`}
-                onClick={handleDownload}
-                aria-label={
-                  locale?.['workspace.file.downloadFile'] || '下载文件'
-                }
-              >
-                <DownloadOutlined />
-              </button>
+              <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+                <Button
+                  size="small"
+                  type="text"
+                  className={`${prefixCls}-item-action-btn ${hashId}`}
+                  icon={<DownloadOutlined />}
+                  onClick={handleDownload}
+                  aria-label={locale?.['workspace.file.download'] || '下载'}
+                />
+              </Tooltip>
             )}
           </div>
         </div>

@@ -25,7 +25,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-            },
+
+              [`.ant-btn, .ant-btn .anticon`]: {
+                color: '#767E8B',
+              },
+              [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]: {
+                color: '#767E8B',
+              },
+            }
           },
 
           // 展开收起图标
@@ -68,23 +75,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             textAlign: 'center',
           },
 
-          // 下载图标
-          [`&-download-icon`]: {
-            fontSize: '13px',
-            color: '#6c757d',
-            cursor: 'pointer',
-            padding: '4px',
-            borderRadius: '4px',
-            transition: 'all 0.2s ease',
 
-            '&:hover': {
-              background: '#f8f9fa',
-            },
-          },
 
           // 分组内容区域
           [`&-content`]: {
             paddingLeft: '12px',
+          },
+
+          // 分组动作按钮（下载等）图标颜色保持一致
+          [`&-action-btn`]: {
+            [`.anticon`]: {
+              color: '#767E8B',
+            },
+            ["&:hover .anticon, &:focus .anticon, &:active .anticon"]: {
+              color: '#767E8B',
+            },
           },
         },
       },
@@ -183,21 +188,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         visibility: 'hidden',
         pointerEvents: 'none',
         transition: 'opacity 0.2s ease, visibility 0.2s ease',
-      },
 
-      // 操作图标
-      [`&-preview-icon, &-download-icon`]: {
-        fontSize: '13px',
-        color: '#6c757d',
-        cursor: 'pointer',
-        padding: '4px',
-        borderRadius: '4px',
-        transition: 'all 0.2s ease',
-
-        '&:hover': {
-          background: '#f8f9fa',
+        // 保持图标按钮颜色一致
+        [`.ant-btn, .ant-btn .anticon`]: {
+          color: '#767E8B',
+        },
+        [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]: {
+          color: '#767E8B',
         },
       },
+
+      // 文件项动作按钮（预览/下载等）图标颜色保持一致
+      [`&-action-btn`]: {
+        [`.anticon`]: {
+          color: '#767E8B',
+        },
+        ["&:hover .anticon, &:focus .anticon, &:active .anticon"]: {
+          color: '#767E8B',
+        },
+      }
+
+
     },
 
     // 空状态
@@ -298,29 +309,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
-      },
 
-      // 操作按钮
-      [`&-action-button`]: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '20px',
-        height: '20px',
-        border: 'none',
-        background: 'none',
-        cursor: 'pointer',
-        color: '#8c8c8c',
-        transition: 'all 0.2s ease',
-        borderRadius: '4px',
-
-        '&:hover': {
-          background: '#f0f0f0',
-          color: '#767e8b',
+        // 保持预览头部操作按钮的图标颜色一致
+        [`.ant-btn, .ant-btn .anticon`]: {
+          color: '#767E8B',
         },
-
-        svg: {
-          fontSize: '13px',
+        [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]: {
+          color: '#767E8B',
         },
       },
 

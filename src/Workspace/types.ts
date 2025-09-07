@@ -316,6 +316,8 @@ export interface FileNode extends BaseNode {
   metadata?: Record<string, unknown>;
   canPreview?: boolean; // 用户自定义是否可以预览
   canDownload?: boolean; // 用户自定义是否可以下载（默认显示，设置为 false 隐藏）
+  /** 用户自定义是否可以分享（默认隐藏，设置为 true 显示） */
+  canShare?: boolean;
 }
 
 // 分组节点
@@ -355,6 +357,15 @@ export interface FileProps extends BaseChildProps {
    * @description 返回 false 可阻止组件默认的返回列表行为
    */
   onBack?: (file: FileNode) => void | boolean | Promise<void | boolean>;
+  /**
+   * 分享回调（文件列表与预览页均会调用）
+   * @param file 当前文件
+   * @param ctx  上下文，包含 anchorEl（分享按钮元素）与来源
+   */
+  onShare?: (
+    file: FileNode,
+    ctx?: { anchorEl?: HTMLElement; origin: 'list' | 'preview' },
+  ) => void;
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置

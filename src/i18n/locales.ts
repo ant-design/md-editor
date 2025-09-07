@@ -187,7 +187,9 @@ export const cnLabels = {
   'workspace.file.unknownFileType': '未知的文件类型',
   'workspace.file.generationTime': '生成时间：',
   'workspace.file.backToFileList': '返回文件列表',
-  'workspace.file.downloadFile': '下载文件',
+  'workspace.file.download': '下载',
+  'workspace.file.share': '分享',
+  'workspace.file.preview': '预览',
   // MarkdownInputField 组件相关
   'markdownInput.fileSizeExceeded': '文件大小超过 ${maxSize} KB',
   // 文档信息相关
@@ -259,9 +261,6 @@ export const cnLabels = {
   'workspace.title': '工作空间',
   'workspace.searchPlaceholder': '搜索文件名',
   'workspace.noResultsFor': '未找到与「${keyword}」匹配的结果',
-  // 新增：文件 aria-label 模板
-  'workspace.file.previewFileLabel': '预览文件：${name}',
-  'workspace.file.downloadFileLabel': '下载文件：${name}',
   // 工具栏相关
   'toolbar.bold': '加粗',
   'toolbar.italic': '斜体',
@@ -477,7 +476,9 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.unknownFileType': 'Unknown file type',
   'workspace.file.generationTime': 'Generation Time: ',
   'workspace.file.backToFileList': 'Back to File List',
-  'workspace.file.downloadFile': 'Download File',
+  'workspace.file.download': 'Download',
+  'workspace.file.share': 'Share',
+  'workspace.file.preview': 'Preview',
   // MarkdownInputField component related
   'markdownInput.fileSizeExceeded': 'File size exceeds ${maxSize} KB',
   // Document info related
@@ -553,9 +554,6 @@ export const enLabels: typeof cnLabels = {
   'workspace.title': 'Workspace',
   'workspace.searchPlaceholder': 'Search file name',
   'workspace.noResultsFor': 'No results for "${keyword}"',
-  // New: file aria-label templates
-  'workspace.file.previewFileLabel': 'Preview file: ${name}',
-  'workspace.file.downloadFileLabel': 'Download file: ${name}',
   // Toolbar related
   'toolbar.bold': 'Bold',
   'toolbar.italic': 'Italic',
