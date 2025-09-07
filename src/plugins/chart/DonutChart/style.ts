@@ -12,29 +12,64 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gridTemplateColumns:
         'repeat(auto-fit, minmax(var(--donut-item-min-width, 200px), 1fr))',
 
+      '&-toolbar-wrapper': {
+        marginBottom: 8,
+        [`@media (max-width: 768px)`]: {
+          marginBottom: 6,
+        },
+      },
+
       '&-toolbar': {
         display: 'flex',
         justifyContent: 'space-between',
         marginBottom: 8,
+        [`@media (max-width: 768px)`]: {
+          flexDirection: 'column',
+          gap: 8,
+          marginBottom: 6,
+        },
+      },
+
+      '&-chart-wrapper': {
+        [`@media (max-width: 768px)`]: {
+          marginBottom: 12,
+        },
       },
 
       '&-row': {
         display: 'flex',
         alignItems: 'center',
+        [`@media (max-width: 768px)`]: {
+          flexDirection: 'column',
+          alignItems: 'stretch',
+        },
       },
 
       '&-chart': {
         width: 'var(--donut-chart-width, 200px)',
         height: 'var(--donut-chart-height, 200px)',
+        [`@media (max-width: 768px)`]: {
+          alignSelf: 'center',
+          marginBottom: 8,
+        },
       },
 
       '&-single': {
         width: '100%',
         height: 'var(--donut-chart-height, 200px)',
+        [`@media (max-width: 768px)`]: {
+          height: 'var(--donut-chart-height, 180px)',
+        },
       },
 
       '&-legend': {
         marginLeft: 12,
+        [`@media (max-width: 768px)`]: {
+          marginLeft: 0,
+          marginTop: 8,
+          maxHeight: '120px',
+          overflowY: 'auto',
+        },
       },
 
       '&-legend-item': {
@@ -42,6 +77,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         fontSize: 12,
         marginBottom: 6,
+        padding: '6px 0',
+        [`@media (max-width: 768px)`]: {
+          fontSize: 11,
+          marginBottom: 4,
+          padding: '4px 0',
+          minHeight: '24px',
+        },
       },
 
       '&-legend-color': {
@@ -51,12 +93,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 4,
         background: 'var(--donut-legend-color, #ccc)',
         marginRight: 6,
+        flexShrink: 0,
+        [`@media (max-width: 768px)`]: {
+          width: 10,
+          height: 10,
+          borderRadius: 4,
+          marginRight: 4,
+        },
       },
 
       '&-legend-label': {
         flex: 1,
         color: '#767E8B',
         fontSize: 13,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        [`@media (max-width: 768px)`]: {
+          fontSize: 11,
+          flex: '0 1 auto',
+          minWidth: '60px',
+        },
       },
 
       '&-legend-value': {
@@ -64,10 +121,35 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 13,
         fontWeight: 500,
         marginLeft: 15,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        [`@media (max-width: 768px)`]: {
+          fontSize: 11,
+          fontWeight: 400,
+          marginLeft: 8,
+        },
       },
 
       '&-legend-percent': {
         marginLeft: 8,
+        fontSize: 12,
+        color: '#343A45',
+        [`@media (max-width: 768px)`]: {
+          marginLeft: 0,
+          fontSize: 10,
+          marginTop: 1,
+        },
+      },
+
+      // 响应式网格调整
+      [`@media (max-width: 768px)`]: {
+        gap: 12,
+        gridTemplateColumns: '1fr',
+      },
+
+      [`@media (max-width: 480px)`]: {
+        gap: 8,
       },
     },
   };
@@ -82,4 +164,4 @@ export function useStyle(prefixCls?: string) {
 
     return [genStyle(donutToken)];
   });
-} 
+}
