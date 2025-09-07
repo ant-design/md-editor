@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bubble } from '../../../src/Bubble';
 import { MessageBubbleData } from '../../../src/Bubble/type';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 const AfterContentBeforeContentDemo: React.FC = () => {
   const mockMessageData: MessageBubbleData = {
@@ -81,35 +82,11 @@ console.log('Hello, World!');
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h2>afterContent 和 beforeContent 渲染演示</h2>
-      <p>
-        这个演示展示了如何使用 <code>afterContentRender</code> 和{' '}
-        <code>beforeContentRender</code> 在消息内容的前后添加自定义内容。
-      </p>
-
-      <div style={{ marginTop: '20px' }}>
-        <Bubble
-          originData={mockMessageData}
-          bubbleRenderConfig={{
-            beforeMessageRender: customBeforeContentRender,
-            afterMessageRender: customAfterContentRender,
-          }}
-        />
-      </div>
-
-      <div style={{ marginTop: '40px' }}>
-        <h3>代码示例</h3>
-        <pre
-          style={{
-            background: '#f6f8fa',
-            padding: '16px',
-            borderRadius: '6px',
-            overflow: 'auto',
-            fontSize: '13px',
-          }}
-        >
-          {`// 自定义 beforeContent 渲染函数
+    <BubbleDemoCard
+      title="📝 afterContent 和 beforeContent 渲染演示"
+      description="这个演示展示了如何使用 afterContentRender 和 beforeContentRender 在消息内容的前后添加自定义内容"
+      showCodeExample={true}
+      codeExample={`// 自定义 beforeContent 渲染函数
 const customBeforeContentRender = (props) => {
   const messageData = props.originData;
   return (
@@ -151,31 +128,45 @@ const customAfterContentRender = (props) => {
     afterContentRender: customAfterContentRender,
   }}
 />`}
-        </pre>
+    >
+      <div style={{ padding: 24 }}>
+        <Bubble
+          originData={mockMessageData}
+          bubbleRenderConfig={{
+            beforeMessageRender: customBeforeContentRender,
+            afterMessageRender: customAfterContentRender,
+          }}
+        />
       </div>
 
-      <div style={{ marginTop: '20px' }}>
-        <h3>功能说明</h3>
-        <ul>
+      <div
+        style={{
+          padding: 16,
+          background: '#e6f7ff',
+          borderRadius: 8,
+          fontSize: 14,
+        }}
+      >
+        <strong>📖 功能说明：</strong>
+        <ul style={{ margin: '8px 0 0 0', paddingLeft: 20 }}>
           <li>
-            <strong>beforeContentRender</strong>: 在消息内容前面添加自定义内容
+            <strong>beforeContentRender:</strong> 在消息内容前面添加自定义内容
           </li>
           <li>
-            <strong>afterContentRender</strong>: 在消息内容后面添加自定义内容
+            <strong>afterContentRender:</strong> 在消息内容后面添加自定义内容
           </li>
           <li>
-            <strong>参数</strong>: 两个函数都接收 <code>props</code> 和{' '}
-            <code>defaultDom</code> 参数
+            <strong>参数:</strong> 两个函数都接收 props 和 defaultDom 参数
           </li>
           <li>
-            <strong>返回值</strong>: 可以返回任何有效的 React 节点
+            <strong>返回值:</strong> 可以返回任何有效的 React 节点
           </li>
           <li>
-            <strong>禁用</strong>: 设置为 <code>false</code> 可以禁用对应的渲染
+            <strong>禁用:</strong> 设置为 false 可以禁用对应的渲染
           </li>
         </ul>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };
 

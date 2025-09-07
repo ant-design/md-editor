@@ -3,6 +3,7 @@ import type { BubbleProps, MessageBubbleData } from '@ant-design/md-editor';
 import { Bubble } from '@ant-design/md-editor';
 import { Avatar, Badge, Button, Space, Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 export default () => {
   const bubbleRef = useRef<any>();
@@ -422,14 +423,12 @@ const handleClick = useCallback(() => {
   };
 
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: 24 }}>
+    <BubbleDemoCard
+      title="🎨 avatarRender 自定义头像渲染"
+      description="展示如何使用 avatarRender 自定义消息气泡的头像区域"
+    >
       {/* 控制面板 */}
-      <div style={{ marginBottom: 24 }}>
-        <h3>🎨 avatarRender 自定义头像渲染</h3>
-        <p style={{ marginBottom: 16, color: '#666' }}>
-          展示如何使用 avatarRender 自定义消息气泡的头像区域
-        </p>
-
+      <div style={{ padding: 24, paddingBottom: 16 }}>
         <div style={{ marginBottom: 16 }}>
           <span style={{ marginRight: 12, fontWeight: 500 }}>头像样式：</span>
           <Space>
@@ -497,32 +496,40 @@ const handleClick = useCallback(() => {
       {/* 功能说明 */}
       <div
         style={{
-          marginTop: 32,
           padding: 16,
-          background: '#f8f9fa',
+          background: '#e6f7ff',
           borderRadius: 8,
+          fontSize: 14,
         }}
       >
-        <h4>🔧 avatarRender API 说明</h4>
-        <div style={{ marginBottom: 16 }}>
-          <h5>函数签名：</h5>
-          <pre style={{ background: '#f5f5f5', padding: 12, borderRadius: 4 }}>
+        <strong>🔧 avatarRender API 说明：</strong>
+        <div style={{ marginTop: 8 }}>
+          <strong>函数签名：</strong>
+          <pre
+            style={{
+              background: '#f5f5f5',
+              padding: 8,
+              borderRadius: 4,
+              fontSize: 12,
+              margin: '4px 0',
+            }}
+          >
             {`avatarRender: (props: BubbleProps) => React.ReactNode`}
           </pre>
         </div>
 
-        <div style={{ marginBottom: 16 }}>
-          <h5>参数说明：</h5>
-          <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.8 }}>
+        <div style={{ marginTop: 8 }}>
+          <strong>参数说明：</strong>
+          <ul style={{ margin: '4px 0 0 0', paddingLeft: 20, lineHeight: 1.6 }}>
             <li>
-              <strong>props</strong>: 包含 originData 等消息数据的属性对象
+              <strong>props:</strong> 包含 originData 等消息数据的属性对象
             </li>
           </ul>
         </div>
 
-        <div>
-          <h5>使用场景：</h5>
-          <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.8 }}>
+        <div style={{ marginTop: 8 }}>
+          <strong>使用场景：</strong>
+          <ul style={{ margin: '4px 0 0 0', paddingLeft: 20, lineHeight: 1.6 }}>
             <li>显示用户在线/离线状态</li>
             <li>区分用户和AI助手的角色</li>
             <li>显示用户等级和权限标识</li>
@@ -532,6 +539,6 @@ const handleClick = useCallback(() => {
           </ul>
         </div>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };

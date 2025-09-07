@@ -6,311 +6,307 @@
       test
     </div>
     <div
-      style="max-width: 800px; margin: 0px auto; padding: 24px;"
+      style="border-radius: 20px; background: rgb(253, 254, 254); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2), 0px 1.5px 4px -1px rgba(0, 19, 41, 0.04); width: 830px; display: flex; flex-direction: column; justify-content: space-between; padding: 0px; z-index: 0; margin: 24px auto;"
     >
       <div
-        style="margin-bottom: 24px; padding: 16px; background: rgb(248, 249, 250); border-radius: 8px;"
+        style="padding: 16px; display: flex; flex-direction: row; align-items: center; box-sizing: border-box; border-width: 0px 0px 1px 0px; border-style: solid; border-color: rgba(0, 16, 32, 0.063);"
       >
-        <h3>
-          ⚙️ BubbleList 配置选项
-        </h3>
-        <div
-          style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
+        <span
+          style="font-size: 13px; color: rgba(0, 0, 0, 0.45);"
         >
-          <div>
-            <label
-              style="display: block; margin-bottom: 4px;"
-            >
-              加载状态:
-            </label>
-            <button
-              aria-checked="false"
-              class="ant-switch"
-              role="switch"
-              type="button"
-            >
-              <div
-                class="ant-switch-handle"
-              />
-              <span
-                class="ant-switch-inner"
+          ⚙️ BubbleList 配置选项
+        </span>
+        <div
+          style="font-size: 12px; color: rgba(0, 0, 0, 0.45);"
+        >
+          展示 BubbleList 组件的各种配置选项和功能
+        </div>
+      </div>
+      <div>
+        <div
+          style="padding: 24px 24px 16px 24px;"
+        >
+          <div
+            style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
+          >
+            <div>
+              <label
+                style="display: block; margin-bottom: 4px;"
               >
-                <span
-                  class="ant-switch-inner-checked"
-                >
-                  加载中
-                </span>
-                <span
-                  class="ant-switch-inner-unchecked"
-                >
-                  正常
-                </span>
-              </span>
-            </button>
-          </div>
-          <div>
-            <label
-              style="display: block; margin-bottom: 4px;"
-            >
-              只读模式:
-            </label>
-            <button
-              aria-checked="false"
-              class="ant-switch"
-              role="switch"
-              type="button"
-            >
-              <div
-                class="ant-switch-handle"
-              />
-              <span
-                class="ant-switch-inner"
-              >
-                <span
-                  class="ant-switch-inner-checked"
-                >
-                  只读
-                </span>
-                <span
-                  class="ant-switch-inner-unchecked"
-                >
-                  交互
-                </span>
-              </span>
-            </button>
-          </div>
-          <div>
-            <label
-              style="display: block; margin-bottom: 4px;"
-            >
-              列表高度:
-            </label>
-            <div
-              class="ant-input-number-group-wrapper ant-input-number-group-wrapper-outlined"
-              style="width: 120px;"
-            >
-              <div
-                class="ant-input-number-wrapper ant-input-number-group"
+                加载状态:
+              </label>
+              <button
+                aria-checked="false"
+                class="ant-switch"
+                role="switch"
+                type="button"
               >
                 <div
-                  class="ant-input-number ant-input-number-outlined"
+                  class="ant-switch-handle"
+                />
+                <span
+                  class="ant-switch-inner"
                 >
-                  <div
-                    class="ant-input-number-handler-wrap"
+                  <span
+                    class="ant-switch-inner-checked"
                   >
-                    <span
-                      aria-disabled="false"
-                      aria-label="Increase Value"
-                      class="ant-input-number-handler ant-input-number-handler-up"
-                      role="button"
-                      unselectable="on"
-                    >
-                      <span
-                        aria-label="up"
-                        class="anticon anticon-up ant-input-number-handler-up-inner"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="up"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-disabled="false"
-                      aria-label="Decrease Value"
-                      class="ant-input-number-handler ant-input-number-handler-down"
-                      role="button"
-                      unselectable="on"
-                    >
-                      <span
-                        aria-label="down"
-                        class="anticon anticon-down ant-input-number-handler-down-inner"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="down"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-                  <div
-                    class="ant-input-number-input-wrap"
+                    加载中
+                  </span>
+                  <span
+                    class="ant-switch-inner-unchecked"
                   >
-                    <input
-                      aria-valuemax="600"
-                      aria-valuemin="200"
-                      aria-valuenow="400"
-                      autocomplete="off"
-                      class="ant-input-number-input"
-                      role="spinbutton"
-                      step="1"
-                      value="400"
-                    />
-                  </div>
-                </div>
+                    正常
+                  </span>
+                </span>
+              </button>
+            </div>
+            <div>
+              <label
+                style="display: block; margin-bottom: 4px;"
+              >
+                只读模式:
+              </label>
+              <button
+                aria-checked="false"
+                class="ant-switch"
+                role="switch"
+                type="button"
+              >
                 <div
-                  class="ant-input-number-group-addon"
+                  class="ant-switch-handle"
+                />
+                <span
+                  class="ant-switch-inner"
                 >
-                  px
+                  <span
+                    class="ant-switch-inner-checked"
+                  >
+                    只读
+                  </span>
+                  <span
+                    class="ant-switch-inner-unchecked"
+                  >
+                    交互
+                  </span>
+                </span>
+              </button>
+            </div>
+            <div>
+              <label
+                style="display: block; margin-bottom: 4px;"
+              >
+                列表高度:
+              </label>
+              <div
+                class="ant-input-number-group-wrapper ant-input-number-group-wrapper-outlined"
+                style="width: 120px;"
+              >
+                <div
+                  class="ant-input-number-wrapper ant-input-number-group"
+                >
+                  <div
+                    class="ant-input-number ant-input-number-outlined"
+                  >
+                    <div
+                      class="ant-input-number-handler-wrap"
+                    >
+                      <span
+                        aria-disabled="false"
+                        aria-label="Increase Value"
+                        class="ant-input-number-handler ant-input-number-handler-up"
+                        role="button"
+                        unselectable="on"
+                      >
+                        <span
+                          aria-label="up"
+                          class="anticon anticon-up ant-input-number-handler-up-inner"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="up"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <span
+                        aria-disabled="false"
+                        aria-label="Decrease Value"
+                        class="ant-input-number-handler ant-input-number-handler-down"
+                        role="button"
+                        unselectable="on"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down ant-input-number-handler-down-inner"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-input-number-input-wrap"
+                    >
+                      <input
+                        aria-valuemax="600"
+                        aria-valuemin="200"
+                        aria-valuenow="400"
+                        autocomplete="off"
+                        class="ant-input-number-input"
+                        role="spinbutton"
+                        step="1"
+                        value="400"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="ant-input-number-group-addon"
+                  >
+                    px
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        style="border: 1px solid rgb(233, 236, 239); border-radius: 8px; overflow: hidden;"
-      >
         <div
-          class="ant-agent-bubble-list"
-          data-chat-list="3"
-          style="height: 400px; overflow: auto;"
+          style="border: 1px solid rgb(233, 236, 239); border-radius: 8px; overflow: hidden;"
         >
-          <div>
+          <div
+            class="ant-agent-bubble-list"
+            data-chat-list="3"
+            style="height: 400px; overflow: auto;"
+          >
             <div
-              class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+              class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
               data-id="1"
               id="1"
               style="gap: 12px;"
             >
               <div
-                animate="visible"
-                class="ant-agent-list-bubble-container"
-                initial="hidden"
-                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-                variants="[object Object]"
-                whileinview="visible"
+                class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
+                data-testid="chat-message"
+                style="display: flex; gap: 4px; flex-direction: column;"
               >
                 <div
-                  animate="visible"
-                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
-                  data-testid="chat-message"
-                  initial="hidden"
-                  style="display: flex; gap: 4px; flex-direction: column;"
-                  variants="[object Object]"
-                  whileinview="visible"
+                  class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
+                  data-testid="message-before"
+                />
+                <div
+                  class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
+                  data-testid="message-content"
+                  style="min-width: 0px;"
                 >
                   <div
-                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-                    data-testid="message-before"
-                    variants="[object Object]"
-                  />
-                  <div
-                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
-                    data-testid="message-content"
-                    style="min-width: 0px;"
-                    variants="[object Object]"
+                    style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
                   >
                     <div
-                      style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                      class="ant-md-editor markdown-editor ant-md-editor-readonly"
+                      style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                     >
                       <div
-                        class="ant-md-editor markdown-editor ant-md-editor-readonly"
-                        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                        style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                        tabindex="-1"
                       >
                         <div
-                          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
-                          tabindex="-1"
+                          autocapitalize="false"
+                          autocorrect="false"
+                          class="ant-md-editor-content ant-md-editor-content-readonly"
+                          data-slate-editor="true"
+                          data-slate-node="value"
+                          spellcheck="false"
+                          style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                          zindex="-1"
                         >
                           <div
-                            autocapitalize="false"
-                            autocorrect="false"
-                            class="ant-md-editor-content ant-md-editor-content-readonly"
-                            data-slate-editor="true"
-                            data-slate-node="value"
-                            spellcheck="false"
-                            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                            zindex="-1"
+                            class="ant-md-editor-drag-el"
+                            data-be="paragraph"
+                            data-slate-node="element"
                           >
-                            <div
-                              class="ant-md-editor-drag-el"
-                              data-be="paragraph"
-                              data-slate-node="element"
+                            <span
+                              data-slate-node="text"
                             >
                               <span
-                                data-slate-node="text"
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
                               >
                                 <span
-                                  data-be="text"
-                                  data-slate-leaf="true"
-                                  draggable="false"
+                                  data-slate-string="true"
                                 >
-                                  <span
-                                    data-slate-string="true"
-                                  >
-                                    这是第一条助手消息
-                                  </span>
+                                  这是第一条助手消息
                                 </span>
                               </span>
-                            </div>
+                            </span>
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <div
+                      class="ant-chat-item-extra"
+                      style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                    >
                       <div
-                        class="ant-chat-item-extra"
-                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                        style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
+                      />
+                      <div
+                        animate="visible"
+                        class="ant-chat-item-extra-action-box"
+                        initial="hidden"
+                        style="display: flex; gap: 8px; align-items: center;"
+                        variants="[object Object]"
+                        whileinview="visible"
                       >
-                        <div
-                          style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
-                        />
-                        <div
-                          animate="visible"
-                          class="ant-chat-item-extra-action-box"
-                          initial="hidden"
-                          style="display: flex; gap: 8px; align-items: center;"
-                          variants="[object Object]"
-                          whileinview="visible"
+                        <span
+                          aria-describedby="test-id"
+                          aria-label="复制"
+                          class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                          data-testid="chat-item-copy-button"
+                          role="button"
+                          style="color: var(--color-icon-secondary);"
+                          tabindex="0"
                         >
                           <span
-                            aria-describedby="test-id"
-                            aria-label="复制"
-                            class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                            data-testid="chat-item-copy-button"
-                            role="button"
-                            style="color: var(--color-icon-secondary);"
-                            tabindex="0"
+                            aria-label="copy"
+                            class="anticon anticon-copy"
+                            role="img"
                           >
-                            <span
-                              aria-label="copy"
-                              class="anticon anticon-copy"
-                              role="img"
+                            <svg
+                              aria-hidden="true"
+                              data-icon="copy"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
                             >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="copy"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                />
-                              </svg>
-                            </span>
+                              <path
+                                d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                              />
+                            </svg>
                           </span>
-                        </div>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -318,204 +314,25 @@
               </div>
             </div>
             <div
-              class="ant-agent-list ant-agent-list-right ant-flex ant-flex-align-stretch ant-flex-vertical"
+              class="ant-agent-list-bubble ant-agent-list-bubble-right ant-flex ant-flex-align-stretch ant-flex-vertical"
               data-id="2"
               id="2"
               style="gap: 12px;"
             >
               <div
-                animate="visible"
-                class="ant-agent-list-bubble-container"
-                initial="hidden"
-                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-                variants="[object Object]"
-                whileinview="visible"
+                class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-right"
+                data-testid="chat-message"
+                style="display: flex; gap: 4px; flex-direction: column;"
               >
                 <div
-                  animate="visible"
-                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-right"
-                  data-testid="chat-message"
-                  initial="hidden"
-                  style="display: flex; gap: 4px; flex-direction: column;"
-                  variants="[object Object]"
-                  whileinview="visible"
+                  class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-right"
+                  data-testid="message-content"
+                  style="min-width: 0px;"
                 >
                   <div
-                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-right"
-                    data-testid="message-before"
-                    variants="[object Object]"
-                  />
-                  <div
-                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-right"
+                    class="agent-item-default-content"
                     data-testid="message-content"
-                    style="min-width: 0px;"
-                    variants="[object Object]"
-                  >
-                    <div
-                      class="agent-item-default-content"
-                      data-testid="message-content"
-                      style="line-height: 24px;"
-                    >
-                      <div
-                        style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
-                      >
-                        <div
-                          class="ant-md-editor markdown-editor ant-md-editor-readonly"
-                          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
-                        >
-                          <div
-                            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(52, 58, 69);"
-                            tabindex="-1"
-                          >
-                            <div
-                              autocapitalize="false"
-                              autocorrect="false"
-                              class="ant-md-editor-content ant-md-editor-content-readonly"
-                              data-slate-editor="true"
-                              data-slate-node="value"
-                              spellcheck="false"
-                              style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                              zindex="-1"
-                            >
-                              <div
-                                class="ant-md-editor-drag-el"
-                                data-be="paragraph"
-                                data-slate-node="element"
-                              >
-                                <span
-                                  data-slate-node="text"
-                                >
-                                  <span
-                                    data-be="text"
-                                    data-slate-leaf="true"
-                                    draggable="false"
-                                  >
-                                    <span
-                                      data-slate-string="true"
-                                    >
-                                      这是用户消息
-                                    </span>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="ant-chat-item-extra"
-                          style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
-                        >
-                          <div
-                            style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
-                          />
-                          <div
-                            animate="visible"
-                            class="ant-chat-item-extra-action-box"
-                            initial="hidden"
-                            style="display: flex; gap: 8px; align-items: center;"
-                            variants="[object Object]"
-                            whileinview="visible"
-                          >
-                            <span
-                              aria-describedby="test-id"
-                              aria-label="复制"
-                              class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                              data-testid="chat-item-copy-button"
-                              role="button"
-                              style="color: var(--color-icon-secondary);"
-                              tabindex="0"
-                            >
-                              <span
-                                aria-label="copy"
-                                class="anticon anticon-copy"
-                                role="img"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  data-icon="copy"
-                                  fill="currentColor"
-                                  focusable="false"
-                                  height="1em"
-                                  viewBox="64 64 896 896"
-                                  width="1em"
-                                >
-                                  <path
-                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-              data-id="3"
-              id="3"
-              style="gap: 12px;"
-            >
-              <div
-                animate="visible"
-                class="ant-agent-list-bubble-container"
-                initial="hidden"
-                style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-                variants="[object Object]"
-                whileinview="visible"
-              >
-                <div
-                  class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
-                >
-                  <span
-                    class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
-                    data-testid="bubble-avatar"
-                    style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
-                  >
-                    <img
-                      alt="avatar"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-                    />
-                  </span>
-                  <span>
-                    Agentar
-                  </span>
-                  <div
-                    class="ant-agent-list-bubble-title ant-flex"
-                    data-testid="bubble-title"
-                    style="flex-direction: row; gap: 8px;"
-                  >
-                    AI助手
-                    <time
-                      class="ant-agent-list-bubble-title-time"
-                      data-testid="bubble-time"
-                    >
-                      2024-02-27 17:20:00
-                    </time>
-                  </div>
-                </div>
-                <div
-                  animate="visible"
-                  class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
-                  data-testid="chat-message"
-                  initial="hidden"
-                  style="display: flex; gap: 4px; flex-direction: column;"
-                  variants="[object Object]"
-                  whileinview="visible"
-                >
-                  <div
-                    class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-                    data-testid="message-before"
-                    variants="[object Object]"
-                  />
-                  <div
-                    class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
-                    data-testid="message-content"
-                    style="min-width: 0px;"
-                    variants="[object Object]"
+                    style="line-height: 24px;"
                   >
                     <div
                       style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -525,7 +342,7 @@
                         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                       >
                         <div
-                          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(52, 58, 69);"
                           tabindex="-1"
                         >
                           <div
@@ -554,7 +371,7 @@
                                   <span
                                     data-slate-string="true"
                                   >
-                                    这是第二条助手消息
+                                    这是用户消息
                                   </span>
                                 </span>
                               </span>
@@ -607,6 +424,151 @@
                             </span>
                           </span>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+              data-id="3"
+              id="3"
+              style="gap: 12px;"
+            >
+              <div
+                class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
+              >
+                <span
+                  class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-bubble-avatar"
+                  data-testid="bubble-avatar"
+                  style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+                >
+                  <img
+                    alt="avatar"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                  />
+                </span>
+                <span>
+                  Agentar
+                </span>
+                <div
+                  class="ant-agent-list-bubble-bubble-title ant-flex"
+                  data-testid="bubble-title"
+                  style="flex-direction: row; gap: 8px;"
+                >
+                  AI助手
+                  <time
+                    class="ant-agent-list-bubble-bubble-title-time"
+                    data-testid="bubble-time"
+                  >
+                    2024-02-27 17:20:00
+                  </time>
+                </div>
+              </div>
+              <div
+                class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
+                data-testid="chat-message"
+                style="display: flex; gap: 4px; flex-direction: column;"
+              >
+                <div
+                  class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
+                  data-testid="message-before"
+                />
+                <div
+                  class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
+                  data-testid="message-content"
+                  style="min-width: 0px;"
+                >
+                  <div
+                    style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                  >
+                    <div
+                      class="ant-md-editor markdown-editor ant-md-editor-readonly"
+                      style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                    >
+                      <div
+                        style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                        tabindex="-1"
+                      >
+                        <div
+                          autocapitalize="false"
+                          autocorrect="false"
+                          class="ant-md-editor-content ant-md-editor-content-readonly"
+                          data-slate-editor="true"
+                          data-slate-node="value"
+                          spellcheck="false"
+                          style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                          zindex="-1"
+                        >
+                          <div
+                            class="ant-md-editor-drag-el"
+                            data-be="paragraph"
+                            data-slate-node="element"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  这是第二条助手消息
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ant-chat-item-extra"
+                      style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                    >
+                      <div
+                        style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
+                      />
+                      <div
+                        animate="visible"
+                        class="ant-chat-item-extra-action-box"
+                        initial="hidden"
+                        style="display: flex; gap: 8px; align-items: center;"
+                        variants="[object Object]"
+                        whileinview="visible"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          aria-label="复制"
+                          class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                          data-testid="chat-item-copy-button"
+                          role="button"
+                          style="color: var(--color-icon-secondary);"
+                          tabindex="0"
+                        >
+                          <span
+                            aria-label="copy"
+                            class="anticon anticon-copy"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="copy"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -615,35 +577,35 @@
             </div>
           </div>
         </div>
-      </div>
-      <div
-        style="margin-top: 16px; padding: 12px; background: rgb(230, 247, 255); border-radius: 6px; font-size: 14px;"
-      >
-        <strong>
-          📖 配置说明：
-        </strong>
-        <ul
-          style="margin: 8px 0px 0px 0px; padding-left: 20px;"
+        <div
+          style="padding: 16px; background: rgb(230, 247, 255); border-radius: 8px; font-size: 14px;"
         >
-          <li>
-            <strong>
-              loading:
-            </strong>
-             控制是否显示加载状态
-          </li>
-          <li>
-            <strong>
-              readonly:
-            </strong>
-             控制是否启用只读模式
-          </li>
-          <li>
-            <strong>
-              style:
-            </strong>
-             自定义列表容器样式
-          </li>
-        </ul>
+          <strong>
+            📖 配置说明：
+          </strong>
+          <ul
+            style="margin: 8px 0px 0px 0px; padding-left: 20px;"
+          >
+            <li>
+              <strong>
+                loading:
+              </strong>
+               控制是否显示加载状态
+            </li>
+            <li>
+              <strong>
+                readonly:
+              </strong>
+               控制是否启用只读模式
+            </li>
+            <li>
+              <strong>
+                style:
+              </strong>
+               自定义列表容器样式
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
