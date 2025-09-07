@@ -5,6 +5,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     // 文件组件样式
     [`${token.componentCls}-container`]: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
       // 分组展示模式
       [`&--group`]: {
         [`${token.componentCls}-group`]: {
@@ -195,6 +198,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: '#f8f9fa',
         },
       },
+    },
+
+    // 空状态
+    [`${token.componentCls}-empty`]: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      padding: 24,
+      minHeight: 200,
+      flex: 1,
+      // 让空状态在有搜索栏等头部时也能占据剩余空间
     },
 
     // 预览组件样式

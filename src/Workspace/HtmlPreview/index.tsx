@@ -199,7 +199,9 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
         {overlayNode}
         {shouldShowEmpty ? (
           <div className={classNames(`${prefixCls}-empty`, hashId)}>
-            {emptyNode || <Empty />}
+            {emptyNode || (
+              <Empty description={locale?.['workspace.empty'] || 'No data'} />
+            )}
           </div>
         ) : mode === 'code' ? (
           <MarkdownEditor

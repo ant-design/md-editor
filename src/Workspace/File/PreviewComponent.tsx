@@ -556,8 +556,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               <Segmented
                 size="small"
                 options={[
-                  { label: '预览', value: 'preview' },
-                  { label: '代码', value: 'code' },
+                  { label: locale?.['htmlPreview.preview'] || '预览', value: 'preview' },
+                  { label: locale?.['htmlPreview.code'] || '代码', value: 'code' },
                 ]}
                 value={htmlViewMode}
                 onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}

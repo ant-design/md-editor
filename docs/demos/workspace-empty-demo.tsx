@@ -1,11 +1,14 @@
-import { Workspace } from '@ant-design/md-editor';
+import { I18nContext, Workspace } from '@ant-design/md-editor';
 import { Empty } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 const WorkspaceRealtimeEmptyDemo: React.FC = () => {
   const [htmlContent] = useState('');
   const [mdContent] = useState('');
   const [shellContent] = useState('');
+  const { setLanguage } = useContext(I18nContext);
+  // 触发时
+  setLanguage?.('zh-CN');
 
   return (
     <div style={{ height: 520, width: '100%' }}>
@@ -50,13 +53,13 @@ const WorkspaceRealtimeEmptyDemo: React.FC = () => {
           }}
         />
         <Workspace.File
-          tab={{ key: 'shell-file-empty', title: '文件列表空态' }}
+          tab={{ key: 'shell-file-empty', title: '文件空态' }}
           nodes={[]}
         />
         <Workspace.File
           tab={{
             key: 'shell-file-empty-custom',
-            title: '文件列表空态（自定义）',
+            title: '文件空态（自定义）',
           }}
           nodes={[]}
           emptyRender={() => (

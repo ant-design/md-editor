@@ -253,6 +253,15 @@ export const cnLabels = {
   'workspace.textContentLoadFailed': '加载文本内容失败',
   'workspace.fileProcessError': '文件处理失败',
   'workspace.download': '下载',
+  // 新增：默认空态文案
+  'workspace.empty': '暂无数据',
+  // 新增：Workspace 标题与搜索相关
+  'workspace.title': '工作空间',
+  'workspace.searchPlaceholder': '搜索文件名',
+  'workspace.noResultsFor': '未找到与「${keyword}」匹配的结果',
+  // 新增：文件 aria-label 模板
+  'workspace.file.previewFileLabel': '预览文件：${name}',
+  'workspace.file.downloadFileLabel': '下载文件：${name}',
   // 工具栏相关
   'toolbar.bold': '加粗',
   'toolbar.italic': '斜体',
@@ -538,6 +547,15 @@ export const enLabels: typeof cnLabels = {
   'workspace.textContentLoadFailed': 'Failed to load text content',
   'workspace.fileProcessError': 'File processing failed',
   'workspace.download': 'Download',
+  // New: default empty text
+  'workspace.empty': 'No data',
+  // New: Workspace title & search
+  'workspace.title': 'Workspace',
+  'workspace.searchPlaceholder': 'Search file name',
+  'workspace.noResultsFor': 'No results for "${keyword}"',
+  // New: file aria-label templates
+  'workspace.file.previewFileLabel': 'Preview file: ${name}',
+  'workspace.file.downloadFileLabel': 'Download file: ${name}',
   // Toolbar related
   'toolbar.bold': 'Bold',
   'toolbar.italic': 'Italic',
