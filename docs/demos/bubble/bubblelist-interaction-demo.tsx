@@ -5,6 +5,7 @@ import {
 } from '@ant-design/md-editor';
 import { message } from 'antd';
 import React, { useCallback, useRef, useState } from 'react';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 // 创建模拟消息
 const createMockMessage = (
@@ -80,61 +81,48 @@ export default () => {
 
   // 处理头像点击
   const handleAvatarClick = useCallback(() => {
-    message.info('点击了头像');
+    message.success(
+      '👤 点击了头像！可以在这里实现用户资料查看、切换用户等功能',
+    );
+    console.log('头像被点击了');
   }, []);
 
   // 处理双击
-  const handleDoubleClick = useCallback((bubble: MessageBubbleData) => {
-    message.info(`双击了消息: ${bubble.id}`);
+  const handleDoubleClick = useCallback(() => {
+    message.success('🖱️ 双击了消息！可以在这里实现消息编辑、复制等功能');
+    console.log('消息被双击了');
   }, []);
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
-      {/* 说明区域 */}
-      <div
-        style={{
-          marginBottom: 24,
-          padding: 16,
-          background: '#f8f9fa',
-          borderRadius: 8,
-        }}
-      >
-        <h3>🔧 BubbleList 交互功能</h3>
-        <div style={{ fontSize: 14, color: '#666' }}>
-          💡 点击消息下方的按钮体验各种交互功能，或双击消息查看双击事件
-        </div>
-      </div>
-
+    <BubbleDemoCard
+      title="🔧 BubbleList 交互功能演示"
+      description="💡 点击消息下方的按钮体验各种交互功能，或双击消息查看双击事件"
+    >
       {/* 消息列表 */}
-      <div
+      <BubbleList
+        bubbleList={bubbleList}
+        bubbleListRef={bubbleListRef}
+        bubbleRef={bubbleRef}
+        assistantMeta={assistantMeta}
+        userMeta={userMeta}
         style={{
-          border: '1px solid #e9ecef',
-          borderRadius: 8,
-          overflow: 'hidden',
+          height: 400,
+          overflow: 'auto',
+          borderRadius: '20px', // 与卡片容器保持一致
         }}
-      >
-        <BubbleList
-          bubbleList={bubbleList}
-          bubbleListRef={bubbleListRef}
-          bubbleRef={bubbleRef}
-          assistantMeta={assistantMeta}
-          userMeta={userMeta}
-          style={{ height: 400, overflow: 'auto' }}
-          onLike={handleLike}
-          onDisLike={handleDisLike}
-          onReply={handleReply}
-          onAvatarClick={handleAvatarClick}
-          onDoubleClick={handleDoubleClick}
-        />
-      </div>
+        onLike={handleLike}
+        onDisLike={handleDisLike}
+        onReply={handleReply}
+        onAvatarClick={handleAvatarClick}
+        onDoubleClick={handleDoubleClick}
+      />
 
       {/* 说明 */}
       <div
         style={{
-          marginTop: 16,
-          padding: 12,
+          padding: 16,
           background: '#e6f7ff',
-          borderRadius: 6,
+          borderRadius: 8,
           fontSize: 14,
         }}
       >
@@ -150,13 +138,13 @@ export default () => {
             <strong>onReply:</strong> 回复回调函数
           </li>
           <li>
-            <strong>onAvatarClick:</strong> 头像点击回调
+            <strong>onAvatarClick:</strong> 头像点击回调 - 点击头像触发
           </li>
           <li>
-            <strong>onDoubleClick:</strong> 双击回调函数
+            <strong>onDoubleClick:</strong> 双击回调函数 - 双击消息触发
           </li>
         </ul>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };

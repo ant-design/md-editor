@@ -9,171 +9,557 @@
       style="display: flex; flex-direction: column; gap: 16px;"
     >
       <div
-        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+        class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
         style="gap: 12px;"
       >
         <div
-          animate="visible"
-          class="ant-agent-list-bubble-container"
-          initial="hidden"
-          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-          variants="[object Object]"
-          whileinview="visible"
+          class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
+        >
+          <span
+            class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-bubble-avatar"
+            data-testid="bubble-avatar"
+            style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+          >
+            <img
+              alt="avatar"
+              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+            />
+          </span>
+          <span>
+            Agentar
+          </span>
+          <div
+            class="ant-agent-list-bubble-bubble-title ant-flex"
+            data-testid="bubble-title"
+            style="flex-direction: row; gap: 8px;"
+          >
+            Ant Design
+          </div>
+        </div>
+        <div
+          class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
+          data-testid="chat-message"
+          style="display: flex; gap: 4px; flex-direction: column;"
         >
           <div
-            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
-          >
-            <span
-              class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
-              data-testid="bubble-avatar"
-              style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
-            >
-              <img
-                alt="avatar"
-                src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-              />
-            </span>
-            <span>
-              Agentar
-            </span>
-            <div
-              class="ant-agent-list-bubble-title ant-flex"
-              data-testid="bubble-title"
-              style="flex-direction: row; gap: 8px;"
-            >
-              Ant Design
-            </div>
-          </div>
+            class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
+            data-testid="message-before"
+          />
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
-            data-testid="chat-message"
-            initial="hidden"
-            style="display: flex; gap: 4px; flex-direction: column;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
+            data-testid="message-content"
+            style="min-width: 0px;"
           >
             <div
-              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-              data-testid="message-before"
-              variants="[object Object]"
-            />
-            <div
-              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
-              data-testid="message-content"
-              style="min-width: 0px;"
-              variants="[object Object]"
+              style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
             >
               <div
-                style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                class="ant-md-editor markdown-editor ant-md-editor-readonly"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
               >
                 <div
-                  class="ant-md-editor markdown-editor ant-md-editor-readonly"
-                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                  style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  tabindex="-1"
                 >
                   <div
-                    style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
-                    tabindex="-1"
+                    autocapitalize="false"
+                    autocorrect="false"
+                    class="ant-md-editor-content ant-md-editor-content-readonly"
+                    data-slate-editor="true"
+                    data-slate-node="value"
+                    spellcheck="false"
+                    style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                    zindex="-1"
                   >
                     <div
-                      autocapitalize="false"
-                      autocorrect="false"
-                      class="ant-md-editor-content ant-md-editor-content-readonly"
-                      data-slate-editor="true"
-                      data-slate-node="value"
-                      spellcheck="false"
-                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                      zindex="-1"
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              这里是一些不同类型的文件：
-                            </span>
+                            这里是一些不同类型的文件：
                           </span>
                         </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div
+                class="ant-chat-item-extra"
+                style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+              >
                 <div
-                  class="ant-chat-item-extra"
-                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                  style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
+                />
+                <div
+                  animate="visible"
+                  class="ant-chat-item-extra-action-box"
+                  initial="hidden"
+                  style="display: flex; gap: 8px; align-items: center;"
+                  variants="[object Object]"
+                  whileinview="visible"
                 >
-                  <div
-                    style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
-                  />
-                  <div
-                    animate="visible"
-                    class="ant-chat-item-extra-action-box"
-                    initial="hidden"
-                    style="display: flex; gap: 8px; align-items: center;"
-                    variants="[object Object]"
-                    whileinview="visible"
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="复制"
+                    class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                    data-testid="chat-item-copy-button"
+                    role="button"
+                    style="color: var(--color-icon-secondary);"
+                    tabindex="0"
                   >
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                      data-testid="chat-item-copy-button"
-                      role="button"
-                      style="color: var(--color-icon-secondary);"
-                      tabindex="0"
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
                     >
-                      <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
                     </span>
-                  </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-agent-list-bubble-bubble-after ant-agent-list-bubble-bubble-after-left"
+            data-testid="message-after"
+            style="min-width: 0px;"
+          >
+            <div
+              class="ant-image ant-image-error"
+            >
+              <img
+                alt="Preview"
+                class="ant-image-img"
+                style="display: none;"
+              />
+              <div
+                class="ant-image-mask"
+                style="display: none;"
+              >
+                <div
+                  class="ant-image-mask-info"
+                >
+                  <span
+                    aria-label="eye"
+                    class="anticon anticon-eye"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="eye"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                      />
+                    </svg>
+                  </span>
+                  Preview
                 </div>
               </div>
             </div>
             <div
-              class="ant-agent-list-bubble-after ant-agent-list-bubble-after-left"
-              data-testid="message-after"
-              style="min-width: 0px;"
+              animate="visible"
+              class="ant-md-editor-file-view-list"
+              initial="hidden"
               variants="[object Object]"
+              whileinview="visible"
             >
               <div
-                class="ant-image ant-image-error"
+                aria-describedby="test-id"
+                class="ant-md-editor-file-view-list-item"
+                data-testid="file-item"
+                exit="[object Object]"
+                variants="[object Object]"
+              >
+                <div
+                  class="ant-md-editor-file-view-list-item-file-icon"
+                >
+                  <div
+                    style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 32px;"
+                  >
+                    <svg
+                      fill="none"
+                      height="1em"
+                      version="1.1"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <defs>
+                        <clippath
+                          id="master_svg0_2028_004716/2028_004337"
+                        >
+                          <rect
+                            height="1em"
+                            rx="0"
+                            width="1em"
+                            x="0"
+                            y="0"
+                          />
+                        </clippath>
+                      </defs>
+                      <g>
+                        <g>
+                          <g
+                            clip-path="url(#master_svg0_2028_004716/2028_004337)"
+                          >
+                            <g>
+                              <path
+                                d="M18.452465625000002,8.00201875Q18.531965624999998,8.08852875,18.574565624999998,8.197968750000001Q18.617165625,8.30741875,18.617165625,8.42486875L18.616265625,17.81191875Q18.616265625,18.672518750000002,18.050765625,19.28821875Q17.464265625,19.92691875,16.622965625,19.92691875L7.378905625,19.92671875Q6.537595625,19.92671875,5.950749625,19.288118750000002Q5.384765625,18.67221875,5.384765625,17.811518749999998L5.384765625,6.18944875Q5.384765625,5.32876875,5.950749625,4.71284475Q6.537595625,4.07421875,7.378905625,4.07421875L14.570315625,4.07421875Q14.701545625,4.07421875,14.821695625,4.12700235Q14.941845625,4.17978575,15.030615625,4.27643775L18.452465625000002,8.00201875ZM13.259765625,5.32421875L7.378905625,5.32421875Q7.086555625,5.32421875,6.871155625,5.5586287500000005Q6.634765625,5.8158787499999995,6.634765625,6.18944875L6.634765625,17.811518749999998Q6.634765625,18.18511875,6.871155625,18.44231875Q7.086565625,18.67671875,7.378905625,18.67671875L16.622965625,18.67691875Q16.915065625,18.67691875,17.130065625,18.44281875Q17.366265625,18.18561875,17.366265625,17.81191875L17.367065625000002,9.94282875L15.253055625,9.94282875Q14.411675625,9.94282875,13.825175625,9.30412875Q13.259765625,8.688398750000001,13.259765625,7.827768750000001L13.259765625,5.32421875ZM14.509765625,5.55723875L14.509765625,7.827768750000001Q14.509765625,8.201538750000001,14.745875625,8.458668750000001Q14.960905625,8.69282875,15.253055625,8.69282875L17.367165625,8.69282875L17.367165625,8.66824875L14.509765625,5.55723875Z"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                                style="fill: var(--color-icon-secondary);"
+                              />
+                            </g>
+                          </g>
+                          <g>
+                            <path
+                              d="M4.5,10.9384765625L4.5,16.9384765625C4.5,17.4907565625,4.947715,17.9384765625,5.5,17.9384765625L18.5,17.9384765625C19.052300000000002,17.9384765625,19.5,17.4907565625,19.5,16.9384765625L19.5,10.9384765625C19.5,10.3861915625,19.052300000000002,9.9384765625,18.5,9.9384765625L5.5,9.9384765625C4.947715,9.9384765625,4.5,10.3861915625,4.5,10.9384765625Z"
+                              fill="#DF7A00"
+                              fill-opacity="1"
+                            />
+                          </g>
+                          <g>
+                            <path
+                              d="M6.912353515625,11.93994140625L6.912353515625,15.93834140625L7.567553515625,15.93834140625L7.567553515625,14.40394140625L8.558753515625,14.40394140625C9.533153515625,14.40394140625,10.020353515625,13.98954140625,10.020353515625,13.16634140625C10.020353515625,12.34874140625,9.533153515625,11.93994140625,8.569953515625,11.93994140625L6.912353515625,11.93994140625ZM7.567553515625,12.49994140625L8.519553515625,12.49994140625C8.805153515625,12.49994140625,9.017953515624999,12.55034140625,9.152353515625,12.65674140625C9.286753515625,12.75754140625,9.359553515625,12.92554140625,9.359553515625,13.16634140625C9.359553515625,13.40714140625,9.292353515624999,13.58074140625,9.157953515625,13.68714140625C9.023553515625,13.78794140625,8.810753515625,13.84394140625,8.519553515625,13.84394140625L7.567553515625,13.84394140625L7.567553515625,12.49994140625ZM10.580353515625,11.93994140625L10.580353515625,15.93834140625L12.041953515625,15.93834140625C12.691553515625,15.93834140625,13.178753515625,15.75914140625,13.514753515625,15.400741406249999C13.833953515625,15.05914140625,13.996353515625,14.57194140625,13.996353515625,13.93914140625C13.996353515625,13.30074140625,13.833953515625,12.81354140625,13.514753515625,12.47754140625C13.178753515625,12.11914140625,12.691553515625,11.93994140625,12.041953515625,11.93994140625L10.580353515625,11.93994140625ZM11.235553515625,12.49994140625L11.918753515625,12.49994140625C12.417153515625,12.49994140625,12.781153515625,12.61194140625,13.010753515625,12.84154140625C13.234753515625,13.06554140625,13.346753515625,13.43514140625,13.346753515625,13.93914140625C13.346753515625,14.43194140625,13.234753515625,14.79594140625,13.010753515625,15.03114140625C12.781153515625,15.26074140625,12.417153515625,15.37834140625,11.918753515625,15.37834140625L11.235553515625,15.37834140625L11.235553515625,12.49994140625ZM14.612353515625,11.93994140625L14.612353515625,15.93834140625L15.267553515625,15.93834140625L15.267553515625,14.16874140625L17.221953515625,14.16874140625L17.221953515625,13.608741406250001L15.267553515625,13.608741406250001L15.267553515625,12.49994140625L17.339553515625,12.49994140625L17.339553515625,11.93994140625L14.612353515625,11.93994140625Z"
+                              fill="#FFFFFF"
+                              fill-opacity="1"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-file-view-list-item-file-info"
+                >
+                  <div
+                    class="ant-md-editor-file-view-list-item-file-name"
+                  >
+                    <span
+                      class="ant-md-editor-file-view-list-item-file-name-text"
+                    >
+                      document
+                    </span>
+                    <span
+                      class="ant-md-editor-file-view-list-item-file-name-extension"
+                    >
+                      .pdf
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-file-view-list-item-file-size"
+                  >
+                    1 MB
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-describedby="test-id"
+                class="ant-md-editor-file-view-list-item"
+                data-testid="file-item"
+                exit="[object Object]"
+                variants="[object Object]"
+              >
+                <div
+                  class="ant-md-editor-file-view-list-item-file-icon"
+                >
+                  <img
+                    src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+                    style="border-radius: 6px; width: 100%; height: 100%; object-fit: cover;"
+                  />
+                </div>
+                <div
+                  class="ant-md-editor-file-view-list-item-file-info"
+                >
+                  <div
+                    class="ant-md-editor-file-view-list-item-file-name"
+                  >
+                    <span
+                      class="ant-md-editor-file-view-list-item-file-name-text"
+                    >
+                      image
+                    </span>
+                    <span
+                      class="ant-md-editor-file-view-list-item-file-name-extension"
+                    >
+                      .png
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-file-view-list-item-file-size"
+                  >
+                    512 KB
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-describedby="test-id"
+                class="ant-md-editor-file-view-list-item"
+                data-testid="file-item"
+                exit="[object Object]"
+                variants="[object Object]"
+              >
+                <div
+                  class="ant-md-editor-file-view-list-item-file-icon"
+                >
+                  <div
+                    style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 32px;"
+                  >
+                    <svg
+                      class="icon"
+                      height="1em"
+                      version="1.1"
+                      viewBox="0 0 1024 1024"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M707.2 79.9H238.6c-11.6 0-21 9.4-21 21V923c0 11.6 9.4 21 21 21h704.9V316.3L707.2 79.9"
+                        fill="#FFFFFF"
+                      />
+                      <path
+                        d="M943.6 960h-705c-20.4 0-37-16.6-37-37V100.9c0-20.4 16.6-37 37-37h468.6c4.2 0 8.3 1.7 11.3 4.7L954.9 305c3 3 4.7 7.1 4.7 11.3V944c0 8.9-7.2 16-16 16z m-705-864.1c-2.7 0-5 2.2-5 5V923c0 2.7 2.2 5 5 5h689V323l-227-227h-462z"
+                        fill="#00365B"
+                      />
+                      <path
+                        d="M943.6 316.3H707.2V79.9z"
+                        fill="#FFFFFF"
+                      />
+                      <path
+                        d="M943.6 332.3H707.2c-8.8 0-16-7.2-16-16V79.9c0-6.5 3.9-12.3 9.9-14.8s12.9-1.1 17.4 3.5L954.9 305c4.6 4.6 5.9 11.5 3.5 17.4-2.5 6-8.3 9.9-14.8 9.9z m-220.4-32H905L723.2 118.6v181.7z"
+                        fill="#00365B"
+                      />
+                      <path
+                        d="M104.7 414.2h698.8c22.4 0 40.6 19.8 40.6 44.3v301.4c0 24.5-18.2 44.3-40.6 44.3H104.7c-22.4 0-40.6-19.8-40.6-44.3V458.5c-0.1-24.5 18.1-44.3 40.6-44.3z"
+                        fill="#E89870"
+                      />
+                      <path
+                        d="M164.4 722.3c7.3 0 14-0.9 19.9-2.6s10.9-4.5 15-8.4c4.1-3.9 7.2-9 9.3-15.4 2.1-6.4 3.2-14.2 3.2-23.4V515.8c0-4.1-1.5-7.7-4.6-11-3.1-3.3-8.2-4.9-15.3-4.9-7.1 0-12.2 1.7-15.3 5.2-3.1 3.5-4.6 7-4.6 10.7V655c0 6.1-0.1 11.3-0.2 15.4-0.1 4.2-0.6 7.5-1.4 9.9-0.8 2.4-2.1 4.2-3.8 5.4s-4.2 1.7-7.5 1.7c-4.1 0-7.6-1.3-10.7-3.8-3.1-2.5-6-4.9-8.9-7.2-2.7-2-5.3-3.1-7.8-3.2-2.5-0.1-4.9 0.3-7.2 1.1-2.2 0.8-4.2 1.9-5.8 3.4-1.6 1.4-2.8 2.7-3.4 3.7-2 3.3-2.8 6.5-2.3 9.8s1.8 6.3 3.8 9.2c2 2.9 4.5 5.5 7.3 8 2.9 2.4 5.7 4.5 8.6 6.1 4.7 2.9 9.5 4.9 14.4 6.1 5.1 1.1 10.8 1.7 17.3 1.7z m115.8-4.8c8.1 2.5 16.7 3.6 25.8 3.2 25.1-0.8 43.7-7.4 56-19.7 12.2-12.3 18.6-28.6 19-48.8 0.2-7.5-0.7-14.3-2.6-20.2s-5.1-11.2-9.5-15.9c-4.4-4.7-9.9-9.1-16.7-13.2-6.7-4.1-14.7-8.2-23.9-12.2-3.7-1.6-7.8-3.4-12.4-5.2-4.6-1.8-9-4.1-13.2-6.7s-7.7-5.7-10.6-9.2c-2.9-3.5-4.3-7.5-4.3-12.2 0-2.9 0.6-5.8 1.8-8.7 1.2-3 2.9-5.6 5-8 2.1-2.3 4.7-4.3 7.8-5.8 3.1-1.5 6.5-2.3 10.4-2.3 3.5 0 6.9 0.5 10.2 1.5 3.4 1 6.5 2.2 9.5 3.7 3 1.4 5.8 3 8.4 4.7 2.7 1.7 5 3.3 7 4.7 1.4 1.2 3.3 2 5.5 2.4 2.2 0.4 4.5 0.4 6.9-0.2 2.3-0.5 4.6-1.4 6.7-2.8 2.1-1.3 3.9-3.1 5.4-5.4 2.7-4.5 3-9.2 1.1-14.2s-5.6-9.6-11-13.9c-5.4-4.3-12.2-7.9-20.3-10.7-8.2-2.9-17-4.4-26.6-4.6-8.6-0.2-17 0.9-25.2 3.4-8.3 2.4-15.7 6.1-22.2 11s-11.8 11.1-15.8 18.5-6 16.1-6 25.8c0 9.2 1.6 17.1 4.9 23.9 3.3 6.7 7.6 12.5 13.2 17.4 5.5 4.9 12 9.1 19.4 12.7 7.4 3.6 15.4 6.9 24 9.9 3.1 1 6.5 2.4 10.2 4.3 3.8 1.8 7.2 4.1 10.4 6.9 3.2 2.8 5.9 6 8.1 9.6 2.2 3.7 3.4 8 3.4 12.8 0 5.1-0.9 9.6-2.8 13.6-1.8 4-4.3 7.3-7.3 9.9-3.1 2.7-6.6 4.7-10.6 6.1-4 1.4-8 2.1-12.1 2.1-4.9 0-9.4-0.6-13.6-1.8-4.2-1.2-8.2-2.8-11.9-4.7-3.8-1.9-7.3-4.1-10.7-6.4-3.4-2.3-6.6-4.5-9.6-6.6-3.5-2.2-7.2-3.1-11.2-2.6-4 0.5-7.4 3-10.2 7.5-1.6 2.2-2.5 5-2.6 8.3-0.1 3.3 0.6 6.6 2 10.1s3.7 6.9 6.9 10.2c3.2 3.4 7.4 6.4 12.7 9 6.1 3.5 13.1 6.3 21.2 8.8z m216.7 4.8c16.5 0 30.8-2.9 43-8.7 12.1-5.8 22.2-13.8 30.1-23.9 8-10.1 13.9-22 17.7-35.8 3.9-13.8 5.8-28.6 5.8-44.5 0-15.9-1.9-30.7-5.8-44.4s-9.8-25.5-17.7-35.6c-8-10.1-18-18-30.1-23.9-12.1-5.8-26.5-8.7-43-8.7-17.1 0-31.8 2.9-43.9 8.7s-22.1 13.8-30 23.9c-7.9 10.1-13.6 22-17.3 35.8-3.7 13.8-5.5 28.5-5.5 44.2 0 16.3 2 31.4 6.1 45.3s10.2 25.8 18.4 35.8c8.2 10 18.3 17.8 30.3 23.4 12 5.6 26 8.4 41.9 8.4z m0-34.9c-10.8 0-19.8-2.2-27.1-6.7-7.2-4.5-13.1-10.4-17.6-17.7-4.5-7.3-7.6-15.7-9.5-25.1-1.8-9.4-2.8-18.9-2.8-28.4 0-10.6 1-20.6 3.1-30 2-9.4 5.3-17.6 9.8-24.6 4.5-7 10.3-12.6 17.6-16.8 7.2-4.2 16.1-6.3 26.5-6.3s19.2 2 26.5 6.1 13.1 9.7 17.6 16.8 7.7 15.5 9.8 25.1c2 9.6 3.1 19.8 3.1 30.6s-0.9 20.9-2.8 30.3c-1.8 9.4-5 17.5-9.5 24.5-4.5 6.9-10.3 12.4-17.6 16.4-7.3 3.8-16.3 5.8-27.1 5.8z m281.4 31.8c7.1 0 11.7-1.4 13.8-4.3 2-2.9 3.1-6 3.1-9.5V515.8c0-4.1-1.5-7.7-4.6-11-3.1-3.3-8.2-4.9-15.3-4.9-7.1 0-12.2 1.7-15.3 5.2-3.1 3.5-4.6 7-4.6 10.7v125.1l-96.7-130c-1.8-2.4-4-4.9-6.6-7.3-2.5-2.4-5.9-3.7-9.9-3.7-7.3 0-12 1.5-14.1 4.4-2 3-3.1 6.3-3.1 9.9v189c0 3.7 1.5 7.2 4.6 10.7 3.1 3.5 8.2 5.2 15.3 5.2 7.1 0 12.2-1.6 15.3-4.9s4.6-6.9 4.6-11V582.5l96.4 125.7c1.8 2.4 4.1 4.9 6.9 7.3 2.7 2.5 6.1 3.7 10.2 3.7z"
+                        fill="#FFFFFF"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-file-view-list-item-file-info"
+                >
+                  <div
+                    class="ant-md-editor-file-view-list-item-file-name"
+                  >
+                    <span
+                      class="ant-md-editor-file-view-list-item-file-name-text"
+                    >
+                      data
+                    </span>
+                    <span
+                      class="ant-md-editor-file-view-list-item-file-name-extension"
+                    >
+                      .json
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-file-view-list-item-file-size"
+                  >
+                    256 KB
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+        style="gap: 12px;"
+      >
+        <div
+          class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
+        >
+          <span
+            class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-bubble-avatar"
+            data-testid="bubble-avatar"
+            style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+          >
+            <img
+              alt="avatar"
+              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+            />
+          </span>
+          <span>
+            Agentar
+          </span>
+          <div
+            class="ant-agent-list-bubble-bubble-title ant-flex"
+            data-testid="bubble-title"
+            style="flex-direction: row; gap: 8px;"
+          >
+            Ant Design
+          </div>
+        </div>
+        <div
+          class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
+          data-testid="chat-message"
+          style="display: flex; gap: 4px; flex-direction: column;"
+        >
+          <div
+            class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
+            data-testid="message-before"
+          />
+          <div
+            class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
+            data-testid="message-content"
+            style="min-width: 0px;"
+          >
+            <div
+              style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+            >
+              <div
+                class="ant-md-editor markdown-editor ant-md-editor-readonly"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+              >
+                <div
+                  style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  tabindex="-1"
+                >
+                  <div
+                    autocapitalize="false"
+                    autocorrect="false"
+                    class="ant-md-editor-content ant-md-editor-content-readonly"
+                    data-slate-editor="true"
+                    data-slate-node="value"
+                    spellcheck="false"
+                    style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                    zindex="-1"
+                  >
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            这是一张图片：
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-chat-item-extra"
+                style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+              >
+                <div
+                  style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
+                />
+                <div
+                  animate="visible"
+                  class="ant-chat-item-extra-action-box"
+                  initial="hidden"
+                  style="display: flex; gap: 8px; align-items: center;"
+                  variants="[object Object]"
+                  whileinview="visible"
+                >
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="复制"
+                    class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                    data-testid="chat-item-copy-button"
+                    role="button"
+                    style="color: var(--color-icon-secondary);"
+                    tabindex="0"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-agent-list-bubble-bubble-after ant-agent-list-bubble-bubble-after-left"
+            data-testid="message-after"
+            style="min-width: 0px;"
+          >
+            <div
+              animate="visible"
+              class="ant-md-editor-file-view-list"
+              initial="hidden"
+              variants="[object Object]"
+              whileinview="visible"
+            >
+              <div
+                class="ant-image"
+                style="width: 178px; height: 178px;"
               >
                 <img
-                  alt="Preview"
-                  class="ant-image-img"
-                  style="display: none;"
+                  class="ant-image-img ant-md-editor-file-view-list-image"
+                  height="178"
+                  src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+                  style="height: 178px;"
+                  width="178"
                 />
                 <div
                   class="ant-image-mask"
-                  style="display: none;"
                 >
                   <div
                     class="ant-image-mask-info"
@@ -198,424 +584,6 @@
                       </svg>
                     </span>
                     Preview
-                  </div>
-                </div>
-              </div>
-              <div
-                animate="visible"
-                class="ant-md-editor-file-view-list"
-                initial="hidden"
-                variants="[object Object]"
-                whileinview="visible"
-              >
-                <div
-                  aria-describedby="test-id"
-                  class="ant-md-editor-file-view-list-item"
-                  data-testid="file-item"
-                  exit="[object Object]"
-                  variants="[object Object]"
-                >
-                  <div
-                    class="ant-md-editor-file-view-list-item-file-icon"
-                  >
-                    <div
-                      style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 32px;"
-                    >
-                      <svg
-                        fill="none"
-                        height="1em"
-                        version="1.1"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                      >
-                        <defs>
-                          <clippath
-                            id="master_svg0_2028_004716/2028_004337"
-                          >
-                            <rect
-                              height="1em"
-                              rx="0"
-                              width="1em"
-                              x="0"
-                              y="0"
-                            />
-                          </clippath>
-                        </defs>
-                        <g>
-                          <g>
-                            <g
-                              clip-path="url(#master_svg0_2028_004716/2028_004337)"
-                            >
-                              <g>
-                                <path
-                                  d="M18.452465625000002,8.00201875Q18.531965624999998,8.08852875,18.574565624999998,8.197968750000001Q18.617165625,8.30741875,18.617165625,8.42486875L18.616265625,17.81191875Q18.616265625,18.672518750000002,18.050765625,19.28821875Q17.464265625,19.92691875,16.622965625,19.92691875L7.378905625,19.92671875Q6.537595625,19.92671875,5.950749625,19.288118750000002Q5.384765625,18.67221875,5.384765625,17.811518749999998L5.384765625,6.18944875Q5.384765625,5.32876875,5.950749625,4.71284475Q6.537595625,4.07421875,7.378905625,4.07421875L14.570315625,4.07421875Q14.701545625,4.07421875,14.821695625,4.12700235Q14.941845625,4.17978575,15.030615625,4.27643775L18.452465625000002,8.00201875ZM13.259765625,5.32421875L7.378905625,5.32421875Q7.086555625,5.32421875,6.871155625,5.5586287500000005Q6.634765625,5.8158787499999995,6.634765625,6.18944875L6.634765625,17.811518749999998Q6.634765625,18.18511875,6.871155625,18.44231875Q7.086565625,18.67671875,7.378905625,18.67671875L16.622965625,18.67691875Q16.915065625,18.67691875,17.130065625,18.44281875Q17.366265625,18.18561875,17.366265625,17.81191875L17.367065625000002,9.94282875L15.253055625,9.94282875Q14.411675625,9.94282875,13.825175625,9.30412875Q13.259765625,8.688398750000001,13.259765625,7.827768750000001L13.259765625,5.32421875ZM14.509765625,5.55723875L14.509765625,7.827768750000001Q14.509765625,8.201538750000001,14.745875625,8.458668750000001Q14.960905625,8.69282875,15.253055625,8.69282875L17.367165625,8.69282875L17.367165625,8.66824875L14.509765625,5.55723875Z"
-                                  fill-opacity="1"
-                                  fill-rule="evenodd"
-                                  style="fill: var(--color-icon-secondary);"
-                                />
-                              </g>
-                            </g>
-                            <g>
-                              <path
-                                d="M4.5,10.9384765625L4.5,16.9384765625C4.5,17.4907565625,4.947715,17.9384765625,5.5,17.9384765625L18.5,17.9384765625C19.052300000000002,17.9384765625,19.5,17.4907565625,19.5,16.9384765625L19.5,10.9384765625C19.5,10.3861915625,19.052300000000002,9.9384765625,18.5,9.9384765625L5.5,9.9384765625C4.947715,9.9384765625,4.5,10.3861915625,4.5,10.9384765625Z"
-                                fill="#DF7A00"
-                                fill-opacity="1"
-                              />
-                            </g>
-                            <g>
-                              <path
-                                d="M6.912353515625,11.93994140625L6.912353515625,15.93834140625L7.567553515625,15.93834140625L7.567553515625,14.40394140625L8.558753515625,14.40394140625C9.533153515625,14.40394140625,10.020353515625,13.98954140625,10.020353515625,13.16634140625C10.020353515625,12.34874140625,9.533153515625,11.93994140625,8.569953515625,11.93994140625L6.912353515625,11.93994140625ZM7.567553515625,12.49994140625L8.519553515625,12.49994140625C8.805153515625,12.49994140625,9.017953515624999,12.55034140625,9.152353515625,12.65674140625C9.286753515625,12.75754140625,9.359553515625,12.92554140625,9.359553515625,13.16634140625C9.359553515625,13.40714140625,9.292353515624999,13.58074140625,9.157953515625,13.68714140625C9.023553515625,13.78794140625,8.810753515625,13.84394140625,8.519553515625,13.84394140625L7.567553515625,13.84394140625L7.567553515625,12.49994140625ZM10.580353515625,11.93994140625L10.580353515625,15.93834140625L12.041953515625,15.93834140625C12.691553515625,15.93834140625,13.178753515625,15.75914140625,13.514753515625,15.400741406249999C13.833953515625,15.05914140625,13.996353515625,14.57194140625,13.996353515625,13.93914140625C13.996353515625,13.30074140625,13.833953515625,12.81354140625,13.514753515625,12.47754140625C13.178753515625,12.11914140625,12.691553515625,11.93994140625,12.041953515625,11.93994140625L10.580353515625,11.93994140625ZM11.235553515625,12.49994140625L11.918753515625,12.49994140625C12.417153515625,12.49994140625,12.781153515625,12.61194140625,13.010753515625,12.84154140625C13.234753515625,13.06554140625,13.346753515625,13.43514140625,13.346753515625,13.93914140625C13.346753515625,14.43194140625,13.234753515625,14.79594140625,13.010753515625,15.03114140625C12.781153515625,15.26074140625,12.417153515625,15.37834140625,11.918753515625,15.37834140625L11.235553515625,15.37834140625L11.235553515625,12.49994140625ZM14.612353515625,11.93994140625L14.612353515625,15.93834140625L15.267553515625,15.93834140625L15.267553515625,14.16874140625L17.221953515625,14.16874140625L17.221953515625,13.608741406250001L15.267553515625,13.608741406250001L15.267553515625,12.49994140625L17.339553515625,12.49994140625L17.339553515625,11.93994140625L14.612353515625,11.93994140625Z"
-                                fill="#FFFFFF"
-                                fill-opacity="1"
-                              />
-                            </g>
-                          </g>
-                        </g>
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="ant-md-editor-file-view-list-item-file-info"
-                  >
-                    <div
-                      class="ant-md-editor-file-view-list-item-file-name"
-                    >
-                      <span
-                        class="ant-md-editor-file-view-list-item-file-name-text"
-                      >
-                        document
-                      </span>
-                      <span
-                        class="ant-md-editor-file-view-list-item-file-name-extension"
-                      >
-                        .pdf
-                      </span>
-                    </div>
-                    <div
-                      class="ant-md-editor-file-view-list-item-file-size"
-                    >
-                      1 MB
-                    </div>
-                  </div>
-                </div>
-                <div
-                  aria-describedby="test-id"
-                  class="ant-md-editor-file-view-list-item"
-                  data-testid="file-item"
-                  exit="[object Object]"
-                  variants="[object Object]"
-                >
-                  <div
-                    class="ant-md-editor-file-view-list-item-file-icon"
-                  >
-                    <img
-                      src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
-                      style="border-radius: 6px; width: 100%; height: 100%; object-fit: cover;"
-                    />
-                  </div>
-                  <div
-                    class="ant-md-editor-file-view-list-item-file-info"
-                  >
-                    <div
-                      class="ant-md-editor-file-view-list-item-file-name"
-                    >
-                      <span
-                        class="ant-md-editor-file-view-list-item-file-name-text"
-                      >
-                        image
-                      </span>
-                      <span
-                        class="ant-md-editor-file-view-list-item-file-name-extension"
-                      >
-                        .png
-                      </span>
-                    </div>
-                    <div
-                      class="ant-md-editor-file-view-list-item-file-size"
-                    >
-                      512 KB
-                    </div>
-                  </div>
-                </div>
-                <div
-                  aria-describedby="test-id"
-                  class="ant-md-editor-file-view-list-item"
-                  data-testid="file-item"
-                  exit="[object Object]"
-                  variants="[object Object]"
-                >
-                  <div
-                    class="ant-md-editor-file-view-list-item-file-icon"
-                  >
-                    <div
-                      style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 32px;"
-                    >
-                      <svg
-                        class="icon"
-                        height="1em"
-                        version="1.1"
-                        viewBox="0 0 1024 1024"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M707.2 79.9H238.6c-11.6 0-21 9.4-21 21V923c0 11.6 9.4 21 21 21h704.9V316.3L707.2 79.9"
-                          fill="#FFFFFF"
-                        />
-                        <path
-                          d="M943.6 960h-705c-20.4 0-37-16.6-37-37V100.9c0-20.4 16.6-37 37-37h468.6c4.2 0 8.3 1.7 11.3 4.7L954.9 305c3 3 4.7 7.1 4.7 11.3V944c0 8.9-7.2 16-16 16z m-705-864.1c-2.7 0-5 2.2-5 5V923c0 2.7 2.2 5 5 5h689V323l-227-227h-462z"
-                          fill="#00365B"
-                        />
-                        <path
-                          d="M943.6 316.3H707.2V79.9z"
-                          fill="#FFFFFF"
-                        />
-                        <path
-                          d="M943.6 332.3H707.2c-8.8 0-16-7.2-16-16V79.9c0-6.5 3.9-12.3 9.9-14.8s12.9-1.1 17.4 3.5L954.9 305c4.6 4.6 5.9 11.5 3.5 17.4-2.5 6-8.3 9.9-14.8 9.9z m-220.4-32H905L723.2 118.6v181.7z"
-                          fill="#00365B"
-                        />
-                        <path
-                          d="M104.7 414.2h698.8c22.4 0 40.6 19.8 40.6 44.3v301.4c0 24.5-18.2 44.3-40.6 44.3H104.7c-22.4 0-40.6-19.8-40.6-44.3V458.5c-0.1-24.5 18.1-44.3 40.6-44.3z"
-                          fill="#E89870"
-                        />
-                        <path
-                          d="M164.4 722.3c7.3 0 14-0.9 19.9-2.6s10.9-4.5 15-8.4c4.1-3.9 7.2-9 9.3-15.4 2.1-6.4 3.2-14.2 3.2-23.4V515.8c0-4.1-1.5-7.7-4.6-11-3.1-3.3-8.2-4.9-15.3-4.9-7.1 0-12.2 1.7-15.3 5.2-3.1 3.5-4.6 7-4.6 10.7V655c0 6.1-0.1 11.3-0.2 15.4-0.1 4.2-0.6 7.5-1.4 9.9-0.8 2.4-2.1 4.2-3.8 5.4s-4.2 1.7-7.5 1.7c-4.1 0-7.6-1.3-10.7-3.8-3.1-2.5-6-4.9-8.9-7.2-2.7-2-5.3-3.1-7.8-3.2-2.5-0.1-4.9 0.3-7.2 1.1-2.2 0.8-4.2 1.9-5.8 3.4-1.6 1.4-2.8 2.7-3.4 3.7-2 3.3-2.8 6.5-2.3 9.8s1.8 6.3 3.8 9.2c2 2.9 4.5 5.5 7.3 8 2.9 2.4 5.7 4.5 8.6 6.1 4.7 2.9 9.5 4.9 14.4 6.1 5.1 1.1 10.8 1.7 17.3 1.7z m115.8-4.8c8.1 2.5 16.7 3.6 25.8 3.2 25.1-0.8 43.7-7.4 56-19.7 12.2-12.3 18.6-28.6 19-48.8 0.2-7.5-0.7-14.3-2.6-20.2s-5.1-11.2-9.5-15.9c-4.4-4.7-9.9-9.1-16.7-13.2-6.7-4.1-14.7-8.2-23.9-12.2-3.7-1.6-7.8-3.4-12.4-5.2-4.6-1.8-9-4.1-13.2-6.7s-7.7-5.7-10.6-9.2c-2.9-3.5-4.3-7.5-4.3-12.2 0-2.9 0.6-5.8 1.8-8.7 1.2-3 2.9-5.6 5-8 2.1-2.3 4.7-4.3 7.8-5.8 3.1-1.5 6.5-2.3 10.4-2.3 3.5 0 6.9 0.5 10.2 1.5 3.4 1 6.5 2.2 9.5 3.7 3 1.4 5.8 3 8.4 4.7 2.7 1.7 5 3.3 7 4.7 1.4 1.2 3.3 2 5.5 2.4 2.2 0.4 4.5 0.4 6.9-0.2 2.3-0.5 4.6-1.4 6.7-2.8 2.1-1.3 3.9-3.1 5.4-5.4 2.7-4.5 3-9.2 1.1-14.2s-5.6-9.6-11-13.9c-5.4-4.3-12.2-7.9-20.3-10.7-8.2-2.9-17-4.4-26.6-4.6-8.6-0.2-17 0.9-25.2 3.4-8.3 2.4-15.7 6.1-22.2 11s-11.8 11.1-15.8 18.5-6 16.1-6 25.8c0 9.2 1.6 17.1 4.9 23.9 3.3 6.7 7.6 12.5 13.2 17.4 5.5 4.9 12 9.1 19.4 12.7 7.4 3.6 15.4 6.9 24 9.9 3.1 1 6.5 2.4 10.2 4.3 3.8 1.8 7.2 4.1 10.4 6.9 3.2 2.8 5.9 6 8.1 9.6 2.2 3.7 3.4 8 3.4 12.8 0 5.1-0.9 9.6-2.8 13.6-1.8 4-4.3 7.3-7.3 9.9-3.1 2.7-6.6 4.7-10.6 6.1-4 1.4-8 2.1-12.1 2.1-4.9 0-9.4-0.6-13.6-1.8-4.2-1.2-8.2-2.8-11.9-4.7-3.8-1.9-7.3-4.1-10.7-6.4-3.4-2.3-6.6-4.5-9.6-6.6-3.5-2.2-7.2-3.1-11.2-2.6-4 0.5-7.4 3-10.2 7.5-1.6 2.2-2.5 5-2.6 8.3-0.1 3.3 0.6 6.6 2 10.1s3.7 6.9 6.9 10.2c3.2 3.4 7.4 6.4 12.7 9 6.1 3.5 13.1 6.3 21.2 8.8z m216.7 4.8c16.5 0 30.8-2.9 43-8.7 12.1-5.8 22.2-13.8 30.1-23.9 8-10.1 13.9-22 17.7-35.8 3.9-13.8 5.8-28.6 5.8-44.5 0-15.9-1.9-30.7-5.8-44.4s-9.8-25.5-17.7-35.6c-8-10.1-18-18-30.1-23.9-12.1-5.8-26.5-8.7-43-8.7-17.1 0-31.8 2.9-43.9 8.7s-22.1 13.8-30 23.9c-7.9 10.1-13.6 22-17.3 35.8-3.7 13.8-5.5 28.5-5.5 44.2 0 16.3 2 31.4 6.1 45.3s10.2 25.8 18.4 35.8c8.2 10 18.3 17.8 30.3 23.4 12 5.6 26 8.4 41.9 8.4z m0-34.9c-10.8 0-19.8-2.2-27.1-6.7-7.2-4.5-13.1-10.4-17.6-17.7-4.5-7.3-7.6-15.7-9.5-25.1-1.8-9.4-2.8-18.9-2.8-28.4 0-10.6 1-20.6 3.1-30 2-9.4 5.3-17.6 9.8-24.6 4.5-7 10.3-12.6 17.6-16.8 7.2-4.2 16.1-6.3 26.5-6.3s19.2 2 26.5 6.1 13.1 9.7 17.6 16.8 7.7 15.5 9.8 25.1c2 9.6 3.1 19.8 3.1 30.6s-0.9 20.9-2.8 30.3c-1.8 9.4-5 17.5-9.5 24.5-4.5 6.9-10.3 12.4-17.6 16.4-7.3 3.8-16.3 5.8-27.1 5.8z m281.4 31.8c7.1 0 11.7-1.4 13.8-4.3 2-2.9 3.1-6 3.1-9.5V515.8c0-4.1-1.5-7.7-4.6-11-3.1-3.3-8.2-4.9-15.3-4.9-7.1 0-12.2 1.7-15.3 5.2-3.1 3.5-4.6 7-4.6 10.7v125.1l-96.7-130c-1.8-2.4-4-4.9-6.6-7.3-2.5-2.4-5.9-3.7-9.9-3.7-7.3 0-12 1.5-14.1 4.4-2 3-3.1 6.3-3.1 9.9v189c0 3.7 1.5 7.2 4.6 10.7 3.1 3.5 8.2 5.2 15.3 5.2 7.1 0 12.2-1.6 15.3-4.9s4.6-6.9 4.6-11V582.5l96.4 125.7c1.8 2.4 4.1 4.9 6.9 7.3 2.7 2.5 6.1 3.7 10.2 3.7z"
-                          fill="#FFFFFF"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="ant-md-editor-file-view-list-item-file-info"
-                  >
-                    <div
-                      class="ant-md-editor-file-view-list-item-file-name"
-                    >
-                      <span
-                        class="ant-md-editor-file-view-list-item-file-name-text"
-                      >
-                        data
-                      </span>
-                      <span
-                        class="ant-md-editor-file-view-list-item-file-name-extension"
-                      >
-                        .json
-                      </span>
-                    </div>
-                    <div
-                      class="ant-md-editor-file-view-list-item-file-size"
-                    >
-                      256 KB
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-        style="gap: 12px;"
-      >
-        <div
-          animate="visible"
-          class="ant-agent-list-bubble-container"
-          initial="hidden"
-          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-          variants="[object Object]"
-          whileinview="visible"
-        >
-          <div
-            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
-          >
-            <span
-              class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
-              data-testid="bubble-avatar"
-              style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
-            >
-              <img
-                alt="avatar"
-                src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-              />
-            </span>
-            <span>
-              Agentar
-            </span>
-            <div
-              class="ant-agent-list-bubble-title ant-flex"
-              data-testid="bubble-title"
-              style="flex-direction: row; gap: 8px;"
-            >
-              Ant Design
-            </div>
-          </div>
-          <div
-            animate="visible"
-            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
-            data-testid="chat-message"
-            initial="hidden"
-            style="display: flex; gap: 4px; flex-direction: column;"
-            variants="[object Object]"
-            whileinview="visible"
-          >
-            <div
-              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-              data-testid="message-before"
-              variants="[object Object]"
-            />
-            <div
-              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
-              data-testid="message-content"
-              style="min-width: 0px;"
-              variants="[object Object]"
-            >
-              <div
-                style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
-              >
-                <div
-                  class="ant-md-editor markdown-editor ant-md-editor-readonly"
-                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
-                >
-                  <div
-                    style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
-                    tabindex="-1"
-                  >
-                    <div
-                      autocapitalize="false"
-                      autocorrect="false"
-                      class="ant-md-editor-content ant-md-editor-content-readonly"
-                      data-slate-editor="true"
-                      data-slate-node="value"
-                      spellcheck="false"
-                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                      zindex="-1"
-                    >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              这是一张图片：
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="ant-chat-item-extra"
-                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
-                >
-                  <div
-                    style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
-                  />
-                  <div
-                    animate="visible"
-                    class="ant-chat-item-extra-action-box"
-                    initial="hidden"
-                    style="display: flex; gap: 8px; align-items: center;"
-                    variants="[object Object]"
-                    whileinview="visible"
-                  >
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                      data-testid="chat-item-copy-button"
-                      role="button"
-                      style="color: var(--color-icon-secondary);"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="ant-agent-list-bubble-after ant-agent-list-bubble-after-left"
-              data-testid="message-after"
-              style="min-width: 0px;"
-              variants="[object Object]"
-            >
-              <div
-                animate="visible"
-                class="ant-md-editor-file-view-list"
-                initial="hidden"
-                variants="[object Object]"
-                whileinview="visible"
-              >
-                <div
-                  class="ant-image"
-                  style="width: 178px; height: 178px;"
-                >
-                  <img
-                    class="ant-image-img ant-md-editor-file-view-list-image"
-                    height="178"
-                    src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
-                    style="height: 178px;"
-                    width="178"
-                  />
-                  <div
-                    class="ant-image-mask"
-                  >
-                    <div
-                      class="ant-image-mask-info"
-                    >
-                      <span
-                        aria-label="eye"
-                        class="anticon anticon-eye"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                          />
-                        </svg>
-                      </span>
-                      Preview
-                    </div>
                   </div>
                 </div>
               </div>
