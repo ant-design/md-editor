@@ -138,6 +138,75 @@ vi.mock('@ant-design/md-editor/plugins/chart/components', () => ({
   downloadChart: vi.fn(),
 }));
 
+// Mock md-editor exports to avoid heavy rendering while preserving other exports
+vi.mock('@ant-design/md-editor', async (importOriginal) => {
+  const actual: any = await importOriginal();
+  const stubDiv = (name: string) => (props: any) => (
+    <div data-testid={name} {...props}>
+      {name}
+    </div>
+  );
+
+  const MarkdownEditor = ({ initValue }: any) => (
+    <div data-testid="md-editor" data-length={String(initValue || '').length}>
+      MarkdownEditor(Mock)
+    </div>
+  );
+
+  const MarkdownInputField = ({ value }: any) => (
+    <div data-testid="md-input-field" data-length={String(value || '').length}>
+      MarkdownInputField(Mock)
+    </div>
+  );
+
+  const Bubble = stubDiv('bubble');
+  const BubbleList = stubDiv('bubble-list');
+  const Workspace: any = (props: any) => (
+    <div data-testid="workspace" {...props}>
+      workspace
+    </div>
+  );
+  Workspace.Realtime = stubDiv('workspace-realtime');
+  Workspace.Browser = stubDiv('workspace-browser');
+  Workspace.Task = stubDiv('workspace-task');
+  Workspace.File = stubDiv('workspace-file');
+  Workspace.Custom = stubDiv('workspace-custom');
+  const PreviewComponent = stubDiv('preview-component');
+  const ToolUseBar = stubDiv('tool-use-bar');
+  const ToolUseBarThink = stubDiv('tool-use-bar-think');
+  const History = stubDiv('history');
+  const SchemaEditor = stubDiv('schema-editor');
+  const SchemaForm = stubDiv('schema-form');
+  const SchemaRenderer = stubDiv('schema-renderer');
+  const TaskList = stubDiv('task-list');
+  const ThoughtChainList = stubDiv('thought-chain-list');
+  const Loading = stubDiv('loading');
+
+  const useRefFunction = (fn: any) => fn;
+  const validator = () => ({ valid: true, errors: [] });
+
+  return {
+    ...actual,
+    MarkdownEditor,
+    MarkdownInputField,
+    Bubble,
+    BubbleList,
+    Workspace,
+    PreviewComponent,
+    ToolUseBar,
+    ToolUseBarThink,
+    History,
+    SchemaEditor,
+    SchemaForm,
+    SchemaRenderer,
+    TaskList,
+    ThoughtChainList,
+    Loading,
+    useRefFunction,
+    validator,
+  } as any;
+});
+
 // 设置动画相关的全局mock
 setupAnimationMocks();
 

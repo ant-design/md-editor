@@ -9,11 +9,11 @@
       style="padding: 20px;"
     >
       <div
-        style="border: 1px solid rgb(217, 217, 217); border-radius: 8px; max-width: 600px;"
+        style="max-width: 640px; border: 1px solid rgb(217, 217, 217); border-radius: 8px;"
       >
         <div
           data-testid="workspace"
-          title="文件管理 - 自定义预览流程"
+          title="文件管理-搜索"
         >
           workspace
         </div>

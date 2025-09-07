@@ -6,12 +6,11 @@
       test
     </div>
     <div
-      style="height: 600px; width: 100%;"
+      style="height: 520px; width: 100%;"
     >
       <div
-        activetabkey="realtime"
         data-testid="workspace"
-        title="高级工作空间"
+        title="实时跟随空状态示例"
       >
         workspace
       </div>

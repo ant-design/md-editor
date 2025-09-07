@@ -12,17 +12,9 @@
         基础用法
       </h3>
       <div
-        class="loading-container "
+        data-testid="loading"
       >
-        <div
-          class="loading-container-item "
-        />
-        <div
-          class="loading-container-item "
-        />
-        <div
-          class="loading-container-item "
-        />
+        loading
       </div>
       <h3
         style="margin-top: 24px;"
@@ -36,17 +28,9 @@
           加载中
         </span>
         <div
-          class="loading-container "
+          data-testid="loading"
         >
-          <div
-            class="loading-container-item "
-          />
-          <div
-            class="loading-container-item "
-          />
-          <div
-            class="loading-container-item "
-          />
+          loading
         </div>
       </div>
       <div
