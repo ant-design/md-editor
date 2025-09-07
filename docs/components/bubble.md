@@ -70,17 +70,35 @@ export default () => (
 
 <code src="../demos/bubble/basic.tsx"></code>
 
-### 加载状态演示
+### 消息加载状态演示
 
-演示 Bubble 组件的加载状态功能，包括消息生成和文件上传的加载效果。
+演示 Bubble 组件的消息加载状态功能，包括消息生成时的加载效果和交互控制。
 
-<code src="../demos/bubble/loading.tsx"></code>
+<code src="../demos/bubble/message-loading-demo.tsx"></code>
 
-### 自定义渲染能力
+### 文件加载状态演示
 
-演示如何使用自定义渲染函数，包括标题、内容、头像的个性化定制。
+演示 Bubble 组件的文件上传加载状态功能，包括文件处理时的加载效果和文件类型支持。
 
-<code src="../demos/bubble/custom-render.tsx"></code>
+<code src="../demos/bubble/file-loading-demo.tsx"></code>
+
+### 标题自定义渲染
+
+专门演示 `titleRender` 功能，展示如何自定义消息标题的显示方式。
+
+<code src="../demos/bubble/title-render-demo.tsx"></code>
+
+### 内容自定义渲染
+
+专门演示 `contentRender` 功能，展示如何自定义消息内容的显示方式。
+
+<code src="../demos/bubble/content-render-demo.tsx"></code>
+
+### 头像自定义渲染
+
+专门演示 `avatarRender` 功能，展示如何自定义头像的显示方式。
+
+<code src="../demos/bubble/avatar-render-demo.tsx"></code>
 
 ### 操作区域定制
 
@@ -112,17 +130,29 @@ export default () => (
 
 <code src="../demos/bubble/preMessageSameRole.tsx"></code>
 
-### 列表管理功能
+### BubbleList 基础用法
 
-使用 BubbleList 组件管理消息列表，支持动态操作和状态控制。
+演示 BubbleList 组件的基础用法，包括消息列表的创建和管理。
 
-<code src="../demos/bubble/list.tsx"></code>
+<code src="../demos/bubble/bubblelist-basic-demo.tsx"></code>
 
-### 高级特性集成
+### BubbleList 交互功能
 
-综合展示组件的高级功能，包括主题切换、动态交互等完整特性。
+演示 BubbleList 组件的交互功能，包括点赞、点踩、回复等操作。
 
-<code src="../demos/bubble/advanced-features.tsx"></code>
+<code src="../demos/bubble/bubblelist-interaction-demo.tsx"></code>
+
+### BubbleList 配置选项
+
+演示 BubbleList 组件的配置选项，包括加载状态、只读模式等。
+
+<code src="../demos/bubble/bubblelist-config-demo.tsx"></code>
+
+### BubbleList 性能优化
+
+演示 BubbleList 组件的性能优化特性，包括虚拟滚动和大数据量处理。
+
+<code src="../demos/bubble/bubblelist-performance-demo.tsx"></code>
 
 ## 📖 API 参考
 
@@ -456,6 +486,12 @@ const App = () => (
 ### 自定义渲染系统
 
 Bubble 组件提供了强大的自定义渲染系统，支持在不同阶段进行个性化定制：
+
+#### 快速导航
+
+- **🏷️ [标题自定义渲染](../demos/bubble/title-render-demo.tsx)** - 专门演示 `titleRender` 功能
+- **📝 [内容自定义渲染](../demos/bubble/content-render-demo.tsx)** - 专门演示 `contentRender` 功能
+- **👤 [头像自定义渲染](../demos/bubble/avatar-render-demo.tsx)** - 专门演示 `avatarRender` 功能
 
 #### 1. 标题自定义 (titleRender)
 
