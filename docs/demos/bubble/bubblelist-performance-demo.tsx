@@ -83,8 +83,6 @@ export default () => {
           borderRadius: 8,
         }}
       >
-        <h3>🚀 BubbleList 性能测试</h3>
-
         <div
           style={{
             display: 'flex',
@@ -94,9 +92,6 @@ export default () => {
           }}
         >
           <div>
-            <label style={{ display: 'block', marginBottom: 4 }}>
-              消息数量:
-            </label>
             <InputNumber
               value={messageCount}
               onChange={(value) => setMessageCount(value || 100)}

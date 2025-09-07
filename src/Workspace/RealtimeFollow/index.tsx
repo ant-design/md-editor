@@ -181,6 +181,7 @@ const Overlay: React.FC<{
   prefixCls = 'workspace-realtime',
   hashId,
 }) => {
+  const { locale } = useContext(I18nContext);
   if (status !== 'loading' && status !== 'error') return null;
   const loadingNode =
     typeof loadingRender === 'function' ? loadingRender() : loadingRender;
@@ -199,7 +200,11 @@ const Overlay: React.FC<{
     >
       {status === 'loading'
         ? loadingNode || <Spin />
-        : errorNode || <span>页面渲染失败</span>}
+        : errorNode || (
+            <span>
+              {locale?.['htmlPreview.renderFailed'] || '页面渲染失败'}
+            </span>
+          )}
     </div>
   );
 };
@@ -336,7 +341,9 @@ export const RealtimeFollow: React.FC<{
       )}
       {shouldShowEmpty ? (
         <div className={classNames(`${prefixCls}-empty`, hashId)}>
-          {emptyNode || <Empty />}
+          {emptyNode || (
+            <Empty description={useContext(I18nContext).locale?.['workspace.empty'] || 'No data'} />
+          )}
         </div>
       ) : (
         <MarkdownEditor

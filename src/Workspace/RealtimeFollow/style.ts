@@ -101,6 +101,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           color: '#cb1e1e',
         },
       },
+
+      [`&-empty`]: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        minHeight: '240px',
+        padding: '24px',
+        textAlign: 'center',
+      },
     },
   };
 };

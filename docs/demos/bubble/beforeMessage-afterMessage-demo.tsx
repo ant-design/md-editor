@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bubble } from '../../../src/Bubble';
 import { MessageBubbleData } from '../../../src/Bubble/type';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 const BeforeMessageAfterMessageDemo: React.FC = () => {
   const mockMessageData: MessageBubbleData = {
@@ -81,14 +82,11 @@ console.log('Hello, World!');
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h2>beforeMessageRender 和 afterMessageRender 渲染演示</h2>
-      <p>
-        这个演示展示了如何使用 <code>beforeMessageRender</code> 和{' '}
-        <code>afterMessageRender</code> 在消息内容的前后添加自定义内容。
-      </p>
-
-      <div style={{ marginTop: '20px' }}>
+    <BubbleDemoCard
+      title="📝 beforeMessageRender 和 afterMessageRender 渲染演示"
+      description="这个演示展示了如何使用 beforeMessageRender 和 afterMessageRender 在消息内容的前后添加自定义内容"
+    >
+      <div style={{ padding: 24 }}>
         <Bubble
           originData={mockMessageData}
           bubbleRenderConfig={{
@@ -197,7 +195,7 @@ const customAfterMessageRender = (props) => {
           </li>
         </ul>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };
 

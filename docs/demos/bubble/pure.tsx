@@ -5,6 +5,7 @@ import {
 } from '@ant-design/md-editor';
 import { Card, Space, Switch, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 const { Text, Title } = Typography;
 
@@ -231,10 +232,17 @@ export default () => {
         </div>
       ) : (
         /* 主要演示区域 */
-        <Card
+        <BubbleDemoCard
           title={`${isPureMode ? '✨' : '🎯'} ${isPureMode ? 'Pure' : '普通'}模式展示`}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 16,
+              padding: 24,
+            }}
+          >
             {mockMessages.map((message) => (
               <Bubble
                 key={message.id}
@@ -246,7 +254,7 @@ export default () => {
               />
             ))}
           </div>
-        </Card>
+        </BubbleDemoCard>
       )}
 
       {/* 使用指南 */}

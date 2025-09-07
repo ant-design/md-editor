@@ -13,3 +13,4 @@ nav:
 ## 文件管理
 
 <code src="../demos/workspace-file-demo.tsx" background="var(--main-bg-color)" iframe=600></code>
+<code src="../demos/workspace-file-share-demo.tsx" background="var(--main-bg-color)" iframe=600></code>

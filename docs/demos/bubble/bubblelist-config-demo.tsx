@@ -5,6 +5,7 @@ import {
 } from '@ant-design/md-editor';
 import { InputNumber, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 // 创建模拟消息
 const createMockMessage = (
@@ -57,18 +58,12 @@ export default () => {
   };
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
+    <BubbleDemoCard
+      title="⚙️ BubbleList 配置选项"
+      description="展示 BubbleList 组件的各种配置选项和功能"
+    >
       {/* 配置控制 */}
-      <div
-        style={{
-          marginBottom: 24,
-          padding: 16,
-          background: '#f8f9fa',
-          borderRadius: 8,
-        }}
-      >
-        <h3>⚙️ BubbleList 配置选项</h3>
-
+      <div style={{ padding: 24, paddingBottom: 16 }}>
         <div
           style={{
             display: 'flex',
@@ -140,10 +135,9 @@ export default () => {
       {/* 说明 */}
       <div
         style={{
-          marginTop: 16,
-          padding: 12,
+          padding: 16,
           background: '#e6f7ff',
-          borderRadius: 6,
+          borderRadius: 8,
           fontSize: 14,
         }}
       >
@@ -160,6 +154,6 @@ export default () => {
           </li>
         </ul>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };

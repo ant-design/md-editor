@@ -3,6 +3,7 @@ import type { BubbleProps, MessageBubbleData } from '@ant-design/md-editor';
 import { Bubble } from '@ant-design/md-editor';
 import { Button, Progress, Space, Spin, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 export default () => {
   const bubbleRef = useRef<any>();
@@ -393,14 +394,12 @@ const handleClick = useCallback(() => {
   };
 
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: 24 }}>
+    <BubbleDemoCard
+      title="🎨 contentRender 自定义内容渲染"
+      description="展示如何使用 contentRender 自定义消息气泡的内容区域"
+    >
       {/* 控制面板 */}
-      <div style={{ marginBottom: 24 }}>
-        <h3>🎨 contentRender 自定义内容渲染</h3>
-        <p style={{ marginBottom: 16, color: '#666' }}>
-          展示如何使用 contentRender 自定义消息气泡的内容区域
-        </p>
-
+      <div style={{ padding: 24, paddingBottom: 16 }}>
         <div style={{ marginBottom: 16 }}>
           <span style={{ marginRight: 12, fontWeight: 500 }}>内容样式：</span>
           <Space>
@@ -509,6 +508,6 @@ const handleClick = useCallback(() => {
           </ul>
         </div>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };

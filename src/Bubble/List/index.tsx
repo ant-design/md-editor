@@ -119,6 +119,8 @@ export type BubbleListProps = {
   onLike?: BubbleProps['onLike'];
   onCancelLike?: BubbleProps['onCancelLike'];
   onReply?: BubbleProps['onReply'];
+  onAvatarClick?: BubbleProps['onAvatarClick'];
+  onDoubleClick?: BubbleProps['onDoubleClick'];
   slidesModeProps?: BubbleProps['slidesModeProps'];
   markdownRenderConfig?: BubbleProps['markdownRenderConfig'];
   docListProps?: BubbleProps['docListProps'];
@@ -178,6 +180,8 @@ export type BubbleListProps = {
  * @param {Function} [props.onDisLike] - 点踩事件回调
  * @param {Function} [props.onReply] - 回复事件回调
  * @param {Function} [props.onCancelLike] - 取消点赞事件回调
+ * @param {Function} [props.onAvatarClick] - 头像点击事件回调
+ * @param {Function} [props.onDoubleClick] - 双击事件回调
  * @param {boolean|Function} [props.shouldShowCopy] - 是否显示复制按钮
  *
  * @example
@@ -189,6 +193,8 @@ export type BubbleListProps = {
  *   assistantMeta={{ avatar: "assistant.jpg", title: "助手" }}
  *   onLike={(message) => console.log('点赞:', message)}
  *   onReply={(message) => console.log('回复:', message)}
+ *   onAvatarClick={() => console.log('点击了头像')}
+ *   onDoubleClick={() => console.log('双击了消息')}
  * />
  * ```
  *
@@ -273,6 +279,8 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
           onDisLike={props.onDisLike}
           onLike={props.onLike}
           onCancelLike={props.onCancelLike}
+          onAvatarClick={props.onAvatarClick}
+          onDoubleClick={props.onDoubleClick}
           customConfig={props?.bubbleRenderConfig?.customConfig}
           shouldShowCopy={props.shouldShowCopy}
         />
@@ -310,7 +318,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
       onWheel={(e) => onWheel?.(e, bubbleListRef?.current || null)}
       onTouchMove={(e) => onTouchMove?.(e, bubbleListRef?.current || null)}
     >
-      <div>{bubbleListDom}</div>
+      {bubbleListDom}
     </div>,
   );
 };

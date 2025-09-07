@@ -187,7 +187,9 @@ export const cnLabels = {
   'workspace.file.unknownFileType': '未知的文件类型',
   'workspace.file.generationTime': '生成时间：',
   'workspace.file.backToFileList': '返回文件列表',
-  'workspace.file.downloadFile': '下载文件',
+  'workspace.file.download': '下载',
+  'workspace.file.share': '分享',
+  'workspace.file.preview': '预览',
   // MarkdownInputField 组件相关
   'markdownInput.fileSizeExceeded': '文件大小超过 ${maxSize} KB',
   // 文档信息相关
@@ -253,6 +255,12 @@ export const cnLabels = {
   'workspace.textContentLoadFailed': '加载文本内容失败',
   'workspace.fileProcessError': '文件处理失败',
   'workspace.download': '下载',
+  // 新增：默认空态文案
+  'workspace.empty': '暂无数据',
+  // 新增：Workspace 标题与搜索相关
+  'workspace.title': '工作空间',
+  'workspace.searchPlaceholder': '搜索文件名',
+  'workspace.noResultsFor': '未找到与「${keyword}」匹配的结果',
   // 工具栏相关
   'toolbar.bold': '加粗',
   'toolbar.italic': '斜体',
@@ -468,7 +476,9 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.unknownFileType': 'Unknown file type',
   'workspace.file.generationTime': 'Generation Time: ',
   'workspace.file.backToFileList': 'Back to File List',
-  'workspace.file.downloadFile': 'Download File',
+  'workspace.file.download': 'Download',
+  'workspace.file.share': 'Share',
+  'workspace.file.preview': 'Preview',
   // MarkdownInputField component related
   'markdownInput.fileSizeExceeded': 'File size exceeds ${maxSize} KB',
   // Document info related
@@ -538,6 +548,12 @@ export const enLabels: typeof cnLabels = {
   'workspace.textContentLoadFailed': 'Failed to load text content',
   'workspace.fileProcessError': 'File processing failed',
   'workspace.download': 'Download',
+  // New: default empty text
+  'workspace.empty': 'No data',
+  // New: Workspace title & search
+  'workspace.title': 'Workspace',
+  'workspace.searchPlaceholder': 'Search file name',
+  'workspace.noResultsFor': 'No results for "${keyword}"',
   // Toolbar related
   'toolbar.bold': 'Bold',
   'toolbar.italic': 'Italic',

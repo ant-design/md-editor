@@ -27,10 +27,13 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 ### 文件管理
 
 <code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能"></code>
+<code src="../demos/workspace-file-share-demo.tsx" description="演示不分组文件分享功能（列表 + 预览页分享按钮）">文件分享</code>
 <code src="../demos/workspace-file-custom-preview-flow.tsx">文件-自定义预览</code>
-
 <code src="../demos/workspace-file-actionref-demo.tsx">actionRef外部打开</code>
+<code src="../demos/workspace-file-search-demo.tsx">文件-搜索</code>
+
 <!-- <code src="../demos/workspace-file-previewComponent.tsx">导出文件预览组件</code> -->
+
 ### 实时跟随
 
 <code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能"></code>
@@ -41,7 +44,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 ### 空状态
 
-<code src="../demos/workspace-realtime-empty-demo.tsx" description="演示任务创建、编辑、状态管理等功能"></code>
+<code src="../demos/workspace-empty-demo.tsx" description="演示空状态功能"></code>
 
 ### 自定义内容
 
@@ -125,21 +128,26 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 文件组件，用于展示文件列表和文件操作。
 
-| 参数                | 说明                                                          | 类型                                                                           | 默认值 |
-| ------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------ |
-| nodes               | 文件/分组节点数据                                             | `(GroupNode \| FileNode)[]`                                                    | -      |
-| onGroupDownload     | 组下载回调                                                    | `(files: FileNode[], groupType: FileType) => void`                             | -      |
-| onDownload          | 单文件下载回调                                                | `(file: FileNode) => void`                                                     | -      |
-| onFileClick         | 文件点击回调                                                  | `(file: FileNode) => void`                                                     | -      |
-| onToggleGroup       | 组展开/收起回调                                               | `(groupType: FileType, collapsed: boolean) => void`                            | -      |
-| onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => void \| false \| FileNode \| ReactNode \| Promise<void \| false \| FileNode \| ReactNode>`  | -      |
-| onBack              | 预览页返回回调（返回 false 阻止默认返回）                     | `(file: FileNode) => void \| boolean \| Promise<void \| boolean>`              | -      |
-| markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>` | -      |
-| actionRef           | 对外操作引用（打开预览/返回/更新预览标题）                    | `React.MutableRefObject<FileActionRef \| null>`                                | -      |
-| loading             | 是否显示加载状态                                              | `boolean`                                                                      | -      |
-| loadingRender       | 自定义加载渲染函数，非必传                                    | `() => React.ReactNode`                                                        | -      |
-| emptyRender         | 自定义空状态渲染（列表为空且非 loading 时优先显示）           | `React.ReactNode \| () => React.ReactNode`                                     | -      |
-| tab                 | 标签页配置                                                    | `TabConfiguration`                                                             | -      |
+| 参数                | 说明                                                          | 类型                                                                                                            | 默认值  |
+| ------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------- |
+| nodes               | 文件/分组节点数据                                             | `(GroupNode \| FileNode)[]`                                                                                     | -       |
+| onGroupDownload     | 组下载回调                                                    | `(files: FileNode[], groupType: FileType) => void`                                                              | -       |
+| onDownload          | 单文件下载回调                                                | `(file: FileNode) => void`                                                                                      | -       |
+| onFileClick         | 文件点击回调                                                  | `(file: FileNode) => void`                                                                                      | -       |
+| onToggleGroup       | 组展开/收起回调                                               | `(groupType: FileType, collapsed: boolean) => void`                                                             | -       |
+| onPreview           | 文件预览回调（返回替换预览内容或异步返回）                    | `(file: FileNode) => void \| false \| FileNode \| ReactNode \| Promise<void \| false \| FileNode \| ReactNode>` | -       |
+| onBack              | 预览页返回回调（返回 false 阻止默认返回）                     | `(file: FileNode) => void \| boolean \| Promise<void \| boolean>`                                               | -       |
+| onShare             | 分享回调（列表与预览页均会触发）                              | `(file: FileNode, ctx?: { anchorEl?: HTMLElement; origin: 'list' \| 'preview' }) => void`                       | -       |
+| markdownEditorProps | Markdown 编辑器配置（覆盖默认预览配置，内部会忽略只读等字段） | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>`                                  | -       |
+| actionRef           | 对外操作引用（打开预览/返回/更新预览标题）                    | `React.MutableRefObject<FileActionRef \| null>`                                                                 | -       |
+| loading             | 是否显示加载状态                                              | `boolean`                                                                                                       | -       |
+| loadingRender       | 自定义加载渲染函数，非必传                                    | `() => React.ReactNode`                                                                                         | -       |
+| emptyRender         | 自定义空状态渲染（列表为空且非 loading 时优先显示）           | `React.ReactNode \| () => React.ReactNode`                                                                      | -       |
+| keyword             | 搜索关键字（受控）                                            | `string`                                                                                                        | -       |
+| onChange            | 搜索关键字变化回调（外部自行过滤）                            | `(keyword: string) => void`                                                                                     | -       |
+| showSearch          | 是否显示搜索框（默认不显示）                                  | `boolean`                                                                                                       | `false` |
+| searchPlaceholder   | 搜索框占位符                                                  | `string`                                                                                                        | -       |
+| tab                 | 标签页配置                                                    | `TabConfiguration`                                                                                              | -       |
 
 #### FileActionRef
 
@@ -167,6 +175,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | metadata     | 额外元数据                                                 | `Record<string, unknown>`  |
 | canPreview   | 是否允许预览（用户自定义开关，默认由系统推断是否可预览）   | `boolean`                  |
 | canDownload  | 是否在文件列表页面展示下载图标（用户自定义开关，默认展示） | `boolean`                  |
+| canShare     | 是否在文件列表/预览页展示分享按钮（默认隐藏）              | `boolean`                  |
 
 #### GroupNode
 

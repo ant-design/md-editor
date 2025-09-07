@@ -6,42 +6,35 @@
       test
     </div>
     <div
-      style="padding: 20px; max-width: 800px; margin: 0px auto;"
+      style="border-radius: 20px; background: rgb(253, 254, 254); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2), 0px 1.5px 4px -1px rgba(0, 19, 41, 0.04); width: 830px; display: flex; flex-direction: column; justify-content: space-between; padding: 0px; z-index: 0; margin: 24px auto;"
     >
-      <h2>
-        afterContent 和 beforeContent 渲染演示
-      </h2>
-      <p>
-        这个演示展示了如何使用 
-        <code>
-          afterContentRender
-        </code>
-         和 
-        <code>
-          beforeContentRender
-        </code>
-         在消息内容的前后添加自定义内容。
-      </p>
       <div
-        style="margin-top: 20px;"
+        style="padding: 16px; display: flex; flex-direction: row; align-items: center; box-sizing: border-box; border-width: 0px 0px 1px 0px; border-style: solid; border-color: rgba(0, 16, 32, 0.063);"
       >
+        <span
+          style="font-size: 13px; color: rgba(0, 0, 0, 0.45);"
+        >
+          📝 afterContent 和 beforeContent 渲染演示
+        </span>
         <div
-          class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-          style="gap: 12px;"
+          style="font-size: 12px; color: rgba(0, 0, 0, 0.45);"
+        >
+          这个演示展示了如何使用 afterContentRender 和 beforeContentRender 在消息内容的前后添加自定义内容
+        </div>
+      </div>
+      <div>
+        <div
+          style="padding: 24px;"
         >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container"
-            initial="hidden"
-            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+            style="gap: 12px;"
           >
             <div
-              class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+              class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
             >
               <span
-                class="ant-avatar ant-avatar-circle ant-agent-list-bubble-avatar"
+                class="ant-avatar ant-avatar-circle ant-agent-list-bubble-bubble-avatar"
                 data-testid="bubble-avatar"
                 style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
               >
@@ -56,30 +49,20 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-title ant-flex"
+                class="ant-agent-list-bubble-bubble-title ant-flex"
                 data-testid="bubble-title"
                 style="flex-direction: row; gap: 8px;"
               />
             </div>
             <div
-              animate="visible"
-              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
               data-testid="chat-message"
-              initial="hidden"
               style="display: flex; gap: 4px; flex-direction: column;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
-                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-                data-testid="message-before"
-                variants="[object Object]"
-              />
-              <div
-                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
                 data-testid="message-content"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -454,15 +437,56 @@
             </div>
           </div>
         </div>
+        <div
+          style="padding: 16px; background: rgb(230, 247, 255); border-radius: 8px; font-size: 14px;"
+        >
+          <strong>
+            📖 功能说明：
+          </strong>
+          <ul
+            style="margin: 8px 0px 0px 0px; padding-left: 20px;"
+          >
+            <li>
+              <strong>
+                beforeContentRender:
+              </strong>
+               在消息内容前面添加自定义内容
+            </li>
+            <li>
+              <strong>
+                afterContentRender:
+              </strong>
+               在消息内容后面添加自定义内容
+            </li>
+            <li>
+              <strong>
+                参数:
+              </strong>
+               两个函数都接收 props 和 defaultDom 参数
+            </li>
+            <li>
+              <strong>
+                返回值:
+              </strong>
+               可以返回任何有效的 React 节点
+            </li>
+            <li>
+              <strong>
+                禁用:
+              </strong>
+               设置为 false 可以禁用对应的渲染
+            </li>
+          </ul>
+        </div>
       </div>
       <div
-        style="margin-top: 40px;"
+        style="margin-top: 24px; padding: 16px; background: rgb(245, 245, 245); border-radius: 8px; font-size: 12px;"
       >
-        <h3>
-          代码示例
-        </h3>
+        <strong>
+          💻 代码示例：
+        </strong>
         <pre
-          style="background: rgb(246, 248, 250); padding: 16px; border-radius: 6px; overflow: auto; font-size: 13px;"
+          style="margin: 8px 0px 0px 0px; overflow: auto;"
         >
           // 自定义 beforeContent 渲染函数
 const customBeforeContentRender = (props) =&gt; {
@@ -507,57 +531,6 @@ const customAfterContentRender = (props) =&gt; {
   }}
 /&gt;
         </pre>
-      </div>
-      <div
-        style="margin-top: 20px;"
-      >
-        <h3>
-          功能说明
-        </h3>
-        <ul>
-          <li>
-            <strong>
-              beforeContentRender
-            </strong>
-            : 在消息内容前面添加自定义内容
-          </li>
-          <li>
-            <strong>
-              afterContentRender
-            </strong>
-            : 在消息内容后面添加自定义内容
-          </li>
-          <li>
-            <strong>
-              参数
-            </strong>
-            : 两个函数都接收 
-            <code>
-              props
-            </code>
-             和 
-            <code>
-              defaultDom
-            </code>
-             参数
-          </li>
-          <li>
-            <strong>
-              返回值
-            </strong>
-            : 可以返回任何有效的 React 节点
-          </li>
-          <li>
-            <strong>
-              禁用
-            </strong>
-            : 设置为 
-            <code>
-              false
-            </code>
-             可以禁用对应的渲染
-          </li>
-        </ul>
       </div>
     </div>
   </div>

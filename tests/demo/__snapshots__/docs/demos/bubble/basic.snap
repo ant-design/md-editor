@@ -6,39 +6,37 @@
       test
     </div>
     <div
-      style="max-width: 800px; margin: 0px auto; padding: 24px;"
+      style="border-radius: 20px; background: rgb(253, 254, 254); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2), 0px 1.5px 4px -1px rgba(0, 19, 41, 0.04); width: 830px; display: flex; flex-direction: column; justify-content: space-between; padding: 0px; z-index: 0; margin: 24px auto;"
     >
       <div
-        style="margin-bottom: 24px;"
+        style="padding: 16px; display: flex; flex-direction: row; align-items: center; box-sizing: border-box; border-width: 0px 0px 1px 0px; border-style: solid; border-color: rgba(0, 16, 32, 0.063);"
       >
+        <span
+          style="font-size: 13px; color: rgba(0, 0, 0, 0.45);"
+        >
+          🎯 Bubble 基础用法演示
+        </span>
         <div
-          style="margin-top: 8px; color: rgb(102, 102, 102); font-size: 14px;"
+          style="font-size: 12px; color: rgba(0, 0, 0, 0.45);"
         >
           💡 点击消息下方的操作按钮可以体验交互功能
         </div>
       </div>
-      <div
-        style="display: flex; flex-direction: column; gap: 16px;"
-      >
+      <div>
         <div
-          class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-          style="gap: 12px;"
+          style="display: flex; flex-direction: column; gap: 16px; padding: 24px;"
         >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container"
-            initial="hidden"
-            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+            style="gap: 12px;"
           >
             <div
-              class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+              class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
             >
               <span
-                class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+                class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-bubble-avatar"
                 data-testid="bubble-avatar"
-                style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+                style="width: 24px; height: 24px; font-size: 18px;"
               >
                 <img
                   alt="avatar"
@@ -49,7 +47,7 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-title ant-flex"
+                class="ant-agent-list-bubble-bubble-title ant-flex"
                 data-testid="bubble-title"
                 style="flex-direction: row; gap: 8px;"
               >
@@ -57,24 +55,18 @@
               </div>
             </div>
             <div
-              animate="visible"
-              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
               data-testid="chat-message"
-              initial="hidden"
               style="display: flex; gap: 4px; flex-direction: column;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
-                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
                 data-testid="message-before"
-                variants="[object Object]"
               />
               <div
-                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
                 data-testid="message-content"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -475,38 +467,19 @@
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="ant-agent-list ant-agent-list-right ant-flex ant-flex-align-stretch ant-flex-vertical"
-          style="gap: 12px;"
-        >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container"
-            initial="hidden"
-            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble ant-agent-list-bubble-right ant-flex ant-flex-align-stretch ant-flex-vertical"
+            style="gap: 12px;"
           >
             <div
-              animate="visible"
-              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-right"
+              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-right"
               data-testid="chat-message"
-              initial="hidden"
               style="display: flex; gap: 4px; flex-direction: column;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
-                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-right"
-                data-testid="message-before"
-                variants="[object Object]"
-              />
-              <div
-                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-right"
+                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-right"
                 data-testid="message-content"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   class="agent-item-default-content"
@@ -629,26 +602,17 @@
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-          style="gap: 12px;"
-        >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container"
-            initial="hidden"
-            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+            style="gap: 12px;"
           >
             <div
-              class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+              class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
             >
               <span
-                class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+                class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-bubble-avatar"
                 data-testid="bubble-avatar"
-                style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+                style="width: 24px; height: 24px; font-size: 18px;"
               >
                 <img
                   alt="avatar"
@@ -659,7 +623,7 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-title ant-flex"
+                class="ant-agent-list-bubble-bubble-title ant-flex"
                 data-testid="bubble-title"
                 style="flex-direction: row; gap: 8px;"
               >
@@ -667,24 +631,18 @@
               </div>
             </div>
             <div
-              animate="visible"
-              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
               data-testid="chat-message"
-              initial="hidden"
               style="display: flex; gap: 4px; flex-direction: column;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
-                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
                 data-testid="message-before"
-                variants="[object Object]"
               />
               <div
-                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
                 data-testid="message-content"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -1004,10 +962,9 @@
                 </div>
               </div>
               <div
-                class="ant-agent-list-bubble-after ant-agent-list-bubble-after-left"
+                class="ant-agent-list-bubble-bubble-after ant-agent-list-bubble-bubble-after-left"
                 data-testid="message-after"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   class="ant-image ant-image-error"
@@ -1262,49 +1219,55 @@
             </div>
           </div>
         </div>
-      </div>
-      <div
-        style="margin-top: 32px; padding: 16px; background-color: rgb(248, 249, 250); border-radius: 8px; font-size: 14px; line-height: 1.6;"
-      >
-        <h4
-          style="margin: 0px 0px 12px 0px;"
+        <div
+          style="margin-top: 16px; padding: 16px; background-color: rgb(230, 247, 255); border-radius: 8px; font-size: 14px; line-height: 1.6;"
         >
-          🚀 基础功能演示
-        </h4>
-        <ul
-          style="margin: 0px; padding-left: 20px;"
-        >
-          <li>
-            <strong>
-              消息布局：
-            </strong>
-            支持左右两种布局，适配不同角色
-          </li>
-          <li>
-            <strong>
-              丰富内容：
-            </strong>
-            支持 Markdown 格式、文件附件展示
-          </li>
-          <li>
-            <strong>
-              交互操作：
-            </strong>
-            点赞、点踩、回复等操作反馈
-          </li>
-          <li>
-            <strong>
-              文件支持：
-            </strong>
-            自动识别并展示不同类型的文件
-          </li>
-          <li>
-            <strong>
-              元数据：
-            </strong>
-            头像、标题、描述等信息展示
-          </li>
-        </ul>
+          <h4
+            style="margin: 0px 0px 12px 0px;"
+          >
+            🚀 基础功能演示
+          </h4>
+          <ul
+            style="margin: 0px; padding-left: 20px;"
+          >
+            <li>
+              <strong>
+                消息布局：
+              </strong>
+              支持左右两种布局，适配不同角色
+            </li>
+            <li>
+              <strong>
+                丰富内容：
+              </strong>
+              支持 Markdown 格式、文件附件展示
+            </li>
+            <li>
+              <strong>
+                交互操作：
+              </strong>
+              点赞、点踩、回复等操作反馈
+            </li>
+            <li>
+              <strong>
+                头像点击：
+              </strong>
+              点击头像可以查看用户资料或切换用户
+            </li>
+            <li>
+              <strong>
+                文件支持：
+              </strong>
+              自动识别并展示不同类型的文件
+            </li>
+            <li>
+              <strong>
+                元数据：
+              </strong>
+              头像、标题、描述等信息展示
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

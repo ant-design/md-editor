@@ -6,106 +6,105 @@
       test
     </div>
     <div
-      style="max-width: 900px; margin: 0px auto; padding: 24px;"
+      style="border-radius: 20px; background: rgb(253, 254, 254); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2), 0px 1.5px 4px -1px rgba(0, 19, 41, 0.04); width: 830px; display: flex; flex-direction: column; justify-content: space-between; padding: 0px; z-index: 0; margin: 24px auto;"
     >
       <div
-        style="margin-bottom: 24px;"
+        style="padding: 16px; display: flex; flex-direction: row; align-items: center; box-sizing: border-box; border-width: 0px 0px 1px 0px; border-style: solid; border-color: rgba(0, 16, 32, 0.063);"
       >
-        <h3>
+        <span
+          style="font-size: 13px; color: rgba(0, 0, 0, 0.45);"
+        >
           🎨 avatarRender 自定义头像渲染
-        </h3>
-        <p
-          style="margin-bottom: 16px; color: rgb(102, 102, 102);"
+        </span>
+        <div
+          style="font-size: 12px; color: rgba(0, 0, 0, 0.45);"
         >
           展示如何使用 avatarRender 自定义消息气泡的头像区域
-        </p>
+        </div>
+      </div>
+      <div>
         <div
-          style="margin-bottom: 16px;"
+          style="padding: 24px 24px 16px 24px;"
         >
-          <span
-            style="margin-right: 12px; font-weight: 500;"
-          >
-            头像样式：
-          </span>
           <div
-            class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+            style="margin-bottom: 16px;"
           >
-            <div
-              class="ant-space-item"
+            <span
+              style="margin-right: 12px; font-weight: 500;"
             >
-              <button
-                class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
-                type="button"
-              >
-                <span>
-                  默认样式
-                </span>
-              </button>
-            </div>
+              头像样式：
+            </span>
             <div
-              class="ant-space-item"
+              class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
             >
-              <button
-                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-                type="button"
+              <div
+                class="ant-space-item"
               >
-                <span>
-                  在线状态
-                </span>
-              </button>
-            </div>
-            <div
-              class="ant-space-item"
-            >
-              <button
-                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-                type="button"
+                <button
+                  class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                  type="button"
+                >
+                  <span>
+                    默认样式
+                  </span>
+                </button>
+              </div>
+              <div
+                class="ant-space-item"
               >
-                <span>
-                  角色标识
-                </span>
-              </button>
-            </div>
-            <div
-              class="ant-space-item"
-            >
-              <button
-                class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
-                type="button"
+                <button
+                  class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                  type="button"
+                >
+                  <span>
+                    在线状态
+                  </span>
+                </button>
+              </div>
+              <div
+                class="ant-space-item"
               >
-                <span>
-                  增强样式
-                </span>
-              </button>
+                <button
+                  class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                  type="button"
+                >
+                  <span>
+                    角色标识
+                  </span>
+                </button>
+              </div>
+              <div
+                class="ant-space-item"
+              >
+                <button
+                  class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                  type="button"
+                >
+                  <span>
+                    增强样式
+                  </span>
+                </button>
+              </div>
             </div>
+          </div>
+          <div
+            style="padding: 12px; background: rgb(248, 249, 250); border-radius: 6px; font-size: 14px; color: rgb(102, 102, 102);"
+          >
+            <strong>
+              当前样式：
+            </strong>
+            使用默认头像渲染
           </div>
         </div>
         <div
-          style="padding: 12px; background: rgb(248, 249, 250); border-radius: 6px; font-size: 14px; color: rgb(102, 102, 102);"
-        >
-          <strong>
-            当前样式：
-          </strong>
-          使用默认头像渲染
-        </div>
-      </div>
-      <div
-        style="display: flex; flex-direction: column; gap: 16px;"
-      >
-        <div
-          class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-          style="gap: 12px;"
+          style="display: flex; flex-direction: column; gap: 16px;"
         >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container"
-            initial="hidden"
-            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+            style="gap: 12px;"
           >
             <div
-              class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+              class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
             >
               <span
                 class="ant-avatar ant-avatar-circle ant-avatar-image ant-avatar-icon"
@@ -119,7 +118,7 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-title ant-flex"
+                class="ant-agent-list-bubble-bubble-title ant-flex"
                 data-testid="bubble-title"
                 style="flex-direction: row; gap: 8px;"
               >
@@ -127,24 +126,18 @@
               </div>
             </div>
             <div
-              animate="visible"
-              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
               data-testid="chat-message"
-              initial="hidden"
               style="display: flex; gap: 4px; flex-direction: column;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
-                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
                 data-testid="message-before"
-                variants="[object Object]"
               />
               <div
-                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
                 data-testid="message-content"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -626,38 +619,19 @@
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="ant-agent-list ant-agent-list-right ant-flex ant-flex-align-stretch ant-flex-vertical"
-          style="gap: 12px;"
-        >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container"
-            initial="hidden"
-            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble ant-agent-list-bubble-right ant-flex ant-flex-align-stretch ant-flex-vertical"
+            style="gap: 12px;"
           >
             <div
-              animate="visible"
-              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-right"
+              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-right"
               data-testid="chat-message"
-              initial="hidden"
               style="display: flex; gap: 4px; flex-direction: column;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
-                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-right"
-                data-testid="message-before"
-                variants="[object Object]"
-              />
-              <div
-                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-right"
+                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-right"
                 data-testid="message-content"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   class="agent-item-default-content"
@@ -760,21 +734,12 @@
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
-          style="gap: 12px;"
-        >
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container"
-            initial="hidden"
-            style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+            style="gap: 12px;"
           >
             <div
-              class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+              class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
             >
               <span
                 class="ant-avatar ant-avatar-circle ant-avatar-image ant-avatar-icon"
@@ -788,7 +753,7 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-title ant-flex"
+                class="ant-agent-list-bubble-bubble-title ant-flex"
                 data-testid="bubble-title"
                 style="flex-direction: row; gap: 8px;"
               >
@@ -796,24 +761,18 @@
               </div>
             </div>
             <div
-              animate="visible"
-              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
               data-testid="chat-message"
-              initial="hidden"
               style="display: flex; gap: 4px; flex-direction: column;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
-                class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
                 data-testid="message-before"
-                variants="[object Object]"
               />
               <div
-                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
                 data-testid="message-content"
                 style="min-width: 0px;"
-                variants="[object Object]"
               >
                 <div
                   style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
@@ -1282,68 +1241,70 @@ const handleClick = useCallback(() =&gt; {
             </div>
           </div>
         </div>
-      </div>
-      <div
-        style="margin-top: 32px; padding: 16px; background: rgb(248, 249, 250); border-radius: 8px;"
-      >
-        <h4>
-          🔧 avatarRender API 说明
-        </h4>
         <div
-          style="margin-bottom: 16px;"
+          style="padding: 16px; background: rgb(230, 247, 255); border-radius: 8px; font-size: 14px;"
         >
-          <h5>
-            函数签名：
-          </h5>
-          <pre
-            style="background: rgb(245, 245, 245); padding: 12px; border-radius: 4px;"
+          <strong>
+            🔧 avatarRender API 说明：
+          </strong>
+          <div
+            style="margin-top: 8px;"
           >
-            avatarRender: (props: BubbleProps) =&gt; React.ReactNode
-          </pre>
-        </div>
-        <div
-          style="margin-bottom: 16px;"
-        >
-          <h5>
-            参数说明：
-          </h5>
-          <ul
-            style="margin: 0px; padding-left: 20px; line-height: 1.8;"
+            <strong>
+              函数签名：
+            </strong>
+            <pre
+              style="background: rgb(245, 245, 245); padding: 8px; border-radius: 4px; font-size: 12px; margin: 4px 0px;"
+            >
+              avatarRender: (props: BubbleProps) =&gt; React.ReactNode
+            </pre>
+          </div>
+          <div
+            style="margin-top: 8px;"
           >
-            <li>
-              <strong>
-                props
-              </strong>
-              : 包含 originData 等消息数据的属性对象
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h5>
-            使用场景：
-          </h5>
-          <ul
-            style="margin: 0px; padding-left: 20px; line-height: 1.8;"
+            <strong>
+              参数说明：
+            </strong>
+            <ul
+              style="margin: 4px 0px 0px 0px; padding-left: 20px; line-height: 1.6;"
+            >
+              <li>
+                <strong>
+                  props:
+                </strong>
+                 包含 originData 等消息数据的属性对象
+              </li>
+            </ul>
+          </div>
+          <div
+            style="margin-top: 8px;"
           >
-            <li>
-              显示用户在线/离线状态
-            </li>
-            <li>
-              区分用户和AI助手的角色
-            </li>
-            <li>
-              显示用户等级和权限标识
-            </li>
-            <li>
-              添加VIP、专家等特殊标记
-            </li>
-            <li>
-              自定义头像的样式和边框
-            </li>
-            <li>
-              添加头像周围的装饰元素
-            </li>
-          </ul>
+            <strong>
+              使用场景：
+            </strong>
+            <ul
+              style="margin: 4px 0px 0px 0px; padding-left: 20px; line-height: 1.6;"
+            >
+              <li>
+                显示用户在线/离线状态
+              </li>
+              <li>
+                区分用户和AI助手的角色
+              </li>
+              <li>
+                显示用户等级和权限标识
+              </li>
+              <li>
+                添加VIP、专家等特殊标记
+              </li>
+              <li>
+                自定义头像的样式和边框
+              </li>
+              <li>
+                添加头像周围的装饰元素
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

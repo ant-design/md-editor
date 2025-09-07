@@ -6,6 +6,7 @@ import {
 } from '@ant-design/md-editor';
 import { Button, message } from 'antd';
 import React, { useCallback, useRef, useState } from 'react';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 // 创建模拟消息
 const createMockMessage = (
@@ -67,50 +68,37 @@ export default () => {
   }, [bubbleList.length]);
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
+    <BubbleDemoCard
+      title="📋 BubbleList 基础用法"
+      description={`当前消息数: ${bubbleList.length}`}
+    >
       {/* 控制区域 */}
-      <div
-        style={{
-          marginBottom: 24,
-          padding: 16,
-          background: '#f8f9fa',
-          borderRadius: 8,
-        }}
-      >
-        <h3>📋 BubbleList 基础用法</h3>
+      <div style={{ padding: 24, paddingBottom: 16 }}>
         <Button type="primary" icon={<PlusOutlined />} onClick={addMessage}>
           添加消息
         </Button>
-        <div style={{ marginTop: 8, fontSize: 14, color: '#666' }}>
-          当前消息数: {bubbleList.length}
-        </div>
       </div>
 
       {/* 消息列表 */}
-      <div
+      <BubbleList
+        bubbleList={bubbleList}
+        bubbleListRef={bubbleListRef}
+        bubbleRef={bubbleRef}
+        assistantMeta={assistantMeta}
+        userMeta={userMeta}
         style={{
-          border: '1px solid #e9ecef',
-          borderRadius: 8,
-          overflow: 'hidden',
+          height: 400,
+          overflow: 'auto',
+          borderRadius: '20px', // 与卡片容器保持一致
         }}
-      >
-        <BubbleList
-          bubbleList={bubbleList}
-          bubbleListRef={bubbleListRef}
-          bubbleRef={bubbleRef}
-          assistantMeta={assistantMeta}
-          userMeta={userMeta}
-          style={{ height: 400, overflow: 'auto' }}
-        />
-      </div>
+      />
 
       {/* 说明 */}
       <div
         style={{
-          marginTop: 16,
-          padding: 12,
+          padding: 16,
           background: '#e6f7ff',
-          borderRadius: 6,
+          borderRadius: 8,
           fontSize: 14,
         }}
       >
@@ -127,6 +115,6 @@ export default () => {
           </li>
         </ul>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };

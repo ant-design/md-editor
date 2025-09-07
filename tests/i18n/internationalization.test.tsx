@@ -56,7 +56,7 @@ const TestI18nComponent: React.FC<{ locale: any }> = ({ locale }) => {
         {locale?.['workspace.file.backToFileList'] || '返回文件列表'}
       </div>
       <div data-testid="workspace-download-file">
-        {locale?.['workspace.file.downloadFile'] || '下载文件'}
+        {locale?.['workspace.file.download'] || '下载'}
       </div>
 
       {/* MarkdownInputField 组件相关测试 */}

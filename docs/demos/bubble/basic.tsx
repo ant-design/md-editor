@@ -5,6 +5,7 @@ import {
 } from '@ant-design/md-editor';
 import { message } from 'antd';
 import React, { useRef } from 'react';
+import { BubbleDemoCard } from './BubbleDemoCard';
 
 // 创建模拟文件的辅助函数
 const createMockFile = (
@@ -150,17 +151,26 @@ export default () => {
     console.log('回复内容:', content);
   };
 
-  return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
-      {/* 操作区域 */}
-      <div style={{ marginBottom: 24 }}>
-        <div style={{ marginTop: 8, color: '#666', fontSize: 14 }}>
-          💡 点击消息下方的操作按钮可以体验交互功能
-        </div>
-      </div>
+  // 处理头像点击事件
+  const handleAvatarClick = () => {
+    message.success('👤 点击了头像！可以查看用户资料或切换用户');
+    console.log('头像被点击了');
+  };
 
+  return (
+    <BubbleDemoCard
+      title="🎯 Bubble 基础用法演示"
+      description="💡 点击消息下方的操作按钮可以体验交互功能"
+    >
       {/* 消息列表 */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          padding: 24,
+        }}
+      >
         {/* Assistant message */}
         <Bubble
           avatar={mockMessage.meta!}
@@ -170,6 +180,7 @@ export default () => {
           onLike={handleLike}
           onDisLike={handleDisLike}
           onReply={handleReply}
+          onAvatarClick={handleAvatarClick}
         />
 
         {/* User message */}
@@ -179,6 +190,7 @@ export default () => {
           bubbleRef={bubbleRef}
           originData={mockUserMessage}
           onReply={handleReply}
+          onAvatarClick={handleAvatarClick}
         />
 
         {/* Message with files */}
@@ -190,15 +202,16 @@ export default () => {
           onLike={handleLike}
           onDisLike={handleDisLike}
           onReply={handleReply}
+          onAvatarClick={handleAvatarClick}
         />
       </div>
 
       {/* 功能说明 */}
       <div
         style={{
-          marginTop: 32,
+          marginTop: 16,
           padding: 16,
-          backgroundColor: '#f8f9fa',
+          backgroundColor: '#e6f7ff',
           borderRadius: 8,
           fontSize: 14,
           lineHeight: 1.6,
@@ -216,6 +229,9 @@ export default () => {
             <strong>交互操作：</strong>点赞、点踩、回复等操作反馈
           </li>
           <li>
+            <strong>头像点击：</strong>点击头像可以查看用户资料或切换用户
+          </li>
+          <li>
             <strong>文件支持：</strong>自动识别并展示不同类型的文件
           </li>
           <li>
@@ -223,6 +239,6 @@ export default () => {
           </li>
         </ul>
       </div>
-    </div>
+    </BubbleDemoCard>
   );
 };
