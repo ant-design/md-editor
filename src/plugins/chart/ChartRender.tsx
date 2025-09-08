@@ -1,20 +1,20 @@
 ﻿import {
-  DownloadOutlined,
   DownOutlined,
-  FullscreenOutlined,
-  ReloadOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
-import { Chart } from 'chart.js';
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
-import { ChartAttrToolBar } from './ChartAttrToolBar';
-import { Area, Bar, Column, Line, Pie } from './ChartMark';
+import AreaChart from './AreaChart';
+import BarChart from './BarChart';
+import LineChart from './LineChart';
+import RadarChart from './RadarChart';
+import ScatterChart from './ScatterChart';
+import DonutChart from './DonutChart';
 
 /**
  * 图表类型映射配置
@@ -39,6 +39,14 @@ const ChartMap = {
   area: {
     title: '面积图',
     changeData: ['column', 'bar', 'line', 'table'],
+  },
+  radar: {
+    title: '雷达图',
+    changeData: ['table'],
+  },
+  scatter: {
+    title: '散点图',
+    changeData: ['table'],
   },
   table: {
     title: '表格',
@@ -108,6 +116,8 @@ export const ChartRender: React.FC<{
     | 'line'
     | 'column'
     | 'area'
+    | 'radar'
+    | 'scatter'
     | 'descriptions'
     | 'table';
   chartData: Record<string, any>[];
@@ -128,8 +138,8 @@ export const ChartRender: React.FC<{
 }> = (props) => {
   const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
-    'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions' | 'table'
-  >(() => props.chartType);
+    'pie' | 'bar' | 'line' | 'column' | 'area' | 'radar' | 'scatter' | 'descriptions' | 'table'
+  >(() => props.chartType as any);
   const {
     chartData,
     node,
@@ -138,10 +148,114 @@ export const ChartRender: React.FC<{
     columnLength,
     title,
   } = props;
-
-  const chartRef = useRef<Chart>();
   const i18n = useContext(I18nContext);
   const [config, setConfig] = useState(() => props.config);
+  const [renderKey, setRenderKey] = useState(0);
+
+  const toNumber = (val: any, fallback: number) => {
+    if (typeof val === 'number' && !Number.isNaN(val)) return val;
+    const n = Number(val);
+    return Number.isFinite(n) ? n : fallback;
+  };
+
+  const getAxisTitles = () => {
+    const xCol = config?.columns?.find?.((c: any) => c?.dataIndex === config?.x);
+    const yCol = config?.columns?.find?.((c: any) => c?.dataIndex === config?.y);
+    return {
+      xTitle: xCol?.title || String(config?.x || ''),
+      yTitle: yCol?.title || String(config?.y || ''),
+    };
+  };
+
+  const buildXIndexer = () => {
+    const map = new Map<any, number>();
+    let idx = 1;
+    (chartData || []).forEach((row: any) => {
+      const key = row?.[config?.x as any];
+      if (!map.has(key)) map.set(key, idx++);
+    });
+    return map;
+  };
+
+  const convertFlatData = useMemo(() => {
+    const { xTitle, yTitle } = getAxisTitles();
+    const xIndexer = buildXIndexer();
+
+    const rest = (config as any)?.rest || {};
+    const legendField: string | undefined = rest?.colorLegend; // 图例维度 → type
+    const groupByField: string | undefined = rest?.groupBy || rest?.categoryField; // 主筛选维度 → category
+    const filterByField: string | undefined = rest?.filterBy; // 二级筛选维度 → filterLable
+
+    return (chartData || []).map((row: any, i: number) => {
+      const rawX = row?.[config?.x as any];
+      const rawY = row?.[config?.y as any];
+
+      // category: 一个表中的不同数据（主筛选）
+      const category =
+        groupByField && row?.[groupByField] != null
+          ? String(row[groupByField])
+          : row?.category != null
+          ? String(row.category)
+          : (title || '默认');
+
+      // type: 一个数据里的不同维度（图例）
+      const type =
+        legendField && row?.[legendField] != null
+          ? String(row[legendField])
+          : row?.type != null
+          ? String(row.type)
+          : (yTitle || '系列');
+
+      // filterLable: 多个不同的表（二级筛选）
+      const filterLable =
+        filterByField && row?.[filterByField] != null
+          ? String(row[filterByField])
+          : undefined;
+
+      return {
+        category,
+        type,
+        x:
+          typeof rawX === 'number'
+            ? rawX
+            : rawX != null
+            ? String(rawX)
+            : String(xIndexer.get(rawX) ?? i + 1),
+        y: typeof rawY === 'number' ? rawY : rawY != null ? String(rawY) : '',
+        xtitle: xTitle,
+        ytitle: yTitle,
+        ...(filterLable != null ? { filterLable } : {}),
+      };
+    });
+  }, [JSON.stringify(chartData), JSON.stringify(config), title]);
+
+  const convertDonutData = useMemo(() => {
+    const rest = (config as any)?.rest || {};
+    const groupByField: string | undefined = rest?.groupBy || rest?.categoryField; // 主筛选维度 → category
+    const filterByField: string | undefined = rest?.filterBy; // 二级筛选维度 → filterLable
+
+    return (chartData || []).map((row: any) => {
+      const category =
+        groupByField && row?.[groupByField] != null
+          ? String(row[groupByField])
+          : row?.category != null
+          ? String(row.category)
+          : (title || '默认');
+      const label = String(row?.[config?.x as any] ?? '');
+      const value = toNumber(row?.[config?.y as any], 0);
+      const filterLable =
+        filterByField && row?.[filterByField] != null
+          ? String(row[filterByField])
+          : undefined;
+
+      return {
+        category,
+        label,
+        value,
+        ...(filterLable != null ? { filterLable } : {}),
+      };
+    });
+  }, [JSON.stringify(chartData), JSON.stringify(config), title]);
   /**
    * 图表配置
    */
@@ -245,6 +359,7 @@ export const ChartRender: React.FC<{
                   ...props.config,
                   ...values,
                 });
+                setRenderKey((k) => k + 1);
               }}
             >
               <div
@@ -301,7 +416,7 @@ export const ChartRender: React.FC<{
       >
         <ActionIconBox
           title={i18n?.locale?.configChart || '配置图表'}
-          onClick={() => chartRef.current?.render()}
+          onClick={() => setRenderKey((k) => k + 1)}
         >
           <SettingOutlined />
         </ActionIconBox>
@@ -341,75 +456,127 @@ export const ChartRender: React.FC<{
     }
     if (chartType === 'pie') {
       return (
-        <Pie
-          chartRef={chartRef}
-          index={config?.index}
-          key={config?.index}
-          data={chartData}
-          yField={config?.y || 'value'}
-          xField={config?.x || 'type'}
+        <DonutChart
+          key={`${config?.index}-donut-${renderKey}`}
+          data={convertDonutData}
+          height={config?.height || 400}
+          title={title}
+          showToolbar={true}
         />
       );
     }
     if (chartType === 'bar') {
       return (
-        <Bar
-          chartRef={chartRef}
-          data={chartData}
-          index={config?.index}
-          yField={config?.y}
-          key={config?.index}
-          xField={config?.x}
+        <BarChart
+          key={`${config?.index}-bar-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          indexAxis={'y'}
+          stacked={config?.rest?.stacked}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
         />
       );
     }
 
     if (chartType === 'line') {
       return (
-        <Line
-          chartRef={chartRef}
-          key={config?.index}
-          index={config?.index}
-          data={chartData}
-          yField={config?.y}
-          xField={config?.x}
+        <LineChart
+          key={`${config?.index}-line-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
         />
       );
     }
     if (chartType === 'column') {
       return (
-        <Column
-          chartRef={chartRef}
-          key={config?.index}
-          index={config?.index}
-          data={chartData}
-          yField={config?.y}
-          xField={config?.x}
+        <BarChart
+          key={`${config?.index}-column-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          indexAxis={'x'}
+          stacked={config?.rest?.stacked}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
         />
       );
     }
 
     if (chartType === 'area') {
       return (
-        <Area
-          chartRef={chartRef}
-          key={config?.index}
-          data={chartData}
-          index={config?.index}
-          yField={config?.y}
-          xField={config?.x}
+        <AreaChart
+          key={`${config?.index}-area-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
+        />
+      );
+    }
+    if (chartType === 'radar') {
+      // Radar 数据需要映射为 { category, label, type, score }
+      const radarData = (chartData || []).map((row: any, i: number) => {
+        const rest = (config as any)?.rest || {};
+        const groupByField: string | undefined = rest?.groupBy;
+        const legendField: string | undefined = rest?.colorLegend;
+        return {
+          category:
+            groupByField && row?.[groupByField] != null
+              ? String(row[groupByField])
+              : String(title || '默认'),
+          label: String(row?.[config?.x as any] ?? i + 1),
+          type:
+            legendField && row?.[legendField] != null
+              ? String(row[legendField])
+              : '系列',
+          score: row?.[config?.y as any],
+          ...(row?.filterLable != null ? { filterLable: row.filterLable } : {}),
+        };
+      });
+      return (
+        <RadarChart
+          key={`${config?.index}-radar-${renderKey}`}
+          data={radarData}
+          height={config?.height || 400}
+          title={title || ''}
+        />
+      );
+    }
+    if (chartType === 'scatter') {
+      // Scatter 数据需要映射为 { category, type, x, y }
+      const rest = (config as any)?.rest || {};
+      const groupByField: string | undefined = rest?.groupBy;
+      const legendField: string | undefined = rest?.colorLegend;
+      const filterByField: string | undefined = rest?.filterBy;
+      const scatterData = (chartData || []).map((row: any, i: number) => {
+        return {
+          category:
+            groupByField && row?.[groupByField] != null
+              ? String(row[groupByField])
+              : String(title || '默认'),
+          type:
+            legendField && row?.[legendField] != null
+              ? String(row[legendField])
+              : '系列',
+          x: row?.[config?.x as any],
+          y: row?.[config?.y as any],
+          ...(filterByField && row?.[filterByField] != null
+            ? { filterLable: String(row[filterByField]) }
+            : {}),
+        };
+      });
+      return (
+        <ScatterChart
+          key={`${config?.index}-scatter-${renderKey}`}
+          data={scatterData}
+          height={config?.height || 400}
+          title={title || ''}
         />
       );
     }
@@ -476,100 +643,7 @@ export const ChartRender: React.FC<{
     >
       <div
         ref={handle.node}
-        style={{
-          background: '#fff',
-          borderRadius: 'inherit',
-        }}
       >
-        <div
-          style={{
-            userSelect: 'none',
-          }}
-          contentEditable={false}
-        >
-          <ChartAttrToolBar
-            title={title || ''}
-            node={node}
-            options={[
-              {
-                style: { padding: 0 },
-                icon: toolBar.at(0),
-              },
-              {
-                style: { padding: 0 },
-                icon: toolBar.at(1),
-              },
-              {
-                style: { padding: 0 },
-                icon: toolBar.at(2),
-              },
-              {
-                style: { padding: 0 },
-                icon: (
-                  <ActionIconBox
-                    title={i18n?.locale?.rerender || '重新渲染'}
-                    onClick={() => chartRef.current?.render()}
-                  >
-                    <ReloadOutlined />
-                  </ActionIconBox>
-                ),
-              },
-              {
-                style: { padding: 0 },
-                icon: (
-                  <ActionIconBox
-                    title={i18n?.locale?.download || '下载'}
-                    onClick={() => {
-                      const csvString = chartData
-                        .map((item) => {
-                          return Object.values(item).join(',');
-                        })
-                        .join('\n');
-                      const blob = new Blob([csvString], {
-                        type: 'text/csv;charset=utf-8;',
-                      });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement('a');
-                      a.href = url;
-                      a.download = 'data.csv';
-                      a.click();
-                      URL.revokeObjectURL(url);
-                    }}
-                  >
-                    <DownloadOutlined />
-                  </ActionIconBox>
-                ),
-              },
-              {
-                style: { padding: 0 },
-                icon: (
-                  <ActionIconBox
-                    title={i18n?.locale?.fullScreen || '全屏'}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (handle.active) {
-                        handle.exit();
-                        setConfig(props.config);
-                      } else {
-                        handle.enter();
-                        setConfig({
-                          ...props.config,
-                          height: undefined,
-                        });
-                      }
-                    }}
-                  >
-                    {handle.active ? (
-                      <FullscreenOutlined />
-                    ) : (
-                      <FullscreenOutlined />
-                    )}
-                  </ActionIconBox>
-                ),
-              },
-            ]}
-          />
-        </div>
         {chartDom ?? null}
       </div>
     </ConfigProvider>
