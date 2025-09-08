@@ -25,13 +25,14 @@ nav:
 ```typescript | pure
 type ChartConfig = {
   chartType: string; // 图表类型
-  x: string; // X轴字段
-  y: string; // Y轴字段
+  x: string; // X 轴字段
+  y: string; // Y 轴字段
   title?: string; // 图表标题
   height?: number; // 图表高度，默认400
-  subgraphBy?: string; // 分组字段，用于生成子图表
-  colorLegend?: string; // 颜色图例字段
-  groupBy?: string; // 分组字段
+  groupBy: 主筛选维度; //（映射为 category）
+  filterBy: 二级筛选维度; //（映射为 filterLable）
+  colorLegend: 图例维度; //（映射为 type）
+  subgraphBy: 分组字段，用于生成子图表; //（同段落按该字段拆分）
 };
 ```
 
@@ -67,13 +68,26 @@ type ChartConfig = {
    <!-- {"chartType": "area", "x": "业务", "y": "2021Q1"} -->
    ```
 
-6. **表格 (table)**
+6. **雷达图 (radar)**
+
+   ```markdown
+   <!-- {"chartType": "radar", "x": "label", "y": "score", "colorLegend": "type", "groupBy": "category", "filterBy": "region"} -->
+   ```
+
+7. **散点图 (scatter)**
+
+   ```markdown
+   <!-- {"chartType": "scatter", "x": "x", "y": "y", "colorLegend": "type", "groupBy": "category", "filterBy": "region"} -->
+   ```
+
+
+8. **表格 (table)**
 
    ```markdown
    <!-- {"chartType": "table"} -->
    ```
 
-7. **定义列表 (descriptions)**
+9. **定义列表 (descriptions)**
    ```markdown
    <!-- {"chartType": "descriptions"} -->
    ```
@@ -89,7 +103,8 @@ type ChartConfig = {
 ### 2. 带分组的折线图
 
 ```markdown
-<!-- {"chartType": "line", "x": "日期", "title": "uv点击标记", "y": "uv点击标记", "colorLegend": "内容", "groupBy": "名称"} -->
+<!-- {"chartType": "line", "x": "日期", "y": "uv点击标记", "title": "UV 点击标记",
+      "rest": {"colorLegend": "内容", "groupBy": "名称"}} -->
 ```
 
 ### 3. 带标题的图表
@@ -134,7 +149,8 @@ type ChartConfig = {
 ```markdown
 ## 业务数据图表
 
-<!-- {"chartType": "bar", "x": "业务", "y": "2021Q1", "title": "2021年第一季度业务数据"} -->
+<!-- {"chartType": "bar", "x": "业务", "y": "2021Q1", "title": "2021年第一季度业务数据",
+      "rest": {"groupBy": "业务", "colorLegend": "系列", "filterBy": "地区"}} -->
 
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
