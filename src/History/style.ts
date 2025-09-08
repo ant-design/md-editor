@@ -21,7 +21,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '6px 6px 6px 12px',
         backgroundColor: 'transparent',
         color: token.colorText || 'rgba(0, 0, 0, 0.88)',
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         fontWeight: 400,
         position: 'relative',
         userSelect: 'none',
@@ -58,7 +58,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         '&-icon': {
-          fontSize: '13px',
+          fontSize: 'var(--font-size-base)',
           width: '16px',
           height: '16px',
           display: 'flex',
@@ -75,7 +75,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          fontSize: '13px',
+          fontSize: 'var(--font-size-base)',
           fontWeight: 500,
           padding: '6px 12px 6px',
           lineHeight: '20px',
@@ -94,20 +94,20 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'column',
 
         [`${token.componentCls}-item`]: {
-          fontSize: '13px',
+          fontSize: 'var(--font-size-base)',
         },
 
         [`${token.componentCls}-submenu`]: {
           marginLeft: '16px',
           [`${token.componentCls}-item`]: {
             paddingLeft: '28px',
-            fontSize: '13px',
+            fontSize: 'var(--font-size-base)',
           },
         },
       },
 
       '&-submenu-title': {
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         color: token.colorTextSecondary || 'rgba(0, 0, 0, 0.45)',
         fontWeight: 500,
         padding: '4px 12px',
@@ -158,7 +158,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('GroupMenu', (token: ChatTokenType) => {
+  return useEditorStyleRegister('GroupMenu', (token) => {
     const groupMenuToken = {
       ...token,
       componentCls: `.${prefixCls}`,

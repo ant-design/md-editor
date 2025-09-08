@@ -12,18 +12,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minHeight: 200,
       display: 'flex',
       flexDirection: 'column',
-      padding: '24px',
-      gap: 24,
+      padding: 'var(--padding-6x)',
+      gap: 'var(--margin-6x)',
       '&&-compact': {
-        gap: 24,
+        gap: 'var(--margin-6x)',
       },
       [`${token.componentCls}-content-list`]: {
-        paddingTop: `${token.padding}px`,
-        paddingBottom: `${token.padding}px`,
+        paddingTop: 'var(--padding-3x)',
+        paddingBottom: 'var(--padding-3x)',
       },
 
       '&-loading': {
-        padding: '0 24px',
+        padding: '0 var(--padding-6x)',
       },
     },
   };

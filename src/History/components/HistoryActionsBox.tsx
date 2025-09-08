@@ -113,7 +113,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
               ) : (
                 <StarIcon
                   style={{
-                    color: '--color-icon-secondary',
+                    color: '--color-gray-a9',
                   }}
                 />
               )}

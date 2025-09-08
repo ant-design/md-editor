@@ -8,7 +8,7 @@ const genStyle: GenerateStyle<ChatTokenType> = () => {
 };
 
 export function useBrowserStyle(prefixCls?: string) {
-  return useEditorStyleRegister('WorkspaceBrowser', (token: ChatTokenType) => {
+  return useEditorStyleRegister('WorkspaceBrowser', (token) => {
     const browserToken = {
       ...token,
       componentCls: `.${prefixCls}`,

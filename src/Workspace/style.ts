@@ -6,7 +6,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       height: '100%',
       borderRadius: '20px',
-      background: '#ffffff',
+      background: 'var(--color-gray-bg-card-white)',
       border: '1px solid rgba(140, 171, 255, 0.12)',
       boxShadow: '0px 1.5px 2px -1px rgba(0, 19, 41, 0.07)',
 
@@ -14,35 +14,35 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        margin: '12px 16px',
+        margin: 'var(--margin-3x) var(--margin-4x)',
       },
 
       [`${token.componentCls}-title`]: {
-        fontSize: '15px',
+        fontSize: 'var(--font-size-lg)',
         fontWeight: 600,
-        color: '#343a45',
+        color: 'var(--color-gray-text-default)',
       },
 
       [`${token.componentCls}-close`]: {
-        padding: '5px',
+        padding: 'var(--padding-1x)',
         borderRadius: '6px',
-        color: '#959da8',
+        color: 'var(--color-gray-text-secondary)',
         cursor: 'pointer',
         transition: 'all 0.2s ease',
 
         '&:hover': {
-          color: 'rgb(0 0 0 / 88%)',
-          backgroundColor: '#f0f0f0',
+          color: 'var(--color-gray-text-default)',
+          backgroundColor: 'var(--color-gray-control-fill-hover)',
         },
 
         '&:focus': {
-          outline: '2px solid #1890ff',
+          outline: '2px solid var(--color-primary-control-fill-primary)',
           outlineOffset: '2px',
         },
       },
 
       [`${token.componentCls}-tabs`]: {
-        margin: '12px 16px',
+        margin: 'var(--margin-3x) var(--margin-4x)',
       },
 
       [`${token.componentCls}-segmented`]: {
@@ -70,7 +70,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-tab-title`]: {
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         fontWeight: 500,
       },
 
@@ -82,7 +82,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '20px',
         padding: '4px 6px',
         marginLeft: '4px',
-        fontSize: '11px',
+        fontSize: 'var(--font-size-xs)',
         fontWeight: 500,
         lineHeight: 1,
         color: '#767e8b',
@@ -101,7 +101,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useWorkspaceStyle(prefixCls?: string) {
-  return useEditorStyleRegister('Workspace', (token: ChatTokenType) => {
+  return useEditorStyleRegister('Workspace', (token) => {
     const workspaceToken = {
       ...token,
       componentCls: `.${prefixCls}`,

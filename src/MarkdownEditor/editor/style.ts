@@ -18,7 +18,7 @@ const typing = new Keyframes('typing', {
 const blinkCaret = new Keyframes('blink-caret', {
   from: { borderColor: 'transparent' },
   to: { borderColor: 'transparent' },
-  '50%': { borderColor: '#1677ff' },
+  '50%': { borderColor: 'var(--color-primary-control-fill-primary)' },
 });
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
@@ -44,7 +44,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderRadius: '18px',
       cursor: 'pointer',
       padding: '4px',
-      fontSize: '16px',
+      fontSize: 'var(--font-size-xl)',
       color: 'rgb(38, 38, 38)',
 
       '&:hover': {
@@ -62,7 +62,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       position: 'relative',
       transition: 'all 0.3s ease',
       boxSizing: 'border-box',
-      border: '1px solid #eee',
+      border: '1px solid var(--color-gray-border-light)',
     },
 
     '.react-resizable-handle-hide': {
@@ -73,7 +73,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       transform: 'scale(1.02)',
       boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
       borderRadius: '4px',
-      outline: '2px solid #1890ff',
+      outline: '2px solid var(--color-primary-control-fill-primary)',
       outlineOffset: '2px',
     },
 
@@ -87,8 +87,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       zIndex: 9999,
       width: '14px',
       height: '14px',
-      border: '2px solid #fff',
-      backgroundColor: '#2f8ef4',
+      border: '2px solid var(--color-gray-bg-card-white)',
+      backgroundColor: 'var(--color-primary-control-fill-primary)',
       borderRadius: '10px',
       bottom: '-7px',
       right: '-7px',
@@ -136,7 +136,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     // 移动标记样式
     '.move-mark': {
       height: '0.125em',
-      backgroundColor: '#1890ff',
+      backgroundColor: 'var(--color-primary-control-fill-primary)',
       left: 0,
       zIndex: 1000,
       display: 'block',
@@ -155,9 +155,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     '.ace-container': {
       position: 'relative',
       borderRadius: '0.25em',
-      border: '1px solid #0000001a',
+      border: '1px solid var(--color-gray-border-light)',
       marginBottom: '0.5em',
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
       minWidth: 'min(320px, 100%)',
       marginTop: '8px',
     },
@@ -172,12 +172,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       zIndex: 10,
       left: 0,
       paddingLeft: '10px',
-      fontSize: '12px',
-      color: '#0009',
+      fontSize: 'var(--font-size-sm)',
+      color: 'var(--color-gray-text-secondary)',
     },
 
     '.ace-container.frontmatter:is(.dark *):before': {
-      color: '#fff9',
+      color: 'var(--color-gray-text-secondary)',
     },
 
     '.ace_hidden-cursors': {
@@ -192,11 +192,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     '.match-text': {
       borderRadius: '0.125em',
-      backgroundColor: '#00000026',
+      backgroundColor: 'var(--color-gray-control-fill-secondary)',
     },
 
     '.match-text:is(.dark *)': {
-      backgroundColor: '#ffffff26',
+      backgroundColor: 'var(--color-gray-control-fill-secondary)',
     },
 
     '.match-current': {
@@ -258,7 +258,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [token.componentCls]: {
       boxSizing: 'border-box',
-      caretColor: '#1677ff',
+      caretColor: 'var(--color-primary-control-fill-primary)',
       color: 'inherit',
       outline: 'none !important',
       minWidth: '0px',
@@ -266,7 +266,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       margin: '0 auto',
       '::-webkit-scrollbar': { width: '8px', height: '8px' },
       '::-webkit-scrollbar-thumb': {
-        backgroundColor: '#a1a1aa',
+        backgroundColor: 'var(--color-gray-text-tertiary)',
         borderRadius: '20px',
       },
       '&-edit': {
@@ -370,9 +370,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       h3: { fontWeight: 600, fontSize: '1.25em' },
       h4: { fontWeight: 600, fontSize: '1em' },
       h5: { fontWeight: 600, fontSize: '0.875em' },
-      h6: { fontWeight: 600, fontSize: '0.85em', color: '#59636e' },
+      h6: {
+        fontWeight: 600,
+        fontSize: '0.85em',
+        color: 'var(--color-gray-text-secondary)',
+      },
       a: {
-        color: '#1677ff',
+        color: 'var(--color-primary-control-fill-primary)',
         backgroundColor: 'transparent',
         textDecoration: 'none',
         '&:hover': {
@@ -395,12 +399,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '10px',
         flexGrow: 1,
         zIndex: 1,
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         fontWeight: 'normal',
         lineHeight: '160%',
         letterSpacing: 'normal',
         position: 'relative',
-        color: '#767E8B',
+        color: 'var(--color-gray-text-secondary)',
         margin: '0 !important',
         '&:before': {
           content: "''",
@@ -413,7 +417,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           alignSelf: 'stretch',
           zIndex: 0,
-          backgroundColor: '#21001F3E',
+          backgroundColor: 'var(--color-gray-control-fill-secondary)',
         },
       },
       '@media screen and (max-width: 600px)': {
@@ -465,11 +469,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontFamily: `'Roboto,Mono SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
         margin: '1px 3px',
         wordBreak: 'break-all',
-        fontSize: '12px',
+        fontSize: 'var(--font-size-sm)',
         fontWeight: 'normal',
         lineHeight: '160%',
         letterSpacing: 'normal',
-        color: 'var(--md-text-color, #343A45)',
+        color: 'var(--color-gray-text-default)',
         alignItems: 'center',
         padding: '4px 6px',
         gap: '4px',
@@ -515,7 +519,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       th: {
-        fontSize: '15px',
+        fontSize: 'var(--font-size-lg)',
         lineHeight: '24px',
         fontWeight: 600,
       },
@@ -524,7 +528,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'inherit',
 
         'td:first-child': {
-          fontSize: '15px',
+          fontSize: 'var(--font-size-lg)',
           lineHeight: '24px',
           fontWeight: 600,
         },
@@ -554,7 +558,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 链接样式增强
       'a:not(.link)': {
-        fontSize: '15px',
+        fontSize: 'var(--font-size-lg)',
         lineHeight: '24px',
         color: 'rgba(0, 1, 3, 0.88)',
         textDecoration: 'underline',
@@ -563,7 +567,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
 
         '&:hover': {
-          fontSize: '15px',
+          fontSize: 'var(--font-size-lg)',
           lineHeight: '24px',
           fontWeight: 600,
           textDecorationColor: 'rgba(0, 1, 3, 0.88)',
@@ -617,7 +621,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       'h4:not([data-be]), h5:not([data-be]), h6:not([data-be])': {
-        fontSize: '15px',
+        fontSize: 'var(--font-size-lg)',
         lineHeight: '24px',
         fontWeight: 600,
         marginTop: '8px',
@@ -640,7 +644,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 任务清单样式
       '.task-list-item': {
-        fontSize: '15px',
+        fontSize: 'var(--font-size-lg)',
         lineHeight: '1.6',
         letterSpacing: '0',
         color: 'rgba(0, 1, 3, 0.88)',
@@ -653,7 +657,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           marginRight: '6px',
           marginLeft: 0,
           borderRadius: '6px',
-          background: '#fff',
+          background: token.colorBgContainer,
           boxSizing: 'border-box',
           border: '1px solid rgba(0, 16, 40, 0.20)',
           width: '16px',
@@ -663,7 +667,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           cursor: 'pointer',
 
           '&:checked': {
-            background: '#1d7afc',
+            background: 'var(--color-primary-control-fill-primary)',
             border: '0 solid rgba(0, 16, 40, 0.20)',
 
             '&::after': {
@@ -701,7 +705,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         p: {
           margin: 0,
-          fontSize: '15px',
+          fontSize: 'var(--font-size-lg)',
           lineHeight: '1.6',
           letterSpacing: '0',
           color: 'rgba(0, 1, 3, 0.88)',
@@ -724,27 +728,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '.admonition-note::before': {
-        background: '#1890ff',
+        background: 'var(--color-primary-control-fill-primary)',
       },
 
       '.admonition-warning::before': {
-        background: '#faad14',
+        background: 'var(--color-orange-control-fill-primary)',
       },
 
       '.admonition-danger::before': {
-        background: '#ff4d4f',
+        background: 'var(--color-red-control-fill-primary)',
       },
 
       '.admonition-info::before': {
-        background: '#e1f5fe',
+        background: 'var(--color-blue-bg-tip)',
       },
 
       '.admonition-tip::before': {
-        background: '#52c41a',
+        background: 'var(--color-green-control-fill-primary)',
       },
 
       '.admonition-success::before': {
-        background: '#e8f5e8',
+        background: 'var(--color-green-bg-tip)',
       },
 
       // Mermaid 样式
@@ -753,9 +757,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         svg: {
           '.node rect, .node circle, .node ellipse, .node polygon': {
-            stroke: '#333',
+            stroke: 'var(--color-gray-text-default)',
             strokeWidth: '1px',
-            fill: '#fff',
+            fill: 'var(--color-gray-bg-card-white)',
           },
 
           text: {
@@ -765,50 +769,50 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           '.nodeLabel': {
             fontWeight: 500,
-            fill: '#333 !important',
+            fill: 'var(--color-gray-text-default) !important',
           },
 
           '.edgeLabel': {
-            fill: '#666 !important',
+            fill: 'var(--color-gray-text-secondary) !important',
           },
 
           '.flowchart-label': {
-            fill: '#333 !important',
+            fill: 'var(--color-gray-text-default) !important',
           },
 
           '.label': {
-            fill: '#333 !important',
+            fill: 'var(--color-gray-text-default) !important',
           },
         },
       },
 
       '.mermaid-error': {
-        color: '#d73a49',
-        background: '#ffeaea',
-        border: '1px solid #f97583',
+        color: 'var(--color-red-text-default)',
+        background: 'var(--color-red-bg-tip)',
+        border: '1px solid var(--color-red-border-light)',
         padding: '12px',
         borderRadius: '4px',
         textAlign: 'left',
 
         pre: {
           margin: '8px 0 0',
-          background: '#f6f8fa',
+          background: 'var(--color-gray-control-fill-secondary)',
           padding: '8px',
           borderRadius: '4px',
-          fontSize: '12px',
+          fontSize: 'var(--font-size-sm)',
         },
       },
 
       '.mermaid-install-hint': {
-        background: '#fff3cd',
-        border: '1px solid #ffeaa7',
-        color: '#856404',
+        background: 'var(--color-orange-bg-tip)',
+        border: '1px solid var(--color-orange-border-light)',
+        color: 'var(--color-orange-text-default)',
         padding: '12px',
         borderRadius: '4px',
         textAlign: 'left',
 
         code: {
-          background: '#e2e6ea',
+          background: 'var(--color-gray-control-fill-secondary)',
           padding: '2px 6px',
           borderRadius: '3px',
         },
@@ -839,7 +843,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 打字机效果样式
       '.ant-md-editor-content .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type span[data-slate-string]':
         {
-          borderRight: '0.15em solid #1677ff',
+          borderRight: '0.15em solid var(--color-primary-control-fill-primary)',
           animation: `${typing.getName()} 3.5s steps(30, end), ${blinkCaret.getName()} 0.5s step-end infinite`,
         },
     },
@@ -875,7 +879,7 @@ const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRight: '1px solid rgb(209 213 219 / 0.8)',
         },
         'th:last-child,td:last-child': {
-          borderRight: '1px solid #E7E9E8',
+          borderRight: '1px solid var(--color-gray-border-light)',
         },
         'th:last-child': {
           borderTopRightRadius: 8,

@@ -10,7 +10,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useTaskStyle(prefixCls?: string) {
-  return useEditorStyleRegister('WorkspaceTask', (token: ChatTokenType) => {
+  return useEditorStyleRegister('WorkspaceTask', (token) => {
     const taskToken = {
       ...token,
       componentCls: `.${prefixCls}`,

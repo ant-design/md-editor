@@ -324,7 +324,7 @@ const genStyle = (token: ChatTokenType) => {
  * @returns 样式对象
  */
 export function useSlidesStyle(prefixCls?: string) {
-  return useEditorStyleRegister('Slides', (token: ChatTokenType) => {
+  return useEditorStyleRegister('Slides', (token) => {
     const slidesToken = {
       ...token,
       componentCls: `.${prefixCls}`,

@@ -60,15 +60,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useHtmlPreviewStyle(prefixCls?: string) {
-  return useEditorStyleRegister(
-    'WorkspaceHtmlPreview',
-    (token: ChatTokenType) => {
-      const htmlPreviewToken = {
-        ...token,
-        componentCls: `.${prefixCls}`,
-      };
+  return useEditorStyleRegister('WorkspaceHtmlPreview', (token) => {
+    const htmlPreviewToken = {
+      ...token,
+      componentCls: `.${prefixCls}`,
+    };
 
-      return [genStyle(htmlPreviewToken)];
-    },
-  );
+    return [genStyle(htmlPreviewToken)];
+  });
 }

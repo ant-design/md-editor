@@ -61,7 +61,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-html-header h3`]: {
       margin: 0,
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
       fontWeight: 600,
       color: '#495057',
     },
@@ -71,7 +71,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       gap: '4px',
       padding: '3px 8px',
-      fontSize: '12px',
+      fontSize: 'var(--font-size-sm)',
       color: '#626F86',
     },
 
@@ -83,7 +83,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-html-content .ace_editor`]: {
       height: '100% !important',
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
     },
 
     // JSON编辑器样式
@@ -106,7 +106,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-json-header h3`]: {
       margin: 0,
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
       fontWeight: 600,
       color: '#495057',
     },
@@ -116,7 +116,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       gap: '4px',
       padding: '3px 8px',
-      fontSize: '12px',
+      fontSize: 'var(--font-size-sm)',
       color: '#626F86',
     },
 
@@ -128,7 +128,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-json-content .ace_editor`]: {
       height: '100% !important',
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
     },
 
     // 预览区域样式
@@ -152,7 +152,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-preview-header h3`]: {
       margin: 0,
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
       fontWeight: 600,
       color: '#2c3e5d',
     },
@@ -162,7 +162,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       border: '1px solid #fed7d7',
       borderRadius: '4px',
       padding: '8px 12px',
-      fontSize: '12px',
+      fontSize: 'var(--font-size-sm)',
       color: '#c53030',
       maxWidth: '300px',
       wordBreak: 'break-word',
@@ -187,7 +187,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     [`${token.componentCls}-preview-content-empty p`]: {
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
       textAlign: 'center',
       color: '#8590A2',
     },
@@ -204,7 +204,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     [`${token.componentCls}-fallback p`]: {
       margin: '4px 0',
-      fontSize: '13px',
+      fontSize: 'var(--font-size-base)',
     },
 
     // 响应式设计
@@ -280,7 +280,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('SchemaEditor', (token: ChatTokenType) => {
+  return useEditorStyleRegister('SchemaEditor', (token) => {
     const schemaEditorToken = {
       ...token,
       componentCls: `.${prefixCls}`,
