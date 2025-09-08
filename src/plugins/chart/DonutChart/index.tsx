@@ -51,6 +51,8 @@ export interface DonutChartProps {
   enableAutoCategory?: boolean;
   /** 是否启用单值模式：每条数据渲染一个独立环形图并自动着色 */
   singleMode?: boolean;
+  /** 头部工具条额外按钮 */
+  toolbarExtra?: React.ReactNode;
 }
 
 // 中心文字插件 - 移动端优化版本
@@ -101,6 +103,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   onFilterChange,
   enableAutoCategory = true,
   singleMode = false,
+  toolbarExtra,
 }) => {
   // 移动端检测
   const [isMobile, setIsMobile] = useState(false);
@@ -317,7 +320,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
     <>
       {showToolbar && (
         <div className={`${baseClassName}-toolbar-wrapper ${hashId}`}>
-          {title && <ChartToolBar title={title} onDownload={handleDownload} />}
+          {title && <ChartToolBar title={title} onDownload={handleDownload} extra={toolbarExtra} />}
           {shouldShowFilter && (
             <ChartFilter
               filterOptions={finalFilterList.map((item) => {

@@ -50,6 +50,7 @@ interface RadarChartProps {
   width?: number;
   height?: number;
   className?: string;
+  toolbarExtra?: React.ReactNode;
 }
 
 // 默认颜色配置
@@ -72,6 +73,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   width = 600,
   height = 400,
   className,
+  toolbarExtra,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
@@ -305,6 +307,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
       <ChartToolBar
         title={title || '2025年第一季度短视频用户分布分析'}
         onDownload={handleDownload}
+        extra={toolbarExtra}
       />
 
       <ChartFilter

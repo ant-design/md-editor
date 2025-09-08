@@ -80,6 +80,8 @@ export interface BarChartProps {
   stacked?: boolean;
   /** 图表轴向，'x'为垂直柱状图，'y'为水平柱状图 */
   indexAxis?: 'x' | 'y';
+  /** 头部工具条额外按钮 */
+  toolbarExtra?: React.ReactNode;
 }
 
 const defaultColors = [
@@ -110,6 +112,7 @@ const BarChart: React.FC<BarChartProps> = ({
   yPosition = 'left',
   stacked = false,
   indexAxis = 'x',
+  toolbarExtra,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
@@ -426,7 +429,7 @@ const BarChart: React.FC<BarChartProps> = ({
         boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} />
+      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} extra={toolbarExtra} />
 
       <ChartFilter
         filterOptions={filterOptions}

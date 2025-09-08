@@ -84,6 +84,8 @@ export interface AreaChartProps {
   xPosition?: 'top' | 'bottom';
   /** Y轴位置 */
   yPosition?: 'left' | 'right';
+  /** 头部工具条额外按钮 */
+  toolbarExtra?: React.ReactNode;
 }
 
 const defaultColors = [
@@ -112,6 +114,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   showGrid = true,
   xPosition = 'bottom',
   yPosition = 'left',
+  toolbarExtra,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
@@ -374,7 +377,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
         boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} />
+      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} extra={toolbarExtra} />
 
       <ChartFilter
         filterOptions={filterOptions}

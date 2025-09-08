@@ -9,6 +9,7 @@ export interface ChartToolBarProps {
   className?: string;
   theme?: 'light' | 'dark';
   onDownload?: () => void;
+  extra?: React.ReactNode;
 }
 
 const ChartToolBar: React.FC<ChartToolBarProps> = ({
@@ -17,6 +18,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   className = '',
   theme = 'light',
   onDownload,
+  extra,
 }) => {
   const handleDownload = () => {
     if (onDownload) {
@@ -37,6 +39,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
         <span className="data-time">
           数据时间: {dataTime}
         </span>
+        {extra}
         <DownloadOutlined 
           className="download-btn" 
           onClick={handleDownload}
