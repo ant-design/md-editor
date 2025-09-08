@@ -9,7 +9,7 @@
       style="display: flex; height: 100vh; flex-direction: column; gap: 16px; overflow: auto;"
     >
       <div
-        class="markdown-editor ant-md-editor ant-md-editor-readonly"
+        class="ant-md-editor markdown-editor ant-md-editor-readonly"
         style="width: calc(99vw - 16px); height: auto; display: flex; flex-direction: column; max-height: 100%; border: 1px solid rgb(238, 238, 238);"
       >
         <div
@@ -19,7 +19,7 @@
           <div
             autocapitalize="false"
             autocorrect="false"
-            class="ant-md-editor-content-readonly ant-md-editor-content"
+            class="ant-md-editor-content ant-md-editor-content-readonly"
             data-slate-editor="true"
             data-slate-node="value"
             spellcheck="false"

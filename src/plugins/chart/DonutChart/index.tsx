@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import classNames from 'classnames';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import { useStyle } from './style';
@@ -53,10 +53,11 @@ export interface DonutChartProps {
   singleMode?: boolean;
 }
 
-// 中心文字插件
+// 中心文字插件 - 移动端优化版本
 const createCenterTextPlugin = (
   value: number,
   label: string,
+  isMobile: boolean = false,
 ): Plugin<'doughnut'> => ({
   id: 'centerText',
   beforeDraw: (chart) => {
@@ -66,18 +67,18 @@ const createCenterTextPlugin = (
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // 固定字体大小与字重
-    const percentFontSize = 13; // px
-    const labelFontSize = 12; // px
+    // 移动端字体大小调整
+    const percentFontSize = isMobile ? 11 : 13; // px
+    const labelFontSize = isMobile ? 10 : 12; // px
 
-    // 百分比（13px，500）
-    ctx.font = `500 ${percentFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif`;
+    // 百分比（移动端适当缩小）
+    ctx.font = `${isMobile ? '600' : '500'} ${percentFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif`;
     ctx.fillStyle = '#111827';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(`${value}%`, centerX, centerY - labelFontSize * 0.8);
 
-    // 标签（12px，正常字重）
+    // 标签（移动端适当缩小）
     ctx.font = `400 ${labelFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif`;
     ctx.fillStyle = '#9CA3AF';
     ctx.fillText(label, centerX, centerY + labelFontSize * 0.6);
@@ -101,6 +102,22 @@ const DonutChart: React.FC<DonutChartProps> = ({
   enableAutoCategory = true,
   singleMode = false,
 }) => {
+  // 移动端检测
+  const [isMobile, setIsMobile] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setWindowWidth(width);
+      setIsMobile(width <= 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // 默认配置：当 configs 不传时，使用默认配置，showLegend 默认为 true
   const defaultConfigs: DonutChartConfig[] = [{ showLegend: true }];
   const finalConfigs = configs || defaultConfigs;
@@ -108,19 +125,22 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const chartRef = useRef<ChartJS<'doughnut'>>(null);
 
-  // 默认色板
+  // 移动端优化的默认色板
   const defaultColors = [
     '#917EF7',
     '#2AD8FC',
     '#388BFF',
     '#718AB6',
     '#FACC15',
-    '#33E59B', // 绿色
-    '#D666E4', // 紫红色
-    '#6151FF', // 靛蓝色
-    '#BF3C93', // 玫红色
-    '#005EE0', // 深蓝色
+    '#33E59B',
+    '#D666E4',
+    '#6151FF',
+    '#BF3C93',
+    '#005EE0',
   ];
+
+  // 小屏最大尺寸上限，避免甜甜圈在小屏过宽
+  const MOBILE_MAX_CHART_SIZE = 160;
 
   // 状态管理：跟踪哪些数据项被隐藏
   const [hiddenDataIndices, setHiddenDataIndices] = useState<Set<number>>(
@@ -131,7 +151,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const validFilterLables = useMemo(() => {
     return data
       .map((item) => item.filterLable)
-      .filter((filterLable): filterLable is string => filterLable !== undefined);
+      .filter(
+        (filterLable): filterLable is string => filterLable !== undefined,
+      );
   }, [data]);
 
   const filterLables = useMemo(() => {
@@ -196,7 +218,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
     }
 
     // 同时匹配 filterLable
-    return byCategory.filter((item) => item.filterLable === selectedFilterLable);
+    return byCategory.filter(
+      (item) => item.filterLable === selectedFilterLable,
+    );
   }, [data, selectedCategory, filterLables, selectedFilterLable]);
 
   // 处理内部分类变化
@@ -256,6 +280,29 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const chartFilterTheme: 'light' | 'dark' =
     (finalConfigs[0]?.theme as 'light' | 'dark') || 'light';
 
+  // 移动端优化：调整图表尺寸
+  const getResponsiveDimensions = () => {
+    if (isMobile) {
+      // 小屏设备使用更紧凑的尺寸
+      const mobileWidth = Math.min(windowWidth - 40, width, MOBILE_MAX_CHART_SIZE);
+      const mobileHeight = Math.min(windowWidth - 40, height, MOBILE_MAX_CHART_SIZE);
+      return {
+        width: mobileWidth,
+        height: mobileHeight,
+        chartWidth: mobileWidth,
+        chartHeight: mobileHeight,
+      };
+    }
+    return {
+      width,
+      height,
+      chartWidth: width,
+      chartHeight: height,
+    };
+  };
+
+  const dimensions = getResponsiveDimensions();
+
   // 渲染用的配置：单值模式且未传 configs 时，根据过滤后的数据长度自动生成
   const renderConfigs: DonutChartConfig[] =
     singleMode && !configs
@@ -269,7 +316,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   return wrapSSR(
     <>
       {showToolbar && (
-        <div>
+        <div className={`${baseClassName}-toolbar-wrapper ${hashId}`}>
           {title && <ChartToolBar title={title} onDownload={handleDownload} />}
           {shouldShowFilter && (
             <ChartFilter
@@ -295,7 +342,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
         className={classNames(baseClassName, hashId, className)}
         style={{
           // 使用 CSS 变量传递动态尺寸
-          ['--donut-item-min-width' as any]: `${width}px`,
+          ['--donut-item-min-width' as any]: `${dimensions.width}px`,
         }}
       >
         {renderConfigs.map((cfg, idx) => {
@@ -344,22 +391,27 @@ const DonutChart: React.FC<DonutChartProps> = ({
                   ? [mainColor, '#F7F8F9'] // 单值模式：剩余部分使用浅灰色
                   : backgroundColors.slice(0, values.length),
                 borderColor: cfg.borderColor || '#fff',
-                borderWidth: 1,
-                spacing: isSingleValueMode ? 0 : 6, // 单值模式：无间距
+                borderWidth: isMobile ? 1 : 1,
+                spacing: isSingleValueMode ? 0 : isMobile ? 3 : 6, // 移动端减小间距
                 borderRadius: 4,
-                hoverOffset: 6,
+                hoverOffset: isMobile ? 4 : 6, // 移动端减小悬停偏移
               },
             ],
           };
 
-          const cutout = cfg.cutout ?? '75%';
+          // 移动端优化：调整 cutout
+          const cutout = isMobile
+            ? typeof cfg.cutout === 'number'
+              ? cfg.cutout * 0.9
+              : '70%'
+            : (cfg.cutout ?? '75%');
 
           // 依据主题计算 tooltip 颜色
           const isDarkTheme = cfg.theme === 'dark';
-          const tooltipBackgroundColor = isDarkTheme ? '#1F2937' : '#FFFFFF'; // gray-800 vs white
-          const tooltipBorderColor = isDarkTheme ? '#374151' : '#E5E7EB'; // gray-700 vs gray-200
-          const tooltipTitleColor = isDarkTheme ? '#F9FAFB' : '#111827'; // gray-50 vs gray-900
-          const tooltipBodyColor = isDarkTheme ? '#D1D5DB' : '#374151'; // gray-300 vs gray-700
+          const tooltipBackgroundColor = isDarkTheme ? '#1F2937' : '#FFFFFF';
+          const tooltipBorderColor = isDarkTheme ? '#374151' : '#E5E7EB';
+          const tooltipTitleColor = isDarkTheme ? '#F9FAFB' : '#111827';
+          const tooltipBodyColor = isDarkTheme ? '#D1D5DB' : '#374151';
 
           const options: ChartOptions<'doughnut'> = {
             responsive: true,
@@ -370,27 +422,51 @@ const DonutChart: React.FC<DonutChartProps> = ({
                 display: false, // 我们自己渲染 legend
               },
               tooltip: {
-                enabled: cfg.showTooltip !== false, // 默认显示，除非明确设置为false
+                enabled: cfg.showTooltip !== false,
                 backgroundColor: tooltipBackgroundColor,
                 borderColor: tooltipBorderColor,
                 borderWidth: 1,
                 titleColor: tooltipTitleColor,
                 bodyColor: tooltipBodyColor,
+                padding: isMobile ? 8 : 12, // 移动端减小内边距
+                titleFont: {
+                  size: isMobile ? 12 : 14, // 移动端减小字体
+                },
+                bodyFont: {
+                  size: isMobile ? 11 : 13, // 移动端减小字体
+                },
                 callbacks: {
                   label: ({ label, raw }) =>
                     `${label}: ${raw} (${(((raw as number) / total) * 100).toFixed(1)}%)`,
                 },
               },
             },
+            // 移动端优化：禁用悬停动画以提高性能
+            animation: {
+              duration: isMobile ? 200 : 1000,
+            },
+            interaction: {
+              mode: 'point', // 移动端使用点模式
+              intersect: false,
+            },
           };
 
           return (
-            <div key={idx}>
+            <div
+              key={idx}
+              className={`${baseClassName}-chart-wrapper ${hashId}`}
+            >
               {/* Doughnut 图 + legend */}
               {isSingleValueMode ? (
                 <div
                   className={`${baseClassName}-single ${hashId}`}
-                  style={{ ['--donut-chart-height' as any]: `${height}px` }}
+                  style={{
+                    ['--donut-chart-height' as any]: `${dimensions.height}px`,
+                    ['--donut-chart-width' as any]: `${dimensions.width}px`,
+                    width: dimensions.width,
+                    height: dimensions.height,
+                    ...(isMobile ? { margin: '0 auto' } : {}),
+                  }}
                 >
                   <Doughnut
                     ref={chartRef}
@@ -400,23 +476,38 @@ const DonutChart: React.FC<DonutChartProps> = ({
                       createCenterTextPlugin(
                         (currentDataItem.value / total) * 100,
                         currentDataItem.label,
+                        isMobile,
                       ),
                     ]}
                   />
                 </div>
               ) : (
-                <div className={`${baseClassName}-row ${hashId}`}>
+                <div className={`${baseClassName}-row ${hashId}`}
+                  style={{
+                    ...(isMobile ? { flexDirection: 'column', alignItems: 'stretch' } : {}),
+                  }}
+                >
                   <div
                     className={`${baseClassName}-chart ${hashId}`}
                     style={{
-                      ['--donut-chart-width' as any]: `${width}px`,
-                      ['--donut-chart-height' as any]: `${height}px`,
+                      ['--donut-chart-width' as any]: `${dimensions.chartWidth}px`,
+                      ['--donut-chart-height' as any]: `${dimensions.chartHeight}px`,
+                      width: dimensions.chartWidth,
+                      height: dimensions.chartHeight,
                     }}
                   >
                     <Doughnut ref={chartRef} data={data} options={options} />
                   </div>
                   {cfg.showLegend && (
-                    <div className={`${baseClassName}-legend ${hashId}`}>
+                    <div
+                      className={`${baseClassName}-legend ${hashId}`}
+                      style={{
+                        marginLeft: isMobile ? 0 : 12,
+                        maxHeight: isMobile ? '120px' : 'none',
+                        overflowY: isMobile ? 'auto' : 'visible',
+                        ...(isMobile ? { alignSelf: 'center' } : {}),
+                      }}
+                    >
                       {chartData.map((d, i) => {
                         const isHidden = hiddenDataIndices.has(i);
                         return (
@@ -426,6 +517,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
                             style={{
                               opacity: isHidden ? 0.5 : 1,
                               cursor: 'pointer',
+                              padding: isMobile ? '4px 0' : '6px 0',
+                              fontSize: isMobile ? 11 : 12,
+                              minHeight: isMobile ? '24px' : '28px',
                             }}
                             onClick={() => handleLegendItemClick(i)}
                             onKeyDown={(e) => {
@@ -443,19 +537,41 @@ const DonutChart: React.FC<DonutChartProps> = ({
                               style={{
                                 ['--donut-legend-color' as any]:
                                   backgroundColors[i] || '#ccc',
+                                width: isMobile ? 10 : 12,
+                                height: isMobile ? 10 : 12,
+                                borderRadius: 4,
+                                marginRight: isMobile ? 4 : 6,
                               }}
                             />
                             <span
                               className={`${baseClassName}-legend-label ${hashId}`}
+                              style={{
+                                fontSize: isMobile ? 11 : 13,
+                                flex: isMobile ? '0 1 auto' : 1,
+                                minWidth: isMobile ? '60px' : 'auto',
+                              }}
                             >
                               {d.label}
                             </span>
                             <span
                               className={`${baseClassName}-legend-value ${hashId}`}
+                              style={{
+                                fontSize: isMobile ? 11 : 13,
+                                fontWeight: isMobile ? 400 : 500,
+                                marginLeft: isMobile ? 8 : 15,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                              }}
                             >
                               <span>{d.value}</span>
                               <span
                                 className={`${baseClassName}-legend-percent ${hashId}`}
+                                style={{
+                                  fontSize: isMobile ? 10 : 12,
+                                  marginLeft: isMobile ? 6 : 8,
+                                  marginTop: 0,
+                                }}
                               >
                                 {((d.value / total) * 100).toFixed(0)}%
                               </span>

@@ -1,10 +1,22 @@
+import { Button, ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import copy from 'copy-to-clipboard';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { I18nContext } from '../../i18n';
+import { CopyIcon } from '../../icons/CopyIcon';
+import { EmptyIcon } from '../../icons/EmptyIcon';
+import { RunIcon } from '../../icons/RunIcon';
 import { SchemaRenderer } from '../SchemaRenderer';
 import { LowCodeSchema } from '../types';
 import { mdDataSchemaValidator } from '../validator';
 import { AceEditorWrapper } from './AceEditorWrapper';
-import { useSchemaEditorStyle } from './style';
+import { useStyle } from './style';
 
 export interface SchemaEditorProps {
   /** 初始schema数据 */
@@ -45,12 +57,16 @@ export function SchemaEditor({
   showPreview = true,
   previewConfig,
 }: SchemaEditorProps) {
-  const { wrapSSR, hashId } = useSchemaEditorStyle('schema-editor');
+  // 使用 ConfigProvider 获取前缀类名
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('schema-editor');
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+  const { locale } = useContext(I18nContext);
   const [schema, setSchema] = useState<LowCodeSchema>(() => {
     return (
       initialSchema || {
         version: '1.0.0',
-        name: 'Untitled Schema',
+        name: locale['schemaEditor.untitledSchema'],
         description: '',
         component: {
           type: 'html',
@@ -60,20 +76,29 @@ export function SchemaEditor({
     );
   });
 
-  const [values] = useState<Record<string, any>>(initialValues);
+  const [values, setValues] = useState<Record<string, any>>(
+    initialValues || {},
+  );
   const [schemaString, setSchemaString] = useState<string>('');
   const [htmlContent, setHtmlContent] = useState<string>('');
   const [validationError, setValidationError] = useState<string>('');
+  const [renderedSchema, setRenderedSchema] = useState<LowCodeSchema>(
+    {} as LowCodeSchema,
+  );
+  const [isSchemaRendered, setIsSchemaRendered] = useState<boolean>(false);
 
   // 将schema转换为JSON字符串
-  const schemaToJson = useCallback((schemaData: LowCodeSchema): string => {
-    try {
-      return JSON.stringify(schemaData, null, 2);
-    } catch (error) {
-      console.error('Schema序列化错误:', error);
-      return '{}';
-    }
-  }, []);
+  const schemaToJson = useCallback(
+    (schemaData: LowCodeSchema): string => {
+      try {
+        return JSON.stringify(schemaData, null, 2);
+      } catch (error) {
+        console.error(locale['schemaEditor.schemaSerializationError'], error);
+        return '{}';
+      }
+    },
+    [locale],
+  );
 
   // 将JSON字符串转换为schema对象
   const jsonToSchema = useCallback(
@@ -81,11 +106,11 @@ export function SchemaEditor({
       try {
         return JSON.parse(jsonString);
       } catch (error) {
-        console.error('Schema解析错误:', error);
+        console.error(locale['schemaEditor.schemaParseError'], error);
         return null;
       }
     },
-    [],
+    [locale],
   );
 
   // 初始化schema字符串
@@ -95,19 +120,25 @@ export function SchemaEditor({
   }, [schema, schemaToJson]);
 
   // 验证schema
-  const validateSchema = useCallback((schemaData: LowCodeSchema): string => {
-    try {
-      const result = mdDataSchemaValidator.validate(schemaData);
-      if (!result.valid) {
-        return (
-          result.errors?.map((err: any) => err.message).join(', ') || '验证失败'
-        );
+  const validateSchema = useCallback(
+    (schemaData: LowCodeSchema): string => {
+      try {
+        const result = mdDataSchemaValidator.validate(schemaData);
+        if (!result.valid) {
+          return (
+            result.errors?.map((err: any) => err.message).join(', ') ||
+            locale['schemaEditor.validationFailed']
+          );
+        }
+        return '';
+      } catch (error) {
+        return error instanceof Error
+          ? error.message
+          : locale['schemaEditor.validationFailed'];
       }
-      return '';
-    } catch (error) {
-      return error instanceof Error ? error.message : '验证失败';
-    }
-  }, []);
+    },
+    [locale],
+  );
 
   // 处理schema变更
   const handleSchemaChange = useCallback(
@@ -148,45 +179,127 @@ export function SchemaEditor({
     [jsonToSchema, handleSchemaChange],
   );
 
+  // 处理运行按钮点击
+  const handleRunClick = useCallback(() => {
+    setRenderedSchema({ ...schema });
+
+    // 更新values状态，使用schema中的initialValues
+    if (schema.initialValues) {
+      setValues(schema.initialValues);
+    }
+    setIsSchemaRendered(true);
+  }, [schema, setRenderedSchema, setValues, setIsSchemaRendered]);
+
+  // 复制函数
+  const handleCopyContent = useCallback(
+    (content: string, type: 'html' | 'json') => {
+      if (!content || !content.trim()) {
+        message.warning(locale['schemaEditor.noContentToCopy']);
+        return;
+      }
+
+      try {
+        const ok = copy(content);
+        if (ok) {
+          message.success(
+            `${type === 'html' ? 'HTML' : 'JSON'}${locale['schemaEditor.copySuccess']}`,
+          );
+        } else {
+          message.error(locale['schemaEditor.copyFailed']);
+        }
+      } catch (error) {
+        message.error(locale['schemaEditor.copyFailed']);
+        console.error(locale['schemaEditor.copyFailed'], error);
+      }
+    },
+    [locale],
+  );
+
+  // 处理复制HTML内容
+  const handleCopyHtml = useCallback(() => {
+    handleCopyContent(htmlContent, 'html');
+  }, [htmlContent, handleCopyContent]);
+
+  // 处理复制JSON内容
+  const handleCopyJson = useCallback(() => {
+    handleCopyContent(schemaString, 'json');
+  }, [schemaString, handleCopyContent]);
+
   // 渲染预览区域
   const renderPreview = useMemo(() => {
     if (!showPreview) return null;
 
     return (
-      <div className={classNames('schema-editor-preview', hashId)}>
-        <div className={classNames('schema-editor-preview-header', hashId)}>
-          <h3>实时预览</h3>
+      <div className={classNames(`${prefixCls}-preview`, hashId)}>
+        <div className={classNames(`${prefixCls}-preview-header`, hashId)}>
+          <h3>{locale['schemaEditor.realtimePreview']}</h3>
           {validationError && (
-            <div className={classNames('schema-editor-error', hashId)}>
+            <div className={classNames(`${prefixCls}-error`, hashId)}>
               <span>⚠️ {validationError}</span>
             </div>
           )}
         </div>
-        <div className={classNames('schema-editor-preview-content', hashId)}>
-          <SchemaRenderer
-            schema={schema}
-            values={values}
-            config={previewConfig}
-            fallbackContent={
-              <div className={classNames('schema-editor-fallback', hashId)}>
-                <p>预览加载失败</p>
-                <p>请检查schema格式是否正确</p>
-              </div>
-            }
-          />
+        <div className={classNames(`${prefixCls}-preview-content`, hashId)}>
+          {isSchemaRendered ? (
+            <SchemaRenderer
+              schema={renderedSchema}
+              values={values}
+              config={previewConfig}
+              fallbackContent={
+                <div className={classNames(`${prefixCls}-fallback`, hashId)}>
+                  <p>{locale['schemaEditor.previewLoadFailed']}</p>
+                  <p>{locale['schemaEditor.checkSchemaFormat']}</p>
+                </div>
+              }
+            />
+          ) : (
+            <div
+              className={classNames(
+                `${prefixCls}-preview-content-empty`,
+                hashId,
+              )}
+            >
+              <EmptyIcon style={{ width: 80, height: 80 }} />
+              <p>{locale['schemaEditor.inputSchemaToPreview']}</p>
+            </div>
+          )}
         </div>
       </div>
     );
-  }, [showPreview, schema, values, validationError, previewConfig, hashId]);
+  }, [
+    showPreview,
+    isSchemaRendered,
+    renderedSchema,
+    values,
+    validationError,
+    previewConfig,
+    hashId,
+    locale,
+    prefixCls,
+  ]);
 
   // 渲染HTML编辑器
   const renderHtmlEditor = useMemo(() => {
     return (
-      <div className={classNames('schema-editor-html', hashId)}>
-        <div className={classNames('schema-editor-html-header', hashId)}>
-          <h3>HTML模板</h3>
+      <div className={classNames(`${prefixCls}-html`, hashId)}>
+        <div className={classNames(`${prefixCls}-html-header`, hashId)}>
+          <h3>{locale['schemaEditor.htmlTemplate']}</h3>
+          <div style={{ display: 'flex' }}>
+            <Button
+              type="text"
+              icon={<RunIcon style={{ width: 14, height: 14 }} />}
+              onClick={handleRunClick}
+            >
+              {locale['schemaEditor.run']}
+            </Button>
+            <Button
+              type="text"
+              icon={<CopyIcon style={{ width: 14, height: 14 }} />}
+              onClick={handleCopyHtml}
+            />
+          </div>
         </div>
-        <div className={classNames('schema-editor-html-content', hashId)}>
+        <div className={classNames(`${prefixCls}-html-content`, hashId)}>
           <AceEditorWrapper
             value={htmlContent}
             language="html"
@@ -196,16 +309,32 @@ export function SchemaEditor({
         </div>
       </div>
     );
-  }, [htmlContent, handleHtmlChange, readonly, hashId]);
+  }, [
+    htmlContent,
+    handleHtmlChange,
+    readonly,
+    hashId,
+    locale,
+    handleRunClick,
+    handleCopyHtml,
+    prefixCls,
+  ]);
 
   // 渲染JSON编辑器
   const renderJsonEditor = useMemo(() => {
     return (
-      <div className={classNames('schema-editor-json', hashId)}>
-        <div className={classNames('schema-editor-json-header', hashId)}>
-          <h3>Schema JSON</h3>
+      <div className={classNames(`${prefixCls}-json`, hashId)}>
+        <div className={classNames(`${prefixCls}-json-header`, hashId)}>
+          <h3>{locale['schemaEditor.schemaJson']}</h3>
+          <div style={{ display: 'flex' }}>
+            <Button
+              type="text"
+              icon={<CopyIcon style={{ width: 14, height: 14 }} />}
+              onClick={handleCopyJson}
+            />
+          </div>
         </div>
-        <div className={classNames('schema-editor-json-content', hashId)}>
+        <div className={classNames(`${prefixCls}-json-content`, hashId)}>
           <AceEditorWrapper
             value={schemaString}
             language="json"
@@ -215,20 +344,28 @@ export function SchemaEditor({
         </div>
       </div>
     );
-  }, [schemaString, handleJsonChange, readonly, hashId]);
+  }, [
+    schemaString,
+    handleJsonChange,
+    readonly,
+    hashId,
+    locale,
+    handleCopyJson,
+    prefixCls,
+  ]);
 
   return wrapSSR(
     <div
-      className={classNames('schema-editor', className, hashId)}
+      className={classNames(prefixCls, className, hashId)}
       style={{ height: typeof height === 'number' ? `${height}px` : height }}
     >
-      <div className={classNames('schema-editor-container', hashId)}>
-        <div className={classNames('schema-editor-left', hashId)}>
+      <div className={classNames(`${prefixCls}-container`, hashId)}>
+        <div className={classNames(`${prefixCls}-left`, hashId)}>
+          {renderPreview}
+        </div>
+        <div className={classNames(`${prefixCls}-right`, hashId)}>
           {renderHtmlEditor}
           {renderJsonEditor}
-        </div>
-        <div className={classNames('schema-editor-right', hashId)}>
-          {renderPreview}
         </div>
       </div>
     </div>,

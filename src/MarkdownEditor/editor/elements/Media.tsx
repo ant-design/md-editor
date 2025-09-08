@@ -1,11 +1,18 @@
 import { DeleteFilled, EyeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Modal, Popover } from 'antd';
-import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
 import { Transforms } from 'slate';
 import { EarthIcon } from '../../../components/icons/Earth';
+import { I18nContext } from '../../../i18n';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { ActionIconBox } from '../components/ActionIconBox';
@@ -181,6 +188,7 @@ export function Media({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path] = useSelStatus(element);
   const { markdownEditorRef, readonly } = useEditorStore();
+  const { locale } = useContext(I18nContext);
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
@@ -469,13 +477,13 @@ export function Media({
           open={state().selected && !readonly ? undefined : false}
           content={
             <ActionIconBox
-              title="删除"
+              title={locale?.delete || '删除'}
               type="danger"
               onClick={(e) => {
                 e.stopPropagation();
                 Modal.confirm({
-                  title: '删除媒体',
-                  content: '确定删除该媒体吗？',
+                  title: locale?.deleteMedia || '删除媒体',
+                  content: locale?.confirmDelete || '确定删除该媒体吗？',
                   onOk: () => {
                     Transforms.removeNodes(markdownEditorRef.current, {
                       at: path,

@@ -7,6 +7,7 @@ import {
   StrikethroughOutlined,
 } from '@ant-design/icons';
 import React, { useContext } from 'react';
+import { Editor, Element } from 'slate';
 import { I18nContext } from '../../../../../i18n';
 import { EditorUtils } from '../../../utils/editorUtils';
 
@@ -25,7 +26,6 @@ LineCode.displayName = 'LineCode';
 
 export const isCodeNode = (editor: any) => {
   if (!editor) return false;
-  const { Editor, Element } = require('slate');
   const [node] = Editor.nodes(editor, {
     match: (n: any) => Element.isElement(n),
     mode: 'lowest',

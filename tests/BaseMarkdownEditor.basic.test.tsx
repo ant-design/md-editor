@@ -61,7 +61,7 @@ vi.mock('../src/MarkdownEditor/editor/tools/ToolBar/FloatBar', () => ({
 }));
 
 vi.mock('../src/MarkdownEditor/editor/tools/Leading', () => ({
-  TocHeading: ({ schema, anchorProps, useCustomContainer }: any) => (
+  TocHeading: ({ schema }: any) => (
     <div data-testid="toc-heading" data-schema-length={schema?.length}>
       Table of Contents
     </div>
@@ -69,7 +69,7 @@ vi.mock('../src/MarkdownEditor/editor/tools/Leading', () => ({
 }));
 
 vi.mock('../src/MarkdownEditor/editor/components/CommentList', () => ({
-  CommentList: ({ commentList, comment }: any) => (
+  CommentList: ({ commentList }: any) => (
     <div data-testid="comment-list" data-comment-count={commentList?.length}>
       Comment List
     </div>
@@ -144,16 +144,14 @@ describe('BaseMarkdownEditor - 基本功能测试', () => {
 
   describe('只读模式测试', () => {
     it('应该在只读模式下正确渲染', () => {
-      const { container } = render(
-        <BaseMarkdownEditor {...defaultProps} readonly={true} />,
-      );
+      render(<BaseMarkdownEditor {...defaultProps} readonly={true} />);
 
       // 验证组件能正常渲染，只读模式的样式在组件内部处理
       expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
     });
 
     it('应该在只读模式下隐藏工具栏', () => {
-      const { container } = render(
+      render(
         <BaseMarkdownEditor
           {...defaultProps}
           readonly={true}

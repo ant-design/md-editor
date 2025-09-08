@@ -1,59 +1,19 @@
 import { DownOutlined } from '@ant-design/icons';
 import { ConfigProvider, Dropdown, Flex, Tooltip } from 'antd';
-import React, { useMemo, useRef, useState } from 'react';
-import useSpeechSynthesis from '../../../hooks/useSpeechSynthesis';
+import React, { useMemo, useState } from 'react';
+import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
 import { PauseIcon } from '../../../icons/PauseIcon';
 import { PlayIcon } from '../../../icons/PlayIcon';
-import VoicePlayLottie from '../../../icons/VoicePlayLottie';
-import VoicingLottie from '../../../icons/VoicingLottie';
+import { VoicePlayLottie } from '../../../icons/VoicePlayLottie';
+import { VoicingLottie } from '../../../icons/VoicingLottie';
 import { useStyle } from './style';
+import { UseSpeechAdapter } from './types';
 
-/**
- * 语音播报参数
- * - 由内置 `useSpeechSynthesis` 或外部传入的 `useSpeech` 适配器消费
- */
-export type UseSpeechSynthesisOptions = {
-  /** 朗读文本内容 */
-  text: string;
-  /** 初始倍速，默认 1（范围建议 0.5~2） */
-  defaultRate?: number;
-};
-
-/**
- * 语音播报结果（适配器统一返回结构）
- */
-export type UseSpeechSynthesisResult = {
-  /**
-   * 是否支持当前环境的语音播报
-   * - 外部提供 `useSpeech` 适配器时，可不返回或忽略该字段
-   * - 仅默认实现（Web Speech）用于环境探测
-   */
-  isSupported?: boolean;
-  /** 是否正在播放 */
-  isPlaying: boolean;
-  /** 当前倍速 */
-  rate: number;
-  /** 设置倍速（如正在播报，调用方可在内部重启以生效） */
-  setRate: (value: number) => void;
-  /** 开始播报（应为幂等：重复调用不产生副作用） */
-  start: () => void;
-  /** 停止/取消播报（应清理内部资源与回调） */
-  stop: () => void;
-  /** 暂停播报（如不支持可为 no-op） */
-  pause: () => void;
-  /** 恢复播报（如不支持可为 no-op） */
-  resume: () => void;
-};
-
-/**
- * 通用语音适配器接口
- * - 用于接入除 Web Speech 外的任意 TTS 能力
- * - 返回结构需满足 `UseSpeechSynthesisResult`
- * - 当提供该适配器时，`VoiceButton` 将视语音能力为“可用”，不再受浏览器支持度限制
- */
-export type UseSpeechAdapter = (
-  options: UseSpeechSynthesisOptions,
-) => UseSpeechSynthesisResult;
+export type {
+  UseSpeechAdapter,
+  UseSpeechSynthesisOptions,
+  UseSpeechSynthesisResult,
+} from './types';
 
 export type VoiceButtonProps = {
   /** 朗读文本 */
@@ -77,29 +37,28 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
   useSpeech,
 }) => {
   const configContext = React.useContext(ConfigProvider.ConfigContext);
-  const baseCls =
+  const prefixCls =
     configContext?.getPrefixCls(`agent-voice-button`) || 'agent-voice-button';
-  const { wrapSSR, hashId } = useStyle(baseCls);
+  const { wrapSSR, hashId } = useStyle(prefixCls);
   const [isPlayHover, setIsPlayHover] = useState<boolean>(false);
   const [isPlayingHovered, setIsPlayingHovered] = useState(false);
 
   // 首渲染冻结适配器，防止运行时切换导致 Hooks 调用顺序风险
-  const adapterRef = useRef<UseSpeechAdapter>(
-    typeof useSpeech === 'function' ? useSpeech : useSpeechSynthesis,
-  );
+  const speechAdapter = useMemo(() => useSpeech || useSpeechSynthesis, []);
   const { isSupported, isPlaying, rate, setRate, start, stop, pause, resume } =
-    adapterRef.current({
+    speechAdapter({
       text,
       defaultRate,
     });
 
   // 如果外部提供了自定义适配器，则视为一定可用，避免受浏览器 Web Speech 支持度影响
   const isFeatureSupported = useMemo(
-    () => adapterRef.current !== useSpeechSynthesis || isSupported,
-    [isSupported],
+    () => speechAdapter !== useSpeechSynthesis || isSupported,
+    [speechAdapter, isSupported],
   );
 
   const handleClick = () => {
+    if (!isFeatureSupported || !text) return;
     if (!isPlaying) {
       start();
       return;
@@ -142,13 +101,13 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
       normalizedRateOptions.map((r) => ({
         key: String(r),
         label: (
-          <div className={`${baseCls}-rateItem ${hashId}`}>
+          <div className={`${prefixCls}-rateItem ${hashId}`}>
             <span>{`${r}x`}</span>
             {r === rate ? <span>✓</span> : null}
           </div>
         ),
       })),
-    [normalizedRateOptions, rate],
+    [normalizedRateOptions, rate, prefixCls, hashId],
   );
 
   const rateDisplay = useMemo(() => `${rate}x`, [rate]);
@@ -166,7 +125,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           onMouseEnter={() => setIsPlayHover(true)}
           onMouseLeave={() => setIsPlayHover(false)}
           onClick={handleClick}
-          className={`${baseCls}-playBox ${hashId}`}
+          className={`${prefixCls}-playBox ${hashId}`}
           role="button"
           tabIndex={0}
           aria-label={'语音播报'}
@@ -183,9 +142,9 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           </Tooltip>
         </div>
       ) : (
-        <div className={`${baseCls}-playingWrap ${hashId}`}>
+        <div className={`${prefixCls}-playingWrap ${hashId}`}>
           <div
-            className={`${baseCls}-playingBox ${hashId}`}
+            className={`${prefixCls}-playingBox ${hashId}`}
             onMouseEnter={handlePlayingMouseEnter}
             onMouseLeave={handlePlayingMouseLeave}
             onClick={handleStop}
@@ -213,7 +172,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               },
             }}
           >
-            <div className={`${baseCls}-rateBox ${hashId}`}>
+            <div className={`${prefixCls}-rateBox ${hashId}`}>
               <span style={{ fontSize: 12 }}>
                 {rate === 1 ? '倍速' : rateDisplay}
               </span>

@@ -480,10 +480,16 @@ export interface BubbleProps<T = Record<string, any>>
   shouldShowCopy?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
 
   /**
+   * 控制语音按钮的显示
+   * @description 控制语音按钮是否显示的函数或布尔值
+   */
+  shouldShowVoice?: boolean;
+
+  /**
    * 外部语音适配器
    * @description 替换默认 Web Speech 实现，接入自定义 TTS 能力
    */
-  useSpeech?: UseSpeechAdapter | boolean;
+  useSpeech?: UseSpeechAdapter;
 
   /**
    * 预加载消息

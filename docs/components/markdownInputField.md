@@ -6,7 +6,7 @@ group:
   order: 1
 ---
 
-# MarkdownInputField
+# MarkdownInputField - 输入框
 
 `MarkdownInputField` 是一个带发送功能的 Markdown 输入字段组件，允许用户编辑 Markdown 内容并通过按钮或快捷键发送。
 
@@ -67,6 +67,7 @@ export default () => {
 | `toolsRender`    | `(props) => React.ReactNode[]`                   | -         | 自定义渲染操作按钮前内容的函数     |
 | `leafRender`     | `(props, defaultDom) => React.ReactElement`      | -         | 自定义叶子节点渲染函数             |
 | `inputRef`       | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
+| `p`    | `{ enabled?: boolean; allowedTypes?: string[] }` | -         | 粘贴配置                           |
 
 ## 示例
 
@@ -150,6 +151,7 @@ export default () => {
 ```
 
 > 交互说明：
+>
 > - 第一次点击语音按钮开始录音，实时将转写文本写入输入框。
 > - 再次点击语音按钮结束录音。
 > - 录音过程中点击发送按钮将先停止录音，再发送当前输入内容。
@@ -462,6 +464,68 @@ export default () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }}
     />
+  );
+};
+```
+
+### 粘贴配置
+
+```tsx | pure
+import { MarkdownInputField } from '@ant-design/md-editor';
+
+export default () => {
+  const [value, setValue] = React.useState('');
+
+  return (
+    <>
+      <MarkdownInputField
+        value={value}
+        onChange={setValue}
+        placeholder="只能粘贴纯文本内容..."
+        pasteConfig={{
+          enabled: true,
+          allowedTypes: ['text/plain'],
+        }}
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }}
+      />
+      <div style={{ marginTop: 16 }}>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>pasteConfig</code> - 粘贴配置
+            <ul>
+              <li>
+                <code>enabled</code> - 是否启用粘贴功能，默认为 true
+              </li>
+              <li>
+                <code>allowedTypes</code> - 允许的粘贴内容类型
+                <ul>
+                  <li>
+                    <code>application/x-slate-md-fragment</code> - Slate
+                    Markdown 片段
+                  </li>
+                  <li>
+                    <code>text/html</code> - HTML 内容
+                  </li>
+                  <li>
+                    <code>Files</code> - 文件
+                  </li>
+                  <li>
+                    <code>text/markdown</code> - Markdown 文本
+                  </li>
+                  <li>
+                    <code>text/plain</code> - 纯文本
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 ```

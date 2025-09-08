@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   UseSpeechSynthesisOptions,
   UseSpeechSynthesisResult,
-} from '../Bubble/MessagesContent/VoiceButton';
+} from '../Bubble/MessagesContent/VoiceButton/types';
 
 export const useSpeechSynthesis = (
   options: UseSpeechSynthesisOptions,

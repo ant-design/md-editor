@@ -1,9 +1,14 @@
 ﻿import { Tooltip } from 'antd';
 import * as React from 'react';
 
-export function StopIcon(props: React.SVGProps<SVGSVGElement>) {
+interface StopIconProps extends React.SVGProps<SVGSVGElement> {
+  title?: string;
+}
+
+export function StopIcon(props: StopIconProps) {
+  const { title = '停止', ...svgProps } = props;
   return (
-    <Tooltip title="停止">
+    <Tooltip title={title}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -12,7 +17,7 @@ export function StopIcon(props: React.SVGProps<SVGSVGElement>) {
         role="img"
         aria-label="StopIcon"
         viewBox="0 0 32 32"
-        {...props}
+        {...svgProps}
       >
         <defs>
           <clipPath id="a">

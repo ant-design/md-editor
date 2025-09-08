@@ -8,7 +8,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       flexDirection: 'column',
       background: '#ffffff',
-      border: '1px solid #e1e5e9',
       borderRadius: '8px',
       overflow: 'hidden',
       fontFamily:
@@ -18,6 +17,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [`${token.componentCls}-container`]: {
       display: 'flex',
       flex: 1,
+      gap: '4px',
+      background: '#FDFEFF',
       minHeight: 0,
     },
 
@@ -26,7 +27,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'column',
       flex: 1,
       minWidth: 0,
-      borderRight: '1px solid #e1e5e9',
     },
 
     [`${token.componentCls}-right`]: {
@@ -34,6 +34,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minWidth: 0,
       display: 'flex',
       flexDirection: 'column',
+      gap: '4px',
+      padding: '4px',
+      borderRadius: '8px',
+      background: 'rgba(9, 30, 66, 0.07)',
+      overflow: 'auto',
     },
 
     // HTML编辑器样式
@@ -41,13 +46,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      borderBottom: '1px solid #e1e5e9',
+      gap: '8px',
+      padding: '12px',
+      background: '#FDFEFF',
+      border: '1px solid rgba(9, 30, 66, 0.07)',
+      borderRadius: '8px',
     },
 
     [`${token.componentCls}-html-header`]: {
-      padding: '12px 16px',
-      background: '#f8f9fa',
-      borderBottom: '1px solid #e1e5e9',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -58,6 +64,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       fontSize: '13px',
       fontWeight: 600,
       color: '#495057',
+    },
+
+    [`${token.componentCls}-html-header button`]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
+      padding: '3px 8px',
+      fontSize: '12px',
+      color: '#626F86',
     },
 
     [`${token.componentCls}-html-content`]: {
@@ -76,12 +91,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
+      gap: '8px',
+      padding: '12px',
+      background: '#FDFEFF',
+      border: '1px solid rgba(9, 30, 66, 0.07)',
+      borderRadius: '8px',
     },
 
     [`${token.componentCls}-json-header`]: {
-      padding: '12px 16px',
-      background: '#f8f9fa',
-      borderBottom: '1px solid #e1e5e9',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -92,6 +109,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       fontSize: '13px',
       fontWeight: 600,
       color: '#495057',
+    },
+
+    [`${token.componentCls}-json-header button`]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
+      padding: '3px 8px',
+      fontSize: '12px',
+      color: '#626F86',
     },
 
     [`${token.componentCls}-json-content`]: {
@@ -111,12 +137,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       flexDirection: 'column',
       minHeight: 0,
+      border: '1px solid rgba(9, 30, 66, 0.07)',
+      borderRadius: '8px',
+      background: '#fff',
+      boxShadow: '0px 1.5px 2px -1px rgba(0, 19, 41, 0.07)',
     },
 
     [`${token.componentCls}-preview-header`]: {
-      padding: '12px 16px',
-      background: '#f8f9fa',
-      borderBottom: '1px solid #e1e5e9',
+      padding: '12px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -126,7 +154,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       margin: 0,
       fontSize: '13px',
       fontWeight: 600,
-      color: '#495057',
+      color: '#2c3e5d',
     },
 
     [`${token.componentCls}-error`]: {
@@ -141,10 +169,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     [`${token.componentCls}-preview-content`]: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
       flex: 1,
       padding: '16px',
       overflow: 'auto',
       background: '#ffffff',
+      borderRadius: '0 0 8px 8px',
+    },
+
+    [`${token.componentCls}-preview-content-empty`]: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '8px',
+      alignItems: 'center',
+    },
+
+    [`${token.componentCls}-preview-content-empty p`]: {
+      fontSize: '13px',
+      textAlign: 'center',
+      color: '#8590A2',
     },
 
     [`${token.componentCls}-fallback`]: {
@@ -199,20 +244,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
     // 编辑器主题适配
     [`${token.componentCls} .ace_editor`]: {
-      background: '#ffffff',
-      color: '#333333',
+      borderRadius: '8px',
+      background: 'rgba(9, 30, 66, 0.03)',
+      color: '#343a45',
     },
 
     [`${token.componentCls} .ace_editor.ace_dark`]: {
       background: '#2d3748',
       color: '#e2e8f0',
     },
-
-    // 焦点状态
-    [`${token.componentCls}-html-content:focus-within, ${token.componentCls}-json-content:focus-within`]:
-      {
-        boxShadow: 'inset 0 0 0 2px #3182ce',
-      },
 
     // 加载状态
     [`${token.componentCls}-loading`]: {
@@ -239,7 +279,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   };
 };
 
-export function useSchemaEditorStyle(prefixCls?: string) {
+export function useStyle(prefixCls?: string) {
   return useEditorStyleRegister('SchemaEditor', (token: ChatTokenType) => {
     const schemaEditorToken = {
       ...token,

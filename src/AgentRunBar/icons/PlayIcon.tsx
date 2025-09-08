@@ -1,9 +1,14 @@
 ﻿import { Tooltip } from 'antd';
 import * as React from 'react';
 
-export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
+interface PlayIconProps extends React.SVGProps<SVGSVGElement> {
+  title?: string;
+}
+
+export function PlayIcon(props: PlayIconProps) {
+  const { title = '继续', ...svgProps } = props;
   return (
-    <Tooltip title="继续">
+    <Tooltip title={title}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -12,7 +17,7 @@ export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
         role="img"
         aria-label="PlayIcon"
         viewBox="0 0 32 32"
-        {...props}
+        {...svgProps}
       >
         <defs>
           <filter

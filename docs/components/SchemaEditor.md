@@ -7,7 +7,7 @@ group:
   order: 3
 ---
 
-# SchemaEditor 组件
+# SchemaEditor - schema 编辑工具
 
 SchemaEditor 是一个强大的 schema 编辑和预览工具，提供 HTML 模板和 JSON schema 的实时编辑功能，底层使用 AceEditor 来编辑 schema 中的 HTML 内容。
 
@@ -295,96 +295,6 @@ SchemaEditor 支持 Mustache 模板语法，可以在 HTML 中使用 `{{变量�
 </div>
 ```
 
-## 样式定制
-
-SchemaEditor 提供了丰富的 CSS 类名，可以用于样式定制：
-
-```css
-/* 主容器 */
-.schema-editor
-
-/* 容器布局 */
-.schema-editor-container
-
-/* 左侧编辑区域 */
-.schema-editor-left
-
-/* 右侧预览区域 */
-.schema-editor-right
-
-/* HTML 编辑器 */
-.schema-editor-html
-.schema-editor-html-header
-.schema-editor-html-content
-
-/* JSON 编辑器 */
-.schema-editor-json
-.schema-editor-json-header
-.schema-editor-json-content
-
-/* 预览区域 */
-.schema-editor-preview
-.schema-editor-preview-header
-.schema-editor-preview-content
-
-/* 错误提示 */
-.schema-editor-error
-
-/* 回退内容 */
-.schema-editor-fallback
-
-/* 加载状态 */
-.schema-editor-loading
-```
-
-### 响应式设计
-
-SchemaEditor 支持响应式设计，在小屏幕设备上会自动调整布局：
-
-```css
-@media (max-width: 768px) {
-  .schema-editor-container {
-    flex-direction: column;
-  }
-
-  .schema-editor-left {
-    border-right: none;
-    border-bottom: 1px solid #e1e5e9;
-  }
-
-  .schema-editor-html,
-  .schema-editor-json {
-    min-height: 200px;
-  }
-}
-```
-
-## 编辑器功能
-
-### AceEditor 特性
-
-- **语法高亮**: 支持 HTML、JSON、JavaScript 等多种语言
-- **智能提示**: 提供代码补全和语法检查
-- **主题支持**: 支持亮色和暗色主题
-- **快捷键**: 支持常用的编辑器快捷键
-- **只读模式**: 支持只读模式，防止意外编辑
-
-### 编辑器配置
-
-```tsx | pure
-// AceEditor 配置选项
-const editorOptions = {
-  fontSize: 12,
-  animatedScroll: true,
-  maxLines: Infinity,
-  wrap: true,
-  tabSize: 4,
-  showPrintMargin: false,
-  showLineNumbers: false,
-  showGutter: false,
-};
-```
-
 ## 错误处理
 
 SchemaEditor 提供了完善的错误处理机制：
@@ -404,20 +314,6 @@ SchemaEditor 提供了完善的错误处理机制：
 ### 错误边界
 
 SchemaEditor 使用 React Error Boundary 来捕获渲染过程中的错误，并提供友好的错误提示。
-
-## 性能优化
-
-### 渲染优化
-
-- **虚拟滚动**: 大列表使用虚拟滚动优化性能
-- **懒加载**: 按需加载组件和资源
-- **缓存机制**: 缓存渲染结果，避免重复计算
-
-### 内存管理
-
-- **组件卸载**: 正确清理 AceEditor 实例
-- **事件监听**: 及时移除事件监听器
-- **引用清理**: 避免内存泄漏
 
 ## 注意事项
 

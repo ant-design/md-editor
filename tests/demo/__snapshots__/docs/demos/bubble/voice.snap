@@ -9,155 +9,194 @@
       style="max-width: 800px; margin: 0px auto; padding: 24px;"
     >
       <div
-        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+        class="ant-agent-list-bubble ant-agent-list-bubble-left ant-flex ant-flex-align-stretch ant-flex-vertical"
         style="gap: 12px;"
       >
         <div
-          animate="visible"
-          class="ant-agent-list-bubble-container"
-          initial="hidden"
-          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-          variants="[object Object]"
-          whileinview="visible"
+          class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
+        >
+          <span
+            class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-bubble-avatar"
+            data-testid="bubble-avatar"
+            style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+          >
+            <img
+              alt="avatar"
+              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+            />
+          </span>
+          <span>
+            Agentar
+          </span>
+          <div
+            class="ant-agent-list-bubble-bubble-title ant-flex"
+            data-testid="bubble-title"
+            style="flex-direction: row; gap: 8px;"
+          >
+            AI 助手
+          </div>
+        </div>
+        <div
+          class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
+          data-testid="chat-message"
+          style="display: flex; gap: 4px; flex-direction: column;"
         >
           <div
-            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
-          >
-            <span
-              class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
-              data-testid="bubble-avatar"
-              style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
-            >
-              <img
-                alt="avatar"
-                src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-              />
-            </span>
-            <span>
-              Agentar
-            </span>
-            <div
-              class="ant-agent-list-bubble-title ant-flex"
-              data-testid="bubble-title"
-              style="flex-direction: row; gap: 8px;"
-            >
-              AI 助手
-            </div>
-          </div>
+            class="ant-agent-list-bubble-bubble-before ant-agent-list-bubble-bubble-before-left"
+            data-testid="message-before"
+          />
           <div
-            animate="visible"
-            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
-            data-testid="chat-message"
-            initial="hidden"
-            style="display: flex; gap: 4px; flex-direction: column;"
-            variants="[object Object]"
-            whileinview="visible"
+            class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
+            data-testid="message-content"
+            style="min-width: 0px;"
           >
             <div
-              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
-              data-testid="message-before"
-              variants="[object Object]"
-            />
-            <div
-              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
-              data-testid="message-content"
-              style="min-width: 0px;"
-              variants="[object Object]"
+              style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
             >
               <div
-                style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                class="ant-md-editor markdown-editor ant-md-editor-readonly"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
               >
                 <div
-                  class="markdown-editor ant-md-editor ant-md-editor-readonly"
-                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
+                  style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  tabindex="-1"
                 >
                   <div
-                    style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
-                    tabindex="-1"
+                    autocapitalize="false"
+                    autocorrect="false"
+                    class="ant-md-editor-content ant-md-editor-content-readonly"
+                    data-slate-editor="true"
+                    data-slate-node="value"
+                    spellcheck="false"
+                    style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                    zindex="-1"
                   >
                     <div
-                      autocapitalize="false"
-                      autocorrect="false"
-                      class="ant-md-editor-content-readonly ant-md-editor-content"
-                      data-slate-editor="true"
-                      data-slate-node="value"
-                      spellcheck="false"
-                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                      zindex="-1"
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              这是一段用于演示语音播报功能的文本。您可以点击左侧的语音按钮开始播报，鼠标悬停时会暂时暂停并显示暂停图标，点击可停止播报。还可以通过右侧下拉框选择 1.5x、1.25x、1x 或 0.75x 的播放速度。
+                            这是一段用于演示语音播报功能的文本。您可以点击左侧的语音按钮开始播报，鼠标悬停时会暂时暂停并显示暂停图标，点击可停止播报。还可以通过右侧下拉框选择 1.5x、1.25x、1x 或 0.75x 的播放速度。
 这是一段用于演示语音播报功能的文本。您可以点击左侧的语音按钮开始播报，鼠标悬停时会暂时暂停并显示暂停图标，点击可停止播报。还可以通过右侧下拉框选择 1.5x、1.25x、1x 或 0.75x 的播放速度。
 这是一段用于演示语音播报功能的文本。您可以点击左侧的语音按钮开始播报，鼠标悬停时会暂时暂停并显示暂停图标，点击可停止播报。还可以通过右侧下拉框选择 1.5x、1.25x、1x 或 0.75x 的播放速度。
 这是一段用于演示语音播报功能的文本。您可以点击左侧的语音按钮开始播报，鼠标悬停时会暂时暂停并显示暂停图标，点击可停止播报。还可以通过右侧下拉框选择 1.5x、1.25x、1x 或 0.75x 的播放速度。
 这是一段用于演示语音播报功能的文本。您可以点击左侧的语音按钮开始播报，鼠标悬停时会暂时暂停并显示暂停图标，点击可停止播报。还可以通过右侧下拉框选择 1.5x、1.25x、1x 或 0.75x 的播放速度。
-                            </span>
                           </span>
                         </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div
+                class="ant-chat-item-extra"
+                style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+              >
                 <div
-                  class="ant-chat-item-extra"
-                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                  style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
+                />
+                <div
+                  animate="visible"
+                  class="ant-chat-item-extra-action-box"
+                  initial="hidden"
+                  style="display: flex; gap: 8px; align-items: center;"
+                  variants="[object Object]"
+                  whileinview="visible"
                 >
                   <div
-                    style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
-                  />
-                  <div
-                    animate="visible"
-                    class="ant-chat-item-extra-action-box"
-                    initial="hidden"
-                    style="display: flex; gap: 8px; align-items: center;"
-                    variants="[object Object]"
-                    whileinview="visible"
+                    style="display: flex; align-items: center; gap: 8px;"
                   >
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                      data-testid="chat-item-copy-button"
+                    <div
+                      aria-disabled="true"
+                      aria-label="语音播报"
+                      class="ant-agent-voice-button-playBox "
                       role="button"
-                      style="color: var(--color-icon-secondary);"
                       tabindex="0"
                     >
-                      <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                      <div
+                        aria-describedby="test-id"
+                        class="ant-flex ant-flex-align-center ant-flex-justify-center"
                       >
                         <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
+                          color="rgb(102, 111, 141)"
+                          fill="none"
                           height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                          version="1.1"
+                          viewBox="0 0 14 14"
+                          width="14"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
+                          <defs>
+                            <clippath
+                              id="master_svg0_3460_33211/1432_039324"
+                            >
+                              <rect
+                                height="1em"
+                                rx="0"
+                                width="1em"
+                                x="0"
+                                y="0"
+                              />
+                            </clippath>
+                          </defs>
+                          <g
+                            clip-path="url(#master_svg0_3460_33211/1432_039324)"
+                          >
+                            <g>
+                              <path
+                                d="M2.916595458984375,12.249966626930236L2.916595458984375,1.749999626930237C2.916595458984375,1.4278336269302367,3.177762458984375,1.1666666269302368,3.499928458984375,1.1666666269302368C3.611783458984375,1.1666666269302368,3.721280458984375,1.1988260269302369,3.815370458984375,1.2593125269302368L11.982035458984376,6.509316626930237C12.253035458984375,6.683526626930237,12.331495458984374,7.044446626930236,12.157285458984376,7.315436626930237C12.112095458984374,7.385736626930237,12.052325458984376,7.445496626930237,11.982035458984376,7.490686626930237L3.815370458984375,12.740666626930237C3.544371458984375,12.914866626930237,3.183455458984375,12.836466626930237,3.009241358984375,12.565466626930236C2.948754858984375,12.471366626930237,2.916595458984375,12.361866626930237,2.916595458984375,12.249966626930236ZM10.587865458984375,6.999996626930237L4.083265458984375,11.181566626930238L4.083265458984375,2.8184666269302365L10.587865458984375,6.999996626930237Z"
+                                fill="currentColor"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                                style="mix-blend-mode: normal;"
+                              />
+                            </g>
+                          </g>
                         </svg>
-                      </span>
-                    </span>
+                      </div>
+                    </div>
                   </div>
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="复制"
+                    class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                    data-testid="chat-item-copy-button"
+                    role="button"
+                    style="color: var(--color-icon-secondary);"
+                    tabindex="0"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 </div>
               </div>
             </div>

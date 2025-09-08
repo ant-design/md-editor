@@ -413,6 +413,38 @@ export type MarkdownEditorProps = {
    * @default false
    */
   compact?: boolean;
+
+  /**
+   * 粘贴配置
+   * @description 配置粘贴到编辑器时支持的内容类型
+   * @example
+   * ```tsx
+   * <BaseMarkdownEditor
+   *   pasteConfig={{
+   *     enabled: true,
+   *     allowedTypes: ['text/plain', 'text/html', 'text/markdown']
+   *   }}
+   * />
+   * ```
+   */
+  pasteConfig?: {
+    /**
+     * 是否启用粘贴功能
+     * @default true
+     */
+    enabled?: boolean;
+    /**
+     * 允许的粘贴内容类型
+     * @default ['application/x-slate-md-fragment', 'text/html', 'Files', 'text/markdown', 'text/plain']
+     */
+    allowedTypes?: Array<
+      | 'application/x-slate-md-fragment'
+      | 'text/html'
+      | 'Files'
+      | 'text/markdown'
+      | 'text/plain'
+    >;
+  };
 };
 
 // 组合器函数
@@ -694,15 +726,15 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           <div
             id={props.id ? String(props.id) || undefined : undefined}
             className={classNames(
-              'markdown-editor',
               baseClassName,
+              'markdown-editor',
               hashId,
               props.className,
               {
-                [baseClassName + '-readonly']: readonly,
-                [baseClassName + '-edit']: !readonly,
-                [baseClassName + '-report']: props.reportMode,
-                [baseClassName + '-slide']: props.slideMode,
+                [`${baseClassName}-readonly`]: readonly,
+                [`${baseClassName}-edit`]: !readonly,
+                [`${baseClassName}-report`]: props.reportMode,
+                [`${baseClassName}-slide`]: props.slideMode,
               },
             )}
             style={{
@@ -723,8 +755,8 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                   zIndex: 99,
                   top: 0,
                 }}
-                className={classNames('md-editor-toolbar-container', {
-                  [baseClassName + '-min-toolbar']: toolBar.min,
+                className={classNames(`${baseClassName}-toolbar-container`, {
+                  [`${baseClassName}-min-toolbar`]: toolBar.min,
                 })}
               >
                 <ToolBar

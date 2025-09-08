@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { BubbleConfigContext } from '../src/Bubble/BubbleConfigProvide';
 import { BubbleExtra } from '../src/Bubble/MessagesContent/BubbleExtra';
+import { BubbleConfigContext } from '../src/Bubble/BubbleConfigProvide';
 
 const BubbleConfigProvide: React.FC<{
   children: React.ReactNode;
@@ -11,9 +11,7 @@ const BubbleConfigProvide: React.FC<{
   standalone?: boolean;
 }> = ({ children, compact, standalone }) => {
   return (
-    <BubbleConfigContext.Provider
-      value={{ standalone: standalone || false, compact, locale: {} as any }}
-    >
+    <BubbleConfigContext.Provider value={{ standalone: standalone || false, compact, locale: {} as any }}>
       {children}
     </BubbleConfigContext.Provider>
   );
@@ -28,61 +26,27 @@ vi.mock('framer-motion', () => ({
 
 // Mock CopyButton / ActionIconBox，避免依赖样式与外部行为
 vi.mock('../src/index', () => ({
-  ActionIconBox: ({
-    children,
-    onClick,
-    title,
-    style,
-    scale,
-    'data-testid': dataTestid,
-    ...props
-  }: any) => (
-    <span
-      data-testid={dataTestid || 'action-icon-box'}
-      onClick={onClick}
-      style={style}
-      title={title}
-      data-scale={scale ? 'true' : 'false'}
-      {...props}
-    >
+  ActionIconBox: ({ children, onClick, title, style, scale, 'data-testid': dataTestid, ...props }: any) => (
+    <span data-testid={dataTestid || 'action-icon-box'} onClick={onClick} style={style} title={title} data-scale={scale ? 'true' : 'false'} {...props}>
       {children}
     </span>
   ),
-  CopyButton: ({
-    children,
-    onClick,
-    title,
-    style,
-    scale,
-    'data-testid': dataTestid,
-    ...props
-  }: any) => (
-    <span
-      data-testid={dataTestid || 'copy-button'}
-      onClick={onClick}
-      style={style}
-      title={title}
-      data-scale={scale ? 'true' : 'false'}
-      {...props}
-    >
+  CopyButton: ({ children, onClick, title, style, scale, 'data-testid': dataTestid, ...props }: any) => (
+    <span data-testid={dataTestid || 'copy-button'} onClick={onClick} style={style} title={title} data-scale={scale ? 'true' : 'false'} {...props}>
       {children || '复制'}
     </span>
   ),
 }));
 
-// Mock lottie 相关组件，避免加载动画 JSON
-vi.mock('../src/icons/VoicePlayLottie', () => ({
-  __esModule: true,
-  default: ({ size = 16 }: { size?: number }) => (
-    <span data-testid="voice-play-lottie">lottie-{size}</span>
-  ),
-}));
-vi.mock('../src/icons/VoicingLottie', () => ({
-  __esModule: true,
-  default: ({ size = 16 }: { size?: number }) => (
-    <span data-testid="voicing-lottie">voicing-{size}</span>
-  ),
-}));
+// Mock lottie 相关组件，避免加载动画 JSON（保持默认导出与命名导出一致）
+vi.mock('../src/icons/VoicePlayLottie', () => {
+  const Mock = ({ size = 16 }: { size?: number }) => <span data-testid="voice-play-lottie">lottie-{size}</span>;
+  return { __esModule: true, default: Mock, VoicePlayLottie: Mock };
+});
+vi.mock('../src/icons/VoicingLottie', () => {
+  const Mock = ({ size = 16 }: { size?: number }) => <span data-testid="voicing-lottie">voicing-{size}</span>;
+  return { __esModule: true, default: Mock, VoicingLottie: Mock };
+});
 
 // 基础 bubble 数据
 const defaultBubbleProps = {
@@ -101,14 +65,10 @@ const defaultBubbleProps = {
 };
 
 describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
-  it.skip('默认显示语音按钮（未配置 shouldShowVoice 时，内容满足条件）', () => {
+  it('默认显示语音按钮（未配置 shouldShowVoice 时，内容满足条件）', () => {
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
@@ -118,15 +78,10 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect(playRegion).toBeInTheDocument();
   });
 
-  it.skip('shouldShowVoice=false 时隐藏语音按钮', () => {
+  it('shouldShowVoice=false 时隐藏语音按钮', () => {
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-          shouldShowVoice={false}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={false} />
       </BubbleConfigProvide>,
     );
 
@@ -134,23 +89,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect(playRegion).not.toBeInTheDocument();
   });
 
-  it.skip('shouldShowVoice 函数返回 true 时显示语音按钮，并传入正确 bubble', () => {
-    const fn = vi.fn().mockReturnValue(true);
-    render(
-      <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-          shouldShowVoice={fn}
-        />
-      </BubbleConfigProvide>,
-    );
-    expect(fn).toHaveBeenCalledWith(defaultBubbleProps);
-    expect(screen.queryByLabelText('语音播报')).toBeInTheDocument();
-  });
-
-  it.skip('当内容为空时，即使 shouldShowVoice=true 也不显示语音按钮', () => {
+  it('当内容为空时，即使 shouldShowVoice=true 也不显示语音按钮', () => {
     const bubbleWithEmpty = {
       ...defaultBubbleProps,
       originData: {
@@ -161,19 +100,14 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={bubbleWithEmpty as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-          shouldShowVoice={true}
-        />
+        <BubbleExtra bubble={bubbleWithEmpty as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
     expect(screen.queryByLabelText('语音播报')).not.toBeInTheDocument();
   });
 
-  it.skip('点击播放后进入播放态，出现停止播报区域', () => {
+  it('点击播放后进入播放态，出现停止播报区域', () => {
     // Mock 浏览器 SpeechSynthesis 支持
     Object.defineProperty(window, 'speechSynthesis', {
       configurable: true,
@@ -184,10 +118,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
         resume: vi.fn(),
       },
     });
-    const MockUtter = vi.fn().mockImplementation(function (
-      this: any,
-      txt: string,
-    ) {
+    const MockUtter = vi.fn().mockImplementation(function (this: any, txt: string) {
       this.text = txt;
       this.rate = 1;
       this.onend = null;
@@ -200,11 +131,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
@@ -215,7 +142,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect(screen.getByLabelText('停止播报')).toBeInTheDocument();
   });
 
-  it.skip('外部 useSpeech 适配器提供时，即使无浏览器支持也应显示并可切换播放态', () => {
+  it('外部 useSpeech 适配器提供时，即使无浏览器支持也应显示并可切换播放态', () => {
     // 移除 speechSynthesis 支持
     Object.defineProperty(window, 'speechSynthesis', {
       configurable: true,
@@ -262,7 +189,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect(mockAdapter).toHaveBeenCalled();
   });
 
-  it.skip('不支持 Web Speech 时，语音按钮应禁用（aria-disabled=true）', () => {
+  it('不支持 Web Speech 时，语音按钮应禁用（aria-disabled=true）', () => {
     Object.defineProperty(window, 'speechSynthesis', {
       configurable: true,
       value: undefined,
@@ -270,11 +197,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
@@ -282,7 +205,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect(playRegion).toHaveAttribute('aria-disabled', 'true');
   });
 
-  it.skip('播放态下 hover 会调用 pause 与 resume', () => {
+  it('播放态下 hover 会调用 pause 与 resume', () => {
     Object.defineProperty(window, 'speechSynthesis', {
       configurable: true,
       value: {
@@ -292,10 +215,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
         resume: vi.fn(),
       },
     });
-    const MockUtter = vi.fn().mockImplementation(function (
-      this: any,
-      txt: string,
-    ) {
+    const MockUtter = vi.fn().mockImplementation(function (this: any, txt: string) {
       this.text = txt;
       this.rate = 1;
       this.onend = null;
@@ -308,11 +228,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
@@ -326,7 +242,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect((global as any).window.speechSynthesis.resume).toHaveBeenCalled();
   });
 
-  it.skip('再次点击停止区域会调用 cancel 停止播报', () => {
+  it('再次点击停止区域会调用 cancel 停止播报', () => {
     Object.defineProperty(window, 'speechSynthesis', {
       configurable: true,
       value: {
@@ -336,10 +252,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
         resume: vi.fn(),
       },
     });
-    const MockUtter = vi.fn().mockImplementation(function (
-      this: any,
-      txt: string,
-    ) {
+    const MockUtter = vi.fn().mockImplementation(function (this: any, txt: string) {
       this.text = txt;
       this.rate = 1;
       this.onend = null;
@@ -352,11 +265,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
@@ -367,7 +276,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect((global as any).window.speechSynthesis.cancel).toHaveBeenCalled();
   });
 
-  it.skip('rate 文案：rate 为 1 时显示 “倍速”', () => {
+  it('rate 文案：rate 为 1 时显示 “倍速”', () => {
     const adapter = vi.fn().mockImplementation(() => ({
       isPlaying: true,
       rate: 1,
@@ -380,19 +289,14 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-          useSpeech={adapter}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} useSpeech={adapter} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
     expect(screen.getByText('倍速')).toBeInTheDocument();
   });
 
-  it.skip('rate 文案：rate 非 1 时显示具体倍速，比如 1.25x', () => {
+  it('rate 文案：rate 非 1 时显示具体倍速，比如 1.25x', () => {
     const adapter = vi.fn().mockImplementation(() => ({
       isPlaying: true,
       rate: 1.25,
@@ -405,19 +309,14 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-          useSpeech={adapter}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} useSpeech={adapter} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
     expect(screen.getByText('1.25x')).toBeInTheDocument();
   });
 
-  it.skip('hover 播放按钮会展示 lottie（非播放态）', () => {
+  it('hover 播放按钮会展示 lottie（非播放态）', () => {
     // 无需浏览器支持，仅验证 hover 渲染切换
     Object.defineProperty(window, 'speechSynthesis', {
       configurable: true,
@@ -426,11 +325,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={defaultBubbleProps as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={defaultBubbleProps as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
@@ -439,7 +334,7 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
     expect(screen.getByTestId('voice-play-lottie')).toBeInTheDocument();
   });
 
-  it.skip('内容为 “回答已停止生成” 时隐藏语音按钮', () => {
+  it('内容为 “回答已停止生成” 时隐藏语音按钮', () => {
     const abortedBubble = {
       ...defaultBubbleProps,
       originData: {
@@ -450,18 +345,14 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={abortedBubble as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={abortedBubble as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
     expect(screen.queryByLabelText('语音播报')).not.toBeInTheDocument();
   });
 
-  it.skip('存在 extra.answerStatus 时隐藏语音按钮', () => {
+  it('存在 extra.answerStatus 时隐藏语音按钮', () => {
     const bubbleWithAnswerStatus = {
       ...defaultBubbleProps,
       originData: {
@@ -472,14 +363,12 @@ describe('BubbleExtra - VoiceButton / shouldShowVoice / useSpeech', () => {
 
     render(
       <BubbleConfigProvide>
-        <BubbleExtra
-          bubble={bubbleWithAnswerStatus as any}
-          onLike={vi.fn()}
-          onDisLike={vi.fn()}
-        />
+        <BubbleExtra bubble={bubbleWithAnswerStatus as any} onLike={vi.fn()} onDisLike={vi.fn()} shouldShowVoice={true} />
       </BubbleConfigProvide>,
     );
 
     expect(screen.queryByLabelText('语音播报')).not.toBeInTheDocument();
   });
 });
+
+

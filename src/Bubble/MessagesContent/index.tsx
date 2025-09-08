@@ -152,6 +152,7 @@ export const BubbleMessageDisplay: React.FC<
           onCancelLike={props.onCancelLike}
           shouldShowCopy={props.shouldShowCopy}
           useSpeech={props.useSpeech}
+          shouldShowVoice={props.shouldShowVoice}
           onDisLike={
             props.onDisLike
               ? async () => {

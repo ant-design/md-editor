@@ -9,7 +9,7 @@
       style="display: flex; flex-direction: row; align-items: center; justify-content: center; height: 100vh; background-color: rgb(255, 255, 255);"
     >
       <div
-        class="markdown-editor ant-md-editor ant-md-editor-readonly ant-md-editor-report"
+        class="ant-md-editor markdown-editor ant-md-editor-readonly ant-md-editor-report"
         style="width: 50vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%; margin: 0px auto; border: 1px solid rgb(231, 233, 232);"
       >
         <div
@@ -19,7 +19,7 @@
           <div
             autocapitalize="false"
             autocorrect="false"
-            class="ant-md-editor-content-readonly ant-md-editor-content ant-md-editor-content-report"
+            class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
             data-slate-editor="true"
             data-slate-node="value"
             spellcheck="false"
@@ -5396,11 +5396,11 @@ def aggressive_allocation():
         </div>
       </div>
       <div
-        class="markdown-editor ant-md-editor ant-md-editor-edit ant-md-editor-report"
+        class="ant-md-editor markdown-editor ant-md-editor-edit ant-md-editor-report"
         style="width: 50vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%; margin: 0px auto; border: 1px solid rgb(231, 233, 232);"
       >
         <div
-          class="md-editor-toolbar-container"
+          class="ant-md-editor-toolbar-container"
           style="width: 100%; max-width: 100%; position: sticky; z-index: 99; top: 0px;"
         >
           <div
@@ -5862,7 +5862,7 @@ def aggressive_allocation():
             aria-multiline="true"
             autocapitalize="false"
             autocorrect="false"
-            class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-report ant-md-editor-content-edit"
+            class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-report ant-md-editor-content-edit"
             contenteditable="true"
             data-slate-editor="true"
             data-slate-node="value"

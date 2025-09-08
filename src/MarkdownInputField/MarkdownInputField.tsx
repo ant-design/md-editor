@@ -277,6 +277,38 @@ export type MarkdownInputFieldProps = {
    * Markdown 编辑器的其他配置项
    */
   markdownProps?: MarkdownEditorProps;
+
+  /**
+   * 粘贴配置
+   * @description 配置粘贴到编辑器时支持的内容类型
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   pasteConfig={{
+   *     enabled: true,
+   *     allowedTypes: ['text/plain', 'text/html', 'text/markdown']
+   *   }}
+   * />
+   * ```
+   */
+  pasteConfig?: {
+    /**
+     * 是否启用粘贴功能
+     * @default true
+     */
+    enabled?: boolean;
+    /**
+     * 允许的粘贴内容类型
+     * @default ['application/x-slate-md-fragment', 'text/html', 'Files', 'text/markdown', 'text/plain']
+     */
+    allowedTypes?: Array<
+      | 'application/x-slate-md-fragment'
+      | 'text/html'
+      | 'Files'
+      | 'text/markdown'
+      | 'text/plain'
+    >;
+  };
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -838,6 +870,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               onBlur={onBlur}
               titlePlaceholderContent={props.placeholder}
               toc={false}
+              pasteConfig={props.pasteConfig}
               {...markdownProps}
             />
           </div>

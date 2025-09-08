@@ -2,6 +2,7 @@ import { EyeOutlined, PlusOutlined, UndoOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Space, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
+import { I18nContext } from '../i18n';
 import { PauseIcon } from './icons/PauseIcon';
 import { PlayIcon } from './icons/PlayIcon';
 import { StopIcon } from './icons/StopIcon';
@@ -71,6 +72,14 @@ interface TaskRunningProps {
   title?: string;
   /** 描述文案 */
   description?: string;
+  /** 国际化配置 */
+  locale?: {
+    agentRunBar?: {
+      play?: string;
+      pause?: string;
+      stop?: string;
+    };
+  };
 }
 
 /**
@@ -80,6 +89,7 @@ interface TaskRunningProps {
  * @param callbacks 回调函数对象
  * @param baseCls 基础类名
  * @param hashId 哈希ID
+ * @param locale 国际化配置
  * @returns 按钮组JSX
  */
 const renderButtonGroup = (
@@ -95,6 +105,13 @@ const renderButtonGroup = (
   },
   baseCls: string,
   hashId: string,
+  locale?: {
+    agentRunBar?: {
+      play?: string;
+      pause?: string;
+      stop?: string;
+    };
+  },
 ) => {
   const { onCreateNewTask, onPause, onResume, onStop, onReplay, onViewResult } =
     callbacks;
@@ -108,12 +125,12 @@ const renderButtonGroup = (
       <Space>
         {onPause && (
           <div className={`${baseCls}-pause ${hashId}`} onClick={onPause}>
-            <PauseIcon />
+            <PauseIcon title={locale?.agentRunBar?.pause} />
           </div>
         )}
         {onStop && (
           <div className={`${baseCls}-pause ${hashId}`} onClick={onStop}>
-            <StopIcon />
+            <StopIcon title={locale?.agentRunBar?.stop} />
           </div>
         )}
       </Space>
@@ -140,7 +157,7 @@ const renderButtonGroup = (
         )}
         {onResume && (
           <div className={`${baseCls}-play ${hashId}`} onClick={onResume}>
-            <PlayIcon />
+            <PlayIcon title={locale?.agentRunBar?.play} />
           </div>
         )}
       </div>
@@ -325,6 +342,9 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
   const baseCls = context?.getPrefixCls('task-running');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
+  // 从context获取国际化配置
+  const { locale } = useContext(I18nContext);
+
   // 获取机器人状态
   const getRobotStatus = () => {
     if (taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE) {
@@ -380,6 +400,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         },
         baseCls,
         hashId,
+        locale,
       )}
     </div>,
   );

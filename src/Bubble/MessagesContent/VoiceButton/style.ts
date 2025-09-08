@@ -80,10 +80,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
 export function useStyle(prefixCls?: string) {
   return useEditorStyleRegister('VoiceButton', (token) => {
-    const proChatToken = {
-      ...token,
-      componentCls: `.${prefixCls}`,
-    };
+    const cls = prefixCls ? `.${prefixCls}` : `${token.chatCls}-voice-button`;
+    const proChatToken = { ...token, componentCls: cls };
     return [resetComponent(proChatToken), genStyle(proChatToken)];
   });
 }
