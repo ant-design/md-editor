@@ -89,7 +89,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '20px',
         height: '20px',
         color: '#767E8B',
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
         borderRadius: '4px',
         transition: 'all 0.2s ease',
@@ -100,7 +100,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-name': {
-        fontSize: '12px',
+        fontSize: 'var(--font-size-sm)',
         fontWeight: 500,
         lineHeight: '20px',
         letterSpacing: 'normal',
@@ -173,7 +173,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-tool-image': {
         color: '#767E8B',
-        fontSize: '15px',
+        fontSize: 'var(--font-size-lg)',
         position: 'absolute',
         zIndex: 999,
         borderRadius: '50%',
@@ -183,7 +183,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-target': {
-        fontSize: '12px',
+        fontSize: 'var(--font-size-sm)',
         fontWeight: 'normal',
         lineHeight: '20px',
         flex: 1,
@@ -209,7 +209,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       '&-tool-time': {
-        fontSize: '12px',
+        fontSize: 'var(--font-size-sm)',
         fontWeight: 'normal',
         lineHeight: '12px',
         letterSpacing: '0.04em',
@@ -232,7 +232,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-tool-content': {
         flex: 1,
-        fontSize: '12px',
+        fontSize: 'var(--font-size-sm)',
         fontWeight: 'normal',
         lineHeight: '160%',
         letterSpacing: 'normal',
@@ -245,13 +245,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'rgba(255, 187, 0, 0.22)',
         color: '#A56900',
         padding: '8px',
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         alignItems: 'center',
         gap: 8,
       },
       '&-tool-content-error-icon': {
         alignItems: 'center',
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         fontWeight: 500,
         lineHeight: '12px',
         letterSpacing: 'normal',

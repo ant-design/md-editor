@@ -13,12 +13,12 @@
         <div
           style="margin: 8px 0px;"
         >
-          ✅ Schema 验证通过
+          ❌ 验证过程出错：TypeError: __vite_ssr_import_0__.validator.validate is not a function
         </div>
         <div
           style="margin: 8px 0px;"
         >
-          ✅ 值验证结果：有效
+          ❌ 验证过程出错：TypeError: __vite_ssr_import_0__.validator.validate is not a function
         </div>
       </div>
       <div

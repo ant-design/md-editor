@@ -8,7 +8,7 @@ import {
   LinearScale,
   Tooltip,
 } from 'chart.js';
-import React, { useMemo, useRef, useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import { useStyle } from './style';
@@ -115,7 +115,9 @@ const BarChart: React.FC<BarChartProps> = ({
   toolbarExtra,
 }) => {
   // 响应式尺寸计算
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 768,
+  );
   const isMobile = windowWidth <= 768;
   const responsiveWidth = isMobile ? '100%' : width;
   const responsiveHeight = isMobile ? Math.min(windowWidth * 0.8, 400) : height;
@@ -148,7 +150,9 @@ const BarChart: React.FC<BarChartProps> = ({
   const validFilterLables = useMemo(() => {
     return data
       .map((item) => item.filterLable)
-      .filter((filterLable): filterLable is string => filterLable !== undefined);
+      .filter(
+        (filterLable): filterLable is string => filterLable !== undefined,
+      );
   }, [data]);
 
   const filterLables = useMemo(() => {
@@ -165,7 +169,9 @@ const BarChart: React.FC<BarChartProps> = ({
 
   // 筛选数据
   const filteredData = useMemo(() => {
-    const categoryMatch = data.filter((item) => item.category === selectedFilter);
+    const categoryMatch = data.filter(
+      (item) => item.category === selectedFilter,
+    );
 
     // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
     if (!filterLables || !selectedFilterLable) {
@@ -173,7 +179,9 @@ const BarChart: React.FC<BarChartProps> = ({
     }
 
     // 如果有 filterLable 筛选，需要同时匹配 category 和 filterLable
-    return categoryMatch.filter((item) => item.filterLable === selectedFilterLable);
+    return categoryMatch.filter(
+      (item) => item.filterLable === selectedFilterLable,
+    );
   }, [data, selectedFilter, filterLables, selectedFilterLable]);
 
   // 从数据中提取唯一的类型
@@ -446,7 +454,7 @@ const BarChart: React.FC<BarChartProps> = ({
         onFilterChange={setSelectedFilter}
         {...(filterLables && {
           customOptions: filteredDataByFilterLable,
-          selectedCustionSelection: selectedFilterLable,
+          selectedCustomSelection: selectedFilterLable,
           onSelectionChange: setSelectedFilterLable,
         })}
         theme={theme}
@@ -455,7 +463,7 @@ const BarChart: React.FC<BarChartProps> = ({
       <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Bar ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>
+    </div>,
   );
 };
 

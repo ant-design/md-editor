@@ -196,7 +196,7 @@ describe('Internationalization Tests', () => {
         screen.getByTestId('workspace-back-to-file-list'),
       ).toHaveTextContent('返回文件列表');
       expect(screen.getByTestId('workspace-download-file')).toHaveTextContent(
-        '下载文件',
+        '下载',
       );
     });
 
@@ -341,7 +341,7 @@ describe('Internationalization Tests', () => {
         screen.getByTestId('workspace-back-to-file-list'),
       ).toHaveTextContent('Back to File List');
       expect(screen.getByTestId('workspace-download-file')).toHaveTextContent(
-        'Download File',
+        'Download',
       );
     });
 

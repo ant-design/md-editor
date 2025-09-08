@@ -63,10 +63,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '100%',
         width: '100%',
         zIndex: 2,
-        backgroundColor: '#fff',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         fontWeight: 500,
-        color: '#19213D',
-        padding: '12px 12px',
+        color: 'var(--color-gray-text-default)',
+        padding: 'var(--padding-3x)',
         overflow: 'hidden',
         display: 'flex',
         gap: 12,
@@ -108,7 +108,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       '&-content': {
-        backgroundColor: '#fff',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         borderRadius: '0px 0px 12px 12px',
         maxHeight: '566px',
         padding: '12px 12px',
@@ -128,7 +128,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           gap: 8,
           '&-item': {
             lineHeight: '2em',
-            color: 'var(--color-icon-secondary)',
+            color: 'var(--color-gray-a9)',
             display: 'flex',
             transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             fontSize: '1em',
@@ -138,7 +138,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               margin: 0,
             },
             pre: {
-              backgroundColor: '#FBFCFD',
+              backgroundColor: 'var(--color-gray-control-fill-secondary)',
               borderRadius: 12,
               padding: '4px 8px',
             },
@@ -207,10 +207,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               alignItems: 'center',
               fontSize: '1.2em',
               '&-success': {
-                color: '#00B341',
+                color: 'var(--color-green-text-default)',
               },
               '&-loading': {
-                color: '#FFC107',
+                color: 'var(--color-orange-text-default)',
               },
             },
           },

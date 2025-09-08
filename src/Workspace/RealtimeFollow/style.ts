@@ -48,13 +48,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         [`&-title`]: {
-          fontSize: '13px',
+          fontSize: 'var(--font-size-base)',
           fontWeight: 500,
           color: '#343a45',
         },
 
         [`&-subtitle`]: {
-          fontSize: '12px',
+          fontSize: 'var(--font-size-sm)',
           fontWeight: 'normal',
           color: '#767e8b',
         },
@@ -116,15 +116,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useRealtimeFollowStyle(prefixCls?: string) {
-  return useEditorStyleRegister(
-    'WorkspaceRealtimeFollow',
-    (token: ChatTokenType) => {
-      const realtimeToken = {
-        ...token,
-        componentCls: `.${prefixCls}`,
-      };
+  return useEditorStyleRegister('WorkspaceRealtimeFollow', (token) => {
+    const realtimeToken = {
+      ...token,
+      componentCls: `.${prefixCls}`,
+    };
 
-      return [genStyle(realtimeToken)];
-    },
-  );
+    return [genStyle(realtimeToken)];
+  });
 }

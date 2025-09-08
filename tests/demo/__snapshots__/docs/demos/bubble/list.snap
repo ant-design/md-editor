@@ -796,7 +796,7 @@
                       </div>
                       <div
                         class="ant-chat-item-extra"
-                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                       >
                         <div
                           style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -815,7 +815,7 @@
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="chat-item-copy-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -849,7 +849,7 @@
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="like-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -878,7 +878,7 @@
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="dislike-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -994,7 +994,7 @@
                         </div>
                         <div
                           class="ant-chat-item-extra"
-                          style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                          style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                         >
                           <div
                             style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -1013,7 +1013,7 @@
                               class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                               data-testid="chat-item-copy-button"
                               role="button"
-                              style="color: var(--color-icon-secondary);"
+                              style="color: var(--color-gray-a9);"
                               tabindex="0"
                             >
                               <span
@@ -1047,7 +1047,7 @@
                               class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                               data-testid="like-button"
                               role="button"
-                              style="color: var(--color-icon-secondary);"
+                              style="color: var(--color-gray-a9);"
                               tabindex="0"
                             >
                               <span
@@ -1076,7 +1076,7 @@
                               class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                               data-testid="dislike-button"
                               role="button"
-                              style="color: var(--color-icon-secondary);"
+                              style="color: var(--color-gray-a9);"
                               tabindex="0"
                             >
                               <span
@@ -1302,7 +1302,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                       </div>
                       <div
                         class="ant-chat-item-extra"
-                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                       >
                         <div
                           style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -1321,7 +1321,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="chat-item-copy-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -1355,7 +1355,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="like-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -1384,7 +1384,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="dislike-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -1500,7 +1500,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                         </div>
                         <div
                           class="ant-chat-item-extra"
-                          style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                          style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                         >
                           <div
                             style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -1519,7 +1519,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                               class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                               data-testid="chat-item-copy-button"
                               role="button"
-                              style="color: var(--color-icon-secondary);"
+                              style="color: var(--color-gray-a9);"
                               tabindex="0"
                             >
                               <span
@@ -1553,7 +1553,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                               class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                               data-testid="like-button"
                               role="button"
-                              style="color: var(--color-icon-secondary);"
+                              style="color: var(--color-gray-a9);"
                               tabindex="0"
                             >
                               <span
@@ -1582,7 +1582,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                               class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                               data-testid="dislike-button"
                               role="button"
-                              style="color: var(--color-icon-secondary);"
+                              style="color: var(--color-gray-a9);"
                               tabindex="0"
                             >
                               <span
@@ -2264,7 +2264,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                       </div>
                       <div
                         class="ant-chat-item-extra"
-                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                        style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                       >
                         <div
                           style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -2283,7 +2283,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="chat-item-copy-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -2317,7 +2317,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="like-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span
@@ -2346,7 +2346,7 @@ setBubbleList(prev =&gt; [...prev, newMessage]);
                             class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                             data-testid="dislike-button"
                             role="button"
-                            style="color: var(--color-icon-secondary);"
+                            style="color: var(--color-gray-a9);"
                             tabindex="0"
                           >
                             <span

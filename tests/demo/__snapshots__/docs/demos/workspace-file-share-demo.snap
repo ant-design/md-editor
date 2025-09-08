@@ -1,0 +1,30 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <h2>
+        文件分享
+      </h2>
+      <div
+        style="position: relative; border: 1px solid rgb(217, 217, 217); border-radius: 8px; max-width: 600px;"
+      >
+        <span
+          aria-describedby="test-id"
+          style="position: absolute; top: -9999px; left: -9999px; width: 0px; height: 0px;"
+        />
+        <div
+          data-testid="workspace"
+          title="文件管理"
+        >
+          workspace
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

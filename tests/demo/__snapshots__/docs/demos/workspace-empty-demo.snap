@@ -1,0 +1,19 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="height: 520px; width: 100%;"
+    >
+      <div
+        data-testid="workspace"
+        title="实时跟随空状态示例"
+      >
+        workspace
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

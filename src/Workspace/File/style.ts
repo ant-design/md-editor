@@ -29,15 +29,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               [`.ant-btn, .ant-btn .anticon`]: {
                 color: '#767E8B',
               },
-              [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]: {
-                color: '#767E8B',
-              },
-            }
+              [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]:
+                {
+                  color: '#767E8B',
+                },
+            },
           },
 
           // 展开收起图标
           [`&-toggle-icon`]: {
-            fontSize: '12px',
+            fontSize: 'var(--font-size-sm)',
             color: '#6c757d',
             transition: 'transform 0.2s ease',
           },
@@ -59,14 +60,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            fontSize: '13px',
+            fontSize: 'var(--font-size-base)',
             fontWeight: 500,
             color: '#343a40',
           },
 
           // 文件数量
           [`&-count`]: {
-            fontSize: '12px',
+            fontSize: 'var(--font-size-sm)',
             color: '#6c757d',
             background: 'rgba(20, 22, 28, 0.06)',
             padding: '2px 6px',
@@ -74,8 +75,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             minWidth: '20px',
             textAlign: 'center',
           },
-
-
 
           // 分组内容区域
           [`&-content`]: {
@@ -87,7 +86,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             [`.anticon`]: {
               color: '#767E8B',
             },
-            ["&:hover .anticon, &:focus .anticon, &:active .anticon"]: {
+            ['&:hover .anticon, &:focus .anticon, &:active .anticon']: {
               color: '#767E8B',
             },
           },
@@ -174,7 +173,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 分割符
       [`&-separator`]: {
-        fontSize: '10px',
+        fontSize: 'var(--font-size-xs)',
         color: 'rgba(20, 22, 28, 0.07)',
         margin: '0 4px',
       },
@@ -193,9 +192,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         [`.ant-btn, .ant-btn .anticon`]: {
           color: '#767E8B',
         },
-        [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]: {
-          color: '#767E8B',
-        },
+        [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]:
+          {
+            color: '#767E8B',
+          },
       },
 
       // 文件项动作按钮（预览/下载等）图标颜色保持一致
@@ -203,12 +203,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         [`.anticon`]: {
           color: '#767E8B',
         },
-        ["&:hover .anticon, &:focus .anticon, &:active .anticon"]: {
+        ['&:hover .anticon, &:focus .anticon, &:active .anticon']: {
           color: '#767E8B',
         },
-      }
-
-
+      },
     },
 
     // 空状态
@@ -262,7 +260,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 返回图标
       [`&-back-icon`]: {
-        fontSize: '16px',
+        fontSize: 'var(--font-size-xl)',
       },
 
       // 文件信息容器
@@ -314,9 +312,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         [`.ant-btn, .ant-btn .anticon`]: {
           color: '#767E8B',
         },
-        [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]: {
-          color: '#767E8B',
-        },
+        [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]:
+          {
+            color: '#767E8B',
+          },
       },
 
       // 预览内容区域
@@ -359,7 +358,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useFileStyle(prefixCls?: string) {
-  return useEditorStyleRegister('WorkspaceFile', (token: ChatTokenType) => {
+  return useEditorStyleRegister('WorkspaceFile', (token) => {
     const fileToken = {
       ...token,
       componentCls: `.${prefixCls}`,

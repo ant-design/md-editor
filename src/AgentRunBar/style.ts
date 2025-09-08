@@ -42,7 +42,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: 8,
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         lineHeight: '20px',
         color: '#343A45',
       },
@@ -61,14 +61,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-left-main-text': {
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         lineHeight: '20px',
         fontWeight: 600,
         color: '#343A45',
       },
 
       '&-left-text': {
-        fontSize: '12px',
+        fontSize: 'var(--font-size-sm)',
         fontWeight: 'normal',
         lineHeight: '20px',
         alignItems: 'center',

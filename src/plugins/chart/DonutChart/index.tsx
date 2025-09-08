@@ -287,8 +287,16 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const getResponsiveDimensions = () => {
     if (isMobile) {
       // 小屏设备使用更紧凑的尺寸
-      const mobileWidth = Math.min(windowWidth - 40, width, MOBILE_MAX_CHART_SIZE);
-      const mobileHeight = Math.min(windowWidth - 40, height, MOBILE_MAX_CHART_SIZE);
+      const mobileWidth = Math.min(
+        windowWidth - 40,
+        width,
+        MOBILE_MAX_CHART_SIZE,
+      );
+      const mobileHeight = Math.min(
+        windowWidth - 40,
+        height,
+        MOBILE_MAX_CHART_SIZE,
+      );
       return {
         width: mobileWidth,
         height: mobileHeight,
@@ -333,7 +341,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
               onFilterChange={finalOnFilterChange}
               {...(filterLables && {
                 customOptions: filteredDataByFilterLable,
-                selectedCustionSelection: selectedFilterLable,
+                selectedCustomSelection: selectedFilterLable,
                 onSelectionChange: setSelectedFilterLable,
               })}
               theme={chartFilterTheme}
@@ -488,9 +496,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
                   />
                 </div>
               ) : (
-                <div className={`${baseClassName}-row ${hashId}`}
+                <div
+                  className={`${baseClassName}-row ${hashId}`}
                   style={{
-                    ...(isMobile ? { flexDirection: 'column', alignItems: 'stretch' } : {}),
+                    ...(isMobile
+                      ? { flexDirection: 'column', alignItems: 'stretch' }
+                      : {}),
                   }}
                 >
                   <div

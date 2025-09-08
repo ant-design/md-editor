@@ -1,0 +1,23 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <div
+        style="max-width: 640px; border: 1px solid rgb(217, 217, 217); border-radius: 8px;"
+      >
+        <div
+          data-testid="workspace"
+          title="文件管理-搜索"
+        >
+          workspace
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

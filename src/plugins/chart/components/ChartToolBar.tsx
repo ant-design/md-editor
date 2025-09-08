@@ -1,7 +1,7 @@
-import React from 'react';
 import { DownloadOutlined } from '@ant-design/icons';
-import TimeIcon from './icons/TimeIcon';
+import React from 'react';
 import './ChartToolBar.less';
+import TimeIcon from './icons/TimeIcon';
 
 export interface ChartToolBarProps {
   title: string;
@@ -29,24 +29,17 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   return (
     <div className={`chart-header ${theme} ${className}`}>
       {/* 左侧标题 */}
-      <div className="header-title">
-        {title}
-      </div>
-      
+      <div className="header-title">{title}</div>
+
       {/* 右侧时间+下载按钮 */}
       <div className="header-actions">
         <TimeIcon className="time-icon" />
-        <span className="data-time">
-          数据时间: {dataTime}
-        </span>
+        <span className="data-time">数据时间: {dataTime}</span>
         {extra}
-        <DownloadOutlined 
-          className="download-btn" 
-          onClick={handleDownload}
-        />
+        <DownloadOutlined className="download-btn" onClick={handleDownload} />
       </div>
     </div>
   );
 };
 
-export default ChartToolBar; 
+export default ChartToolBar;

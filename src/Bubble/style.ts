@@ -10,16 +10,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       position: 'relative',
       maxWidth: '100vw',
-      padding: '2px 12px',
-      marginBottom: '1.2em',
+      padding: 'var(--padding-0-5x) var(--padding-3x)',
+      marginBottom: 'var(--margin-6x)',
       cursor: 'pointer',
       '&&-compact': {
-        padding: '2px 12px',
+        padding: 'var(--padding-0-5x) var(--padding-3x)',
       },
       '.md-editor-code': {
         borderRadius: '12px !important',
         overflow: 'auto',
-        padding: '12px 12px',
+        padding: 'var(--padding-3x)',
       },
       '&:hover': {
         [`${token.componentCls}-bubble-title-time`]: {
@@ -36,15 +36,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '20px',
         textAlign: 'justify',
         letterSpacing: 'normal',
-        color: '#343A45',
+        color: 'var(--color-gray-text-default)',
         fontSize: '1em',
         display: 'flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 'var(--margin-1x)',
         span: {
           fontWeight: 600,
           fontSize: '1em',
-          color: '#343A45',
+          color: 'var(--color-gray-text-default)',
           display: 'flex',
           alignItems: 'center',
         },
@@ -72,7 +72,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         minHeight: '2em',
         width: 'max-content',
         borderRadius: '12px',
-        background: '#FDFEFE',
+        background: 'var(--color-gray-bg-card-white)',
         boxShadow:
           '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
         maxWidth: 'min(860px,100%)',
@@ -81,7 +81,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '22px',
         padding: 0,
         backdropFilter: 'blur(10px)',
-        color: 'var(--color-icon-secondary)',
+        color: 'var(--color-gray-text-secondary)',
         display: 'flex',
         flexDirection: 'column',
         zIndex: 0,
@@ -92,7 +92,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&&-pure': {
           boxShadow: 'none',
           backgroundColor: 'transparent',
-          color: token.colorText,
+          color: 'var(--color-gray-text-default)',
         },
         '&-standalone': {
           maxWidth: 'min(860px,100%)',
@@ -133,11 +133,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        background: '#c6e1fe',
-        color: '#343A45',
+        background: 'var(--color-primary-bg-card-light)',
+        color: 'var(--color-gray-text-default)',
         borderRadius: '12px 6px 12px 12px',
         '&&-pure': {
-          background: '#1677FF',
+          background: 'var(--color-primary-control-fill-primary)',
         },
       },
     },

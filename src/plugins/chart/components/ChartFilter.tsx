@@ -1,6 +1,6 @@
-import React from 'react';
-import { Segmented, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Segmented } from 'antd';
+import React from 'react';
 import './ChartFilter.less';
 
 export interface FilterOption {
@@ -18,7 +18,7 @@ export interface ChartFilterProps {
   selectedFilter: string;
   onFilterChange: (value: string) => void;
   customOptions?: RegionOption[];
-  selectedCustionSelection?: string;
+  selectedCustomSelection?: string;
   onSelectionChange?: (region: string) => void;
   className?: string;
   theme?: 'light' | 'dark';
@@ -29,7 +29,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   selectedFilter,
   onFilterChange,
   customOptions,
-  selectedCustionSelection,
+  selectedCustomSelection,
   onSelectionChange,
   className = '',
   theme = 'light',
@@ -50,25 +50,32 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   return (
     <div className={`filter-container ${theme} ${className}`}>
       {/* 地区筛选器 */}
-      {hasSecondary && <div className="region-filter">
-        <Dropdown
-          menu={{
-            items: customOptions?.map((o) => ({ key: o.key, label: o.label })),
-            onClick: ({ key }) => handleRegionChange(key),
-          }}
-          trigger={['click']}
-          getPopupContainer={() => document.body}
-        >
-          <Button
-            type="default"
-            size="small"
-            className="region-dropdown-btn"
+      {customOptions && customOptions.length > 0 && (
+        <div className="region-filter">
+          <Dropdown
+            menu={{
+              items: customOptions.map((item) => {
+                return {
+                  key: item.key,
+                  label: item.label,
+                  disabled: item.key === selectedCustomSelection,
+                };
+              }),
+              onClick: ({ key }) => handleRegionChange(key),
+            }}
+            trigger={['click']}
+            getPopupContainer={() => document.body}
           >
-            <span>{customOptions?.find(r => r.key === selectedCustionSelection)?.label || customOptions?.[0]?.label || ''}</span>
-            <DownOutlined className="dropdown-icon" />
-          </Button>
-        </Dropdown>
-      </div>}
+            <Button type="default" size="small" className="region-dropdown-btn">
+              <span>
+                {customOptions.find((r) => r.key === selectedCustomSelection)
+                  ?.label || '全球'}
+              </span>
+              <DownOutlined className="dropdown-icon" />
+            </Button>
+          </Dropdown>
+        </div>
+      )}
 
       {hasMain && (
         <Segmented
@@ -83,4 +90,4 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   );
 };
 
-export default ChartFilter; 
+export default ChartFilter;

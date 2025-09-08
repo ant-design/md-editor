@@ -31,7 +31,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @returns 样式对象
  */
 export function useDotAniStyle(prefixCls?: string) {
-  return useEditorStyleRegister('DotAni', (token: ChatTokenType) => {
+  return useEditorStyleRegister('DotAni', (token) => {
     const dotAniToken = {
       ...token,
       componentCls: `.${prefixCls}`,

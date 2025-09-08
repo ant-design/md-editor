@@ -40,7 +40,8 @@ describe('Workspace PreviewComponent', () => {
     fireEvent.click(screen.getByLabelText('返回文件列表'));
     expect(onBack).toHaveBeenCalled();
 
-    fireEvent.click(screen.getByLabelText('下载文件'));
+    // 头部下载按钮 aria-label 为 "下载"
+    fireEvent.click(screen.getByLabelText('下载'));
     expect(onDownload).toHaveBeenCalled();
   });
 

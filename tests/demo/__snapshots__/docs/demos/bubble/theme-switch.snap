@@ -506,7 +506,7 @@
                   </div>
                   <div
                     class="ant-chat-item-extra"
-                    style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                    style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                   >
                     <div
                       style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -525,7 +525,7 @@
                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                         data-testid="chat-item-copy-button"
                         role="button"
-                        style="color: var(--color-icon-secondary);"
+                        style="color: var(--color-gray-a9);"
                         tabindex="0"
                       >
                         <span
@@ -559,7 +559,7 @@
                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                         data-testid="like-button"
                         role="button"
-                        style="color: var(--color-icon-secondary);"
+                        style="color: var(--color-gray-a9);"
                         tabindex="0"
                       >
                         <span
@@ -588,7 +588,7 @@
                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                         data-testid="dislike-button"
                         role="button"
-                        style="color: var(--color-icon-secondary);"
+                        style="color: var(--color-gray-a9);"
                         tabindex="0"
                       >
                         <span
@@ -702,7 +702,7 @@
                     </div>
                     <div
                       class="ant-chat-item-extra"
-                      style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                      style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                     >
                       <div
                         style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -721,7 +721,7 @@
                           class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                           data-testid="chat-item-copy-button"
                           role="button"
-                          style="color: var(--color-icon-secondary);"
+                          style="color: var(--color-gray-a9);"
                           tabindex="0"
                         >
                           <span
@@ -755,7 +755,7 @@
                           class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                           data-testid="like-button"
                           role="button"
-                          style="color: var(--color-icon-secondary);"
+                          style="color: var(--color-gray-a9);"
                           tabindex="0"
                         >
                           <span
@@ -784,7 +784,7 @@
                           class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                           data-testid="dislike-button"
                           role="button"
-                          style="color: var(--color-icon-secondary);"
+                          style="color: var(--color-gray-a9);"
                           tabindex="0"
                         >
                           <span
@@ -1532,7 +1532,7 @@
                   </div>
                   <div
                     class="ant-chat-item-extra"
-                    style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
+                    style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
                   >
                     <div
                       style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
@@ -1551,7 +1551,7 @@
                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                         data-testid="chat-item-copy-button"
                         role="button"
-                        style="color: var(--color-icon-secondary);"
+                        style="color: var(--color-gray-a9);"
                         tabindex="0"
                       >
                         <span
@@ -1585,7 +1585,7 @@
                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                         data-testid="like-button"
                         role="button"
-                        style="color: var(--color-icon-secondary);"
+                        style="color: var(--color-gray-a9);"
                         tabindex="0"
                       >
                         <span
@@ -1614,7 +1614,7 @@
                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                         data-testid="dislike-button"
                         role="button"
-                        style="color: var(--color-icon-secondary);"
+                        style="color: var(--color-gray-a9);"
                         tabindex="0"
                       >
                         <span
@@ -1737,7 +1737,7 @@
                                     d="M18.452465625000002,8.00201875Q18.531965624999998,8.08852875,18.574565624999998,8.197968750000001Q18.617165625,8.30741875,18.617165625,8.42486875L18.616265625,17.81191875Q18.616265625,18.672518750000002,18.050765625,19.28821875Q17.464265625,19.92691875,16.622965625,19.92691875L7.378905625,19.92671875Q6.537595625,19.92671875,5.950749625,19.288118750000002Q5.384765625,18.67221875,5.384765625,17.811518749999998L5.384765625,6.18944875Q5.384765625,5.32876875,5.950749625,4.71284475Q6.537595625,4.07421875,7.378905625,4.07421875L14.570315625,4.07421875Q14.701545625,4.07421875,14.821695625,4.12700235Q14.941845625,4.17978575,15.030615625,4.27643775L18.452465625000002,8.00201875ZM13.259765625,5.32421875L7.378905625,5.32421875Q7.086555625,5.32421875,6.871155625,5.5586287500000005Q6.634765625,5.8158787499999995,6.634765625,6.18944875L6.634765625,17.811518749999998Q6.634765625,18.18511875,6.871155625,18.44231875Q7.086565625,18.67671875,7.378905625,18.67671875L16.622965625,18.67691875Q16.915065625,18.67691875,17.130065625,18.44281875Q17.366265625,18.18561875,17.366265625,17.81191875L17.367065625000002,9.94282875L15.253055625,9.94282875Q14.411675625,9.94282875,13.825175625,9.30412875Q13.259765625,8.688398750000001,13.259765625,7.827768750000001L13.259765625,5.32421875ZM14.509765625,5.55723875L14.509765625,7.827768750000001Q14.509765625,8.201538750000001,14.745875625,8.458668750000001Q14.960905625,8.69282875,15.253055625,8.69282875L17.367165625,8.69282875L17.367165625,8.66824875L14.509765625,5.55723875Z"
                                     fill-opacity="1"
                                     fill-rule="evenodd"
-                                    style="fill: var(--color-icon-secondary);"
+                                    style="fill: var(--color-gray-a9);"
                                   />
                                 </g>
                               </g>

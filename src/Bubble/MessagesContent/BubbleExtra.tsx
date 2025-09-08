@@ -300,7 +300,7 @@ export const BubbleExtra = ({
           data-testid="like-button"
           scale
           style={{
-            color: 'var(--color-icon-secondary)',
+            color: 'var(--color-gray-a9)',
           }}
           active={alreadyFeedback}
           title={likeButtonTitle}
@@ -344,7 +344,7 @@ export const BubbleExtra = ({
         <ActionIconBox
           data-testid="dislike-button"
           style={{
-            color: 'var(--color-icon-secondary)',
+            color: 'var(--color-gray-a9)',
           }}
           scale
           loading={feedbackLoading}
@@ -424,7 +424,7 @@ export const BubbleExtra = ({
           title={context?.locale?.['chat.message.copy'] || '复制'}
           scale
           style={{
-            color: 'var(--color-icon-secondary)',
+            color: 'var(--color-gray-a9)',
           }}
           onClick={() => {
             try {
@@ -476,7 +476,7 @@ export const BubbleExtra = ({
           onClick={props.onOpenSlidesMode}
           title="幻灯片模式"
           style={{
-            color: 'var(--color-icon-secondary)',
+            color: 'var(--color-gray-a9)',
           }}
         >
           <SelectOutlined />
@@ -549,7 +549,7 @@ export const BubbleExtra = ({
         data-testid="reply-button"
         borderLess
         style={{
-          color: 'var(--color-icon-secondary)',
+          color: 'var(--color-gray-a9)',
         }}
         onClick={async () => {
           onReply?.(
@@ -566,7 +566,7 @@ export const BubbleExtra = ({
             display: 'flex',
             cursor: 'pointer',
             alignItems: 'center',
-            color: 'var(--color-icon-secondary)',
+            color: 'var(--color-gray-a9)',
           }}
         >
           <ReloadIcon />
@@ -631,7 +631,7 @@ export const BubbleExtra = ({
         width: '100%',
         minWidth: '215px',
         padding: context?.compact ? '0 8px' : '0px 12px',
-        color: 'var(--color-icon-secondary)',
+        color: 'var(--color-gray-a9)',
         ...props.style,
       }}
     >

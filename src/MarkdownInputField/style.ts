@@ -28,7 +28,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&:hover': {
         boxShadow: 'none',
         backgroundImage:
-          'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%)',
+          'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, var(--color-gray-control-fill-secondary) 84%)',
         [`${token.componentCls}-background`]: {
           opacity: 1,
         },
@@ -48,14 +48,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-editor': {
         boxSizing: 'border-box',
-        backgroundColor: '#FFF',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         width: '100%',
         zIndex: 9,
         maxHeight: 400,
         height: '100%',
         borderRadius: 'inherit',
         overflowY: 'auto',
-        scrollbarColor: '#B9C0CB transparent',
+        scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
         '&&-disabled': {
           backgroundColor: 'rgba(0,0,0,0.04)',

@@ -34,8 +34,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '18px',
         opacity: 1,
         boxSizing: 'border-box',
-        color: 'var(--color-icon-secondary)',
-        fontSize: '13px',
+        color: 'var(--color-gray-a9)',
+        fontSize: 'var(--font-size-base)',
         border: '1px solid #E6ECF4',
 
         '&:hover': {
@@ -45,7 +45,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-icon': {
           transform: 'rotate(-90deg)',
           transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-          color: 'var(--color-icon-secondary)',
+          color: 'var(--color-gray-a9)',
           '&-collapse': {
             transform: 'rotate(90deg)',
           },
@@ -125,7 +125,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
         '&-file-size': {
           color: '#B0B7C3',
-          fontSize: '12px',
+          fontSize: 'var(--font-size-sm)',
         },
       },
     },

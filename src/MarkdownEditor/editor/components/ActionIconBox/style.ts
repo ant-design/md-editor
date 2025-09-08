@@ -4,10 +4,7 @@
   useEditorStyleRegister,
 } from '../../../../hooks/useStyle';
 
-const genStyle: GenerateStyle<ChatTokenType> = (
-  token,
-  style: React.CSSProperties,
-) => {
+const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       minWidth: 14,
@@ -23,7 +20,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (
       justifyContent: 'center',
       borderRadius: token.borderRadius,
       fontSize: '1em',
-      color: style.color || 'var(--color-icon-secondary)',
+      color: 'var(--color-gray-a9)',
       '&-noPadding': {
         padding: 0,
       },
@@ -85,13 +82,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (
  * @param prefixCls
  * @returns
  */
-export function useStyle(prefixCls: string, style: React.CSSProperties) {
+export function useStyle(prefixCls: string) {
   return useEditorStyleRegister('ActionIconBox', (token) => {
     const proChatToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(proChatToken, style)];
+    return [genStyle(proChatToken)];
   });
 }
