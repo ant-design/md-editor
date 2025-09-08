@@ -342,7 +342,11 @@ export const RealtimeFollow: React.FC<{
       {shouldShowEmpty ? (
         <div className={classNames(`${prefixCls}-empty`, hashId)}>
           {emptyNode || (
-            <Empty description={useContext(I18nContext).locale?.['workspace.empty'] || 'No data'} />
+            <Empty
+              description={
+                useContext(I18nContext).locale?.['workspace.empty'] || 'No data'
+              }
+            />
           )}
         </div>
       ) : (

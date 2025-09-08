@@ -9,7 +9,7 @@ import {
   RadialLinearScale,
   Tooltip,
 } from 'chart.js';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import './style.less';
@@ -74,11 +74,15 @@ const RadarChart: React.FC<RadarChartProps> = ({
   className,
 }) => {
   // 响应式尺寸计算
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 768,
+  );
   const isMobile = windowWidth <= 768;
   const responsiveWidth = isMobile ? '100%' : width;
   // 雷达图保持正方形比例，移动端使用屏幕宽度的85%，最大400px
-  const responsiveHeight = isMobile ? Math.min(windowWidth * 0.85, 400) : height;
+  const responsiveHeight = isMobile
+    ? Math.min(windowWidth * 0.85, 400)
+    : height;
 
   // 监听窗口大小变化
   useEffect(() => {
@@ -184,11 +188,13 @@ const RadarChart: React.FC<RadarChartProps> = ({
     plugins: {
       legend: {
         display: currentConfig.showLegend !== false,
-        position: isMobile ? 'bottom' : ((currentConfig.legendPosition || 'right') as
-          | 'top'
-          | 'left'
-          | 'bottom'
-          | 'right'),
+        position: isMobile
+          ? 'bottom'
+          : ((currentConfig.legendPosition || 'right') as
+              | 'top'
+              | 'left'
+              | 'bottom'
+              | 'right'),
         labels: {
           color: currentConfig.theme === 'light' ? '#767E8B' : '#fff',
           font: {
@@ -313,7 +319,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
         onFilterChange={setSelectedFilter}
         {...(filterLables && {
           customOptions: filteredDataByFilterLable,
-          selectedCustionSelection: selectedFilterLable,
+          selectedCustomSelection: selectedFilterLable,
           onSelectionChange: setSelectedFilterLable,
         })}
         theme={currentConfig.theme}

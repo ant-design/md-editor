@@ -167,7 +167,7 @@ const Workspace: FC<WorkspaceProps> & {
   const { locale } = useContext(I18nContext);
   const prefixCls = getPrefixCls('workspace');
   const { wrapSSR, hashId } = useWorkspaceStyle(prefixCls);
-  
+
   const displayTitle = title ?? (locale?.['workspace.title'] || 'Workspace');
 
   // 构建可用标签页
@@ -283,7 +283,9 @@ const Workspace: FC<WorkspaceProps> & {
     <div className={containerClassName} style={style}>
       {/* 头部区域 */}
       <div className={classNames(`${prefixCls}-header`, hashId)}>
-        <div className={classNames(`${prefixCls}-title`, hashId)}>{displayTitle}</div>
+        <div className={classNames(`${prefixCls}-title`, hashId)}>
+          {displayTitle}
+        </div>
         {onClose && (
           <CloseOutlined
             className={classNames(`${prefixCls}-close`, hashId)}

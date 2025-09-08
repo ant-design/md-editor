@@ -19,7 +19,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       // 确保图表不会超出容器边界
-      'canvas': {
+      canvas: {
         maxWidth: '100% !important',
         maxHeight: '100% !important',
       },

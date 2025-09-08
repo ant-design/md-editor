@@ -8,7 +8,7 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import './style.less';
@@ -65,7 +65,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   title,
 }) => {
   // 响应式尺寸计算
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 768);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 768,
+  );
   const isMobile = windowWidth <= 768;
   const responsiveWidth = isMobile ? '100%' : width;
   const responsiveHeight = isMobile ? Math.min(windowWidth * 0.8, 400) : height;
@@ -169,11 +171,13 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     plugins: {
       legend: {
         display: currentConfig.showLegend !== false,
-        position: isMobile ? 'bottom' : ((currentConfig.legendPosition || 'bottom') as
-          | 'top'
-          | 'left'
-          | 'bottom'
-          | 'right'),
+        position: isMobile
+          ? 'bottom'
+          : ((currentConfig.legendPosition || 'bottom') as
+              | 'top'
+              | 'left'
+              | 'bottom'
+              | 'right'),
         align: 'start',
         labels: {
           color: currentConfig.theme === 'light' ? '#767E8B' : '#fff',
@@ -322,7 +326,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         onFilterChange={setSelectedFilter}
         {...(filterLables && {
           customOptions: filteredDataByFilterLable,
-          selectedCustionSelection: selectedFilterLable,
+          selectedCustomSelection: selectedFilterLable,
           onSelectionChange: setSelectedFilterLable,
         })}
         theme={currentConfig.theme}
