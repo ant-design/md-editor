@@ -57,6 +57,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
             onClick: ({ key }) => handleRegionChange(key),
           }}
           trigger={['click']}
+          getPopupContainer={() => document.body}
         >
           <Button
             type="default"

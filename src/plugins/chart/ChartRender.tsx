@@ -277,6 +277,7 @@ export const ChartRender: React.FC<{
               };
             }) || [],
         }}
+        getPopupContainer={() => document.body}
       >
         <span
           style={{
@@ -311,6 +312,7 @@ export const ChartRender: React.FC<{
               };
             }),
           }}
+          getPopupContainer={() => document.body}
         >
           <span
             style={{
@@ -342,6 +344,7 @@ export const ChartRender: React.FC<{
         key="config"
         title={i18n?.locale?.configChart || '配置图表'}
         trigger={'click'}
+        getPopupContainer={() => document.body}
         content={
           <ConfigProvider componentSize="small">
             <ProForm
