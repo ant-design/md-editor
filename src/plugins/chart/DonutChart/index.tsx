@@ -17,7 +17,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export interface DonutChartData {
   category?: string; // 分类
   label: string;
-  value: number;
+  value: number | string;
   filterLable?: string;
 }
 
@@ -359,8 +359,8 @@ const DonutChart: React.FC<DonutChartProps> = ({
           let chartData = filteredData;
           if (isSingleValueMode && currentDataItem) {
             // 单值模式：为当前数据项创建独立的饼图
-            const mainValue = currentDataItem.value;
-            const remainingValue = Math.max(0, 100 - mainValue); // 确保剩余值不为负数
+            const mainValue = typeof currentDataItem.value === 'number' ? currentDataItem.value : Number(currentDataItem.value);
+            const remainingValue = Math.max(0, 100 - (Number.isFinite(mainValue) ? mainValue : 0)); // 确保剩余值不为负数
             chartData = [
               currentDataItem,
               {
@@ -375,10 +375,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
           const visibleData = chartData.filter(
             (_, index) => !hiddenDataIndices.has(index),
           );
-
+          const toNum = (v: any) => (typeof v === 'number' ? v : Number(v));
           const labels = visibleData.map((d) => d.label);
-          const values = visibleData.map((d) => d.value);
-          const total = values.reduce((sum, v) => sum + v, 0);
+          const values = visibleData.map((d) => toNum(d.value));
+          const total = values.reduce((sum, v) => sum + (Number.isFinite(v) ? v : 0), 0);
           const backgroundColors = cfg.backgroundColor || defaultColors;
 
           const mainColor =
@@ -439,8 +439,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
                   size: isMobile ? 11 : 13, // 移动端减小字体
                 },
                 callbacks: {
-                  label: ({ label, raw }) =>
-                    `${label}: ${raw} (${(((raw as number) / total) * 100).toFixed(1)}%)`,
+                  label: ({ label, raw }) => {
+                    const val = typeof raw === 'number' ? raw : Number(raw);
+                    const pct = total > 0 && Number.isFinite(val) ? ((val / total) * 100).toFixed(1) : '0.0';
+                    return `${label}: ${Number.isFinite(val) ? val : raw} (${pct}%)`;
+                  },
                 },
               },
             },
@@ -477,7 +480,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     options={options}
                     plugins={[
                       createCenterTextPlugin(
-                        (currentDataItem.value / total) * 100,
+                        ((typeof currentDataItem.value === 'number' ? currentDataItem.value : Number(currentDataItem.value)) / (total || 1)) * 100,
                         currentDataItem.label,
                         isMobile,
                       ),
@@ -576,7 +579,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
                                   marginTop: 0,
                                 }}
                               >
-                                {((d.value / total) * 100).toFixed(0)}%
+                                {(() => {
+                                  const v = typeof d.value === 'number' ? d.value : Number(d.value);
+                                  return total > 0 && Number.isFinite(v) ? ((v / total) * 100).toFixed(0) : '0';
+                                })()}%
                               </span>
                             </span>
                           </div>

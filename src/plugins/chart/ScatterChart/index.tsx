@@ -20,8 +20,8 @@ ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 export interface ScatterChartDataItem {
   category: string;
   type: string;
-  x: number;
-  y: number;
+  x: number | string;
+  y: number | string;
   filterLable?: string;
 }
 
@@ -127,7 +127,11 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   // 构建数据集
   const datasets = datasetTypes.map((type, index) => {
     const typeData = filteredData.filter((item) => item.type === type);
-    const coordinates = typeData.map((item) => ({ x: item.x, y: item.y }));
+    const coordinates = typeData.map((item) => {
+      const nx = typeof item.x === 'number' ? item.x : Number(item.x);
+      const ny = typeof item.y === 'number' ? item.y : Number(item.y);
+      return { x: Number.isFinite(nx) ? nx : 0, y: Number.isFinite(ny) ? ny : 0 };
+    });
 
     return {
       label: type,

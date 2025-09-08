@@ -29,7 +29,7 @@ export interface RadarChartDataItem {
   category: string;
   label: string;
   type: string;
-  score: number;
+  score: number | string;
   filterLable?: string;
 }
 
@@ -136,7 +136,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
     const typeData = filteredData.filter((item) => item.type === type);
     const scores = labels.map((label) => {
       const item = typeData.find((d) => d.label === label);
-      return item ? item.score : 0;
+      const v = item?.score as any;
+      const n = typeof v === 'number' ? v : Number(v);
+      return Number.isFinite(n) ? n : 0;
     });
 
     return {

@@ -31,9 +31,9 @@ export interface LineChartDataItem {
   /** 数据类型 */
   type: string;
   /** X轴值 */
-  x: number;
+  x: number | string;
   /** Y轴值 */
-  y: number;
+  y: number | string;
   /** X轴标题 */
   xtitle?: string;
   /** Y轴标题 */
@@ -185,8 +185,14 @@ const LineChart: React.FC<LineChartProps> = ({
 
   // 从数据中提取唯一的x值并排序
   const xValues = useMemo(() => {
-    const uniqueX = [...new Set(filteredData.map((item) => item.x))];
-    return uniqueX.sort((a, b) => a - b);
+    const toNum = (v: any) => (typeof v === 'number' ? v : Number(v));
+    const uniqueX = [...new Set(filteredData.map((item) => item.x))] as Array<number | string>;
+    return uniqueX.sort((a, b) => {
+      const na = toNum(a);
+      const nb = toNum(b);
+      if (Number.isFinite(na) && Number.isFinite(nb)) return na - nb;
+      return String(a).localeCompare(String(b));
+    });
   }, [filteredData]);
 
   // 从数据中获取xtitle和ytitle
@@ -213,10 +219,14 @@ const LineChart: React.FC<LineChartProps> = ({
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
-        const dataPoint = filteredData.find(
-          (item) => item.type === type && item.x === x,
-        );
-        return dataPoint ? dataPoint.y : null;
+        const dataPoint = filteredData.find((item) => {
+          return item.type === type && (typeof item.x === 'number' && typeof x === 'number'
+            ? item.x === x
+            : String(item.x) === String(x));
+        });
+        const v = dataPoint?.y;
+        const n = typeof v === 'number' ? v : Number(v);
+        return Number.isFinite(n) ? n : null;
       });
 
       return {
