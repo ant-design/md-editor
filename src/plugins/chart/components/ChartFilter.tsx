@@ -40,13 +40,20 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
     }
   };
 
+  const hasMain = Array.isArray(filterOptions) && filterOptions.length > 1;
+  const hasSecondary = Array.isArray(customOptions) && customOptions.length > 1;
+
+  if (!hasMain && !hasSecondary) {
+    return null;
+  }
+
   return (
     <div className={`filter-container ${theme} ${className}`}>
       {/* 地区筛选器 */}
-      {customOptions && customOptions.length > 0 && <div className="region-filter">
+      {hasSecondary && <div className="region-filter">
         <Dropdown
           menu={{
-            items: customOptions,
+            items: customOptions?.map((o) => ({ key: o.key, label: o.label })),
             onClick: ({ key }) => handleRegionChange(key),
           }}
           trigger={['click']}
@@ -56,19 +63,21 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
             size="small"
             className="region-dropdown-btn"
           >
-            <span>{customOptions.find(r => r.key === selectedCustionSelection)?.label || '全球'}</span>
+            <span>{customOptions?.find(r => r.key === selectedCustionSelection)?.label || customOptions?.[0]?.label || ''}</span>
             <DownOutlined className="dropdown-icon" />
           </Button>
         </Dropdown>
       </div>}
 
-      <Segmented
-        options={filterOptions}
-        value={selectedFilter}
-        size="small"
-        className="segmented-filter custom-segmented"
-        onChange={(value) => onFilterChange(value as string)}
-      />
+      {hasMain && (
+        <Segmented
+          options={filterOptions}
+          value={selectedFilter}
+          size="small"
+          className="segmented-filter custom-segmented"
+          onChange={(value) => onFilterChange(value as string)}
+        />
+      )}
     </div>
   );
 };
