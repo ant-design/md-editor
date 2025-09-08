@@ -293,7 +293,6 @@ const RadarChart: React.FC<RadarChartProps> = ({
       className={`radar-chart-container ${className || ''}`}
       style={{
         width: responsiveWidth,
-        height: responsiveHeight,
         backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
         borderRadius: isMobile ? '6px' : '8px',
         padding: isMobile ? '12px' : '20px',
@@ -321,7 +320,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
         })}
         theme={currentConfig.theme}
       />
-      <div className="chart-wrapper">
+      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Radar ref={chartRef} data={processedData} options={options} />
       </div>
     </div>

@@ -418,7 +418,6 @@ const BarChart: React.FC<BarChartProps> = ({
       className={`${baseClassName} ${hashId} ${className || ''}`}
       style={{
         width: responsiveWidth,
-        height: responsiveHeight,
         backgroundColor: isLight ? '#fff' : '#1a1a1a',
         borderRadius: isMobile ? '6px' : '8px',
         padding: isMobile ? '12px' : '20px',
@@ -443,7 +442,7 @@ const BarChart: React.FC<BarChartProps> = ({
         theme={theme}
       />
 
-      <div className="chart-wrapper">
+      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Bar ref={chartRef} data={processedData} options={options} />
       </div>
     </div>

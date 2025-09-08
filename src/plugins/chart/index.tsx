@@ -372,8 +372,6 @@ export const ChartElement = (props: RenderElementProps) => {
                           <div
                             key={index + subIndex}
                             style={{
-                              border: '1px solid #eee',
-                              borderRadius: '0.5em',
                               margin: 'auto',
                               minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
                               flex: 1,
@@ -392,8 +390,6 @@ export const ChartElement = (props: RenderElementProps) => {
                         contentEditable={false}
                         style={{
                           userSelect: 'none',
-                          border: '1px solid #eee',
-                          borderRadius: '0.5em',
                           margin: 'auto',
                           minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
                           flex: 1,
