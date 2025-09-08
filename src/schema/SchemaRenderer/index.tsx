@@ -372,8 +372,6 @@ table {
 	border-spacing: 0;
 }
 div {
-  display: flex;
-  flex-direction: column;
   white-space: normal;
   overflow-wrap: normal;
 }
