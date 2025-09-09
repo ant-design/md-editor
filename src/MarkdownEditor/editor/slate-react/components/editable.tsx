@@ -20,7 +20,6 @@ import {
   DecoratedRange,
   Editor,
   Element,
-  LeafPosition,
   Node,
   NodeEntry,
   Path,
@@ -67,7 +66,7 @@ import {
 } from 'slate-dom';
 import { AndroidInputManager } from '../hooks/android-input-manager/android-input-manager';
 import { useAndroidInputManager } from '../hooks/android-input-manager/use-android-input-manager';
-import useChildren from '../hooks/use-children';
+// 移除 useChildren 导入，使用内联逻辑
 import { ComposingContext } from '../hooks/use-composing';
 import { DecorateContext } from '../hooks/use-decorate';
 import { useIsomorphicLayoutEffect } from '../hooks/use-isomorphic-layout-effect';
@@ -75,62 +74,15 @@ import { ReadOnlyContext } from '../hooks/use-read-only';
 import { useSlate } from '../hooks/use-slate';
 import { useTrackUserInput } from '../hooks/use-track-user-input';
 import { ReactEditor } from '../plugin/react-editor';
+import {
+  RenderElementProps,
+  RenderLeafProps,
+  RenderPlaceholderProps,
+  RenderTextProps,
+} from '../types';
 import { RestoreDOM } from './restore-dom/restore-dom';
 
 type DeferredOperation = () => void;
-
-const Children = (props: Parameters<typeof useChildren>[0]) => (
-  <React.Fragment>{useChildren(props)}</React.Fragment>
-);
-
-/**
- * `RenderElementProps` are passed to the `renderElement` handler.
- */
-
-export interface RenderElementProps<T = Record<string, any>> {
-  children: any;
-  element: Element;
-  attributes: {
-    'data-slate-node': 'element';
-    'data-slate-inline'?: true;
-    'data-slate-void'?: true;
-    dir?: 'rtl';
-    ref: any;
-  };
-}
-
-/**
- * `RenderLeafProps` are passed to the `renderLeaf` handler.
- */
-
-export interface RenderLeafProps {
-  children: any;
-  /**
-   * The leaf node with any applied decorations.
-   * If no decorations are applied, it will be identical to the `text` property.
-   */
-  leaf: Text;
-  text: Text;
-  attributes: {
-    'data-slate-leaf': true;
-  };
-  /**
-   * The position of the leaf within the Text node, only present when the text node is split by decorations.
-   */
-  leafPosition?: LeafPosition;
-}
-
-/**
- * `RenderTextProps` are passed to the `renderText` handler.
- */
-export interface RenderTextProps {
-  text: Text;
-  children: any;
-  attributes: {
-    'data-slate-node': 'text';
-    ref: any;
-  };
-}
 
 /**
  * `EditableProps` are passed to the `<Editable>` component.
@@ -1883,15 +1835,30 @@ export const Editable = forwardRef(
                   [readOnly, editor, attributes.onPaste],
                 )}
               >
-                <Children
-                  decorations={decorations}
-                  node={editor}
-                  renderElement={renderElement}
-                  renderPlaceholder={renderPlaceholder}
-                  renderLeaf={renderLeaf}
-                  renderText={renderText}
-                  selection={editor.selection}
-                />
+                {/* 内联子元素渲染逻辑，避免循环依赖 */}
+                {editor.children.map((child, index) => {
+                  const key = `editor-child-${index}`;
+                  if (Element.isElement(child)) {
+                    return renderElement
+                      ? renderElement({
+                          attributes: {
+                            'data-slate-node': 'element',
+                            'data-slate-inline': editor.isInline(child)
+                              ? true
+                              : undefined,
+                            'data-slate-void': editor.isVoid(child)
+                              ? true
+                              : undefined,
+                            dir: undefined,
+                            ref: React.createRef(),
+                          },
+                          children: child.children,
+                          element: child,
+                        })
+                      : null;
+                  }
+                  return null;
+                })}
               </Component>
             </RestoreDOM>
           </DecorateContext.Provider>

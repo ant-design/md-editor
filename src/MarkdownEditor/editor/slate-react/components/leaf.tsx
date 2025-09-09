@@ -17,7 +17,7 @@ import {
   PLACEHOLDER_SYMBOL,
 } from 'slate-dom';
 import { useSlateStatic } from '../hooks/use-slate-static';
-import { RenderLeafProps, RenderPlaceholderProps } from './editable';
+import { RenderLeafProps, RenderPlaceholderProps } from '../types';
 import String from './string';
 
 // Delay the placeholder on Android to prevent the keyboard from closing.

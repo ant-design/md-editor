@@ -11,7 +11,7 @@ import {
   RenderLeafProps,
   RenderPlaceholderProps,
   RenderTextProps,
-} from './editable';
+} from '../types';
 import Leaf from './leaf';
 
 /**

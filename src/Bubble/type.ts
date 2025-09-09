@@ -1,11 +1,11 @@
 import { TooltipProps } from 'antd';
 import { ReactNode } from 'react';
-import { MarkdownEditorProps } from '../MarkdownEditor';
+import { MarkdownEditorProps } from '../MarkdownEditor/types';
 import { AttachmentFile } from '../MarkdownInputField/FileMapView';
-import { WhiteBoxProcessInterface } from '../ThoughtChainList';
-import { DocInfoListProps } from './MessagesContent/DocInfo';
+import { WhiteBoxProcessInterface } from '../ThoughtChainList/types';
 import type { UseSpeechAdapter } from './MessagesContent/VoiceButton';
 import { BubbleExtraProps } from './types/BubbleExtra';
+import { DocInfoListProps } from './types/DocInfo';
 
 /**
  * 基础样式属性

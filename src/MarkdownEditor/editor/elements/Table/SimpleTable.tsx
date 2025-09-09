@@ -1,8 +1,8 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { TableNode } from '.';
 import { RenderElementProps } from '../../slate-react';
+import { TableNode } from '../../types/Table';
 import { useTableStyle } from './style';
 import { ReadonlyTable } from './Table';
 import { TablePropsContext } from './TableContext';

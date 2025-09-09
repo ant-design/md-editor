@@ -1,4 +1,33 @@
-import { BubbleProps, MessageBubbleData, WithFalse } from '../type';
+import React from 'react';
+
+// 避免循环依赖，直接定义需要的类型
+export type WithFalse<T> = T | false;
+
+export interface MessageBubbleData<T = Record<string, any>> {
+  content?: React.ReactNode;
+  originContent?: string;
+  error?: any;
+  model?: string;
+  name?: string;
+  parentId?: string;
+  role: 'user' | 'system' | 'assistant' | 'agent' | 'bot';
+  createAt: number;
+  endTime?: number;
+  id: string;
+  updateAt: number;
+  extra?: T;
+  isFinished?: boolean;
+  isAborted?: boolean;
+  feedback?: 'thumbsUp' | 'thumbsDown' | 'none';
+  isRetry?: boolean;
+  isLatest?: boolean;
+}
+
+// 简化的 BubbleProps 类型，避免循环依赖
+export interface SimpleBubbleProps<T = Record<string, any>> {
+  originData?: T & MessageBubbleData;
+  [key: string]: any;
+}
 
 /**
  * 聊天项额外操作组件的属性接口
@@ -36,7 +65,7 @@ export type BubbleExtraProps = {
    * @callback
    * @optional
    */
-  onCancelLike?: (e: BubbleProps['originData']) => void;
+  onCancelLike?: (e: SimpleBubbleProps['originData']) => void;
 
   /**
    * 控制复制按钮的显示
@@ -81,7 +110,7 @@ export type BubbleExtraProps = {
    * 聊天项的数据
    * @description 包含聊天消息的完整信息
    */
-  bubble: BubbleProps<{
+  bubble: SimpleBubbleProps<{
     /**
      * 聊天内容
      * @description 消息的具体文本内容
@@ -152,7 +181,7 @@ export type BubbleExtraProps = {
    */
   render?: WithFalse<
     (
-      props: BubbleProps<Record<string, any>>,
+      props: SimpleBubbleProps<Record<string, any>>,
       defaultDoms: React.ReactNode,
     ) => React.ReactNode
   >;

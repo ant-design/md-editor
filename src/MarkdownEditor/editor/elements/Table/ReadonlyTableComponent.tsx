@@ -9,11 +9,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { TableNode } from '.';
 import { I18nContext } from '../../../../i18n';
-import { parserSlateNodeToMarkdown } from '../../../index';
+import { parserSlateNodeToMarkdown } from '../../../utils';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
+import { TableNode } from '../../types/Table';
 
 interface ReadonlyTableComponentProps {
   hashId: string;

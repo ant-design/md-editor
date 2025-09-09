@@ -4,7 +4,7 @@ export type {
   RenderElementProps,
   RenderLeafProps,
   RenderPlaceholderProps,
-} from './components/editable';
+} from './types';
 
 export { Editable } from './components/editable';
 

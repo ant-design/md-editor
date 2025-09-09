@@ -4,6 +4,7 @@ import React, { JSX, useCallback } from 'react';
 import {
   DecoratedRange,
   Editor,
+  Element,
   Node,
   Range,
   Element as SlateElement,
@@ -17,13 +18,13 @@ import {
   NODE_TO_PARENT,
 } from 'slate-dom';
 import { ReactEditor, useReadOnly, useSlateStatic } from '..';
-import useChildren from '../hooks/use-children';
+// 移除 useChildren 导入，直接内联逻辑
 import {
   RenderElementProps,
   RenderLeafProps,
   RenderPlaceholderProps,
   RenderTextProps,
-} from './editable';
+} from '../types';
 
 import Text from './text';
 
@@ -68,15 +69,63 @@ const Element = (props: {
     },
     [editor, key, element],
   );
-  let children: React.ReactNode = useChildren({
+  // 内联 useChildren 逻辑，避免循环依赖
+  let children: React.ReactNode = React.useMemo(() => {
+    const childElements = [];
+    const isLeafBlock =
+      Element.isElement(element) &&
+      !editor.isInline(element) &&
+      Editor.hasInlines(editor, element);
+
+    for (let i = 0; i < element.children.length; i++) {
+      const path = ReactEditor.findPath(editor, element).concat(i);
+      const child = element.children[i];
+      const key = ReactEditor.findKey(editor, child);
+      const range = Editor.range(editor, path);
+      const sel = selection && Range.intersection(range, selection);
+
+      if (Element.isElement(child)) {
+        // 递归渲染子元素
+        childElements.push(
+          <Element
+            key={key.id}
+            decorations={decorations}
+            element={child}
+            renderElement={renderElement}
+            renderPlaceholder={renderPlaceholder}
+            renderLeaf={renderLeaf}
+            renderText={renderText}
+            selection={sel}
+          />,
+        );
+      } else {
+        // 渲染文本节点
+        childElements.push(
+          <Text
+            key={key.id}
+            decorations={decorations}
+            isLast={isLeafBlock && i === element.children.length - 1}
+            parent={element}
+            renderPlaceholder={renderPlaceholder}
+            renderLeaf={renderLeaf}
+            renderText={renderText}
+            text={child}
+          />,
+        );
+      }
+    }
+
+    return <React.Fragment>{childElements}</React.Fragment>;
+  }, [
     decorations,
-    node: element,
+    element,
     renderElement,
     renderPlaceholder,
     renderLeaf,
     renderText,
     selection,
-  });
+    editor,
+  ]);
 
   // Attributes that the developer must mix into the element in their
   // custom node renderer component.

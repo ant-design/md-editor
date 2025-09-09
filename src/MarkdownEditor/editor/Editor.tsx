@@ -17,13 +17,13 @@ import {
   Range,
   Transforms,
 } from 'slate';
+import { parserMdToSchema } from '../BaseMarkdownEditor';
+import { Elements } from '../el';
 import {
   CommentDataType,
-  Elements,
   MarkdownEditorInstance,
   MarkdownEditorProps,
-  parserMdToSchema,
-} from '../BaseMarkdownEditor';
+} from '../types';
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';
@@ -197,7 +197,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
   const commentMap = useMemo(() => {
     const map = new Map<string, Map<string, CommentDataType[]>>();
-    props?.comment?.commentList?.forEach((c) => {
+    props?.comment?.commentList?.forEach((c: CommentDataType) => {
       c.updateTime = Date.now();
       const path = c.path.join(',');
       if (map.has(path)) {
@@ -524,7 +524,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       nodeRef.current = props.instance;
       first.current = true;
       const tableConfig = props.tableConfig;
-      genTableMinSize(props.initSchemaValue || [], tableConfig);
+      genTableMinSize(props.initSchemaValue || [], {
+        minColumn: tableConfig?.minColumn,
+        minRows: tableConfig?.minRows,
+      });
       try {
         EditorUtils.reset(
           markdownEditorRef.current,

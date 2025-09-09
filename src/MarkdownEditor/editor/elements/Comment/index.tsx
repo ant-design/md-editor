@@ -1,10 +1,7 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useMemo } from 'react';
-import {
-  CommentDataType,
-  MarkdownEditorProps,
-} from '../../../BaseMarkdownEditor';
+import { CommentDataType, MarkdownEditorProps } from '../../../types';
 
 export const CommentView = (props: {
   children: React.ReactNode;

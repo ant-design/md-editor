@@ -5,7 +5,7 @@ import { Editor, Node, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
 import DOMPurify from 'dompurify';
-import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
+import { MarkdownEditorProps } from '../../types';
 import {
   ReactEditor,
   RenderElementProps,

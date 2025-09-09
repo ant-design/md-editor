@@ -1,7 +1,7 @@
 ﻿import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useMemo } from 'react';
-import { MarkdownEditorProps } from '../MarkdownEditor';
+import { MarkdownEditorProps } from '../MarkdownEditor/types';
 import { DeepThink } from './DeepThink';
 import { RagRetrievalInfo } from './RagRetrievalInfo';
 import { TableSql } from './TableSql';
