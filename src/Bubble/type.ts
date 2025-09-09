@@ -53,6 +53,8 @@ export interface BubbleItemStyleProps extends BubbleStyleProps {
      * 内容的自定义类名
      */
     bubbleListItemContentClassName?: string;
+    bubbleListItemBeforeClassName: string;
+    bubbleListItemAfterClassName: string;
 
     /**
      * 标题的自定义类名

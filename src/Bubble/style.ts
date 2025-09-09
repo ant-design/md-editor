@@ -8,14 +8,17 @@
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      position: 'relative',
-      maxWidth: '100vw',
-      padding: 'var(--padding-0-5x) var(--padding-3x)',
-      marginBottom: 'var(--margin-6x)',
-      cursor: 'pointer',
-      '&&-compact': {
+      '&-bubble': {
+        position: 'relative',
+        maxWidth: '100vw',
         padding: 'var(--padding-0-5x) var(--padding-3x)',
+        marginBottom: 'var(--margin-6x)',
+        cursor: 'pointer',
+        '&&-compact': {
+          padding: 'var(--padding-0-5x) var(--padding-3x)',
+        },
       },
+
       '.md-editor-code': {
         borderRadius: '12px !important',
         overflow: 'auto',

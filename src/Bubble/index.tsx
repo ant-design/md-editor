@@ -116,7 +116,7 @@ export const Bubble: React.FC<
 
   const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
 
-  const prefixClass = getPrefixCls('agent-list-bubble');
+  const prefixClass = getPrefixCls('agent-list');
 
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
@@ -245,9 +245,9 @@ export const Bubble: React.FC<
     >
       <Flex
         className={cx(
-          prefixClass,
+          `${prefixClass}-bubble`,
           hashId,
-          `${prefixClass}-${placement}`,
+          `${prefixClass}-bubble-${placement}`,
           className,
           {
             [`${prefixClass}-compact`]: compact,
@@ -295,6 +295,7 @@ export const Bubble: React.FC<
               className={cx(
                 `${prefixClass}-bubble-before`,
                 `${prefixClass}-bubble-before-${placement}`,
+                classNames?.bubbleListItemBeforeClassName || '',
                 hashId,
               )}
               data-testid="message-before"
@@ -309,6 +310,7 @@ export const Bubble: React.FC<
             }}
             className={cx(
               `${prefixClass}-bubble-content`,
+              classNames?.bubbleListItemContentClassName,
               `${prefixClass}-bubble-content-${placement}`,
               {
                 [`${prefixClass}-bubble-content-pure`]: props.pure,
@@ -327,6 +329,7 @@ export const Bubble: React.FC<
                 ...styles?.bubbleListItemExtraStyle,
               }}
               className={cx(
+                classNames?.bubbleListItemAfterClassName,
                 `${prefixClass}-bubble-after`,
                 `${prefixClass}-bubble-after-${placement}`,
                 hashId,
