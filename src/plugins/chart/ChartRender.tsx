@@ -12,7 +12,7 @@ import DonutChart from './DonutChart';
 import LineChart from './LineChart';
 import RadarChart from './RadarChart';
 import ScatterChart from './ScatterChart';
-import { toNumber } from './utils';
+import { isNotEmpty, toNumber } from './utils';
 
 /**
  * 图表类型映射配置
@@ -193,83 +193,76 @@ export const ChartRender: React.FC<{
     return map;
   };
 
+  const getFieldValue = (
+    row: any,
+    field?: string,
+  ): string | undefined => {
+    if (field && isNotEmpty(row[field])) {
+      return String(row[field]);
+    }
+    return undefined;
+  };
+
   const convertFlatData = useMemo(() => {
     const { xTitle, yTitle } = getAxisTitles();
     const xIndexer = buildXIndexer();
 
-    const legendField: string | undefined = colorLegend; // 图例维度 → type
-    const groupByField: string | undefined = groupBy; // 业务分组维度 → category
-    const filterByField: string | undefined = filterBy; // 主筛选维度 → filterLable
-
     return (chartData || []).map((row: any, i: number) => {
       const rawX = row?.[config?.x];
       const rawY = row?.[config?.y];
+      const category = getFieldValue(row, groupBy);
+      const type = getFieldValue(row, colorLegend);
+      const filterLable = getFieldValue(row, filterBy);
+      const x =
+        typeof rawX === 'number'
+          ? rawX
+          : isNotEmpty(rawX)
+            ? String(rawX)
+            : String(xIndexer.get(rawX) ?? i + 1);
 
-      // category: 一个表中的不同数据（主筛选）
-      const category =
-        groupByField && row?.[groupByField] != null
-          ? String(row[groupByField])
-          : row?.category != null
-            ? String(row.category)
-            : title || '默认';
-
-      // type: 一个数据里的不同维度（图例）
-      const type =
-        legendField && row?.[legendField] != null
-          ? String(row[legendField])
-          : row?.type != null
-            ? String(row.type)
-            : yTitle || '系列';
-
-      // filterLable: 多个不同的表（二级筛选）
-      const filterLable =
-        filterByField && row?.[filterByField] != null
-          ? String(row[filterByField])
-          : undefined;
+      const y =
+        typeof rawY === 'number' ? rawY : isNotEmpty(rawY) ? String(rawY) : '';
 
       return {
         category,
         type,
-        x:
-          typeof rawX === 'number'
-            ? rawX
-            : rawX != null
-              ? String(rawX)
-              : String(xIndexer.get(rawX) ?? i + 1),
-        y: typeof rawY === 'number' ? rawY : rawY != null ? String(rawY) : '',
+        x,
+        y,
         xtitle: xTitle,
         ytitle: yTitle,
-        ...(filterLable != null ? { filterLable } : {}),
+        ...(filterLable ? { filterLable } : {}),
       };
     });
-  }, [JSON.stringify(chartData), JSON.stringify(config), title]);
+  }, [
+    JSON.stringify(chartData),
+    JSON.stringify(config),
+    title,
+    groupBy,
+    colorLegend,
+    filterBy,
+  ]);
 
   const convertDonutData = useMemo(() => {
-    const groupByField: string | undefined = groupBy; // 业务分组维度 → category
-    const filterByField: string | undefined = filterBy; // 主筛选维度 → filterLable
-
     return (chartData || []).map((row: any) => {
-      const category =
-        groupByField && row?.[groupByField] != null
-          ? String(row[groupByField])
-          : row?.category != null
-            ? String(row.category)
-            : title || '默认';
+      const category = getFieldValue(row, groupBy);
       const label = String(row?.[config?.x] ?? '');
       const value = toNumber(row?.[config?.y], 0);
-      const filterLable =
-        filterByField && row?.[filterByField] != null
-          ? String(row[filterByField])
-          : undefined;
+      const filterLable = getFieldValue(row, filterBy);
 
       return {
         category,
         label,
         value,
-        ...(filterLable != null ? { filterLable } : {}),
+        ...(filterLable ? { filterLable } : {}),
       };
     });
-  }, [JSON.stringify(chartData), JSON.stringify(config), title]);
+  }, [
+    JSON.stringify(chartData),
+    JSON.stringify(config),
+    title,
+    groupBy,
+    filterBy,
+  ]);
   /**
    * 图表配置
    */
@@ -544,20 +537,15 @@ export const ChartRender: React.FC<{
     if (chartType === 'radar') {
       // Radar 数据需要映射为 { category, label, type, score }
       const radarData = (chartData || []).map((row: any, i: number) => {
-        const groupByField: string | undefined = groupBy;
-        const legendField: string | undefined = colorLegend;
+        const filterLable = getFieldValue(row, filterBy);
+        const category = getFieldValue(row, groupBy);
+        const type = getFieldValue(row, colorLegend);
         return {
-          category:
-            groupByField && row?.[groupByField] != null
-              ? String(row[groupByField])
-              : String(title || '默认'),
+          category,
           label: String(row?.[config?.x] ?? i + 1),
-          type:
-            legendField && row?.[legendField] != null
-              ? String(row[legendField])
-              : '系列',
+          type,
           score: row?.[config?.y],
-          ...(row?.filterLable != null ? { filterLable: row.filterLable } : {}),
+          ...(filterLable ? { filterLable } : {}),
         };
       });
       return (
@@ -572,24 +560,16 @@ export const ChartRender: React.FC<{
     }
     if (chartType === 'scatter') {
       // Scatter 数据需要映射为 { category, type, x, y }
-      const groupByField: string | undefined = groupBy;
-      const legendField: string | undefined = colorLegend;
-      const filterByField: string | undefined = filterBy;
       const scatterData = (chartData || []).map((row: any, i: number) => {
+        const filterLable = getFieldValue(row, filterBy);
+        const category = getFieldValue(row, groupBy);
+        const type = getFieldValue(row, colorLegend);
         return {
-          category:
-            groupByField && row?.[groupByField] != null
-              ? String(row[groupByField])
-              : String(title || '默认'),
-          type:
-            legendField && row?.[legendField] != null
-              ? String(row[legendField])
-              : '系列',
+          category,
+          type,
           x: row?.[config?.x],
           y: row?.[config?.y],
-          ...(filterByField && row?.[filterByField] != null
-            ? { filterLable: String(row[filterByField]) }
-            : {}),
+          ...(filterLable ? { filterLable } : {}),
         };
       });
       return (
