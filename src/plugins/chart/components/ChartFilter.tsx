@@ -53,7 +53,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   return wrapSSR(
     <div className={`${prefixCls} ${hashId} ${theme} ${className}`}>
       {/* 地区筛选器 */}
-      {customOptions && customOptions.length > 0 && (
+      {customOptions && customOptions.length > 1 && (
         <div className="region-filter">
           <Dropdown
             menu={{
