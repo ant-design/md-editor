@@ -147,7 +147,7 @@ type ChartConfig = {
 
 ```markdown
 <!-- {"chartType": "line", "x": "月份", "y": "数值", "title": "月度数据趋势",
-      "rest": {"colorLegend": "系列"}} -->
+      "colorLegend": "系列"} -->
 
 | 月份 | 数值 | 系列 |
 |------|------|------|
@@ -166,7 +166,7 @@ type ChartConfig = {
 
 ```markdown
 <!-- {"chartType": "bar", "x": "产品", "y": "销量", "title": "产品销量对比",
-      "rest": {"groupBy": "业务类型"}} -->
+      "groupBy": "业务类型"} -->
 
 | 产品   | 销量 | 业务类型 |
 |--------|------|----------|
@@ -184,7 +184,7 @@ type ChartConfig = {
 
 ```markdown
 <!-- {"chartType": "pie", "x": "类别", "y": "占比", "title": "市场份额分布",
-      "rest": {"groupBy": "业务类型", "filterBy": "地区"}} -->
+      "groupBy": "业务类型", "filterBy": "地区"} -->
 
 | 类别   | 占比 | 业务类型 | 地区 |
 |--------|------|----------|------|
@@ -203,7 +203,7 @@ type ChartConfig = {
 
 ```markdown
 <!-- {"chartType": "radar", "x": "指标", "y": "得分", "title": "能力评估",
-      "rest": {"colorLegend": "类型", "groupBy": "维度", "filterBy": "地区"}} -->
+      "colorLegend": "类型", "groupBy": "维度", "filterBy": "地区"} -->
 
 | 指标 | 得分 | 类型     | 维度 | 地区 |
 |------|------|----------|------|------|
@@ -253,7 +253,7 @@ type ChartConfig = {
 ## 业务数据图表
 
 <!-- {"chartType": "bar", "x": "业务", "y": "2021Q1", "title": "2021年第一季度业务数据", "dataTime": "2025-10-30 10:00:00",
-      "rest": {"groupBy": "业务类型", "colorLegend": "数据系列", "filterBy": "地区"}} -->
+      "groupBy": "业务类型", "colorLegend": "数据系列", "filterBy": "地区"} -->
 
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |

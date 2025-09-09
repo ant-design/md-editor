@@ -72,7 +72,7 @@ export const newEnergyFundContent = `<!-- {"MarkdownType": "report", "id": "new-
 
 截至2025年6月19日，新能源板块当日收跌-1.28%。行业市盈率高于近10年60%的时间，估值偏高。新能源汽车行业产能过剩问题突出，技术迭代过快可能制约长期发展。
 
-<!-- {"chartType":"radar","title":"团队能力评估","x":"指标","y":"得分","rest":{"groupBy":"维度","colorLegend":"类型","filterBy":"region"},"dataTime":"2025-10-30 10:00:00"} -->
+<!-- {"chartType":"radar","title":"团队能力评估","x":"指标","y":"得分","groupBy":"维度","colorLegend":"类型","filterBy":"region","dataTime":"2025-10-30 10:00:00"} -->
 | 指标 | 得分 | 类型     | 维度 | region |
 |------|------|----------|------|--------|
 | 技术 | 75   | 当前能力 | 年龄 | 全球   |
@@ -96,7 +96,7 @@ export const newEnergyFundContent = `<!-- {"MarkdownType": "report", "id": "new-
 
 截至2025年6月19日，新能源板块当日收跌-1.28%。行业市盈率高于近10年60%的时间，估值偏高。新能源汽车行业产能过剩问题突出，技术迭代过快可能制约长期发展。
 
-<!-- {"chartType":"scatter","title":"KPI 指标分布","x":"月份","y":"值","rest":{"groupBy":"分类","colorLegend":"系列","filterBy":"region"},"dataTime":"2025-10-30 10:00:00"} -->
+<!-- {"chartType":"scatter","title":"KPI 指标分布","x":"月份","y":"值","groupBy":"分类","colorLegend":"系列","filterBy":"region","dataTime":"2025-10-30 10:00:00"} -->
 | 月份 | 值  | 系列 | 分类 | region |
 |------|-----|------|------|--------|
 | 1    | 25  | A组  | 年龄 | 全球   |

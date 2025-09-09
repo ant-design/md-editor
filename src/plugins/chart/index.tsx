@@ -340,6 +340,9 @@ export const ChartElement = (props: RenderElementProps) => {
                             }}
                             title={key}
                             dataTime={rest?.dataTime}
+                            groupBy={rest?.groupBy}
+                            filterBy={rest?.filterBy}
+                            colorLegend={rest?.colorLegend}
                           />
                         );
                         return dom;
@@ -355,6 +358,9 @@ export const ChartElement = (props: RenderElementProps) => {
                         chartData={chartData}
                         title={rest?.title}
                         dataTime={rest?.dataTime}
+                        groupBy={rest?.groupBy}
+                        filterBy={rest?.filterBy}
+                        colorLegend={rest?.colorLegend}
                         config={{
                           height,
                           x,

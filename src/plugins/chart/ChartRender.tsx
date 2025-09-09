@@ -83,6 +83,9 @@ const ChartMap = {
  * @param {number} [props.columnLength] - 列长度
  * @param {(value: number) => void} [props.onColumnLengthChange] - 列长度变化回调
  * @param {string} [props.dataTime] - 数据时间
+ * @param {string} [props.groupBy] - 业务分组维度
+ * @param {string} [props.filterBy] - 主筛选维度
+ * @param {string} [props.colorLegend] - 数据系列维度
  *
  * @example
  * ```tsx
@@ -138,6 +141,9 @@ export const ChartRender: React.FC<{
   columnLength?: number;
   onColumnLengthChange?: (value: number) => void;
   dataTime?: string;
+  groupBy?: string;
+  filterBy?: string;
+  colorLegend?: string;
 }> = (props) => {
   const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
@@ -151,6 +157,9 @@ export const ChartRender: React.FC<{
     columnLength,
     title,
     dataTime,
+    groupBy,
+    filterBy,
+    colorLegend,
   } = props;
   const i18n = useContext(I18nContext);
   const [config, setConfig] = useState(() => props.config);
@@ -185,10 +194,9 @@ export const ChartRender: React.FC<{
     const { xTitle, yTitle } = getAxisTitles();
     const xIndexer = buildXIndexer();
 
-    const rest = (config as any)?.rest || {};
-    const legendField: string | undefined = rest?.colorLegend; // 图例维度 → type
-    const groupByField: string | undefined = rest?.groupBy || rest?.categoryField; // 主筛选维度 → category
-    const filterByField: string | undefined = rest?.filterBy; // 二级筛选维度 → filterLable
+    const legendField: string | undefined = colorLegend // 图例维度 → type
+    const groupByField: string | undefined = groupBy // 业务分组维度 → category
+    const filterByField: string | undefined = filterBy // 主筛选维度 → filterLable
 
     return (chartData || []).map((row: any, i: number) => {
       const rawX = row?.[config?.x as any];
@@ -234,9 +242,8 @@ export const ChartRender: React.FC<{
   }, [JSON.stringify(chartData), JSON.stringify(config), title]);
 
   const convertDonutData = useMemo(() => {
-    const rest = (config as any)?.rest || {};
-    const groupByField: string | undefined = rest?.groupBy || rest?.categoryField; // 主筛选维度 → category
-    const filterByField: string | undefined = rest?.filterBy; // 二级筛选维度 → filterLable
+    const groupByField: string | undefined = groupBy // 业务分组维度 → category
+    const filterByField: string | undefined = filterBy // 主筛选维度 → filterLable
 
     return (chartData || []).map((row: any) => {
       const category =
@@ -534,9 +541,8 @@ export const ChartRender: React.FC<{
     if (chartType === 'radar') {
       // Radar 数据需要映射为 { category, label, type, score }
       const radarData = (chartData || []).map((row: any, i: number) => {
-        const rest = (config as any)?.rest || {};
-        const groupByField: string | undefined = rest?.groupBy;
-        const legendField: string | undefined = rest?.colorLegend;
+        const groupByField: string | undefined = groupBy;
+        const legendField: string | undefined = colorLegend;
         return {
           category:
             groupByField && row?.[groupByField] != null
@@ -563,10 +569,9 @@ export const ChartRender: React.FC<{
     }
     if (chartType === 'scatter') {
       // Scatter 数据需要映射为 { category, type, x, y }
-      const rest = (config as any)?.rest || {};
-      const groupByField: string | undefined = rest?.groupBy;
-      const legendField: string | undefined = rest?.colorLegend;
-      const filterByField: string | undefined = rest?.filterBy;
+      const groupByField: string | undefined = groupBy;
+      const legendField: string | undefined = colorLegend;
+      const filterByField: string | undefined = filterBy;
       const scatterData = (chartData || []).map((row: any, i: number) => {
         return {
           category:
