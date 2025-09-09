@@ -11,6 +11,29 @@ group:
 
 本指南详细介绍了如何发布 md-editor 的测试版本，包括版本管理、发布流程和测试验证。
 
+## 🚀 快速发布
+
+```bash
+# 1. 准备工作
+git checkout main && git pull origin main
+pnpm lint && pnpm test && pnpm build
+
+# 2. 发布 Alpha 版本
+npm version prerelease --preid=alpha
+npm publish --tag=alpha
+git push origin main --follow-tags
+
+# 3. 发布 Beta 版本
+npm version prerelease --preid=beta  
+npm publish --tag=beta
+git push origin main --follow-tags
+
+# 4. 发布 RC 版本
+npm version prerelease --preid=rc
+npm publish --tag=next
+git push origin main --follow-tags
+```
+
 ## 📋 目录
 
 - [版本管理策略](#版本管理策略)
@@ -18,7 +41,7 @@ group:
 - [发布测试版本](#发布测试版本)
 - [版本验证](#版本验证)
 - [回滚策略](#回滚策略)
-- [自动化发布](#自动化发布)
+- [完整发布流程](#完整发布流程)
 
 ## 📦 版本管理策略
 
@@ -38,11 +61,11 @@ group:
 
 ### 版本类型说明
 
-| 版本类型 | 标识符 | 用途 | 稳定性 |
-|---------|--------|------|--------|
-| Alpha | `-alpha.x` | 内部测试，功能不完整 | 不稳定 |
-| Beta | `-beta.x` | 功能完整，可能有已知问题 | 相对稳定 |
-| RC | `-rc.x` | 发布候选版本，准备正式发布 | 稳定 |
+| 版本类型 | 标识符     | 用途                       | 稳定性   |
+| -------- | ---------- | -------------------------- | -------- |
+| Alpha    | `-alpha.x` | 内部测试，功能不完整       | 不稳定   |
+| Beta     | `-beta.x`  | 功能完整，可能有已知问题   | 相对稳定 |
+| RC       | `-rc.x`    | 发布候选版本，准备正式发布 | 稳定     |
 
 ### 分支策略
 
@@ -149,7 +172,7 @@ npm version prerelease --preid=rc
 ```json
 {
   "name": "@ant-design/md-editor",
-  "version": "1.27.0-alpha.1",
+  "version": "1.27.0-alpha.1"
   // ...
 }
 ```
@@ -162,18 +185,22 @@ npm version prerelease --preid=rc
 ## [1.27.0-alpha.1] - 2024-12-09
 
 ### 新增功能
+
 - 添加新的语法高亮主题
 - 支持自定义工具栏配置
 
 ### 错误修复
+
 - 修复编辑器内存泄漏问题
 - 解决移动端滚动异常
 
 ### 性能优化
+
 - 优化大文档渲染性能
 - 减少不必要的重新渲染
 
 ### 破坏性变更
+
 - 移除已废弃的 API
 ```
 
@@ -187,14 +214,24 @@ rm -rf dist/
 pnpm build
 
 # 3. 发布到 npm (带标签)
-npm publish --tag alpha
+# Alpha 版本
+npm publish --tag=alpha
 
-# 或者发布 beta 版本
-npm publish --tag beta
+# Beta 版本
+npm publish --tag=beta
 
-# 或者发布 rc 版本
-npm publish --tag next
+# RC 版本
+npm publish --tag=next
 ```
+
+#### 发布标签说明
+
+| 版本类型 | npm 标签 | 安装命令                                  | 说明             |
+| -------- | -------- | ----------------------------------------- | ---------------- |
+| Alpha    | `alpha`  | `npm install @ant-design/md-editor@alpha` | 最新开发版本     |
+| Beta     | `beta`   | `npm install @ant-design/md-editor@beta`  | 测试版本         |
+| RC       | `next`   | `npm install @ant-design/md-editor@next`  | 候选发布版本     |
+| 正式版   | `latest` | `npm install @ant-design/md-editor`       | 稳定版本（默认） |
 
 ### 4. 推送代码和标签
 
@@ -319,156 +356,99 @@ git checkout main
 git merge hotfix/v1.26.56
 ```
 
-## 🤖 自动化发布
+## 📋 完整发布流程
 
-### 1. GitHub Actions 配置
+### 快速发布指南
 
-创建 `.github/workflows/release.yml`：
-
-```yaml
-name: Release
-
-on:
-  push:
-    tags:
-      - 'v*'
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Build
-        run: pnpm build
-
-      - name: Publish to npm
-        run: |
-          if [[ ${{ github.ref_name }} =~ -alpha\. ]]; then
-            npm publish --tag alpha
-          elif [[ ${{ github.ref_name }} =~ -beta\. ]]; then
-            npm publish --tag beta
-          elif [[ ${{ github.ref_name }} =~ -rc\. ]]; then
-            npm publish --tag next
-          else
-            npm publish
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: ${{ github.ref_name }}
-          draft: false
-          prerelease: ${{ contains(github.ref_name, '-') }}
-```
-
-### 2. 发布脚本
-
-创建 `scripts/release.js`：
-
-```javascript
-#!/usr/bin/env node
-
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-
-function run(command) {
-  console.log(`> ${command}`);
-  return execSync(command, { stdio: 'inherit' });
-}
-
-function getCurrentVersion() {
-  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-  return pkg.version;
-}
-
-function updateChangelog(version) {
-  const changelogPath = path.join(process.cwd(), 'CHANGELOG.md');
-  const date = new Date().toISOString().split('T')[0];
-  
-  // 更新 CHANGELOG.md 逻辑
-  // ...
-}
-
-async function release(type = 'alpha') {
-  try {
-    // 1. 检查工作区状态
-    run('git diff --exit-code');
-    
-    // 2. 运行测试
-    run('pnpm test');
-    
-    // 3. 构建项目
-    run('pnpm build');
-    
-    // 4. 更新版本号
-    run(`npm version prerelease --preid=${type}`);
-    
-    const newVersion = getCurrentVersion();
-    console.log(`New version: ${newVersion}`);
-    
-    // 5. 更新变更日志
-    updateChangelog(newVersion);
-    
-    // 6. 发布到 npm
-    run(`npm publish --tag ${type}`);
-    
-    // 7. 推送到 Git
-    run('git push origin --follow-tags');
-    
-    console.log(`✅ Successfully released ${newVersion}`);
-  } catch (error) {
-    console.error('❌ Release failed:', error.message);
-    process.exit(1);
-  }
-}
-
-// 命令行参数解析
-const type = process.argv[2] || 'alpha';
-release(type);
-```
-
-### 3. 使用发布脚本
+以下是完整的手动发布流程：
 
 ```bash
-# 给脚本执行权限
-chmod +x scripts/release.js
+# 1. 确保代码最新且工作区干净
+git checkout main
+git pull origin main
+git status  # 确保没有未提交的更改
 
-# 发布 alpha 版本
-node scripts/release.js alpha
+# 2. 运行质量检查
+pnpm lint        # 代码规范检查
+pnpm tsc         # 类型检查
+pnpm test        # 运行测试
+pnpm build       # 构建项目
 
-# 发布 beta 版本
-node scripts/release.js beta
+# 3. 更新版本号并发布
+npm version prerelease --preid=alpha  # 更新为 alpha 版本
+npm publish --tag=alpha               # 发布到 npm
 
-# 发布 rc 版本
-node scripts/release.js rc
+# 4. 推送到 Git
+git push origin main --follow-tags
 ```
 
-## 📊 发布监控
+### 分步骤详细说明
 
-### 1. npm 下载统计
+#### 步骤 1: 环境准备
+
+```bash
+# 检查 npm 登录状态
+npm whoami
+
+# 确保在正确的分支
+git branch --show-current
+
+# 拉取最新代码
+git pull origin main
+```
+
+#### 步骤 2: 代码质量检查
+
+```bash
+# 代码规范检查
+pnpm lint
+
+# TypeScript 类型检查
+pnpm tsc
+
+# 运行所有测试
+pnpm test
+
+# 构建项目
+pnpm build
+```
+
+#### 步骤 3: 版本更新
+
+```bash
+# 根据需要选择版本类型
+npm version prerelease --preid=alpha   # Alpha 版本
+npm version prerelease --preid=beta    # Beta 版本
+npm version prerelease --preid=rc      # RC 版本
+```
+
+#### 步骤 4: 发布到 npm
+
+```bash
+# 根据版本类型使用对应标签
+npm publish --tag=alpha    # Alpha 版本
+npm publish --tag=beta     # Beta 版本
+npm publish --tag=next     # RC 版本
+```
+
+#### 步骤 5: 推送到 Git
+
+```bash
+# 推送代码和标签
+git push origin main --follow-tags
+```
+
+### 验证发布
+
+```bash
+# 检查发布是否成功
+npm view @ant-design/md-editor dist-tags
+
+# 安装测试
+npm install @ant-design/md-editor@alpha
+```
+
+## 📊 发布监控### 1. npm 下载统计
 
 ```bash
 # 查看下载统计
