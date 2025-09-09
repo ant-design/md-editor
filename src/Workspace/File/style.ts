@@ -227,6 +227,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'column',
       height: '100%',
       background: '#fff',
+      position: 'relative',
 
       // 预览头部
       [`&-header`]: {
@@ -237,6 +238,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderBottom: '1px solid rgba(20, 22, 28, 0.07)',
         background: '#fff',
         flexShrink: 0,
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
       },
 
       // 返回按钮
@@ -323,7 +327,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
+        overflow: 'auto',
+        minHeight: 0, // 确保 flex 子项可以收缩
       },
 
       // iframe 预览
