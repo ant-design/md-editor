@@ -160,7 +160,7 @@
                   style="background-color: rgb(248, 249, 250); border: 2px solid rgb(233, 236, 239); border-radius: 8px; padding: 16px; margin: 12px 0px; position: relative; font-family: system-ui, -apple-system, sans-serif;"
                 >
                   <div
-                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgb(222, 226, 230);"
+                    style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #dee2e6;"
                   >
                     <div
                       style="width: 12px; height: 12px; border-radius: 50%; background-color: rgb(0, 123, 255); animation: pulse 2s infinite;"

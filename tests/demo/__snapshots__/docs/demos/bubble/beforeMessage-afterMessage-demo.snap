@@ -40,7 +40,7 @@
               >
                 <span
                   class="ant-avatar-string"
-                  style="-webkit-transform: scale(1); transform: scale(1);"
+                  style="transform: scale(1);"
                 >
                   UN
                 </span>

@@ -15,7 +15,7 @@
         style="display: flex; gap: 16px; max-width: 100%;"
       >
         <div
-          style="flex: 1 1 0%;"
+          style="flex: 1;"
         >
           <h4>
             Loading 状态
@@ -42,7 +42,7 @@
           </div>
         </div>
         <div
-          style="flex: 1 1 0%;"
+          style="flex: 1;"
         >
           <h4>
             Success 状态
@@ -69,7 +69,7 @@
           </div>
         </div>
         <div
-          style="flex: 1 1 0%;"
+          style="flex: 1;"
         >
           <h4>
             Error 状态

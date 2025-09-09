@@ -77,18 +77,18 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         关于 React Hooks 的讨论
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
                       >
                         昨日
                       </div>
@@ -122,18 +122,18 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         TypeScript 类型系统详解
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
                       >
                         2 days ago
                       </div>
@@ -167,18 +167,18 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                       >
                         前端性能优化实践
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
                       >
                         3 days ago
                       </div>

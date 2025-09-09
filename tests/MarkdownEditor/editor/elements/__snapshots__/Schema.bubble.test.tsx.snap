@@ -4,6 +4,6 @@ exports[`Schema - BubbleConfigContext 功能 > 应该支持 agentar-card 语言�
 <div
   class="schemaRenderer"
   data-testid="schema-renderer"
-  style="font-size: 14px; line-height: 1.6; width: max-content; margin: 1em;"
+  style="font-size: 14px; line-height: 1.6; margin: 1em;"
 />
 `;

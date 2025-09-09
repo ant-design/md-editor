@@ -101,15 +101,15 @@
           </svg>
         </div>
         <div
-          style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
+          style="flex: 1; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1 1 0%;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: min(400px); flex: 1;"
           >
             <div
               class="ant-md-editor markdown-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1; padding: 4px 64px 4px 4px;"
             >
               <div
                 style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
