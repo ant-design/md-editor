@@ -6,7 +6,8 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../i18n';
-import { ActionIconBox, MarkdownEditor } from '../../index';
+import { MarkdownEditor } from '../../index';
+import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { useStyle } from './docInfoStyle';
 

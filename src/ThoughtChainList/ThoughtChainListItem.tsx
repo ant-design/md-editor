@@ -1,13 +1,17 @@
 ﻿import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useMemo } from 'react';
-import { DocMeta, ThoughtChainListProps, WhiteBoxProcessInterface } from '.';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DeepThink } from './DeepThink';
 import { RagRetrievalInfo } from './RagRetrievalInfo';
 import { TableSql } from './TableSql';
 import { TitleInfo } from './TitleInfo';
 import { ToolCall } from './ToolCall';
+import {
+  DocMeta,
+  ThoughtChainListProps,
+  WhiteBoxProcessInterface,
+} from './types';
 import { WebSearch } from './WebSearch';
 
 /**

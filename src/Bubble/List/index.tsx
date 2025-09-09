@@ -7,8 +7,8 @@ import type { BubbleMetaData, BubbleProps, MessageBubbleData } from '../type';
 import { ConfigProvider } from 'antd';
 import cx from 'classnames';
 import React from 'react';
+import { Bubble } from '../Bubble';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
-import { Bubble } from '../index';
 import { useStyle } from './style';
 
 export type BubbleListProps = {

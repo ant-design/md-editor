@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { AttachmentFile } from '../MarkdownInputField/FileMapView';
 import { WhiteBoxProcessInterface } from '../ThoughtChainList';
-import { BubbleExtraProps } from './MessagesContent/BubbleExtra';
 import { DocInfoListProps } from './MessagesContent/DocInfo';
 import type { UseSpeechAdapter } from './MessagesContent/VoiceButton';
+import { BubbleExtraProps } from './types/BubbleExtra';
 
 /**
  * 基础样式属性

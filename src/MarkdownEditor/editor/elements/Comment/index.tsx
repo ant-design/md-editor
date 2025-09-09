@@ -5,7 +5,6 @@ import {
   CommentDataType,
   MarkdownEditorProps,
 } from '../../../BaseMarkdownEditor';
-import { EditorStoreContext } from '../../store';
 
 export const CommentView = (props: {
   children: React.ReactNode;
@@ -13,8 +12,9 @@ export const CommentView = (props: {
   commentItem: CommentDataType[];
   id: string;
   hashId: string;
+  setShowComment?: (comments: CommentDataType[]) => void;
 }) => {
-  const { setShowComment } = useContext(EditorStoreContext) || {};
+  const { setShowComment } = props;
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
   const thisComment = useMemo(() => {

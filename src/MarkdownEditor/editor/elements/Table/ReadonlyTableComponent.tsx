@@ -12,7 +12,7 @@ import React, {
 import { TableNode } from '.';
 import { I18nContext } from '../../../../i18n';
 import { parserSlateNodeToMarkdown } from '../../../index';
-import { ActionIconBox } from '../../components';
+import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 
 interface ReadonlyTableComponentProps {

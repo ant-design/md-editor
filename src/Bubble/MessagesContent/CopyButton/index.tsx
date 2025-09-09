@@ -2,7 +2,10 @@ import { memo, useContext } from 'react';
 
 import React from 'react';
 import { useCopied } from '../../../hooks/useCopied';
-import { ActionIconBox, ActionIconBoxProps } from '../../../index';
+import {
+  ActionIconBox,
+  ActionIconBoxProps,
+} from '../../../MarkdownEditor/editor/components/ActionIconBox';
 import { BubbleConfigContext } from '../../BubbleConfigProvide';
 
 /**
