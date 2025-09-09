@@ -1,6 +1,6 @@
 import { DownloadOutlined } from '@ant-design/icons';
 import React from 'react';
-import './ChartToolBar.less';
+import { useStyle } from './ChartToolBar.style';
 import TimeIcon from './icons/TimeIcon';
 
 export interface ChartToolBarProps {
@@ -20,14 +20,17 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   onDownload,
   extra,
 }) => {
+  const prefixCls = 'chart-header';
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
   const handleDownload = () => {
     if (onDownload) {
       onDownload();
     }
   };
 
-  return (
-    <div className={`chart-header ${theme} ${className}`}>
+  return wrapSSR(
+    <div className={`${prefixCls} ${hashId} ${theme} ${className}`}>
       {/* 左侧标题 */}
       <div className="header-title">{title}</div>
 
@@ -38,7 +41,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
         {extra}
         <DownloadOutlined className="download-btn" onClick={handleDownload} />
       </div>
-    </div>
+    </div>,
   );
 };
 

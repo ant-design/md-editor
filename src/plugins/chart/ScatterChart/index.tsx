@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
-import './style.less';
+import { useStyle } from './style';
 
 // 注册 Chart.js 组件
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -68,6 +68,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   toolbarExtra,
   dataTime,
 }) => {
+  const prefixCls = 'scatter-chart-container';
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -310,9 +313,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     downloadChart(chartRef.current, 'scatter-chart');
   };
 
-  return (
+  return wrapSSR(
     <div
-      className={`scatter-chart-container ${className || ''}`}
+      className={`${prefixCls} ${hashId} ${className || ''}`}
       style={{
         width: responsiveWidth,
         backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
@@ -342,7 +345,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Scatter ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>
+    </div>,
   );
 };
 

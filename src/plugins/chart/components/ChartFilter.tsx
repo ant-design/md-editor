@@ -1,7 +1,7 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Segmented } from 'antd';
 import React from 'react';
-import './ChartFilter.less';
+import { useStyle } from './ChartFilter.style';
 
 export interface FilterOption {
   label: string;
@@ -34,6 +34,9 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   className = '',
   theme = 'light',
 }) => {
+  const prefixCls = 'filter-container';
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
   const handleRegionChange = (region: string) => {
     if (onSelectionChange) {
       onSelectionChange(region);
@@ -47,8 +50,8 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
     return null;
   }
 
-  return (
-    <div className={`filter-container ${theme} ${className}`}>
+  return wrapSSR(
+    <div className={`${prefixCls} ${hashId} ${theme} ${className}`}>
       {/* 地区筛选器 */}
       {customOptions && customOptions.length > 0 && (
         <div className="region-filter">
@@ -86,7 +89,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
           onChange={(value) => onFilterChange(value as string)}
         />
       )}
-    </div>
+    </div>,
   );
 };
 

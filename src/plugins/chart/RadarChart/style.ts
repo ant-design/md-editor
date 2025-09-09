@@ -7,7 +7,7 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      // 柱状图容器样式
+      // 雷达图容器样式
       '.chart-wrapper': {
         width: '100%',
         height: 'calc(100% - 120px)',
@@ -19,27 +19,24 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       // 确保图表不会超出容器边界
-      'canvas': {
+      canvas: {
         maxWidth: '100% !important',
         maxHeight: '100% !important',
       },
 
       // 移动端响应式样式
       '@media (max-width: 768px)': {
-        // 移动端优化
         '.chart-wrapper': {
-          height: 'calc(100% - 100px)', // 移动端减少更多空间
-          minHeight: 250, // 移动端最小高度
+          height: 'calc(100% - 100px)',
+          minHeight: 250,
         },
 
-        // 移动端图表标题样式优化
         '.chart-title': {
           fontSize: 14,
           marginBottom: 8,
           textAlign: 'center',
         },
 
-        // 移动端筛选器样式优化
         '.chart-filter': {
           flexWrap: 'wrap',
           gap: 8,
@@ -50,6 +47,20 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             padding: '6px 12px',
           },
         },
+
+        '.chart-legend': {
+          flexDirection: 'column',
+          alignItems: 'center',
+
+          '.legend-item': {
+            margin: '2px 8px',
+            fontSize: 10,
+          },
+        },
+
+        '.radar-axis-labels': {
+          fontSize: 10,
+        },
       },
 
       // 超小屏幕优化 (375px以下)
@@ -59,18 +70,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '.chart-wrapper': {
           minHeight: 220,
         },
+
+        '.radar-point-labels': {
+          fontSize: 9,
+        },
       },
     },
   };
 };
 
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('BarChart', (token) => {
-    const barToken = {
+  return useEditorStyleRegister('RadarChart', (token) => {
+    const radarToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(barToken)];
+    return [genStyle(radarToken)];
   });
 }

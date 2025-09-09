@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
-import './style.less';
+import { useStyle } from './style';
 
 // 注册 Chart.js 组件
 ChartJS.register(
@@ -77,6 +77,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
   toolbarExtra,
   dataTime,
 }) => {
+  const prefixCls = 'radar-chart-container';
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+  
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -298,9 +301,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
     downloadChart(chartRef.current, 'radar-chart');
   };
 
-  return (
+  return wrapSSR(
     <div
-      className={`radar-chart-container ${className || ''}`}
+      className={`${prefixCls} ${hashId} ${className || ''}`}
       style={{
         width: responsiveWidth,
         backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
@@ -334,7 +337,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
       <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Radar ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>
+    </div>,
   );
 };
 
