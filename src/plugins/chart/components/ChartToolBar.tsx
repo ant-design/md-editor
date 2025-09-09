@@ -1,5 +1,7 @@
 import { DownloadOutlined } from '@ant-design/icons';
-import React from 'react';
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import { default as React, useContext } from 'react';
 import { useStyle } from './ChartToolBar.style';
 import TimeIcon from './icons/TimeIcon';
 
@@ -20,7 +22,8 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   onDownload,
   extra,
 }) => {
-  const prefixCls = 'chart-header';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('chart-toolbar');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const handleDownload = () => {
@@ -30,16 +33,30 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   };
 
   return wrapSSR(
-    <div className={`${prefixCls} ${hashId} ${theme} ${className}`}>
+    <div
+      className={classNames(
+        prefixCls,
+        `${prefixCls}-${theme}`,
+        hashId,
+        className,
+      )}
+    >
       {/* 左侧标题 */}
-      <div className="header-title">{title}</div>
+      <div className={classNames(`${prefixCls}-header-title`, hashId)}>
+        {title}
+      </div>
 
       {/* 右侧时间+下载按钮 */}
-      <div className="header-actions">
-        <TimeIcon className="time-icon" />
-        <span className="data-time">数据时间: {dataTime}</span>
+      <div className={classNames(`${prefixCls}-header-actions`, hashId)}>
+        <TimeIcon className={classNames(`${prefixCls}-time-icon`, hashId)} />
+        <span className={classNames(`${prefixCls}-data-time`, hashId)}>
+          数据时间: {dataTime}
+        </span>
         {extra}
-        <DownloadOutlined className="download-btn" onClick={handleDownload} />
+        <DownloadOutlined
+          className={classNames(`${prefixCls}-download-btn`, hashId)}
+          onClick={handleDownload}
+        />
       </div>
     </div>,
   );

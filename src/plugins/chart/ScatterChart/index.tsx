@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   ChartData,
   Chart as ChartJS,
@@ -8,7 +9,8 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import { useStyle } from './style';
@@ -68,7 +70,8 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   toolbarExtra,
   dataTime,
 }) => {
-  const prefixCls = 'scatter-chart-container';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('scatter-chart');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 响应式尺寸计算
@@ -137,7 +140,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     const coordinates = typeData.map((item) => {
       const nx = typeof item.x === 'number' ? item.x : Number(item.x);
       const ny = typeof item.y === 'number' ? item.y : Number(item.y);
-      return { x: Number.isFinite(nx) ? nx : 0, y: Number.isFinite(ny) ? ny : 0 };
+      return {
+        x: Number.isFinite(nx) ? nx : 0,
+        y: Number.isFinite(ny) ? ny : 0,
+      };
     });
 
     return {
@@ -315,7 +321,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
 
   return wrapSSR(
     <div
-      className={`${prefixCls} ${hashId} ${className || ''}`}
+      className={classNames(`${prefixCls}-container`, hashId, className)}
       style={{
         width: responsiveWidth,
         backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
@@ -328,7 +334,12 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} onDownload={handleDownload} extra={toolbarExtra} dataTime={dataTime} />
+      <ChartToolBar
+        title={title}
+        onDownload={handleDownload}
+        extra={toolbarExtra}
+        dataTime={dataTime}
+      />
 
       <ChartFilter
         filterOptions={filterEnum}
@@ -342,7 +353,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         theme={currentConfig.theme}
       />
 
-      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
+      <div
+        className={classNames(`${prefixCls}-chart-wrapper`, hashId)}
+        style={{ height: responsiveHeight }}
+      >
         <Scatter ref={chartRef} data={processedData} options={options} />
       </div>
     </div>,

@@ -43,7 +43,7 @@ export const ActionsBox = () => {}; // 可能重名
 - 模块根目录使用 PascalCase
 - 功能目录使用小写复数
 
-```
+```bash
 src/
 ├── History/                    # 模块根目录
 │   ├── components/             # 组件目录
@@ -65,7 +65,7 @@ src/
 
 ### 标准结构
 
-```
+```bash
 ComponentName/
 ├── components/          # 子组件
 ├── hooks/              # 自定义Hook
@@ -131,6 +131,185 @@ export function useStyle(prefixCls?: string) {
   });
 }
 ```
+
+### 使用项目自定义样式系统
+
+项目使用自定义的样式系统，基于 `useEditorStyleRegister` 和 Token 设计理念。
+
+#### 样式文件结构
+
+```tsx | pure
+import {
+  ChatTokenType,
+  GenerateStyle,
+  resetComponent,
+  useEditorStyleRegister,
+} from '../hooks/useStyle';
+
+const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+  return {
+    [token.componentCls]: {
+      // 根容器样式
+      display: 'flex',
+      flexDirection: 'column',
+      padding: token.paddingSM,
+
+      // 子元素样式
+      [`${token.componentCls}-header`]: {
+        fontSize: '15px',
+        fontWeight: 600,
+        color: '#343a45',
+        marginBottom: token.marginSM,
+      },
+
+      [`${token.componentCls}-content`]: {
+        padding: token.paddingXS,
+        borderRadius: token.borderRadius,
+      },
+
+      // 主题变体样式
+      '&-dark': {
+        [`${token.componentCls}-header`]: {
+          color: '#fff',
+        },
+        [`${token.componentCls}-content`]: {
+          backgroundColor: '#1a1a1a',
+        },
+      },
+
+      // 状态样式
+      '&-loading': {
+        opacity: 0.6,
+        pointerEvents: 'none',
+      },
+
+      // 响应式样式
+      '@media (max-width: 768px)': {
+        [`${token.componentCls}-header`]: {
+          fontSize: '14px',
+        },
+      },
+    },
+  };
+};
+
+export function useStyle(prefixCls?: string) {
+  return useEditorStyleRegister('ComponentName', (token) => {
+    const componentToken = {
+      ...token,
+      componentCls: `.${prefixCls}`,
+    };
+    return [resetComponent(componentToken), genStyle(componentToken)];
+  });
+}
+```
+
+#### 组件中使用样式
+
+```tsx | pure
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext } from 'react';
+import { useStyle } from './style';
+
+interface ComponentProps {
+  className?: string;
+  theme?: 'light' | 'dark';
+  loading?: boolean;
+  children?: React.ReactNode;
+}
+
+const Component: React.FC<ComponentProps> = ({
+  className,
+  theme = 'light',
+  loading = false,
+  children,
+}) => {
+  // 使用 ConfigProvider 获取统一的 prefixCls
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('component-name');
+
+  // 注册样式并获取 wrapSSR 和 hashId
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
+  return wrapSSR(
+    <div
+      className={classNames(
+        prefixCls,
+        `${prefixCls}-${theme}`,
+        {
+          [`${prefixCls}-loading`]: loading,
+        },
+        hashId,
+        className,
+      )}
+    >
+      <div className={classNames(`${prefixCls}-header`, hashId)}>组件标题</div>
+      <div className={classNames(`${prefixCls}-content`, hashId)}>
+        {children}
+      </div>
+    </div>,
+  );
+};
+```
+
+#### 样式系统核心概念
+
+##### Token 系统
+
+- `token.paddingSM`、`token.marginSM` 等设计变量
+- `token.borderRadius`、`token.colorBgTextHover` 等主题变量
+- `token.componentCls` 组件类名前缀
+
+##### 选择器命名规范
+
+- 根选择器：`[token.componentCls]`
+- 子元素：`[${token.componentCls}-element]`
+- 状态修饰符：`&-state`（如 `&-dark`、`&-loading`）
+- 伪类：`&:hover`、`&:focus` 等
+
+##### 样式组织
+
+- 根容器样式在最外层
+- 子元素样式使用模板字符串
+- 主题变体使用 `&-theme` 格式
+- 响应式样式使用标准媒体查询
+
+##### 类名管理
+
+- 使用 `classNames` 工具函数组合类名
+- `prefixCls` 作为基础前缀
+- `hashId` 确保样式隔离
+- 条件类名使用对象语法
+
+```tsx | pure
+const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+const prefixCls = getPrefixCls('component-name');
+const { wrapSSR, hashId } = useStyle(prefixCls);
+
+return wrapSSR(
+  <div
+    className={classNames(
+      prefixCls,
+      `${prefixCls}-${theme}`,
+      hashId,
+      className,
+    )}
+  >
+    <div className={classNames(`${prefixCls}-header`, hashId)}>标题内容</div>
+  </div>,
+);
+```
+
+#### 3. 样式开发检查列表
+
+- [ ] 正确定义 `GenerateStyle` 函数
+- [ ] 使用 `ConfigProvider.ConfigContext` 获取 `prefixCls`
+- [ ] 使用 `classNames` 工具函数管理类名
+- [ ] 添加 `wrapSSR` 包装组件
+- [ ] 验证主题切换功能正常
+- [ ] 验证响应式样式工作正常
+- [ ] 检查编译错误并修复
 
 ## API设计
 
@@ -312,7 +491,7 @@ const handleAsync = async () => {
 
 ### Demo 文件组织
 
-```
+```bash
 docs/demos/
 ├── component-name/
 │   ├── basic.tsx              # 基础用法
@@ -352,6 +531,21 @@ docs/demos/
 - [ ] 使用 `useEditorStyleRegister` 注册样式
 - [ ] 样式变量使用 token 系统
 - [ ] 支持主题切换和响应式设计
+
+#### ✅ .less 到 style.ts 迁移检查
+
+- [ ] 创建对应的 `style.ts` 文件
+- [ ] 将 Less 样式转换为 CSS-in-JS 格式
+- [ ] 更新组件中的样式引用（移除 `.less` 引用）
+- [ ] 使用 `ConfigProvider.ConfigContext` 获取 `prefixCls`
+- [ ] 使用 `classNames` 工具函数管理类名
+- [ ] 添加 `wrapSSR` 包装组件
+- [ ] 确保主题切换功能正常（`&-dark` 格式）
+- [ ] 验证响应式样式工作正常
+- [ ] 删除原有的 `.less` 文件
+- [ ] 检查编译错误并修复
+- [ ] 样式选择器使用正确格式（`${token.componentCls}-element`）
+- [ ] 媒体查询放在根级别而不是嵌套在选择器内
 
 ### ✅ API设计检查
 

@@ -1,21 +1,22 @@
 import {
   ChatTokenType,
   GenerateStyle,
+  resetComponent,
   useEditorStyleRegister,
 } from '../../../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
-    [token.componentCls]: {
+    [`${token.componentCls}-container`]: {
       // 雷达图容器样式
-      '.chart-wrapper': {
+      [`${token.componentCls}-chart-wrapper`]: {
         width: '100%',
-        height: 'calc(100% - 120px)',
-        minHeight: 300,
+        height: 'calc(100% - 120px)', // 减去头部和筛选器的高度
+        minHeight: '300px', // 最小高度
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden',
+        overflow: 'hidden', // 防止内容溢出
       },
 
       // 确保图表不会超出容器边界
@@ -26,66 +27,78 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 移动端响应式样式
       '@media (max-width: 768px)': {
-        '.chart-wrapper': {
-          height: 'calc(100% - 100px)',
-          minHeight: 250,
+        // 移动端优化
+        [`${token.componentCls}-chart-wrapper`]: {
+          height: 'calc(100% - 100px)', // 移动端减少更多空间
+          minHeight: '250px', // 移动端最小高度
         },
 
-        '.chart-title': {
-          fontSize: 14,
-          marginBottom: 8,
+        // 移动端图表标题样式优化
+        [`${token.componentCls}-chart-title`]: {
+          fontSize: '14px',
+          marginBottom: '8px',
           textAlign: 'center',
         },
 
-        '.chart-filter': {
+        // 移动端筛选器样式优化
+        [`${token.componentCls}-chart-filter`]: {
           flexWrap: 'wrap',
-          gap: 8,
-          marginBottom: 12,
+          gap: '8px',
+          marginBottom: '12px',
 
-          '.filter-button': {
-            fontSize: 12,
+          [`${token.componentCls}-filter-button`]: {
+            fontSize: '12px',
             padding: '6px 12px',
           },
         },
 
-        '.chart-legend': {
+        // 雷达图特定的移动端优化
+        [`${token.componentCls}-chart-legend`]: {
+          // 移动端图例样式
           flexDirection: 'column',
           alignItems: 'center',
 
-          '.legend-item': {
+          [`${token.componentCls}-legend-item`]: {
             margin: '2px 8px',
-            fontSize: 10,
+            fontSize: '10px',
           },
         },
 
-        '.radar-axis-labels': {
-          fontSize: 10,
+        // 优化雷达图的坐标轴标签
+        [`${token.componentCls}-radar-axis-labels`]: {
+          fontSize: '10px',
         },
       },
 
       // 超小屏幕优化 (375px以下)
       '@media (max-width: 375px)': {
-        padding: 8,
+        padding: '8px',
 
-        '.chart-wrapper': {
-          minHeight: 220,
+        [`${token.componentCls}-chart-wrapper`]: {
+          minHeight: '220px',
         },
 
-        '.radar-point-labels': {
-          fontSize: 9,
+        // 雷达图在小屏幕上的特殊优化
+        [`${token.componentCls}-radar-point-labels`]: {
+          fontSize: '9px',
         },
       },
     },
   };
 };
 
+/**
+ * RadarChart Style
+ * @param prefixCls
+ * @returns
+ */
 export function useStyle(prefixCls?: string) {
   return useEditorStyleRegister('RadarChart', (token) => {
-    const radarToken = {
+    const radarChartToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(radarToken)];
+    return [resetComponent(radarChartToken), genStyle(radarChartToken)];
   });
 }
