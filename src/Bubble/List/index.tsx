@@ -59,6 +59,31 @@ export type BubbleListProps = {
 
   styles?: {
     /**
+     * 气泡根容器的自定义样式
+     */
+    bubbleStyle?: React.CSSProperties;
+
+    /**
+     * 头像标题区域的自定义样式
+     */
+    bubbleAvatarTitleStyle?: React.CSSProperties;
+
+    /**
+     * 主容器的自定义样式
+     */
+    bubbleContainerStyle?: React.CSSProperties;
+
+    /**
+     * 加载图标的自定义样式
+     */
+    bubbleLoadingIconStyle?: React.CSSProperties;
+
+    /**
+     * 名称区域的自定义样式
+     */
+    bubbleNameStyle?: React.CSSProperties;
+
+    /**
      * 聊天项的样式
      */
     bubbleListItemStyle?: React.CSSProperties;
@@ -67,6 +92,16 @@ export type BubbleListProps = {
      * 聊天项内容的样式
      */
     bubbleListItemContentStyle?: React.CSSProperties;
+
+    /**
+     * 内容前置区域的自定义样式
+     */
+    bubbleListItemBeforeStyle?: React.CSSProperties;
+
+    /**
+     * 内容后置区域的自定义样式
+     */
+    bubbleListItemAfterStyle?: React.CSSProperties;
 
     /**
      * 聊天项左侧内容的样式
@@ -95,6 +130,31 @@ export type BubbleListProps = {
   };
   classNames?: {
     /**
+     * 气泡根容器的自定义类名
+     */
+    bubbleClassName?: string;
+
+    /**
+     * 头像标题区域的自定义类名
+     */
+    bubbleAvatarTitleClassName?: string;
+
+    /**
+     * 主容器的自定义类名
+     */
+    bubbleContainerClassName?: string;
+
+    /**
+     * 加载图标的自定义类名
+     */
+    bubbleLoadingIconClassName?: string;
+
+    /**
+     * 名称区域的自定义类名
+     */
+    bubbleNameClassName?: string;
+
+    /**
      * 聊天项的类名
      */
     bubbleListItemClassName?: string;
@@ -103,6 +163,16 @@ export type BubbleListProps = {
      * 聊天项内容的类名
      */
     bubbleListItemContentClassName?: string;
+
+    /**
+     * 内容前置区域的自定义类名
+     */
+    bubbleListItemBeforeClassName?: string;
+
+    /**
+     * 内容后置区域的自定义类名
+     */
+    bubbleListItemAfterClassName?: string;
 
     /**
      * 聊天项标题的类名

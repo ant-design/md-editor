@@ -206,7 +206,7 @@ export const BubbleMessageDisplay: React.FC<
             lineHeight: '24px',
           }}
           className="agent-item-default-content"
-          data-testid="message-content"
+          data-testid="message-box-content"
           onDoubleClick={props.onDoubleClick}
         >
           <MarkdownPreview

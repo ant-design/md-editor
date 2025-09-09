@@ -116,7 +116,7 @@ export const Bubble: React.FC<
 
   const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
 
-  const prefixClass = getPrefixCls('agent-list-bubble');
+  const prefixClass = getPrefixCls('agent-list');
 
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
@@ -245,15 +245,19 @@ export const Bubble: React.FC<
     >
       <Flex
         className={cx(
-          prefixClass,
+          `${prefixClass}-bubble`,
           hashId,
-          `${prefixClass}-${placement}`,
+          `${prefixClass}-bubble-${placement}`,
           className,
+          classNames?.bubbleClassName,
           {
             [`${prefixClass}-compact`]: compact,
           },
         )}
-        style={style}
+        style={{
+          ...style,
+          ...styles?.bubbleStyle,
+        }}
         vertical
         id={props.id}
         data-id={props.id}
@@ -264,12 +268,26 @@ export const Bubble: React.FC<
             className={cx(
               `${prefixClass}-bubble-avatar-title`,
               `${prefixClass}-bubble-avatar-title-${placement}`,
+              classNames?.bubbleAvatarTitleClassName,
               hashId,
             )}
+            style={styles?.bubbleAvatarTitleStyle}
           >
             {avatarDom}
-            {typing && <LoadingIcon style={{ fontSize: 16 }} />}
-            <span>{avatar?.name ?? 'Agentar'}</span>
+            {typing && (
+              <div
+                className={classNames?.bubbleLoadingIconClassName}
+                style={styles?.bubbleLoadingIconStyle}
+              >
+                <LoadingIcon style={{ fontSize: 16 }} />
+              </div>
+            )}
+            <span
+              className={classNames?.bubbleNameClassName}
+              style={styles?.bubbleNameStyle}
+            >
+              {avatar?.name ?? 'Agentar'}
+            </span>
             {titleDom}
           </div>
         )}
@@ -278,10 +296,12 @@ export const Bubble: React.FC<
             display: 'flex',
             gap: 4,
             flexDirection: 'column',
+            ...styles?.bubbleContainerStyle,
           }}
           className={cx(
             `${prefixClass}-bubble-container`,
             `${prefixClass}-bubble-container-${placement}`,
+            classNames?.bubbleContainerClassName,
             {
               [`${prefixClass}-bubble-container-pure`]: props.pure,
             },
@@ -291,10 +311,14 @@ export const Bubble: React.FC<
         >
           {contentBeforeDom ? (
             <div
-              style={styles?.bubbleListItemExtraStyle}
+              style={{
+                ...styles?.bubbleListItemExtraStyle,
+                ...styles?.bubbleListItemBeforeStyle,
+              }}
               className={cx(
                 `${prefixClass}-bubble-before`,
                 `${prefixClass}-bubble-before-${placement}`,
+                classNames?.bubbleListItemBeforeClassName || '',
                 hashId,
               )}
               data-testid="message-before"
@@ -309,6 +333,7 @@ export const Bubble: React.FC<
             }}
             className={cx(
               `${prefixClass}-bubble-content`,
+              classNames?.bubbleListItemContentClassName,
               `${prefixClass}-bubble-content-${placement}`,
               {
                 [`${prefixClass}-bubble-content-pure`]: props.pure,
@@ -325,8 +350,10 @@ export const Bubble: React.FC<
               style={{
                 minWidth: standalone ? 'min(296px,100%)' : '0px',
                 ...styles?.bubbleListItemExtraStyle,
+                ...styles?.bubbleListItemAfterStyle,
               }}
               className={cx(
+                classNames?.bubbleListItemAfterClassName,
                 `${prefixClass}-bubble-after`,
                 `${prefixClass}-bubble-after-${placement}`,
                 hashId,

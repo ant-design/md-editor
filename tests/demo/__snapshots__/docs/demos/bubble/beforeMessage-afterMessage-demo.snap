@@ -31,10 +31,10 @@
             style="gap: 12px;"
           >
             <div
-              class="ant-agent-list-bubble-bubble-avatar-title ant-agent-list-bubble-bubble-avatar-title-left"
+              class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
             >
               <span
-                class="ant-avatar ant-avatar-circle ant-agent-list-bubble-bubble-avatar"
+                class="ant-avatar ant-avatar-circle ant-agent-list-bubble-avatar"
                 data-testid="bubble-avatar"
                 style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
               >
@@ -49,18 +49,18 @@
                 Agentar
               </span>
               <div
-                class="ant-agent-list-bubble-bubble-title ant-flex"
+                class="ant-agent-list-bubble-title ant-flex"
                 data-testid="bubble-title"
                 style="flex-direction: row; gap: 8px;"
               />
             </div>
             <div
-              class="ant-agent-list-bubble-bubble-container ant-agent-list-bubble-bubble-container-left"
+              class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
               data-testid="chat-message"
               style="display: flex; gap: 4px; flex-direction: column;"
             >
               <div
-                class="ant-agent-list-bubble-bubble-content ant-agent-list-bubble-bubble-content-left"
+                class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
                 data-testid="message-content"
                 style="min-width: 0px;"
               >

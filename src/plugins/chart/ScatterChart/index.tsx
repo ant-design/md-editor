@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   ChartData,
   Chart as ChartJS,
@@ -8,10 +9,11 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
-import './style.less';
+import { useStyle } from './style';
 
 // 注册 Chart.js 组件
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -64,6 +66,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   className,
   title,
 }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('scatter-chart');
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -302,9 +308,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     downloadChart(chartRef.current, 'scatter-chart');
   };
 
-  return (
+  return wrapSSR(
     <div
-      className={`scatter-chart-container ${className || ''}`}
+      className={classNames(`${prefixCls}-container`, hashId, className)}
       style={{
         width: responsiveWidth,
         height: responsiveHeight,
@@ -332,10 +338,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         theme={currentConfig.theme}
       />
 
-      <div className="chart-wrapper">
+      <div className={classNames(`${prefixCls}-chart-wrapper`, hashId)}>
         <Scatter ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>
+    </div>,
   );
 };
 
