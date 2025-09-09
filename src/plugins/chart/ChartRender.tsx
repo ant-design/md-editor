@@ -1,7 +1,4 @@
-﻿import {
-  DownOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+﻿import { DownOutlined, SettingOutlined } from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
@@ -11,10 +8,11 @@ import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
 import AreaChart from './AreaChart';
 import BarChart from './BarChart';
+import DonutChart from './DonutChart';
 import LineChart from './LineChart';
 import RadarChart from './RadarChart';
 import ScatterChart from './ScatterChart';
-import DonutChart from './DonutChart';
+import { toNumber } from './utils';
 
 /**
  * 图表类型映射配置
@@ -147,11 +145,18 @@ export const ChartRender: React.FC<{
 }> = (props) => {
   const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
-    'pie' | 'bar' | 'line' | 'column' | 'area' | 'radar' | 'scatter' | 'descriptions' | 'table'
-  >(() => props.chartType as any);
+    | 'pie'
+    | 'bar'
+    | 'line'
+    | 'column'
+    | 'area'
+    | 'radar'
+    | 'scatter'
+    | 'descriptions'
+    | 'table'
+  >(() => props.chartType);
   const {
     chartData,
-    node,
     isChartList,
     onColumnLengthChange,
     columnLength,
@@ -165,15 +170,13 @@ export const ChartRender: React.FC<{
   const [config, setConfig] = useState(() => props.config);
   const [renderKey, setRenderKey] = useState(0);
 
-  const toNumber = (val: any, fallback: number) => {
-    if (typeof val === 'number' && !Number.isNaN(val)) return val;
-    const n = Number(val);
-    return Number.isFinite(n) ? n : fallback;
-  };
-
   const getAxisTitles = () => {
-    const xCol = config?.columns?.find?.((c: any) => c?.dataIndex === config?.x);
-    const yCol = config?.columns?.find?.((c: any) => c?.dataIndex === config?.y);
+    const xCol = config?.columns?.find?.(
+      (c: any) => c?.dataIndex === config?.x,
+    );
+    const yCol = config?.columns?.find?.(
+      (c: any) => c?.dataIndex === config?.y,
+    );
     return {
       xTitle: xCol?.title || String(config?.x || ''),
       yTitle: yCol?.title || String(config?.y || ''),
@@ -184,7 +187,7 @@ export const ChartRender: React.FC<{
     const map = new Map<any, number>();
     let idx = 1;
     (chartData || []).forEach((row: any) => {
-      const key = row?.[config?.x as any];
+      const key = row?.[config?.x];
       if (!map.has(key)) map.set(key, idx++);
     });
     return map;
@@ -194,29 +197,29 @@ export const ChartRender: React.FC<{
     const { xTitle, yTitle } = getAxisTitles();
     const xIndexer = buildXIndexer();
 
-    const legendField: string | undefined = colorLegend // 图例维度 → type
-    const groupByField: string | undefined = groupBy // 业务分组维度 → category
-    const filterByField: string | undefined = filterBy // 主筛选维度 → filterLable
+    const legendField: string | undefined = colorLegend; // 图例维度 → type
+    const groupByField: string | undefined = groupBy; // 业务分组维度 → category
+    const filterByField: string | undefined = filterBy; // 主筛选维度 → filterLable
 
     return (chartData || []).map((row: any, i: number) => {
-      const rawX = row?.[config?.x as any];
-      const rawY = row?.[config?.y as any];
+      const rawX = row?.[config?.x];
+      const rawY = row?.[config?.y];
 
       // category: 一个表中的不同数据（主筛选）
       const category =
         groupByField && row?.[groupByField] != null
           ? String(row[groupByField])
           : row?.category != null
-          ? String(row.category)
-          : (title || '默认');
+            ? String(row.category)
+            : title || '默认';
 
       // type: 一个数据里的不同维度（图例）
       const type =
         legendField && row?.[legendField] != null
           ? String(row[legendField])
           : row?.type != null
-          ? String(row.type)
-          : (yTitle || '系列');
+            ? String(row.type)
+            : yTitle || '系列';
 
       // filterLable: 多个不同的表（二级筛选）
       const filterLable =
@@ -231,8 +234,8 @@ export const ChartRender: React.FC<{
           typeof rawX === 'number'
             ? rawX
             : rawX != null
-            ? String(rawX)
-            : String(xIndexer.get(rawX) ?? i + 1),
+              ? String(rawX)
+              : String(xIndexer.get(rawX) ?? i + 1),
         y: typeof rawY === 'number' ? rawY : rawY != null ? String(rawY) : '',
         xtitle: xTitle,
         ytitle: yTitle,
@@ -242,18 +245,18 @@ export const ChartRender: React.FC<{
   }, [JSON.stringify(chartData), JSON.stringify(config), title]);
 
   const convertDonutData = useMemo(() => {
-    const groupByField: string | undefined = groupBy // 业务分组维度 → category
-    const filterByField: string | undefined = filterBy // 主筛选维度 → filterLable
+    const groupByField: string | undefined = groupBy; // 业务分组维度 → category
+    const filterByField: string | undefined = filterBy; // 主筛选维度 → filterLable
 
     return (chartData || []).map((row: any) => {
       const category =
         groupByField && row?.[groupByField] != null
           ? String(row[groupByField])
           : row?.category != null
-          ? String(row.category)
-          : (title || '默认');
-      const label = String(row?.[config?.x as any] ?? '');
-      const value = toNumber(row?.[config?.y as any], 0);
+            ? String(row.category)
+            : title || '默认';
+      const label = String(row?.[config?.x] ?? '');
+      const value = toNumber(row?.[config?.y], 0);
       const filterLable =
         filterByField && row?.[filterByField] != null
           ? String(row[filterByField])
@@ -548,12 +551,12 @@ export const ChartRender: React.FC<{
             groupByField && row?.[groupByField] != null
               ? String(row[groupByField])
               : String(title || '默认'),
-          label: String(row?.[config?.x as any] ?? i + 1),
+          label: String(row?.[config?.x] ?? i + 1),
           type:
             legendField && row?.[legendField] != null
               ? String(row[legendField])
               : '系列',
-          score: row?.[config?.y as any],
+          score: row?.[config?.y],
           ...(row?.filterLable != null ? { filterLable: row.filterLable } : {}),
         };
       });
@@ -582,8 +585,8 @@ export const ChartRender: React.FC<{
             legendField && row?.[legendField] != null
               ? String(row[legendField])
               : '系列',
-          x: row?.[config?.x as any],
-          y: row?.[config?.y as any],
+          x: row?.[config?.x],
+          y: row?.[config?.y],
           ...(filterByField && row?.[filterByField] != null
             ? { filterLable: String(row[filterByField]) }
             : {}),
@@ -660,11 +663,7 @@ export const ChartRender: React.FC<{
         (handle.node.current || document?.body) as HTMLElement
       }
     >
-      <div
-        ref={handle.node}
-      >
-        {chartDom ?? null}
-      </div>
+      <div ref={handle.node}>{chartDom ?? null}</div>
     </ConfigProvider>
   );
 };
