@@ -32,7 +32,7 @@
         style="margin-bottom: 20px;"
       >
         <div
-          class="radar-chart-container "
+          class="ant-radar-chart-container"
           style="width: 700px; height: 500px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
         >
           <div
@@ -55,7 +55,7 @@
             </button>
           </div>
           <div
-            class="chart-wrapper"
+            class="ant-radar-chart-chart-wrapper"
           >
             <div
               data-datasets="[{"label":"当前能力","data":[75,60,80,65,70,55],"borderColor":"#388BFF","backgroundColor":"#388BFF20","borderWidth":2,"pointBackgroundColor":"#388BFF","pointBorderColor":"#fff","pointBorderWidth":2,"pointRadius":4,"pointHoverRadius":6,"fill":true},{"label":"目标能力","data":[90,85,95,80,85,75],"borderColor":"#917EF7","backgroundColor":"#917EF720","borderWidth":2,"pointBackgroundColor":"#917EF7","pointBorderColor":"#fff","pointBorderWidth":2,"pointRadius":4,"pointHoverRadius":6,"fill":true}]"

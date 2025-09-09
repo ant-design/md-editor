@@ -20,7 +20,7 @@
         style="margin-bottom: 20px;"
       >
         <div
-          class="scatter-chart-container scatter-demo"
+          class="ant-scatter-chart-container scatter-demo"
           style="width: 700px; height: 500px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
         >
           <div
@@ -43,7 +43,7 @@
             </button>
           </div>
           <div
-            class="chart-wrapper"
+            class="ant-scatter-chart-chart-wrapper"
           >
             <div
               data-datasets="[{"label":"A组","data":[{"x":1,"y":25},{"x":2,"y":35},{"x":3,"y":42},{"x":4,"y":48},{"x":5,"y":55},{"x":6,"y":62},{"x":7,"y":68},{"x":8,"y":75},{"x":9,"y":82},{"x":10,"y":88},{"x":11,"y":95},{"x":12,"y":100},{"x":1,"y":32},{"x":2,"y":18},{"x":3,"y":65},{"x":4,"y":23},{"x":5,"y":78},{"x":6,"y":41},{"x":7,"y":56},{"x":8,"y":89},{"x":9,"y":34},{"x":10,"y":67},{"x":11,"y":45},{"x":12,"y":72}],"backgroundColor":"#917EF7","borderColor":"#917EF7","pointRadius":6,"pointHoverRadius":8},{"label":"B组","data":[{"x":1,"y":30},{"x":2,"y":38},{"x":3,"y":45},{"x":4,"y":52},{"x":5,"y":60},{"x":6,"y":67},{"x":7,"y":74},{"x":8,"y":81},{"x":9,"y":87},{"x":10,"y":92},{"x":11,"y":98},{"x":12,"y":100},{"x":1,"y":47},{"x":2,"y":83},{"x":3,"y":26},{"x":4,"y":91},{"x":5,"y":39},{"x":6,"y":54},{"x":7,"y":73},{"x":8,"y":19},{"x":9,"y":62},{"x":10,"y":86},{"x":11,"y":31},{"x":12,"y":68}],"backgroundColor":"#2AD8FC","borderColor":"#2AD8FC","pointRadius":6,"pointHoverRadius":8}]"
