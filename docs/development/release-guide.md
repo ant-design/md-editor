@@ -24,7 +24,7 @@ npm publish --tag=alpha
 git push origin main --follow-tags
 
 # 3. 发布 Beta 版本
-npm version prerelease --preid=beta  
+npm version prerelease --preid=beta
 npm publish --tag=beta
 git push origin main --follow-tags
 
