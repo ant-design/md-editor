@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
+import { extractAndSortXValues, findDataPointByXValue, ChartDataItem } from '../utils';
 import { useStyle } from './style';
 
 ChartJS.register(
@@ -25,22 +26,7 @@ ChartJS.register(
   Legend,
 );
 
-export interface AreaChartDataItem {
-  /** 数据类别 */
-  category: string;
-  /** 数据类型 */
-  type: string;
-  /** X轴值 */
-  x: number | string;
-  /** Y轴值 */
-  y: number | string;
-  /** X轴标题 */
-  xtitle?: string;
-  /** Y轴标题 */
-  ytitle?: string;
-  /** 筛选标签 */
-  filterLable?: string;
-}
+export interface AreaChartDataItem extends ChartDataItem {}
 
 export interface AreaChartConfigItem {
   datasets: Array<(string | { x: number; y: number })[]>;
@@ -194,16 +180,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
     return [...new Set(filteredData.map((item) => item.type))];
   }, [filteredData]);
 
-  // 从数据中提取唯一的x值并排序（同时兼容字符串与数字）
+  // 从数据中提取唯一的x值并排序
   const xValues = useMemo(() => {
-    const toNum = (v: any) => (typeof v === 'number' ? v : Number(v));
-    const uniqueX = [...new Set(filteredData.map((item) => item.x))] as Array<number | string>;
-    return uniqueX.sort((a, b) => {
-      const na = toNum(a);
-      const nb = toNum(b);
-      if (Number.isFinite(na) && Number.isFinite(nb)) return na - nb;
-      return String(a).localeCompare(String(b));
-    });
+    return extractAndSortXValues(filteredData);
   }, [filteredData]);
 
   // 从数据中获取xtitle和ytitle
@@ -230,11 +209,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
-        const dataPoint = filteredData.find((item) => {
-          return item.type === type && (typeof item.x === 'number' && typeof x === 'number'
-            ? item.x === x
-            : String(item.x) === String(x));
-        });
+        const dataPoint = findDataPointByXValue(filteredData, type, x);
         const v = dataPoint?.y;
         const n = typeof v === 'number' ? v : Number(v);
         return Number.isFinite(n) ? n : null;
