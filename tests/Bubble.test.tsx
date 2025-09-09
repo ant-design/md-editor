@@ -168,6 +168,65 @@ describe('Bubble', () => {
     expect(titleElement).toBeInTheDocument();
   });
 
+  it('should render with extended classNames configuration', () => {
+    const extendedClassNames = {
+      bubbleClassName: 'custom-bubble',
+      bubbleAvatarTitleClassName: 'custom-avatar-title',
+      bubbleContainerClassName: 'custom-container',
+      bubbleLoadingIconClassName: 'custom-loading-icon',
+      bubbleNameClassName: 'custom-name',
+      bubbleListItemContentClassName: 'custom-content',
+      bubbleListItemBeforeClassName: 'custom-before',
+      bubbleListItemAfterClassName: 'custom-after',
+      bubbleListItemTitleClassName: 'custom-title',
+      bubbleListItemAvatarClassName: 'custom-avatar',
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble
+          {...defaultProps}
+          classNames={extendedClassNames}
+          avatar={{ name: 'Test User', title: 'User' }}
+        />
+      </BubbleConfigProvide>,
+    );
+
+    // 验证主容器的自定义类名是否被正确应用
+    const containerElement = screen.getByTestId('chat-message');
+    expect(containerElement).toHaveClass('custom-container');
+
+    // 验证内容区域的自定义类名是否被正确应用
+    const contentElements = screen.getAllByTestId('message-content');
+    const bubbleContentElement = contentElements.find((el) =>
+      el.classList.contains('custom-content'),
+    );
+    expect(bubbleContentElement).toHaveClass('custom-content');
+
+    // 验证气泡根容器的自定义类名
+    const bubbleContainer = containerElement.closest('[data-id="test-id"]');
+    if (bubbleContainer) {
+      expect(bubbleContainer).toHaveClass('custom-bubble');
+    }
+
+    // 验证头像标题区域的自定义类名
+    const avatarTitleElement = document.querySelector('.custom-avatar-title');
+    expect(avatarTitleElement).toBeInTheDocument();
+
+    // 验证名称区域的自定义类名
+    const nameElement = document.querySelector('.custom-name');
+    expect(nameElement).toBeInTheDocument();
+    expect(nameElement).toHaveTextContent('Test User');
+
+    // 验证标题的自定义类名
+    const titleElement = screen.getByTestId('bubble-title');
+    expect(titleElement).toHaveClass('custom-title');
+
+    // 验证头像的自定义类名
+    const avatarElement = screen.getByTestId('bubble-avatar');
+    expect(avatarElement).toHaveClass('custom-avatar');
+  });
+
   it('should render with custom styles', () => {
     render(
       <BubbleConfigProvide>

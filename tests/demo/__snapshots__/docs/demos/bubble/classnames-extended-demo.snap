@@ -1,0 +1,201 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 24px;"
+    >
+      <h2>
+        扩展 classNames 和 styles 配置示例
+      </h2>
+      <div
+        style="margin-bottom: 16px;"
+      >
+        <h3>
+          功能说明
+        </h3>
+        <p>
+          本示例展示了新增的 classNames 和 styles 配置选项：
+        </p>
+        <ul>
+          <li>
+            <strong>
+              bubbleClassName / bubbleStyle
+            </strong>
+            : 气泡根容器
+          </li>
+          <li>
+            <strong>
+              bubbleAvatarTitleClassName / bubbleAvatarTitleStyle
+            </strong>
+            : 头像标题区域
+          </li>
+          <li>
+            <strong>
+              bubbleContainerClassName / bubbleContainerStyle
+            </strong>
+            : 主容器
+          </li>
+          <li>
+            <strong>
+              bubbleLoadingIconClassName / bubbleLoadingIconStyle
+            </strong>
+            : 加载图标
+          </li>
+          <li>
+            <strong>
+              bubbleNameClassName / bubbleNameStyle
+            </strong>
+            : 名称区域
+          </li>
+          <li>
+            <strong>
+              bubbleListItemContentClassName / bubbleListItemContentStyle
+            </strong>
+            : 内容区域
+          </li>
+          <li>
+            <strong>
+              bubbleListItemBeforeClassName / bubbleListItemBeforeStyle
+            </strong>
+            : 前置区域
+          </li>
+          <li>
+            <strong>
+              bubbleListItemAfterClassName / bubbleListItemAfterStyle
+            </strong>
+            : 后置区域
+          </li>
+          <li>
+            <strong>
+              bubbleListItemTitleClassName / bubbleListItemTitleStyle
+            </strong>
+            : 标题
+          </li>
+          <li>
+            <strong>
+              bubbleListItemAvatarClassName / bubbleListItemAvatarStyle
+            </strong>
+            : 头像
+          </li>
+        </ul>
+      </div>
+      <style>
+        
+        .custom-bubble {
+          transition: all 0.3s ease;
+        }
+        .custom-bubble:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+        }
+        .custom-avatar-title {
+          position: relative;
+        }
+        .custom-avatar-title::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: linear-gradient(to bottom, #1890ff, #722ed1);
+          border-radius: 2px;
+        }
+        .custom-container {
+          position: relative;
+        }
+        .custom-loading-icon {
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+          0% { opacity: 0.6; }
+          50% { opacity: 1; }
+          100% { opacity: 0.6; }
+        }
+        .custom-name {
+          position: relative;
+        }
+        .custom-name::after {
+          content: '✨';
+          margin-left: 4px;
+        }
+        .custom-content {
+          position: relative;
+          overflow: hidden;
+        }
+        .custom-content::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, #1890ff, #722ed1, #ff7a45);
+        }
+        .custom-avatar {
+          transition: transform 0.3s ease;
+        }
+        .custom-avatar:hover {
+          transform: scale(1.1) rotate(5deg);
+        }
+      
+      </style>
+      <div
+        style="height: 500px; border: 1px solid rgb(232, 232, 232); border-radius: 8px; overflow: hidden;"
+      >
+        <div
+          assistantmeta="[object Object]"
+          bubblelist="[object Object],[object Object],[object Object]"
+          bubblerenderconfig="[object Object]"
+          classnames="[object Object]"
+          data-testid="bubble-list"
+          styles="[object Object]"
+        >
+          bubble-list
+        </div>
+      </div>
+      <div
+        style="margin-top: 16px;"
+      >
+        <h3>
+          代码示例
+        </h3>
+        <pre
+          style="background-color: rgb(245, 245, 245); padding: 16px; border-radius: 8px; overflow: auto; font-size: 12px;"
+        >
+          const customClassNames = {
+  bubbleClassName: 'custom-bubble',
+  bubbleAvatarTitleClassName: 'custom-avatar-title',
+  bubbleContainerClassName: 'custom-container',
+  bubbleLoadingIconClassName: 'custom-loading-icon',
+  bubbleNameClassName: 'custom-name',
+  bubbleListItemContentClassName: 'custom-content',
+  // ... 其他配置
+};
+
+const customStyles = {
+  bubbleStyle: {
+    border: '2px solid #1890ff',
+    borderRadius: '12px',
+  },
+  bubbleNameStyle: {
+    fontWeight: 'bold',
+    color: '#1890ff',
+  },
+  // ... 其他配置
+};
+
+&lt;BubbleList
+  bubbleList={messages}
+  classNames={customClassNames}
+  styles={customStyles}
+/&gt;
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

@@ -28,9 +28,44 @@ export interface BubbleStyleProps {
 export interface BubbleItemStyleProps extends BubbleStyleProps {
   styles?: {
     /**
+     * 气泡根容器的自定义样式
+     */
+    bubbleStyle?: React.CSSProperties;
+
+    /**
+     * 头像标题区域的自定义样式
+     */
+    bubbleAvatarTitleStyle?: React.CSSProperties;
+
+    /**
+     * 主容器的自定义样式
+     */
+    bubbleContainerStyle?: React.CSSProperties;
+
+    /**
+     * 加载图标的自定义样式
+     */
+    bubbleLoadingIconStyle?: React.CSSProperties;
+
+    /**
+     * 名称区域的自定义样式
+     */
+    bubbleNameStyle?: React.CSSProperties;
+
+    /**
      * 内容的自定义样式
      */
     bubbleListItemContentStyle?: React.CSSProperties;
+
+    /**
+     * 内容前置区域的自定义样式
+     */
+    bubbleListItemBeforeStyle?: React.CSSProperties;
+
+    /**
+     * 内容后置区域的自定义样式
+     */
+    bubbleListItemAfterStyle?: React.CSSProperties;
 
     /**
      * 标题的自定义样式
@@ -50,11 +85,44 @@ export interface BubbleItemStyleProps extends BubbleStyleProps {
 
   classNames?: {
     /**
+     * 气泡根容器的自定义类名
+     */
+    bubbleClassName?: string;
+
+    /**
+     * 头像标题区域的自定义类名
+     */
+    bubbleAvatarTitleClassName?: string;
+
+    /**
+     * 主容器的自定义类名
+     */
+    bubbleContainerClassName?: string;
+
+    /**
+     * 加载图标的自定义类名
+     */
+    bubbleLoadingIconClassName?: string;
+
+    /**
+     * 名称区域的自定义类名
+     */
+    bubbleNameClassName?: string;
+
+    /**
      * 内容的自定义类名
      */
     bubbleListItemContentClassName?: string;
-    bubbleListItemBeforeClassName: string;
-    bubbleListItemAfterClassName: string;
+
+    /**
+     * 内容前置区域的自定义类名
+     */
+    bubbleListItemBeforeClassName?: string;
+
+    /**
+     * 内容后置区域的自定义类名
+     */
+    bubbleListItemAfterClassName?: string;
 
     /**
      * 标题的自定义类名
