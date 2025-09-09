@@ -196,3 +196,12 @@ export const toNumber = (val: any, fallback: number): number => {
   const n = Number(val);
   return Number.isFinite(n) ? n : fallback;
 };
+
+/**
+ * 检查值是否不为空
+ * @param val - 要检查的值
+ * @returns 是否不为空
+ */
+export const isNotEmpty = (val: any) => {
+  return val !== null && val !== undefined;
+};
