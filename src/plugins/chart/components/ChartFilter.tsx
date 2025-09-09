@@ -1,6 +1,7 @@
 import { DownOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Segmented } from 'antd';
-import React from 'react';
+import { Button, ConfigProvider, Dropdown, Segmented } from 'antd';
+import classNames from 'classnames';
+import { default as React, useContext } from 'react';
 import { useStyle } from './ChartFilter.style';
 
 export interface FilterOption {
@@ -34,7 +35,8 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   className = '',
   theme = 'light',
 }) => {
-  const prefixCls = 'filter-container';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('chart-filter');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const handleRegionChange = (region: string) => {
@@ -51,10 +53,17 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   }
 
   return wrapSSR(
-    <div className={`${prefixCls} ${hashId} ${theme} ${className}`}>
-      {/* 地区筛选器 */}
+    <div
+      className={classNames(
+        prefixCls,
+        `${prefixCls}-${theme}`,
+        hashId,
+        className,
+      )}
+    >
+      {/* 地区筛选器，统一逻辑，只有可选时才显示 */}
       {customOptions && customOptions.length > 1 && (
-        <div className="region-filter">
+        <div className={classNames(`${prefixCls}-region-filter`, hashId)}>
           <Dropdown
             menu={{
               items: customOptions.map((item) => {
@@ -69,12 +78,18 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
             trigger={['click']}
             getPopupContainer={() => document.body}
           >
-            <Button type="default" size="small" className="region-dropdown-btn">
+            <Button
+              type="default"
+              size="small"
+              className={classNames(`${prefixCls}-region-dropdown-btn`, hashId)}
+            >
               <span>
                 {customOptions.find((r) => r.key === selectedCustomSelection)
                   ?.label || '全球'}
               </span>
-              <DownOutlined className="dropdown-icon" />
+              <DownOutlined
+                className={classNames(`${prefixCls}-dropdown-icon`, hashId)}
+              />
             </Button>
           </Dropdown>
         </div>
@@ -85,7 +100,11 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
           options={filterOptions}
           value={selectedFilter}
           size="small"
-          className="segmented-filter custom-segmented"
+          className={classNames(
+            `${prefixCls}-segmented-filter`,
+            'custom-segmented',
+            hashId,
+          )}
           onChange={(value) => onFilterChange(value as string)}
         />
       )}

@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   ChartData,
   Chart as ChartJS,
@@ -9,7 +10,8 @@ import {
   RadialLinearScale,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import { useStyle } from './style';
@@ -77,9 +79,10 @@ const RadarChart: React.FC<RadarChartProps> = ({
   toolbarExtra,
   dataTime,
 }) => {
-  const prefixCls = 'radar-chart-container';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('radar-chart');
   const { wrapSSR, hashId } = useStyle(prefixCls);
-  
+
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -303,7 +306,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
   return wrapSSR(
     <div
-      className={`${prefixCls} ${hashId} ${className || ''}`}
+      className={classNames(`${prefixCls}-container`, hashId, className)}
       style={{
         width: responsiveWidth,
         backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
@@ -334,7 +337,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
         })}
         theme={currentConfig.theme}
       />
-      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
+      <div className={classNames(`${prefixCls}-chart-wrapper`, hashId)}>
         <Radar ref={chartRef} data={processedData} options={options} />
       </div>
     </div>,
