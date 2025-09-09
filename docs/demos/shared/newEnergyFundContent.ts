@@ -12,7 +12,7 @@ export const newEnergyFundContent = `<!-- {"MarkdownType": "report", "id": "new-
 
 **ETF份额逆势增长：** 近半年份额增长3600万份，规模显著扩张。跟踪的中证新能源指数PB估值仅2.08倍，低于近5年85%的时间，估值吸引力突出。
 
-<!-- [{"chartType":"bar","title":"新能源主题基金收益率对比","x":"fund_type","y":"return_rate","filterBy":"market"}] -->
+<!-- [{"chartType":"bar","title":"新能源主题基金收益率对比","x":"fund_type","y":"return_rate","filterBy":"market","dataTime":"2025-10-30 10:00:00"}] -->
 | fund_type | return_rate | market |
 |-----------|-------------|--------|
 | 新能源汽车基金 | 12.54      | 全球   |
@@ -28,7 +28,7 @@ export const newEnergyFundContent = `<!-- {"MarkdownType": "report", "id": "new-
 
 截至2025年6月19日，新能源板块当日收跌-1.28%。行业市盈率高于近10年60%的时间，估值偏高。新能源汽车行业产能过剩问题突出，技术迭代过快可能制约长期发展。
 
-<!-- [{"chartType":"line","title":"新能源指数近一年走势","x":"month","y":"index_value","colorLegend":"series","groupBy":"market"}] -->
+<!-- [{"chartType":"line","title":"新能源指数近一年走势","x":"month","y":"index_value","colorLegend":"series","groupBy":"market","dataTime":"2025-10-30 10:00:00"}] -->
 | month  | index_value | series     | market |
 |--------|-------------|------------|--------|
 | 2024-07 | 2850       | 指数       | 全球   |
@@ -72,7 +72,7 @@ export const newEnergyFundContent = `<!-- {"MarkdownType": "report", "id": "new-
 
 截至2025年6月19日，新能源板块当日收跌-1.28%。行业市盈率高于近10年60%的时间，估值偏高。新能源汽车行业产能过剩问题突出，技术迭代过快可能制约长期发展。
 
-<!-- {"chartType":"radar","title":"团队能力评估","x":"指标","y":"得分","rest":{"groupBy":"维度","colorLegend":"类型","filterBy":"region"}} -->
+<!-- {"chartType":"radar","title":"团队能力评估","x":"指标","y":"得分","rest":{"groupBy":"维度","colorLegend":"类型","filterBy":"region"},"dataTime":"2025-10-30 10:00:00"} -->
 | 指标 | 得分 | 类型     | 维度 | region |
 |------|------|----------|------|--------|
 | 技术 | 75   | 当前能力 | 年龄 | 全球   |
@@ -96,7 +96,7 @@ export const newEnergyFundContent = `<!-- {"MarkdownType": "report", "id": "new-
 
 截至2025年6月19日，新能源板块当日收跌-1.28%。行业市盈率高于近10年60%的时间，估值偏高。新能源汽车行业产能过剩问题突出，技术迭代过快可能制约长期发展。
 
-<!-- {"chartType":"scatter","title":"KPI 指标分布","x":"月份","y":"值","rest":{"groupBy":"分类","colorLegend":"系列","filterBy":"region"}} -->
+<!-- {"chartType":"scatter","title":"KPI 指标分布","x":"月份","y":"值","rest":{"groupBy":"分类","colorLegend":"系列","filterBy":"region"},"dataTime":"2025-10-30 10:00:00"} -->
 | 月份 | 值  | 系列 | 分类 | region |
 |------|-----|------|------|--------|
 | 1    | 25  | A组  | 年龄 | 全球   |
@@ -136,20 +136,20 @@ export const newEnergyFundContent = `<!-- {"MarkdownType": "report", "id": "new-
 
 ### 3.1 核心+卫星配置模型
 
-<!-- [{"chartType":"pie","title":"保守型配置比例","x":"asset_type","y":"percentage"}] -->
+<!-- [{"chartType":"pie","title":"保守型配置比例","x":"asset_type","y":"percentage","dataTime":"2025-10-30 10:00:00"}] -->
 | asset_type | percentage |
 |------------|------------|
 | 指数型ETF  | 80         |
 | 现金管理   | 20         |
 
-<!-- [{"chartType":"pie","title":"平衡型配置比例","x":"asset_type","y":"percentage"}] -->
+<!-- [{"chartType":"pie","title":"平衡型配置比例","x":"asset_type","y":"percentage","dataTime":"2025-10-30 10:00:00"}] -->
 | asset_type | percentage |
 |------------|------------|
 | 指数型ETF  | 60         |
 | 主动管理基金 | 30        |
 | 现金储备   | 10         |
 
-<!-- [{"chartType":"pie","title":"进取型配置比例","x":"asset_type","y":"percentage"}] -->
+<!-- [{"chartType":"pie","title":"进取型配置比例","x":"asset_type","y":"percentage","dataTime":"2025-10-30 10:00:00"}] -->
 | asset_type | percentage |
 |------------|------------|
 | 指数型ETF  | 40         |
@@ -238,7 +238,7 @@ def aggressive_allocation():
 
 **年龄分布数据：**
 
-<!-- [{"chartType":"pie","title":"2025年Q1短视频用户年龄分布","x":"age_group","y":"percentage"}] -->
+<!-- [{"chartType":"pie","title":"2025年Q1短视频用户年龄分布","x":"age_group","y":"percentage","dataTime":"2025-10-30 10:00:00"}] -->
 | age_group | percentage |
 |-----------|------------|
 | 18岁以下  | 12         |
