@@ -82,6 +82,7 @@ const ChartMap = {
  * @param {boolean} [props.isChartList] - 是否为图表列表
  * @param {number} [props.columnLength] - 列长度
  * @param {(value: number) => void} [props.onColumnLengthChange] - 列长度变化回调
+ * @param {string} [props.dataTime] - 数据时间
  *
  * @example
  * ```tsx
@@ -94,6 +95,7 @@ const ChartMap = {
  *     y: "value"
  *   }}
  *   title="销售数据"
+ *   dataTime="2025-06-30 00:00:00"
  * />
  * ```
  *
@@ -135,6 +137,7 @@ export const ChartRender: React.FC<{
   isChartList?: boolean;
   columnLength?: number;
   onColumnLengthChange?: (value: number) => void;
+  dataTime?: string;
 }> = (props) => {
   const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
@@ -147,6 +150,7 @@ export const ChartRender: React.FC<{
     onColumnLengthChange,
     columnLength,
     title,
+    dataTime,
   } = props;
   const i18n = useContext(I18nContext);
   const [config, setConfig] = useState(() => props.config);
@@ -465,6 +469,7 @@ export const ChartRender: React.FC<{
           height={config?.height || 400}
           title={title}
           showToolbar={true}
+          dataTime={dataTime}
         />
       );
     }
@@ -479,6 +484,7 @@ export const ChartRender: React.FC<{
           stacked={config?.rest?.stacked}
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
         />
       );
     }
@@ -492,6 +498,7 @@ export const ChartRender: React.FC<{
           title={title || ''}
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
         />
       );
     }
@@ -506,6 +513,7 @@ export const ChartRender: React.FC<{
           stacked={config?.rest?.stacked}
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
         />
       );
     }
@@ -519,6 +527,7 @@ export const ChartRender: React.FC<{
           title={title || ''}
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
         />
       );
     }
@@ -548,6 +557,7 @@ export const ChartRender: React.FC<{
           data={radarData}
           height={config?.height || 400}
           title={title || ''}
+          dataTime={dataTime}
         />
       );
     }
@@ -580,6 +590,7 @@ export const ChartRender: React.FC<{
           data={scatterData}
           height={config?.height || 400}
           title={title || ''}
+          dataTime={dataTime}
         />
       );
     }

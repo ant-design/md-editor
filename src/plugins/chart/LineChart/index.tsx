@@ -70,6 +70,8 @@ export interface LineChartProps {
   height?: number;
   /** 自定义CSS类名 */
   className?: string;
+  /** 数据时间 */
+  dataTime?: string;
   /** 图表主题 */
   theme?: 'dark' | 'light';
   /** 是否显示图例，默认true */
@@ -107,6 +109,7 @@ const LineChart: React.FC<LineChartProps> = ({
   width = 600,
   height = 400,
   className,
+  dataTime,
   theme = 'light',
   showLegend = true,
   legendPosition = 'bottom',
@@ -394,7 +397,7 @@ const LineChart: React.FC<LineChartProps> = ({
         boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} extra={toolbarExtra} />
+      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} extra={toolbarExtra} dataTime={dataTime} />
 
       <ChartFilter
         filterOptions={filterOptions}

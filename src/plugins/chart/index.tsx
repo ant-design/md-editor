@@ -339,6 +339,7 @@ export const ChartElement = (props: RenderElementProps) => {
                               rest,
                             }}
                             title={key}
+                            dataTime={rest?.dataTime}
                           />
                         );
                         return dom;
@@ -353,6 +354,7 @@ export const ChartElement = (props: RenderElementProps) => {
                         chartType={chartType}
                         chartData={chartData}
                         title={rest?.title}
+                        dataTime={rest?.dataTime}
                         config={{
                           height,
                           x,

@@ -47,6 +47,7 @@ export interface ScatterChartProps {
   height?: number;
   className?: string;
   toolbarExtra?: React.ReactNode;
+  dataTime?: string;
 }
 
 // 默认颜色配置
@@ -65,6 +66,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   className,
   title,
   toolbarExtra,
+  dataTime,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -323,7 +325,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} onDownload={handleDownload} extra={toolbarExtra} />
+      <ChartToolBar title={title} onDownload={handleDownload} extra={toolbarExtra} dataTime={dataTime} />
 
       <ChartFilter
         filterOptions={filterEnum}

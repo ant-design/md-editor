@@ -41,6 +41,8 @@ export interface DonutChartProps {
   title?: string;
   showToolbar?: boolean;
   onDownload?: () => void;
+  /** 数据时间 */
+  dataTime?: string;
   /** 筛选项列表，不传时不显示筛选器 */
   filterList?: string[];
   /** 当前选中的筛选值 */
@@ -98,6 +100,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   title,
   showToolbar = true,
   onDownload,
+  dataTime,
   filterList,
   selectedFilter,
   onFilterChange,
@@ -328,7 +331,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
     <>
       {showToolbar && (
         <div className={`${baseClassName}-toolbar-wrapper ${hashId}`}>
-          {title && <ChartToolBar title={title} onDownload={handleDownload} extra={toolbarExtra} />}
+          {title && <ChartToolBar title={title} onDownload={handleDownload} extra={toolbarExtra} dataTime={dataTime} />}
           {shouldShowFilter && (
             <ChartFilter
               filterOptions={finalFilterList.map((item) => {
