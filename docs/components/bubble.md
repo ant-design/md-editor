@@ -803,7 +803,7 @@ const groupedMessages = useMemo(() => {
 
 ## 🔗 相关资源
 
-- [MarkdownEditor 组件](/components/markdown-editor) - 配套的 Markdown 编辑器
+- [MarkdownEditor 组件](/components/api) - 配套的 Markdown 编辑器
 - [ThoughtChainList 组件](/components/thought-chain-list) - 思维链展示组件
 - [TaskList 组件](/components/task-list) - 任务列表组件
 - [设计规范文档](/guide/design) - 组件设计原则和规范
