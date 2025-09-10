@@ -139,7 +139,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
     if (
       !filterLables ||
-      !selectedFilterLable 
+      !selectedFilterLable
     ) {
       return categoryMatch;
     }
@@ -189,7 +189,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   }));
 
   // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
-  const filteredDataByFilterLable = filterLables?.slice(1).map((item) => ({
+  const filteredDataByFilterLable = filterLables?.map((item) => ({
     key: item,
     label: item,
   }));
