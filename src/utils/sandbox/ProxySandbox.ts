@@ -1,16 +1,16 @@
 /**
  * 基于 Proxy 的沙箱实现
- * 
+ *
  * 这个模块提供了一个安全的代码执行环境，通过 Proxy 劫持全局对象的访问，
  * 防止恶意代码对宿主环境造成破坏，同时提供受控的 API 访问。
- * 
+ *
  * 主要特性：
  * - 全局对象隔离
  * - API 访问控制
  * - 内存管理
  * - 错误捕获和处理
  * - 执行超时控制
- * 
+ *
  * @author md-editor
  * @version 1.0.0
  */
@@ -58,27 +58,139 @@ export interface SandboxResult {
 /**
  * 默认的危险全局对象列表
  */
+// 危险的全局变量（完全禁止访问）
 const DANGEROUS_GLOBALS = [
-  'eval', 'Function', 'constructor', 'prototype', '__proto__',
-  'document', 'window', 'global', 'globalThis', 'self',
-  'XMLHttpRequest', 'fetch', 'WebSocket', 'Worker',
-  'SharedArrayBuffer', 'Atomics', 'WebAssembly',
-  'require', 'process', 'Buffer', 'module', 'exports',
-  'importScripts', 'postMessage', 'close', 'blur', 'focus',
-  'alert', 'confirm', 'prompt', 'open', 'print',
-  'localStorage', 'sessionStorage', 'indexedDB',
-  'location', 'history', 'navigator', 'screen'
+  'eval',
+  'Function',
+  'constructor',
+  '__proto__',
+  'prototype',
+  'global',
+  'globalThis',
+  'self',
+  'parent',
+  'top',
+  'frames',
+  'location',
+  'history',
+  'navigator',
+  'screen',
+  'localStorage',
+  'sessionStorage',
+  'indexedDB',
+  'WebSocket',
+  'XMLHttpRequest',
+  'fetch',
+  'Request',
+  'Response',
+  'Headers',
+  'URL',
+  'URLSearchParams',
+  'Blob',
+  'File',
+  'FileReader',
+  'FormData',
+  'Worker',
+  'SharedWorker',
+  'ServiceWorker',
+  'MessageChannel',
+  'MessagePort',
+  'BroadcastChannel',
+  'WebRTC',
+  'MediaStream',
+  'process',
+  'require',
+  'module',
+  'exports',
+  'Buffer',
+  'global',
+  'setImmediate',
+  'clearImmediate',
+  'setInterval',
+  'clearInterval',
+  'setTimeout',
+  'clearTimeout',
+  'queueMicrotask',
+  'requestAnimationFrame',
+  'cancelAnimationFrame',
+  'requestIdleCallback',
+  'cancelIdleCallback',
+  'crypto',
+  'SubtleCrypto',
+  'performance',
+  'PerformanceObserver',
+  'IntersectionObserver',
+  'MutationObserver',
+  'ResizeObserver',
+  'AbortController',
+  'AbortSignal',
+  'EventSource',
+  'CloseEvent',
+  'CustomEvent',
+  'ErrorEvent',
+  'Event',
+  'EventTarget',
+  'MessageEvent',
+  'ProgressEvent',
+  'PromiseRejectionEvent',
+  'alert',
+  'confirm',
+  'prompt',
+  'open',
+  'close',
+  'print',
+  'focus',
+  'blur',
+  'getSelection',
+  'getComputedStyle',
+  'matchMedia',
+  'moveBy',
+  'moveTo',
+  'resizeBy',
+  'resizeTo',
+  'scroll',
+  'scrollBy',
+  'scrollTo',
+  'stop',
+  'Notification',
+  'webkitNotifications',
+  'external',
+  'chrome',
+  'safari',
+  'opera',
+  'moz',
 ];
 
 /**
  * 安全的全局对象列表
  */
 const SAFE_GLOBALS = [
-  'console', 'setTimeout', 'setInterval', 'clearTimeout', 'clearInterval',
-  'Math', 'Date', 'JSON', 'parseInt', 'parseFloat', 'isNaN', 'isFinite',
-  'encodeURIComponent', 'decodeURIComponent', 'encodeURI', 'decodeURI',
-  'String', 'Number', 'Boolean', 'Array', 'Object', 'RegExp',
-  'Error', 'TypeError', 'ReferenceError', 'SyntaxError'
+  'console',
+  'setTimeout',
+  'setInterval',
+  'clearTimeout',
+  'clearInterval',
+  'Math',
+  'Date',
+  'JSON',
+  'parseInt',
+  'parseFloat',
+  'isNaN',
+  'isFinite',
+  'encodeURIComponent',
+  'decodeURIComponent',
+  'encodeURI',
+  'decodeURI',
+  'String',
+  'Number',
+  'Boolean',
+  'Array',
+  'Object',
+  'RegExp',
+  'Error',
+  'TypeError',
+  'ReferenceError',
+  'SyntaxError',
 ];
 
 /**
@@ -110,44 +222,367 @@ export class ProxySandbox {
   }
 
   /**
-   * 创建沙箱全局对象
+   * 创建安全的 document 代理对象
+   * 允许访问 document 但限制敏感操作
+   */
+  private createSafeDocument(): any {
+    // 创建基础的安全 document 对象
+    const safeDocument: any = {};
+
+    // 安全的只读属性
+    safeDocument.title = 'Sandbox Document';
+    safeDocument.readyState = 'complete';
+    safeDocument.documentURI = 'about:blank';
+    safeDocument.URL = 'about:blank';
+    safeDocument.domain = '';
+    safeDocument.origin = 'null';
+
+    // 安全的文档信息
+    safeDocument.doctype = null;
+    safeDocument.documentElement = null;
+    safeDocument.body = null;
+    safeDocument.head = null;
+
+    // 模拟安全的 cookie（空）
+    Object.defineProperty(safeDocument, 'cookie', {
+      get: () => '',
+      set: () => {}, // 静默忽略设置
+      enumerable: true,
+      configurable: false,
+    });
+
+    // 提供安全的查询方法（返回 null 或空结果）
+    safeDocument.getElementById = () => null;
+    safeDocument.getElementsByClassName = () => [];
+    safeDocument.getElementsByTagName = () => [];
+    safeDocument.getElementsByName = () => [];
+    safeDocument.querySelector = () => null;
+    safeDocument.querySelectorAll = () => [];
+
+    // 提供安全的创建方法（返回模拟元素）
+    safeDocument.createElement = (tagName: string) => ({
+      tagName: tagName.toUpperCase(),
+      id: '',
+      className: '',
+      innerHTML: '',
+      textContent: '',
+      setAttribute: () => {},
+      getAttribute: () => null,
+      removeAttribute: () => {},
+      appendChild: () => {},
+      removeChild: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    });
+
+    safeDocument.createTextNode = (data: string) => ({
+      nodeType: 3,
+      textContent: data,
+      data: data,
+    });
+
+    safeDocument.createDocumentFragment = () => ({
+      nodeType: 11,
+      appendChild: () => {},
+      querySelector: () => null,
+      querySelectorAll: () => [],
+    });
+
+    // 创建代理来拦截其他属性访问
+    return new Proxy(safeDocument, {
+      get: (target, prop, receiver) => {
+        const propStr = String(prop);
+
+        // 阻止访问危险属性
+        const dangerousDocumentProps = [
+          'location',
+          'defaultView',
+          'parentWindow',
+          'implementation',
+          'documentURI',
+          'execCommand',
+          'write',
+          'writeln',
+          'open',
+          'close',
+          'evaluate',
+          'createRange',
+          'getSelection',
+          'elementsFromPoint',
+          'elementFromPoint',
+          'hasFocus',
+          'hidden',
+          'visibilityState',
+        ];
+
+        if (dangerousDocumentProps.includes(propStr)) {
+          return undefined;
+        }
+
+        // 对于已定义的安全属性，返回实际值
+        if (propStr in target) {
+          return Reflect.get(target, prop, receiver);
+        }
+
+        // 对于其他属性，返回 undefined
+        return undefined;
+      },
+
+      set: (target, prop, value, receiver) => {
+        const propStr = String(prop);
+
+        // 阻止设置敏感属性
+        const readOnlyProps = [
+          'title',
+          'readyState',
+          'documentURI',
+          'URL',
+          'domain',
+          'origin',
+        ];
+        if (readOnlyProps.includes(propStr)) {
+          return false; // 静默失败
+        }
+
+        // 允许设置其他属性（在沙箱对象内）
+        return Reflect.set(target, prop, value, receiver);
+      },
+
+      has: (target, prop) => {
+        const propStr = String(prop);
+
+        // 危险属性始终返回 false
+        const dangerousDocumentProps = [
+          'location',
+          'defaultView',
+          'parentWindow',
+          'implementation',
+          'execCommand',
+          'write',
+          'writeln',
+          'open',
+          'close',
+        ];
+
+        if (dangerousDocumentProps.includes(propStr)) {
+          return false;
+        }
+
+        return Reflect.has(target, prop);
+      },
+    });
+  }
+
+  /**
+   * 创建安全的 window 代理对象
+   * 允许访问 window 但限制敏感信息
+   */
+  private createSafeWindow(safeDocument?: any): any {
+    // 敏感属性列表（将被设置为空或限制访问）
+    const sensitiveProperties = [
+      'cookie',
+      'localStorage',
+      'sessionStorage',
+      'indexedDB',
+      'location',
+      'history',
+      'navigator',
+      'parent',
+      'top',
+      'frames',
+      'opener',
+      'external',
+      'chrome',
+      'safari',
+      'opera',
+      'moz',
+    ];
+
+    // 创建基础的安全对象
+    const safeWindow: any = {};
+
+    // 如果在浏览器环境中，添加一些安全的 window 属性
+    if (typeof window !== 'undefined') {
+      // 添加安全的尺寸信息
+      safeWindow.innerWidth = 1024; // 默认值
+      safeWindow.innerHeight = 768;
+      safeWindow.outerWidth = 1024;
+      safeWindow.outerHeight = 768;
+      safeWindow.devicePixelRatio = 1;
+
+      // 添加安全的 screen 信息（静态值）
+      safeWindow.screen = {
+        width: 1920,
+        height: 1080,
+        availWidth: 1920,
+        availHeight: 1040,
+        colorDepth: 24,
+        pixelDepth: 24,
+      };
+    }
+
+    // 添加标准的 JavaScript 全局对象
+    safeWindow.Array = Array;
+    safeWindow.Object = Object;
+    safeWindow.String = String;
+    safeWindow.Number = Number;
+    safeWindow.Boolean = Boolean;
+    safeWindow.Date = Date;
+    safeWindow.Math = Math;
+    safeWindow.JSON = JSON;
+    safeWindow.RegExp = RegExp;
+    safeWindow.Error = Error;
+    safeWindow.TypeError = TypeError;
+    safeWindow.ReferenceError = ReferenceError;
+    safeWindow.SyntaxError = SyntaxError;
+    safeWindow.parseInt = parseInt;
+    safeWindow.parseFloat = parseFloat;
+    safeWindow.isNaN = isNaN;
+    safeWindow.isFinite = isFinite;
+    safeWindow.encodeURIComponent = encodeURIComponent;
+    safeWindow.decodeURIComponent = decodeURIComponent;
+    safeWindow.encodeURI = encodeURI;
+    safeWindow.decodeURI = decodeURI;
+
+    // 添加安全的 document 对象（使用传入的或创建新的）
+    safeWindow.document = safeDocument || this.createSafeDocument();
+
+    // 提供安全的控制台（如果允许）
+    if (this.config.allowConsole) {
+      safeWindow.console = {
+        log: console.log.bind(console),
+        warn: console.warn.bind(console),
+        error: console.error.bind(console),
+        info: console.info.bind(console),
+        debug: console.debug.bind(console),
+      };
+    }
+
+    // 创建代理来拦截属性访问
+    return new Proxy(safeWindow, {
+      get: (target, prop, receiver) => {
+        const propStr = String(prop);
+
+        // 检查是否是敏感属性
+        if (sensitiveProperties.includes(propStr)) {
+          // 为敏感属性返回空或安全的默认值
+          switch (propStr) {
+            case 'cookie':
+              return ''; // 空 cookie
+            case 'localStorage':
+            case 'sessionStorage':
+              // 返回一个模拟的空存储对象
+              return {
+                length: 0,
+                getItem: () => null,
+                setItem: () => {},
+                removeItem: () => {},
+                clear: () => {},
+                key: () => null,
+              };
+            case 'location':
+              return {
+                href: 'about:blank',
+                origin: 'null',
+                protocol: 'about:',
+                host: '',
+                hostname: '',
+                port: '',
+                pathname: 'blank',
+                search: '',
+                hash: '',
+              };
+            case 'navigator':
+              return {
+                userAgent: 'Sandbox/1.0',
+                language: 'en-US',
+                languages: ['en-US'],
+                platform: 'Sandbox',
+                cookieEnabled: false,
+                onLine: true,
+              };
+            default:
+              return undefined;
+          }
+        }
+
+        // 对于安全属性，返回实际值
+        if (propStr in target) {
+          return Reflect.get(target, prop, receiver);
+        }
+
+        // 对于其他属性，返回 undefined
+        return undefined;
+      },
+
+      set: (target, prop, value, receiver) => {
+        const propStr = String(prop);
+
+        // 禁止设置敏感属性
+        if (sensitiveProperties.includes(propStr)) {
+          return false; // 静默失败
+        }
+
+        // 允许设置其他属性（在沙箱对象内）
+        return Reflect.set(target, prop, value, receiver);
+      },
+
+      has: (target, prop) => {
+        const propStr = String(prop);
+
+        // 敏感属性始终返回 false
+        if (sensitiveProperties.includes(propStr)) {
+          return false;
+        }
+
+        return Reflect.has(target, prop);
+      },
+
+      ownKeys: (target) => {
+        // 只返回安全属性的键
+        const allKeys = Reflect.ownKeys(target);
+        return allKeys.filter(
+          (key) => !sensitiveProperties.includes(String(key)),
+        );
+      },
+
+      getOwnPropertyDescriptor: (target, prop) => {
+        const propStr = String(prop);
+
+        if (sensitiveProperties.includes(propStr)) {
+          return undefined;
+        }
+
+        return Reflect.getOwnPropertyDescriptor(target, prop);
+      },
+    });
+  }
+
+  /**
+   * 创建安全的沙箱全局对象
    */
   private createSandboxGlobal(): Record<string, any> {
-    const sandboxGlobal: Record<string, any> = {
-      // 基础全局对象
-      undefined,
-      null: null,
-      NaN,
-      Infinity,
-      
-      // 基础构造函数
-      String,
-      Number,
-      Boolean,
-      Array,
-      Object,
-      RegExp,
-      Date,
-      Error,
-      TypeError,
-      ReferenceError,
-      SyntaxError,
-      
-      // 工具函数
-      Math,
-      JSON,
-      parseInt,
-      parseFloat,
-      isNaN,
-      isFinite,
-      encodeURIComponent,
-      decodeURIComponent,
-      encodeURI,
-      decodeURI,
-    };
+    const sandboxGlobal: Record<string, any> = {};
+
+    // 添加允许的全局对象
+    for (const globalName of this.config.allowedGlobals) {
+      if (globalName in globalThis) {
+        sandboxGlobal[globalName] = (globalThis as any)[globalName];
+      }
+    }
 
     // 添加自定义全局变量
     Object.assign(sandboxGlobal, this.config.customGlobals);
+
+    // 创建安全的 document 对象（确保只创建一次）
+    const safeDocument = this.createSafeDocument();
+
+    // 添加安全的 window 对象（总是可用）
+    const safeWindow = this.createSafeWindow(safeDocument);
+    sandboxGlobal.window = safeWindow;
+
+    // 添加安全的 document 对象（总是可用）
+    sandboxGlobal.document = safeDocument;
 
     // 条件性添加 console
     if (this.config.allowConsole) {
@@ -161,6 +596,11 @@ export class ProxySandbox {
       sandboxGlobal.clearTimeout = clearTimeout;
       sandboxGlobal.clearInterval = clearInterval;
     }
+
+    // 添加指令检查函数（用于超时控制）
+    sandboxGlobal.__checkInstructions = () => {
+      // 这个函数会在 executeWithInstructionLimit 中被替换
+    };
 
     return sandboxGlobal;
   }
@@ -182,11 +622,15 @@ export class ProxySandbox {
    * 创建安全的 setTimeout
    */
   private createSafeTimeout() {
-    return (callback: (...args: any[]) => any, delay: number, ...args: any[]) => {
+    return (
+      callback: (...args: any[]) => any,
+      delay: number,
+      ...args: any[]
+    ) => {
       if (typeof callback !== 'function') {
         throw new TypeError('Callback must be a function');
       }
-      
+
       const safeCallback = () => {
         try {
           callback.apply(null, args);
@@ -194,7 +638,7 @@ export class ProxySandbox {
           console.error('[Sandbox] Timer callback error:', error);
         }
       };
-      
+
       return setTimeout(safeCallback, Math.min(delay, 1000)); // 最大延迟1秒
     };
   }
@@ -203,11 +647,15 @@ export class ProxySandbox {
    * 创建安全的 setInterval
    */
   private createSafeInterval() {
-    return (callback: (...args: any[]) => any, delay: number, ...args: any[]) => {
+    return (
+      callback: (...args: any[]) => any,
+      delay: number,
+      ...args: any[]
+    ) => {
       if (typeof callback !== 'function') {
         throw new TypeError('Callback must be a function');
       }
-      
+
       const safeCallback = () => {
         try {
           callback.apply(null, args);
@@ -215,7 +663,7 @@ export class ProxySandbox {
           console.error('[Sandbox] Interval callback error:', error);
         }
       };
-      
+
       return setInterval(safeCallback, Math.max(delay, 100)); // 最小间隔100ms
     };
   }
@@ -227,111 +675,131 @@ export class ProxySandbox {
     return new Proxy(this.sandboxGlobal, {
       get: (target, prop, receiver) => {
         const propStr = String(prop);
-        
+
         // 检查是否在禁止列表中
         if (this.config.forbiddenGlobals.includes(propStr)) {
-          throw new ReferenceError(`Access to '${propStr}' is not allowed in sandbox`);
+          throw new ReferenceError(
+            `Access to '${propStr}' is not allowed in sandbox`,
+          );
         }
-        
+
+        // 允许访问内部功能函数
+        if (propStr === '__checkInstructions') {
+          return Reflect.get(target, prop, receiver);
+        }
+
         // 检查是否在允许列表中
         if (this.config.allowedGlobals.includes(propStr)) {
           if (propStr in target) {
             return Reflect.get(target, prop, receiver);
           }
-          
+
           // 某些特殊的全局对象需要特殊处理
-          if (propStr === 'window' || propStr === 'global' || propStr === 'globalThis') {
+          if (
+            propStr === 'window' ||
+            propStr === 'global' ||
+            propStr === 'globalThis'
+          ) {
             return receiver; // 返回代理对象本身
           }
         }
-        
+
         // 检查自定义全局变量
         if (propStr in this.config.customGlobals) {
           return Reflect.get(target, prop, receiver);
         }
-        
+
         // 如果不在任何允许的列表中，返回 undefined
         return undefined;
       },
-      
+
       set: (target, prop, value, receiver) => {
         const propStr = String(prop);
-        
+
         // 检查是否在禁止列表中
         if (this.config.forbiddenGlobals.includes(propStr)) {
-          throw new ReferenceError(`Setting '${propStr}' is not allowed in sandbox`);
+          throw new ReferenceError(
+            `Setting '${propStr}' is not allowed in sandbox`,
+          );
         }
-        
+
         // 只允许设置已存在的属性或新的变量
         return Reflect.set(target, prop, value, receiver);
       },
-      
+
       has: (target, prop) => {
         const propStr = String(prop);
-        
+
         // 如果在禁止列表中，返回 false
         if (this.config.forbiddenGlobals.includes(propStr)) {
           return false;
         }
-        
+
         // 如果在允许列表中或目标对象中，返回 true
-        return this.config.allowedGlobals.includes(propStr) || Reflect.has(target, prop);
+        return (
+          this.config.allowedGlobals.includes(propStr) ||
+          Reflect.has(target, prop)
+        );
       },
-      
+
       ownKeys: (target) => {
         // 只返回允许的属性键
         const allKeys = Reflect.ownKeys(target);
-        return allKeys.filter(key => 
-          !this.config.forbiddenGlobals.includes(String(key))
+        return allKeys.filter(
+          (key) => !this.config.forbiddenGlobals.includes(String(key)),
         );
       },
-      
+
       getOwnPropertyDescriptor: (target, prop) => {
         const propStr = String(prop);
-        
+
         if (this.config.forbiddenGlobals.includes(propStr)) {
           return undefined;
         }
-        
+
         return Reflect.getOwnPropertyDescriptor(target, prop);
-      }
+      },
     });
   }
 
   /**
    * 在沙箱中执行代码
    */
-  async execute(code: string): Promise<SandboxResult> {
+  async execute(
+    code: string,
+    injectedParams?: Record<string, any>,
+  ): Promise<SandboxResult> {
     this.startTime = performance.now();
     this.isActive = true;
-    
+
     let result: any;
     let error: Error | undefined;
     let success = false;
-    
+
     try {
-      // 设置执行超时
-      const timeoutPromise = new Promise<never>((_, reject) => {
-        this.timeoutId = window.setTimeout(() => {
-          reject(new Error(`Code execution timeout after ${this.config.timeout}ms`));
-        }, this.config.timeout);
-      });
-      
-      // 执行代码
-      const executePromise = this.executeCode(code);
-      
-      result = await Promise.race([executePromise, timeoutPromise]);
+      // 尝试使用 Worker 执行（适用于支持的环境）
+      if (typeof Worker !== 'undefined' && typeof URL !== 'undefined') {
+        result = await this.executeWithWorker(code, injectedParams);
+      } else {
+        // 检查是否是明显的死循环
+        if (this.isObviousInfiniteLoop(code)) {
+          // 只对明显的死循环使用指令计数
+          result = await this.executeWithInstructionLimit(code, injectedParams);
+        } else {
+          // 对正常代码直接执行，但有超时保护
+          result = await this.executeWithTimeout(code, injectedParams);
+        }
+      }
       success = true;
-      
     } catch (err) {
       error = err instanceof Error ? err : new Error(String(err));
       success = false;
     } finally {
       this.cleanup();
     }
-    
+
     const executionTime = performance.now() - this.startTime;
-    
+
     return {
       result,
       success,
@@ -342,53 +810,424 @@ export class ProxySandbox {
   }
 
   /**
-   * 执行代码的核心方法
+   * 检查是否是明显的死循环
    */
-  private async executeCode(code: string): Promise<any> {
-    // 添加严格模式
-    const wrappedCode = this.config.strictMode ? `'use strict';\n${code}` : code;
-    
-    // 创建一个函数来执行代码，使用沙箱的全局对象作为上下文
-    const func = new Function(
-      'global',
-      'window',
-      'globalThis',
-      'self',
-      `
-      const originalGlobal = global;
-      const originalWindow = window;
-      const originalGlobalThis = globalThis;
-      const originalSelf = self;
-      
+  private isObviousInfiniteLoop(code: string): boolean {
+    // 简单的模式匹配检测明显的死循环
+    const infiniteLoopPatterns = [
+      /while\s*\(\s*true\s*\)/,
+      /for\s*\(\s*;\s*;\s*\)/,
+      /while\s*\(\s*1\s*\)/,
+      /while\s*\(\s*!false\s*\)/,
+    ];
+
+    return infiniteLoopPatterns.some((pattern) => pattern.test(code));
+  }
+
+  /**
+   * 带超时的普通执行
+   */
+  private async executeWithTimeout(
+    code: string,
+    injectedParams?: Record<string, any>,
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        reject(
+          new Error(`Code execution timeout after ${this.config.timeout}ms`),
+        );
+      }, this.config.timeout);
+
       try {
-        // 劫持全局对象引用
-        global = arguments[0];
-        window = arguments[1] || arguments[0];
-        globalThis = arguments[2] || arguments[0];
-        self = arguments[3] || arguments[0];
-        
-        // 执行用户代码
-        return (function() {
-          ${wrappedCode}
-        })();
-      } finally {
-        // 恢复原始引用
-        global = originalGlobal;
-        window = originalWindow;
-        globalThis = originalGlobalThis;
-        self = originalSelf;
+        const result = this.executeCode(code, injectedParams);
+        clearTimeout(timeoutId);
+        resolve(result);
+      } catch (error) {
+        clearTimeout(timeoutId);
+        reject(error);
       }
-      `
+    });
+  }
+
+  /**
+   * 使用指令计数限制执行时间
+   */
+  private async executeWithInstructionLimit(
+    code: string,
+    injectedParams?: Record<string, any>,
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const maxInstructions = 1000000; // 最大指令数
+      let instructionCount = 0;
+      const startTime = performance.now();
+
+      // 注入指令计数器
+      const instrumentedCode = this.instrumentCode(code);
+
+      // 创建全局计数器函数
+      const originalGlobal = this.sandboxGlobal.__checkInstructions;
+      this.sandboxGlobal.__checkInstructions = () => {
+        instructionCount++;
+        const elapsed = performance.now() - startTime;
+
+        if (elapsed > this.config.timeout) {
+          throw new Error(
+            `Code execution timeout after ${this.config.timeout}ms`,
+          );
+        }
+
+        // 更宽松的指令限制，只在明显的死循环情况下触发
+        // 如果执行时间很短但指令数很多，说明是死循环
+        if (instructionCount > maxInstructions && elapsed < 10) {
+          throw new Error(`Code execution exceeded maximum instruction limit`);
+        }
+      };
+
+      try {
+        const result = this.executeCode(instrumentedCode, injectedParams);
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      } finally {
+        // 恢复原始状态
+        if (originalGlobal) {
+          this.sandboxGlobal.__checkInstructions = originalGlobal;
+        } else {
+          delete this.sandboxGlobal.__checkInstructions;
+        }
+      }
+    });
+  }
+
+  /**
+   * 在代码中注入指令计数器
+   */
+  private instrumentCode(code: string): string {
+    // 简化的指令注入，只在明显的循环结构中添加检查
+    let instrumented = code;
+
+    // 为循环体注入检查（在开括号后，使用换行避免语法错误）
+    instrumented = instrumented.replace(
+      /(\bfor\s*\([^)]*\)\s*\{)/g,
+      '$1\n  __checkInstructions();',
     );
-    
-    // 使用代理对象作为上下文执行函数
-    return func.call(
-      this.globalProxy,
-      this.globalProxy,
-      this.globalProxy,
-      this.globalProxy,
-      this.globalProxy
+    instrumented = instrumented.replace(
+      /(\bwhile\s*\([^)]*\)\s*\{)/g,
+      '$1\n  __checkInstructions();',
     );
+    instrumented = instrumented.replace(
+      /(\bdo\s*\{)/g,
+      '$1\n  __checkInstructions();',
+    );
+    // 在代码开始处插入检查
+    return `__checkInstructions();\n${instrumented}`;
+  }
+
+  /**
+   * 使用 Worker 执行代码以实现真正的超时控制
+   */
+  private executeWithWorker(
+    code: string,
+    injectedParams?: Record<string, any>,
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      // 检查注入的参数是否可序列化
+      let serializableParams: Record<string, any> = {};
+      if (injectedParams) {
+        try {
+          // 尝试序列化注入的参数，过滤不可序列化的对象
+          for (const [key, value] of Object.entries(injectedParams)) {
+            try {
+              JSON.stringify(value);
+              serializableParams[key] = value;
+            } catch {
+              // 如果包含不可序列化的对象（如 DOM 对象），则回退到同步执行
+              console.warn(`无法序列化注入参数 "${key}"，回退到同步执行`);
+              this.executeCode(code, injectedParams)
+                .then(resolve)
+                .catch(reject);
+              return;
+            }
+          }
+        } catch (error) {
+          // 如果序列化检查失败，回退到同步执行
+          console.warn('注入参数序列化检查失败，回退到同步执行');
+          try {
+            const result = this.executeCode(code, injectedParams);
+            resolve(result);
+          } catch (syncError) {
+            reject(syncError);
+          }
+          return;
+        }
+      }
+
+      // 创建 Worker 代码
+      const workerCode = `
+        self.onmessage = function(e) {
+          const { code, config, injectedParams } = e.data;
+          
+          try {
+            // 创建安全的执行环境
+            const safeGlobals = {
+              Math, Date, JSON, parseInt, parseFloat, isNaN, isFinite,
+              encodeURIComponent, decodeURIComponent, encodeURI, decodeURI,
+              String, Number, Boolean, Array, Object, RegExp,
+              Error, TypeError, ReferenceError, SyntaxError
+            };
+            
+            // 添加自定义全局变量
+            Object.assign(safeGlobals, config.customGlobals || {});
+            
+            // 添加注入的参数
+            Object.assign(safeGlobals, injectedParams || {});
+            
+            // 添加 console（如果允许）
+            if (config.allowConsole) {
+              safeGlobals.console = {
+                log: (...args) => self.postMessage({ type: 'log', data: args }),
+                warn: (...args) => self.postMessage({ type: 'warn', data: args }),
+                error: (...args) => self.postMessage({ type: 'error', data: args }),
+                info: (...args) => self.postMessage({ type: 'info', data: args }),
+                debug: (...args) => self.postMessage({ type: 'debug', data: args })
+              };
+            }
+            
+            // 创建执行函数
+            const wrappedCode = config.strictMode ? "'use strict';\\n" + code : code;
+            const func = new Function(...Object.keys(safeGlobals), 'return (function() { ' + wrappedCode + ' })()');
+            
+            // 执行代码
+            const result = func(...Object.values(safeGlobals));
+            
+            self.postMessage({ type: 'result', data: result });
+          } catch (error) {
+            self.postMessage({ type: 'error', data: { message: error.message, stack: error.stack } });
+          }
+        };
+      `;
+
+      // 创建 Blob URL
+      const blob = new Blob([workerCode], { type: 'application/javascript' });
+      const workerUrl = URL.createObjectURL(blob);
+
+      let worker: Worker | undefined;
+      let timeoutId: number | undefined;
+
+      try {
+        worker = new Worker(workerUrl);
+
+        // 设置超时
+        timeoutId = window.setTimeout(() => {
+          if (worker) {
+            worker.terminate();
+          }
+          URL.revokeObjectURL(workerUrl);
+          reject(
+            new Error(`Code execution timeout after ${this.config.timeout}ms`),
+          );
+        }, this.config.timeout);
+
+        // 监听消息
+        worker.onmessage = (e) => {
+          const { type, data } = e.data;
+
+          if (type === 'result') {
+            if (timeoutId) clearTimeout(timeoutId);
+            if (worker) worker.terminate();
+            URL.revokeObjectURL(workerUrl);
+            resolve(data);
+          } else if (type === 'error') {
+            if (timeoutId) clearTimeout(timeoutId);
+            if (worker) worker.terminate();
+            URL.revokeObjectURL(workerUrl);
+            reject(new Error(data.message));
+          } else if (
+            type === 'log' ||
+            type === 'warn' ||
+            type === 'error' ||
+            type === 'info' ||
+            type === 'debug'
+          ) {
+            // 转发控制台输出
+            if (this.config.allowConsole) {
+              const consoleMethod = console[type as keyof Console] as (
+                ...args: any[]
+              ) => void;
+              if (typeof consoleMethod === 'function') {
+                consoleMethod('[Sandbox]', ...data);
+              }
+            }
+          }
+        };
+
+        worker.onerror = (error) => {
+          if (timeoutId) clearTimeout(timeoutId);
+          if (worker) worker.terminate();
+          URL.revokeObjectURL(workerUrl);
+          reject(new Error(`Worker error: ${error.message}`));
+        };
+
+        // 发送代码到 Worker
+        worker.postMessage({
+          code,
+          config: this.config,
+          injectedParams: serializableParams,
+        });
+      } catch (error) {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (worker) worker.terminate();
+        URL.revokeObjectURL(workerUrl);
+
+        // 如果 Worker 不可用，降级到同步执行
+        try {
+          const result = this.executeCode(code, injectedParams);
+          resolve(result);
+        } catch (syncError) {
+          reject(syncError);
+        }
+      }
+    });
+  }
+
+  /**
+   * 执行代码的核心方法（同步版本）
+   */
+  private executeCode(code: string, injectedParams?: Record<string, any>): any {
+    // 添加严格模式
+    const wrappedCode = this.config.strictMode
+      ? `'use strict';\n${code}`
+      : code;
+
+    // 预处理代码以检测和阻止危险操作
+    this.validateCode(wrappedCode);
+
+    // 获取允许的全局变量名和值
+    // 合并沙箱全局变量、自定义全局变量和注入参数
+    const allGlobals = {
+      ...this.sandboxGlobal,
+      ...this.config.customGlobals, // 确保包含所有自定义全局变量
+      ...(injectedParams || {}), // 添加注入的参数
+    };
+
+    const allowedKeys = Object.keys(allGlobals);
+    const allowedValues = allowedKeys.map((key) => allGlobals[key]);
+
+    // 创建安全的执行环境
+    // 通过参数传递的方式提供沙箱全局变量，而不是通过全局对象访问
+    const funcCode = `
+      return (function(${allowedKeys.join(', ')}) {
+        ${wrappedCode}
+      })(${allowedKeys.map((_, index) => `arguments[${index}]`).join(', ')});
+    `;
+
+    try {
+      // 使用 Function 构造函数创建执行函数
+      // 不传递任何全局变量名，强制代码只能使用参数提供的变量
+      const func = new Function(funcCode);
+
+      // 执行函数，传入沙箱全局变量
+      return func.apply(null, allowedValues);
+    } catch (error) {
+      // 检查是否是因为试图访问被禁止的全局变量
+      if (error instanceof ReferenceError) {
+        const match = error.message.match(/(\w+) is not defined/);
+        if (match) {
+          const varName = match[1];
+          if (this.config.forbiddenGlobals.includes(varName)) {
+            throw new ReferenceError(
+              `Access to '${varName}' is not allowed in sandbox`,
+            );
+          }
+        }
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * 验证代码安全性
+   */
+  private validateCode(code: string): void {
+    // 检查是否包含危险的模式
+    const dangerousPatterns = [
+      /\beval\s*\(/,
+      /\bFunction\s*\(/,
+      /new\s+Function\s*\(/,
+      /\.constructor/, // 直接检查 .constructor 访问
+      /\.__proto__/,
+      /\.prototype\./,
+      /\bglobal\s*[.[]/,
+      /\bself\s*[.[]/,
+      /\bprocess\s*[.[]/,
+      /\brequire\s*\(/,
+      /\bimport\s*\(/,
+      /\bimportScripts\s*\(/,
+    ];
+
+    // 对于 globalThis，只在直接访问属性时才阻止，允许 typeof 检查
+    // 检查是否有恶意的 globalThis 访问（排除 typeof 检查）
+    const globalThisPatterns = [
+      /\bglobalThis\s*\.\s*[a-zA-Z_$]/, // globalThis.someProperty
+      /\bglobalThis\s*\[/, // globalThis[someIndex]
+      /=\s*globalThis\b/, // = globalThis
+      /\breturn\s+globalThis\b/, // return globalThis
+    ];
+
+    for (const pattern of globalThisPatterns) {
+      if (pattern.test(code)) {
+        throw new Error(
+          'Code contains dangerous pattern: globalThis property access',
+        );
+      }
+    }
+
+    for (const pattern of dangerousPatterns) {
+      if (pattern.test(code)) {
+        throw new Error(`Code contains dangerous pattern: ${pattern.source}`);
+      }
+    }
+
+    // 检查特定的被禁止的全局变量名（只检查明确的危险变量）
+    const criticalForbiddenGlobals = [
+      'eval',
+      'Function',
+      'constructor',
+      '__proto__',
+      'global',
+      'self',
+      'process',
+      'require',
+      'module',
+      'exports',
+      'Buffer',
+      'XMLHttpRequest',
+      'fetch',
+      'WebSocket',
+      'Worker',
+      'SharedArrayBuffer',
+      'Atomics',
+      'WebAssembly',
+    ];
+
+    for (const forbiddenGlobal of criticalForbiddenGlobals) {
+      // 只检查作为独立标识符或对象访问的情况
+      const patterns = [
+        new RegExp(`\\b${forbiddenGlobal}\\s*\\(`, 'g'), // 函数调用
+        new RegExp(`\\b${forbiddenGlobal}\\s*\\.`, 'g'), // 属性访问
+        new RegExp(`\\b${forbiddenGlobal}\\s*\\[`, 'g'), // 索引访问
+        new RegExp(`\\breturn\\s+${forbiddenGlobal}\\b`, 'g'), // 直接返回
+        new RegExp(`=\\s*${forbiddenGlobal}\\b`, 'g'), // 赋值
+      ];
+
+      for (const pattern of patterns) {
+        if (pattern.test(code)) {
+          throw new ReferenceError(
+            `Access to '${forbiddenGlobal}' is not allowed in sandbox`,
+          );
+        }
+      }
+    }
   }
 
   /**
@@ -406,7 +1245,7 @@ export class ProxySandbox {
    */
   private cleanup(): void {
     this.isActive = false;
-    
+
     if (this.timeoutId !== null) {
       clearTimeout(this.timeoutId);
       this.timeoutId = null;
@@ -418,9 +1257,9 @@ export class ProxySandbox {
    */
   destroy(): void {
     this.cleanup();
-    
+
     // 清理全局对象
-    Object.keys(this.sandboxGlobal).forEach(key => {
+    Object.keys(this.sandboxGlobal).forEach((key) => {
       delete this.sandboxGlobal[key];
     });
   }
@@ -439,7 +1278,7 @@ export class ProxySandbox {
     if (this.config.forbiddenGlobals.includes(name)) {
       throw new Error(`Cannot add forbidden global: ${name}`);
     }
-    
+
     this.sandboxGlobal[name] = value;
     this.config.customGlobals[name] = value;
   }
@@ -471,12 +1310,13 @@ export function createSandbox(config?: SandboxConfig): ProxySandbox {
  * 快速执行代码的工具函数
  */
 export async function runInSandbox(
-  code: string, 
-  config?: SandboxConfig
+  code: string,
+  config?: SandboxConfig,
+  injectedParams?: Record<string, any>,
 ): Promise<SandboxResult> {
   const sandbox = createSandbox(config);
   try {
-    return await sandbox.execute(code);
+    return await sandbox.execute(code, injectedParams);
   } finally {
     sandbox.destroy();
   }

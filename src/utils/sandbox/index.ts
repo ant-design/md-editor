@@ -1,30 +1,23 @@
 /**
  * 沙箱模块入口文件
- * 
+ *
  * 提供统一的 API 接口，导出所有沙箱相关的功能和类型定义。
  * 这个模块是基于 Proxy 的沙箱机制的主要入口点。
- * 
+ *
  * @author md-editor
  * @version 1.0.0
  */
 
 // 导入类型和实现
 import type { SandboxConfig } from './ProxySandbox';
-import type { SecurityContextConfig } from './SecurityContextManager';
 import { ProxySandbox, createSandbox, runInSandbox } from './ProxySandbox';
+import type { SecurityContextConfig } from './SecurityContextManager';
 import { SecurityContextManager } from './SecurityContextManager';
 
 // 导出主要的沙箱类和工具函数
-export {
-  ProxySandbox,
-  createSandbox,
-  runInSandbox,
-} from './ProxySandbox';
+export { ProxySandbox, createSandbox, runInSandbox } from './ProxySandbox';
 
-export type {
-  SandboxConfig,
-  SandboxResult,
-} from './ProxySandbox';
+export type { SandboxConfig, SandboxResult } from './ProxySandbox';
 
 // 导出安全上下文管理器
 export {
@@ -34,11 +27,11 @@ export {
 } from './SecurityContextManager';
 
 export type {
-  SecurityContextConfig,
+  ExecutionContext,
+  MonitoringConfig,
   PermissionConfig,
   ResourceLimits,
-  MonitoringConfig,
-  ExecutionContext,
+  SecurityContextConfig,
 } from './SecurityContextManager';
 
 // 导出工具类型
@@ -50,13 +43,33 @@ export type SecurityManager = SecurityContextManager;
  */
 export const DEFAULT_SANDBOX_CONFIG: SandboxConfig = {
   allowedGlobals: [
-    'console', 'Math', 'Date', 'JSON', 'parseInt', 'parseFloat',
-    'String', 'Number', 'Boolean', 'Array', 'Object', 'RegExp',
+    'console',
+    'Math',
+    'Date',
+    'JSON',
+    'parseInt',
+    'parseFloat',
+    'String',
+    'Number',
+    'Boolean',
+    'Array',
+    'Object',
+    'RegExp',
   ],
   forbiddenGlobals: [
-    'eval', 'Function', 'constructor', 'prototype', '__proto__',
-    'document', 'window', 'global', 'globalThis', 'XMLHttpRequest',
-    'fetch', 'localStorage', 'sessionStorage',
+    'eval',
+    'Function',
+    'constructor',
+    'prototype',
+    '__proto__',
+    'document',
+    'window',
+    'global',
+    'globalThis',
+    'XMLHttpRequest',
+    'fetch',
+    'localStorage',
+    'sessionStorage',
   ],
   allowConsole: true,
   allowTimers: false,
@@ -95,12 +108,12 @@ export const DEFAULT_SECURITY_CONFIG: SecurityContextConfig = {
  * 沙箱工厂函数 - 创建配置好的沙箱实例
  */
 export function createConfiguredSandbox(
-  type: 'basic' | 'secure' | 'restricted' = 'basic'
+  type: 'basic' | 'secure' | 'restricted' = 'basic',
 ): ProxySandbox {
   switch (type) {
     case 'basic':
       return createSandbox(DEFAULT_SANDBOX_CONFIG);
-    
+
     case 'secure':
       return createSandbox({
         ...DEFAULT_SANDBOX_CONFIG,
@@ -109,13 +122,21 @@ export function createConfiguredSandbox(
         timeout: 2000,
         strictMode: true,
       });
-    
+
     case 'restricted':
       return createSandbox({
         allowedGlobals: ['Math', 'JSON', 'String', 'Number'],
         forbiddenGlobals: [
-          'console', 'eval', 'Function', 'constructor', 'prototype',
-          '__proto__', 'document', 'window', 'global', 'globalThis',
+          'console',
+          'eval',
+          'Function',
+          'constructor',
+          'prototype',
+          '__proto__',
+          'document',
+          'window',
+          'global',
+          'globalThis',
         ],
         allowConsole: false,
         allowTimers: false,
@@ -124,7 +145,7 @@ export function createConfiguredSandbox(
         allowDOM: false,
         maxMemoryUsage: 1024 * 1024, // 1MB
       });
-    
+
     default:
       return createSandbox(DEFAULT_SANDBOX_CONFIG);
   }
@@ -135,17 +156,22 @@ export function createConfiguredSandbox(
  */
 export async function quickExecute(
   code: string,
-  customGlobals?: Record<string, any>
+  customGlobals?: Record<string, any>,
+  injectedParams?: Record<string, any>,
 ): Promise<any> {
-  const result = await runInSandbox(code, {
-    ...DEFAULT_SANDBOX_CONFIG,
-    customGlobals,
-  });
-  
+  const result = await runInSandbox(
+    code,
+    {
+      ...DEFAULT_SANDBOX_CONFIG,
+      customGlobals,
+    },
+    injectedParams,
+  );
+
   if (!result.success) {
     throw result.error || new Error('Code execution failed');
   }
-  
+
   return result.result;
 }
 
@@ -178,24 +204,24 @@ export async function safeMathEval(expression: string): Promise<number> {
       E: Math.E,
     },
   };
-  
+
   // 验证表达式只包含安全字符
   const safePattern = /^[0-9+\-*/.() \t\n,a-zA-Z_$]+$/;
   if (!safePattern.test(expression)) {
     throw new Error('Expression contains unsafe characters');
   }
-  
+
   const result = await runInSandbox(`return ${expression}`, mathOnlyConfig);
-  
+
   if (!result.success) {
     throw result.error || new Error('Math evaluation failed');
   }
-  
+
   const value = result.result;
   if (typeof value !== 'number' || !isFinite(value)) {
     throw new Error('Result is not a valid number');
   }
-  
+
   return value;
 }
 
@@ -204,14 +230,14 @@ export async function safeMathEval(expression: string): Promise<number> {
  */
 export class SandboxHealthChecker {
   private static instance: SandboxHealthChecker | null = null;
-  
+
   static getInstance(): SandboxHealthChecker {
     if (!SandboxHealthChecker.instance) {
       SandboxHealthChecker.instance = new SandboxHealthChecker();
     }
     return SandboxHealthChecker.instance;
   }
-  
+
   /**
    * 检查浏览器环境是否支持沙箱功能
    */
@@ -222,31 +248,33 @@ export class SandboxHealthChecker {
   } {
     const issues: string[] = [];
     const recommendations: string[] = [];
-    
+
     // 检查 Proxy 支持
     if (typeof Proxy === 'undefined') {
       issues.push('Proxy is not supported in this environment');
       recommendations.push('Use a modern browser that supports ES6 Proxy');
     }
-    
+
     // 检查 Performance API
     if (typeof performance === 'undefined') {
       issues.push('Performance API is not available');
       recommendations.push('Performance monitoring will be disabled');
     }
-    
+
     // 检查 Worker 支持（可选）
     if (typeof Worker === 'undefined') {
-      recommendations.push('Web Workers not supported - consider using for heavy computations');
+      recommendations.push(
+        'Web Workers not supported - consider using for heavy computations',
+      );
     }
-    
+
     return {
       supported: issues.length === 0,
       issues,
       recommendations,
     };
   }
-  
+
   /**
    * 测试沙箱基本功能
    */
@@ -257,7 +285,7 @@ export class SandboxHealthChecker {
   }> {
     const results: Record<string, boolean> = {};
     const errors: string[] = [];
-    
+
     try {
       // 测试基本代码执行
       const basicResult = await quickExecute('return 1 + 1');
@@ -266,7 +294,7 @@ export class SandboxHealthChecker {
       results.basicExecution = false;
       errors.push(`Basic execution failed: ${error}`);
     }
-    
+
     try {
       // 测试全局对象隔离
       await quickExecute('window = {}; return true');
@@ -274,17 +302,18 @@ export class SandboxHealthChecker {
     } catch (error) {
       results.globalIsolation = true; // 正确阻止了访问
     }
-    
+
     try {
       // 测试超时机制
       await runInSandbox('while(true) {}', { timeout: 100 });
       results.timeoutMechanism = false; // 应该超时
     } catch (error) {
-      results.timeoutMechanism = error instanceof Error && error.message.includes('timeout');
+      results.timeoutMechanism =
+        error instanceof Error && error.message.includes('timeout');
     }
-    
+
     const passed = Object.values(results).every(Boolean);
-    
+
     return { passed, results, errors };
   }
 }

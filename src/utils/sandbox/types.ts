@@ -1,8 +1,8 @@
 /**
  * 沙箱模块的 TypeScript 类型定义
- * 
+ *
  * 提供完整的类型定义，确保类型安全和良好的开发体验。
- * 
+ *
  * @author md-editor
  * @version 1.0.0
  */
@@ -38,7 +38,7 @@ export class SandboxError extends Error {
   constructor(
     message: string,
     type: SandboxErrorType,
-    context?: Record<string, any>
+    context?: Record<string, any>,
   ) {
     super(message);
     this.name = 'SandboxError';
@@ -264,29 +264,29 @@ export interface SandboxInstanceState {
 export interface ISandboxManager {
   /** 创建沙箱实例 */
   createSandbox(config?: Partial<ExtendedSandboxConfig>): Promise<string>;
-  
+
   /** 销毁沙箱实例 */
   destroySandbox(instanceId: string): Promise<boolean>;
-  
+
   /** 执行代码 */
   executeCode(
-    instanceId: string, 
-    code: string, 
-    context?: Record<string, any>
+    instanceId: string,
+    code: string,
+    context?: Record<string, any>,
   ): Promise<CodeExecutionContext>;
-  
+
   /** 获取实例状态 */
   getInstanceState(instanceId: string): SandboxInstanceState | null;
-  
+
   /** 获取所有实例 */
   getAllInstances(): SandboxInstanceState[];
-  
+
   /** 清理所有实例 */
   cleanup(): Promise<void>;
-  
+
   /** 添加监控事件监听器 */
   addEventListener(listener: MonitoringEventListener): void;
-  
+
   /** 移除监控事件监听器 */
   removeEventListener(listener: MonitoringEventListener): void;
 }
@@ -305,7 +305,7 @@ export interface ICodeValidator {
       type: 'error' | 'warning';
     }>;
   };
-  
+
   /** 检查安全风险 */
   checkSecurity(code: string): {
     safe: boolean;
@@ -317,7 +317,7 @@ export interface ICodeValidator {
       suggestion?: string;
     }>;
   };
-  
+
   /** 估算资源使用 */
   estimateResourceUsage(code: string): {
     estimatedMemory: number;
@@ -329,11 +329,11 @@ export interface ICodeValidator {
 /**
  * 导出的主要类型联合
  */
-export type SandboxConfigType = 
+export type SandboxConfigType =
   | 'basic'
-  | 'secure' 
-  | 'restricted' 
-  | 'development' 
+  | 'secure'
+  | 'restricted'
+  | 'development'
   | 'production'
   | 'custom';
 

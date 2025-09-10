@@ -10,6 +10,7 @@ import {
   useSlateSelection,
   useSlateStatic,
 } from '../../slate-react';
+import { TableCustomElement } from '../../types/Table';
 import { SimpleTable } from './SimpleTable';
 
 export type {

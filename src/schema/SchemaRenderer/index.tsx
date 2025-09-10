@@ -468,24 +468,36 @@ a:active {
                 const sandbox = createSandbox({
                   ...DEFAULT_SANDBOX_CONFIG,
                   allowDOM: sandboxConfig.allowDOM ?? true,
-                  allowedGlobals: sandboxConfig.allowedGlobals || DEFAULT_SANDBOX_CONFIG.allowedGlobals,
-                  forbiddenGlobals: sandboxConfig.forbiddenGlobals || DEFAULT_SANDBOX_CONFIG.forbiddenGlobals,
+                  allowedGlobals:
+                    sandboxConfig.allowedGlobals ||
+                    DEFAULT_SANDBOX_CONFIG.allowedGlobals,
+                  forbiddenGlobals:
+                    sandboxConfig.forbiddenGlobals ||
+                    DEFAULT_SANDBOX_CONFIG.forbiddenGlobals,
                   strictMode: sandboxConfig.strictMode ?? true,
                   timeout: sandboxConfig.timeout || 3000,
-                  customGlobals: {
-                    // 提供安全的上下文
-                    shadowRoot,
-                    devicePixelRatio: window.devicePixelRatio,
-                    // 提供安全的 DOM 操作函数
-                    createElement: (tagName: string) => document.createElement(tagName),
-                    querySelector: (selector: string) => shadowRoot?.querySelector(selector),
-                    querySelectorAll: (selector: string) => shadowRoot?.querySelectorAll(selector),
-                  },
                 });
 
                 try {
-                  // 在沙箱中执行脚本
-                  const result = await sandbox.execute(script.textContent);
+                  // 在沙箱中执行脚本，注入 shadowRoot 和其他上下文
+                  const result = await sandbox.execute(script.textContent, {
+                    shadowRoot: shadowRoot,
+                    // 提供一个安全的 window 上下文
+                    safeWindow: {
+                      devicePixelRatio:
+                        typeof window !== 'undefined'
+                          ? window.devicePixelRatio
+                          : 1,
+                      innerWidth:
+                        typeof window !== 'undefined'
+                          ? window.innerWidth
+                          : 1024,
+                      innerHeight:
+                        typeof window !== 'undefined'
+                          ? window.innerHeight
+                          : 768,
+                    },
+                  });
                   if (!result.success && result.error) {
                     console.error('沙箱脚本执行错误:', result.error);
                   }
