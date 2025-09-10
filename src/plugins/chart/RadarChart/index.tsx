@@ -121,13 +121,14 @@ const RadarChart: React.FC<RadarChartProps> = ({
       : undefined;
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState(categories[0]);
+  const [selectedFilter, setSelectedFilter] = useState(categories[0] || '');
   const [selectedFilterLable, setSelectedFilterLable] = useState(
     filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );
 
   // 根据选定的分类筛选数据
   const filteredData = data.filter((item) => {
+    if (!selectedFilter) return data;
     const categoryMatch = item.category === selectedFilter;
     // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
     if (!filterLables || !selectedFilterLable) {
@@ -154,7 +155,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
     });
 
     return {
-      label: type,
+      label: type || '默认',
       data: scores,
       borderColor: defaultColors[index % defaultColors.length],
       backgroundColor: `${defaultColors[index % defaultColors.length]}20`,

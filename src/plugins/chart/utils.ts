@@ -177,9 +177,10 @@ export const extractAndSortXValues = (
  */
 export const findDataPointByXValue = (
   data: ChartDataItem[],
-  type: string,
   xValue: number | string,
+  type?: string,
 ): ChartDataItem | undefined => {
+  if (!type) return data.find((item) => isXValueEqual(item.x, xValue));
   return data.find(
     (item) => item.type === type && isXValueEqual(item.x, xValue),
   );

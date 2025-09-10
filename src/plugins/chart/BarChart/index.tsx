@@ -151,13 +151,15 @@ const BarChart: React.FC<BarChartProps> = ({
   }, [validFilterLables]);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0]);
+  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0] || '');
   const [selectedFilterLable, setSelectedFilterLable] = useState(
     filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );
 
   // 筛选数据
   const filteredData = useMemo(() => {
+    if (!selectedFilter) return data;
+
     const categoryMatch = data.filter(
       (item) => item.category === selectedFilter,
     );
@@ -207,14 +209,14 @@ const BarChart: React.FC<BarChartProps> = ({
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
-        const dataPoint = findDataPointByXValue(filteredData, type, x);
+        const dataPoint = findDataPointByXValue(filteredData, x, type);
         const v = dataPoint?.y;
         const n = typeof v === 'number' ? v : Number(v);
         return Number.isFinite(n) ? n : null;
       });
 
       return {
-        label: type,
+        label: type || '默认',
         data: typeData,
         borderColor: baseColor,
         backgroundColor: baseColor,

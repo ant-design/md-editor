@@ -160,6 +160,7 @@ const LineChart: React.FC<LineChartProps> = ({
 
   // 筛选数据
   const filteredData = useMemo(() => {
+    if (!selectedFilter) return data;
     const categoryMatch = data.filter(
       (item) => item.category === selectedFilter,
     );
@@ -209,14 +210,14 @@ const LineChart: React.FC<LineChartProps> = ({
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
-        const dataPoint = findDataPointByXValue(filteredData, type || '', x);
+        const dataPoint = findDataPointByXValue(filteredData, x, type);
         const v = dataPoint?.y;
         const n = typeof v === 'number' ? v : Number(v);
         return Number.isFinite(n) ? n : null;
       });
 
       return {
-        label: type,
+        label: type || '默认',
         data: typeData,
         borderColor: baseColor,
         backgroundColor: `${baseColor}33`,
