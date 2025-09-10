@@ -16,7 +16,7 @@ import { useStyle } from './style';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-export interface BarChartDataItem extends ChartDataItem {}
+export type BarChartDataItem = ChartDataItem;
 
 export interface BarChartConfigItem {
   datasets: Array<(string | { x: number; y: number })[]>;
