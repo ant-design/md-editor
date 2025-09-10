@@ -98,6 +98,7 @@
               autocapitalize="false"
               autocorrect="false"
               class="chunk-content-editor ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+              contenteditable="false"
               data-slate-editor="true"
               data-slate-node="value"
               spellcheck="false"

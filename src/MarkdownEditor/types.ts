@@ -200,7 +200,7 @@ export type MarkdownEditorProps = {
         children: any;
       },
       comment: {
-        elements: Elements[];
+        element: Elements;
         children: React.ReactNode;
         attributes: any;
       },

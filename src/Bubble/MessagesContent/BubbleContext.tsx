@@ -6,13 +6,11 @@ export const MessagesContext = React.createContext<{
   message?: MessageBubbleData;
   hidePadding?: boolean;
   setHidePadding?: (hide: boolean) => void;
-  preMessageSameRole?: boolean;
   typing?: boolean;
 }>({
   setMessage: () => {},
   message: {} as MessageBubbleData,
   hidePadding: false,
   setHidePadding: () => {},
-  preMessageSameRole: false,
   typing: false,
 });
