@@ -123,7 +123,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
 
   const filterLables: string[] | undefined =
     validFilterLables.length > 0
-      ? ['全部', ...Array.from(new Set(validFilterLables))]
+      ? Array.from(new Set(validFilterLables))
       : undefined;
 
   // 状态管理 - 使用第一个分类作为默认值
@@ -139,8 +139,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
     if (
       !filterLables ||
-      !selectedFilterLable ||
-      selectedFilterLable === '全部'
+      !selectedFilterLable 
     ) {
       return categoryMatch;
     }
