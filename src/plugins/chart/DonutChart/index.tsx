@@ -204,7 +204,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   // 初始化内部分类状态
   React.useEffect(() => {
     if (autoCategoryData && !internalSelectedCategory) {
-      setInternalSelectedCategory(autoCategoryData.categories[0] || '');
+      setInternalSelectedCategory(autoCategoryData.categories.find(Boolean) || '');
     }
   }, [autoCategoryData, internalSelectedCategory]);
 

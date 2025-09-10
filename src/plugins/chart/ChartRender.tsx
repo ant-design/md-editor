@@ -188,7 +188,9 @@ export const ChartRender: React.FC<{
     let idx = 1;
     (chartData || []).forEach((row: any) => {
       const key = row?.[config?.x];
-      if (!map.has(key)) map.set(key, idx++);
+      if (isNotEmpty(key) && !map.has(key)) {
+        map.set(key, idx++);
+      }
     });
     return map;
   };
@@ -560,7 +562,7 @@ export const ChartRender: React.FC<{
     }
     if (chartType === 'scatter') {
       // Scatter 数据需要映射为 { category, type, x, y }
-      const scatterData = (chartData || []).map((row: any, i: number) => {
+      const scatterData = (chartData || []).map((row: any) => {
         const filterLable = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
         const type = getFieldValue(row, colorLegend);
