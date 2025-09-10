@@ -199,7 +199,11 @@ export type MarkdownEditorProps = {
         mentionsUser: React.JSX.Element | null;
         children: any;
       },
-      comment: CommentDataType,
+      comment: {
+        elements: Elements[];
+        children: React.ReactNode;
+        attributes: any;
+      },
     ) => React.ReactNode;
   };
 

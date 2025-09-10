@@ -11,20 +11,9 @@ import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { useStyle } from './style';
 import { BubbleTitle } from './Title';
-import type { BubbleMetaData, BubbleProps } from './type';
+import type { BubbleProps } from './type';
 
-export const runRender = (
-  render: any,
-  props: BubbleProps,
-  defaultDom:
-    | string
-    | number
-    | boolean
-    | Iterable<React.ReactNode>
-    | React.JSX.Element
-    | null
-    | undefined,
-) => {
+export const runRender = (render: any, props: BubbleProps, defaultDom: any) => {
   if (render === false) {
     return null;
   }
