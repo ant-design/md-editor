@@ -27,24 +27,23 @@ src/utils/sandbox/
 ### 1. 快速开始
 
 ```typescript
-import { runInSandbox } from '@/utils/sandbox';
+import { runInSandbox } from '@/utils/sandbox/proxySandbox';
 
 // 执行简单代码
 const result = await runInSandbox('return 1 + 1');
 console.log(result.result); // 2
 
 // 使用自定义全局变量
-const result2 = await runInSandbox(
-  'return customVar * 2',
-  { customGlobals: { customVar: 5 } }
-);
+const result2 = await runInSandbox('return customVar * 2', {
+  customGlobals: { customVar: 5 },
+});
 console.log(result2.result); // 10
 ```
 
 ### 2. 创建持久沙箱实例
 
 ```typescript
-import { createSandbox } from '@/utils/sandbox';
+import { createSandbox } from '@/utils/sandbox/proxySandbox';
 
 const sandbox = createSandbox({
   allowConsole: true,
@@ -52,9 +51,9 @@ const sandbox = createSandbox({
   timeout: 5000,
   customGlobals: {
     myAPI: {
-      getData: () => ({ message: 'Hello' })
-    }
-  }
+      getData: () => ({ message: 'Hello' }),
+    },
+  },
 });
 
 // 执行多次代码
@@ -68,7 +67,7 @@ sandbox.destroy();
 ### 3. 预配置沙箱
 
 ```typescript
-import { createConfiguredSandbox } from '@/utils/sandbox';
+import { createConfiguredSandbox } from '@/utils/sandbox/proxySandbox';
 
 // 基础配置 - 适合一般用途
 const basicSandbox = createConfiguredSandbox('basic');
@@ -83,7 +82,7 @@ const restrictedSandbox = createConfiguredSandbox('restricted');
 ### 4. 安全数学计算
 
 ```typescript
-import { safeMathEval } from '@/utils/sandbox';
+import { safeMathEval } from '@/utils/sandbox/proxySandbox';
 
 // 安全地执行数学表达式
 const result = await safeMathEval('2 + 3 * Math.sin(PI/2)');
@@ -103,11 +102,11 @@ console.log(result2); // 12
 ```typescript
 // ❌ 被阻止的访问
 await runInSandbox('return window.location'); // 抛出错误
-await runInSandbox('return eval("1+1")');     // 抛出错误
+await runInSandbox('return eval("1+1")'); // 抛出错误
 await runInSandbox('return new Function("return 1")()'); // 抛出错误
 
 // ✅ 允许的访问
-await runInSandbox('return Math.PI');         // 正常执行
+await runInSandbox('return Math.PI'); // 正常执行
 await runInSandbox('return JSON.stringify({a: 1})'); // 正常执行
 ```
 
@@ -117,7 +116,7 @@ await runInSandbox('return JSON.stringify({a: 1})'); // 正常执行
 // 设置超时时间
 const result = await runInSandbox(
   'while(true) {}', // 无限循环
-  { timeout: 1000 }  // 1秒后超时
+  { timeout: 1000 }, // 1秒后超时
 );
 // 抛出超时错误
 ```
@@ -126,7 +125,7 @@ const result = await runInSandbox(
 
 ```typescript
 const sandbox = createSandbox({
-  maxMemoryUsage: 5 * 1024 * 1024 // 5MB 限制
+  maxMemoryUsage: 5 * 1024 * 1024, // 5MB 限制
 });
 ```
 
@@ -139,10 +138,10 @@ SchemaRenderer 组件已经集成了沙箱机制：
   schema={schema}
   values={values}
   sandboxConfig={{
-    enabled: true,        // 启用沙箱
-    allowDOM: true,       // 允许 DOM 访问
-    timeout: 3000,        // 3秒超时
-    strictMode: true,     // 严格模式
+    enabled: true, // 启用沙箱
+    allowDOM: true, // 允许 DOM 访问
+    timeout: 3000, // 3秒超时
+    strictMode: true, // 严格模式
   }}
 />
 ```
@@ -152,7 +151,7 @@ SchemaRenderer 组件已经集成了沙箱机制：
 ### 安全上下文管理器
 
 ```typescript
-import { SecurityContextManager } from '@/utils/sandbox';
+import { SecurityContextManager } from '@/utils/sandbox/proxySandbox';
 
 const manager = new SecurityContextManager({
   permissions: {
@@ -168,7 +167,7 @@ const manager = new SecurityContextManager({
   monitoring: {
     enablePerformanceMonitoring: true,
     enableErrorTracking: true,
-  }
+  },
 });
 
 // 创建执行上下文
@@ -180,7 +179,7 @@ manager.setContextVariable(contextId, 'userData', { name: 'Alice' });
 // 在上下文中执行代码
 const result = await manager.executeInContext(
   contextId,
-  'return userData.name.toUpperCase()'
+  'return userData.name.toUpperCase()',
 );
 
 console.log(result.result); // "ALICE"
@@ -207,14 +206,14 @@ const stats = manager.getStatistics();
 console.log({
   totalContexts: stats.totalContexts,
   totalMemoryUsage: stats.totalMemoryUsage,
-  averageExecutionTime: stats.averageExecutionTime
+  averageExecutionTime: stats.averageExecutionTime,
 });
 ```
 
 ### 健康检查
 
 ```typescript
-import { sandboxHealthChecker } from '@/utils/sandbox';
+import { sandboxHealthChecker } from '@/utils/sandbox/proxySandbox';
 
 // 检查环境支持
 const support = sandboxHealthChecker.checkEnvironmentSupport();
@@ -235,15 +234,15 @@ if (!testResult.passed) {
 
 ```typescript
 interface SandboxConfig {
-  allowedGlobals?: string[];      // 允许访问的全局对象
-  forbiddenGlobals?: string[];    // 禁止访问的全局对象
-  allowConsole?: boolean;         // 是否允许 console
-  allowTimers?: boolean;          // 是否允许定时器
-  timeout?: number;               // 超时时间（毫秒）
-  strictMode?: boolean;           // 是否启用严格模式
+  allowedGlobals?: string[]; // 允许访问的全局对象
+  forbiddenGlobals?: string[]; // 禁止访问的全局对象
+  allowConsole?: boolean; // 是否允许 console
+  allowTimers?: boolean; // 是否允许定时器
+  timeout?: number; // 超时时间（毫秒）
+  strictMode?: boolean; // 是否启用严格模式
   customGlobals?: Record<string, any>; // 自定义全局变量
-  allowDOM?: boolean;             // 是否允许 DOM 访问
-  maxMemoryUsage?: number;        // 最大内存使用（字节）
+  allowDOM?: boolean; // 是否允许 DOM 访问
+  maxMemoryUsage?: number; // 最大内存使用（字节）
 }
 ```
 
@@ -252,22 +251,22 @@ interface SandboxConfig {
 ```typescript
 interface SecurityContextConfig extends SandboxConfig {
   permissions?: {
-    network?: boolean;      // 网络访问权限
-    fileSystem?: boolean;   // 文件系统权限
-    media?: boolean;        // 媒体设备权限
-    geolocation?: boolean;  // 地理位置权限
+    network?: boolean; // 网络访问权限
+    fileSystem?: boolean; // 文件系统权限
+    media?: boolean; // 媒体设备权限
+    geolocation?: boolean; // 地理位置权限
     notifications?: boolean; // 通知权限
   };
   limits?: {
-    maxExecutionTime?: number;    // 最大执行时间
-    maxMemoryUsage?: number;      // 最大内存使用
-    maxCallStackDepth?: number;   // 最大调用栈深度
-    maxLoopIterations?: number;   // 最大循环次数
+    maxExecutionTime?: number; // 最大执行时间
+    maxMemoryUsage?: number; // 最大内存使用
+    maxCallStackDepth?: number; // 最大调用栈深度
+    maxLoopIterations?: number; // 最大循环次数
   };
   monitoring?: {
     enablePerformanceMonitoring?: boolean; // 性能监控
-    enableErrorTracking?: boolean;         // 错误追踪
-    enableResourceMonitoring?: boolean;    // 资源监控
+    enableErrorTracking?: boolean; // 错误追踪
+    enableResourceMonitoring?: boolean; // 资源监控
   };
 }
 ```
@@ -307,10 +306,10 @@ const sandbox = createSandbox({
       log: (msg: string) => console.log('[User]', msg),
       utils: {
         formatDate: (date: Date) => date.toISOString(),
-        random: () => Math.random()
-      }
-    }
-  }
+        random: () => Math.random(),
+      },
+    },
+  },
 });
 ```
 
@@ -349,8 +348,8 @@ npm test tests/utils/sandbox/integration.test.ts
 
 ```typescript
 const sandbox = createSandbox({
-  allowConsole: true,  // 允许 console 输出
-  debug: true         // 启用调试（如果支持）
+  allowConsole: true, // 允许 console 输出
+  debug: true, // 启用调试（如果支持）
 });
 
 await sandbox.execute(`
@@ -369,7 +368,7 @@ const manager = new SecurityContextManager({
     enablePerformanceMonitoring: true,
     enableErrorTracking: true,
     enableResourceMonitoring: true,
-  }
+  },
 });
 
 // 监控事件会自动记录到控制台
@@ -395,6 +394,7 @@ console.log('内存使用:', result.memoryUsage);
 ### 版本兼容性
 
 沙箱模块遵循语义版本控制：
+
 - 主版本号：不兼容的 API 变更
 - 次版本号：向后兼容的功能新增
 - 修订号：向后兼容的问题修正

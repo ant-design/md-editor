@@ -313,7 +313,7 @@ describe('toolsConfig', () => {
 
     it('应该返回 false 当没有匹配的节点时', async () => {
       const { Editor } = await import('slate');
-      vi.mocked(Editor.nodes).mockReturnValue([]);
+      vi.mocked(Editor.nodes).mockReturnValue([] as any);
 
       const result = isCodeNode(mockEditor);
       expect(result).toBeFalsy(); // 检查是否为falsy值（undefined, null, false等）
@@ -321,7 +321,7 @@ describe('toolsConfig', () => {
 
     it('应该返回 true 当节点类型为 code 时', async () => {
       const { Editor } = await import('slate');
-      vi.mocked(Editor.nodes).mockReturnValue([[{ type: 'code' }, [0]]]);
+      vi.mocked(Editor.nodes).mockReturnValue([[{ type: 'code' }, [0]]] as any);
 
       const result = isCodeNode(mockEditor);
       expect(result).toBe(true);
@@ -329,7 +329,9 @@ describe('toolsConfig', () => {
 
     it('应该返回 false 当节点类型不是 code 时', async () => {
       const { Editor } = await import('slate');
-      vi.mocked(Editor.nodes).mockReturnValue([[{ type: 'paragraph' }, [0]]]);
+      vi.mocked(Editor.nodes).mockReturnValue([
+        [{ type: 'paragraph' }, [0]],
+      ] as any);
 
       const result = isCodeNode(mockEditor);
       expect(result).toBe(false);
@@ -337,7 +339,7 @@ describe('toolsConfig', () => {
 
     it('应该正确调用 Editor.nodes', async () => {
       const { Editor } = await import('slate');
-      vi.mocked(Editor.nodes).mockReturnValue([[{ type: 'code' }, [0]]]);
+      vi.mocked(Editor.nodes).mockReturnValue([[{ type: 'code' }, [0]]] as any);
 
       isCodeNode(mockEditor);
 
@@ -485,7 +487,7 @@ describe('toolsConfig', () => {
 
     it('应该处理无效的编辑器对象', async () => {
       const { Editor } = await import('slate');
-      vi.mocked(Editor.nodes).mockReturnValue([]);
+      vi.mocked(Editor.nodes).mockReturnValue([] as any);
 
       const result = isCodeNode({} as any);
       expect(result).toBeFalsy(); // 检查是否为falsy值
@@ -558,7 +560,11 @@ describe('toolsConfig', () => {
         return (
           <div data-testid="toolbar">
             {tools.map((tool, index) => (
-              <button key={index} data-testid={`tool-button-${tool.key}`}>
+              <button
+                key={index}
+                data-testid={`tool-button-${tool.key}`}
+                type="button"
+              >
                 {tool.title}
               </button>
             ))}

@@ -2,11 +2,6 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import {
-  AttachmentFile,
-  AttachmentFileList,
-  kbToSize,
-} from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList';
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
@@ -16,31 +11,20 @@ vi.mock('framer-motion', () => ({
   AnimatePresence: ({ children }: any) => children,
 }));
 
-// Mock antd components
-vi.mock('antd', () => ({
-  ConfigProvider: {
-    ConfigContext: React.createContext({
-      getPrefixCls: (name: string) => name,
-    }),
-  },
-  Image: ({ children, ...props }: any) => <img {...props}>{children}</img>,
-}));
-
 // Mock LoadingIcon
 vi.mock('../src/icons/LoadingIcon', () => ({
-  LoadingIcon: () => <div data-testid="loading-icon">Loading...</div>,
+  LoadingIcon: ({ style, ...props }: any) => (
+    <div data-testid="loading-icon" style={style} {...props}>
+      Loading...
+    </div>
+  ),
 }));
 
-// Mock style hook
-vi.mock(
-  '../src/MarkdownInputField/AttachmentButton/AttachmentFileList/style',
-  () => ({
-    useStyle: () => ({
-      wrapSSR: (children: any) => children,
-      hashId: 'test-hash',
-    }),
-  }),
-);
+import {
+  AttachmentFile,
+  AttachmentFileList,
+  kbToSize,
+} from '@ant-design/md-editor';
 
 describe('kbToSize utility function', () => {
   it('should convert KB to readable format', () => {

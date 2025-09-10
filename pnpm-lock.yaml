@@ -101,9 +101,6 @@ importers:
       mermaid:
         specifier: ^11.11.0
         version: 11.11.0
-      mockdate:
-        specifier: ^3.0.5
-        version: 3.0.5
       mustache:
         specifier: ^4.2.0
         version: 4.2.0
@@ -173,9 +170,6 @@ importers:
       rxjs:
         specifier: ^7.8.2
         version: 7.8.2
-      scroll-into-view-if-needed:
-        specifier: ^3.1.0
-        version: 3.1.0
       slash2:
         specifier: ^2.0.0
         version: 2.0.0
@@ -300,6 +294,9 @@ importers:
       lint-staged:
         specifier: ^13.3.0
         version: 13.3.0
+      mockdate:
+        specifier: ^3.0.5
+        version: 3.0.5
       nwsapi:
         specifier: 2.2.13
         version: 2.2.13

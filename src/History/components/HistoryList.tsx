@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { HistoryDataType } from '../types';
+import { HistoryDataType } from '../types/HistoryData';
 import { HistoryListConfig } from '../types/HistoryList';
 import { formatTime, groupByCategory } from '../utils';
 import { HistoryItem } from './HistoryItem';

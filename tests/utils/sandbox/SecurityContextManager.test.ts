@@ -9,7 +9,7 @@ import {
   SecurityContextManager,
   createSecurityContextManager,
   runInSecureContext,
-} from '../../../src/utils/sandbox/SecurityContextManager';
+} from '../../../src/utils/proxySandbox/SecurityContextManager';
 
 describe('SecurityContextManager', () => {
   let manager: SecurityContextManager;

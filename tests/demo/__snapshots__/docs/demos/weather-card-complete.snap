@@ -9,7 +9,7 @@
       style="display: flex; gap: 20px;"
     >
       <div
-        style="flex: 1;"
+        style="flex: 1 1 0%;"
       >
         <h2>
           编辑表单
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div
-        style="flex: 1;"
+        style="flex: 1 1 0%;"
       >
         <div>
           <h2>

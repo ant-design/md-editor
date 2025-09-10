@@ -1,9 +1,8 @@
+import { AttachmentFile, AttachmentFileListItem } from '@ant-design/md-editor';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { AttachmentFile } from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList';
-import { AttachmentFileListItem } from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList/AttachmentFileListItem';
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({

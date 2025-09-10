@@ -290,11 +290,11 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 数据分析任务
                               </div>
@@ -314,7 +314,7 @@
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -328,6 +328,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -426,11 +427,11 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 模型训练任务
                               </div>
@@ -450,7 +451,7 @@
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -464,6 +465,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -562,11 +564,11 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 代码部署
                               </div>
@@ -586,7 +588,7 @@
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -600,6 +602,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -650,11 +653,11 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 系统备份
                               </div>
@@ -674,7 +677,7 @@
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -688,6 +691,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -751,11 +755,11 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
                               >
                                 报告生成
                               </div>
@@ -775,7 +779,7 @@
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -789,6 +793,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -936,18 +941,18 @@
                               </svg>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                               >
                                 聊天: 数据分析任务
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -961,6 +966,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -1055,18 +1061,18 @@
                               </svg>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                               >
                                 聊天: 模型训练任务
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -1080,6 +1086,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -1174,18 +1181,18 @@
                               </svg>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                               >
                                 聊天: 代码部署
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -1199,6 +1206,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -1240,18 +1248,18 @@
                             style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                           >
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                               >
                                 聊天: 系统备份
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -1265,6 +1273,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"
@@ -1319,18 +1328,18 @@
                             style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                           >
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1; display: flex; flex-direction: column;"
+                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
                               >
                                 聊天: 报告生成
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
                               >
                                 <div
                                   class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
@@ -1344,6 +1353,7 @@
                                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                       role="button"
                                       tabindex="0"
+                                      title="删除"
                                     >
                                       <span
                                         aria-label="delete"

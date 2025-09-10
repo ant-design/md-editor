@@ -1,3 +1,4 @@
+import { AttachmentFile, isImageFile } from '@ant-design/md-editor';
 import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/react';
 import { message } from 'antd';
@@ -5,10 +6,8 @@ import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   AttachmentButton,
-  isImageFile,
   upLoadFileToServer,
 } from '../src/MarkdownInputField/AttachmentButton';
-import { AttachmentFile } from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList';
 
 // Mock antd message
 vi.mock('antd', async () => {

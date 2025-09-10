@@ -5,7 +5,7 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { ProxySandbox } from '../../../src/utils/sandbox/ProxySandbox';
+import { ProxySandbox } from '../../../src/utils/proxySandbox/ProxySandbox';
 
 describe('ProxySandbox', () => {
   let sandbox: ProxySandbox;

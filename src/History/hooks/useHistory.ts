@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRefFunction } from '../../index';
-import { HistoryDataType, HistoryProps } from '../types';
+import { HistoryProps } from '../types';
+import { HistoryDataType } from '../types/HistoryData';
 
 /**
  * 历史记录状态管理 Hook

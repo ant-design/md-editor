@@ -288,7 +288,7 @@ export const BubbleMessageDisplay: React.FC<
                 (item: { placeholder: string; docId: string }) =>
                   item.placeholder === `[${mdProps.children}]` ||
                   item.placeholder === `[^${mdProps.children}]`,
-              ) || funRender(mdProps);
+              ) || funRender(mdProps as any);
 
             if (!item) return;
             if (!item?.origin_text) return null;
