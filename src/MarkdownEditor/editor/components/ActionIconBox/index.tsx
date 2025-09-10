@@ -112,6 +112,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
         role="button"
         tabIndex={0}
         aria-label={props.title}
+        title={props.title}
         className={cx(prefixCls, hashId, props.className, {
           [`${prefixCls}-danger`]: props.type === 'danger',
           [`${prefixCls}-primary`]: props.type === 'primary',

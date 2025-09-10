@@ -244,6 +244,7 @@ export const Bubble: React.FC<
           {
             [`${prefixClass}-bubble-compact`]: compact,
           },
+          classNames?.bubbleClassName,
         )}
         style={style}
         vertical
@@ -266,12 +267,15 @@ export const Bubble: React.FC<
               className={cx(
                 `${prefixClass}-bubble-avatar-title`,
                 `${prefixClass}-bubble-avatar-title-${placement}`,
+                classNames?.bubbleAvatarTitleClassName,
                 hashId,
               )}
             >
               {avatarDom}
               {typing && <LoadingIcon style={{ fontSize: 16 }} />}
-              <span>{avatar?.name ?? 'Agentar'}</span>
+              <span className={classNames?.bubbleNameClassName}>
+                {avatar?.name ?? 'Agentar'}
+              </span>
               {titleDom}
             </div>
           )}
@@ -287,6 +291,7 @@ export const Bubble: React.FC<
               {
                 [`${prefixClass}-bubble-container-pure`]: props.pure,
               },
+              classNames?.bubbleContainerClassName,
               hashId,
             )}
             data-testid="chat-message"
@@ -315,6 +320,7 @@ export const Bubble: React.FC<
                 {
                   [`${prefixClass}-bubble-content-pure`]: props.pure,
                 },
+                classNames?.bubbleListItemContentClassName,
                 hashId,
               )}
               onDoubleClick={props.onDoubleClick}

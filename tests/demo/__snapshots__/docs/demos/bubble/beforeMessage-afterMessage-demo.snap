@@ -418,6 +418,7 @@
                           role="button"
                           style="color: var(--color-gray-a9);"
                           tabindex="0"
+                          title="复制"
                         >
                           <span
                             aria-label="copy"
