@@ -1,5 +1,6 @@
 ---
 title: TaskRunning 任务运行状态
+atomId: TaskRunning
 group:
   title: 数据展示
   order: 3
@@ -22,6 +23,8 @@ group:
 | minutes           | 任务运行时长           | `string`              | -      |
 | taskStatus        | 任务状态               | `TASK_STATUS`         | -      |
 | taskRunningStatus | 任务运行状态           | `TASK_RUNNING_STATUS` | -      |
+| actions           | 自定义操作按钮           | `React.ReactNode` | -      |
+| variant           | 主题样式变体           | `'simple' \| 'default'` | -      |
 | onCreateNewTask   | 创建新任务的回调函数   | `() => void`          | -      |
 | onPause           | 暂停任务的回调函数     | `() => void`          | -      |
 | onReplay          | 重新回放任务的回调函数 | `() => void`          | -      |
