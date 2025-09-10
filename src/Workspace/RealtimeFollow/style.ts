@@ -82,6 +82,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         width: '100%',
         height: '100%',
+        overflow: 'auto', // 添加滚动支持
       },
 
       [`&-overlay`]: {
