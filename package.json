@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/md-editor",
-  "version": "1.27.0",
+  "version": "1.28.0",
   "description": "类语雀的编辑器，支持 markdown 渲染和编辑",
   "repository": "git@github.com:ant-design/md-editor.git",
   "license": "MIT",
