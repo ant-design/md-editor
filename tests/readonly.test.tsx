@@ -3,7 +3,7 @@ import { act, cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MarkdownEditor } from '../src';
-import { ReactEditor } from '../src/MarkdownEditor/editor/slate-react';
+import { ReactEditor } from 'slate-react';
 
 // 扩展 fireEvent 类型
 type CustomFireEvent = typeof fireEvent & {

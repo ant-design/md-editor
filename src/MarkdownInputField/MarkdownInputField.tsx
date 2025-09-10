@@ -10,6 +10,7 @@ import React, {
   useState,
 } from 'react';
 import { Editor, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 import { useRefFunction } from '../hooks/useRefFunction';
 import { I18nContext } from '../i18n';
 import {
@@ -18,7 +19,6 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
-import { ReactEditor } from 'slate-react';
 import {
   AttachmentButton,
   AttachmentButtonProps,

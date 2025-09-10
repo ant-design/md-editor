@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../i18n';
-import { MarkdownEditor } from '../../MarkdownEditor/BaseMarkdownEditor';
+import { BaseMarkdownEditor } from '../../MarkdownEditor/BaseMarkdownEditor';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { DocInfoListProps } from '../types/DocInfo';
@@ -334,7 +334,7 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
                       gap: 12,
                     }}
                   >
-                    <MarkdownEditor
+                    <BaseMarkdownEditor
                       style={{
                         padding: 0,
                         width: '100%',

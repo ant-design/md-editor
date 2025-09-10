@@ -1,6 +1,5 @@
+import { HistoryDataType } from './HistoryData';
 import { HistoryListConfig } from './HistoryList';
-
-export type { HistoryChatType, HistoryDataType } from './HistoryData';
 
 export interface HistoryProps {
   agentId: string;

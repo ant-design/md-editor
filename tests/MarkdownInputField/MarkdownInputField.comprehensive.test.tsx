@@ -18,7 +18,7 @@ vi.mock('../../src/MarkdownEditor', () => ({
   MarkdownEditorInstance: {},
 }));
 
-vi.mock('../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     findPath: vi.fn(() => [0]),
     findNode: vi.fn(() => ({ children: [] })),

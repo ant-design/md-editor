@@ -136,6 +136,10 @@ export interface DocMeta {
 }
 
 export interface ThoughtChainListProps {
+  titleRender: (
+    props: ThoughtChainListProps,
+    defaultDom: React.ReactNode,
+  ) => React.ReactNode;
   thoughtChainList: WhiteBoxProcessInterface[];
   loading?: boolean;
   bubble?: {

@@ -19,6 +19,11 @@ import { DotLoading } from './DotAni';
 import { FlipText } from './FlipText';
 import { useStyle } from './style';
 import { ThoughtChainListItem } from './ThoughtChainListItem';
+import {
+  DocMeta,
+  ThoughtChainListProps,
+  WhiteBoxProcessInterface,
+} from './types';
 
 // Initialize dayjs plugins
 try {

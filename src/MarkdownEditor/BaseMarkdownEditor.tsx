@@ -11,6 +11,7 @@ import React, {
 import { Subject } from 'rxjs';
 import { createEditor, Editor, Selection } from 'slate';
 import { withHistory } from 'slate-history';
+import { withReact } from 'slate-react';
 import { I18nProvide } from '../i18n';
 import { CommentList } from './editor/components/CommentList';
 import { SlateMarkdownEditor } from './editor/Editor';
@@ -18,7 +19,6 @@ import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { parserSlateNodeToMarkdown } from './editor/parser/parserSlateNodeToMarkdown';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
-import { withReact } from './editor/slate-react';
 import { EditorStore, EditorStoreContext } from './editor/store';
 import { InsertAutocomplete } from './editor/tools/InsertAutocomplete';
 import { InsertLink } from './editor/tools/InsertLink';

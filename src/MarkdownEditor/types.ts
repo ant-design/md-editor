@@ -3,7 +3,7 @@ import { AnchorProps, ImageProps } from 'antd';
 import React from 'react';
 import { BaseEditor, Selection } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { ReactEditor } from './editor/slate-react';
+import { ReactEditor } from 'slate-react';
 import { EditorStore } from './editor/store';
 import { Elements } from './el';
 

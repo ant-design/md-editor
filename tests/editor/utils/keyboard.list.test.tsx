@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ReactEditor,
   withReact,
-} from '../../../src/MarkdownEditor/editor/slate-react';
+} from 'slate-react';
 import { EditorStore } from '../../../src/MarkdownEditor/editor/store';
 import { KeyboardTask } from '../../../src/MarkdownEditor/editor/utils/keyboard';
 

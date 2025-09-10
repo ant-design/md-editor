@@ -1,7 +1,6 @@
 import React from 'react';
 import { createEditor, Descendant } from 'slate';
-import { Slate } from '../../../../src/MarkdownEditor/editor/slate-react/components/slate';
-import { ReactEditor } from '../../../../src/MarkdownEditor/editor/slate-react/plugin/react-editor';
+import { ReactEditor, Slate } from 'slate-react';
 
 interface TestSlateWrapperProps {
   children: React.ReactNode;

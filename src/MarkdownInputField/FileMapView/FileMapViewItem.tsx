@@ -4,11 +4,9 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import {
-  AttachmentFile,
-  kbToSize,
-} from '../AttachmentButton/AttachmentFileList';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
+import { AttachmentFile } from '../AttachmentButton/types';
+import { kbToSize } from '../AttachmentButton/utils';
 
 /**
  * FileMapViewItem 组件 - 文件映射视图项组件

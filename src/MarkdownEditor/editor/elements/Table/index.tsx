@@ -10,7 +10,6 @@ import {
 } from 'slate-react';
 import { useSelStatus } from '../../../hooks/editor';
 import { TableCursor } from '../../../utils/slate-table';
-import { TableCustomElement } from '../../types/Table';
 import { SimpleTable } from './SimpleTable';
 
 export type {
@@ -179,9 +178,7 @@ const TdWrapper: React.FC<
   return <Td {...props} cellPath={path} />;
 };
 
-export const tableRenderElement = (
-  props: RenderElementProps<TableCustomElement>,
-) => {
+export const tableRenderElement = (props: RenderElementProps) => {
   switch (props.element.type) {
     case 'table':
       return <SimpleTable {...props} />;

@@ -1,14 +1,3 @@
-/**
- * 沙箱模块入口文件
- *
- * 提供统一的 API 接口，导出所有沙箱相关的功能和类型定义。
- * 这个模块是基于 Proxy 的沙箱机制的主要入口点。
- *
- * @author md-editor
- * @version 1.0.0
- */
-
-// 导入类型和实现
 import type { SandboxConfig } from './ProxySandbox';
 import { ProxySandbox, createSandbox, runInSandbox } from './ProxySandbox';
 import type { SecurityContextConfig } from './SecurityContextManager';

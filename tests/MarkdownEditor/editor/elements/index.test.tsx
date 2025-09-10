@@ -24,7 +24,7 @@ vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
   }),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     findPath: vi.fn().mockReturnValue([0, 0]),
   },
