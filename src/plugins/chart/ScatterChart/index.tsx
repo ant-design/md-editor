@@ -50,6 +50,10 @@ export interface ScatterChartProps {
   className?: string;
   toolbarExtra?: React.ReactNode;
   dataTime?: string;
+  xUnit?: string;
+  yUnit?: string;
+  xLabel?: string;
+  yLabel?: string;
 }
 
 // 默认颜色配置
@@ -69,6 +73,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   title,
   toolbarExtra,
   dataTime,
+  xUnit='月',
+  yUnit,
+  xLabel,
+  yLabel,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('scatter-chart');
@@ -92,6 +100,16 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }
+  }, []);
+
+  // 清理自定义tooltip
+  useEffect(() => {
+    return () => {
+      const tooltipEl = document.getElementById('custom-scatter-tooltip');
+      if (tooltipEl) {
+        document.body.removeChild(tooltipEl);
+      }
+    };
   }, []);
   const chartRef = useRef<ChartJS<'scatter'>>(null);
 
@@ -209,30 +227,120 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         },
       },
       tooltip: {
-        backgroundColor:
-          currentConfig.theme === 'light'
-            ? 'rgba(255, 255, 255, 0.95)'
-            : 'rgba(0, 0, 0, 0.8)',
-        titleColor: currentConfig.theme === 'light' ? '#333' : '#fff',
-        bodyColor: currentConfig.theme === 'light' ? '#333' : '#fff',
-        borderColor:
-          currentConfig.theme === 'light'
-            ? 'rgba(0, 0, 0, 0.2)'
-            : 'rgba(255, 255, 255, 0.2)',
-        borderWidth: 1,
-        cornerRadius: isMobile ? 6 : 8,
-        displayColors: true,
-        titleFont: {
-          size: isMobile ? 11 : 12,
-        },
-        bodyFont: {
-          size: isMobile ? 10 : 11,
-        },
-        padding: isMobile ? 8 : 12,
-        callbacks: {
-          label: (context) => {
-            return `${context.dataset.label}: (${context.parsed.x}, ${context.parsed.y})`;
-          },
+        enabled: false, // 禁用默认 tooltip
+        external: (context) => {
+          const { chart, tooltip } = context;
+          
+          // 如果没有 tooltip 数据，隐藏
+          if (tooltip.opacity === 0) {
+            const tooltipEl = document.getElementById('custom-scatter-tooltip');
+            if (tooltipEl) {
+              tooltipEl.style.opacity = '0';
+            }
+            return;
+          }
+
+          // 获取或创建自定义 tooltip 元素
+          let tooltipEl = document.getElementById('custom-scatter-tooltip');
+          if (!tooltipEl) {
+            tooltipEl = document.createElement('div');
+            tooltipEl.id = 'custom-scatter-tooltip';
+            tooltipEl.style.position = 'absolute';
+            tooltipEl.style.pointerEvents = 'none';
+            tooltipEl.style.transition = 'all 0.1s ease';
+            document.body.appendChild(tooltipEl);
+          }
+
+          // 获取数据
+          const dataPoint = tooltip.dataPoints[0];
+          const dimensionTitle = xUnit ? `${dataPoint.parsed.x}${xUnit}` : `${dataPoint.parsed.x}`; // 散点图的维度标题
+          const label = dataPoint.dataset.label; // 数据集标签
+          const coordinates = yUnit ? `${dataPoint.parsed.y}${yUnit}` : `${dataPoint.parsed.y}`;
+          
+          // 获取数据集颜色作为图标颜色
+          const iconColor = dataPoint.dataset.borderColor || '#917EF7';
+
+          // 创建 HTML 内容
+          const isDark = currentConfig.theme !== 'light';
+          const bgColor = isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.95)';
+          const labelColor = isDark ? '#fff' : '#767E8B'; // 左边图标信息颜色
+
+          tooltipEl.innerHTML = `
+            <div style="
+              background-color: ${bgColor};
+              border: 1px solid ${isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 16, 32, 0.0627)'};
+              border-radius: ${isMobile ? '6px' : '8px'};
+              padding: ${isMobile ? '8px 12px' : '12px 16px'};
+              font-family: 'PingFang SC', sans-serif;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              backdrop-filter: blur(10px);
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              min-width: 120px;
+            ">
+              <div style="
+                font-family: 'PingFang SC', sans-serif;
+                font-size: 12px;
+                font-weight: normal;
+                line-height: 20px;
+                text-align: center;
+                letter-spacing: 0em;
+                font-variation-settings: 'opsz' auto;
+                color: #767E8B;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              ">${dimensionTitle}</div>
+              <div style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+              ">
+                <div style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                ">
+                  <div style="
+                    width: 12px;
+                    height: 12px;
+                    background-color: ${iconColor};
+                    border-radius: 2px;
+                    flex-shrink: 0;
+                  "></div>
+                  <span style="
+                    color: ${labelColor};
+                    font-size: ${isMobile ? '11px' : '12px'};
+                    font-weight: 500;
+                    font-family: 'PingFang SC', sans-serif;
+                    white-space: nowrap;
+                  ">${label}</span>
+                </div>
+                <span style="
+                  font-family: Rubik, sans-serif;
+                  font-size: 13px;
+                  font-weight: 500;
+                  line-height: 13px;
+                  text-align: center;
+                  letter-spacing: 0.04em;
+                  font-variation-settings: 'opsz' auto;
+                  font-feature-settings: 'kern' on;
+                  color: #343A45;
+                  white-space: nowrap;
+                ">${coordinates}</span>
+              </div>
+            </div>
+          `;
+
+          // 定位 tooltip
+          const position = chart.canvas.getBoundingClientRect();
+          
+          tooltipEl.style.opacity = '1';
+          tooltipEl.style.left = position.left + window.pageXOffset + tooltip.caretX + 'px';
+          tooltipEl.style.top = position.top + window.pageYOffset + tooltip.caretY + 'px';
+          tooltipEl.style.zIndex = '1000';
         },
       },
     },
@@ -242,7 +350,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         position: 'bottom',
         title: {
           display: true,
-          text: '月份', // 使用默认标签
+          text: xLabel || '月份', // 使用默认标签
           color:
             currentConfig.theme === 'light'
               ? 'rgba(0, 25, 61, 0.3255)'
@@ -264,7 +372,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
             size: isMobile ? 8 : 10,
           },
           callback: function (value: any) {
-            return `${value}月`;
+            return xUnit ? `${value}${xUnit}` : `${value}`;
           },
         },
         grid: {
@@ -277,7 +385,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         position: 'right',
         title: {
           display: true,
-          text: '数值', // 使用默认标签
+          text: yLabel || '数值', // 使用默认标签
           color:
             currentConfig.theme === 'light'
               ? 'rgba(0, 25, 61, 0.3255)'
@@ -301,6 +409,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
             family: 'PingFang SC',
             size: isMobile ? 8 : 12,
             weight: 'normal',
+          },
+          callback: function (value: any) {
+            return yUnit ? `${value}${yUnit}` : `${value}`;
           },
         },
         grid: {
