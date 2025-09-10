@@ -26,7 +26,8 @@ ChartJS.register(
   Legend,
 );
 
-export interface LineChartDataItem extends ChartDataItem {}
+export type LineChartDataItem = ChartDataItem;
+
 
 export interface LineChartConfigItem {
   datasets: Array<(string | { x: number; y: number })[]>;

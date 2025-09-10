@@ -26,7 +26,8 @@ ChartJS.register(
   Legend,
 );
 
-export interface AreaChartDataItem extends ChartDataItem {}
+export type AreaChartDataItem = ChartDataItem;
+
 
 export interface AreaChartConfigItem {
   datasets: Array<(string | { x: number; y: number })[]>;
