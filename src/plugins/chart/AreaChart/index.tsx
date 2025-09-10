@@ -154,7 +154,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   }, [validFilterLables]);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0] || '');
+  const [selectedFilter, setSelectedFilter] = useState<string>(categories.find(Boolean) || '');
   const [selectedFilterLable, setSelectedFilterLable] = useState(
     filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );

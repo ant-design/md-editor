@@ -188,7 +188,9 @@ export const ChartRender: React.FC<{
     let idx = 1;
     (chartData || []).forEach((row: any) => {
       const key = row?.[config?.x];
-      if (!map.has(key)) map.set(key, idx++);
+      if (isNotEmpty(key) && !map.has(key)) {
+        map.set(key, idx++);
+      }
     });
     return map;
   };

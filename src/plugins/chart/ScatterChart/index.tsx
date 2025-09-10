@@ -109,14 +109,14 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       : undefined;
 
   // 状态管理 - 使用第一个分类作为默认值
-  const [selectedFilter, setSelectedFilter] = useState(categories[0] || '');
+  const [selectedFilter, setSelectedFilter] = useState(categories.find(Boolean) || '');
   const [selectedFilterLable, setSelectedFilterLable] = useState(
     filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );
 
   // 根据选定的分类筛选数据
   const filteredData = data.filter((item) => {
-    if (!selectedFilter) return data;
+    if (!selectedFilter) return true;
     const categoryMatch = item.category === selectedFilter;
     // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
     if (
@@ -172,7 +172,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   }));
 
   // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
-  const filteredDataByFilterLable = filterLables?.map((item) => ({
+  const filteredDataByFilterLable = filterLables?.slice(1).map((item) => ({
     key: item,
     label: item,
   }));

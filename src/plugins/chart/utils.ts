@@ -85,18 +85,11 @@ export interface ChartDataItem {
  * @returns 归一化后的值
  */
 export const normalizeXValue = (value: number | string): number | string => {
-  if (typeof value === 'number') {
-    return value;
-  }
-
-  const numValue = Number(value);
-  // 如果字符串可以转换为有效数字，则返回数字
-  if (Number.isFinite(numValue)) {
-    return numValue;
-  }
-
-  // 否则返回原始字符串
-  return value;
+  if (typeof value === 'number') return value;
+  const s = String(value).trim();
+  if (s === '') return value;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : value;
 };
 
 /**
