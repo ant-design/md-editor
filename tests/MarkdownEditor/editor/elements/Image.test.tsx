@@ -21,7 +21,10 @@ vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
   useEditorStore: vi.fn(() => ({
     markdownEditorRef: {
       current: {
-        // Mock Transforms.setNodes
+        setNodes: vi.fn(),
+        removeNodes: vi.fn(),
+        insertNodes: vi.fn(),
+        // 添加其他必要的编辑器方法
       },
     },
     readonly: false,
@@ -102,24 +105,6 @@ vi.mock('react-rnd', () => ({
       {children}
     </div>
   ),
-}));
-
-// Mock slate Transforms
-vi.mock('slate', () => ({
-  Transforms: {
-    setNodes: vi.fn(),
-    removeNodes: vi.fn(),
-  },
-  createEditor: vi.fn(() => ({
-    children: [{ type: 'paragraph', children: [{ text: '' }] }],
-  })),
-  Node: {
-    isNodeList: vi.fn(() => true),
-    string: vi.fn(() => ''),
-  },
-  Editor: {
-    isEditor: vi.fn(() => true),
-  },
 }));
 
 describe('Image', () => {

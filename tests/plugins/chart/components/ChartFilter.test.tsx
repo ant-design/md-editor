@@ -44,19 +44,21 @@ vi.mock('antd', () => ({
             data-testid={`segmented-option-${option.value}`}
             className={value === option.value ? 'active' : ''}
             onClick={() => onChange(option.value)}
+            type="button"
           >
             {option.label}
           </button>
         ))}
       </div>
     )),
-  Dropdown: vi.fn().mockImplementation(({ menu, trigger, children }) => (
+  Dropdown: vi.fn().mockImplementation(({ menu, children }) => (
     <div data-testid="dropdown">
       <div data-testid="dropdown-trigger">{children}</div>
       <div data-testid="dropdown-menu">
         {menu.items.map((item: any, index: number) => (
           <button
             key={index}
+            type="button"
             data-testid={`dropdown-item-${item.key}`}
             onClick={() => menu.onClick({ key: item.key })}
           >
@@ -73,6 +75,7 @@ vi.mock('antd', () => ({
         data-testid="button"
         className={className}
         onClick={onClick}
+        type="button"
         data-size={size}
         data-type={type}
       >

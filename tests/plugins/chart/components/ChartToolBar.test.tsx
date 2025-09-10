@@ -6,15 +6,6 @@ import ChartToolBar, {
   ChartToolBarProps,
 } from '../../../../src/plugins/chart/components/ChartToolBar';
 
-// Mock Ant Design icons
-vi.mock('@ant-design/icons', () => ({
-  DownloadOutlined: vi.fn().mockImplementation(({ className, onClick }) => (
-    <button data-testid="download-icon" className={className} onClick={onClick}>
-      下载
-    </button>
-  )),
-}));
-
 // Mock TimeIcon
 vi.mock('../../../../src/plugins/chart/components/icons/TimeIcon', () => ({
   default: vi.fn().mockImplementation(({ className }) => (
@@ -177,8 +168,8 @@ describe('ChartToolBar', () => {
         .getByTestId('time-icon')
         .closest('.ant-chart-toolbar-header-actions');
 
-      expect(header).toContainElement(titleSection);
-      expect(header).toContainElement(actionsSection);
+      expect(header).toContainElement(titleSection as HTMLElement);
+      expect(header).toContainElement(actionsSection as HTMLElement);
     });
   });
 

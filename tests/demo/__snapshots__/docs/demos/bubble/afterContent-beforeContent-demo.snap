@@ -31,12 +31,8 @@
             style="gap: 12px;"
           >
             <div
-              animate="visible"
               class="ant-agent-list-bubble-container"
-              initial="hidden"
               style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
-              variants="[object Object]"
-              whileinview="visible"
             >
               <div
                 class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
@@ -63,24 +59,18 @@
                 />
               </div>
               <div
-                animate="visible"
                 class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
                 data-testid="chat-message"
-                initial="hidden"
                 style="display: flex; gap: 4px; flex-direction: column;"
-                variants="[object Object]"
-                whileinview="visible"
               >
                 <div
                   class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
                   data-testid="message-before"
-                  variants="[object Object]"
                 />
                 <div
                   class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
                   data-testid="message-content"
                   style="min-width: 0px;"
-                  variants="[object Object]"
                 >
                   <div
                     style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"

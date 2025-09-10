@@ -398,7 +398,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
         ...defaultActions,
       ]);
 
-      const toolsRender = vi.fn((_props) => [
+      const toolsRender = vi.fn(() => [
         <div key="tool1" data-testid="custom-tool-1">
           Tool 1
         </div>,
