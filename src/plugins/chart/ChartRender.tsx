@@ -562,7 +562,7 @@ export const ChartRender: React.FC<{
     }
     if (chartType === 'scatter') {
       // Scatter 数据需要映射为 { category, type, x, y }
-      const scatterData = (chartData || []).map((row: any, i: number) => {
+      const scatterData = (chartData || []).map((row: any) => {
         const filterLable = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
         const type = getFieldValue(row, colorLegend);
