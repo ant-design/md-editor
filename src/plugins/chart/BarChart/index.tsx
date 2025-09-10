@@ -300,8 +300,8 @@ const BarChart: React.FC<BarChartProps> = ({
   // 筛选器选项
   const filterOptions = useMemo(() => {
     return categories.map((category) => ({
-      label: category,
-      value: category,
+      label: category || '',
+      value: category || '',
     }));
   }, [categories]);
 

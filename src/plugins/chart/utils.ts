@@ -64,9 +64,9 @@ export function debounce(
  */
 export interface ChartDataItem {
   /** 数据类别 */
-  category: string;
+  category?: string;
   /** 数据类型 */
-  type: string;
+  type?: string;
   /** X轴值 */
   x: number | string;
   /** Y轴值 */

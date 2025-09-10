@@ -223,13 +223,13 @@ export const ChartRender: React.FC<{
       const y =
         typeof rawY === 'number' ? rawY : isNotEmpty(rawY) ? String(rawY) : '';
 
-      return {
-        category,
-        type,
+      return {        
         x,
         y,
         xtitle: xTitle,
         ytitle: yTitle,
+        ...(type ? { type } : {}),
+        ...(category ? { category } : {}),
         ...(filterLable ? { filterLable } : {}),
       };
     });
@@ -250,9 +250,9 @@ export const ChartRender: React.FC<{
       const filterLable = getFieldValue(row, filterBy);
 
       return {
-        category,
         label,
         value,
+        ...(category ? { category } : {}),
         ...(filterLable ? { filterLable } : {}),
       };
     });
@@ -541,10 +541,10 @@ export const ChartRender: React.FC<{
         const category = getFieldValue(row, groupBy);
         const type = getFieldValue(row, colorLegend);
         return {
-          category,
           label: String(row?.[config?.x] ?? i + 1),
-          type,
           score: row?.[config?.y],
+          ...(category ? { category } : {}),
+          ...(type ? { type } : {}),
           ...(filterLable ? { filterLable } : {}),
         };
       });
@@ -565,10 +565,10 @@ export const ChartRender: React.FC<{
         const category = getFieldValue(row, groupBy);
         const type = getFieldValue(row, colorLegend);
         return {
-          category,
-          type,
           x: row?.[config?.x],
           y: row?.[config?.y],
+          ...(category ? { category } : {}),
+          ...(type ? { type } : {}),
           ...(filterLable ? { filterLable } : {}),
         };
       });

@@ -153,7 +153,7 @@ const LineChart: React.FC<LineChartProps> = ({
   }, [validFilterLables]);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0]);
+  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0] || '');
   const [selectedFilterLable, setSelectedFilterLable] = useState(
     filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );
@@ -209,7 +209,7 @@ const LineChart: React.FC<LineChartProps> = ({
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
-        const dataPoint = findDataPointByXValue(filteredData, type, x);
+        const dataPoint = findDataPointByXValue(filteredData, type || '', x);
         const v = dataPoint?.y;
         const n = typeof v === 'number' ? v : Number(v);
         return Number.isFinite(n) ? n : null;
@@ -234,8 +234,8 @@ const LineChart: React.FC<LineChartProps> = ({
   // 筛选器选项
   const filterOptions = useMemo(() => {
     return categories.map((category) => ({
-      label: category,
-      value: category,
+      label: category || '',
+      value: category || '',
     }));
   }, [categories]);
 
@@ -258,7 +258,7 @@ const LineChart: React.FC<LineChartProps> = ({
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: showLegend,
+        display: showLegend && types.length > 0,
         position: legendPosition,
         align: legendAlign,
         labels: {

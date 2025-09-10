@@ -20,8 +20,8 @@ ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 // 散点图数据项接口 - 扁平化数据格式
 export interface ScatterChartDataItem {
-  category: string;
-  type: string;
+  category?: string;
+  type?: string;
   x: number | string;
   y: number | string;
   filterLable?: string;
@@ -166,8 +166,8 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
 
   // 筛选器的枚举 - 从分类生成
   const filterEnum = categories.map((category) => ({
-    label: category,
-    value: category,
+    label: category || '',
+    value: category || '',
   }));
 
   // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成

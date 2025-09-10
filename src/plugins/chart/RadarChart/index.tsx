@@ -28,9 +28,9 @@ ChartJS.register(
 
 // 雷达图数据项接口 - 扁平化数据格式
 export interface RadarChartDataItem {
-  category: string;
+  category?: string;
   label: string;
-  type: string;
+  type?: string;
   score: number | string;
   filterLable?: string;
 }
@@ -177,8 +177,8 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
   // 筛选器的枚举
   const filterEnum = categories?.map((category) => ({
-    label: category,
-    value: category,
+    label: category || '',
+    value: category || '',
   }));
 
   // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
