@@ -1,6 +1,7 @@
 ---
 nav:
   order: 1
+atomId: MarkdownEditor
 group:
   title: 编辑器
   order: 1

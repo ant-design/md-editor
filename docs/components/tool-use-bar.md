@@ -1,5 +1,6 @@
 ---
 title: ToolUseBar 工具使用栏
+atomId: ToolUseBar
 group:
   title: 功能组件
   order: 2
