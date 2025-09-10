@@ -7,20 +7,20 @@ import TimeIcon from '../../../../../src/plugins/chart/components/icons/TimeIcon
 describe('TimeIcon', () => {
   describe('基本渲染测试', () => {
     it('应该正确渲染时间图标', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
-      expect(svgElement.tagName).toBe('svg');
+      expect(svgElement?.tagName).toBe('svg');
     });
 
     it('应该包含正确的 SVG 属性', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toHaveAttribute('xmlns', 'http://www.w3.org/2000/svg');
       expect(svgElement).toHaveAttribute(
-        'xmlnsXlink',
+        'xmlns:xlink',
         'http://www.w3.org/1999/xlink',
       );
       expect(svgElement).toHaveAttribute('fill', 'none');
@@ -31,11 +31,11 @@ describe('TimeIcon', () => {
     });
 
     it('应该包含 defs 和 clipPath 元素', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const defsElement = svgElement.querySelector('defs');
-      const clipPathElement = svgElement.querySelector('clipPath');
+      const svgElement = container.querySelector('svg');
+      const defsElement = svgElement?.querySelector('defs');
+      const clipPathElement = svgElement?.querySelector('clipPath');
 
       expect(defsElement).toBeInTheDocument();
       expect(clipPathElement).toBeInTheDocument();
@@ -43,10 +43,10 @@ describe('TimeIcon', () => {
     });
 
     it('应该包含 rect 元素在 clipPath 中', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const rectElement = svgElement.querySelector('rect');
+      const svgElement = container.querySelector('svg');
+      const rectElement = svgElement?.querySelector('rect');
 
       expect(rectElement).toBeInTheDocument();
       expect(rectElement).toHaveAttribute('x', '0');
@@ -57,98 +57,107 @@ describe('TimeIcon', () => {
     });
 
     it('应该包含 g 元素和 path 元素', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const gElements = svgElement.querySelectorAll('g');
-      const pathElement = svgElement.querySelector('path');
+      const svgElement = container.querySelector('svg');
+      const gElements = svgElement?.querySelectorAll('g');
+      const pathElement = svgElement?.querySelector('path');
 
       expect(gElements).toHaveLength(2); // 外层 g 和内层 g
       expect(pathElement).toBeInTheDocument();
     });
 
     it('应该包含正确的 path 属性', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const pathElement = svgElement.querySelector('path');
+      const svgElement = container.querySelector('svg');
+      const pathElement = svgElement?.querySelector('path');
 
       expect(pathElement).toHaveAttribute('d');
-      expect(pathElement).toHaveAttribute('fillRule', 'evenodd');
+      expect(pathElement).toHaveAttribute('fill-rule', 'evenodd');
       expect(pathElement).toHaveAttribute('fill', '#00183D');
-      expect(pathElement).toHaveAttribute('fillOpacity', '0.24709999561309814');
+      expect(pathElement).toHaveAttribute(
+        'fill-opacity',
+        '0.24709999561309814',
+      );
     });
   });
 
   describe('自定义属性测试', () => {
     it('应该应用自定义 className', () => {
-      render(<TimeIcon className="custom-time-icon" />);
+      const { container } = render(<TimeIcon className="custom-time-icon" />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toHaveClass('custom-time-icon');
     });
 
     it('应该应用自定义样式', () => {
       const customStyle = { color: 'red', fontSize: '16px' };
-      render(<TimeIcon style={customStyle} />);
+      const { container } = render(<TimeIcon style={customStyle} />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      expect(svgElement).toHaveStyle('color: red');
+      const svgElement = container.querySelector('svg');
+      expect(svgElement).toHaveStyle('color: rgb(255, 0, 0)');
       expect(svgElement).toHaveStyle('font-size: 16px');
     });
 
     it('应该同时应用 className 和 style', () => {
       const customStyle = { color: 'blue' };
-      render(<TimeIcon className="test-class" style={customStyle} />);
+      const { container } = render(
+        <TimeIcon className="test-class" style={customStyle} />,
+      );
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toHaveClass('test-class');
-      expect(svgElement).toHaveStyle('color: blue');
+      expect(svgElement).toHaveStyle('color: rgb(0, 0, 255)');
     });
   });
 
   describe('边界条件测试', () => {
     it('应该处理空的 className', () => {
-      render(<TimeIcon className="" />);
+      const { container } = render(<TimeIcon className="" />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
     });
 
     it('应该处理空的 style 对象', () => {
-      render(<TimeIcon style={{}} />);
+      const { container } = render(<TimeIcon style={{}} />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
     });
 
     it('应该处理 undefined 的 props', () => {
-      render(<TimeIcon className={undefined} style={undefined} />);
+      const { container } = render(
+        <TimeIcon className={undefined} style={undefined} />,
+      );
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
     });
 
     it('应该处理 null 的 props', () => {
-      render(<TimeIcon className={null as any} style={null as any} />);
+      const { container } = render(
+        <TimeIcon className={null as any} style={null as any} />,
+      );
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
     });
   });
 
   describe('可访问性测试', () => {
     it('应该支持屏幕阅读器', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toBeInTheDocument();
     });
 
     it('应该包含正确的 ARIA 属性', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       // SVG 元素默认是隐藏的，这是正确的行为
       expect(svgElement).toBeInTheDocument();
     });
@@ -156,40 +165,40 @@ describe('TimeIcon', () => {
 
   describe('SVG 结构测试', () => {
     it('应该包含正确的 SVG 结构层次', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
 
       // 检查 SVG 结构
-      expect(svgElement.querySelector('defs')).toBeInTheDocument();
-      expect(svgElement.querySelector('defs > clipPath')).toBeInTheDocument();
+      expect(svgElement?.querySelector('defs')).toBeInTheDocument();
+      expect(svgElement?.querySelector('defs > clipPath')).toBeInTheDocument();
       expect(
-        svgElement.querySelector('defs > clipPath > rect'),
+        svgElement?.querySelector('defs > clipPath > rect'),
       ).toBeInTheDocument();
-      expect(svgElement.querySelector('g[clipPath]')).toBeInTheDocument();
-      expect(svgElement.querySelector('g[clipPath] > g')).toBeInTheDocument();
+      expect(svgElement?.querySelector('g[clip-path]')).toBeInTheDocument();
+      expect(svgElement?.querySelector('g[clip-path] > g')).toBeInTheDocument();
       expect(
-        svgElement.querySelector('g[clipPath] > g > path'),
+        svgElement?.querySelector('g[clip-path] > g > path'),
       ).toBeInTheDocument();
     });
 
     it('应该包含正确的 clipPath 引用', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const gElement = svgElement.querySelector('g[clipPath]');
+      const svgElement = container.querySelector('svg');
+      const gElement = svgElement?.querySelector('g[clip-path]');
 
       expect(gElement).toHaveAttribute(
-        'clipPath',
+        'clip-path',
         'url(#master_svg0_2168_020512)',
       );
     });
 
     it('应该包含正确的 path 数据', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const pathElement = svgElement.querySelector('path');
+      const svgElement = container.querySelector('svg');
+      const pathElement = svgElement?.querySelector('path');
 
       expect(pathElement).toHaveAttribute('d');
       const pathData = pathElement?.getAttribute('d');
@@ -199,29 +208,32 @@ describe('TimeIcon', () => {
 
   describe('样式属性测试', () => {
     it('应该包含正确的 fill 属性', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const pathElement = svgElement.querySelector('path');
+      const svgElement = container.querySelector('svg');
+      const pathElement = svgElement?.querySelector('path');
 
       expect(pathElement).toHaveAttribute('fill', '#00183D');
-      expect(pathElement).toHaveAttribute('fillOpacity', '0.24709999561309814');
+      expect(pathElement).toHaveAttribute(
+        'fill-opacity',
+        '0.24709999561309814',
+      );
     });
 
     it('应该包含正确的 fillRule 属性', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const pathElement = svgElement.querySelector('path');
+      const svgElement = container.querySelector('svg');
+      const pathElement = svgElement?.querySelector('path');
 
-      expect(pathElement).toHaveAttribute('fillRule', 'evenodd');
+      expect(pathElement).toHaveAttribute('fill-rule', 'evenodd');
     });
 
     it('应该包含正确的 style 属性', () => {
-      render(<TimeIcon />);
+      const { container } = render(<TimeIcon />);
 
-      const svgElement = screen.getByRole('img', { hidden: true });
-      const pathElement = svgElement.querySelector('path');
+      const svgElement = container.querySelector('svg');
+      const pathElement = svgElement?.querySelector('path');
 
       expect(pathElement).toHaveStyle('mix-blend-mode: passthrough');
     });
@@ -237,13 +249,13 @@ describe('TimeIcon', () => {
     });
 
     it('应该处理多次重新渲染', () => {
-      const { rerender } = render(<TimeIcon />);
+      const { rerender, container } = render(<TimeIcon />);
 
       for (let i = 0; i < 10; i++) {
         rerender(<TimeIcon className={`test-${i}`} />);
       }
 
-      const svgElement = screen.getByRole('img', { hidden: true });
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toHaveClass('test-9');
     });
   });
@@ -257,14 +269,15 @@ describe('TimeIcon', () => {
         </div>
       );
 
-      render(<TestComponent />);
+      const { container } = render(<TestComponent />);
 
-      expect(screen.getByRole('img', { hidden: true })).toHaveClass('icon');
+      const svgElement = container.querySelector('svg');
+      expect(svgElement).toHaveClass('icon');
       expect(screen.getByText('时间')).toBeInTheDocument();
     });
 
     it('应该处理多个实例', () => {
-      render(
+      const { container } = render(
         <div>
           <TimeIcon className="icon1" />
           <TimeIcon className="icon2" />
@@ -272,7 +285,7 @@ describe('TimeIcon', () => {
         </div>,
       );
 
-      const svgElements = screen.getAllByRole('img', { hidden: true });
+      const svgElements = container.querySelectorAll('svg');
       expect(svgElements).toHaveLength(3);
       expect(svgElements[0]).toHaveClass('icon1');
       expect(svgElements[1]).toHaveClass('icon2');

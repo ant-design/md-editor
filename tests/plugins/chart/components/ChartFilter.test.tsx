@@ -10,6 +10,30 @@ import ChartFilter, {
 
 // Mock Ant Design components
 vi.mock('antd', () => ({
+  ConfigProvider: {
+    ConfigContext: React.createContext({
+      getPrefixCls: (suffix: string) => `ant-${suffix}`,
+    }),
+  },
+  theme: {
+    useToken: vi.fn(() => ({
+      token: {
+        colorPrimary: '#1890ff',
+        colorBgContainer: '#ffffff',
+        colorText: '#000000',
+        borderRadius: 6,
+        fontSize: 14,
+        lineHeight: 1.5714,
+        padding: 16,
+        margin: 16,
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+      },
+      hashId: 'test-hash-id',
+      theme: {
+        isDark: false,
+      },
+    })),
+  },
   Segmented: vi
     .fn()
     .mockImplementation(({ options, value, onChange, className }) => (
@@ -150,7 +174,7 @@ describe('ChartFilter', () => {
         <ChartFilter
           {...defaultProps}
           customOptions={defaultCustomOptions}
-          selectedCustionSelection="asia"
+          selectedCustomSelection="asia"
         />,
       );
 
@@ -165,12 +189,12 @@ describe('ChartFilter', () => {
         <ChartFilter
           {...defaultProps}
           customOptions={defaultCustomOptions}
-          selectedCustionSelection="europe"
+          selectedCustomSelection="europe"
         />,
       );
 
       const trigger = screen.getByTestId('dropdown-trigger');
-      expect(trigger).toHaveTextContent('欧洲');
+      expect(trigger).toHaveTextContent('欧洲▼');
     });
 
     it('应该显示默认标签当没有选中自定义选项时', () => {
@@ -188,7 +212,7 @@ describe('ChartFilter', () => {
         <ChartFilter
           {...defaultProps}
           customOptions={defaultCustomOptions}
-          selectedCustionSelection="asia"
+          selectedCustomSelection="asia"
           onSelectionChange={onSelectionChange}
         />,
       );
@@ -210,7 +234,7 @@ describe('ChartFilter', () => {
         <ChartFilter
           {...defaultProps}
           customOptions={defaultCustomOptions}
-          selectedCustionSelection="nonexistent"
+          selectedCustomSelection="nonexistent"
         />,
       );
 
@@ -225,7 +249,7 @@ describe('ChartFilter', () => {
 
       const filterContainer =
         screen.getByTestId('segmented-filter').parentElement;
-      expect(filterContainer).toHaveClass('light');
+      expect(filterContainer).toHaveClass('ant-chart-filter-light');
     });
 
     it('应该应用深色主题', () => {
@@ -233,7 +257,7 @@ describe('ChartFilter', () => {
 
       const filterContainer =
         screen.getByTestId('segmented-filter').parentElement;
-      expect(filterContainer).toHaveClass('dark');
+      expect(filterContainer).toHaveClass('ant-chart-filter-dark');
     });
 
     it('应该使用默认浅色主题', () => {
@@ -241,7 +265,7 @@ describe('ChartFilter', () => {
 
       const filterContainer =
         screen.getByTestId('segmented-filter').parentElement;
-      expect(filterContainer).toHaveClass('light');
+      expect(filterContainer).toHaveClass('ant-chart-filter-light');
     });
   });
 
@@ -254,7 +278,7 @@ describe('ChartFilter', () => {
       const button = screen.getByTestId('button');
       expect(button).toHaveAttribute('data-size', 'small');
       expect(button).toHaveAttribute('data-type', 'default');
-      expect(button).toHaveClass('region-dropdown-btn');
+      expect(button).toHaveClass('ant-chart-filter-region-dropdown-btn');
     });
 
     it('应该显示下拉图标', () => {
@@ -296,12 +320,12 @@ describe('ChartFilter', () => {
       expect(screen.getByTestId('segmented-filter')).toBeInTheDocument();
     });
 
-    it('应该处理无效的 selectedCustionSelection', () => {
+    it('应该处理无效的 selectedCustomSelection', () => {
       render(
         <ChartFilter
           {...defaultProps}
           customOptions={defaultCustomOptions}
-          selectedCustionSelection="invalid"
+          selectedCustomSelection="invalid"
         />,
       );
 

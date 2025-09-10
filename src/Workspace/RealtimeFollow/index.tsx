@@ -449,7 +449,11 @@ export const RealtimeFollowList: React.FC<{
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('workspace-realtime');
 
-  const { wrapSSR, hashId } = useRealtimeFollowStyle(prefixCls);
+  const styleResult = useRealtimeFollowStyle(prefixCls);
+  const { wrapSSR, hashId } = styleResult || {
+    wrapSSR: (node: any) => node,
+    hashId: '',
+  };
 
   return wrapSSR(
     <div
