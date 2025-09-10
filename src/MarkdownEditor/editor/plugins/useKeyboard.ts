@@ -10,8 +10,8 @@ import {
   Transforms,
 } from 'slate';
 import { HistoryEditor } from 'slate-history';
+import { ReactEditor } from 'slate-react';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
-import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { BackspaceKey } from './hotKeyCommands/backspace';

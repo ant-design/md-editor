@@ -27,6 +27,7 @@ import {
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';
+import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { PluginContext } from '../plugin';
 import { useOptimizedPaste } from './hooks/useOptimizedPaste';
@@ -43,12 +44,6 @@ import {
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
-import {
-  Editable,
-  ReactEditor,
-  RenderElementProps,
-  Slate,
-} from './slate-react';
 import { useEditorStore } from './store';
 import { useStyle } from './style';
 import { MARKDOWN_EDITOR_EVENTS, parserSlateNodeToMarkdown } from './utils';

@@ -19,7 +19,7 @@ vi.mock('../../store', () => ({
   }),
 }));
 
-vi.mock('../../slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     findPath: vi.fn(() => [0]),
     findNode: vi.fn(() => ({ children: [] })),

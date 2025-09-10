@@ -3,13 +3,13 @@
 'use client';
 
 import React from 'react';
-import { useSelStatus } from '../../../hooks/editor';
-import { TableCursor } from '../../../utils/slate-table';
 import {
   RenderElementProps,
   useSlateSelection,
   useSlateStatic,
-} from '../../slate-react';
+} from 'slate-react';
+import { useSelStatus } from '../../../hooks/editor';
+import { TableCursor } from '../../../utils/slate-table';
 import { TableCustomElement } from '../../types/Table';
 import { SimpleTable } from './SimpleTable';
 

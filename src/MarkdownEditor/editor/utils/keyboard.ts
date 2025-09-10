@@ -4,10 +4,10 @@ import isHotkey from 'is-hotkey';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Text, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { AttachNode, ListItemNode, MediaNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
-import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from './editorUtils';
 

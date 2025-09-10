@@ -1,5 +1,5 @@
 ﻿import { Editor, Node, Operation, Path, Range, Transforms } from 'slate';
-import { ReactEditor } from '../slate-react';
+import { ReactEditor } from 'slate-react';
 
 export const inlineNode = new Set(['break']);
 

@@ -4,6 +4,7 @@ import React from 'react';
 import { Subject } from 'rxjs';
 import { BaseEditor, createEditor } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
+import { ReactEditor, withReact } from 'slate-react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import {
   CodeNode,
@@ -14,7 +15,6 @@ import {
 } from '../../BaseMarkdownEditor';
 import { PluginContext } from '../../plugin';
 import { SlateMarkdownEditor } from '../Editor';
-import { ReactEditor, withReact } from '../slate-react';
 import { EditorStore, EditorStoreContext } from '../store';
 
 describe('SlateMarkdownEditor', () => {

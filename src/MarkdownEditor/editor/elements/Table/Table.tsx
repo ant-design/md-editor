@@ -2,8 +2,8 @@
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { Node } from 'slate';
+import { RenderElementProps } from 'slate-react';
 import stringWidth from 'string-width';
-import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { TableNode } from '../../types/Table';
 import { ReadonlyTableComponent } from './ReadonlyTableComponent';

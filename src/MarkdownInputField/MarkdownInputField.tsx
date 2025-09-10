@@ -18,7 +18,7 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
-import { ReactEditor } from '../MarkdownEditor/editor/slate-react';
+import { ReactEditor } from 'slate-react';
 import {
   AttachmentButton,
   AttachmentButtonProps,

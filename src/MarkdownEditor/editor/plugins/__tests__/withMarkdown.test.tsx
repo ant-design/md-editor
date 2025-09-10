@@ -1,6 +1,6 @@
 import { createEditor, Editor, Transforms } from 'slate';
+import { withReact } from 'slate-react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { withReact } from '../../slate-react';
 import { withMarkdown } from '../withMarkdown';
 
 describe('withMarkdown plugin - tag operations', () => {

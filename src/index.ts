@@ -23,7 +23,7 @@ export {
   parserSlateNodeToMarkdown,
   parserSlateNodeToMarkdown as schemaToMarkdown,
 } from './MarkdownEditor/editor/parser/parserSlateNodeToMarkdown';
-export type { RenderElementProps } from './MarkdownEditor/editor/slate-react';
+export type { RenderElementProps } from 'slate-react';
 export { useEditorStore } from './MarkdownEditor/editor/store';
 export * from './MarkdownEditor/editor/utils';
 export * from './MarkdownEditor/editor/utils/docx/index';

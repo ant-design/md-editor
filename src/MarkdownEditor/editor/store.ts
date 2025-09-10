@@ -18,12 +18,12 @@ import {
   Transforms,
 } from 'slate';
 import { HistoryEditor } from 'slate-history';
+import { ReactEditor } from 'slate-react';
 import { T } from 'vitest/dist/chunks/environment.LoooBwUu.js';
 import { Elements, FootnoteDefinitionNode, ListNode } from '../el';
 import type { MarkdownEditorPlugin } from '../plugin';
 import { CommentDataType, MarkdownEditorProps } from '../types';
 import { parserMdToSchema } from './parser/parserMdToSchema';
-import { ReactEditor } from './slate-react';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';

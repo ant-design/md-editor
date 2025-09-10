@@ -5,12 +5,8 @@ import { Editor, Node, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
 import DOMPurify from 'dompurify';
+import { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
 import { MarkdownEditorProps } from '../../types';
-import {
-  ReactEditor,
-  RenderElementProps,
-  RenderLeafProps,
-} from '../slate-react';
 import { useEditorStore } from '../store';
 import { slugify } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
