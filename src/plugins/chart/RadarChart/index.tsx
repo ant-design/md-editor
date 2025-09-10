@@ -224,11 +224,11 @@ const RadarChart: React.FC<RadarChartProps> = ({
           currentConfig.theme === 'light'
             ? 'rgba(255, 255, 255, 0.95)'
             : 'rgba(0, 0, 0, 0.8)',
-        titleColor: currentConfig.theme === 'light' ? '#333' : '#fff',
-        bodyColor: currentConfig.theme === 'light' ? '#333' : '#fff',
+        titleColor: currentConfig.theme === 'light' ? '#767E8B' : '#fff',
+        bodyColor: currentConfig.theme === 'light' ? '#343A45' : '#fff',
         borderColor:
           currentConfig.theme === 'light'
-            ? 'rgba(0, 0, 0, 0.2)'
+            ? 'rgba(0, 16, 32, 0.0627)'
             : 'rgba(255, 255, 255, 0.2)',
         borderWidth: 1,
         cornerRadius: isMobile ? 6 : 8,
