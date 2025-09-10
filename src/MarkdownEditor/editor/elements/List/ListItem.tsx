@@ -227,6 +227,11 @@ export const ListItem = ({
 
   return React.useMemo(() => {
     if (listItemRender) {
+      const props = {
+        checkbox,
+        mentionsUser,
+        children,
+      };
       return (
         <li
           className={classNames(`${baseCls}-item`, hashId, {
@@ -236,14 +241,7 @@ export const ListItem = ({
           onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
           {...attributes}
         >
-          {listItemRender(
-            {
-              checkbox,
-              mentionsUser,
-              children,
-            },
-            { element, children, attributes },
-          )}
+          {listItemRender(props, { element, children, attributes })}
         </li>
       );
     }

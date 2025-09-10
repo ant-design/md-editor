@@ -100,7 +100,6 @@ export const Bubble: React.FC<
     placement = 'left',
     avatar,
     style,
-    time,
     bubbleRenderConfig,
     classNames,
     styles,
@@ -127,7 +126,7 @@ export const Bubble: React.FC<
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
-  const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
+  const { compact, standalone } = useContext(BubbleConfigContext) || {};
 
   const prefixClass = getPrefixCls('agent-list');
 
@@ -216,15 +215,6 @@ export const Bubble: React.FC<
     ...styles?.bubbleListItemAfterStyle,
   };
 
-  const bubbleListItemTitleClassName = cx(
-    `${prefixClass}-item-title`,
-    classNames?.bubbleListItemTitleClassName,
-  );
-
-  const bubbleListItemTitleStyle = {
-    ...styles?.bubbleListItemTitleStyle,
-  };
-
   const bubbleListItemAvatarClassName = cx(
     `${prefixClass}-item-avatar`,
     classNames?.bubbleListItemAvatarClassName,
@@ -247,8 +237,8 @@ export const Bubble: React.FC<
     bubbleRenderConfig?.avatarRender,
     props,
     <BubbleAvatar
-      avatar={avatar}
-      onAvatarClick={onAvatarClick}
+      avatar={avatar?.avatar}
+      onClick={onAvatarClick}
       className={bubbleListItemAvatarClassName}
       style={bubbleListItemAvatarStyle}
     />,
@@ -279,6 +269,7 @@ export const Bubble: React.FC<
     props,
     <BubbleBeforeNode
       {...props}
+      bubble={props.originData as any}
       className={bubbleListItemBeforeClassName}
       style={bubbleListItemBeforeStyle}
     />,

@@ -25,10 +25,8 @@ import {
   upLoadFileToServer,
 } from './AttachmentButton';
 import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover';
-import {
-  AttachmentFile,
-  AttachmentFileList,
-} from './AttachmentButton/AttachmentFileList';
+import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
+import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';

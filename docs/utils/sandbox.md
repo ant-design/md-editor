@@ -24,7 +24,7 @@ ProxySandbox 是一个强大的 JavaScript 代码执行沙箱系统，提供安�
 ### 基本使用
 
 ```tsx | pure
-import { quickExecute } from '@/utils/sandbox';
+import { quickExecute } from '@/utils/sandbox/proxySandbox';
 
 // 执行简单的 JavaScript 代码
 const result = await quickExecute('return 1 + 1');
@@ -41,7 +41,7 @@ console.log(result2); // 'HELLO, SANDBOX!'
 ### 使用 ProxySandbox 实例
 
 ```tsx | pure
-import { ProxySandbox } from '@/utils/sandbox';
+import { ProxySandbox } from '@/utils/sandbox/proxySandbox';
 
 const sandbox = new ProxySandbox({
   timeout: 5000,
@@ -129,7 +129,7 @@ ProxySandbox 支持注入自定义参数，特别适用于 Shadow DOM 操作：
 #### 1. 基本 shadowRoot 操作
 
 ```tsx | pure
-import { ProxySandbox } from '@/utils/sandbox';
+import { ProxySandbox } from '@/utils/sandbox/proxySandbox';
 
 // 创建沙箱实例
 const sandbox = new ProxySandbox();
@@ -169,7 +169,7 @@ console.log(result.result);
 #### 2. 使用 quickExecute 便捷函数
 
 ```tsx | pure
-import { quickExecute } from '@/utils/sandbox';
+import { quickExecute } from '@/utils/sandbox/proxySandbox';
 
 const shadowRoot = someElement.attachShadow({ mode: 'open' });
 
@@ -207,7 +207,7 @@ console.log(result); // 'Content added successfully'
 
 ```tsx | pure
 import React, { useEffect, useRef } from 'react';
-import { quickExecute } from '@/utils/sandbox';
+import { quickExecute } from '@/utils/sandbox/proxySandbox';
 
 const ShadowDOMComponent: React.FC = () => {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -413,7 +413,7 @@ interface SandboxConfig {
 系统提供了几种预设配置：
 
 ```tsx | pure
-import { createConfiguredSandbox } from '@/utils/sandbox';
+import { createConfiguredSandbox } from '@/utils/sandbox/proxySandbox';
 
 // 基础配置 - 适用于一般用途
 const basicSandbox = createConfiguredSandbox('basic');

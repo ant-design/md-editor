@@ -1,49 +1,70 @@
+import React from 'react';
 import { describe, expect, it } from 'vitest';
 import {
+  BaseChildProps,
+  CustomProps,
   FILE_TYPES,
+  FileActionRef,
   FileCategory,
+  FileNode,
+  FileProps,
   FileType,
+  getFileCategory,
   getFileType,
   getMimeType,
-  getFileCategory,
+  GroupNode,
   TabConfiguration,
   TabItem,
   WorkspaceProps,
-  BaseChildProps,
-  RealtimeProps,
-  BrowserProps,
-  TaskProps,
-  FileTypeDefinition,
-  BaseNode,
-  FileNode,
-  GroupNode,
-  FileActionRef,
-  FileProps,
-  CustomProps,
 } from '../../src/Workspace/types';
 
 describe('Workspace Types', () => {
   describe('FILE_TYPES 常量', () => {
     it('应该包含所有预期的文件类型', () => {
       const expectedTypes = [
-        'plainText', 'markdown', 'image', 'video', 'audio', 'pdf', 'word', 'excel',
-        'csv', 'archive', 'javascript', 'typescript', 'react', 'python', 'java',
-        'cpp', 'c', 'csharp', 'go', 'rust', 'php', 'ruby', 'shell', 'powershell',
-        'sql', 'lua', 'perl', 'scala', 'config'
+        'plainText',
+        'markdown',
+        'image',
+        'video',
+        'audio',
+        'pdf',
+        'word',
+        'excel',
+        'csv',
+        'archive',
+        'javascript',
+        'typescript',
+        'react',
+        'python',
+        'java',
+        'cpp',
+        'c',
+        'csharp',
+        'go',
+        'rust',
+        'php',
+        'ruby',
+        'shell',
+        'powershell',
+        'sql',
+        'lua',
+        'perl',
+        'scala',
+        'config',
       ];
 
-      expectedTypes.forEach(type => {
+      expectedTypes.forEach((type) => {
         expect(FILE_TYPES).toHaveProperty(type);
       });
     });
 
     it('应该为每个文件类型提供正确的结构', () => {
-      Object.entries(FILE_TYPES).forEach(([type, definition]) => {
+      Object.entries(FILE_TYPES).forEach(([, definition]) => {
         expect(definition).toHaveProperty('category');
         expect(definition).toHaveProperty('extensions');
         expect(definition).toHaveProperty('mimeTypes');
         expect(definition).toHaveProperty('name');
-        
+
         expect(Array.isArray(definition.extensions)).toBe(true);
         expect(Array.isArray(definition.mimeTypes)).toBe(true);
         expect(typeof definition.name).toBe('string');
@@ -303,7 +324,8 @@ describe('Workspace Types', () => {
       const fileActionRef: FileActionRef = {
         openPreview: (file: FileNode) => console.log('open preview', file),
         backToList: () => console.log('back to list'),
-        updatePreviewHeader: (partial: Partial<FileNode>) => console.log('update header', partial),
+        updatePreviewHeader: (partial: Partial<FileNode>) =>
+          console.log('update header', partial),
       };
 
       expect(typeof fileActionRef.openPreview).toBe('function');
@@ -323,9 +345,10 @@ describe('Workspace Types', () => {
         ],
         onDownload: (file: FileNode) => console.log('download', file),
         onFileClick: (file: FileNode) => console.log('click', file),
-        onToggleGroup: (type: FileType, collapsed: boolean) => console.log('toggle', type, collapsed),
-        onPreview: (file: FileNode) => Promise.resolve(<div>Preview</div>),
-        onBack: (file: FileNode) => Promise.resolve(true),
+        onToggleGroup: (type: FileType, collapsed: boolean) =>
+          console.log('toggle', type, collapsed),
+        onPreview: () => Promise.resolve(<div>Preview</div>),
+        onBack: () => Promise.resolve(true),
         onShare: (file: FileNode, ctx) => console.log('share', file, ctx),
         markdownEditorProps: { theme: 'dark' },
         actionRef: { current: null },
@@ -382,26 +405,26 @@ describe('Workspace Types', () => {
   describe('性能测试', () => {
     it('应该快速处理大量文件类型查询', () => {
       const startTime = performance.now();
-      
+
       for (let i = 0; i < 1000; i++) {
         getFileType(`file${i}.txt`);
         getFileType(`script${i}.js`);
         getFileType(`image${i}.jpg`);
       }
-      
+
       const endTime = performance.now();
       expect(endTime - startTime).toBeLessThan(100);
     });
 
     it('应该快速处理 MIME 类型查询', () => {
       const startTime = performance.now();
-      
+
       for (let i = 0; i < 1000; i++) {
         getMimeType('plainText');
         getMimeType('javascript');
         getMimeType('image');
       }
-      
+
       const endTime = performance.now();
       expect(endTime - startTime).toBeLessThan(100);
     });
@@ -413,7 +436,7 @@ describe('Workspace Types', () => {
       const fileType = getFileType(filename);
       const category = getFileCategory(fileType);
       const mimeType = getMimeType(fileType);
-      
+
       expect(fileType).toBe('pdf');
       expect(category).toBe(FileCategory.PDF);
       expect(mimeType).toBe('application/pdf');
@@ -424,7 +447,7 @@ describe('Workspace Types', () => {
       const fileType = getFileType(filename);
       const category = getFileCategory(fileType);
       const mimeType = getMimeType(fileType);
-      
+
       expect(fileType).toBe('react');
       expect(category).toBe(FileCategory.Code);
       expect(mimeType).toBe('text/jsx');

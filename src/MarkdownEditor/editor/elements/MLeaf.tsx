@@ -11,7 +11,7 @@ import { EditorUtils } from '../utils/editorUtils';
 import { CommentView } from './Comment';
 import { TagPopup } from './TagPopup';
 
-type MLeafProps = RenderLeafProps & {
+export type MLeafProps = RenderLeafProps & {
   hashId: string;
   comment: MarkdownEditorProps['comment'];
   fncProps: MarkdownEditorProps['fncProps'];

@@ -61,7 +61,6 @@ const MockTagPopup = ({
   notFoundContent,
   open,
   onOpenChange,
-  ...props
 }: any) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(open || false);

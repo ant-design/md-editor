@@ -136,7 +136,7 @@ export interface DocMeta {
 }
 
 export interface ThoughtChainListProps {
-  titleRender: (
+  titleRender?: (
     props: ThoughtChainListProps,
     defaultDom: React.ReactNode,
   ) => React.ReactNode;
@@ -148,6 +148,7 @@ export interface ThoughtChainListProps {
     createAt?: number;
     isAborted?: boolean;
   };
+  className?: string;
   style?: React.CSSProperties;
   compact?: boolean;
   markdownRenderProps?: MarkdownEditorProps;

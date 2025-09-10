@@ -39,6 +39,8 @@ export interface HistoryListConfig {
   groupLabelRender?: (
     groupKey: string,
     items: HistoryDataType[],
+    // 其他参数
+    label: string,
   ) => React.ReactNode;
   /** 自定义日期格式化函数 */
   customDateFormatter?: (date: number | string | Date) => string;
@@ -48,4 +50,10 @@ export interface HistoryListConfig {
   sessionSort?:
     | ((pre: HistoryDataType, current: HistoryDataType) => number | boolean)
     | false;
+  /** 额外的渲染内容，接收历史记录项作为参数 */
+  extra?: (item: HistoryDataType) => React.ReactElement;
+  /** 历史记录类型：聊天记录或任务记录 */
+  type?: 'chat' | 'task';
+  /** 正在运行的记录ID列表，这些记录将显示运行图标 */
+  runningId?: string[];
 }

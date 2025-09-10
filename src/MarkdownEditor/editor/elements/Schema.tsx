@@ -2,7 +2,6 @@
 import { RenderElementProps } from 'slate-react';
 import { BubbleConfigContext } from '../../../Bubble/BubbleConfigProvide';
 import { SchemaRenderer } from '../../../schema';
-import { CodeNode } from '../../el';
 import { useEditorStore } from '../store';
 
 /**
@@ -13,7 +12,7 @@ import { useEditorStore } from '../store';
  *
  * @component
  * @description 模式渲染组件，支持多种渲染模式
- * @param {RenderElementProps<CodeNode>} props - 组件属性
+ * @param {RenderElementProps} props - 组件属性
  * @param {CodeNode} props.element - 代码节点元素
  * @param {React.ReactNode} props.children - 子组件
  * @param {Object} props.attributes - 元素属性
@@ -39,7 +38,7 @@ import { useEditorStore } from '../store';
  * - 响应式布局设计
  * - 提供测试 ID 支持
  */
-export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
+export const Schema: React.FC<RenderElementProps> = (props) => {
   const { element: node } = props;
   const { editorProps } = useEditorStore();
   const apaasify = editorProps?.apaasify || editorProps?.apassify;

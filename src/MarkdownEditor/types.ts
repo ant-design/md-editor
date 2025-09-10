@@ -3,9 +3,11 @@ import { AnchorProps, ImageProps } from 'antd';
 import React from 'react';
 import { BaseEditor, Selection } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { ReactEditor } from 'slate-react';
+import { ReactEditor, RenderElementProps } from 'slate-react';
+import { TagPopupProps } from './editor/elements/TagPopup';
 import { EditorStore } from './editor/store';
-import { Elements } from './el';
+import { InsertAutocompleteProps } from './editor/tools/InsertAutocomplete';
+import { CustomLeaf, Elements } from './el';
 
 /**
  * @typedef CommentDataType
@@ -76,6 +78,26 @@ export type MarkdownEditorProps = {
   className?: string;
   width?: string | number;
   height?: string | number;
+  tagInputProps?: {
+    enable?: boolean;
+    placeholder?: string;
+  } & TagPopupProps;
+  fncProps?: {
+    render: (
+      props: CustomLeaf<Record<string, any>> & { children: React.ReactNode },
+      defaultDom: React.ReactNode,
+    ) => React.ReactNode;
+    onOriginUrlClick?: (url?: string) => void;
+    onFootnoteDefinitionChange?: (
+      data: {
+        id: any;
+        placeholder: any;
+        origin_text: any;
+        url: any;
+        origin_url: any;
+      }[],
+    ) => void;
+  };
 
   /**
    * 代码高亮配置
@@ -96,6 +118,12 @@ export type MarkdownEditorProps = {
       defaultDom: React.ReactNode,
     ) => React.ReactNode;
   };
+
+  insertAutocompleteProps?: InsertAutocompleteProps;
+  eleItemRender?: (
+    ele: RenderElementProps,
+    defaultDom: React.ReactNode,
+  ) => React.ReactNode;
   initValue?: string;
   /**
    * 只读模式
@@ -124,7 +152,11 @@ export type MarkdownEditorProps = {
     minRows?: number;
     actions?: {
       fullScreen?: 'modal' | 'drawer';
+      download?: 'csv';
+      copy?: 'md' | 'html' | 'csv';
     };
+    excelMode?: boolean;
+    previewTitle?: string;
   };
   /**
    * 插件配置
@@ -138,14 +170,39 @@ export type MarkdownEditorProps = {
    * 选择变更回调
    */
   onSelectionChange?: (selection: any) => void;
-  /**
-   * 评论数据
-   */
-  commentList?: CommentDataType[];
-  /**
-   * 评论变更回调
-   */
-  onCommentChange?: (comments: CommentDataType[]) => void;
+  comment?: {
+    /**
+     * 是否启用评论功能
+     */
+    enable?: boolean;
+    /**
+     * 评论数据
+     */
+    commentList?: CommentDataType[];
+    loadMentions?: (text: string) => Promise<{ name: string }[]>;
+    /**
+     * 添加评论的回调函数
+     */
+    onSubmit?: (id: string | number, comment: CommentDataType) => void;
+    /**
+     * 删除评论的回调函数
+     */
+    onDelete?: (id: string | number, comment: CommentDataType) => void;
+    editorRender?: (dom: React.ReactNode) => React.ReactNode;
+    onClick?: (id: string | number, comment: CommentDataType) => void;
+    onEdit?: (id: string | number, comment: CommentDataType) => void;
+    deleteConfirmText?: string;
+    mentionsPlaceholder?: string;
+    listItemRender?: (
+      defaultDom: {
+        checkbox: React.JSX.Element | null;
+        mentionsUser: React.JSX.Element | null;
+        children: any;
+      },
+      comment: CommentDataType,
+    ) => React.ReactNode;
+  };
+
   /**
    * 其他属性
    */

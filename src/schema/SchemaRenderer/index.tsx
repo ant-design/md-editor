@@ -11,7 +11,10 @@ import React, {
 import partialParse from '../../MarkdownEditor/editor/parser/json-parse';
 import { LowCodeSchema } from '../../schema/types';
 import { mdDataSchemaValidator } from '../../schema/validator';
-import { createSandbox, DEFAULT_SANDBOX_CONFIG } from '../../utils/sandbox';
+import {
+  createSandbox,
+  DEFAULT_SANDBOX_CONFIG,
+} from '../../utils/proxySandbox';
 import { TemplateEngine } from './templateEngine';
 export * from './templateEngine';
 

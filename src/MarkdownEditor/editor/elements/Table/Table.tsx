@@ -5,7 +5,6 @@ import { Node } from 'slate';
 import { RenderElementProps } from 'slate-react';
 import stringWidth from 'string-width';
 import { useEditorStore } from '../../store';
-import { TableNode } from '../../types/Table';
 import { ReadonlyTableComponent } from './ReadonlyTableComponent';
 import useScrollShadow from './useScrollShadow';
 
@@ -42,7 +41,7 @@ export const ReadonlyTable = ({
 }: {
   children: React.ReactNode;
   hashId: string;
-} & RenderElementProps<TableNode>) => {
+} & RenderElementProps) => {
   const { readonly, markdownContainerRef } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
