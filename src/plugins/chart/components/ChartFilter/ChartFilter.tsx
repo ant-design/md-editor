@@ -2,7 +2,7 @@ import { DownOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Dropdown, Segmented } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
-import { useStyle } from './ChartFilter.style';
+import { useStyle } from './style';
 
 export interface FilterOption {
   label: string;

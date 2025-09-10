@@ -2,8 +2,8 @@ import { DownloadOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
-import { useStyle } from './ChartToolBar.style';
-import TimeIcon from './icons/TimeIcon';
+import { useStyle } from './style';
+import TimeIcon from '../icons/TimeIcon';
 
 export interface ChartToolBarProps {
   title: string;
