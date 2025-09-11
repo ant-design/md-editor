@@ -98,6 +98,10 @@ export interface TaskRunningProps {
       play?: string;
       pause?: string;
       stop?: string;
+      createNewTask?: string;
+      replayTask?: string;
+      newTask?: string;
+      submitTask?: string;
     };
   };
 }
@@ -175,7 +179,7 @@ const renderButtonGroup = ({
         color="default"
         variant="solid"
       >
-        新任务
+        {locale?.agentRunBar?.newTask}
       </Button>
     );
   }
@@ -192,7 +196,7 @@ const renderButtonGroup = ({
         color="default"
         variant="solid"
       >
-        创建新任务
+        {locale?.agentRunBar?.createNewTask}
       </Button>
     );
   }
@@ -205,7 +209,7 @@ const renderButtonGroup = ({
       <>
         {onReplay && (
           <Button onClick={onReplay} variant="solid" autoInsertSpace={false}>
-            重试
+            {locale?.agentRunBar?.replayTask}
           </Button>
         )}
         {onViewResult && (
@@ -215,7 +219,7 @@ const renderButtonGroup = ({
             variant="solid"
             autoInsertSpace={false}
           >
-            提交
+            {locale?.agentRunBar?.submitTask}
           </Button>
         )}
         {onCreateNewTask && (
@@ -225,7 +229,7 @@ const renderButtonGroup = ({
             color="default"
             variant="solid"
           >
-            新任务
+            {locale?.agentRunBar?.newTask}
           </Button>
         )}
       </>
@@ -237,7 +241,7 @@ const renderButtonGroup = ({
       <>
         {onReplay && (
           <Button onClick={onReplay} variant="solid" autoInsertSpace={false}>
-            重试
+            {locale?.agentRunBar?.replayTask}
           </Button>
         )}
         {onCreateNewTask && (
@@ -247,7 +251,7 @@ const renderButtonGroup = ({
             color="default"
             variant="solid"
           >
-            新任务
+            {locale?.agentRunBar?.newTask}
           </Button>
         )}
       </>
@@ -262,7 +266,7 @@ const renderButtonGroup = ({
         color="default"
         variant="solid"
       >
-        创建新任务
+        {locale?.agentRunBar?.createNewTask}
       </Button>
     );
   }

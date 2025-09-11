@@ -6,7 +6,7 @@ import {
 } from '../hooks/useStyle';
 
 // 定义旋转动画
-const pauseIconRotate = new Keyframes('pauseIconRotate', {
+const stopIconRotate = new Keyframes('stopIconRotate', {
   '0%': {
     transform: 'rotate(0deg)',
   },
@@ -148,10 +148,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       // 旋转动画样式
-      '.pause-icon-ring': {
+      '.stop-icon-ring': {
         transition: 'transform 0.1s ',
         transformOrigin: '16px 16px',
-        animationName: pauseIconRotate,
+        animationName: stopIconRotate,
         animationDuration: '1s',
         animationTimingFunction: 'linear',
         animationIterationCount: 'infinite',

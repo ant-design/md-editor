@@ -351,7 +351,6 @@ export default () => {
         onPause={handlePause}
         onResume={noop}
         onStop={handleStop}
-        onReplay={handleReplay}
       />
 
       <div
