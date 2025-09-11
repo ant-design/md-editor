@@ -30,6 +30,22 @@ const StackedBarChartExample: React.FC = () => {
     { category: '流量来源', type: '外链引荐', x: 6, y: 330, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
     { category: '流量来源', type: '外链引荐', x: 7, y: 410, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
 
+    { category: '流量来源', type: '测试访问', x: 1, y: 220, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '测试访问', x: 2, y: 182, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '测试访问', x: 3, y: 191, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '测试访问', x: 4, y: 234, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '测试访问', x: 5, y: 290, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '测试访问', x: 6, y: 330, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '测试访问', x: 7, y: 310, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+
+    { category: '流量来源', type: '流量购买', x: 1, y: 125, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '流量购买', x: 2, y: 232, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '流量购买', x: 3, y: 201, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '流量购买', x: 4, y: 154, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '流量购买', x: 5, y: 190, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '流量购买', x: 6, y: 330, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+    { category: '流量来源', type: '流量购买', x: 7, y: 410, xtitle: '日期', ytitle: 'PV', filterLable: '全球' },
+
     // 部门预算数据 - 全球
     { category: '部门预算', type: '人力成本', x: 1, y: 45000, xtitle: '部门', ytitle: '预算金额', filterLable: '全球' },
     { category: '部门预算', type: '人力成本', x: 2, y: 52000, xtitle: '部门', ytitle: '预算金额', filterLable: '全球' },

@@ -74,16 +74,11 @@ export interface BarChartProps {
 }
 
 const defaultColors = [
-  '#1677ff',
-  '#8954FC',
-  '#15e7e4',
-  '#F45BB5',
-  '#00A6FF',
-  '#33E59B',
-  '#D666E4',
-  '#6151FF',
-  '#BF3C93',
-  '#005EE0',
+  '#917EF7',
+  '#2AD8FC',
+  '#388BFF',
+  '#718AB6',
+  '#84DC18',
 ];
 
 // 将十六进制颜色转换为带透明度的 rgba 字符串
@@ -105,6 +100,10 @@ const hexToRgba = (hex: string, alpha: number): string => {
   const a = Math.max(0, Math.min(1, alpha));
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 };
+
+// 正负柱状图颜色（与需求给定的 rgba 保持一致）
+const POSITIVE_COLOR_HEX = '#388BFF'; // rgba(56, 139, 255, 1)
+const NEGATIVE_COLOR_HEX = '#F78826'; // rgba(247, 136, 38, 1)
 
 const BarChart: React.FC<BarChartProps> = ({
   title,
@@ -221,6 +220,21 @@ const BarChart: React.FC<BarChartProps> = ({
     return titles[0] || '';
   }, [filteredData]);
 
+  // 是否是正负柱图（同一批次同时存在正值与负值）
+  const hasPositive = useMemo(() => {
+    return filteredData.some((item) => {
+      const v = typeof item.y === 'number' ? item.y : Number(item.y);
+      return Number.isFinite(v) && v > 0;
+    });
+  }, [filteredData]);
+  const hasNegative = useMemo(() => {
+    return filteredData.some((item) => {
+      const v = typeof item.y === 'number' ? item.y : Number(item.y);
+      return Number.isFinite(v) && v < 0;
+    });
+  }, [filteredData]);
+  const isDiverging = hasPositive && hasNegative;
+
   // 构建Chart.js数据结构
   const processedData: ChartData<'bar'> = useMemo(() => {
     const labels = xValues.map((x) => x.toString());
@@ -239,7 +253,16 @@ const BarChart: React.FC<BarChartProps> = ({
       return {
         label: type || '默认',
         data: typeData,
-        borderColor: hexToRgba(baseColor, 0.9),
+        borderColor: (ctx: ScriptableContext<'bar'>) => {
+          const parsed: any = ctx.parsed as any;
+          const value = indexAxis === 'y'
+            ? (typeof parsed?.x === 'number' ? parsed.x : 0)
+            : (typeof parsed?.y === 'number' ? parsed.y : 0);
+          const base = isDiverging
+            ? (value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX)
+            : baseColor;
+          return hexToRgba(base, 0.95);
+        },
         backgroundColor: (ctx: ScriptableContext<'bar'>) => {
           const chart = ctx.chart;
           const chartArea = chart.chartArea;
@@ -253,21 +276,27 @@ const BarChart: React.FC<BarChartProps> = ({
 
           if (indexAxis === 'y') {
             const value = typeof parsed?.x === 'number' ? parsed.x : 0;
+            const base = isDiverging
+              ? (value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX)
+              : baseColor;
             const x0 = xScale.getPixelForValue(0);
             const x1 = xScale.getPixelForValue(value);
             // 从靠近坐标轴的零点开始，向数据端渐深
             const gradient = chart.ctx.createLinearGradient(x0, 0, x1, 0);
-            gradient.addColorStop(0, hexToRgba(baseColor, startAlpha));
-            gradient.addColorStop(1, hexToRgba(baseColor, endAlpha));
+            gradient.addColorStop(0, hexToRgba(base, startAlpha));
+            gradient.addColorStop(1, hexToRgba(base, endAlpha));
             return gradient;
           }
 
           const value = typeof parsed?.y === 'number' ? parsed.y : 0;
+          const base = isDiverging
+            ? (value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX)
+            : baseColor;
           const y0 = yScale.getPixelForValue(0);
           const y1 = yScale.getPixelForValue(value);
           const gradient = chart.ctx.createLinearGradient(0, y0, 0, y1);
-          gradient.addColorStop(0, hexToRgba(baseColor, startAlpha));
-          gradient.addColorStop(1, hexToRgba(baseColor, endAlpha));
+          gradient.addColorStop(0, hexToRgba(base, startAlpha));
+          gradient.addColorStop(1, hexToRgba(base, endAlpha));
           return gradient;
         },
         borderWidth: 0,
