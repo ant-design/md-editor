@@ -4,6 +4,7 @@ import {
   ChartData,
   Chart as ChartJS,
   ChartOptions,
+  ScriptableContext,
   Legend,
   LinearScale,
   Tooltip,
@@ -84,6 +85,26 @@ const defaultColors = [
   '#BF3C93',
   '#005EE0',
 ];
+
+// 将十六进制颜色转换为带透明度的 rgba 字符串
+const hexToRgba = (hex: string, alpha: number): string => {
+  const sanitized = hex.replace('#', '');
+  const isShort = sanitized.length === 3;
+  const r = parseInt(
+    isShort ? sanitized[0] + sanitized[0] : sanitized.slice(0, 2),
+    16,
+  );
+  const g = parseInt(
+    isShort ? sanitized[1] + sanitized[1] : sanitized.slice(2, 4),
+    16,
+  );
+  const b = parseInt(
+    isShort ? sanitized[2] + sanitized[2] : sanitized.slice(4, 6),
+    16,
+  );
+  const a = Math.max(0, Math.min(1, alpha));
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+};
 
 const BarChart: React.FC<BarChartProps> = ({
   title,
@@ -218,8 +239,37 @@ const BarChart: React.FC<BarChartProps> = ({
       return {
         label: type || '默认',
         data: typeData,
-        borderColor: baseColor,
-        backgroundColor: baseColor,
+        borderColor: hexToRgba(baseColor, 0.9),
+        backgroundColor: (ctx: ScriptableContext<'bar'>) => {
+          const chart = ctx.chart;
+          const chartArea = chart.chartArea;
+          const parsed: any = ctx.parsed as any;
+          if (!chartArea) return hexToRgba(baseColor, 0.6);
+
+          const xScale = chart.scales['x'];
+          const yScale = chart.scales['y'];
+          const startAlpha = 0.65;
+          const endAlpha = 0.95;
+
+          if (indexAxis === 'y') {
+            const value = typeof parsed?.x === 'number' ? parsed.x : 0;
+            const x0 = xScale.getPixelForValue(0);
+            const x1 = xScale.getPixelForValue(value);
+            // 从靠近坐标轴的零点开始，向数据端渐深
+            const gradient = chart.ctx.createLinearGradient(x0, 0, x1, 0);
+            gradient.addColorStop(0, hexToRgba(baseColor, startAlpha));
+            gradient.addColorStop(1, hexToRgba(baseColor, endAlpha));
+            return gradient;
+          }
+
+          const value = typeof parsed?.y === 'number' ? parsed.y : 0;
+          const y0 = yScale.getPixelForValue(0);
+          const y1 = yScale.getPixelForValue(value);
+          const gradient = chart.ctx.createLinearGradient(0, y0, 0, y1);
+          gradient.addColorStop(0, hexToRgba(baseColor, startAlpha));
+          gradient.addColorStop(1, hexToRgba(baseColor, endAlpha));
+          return gradient;
+        },
         borderWidth: 0,
         categoryPercentage: 0.7,
         barPercentage: 0.8,
