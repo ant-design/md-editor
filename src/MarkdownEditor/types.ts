@@ -82,6 +82,9 @@ export type MarkdownEditorProps = {
     enable?: boolean;
     placeholder?: string;
   } & TagPopupProps;
+
+  editorStyle?: React.CSSProperties;
+
   fncProps?: {
     render: (
       props: CustomLeaf<Record<string, any>> & { children: React.ReactNode },
