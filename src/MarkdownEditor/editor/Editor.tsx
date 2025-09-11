@@ -877,13 +877,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
             newSelection,
           );
           if (fragment) {
-            const str = Node.string({ children: fragment });
-            const isStrEquals = str === item.refContent;
             const newAnchorPath = anchor.path;
             const newFocusPath = focus.path;
 
             if (
-              isStrEquals &&
               isPath(newFocusPath) &&
               isPath(newAnchorPath) &&
               Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&

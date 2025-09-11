@@ -12,6 +12,68 @@ import { MarkdownEditor } from '../../src/MarkdownEditor';
  * 4. @提及功能支持
  */
 export default () => {
+  const [commentList, setCommentList] = React.useState<any[]>([
+    {
+      selection: {
+        anchor: {
+          path: [1, 0],
+          offset: 19,
+        },
+        focus: {
+          path: [1, 0],
+          offset: 28,
+        },
+      },
+      path: [1, 0],
+      time: 1757562229525,
+      id: 1757562229525,
+      content: '',
+      anchorOffset: 19,
+      focusOffset: 28,
+      refContent: '',
+      commentType: 'highlight',
+    },
+    {
+      selection: {
+        anchor: {
+          path: [11, 0, 0, 0],
+          offset: 0,
+        },
+        focus: {
+          path: [11, 0, 0, 0],
+          offset: 6,
+        },
+      },
+      path: [11, 0, 0, 0],
+      time: 1757562256636,
+      id: 1757562256636,
+      content: '',
+      anchorOffset: 0,
+      focusOffset: 6,
+      refContent: '',
+      commentType: 'highlight',
+    },
+    {
+      selection: {
+        anchor: {
+          path: [8, 0, 0, 1],
+          offset: 1,
+        },
+        focus: {
+          path: [8, 0, 0, 1],
+          offset: 9,
+        },
+      },
+      path: [8, 0, 0, 1],
+      time: 1757562274794,
+      id: 1757562274794,
+      content: '',
+      anchorOffset: 1,
+      focusOffset: 9,
+      refContent: '',
+      commentType: 'highlight',
+    },
+  ]);
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '20px' }}>
@@ -119,65 +181,7 @@ export default () => {
           }}
           comment={{
             enable: true,
-            commentList: [
-              {
-                id: 'highlight-1',
-                time: Date.now(),
-                commentType: 'highlight',
-                path: [1, 0],
-                anchorOffset: 0,
-                focusOffset: 9,
-                selection: {
-                  anchor: { path: [1, 0], offset: 0 },
-                  focus: { path: [1, 0], offset: 9 },
-                },
-                refContent: '评论功能常用于',
-                content: '这里的评论功能确实很实用，特别适合团队协作场景。',
-                user: {
-                  name: '张三',
-                  avatar:
-                    'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                },
-              },
-              {
-                id: 'highlight-2',
-                time: Date.now() - 1000,
-                commentType: 'highlight',
-                path: [2, 1, 0],
-                anchorOffset: 5,
-                focusOffset: 13,
-                selection: {
-                  anchor: { path: [2, 1, 0, 0], offset: 5 },
-                  focus: { path: [2, 1, 0, 0], offset: 13 },
-                },
-                refContent: '选中要评论的文本',
-                content: '建议增加快捷键支持，比如 Ctrl+/ 快速添加评论',
-                user: {
-                  name: '李四',
-                  avatar:
-                    'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                },
-              },
-              {
-                id: 'highlight-3',
-                time: Date.now() - 2000,
-                commentType: 'comment',
-                path: [6, 1, 0],
-                anchorOffset: 0,
-                focusOffset: 8,
-                selection: {
-                  anchor: { path: [6, 1, 0, 0], offset: 0 },
-                  focus: { path: [6, 1, 0, 0], offset: 8 },
-                },
-                refContent: '内容审核',
-                content: '@王五 请关注一下文档审核流程的优化',
-                user: {
-                  name: '赵六',
-                  avatar:
-                    'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                },
-              },
-            ],
+            commentList: commentList,
             loadMentions: async () => {
               return [
                 {
@@ -206,6 +210,18 @@ export default () => {
               console.log('删除评论:', id);
             },
             onSubmit: async (id, data) => {
+              setCommentList((prev) => {
+                const index = prev.findIndex((item) => item.id === id);
+                if (index !== -1) {
+                  const newList = [...prev];
+                  newList[index] = {
+                    ...newList[index],
+                    ...data,
+                  };
+                  return newList;
+                }
+                return [...prev, { ...data, id }];
+              });
               console.log('提交评论:', id, data);
             },
           }}
