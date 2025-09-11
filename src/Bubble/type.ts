@@ -1,11 +1,11 @@
 import { TooltipProps } from 'antd';
 import { ReactNode } from 'react';
-import { MarkdownEditorProps } from '../MarkdownEditor';
-import { AttachmentFile } from '../MarkdownInputField/FileMapView';
-import { WhiteBoxProcessInterface } from '../ThoughtChainList';
-import { BubbleExtraProps } from './MessagesContent/BubbleExtra';
-import { DocInfoListProps } from './MessagesContent/DocInfo';
+import { MarkdownEditorProps } from '../MarkdownEditor/types';
+import { AttachmentFile } from '../MarkdownInputField/AttachmentButton/types';
+import { WhiteBoxProcessInterface } from '../ThoughtChainList/types';
 import type { UseSpeechAdapter } from './MessagesContent/VoiceButton';
+import { BubbleExtraProps } from './types/BubbleExtra';
+import { DocInfoListProps } from './types/DocInfo';
 
 /**
  * 基础样式属性
@@ -133,6 +133,8 @@ export interface BubbleItemStyleProps extends BubbleStyleProps {
      * 头像的自定义类名
      */
     bubbleListItemAvatarClassName?: string;
+
+    bubbleListItemExtraClassName?: string;
   };
 }
 
@@ -405,8 +407,10 @@ export interface BubbleRenderConfig<T = Record<string, any>> {
       domsMap: {
         avatar: ReactNode;
         title: ReactNode;
+        header: ReactNode;
         messageContent: ReactNode;
         itemDom: ReactNode;
+        extra: ReactNode;
       },
       defaultDom: ReactNode,
     ) => ReactNode
@@ -420,11 +424,7 @@ export interface BubbleRenderConfig<T = Record<string, any>> {
  */
 export interface BubbleProps<T = Record<string, any>>
   extends BubbleItemStyleProps {
-  /**
-   * 消息时间
-   */
   time?: number;
-
   /**
    * 头像元数据
    */

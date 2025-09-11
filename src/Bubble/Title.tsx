@@ -44,6 +44,8 @@ export interface TitleProps {
    * Inline style for the component.
    */
   style?: React.CSSProperties;
+
+  bubbleNameClassName?: string;
 }
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
@@ -118,6 +120,7 @@ export const BubbleTitle: React.FC<TitleProps> = ({
   className,
   placement,
   time,
+  bubbleNameClassName,
   title,
 }) => {
   const { wrapSSR, hashId } = useStyle(prefixClass);
@@ -132,7 +135,7 @@ export const BubbleTitle: React.FC<TitleProps> = ({
       gap={8}
       data-testid="bubble-title"
     >
-      {title}
+      <span className={bubbleNameClassName}>{title}</span>
       {time && (
         <time
           className={cx(`${prefixClass}-time`, hashId)}

@@ -3,8 +3,8 @@ import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
-import { isImageFile } from '../AttachmentButton';
-import { AttachmentFile } from '../AttachmentButton/AttachmentFileList';
+import { AttachmentFile } from '../AttachmentButton/types';
+import { isImageFile } from '../AttachmentButton/utils';
 import { FileMapViewItem } from './FileMapViewItem';
 import { useStyle } from './style';
 
@@ -13,8 +13,6 @@ export type FileMapViewProps = {
   onPreview?: (file: AttachmentFile) => void;
   onDownload?: (file: AttachmentFile) => void;
 };
-
-export type { AttachmentFile } from '../AttachmentButton/AttachmentFileList';
 
 /**
  * FileMapView 组件 - 文件映射视图组件

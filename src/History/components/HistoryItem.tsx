@@ -2,7 +2,7 @@ import { Checkbox, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React from 'react';
 import { I18nContext } from '../../i18n';
-import { HistoryDataType } from '../types';
+import { HistoryDataType } from '../types/HistoryData';
 import { formatTime } from '../utils';
 import { HistoryActionsBox } from './HistoryActionsBox';
 import { HistoryRunningIcon } from './HistoryRunningIcon';
@@ -44,6 +44,13 @@ interface HistoryItemProps {
   type?: 'chat' | 'task';
   /** 正在运行的记录ID列表，这些记录将显示运行图标 */
   runningId?: string[];
+
+  /**
+   * 渲染历史记录项的额外内容
+   * @param item - 历史记录数据项
+   * @returns 额外的渲染内容
+   */
+  renderExtraContent?: (item: HistoryDataType) => React.ReactNode;
 }
 
 /**

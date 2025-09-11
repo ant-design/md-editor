@@ -7,7 +7,7 @@ import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdo
 import {
   ReactEditor,
   withReact,
-} from '../../src/MarkdownEditor/editor/slate-react';
+} from 'slate-react';
 import { EditorUtils } from '../../src/MarkdownEditor/editor/utils/editorUtils';
 
 describe('Editor Card Tests', () => {

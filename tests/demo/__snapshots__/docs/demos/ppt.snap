@@ -59,7 +59,7 @@
     >
       <div
         class="slides"
-        style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.2) ;"
+        style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.2);"
       >
         <section
           class="present"
@@ -77,6 +77,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -127,6 +128,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -198,6 +200,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -602,6 +605,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -841,6 +845,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -906,7 +911,7 @@
                     <div
                       aria-describedby="test-id"
                       class="ant-md-editor-content-table"
-                      style="flex: 1; min-width: 0;"
+                      style="flex: 1 1 0%; min-width: 0;"
                     >
                       <table
                         class="ant-md-editor-content-table-editor-table"
@@ -4084,6 +4089,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -4150,7 +4156,7 @@
                     </div>
                     <div
                       class="ant-md-editor-link-card-container"
-                      style="flex: 1;"
+                      style="flex: 1 1 0%;"
                     >
                       <div
                         class="ant-md-editor-link-card-container-content"
@@ -4162,7 +4168,7 @@
                           width="56"
                         />
                         <div
-                          style="flex: 1; min-width: 0;"
+                          style="flex: 1 1 0%; min-width: 0;"
                         >
                           <a
                             class="ant-md-editor-link-card-container-content-title"
@@ -4261,6 +4267,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -4326,7 +4333,7 @@
                     <div
                       aria-describedby="test-id"
                       class="ant-md-editor-content-table"
-                      style="flex: 1; min-width: 0;"
+                      style="flex: 1 1 0%; min-width: 0;"
                     >
                       <table
                         class="ant-md-editor-content-table-editor-table"
@@ -5110,6 +5117,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -6352,6 +6360,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -12676,6 +12685,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -12870,6 +12880,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -13021,6 +13032,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -13096,10 +13108,10 @@
                         tabindex="-1"
                       >
                         <div
-                          style="padding: 12px; box-sizing: border-box; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
+                          style="padding: 12px; box-sizing: border-box; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1 1 0%; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
                         >
                           <div
-                            style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
+                            style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1 1 0%; min-width: 0;"
                           >
                             <svg
                               fill="none"
@@ -13135,7 +13147,7 @@
                               </g>
                             </svg>
                             <div
-                              style="flex: 1; min-width: 0;"
+                              style="flex: 1 1 0%; min-width: 0;"
                             >
                               <a
                                 download=" 测试附件.pdf"
@@ -13145,7 +13157,7 @@
                                  测试附件.pdf
                               </a>
                               <div
-                                style="flex: 1; min-width: 0; display: flex; justify-content: space-between;"
+                                style="flex: 1 1 0%; min-width: 0; display: flex; justify-content: space-between;"
                               >
                                 <div />
                               </div>
@@ -13248,6 +13260,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -13358,7 +13371,7 @@
                     <div
                       aria-describedby="test-id"
                       class="ant-md-editor-content-table"
-                      style="flex: 1; min-width: 0;"
+                      style="flex: 1 1 0%; min-width: 0;"
                     >
                       <table
                         class="ant-md-editor-content-table-editor-table"
@@ -14877,6 +14890,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -14912,7 +14926,7 @@
                   <div
                     data-be="apaasify"
                     data-testid="schema-clickable"
-                    style="padding: 8px; width: 100%; cursor: pointer; position: relative; display: flex; border-radius: 8px; flex: 1; border: 1px solid rgba(209, 213, 219, 0.8); align-items: center;"
+                    style="padding: 8px; width: 100%; cursor: pointer; position: relative; display: flex; border-radius: 8px; flex: 1 1 0%; border: 1px solid rgba(209, 213, 219, 0.8); align-items: center;"
                   >
                     [
   {
@@ -14982,6 +14996,7 @@
                 autocapitalize="false"
                 autocorrect="false"
                 class="ant-md-editor-content ant-md-editor-content-readonly ant-md-editor-content-report"
+                contenteditable="false"
                 data-slate-editor="true"
                 data-slate-node="value"
                 spellcheck="false"
@@ -15243,7 +15258,7 @@
         aria-atomic="true"
         aria-live="polite"
         class="aria-status"
-        style="position: absolute; height: 1px; width: 1px; overflow: hidden;"
+        style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);"
       >
         Umi 研究报告 
       </div>

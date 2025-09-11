@@ -3,16 +3,13 @@
 
 import { BaseEditor, createEditor, Editor, Node } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
+import { ReactEditor, withReact } from 'slate-react';
 import { vi } from 'vitest';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
-import {
-  ReactEditor,
-  withReact,
-} from '../../src/MarkdownEditor/editor/slate-react';
 import { withTable } from '../../src/MarkdownEditor/utils/slate-table';
 
 // Mock ReactEditor DOM methods
-vi.mock('../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     toDOMNode: vi.fn(() => ({
       querySelector: vi.fn(() => ({

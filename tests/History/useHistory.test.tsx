@@ -1,7 +1,7 @@
+import { HistoryDataType } from '@ant-design/md-editor';
 import { act, renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useHistory } from '../../src/History/hooks/useHistory';
-import { HistoryDataType } from '../../src/History/types';
 
 describe('useHistory Hook', () => {
   const mockHistoryData: HistoryDataType[] = [

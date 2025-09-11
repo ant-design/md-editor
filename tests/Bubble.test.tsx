@@ -216,7 +216,7 @@ describe('Bubble', () => {
     // 验证名称区域的自定义类名
     const nameElement = document.querySelector('.custom-name');
     expect(nameElement).toBeInTheDocument();
-    expect(nameElement).toHaveTextContent('Test User');
+    expect(nameElement).toHaveTextContent('User');
 
     // 验证标题的自定义类名
     const titleElement = screen.getByTestId('bubble-title');

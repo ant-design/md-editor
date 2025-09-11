@@ -18,7 +18,7 @@ vi.mock('../../src/MarkdownEditor', () => ({
   MarkdownEditorInstance: {},
 }));
 
-vi.mock('../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     findPath: vi.fn(() => [0]),
     findNode: vi.fn(() => ({ children: [] })),
@@ -398,7 +398,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
         ...defaultActions,
       ]);
 
-      const toolsRender = vi.fn((_props) => [
+      const toolsRender = vi.fn(() => [
         <div key="tool1" data-testid="custom-tool-1">
           Tool 1
         </div>,

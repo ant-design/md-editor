@@ -7,7 +7,7 @@ import ace, { Ace } from 'ace-builds';
 import isHotkey from 'is-hotkey';
 import { useCallback, useEffect, useRef } from 'react';
 import { Editor, Path, Transforms } from 'slate';
-import { ReactEditor } from '../../../MarkdownEditor/editor/slate-react';
+import { ReactEditor } from 'slate-react';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { aceLangs, modeMap } from '../../../MarkdownEditor/editor/utils/ace';
 import { EditorUtils } from '../../../MarkdownEditor/editor/utils/editorUtils';

@@ -55,6 +55,7 @@ export interface ToolCall {
   time: React.ReactNode;
   icon?: React.ReactNode;
   errorMessage?: string;
+  type?: 'summary' | 'normal';
   content?: React.ReactNode;
   status?: 'idle' | 'loading' | 'success' | 'error';
   testId?: string;
@@ -128,6 +129,17 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   const showContent = useMemo(() => {
     return !!errorDom || !!contentDom;
   }, [errorDom, contentDom]);
+
+  if (tool.type === 'summary') {
+    return (
+      <div
+        className={`${prefixCls}-tool-container ${hashId}`}
+        data-testid="tool-user-item-tool-container "
+      >
+        {contentDom}
+      </div>
+    );
+  }
 
   return (
     <div

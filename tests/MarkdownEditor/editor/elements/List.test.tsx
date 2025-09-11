@@ -22,7 +22,7 @@ vi.mock('../../../../src/MarkdownEditor/hooks/editor', () => ({
   useMEditor: vi.fn(() => [null, vi.fn()]),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   useSlate: vi.fn(() => ({
     children: [{ children: [] }],
   })),

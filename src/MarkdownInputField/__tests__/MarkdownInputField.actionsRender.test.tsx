@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import type { AttachmentFile } from '../AttachmentButton/AttachmentFileList';
+import { AttachmentFile } from '../AttachmentButton/types';
 import { MarkdownInputField } from '../MarkdownInputField';
 
 describe('MarkdownInputField - actionsRender', () => {

@@ -12,6 +12,8 @@ nav:
 
 <code src="../demos/readonly.tsx" background="var(--main-bg-color)" iframe=540></code>
 
+<code src="../demos/comment-highlight-demo.tsx" background="var(--main-bg-color)" iframe=540></code>
+
 <code src="../demos/empty.tsx" background="var(--main-bg-color)" iframe=540 ></code>
 
 <code src="../demos/pure.tsx" background="var(--main-bg-color)" iframe=540></code>

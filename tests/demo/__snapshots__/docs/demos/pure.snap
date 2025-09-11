@@ -285,7 +285,7 @@
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -600,7 +600,7 @@
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -1363,7 +1363,7 @@
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -1397,7 +1397,7 @@
               >
                 <div
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: 0;"
+                  style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
@@ -2118,7 +2118,7 @@
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -2306,7 +2306,7 @@
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -2536,7 +2536,7 @@
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -2762,7 +2762,7 @@
             </div>
             <div
               data-slate-node="element"
-              style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
+              style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
             >
               # 保守型配置示例
 def conservative_allocation():
@@ -3077,7 +3077,7 @@ def aggressive_allocation():
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -3111,7 +3111,7 @@ def aggressive_allocation():
               >
                 <div
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: 0;"
+                  style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
@@ -3968,7 +3968,7 @@ def aggressive_allocation():
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span
@@ -4002,7 +4002,7 @@ def aggressive_allocation():
               >
                 <div
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: 0;"
+                  style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
@@ -4682,7 +4682,7 @@ def aggressive_allocation():
               data-be="card"
               data-slate-node="element"
               role="button"
-              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
               tabindex="0"
             >
               <span

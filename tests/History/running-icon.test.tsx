@@ -2,8 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { History } from '../../src/History';
-import { HistoryDataType } from '../../src/History/types';
+import { History, HistoryDataType } from '../../src/History';
 
 // 提供必要的上下文
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (

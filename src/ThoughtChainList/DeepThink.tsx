@@ -1,12 +1,12 @@
 ﻿import { CloseCircleFilled } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
-import { WhiteBoxProcessInterface } from '.';
 import { LoadingSpinnerIcon } from '../components/icons/LoadingSpinnerIcon';
 import { I18nContext } from '../i18n';
-import { MarkdownEditorProps } from '../MarkdownEditor';
+import { MarkdownEditorProps } from '../MarkdownEditor/types';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';
+import { WhiteBoxProcessInterface } from './types';
 
 /**
  * DeepThink 组件 - 深度思考组件

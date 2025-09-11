@@ -1,3 +1,4 @@
+import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
 import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
@@ -147,7 +148,10 @@ const getEditorConfig = (
     case 'shell':
       return {
         ...baseConfig,
-        contentStyle: { padding: 0 },
+        contentStyle: {
+          padding: 0,
+          overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
+        },
         className: classNames(`${prefixCls}--shell`, hashId),
         codeProps: {
           showGutter: true,
@@ -158,7 +162,10 @@ const getEditorConfig = (
     case 'md':
       return {
         ...baseConfig,
-        contentStyle: { padding: 16 },
+        contentStyle: {
+          padding: 16,
+          overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
+        },
         className: classNames(`${prefixCls}--markdown`, hashId),
         height: '100%',
       };
@@ -256,6 +263,13 @@ export const RealtimeFollow: React.FC<{
 }) => {
   const mdInstance = useRef<MarkdownEditorInstance>();
   const isTestEnv = process.env.NODE_ENV === 'test';
+
+  // 添加自动滚动功能（测试环境下禁用）
+  const { containerRef: autoScrollRef, scrollToBottom } = useAutoScroll({
+    SCROLL_TOLERANCE: 30,
+    timeout: 100, // 更快的响应时间，适配打字机效果
+    deps: [isTestEnv], // 当测试环境状态变化时重新初始化
+  });
   // 更新编辑器内容的effect（测试环境下跳过以减少解析与快照负载）
   useEffect(() => {
     if (isTestEnv) return;
@@ -278,8 +292,23 @@ export const RealtimeFollow: React.FC<{
         mdInstance.current.store.plugins,
       );
       mdInstance.current.store.updateNodeList(schema);
+
+      // 在打字机模式下，内容更新后触发自动滚动
+      if (data.typewriter && !isTestEnv) {
+        // 使用 setTimeout 确保 DOM 更新完成后再滚动
+        setTimeout(() => {
+          scrollToBottom();
+        }, 50);
+      }
     }
-  }, [data.content, data.type, htmlViewMode, isTestEnv]);
+  }, [
+    data.content,
+    data.type,
+    htmlViewMode,
+    isTestEnv,
+    data.typewriter,
+    scrollToBottom,
+  ]);
 
   if (data.type === 'html') {
     const html = typeof data.content === 'string' ? data.content : '';
@@ -329,7 +358,10 @@ export const RealtimeFollow: React.FC<{
       : data.emptyRender;
 
   return (
-    <div className={classNames(`${prefixCls}-content`, hashId)}>
+    <div
+      className={classNames(`${prefixCls}-content`, hashId)}
+      ref={isTestEnv ? undefined : autoScrollRef}
+    >
       {!isTestEnv && (
         <Overlay
           status={data.status}
@@ -449,7 +481,11 @@ export const RealtimeFollowList: React.FC<{
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('workspace-realtime');
 
-  const { wrapSSR, hashId } = useRealtimeFollowStyle(prefixCls);
+  const styleResult = useRealtimeFollowStyle(prefixCls);
+  const { wrapSSR, hashId } = styleResult || {
+    wrapSSR: (node: any) => node,
+    hashId: '',
+  };
 
   return wrapSSR(
     <div

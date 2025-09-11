@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { RenderElementProps } from '../../slate-react';
+import { RenderElementProps } from 'slate-react';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { useStyle } from './style';

@@ -5,12 +5,8 @@ import { Editor, Node, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
 import DOMPurify from 'dompurify';
-import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
-import {
-  ReactEditor,
-  RenderElementProps,
-  RenderLeafProps,
-} from '../slate-react';
+import { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
+import { MarkdownEditorProps } from '../../types';
 import { useEditorStore } from '../store';
 import { slugify } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
@@ -452,7 +448,7 @@ const MLeafComponent = (
     tagInputProps: MarkdownEditorProps['tagInputProps'];
   },
 ) => {
-  const { markdownEditorRef, markdownContainerRef, readonly } =
+  const { markdownEditorRef, markdownContainerRef, readonly, setShowComment } =
     useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
@@ -737,6 +733,7 @@ const MLeafComponent = (
       comment={props.comment}
       hashId={props.hashId}
       commentItem={leaf?.comment ? (leaf.data as any) : null}
+      setShowComment={setShowComment}
     >
       {dom}
     </CommentView>

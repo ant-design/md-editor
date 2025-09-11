@@ -19,7 +19,7 @@ vi.mock('../../../../src/MarkdownEditor/editor/hooks/editor', () => ({
   useSelStatus: vi.fn(() => [false, [0]]),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   useSlateSelection: vi.fn(),
   useSlateStatic: vi.fn(() => ({
     children: [{ children: [] }],

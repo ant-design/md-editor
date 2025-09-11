@@ -3,59 +3,24 @@
 'use client';
 
 import React from 'react';
-import { BaseElement } from 'slate/dist/interfaces';
-import { useSelStatus } from '../../../hooks/editor';
-import { TableCursor } from '../../../utils/slate-table';
 import {
   RenderElementProps,
   useSlateSelection,
   useSlateStatic,
-} from '../../slate-react';
+} from 'slate-react';
+import { useSelStatus } from '../../../hooks/editor';
+import { TableCursor } from '../../../utils/slate-table';
 import { SimpleTable } from './SimpleTable';
 
-export type TableCustomElement =
-  | TableNode
-  | TableHeadNode
-  | TableFooterNode
-  | TrNode
-  | ThNode
-  | TdNode;
-
-export interface TableNode {
-  type: 'table';
-  children: Array<TableHeadNode | TrNode | TableFooterNode>;
-  otherProps?: {
-    mergeCells?: Array<{
-      row: number;
-      col: number;
-      rowSpan: number;
-      colSpan: number;
-    }>;
-    columns?: Array<any>; // 用于定义列属性，如宽度、对齐方式等
-  };
-}
-
-export interface TableHeadNode {
-  type: 'table-head';
-  children: TrNode[];
-}
-
-export interface TableFooterNode {
-  type: 'table-footer';
-  children: TrNode[];
-}
-
-export interface TrNode {
-  type: 'table-row';
-  children: Array<TdNode | ThNode>;
-}
-
-interface ThNode {
-  type: 'header-cell';
-  rowSpan?: number;
-  colSpan?: number;
-  children: Array<TableCustomElement | Text>;
-}
+export type {
+  TableCustomElement,
+  TableFooterNode,
+  TableHeadNode,
+  TableNode,
+  TdNode,
+  ThNode,
+  TrNode,
+} from '../../types/Table';
 
 /**
  * Th 组件 - 表格头部单元格组件
@@ -117,13 +82,6 @@ export const Th: React.FC<
     </th>
   );
 };
-
-export interface TdNode {
-  type: 'table-cell';
-  rowSpan?: number;
-  colSpan?: number;
-  children: Array<TableCustomElement | BaseElement['children'] | Text>;
-}
 
 /**
  * Td 组件 - 表格数据单元格组件
@@ -220,9 +178,7 @@ const TdWrapper: React.FC<
   return <Td {...props} cellPath={path} />;
 };
 
-export const tableRenderElement = (
-  props: RenderElementProps<TableCustomElement>,
-) => {
+export const tableRenderElement = (props: RenderElementProps) => {
   switch (props.element.type) {
     case 'table':
       return <SimpleTable {...props} />;

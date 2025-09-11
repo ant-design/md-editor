@@ -13,6 +13,8 @@ import { useHistory } from './hooks/useHistory';
 import GroupMenu from './menu';
 import { HistoryProps } from './types';
 
+export * from './types/HistoryData';
+
 /**
  * History 组件 - 用于显示和管理聊天历史记录
  *

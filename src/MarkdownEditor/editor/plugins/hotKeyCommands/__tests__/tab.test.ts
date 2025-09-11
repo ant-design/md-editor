@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { BaseEditor, createEditor, Node, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
+import { ReactEditor, withReact } from 'slate-react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ReactEditor, withReact } from '../../../slate-react';
 import { TabKey } from '../tab';
 
 describe('TabKey', () => {

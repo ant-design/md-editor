@@ -29,7 +29,7 @@ import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdo
 import {
   ReactEditor,
   withReact,
-} from '../../src/MarkdownEditor/editor/slate-react';
+} from 'slate-react';
 import { EditorStore } from '../../src/MarkdownEditor/editor/store';
 
 // Mock is-hotkey 库

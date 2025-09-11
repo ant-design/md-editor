@@ -2,8 +2,9 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { LoadingIcon } from '../../../icons/LoadingIcon';
+import { AttachmentFile } from '../types';
+import { kbToSize } from '../utils';
 import { AttachmentFileIcon } from './AttachmentFileIcon';
-import { AttachmentFile, kbToSize } from './index';
 
 /**
  * AttachmentFileListItem 组件 - 附件文件列表项组件

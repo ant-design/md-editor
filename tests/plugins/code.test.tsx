@@ -37,7 +37,7 @@ vi.mock('../../src/MarkdownEditor/editor/store', () => ({
   })),
 }));
 
-vi.mock('../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     isFocused: vi.fn(() => true),
   },

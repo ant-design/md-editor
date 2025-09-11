@@ -6,7 +6,7 @@
 import { useCallback, useEffect } from 'react';
 import { useGetSetState } from 'react-use';
 import { Transforms } from 'slate';
-import { ReactEditor } from '../../../MarkdownEditor/editor/slate-react';
+import { ReactEditor } from 'slate-react';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { useSelStatus } from '../../../MarkdownEditor/hooks/editor';

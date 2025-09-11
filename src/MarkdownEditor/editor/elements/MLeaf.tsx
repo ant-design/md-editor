@@ -4,14 +4,14 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
+import { ReactEditor, RenderLeafProps } from 'slate-react';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
-import { ReactEditor, RenderLeafProps } from '../slate-react';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { CommentView } from './Comment';
 import { TagPopup } from './TagPopup';
 
-type MLeafProps = RenderLeafProps & {
+export type MLeafProps = RenderLeafProps & {
   hashId: string;
   comment: MarkdownEditorProps['comment'];
   fncProps: MarkdownEditorProps['fncProps'];

@@ -9,11 +9,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { TableNode } from '.';
 import { I18nContext } from '../../../../i18n';
-import { parserSlateNodeToMarkdown } from '../../../index';
-import { ActionIconBox } from '../../components';
+import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
+import { TableNode } from '../../types/Table';
+import { parserSlateNodeToMarkdown } from '../../utils';
 
 interface ReadonlyTableComponentProps {
   hashId: string;
@@ -64,9 +64,9 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
         let contentToCopy = '';
 
         // 根据复制类型确定要复制的内容
-        if (actions.copy === 'html') {
+        if (actions?.copy === 'html') {
           contentToCopy = tableTargetRef.current?.innerHTML || '';
-        } else if (actions.copy === 'csv') {
+        } else if (actions?.copy === 'csv') {
           const otherProps = element?.otherProps as any;
           if (otherProps?.columns && otherProps?.dataSource) {
             contentToCopy =
@@ -88,7 +88,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
       } catch (error) {
         console.error('Copy failed:', error);
       }
-    }, [element, actions.copy]);
+    }, [element, actions?.copy]);
 
     // 缓存全屏处理函数
     const handleFullScreen = useCallback((e: React.MouseEvent) => {
@@ -139,7 +139,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
     const popoverContent = useMemo(
       () => (
         <div style={{ display: 'flex', gap: 8 }}>
-          {actions.fullScreen && (
+          {actions?.fullScreen && (
             <ActionIconBox
               title={i18n?.locale?.fullScreen || '全屏'}
               onClick={handleFullScreen}
@@ -147,7 +147,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               <FullscreenOutlined />
             </ActionIconBox>
           )}
-          {actions.copy && (
+          {actions?.copy && (
             <ActionIconBox
               title={i18n?.locale?.copy || '复制'}
               onClick={handleCopy}
@@ -158,8 +158,8 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
         </div>
       ),
       [
-        actions.fullScreen,
-        actions.copy,
+        actions?.fullScreen,
+        actions?.copy,
         i18n?.locale,
         handleFullScreen,
         handleCopy,
