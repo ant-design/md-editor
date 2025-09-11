@@ -3,6 +3,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -119,7 +120,7 @@ type ThoughtChainProps = {
     key: string;
     title: string;
     content: React.ReactNode | React.ReactNode[];
-    status: 'success' | 'pending';
+    status: 'success' | 'pending' | 'loading' | 'error';
   }[];
   className?: string;
 };
@@ -148,8 +149,12 @@ const TaskListItem = memo(
     const { locale } = useContext(I18nContext);
     const isCollapsed = itemsCollapseStatus.current.get(item.key);
 
-    const hasContent =
-      item.content && Array.isArray(item.content) && item.content.length > 0;
+    const hasContent = useMemo(() => {
+      if (Array.isArray(item.content)) {
+        return item.content.length > 0;
+      }
+      return !!item.content;
+    }, [item.content]);
 
     return (
       <div key={item.key} className={`${prefixCls}-thoughtChainItem ${hashId}`}>
