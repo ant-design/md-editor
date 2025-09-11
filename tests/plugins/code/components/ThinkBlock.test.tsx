@@ -47,7 +47,7 @@ describe('ThinkBlock', () => {
 
       const thinkBlock = screen.getByTestId('think-block');
       expect(thinkBlock).toBeInTheDocument();
-      expect(thinkBlock).toHaveTextContent('');
+      expect(thinkBlock).toHaveTextContent('思考中分析需求');
     });
   });
 
