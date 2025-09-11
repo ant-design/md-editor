@@ -18,6 +18,7 @@ export { default as DonutChart } from './DonutChart';
 export { default as LineChart } from './LineChart';
 export { default as RadarChart } from './RadarChart';
 export { default as ScatterChart } from './ScatterChart';
+export { default as FunnelChart } from './FunnelChart';
 
 // 类型导出
 export type {
@@ -46,6 +47,7 @@ export type {
   ScatterChartDataItem,
   ScatterChartProps,
 } from './ScatterChart';
+export type { FunnelChartDataItem, FunnelChartProps } from './FunnelChart';
 
 // 工具与常量
 export { defaultColorList } from './const';

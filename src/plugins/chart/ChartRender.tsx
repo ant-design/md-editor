@@ -12,6 +12,7 @@ import DonutChart from './DonutChart';
 import LineChart from './LineChart';
 import RadarChart from './RadarChart';
 import ScatterChart from './ScatterChart';
+import FunnelChart from './FunnelChart';
 import { isNotEmpty, toNumber } from './utils';
 
 /**
@@ -44,6 +45,10 @@ const ChartMap = {
   },
   scatter: {
     title: '散点图',
+    changeData: ['table'],
+  },
+  funnel: {
+    title: '漏斗图',
     changeData: ['table'],
   },
   table: {
@@ -121,6 +126,7 @@ export const ChartRender: React.FC<{
     | 'area'
     | 'radar'
     | 'scatter'
+    | 'funnel'
     | 'descriptions'
     | 'table';
   chartData: Record<string, any>[];
@@ -154,6 +160,7 @@ export const ChartRender: React.FC<{
     | 'scatter'
     | 'descriptions'
     | 'table'
+    | 'funnel'
   >(() => props.chartType);
   const {
     chartData,
@@ -265,6 +272,8 @@ export const ChartRender: React.FC<{
     groupBy,
     filterBy,
   ]);
+
+  
   /**
    * 图表配置
    */
@@ -578,6 +587,30 @@ export const ChartRender: React.FC<{
         <ScatterChart
           key={`${config?.index}-scatter-${renderKey}`}
           data={scatterData}
+          height={config?.height || 400}
+          title={title || ''}
+          dataTime={dataTime}
+        />
+      );
+    }
+    if (chartType === 'funnel') {
+      // Funnel 数据需要映射为 { category?, type?, filterLable?, x, y }
+      const funnelData = (chartData || []).map((row: any, i: number) => {
+        const filterLable = getFieldValue(row, filterBy);
+        const category = getFieldValue(row, groupBy);
+        const type = getFieldValue(row, colorLegend);
+        return {
+          x: String(row?.[config?.x] ?? i + 1),
+          y: toNumber(row?.[config?.y], 0),
+          ...(category ? { category } : {}),
+          ...(type ? { type } : {}),
+          ...(filterLable ? { filterLable } : {}),
+        };
+      });
+      return (
+        <FunnelChart
+          key={`${config?.index}-funnel-${renderKey}`}
+          data={funnelData}
           height={config?.height || 400}
           title={title || ''}
           dataTime={dataTime}
