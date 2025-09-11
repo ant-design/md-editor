@@ -76,8 +76,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         fontSize: 12,
-        marginBottom: 6,
-        padding: '6px 0',
+        padding: '4px 0',
         [`@media (max-width: 768px)`]: {
           fontSize: 11,
           marginBottom: 4,
