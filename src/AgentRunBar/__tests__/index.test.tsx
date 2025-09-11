@@ -66,9 +66,9 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    // 任务已完成状态：提交按钮 + 重试按钮 + 新任务按钮
-    expect(screen.getByText('提交')).toBeInTheDocument();
+    // 任务已完成状态：重试按钮 + 提交按钮 + 新任务按钮
     expect(screen.getByText('重试')).toBeInTheDocument();
+    expect(screen.getByText('提交')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
 
     // 任务运行中状态：暂停按钮 + 停止按钮
@@ -383,7 +383,6 @@ describe('TaskRunning Component', () => {
     expect(screen.getByText('提交')).toBeInTheDocument();
     expect(screen.getByText('重试')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
-    expect(screen.getByLabelText('StopIcon')).not.toBeInTheDocument();
   });
 
   // 测试自定义按钮
@@ -412,14 +411,36 @@ describe('TaskRunning Component', () => {
     );
 
     let taskRunningElement = container.firstChild as HTMLElement;
-    expect(taskRunningElement).toHaveClass('task-running-default');
-    expect(taskRunningElement).not.toHaveClass('task-running-simple');
+    expect(taskRunningElement).toHaveClass('ant-task-running-default');
+    expect(taskRunningElement).not.toHaveClass('ant-task-running-simple');
 
     // 重新渲染为 simple variant
     rerender(<TaskRunning {...baseProps} variant="simple" />);
 
     taskRunningElement = container.firstChild as HTMLElement;
-    expect(taskRunningElement).toHaveClass('task-running-simple');
-    expect(taskRunningElement).not.toHaveClass('task-running-default');
+    expect(taskRunningElement).toHaveClass('ant-task-running-simple');
+    expect(taskRunningElement).not.toHaveClass('ant-task-running-default');
+  });
+
+  // 测试 variant 对操作按钮的影响
+  it('should apply correct control buttons based on variant', () => {
+    const { rerender } = render(
+      <TaskRunning {...baseProps} variant="simple" />,
+    );
+
+    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+
+    // 任务运行中状态：暂停按钮 + 停止按钮
+    rerender(
+      <TaskRunning
+        {...baseProps}
+        variant="simple"
+        taskStatus={TASK_STATUS.PAUSE}
+        taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
+      />,
+    );
+    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
   });
 });

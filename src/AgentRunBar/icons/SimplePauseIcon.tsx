@@ -14,6 +14,8 @@ export function SimplePauseIcon(props: PauseIconProps) {
         fill="none"
         width="16"
         height="16"
+        role="img"
+        aria-label="PauseIcon"
         viewBox="0 0 16 16"
         {...svgProps}
       >

@@ -343,7 +343,8 @@ export default () => {
 
       <TaskRunning
         title={`任务运行中, 已耗时${elapsedTime}。 ${progress}`}
-        taskRunningStatus={taskRunningStatus}
+        taskStatus={TASK_STATUS.RUNNING}
+        taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
         variant="simple"
         icon={false}
         actionsRender={false}

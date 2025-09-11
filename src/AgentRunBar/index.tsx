@@ -204,12 +204,17 @@ const renderButtonGroup = ({
     actionNode = (
       <>
         {onReplay && (
-          <Button onClick={onReplay} variant="solid">
+          <Button onClick={onReplay} variant="solid" autoInsertSpace={false}>
             重试
           </Button>
         )}
         {onViewResult && (
-          <Button onClick={onViewResult} color="default" variant="solid">
+          <Button
+            onClick={onViewResult}
+            color="default"
+            variant="solid"
+            autoInsertSpace={false}
+          >
             提交
           </Button>
         )}
@@ -231,7 +236,7 @@ const renderButtonGroup = ({
     actionNode = (
       <>
         {onReplay && (
-          <Button onClick={onReplay} variant="solid">
+          <Button onClick={onReplay} variant="solid" autoInsertSpace={false}>
             重试
           </Button>
         )}
