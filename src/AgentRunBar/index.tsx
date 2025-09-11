@@ -44,7 +44,18 @@ export enum TASK_RUNNING_STATUS {
   PAUSE = 'pause',
 }
 
-type TaskRunningVariant = 'simple' | 'default';
+/**
+ * 主题样式变体
+ */
+export type TaskRunningVariant = 'simple' | 'default';
+
+/**
+ * 任务操作按钮渲染函数
+ */
+export type TaskRunningActionsRender = (props: {
+  status?: TASK_STATUS;
+  runningStatus?: TASK_RUNNING_STATUS;
+}) => React.ReactNode;
 
 /**
  * TaskRunning组件的属性接口
@@ -52,7 +63,7 @@ type TaskRunningVariant = 'simple' | 'default';
  */
 export interface TaskRunningProps {
   /** 任务状态 */
-  taskStatus: TASK_STATUS;
+  taskStatus?: TASK_STATUS;
   /** 任务运行状态 */
   taskRunningStatus: TASK_RUNNING_STATUS;
   /** 创建新任务的回调函数 */
@@ -78,7 +89,7 @@ export interface TaskRunningProps {
   /** 描述文案 */
   description?: string;
   /** 自定义操作按钮 */
-  actions?: React.ReactNode;
+  actionsRender?: TaskRunningActionsRender | false;
   /** 主题样式变体 */
   variant?: TaskRunningVariant;
   /** 国际化配置 */
@@ -104,7 +115,7 @@ export interface TaskRunningProps {
 const renderButtonGroup = ({
   taskStatus,
   taskRunningStatus,
-  actions,
+  actionsRender,
   baseCls,
   hashId,
   locale,
@@ -125,7 +136,7 @@ const renderButtonGroup = ({
   | 'onStop'
   | 'onReplay'
   | 'onViewResult'
-  | 'actions'
+  | 'actionsRender'
   | 'locale'
   | 'variant'
 > & {
@@ -146,8 +157,14 @@ const renderButtonGroup = ({
   let actionNode: React.ReactNode = null;
 
   // 自定义操作按钮
-  if (actions || actions === false) {
-    actionNode = actions;
+  if (actionsRender || actionsRender === false) {
+    actionNode =
+      typeof actionsRender === 'function'
+        ? actionsRender({
+            status: taskStatus,
+            runningStatus: taskRunningStatus,
+          })
+        : actionsRender;
   }
   // 任务已暂停状态
   else if (isPause) {
@@ -306,7 +323,7 @@ const renderButtonGroup = ({
  * @param {string} [props.description] - 描述文案
  * @param {React.ReactNode} [props.icon] - 自定义图标
  * @param {string} [props.iconTooltip] - 图标提示文案
- * @param {React.ReactNode} [props.actions] - 自定义操作按钮
+ * @param {TaskRunningActionsRender | false} [props.actionsRender] - 自定义操作按钮
  * @param {TaskRunningVariant} [props.variant] - 样式变体
  *
  * @example
@@ -351,7 +368,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
     description,
     icon,
     iconTooltip,
-    actions,
+    actionsRender,
     variant = 'default',
   } = rest;
 
@@ -425,7 +442,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         onStop,
         onReplay,
         onViewResult,
-        actions,
+        actionsRender,
         baseCls,
         hashId,
         locale,

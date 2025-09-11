@@ -47,7 +47,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         bottom: 0,
         zIndex: -1,
         background:
-          'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 67deg, #FFF16F 152deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
+          'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
         borderRadius: 16,
         boxShadow:
           '0px 0px 1px 0px rgba(0, 15, 41, 0.05),0px 6px 16px 0px rgba(0, 15, 41, 0.08)',

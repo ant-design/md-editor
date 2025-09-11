@@ -66,8 +66,8 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    // 任务已完成状态：查看按钮 + 重试按钮 + 新任务按钮
-    expect(screen.getByText('查看')).toBeInTheDocument();
+    // 任务已完成状态：提交按钮 + 重试按钮 + 新任务按钮
+    expect(screen.getByText('提交')).toBeInTheDocument();
     expect(screen.getByText('重试')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
 
@@ -126,7 +126,7 @@ describe('TaskRunning Component', () => {
     );
 
     // 任务已完成：查看按钮 + 重试按钮 + 新任务按钮
-    expect(screen.getByText('查看')).toBeInTheDocument();
+    expect(screen.getByText('提交')).toBeInTheDocument();
     expect(screen.getByText('重试')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
 
@@ -243,7 +243,7 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    const viewButton = screen.getByText('查看');
+    const viewButton = screen.getByText('提交');
     fireEvent.click(viewButton);
 
     expect(onViewResult).toHaveBeenCalledTimes(1);
@@ -389,7 +389,9 @@ describe('TaskRunning Component', () => {
   // 测试自定义按钮
   it('should render with actions', () => {
     // 测试不显示按钮的情况
-    const { rerender } = render(<TaskRunning {...baseProps} actions={false} />);
+    const { rerender } = render(
+      <TaskRunning {...baseProps} actionsRender={false} />,
+    );
 
     expect(screen.queryByText('创建新任务')).not.toBeInTheDocument();
 
@@ -397,13 +399,27 @@ describe('TaskRunning Component', () => {
     rerender(
       <TaskRunning
         {...baseProps}
-        actions={
-          <>
-            <Button>创建解析任务</Button>
-          </>
-        }
+        actionsRender={() => <Button>创建解析任务</Button>}
       />,
     );
     expect(screen.getByText('创建解析任务')).toBeInTheDocument();
+  });
+
+  // 测试 variant 对样式类名的影响
+  it('should apply correct CSS classes based on variant', () => {
+    const { container, rerender } = render(
+      <TaskRunning {...baseProps} variant="default" />,
+    );
+
+    let taskRunningElement = container.firstChild as HTMLElement;
+    expect(taskRunningElement).toHaveClass('task-running-default');
+    expect(taskRunningElement).not.toHaveClass('task-running-simple');
+
+    // 重新渲染为 simple variant
+    rerender(<TaskRunning {...baseProps} variant="simple" />);
+
+    taskRunningElement = container.firstChild as HTMLElement;
+    expect(taskRunningElement).toHaveClass('task-running-simple');
+    expect(taskRunningElement).not.toHaveClass('task-running-default');
   });
 });

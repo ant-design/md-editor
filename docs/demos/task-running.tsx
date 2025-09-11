@@ -343,11 +343,10 @@ export default () => {
 
       <TaskRunning
         title={`任务运行中, 已耗时${elapsedTime}。 ${progress}`}
-        taskStatus={TASK_STATUS.RUNNING}
-        taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
+        taskRunningStatus={taskRunningStatus}
         variant="simple"
         icon={false}
-        actions={false}
+        actionsRender={false}
         onPause={handlePause}
         onResume={noop}
         onStop={handleStop}
@@ -369,7 +368,8 @@ export default () => {
             支持运行中、暂停、停止、完成、出错等多种任务状态
           </li>
           <li>
-            <strong>动态按钮</strong>: 根据任务状态自动显示对应的操作按钮，支持自定义按钮
+            <strong>动态按钮</strong>:
+            根据任务状态自动显示对应的操作按钮，支持自定义按钮
           </li>
           <li>
             <strong>进度显示</strong>: 支持显示任务进度和耗时信息
@@ -395,7 +395,7 @@ export default () => {
             <strong>任务运行中</strong>: 显示停止按钮 + 暂停按钮
           </li>
           <li>
-            <strong>任务已暂停</strong>: 显示停止按钮 + 继续按钮 + 新任务按钮
+            <strong>任务已暂停</strong>: 显示新任务按钮 + 停止按钮 + 继续按钮
           </li>
           <li>
             <strong>任务已停止</strong>: 显示创建新任务按钮
@@ -410,7 +410,8 @@ export default () => {
             <strong>任务已取消</strong>: 显示创建新任务按钮
           </li>
           <li>
-            <strong>自定义状态按钮</strong>: 通过 actions 属性自定义状态按钮
+            <strong>自定义状态按钮</strong>: 通过 actionsRender
+            属性自定义状态按钮
           </li>
         </ul>
 
@@ -431,8 +432,8 @@ export default () => {
             TASK_RUNNING_STATUS.RUNNING | COMPLETE | PAUSE
           </li>
           <li>
-            <strong>actions</strong>:
-            自定义按钮，当不需要默认操作按钮时，可以设为 actions=false
+            <strong>actionsRender</strong>:
+            自定义按钮，当不需要默认操作按钮时，可以设为 actionsRender=false
           </li>
           <li>
             <strong>onPause</strong>: 暂停任务时的回调函数
