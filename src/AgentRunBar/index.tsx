@@ -132,11 +132,35 @@ const renderButtonGroup = ({
   baseCls: string;
   hashId: string;
 }) => {
+  // 任务运行中状态
+  const isRunning =
+    taskStatus === TASK_STATUS.RUNNING &&
+    taskRunningStatus === TASK_RUNNING_STATUS.RUNNING;
+
+  // 任务已暂停状态
+  const isPause =
+    taskStatus === TASK_STATUS.PAUSE ||
+    (taskStatus === TASK_STATUS.RUNNING &&
+      taskRunningStatus === TASK_RUNNING_STATUS.PAUSE);
+
   let actionNode: React.ReactNode = null;
 
   // 自定义操作按钮
   if (actions || actions === false) {
     actionNode = actions;
+  }
+  // 任务已暂停状态
+  else if (isPause) {
+    actionNode = onCreateNewTask && (
+      <Button
+        onClick={onCreateNewTask}
+        icon={<PlusOutlined />}
+        color="default"
+        variant="solid"
+      >
+        新任务
+      </Button>
+    );
   }
   // 任务已停止状态
   else if (
@@ -208,7 +232,7 @@ const renderButtonGroup = ({
     );
   }
   // 默认状态
-  else {
+  else if (!isRunning && !isPause) {
     actionNode = onCreateNewTask && (
       <Button
         onClick={onCreateNewTask}
@@ -220,17 +244,6 @@ const renderButtonGroup = ({
       </Button>
     );
   }
-
-  // 任务运行中状态
-  const isRunning =
-    taskStatus === TASK_STATUS.RUNNING &&
-    taskRunningStatus === TASK_RUNNING_STATUS.RUNNING;
-
-  // 任务已暂停状态
-  const isPause =
-    taskStatus === TASK_STATUS.PAUSE ||
-    (taskStatus === TASK_STATUS.RUNNING &&
-      taskRunningStatus === TASK_RUNNING_STATUS.PAUSE);
 
   return (
     <div className={`${baseCls}-button-wrapper ${hashId}`}>
