@@ -123,10 +123,11 @@ export const Bubble: React.FC<
       bubbleRenderConfig?.titleRender,
       props,
       <BubbleTitle
+        bubbleNameClassName={classNames?.bubbleNameClassName}
         className={classNames?.bubbleListItemTitleClassName}
         style={styles?.bubbleListItemTitleStyle}
         prefixClass={cx(`${prefixClass}-bubble-title`)}
-        title={avatar?.title}
+        title={avatar?.title || avatar?.name}
         placement={placement}
         time={time}
       />,
@@ -150,7 +151,7 @@ export const Bubble: React.FC<
           className={classNames?.bubbleListItemAvatarClassName}
           avatar={avatar?.avatar}
           background={avatar?.backgroundColor}
-          title={avatar?.title}
+          title={avatar?.title || avatar?.name}
           onClick={onAvatarClick}
           prefixCls={`${prefixClass}-bubble-avatar`}
           style={styles?.bubbleListItemAvatarStyle}
@@ -274,9 +275,6 @@ export const Bubble: React.FC<
             >
               {avatarDom}
               {typing && <LoadingIcon style={{ fontSize: 16 }} />}
-              <span className={classNames?.bubbleNameClassName}>
-                {avatar?.name ?? 'Agentar'}
-              </span>
               {titleDom}
             </div>
           )}
@@ -375,14 +373,25 @@ export const Bubble: React.FC<
           props,
           {
             avatar: (
-              <BubbleAvatar avatar={avatar?.avatar} title={avatar?.title} />
-            ),
-            title: (
-              <BubbleTitle
-                title={avatar?.title}
-                time={time}
-                prefixClass={cx(`${prefixClass}-bubble-title`)}
+              <BubbleAvatar
+                avatar={avatar?.avatar}
+                title={avatar?.title || avatar?.name}
               />
+            ),
+            title: titleDom,
+            header: (
+              <div
+                className={cx(
+                  `${prefixClass}-bubble-avatar-title`,
+                  `${prefixClass}-bubble-avatar-title-${placement}`,
+                  classNames?.bubbleAvatarTitleClassName,
+                  hashId,
+                )}
+              >
+                {avatarDom}
+                {typing && <LoadingIcon style={{ fontSize: 16 }} />}
+                {titleDom}
+              </div>
             ),
             extra:
               props?.bubbleRenderConfig?.extraRender === false ? null : (

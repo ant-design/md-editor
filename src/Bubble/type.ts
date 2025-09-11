@@ -407,6 +407,7 @@ export interface BubbleRenderConfig<T = Record<string, any>> {
       domsMap: {
         avatar: ReactNode;
         title: ReactNode;
+        header: ReactNode;
         messageContent: ReactNode;
         itemDom: ReactNode;
         extra: ReactNode;

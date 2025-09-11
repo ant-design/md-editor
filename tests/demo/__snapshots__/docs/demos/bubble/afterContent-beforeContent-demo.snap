@@ -49,9 +49,6 @@
                     UN
                   </span>
                 </span>
-                <span>
-                  Agentar
-                </span>
                 <div
                   class="ant-agent-list-bubble-title ant-flex"
                   data-testid="bubble-title"
