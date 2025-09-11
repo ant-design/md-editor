@@ -10,6 +10,7 @@ import { BubbleConfigContext } from './BubbleConfigProvide';
 import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
+import { BubbleExtra } from './MessagesContent/BubbleExtra';
 import { useStyle } from './style';
 import { BubbleTitle } from './Title';
 import type { BubbleMetaData, BubbleProps } from './type';
@@ -383,6 +384,51 @@ export const Bubble: React.FC<
                 prefixClass={cx(`${prefixClass}-bubble-title`)}
               />
             ),
+            extra:
+              props?.bubbleRenderConfig?.extraRender === false ? null : (
+                <BubbleExtra
+                  pure
+                  style={props.styles?.bubbleListItemExtraStyle}
+                  readonly={props.readonly}
+                  rightRender={props?.bubbleRenderConfig?.extraRightRender}
+                  onReply={props.onReply}
+                  onCancelLike={props.onCancelLike}
+                  shouldShowCopy={props.shouldShowCopy}
+                  useSpeech={props.useSpeech}
+                  shouldShowVoice={props.shouldShowVoice}
+                  onDisLike={
+                    props.onDisLike
+                      ? async () => {
+                          try {
+                            await props.onDisLike?.(props.originData as any);
+                            props.bubbleRef?.current?.setMessageItem?.(
+                              props.id!,
+                              {
+                                feedback: 'thumbsDown',
+                              } as any,
+                            );
+                          } catch (error) {}
+                        }
+                      : undefined
+                  }
+                  bubble={props as any}
+                  onLike={
+                    props.onLike
+                      ? async () => {
+                          try {
+                            await props.onLike?.(props.originData as any);
+                            props.bubbleRef?.current?.setMessageItem?.(
+                              props.id!,
+                              {
+                                feedback: 'thumbsUp',
+                              } as any,
+                            );
+                          } catch (error) {}
+                        }
+                      : undefined
+                  }
+                />
+              ),
             messageContent: messageContent,
             itemDom,
           },

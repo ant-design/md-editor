@@ -409,6 +409,7 @@ export interface BubbleRenderConfig<T = Record<string, any>> {
         title: ReactNode;
         messageContent: ReactNode;
         itemDom: ReactNode;
+        extra: ReactNode;
       },
       defaultDom: ReactNode,
     ) => ReactNode

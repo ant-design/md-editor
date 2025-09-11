@@ -185,6 +185,7 @@ export type BubbleExtraProps = {
       defaultDoms: React.ReactNode,
     ) => React.ReactNode
   >;
+  pure?: boolean;
   rightRender?: WithFalse<
     (
       props: BubbleExtraProps,

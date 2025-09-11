@@ -43,6 +43,7 @@ export const BubbleExtra = ({
   onReply,
   bubble,
   readonly,
+  pure,
   ...props
 }: BubbleExtraProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -437,7 +438,9 @@ export const BubbleExtra = ({
   if (!copyDom && originalData?.isAborted && !reSend) {
     return null;
   }
-
+  if (pure) {
+    return [reSend, like, disLike, copyDom, voiceDom];
+  }
   return (
     <div
       className={prefixCls}
