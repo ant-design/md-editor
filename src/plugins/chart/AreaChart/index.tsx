@@ -224,6 +224,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
         backgroundColor: `${baseColor}20`,
         pointBackgroundColor: baseColor,
         pointBorderColor: '#fff',
+        pointBorderWidth: 1,
         borderWidth: 3,
         tension: 0,
         fill: true,
@@ -345,9 +346,10 @@ const AreaChart: React.FC<AreaChartProps> = ({
     },
     elements: {
       point: {
-        radius: 0,
-        hoverRadius: 0,
-        borderWidth: 0,
+        radius: isMobile ? 2 : 3,
+        hoverRadius: isMobile ? 3 : 5,
+        borderWidth: isMobile ? 1 : 2,
+        hoverBorderWidth: isMobile ? 1 : 2,
       },
       line: {
         borderWidth: 3,
