@@ -11,6 +11,7 @@ import {
 } from 'slate';
 import { DOMNode } from 'slate-dom';
 import { History } from 'slate-history';
+import { ReactEditor } from 'slate-react';
 import {
   CardNode,
   CustomLeaf,
@@ -18,7 +19,6 @@ import {
   ListNode,
   ParagraphNode,
 } from '../../el';
-import { ReactEditor } from '../slate-react';
 import { getMediaType } from './dom';
 
 export class EditorUtils {

@@ -10,6 +10,7 @@ import React, {
   useState,
 } from 'react';
 import { Editor, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 import { useRefFunction } from '../hooks/useRefFunction';
 import { I18nContext } from '../i18n';
 import {
@@ -18,17 +19,14 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
-import { ReactEditor } from '../MarkdownEditor/editor/slate-react';
 import {
   AttachmentButton,
   AttachmentButtonProps,
   upLoadFileToServer,
 } from './AttachmentButton';
 import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover';
-import {
-  AttachmentFile,
-  AttachmentFileList,
-} from './AttachmentButton/AttachmentFileList';
+import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
+import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';

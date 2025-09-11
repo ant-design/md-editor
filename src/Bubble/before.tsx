@@ -35,7 +35,8 @@ type BubbleBeforeNodeProps = {
       };
     };
   }>;
-  bubbleListRef: any;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
 /**
@@ -93,6 +94,8 @@ export const BubbleBeforeNode: React.FC<BubbleBeforeNodeProps> = (props) => {
     <>
       <ThoughtChainList
         {...context?.thoughtChain}
+        className={props.className}
+        style={props.style}
         bubble={{
           ..._.originData,
           isFinished: _.originData?.isFinished || _.originData?.isAborted,

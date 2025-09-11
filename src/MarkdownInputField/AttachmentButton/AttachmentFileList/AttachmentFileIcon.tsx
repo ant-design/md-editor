@@ -19,8 +19,8 @@ import {
   XLSXIcon,
   YMLIcon,
 } from '../../../icons/FileIconList';
-import { isImageFile } from '../index';
-import { AttachmentFile } from './index';
+import { AttachmentFile } from '../types';
+import { isImageFile } from '../utils';
 
 /**
  * 根据文件名和扩展名返回对应类型的文件图标组件

@@ -7,7 +7,7 @@
 import { Popover } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { kbToSize } from './AttachmentFileList';
+import { kbToSize } from './utils';
 
 export type AttachmentButtonPopoverProps = {
   children?: React.ReactNode;

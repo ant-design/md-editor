@@ -1,6 +1,6 @@
 ﻿import React from 'react';
+import { RenderElementProps, useSlate } from 'slate-react';
 import { useSelStatus } from '../../../../MarkdownEditor/hooks/editor';
-import { RenderElementProps, useSlate } from '../../slate-react';
 import { useEditorStore } from '../../store';
 
 export const WarpCard = (props: RenderElementProps) => {

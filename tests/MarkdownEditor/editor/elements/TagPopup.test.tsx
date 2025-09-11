@@ -17,7 +17,7 @@ import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock 依赖
-vi.mock('../../../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   useSlate: vi.fn(() => ({
     children: [{ type: 'paragraph', children: [{ text: 'test' }] }],
   })),
@@ -61,7 +61,6 @@ const MockTagPopup = ({
   notFoundContent,
   open,
   onOpenChange,
-  ...props
 }: any) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(open || false);

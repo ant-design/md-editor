@@ -11,6 +11,10 @@ import React, {
 import partialParse from '../../MarkdownEditor/editor/parser/json-parse';
 import { LowCodeSchema } from '../../schema/types';
 import { mdDataSchemaValidator } from '../../schema/validator';
+import {
+  createSandbox,
+  DEFAULT_SANDBOX_CONFIG,
+} from '../../utils/proxySandbox';
 import { TemplateEngine } from './templateEngine';
 export * from './templateEngine';
 
@@ -77,6 +81,21 @@ export interface SchemaRendererProps {
   useDefaultValues?: boolean;
   debug?: boolean;
   onRenderSuccess?: (html: string) => void;
+  /** 沙箱配置 */
+  sandboxConfig?: {
+    /** 是否启用沙箱模式 */
+    enabled?: boolean;
+    /** 允许的全局对象列表 */
+    allowedGlobals?: string[];
+    /** 禁止的全局对象列表 */
+    forbiddenGlobals?: string[];
+    /** 是否允许访问 DOM */
+    allowDOM?: boolean;
+    /** 执行超时时间（毫秒） */
+    timeout?: number;
+    /** 是否启用严格模式 */
+    strictMode?: boolean;
+  };
 }
 
 /**
@@ -137,6 +156,12 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   debug = true,
   useDefaultValues = true,
   onRenderSuccess,
+  sandboxConfig = {
+    enabled: true,
+    allowDOM: true,
+    timeout: 3000,
+    strictMode: true,
+  },
 }) => {
   const [renderError, setRenderError] = useState<string | null>(null);
 
@@ -436,24 +461,75 @@ a:active {
         });
 
         // 添加并执行脚本
-        scripts.forEach((script) => {
+        scripts.forEach(async (script) => {
           try {
-            // 通过eval执行内联脚本
+            // 通过沙箱执行内联脚本
             if (!script.src && script.textContent) {
-              const scriptFn = new Function(
-                'shadowRoot',
-                'window',
-                script.textContent,
-              );
-              try {
-                scriptFn(shadowRoot, {
-                  devicePixelRatio: window.devicePixelRatio,
+              // 检查是否启用沙箱
+              if (sandboxConfig.enabled) {
+                // 创建安全的沙箱实例
+                const sandbox = createSandbox({
+                  ...DEFAULT_SANDBOX_CONFIG,
+                  allowDOM: sandboxConfig.allowDOM ?? true,
+                  allowedGlobals:
+                    sandboxConfig.allowedGlobals ||
+                    DEFAULT_SANDBOX_CONFIG.allowedGlobals,
+                  forbiddenGlobals:
+                    sandboxConfig.forbiddenGlobals ||
+                    DEFAULT_SANDBOX_CONFIG.forbiddenGlobals,
+                  strictMode: sandboxConfig.strictMode ?? true,
+                  timeout: sandboxConfig.timeout || 3000,
                 });
-              } catch (evalError) {
-                console.error('执行脚本错误:', evalError);
+
+                try {
+                  // 在沙箱中执行脚本，注入 shadowRoot 和其他上下文
+                  const result = await sandbox.execute(script.textContent, {
+                    shadowRoot: shadowRoot,
+                    // 提供一个安全的 window 上下文
+                    safeWindow: {
+                      devicePixelRatio:
+                        typeof window !== 'undefined'
+                          ? window.devicePixelRatio
+                          : 1,
+                      innerWidth:
+                        typeof window !== 'undefined'
+                          ? window.innerWidth
+                          : 1024,
+                      innerHeight:
+                        typeof window !== 'undefined'
+                          ? window.innerHeight
+                          : 768,
+                    },
+                  });
+                  if (!result.success && result.error) {
+                    console.error('沙箱脚本执行错误:', result.error);
+                  }
+                } catch (evalError) {
+                  console.error('沙箱执行失败:', evalError);
+                } finally {
+                  // 清理沙箱资源
+                  sandbox.destroy();
+                }
+              } else {
+                // 如果禁用沙箱，回退到原来的方式（不推荐）
+                console.warn('沙箱已禁用，使用不安全的脚本执行方式');
+                const scriptFn = new Function(
+                  'shadowRoot',
+                  'window',
+                  script.textContent,
+                );
+                try {
+                  scriptFn(shadowRoot, {
+                    devicePixelRatio: window.devicePixelRatio,
+                  });
+                } catch (evalError) {
+                  console.error('执行脚本错误:', evalError);
+                }
               }
             } else if (script.src) {
-              // 对于外部脚本，需要重新添加到DOM中
+              // 对于外部脚本，仍然需要特殊处理
+              // 但我们可以通过沙箱加载和执行
+              console.warn('外部脚本暂时不通过沙箱执行:', script.src);
               try {
                 shadowRoot?.appendChild(script);
               } catch (appendError) {

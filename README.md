@@ -88,14 +88,41 @@ export default () => {
     <MarkdownEditor
       editorRef={editorRef}
       height={600}
-      initValue="# 开始编辑..."
+      initValue={# Hello World
+
+欢迎使用 md-editor！这是一个功能强大的 Markdown 编辑器。
+
+## 主要特性
+
+- ✅ 支持标准 Markdown 语法
+- ✅ 实时预览功能
+- ✅ 语法高亮
+- ✅ 数学公式渲染 $E=mc^2$
+- ✅ 代码块高亮
+
+\`\`\`javascript
+function hello() {
+  console.log('Hello, md-editor!');
+}
+\`\`\`
+
+## 表格支持
+
+| 功能 | 支持 | 说明 |
+|------|------|------|
+| 基础编辑 | ✅ | 支持所有标准语法 |
+| 实时预览 | ✅ | 所见即所得 |
+| 插件系统 | ✅ | 可扩展架构 |
+
+> 这只是一个简单的示例，更多功能等你探索！
+`}
       toolBar={{
         enable: true,
         extra: [
           <button key="save" onClick={handleSave}>
             保存
-          </button>
-        ]
+          </button>,
+        ],
       }}
       onChange={(value, schema) => {
         console.log('内容变化:', value);
@@ -104,7 +131,7 @@ export default () => {
         upload: async (files) => {
           // 自定义图片上传逻辑
           return ['https://example.com/uploaded-image.png'];
-        }
+        },
       }}
     />
   );
@@ -130,81 +157,83 @@ export default () => {
 
 ### MarkdownEditor 属性
 
-| 属性 | 类型 | 默认值 | 描述 |
-| --- | --- | --- | --- |
-| **基础配置** |
-| className | `string` | - | 自定义类名 |
-| width | `string \| number` | - | 编辑器宽度 |
-| height | `string \| number` | - | 编辑器高度 |
-| initValue | `string` | - | 初始内容 |
-| readonly | `boolean` | `false` | 是否为只读模式 |
-| **样式配置** |
-| style | `React.CSSProperties` | - | 容器样式 |
-| contentStyle | `React.CSSProperties` | - | 内容区域样式 |
-| editorStyle | `React.CSSProperties` | - | 编辑器样式 |
-| **功能配置** |
-| toc | `boolean` | `false` | 是否显示目录 |
-| toolBar | `ToolBarProps` | - | 工具栏配置 |
-| typewriter | `boolean` | `false` | 是否开启打字机模式 |
-| reportMode | `boolean` | `false` | 是否开启报告模式 |
-| slideMode | `boolean` | `false` | 是否开启 PPT 模式 |
-| **扩展配置** |
-| codeProps | `{ Languages?: string[] }` | - | 代码高亮配置 |
-| image | `ImageConfig` | - | 图片上传配置 |
-| comment | `CommentProps` | - | 评论功能配置 |
-| fncProps | `FnProps` | - | 功能属性配置 |
-| **高级配置** |
-| rootContainer | `React.MutableRefObject<HTMLDivElement>` | - | 根容器引用 |
-| editorRef | `React.MutableRefObject<MarkdownEditorInstance>` | - | 编辑器实例引用 |
-| eleItemRender | `(props: ElementProps, defaultDom: React.ReactNode) => React.ReactElement` | - | 自定义元素渲染 |
-| initSchemaValue | `Elements[]` | - | 初始结构数据 |
-| insertAutocompleteProps | `InsertAutocompleteProps` | - | 自动补全配置 |
-| titlePlaceholderContent | `string` | - | 标题占位符内容 |
-| **事件回调** |
-| onChange | `(value: string, schema: Elements[]) => void` | - | 内容变化回调 |
+| 属性                    | 类型                                                                       | 默认值  | 描述               |
+| ----------------------- | -------------------------------------------------------------------------- | ------- | ------------------ |
+| **基础配置**            |
+| className               | `string`                                                                   | -       | 自定义类名         |
+| width                   | `string \| number`                                                         | -       | 编辑器宽度         |
+| height                  | `string \| number`                                                         | -       | 编辑器高度         |
+| initValue               | `string`                                                                   | -       | 初始内容           |
+| readonly                | `boolean`                                                                  | `false` | 是否为只读模式     |
+| **样式配置**            |
+| style                   | `React.CSSProperties`                                                      | -       | 容器样式           |
+| contentStyle            | `React.CSSProperties`                                                      | -       | 内容区域样式       |
+| editorStyle             | `React.CSSProperties`                                                      | -       | 编辑器样式         |
+| **功能配置**            |
+| toc                     | `boolean`                                                                  | `false` | 是否显示目录       |
+| toolBar                 | `ToolBarProps`                                                             | -       | 工具栏配置         |
+| typewriter              | `boolean`                                                                  | `false` | 是否开启打字机模式 |
+| reportMode              | `boolean`                                                                  | `false` | 是否开启报告模式   |
+| slideMode               | `boolean`                                                                  | `false` | 是否开启 PPT 模式  |
+| **扩展配置**            |
+| codeProps               | `{ Languages?: string[] }`                                                 | -       | 代码高亮配置       |
+| image                   | `ImageConfig`                                                              | -       | 图片上传配置       |
+| comment                 | `CommentProps`                                                             | -       | 评论功能配置       |
+| fncProps                | `FnProps`                                                                  | -       | 功能属性配置       |
+| **高级配置**            |
+| rootContainer           | `React.MutableRefObject<HTMLDivElement>`                                   | -       | 根容器引用         |
+| editorRef               | `React.MutableRefObject<MarkdownEditorInstance>`                           | -       | 编辑器实例引用     |
+| eleItemRender           | `(props: ElementProps, defaultDom: React.ReactNode) => React.ReactElement` | -       | 自定义元素渲染     |
+| initSchemaValue         | `Elements[]`                                                               | -       | 初始结构数据       |
+| insertAutocompleteProps | `InsertAutocompleteProps`                                                  | -       | 自动补全配置       |
+| titlePlaceholderContent | `string`                                                                   | -       | 标题占位符内容     |
+| **事件回调**            |
+| onChange                | `(value: string, schema: Elements[]) => void`                              | -       | 内容变化回调       |
 
 ### ToolBarProps
 
-| 属性 | 类型 | 默认值 | 描述 |
-| --- | --- | --- | --- |
-| min | `boolean` | `false` | 是否启用最小化模式 |
-| enable | `boolean` | `true` | 是否启用工具栏 |
-| extra | `React.ReactNode[]` | - | 额外的自定义工具栏项目 |
-| hideTools | `ToolsKeyType[]` | - | 需要隐藏的工具栏选项 |
+| 属性      | 类型                | 默认值  | 描述                   |
+| --------- | ------------------- | ------- | ---------------------- |
+| min       | `boolean`           | `false` | 是否启用最小化模式     |
+| enable    | `boolean`           | `true`  | 是否启用工具栏         |
+| extra     | `React.ReactNode[]` | -       | 额外的自定义工具栏项目 |
+| hideTools | `ToolsKeyType[]`    | -       | 需要隐藏的工具栏选项   |
 
 ### ImageConfig
 
-| 属性 | 类型 | 描述 |
-| --- | --- | --- |
+| 属性   | 类型                                                        | 描述                      |
+| ------ | ----------------------------------------------------------- | ------------------------- |
 | upload | `(file: File[] \| string[]) => Promise<string[] \| string>` | 图片上传函数，返回图片URL |
 
 ### CommentProps
 
-| 属性 | 类型 | 描述 |
-| --- | --- | --- |
-| enable | `boolean` | 是否启用评论功能 |
-| onSubmit | `(id: string, comment: CommentDataType) => void` | 评论提交回调 |
-| commentList | `CommentDataType[]` | 评论列表数据 |
-| deleteConfirmText | `string` | 删除确认文本 |
-| loadMentions | `(keyword: string) => Promise<{ name: string; avatar?: string }[]>` | 加载@提及用户列表 |
-| mentionsPlaceholder | `string` | @提及输入框占位符 |
-| onDelete | `(id: string \| number, item: CommentDataType) => void` | 评论删除回调 |
+| 属性                | 类型                                                                | 描述              |
+| ------------------- | ------------------------------------------------------------------- | ----------------- |
+| enable              | `boolean`                                                           | 是否启用评论功能  |
+| onSubmit            | `(id: string, comment: CommentDataType) => void`                    | 评论提交回调      |
+| commentList         | `CommentDataType[]`                                                 | 评论列表数据      |
+| deleteConfirmText   | `string`                                                            | 删除确认文本      |
+| loadMentions        | `(keyword: string) => Promise<{ name: string; avatar?: string }[]>` | 加载@提及用户列表 |
+| mentionsPlaceholder | `string`                                                            | @提及输入框占位符 |
+| onDelete            | `(id: string \| number, item: CommentDataType) => void`             | 评论删除回调      |
 
 ### MarkdownEditorInstance
 
 编辑器实例提供以下方法：
 
-| 方法 | 类型 | 描述 |
-| --- | --- | --- |
-| getValue | `() => string` | 获取当前编辑器内容 |
-| setValue | `(value: string) => void` | 设置编辑器内容 |
-| getSchema | `() => Elements[]` | 获取当前文档结构 |
-| insertText | `(text: string) => void` | 在光标位置插入文本 |
-| focus | `() => void` | 聚焦编辑器 |
-| blur | `() => void` | 失焦编辑器 |
+| 方法       | 类型                      | 描述               |
+| ---------- | ------------------------- | ------------------ |
+| getValue   | `() => string`            | 获取当前编辑器内容 |
+| setValue   | `(value: string) => void` | 设置编辑器内容     |
+| getSchema  | `() => Elements[]`        | 获取当前文档结构   |
+| insertText | `(text: string) => void`  | 在光标位置插入文本 |
+| focus      | `() => void`              | 聚焦编辑器         |
+| blur       | `() => void`              | 失焦编辑器         |
 
 ## 🛠️ 开发
+
 ：
+
 ### 环境要求
 
 - Node.js >= 16.0.0

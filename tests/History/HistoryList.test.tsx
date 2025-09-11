@@ -1,9 +1,9 @@
+import { HistoryDataType } from '@ant-design/md-editor';
 import { render } from '@testing-library/react';
 import dayjs from 'dayjs';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { generateHistoryItems } from '../../src/History/components/HistoryList';
-import { HistoryDataType } from '../../src/History/types';
 
 // Mock HistoryItem 组件
 vi.mock('../../src/History/components/HistoryItem', () => ({

@@ -24,8 +24,8 @@ import {
   InlineKatexNode,
 } from '../../el';
 import { MarkdownEditorPlugin } from '../../plugin';
-import { TableNode, TrNode as TableRowNode } from '../elements/Table';
 import { htmlToFragmentList } from '../plugins/insertParsedHtmlNodes';
+import { TableNode, TrNode as TableRowNode } from '../types/Table';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import mdastParser from './remarkParse';

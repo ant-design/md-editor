@@ -17,16 +17,17 @@ import {
   Range,
   Transforms,
 } from 'slate';
+import { parserMdToSchema } from '../BaseMarkdownEditor';
+import { Elements } from '../el';
 import {
   CommentDataType,
-  Elements,
   MarkdownEditorInstance,
   MarkdownEditorProps,
-  parserMdToSchema,
-} from '../BaseMarkdownEditor';
+} from '../types';
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';
+import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { PluginContext } from '../plugin';
 import { useOptimizedPaste } from './hooks/useOptimizedPaste';
@@ -43,12 +44,6 @@ import {
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
-import {
-  Editable,
-  ReactEditor,
-  RenderElementProps,
-  Slate,
-} from './slate-react';
 import { useEditorStore } from './store';
 import { useStyle } from './style';
 import { MARKDOWN_EDITOR_EVENTS, parserSlateNodeToMarkdown } from './utils';
@@ -197,7 +192,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
   const commentMap = useMemo(() => {
     const map = new Map<string, Map<string, CommentDataType[]>>();
-    props?.comment?.commentList?.forEach((c) => {
+    props?.comment?.commentList?.forEach((c: CommentDataType) => {
       c.updateTime = Date.now();
       const path = c.path.join(',');
       if (map.has(path)) {
@@ -524,7 +519,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       nodeRef.current = props.instance;
       first.current = true;
       const tableConfig = props.tableConfig;
-      genTableMinSize(props.initSchemaValue || [], tableConfig);
+      genTableMinSize(props.initSchemaValue || [], {
+        minColumn: tableConfig?.minColumn,
+        minRows: tableConfig?.minRows,
+      });
       try {
         EditorUtils.reset(
           markdownEditorRef.current,

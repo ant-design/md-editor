@@ -1,7 +1,6 @@
 import React from 'react';
 import { createEditor, Descendant } from 'slate';
-import { Slate } from '../../../../src/MarkdownEditor/editor/slate-react/components/slate';
-import { ReactEditor } from '../../../../src/MarkdownEditor/editor/slate-react/plugin/react-editor';
+import { ReactEditor, Slate, withReact } from 'slate-react';
 
 interface TestSlateWrapperProps {
   children: React.ReactNode;
@@ -12,10 +11,22 @@ interface TestSlateWrapperProps {
 export const TestSlateWrapper: React.FC<TestSlateWrapperProps> = ({
   children,
   initialValue = [{ type: 'paragraph', children: [{ text: '' }] }],
-  editor = createEditor() as ReactEditor,
+  editor,
 }) => {
+  // Create a real Slate editor if none provided
+  const defaultEditor = React.useMemo(() => {
+    if (editor) return editor;
+    const baseEditor = createEditor();
+    const reactEditor = withReact(baseEditor);
+    return reactEditor;
+  }, [editor]);
+
   return (
-    <Slate editor={editor} initialValue={initialValue} onChange={() => {}}>
+    <Slate
+      editor={defaultEditor}
+      initialValue={initialValue}
+      onChange={() => {}}
+    >
       {children}
     </Slate>
   );

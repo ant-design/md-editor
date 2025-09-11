@@ -1,6 +1,6 @@
 import { createEditor, Point, Range } from 'slate';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ReactEditor } from '../../../src/MarkdownEditor/editor/slate-react';
+import { ReactEditor } from 'slate-react';
 import {
   calcPath,
   EditorUtils,
@@ -18,7 +18,7 @@ import {
 } from '../../../src/MarkdownEditor/editor/utils/editorUtils';
 
 // Mock ReactEditor
-vi.mock('../../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     focus: vi.fn(),
     blur: vi.fn(),

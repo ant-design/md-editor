@@ -1,30 +1,16 @@
 ﻿import { ExportOutlined, RightOutlined } from '@ant-design/icons';
-import { Chunk, DocMeta } from '@ant-design/md-editor/ThoughtChainList';
+import { DocMeta } from '@ant-design/md-editor/ThoughtChainList';
 import { ConfigProvider, Descriptions, Drawer, Popover } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../i18n';
-import { ActionIconBox, MarkdownEditor } from '../../index';
+import { BaseMarkdownEditor } from '../../MarkdownEditor/BaseMarkdownEditor';
+import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
+import { DocInfoListProps } from '../types/DocInfo';
 import { useStyle } from './docInfoStyle';
-
-/**
- * 文档信息列表的属性接口
- *
- * @interface DocInfoListProps
- * @property {any[]} reference_url_info_list - 引用URL信息列表数组
- * @property {function} [render] - 自定义渲染函数，接收chunk项和默认DOM，返回React节点
- * @property {function} [onOriginUrlClick] - 原始URL点击处理函数
- * @property {Chunk[]} [options] - 可选的Chunk数组配置项
- */
-export interface DocInfoListProps {
-  reference_url_info_list?: any[];
-  render?: (item: Chunk, defaultDom: React.ReactNode) => React.ReactNode;
-  onOriginUrlClick?: (url: string) => void;
-  options?: Chunk[];
-}
 
 const replaceAllPlaceHolder = (str: string, placeholder: any[]) => {
   let message = str;
@@ -348,7 +334,7 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
                       gap: 12,
                     }}
                   >
-                    <MarkdownEditor
+                    <BaseMarkdownEditor
                       style={{
                         padding: 0,
                         width: '100%',

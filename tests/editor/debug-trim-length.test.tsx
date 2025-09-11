@@ -2,15 +2,12 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { BaseEditor, createEditor, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
+import { ReactEditor, withReact } from 'slate-react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
-import {
-  ReactEditor,
-  withReact,
-} from '../../src/MarkdownEditor/editor/slate-react';
 
 // Mock ReactEditor DOM methods
-vi.mock('../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     toDOMNode: vi.fn(() => ({
       querySelector: vi.fn(() => ({

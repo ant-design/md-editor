@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ReactEditor } from '../../../src/MarkdownEditor/editor/slate-react';
+import { ReactEditor } from 'slate-react';
 import { EditorStore } from '../../../src/MarkdownEditor/editor/store';
 import {
   convertRemoteImages,
@@ -14,7 +14,7 @@ vi.mock('slate', () => ({
   },
 }));
 
-vi.mock('../../../src/MarkdownEditor/editor/slate-react', () => ({
+vi.mock('slate-react', () => ({
   ReactEditor: {
     findPath: vi.fn(() => [0, 0]),
   },

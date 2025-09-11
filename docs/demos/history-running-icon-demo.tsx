@@ -1,7 +1,6 @@
 import { Button, Card, Space, Typography } from 'antd';
 import React, { useState } from 'react';
-import { History } from '../../src/History';
-import { HistoryDataType } from '../../src/History/types';
+import { History,HistoryDataType } from '../../src/History';
 
 const { Title, Paragraph } = Typography;
 

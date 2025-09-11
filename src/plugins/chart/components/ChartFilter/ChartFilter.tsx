@@ -15,9 +15,9 @@ export interface RegionOption {
 }
 
 export interface ChartFilterProps {
-  filterOptions: FilterOption[];
-  selectedFilter: string;
-  onFilterChange: (value: string) => void;
+  filterOptions?: FilterOption[];
+  selectedFilter?: string;
+  onFilterChange?: (value: string) => void;
   customOptions?: RegionOption[];
   selectedCustomSelection?: string;
   onSelectionChange?: (region: string) => void;
@@ -95,19 +95,17 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
         </div>
       )}
 
-      {hasMain && (
-        <Segmented
-          options={filterOptions}
-          value={selectedFilter}
-          size="small"
-          className={classNames(
-            `${prefixCls}-segmented-filter`,
-            'custom-segmented',
-            hashId,
-          )}
-          onChange={(value) => onFilterChange(value as string)}
-        />
-      )}
+      <Segmented
+        options={filterOptions || []}
+        value={selectedFilter}
+        size="small"
+        className={classNames(
+          `${prefixCls}-segmented-filter`,
+          'custom-segmented',
+          hashId,
+        )}
+        onChange={(value) => onFilterChange?.(value as string)}
+      />
     </div>,
   );
 };

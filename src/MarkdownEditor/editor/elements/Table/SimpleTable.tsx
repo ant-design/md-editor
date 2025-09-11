@@ -1,8 +1,8 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { TableNode } from '.';
-import { RenderElementProps } from '../../slate-react';
+import { RenderElementProps } from 'slate-react';
+import { TableNode } from '../../types/Table';
 import { useTableStyle } from './style';
 import { ReadonlyTable } from './Table';
 import { TablePropsContext } from './TableContext';
@@ -11,7 +11,7 @@ import { TablePropsContext } from './TableContext';
  * 简单表格组件 - 仅支持只读显示
  * 用于替代复杂的 Handsontable 实现，提供基础的表格功能
  */
-export const SimpleTable = (props: RenderElementProps<TableNode>) => {
+export const SimpleTable = (props: RenderElementProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const baseCls = getPrefixCls('md-editor-content-table');
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});

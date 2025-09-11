@@ -1,66 +1,9 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { HistoryDataType } from '../types';
+import { HistoryDataType } from '../types/HistoryData';
+import { HistoryListConfig } from '../types/HistoryList';
 import { formatTime, groupByCategory } from '../utils';
 import { HistoryItem } from './HistoryItem';
-
-/**
- * 历史记录列表配置接口
- */
-export interface HistoryListConfig {
-  /** 过滤后的历史记录列表 */
-  filteredList: HistoryDataType[];
-  /** 选中的记录ID列表 */
-  selectedIds: string[];
-  /** 选择状态变化回调 */
-  onSelectionChange: (sessionId: string, checked: boolean) => void;
-  /** 选择记录回调 */
-  onClick: (sessionId: string, item: HistoryDataType) => void;
-  /** 删除记录回调 */
-  onDeleteItem?: (sessionId: string) => Promise<void>;
-  /** 收藏记录回调 */
-  onFavorite?: (sessionId: string, isFavorite: boolean) => void;
-  /** Agent配置 */
-  agent?: {
-    /** 是否启用agent模式 */
-    enabled?: boolean;
-    /** 搜索回调 */
-    onSearch?: (keyword: string) => void;
-    /** 收藏回调 */
-    onFavorite?: (sessionId: string, isFavorite: boolean) => void;
-    /** 多选回调 */
-    onSelectionChange?: (selectedIds: string[]) => void;
-    /** 加载更多回调 */
-    onLoadMore?: () => void;
-    /** 是否正在加载更多 */
-    loadingMore?: boolean;
-  };
-  /** 额外渲染函数 */
-  extra?: (item: HistoryDataType) => React.ReactElement;
-  /** 自定义日期格式化函数 */
-  customDateFormatter?: (date: number | string | Date) => string;
-  /**
-   * 自定义分组标签渲染函数
-   * @param key 分组键
-   * @param List 分组后的历史记录列表
-   * @returns 自定义渲染的分组标签
-   */
-  groupLabelRender?: (
-    key: string,
-    List: HistoryDataType[],
-    defaultLabel: React.ReactNode,
-  ) => React.ReactNode;
-  /** 自定义分组函数 */
-  groupBy?: (item: HistoryDataType) => string;
-  /** 自定义排序函数 */
-  sessionSort?:
-    | ((pre: HistoryDataType, current: HistoryDataType) => number | boolean)
-    | false;
-  /** 历史记录类型 */
-  type?: 'chat' | 'task';
-  /** 正在运行的记录ID列表，这些记录将显示运行图标 */
-  runningId?: string[];
-}
 
 /**
  * 生成历史记录菜单项
