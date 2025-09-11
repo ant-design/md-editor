@@ -53,7 +53,9 @@
                   class="ant-agent-list-bubble-title ant-flex"
                   data-testid="bubble-title"
                   style="flex-direction: row; gap: 8px;"
-                />
+                >
+                  <span />
+                </div>
               </div>
               <div
                 class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
