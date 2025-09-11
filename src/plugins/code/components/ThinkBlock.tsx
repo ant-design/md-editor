@@ -19,6 +19,7 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
 
   return (
     <ToolUseBarThink
+      testId="think-block"
       toolName="思考中"
       toolTarget="分析需求"
       thinkContent={content}
