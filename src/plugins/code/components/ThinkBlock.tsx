@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { CodeNode } from '../../../MarkdownEditor/el';
+import { ToolUseBarThink } from '../../../ToolUseBar';
 
 interface ThinkBlockProps {
   element: CodeNode;
@@ -17,19 +18,11 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
       : '';
 
   return (
-    <div
-      data-testid="think-block"
-      style={{
-        color: '#8b8b8b',
-        lineHeight: '1.25',
-        margin: 0,
-        borderLeft: '2px solid #e5e5e5',
-        paddingLeft: '1em',
-        fontFamily: 'Monaco, Consolas, monospace',
-        whiteSpace: 'pre-wrap',
-      }}
-    >
-      {content}
-    </div>
+    <ToolUseBarThink
+      toolName="思考中"
+      toolTarget="分析需求"
+      thinkContent={content}
+      status={content.endsWith('...') ? 'loading' : 'success'}
+    />
   );
 }
