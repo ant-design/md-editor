@@ -4,7 +4,10 @@ import { DonutChartData } from './types';
 interface LegendProps {
   chartData: DonutChartData[];
   backgroundColors: string[];
-  hiddenDataIndices: Set<number>;
+  /** 按图索引维护的隐藏集合 */
+  hiddenDataIndicesByChart: Record<number, Set<number>>;
+  /** 当前图索引 */
+  chartIndex: number;
   onLegendItemClick: (index: number) => void;
   total: number;
   baseClassName: string;
@@ -15,13 +18,17 @@ interface LegendProps {
 const Legend: React.FC<LegendProps> = ({
   chartData,
   backgroundColors,
-  hiddenDataIndices,
+  hiddenDataIndicesByChart,
+  chartIndex,
   onLegendItemClick,
   total,
   baseClassName,
   hashId,
   isMobile,
 }) => {
+  const hiddenDataIndices = React.useMemo(() => {
+    return hiddenDataIndicesByChart[chartIndex] || new Set<number>();
+  }, [hiddenDataIndicesByChart, chartIndex]);
   return (
     <div
       className={`${baseClassName}-legend ${hashId}`}

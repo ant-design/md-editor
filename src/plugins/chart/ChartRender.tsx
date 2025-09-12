@@ -221,7 +221,7 @@ export const ChartRender: React.FC<{
       const rawY = row?.[config?.y];
       const category = getFieldValue(row, groupBy);
       const type = getFieldValue(row, colorLegend);
-      const filterLable = getFieldValue(row, filterBy);
+      const filterLabel = getFieldValue(row, filterBy);
       const x =
         typeof rawX === 'number'
           ? rawX
@@ -239,7 +239,7 @@ export const ChartRender: React.FC<{
         ytitle: yTitle,
         ...(type ? { type } : {}),
         ...(category ? { category } : {}),
-        ...(filterLable ? { filterLable } : {}),
+        ...(filterLabel ? { filterLabel } : {}),
       };
     });
   }, [
@@ -256,13 +256,13 @@ export const ChartRender: React.FC<{
       const category = getFieldValue(row, groupBy);
       const label = String(row?.[config?.x] ?? '');
       const value = toNumber(row?.[config?.y], 0);
-      const filterLable = getFieldValue(row, filterBy);
+      const filterLabel = getFieldValue(row, filterBy);
 
       return {
         label,
         value,
         ...(category ? { category } : {}),
-        ...(filterLable ? { filterLable } : {}),
+        ...(filterLabel ? { filterLabel } : {}),
       };
     });
   }, [
@@ -548,7 +548,7 @@ export const ChartRender: React.FC<{
     if (chartType === 'radar') {
       // Radar 数据需要映射为 { category, label, type, score }
       const radarData = (chartData || []).map((row: any, i: number) => {
-        const filterLable = getFieldValue(row, filterBy);
+        const filterLabel = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
         const type = getFieldValue(row, colorLegend);
         return {
@@ -556,7 +556,7 @@ export const ChartRender: React.FC<{
           score: row?.[config?.y],
           ...(category ? { category } : {}),
           ...(type ? { type } : {}),
-          ...(filterLable ? { filterLable } : {}),
+          ...(filterLabel ? { filterLabel } : {}),
         };
       });
       return (
@@ -572,7 +572,7 @@ export const ChartRender: React.FC<{
     if (chartType === 'scatter') {
       // Scatter 数据需要映射为 { category, type, x, y }
       const scatterData = (chartData || []).map((row: any) => {
-        const filterLable = getFieldValue(row, filterBy);
+        const filterLabel = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
         const type = getFieldValue(row, colorLegend);
         return {
@@ -580,7 +580,7 @@ export const ChartRender: React.FC<{
           y: row?.[config?.y],
           ...(category ? { category } : {}),
           ...(type ? { type } : {}),
-          ...(filterLable ? { filterLable } : {}),
+          ...(filterLabel ? { filterLabel } : {}),
         };
       });
       return (
@@ -594,9 +594,9 @@ export const ChartRender: React.FC<{
       );
     }
     if (chartType === 'funnel') {
-      // Funnel 数据需要映射为 { category?, type?, filterLable?, x, y }
+      // Funnel 数据需要映射为 { category?, type?, filterLabel?, x, y }
       const funnelData = (chartData || []).map((row: any, i: number) => {
-        const filterLable = getFieldValue(row, filterBy);
+        const filterLabel = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
         const type = getFieldValue(row, colorLegend);
         return {
@@ -604,7 +604,7 @@ export const ChartRender: React.FC<{
           y: toNumber(row?.[config?.y], 0),
           ...(category ? { category } : {}),
           ...(type ? { type } : {}),
-          ...(filterLable ? { filterLable } : {}),
+          ...(filterLabel ? { filterLabel } : {}),
         };
       });
       return (

@@ -50,33 +50,46 @@ export const useResponsiveDimensions = (
 };
 
 export const useFilterLabels = (data: DonutChartData[]) => {
-  const validFilterLables = React.useMemo(() => {
+  const validFilterLabels = React.useMemo(() => {
     return data
-      .map((item) => item.filterLable)
+      .map((item) => item.filterLabel)
       .filter(
-        (filterLable): filterLable is string => filterLable !== undefined,
+        (filterLabel): filterLabel is string => filterLabel !== undefined,
       );
   }, [data]);
 
-  const filterLables = React.useMemo(() => {
-    return validFilterLables.length > 0
-      ? [...new Set(validFilterLables)]
+  const filterLabels = React.useMemo(() => {
+    return validFilterLabels.length > 0
+      ? [...new Set(validFilterLabels)]
       : undefined;
-  }, [validFilterLables]);
+  }, [validFilterLabels]);
 
-  const [selectedFilterLable, setSelectedFilterLable] = React.useState(
-    filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
-  );
+  const [selectedFilterLabel, setSelectedFilterLabel] = React.useState<
+    string | undefined
+  >(filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined);
 
-  const filteredDataByFilterLable = React.useMemo(() => {
-    return filterLables?.map((item) => ({ key: item, label: item }));
-  }, [filterLables]);
+  // 当 data 变化导致 filterLabels 变化时，自动纠正选中项，避免残留无效选择
+  React.useEffect(() => {
+    if (!filterLabels || filterLabels.length === 0) {
+      if (selectedFilterLabel !== undefined) {
+        setSelectedFilterLabel(undefined);
+      }
+      return;
+    }
+    if (!selectedFilterLabel || !filterLabels.includes(selectedFilterLabel)) {
+      setSelectedFilterLabel(filterLabels[0]);
+    }
+  }, [filterLabels]);
+
+  const filteredDataByFilterLabel = React.useMemo(() => {
+    return filterLabels?.map((item) => ({ key: item, label: item }));
+  }, [filterLabels]);
 
   return {
-    filterLables,
-    filteredDataByFilterLable,
-    selectedFilterLable,
-    setSelectedFilterLable,
+    filterLabels,
+    filteredDataByFilterLabel,
+    selectedFilterLabel,
+    setSelectedFilterLabel,
   } as const;
 };
 
@@ -108,6 +121,7 @@ export const useAutoCategory = (
   const [internalSelectedCategory, setInternalSelectedCategory] =
     React.useState<string>('');
 
+  // 初始化：当存在多类目时，选中第一个有效类目
   React.useEffect(() => {
     if (autoCategoryData && !internalSelectedCategory) {
       setInternalSelectedCategory(
@@ -115,6 +129,15 @@ export const useAutoCategory = (
       );
     }
   }, [autoCategoryData, internalSelectedCategory]);
+
+  // 当自动分类关闭或类目不足（autoCategoryData 为空）时，清理内部选中项，避免残留影响
+  React.useEffect(() => {
+    if (!enableAutoCategory || !autoCategoryData) {
+      if (internalSelectedCategory) {
+        setInternalSelectedCategory('');
+      }
+    }
+  }, [enableAutoCategory, autoCategoryData]);
 
   const selectedCategory = externalSelectedFilter || internalSelectedCategory;
 

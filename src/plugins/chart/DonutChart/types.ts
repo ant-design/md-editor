@@ -4,7 +4,7 @@ export interface DonutChartData {
   category?: string; // 分类
   label: string;
   value: number | string;
-  filterLable?: string;
+  filterLabel?: string;
 }
 
 export interface DonutChartConfig {
