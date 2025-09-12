@@ -23,6 +23,7 @@ import {
 
 // 文件扩展名到图标的映射
 const EXTENSION_ICON_MAP: Record<string, React.ReactNode> = {
+  txt: <DefaultFileIcon />,
   xlsx: <XlsxIcon />,
   xls: <XlsxIcon />,
   doc: <WordIcon />,
