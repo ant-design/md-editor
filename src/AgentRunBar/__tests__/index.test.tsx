@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { Button } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { TASK_RUNNING_STATUS, TASK_STATUS, TaskRunning } from '../index';
@@ -65,9 +66,9 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    // 任务已完成状态：查看按钮 + 重新执行按钮 + 新任务按钮
-    expect(screen.getByText('查看')).toBeInTheDocument();
-    expect(screen.getByText('重新执行')).toBeInTheDocument();
+    // 任务已完成状态：重试按钮 + 提交按钮 + 新任务按钮
+    expect(screen.getByText('重试')).toBeInTheDocument();
+    expect(screen.getByText('提交')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
 
     // 任务运行中状态：暂停按钮 + 停止按钮
@@ -99,8 +100,8 @@ describe('TaskRunning Component', () => {
       <TaskRunning {...baseProps} taskStatus={TASK_STATUS.ERROR} />,
     );
 
-    // 任务出错状态：重新执行按钮 + 新任务按钮
-    expect(screen.getByText('重新执行')).toBeInTheDocument();
+    // 任务出错状态：重试按钮 + 新任务按钮
+    expect(screen.getByText('重试')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
 
     rerender(<TaskRunning {...baseProps} taskStatus={TASK_STATUS.STOPPED} />);
@@ -124,9 +125,9 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    // 任务已完成：查看按钮 + 重新执行按钮 + 新任务按钮
-    expect(screen.getByText('查看')).toBeInTheDocument();
-    expect(screen.getByText('重新执行')).toBeInTheDocument();
+    // 任务已完成：查看按钮 + 重试按钮 + 新任务按钮
+    expect(screen.getByText('提交')).toBeInTheDocument();
+    expect(screen.getByText('重试')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
 
     rerender(
@@ -242,13 +243,13 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    const viewButton = screen.getByText('查看');
+    const viewButton = screen.getByText('提交');
     fireEvent.click(viewButton);
 
     expect(onViewResult).toHaveBeenCalledTimes(1);
   });
 
-  // 测试重新执行功能
+  // 测试重试功能
   it('should call onReplay when replay button is clicked', () => {
     const onReplay = vi.fn();
     render(
@@ -260,7 +261,7 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    const replayButton = screen.getByText('重新执行');
+    const replayButton = screen.getByText('重试');
     fireEvent.click(replayButton);
 
     expect(onReplay).toHaveBeenCalledTimes(1);
@@ -379,8 +380,67 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    expect(screen.getByText('查看')).toBeInTheDocument();
-    expect(screen.getByText('重新执行')).toBeInTheDocument();
+    expect(screen.getByText('提交')).toBeInTheDocument();
+    expect(screen.getByText('重试')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
+  });
+
+  // 测试自定义按钮
+  it('should render with actions', () => {
+    // 测试不显示按钮的情况
+    const { rerender } = render(
+      <TaskRunning {...baseProps} actionsRender={false} />,
+    );
+
+    expect(screen.queryByText('创建新任务')).not.toBeInTheDocument();
+
+    // 测试自定义按钮
+    rerender(
+      <TaskRunning
+        {...baseProps}
+        actionsRender={() => <Button>创建解析任务</Button>}
+      />,
+    );
+    expect(screen.getByText('创建解析任务')).toBeInTheDocument();
+  });
+
+  // 测试 variant 对样式类名的影响
+  it('should apply correct CSS classes based on variant', () => {
+    const { container, rerender } = render(
+      <TaskRunning {...baseProps} variant="default" />,
+    );
+
+    let taskRunningElement = container.firstChild as HTMLElement;
+    expect(taskRunningElement).toHaveClass('ant-task-running-default');
+    expect(taskRunningElement).not.toHaveClass('ant-task-running-simple');
+
+    // 重新渲染为 simple variant
+    rerender(<TaskRunning {...baseProps} variant="simple" />);
+
+    taskRunningElement = container.firstChild as HTMLElement;
+    expect(taskRunningElement).toHaveClass('ant-task-running-simple');
+    expect(taskRunningElement).not.toHaveClass('ant-task-running-default');
+  });
+
+  // 测试 variant 对操作按钮的影响
+  it('should apply correct control buttons based on variant', () => {
+    const { rerender } = render(
+      <TaskRunning {...baseProps} variant="simple" />,
+    );
+
+    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+
+    // 任务运行中状态：暂停按钮 + 停止按钮
+    rerender(
+      <TaskRunning
+        {...baseProps}
+        variant="simple"
+        taskStatus={TASK_STATUS.PAUSE}
+        taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
+      />,
+    );
+    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
   });
 });

@@ -40,7 +40,7 @@ export default () => {
       status: TASK_STATUS.STOPPED,
       runningStatus: TASK_RUNNING_STATUS.COMPLETE,
       title: '任务已停止',
-      description: '任务执行已停止，无法恢复，请创建新任务',
+      description: '任务已停止，如需继续请新建任务重新开始。',
     },
     {
       status: TASK_STATUS.ERROR,
@@ -212,7 +212,7 @@ export default () => {
             onViewResult={handleViewResult}
           />
           <div style={{ marginTop: 12, fontSize: 12, color: '#999' }}>
-            包含：暂停按钮 + 停止按钮
+            包含：停止按钮 + 暂停按钮
           </div>
         </div>
 
@@ -236,7 +236,7 @@ export default () => {
             onViewResult={handleViewResult}
           />
           <div style={{ marginTop: 12, fontSize: 12, color: '#999' }}>
-            包含：继续按钮 + 新任务按钮
+            包含：新任务按钮 + 停止按钮 + 继续按钮
           </div>
         </div>
 
@@ -283,7 +283,7 @@ export default () => {
             onViewResult={handleViewResult}
           />
           <div style={{ marginTop: 12, fontSize: 12, color: '#999' }}>
-            包含：查看按钮 + 重新执行按钮 + 新任务按钮
+            包含：重试按钮 + 提交按钮 + 新任务按钮
           </div>
         </div>
 
@@ -307,7 +307,7 @@ export default () => {
             onViewResult={handleViewResult}
           />
           <div style={{ marginTop: 12, fontSize: 12, color: '#999' }}>
-            包含：重新执行按钮 + 新任务按钮
+            包含：重试按钮 + 新任务按钮
           </div>
         </div>
 
@@ -336,6 +336,23 @@ export default () => {
         </div>
       </div>
 
+      <h3 style={{ marginTop: 32 }}>主题变体</h3>
+      <p style={{ color: '#666', marginBottom: 16 }}>
+        设置 variant 属性，可以衍生出更多的主题变体样式
+      </p>
+
+      <TaskRunning
+        title={`任务运行中, 已耗时${elapsedTime}。 ${progress}`}
+        taskStatus={TASK_STATUS.RUNNING}
+        taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
+        variant="simple"
+        icon={false}
+        actionsRender={false}
+        onPause={handlePause}
+        onResume={noop}
+        onStop={handleStop}
+      />
+
       <div
         style={{
           marginTop: 32,
@@ -351,7 +368,8 @@ export default () => {
             支持运行中、暂停、停止、完成、出错等多种任务状态
           </li>
           <li>
-            <strong>动态按钮</strong>: 根据任务状态自动显示对应的操作按钮
+            <strong>动态按钮</strong>:
+            根据任务状态自动显示对应的操作按钮，支持自定义按钮
           </li>
           <li>
             <strong>进度显示</strong>: 支持显示任务进度和耗时信息
@@ -374,23 +392,26 @@ export default () => {
         <h4 style={{ marginTop: 20 }}>状态按钮说明：</h4>
         <ul style={{ lineHeight: 1.8 }}>
           <li>
-            <strong>任务运行中</strong>: 显示暂停按钮 + 停止按钮
+            <strong>任务运行中</strong>: 显示停止按钮 + 暂停按钮
           </li>
           <li>
-            <strong>任务已暂停</strong>: 显示继续按钮 + 新任务按钮
+            <strong>任务已暂停</strong>: 显示新任务按钮 + 停止按钮 + 继续按钮
           </li>
           <li>
             <strong>任务已停止</strong>: 显示创建新任务按钮
           </li>
           <li>
-            <strong>任务已完成</strong>: 显示查看按钮 + 重新执行按钮 +
-            新任务按钮
+            <strong>任务已完成</strong>: 显示重试按钮 + 提交按钮 + 新任务按钮
           </li>
           <li>
-            <strong>任务出错</strong>: 显示重新执行按钮 + 新任务按钮
+            <strong>任务出错</strong>: 显示重试按钮 + 新任务按钮
           </li>
           <li>
             <strong>任务已取消</strong>: 显示创建新任务按钮
+          </li>
+          <li>
+            <strong>自定义状态按钮</strong>: 通过 actionsRender
+            属性自定义状态按钮
           </li>
         </ul>
 
@@ -409,6 +430,10 @@ export default () => {
           <li>
             <strong>taskRunningStatus</strong>: 任务运行状态，支持
             TASK_RUNNING_STATUS.RUNNING | COMPLETE | PAUSE
+          </li>
+          <li>
+            <strong>actionsRender</strong>:
+            自定义按钮，当不需要默认操作按钮时，可以设为 actionsRender=false
           </li>
           <li>
             <strong>onPause</strong>: 暂停任务时的回调函数
@@ -433,6 +458,9 @@ export default () => {
           </li>
           <li>
             <strong>iconTooltip</strong>: 图标提示文案，鼠标悬停时显示
+          </li>
+          <li>
+            <strong>variant</strong>: 主题样式变体，支持 'simple' | 'default'
           </li>
         </ul>
       </div>
