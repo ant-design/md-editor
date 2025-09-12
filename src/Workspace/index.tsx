@@ -28,6 +28,7 @@ import type {
   TaskProps,
   WorkspaceProps,
 } from './types';
+
 export type { FileActionRef } from './types';
 
 // 组件类型枚举
@@ -39,7 +40,7 @@ enum ComponentType {
   CUSTOM = 'custom',
 }
 
-// 默认配置映射
+// 默认配置
 const DEFAULT_CONFIG = (locale: any) =>
   ({
     [ComponentType.REALTIME]: {
@@ -74,17 +75,12 @@ const DEFAULT_CONFIG = (locale: any) =>
     },
   }) as Record<ComponentType, TabItem>;
 
-// 解析标签配置的工具函数
+// 解析 tab 配置
 const resolveTabConfig = (
   tab: TabConfiguration | undefined,
   defaultConfig: TabItem,
   index?: number,
-): {
-  key: string;
-  icon: React.ReactNode;
-  title: React.ReactNode;
-  count?: number;
-} => {
+) => {
   return {
     key:
       tab?.key || defaultConfig.key + (index !== undefined ? `-${index}` : ''),
@@ -94,59 +90,17 @@ const resolveTabConfig = (
   };
 };
 
-// 子组件定义
+// 子组件
 const RealtimeComponent: FC<RealtimeProps> = ({ data }) =>
   data ? <RealtimeFollowList data={data} /> : null;
-
 const BrowserComponent: FC<BrowserProps> = ({ data }) =>
   data ? <BrowserList data={data} /> : null;
-
 const TaskComponent: FC<TaskProps> = ({ data }) =>
   data ? <TaskList data={data} /> : null;
-
 const FileComponent: FC<FileProps> = (props) => <File {...props} />;
-
 const CustomComponent: FC<CustomProps> = ({ children }) => children || null;
 
-/**
- * Workspace 组件 - 工作空间组件
- *
- * 该组件提供一个多标签页的工作空间界面，支持实时跟随、浏览器、任务、文件等不同类型的标签页。
- * 每个标签页都有独立的图标、标题和内容区域，支持动态切换和自定义配置。
- *
- * @component
- * @description 多标签页工作空间组件，支持多种内容类型
- * @param {WorkspaceProps} props - 组件属性
- * @param {string} [props.activeTabKey] - 当前激活的标签页键值
- * @param {(key: string) => void} [props.onTabChange] - 标签页切换时的回调
- * @param {React.CSSProperties} [props.style] - 自定义样式
- * @param {string} [props.className] - 自定义CSS类名
- * @param {string} [props.title='Workspace'] - 工作空间标题
- * @param {() => void} [props.onClose] - 关闭按钮的回调函数
- * @param {React.ReactNode} props.children - 子组件，通常是各种标签页组件
- *
- * @example
- * ```tsx
- * <Workspace
- *   title="我的工作空间"
- *   activeTabKey="browser"
- *   onTabChange={(key) => console.log('切换到:', key)}
- * >
- *   <Workspace.Browser data={browserData} />
- *   <Workspace.File nodes={fileNodes} />
- *   <Workspace.Task data={taskData} />
- * </Workspace>
- * ```
- *
- * @returns {React.ReactElement} 渲染的工作空间组件
- *
- * @remarks
- * - 支持多种预定义标签页类型：实时跟随、浏览器、任务、文件、自定义
- * - 每个标签页都有默认的图标和标题配置
- * - 支持自定义标签页配置和样式
- * - 提供标签页计数显示功能
- * - 支持关闭按钮和标题自定义
- */
+// 主组件
 const Workspace: FC<WorkspaceProps> & {
   Realtime: typeof RealtimeComponent;
   Browser: typeof BrowserComponent;
@@ -162,27 +116,23 @@ const Workspace: FC<WorkspaceProps> & {
   onClose,
   children,
 }) => {
-  // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
   const prefixCls = getPrefixCls('workspace');
   const { wrapSSR, hashId } = useWorkspaceStyle(prefixCls);
 
   const displayTitle = title ?? (locale?.['workspace.title'] || 'Workspace');
+  const defaultConfig = DEFAULT_CONFIG(locale);
 
-  // 构建可用标签页
+  // 构造 tabs
   const availableTabs = useMemo((): TabItem[] => {
     const tabs: TabItem[] = [];
-    const defaultConfig = DEFAULT_CONFIG(locale);
-
     React.Children.forEach(children, (child, index) => {
       if (!React.isValidElement(child)) return;
-
       const { props, type } = child;
-      let tabConfig: ReturnType<typeof resolveTabConfig>;
-      let content: React.ReactNode = null;
+      let tabConfig,
+        content: React.ReactNode = null;
 
-      // 根据组件类型解析配置
       switch (type) {
         case RealtimeComponent:
           tabConfig = resolveTabConfig(
@@ -221,7 +171,7 @@ const Workspace: FC<WorkspaceProps> & {
           content = <CustomComponent {...props} />;
           break;
         default:
-          return; // 跳过未知组件类型
+          return;
       }
 
       tabs.push({
@@ -242,28 +192,35 @@ const Workspace: FC<WorkspaceProps> & {
         content,
       });
     });
-
     return tabs;
-  }, [children]);
+  }, [children, defaultConfig, hashId, prefixCls]);
 
-  // 活跃标签页状态管理
+  // 非受控状态
   const [internalActiveTab, setInternalActiveTab] = useState<string>('');
 
+  // 同步外部/内部 key
   useEffect(() => {
+    if (!availableTabs.length) return;
+
     if (activeTabKey !== undefined) {
-      setInternalActiveTab(activeTabKey);
-    } else if (availableTabs.length > 0 && !internalActiveTab) {
-      setInternalActiveTab(availableTabs[0].key);
+      const exists = availableTabs.some((tab) => tab.key === activeTabKey);
+      setInternalActiveTab(exists ? activeTabKey : availableTabs[0].key);
+    } else {
+      if (!internalActiveTab) {
+        setInternalActiveTab(availableTabs[0].key);
+      }
     }
-  }, [activeTabKey, availableTabs, internalActiveTab]);
+  }, [activeTabKey, availableTabs]);
 
-  const currentActiveTab = activeTabKey ?? internalActiveTab;
-  const currentTabData = useMemo(
-    () => availableTabs.find((tab) => tab.key === currentActiveTab),
-    [availableTabs, currentActiveTab],
-  );
+  // 获取当前选中 key（兜底）
+  const currentActiveTab = useMemo(() => {
+    const targetKey = activeTabKey ?? internalActiveTab;
+    return availableTabs.some((tab) => tab.key === targetKey)
+      ? targetKey
+      : (availableTabs[0]?.key ?? '');
+  }, [activeTabKey, internalActiveTab, availableTabs]);
 
-  // 标签页切换处理
+  // 切换 tab
   const handleTabChange = (tabKey: string | number) => {
     const key = String(tabKey);
     if (activeTabKey === undefined) {
@@ -272,16 +229,15 @@ const Workspace: FC<WorkspaceProps> & {
     onTabChange?.(key);
   };
 
+  // 样式
   const containerClassName = classNames(prefixCls, className, hashId);
 
-  // 无可用标签页时不渲染
-  if (availableTabs.length === 0) {
-    return null;
-  }
+  // 无 tab 不渲染
+  if (!availableTabs.length) return null;
 
   return wrapSSR(
     <div className={containerClassName} style={style}>
-      {/* 头部区域 */}
+      {/* header */}
       <div className={classNames(`${prefixCls}-header`, hashId)}>
         <div className={classNames(`${prefixCls}-title`, hashId)}>
           {displayTitle}
@@ -295,7 +251,7 @@ const Workspace: FC<WorkspaceProps> & {
         )}
       </div>
 
-      {/* 标签页导航 */}
+      {/* tabs */}
       {availableTabs.length > 1 && (
         <div className={classNames(`${prefixCls}-tabs`, hashId)}>
           <Segmented
@@ -311,9 +267,9 @@ const Workspace: FC<WorkspaceProps> & {
         </div>
       )}
 
-      {/* 内容区域 */}
+      {/* content */}
       <div className={classNames(`${prefixCls}-content`, hashId)}>
-        {currentTabData?.content}
+        {availableTabs.find((tab) => tab.key === currentActiveTab)?.content}
       </div>
     </div>,
   );
@@ -326,7 +282,7 @@ Workspace.Task = TaskComponent;
 Workspace.File = FileComponent;
 Workspace.Custom = CustomComponent;
 
-// 导出类型和组件
+export * from './File';
 export type { HtmlPreviewProps } from './HtmlPreview';
 export type {
   BrowserProps,
@@ -338,7 +294,4 @@ export type {
   TaskProps,
   WorkspaceProps,
 } from './types';
-
-export * from './File';
-
 export default Workspace;
