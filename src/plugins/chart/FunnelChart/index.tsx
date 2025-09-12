@@ -104,6 +104,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
+  const [showTrapezoid, setShowTrapezoid] = useState(true);
+  const [pluginToggleKey, setPluginToggleKey] = useState(0);
 
   // 类别筛选（外层）
   const categories = useMemo(() => {
@@ -184,16 +186,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     });
 
     // 取当前数据的类型名作为数据集 label
-    const typeName = (() => {
-      const uniques = [
-        ...new Set(
-          (filteredData || [])
-            .map((d) => d.type)
-            .filter((v): v is string => !!v),
-        ),
-      ];
-      return uniques[0] || '数据';
-    })();
+    const typeName = '转化';
 
     // 中心对称的浮动条：[-v/2, v/2]
     const datasetData = values.map((v) => [-v / 2, v / 2]);
@@ -291,6 +284,37 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           padding: isMobile ? 10 : 12,
           usePointStyle: true,
           pointStyle: 'rect',
+          generateLabels: (chart) => {
+            // 使用默认生成 + 追加“转化率”图例；统一正方形样式
+            // @ts-ignore
+            const base = (ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []).map((it) => ({
+              ...it,
+              pointStyle: 'rect',
+            }));
+            return [
+              ...base,
+              {
+                text: '转化率',
+                fillStyle: '#F1F2F4',
+                strokeStyle: '#F1F2F4',
+                lineWidth: 0,
+                hidden: !showTrapezoid,
+                datasetIndex: chart.data.datasets.length, // 非真实数据集，仅用于展示
+                pointStyle: 'rect',
+              } as any,
+            ];
+          },
+        },
+        onClick: (e, legendItem, legend) => {
+          if (legendItem.text === '转化率') {
+            setShowTrapezoid((v) => !v);
+            setPluginToggleKey((k) => k + 1);
+            return;
+          }
+          // 其它保持默认行为
+          // @ts-ignore
+          const defaultClick = ChartJS.defaults.plugins.legend.onClick;
+          if (typeof defaultClick === 'function') defaultClick.call(legend, e, legendItem, legend);
         },
       },
       tooltip: {
@@ -358,6 +382,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     return {
       id: 'funnelTrapezoidLabels',
       afterDatasetsDraw: (chart: any) => {
+        if (!showTrapezoid) return;
         const { ctx, data: cdata, scales } = chart;
         const meta = chart.getDatasetMeta(0);
         if (!meta) return;
@@ -441,7 +466,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         }
       },
     } as const;
-  }, [isMobile, JSON.stringify(filteredData.map((d) => (d as any)?.ratio))]);
+  }, [isMobile, showTrapezoid, JSON.stringify(filteredData.map((d) => (d as any)?.ratio))]);
 
   // 右侧阶段文本标签（跟随每个柱，显示 stage 名称）
   const rightLabelPlugin = useMemo(() => {
@@ -529,7 +554,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       />
 
       <div className="chart-wrapper" style={{ height: finalHeight }}>
-        <Bar ref={chartRef} data={processedData} options={options} plugins={[trapezoidPlugin, rightLabelPlugin]} />
+        <Bar key={`funnel-${pluginToggleKey}`} ref={chartRef} data={processedData} options={options} plugins={[trapezoidPlugin, rightLabelPlugin]} />
       </div>
     </div>,
   );
