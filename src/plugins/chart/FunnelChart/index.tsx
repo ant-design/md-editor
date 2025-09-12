@@ -30,6 +30,8 @@ export interface FunnelChartDataItem {
   y: number | string;
   /** 筛选标签 */
   filterLable?: string;
+  /** 当前层与下一层的比率（百分比，0-100，最后一层可为0）*/
+  ratio?: number | string;
 }
 
 export interface FunnelChartProps {
@@ -74,7 +76,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   title,
   data,
   width = 600,
-  height = 400,
   className,
   dataTime,
   theme = 'light',
@@ -89,7 +90,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   );
   const isMobile = windowWidth <= 768;
   const responsiveWidth = isMobile ? '100%' : width;
-  const responsiveHeight = isMobile ? Math.min(windowWidth * 0.8, 400) : height;
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -104,6 +104,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
+  const [showTrapezoid, setShowTrapezoid] = useState(true);
+  const [pluginToggleKey, setPluginToggleKey] = useState(0);
 
   // 类别筛选（外层）
   const categories = useMemo(() => {
@@ -169,8 +171,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     return rows * (BAR_THICKNESS + ROW_GAP) + PADDING_Y;
   }, [stages.length, PADDING_Y]);
 
-  // 取更大的高度，既满足行数，也兼顾外部传入 height 与移动端自适应
-  const finalHeight = Math.max(responsiveHeight, chartHeight);
+  // 为了让柱间距与梯形高度一致，这里采用按行数计算的高度
+  const finalHeight = chartHeight;
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
   const processedData: ChartData<'bar'> = useMemo(() => {
@@ -184,16 +186,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     });
 
     // 取当前数据的类型名作为数据集 label
-    const typeName = (() => {
-      const uniques = [
-        ...new Set(
-          (filteredData || [])
-            .map((d) => d.type)
-            .filter((v): v is string => !!v),
-        ),
-      ];
-      return uniques[0] || '数据';
-    })();
+    const typeName = '转化';
 
     // 中心对称的浮动条：[-v/2, v/2]
     const datasetData = values.map((v) => [-v / 2, v / 2]);
@@ -291,6 +284,37 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           padding: isMobile ? 10 : 12,
           usePointStyle: true,
           pointStyle: 'rect',
+          generateLabels: (chart) => {
+            // 使用默认生成 + 追加“转化率”图例；统一正方形样式
+            // @ts-ignore
+            const base = (ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []).map((it) => ({
+              ...it,
+              pointStyle: 'rect',
+            }));
+            return [
+              ...base,
+              {
+                text: '转化率',
+                fillStyle: '#F1F2F4',
+                strokeStyle: '#F1F2F4',
+                lineWidth: 0,
+                hidden: !showTrapezoid,
+                datasetIndex: chart.data.datasets.length, // 非真实数据集，仅用于展示
+                pointStyle: 'rect',
+              } as any,
+            ];
+          },
+        },
+        onClick: (e, legendItem, legend) => {
+          if (legendItem.text === '转化率') {
+            setShowTrapezoid((v) => !v);
+            setPluginToggleKey((k) => k + 1);
+            return;
+          }
+          // 其它保持默认行为
+          // @ts-ignore
+          const defaultClick = ChartJS.defaults.plugins.legend.onClick;
+          if (typeof defaultClick === 'function') defaultClick.call(legend, e, legendItem, legend);
         },
       },
       tooltip: {
@@ -324,16 +348,16 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     },
     scales: {
       y: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          display: false,
-        },
-        title: {
-          display: false,
-        },
+        grid: { display: false },
+        ticks: { display: false },
+        title: { display: false },
         border: { display: false },
+        afterFit: (scale: any) => {
+          const rows = Math.max(1, stages.length);
+          const per = BAR_THICKNESS + ROW_GAP;
+          const total = rows * per;
+          scale.height = total;
+        },
       },
       x: {
         beginAtZero: true,
@@ -353,37 +377,96 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   const handleDownload = () => downloadChart(chartRef.current, 'funnel-chart');
 
-  // 中间值标签插件（白色，12px，居中）
-  const valueLabelPlugin = useMemo(() => {
+  // 中间梯形 + 比率文本（梯形 #F1F2F4，文本 #626F86）
+  const trapezoidPlugin = useMemo(() => {
     return {
-      id: 'funnelValueLabels',
+      id: 'funnelTrapezoidLabels',
       afterDatasetsDraw: (chart: any) => {
+        if (!showTrapezoid) return;
         const { ctx, data: cdata, scales } = chart;
         const meta = chart.getDatasetMeta(0);
         if (!meta) return;
         const xScale = scales?.x;
-        ctx.save();
-        ctx.fillStyle = '#fff';
-        ctx.font = `${isMobile ? 10 : 12}px sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
         const ds = cdata?.datasets?.[0]?.data || [];
-        meta.data.forEach((el: any, i: number) => {
-          const raw = ds?.[i];
-          if (!raw || !Array.isArray(raw)) return;
-          const start = Number(raw[0] ?? 0);
-          const end = Number(raw[1] ?? 0);
-          const mid = (start + end) / 2;
-          const value = Math.abs(end - start);
-          const x = xScale?.getPixelForValue ? xScale.getPixelForValue(mid) : el.x;
-          const y = el.y;
-          const text = String(Math.round(value));
-          ctx.fillText(text, x, y);
-        });
-        ctx.restore();
+
+        // 归一化用户传入的比率，长度应为 n-1
+        const normalizeRatio = (v: any) => {
+          if (typeof v === 'string') {
+            const s = v.trim().replace('%', '');
+            const n = Number(s);
+            return Number.isFinite(n) ? n : NaN;
+          }
+          if (typeof v === 'number') return v;
+          return NaN;
+        };
+        // 从 filteredData 读取每层 ratio
+        const providedRatios: number[] = (filteredData || []).map((it: any) => normalizeRatio(it?.ratio));
+
+        const centerX = xScale?.getPixelForValue ? xScale.getPixelForValue(0) : undefined;
+
+        // 逐对绘制 i 与 i+1 之间的梯形
+        for (let i = 0; i < meta.data.length - 1; i++) {
+          const elTop = meta.data[i];
+          const elBot = meta.data[i + 1];
+          const rawTop = ds?.[i];
+          const rawBot = ds?.[i + 1];
+          if (!Array.isArray(rawTop) || !Array.isArray(rawBot)) continue;
+
+          // 顶部、底部条的像素左右与宽度
+          const [sTop, eTop] = [Number(rawTop[0] ?? 0), Number(rawTop[1] ?? 0)];
+          const [sBot, eBot] = [Number(rawBot[0] ?? 0), Number(rawBot[1] ?? 0)];
+          const topLx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.min(sTop, eTop)) : elTop.x - Math.abs(eTop - sTop) / 2;
+          const topRx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.max(sTop, eTop)) : elTop.x + Math.abs(eTop - sTop) / 2;
+          const botLx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.min(sBot, eBot)) : elBot.x - Math.abs(eBot - sBot) / 2;
+          const botRx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.max(sBot, eBot)) : elBot.x + Math.abs(eBot - sBot) / 2;
+          const topWidthPx = Math.abs(topRx - topLx);
+          const botWidthPx = Math.abs(botRx - botLx);
+
+          const dpr = (typeof window !== 'undefined' && (window.devicePixelRatio || 1)) || 1;
+          const seam = (isMobile ? 0.25 : 0.35) / dpr; // 极小内缩，基本不可见
+          const joinTop = elTop.y + elTop.height / 2;
+          const joinBot = elBot.y - elBot.height / 2;
+          const topY = joinTop + seam; // 向下收一点，避免覆盖上柱
+          const botY = joinBot - seam; // 向上收一点，避免覆盖下柱
+
+          // 比率（优先用户传入），范围 0~100，仅用于文本展示
+          let ratioVal = providedRatios?.[i];
+          if (!Number.isFinite(ratioVal)) {
+            const base = topWidthPx || 1;
+            ratioVal = (botWidthPx / base) * 100;
+          }
+          ratioVal = Math.max(0, Math.min(100, Number(ratioVal)));
+
+          // 梯形边与上下柱完全对齐
+          const topL = Math.min(topLx, topRx);
+          const topR = Math.max(topLx, topRx);
+          const botL = Math.min(botLx, botRx);
+          const botR = Math.max(botLx, botRx);
+
+          // 绘制梯形
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(topL, topY);
+          ctx.lineTo(topR, topY);
+          ctx.lineTo(botR, botY);
+          ctx.lineTo(botL, botY);
+          ctx.closePath();
+          ctx.fillStyle = '#F1F2F4';
+          ctx.fill();
+
+          // 文本（展示该比率）
+          const midY = (topY + botY) / 2;
+          const cx = centerX ?? ((Math.min(topL, botL) + Math.max(topR, botR)) / 2);
+          ctx.fillStyle = '#626F86';
+          ctx.font = `${isMobile ? 10 : 12}px sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(`${ratioVal.toFixed(1)}%`, cx, midY);
+          ctx.restore();
+        }
       },
     } as const;
-  }, [isMobile]);
+  }, [isMobile, showTrapezoid, JSON.stringify(filteredData.map((d) => (d as any)?.ratio))]);
 
   // 右侧阶段文本标签（跟随每个柱，显示 stage 名称）
   const rightLabelPlugin = useMemo(() => {
@@ -418,6 +501,18 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const y = el.y;
           const label = labels?.[i] ?? '';
           ctx.fillText(label, maxEnd + padding, y);
+
+          // 在柱体中心绘制数值文本（白色）
+          const start = Number(raw[0] ?? 0);
+          const end = Number(raw[1] ?? 0);
+          const mid = (start + end) / 2;
+          const value = Math.abs(end - start);
+          const cx = xScale?.getPixelForValue ? xScale.getPixelForValue(mid) : el.x;
+          ctx.save();
+          ctx.fillStyle = '#fff';
+          ctx.textAlign = 'center';
+          ctx.fillText(String(Math.round(value)), cx, y);
+          ctx.restore();
         });
         ctx.restore();
       },
@@ -459,7 +554,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       />
 
       <div className="chart-wrapper" style={{ height: finalHeight }}>
-        <Bar ref={chartRef} data={processedData} options={options} plugins={[valueLabelPlugin, rightLabelPlugin]} />
+        <Bar key={`funnel-${pluginToggleKey}`} ref={chartRef} data={processedData} options={options} plugins={[trapezoidPlugin, rightLabelPlugin]} />
       </div>
     </div>,
   );
