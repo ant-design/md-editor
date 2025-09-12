@@ -12,7 +12,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import {
-  ChartDataItem,
   findDataPointByXValue,
   toNumber,
 } from '../utils';
@@ -48,14 +47,12 @@ export interface FunnelChartProps {
   dataTime?: string;
   /** 主题 */
   theme?: 'dark' | 'light';
-  /** 是否显示图例，默认false（单序列） */
+  /** 是否显示图例 */
   showLegend?: boolean;
   /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
   /** 图例水平对齐方式 */
   legendAlign?: 'start' | 'center' | 'end';
-  /** 是否显示网格线，默认false */
-  showGrid?: boolean;
   /** 是否显示百分比（相对第一层） */
   showPercent?: boolean;
 }
@@ -84,7 +81,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   showLegend = true,
   legendPosition = 'bottom',
   legendAlign = 'start',
-  showGrid = false,
   showPercent = true,
 }) => {
   // 响应式尺寸
@@ -93,6 +89,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   );
   const isMobile = windowWidth <= 768;
   const responsiveWidth = isMobile ? '100%' : width;
+  const responsiveHeight = isMobile ? Math.min(windowWidth * 0.8, 400) : height;
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -171,6 +168,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     const rows = Math.max(1, stages.length);
     return rows * (BAR_THICKNESS + ROW_GAP) + PADDING_Y;
   }, [stages.length, PADDING_Y]);
+
+  // 取更大的高度，既满足行数，也兼顾外部传入 height 与移动端自适应
+  const finalHeight = Math.max(responsiveHeight, chartHeight);
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
   const processedData: ChartData<'bar'> = useMemo(() => {
@@ -262,7 +262,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const axisTextColor = isLight
     ? 'rgba(0, 25, 61, 0.3255)'
     : 'rgba(255, 255, 255, 0.8)';
-  const gridColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)';
 
   const options: ChartOptions<'bar'> = {
     responsive: true,
@@ -459,7 +458,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         theme={theme}
       />
 
-      <div className="chart-wrapper" style={{ height: chartHeight }}>
+      <div className="chart-wrapper" style={{ height: finalHeight }}>
         <Bar ref={chartRef} data={processedData} options={options} plugins={[valueLabelPlugin, rightLabelPlugin]} />
       </div>
     </div>,

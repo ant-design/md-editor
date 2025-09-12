@@ -159,6 +159,13 @@ const LineChart: React.FC<LineChartProps> = ({
     filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );
 
+  // 当数据变化导致当前选中分类失效时，自动回退到首个有效分类或空（显示全部）
+  useEffect(() => {
+    if (selectedFilter && !categories.includes(selectedFilter)) {
+      setSelectedFilter(categories.find(Boolean) || '');
+    }
+  }, [categories, selectedFilter]);
+
   // 筛选数据
   const filteredData = useMemo(() => {
     if (!selectedFilter) return data;
