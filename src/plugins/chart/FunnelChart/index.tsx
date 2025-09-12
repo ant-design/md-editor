@@ -397,11 +397,12 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const topWidthPx = Math.abs(topRx - topLx);
           const botWidthPx = Math.abs(botRx - botLx);
 
-          // 梯形的纵向位置：夹在两条之间，但高度小于柱高
-          const midYBetween = (elTop.y + elBot.y) / 2;
-          const trapH = Math.max(8, Math.min(elTop.height, elBot.height) * 0.45);
-          const topY = midYBetween - trapH / 2;
-          const botY = midYBetween + trapH / 2;
+          const dpr = (typeof window !== 'undefined' && (window.devicePixelRatio || 1)) || 1;
+          const seam = (isMobile ? 0.25 : 0.35) / dpr; // 极小内缩，基本不可见
+          const joinTop = elTop.y + elTop.height / 2;
+          const joinBot = elBot.y - elBot.height / 2;
+          const topY = joinTop + seam; // 向下收一点，避免覆盖上柱
+          const botY = joinBot - seam; // 向上收一点，避免覆盖下柱
 
           // 比率（优先用户传入），范围 0~100，仅用于文本展示
           let ratioVal = providedRatios?.[i];
