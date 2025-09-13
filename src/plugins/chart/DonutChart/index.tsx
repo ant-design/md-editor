@@ -318,9 +318,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
                 borderColor: isSingleValueMode
                   ? [cfg.borderColor || '#fff', 'transparent']
                   : cfg.borderColor || '#fff',
-                borderWidth: isMobile ? 1 : 1,
-                spacing: isSingleValueMode ? 0 : isMobile ? 3 : 6,
-                borderRadius: 4,
+                borderWidth: cfg.chartStyle === 'pie' ? 0 : (isMobile ? 1 : 1),
+                spacing: isSingleValueMode ? 0 : cfg.chartStyle === 'pie' ? 0 : (isMobile ? 3 : 6),
+                borderRadius: cfg.chartStyle === 'pie' ? 0 : 4,
                 hoverOffset: (ctx: any) =>
                   isSingleValueMode && ctx?.dataIndex === 1
                     ? 0
@@ -332,6 +332,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
           };
 
           const cutout = (() => {
+            // 如果明确指定为饼图，cutout 为 0（实心）
+            if (cfg.chartStyle === 'pie') {
+              return 0;
+            }
+            
+            // 环形图的逻辑
             if (isMobile) {
               if (typeof cfg.cutout === 'number') return cfg.cutout * 0.9;
               return (
@@ -422,16 +428,19 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     data={chartJsData}
                     options={options}
                     plugins={[
-                      createCenterTextPlugin(
-                        ((typeof (currentDataItem as any).value === 'number'
-                          ? (currentDataItem as any).value
-                          : Number((currentDataItem as any).value)) /
-                          (total || 1)) *
-                          100,
-                        (currentDataItem as any).label,
-                        isMobile,
-                      ),
-                      createBackgroundArcPlugin(), // 背景色
+                      // 只有环形图才显示中心文本和背景
+                      ...(cfg.chartStyle !== 'pie' ? [
+                        createCenterTextPlugin(
+                          ((typeof (currentDataItem as any).value === 'number'
+                            ? (currentDataItem as any).value
+                            : Number((currentDataItem as any).value)) /
+                            (total || 1)) *
+                            100,
+                          (currentDataItem as any).label,
+                          isMobile,
+                        ),
+                        createBackgroundArcPlugin(), // 背景色
+                      ] : [])
                     ]}
                   />
                 </div>

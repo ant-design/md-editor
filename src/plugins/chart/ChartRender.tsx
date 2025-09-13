@@ -21,7 +21,11 @@ import { isNotEmpty, toNumber } from './utils';
 const ChartMap = {
   pie: {
     title: '饼图',
-    changeData: ['table'],
+    changeData: ['donut', 'table'],
+  },
+  donut: {
+    title: '环形图',
+    changeData: ['pie', 'table'],
   },
   bar: {
     title: '条形图',
@@ -53,11 +57,11 @@ const ChartMap = {
   },
   table: {
     title: '表格',
-    changeData: ['column', 'line', 'area', 'pie'],
+    changeData: ['column', 'line', 'area', 'pie', 'donut'],
   },
   descriptions: {
     title: '定义列表',
-    changeData: ['column', 'line', 'area', 'table', 'pie'],
+    changeData: ['column', 'line', 'area', 'table', 'pie', 'donut'],
   },
 };
 
@@ -120,6 +124,7 @@ const ChartMap = {
 export const ChartRender: React.FC<{
   chartType:
     | 'pie'
+    | 'donut'
     | 'bar'
     | 'line'
     | 'column'
@@ -152,6 +157,7 @@ export const ChartRender: React.FC<{
   const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
     | 'pie'
+    | 'donut'
     | 'bar'
     | 'line'
     | 'column'
@@ -478,8 +484,22 @@ export const ChartRender: React.FC<{
     if (chartType === 'pie') {
       return (
         <DonutChart
+          key={`${config?.index}-pie-${renderKey}`}
+          data={convertDonutData}
+          configs={[{ chartStyle: 'pie', showLegend: true }]}
+          height={config?.height || 400}
+          title={title}
+          showToolbar={true}
+          dataTime={dataTime}
+        />
+      );
+    }
+    if (chartType === 'donut') {
+      return (
+        <DonutChart
           key={`${config?.index}-donut-${renderKey}`}
           data={convertDonutData}
+          configs={[{ chartStyle: 'donut', showLegend: true }]}
           height={config?.height || 400}
           title={title}
           showToolbar={true}
