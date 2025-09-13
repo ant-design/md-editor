@@ -1,5 +1,6 @@
 ---
 title: RadarChart 雷达图
+atomId: RadarChart
 group:
   title: 图表
   order: 5

@@ -4,7 +4,7 @@ hero:
   description: 基于 React + TypeScript 的现代化 Markdown 编辑器，提供丰富的编辑功能和插件系统
   actions:
     - text: 快速开始
-      link: /components/markdown-editor
+      link: /components/api
     - text: 查看 GitHub
       link: https://github.com/ant-design/md-editor
       type: primary

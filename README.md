@@ -140,7 +140,7 @@ function hello() {
 
 ## 📖 文档
 
-- [快速开始](./docs/components/markdown-editor.md)
+- [快速开始](./docs/components/api.md)
 - [API 文档](./docs/components/api.md)
 - [组件文档](./docs/components/)
 - [插件开发](./docs/plugin/)

@@ -1,5 +1,6 @@
 ---
 title: Workspace 工作空间
+atomId: Workspace
 group:
   title: 组件
   order: 2

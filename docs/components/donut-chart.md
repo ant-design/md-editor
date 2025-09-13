@@ -1,5 +1,6 @@
 ---
 title: DonutChart 环形图
+atomId: DonutChart
 group:
   title: 图表
   order: 3

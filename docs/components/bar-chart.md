@@ -1,5 +1,6 @@
 ---
 title: BarChart 柱状图
+atomId: BarChart
 group:
   title: 图表
   order: 2

@@ -1,6 +1,7 @@
 ---
 nav:
   order: 1
+atomId: ThoughtChainList
 group:
   title: 数据展示
   order: 3

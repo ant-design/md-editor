@@ -1,5 +1,6 @@
 ---
 title: ScatterChart 散点图
+atomId: ScatterChart
 group:
   title: 图表
   order: 6
