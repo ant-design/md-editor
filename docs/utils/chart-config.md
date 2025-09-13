@@ -24,7 +24,7 @@ nav:
 
 图表支持三个层次的筛选维度，从高到低依次为：
 
-1. **主筛选维度** (`filterBy` → `filterLable`)
+1. **主筛选维度** (`filterBy` → `filterLabel`)
    - 最高维度的筛选，如：全球、美国、华北、华南
    - 决定查看哪个范围的数据
    - 展现形式：下拉框
@@ -50,7 +50,7 @@ type ChartConfig = {
   height?: number; // 图表高度，默认400
   dataTime?: string; // 数据时间，显示在图表工具栏中
   groupBy?: 业务分组维度; //（映射为 category）- 如：访客数据、营收数据
-  filterBy?: 主筛选维度; //（映射为 filterLable）- 如：全球、美国
+  filterBy?: 主筛选维度; //（映射为 filterLabel）- 如：全球、美国
   colorLegend?: 数据系列维度; //（映射为 type）- 如：本周访客、上周访客
   subgraphBy?: 分组字段，用于生成子图表; //（同段落按该字段拆分）
 };

@@ -40,7 +40,7 @@ group:
 | type | `string` | 否 | 数据序列名称（默认单序列）|
 | x | `number \| string` | 是 | 阶段名（将作为 labels）|
 | y | `number \| string` | 是 | 数值 |
-| filterLable | `string` | 否 | 二级筛选标签（可选）|
+| filterLabel | `string` | 否 | 二级筛选标签（可选）|
 
 ## 说明
 

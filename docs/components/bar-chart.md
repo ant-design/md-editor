@@ -47,7 +47,7 @@ group:
 | y | `number` | 是 | 纵轴值 |
 | xtitle | `string` | 否 | X 轴标题（从数据中提取）|
 | ytitle | `string` | 否 | Y 轴标题（从数据中提取）|
-| filterLable | `string` | 否 | 二级筛选标签（可选）|
+| filterLabel | `string` | 否 | 二级筛选标签（可选）|
 
 ## 说明
 - `stacked` 为 `true` 时，将按 `type` 将数据叠加显示。

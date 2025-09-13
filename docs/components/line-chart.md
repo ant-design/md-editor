@@ -42,7 +42,7 @@ group:
 | y | `number` | 是 | 纵轴值 |
 | xtitle | `string` | 否 | X 轴标题（从数据中提取）|
 | ytitle | `string` | 否 | Y 轴标题（从数据中提取）|
-| filterLable | `string` | 否 | 二级筛选标签（可选）|
+| filterLabel | `string` | 否 | 二级筛选标签（可选）|
 
 ## 说明
 - 自动按 `x` 升序生成横轴，按 `type` 组装数据集并分配调色板。 

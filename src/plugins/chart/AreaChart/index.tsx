@@ -141,9 +141,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
   // 从数据中提取 filterLable，过滤掉 undefined 值
   const validFilterLables = useMemo(() => {
     return data
-      .map((item) => item.filterLable)
+      .map((item) => item.filterLabel)
       .filter(
-        (filterLable): filterLable is string => filterLable !== undefined,
+        (filterLabel): filterLabel is string => filterLabel !== undefined,
       );
   }, [data]);
 
@@ -178,9 +178,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
       return categoryMatch;
     }
 
-    // 如果有 filterLable 筛选，需要同时匹配 category 和 filterLable
+    // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
     return categoryMatch.filter(
-      (item) => item.filterLable === selectedFilterLable,
+      (item) => item.filterLabel === selectedFilterLable,
     );
   }, [data, selectedFilter, filterLables, selectedFilterLable]);
 
@@ -249,7 +249,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
     }));
   }, [categories]);
 
-  // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
+  // 根据 filterLabel 筛选数据 - 只有当 filterLables 存在时才生成
   const filteredDataByFilterLable = useMemo(() => {
     return filterLables?.map((item) => ({
       key: item,

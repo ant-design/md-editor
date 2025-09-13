@@ -43,7 +43,7 @@ group:
 | category | `string` | 否 | 分类（用于可选自动分类与筛选）|
 | label | `string` | 是 | 标签（将用于图例与中心文字）|
 | value | `number` | 是 | 数值（可自动计算百分比）|
-| filterLable | `string` | 否 | 二级筛选标签（可选）|
+| filterLabel | `string` | 否 | 二级筛选标签（可选）|
 
 ### DonutChartConfig
 

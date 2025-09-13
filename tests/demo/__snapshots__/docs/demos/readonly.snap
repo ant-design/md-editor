@@ -9,7 +9,7 @@
       style="display: flex; flex-direction: column; padding: 16px 40px; gap: 24px; align-self: stretch; z-index: 1; width: min(830px,100%); margin: 0px auto;"
     >
       <div
-        data-length="4751"
+        data-length="7937"
         data-testid="md-editor"
       >
         MarkdownEditor(Mock)

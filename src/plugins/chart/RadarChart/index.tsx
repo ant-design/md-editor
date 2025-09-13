@@ -32,7 +32,7 @@ export interface RadarChartDataItem {
   label: string;
   type?: string;
   score: number | string;
-  filterLable?: string;
+  filterLabel?: string;
 }
 
 // 雷达图配置接口 - 移除 type 字段，因为 type 现在是 Record 的 key
@@ -120,9 +120,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
   // 从扁平化数据中提取分类
   const categories = Array.from(new Set(data.map((item) => item.category)));
 
-  // 从数据中提取 filterLable，过滤掉 undefined 值
+  // 从数据中提取 filterLabel，过滤掉 undefined 值
   const validFilterLables = data
-    .map((item) => item.filterLable)
+    .map((item) => item.filterLabel)
     .filter((category): category is string => category !== undefined);
 
   const filterLables: string[] | undefined =
@@ -144,8 +144,8 @@ const RadarChart: React.FC<RadarChartProps> = ({
     if (!filterLables || !selectedFilterLable) {
       return categoryMatch;
     }
-    // 如果有 filterLable 筛选，需要同时匹配 category 和 filterLable
-    return categoryMatch && item.filterLable === selectedFilterLable;
+    // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
+    return categoryMatch && item.filterLabel === selectedFilterLable;
   });
 
   // 提取标签和数据集
@@ -192,7 +192,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
     value: category || '',
   }));
 
-  // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
+  // 根据 filterLabel 筛选数据 - 只有当 filterLables 存在时才生成
   const filteredDataByFilterLable = filterLables?.map((item) => ({
     key: item,
     label: item,
