@@ -9,13 +9,13 @@
       style="display: flex; flex-direction: row; align-items: center; justify-content: center; height: 100vh; background-color: rgb(255, 255, 255);"
     >
       <div
-        data-length="4751"
+        data-length="7937"
         data-testid="md-editor"
       >
         MarkdownEditor(Mock)
       </div>
       <div
-        data-length="4751"
+        data-length="7937"
         data-testid="md-editor"
       >
         MarkdownEditor(Mock)

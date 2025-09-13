@@ -49,7 +49,7 @@ const DonutSingleCategorizedDemo: React.FC = () => {
             overflow: 'auto',
           }}
         >
-          {`// 单值饼图：当包含 filterLable 字段时，自动启用下拉筛选；当包含 category 字段时，自动启用分类筛选；
+          {`// 单值饼图：当包含 filterLabel 字段时，自动启用下拉筛选；当包含 category 字段时，自动启用分类筛选；
 [
   { "label": "任务完成率", "value": 75, "category": "项目进度" },
   { "label": "代码覆盖率", "value": 85, "category": "项目进度" },

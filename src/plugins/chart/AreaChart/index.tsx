@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
+import { extractAndSortXValues, findDataPointByXValue, ChartDataItem } from '../utils';
 import { useStyle } from './style';
 
 ChartJS.register(
@@ -25,22 +26,8 @@ ChartJS.register(
   Legend,
 );
 
-export interface AreaChartDataItem {
-  /** 数据类别 */
-  category: string;
-  /** 数据类型 */
-  type: string;
-  /** X轴值 */
-  x: number;
-  /** Y轴值 */
-  y: number;
-  /** X轴标题 */
-  xtitle?: string;
-  /** Y轴标题 */
-  ytitle?: string;
-  /** 筛选标签 */
-  filterLable?: string;
-}
+export type AreaChartDataItem = ChartDataItem;
+
 
 export interface AreaChartConfigItem {
   datasets: Array<(string | { x: number; y: number })[]>;
@@ -70,6 +57,8 @@ export interface AreaChartProps {
   height?: number;
   /** 自定义CSS类名 */
   className?: string;
+  /** 数据时间 */
+  dataTime?: string;
   /** 图表主题 */
   theme?: 'dark' | 'light';
   /** 是否显示图例，默认true */
@@ -84,6 +73,8 @@ export interface AreaChartProps {
   xPosition?: 'top' | 'bottom';
   /** Y轴位置 */
   yPosition?: 'left' | 'right';
+  /** 头部工具条额外按钮 */
+  toolbarExtra?: React.ReactNode;
 }
 
 const defaultColors = [
@@ -105,6 +96,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   width = 600,
   height = 400,
   className,
+  dataTime,
   theme = 'light',
   showLegend = true,
   legendPosition = 'bottom',
@@ -112,6 +104,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   showGrid = true,
   xPosition = 'bottom',
   yPosition = 'left',
+  toolbarExtra,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -148,9 +141,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
   // 从数据中提取 filterLable，过滤掉 undefined 值
   const validFilterLables = useMemo(() => {
     return data
-      .map((item) => item.filterLable)
+      .map((item) => item.filterLabel)
       .filter(
-        (filterLable): filterLable is string => filterLable !== undefined,
+        (filterLabel): filterLabel is string => filterLabel !== undefined,
       );
   }, [data]);
 
@@ -161,13 +154,21 @@ const AreaChart: React.FC<AreaChartProps> = ({
   }, [validFilterLables]);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0]);
+  const [selectedFilter, setSelectedFilter] = useState<string>(categories.find(Boolean) || '');
   const [selectedFilterLable, setSelectedFilterLable] = useState(
     filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
   );
 
+  // 当数据变化导致当前选中分类失效时，自动回退到首个有效分类或空（显示全部）
+  useEffect(() => {
+    if (selectedFilter && !categories.includes(selectedFilter)) {
+      setSelectedFilter(categories.find(Boolean) || '');
+    }
+  }, [categories, selectedFilter]);
+
   // 筛选数据
   const filteredData = useMemo(() => {
+    if (!selectedFilter) return data;
     const categoryMatch = data.filter(
       (item) => item.category === selectedFilter,
     );
@@ -177,9 +178,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
       return categoryMatch;
     }
 
-    // 如果有 filterLable 筛选，需要同时匹配 category 和 filterLable
+    // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
     return categoryMatch.filter(
-      (item) => item.filterLable === selectedFilterLable,
+      (item) => item.filterLabel === selectedFilterLable,
     );
   }, [data, selectedFilter, filterLables, selectedFilterLable]);
 
@@ -190,8 +191,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
 
   // 从数据中提取唯一的x值并排序
   const xValues = useMemo(() => {
-    const uniqueX = [...new Set(filteredData.map((item) => item.x))];
-    return uniqueX.sort((a, b) => a - b);
+    return extractAndSortXValues(filteredData);
   }, [filteredData]);
 
   // 从数据中获取xtitle和ytitle
@@ -218,19 +218,20 @@ const AreaChart: React.FC<AreaChartProps> = ({
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
-        const dataPoint = filteredData.find(
-          (item) => item.type === type && item.x === x,
-        );
-        return dataPoint ? dataPoint.y : null;
+        const dataPoint = findDataPointByXValue(filteredData, x, type);
+        const v = dataPoint?.y;
+        const n = typeof v === 'number' ? v : Number(v);
+        return Number.isFinite(n) ? n : null;
       });
 
       return {
-        label: type,
+        label: type || '默认',
         data: typeData,
         borderColor: baseColor,
         backgroundColor: `${baseColor}20`,
         pointBackgroundColor: baseColor,
         pointBorderColor: '#fff',
+        pointBorderWidth: 1,
         borderWidth: 3,
         tension: 0,
         fill: true,
@@ -243,12 +244,12 @@ const AreaChart: React.FC<AreaChartProps> = ({
   // 筛选器选项
   const filterOptions = useMemo(() => {
     return categories.map((category) => ({
-      label: category,
-      value: category,
+      label: category || '',
+      value: category || '',
     }));
   }, [categories]);
 
-  // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
+  // 根据 filterLabel 筛选数据 - 只有当 filterLables 存在时才生成
   const filteredDataByFilterLable = useMemo(() => {
     return filterLables?.map((item) => ({
       key: item,
@@ -352,9 +353,10 @@ const AreaChart: React.FC<AreaChartProps> = ({
     },
     elements: {
       point: {
-        radius: 0,
-        hoverRadius: 0,
-        borderWidth: 0,
+        radius: isMobile ? 2 : 3,
+        hoverRadius: isMobile ? 3 : 5,
+        borderWidth: isMobile ? 1 : 2,
+        hoverBorderWidth: isMobile ? 1 : 2,
       },
       line: {
         borderWidth: 3,
@@ -371,7 +373,6 @@ const AreaChart: React.FC<AreaChartProps> = ({
       className={`${baseClassName} ${hashId} ${className || ''}`}
       style={{
         width: responsiveWidth,
-        height: responsiveHeight,
         backgroundColor: isLight ? '#fff' : '#1a1a1a',
         borderRadius: isMobile ? '6px' : '8px',
         padding: isMobile ? '12px' : '20px',
@@ -382,7 +383,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
         boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} />
+      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} extra={toolbarExtra} dataTime={dataTime} />
 
       <ChartFilter
         filterOptions={filterOptions}
@@ -396,7 +397,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
         theme={theme}
       />
 
-      <div className="chart-wrapper">
+      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
     </div>,

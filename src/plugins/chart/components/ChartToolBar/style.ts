@@ -11,8 +11,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: '16px',
-      padding: '16px 0',
+      padding: '12px 0',
 
       [`${token.componentCls}-header-title`]: {
         fontFamily: 'PingFang SC',
@@ -22,6 +21,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         letterSpacing: '0em',
         fontVariationSettings: '"opsz" auto',
         color: '#343a45',
+        flex: 1,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        marginRight: '16px',
+        minWidth: 0, // 确保 flex 项可以缩小到小于内容宽度
       },
 
       [`${token.componentCls}-header-actions`]: {
@@ -49,11 +54,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`${token.componentCls}-download-btn`]: {
           color: 'rgba(0, 25, 61, 0.3255)',
-          padding: '4px 2px',
+          padding: '3px',
           height: 'auto',
+          backgroundColor: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          borderRadius: '6px',
+          transition: 'all 0.2s ease',
 
           '&:hover': {
-            color: '#1677ff',
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          },
+
+          '&:focus': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            outline: 'none',
           },
         },
       },
@@ -62,6 +77,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-dark': {
         [`${token.componentCls}-header-title`]: {
           color: '#fff',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
         },
 
         [`${token.componentCls}-header-actions`]: {
@@ -75,9 +93,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           [`${token.componentCls}-download-btn`]: {
             color: 'rgba(255, 255, 255, 0.65)',
+            backgroundColor: 'transparent',
 
             '&:hover': {
-              color: '#40a9ff',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            },
+
+            '&:focus': {
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              outline: 'none',
             },
           },
         },

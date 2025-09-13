@@ -1,0 +1,66 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <h2
+        style="margin-bottom: 16px;"
+      >
+        漏斗图使用示例
+      </h2>
+      <div
+        style="margin-bottom: 16px;"
+      >
+        <button
+          class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+          type="button"
+        >
+          <span>
+            随机更新数据
+          </span>
+        </button>
+      </div>
+      <div
+        class="funnel-chart-container  "
+        style="width: 600px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
+      >
+        <div
+          data-testid="chart-toolbar"
+        >
+          网站转化漏斗
+        </div>
+        <div
+          data-testid="chart-filter"
+        >
+          <button
+            data-selected="true"
+          >
+            网站转化
+          </button>
+          <button
+            data-selected="false"
+          >
+            流量转化
+          </button>
+        </div>
+        <div
+          class="chart-wrapper"
+          style="height: 224px;"
+        >
+          <div
+            data-datasets="[{"label":"转化","data":[[-6000,6000],[-4100,4100],[-2700,2700],[-1300,1300],[-900,900]],"backgroundColor":["#1677ff","#398bff","#5ca0ff","#7fb4ff","#a2c9ff"],"borderColor":["#1677ff","#398bff","#5ca0ff","#7fb4ff","#a2c9ff"],"borderWidth":0,"borderRadius":0,"borderSkipped":false,"barThickness":30,"categoryPercentage":1,"barPercentage":1}]"
+            data-labels="["访问","浏览商品","加购","提交订单","支付成功"]"
+            data-testid="bar-chart"
+          >
+            Bar Chart
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

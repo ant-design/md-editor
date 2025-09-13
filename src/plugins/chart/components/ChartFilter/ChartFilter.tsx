@@ -1,8 +1,8 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Dropdown, Segmented } from 'antd';
 import classNames from 'classnames';
-import React, { useContext } from 'react';
-import { useStyle } from './ChartFilter/style';
+import { default as React, useContext } from 'react';
+import { useStyle } from './style';
 
 export interface FilterOption {
   label: string;
@@ -45,6 +45,13 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
     }
   };
 
+  const hasMain = Array.isArray(filterOptions) && filterOptions.length > 1;
+  const hasSecondary = Array.isArray(customOptions) && customOptions.length > 1;
+
+  if (!hasMain && !hasSecondary) {
+    return null;
+  }
+
   return wrapSSR(
     <div
       className={classNames(
@@ -54,8 +61,8 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
         className,
       )}
     >
-      {/* 地区筛选器 */}
-      {customOptions && customOptions.length > 0 && (
+      {/* 地区筛选器，统一逻辑，只有可选时才显示 */}
+      {customOptions && customOptions.length > 1 && (
         <div className={classNames(`${prefixCls}-region-filter`, hashId)}>
           <Dropdown
             menu={{
@@ -69,6 +76,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
               onClick: ({ key }) => handleRegionChange(key),
             }}
             trigger={['click']}
+            getPopupContainer={() => document.body}
           >
             <Button
               type="default"

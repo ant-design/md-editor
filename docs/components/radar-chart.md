@@ -33,7 +33,7 @@ group:
 | label | `string` | 是 | 指标名称（将作为雷达图各轴标签）|
 | type | `string` | 是 | 数据序列名称（映射为 dataset）|
 | score | `number` | 是 | 指标分值 |
-| filterLable | `string` | 否 | 二级筛选标签（可选）|
+| filterLabel | `string` | 否 | 二级筛选标签（可选）|
 
 ## 说明
 - 内置色板自动为不同 `type` 分配颜色并填充区域。

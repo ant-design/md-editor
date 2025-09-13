@@ -44,3 +44,7 @@ nav:
 ### 条形图（横向）
 
 <code src="../demos/charts/bar/bar-horizontal.tsx" background="var(--main-bg-color)" iframe=540></code>
+
+## 漏斗图
+
+<code src="../demos/charts/funnel.tsx" background="var(--main-bg-color)" iframe=540></code>

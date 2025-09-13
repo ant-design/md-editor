@@ -18,6 +18,7 @@ const DonutMultiDemo: React.FC = () => {
         data={data}
         width={260}
         height={200}
+        // configs={[{ chartStyle: 'pie' }]} //实心饼图，配色有点丑
         title="2025年第一季度短视频用户分布分析"
       />
       {/* 数据格式说明 */}
