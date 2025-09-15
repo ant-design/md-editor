@@ -3,6 +3,7 @@ import {
   ChartData,
   Chart as ChartJS,
   ChartOptions,
+  ScriptableContext,
   Filler,
   Legend,
   LinearScale,
@@ -91,6 +92,26 @@ const defaultColors = [
   '#BF3C93',
   '#005EE0',
 ];
+
+// 将十六进制颜色转换为带透明度的 rgba 字符串
+const hexToRgba = (hex: string, alpha: number): string => {
+  const sanitized = hex.replace('#', '');
+  const isShort = sanitized.length === 3;
+  const r = parseInt(
+    isShort ? sanitized[0] + sanitized[0] : sanitized.slice(0, 2),
+    16,
+  );
+  const g = parseInt(
+    isShort ? sanitized[1] + sanitized[1] : sanitized.slice(2, 4),
+    16,
+  );
+  const b = parseInt(
+    isShort ? sanitized[2] + sanitized[2] : sanitized.slice(4, 6),
+    16,
+  );
+  const a = Math.max(0, Math.min(1, alpha));
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+};
 
 const AreaChart: React.FC<AreaChartProps> = ({
   title,
@@ -234,7 +255,18 @@ const AreaChart: React.FC<AreaChartProps> = ({
         label: type || '默认',
         data: typeData,
         borderColor: baseColor,
-        backgroundColor: `${baseColor}20`,
+        backgroundColor: (ctx: ScriptableContext<'line'>) => {
+          const chart = ctx.chart;
+          const chartArea = chart.chartArea;
+          if (!chartArea) return hexToRgba(baseColor, 0.2);
+
+          const { top, bottom } = chartArea;
+          const gradient = chart.ctx.createLinearGradient(0, top, 0, bottom);
+          // 顶部颜色更实，向下逐渐透明，形成柔和的面积过渡
+          gradient.addColorStop(0, hexToRgba(baseColor, 0.28));
+          gradient.addColorStop(1, hexToRgba(baseColor, 0.05));
+          return gradient;
+        },
         pointBackgroundColor: baseColor,
         pointBorderColor: '#fff',
         pointBorderWidth: 1,
