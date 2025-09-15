@@ -1,27 +1,30 @@
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
-import { Editor, Node, Path, Transforms } from 'slate';
+import { Editor, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
-import DOMPurify from 'dompurify';
 import { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
 import { MarkdownEditorProps } from '../../types';
 import { useEditorStore } from '../store';
-import { slugify } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { Blockquote } from './Blockquote';
+import { Break } from './Break';
 import { WarpCard } from './Card';
-
+import { Code } from './Code';
 import { CommentView } from './Comment';
 import { Description } from './Description';
 import { FootnoteDefinition } from './FootnoteDefinition';
 import { FootnoteReference } from './FootnoteReference';
 import { Head } from './Head';
+import { Hr } from './Hr';
 import { EditorImage } from './Image';
+import { InlineKatex } from './InlineKatex';
+import { Katex } from './Katex';
 import { LinkCard } from './LinkCard';
 import { List, ListItem } from './List';
 import { Media } from './Media';
+import { Mermaid } from './Mermaid';
 import { Paragraph } from './Paragraph';
 import { Schema } from './Schema';
 import { tableRenderElement } from './Table';
@@ -132,158 +135,19 @@ const MElementComponent = (
     case 'blockquote':
       return <Blockquote {...props} />;
     case 'head':
-      return (
-        <div
-          {...props.attributes}
-          id={slugify(Node.string(props.element))}
-          data-testid="markdown-heading"
-          style={{
-            fontSize: `${1.5 - (props.element.level - 1) * 0.125}em`,
-            fontWeight: 600,
-            lineHeight: 1.25,
-            marginTop: '1em',
-            marginBottom: '1em',
-          }}
-        >
-          {props.children}
-        </div>
-      );
-
+      return <Head {...props} />;
     case 'hr':
-      return (
-        <div
-          {...props.attributes}
-          contentEditable={false}
-          className={'select-none'}
-          style={{
-            height: '1px',
-            backgroundColor: 'rgb(229 231 235 / 1)',
-            margin: '2em 0',
-            border: 'none',
-          }}
-        >
-          {props.children}
-        </div>
-      );
+      return <Hr {...props} />;
     case 'break':
-      return (
-        <span {...props.attributes} contentEditable={false}>
-          {props.children}
-          <br />
-        </span>
-      );
+      return <Break {...props} />;
     case 'katex':
-      return (
-        <pre
-          {...props.attributes}
-          style={{
-            background: 'rgb(242, 241, 241)',
-            color: 'rgb(27, 27, 27)',
-            padding: '1em',
-            borderRadius: '0.5em',
-            margin: '1em 0',
-            fontSize: '0.8em',
-            fontFamily: 'monospace',
-            lineHeight: '1.5',
-            overflowX: 'auto',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-all',
-            wordWrap: 'break-word',
-          }}
-        >
-          <code>{props.element.value}</code>
-          <div
-            style={{
-              display: 'none',
-            }}
-          >
-            {props.children}
-          </div>
-        </pre>
-      );
+      return <Katex {...props} />;
     case 'inline-katex':
-      return (
-        <code
-          {...props.attributes}
-          style={{
-            display: 'inline-block',
-          }}
-        >
-          {props.element.value}
-          <div
-            style={{
-              display: 'none',
-            }}
-          >
-            {props.children}
-          </div>
-        </code>
-      );
+      return <InlineKatex {...props} />;
     case 'mermaid':
-      return (
-        <pre
-          {...props.attributes}
-          style={{
-            background: 'rgb(242, 241, 241)',
-            color: 'rgb(27, 27, 27)',
-            padding: '1em',
-            borderRadius: '0.5em',
-            margin: '1em 0',
-            fontSize: '0.8em',
-            lineHeight: '1.5',
-            overflowX: 'auto',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-all',
-            fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
-            wordWrap: 'break-word',
-          }}
-        >
-          <code>{props.children}</code>
-        </pre>
-      );
+      return <Mermaid {...props} />;
     case 'code':
-      if (props.element?.language === 'html') {
-        return (
-          <div
-            {...props.attributes}
-            style={{
-              display: props.element?.otherProps?.isConfig ? 'none' : 'block',
-            }}
-          >
-            {props.element?.otherProps?.isConfig
-              ? ''
-              : DOMPurify.sanitize(props.element?.value?.trim())}
-          </div>
-        );
-      }
-      return (
-        <div
-          {...props.attributes}
-          style={
-            props.element?.language === 'html'
-              ? {
-                  display: props.element?.otherProps?.isConfig
-                    ? 'none'
-                    : 'block',
-                }
-              : {
-                  background: 'rgb(242, 241, 241)',
-                  color: 'rgb(27, 27, 27)',
-                  fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
-                  padding: '1em',
-                  borderRadius: '0.5em',
-                  margin: '1em 0',
-                  fontSize: '0.8em',
-                  lineHeight: '1.25',
-                  overflowX: 'auto',
-                  wordBreak: 'break-all',
-                  wordWrap: 'break-word',
-                }
-          }
-        >
-          {props.element?.value?.trim() || props.children}
-        </div>
-      );
+      return <Code {...props} />;
     case 'list-item':
       return <ListItem {...props} />;
     case 'list':
@@ -743,4 +607,18 @@ const MLeafComponent = (
 // 使用 React.memo 优化 MLeaf 组件的性能
 export const MLeaf = React.memo(MLeafComponent, areLeafPropsEqual);
 
-export { Blockquote, Head, List, ListItem, Media, Paragraph, Schema };
+export {
+  Blockquote,
+  Break,
+  Code,
+  Head,
+  Hr,
+  InlineKatex,
+  Katex,
+  List,
+  ListItem,
+  Media,
+  Mermaid,
+  Paragraph,
+  Schema,
+};
