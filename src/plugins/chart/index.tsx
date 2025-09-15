@@ -15,10 +15,10 @@ export { ChartRender } from './ChartRender';
 export { default as AreaChart } from './AreaChart';
 export { default as BarChart } from './BarChart';
 export { default as DonutChart } from './DonutChart';
+export { default as FunnelChart } from './FunnelChart';
 export { default as LineChart } from './LineChart';
 export { default as RadarChart } from './RadarChart';
 export { default as ScatterChart } from './ScatterChart';
-export { default as FunnelChart } from './FunnelChart';
 
 // 类型导出
 export type {
@@ -36,18 +36,14 @@ export type {
   DonutChartData,
   DonutChartProps,
 } from './DonutChart';
+export type { FunnelChartDataItem, FunnelChartProps } from './FunnelChart';
 export type {
   LineChartConfigItem,
   LineChartDataItem,
   LineChartProps,
 } from './LineChart';
-export type { RadarChartConfigItem, RadarChartDataItem } from './RadarChart';
-export type {
-  ScatterChartConfigItem,
-  ScatterChartDataItem,
-  ScatterChartProps,
-} from './ScatterChart';
-export type { FunnelChartDataItem, FunnelChartProps } from './FunnelChart';
+export type { RadarChartDataItem } from './RadarChart';
+export type { ScatterChartDataItem, ScatterChartProps } from './ScatterChart';
 
 // 工具与常量
 export { defaultColorList } from './const';

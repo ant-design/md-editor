@@ -27,21 +27,6 @@ export interface ScatterChartDataItem {
   filterLabel?: string;
 }
 
-export interface ScatterChartConfigItem {
-  datasets: Array<(string | { x: number; y: number })[]>;
-  theme?: 'light' | 'dark';
-  showLegend?: boolean;
-  legendPosition?: 'top' | 'left' | 'bottom' | 'right';
-  xAxisLabel?: string;
-  yAxisLabel?: string;
-  xAxisMin?: number;
-  xAxisMax?: number;
-  yAxisMin?: number;
-  yAxisMax?: number;
-  xAxisStep?: number;
-  yAxisStep?: number;
-}
-
 export interface ScatterChartProps {
   data: ScatterChartDataItem[];
   title: string;
@@ -54,6 +39,8 @@ export interface ScatterChartProps {
   yUnit?: string;
   xLabel?: string;
   yLabel?: string;
+  borderColor?: string;
+  backgroundColor?: string;
 }
 
 // 默认颜色配置
@@ -73,10 +60,12 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   title,
   toolbarExtra,
   dataTime,
-  xUnit='月',
+  xUnit = '月',
   yUnit,
   xLabel,
   yLabel,
+  borderColor,
+  backgroundColor,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('scatter-chart');
@@ -127,7 +116,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       : undefined;
 
   // 状态管理 - 使用第一个分类作为默认值
-  const [selectedFilter, setSelectedFilter] = useState(categories.find(Boolean) || '');
+  const [selectedFilter, setSelectedFilter] = useState(
+    categories.find(Boolean) || '',
+  );
   const [selectedFilterLabel, setSelectedFilterLabel] = useState(
     filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
@@ -137,10 +128,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     if (!selectedFilter) return true;
     const categoryMatch = item.category === selectedFilter;
     // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
-    if (
-      !filterLabels ||
-      !selectedFilterLabel
-    ) {
+    if (!filterLabels || !selectedFilterLabel) {
       return categoryMatch;
     }
     // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
@@ -168,8 +156,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       label: type || '默认',
       data: coordinates,
       backgroundColor:
+        backgroundColor ||
         defaultColors[index % defaultColors.length].backgroundColor,
-      borderColor: defaultColors[index % defaultColors.length].borderColor,
+      borderColor:
+        borderColor || defaultColors[index % defaultColors.length].borderColor,
       pointRadius: isMobile ? 4 : 6,
       pointHoverRadius: isMobile ? 6 : 8,
     };
@@ -229,7 +219,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         enabled: false, // 禁用默认 tooltip
         external: (context) => {
           const { chart, tooltip } = context;
-          
+
           // 如果没有 tooltip 数据，隐藏
           if (tooltip.opacity === 0) {
             const tooltipEl = document.getElementById('custom-scatter-tooltip');
@@ -252,16 +242,22 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
 
           // 获取数据
           const dataPoint = tooltip.dataPoints[0];
-          const dimensionTitle = xUnit ? `${dataPoint.parsed.x}${xUnit}` : `${dataPoint.parsed.x}`; // 散点图的维度标题
+          const dimensionTitle = xUnit
+            ? `${dataPoint.parsed.x}${xUnit}`
+            : `${dataPoint.parsed.x}`; // 散点图的维度标题
           const label = dataPoint.dataset.label; // 数据集标签
-          const coordinates = yUnit ? `${dataPoint.parsed.y}${yUnit}` : `${dataPoint.parsed.y}`;
-          
+          const coordinates = yUnit
+            ? `${dataPoint.parsed.y}${yUnit}`
+            : `${dataPoint.parsed.y}`;
+
           // 获取数据集颜色作为图标颜色
           const iconColor = dataPoint.dataset.borderColor || '#917EF7';
 
           // 创建 HTML 内容
           const isDark = currentConfig.theme !== 'light';
-          const bgColor = isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.95)';
+          const bgColor = isDark
+            ? 'rgba(0, 0, 0, 0.8)'
+            : 'rgba(255, 255, 255, 0.95)';
           const labelColor = isDark ? '#fff' : '#767E8B'; // 左边图标信息颜色
 
           tooltipEl.innerHTML = `
@@ -335,10 +331,12 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
 
           // 定位 tooltip
           const position = chart.canvas.getBoundingClientRect();
-          
+
           tooltipEl.style.opacity = '1';
-          tooltipEl.style.left = position.left + window.pageXOffset + tooltip.caretX + 'px';
-          tooltipEl.style.top = position.top + window.pageYOffset + tooltip.caretY + 'px';
+          tooltipEl.style.left =
+            position.left + window.pageXOffset + tooltip.caretX + 'px';
+          tooltipEl.style.top =
+            position.top + window.pageYOffset + tooltip.caretY + 'px';
           tooltipEl.style.zIndex = '1000';
         },
       },

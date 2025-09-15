@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import isEqual from 'lodash-es/isEqual';
 import { parse } from 'querystring';
-import React, { createContext, useContext } from 'react';
+import * as React from 'react';
 import { Subject } from 'rxjs';
 import {
   BaseEditor,
@@ -28,6 +28,7 @@ import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 import { markdownToHtmlSync } from './utils/markdownToHtml';
+const { createContext, useContext } = React;
 
 export const EditorStoreContext = createContext<{
   store: EditorStore;
@@ -166,10 +167,10 @@ export class EditorStore {
         return index;
       }
 
-      return this.findLatest((node as ListNode).children.at(-1)!, [
-        ...index,
-        (node as ListNode).children.length - 1,
-      ]);
+      return this.findLatest(
+        (node as ListNode).children[(node as ListNode).children.length - 1]!,
+        [...index, (node as ListNode).children.length - 1],
+      );
     }
     return index;
   }
@@ -1149,6 +1150,345 @@ export class EditorStore {
       },
       { once: true },
     );
+  }
+
+  /**
+   * 替换编辑器中的文本内容
+   *
+   * @param searchText - 要查找和替换的原始文本
+   * @param replaceText - 替换后的新文本
+   * @param options - 可选参数
+   * @param options.caseSensitive - 是否区分大小写，默认为 false
+   * @param options.wholeWord - 是否只匹配完整单词，默认为 false
+   * @param options.replaceAll - 是否替换所有匹配项，默认为 true
+   *
+   * @returns 替换操作的数量
+   *
+   * @example
+   * ```ts
+   * // 替换所有 "old" 为 "new"
+   * const count = store.replaceText("old", "new");
+   *
+   * // 只替换第一个匹配项，区分大小写
+   * const count = store.replaceText("Old", "New", {
+   *   caseSensitive: true,
+   *   replaceAll: false
+   * });
+   * ```
+   */
+  replaceText(
+    searchText: string,
+    replaceText: string,
+    options: {
+      caseSensitive?: boolean;
+      wholeWord?: boolean;
+      replaceAll?: boolean;
+    } = {},
+  ): number {
+    const {
+      caseSensitive = false,
+      wholeWord = false,
+      replaceAll = true,
+    } = options;
+
+    if (!searchText) return 0;
+
+    const editor = this._editor.current;
+    let replaceCount = 0;
+
+    // 遍历所有文本节点进行替换
+    const textNodes = Array.from(
+      Editor.nodes(editor, {
+        at: [],
+        match: (n) => Text.isText(n) && typeof n.text === 'string',
+      }),
+    );
+
+    Editor.withoutNormalizing(editor, () => {
+      if (replaceAll) {
+        // 替换所有：从后往前处理，避免路径变化影响前面的操作
+        for (let i = textNodes.length - 1; i >= 0; i--) {
+          const [node, path] = textNodes[i];
+          const originalText = node.text;
+          let newText = originalText;
+          let nodeReplaceCount = 0;
+
+          if (caseSensitive) {
+            if (wholeWord) {
+              // 匹配完整单词
+              const regex = new RegExp(
+                `\\b${this.escapeRegExp(searchText)}\\b`,
+                'g',
+              );
+              newText = originalText.replace(regex, () => {
+                nodeReplaceCount++;
+                return replaceText;
+              });
+            } else {
+              // 普通字符串替换
+              newText = originalText.replace(
+                new RegExp(this.escapeRegExp(searchText), 'g'),
+                () => {
+                  nodeReplaceCount++;
+                  return replaceText;
+                },
+              );
+            }
+          } else {
+            if (wholeWord) {
+              // 匹配完整单词，不区分大小写
+              const regex = new RegExp(
+                `\\b${this.escapeRegExp(searchText)}\\b`,
+                'gi',
+              );
+              newText = originalText.replace(regex, () => {
+                nodeReplaceCount++;
+                return replaceText;
+              });
+            } else {
+              // 普通字符串替换，不区分大小写
+              newText = originalText.replace(
+                new RegExp(this.escapeRegExp(searchText), 'gi'),
+                () => {
+                  nodeReplaceCount++;
+                  return replaceText;
+                },
+              );
+            }
+          }
+
+          // 如果文本发生了变化，更新节点
+          if (newText !== originalText) {
+            Transforms.insertText(editor, newText, {
+              at: path,
+              voids: true,
+            });
+            replaceCount += nodeReplaceCount;
+          }
+        }
+      } else {
+        // 只替换第一个：从前往后处理，找到第一个匹配就停止
+        for (let i = 0; i < textNodes.length; i++) {
+          const [node, path] = textNodes[i];
+          const originalText = node.text;
+          let newText = originalText;
+          let nodeReplaceCount = 0;
+
+          if (caseSensitive) {
+            if (wholeWord) {
+              // 匹配完整单词
+              const regex = new RegExp(
+                `\\b${this.escapeRegExp(searchText)}\\b`,
+                '',
+              );
+              newText = originalText.replace(regex, () => {
+                nodeReplaceCount++;
+                return replaceText;
+              });
+            } else {
+              // 普通字符串替换
+              newText = originalText.replace(
+                new RegExp(this.escapeRegExp(searchText), ''),
+                () => {
+                  nodeReplaceCount++;
+                  return replaceText;
+                },
+              );
+            }
+          } else {
+            if (wholeWord) {
+              // 匹配完整单词，不区分大小写
+              const regex = new RegExp(
+                `\\b${this.escapeRegExp(searchText)}\\b`,
+                'i',
+              );
+              newText = originalText.replace(regex, () => {
+                nodeReplaceCount++;
+                return replaceText;
+              });
+            } else {
+              // 普通字符串替换，不区分大小写
+              newText = originalText.replace(
+                new RegExp(this.escapeRegExp(searchText), 'i'),
+                () => {
+                  nodeReplaceCount++;
+                  return replaceText;
+                },
+              );
+            }
+          }
+
+          // 如果文本发生了变化，更新节点并停止
+          if (newText !== originalText) {
+            Transforms.insertText(editor, newText, {
+              at: path,
+              voids: true,
+            });
+            replaceCount += nodeReplaceCount;
+            break; // 只替换第一个匹配项
+          }
+        }
+      }
+    });
+
+    return replaceCount;
+  }
+
+  /**
+   * 在选中的区域内替换文本
+   *
+   * @param searchText - 要查找和替换的原始文本
+   * @param replaceText - 替换后的新文本
+   * @param options - 可选参数
+   * @param options.caseSensitive - 是否区分大小写，默认为 false
+   * @param options.wholeWord - 是否只匹配完整单词，默认为 false
+   * @param options.replaceAll - 是否替换所有匹配项，默认为 true
+   *
+   * @returns 替换操作的数量，如果没有选中区域则返回 0
+   *
+   * @example
+   * ```ts
+   * // 在选中区域内替换文本
+   * const count = store.replaceTextInSelection("old", "new");
+   * ```
+   */
+  replaceTextInSelection(
+    searchText: string,
+    replaceText: string,
+    options: {
+      caseSensitive?: boolean;
+      wholeWord?: boolean;
+      replaceAll?: boolean;
+    } = {},
+  ): number {
+    const editor = this._editor.current;
+    const selection = editor.selection;
+
+    if (!selection || Range.isCollapsed(selection)) {
+      return 0;
+    }
+
+    const {
+      caseSensitive = false,
+      wholeWord = false,
+      replaceAll = true,
+    } = options;
+
+    if (!searchText) return 0;
+
+    let replaceCount = 0;
+
+    // 获取选中区域的文本节点
+    const textNodes = Array.from(
+      Editor.nodes(editor, {
+        at: selection,
+        match: (n) => Text.isText(n) && typeof n.text === 'string',
+      }),
+    );
+
+    Editor.withoutNormalizing(editor, () => {
+      // 从后往前处理，避免路径变化影响前面的操作
+      for (let i = textNodes.length - 1; i >= 0; i--) {
+        const [node, path] = textNodes[i];
+        const originalText = node.text;
+        let newText = originalText;
+        let nodeReplaceCount = 0;
+
+        if (caseSensitive) {
+          if (wholeWord) {
+            const regex = new RegExp(
+              `\\b${this.escapeRegExp(searchText)}\\b`,
+              'g',
+            );
+            newText = originalText.replace(regex, () => {
+              nodeReplaceCount++;
+              return replaceText;
+            });
+          } else {
+            newText = originalText.replace(
+              new RegExp(this.escapeRegExp(searchText), 'g'),
+              () => {
+                nodeReplaceCount++;
+                return replaceText;
+              },
+            );
+          }
+        } else {
+          if (wholeWord) {
+            const regex = new RegExp(
+              `\\b${this.escapeRegExp(searchText)}\\b`,
+              'gi',
+            );
+            newText = originalText.replace(regex, () => {
+              nodeReplaceCount++;
+              return replaceText;
+            });
+          } else {
+            newText = originalText.replace(
+              new RegExp(this.escapeRegExp(searchText), 'gi'),
+              () => {
+                nodeReplaceCount++;
+                return replaceText;
+              },
+            );
+          }
+        }
+
+        if (newText !== originalText) {
+          Transforms.insertText(editor, newText, {
+            at: path,
+            voids: true,
+          });
+          replaceCount += nodeReplaceCount;
+
+          if (!replaceAll && nodeReplaceCount > 0) {
+            break;
+          }
+        }
+      }
+    });
+
+    return replaceCount;
+  }
+
+  /**
+   * 替换所有匹配的文本（replaceText 的简化版本）
+   *
+   * @param searchText - 要查找和替换的原始文本
+   * @param replaceText - 替换后的新文本
+   * @param caseSensitive - 是否区分大小写，默认为 false
+   *
+   * @returns 替换操作的数量
+   *
+   * @example
+   * ```ts
+   * // 替换所有 "old" 为 "new"
+   * const count = store.replaceAll("old", "new");
+   *
+   * // 区分大小写替换
+   * const count = store.replaceAll("Old", "New", true);
+   * ```
+   */
+  replaceAll(
+    searchText: string,
+    replaceText: string,
+    caseSensitive: boolean = false,
+  ): number {
+    return this.replaceText(searchText, replaceText, {
+      caseSensitive,
+      replaceAll: true,
+    });
+  }
+
+  /**
+   * 转义正则表达式特殊字符
+   *
+   * @param string - 需要转义的字符串
+   * @returns 转义后的字符串
+   * @private
+   */
+  private escapeRegExp(string: string): string {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   /**

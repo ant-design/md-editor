@@ -1,0 +1,150 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px; font-family: Arial, sans-serif;"
+    >
+      <h2>
+        EditorStore 替换功能演示
+      </h2>
+      <div
+        style="margin-bottom: 20px;"
+      >
+        <h3>
+          替换选项
+        </h3>
+        <div
+          style="margin-bottom: 10px;"
+        >
+          <label>
+            搜索文本:
+            <input
+              style="margin-left: 5px;"
+              type="text"
+              value="hello"
+            />
+          </label>
+        </div>
+        <div
+          style="margin-bottom: 10px;"
+        >
+          <label>
+            替换文本:
+            <input
+              style="margin-left: 5px;"
+              type="text"
+              value="hi"
+            />
+          </label>
+        </div>
+        <div
+          style="margin-bottom: 10px;"
+        >
+          <label>
+            <input
+              type="checkbox"
+            />
+            区分大小写
+          </label>
+        </div>
+        <div
+          style="margin-bottom: 10px;"
+        >
+          <label>
+            <input
+              type="checkbox"
+            />
+            完整单词匹配
+          </label>
+        </div>
+      </div>
+      <div
+        style="margin-bottom: 20px;"
+      >
+        <h3>
+          替换操作
+        </h3>
+        <button
+          style="margin-right: 10px; padding: 5px 10px;"
+          type="button"
+        >
+          替换所有匹配项
+        </button>
+        <button
+          style="margin-right: 10px; padding: 5px 10px;"
+          type="button"
+        >
+          只替换第一个匹配项
+        </button>
+        <button
+          style="margin-right: 10px; padding: 5px 10px;"
+          type="button"
+        >
+          在选中区域内替换
+        </button>
+        <button
+          style="padding: 5px 10px;"
+          type="button"
+        >
+          简化替换所有 (replaceAll)
+        </button>
+      </div>
+      <div
+        style="margin-bottom: 20px;"
+      >
+        <h3>
+          使用说明
+        </h3>
+        <ul>
+          <li>
+            <strong>
+              replaceText
+            </strong>
+            : 最灵活的方法，支持所有选项
+          </li>
+          <li>
+            <strong>
+              replaceTextInSelection
+            </strong>
+            : 只在选中的文本区域内进行替换
+          </li>
+          <li>
+            <strong>
+              replaceAll
+            </strong>
+            : 简化的替换所有方法，只需要指定是否区分大小写
+          </li>
+          <li>
+            <strong>
+              完整单词匹配
+            </strong>
+            : 只匹配完整的单词，不会匹配单词的一部分
+          </li>
+          <li>
+            <strong>
+              区分大小写
+            </strong>
+            : 精确匹配大小写
+          </li>
+        </ul>
+      </div>
+      <div
+        style="margin-bottom: 20px;"
+      >
+        <h3>
+          示例文本
+        </h3>
+        <p>
+          Hello world, hello universe! Another hello message here.
+        </p>
+        <p>
+          尝试用不同的选项替换 "hello" 为 "hi"。
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
