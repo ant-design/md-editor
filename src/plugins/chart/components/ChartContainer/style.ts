@@ -17,19 +17,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: '12px',
 
       // 浅色主题边框
-      '&[class*="-light-theme"]': {
+      '&&-light-theme': {
         border: '1px solid #e8e8e8',
         backgroundColor: '#fff',
       },
 
       // 深色主题无边框
-      '&[class*="-dark-theme"]': {
+      '&&-dark-theme': {
         border: 'none',
         backgroundColor: '#1a1a1a',
       },
 
       // 移动端适配
-      '&[class*="-mobile"]': {
+      '&&-mobile': {
         borderRadius: '6px',
         padding: '12px',
         margin: '0 auto',
@@ -37,23 +37,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       // 桌面端适配
-      '&[class*="-desktop"]': {
+      '&&-desktop': {
         borderRadius: '8px',
         padding: '20px',
         margin: 'initial',
         maxWidth: 'none',
       },
 
-      // 轮廓变体
-      '&[class*="-outline"]': {
-        border: '2px solid #1677ff',
-        backgroundColor: 'transparent',
-      },
-
-      // 无边框变体
-      '&[class*="-borderless"]': {
-        border: 'none',
-        backgroundColor: 'transparent',
+      '&&-borderless': {
+        border: 'none!important',
         padding: 0,
       },
     },

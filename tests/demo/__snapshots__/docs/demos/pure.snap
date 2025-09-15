@@ -4129,11 +4129,13 @@
                 </span>
               </span>
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_1-3-团队能力评估"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_1-3-团队能力评估"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -4150,7 +4152,7 @@
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -6019,11 +6021,13 @@
                 </span>
               </span>
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_1-4-指标散点分布"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_1-4-指标散点分布"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -6040,7 +6044,7 @@
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
