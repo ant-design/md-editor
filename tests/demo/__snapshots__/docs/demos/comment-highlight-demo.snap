@@ -105,11 +105,13 @@
               style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
               zindex="-1"
             >
-              <div
+              <h1
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="评论功能示例"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="true"
                 id="评论功能示例"
-                style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -126,7 +128,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h1>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"
@@ -179,11 +181,13 @@
                   </span>
                 </span>
               </div>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="如何使用评论功能"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="如何使用评论功能"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -200,7 +204,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h2>
               <div
                 class="ant-md-editor-list-container relative"
                 data-be="list"
@@ -346,11 +350,13 @@
                   </span>
                 </div>
               </blockquote>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="应用场景"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="应用场景"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -367,12 +373,14 @@
                     </span>
                   </span>
                 </span>
-              </div>
-              <div
+              </h2>
+              <h3
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="📋-文档审阅"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="📋-文档审阅"
-                style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -389,7 +397,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h3>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"
@@ -640,11 +648,13 @@
                   </li>
                 </ul>
               </div>
-              <div
+              <h3
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="🔍-质量控制"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="🔍-质量控制"
-                style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -661,7 +671,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h3>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"
@@ -810,11 +820,13 @@
                   </li>
                 </ul>
               </div>
-              <div
+              <h3
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="💬-协作沟通"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="💬-协作沟通"
-                style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -831,7 +843,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h3>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"

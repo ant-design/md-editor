@@ -16,6 +16,24 @@ vi.mock('antd', () => ({
   message: {
     success: vi.fn(),
   },
+  Segmented: ({ options, value, onChange }: any) => (
+    <div data-testid="segmented">
+      {options?.map((option: any, index: number) => (
+        <button
+          key={index}
+          type="button"
+          data-testid={`segmented-option-${index}`}
+          onClick={() => onChange?.(option.value)}
+          style={{
+            backgroundColor: value === option.value ? '#1890ff' : 'transparent',
+            color: value === option.value ? 'white' : 'black',
+          }}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  ),
 }));
 
 vi.mock('../../../../src/plugins/code/components/LanguageSelector', () => ({
@@ -68,7 +86,6 @@ describe('CodeToolbar', () => {
     element: defaultElement,
     readonly: false,
     onCloseClick: vi.fn(),
-    isFullScreen: false,
     languageSelectorProps: {
       element: defaultElement,
       setLanguage: vi.fn(),
@@ -85,19 +102,13 @@ describe('CodeToolbar', () => {
     it('应该正确渲染工具栏', () => {
       render(<CodeToolbar {...defaultProps} isSelected={true} />);
 
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
       expect(screen.getByTestId('code-toolbar')).toBeInTheDocument();
     });
 
-    it('应该在非选中状态下隐藏工具栏', () => {
+    it('应该在非选中状态下仍然显示工具栏（常驻模式）', () => {
       render(<CodeToolbar {...defaultProps} isSelected={false} />);
 
-      expect(screen.queryByTestId('code-toolbar')).not.toBeInTheDocument();
+      expect(screen.getByTestId('code-toolbar')).toBeInTheDocument();
     });
   });
 
@@ -106,12 +117,6 @@ describe('CodeToolbar', () => {
       render(
         <CodeToolbar {...defaultProps} readonly={true} isSelected={true} />,
       );
-
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
 
       expect(screen.queryByTestId('language-selector')).not.toBeInTheDocument();
       expect(screen.getByText('javascript')).toBeInTheDocument();
@@ -125,38 +130,16 @@ describe('CodeToolbar', () => {
 
       render(<CodeToolbar {...defaultProps} isSelected={true} />);
 
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
       const copyButton = screen.getByTitle('复制');
       fireEvent.click(copyButton);
 
       expect(mockCopy).toHaveBeenCalledWith('console.log("Hello World");');
       expect(message.success).toHaveBeenCalledWith('复制成功');
     });
-
-    it('应该正确处理收起功能', () => {
-      render(<CodeToolbar {...defaultProps} isSelected={true} />);
-
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
-      const hideButton = screen.getByTitle('收起');
-      fireEvent.click(hideButton);
-
-      // 工具栏应该被隐藏
-      expect(screen.queryByTestId('code-toolbar')).not.toBeInTheDocument();
-    });
   });
 
   describe('特殊代码类型测试', () => {
-    it('应该为 HTML 代码显示运行按钮', () => {
+    it('应该为 HTML 代码显示视图模式切换器', () => {
       const htmlElement = { ...defaultElement, language: 'html' };
       render(
         <CodeToolbar
@@ -166,13 +149,9 @@ describe('CodeToolbar', () => {
         />,
       );
 
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
-      expect(screen.getByTitle('运行代码')).toBeInTheDocument();
+      expect(screen.getByTestId('segmented')).toBeInTheDocument();
+      expect(screen.getByText('预览')).toBeInTheDocument();
+      expect(screen.getByText('代码')).toBeInTheDocument();
     });
 
     it('应该为 katex 公式显示关闭按钮', () => {
@@ -184,12 +163,6 @@ describe('CodeToolbar', () => {
           isSelected={true}
         />,
       );
-
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
 
       expect(screen.getByTitle('关闭')).toBeInTheDocument();
     });
@@ -203,12 +176,6 @@ describe('CodeToolbar', () => {
           isSelected={true}
         />,
       );
-
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
 
       expect(screen.getByTitle('关闭')).toBeInTheDocument();
     });
@@ -226,12 +193,6 @@ describe('CodeToolbar', () => {
         />,
       );
 
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
       expect(screen.getByText('Formula')).toBeInTheDocument();
     });
 
@@ -246,12 +207,6 @@ describe('CodeToolbar', () => {
         />,
       );
 
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
       expect(screen.getByText('Html Renderer')).toBeInTheDocument();
     });
 
@@ -265,12 +220,6 @@ describe('CodeToolbar', () => {
           isSelected={true}
         />,
       );
-
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
 
       expect(screen.getByText('plain text')).toBeInTheDocument();
     });
@@ -290,12 +239,6 @@ describe('CodeToolbar', () => {
         />,
       );
 
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
       const copyButton = screen.getByTitle('复制');
       fireEvent.click(copyButton);
 
@@ -314,12 +257,6 @@ describe('CodeToolbar', () => {
           isSelected={true}
         />,
       );
-
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
 
       const copyButton = screen.getByTitle('复制');
       fireEvent.click(copyButton);

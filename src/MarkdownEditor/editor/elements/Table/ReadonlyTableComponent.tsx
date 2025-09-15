@@ -1,4 +1,4 @@
-import { CopyOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { FullscreenOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -10,6 +10,7 @@ import React, {
   useState,
 } from 'react';
 import { I18nContext } from '../../../../i18n';
+import { CopyIcon } from '../../../../icons/CopyIcon';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 import { TableNode } from '../../types/Table';
@@ -152,7 +153,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               title={i18n?.locale?.copy || '复制'}
               onClick={handleCopy}
             >
-              <CopyOutlined />
+              <CopyIcon />
             </ActionIconBox>
           )}
         </div>

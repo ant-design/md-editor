@@ -1,5 +1,4 @@
 ﻿import {
-  CopyOutlined,
   DislikeOutlined,
   LikeOutlined,
   SelectOutlined,
@@ -7,7 +6,9 @@
 import { ConfigProvider, Divider } from 'antd';
 import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
+
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { CopyIcon } from '../../icons/CopyIcon';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import LoadingLottie from '../../TaskList/LoadingLottie';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
@@ -256,7 +257,7 @@ export const BubbleExtra = ({
           }}
           showTitle={false}
         >
-          <CopyOutlined />
+          <CopyIcon />
         </CopyButton>
       ) : null,
     [shouldShowCopy, context?.locale, bubble.originData?.content],
