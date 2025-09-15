@@ -1,5 +1,6 @@
 ---
 title: Loading 加载
+atomId: Loading
 group:
   title: 基础组件
   order: 1
