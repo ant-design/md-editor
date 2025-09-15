@@ -2,12 +2,9 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { BaseEditor, createEditor, Editor, Node, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
+import { ReactEditor, withReact } from 'slate-react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
-import {
-  ReactEditor,
-  withReact,
-} from 'slate-react';
 import { EditorStore } from '../../src/MarkdownEditor/editor/store';
 
 // Mock ReactEditor DOM methods
@@ -1199,6 +1196,197 @@ describe('EditorStore', () => {
       (store as any).compareCells(newCell, oldCell, [0, 0, 0], operations);
 
       expect(operations.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('replaceText 方法', () => {
+    beforeEach(() => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'Hello world, hello universe' }],
+        },
+        { type: 'paragraph', children: [{ text: 'Another hello message' }] },
+      ];
+    });
+
+    it('应该替换所有匹配的文本', () => {
+      const count = store.replaceText('hello', 'hi');
+
+      expect(count).toBe(3); // 'hello' 在文本中出现 3 次
+      expect(editor.children[0].children[0].text).toBe('hi world, hi universe');
+      expect(editor.children[1].children[0].text).toBe('Another hi message');
+    });
+
+    it('应该支持区分大小写的替换', () => {
+      const count = store.replaceText('Hello', 'Hi', { caseSensitive: true });
+
+      expect(count).toBe(1); // 只有 'Hello' 匹配
+      expect(editor.children[0].children[0].text).toBe(
+        'Hi world, hello universe',
+      );
+      expect(editor.children[1].children[0].text).toBe('Another hello message');
+    });
+
+    it('应该支持完整单词匹配', () => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'Hello world, hello universe, helloworld' }],
+        },
+      ];
+
+      const count = store.replaceText('hello', 'hi', { wholeWord: true });
+
+      expect(count).toBe(2); // 只有完整的 'hello' 单词匹配
+      expect(editor.children[0].children[0].text).toBe(
+        'hi world, hi universe, helloworld',
+      );
+    });
+
+    it('应该支持只替换第一个匹配项', () => {
+      const count = store.replaceText('hello', 'hi', { replaceAll: false });
+
+      expect(count).toBe(1); // 只替换第一个匹配项
+      expect(editor.children[0].children[0].text).toBe(
+        'hi world, hello universe',
+      );
+      expect(editor.children[1].children[0].text).toBe('Another hello message');
+    });
+
+    it('应该在搜索文本为空时返回 0', () => {
+      const count = store.replaceText('', 'hi');
+      expect(count).toBe(0);
+    });
+
+    it('应该处理正则表达式特殊字符', () => {
+      editor.children = [
+        { type: 'paragraph', children: [{ text: 'Test $100 and (value)' }] },
+      ];
+
+      const count = store.replaceText('$100', '$200');
+      expect(count).toBe(1);
+      expect(editor.children[0].children[0].text).toBe('Test $200 and (value)');
+    });
+
+    it('应该处理多个文本节点的替换', () => {
+      editor.children = [
+        { type: 'paragraph', children: [{ text: 'First hello' }] },
+        { type: 'paragraph', children: [{ text: 'Second hello' }] },
+        { type: 'paragraph', children: [{ text: 'Third hello' }] },
+      ];
+
+      const count = store.replaceText('hello', 'hi');
+      expect(count).toBe(3);
+      expect(editor.children[0].children[0].text).toBe('First hi');
+      expect(editor.children[1].children[0].text).toBe('Second hi');
+      expect(editor.children[2].children[0].text).toBe('Third hi');
+    });
+  });
+
+  describe('replaceTextInSelection 方法', () => {
+    beforeEach(() => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'Hello world, hello universe' }],
+        },
+        { type: 'paragraph', children: [{ text: 'Another hello message' }] },
+      ];
+    });
+
+    it('应该在选中区域内替换文本', () => {
+      // 设置选中区域为第一个段落
+      editor.selection = {
+        anchor: { path: [0, 0], offset: 0 },
+        focus: { path: [0, 0], offset: 25 }, // 选中 "Hello world, hello universe"
+      };
+
+      const count = store.replaceTextInSelection('hello', 'hi');
+
+      expect(count).toBe(2); // 在选中区域内替换了 2 次
+      expect(editor.children[0].children[0].text).toBe('hi world, hi universe');
+      expect(editor.children[1].children[0].text).toBe('Another hello message'); // 未选中区域不变
+    });
+
+    it('应该在无选中区域时返回 0', () => {
+      editor.selection = null;
+      const count = store.replaceTextInSelection('hello', 'hi');
+      expect(count).toBe(0);
+    });
+
+    it('应该在选区折叠时返回 0', () => {
+      editor.selection = {
+        anchor: { path: [0, 0], offset: 0 },
+        focus: { path: [0, 0], offset: 0 }, // 折叠选区
+      };
+
+      const count = store.replaceTextInSelection('hello', 'hi');
+      expect(count).toBe(0);
+    });
+
+    it('应该支持选中区域内的区分大小写替换', () => {
+      editor.selection = {
+        anchor: { path: [0, 0], offset: 0 },
+        focus: { path: [0, 0], offset: 25 },
+      };
+
+      const count = store.replaceTextInSelection('Hello', 'Hi', {
+        caseSensitive: true,
+      });
+      expect(count).toBe(1);
+      expect(editor.children[0].children[0].text).toBe(
+        'Hi world, hello universe',
+      );
+    });
+  });
+
+  describe('replaceAll 方法', () => {
+    beforeEach(() => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'Hello world, hello universe' }],
+        },
+      ];
+    });
+
+    it('应该替换所有匹配的文本', () => {
+      const count = store.replaceAll('hello', 'hi');
+
+      expect(count).toBe(2);
+      expect(editor.children[0].children[0].text).toBe('hi world, hi universe');
+    });
+
+    it('应该支持区分大小写', () => {
+      const count = store.replaceAll('Hello', 'Hi', true);
+
+      expect(count).toBe(1);
+      expect(editor.children[0].children[0].text).toBe(
+        'Hi world, hello universe',
+      );
+    });
+
+    it('应该在搜索文本为空时返回 0', () => {
+      const count = store.replaceAll('', 'hi');
+      expect(count).toBe(0);
+    });
+  });
+
+  describe('escapeRegExp 私有方法', () => {
+    it('应该转义正则表达式特殊字符', () => {
+      const result = (store as any).escapeRegExp('$100 + (value)');
+      expect(result).toBe('\\$100 \\+ \\(value\\)');
+    });
+
+    it('应该处理空字符串', () => {
+      const result = (store as any).escapeRegExp('');
+      expect(result).toBe('');
+    });
+
+    it('应该处理普通字符串', () => {
+      const result = (store as any).escapeRegExp('hello world');
+      expect(result).toBe('hello world');
     });
   });
 

@@ -1,6 +1,7 @@
 ---
 nav:
   order: 1
+atomId: MarkdownEditor
 group:
   title: 编辑器
   order: 1
@@ -500,7 +501,7 @@ export default () => {
 
 ## 🔗 相关链接
 
-- [组件演示](/components/markdown-editor)
+- [组件演示](/components/api)
 - [插件开发指南](/plugin/)
 - [开发指南](/development/)
 - [常见问题](/faq/)
