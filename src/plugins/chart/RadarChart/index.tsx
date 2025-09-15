@@ -44,8 +44,8 @@ export interface RadarChartDataItem {
 interface RadarChartProps extends ChartContainerProps {
   data: RadarChartDataItem[];
   title?: string;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   className?: string;
   toolbarExtra?: React.ReactNode;
   dataTime?: string;

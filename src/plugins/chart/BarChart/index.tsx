@@ -53,9 +53,9 @@ export interface BarChartProps extends ChartContainerProps {
   /** 扁平化数据数组 */
   data: BarChartDataItem[];
   /** 图表宽度，默认600px */
-  width?: number;
+  width?: number | string;
   /** 图表高度，默认400px */
-  height?: number;
+  height?: number | string;
   /** 自定义CSS类名 */
   className?: string;
   /** 数据时间 */

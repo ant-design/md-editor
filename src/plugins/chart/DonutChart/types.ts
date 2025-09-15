@@ -24,8 +24,8 @@ export interface DonutChartConfig {
 export interface DonutChartProps extends ChartContainerProps {
   data: DonutChartData[];
   configs?: DonutChartConfig[];
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   className?: string;
   title?: string;
   showToolbar?: boolean;
