@@ -1208,7 +1208,7 @@ export class EditorStore {
       if (replaceAll) {
         // 替换所有：从后往前处理，避免路径变化影响前面的操作
         for (let i = textNodes.length - 1; i >= 0; i--) {
-          const [node, path] = textNodes[i];
+          const [node, path] = textNodes[i] as [Node, Path];
           const originalText = node.text;
           let newText = originalText;
           let nodeReplaceCount = 0;
@@ -1269,7 +1269,7 @@ export class EditorStore {
       } else {
         // 只替换第一个：从前往后处理，找到第一个匹配就停止
         for (let i = 0; i < textNodes.length; i++) {
-          const [node, path] = textNodes[i];
+          const [node, path] = textNodes[i] as [Node, Path];
           const originalText = node.text;
           let newText = originalText;
           let nodeReplaceCount = 0;
@@ -1389,7 +1389,7 @@ export class EditorStore {
     Editor.withoutNormalizing(editor, () => {
       // 从后往前处理，避免路径变化影响前面的操作
       for (let i = textNodes.length - 1; i >= 0; i--) {
-        const [node, path] = textNodes[i];
+        const [node, path] = textNodes[i] as [Node, Path];
         const originalText = node.text;
         let newText = originalText;
         let nodeReplaceCount = 0;

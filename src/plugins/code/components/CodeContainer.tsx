@@ -3,8 +3,7 @@
  * 负责代码编辑器的布局、样式和状态管理
  */
 
-import React, { ReactNode, RefObject, useRef } from 'react';
-import { DragHandle } from '../../../MarkdownEditor/editor/tools/DragHandle';
+import React, { ReactNode, useRef } from 'react';
 import { CodeNode } from '../../../MarkdownEditor/el';
 
 interface CodeContainerProps {
@@ -14,9 +13,6 @@ interface CodeContainerProps {
   onEditorClick: () => void;
   children: ReactNode;
   readonly?: boolean;
-  fullScreenNode: RefObject<HTMLDivElement>;
-  isFullScreen: boolean;
-  isSelected?: boolean;
 }
 
 export function CodeContainer({
@@ -25,9 +21,6 @@ export function CodeContainer({
   hide,
   onEditorClick,
   children,
-  fullScreenNode,
-  isFullScreen,
-  isSelected = false,
 }: CodeContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -49,53 +42,37 @@ export function CodeContainer({
       onClick={(e) => e.stopPropagation()}
       data-lang={safeElement.language}
     >
-      {/* 拖拽手柄 */}
-      {!safeElement.frontmatter && <DragHandle />}
-
-      {/* 全屏容器 */}
       <div
-        contentEditable={false}
-        ref={fullScreenNode}
-        style={{
-          backgroundColor: isFullScreen ? 'rgb(252, 252, 252)' : 'transparent',
-          padding: isFullScreen ? '2em' : undefined,
-          userSelect: 'none',
+        data-testid="code-editor-container"
+        onClick={(e) => {
+          e.stopPropagation();
+          onEditorClick();
         }}
+        style={{
+          padding: hide ? 0 : undefined,
+          marginBottom: hide ? 0 : undefined,
+          boxSizing: 'border-box',
+          backgroundColor: showBorder
+            ? 'rgba(59, 130, 246, 0.1)'
+            : hide
+              ? 'transparent'
+              : 'rgb(252, 252, 252)',
+          maxHeight: 400,
+          overflow: 'auto',
+          position: 'relative',
+          height: hide ? 0 : 'auto',
+          opacity: hide ? 0 : 1,
+          transition: 'border-color 0.2s ease-in-out',
+          borderRadius: '12px',
+          background: '#FFFFFF',
+          boxShadow:
+            '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+        }}
+        className={`ace-container drag-el ${
+          safeElement.frontmatter ? 'frontmatter' : ''
+        }`}
       >
-        {/* 编辑器主容器 */}
-        <div
-          data-testid="code-editor-container"
-          onClick={(e) => {
-            e.stopPropagation();
-            onEditorClick();
-          }}
-          style={{
-            padding: hide ? 0 : undefined,
-            marginBottom: hide ? 0 : undefined,
-            boxSizing: 'border-box',
-            backgroundColor: showBorder
-              ? 'rgba(59, 130, 246, 0.1)'
-              : hide
-                ? 'transparent'
-                : 'rgb(252, 252, 252)',
-            maxHeight: 400,
-            overflow: 'auto',
-            position: 'relative',
-            height: hide ? 0 : 'auto',
-            opacity: hide ? 0 : 1,
-            border: isFullScreen
-              ? '1px solid #0000001a'
-              : isSelected
-                ? '1px solid #1890ff'
-                : '1px solid #E7E9E8',
-            transition: 'border-color 0.2s ease-in-out',
-          }}
-          className={`ace-container drag-el ${
-            safeElement.frontmatter ? 'frontmatter' : ''
-          }`}
-        >
-          {children}
-        </div>
+        {children}
       </div>
     </div>
   );

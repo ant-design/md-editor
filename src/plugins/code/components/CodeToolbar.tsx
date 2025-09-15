@@ -4,16 +4,10 @@
  * @author Code Plugin Team
  */
 
-import {
-  CloseCircleOutlined,
-  CopyOutlined,
-  DownOutlined,
-  ForwardOutlined,
-  FullscreenOutlined,
-} from '@ant-design/icons';
-import { message } from 'antd';
+import { CloseCircleOutlined, CopyOutlined } from '@ant-design/icons';
+import { message, Segmented } from 'antd';
 import copy from 'copy-to-clipboard';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { I18nContext } from '../../../i18n';
 import { ActionIconBox } from '../../../MarkdownEditor/editor/components/ActionIconBox';
 import { CodeNode } from '../../../MarkdownEditor/el';
@@ -30,18 +24,16 @@ export interface CodeToolbarProps {
   readonly: boolean;
   /** 关闭按钮点击回调（用于公式和 mermaid） */
   onCloseClick: () => void;
-  /** HTML 代码运行按钮点击回调 */
-  onRunHtml: () => void;
-  /** 全屏切换按钮点击回调 */
-  onFullScreenToggle: () => void;
-  /** 当前是否为全屏状态 */
-  isFullScreen: boolean;
   /** 语言选择器的属性 */
   languageSelectorProps: LanguageSelectorProps;
   /** 代码块是否被选中 */
   isSelected?: boolean;
   /** 代码块选中状态变化回调 */
   onSelectionChange?: (selected: boolean) => void;
+  /** 视图模式切换回调（用于HTML和Markdown） */
+  onViewModeToggle?: (value: 'preview' | 'code') => void;
+  /** 当前视图模式（'preview' | 'code'） */
+  viewMode?: 'preview' | 'code';
 }
 
 /**
@@ -68,8 +60,6 @@ export interface CodeToolbarProps {
  *   element={codeElement}
  *   readonly={false}
  *   onCloseClick={() => setHidden(true)}
- *   onRunHtml={() => executeHtml()}
- *   onFullScreenToggle={() => toggleFullScreen()}
  *   isFullScreen={false}
  *   languageSelectorProps={langProps}
  * />
@@ -79,94 +69,23 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
   // 获取国际化上下文
   const i18n = useContext(I18nContext);
 
-  // 工具栏显示状态管理
-  const [isVisible, setIsVisible] = useState(false);
-
-  // 解构 props 以提高代码可读性
   const {
     element,
     readonly,
     onCloseClick,
-    onRunHtml,
-    onFullScreenToggle,
     languageSelectorProps,
-    onSelectionChange,
-    isSelected = false,
+    onViewModeToggle,
+    viewMode = 'code',
   } = props;
-
-  // 隐藏工具栏
-  const hideToolbar = () => {
-    setIsVisible(false);
-  };
-
-  // 切换选中状态
-  const toggleSelection = () => {
-    setTimeout(() => {
-      onSelectionChange?.(true);
-    }, 300);
-    setIsVisible(true);
-  };
-
-  // 如果工具栏隐藏，只显示悬浮时的展开按钮
-  if (!isVisible) {
-    return (
-      <div
-        contentEditable={false}
-        style={{
-          height: '0px',
-          width: '100%',
-          position: 'sticky',
-          left: 0,
-          top: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          paddingRight: '0.375em',
-          zIndex: 50,
-          boxSizing: 'border-box',
-          transition: 'all 0.2s ease-in-out',
-        }}
-      >
-        {/* 选中状态下显示下拉按钮 */}
-        {isSelected ? (
-          <div
-            onClick={toggleSelection}
-            style={{
-              position: 'absolute',
-              backgroundColor: '#1890ff',
-              right: '50%',
-              zIndex: 100,
-              top: '0.25em',
-              transform: 'translateX(50%)',
-              padding: '0.25em',
-              borderRadius: '0.25em',
-              cursor: 'pointer',
-              fontSize: '0.8em',
-              color: '#fff',
-              transition: 'all 0.2s ease-in-out',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <DownOutlined />
-          </div>
-        ) : null}
-      </div>
-    );
-  }
 
   return (
     <div
       data-testid="code-toolbar"
       contentEditable={false}
       style={{
-        height: '1.75em',
         backgroundColor: '#FFF',
         paddingLeft: '0.25em',
         paddingRight: '0.25em',
-        display: 'flex',
-        alignItems: 'center',
         width: '100%',
         position: 'sticky',
         left: 0,
@@ -175,9 +94,18 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         color: 'rgba(0, 0, 0, 0.6)',
         justifyContent: 'space-between',
         zIndex: 50,
+        height: '38px',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '12px',
+        gap: '16px',
+        alignSelf: 'stretch',
         boxSizing: 'border-box',
         userSelect: 'none',
         transition: 'all 0.2s ease-in-out',
+        borderWidth: '0px 0px 1px 0px',
+        borderStyle: 'solid',
+        borderColor: 'rgba(0, 16, 32, 0.0627)',
       }}
     >
       {/* 左侧：语言选择器或语言显示 */}
@@ -202,10 +130,6 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
                   height: '1em',
                   width: '1em',
                   display: 'flex',
-                  alignItems: 'center',
-                  boxSizing: 'border-box',
-                  justifyContent: 'center',
-                  marginRight: '0.25em',
                 }}
               >
                 <LoadImage
@@ -242,6 +166,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         style={{
           display: 'flex',
           gap: 5,
+          alignItems: 'center',
         }}
       >
         {/* 关闭按钮（仅公式和 mermaid 显示） */}
@@ -254,29 +179,31 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
           </ActionIconBox>
         ) : null}
 
-        {/* HTML 运行按钮（仅 HTML 语言显示） */}
-        {element?.language === 'html' ? (
-          <ActionIconBox
-            title={i18n?.locale?.runCode || '运行代码'}
-            style={{
-              fontSize: '0.9em',
-              lineHeight: '1.75em',
-              marginLeft: '0.125em',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onRunHtml();
-            }}
-          >
-            <ForwardOutlined />
-          </ActionIconBox>
+        {/* HTML/Markdown 视图模式切换按钮 */}
+        {element?.language === 'html' || element?.language === 'markdown' ? (
+          <Segmented
+            options={[
+              {
+                label: '预览',
+                value: 'preview',
+              },
+              {
+                label: '代码',
+                value: 'code',
+              },
+            ]}
+            value={viewMode}
+            onChange={(value) =>
+              onViewModeToggle?.(value as 'preview' | 'code')
+            }
+          />
         ) : null}
 
         {/* 复制按钮 */}
         <ActionIconBox
           title={i18n?.locale?.copy || '复制'}
           style={{
-            fontSize: '0.9em',
+            fontSize: '1em',
             lineHeight: '1.75em',
             marginLeft: '0.125em',
           }}
@@ -294,38 +221,6 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
           }}
         >
           <CopyOutlined />
-        </ActionIconBox>
-
-        {/* 全屏切换按钮 */}
-        <ActionIconBox
-          title={i18n?.locale?.fullScreen || '全屏'}
-          style={{
-            fontSize: '0.9em',
-            lineHeight: '1.75em',
-            marginLeft: '0.125em',
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            onFullScreenToggle();
-          }}
-        >
-          <FullscreenOutlined />
-        </ActionIconBox>
-
-        {/* 收起按钮 */}
-        <ActionIconBox
-          title={i18n?.locale?.collapse || '收起'}
-          style={{
-            fontSize: '0.9em',
-            lineHeight: '1.75em',
-            marginLeft: '0.125em',
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            hideToolbar();
-          }}
-        >
-          <DownOutlined style={{ transform: 'rotate(180deg)' }} />
         </ActionIconBox>
       </div>
     </div>
