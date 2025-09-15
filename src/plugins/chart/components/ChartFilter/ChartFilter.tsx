@@ -95,7 +95,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
         </div>
       )}
 
-      <Segmented
+      {filterOptions && filterOptions.length > 1 && <Segmented
         options={filterOptions || []}
         value={selectedFilter}
         size="small"
@@ -105,7 +105,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
           hashId,
         )}
         onChange={(value) => onFilterChange?.(value as string)}
-      />
+      />}
     </div>,
   );
 };

@@ -134,7 +134,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(data.map((item) => item.category))];
+    const uniqueCategories = [...new Set(data.map((item) => item.category))].filter(Boolean);
     return uniqueCategories;
   }, [data]);
 
@@ -244,8 +244,8 @@ const AreaChart: React.FC<AreaChartProps> = ({
   // 筛选器选项
   const filterOptions = useMemo(() => {
     return categories.map((category) => ({
-      label: category || '',
-      value: category || '',
+      label: category || '默认',
+      value: category || '默认',
     }));
   }, [categories]);
 
