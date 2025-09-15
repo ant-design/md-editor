@@ -1,6 +1,6 @@
 import React from 'react';
-import { DonutChartData } from './types';
 import { MOBILE_MAX_CHART_SIZE } from './constants';
+import { DonutChartData } from './types';
 
 export const useMobile = () => {
   const [isMobile, setIsMobile] = React.useState(false);
@@ -28,7 +28,11 @@ export const useResponsiveDimensions = (
   height: number,
 ) => {
   if (isMobile) {
-    const mobileWidth = Math.min(windowWidth - 40, width, MOBILE_MAX_CHART_SIZE);
+    const mobileWidth = Math.min(
+      windowWidth - 40,
+      width,
+      MOBILE_MAX_CHART_SIZE,
+    );
     const mobileHeight = Math.min(
       windowWidth - 40,
       height,
@@ -147,4 +151,4 @@ export const useAutoCategory = (
     setInternalSelectedCategory,
     selectedCategory,
   } as const;
-}; 
+};

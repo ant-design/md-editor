@@ -104,7 +104,8 @@ const Legend: React.FC<LegendProps> = ({
                 }}
               >
                 {(() => {
-                  const v = typeof d.value === 'number' ? d.value : Number(d.value);
+                  const v =
+                    typeof d.value === 'number' ? d.value : Number(d.value);
                   return total > 0 && Number.isFinite(v)
                     ? ((v / total) * 100).toFixed(0)
                     : '0';
@@ -119,4 +120,4 @@ const Legend: React.FC<LegendProps> = ({
   );
 };
 
-export default Legend; 
+export default Legend;

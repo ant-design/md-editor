@@ -197,7 +197,8 @@ export default () => {
             <code>initValue</code> - 初始化的 Markdown 内容，包含多种图表配置
           </li>
           <li>
-            <code>chartType</code> - 图表类型，如 bar、column、pie、donut、line、area
+            <code>chartType</code> - 图表类型，如
+            bar、column、pie、donut、line、area
           </li>
           <li>
             <code>x</code> - X 轴数据字段
@@ -218,20 +219,19 @@ export default () => {
         <h5>饼图和环形图特殊说明</h5>
         <ul>
           <li>
-            <code>pie</code> - 饼图，实心圆形图表，适用于显示各部分占整体的比例关系
+            <code>pie</code> -
+            饼图，实心圆形图表，适用于显示各部分占整体的比例关系
           </li>
           <li>
-            <code>donut</code> - 环形图，中心空心的圆环图表，相比饼图更现代化，可在中心显示总计信息
+            <code>donut</code> -
+            环形图，中心空心的圆环图表，相比饼图更现代化，可在中心显示总计信息
           </li>
           <li>
-            饼图和环形图都使用 <code>x</code> 字段作为标签，<code>y</code> 字段作为数值
+            饼图和环形图都使用 <code>x</code> 字段作为标签，<code>y</code>{' '}
+            字段作为数值
           </li>
-          <li>
-            支持自动颜色分配，每个数据项会自动分配不同的颜色
-          </li>
-          <li>
-            支持图例显示，可以清楚地标识每个数据项
-          </li>
+          <li>支持自动颜色分配，每个数据项会自动分配不同的颜色</li>
+          <li>支持图例显示，可以清楚地标识每个数据项</li>
         </ul>
       </div>
     </div>

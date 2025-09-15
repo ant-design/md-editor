@@ -9,10 +9,10 @@ import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHan
 import AreaChart from './AreaChart';
 import BarChart from './BarChart';
 import DonutChart from './DonutChart';
+import FunnelChart from './FunnelChart';
 import LineChart from './LineChart';
 import RadarChart from './RadarChart';
 import ScatterChart from './ScatterChart';
-import FunnelChart from './FunnelChart';
 import { isNotEmpty, toNumber } from './utils';
 
 /**
@@ -208,10 +208,7 @@ export const ChartRender: React.FC<{
     return map;
   };
 
-  const getFieldValue = (
-    row: any,
-    field?: string,
-  ): string | undefined => {
+  const getFieldValue = (row: any, field?: string): string | undefined => {
     if (field && isNotEmpty(row[field])) {
       return String(row[field]);
     }
@@ -238,7 +235,7 @@ export const ChartRender: React.FC<{
       const y =
         typeof rawY === 'number' ? rawY : isNotEmpty(rawY) ? String(rawY) : '';
 
-      return {        
+      return {
         x,
         y,
         xtitle: xTitle,
@@ -282,7 +279,7 @@ export const ChartRender: React.FC<{
   React.useEffect(() => {
     setChartType(props.chartType);
   }, [props.chartType]);
-  
+
   /**
    * 图表配置
    */
@@ -702,7 +699,10 @@ export const ChartRender: React.FC<{
         (handle.node.current || document?.body) as HTMLElement
       }
     >
-      <div ref={handle.node}>{chartDom ?? null}</div>
+      <div ref={handle.node}>
+        {chartDom ?? null}
+        {toolBar}
+      </div>
     </ConfigProvider>
   );
 };

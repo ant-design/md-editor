@@ -5,10 +5,14 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
-import classNames from 'classnames';
 import React, { useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { ChartFilter, ChartToolBar, downloadChart } from '../components';
+import {
+  ChartContainer,
+  ChartFilter,
+  ChartToolBar,
+  downloadChart,
+} from '../components';
 import LegendView from './Legend';
 import {
   BASE_CLASS_NAME,
@@ -57,7 +61,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const defaultConfigs: DonutChartConfig[] = [{ showLegend: true }];
   const finalConfigs = configs || defaultConfigs;
   const baseClassName = BASE_CLASS_NAME;
-  const { wrapSSR, hashId } = useStyle(baseClassName);
+  const { hashId } = useStyle(baseClassName);
   // 多图场景下独立管理每个图表实例，避免引用被覆盖
   const chartRefs = useRef<Array<ChartJS<'doughnut'> | null>>([]);
 
@@ -223,10 +227,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
         }))
       : finalConfigs;
 
-  return wrapSSR(
+  return (
     <>
       {showToolbar && (
-        <div className={`${baseClassName}-toolbar-wrapper ${hashId}`}>
+        <ChartContainer baseClassName={`${baseClassName}-toolbar-wrapper`}>
           {title && (
             <ChartToolBar
               title={title}
@@ -253,10 +257,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
               theme={chartFilterTheme}
             />
           )}
-        </div>
+        </ChartContainer>
       )}
-      <div
-        className={classNames(baseClassName, hashId, className)}
+      <ChartContainer
+        baseClassName={baseClassName}
+        className={className}
         style={{
           ['--donut-item-min-width' as any]: `${dimensions.width}px`,
         }}
@@ -318,8 +323,14 @@ const DonutChart: React.FC<DonutChartProps> = ({
                 borderColor: isSingleValueMode
                   ? [cfg.borderColor || '#fff', 'transparent']
                   : cfg.borderColor || '#fff',
-                borderWidth: cfg.chartStyle === 'pie' ? 0 : (isMobile ? 1 : 1),
-                spacing: isSingleValueMode ? 0 : cfg.chartStyle === 'pie' ? 0 : (isMobile ? 3 : 6),
+                borderWidth: cfg.chartStyle === 'pie' ? 0 : isMobile ? 1 : 1,
+                spacing: isSingleValueMode
+                  ? 0
+                  : cfg.chartStyle === 'pie'
+                    ? 0
+                    : isMobile
+                      ? 3
+                      : 6,
                 borderRadius: cfg.chartStyle === 'pie' ? 0 : 4,
                 hoverOffset: (ctx: any) =>
                   isSingleValueMode && ctx?.dataIndex === 1
@@ -336,7 +347,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
             if (cfg.chartStyle === 'pie') {
               return 0;
             }
-            
+
             // 环形图的逻辑
             if (isMobile) {
               if (typeof cfg.cutout === 'number') return cfg.cutout * 0.9;
@@ -406,13 +417,13 @@ const DonutChart: React.FC<DonutChartProps> = ({
           };
 
           return (
-            <div
+            <ChartContainer
               key={idx}
-              className={`${baseClassName}-chart-wrapper ${hashId}`}
+              baseClassName={`${baseClassName}-chart-wrapper`}
             >
               {isSingleValueMode ? (
-                <div
-                  className={`${baseClassName}-single ${hashId}`}
+                <ChartContainer
+                  baseClassName={`${baseClassName}-single`}
                   style={{
                     ['--donut-chart-height' as any]: `${dimensions.height}px`,
                     ['--donut-chart-width' as any]: `${dimensions.width}px`,
@@ -429,32 +440,35 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     options={options}
                     plugins={[
                       // 只有环形图才显示中心文本和背景
-                      ...(cfg.chartStyle !== 'pie' ? [
-                        createCenterTextPlugin(
-                          ((typeof (currentDataItem as any).value === 'number'
-                            ? (currentDataItem as any).value
-                            : Number((currentDataItem as any).value)) /
-                            (total || 1)) *
-                            100,
-                          (currentDataItem as any).label,
-                          isMobile,
-                        ),
-                        createBackgroundArcPlugin(), // 背景色
-                      ] : [])
+                      ...(cfg.chartStyle !== 'pie'
+                        ? [
+                            createCenterTextPlugin(
+                              ((typeof (currentDataItem as any).value ===
+                              'number'
+                                ? (currentDataItem as any).value
+                                : Number((currentDataItem as any).value)) /
+                                (total || 1)) *
+                                100,
+                              (currentDataItem as any).label,
+                              isMobile,
+                            ),
+                            createBackgroundArcPlugin(), // 背景色
+                          ]
+                        : []),
                     ]}
                   />
-                </div>
+                </ChartContainer>
               ) : (
-                <div
-                  className={`${baseClassName}-row ${hashId}`}
+                <ChartContainer
+                  baseClassName={`${baseClassName}-row`}
                   style={{
                     ...(isMobile
                       ? { flexDirection: 'column', alignItems: 'stretch' }
                       : {}),
                   }}
                 >
-                  <div
-                    className={`${baseClassName}-chart ${hashId}`}
+                  <ChartContainer
+                    baseClassName={`${baseClassName}-chart`}
                     style={{
                       ['--donut-chart-width' as any]: `${dimensions.chartWidth}px`,
                       ['--donut-chart-height' as any]: `${dimensions.chartHeight}px`,
@@ -469,7 +483,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
                       data={chartJsData}
                       options={options}
                     />
-                  </div>
+                  </ChartContainer>
                   {cfg.showLegend && (
                     <LegendView
                       chartData={chartData}
@@ -485,13 +499,13 @@ const DonutChart: React.FC<DonutChartProps> = ({
                       isMobile={isMobile}
                     />
                   )}
-                </div>
+                </ChartContainer>
               )}
-            </div>
+            </ChartContainer>
           );
         })}
-      </div>
-    </>,
+      </ChartContainer>
+    </>
   );
 };
 

@@ -4,16 +4,24 @@ import {
   ChartData,
   Chart as ChartJS,
   ChartOptions,
-  ScriptableContext,
   Legend,
   LinearScale,
+  ScriptableContext,
   Tooltip,
 } from 'chart.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartFilter, ChartToolBar, downloadChart } from '../components';
-import { extractAndSortXValues, findDataPointByXValue, ChartDataItem } from '../utils';
-import { useStyle } from './style';
+import {
+  ChartContainer,
+  ChartFilter,
+  ChartToolBar,
+  downloadChart,
+} from '../components';
+import {
+  ChartDataItem,
+  extractAndSortXValues,
+  findDataPointByXValue,
+} from '../utils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -78,13 +86,7 @@ export interface BarChartProps {
   toolbarExtra?: React.ReactNode;
 }
 
-const defaultColors = [
-  '#917EF7',
-  '#2AD8FC',
-  '#388BFF',
-  '#718AB6',
-  '#84DC18',
-];
+const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
 
 // 将十六进制颜色转换为带透明度的 rgba 字符串
 const hexToRgba = (hex: string, alpha: number): string => {
@@ -151,13 +153,14 @@ const BarChart: React.FC<BarChartProps> = ({
 
   // 样式注册
   const baseClassName = 'bar-chart-container';
-  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(data.map((item) => item.category))].filter(Boolean);
+    const uniqueCategories = [
+      ...new Set(data.map((item) => item.category)),
+    ].filter(Boolean);
     return uniqueCategories;
   }, [data]);
 
@@ -177,7 +180,9 @@ const BarChart: React.FC<BarChartProps> = ({
   }, [validFilterLabels]);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>(categories.find(Boolean) || '');
+  const [selectedFilter, setSelectedFilter] = useState<string>(
+    categories.find(Boolean) || '',
+  );
   const [selectedFilterLabel, setSelectedFilterLabel] = useState(
     filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
@@ -256,7 +261,9 @@ const BarChart: React.FC<BarChartProps> = ({
       const provided = color;
       const pickByIndex = (i: number) =>
         Array.isArray(provided)
-          ? provided[i] || provided[0] || defaultColors[i % defaultColors.length]
+          ? provided[i] ||
+            provided[0] ||
+            defaultColors[i % defaultColors.length]
           : provided || defaultColors[i % defaultColors.length];
       const baseColor = pickByIndex(index);
 
@@ -273,9 +280,14 @@ const BarChart: React.FC<BarChartProps> = ({
         data: typeData,
         borderColor: (ctx: ScriptableContext<'bar'>) => {
           const parsed: any = ctx.parsed as any;
-          const value = indexAxis === 'y'
-            ? (typeof parsed?.x === 'number' ? parsed.x : 0)
-            : (typeof parsed?.y === 'number' ? parsed.y : 0);
+          const value =
+            indexAxis === 'y'
+              ? typeof parsed?.x === 'number'
+                ? parsed.x
+                : 0
+              : typeof parsed?.y === 'number'
+                ? parsed.y
+                : 0;
           let base = baseColor;
           if (!color && isDiverging) {
             base = value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX;
@@ -523,22 +535,24 @@ const BarChart: React.FC<BarChartProps> = ({
     downloadChart(chartRef.current, 'bar-chart');
   };
 
-  return wrapSSR(
-    <div
-      className={`${baseClassName} ${hashId} ${className || ''}`}
+  return (
+    <ChartContainer
+      baseClassName={baseClassName}
+      className={className}
+      theme={theme}
+      isMobile={isMobile}
       style={{
         width: responsiveWidth,
-        backgroundColor: isLight ? '#fff' : '#1a1a1a',
-        borderRadius: isMobile ? '6px' : '8px',
-        padding: isMobile ? '12px' : '20px',
-        position: 'relative',
-        border: isLight ? '1px solid #e8e8e8' : 'none',
-        margin: isMobile ? '0 auto' : 'initial',
-        maxWidth: isMobile ? '100%' : 'none',
-        boxSizing: 'border-box',
+        height: responsiveHeight,
       }}
     >
-      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} extra={toolbarExtra} dataTime={dataTime} />
+      <ChartToolBar
+        title={title}
+        theme={theme}
+        onDownload={handleDownload}
+        extra={toolbarExtra}
+        dataTime={dataTime}
+      />
 
       <ChartFilter
         filterOptions={filterOptions}
@@ -555,7 +569,7 @@ const BarChart: React.FC<BarChartProps> = ({
       <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Bar ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>,
+    </ChartContainer>
   );
 };
 

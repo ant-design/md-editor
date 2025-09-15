@@ -86,4 +86,4 @@ const WorkspaceFileActionRefDemo: React.FC = () => {
   );
 };
 
-export default WorkspaceFileActionRefDemo; 
+export default WorkspaceFileActionRefDemo;

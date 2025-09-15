@@ -68,7 +68,7 @@ export default () => {
 | `toolsRender`    | `(props) => React.ReactNode[]`                   | -         | 自定义渲染操作按钮前内容的函数     |
 | `leafRender`     | `(props, defaultDom) => React.ReactElement`      | -         | 自定义叶子节点渲染函数             |
 | `inputRef`       | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
-| `p`    | `{ enabled?: boolean; allowedTypes?: string[] }` | -         | 粘贴配置                           |
+| `p`              | `{ enabled?: boolean; allowedTypes?: string[] }` | -         | 粘贴配置                           |
 
 ## 示例
 

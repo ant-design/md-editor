@@ -12,7 +12,12 @@ import {
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
-import { ChartFilter, ChartToolBar, downloadChart } from '../components';
+import {
+  ChartContainer,
+  ChartFilter,
+  ChartToolBar,
+  downloadChart,
+} from '../components';
 import { useStyle } from './style';
 
 // 注册 Chart.js 组件
@@ -429,18 +434,13 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   };
 
   return wrapSSR(
-    <div
-      className={classNames(`${prefixCls}-container`, hashId, className)}
+    <ChartContainer
+      baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+      theme={currentConfig.theme}
+      isMobile={isMobile}
       style={{
         width: responsiveWidth,
-        backgroundColor: currentConfig.theme === 'light' ? '#fff' : '#1a1a1a',
-        borderRadius: isMobile ? '6px' : '8px',
-        padding: isMobile ? '12px' : '20px',
-        position: 'relative',
-        border: currentConfig.theme === 'light' ? '1px solid #e8e8e8' : 'none',
-        margin: isMobile ? '0 auto' : 'initial',
-        maxWidth: isMobile ? '100%' : 'none',
-        boxSizing: 'border-box',
+        height: responsiveHeight,
       }}
     >
       <ChartToolBar
@@ -468,7 +468,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       >
         <Scatter ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>,
+    </ChartContainer>,
   );
 };
 

@@ -1,22 +1,23 @@
+import type { LegendItem, PointStyle } from 'chart.js';
 import {
   BarElement,
   CategoryScale,
-  Chart as ChartJS,
   ChartData,
+  Chart as ChartJS,
   ChartOptions,
   Legend,
   LinearScale,
   Tooltip,
 } from 'chart.js';
-import type { LegendItem, PointStyle } from 'chart.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import {
-  findDataPointByXValue,
-  toNumber,
-} from '../utils';
-import { useStyle } from './style';
+  ChartContainer,
+  ChartFilter,
+  ChartToolBar,
+  downloadChart,
+} from '../components';
+import { findDataPointByXValue, toNumber } from '../utils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -78,7 +79,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   legendPosition = 'bottom',
   legendAlign = 'start',
   showPercent = true,
-  toolbarExtra
+  toolbarExtra,
 }) => {
   // 响应式尺寸
   const [windowWidth, setWindowWidth] = useState(
@@ -97,7 +98,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 样式注册
   const baseClassName = 'funnel-chart-container';
-  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
   const [showTrapezoid, setShowTrapezoid] = useState(true);
@@ -112,9 +112,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const [selectedFilter, setSelectedFilter] = useState<string>(
     categories.find(Boolean) || '',
   );
-  const [selectedFilterLabel, setSelectedFilterLabel] = useState<string | undefined>(
-    undefined,
-  );
+  const [selectedFilterLabel, setSelectedFilterLabel] = useState<
+    string | undefined
+  >(undefined);
 
   // 二级筛选（可选）- 仅基于当前选中 category 的可用标签
   const filterLabels = useMemo(() => {
@@ -127,7 +127,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 当切换 category 时，如当前二级筛选不在可选列表中，则重置为该类目第一项或清空
   useEffect(() => {
-    const first = filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined;
+    const first =
+      filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined;
     if (!filterLabels || filterLabels.length === 0) {
       if (selectedFilterLabel !== undefined) setSelectedFilterLabel(undefined);
       return;
@@ -171,7 +172,11 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const finalHeight = chartHeight;
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
-  const processedData: ChartData<'bar', (number | [number, number] | null)[], string> = useMemo(() => {
+  const processedData: ChartData<
+    'bar',
+    (number | [number, number] | null)[],
+    string
+  > = useMemo(() => {
     const baseColor = color || defaultColors;
     const labels = stages.map((x) => x.toString());
 
@@ -185,7 +190,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     const typeName = '转化';
 
     // 中心对称的浮动条：[-v/2, v/2]
-    const datasetData: [number, number][] = values.map((v) => ([-v / 2, v / 2] as [number, number]));
+    const datasetData: [number, number][] = values.map(
+      (v) => [-v / 2, v / 2] as [number, number],
+    );
 
     // 生成从上到下由深到浅的颜色
     const hexToRgb = (hex: string) => {
@@ -199,7 +206,11 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
     const rgbToHex = (r: number, g: number, b: number) =>
       `#${[r, g, b]
-        .map((v) => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0'))
+        .map((v) =>
+          Math.max(0, Math.min(255, Math.round(v)))
+            .toString(16)
+            .padStart(2, '0'),
+        )
         .join('')}`;
     const lighten = (hex: string, t: number) => {
       const { r, g, b } = hexToRgb(hex);
@@ -283,7 +294,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           generateLabels: (chart): LegendItem[] => {
             // 使用默认生成 + 追加“转化率”图例；统一正方形样式
             // @ts-ignore
-            const base: LegendItem[] = (ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []).map((it) => ({
+            const base: LegendItem[] = (
+              ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []
+            ).map((it) => ({
               ...it,
               pointStyle: 'rect' as PointStyle,
             }));
@@ -310,7 +323,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           // 其它保持默认行为
           // @ts-ignore
           const defaultClick = ChartJS.defaults.plugins.legend.onClick;
-          if (typeof defaultClick === 'function') defaultClick.call(legend, e, legendItem, legend);
+          if (typeof defaultClick === 'function')
+            defaultClick.call(legend, e, legendItem, legend);
         },
       },
       tooltip: {
@@ -329,10 +343,13 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
             const width = Array.isArray(raw)
               ? Math.abs((raw[1] ?? 0) - (raw[0] ?? 0))
               : typeof raw === 'number'
-              ? Math.abs(raw)
-              : 0;
-            const allValues = (ctx.dataset.data as (number | [number, number] | null)[]).map((it) => {
-              if (Array.isArray(it)) return Math.abs((it[1] ?? 0) - (it[0] ?? 0));
+                ? Math.abs(raw)
+                : 0;
+            const allValues = (
+              ctx.dataset.data as (number | [number, number] | null)[]
+            ).map((it) => {
+              if (Array.isArray(it))
+                return Math.abs((it[1] ?? 0) - (it[0] ?? 0));
               const n = typeof it === 'number' ? it : Number(it);
               return Number.isFinite(n) ? n : 0;
             });
@@ -400,9 +417,13 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           return NaN;
         };
         // 从 filteredData 读取每层 ratio
-        const providedRatios: number[] = (filteredData || []).map((it: any) => normalizeRatio(it?.ratio));
+        const providedRatios: number[] = (filteredData || []).map((it: any) =>
+          normalizeRatio(it?.ratio),
+        );
 
-        const centerX = xScale?.getPixelForValue ? xScale.getPixelForValue(0) : undefined;
+        const centerX = xScale?.getPixelForValue
+          ? xScale.getPixelForValue(0)
+          : undefined;
 
         // 逐对绘制 i 与 i+1 之间的梯形
         for (let i = 0; i < meta.data.length - 1; i++) {
@@ -415,14 +436,24 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           // 顶部、底部条的像素左右与宽度
           const [sTop, eTop] = [Number(rawTop[0] ?? 0), Number(rawTop[1] ?? 0)];
           const [sBot, eBot] = [Number(rawBot[0] ?? 0), Number(rawBot[1] ?? 0)];
-          const topLx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.min(sTop, eTop)) : elTop.x - Math.abs(eTop - sTop) / 2;
-          const topRx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.max(sTop, eTop)) : elTop.x + Math.abs(eTop - sTop) / 2;
-          const botLx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.min(sBot, eBot)) : elBot.x - Math.abs(eBot - sBot) / 2;
-          const botRx = xScale?.getPixelForValue ? xScale.getPixelForValue(Math.max(sBot, eBot)) : elBot.x + Math.abs(eBot - sBot) / 2;
+          const topLx = xScale?.getPixelForValue
+            ? xScale.getPixelForValue(Math.min(sTop, eTop))
+            : elTop.x - Math.abs(eTop - sTop) / 2;
+          const topRx = xScale?.getPixelForValue
+            ? xScale.getPixelForValue(Math.max(sTop, eTop))
+            : elTop.x + Math.abs(eTop - sTop) / 2;
+          const botLx = xScale?.getPixelForValue
+            ? xScale.getPixelForValue(Math.min(sBot, eBot))
+            : elBot.x - Math.abs(eBot - sBot) / 2;
+          const botRx = xScale?.getPixelForValue
+            ? xScale.getPixelForValue(Math.max(sBot, eBot))
+            : elBot.x + Math.abs(eBot - sBot) / 2;
           const topWidthPx = Math.abs(topRx - topLx);
           const botWidthPx = Math.abs(botRx - botLx);
 
-          const dpr = (typeof window !== 'undefined' && (window.devicePixelRatio || 1)) || 1;
+          const dpr =
+            (typeof window !== 'undefined' && (window.devicePixelRatio || 1)) ||
+            1;
           const seam = (isMobile ? 0.25 : 0.35) / dpr; // 极小内缩，基本不可见
           const joinTop = elTop.y + elTop.height / 2;
           const joinBot = elBot.y - elBot.height / 2;
@@ -456,7 +487,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
           // 文本（展示该比率）
           const midY = (topY + botY) / 2;
-          const cx = centerX ?? ((Math.min(topL, botL) + Math.max(topR, botR)) / 2);
+          const cx =
+            centerX ?? (Math.min(topL, botL) + Math.max(topR, botR)) / 2;
           ctx.fillStyle = '#626F86';
           ctx.font = `${isMobile ? 10 : 12}px sans-serif`;
           ctx.textAlign = 'center';
@@ -466,7 +498,11 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         }
       },
     };
-  }, [isMobile, showTrapezoid, JSON.stringify(filteredData.map((d) => (d)?.ratio))]);
+  }, [
+    isMobile,
+    showTrapezoid,
+    JSON.stringify(filteredData.map((d) => d?.ratio)),
+  ]);
 
   // 右侧阶段文本标签（跟随每个柱，显示 stage 名称）
   const rightLabelPlugin = useMemo(() => {
@@ -490,7 +526,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const raw = ds?.[i];
           if (!raw || !Array.isArray(raw)) return el.x;
           const end = Number(raw[1] ?? 0);
-          return xScale?.getPixelForValue ? xScale.getPixelForValue(end) : el.x + Math.max(0, el.width / 2);
+          return xScale?.getPixelForValue
+            ? xScale.getPixelForValue(end)
+            : el.x + Math.max(0, el.width / 2);
         });
         const maxEnd = Math.max(...ends);
         const padding = 12;
@@ -507,7 +545,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const end = Number(raw[1] ?? 0);
           const mid = (start + end) / 2;
           const value = Math.abs(end - start);
-          const cx = xScale?.getPixelForValue ? xScale.getPixelForValue(mid) : el.x;
+          const cx = xScale?.getPixelForValue
+            ? xScale.getPixelForValue(mid)
+            : el.x;
           ctx.save();
           ctx.fillStyle = '#fff';
           ctx.textAlign = 'center';
@@ -519,19 +559,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
   }, [isMobile, axisTextColor]);
 
-  return wrapSSR(
-    <div
-      className={`${baseClassName} ${hashId} ${className || ''}`}
+  return (
+    <ChartContainer
+      baseClassName={baseClassName}
+      className={className}
+      theme={theme}
+      isMobile={isMobile}
       style={{
         width: responsiveWidth,
-        backgroundColor: isLight ? '#fff' : '#1a1a1a',
-        borderRadius: isMobile ? '6px' : '8px',
-        padding: isMobile ? '12px' : '20px',
-        position: 'relative',
-        border: isLight ? '1px solid #e8e8e8' : 'none',
-        margin: isMobile ? '0 auto' : 'initial',
-        maxWidth: isMobile ? '100%' : 'none',
-        boxSizing: 'border-box',
       }}
     >
       <ChartToolBar
@@ -555,12 +590,16 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       />
 
       <div className="chart-wrapper" style={{ height: finalHeight }}>
-        <Bar key={`funnel-${pluginToggleKey}`} ref={chartRef} data={processedData} options={options} plugins={[trapezoidPlugin, rightLabelPlugin]} />
+        <Bar
+          key={`funnel-${pluginToggleKey}`}
+          ref={chartRef}
+          data={processedData}
+          options={options}
+          plugins={[trapezoidPlugin, rightLabelPlugin]}
+        />
       </div>
-    </div>,
+    </ChartContainer>
   );
 };
 
 export default FunnelChart;
-
-

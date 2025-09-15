@@ -43,4 +43,4 @@ export interface DonutChartProps {
   singleMode?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
-} 
+}

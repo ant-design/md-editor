@@ -12,9 +12,18 @@ import {
 } from 'chart.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { ChartFilter, ChartToolBar, downloadChart } from '../components';
-import { extractAndSortXValues, findDataPointByXValue, ChartDataItem } from '../utils';
-import { useStyle } from './style';
+import {
+  ChartContainer,
+  ChartContainerProps,
+  ChartFilter,
+  ChartToolBar,
+  downloadChart,
+} from '../components';
+import {
+  ChartDataItem,
+  extractAndSortXValues,
+  findDataPointByXValue,
+} from '../utils';
 
 ChartJS.register(
   CategoryScale,
@@ -27,7 +36,6 @@ ChartJS.register(
 );
 
 export type LineChartDataItem = ChartDataItem;
-
 
 export interface LineChartConfigItem {
   datasets: Array<(string | { x: number; y: number })[]>;
@@ -46,7 +54,7 @@ export interface LineChartConfigItem {
   yAxisStep?: number;
 }
 
-export interface LineChartProps {
+export interface LineChartProps extends ChartContainerProps {
   /** 图表标题 */
   title: string;
   /** 扁平化数据数组 */
@@ -108,6 +116,7 @@ const LineChart: React.FC<LineChartProps> = ({
   xPosition = 'bottom',
   yPosition = 'left',
   toolbarExtra,
+  ...props
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -131,13 +140,14 @@ const LineChart: React.FC<LineChartProps> = ({
 
   // 样式注册
   const baseClassName = 'line-chart-container';
-  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(data.map((item) => item.category))].filter(Boolean);
+    const uniqueCategories = [
+      ...new Set(data.map((item) => item.category)),
+    ].filter(Boolean);
     return uniqueCategories;
   }, [data]);
 
@@ -157,7 +167,9 @@ const LineChart: React.FC<LineChartProps> = ({
   }, [validFilterLabels]);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>(categories.find(Boolean) || '');
+  const [selectedFilter, setSelectedFilter] = useState<string>(
+    categories.find(Boolean) || '',
+  );
   const [selectedFilterLabel, setSelectedFilterLabel] = useState(
     filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
@@ -374,22 +386,24 @@ const LineChart: React.FC<LineChartProps> = ({
     downloadChart(chartRef.current, 'line-chart');
   };
 
-  return wrapSSR(
-    <div
-      className={`${baseClassName} ${hashId} ${className || ''}`}
+  return (
+    <ChartContainer
+      baseClassName={baseClassName}
+      className={className}
+      theme={theme}
+      isMobile={isMobile}
+      variant={props.variant}
       style={{
         width: responsiveWidth,
-        backgroundColor: isLight ? '#fff' : '#1a1a1a',
-        borderRadius: isMobile ? '6px' : '8px',
-        padding: isMobile ? '12px' : '20px',
-        position: 'relative',
-        border: isLight ? '1px solid #e8e8e8' : 'none',
-        margin: isMobile ? '0 auto' : 'initial',
-        maxWidth: isMobile ? '100%' : 'none',
-        boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} extra={toolbarExtra} dataTime={dataTime} />
+      <ChartToolBar
+        title={title}
+        theme={theme}
+        onDownload={handleDownload}
+        extra={toolbarExtra}
+        dataTime={dataTime}
+      />
 
       <ChartFilter
         filterOptions={filterOptions}
@@ -406,7 +420,7 @@ const LineChart: React.FC<LineChartProps> = ({
       <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>,
+    </ChartContainer>
   );
 };
 
