@@ -271,39 +271,67 @@ const renderButtonGroup = ({
     );
   }
 
+  const stopTitle = locale?.agentRunBar?.stop;
+  const pauseTitle = locale?.agentRunBar?.pause;
+  const playTitle = locale?.agentRunBar?.play;
+
   return (
     <div className={`${baseCls}-button-wrapper ${hashId}`}>
       {actionNode}
 
       {/* 停止按钮 */}
       {(isRunning || isPause) && onStop && (
-        <div className={`${baseCls}-pause ${hashId}`} onClick={onStop}>
-          {variant === 'simple' ? (
-            <SimpleStopIcon title={locale?.agentRunBar?.stop} />
-          ) : (
-            <StopIcon title={locale?.agentRunBar?.stop} />
-          )}
-        </div>
+        <Tooltip title={stopTitle}>
+          <div
+            className={`${baseCls}-pause ${hashId}`}
+            role="button"
+            tabIndex={0}
+            aria-label={stopTitle}
+            onClick={onStop}
+          >
+            {variant === 'simple' ? (
+              <SimpleStopIcon title={stopTitle} />
+            ) : (
+              <StopIcon title={stopTitle} />
+            )}
+          </div>
+        </Tooltip>
       )}
       {/* 暂停按钮 */}
       {isRunning && onPause && (
-        <div className={`${baseCls}-pause ${hashId}`} onClick={onPause}>
-          {variant === 'simple' ? (
-            <SimplePauseIcon title={locale?.agentRunBar?.pause} />
-          ) : (
-            <PauseIcon title={locale?.agentRunBar?.pause} />
-          )}
-        </div>
+        <Tooltip title={pauseTitle}>
+          <div
+            className={`${baseCls}-pause ${hashId}`}
+            role="button"
+            tabIndex={0}
+            aria-label={pauseTitle}
+            onClick={onPause}
+          >
+            {variant === 'simple' ? (
+              <SimplePauseIcon title={pauseTitle} />
+            ) : (
+              <PauseIcon title={pauseTitle} />
+            )}
+          </div>
+        </Tooltip>
       )}
       {/* 继续按钮 */}
       {isPause && onResume && (
-        <div className={`${baseCls}-play ${hashId}`} onClick={onResume}>
-          {variant === 'simple' ? (
-            <SimplePlayIcon title={locale?.agentRunBar?.play} />
-          ) : (
-            <PlayIcon title={locale?.agentRunBar?.play} />
-          )}
-        </div>
+        <Tooltip title={playTitle}>
+          <div
+            className={`${baseCls}-play ${hashId}`}
+            role="button"
+            tabIndex={0}
+            aria-label={playTitle}
+            onClick={onResume}
+          >
+            {variant === 'simple' ? (
+              <SimplePlayIcon title={playTitle} />
+            ) : (
+              <PlayIcon title={playTitle} />
+            )}
+          </div>
+        </Tooltip>
       )}
     </div>
   );
