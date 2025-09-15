@@ -107,7 +107,11 @@ type ChartConfig = {
    <!-- {"chartType": "table"} -->
    ```
 
-9. **定义列表 (descriptions)**
+9. **漏斗图 (funnel)**
+   ```markdown
+   <!-- {"chartType": "funnel", "x": "阶段", "y": "人数"} -->
+
+10. **定义列表 (descriptions)**
    ```markdown
    <!-- {"chartType": "descriptions"} -->
    ```

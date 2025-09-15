@@ -273,6 +273,9 @@ export const ChartRender: React.FC<{
     filterBy,
   ]);
 
+  React.useEffect(() => {
+    setChartType(props.chartType);
+  }, [props.chartType]);
   
   /**
    * 图表配置
@@ -594,7 +597,7 @@ export const ChartRender: React.FC<{
       );
     }
     if (chartType === 'funnel') {
-      // Funnel 数据需要映射为 { category?, type?, filterLable?, x, y }
+      // Funnel 数据需要映射为 { category?, type?, filterLable?, x, y, ratio? }
       const funnelData = (chartData || []).map((row: any, i: number) => {
         const filterLable = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
@@ -602,6 +605,7 @@ export const ChartRender: React.FC<{
         return {
           x: String(row?.[config?.x] ?? i + 1),
           y: toNumber(row?.[config?.y], 0),
+          ...(row?.ratio !== undefined ? { ratio: row.ratio } : {}),
           ...(category ? { category } : {}),
           ...(type ? { type } : {}),
           ...(filterLable ? { filterLable } : {}),

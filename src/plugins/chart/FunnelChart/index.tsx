@@ -57,20 +57,11 @@ export interface FunnelChartProps {
   legendAlign?: 'start' | 'center' | 'end';
   /** 是否显示百分比（相对第一层） */
   showPercent?: boolean;
+  /** 头部工具条额外按钮 */
+  toolbarExtra?: React.ReactNode;
 }
 
-const defaultColors = [
-  '#1677ff',
-  '#8954FC',
-  '#15e7e4',
-  '#F45BB5',
-  '#00A6FF',
-  '#33E59B',
-  '#D666E4',
-  '#6151FF',
-  '#BF3C93',
-  '#005EE0',
-];
+const defaultColors = '#1677ff';
 
 const FunnelChart: React.FC<FunnelChartProps> = ({
   title,
@@ -83,6 +74,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   legendPosition = 'bottom',
   legendAlign = 'start',
   showPercent = true,
+  toolbarExtra
 }) => {
   // 响应式尺寸
   const [windowWidth, setWindowWidth] = useState(
@@ -176,7 +168,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
   const processedData: ChartData<'bar'> = useMemo(() => {
-    const baseColor = defaultColors[0];
+    const baseColor = defaultColors;
     const labels = stages.map((x) => x.toString());
 
     const values = stages.map((x) => {
@@ -223,7 +215,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       datasets: [
         {
           label: typeName,
-          data: datasetData as unknown as number[],
+          data: datasetData,
           backgroundColor: colorList,
           borderColor: colorList,
           borderWidth: 0,
@@ -301,7 +293,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
                 hidden: !showTrapezoid,
                 datasetIndex: chart.data.datasets.length, // 非真实数据集，仅用于展示
                 pointStyle: 'rect',
-              } as any,
+              },
             ];
           },
         },
@@ -329,7 +321,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         displayColors: false,
         callbacks: {
           label: (ctx) => {
-            const raw = ctx?.raw as [number, number];
+            const raw = ctx?.raw;
             const width = Math.abs((raw?.[1] ?? 0) - (raw?.[0] ?? 0));
             const allValues = (ctx?.dataset?.data || []).map((it) => {
               if (Array.isArray(it)) return Math.abs(it[1] - it[0]);
@@ -465,8 +457,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           ctx.restore();
         }
       },
-    } as const;
-  }, [isMobile, showTrapezoid, JSON.stringify(filteredData.map((d) => (d as any)?.ratio))]);
+    };
+  }, [isMobile, showTrapezoid, JSON.stringify(filteredData.map((d) => (d)?.ratio))]);
 
   // 右侧阶段文本标签（跟随每个柱，显示 stage 名称）
   const rightLabelPlugin = useMemo(() => {
@@ -477,7 +469,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         const meta = chart.getDatasetMeta(0);
         if (!meta) return;
         const xScale = scales?.x;
-        const labels = (data?.labels || []) as string[];
+        const labels = data?.labels || [];
         ctx.save();
         ctx.fillStyle = axisTextColor;
         ctx.font = `${isMobile ? 10 : 12}px sans-serif`;
@@ -516,7 +508,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         });
         ctx.restore();
       },
-    } as const;
+    };
   }, [isMobile, axisTextColor]);
 
   return wrapSSR(
@@ -539,6 +531,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         theme={theme}
         onDownload={handleDownload}
         dataTime={dataTime}
+        extra={toolbarExtra}
       />
 
       <ChartFilter

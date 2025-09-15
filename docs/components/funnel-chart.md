@@ -41,6 +41,7 @@ group:
 | x | `number \| string` | 是 | 阶段名（将作为 labels）|
 | y | `number \| string` | 是 | 数值 |
 | filterLable | `string` | 否 | 二级筛选标签（可选）|
+| ratio | `number \| string` | 否 | 与下一层的转化率（0-100 或 '80%'），最后一层可为 0；用于绘制两层之间的梯形与文本 |
 
 ## 说明
 
