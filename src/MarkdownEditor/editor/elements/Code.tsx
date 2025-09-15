@@ -1,5 +1,5 @@
-import React from 'react';
 import DOMPurify from 'dompurify';
+import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
 export const Code = ({ attributes, children, element }: RenderElementProps) => {
@@ -24,9 +24,7 @@ export const Code = ({ attributes, children, element }: RenderElementProps) => {
       style={
         element?.language === 'html'
           ? {
-              display: element?.otherProps?.isConfig
-                ? 'none'
-                : 'block',
+              display: element?.otherProps?.isConfig ? 'none' : 'block',
             }
           : {
               height: '240px',

@@ -59,8 +59,6 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Card', () => ({
   ),
 }));
 
-
-
 vi.mock('../../../../src/MarkdownEditor/editor/elements/Comment', () => ({
   CommentView: ({ children, ...props }: any) => (
     <div data-testid="comment-view" {...props}>
@@ -236,7 +234,7 @@ describe('Elements Index', () => {
           element: { type: 'head', level: 1, children: [] },
         };
         render(<MElement {...props} />);
-        expect(screen.getByTestId('markdown-heading')).toBeInTheDocument();
+        expect(screen.getByTestId('head')).toBeInTheDocument();
       });
 
       it('应该渲染链接卡片元素', () => {
@@ -319,8 +317,6 @@ describe('Elements Index', () => {
         render(<MElement {...props} />);
         expect(screen.getByTestId('warp-card')).toBeInTheDocument();
       });
-
-
 
       it('应该渲染模式元素', () => {
         const props = {

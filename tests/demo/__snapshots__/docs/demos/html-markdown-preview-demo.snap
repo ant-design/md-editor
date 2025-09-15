@@ -1,0 +1,97 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px; max-width: 800px; margin: 0px auto;"
+    >
+      <h1>
+        HTML 和 Markdown 源码预览模式切换演示
+      </h1>
+      <div
+        style="margin-bottom: 40px;"
+      >
+        <h2>
+          HTML 代码块演示
+        </h2>
+        <p>
+          在只读模式下，HTML代码块会显示切换按钮，可以在源码和预览模式之间切换：
+        </p>
+        <div
+          data-length="453"
+          data-testid="md-editor"
+        >
+          MarkdownEditor(Mock)
+        </div>
+      </div>
+      <div
+        style="margin-bottom: 40px;"
+      >
+        <h2>
+          Markdown 代码块演示
+        </h2>
+        <p>
+          在只读模式下，Markdown代码块也会显示切换按钮，可以在源码和预览模式之间切换：
+        </p>
+        <div
+          data-length="304"
+          data-testid="md-editor"
+        >
+          MarkdownEditor(Mock)
+        </div>
+      </div>
+      <div
+        style="margin-bottom: 40px;"
+      >
+        <h2>
+          其他语言代码块
+        </h2>
+        <p>
+          其他语言的代码块不会显示切换按钮，只显示常规的工具栏：
+        </p>
+        <div
+          data-length="97"
+          data-testid="md-editor"
+        >
+          MarkdownEditor(Mock)
+        </div>
+      </div>
+      <div
+        style="background: rgb(245, 245, 245); padding: 20px; border-radius: 8px; margin-top: 40px;"
+      >
+        <h3>
+          使用说明
+        </h3>
+        <ul>
+          <li>
+            <strong>
+              HTML代码块
+            </strong>
+            ：在只读模式下会显示眼睛图标按钮，点击可在源码和HTML预览之间切换
+          </li>
+          <li>
+            <strong>
+              Markdown代码块
+            </strong>
+            ：在只读模式下会显示眼睛图标按钮，点击可在源码和Markdown预览之间切换
+          </li>
+          <li>
+            <strong>
+              其他语言
+            </strong>
+            ：JavaScript、Python等语言的代码块不会显示切换按钮
+          </li>
+          <li>
+            <strong>
+              编辑模式
+            </strong>
+            ：在编辑模式下，所有代码块都显示为编辑器，不显示切换按钮
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
