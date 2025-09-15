@@ -61,6 +61,8 @@ export interface LineChartProps {
   dataTime?: string;
   /** 图表主题 */
   theme?: 'dark' | 'light';
+  /** 自定义主色（可选），支持 string 或 string[]；数组按序对应各数据序列 */
+  color?: string | string[];
   /** 是否显示图例，默认true */
   showLegend?: boolean;
   /** 图例位置 */
@@ -98,6 +100,7 @@ const LineChart: React.FC<LineChartProps> = ({
   className,
   dataTime,
   theme = 'light',
+  color,
   showLegend = true,
   legendPosition = 'bottom',
   legendAlign = 'start',
@@ -214,7 +217,10 @@ const LineChart: React.FC<LineChartProps> = ({
     const labels = xValues.map((x) => x.toString());
 
     const datasets = types.map((type, index) => {
-      const baseColor = defaultColors[index % defaultColors.length];
+      const provided = color;
+      const baseColor = Array.isArray(provided)
+        ? provided[index % provided.length] || defaultColors[index % defaultColors.length]
+        : provided || defaultColors[index % defaultColors.length];
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {

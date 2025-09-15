@@ -53,6 +53,11 @@ export interface BarChartProps {
   dataTime?: string;
   /** 图表主题 */
   theme?: 'dark' | 'light';
+  /** 自定义主色（可选），支持 string 或 string[]；
+   *  - 非正负图：数组按序对应各数据序列
+   *  - 正负图：取数组前两位分别作为正/负色；仅一位则全用同色
+   */
+  color?: string | string[];
   /** 是否显示图例，默认true */
   showLegend?: boolean;
   /** 图例位置 */
@@ -113,6 +118,7 @@ const BarChart: React.FC<BarChartProps> = ({
   className,
   dataTime,
   theme = 'light',
+  color,
   showLegend = true,
   legendPosition = 'bottom',
   legendAlign = 'start',
@@ -247,7 +253,12 @@ const BarChart: React.FC<BarChartProps> = ({
     const labels = xValues.map((x) => x.toString());
 
     const datasets = types.map((type, index) => {
-      const baseColor = defaultColors[index % defaultColors.length];
+      const provided = color;
+      const pickByIndex = (i: number) =>
+        Array.isArray(provided)
+          ? provided[i] || provided[0] || defaultColors[i % defaultColors.length]
+          : provided || defaultColors[i % defaultColors.length];
+      const baseColor = pickByIndex(index);
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
@@ -265,9 +276,14 @@ const BarChart: React.FC<BarChartProps> = ({
           const value = indexAxis === 'y'
             ? (typeof parsed?.x === 'number' ? parsed.x : 0)
             : (typeof parsed?.y === 'number' ? parsed.y : 0);
-          const base = isDiverging
-            ? (value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX)
-            : baseColor;
+          let base = baseColor;
+          if (!color && isDiverging) {
+            base = value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX;
+          } else if (Array.isArray(color) && isDiverging) {
+            const pos = color[0] || baseColor;
+            const neg = color[1] || color[0] || baseColor;
+            base = value >= 0 ? pos : neg;
+          }
           return hexToRgba(base, 0.95);
         },
         backgroundColor: (ctx: ScriptableContext<'bar'>) => {
@@ -283,9 +299,14 @@ const BarChart: React.FC<BarChartProps> = ({
 
           if (indexAxis === 'y') {
             const value = typeof parsed?.x === 'number' ? parsed.x : 0;
-            const base = isDiverging
-              ? (value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX)
-              : baseColor;
+            let base = baseColor;
+            if (!color && isDiverging) {
+              base = value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX;
+            } else if (Array.isArray(color) && isDiverging) {
+              const pos = color[0] || baseColor;
+              const neg = color[1] || color[0] || baseColor;
+              base = value >= 0 ? pos : neg;
+            }
             const x0 = xScale.getPixelForValue(0);
             const x1 = xScale.getPixelForValue(value);
             // 从靠近坐标轴的零点开始，向数据端渐深
@@ -296,9 +317,14 @@ const BarChart: React.FC<BarChartProps> = ({
           }
 
           const value = typeof parsed?.y === 'number' ? parsed.y : 0;
-          const base = isDiverging
-            ? (value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX)
-            : baseColor;
+          let base = baseColor;
+          if (!color && isDiverging) {
+            base = value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX;
+          } else if (Array.isArray(color) && isDiverging) {
+            const pos = color[0] || baseColor;
+            const neg = color[1] || color[0] || baseColor;
+            base = value >= 0 ? pos : neg;
+          }
           const y0 = yScale.getPixelForValue(0);
           const y1 = yScale.getPixelForValue(value);
           const gradient = chart.ctx.createLinearGradient(0, y0, 0, y1);

@@ -25,6 +25,7 @@ group:
 | height | `number` | `400` | 图表高度（px），移动端最大约 80% 屏宽（上限 400）|
 | className | `string` | - | 自定义类名 |
 | theme | `'dark' \| 'light'` | `'light'` | 主题风格 |
+| color | `string \| string[]` | - | 自定义主色；数组按序对应各数据序列 |
 | showLegend | `boolean` | `true` | 是否显示图例 |
 | legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置 |
 | legendAlign | `'start' \| 'center' \| 'end'` | `'start'` | 图例水平对齐方式 |
