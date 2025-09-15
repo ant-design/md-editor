@@ -84,7 +84,7 @@ export const TitleInfo = (props: {
   const { collapse, isFinished, setCollapse } = props;
   const { locale } = useContext(I18nContext);
   const titleDom = useMemo(() => {
-    const titleSegments = props.title.split(/(\$\{.*})/);
+    const titleSegments = props?.title?.split(/(\$\{.*})/);
 
     return titleSegments?.map((tag, index) => {
       const meta = props.meta || {};
