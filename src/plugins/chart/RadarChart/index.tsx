@@ -43,7 +43,7 @@ export interface RadarChartDataItem {
 
 interface RadarChartProps extends ChartContainerProps {
   data: RadarChartDataItem[];
-  title: string;
+  title?: string;
   width?: number;
   height?: number;
   className?: string;

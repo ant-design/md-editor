@@ -6,7 +6,7 @@ import TimeIcon from '../icons/TimeIcon';
 import { useStyle } from './style';
 
 export interface ChartToolBarProps {
-  title: string;
+  title?: string;
   dataTime?: string;
   className?: string;
   theme?: 'light' | 'dark';

@@ -9,7 +9,7 @@ interface FormattingToolsProps {
   tools: Array<{
     key: string;
     type: string;
-    title: string;
+    title?: string;
     icon: React.ReactNode;
     onClick?: (editor: any) => void;
     isActive?: (editor: any) => boolean;

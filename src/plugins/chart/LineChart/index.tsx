@@ -56,7 +56,7 @@ export interface LineChartConfigItem {
 
 export interface LineChartProps extends ChartContainerProps {
   /** 图表标题 */
-  title: string;
+  title?: string;
   /** 扁平化数据数组 */
   data: LineChartDataItem[];
   /** 图表宽度，默认600px */

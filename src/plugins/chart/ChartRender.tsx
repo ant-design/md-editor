@@ -666,7 +666,7 @@ export const ChartRender: React.FC<{
                 }}
                 items={
                   config?.columns
-                    .map((column: { title: string; dataIndex: string }) => {
+                    .map((column: { title?: string; dataIndex: string }) => {
                       if (!column.title || !column.dataIndex) return null;
                       return {
                         label: column.title || '',

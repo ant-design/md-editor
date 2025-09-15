@@ -39,7 +39,7 @@ export interface FunnelChartDataItem {
 
 export interface FunnelChartProps extends ChartContainerProps {
   /** 图表标题 */
-  title: string;
+  title?: string;
   /** 扁平化数据数组（x 为阶段名，y 为数值） */
   data: FunnelChartDataItem[];
   /** 自定义主色 */

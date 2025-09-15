@@ -61,7 +61,7 @@ import { FlipText } from './FlipText';
 export const TitleInfo = (props: {
   costMillis?: number;
   category: string;
-  title: string;
+  title?: string;
   prefixCls: string;
   setCollapse: (collapse: boolean) => void;
   collapse: boolean;

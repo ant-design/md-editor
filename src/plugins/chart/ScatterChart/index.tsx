@@ -35,7 +35,7 @@ export interface ScatterChartDataItem {
 
 export interface ScatterChartProps extends ChartContainerProps {
   data: ScatterChartDataItem[];
-  title: string;
+  title?: string;
   width?: number;
   height?: number;
   className?: string;

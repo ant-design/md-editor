@@ -2,7 +2,7 @@ import { Tooltip } from 'antd';
 import React from 'react';
 
 export interface ToolBarItemProps {
-  title: string;
+  title?: string;
   icon: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   onMouseDown?: (e: React.MouseEvent) => void;

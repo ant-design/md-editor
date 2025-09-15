@@ -49,7 +49,7 @@ export interface BarChartConfigItem {
 
 export interface BarChartProps extends ChartContainerProps {
   /** 图表标题 */
-  title: string;
+  title?: string;
   /** 扁平化数据数组 */
   data: BarChartDataItem[];
   /** 图表宽度，默认600px */

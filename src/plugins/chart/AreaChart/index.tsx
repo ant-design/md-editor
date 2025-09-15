@@ -3,12 +3,12 @@ import {
   ChartData,
   Chart as ChartJS,
   ChartOptions,
-  ScriptableContext,
   Filler,
   Legend,
   LinearScale,
   LineElement,
   PointElement,
+  ScriptableContext,
   Tooltip,
 } from 'chart.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -57,7 +57,7 @@ export interface AreaChartConfigItem {
 
 export interface AreaChartProps extends ChartContainerProps {
   /** 图表标题 */
-  title: string;
+  title?: string;
   /** 扁平化数据数组 */
   data: AreaChartDataItem[];
   /** 图表宽度，默认600px */

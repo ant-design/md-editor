@@ -10,7 +10,7 @@ export type ActionIconBoxProps = {
   showTitle?: boolean;
   onClick?: (e: any) => void;
   tooltipProps?: TooltipProps;
-  title: string;
+  title?: string;
   type?: 'danger' | 'primary';
   transform?: boolean;
   className?: string;
