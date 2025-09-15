@@ -1,11 +1,6 @@
 import * as React from 'react';
 
-interface StopIconProps extends React.SVGProps<SVGSVGElement> {
-  title?: string;
-}
-
-export function SimpleStopIcon(props: StopIconProps) {
-  const { title = '停止', ...svgProps } = props;
+export function SimpleStopIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,9 +8,9 @@ export function SimpleStopIcon(props: StopIconProps) {
       width={16}
       height={16}
       role="img"
-      aria-label={title}
+      aria-label="StopIcon"
       viewBox="0 0 16 16"
-      {...svgProps}
+      {...props}
     >
       <g>
         <path

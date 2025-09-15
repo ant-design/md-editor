@@ -289,11 +289,7 @@ const renderButtonGroup = ({
             aria-label={stopTitle}
             onClick={onStop}
           >
-            {variant === 'simple' ? (
-              <SimpleStopIcon title={stopTitle} />
-            ) : (
-              <StopIcon title={stopTitle} />
-            )}
+            {variant === 'simple' ? <SimpleStopIcon /> : <StopIcon />}
           </div>
         </Tooltip>
       )}
@@ -307,11 +303,7 @@ const renderButtonGroup = ({
             aria-label={pauseTitle}
             onClick={onPause}
           >
-            {variant === 'simple' ? (
-              <SimplePauseIcon title={pauseTitle} />
-            ) : (
-              <PauseIcon title={pauseTitle} />
-            )}
+            {variant === 'simple' ? <SimplePauseIcon /> : <PauseIcon />}
           </div>
         </Tooltip>
       )}
@@ -325,11 +317,7 @@ const renderButtonGroup = ({
             aria-label={playTitle}
             onClick={onResume}
           >
-            {variant === 'simple' ? (
-              <SimplePlayIcon title={playTitle} />
-            ) : (
-              <PlayIcon title={playTitle} />
-            )}
+            {variant === 'simple' ? <SimplePlayIcon /> : <PlayIcon />}
           </div>
         </Tooltip>
       )}

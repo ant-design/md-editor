@@ -1,11 +1,6 @@
 ﻿import * as React from 'react';
 
-interface PlayIconProps extends React.SVGProps<SVGSVGElement> {
-  title?: string;
-}
-
-export function PlayIcon(props: PlayIconProps) {
-  const { title = '继续', ...svgProps } = props;
+export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,9 +8,9 @@ export function PlayIcon(props: PlayIconProps) {
       width={32}
       height={32}
       role="img"
-      aria-label={title}
+      aria-label="PlayIcon"
       viewBox="0 0 32 32"
-      {...svgProps}
+      {...props}
     >
       <defs>
         <filter

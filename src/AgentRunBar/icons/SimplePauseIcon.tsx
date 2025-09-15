@@ -1,11 +1,6 @@
 import * as React from 'react';
 
-interface PauseIconProps extends React.SVGProps<SVGSVGElement> {
-  title?: string;
-}
-
-export function SimplePauseIcon(props: PauseIconProps) {
-  const { title = '暂停', ...svgProps } = props;
+export function SimplePauseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,9 +8,9 @@ export function SimplePauseIcon(props: PauseIconProps) {
       width={16}
       height={16}
       role="img"
-      aria-label={title}
+      aria-label="PauseIcon"
       viewBox="0 0 16 16"
-      {...svgProps}
+      {...props}
     >
       <g>
         <path
