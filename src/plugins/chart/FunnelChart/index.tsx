@@ -66,7 +66,7 @@ export interface FunnelChartProps extends ChartContainerProps {
   toolbarExtra?: React.ReactNode;
 }
 
-const defaultColors = '#917ef7';
+const defaultColors = '#1890ff';
 
 const FunnelChart: React.FC<FunnelChartProps> = ({
   title,
