@@ -250,7 +250,8 @@ const AreaChart: React.FC<AreaChartProps> = ({
     const datasets = types.map((type, index) => {
       const provided = color;
       const baseColor = Array.isArray(provided)
-        ? provided[index % provided.length] || defaultColors[index % defaultColors.length]
+        ? provided[index % provided.length] ||
+          defaultColors[index % defaultColors.length]
         : provided || defaultColors[index % defaultColors.length];
 
       // 为每个类型收集数据点
