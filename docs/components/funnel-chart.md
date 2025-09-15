@@ -21,6 +21,7 @@ group:
 | --- | --- | --- | --- |
 | title | `string` | - | 图表标题 |
 | data | `FunnelChartDataItem[]` | - | 扁平化数据数组（x 为阶段，y 为数值）|
+| color | `string` | - | 自定义主色 |
 | width | `number` | `600` | 图表宽度（px），移动端自适应为 100% |
 | height | `number` | `400` | 图表高度（px），移动端最大约 80% 屏宽（上限 400）|
 | className | `string` | - | 自定义类名 |

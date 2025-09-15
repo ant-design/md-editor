@@ -40,6 +40,8 @@ export interface FunnelChartProps {
   title: string;
   /** 扁平化数据数组（x 为阶段名，y 为数值） */
   data: FunnelChartDataItem[];
+  /** 自定义主色 */
+  color?: string;
   /** 图表宽度，默认600px */
   width?: number;
   /** 图表高度，默认400px */
@@ -67,6 +69,7 @@ const defaultColors = '#1677ff';
 const FunnelChart: React.FC<FunnelChartProps> = ({
   title,
   data,
+  color,
   width = 600,
   className,
   dataTime,
@@ -169,7 +172,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
   const processedData: ChartData<'bar', (number | [number, number] | null)[], string> = useMemo(() => {
-    const baseColor = defaultColors;
+    const baseColor = color || defaultColors;
     const labels = stages.map((x) => x.toString());
 
     const values = stages.map((x) => {
