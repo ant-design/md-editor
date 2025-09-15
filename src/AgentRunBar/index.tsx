@@ -63,7 +63,7 @@ export type TaskRunningActionsRender = (props: {
  */
 export interface TaskRunningProps {
   /** 任务状态 */
-  taskStatus?: TASK_STATUS;
+  taskStatus: TASK_STATUS;
   /** 任务运行状态 */
   taskRunningStatus: TASK_RUNNING_STATUS;
   /** 创建新任务的回调函数 */
