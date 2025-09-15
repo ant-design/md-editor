@@ -106,7 +106,7 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '营收金额',
     },
 
-    // 全球数据（带filterLable）
+    // 全球数据（带filterLabel）
     {
       category: '访客数据',
       type: '本周访客',
@@ -342,7 +342,7 @@ const DynamicAreaChartExample: React.FC = () => {
       filterLabel: '全球',
     },
 
-    // 美国数据（带filterLable）
+    // 美国数据（带filterLabel）
     {
       category: '访客数据',
       type: '本周访客',
