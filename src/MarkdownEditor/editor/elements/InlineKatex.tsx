@@ -1,7 +1,11 @@
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
 
-export const InlineKatex = ({ attributes, children, element }: RenderElementProps) => {
+export const InlineKatex = ({
+  attributes,
+  children,
+  element,
+}: RenderElementProps) => {
   return (
     <code
       {...attributes}
