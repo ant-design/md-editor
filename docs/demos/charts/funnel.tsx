@@ -11,7 +11,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '访问',
       y: 12000,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 80,
     },
     {
@@ -19,7 +19,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '浏览商品',
       y: 8200,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 65,
     },
     {
@@ -27,7 +27,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '加购',
       y: 5400,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 41,
     },
     {
@@ -35,7 +35,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '提交订单',
       y: 2600,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 33,
     },
     {
@@ -43,7 +43,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '支付成功',
       y: 1800,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 0,
     },
 
@@ -52,7 +52,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '访问',
       y: 8000,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 80,
     },
     {
@@ -60,7 +60,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '浏览商品',
       y: 5100,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 65,
     },
     {
@@ -68,7 +68,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '加购',
       y: 3300,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 41,
     },
     {
@@ -76,7 +76,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '提交订单',
       y: 1700,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 33,
     },
     {
@@ -84,7 +84,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '支付成功',
       y: 1200,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 0,
     },
 
@@ -93,7 +93,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '访问',
       y: 8000,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 80,
     },
     {
@@ -101,7 +101,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '浏览商品',
       y: 5100,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 65,
     },
     {
@@ -109,7 +109,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '加购',
       y: 3300,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 41,
     },
     {
@@ -117,7 +117,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '提交订单',
       y: 1700,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 33,
     },
     {
@@ -125,7 +125,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '支付成功',
       y: 1200,
-      filterLable: '全球',
+      filterLabel: '全球',
       ratio: 0,
     },
 
@@ -134,7 +134,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '访问',
       y: 8000,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 80,
     },
     {
@@ -142,7 +142,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '浏览商品',
       y: 5100,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 65,
     },
     {
@@ -150,7 +150,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '加购',
       y: 3300,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 41,
     },
     {
@@ -158,7 +158,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '提交订单',
       y: 1700,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 33,
     },
     {
@@ -166,7 +166,7 @@ const FunnelDemo: React.FC = () => {
       type: '转化',
       x: '支付成功',
       y: 1200,
-      filterLable: '美国',
+      filterLabel: '美国',
       ratio: 0,
     },
   ]);

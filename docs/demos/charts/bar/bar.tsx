@@ -5,7 +5,7 @@ import BarChart, { BarChartDataItem } from '@ant-design/md-editor/plugins/chart/
 const DynamicBarChartExample: React.FC = () => {
   // 扁平化数据结构
   const [data, setData] = useState<BarChartDataItem[]>([
-    // 全球数据（带filterLable）
+    // 全球数据（带filterLabel）
     { category: '访客数据', type: '本周访客', x: 1, y: 120, xtitle: '日期', ytitle: '访客数', filterLabel: '全球' },
     { category: '访客数据', type: '本周访客', x: 2, y: 132, xtitle: '日期', ytitle: '访客数', filterLabel: '全球' },
     { category: '访客数据', type: '本周访客', x: 3, y: 101, xtitle: '日期', ytitle: '访客数', filterLabel: '全球' },
@@ -33,7 +33,7 @@ const DynamicBarChartExample: React.FC = () => {
     { category: '销售数据', type: '去年销售额', x: 3, y: 81000, xtitle: '季度', ytitle: '销售额', filterLabel: '全球' },
     { category: '销售数据', type: '去年销售额', x: 4, y: 89000, xtitle: '季度', ytitle: '销售额', filterLabel: '全球' },
 
-    // 美国数据（带filterLable）
+    // 美国数据（带filterLabel）
     { category: '访客数据', type: '本周访客', x: 1, y: 180, xtitle: '日期', ytitle: '访客数', filterLabel: '美国' },
     { category: '访客数据', type: '本周访客', x: 2, y: 195, xtitle: '日期', ytitle: '访客数', filterLabel: '美国' },
     { category: '访客数据', type: '本周访客', x: 3, y: 160, xtitle: '日期', ytitle: '访客数', filterLabel: '美国' },

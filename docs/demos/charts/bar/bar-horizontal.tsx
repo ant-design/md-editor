@@ -19,7 +19,7 @@ const HorizontalBarChartExample: React.FC = () => {
     { category: '地区销售额', type: '销售额', x: 4, y: 89000, xtitle: '销售额', ytitle: '地区', filterLabel: '全球' },
     { category: '地区销售额', type: '销售额', x: 5, y: 76000, xtitle: '销售额', ytitle: '地区', filterLabel: '全球' },
 
-    // 美国数据（带filterLable）
+    // 美国数据（带filterLabel）
     { category: '产品销量', type: '销量', x: 1, y: 420, xtitle: '销量', ytitle: '产品', filterLabel: '美国' },
     { category: '产品销量', type: '销量', x: 2, y: 552, xtitle: '销量', ytitle: '产品', filterLabel: '美国' },
     { category: '产品销量', type: '销量', x: 3, y: 401, xtitle: '销量', ytitle: '产品', filterLabel: '美国' },

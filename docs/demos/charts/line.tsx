@@ -37,7 +37,7 @@ const DynamicLineChartExample: React.FC = () => {
     { category: '转化率数据', type: '付费转化率', x: 5, y: 2.1, xtitle: '周数', ytitle: '转化率(%)', filterLabel: '全球' },
     { category: '转化率数据', type: '付费转化率', x: 6, y: 3.2, xtitle: '周数', ytitle: '转化率(%)', filterLabel: '全球' },
 
-    // 美国数据（带filterLable）
+    // 美国数据（带filterLabel）
     { category: '访客数据', type: '本周访客', x: 1, y: 180, xtitle: '日期', ytitle: '访客数', filterLabel: '美国' },
     { category: '访客数据', type: '本周访客', x: 2, y: 195, xtitle: '日期', ytitle: '访客数', filterLabel: '美国' },
     { category: '访客数据', type: '本周访客', x: 3, y: 160, xtitle: '日期', ytitle: '访客数', filterLabel: '美国' },

@@ -27,7 +27,7 @@ const NegativeBarChartExample: React.FC = () => {
     { category: '温度变化', type: '最低温', x: 3, y: 5, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
     { category: '温度变化', type: '最低温', x: 4, y: 12, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
 
-    // 美国数据（带filterLable）
+    // 美国数据（带filterLabel）
     { category: '财务数据', type: '利润', x: 1, y: 180, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
     { category: '财务数据', type: '利润', x: 2, y: -80, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
     { category: '财务数据', type: '利润', x: 3, y: 120, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },

@@ -617,7 +617,7 @@ export const ChartRender: React.FC<{
       );
     }
     if (chartType === 'funnel') {
-      // Funnel 数据需要映射为 { category?, type?, filterLable?, x, y, ratio? }
+      // Funnel 数据需要映射为 { category?, type?, filterLabel?, x, y, ratio? }
       const funnelData = (chartData || []).map((row: any, i: number) => {
         const filterLabel = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);

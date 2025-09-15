@@ -121,31 +121,31 @@ const RadarChart: React.FC<RadarChartProps> = ({
   const categories = Array.from(new Set(data.map((item) => item.category)));
 
   // 从数据中提取 filterLabel，过滤掉 undefined 值
-  const validFilterLables = data
+  const validFilterLabels = data
     .map((item) => item.filterLabel)
     .filter((category): category is string => category !== undefined);
 
-  const filterLables: string[] | undefined =
-    validFilterLables.length > 0
-      ? Array.from(new Set(validFilterLables))
+  const filterLabels: string[] | undefined =
+    validFilterLabels.length > 0
+      ? Array.from(new Set(validFilterLabels))
       : undefined;
 
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState(categories.find(Boolean) || '');
-  const [selectedFilterLable, setSelectedFilterLable] = useState(
-    filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
+  const [selectedFilterLabel, setSelectedFilterLabel] = useState(
+    filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
 
   // 根据选定的分类筛选数据
   const filteredData = data.filter((item) => {
     if (!selectedFilter) return true;
     const categoryMatch = item.category === selectedFilter;
-    // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
-    if (!filterLables || !selectedFilterLable) {
+    // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
+    if (!filterLabels || !selectedFilterLabel) {
       return categoryMatch;
     }
     // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
-    return categoryMatch && item.filterLabel === selectedFilterLable;
+    return categoryMatch && item.filterLabel === selectedFilterLabel;
   });
 
   // 提取标签和数据集
@@ -192,8 +192,8 @@ const RadarChart: React.FC<RadarChartProps> = ({
     value: category || '',
   }));
 
-  // 根据 filterLabel 筛选数据 - 只有当 filterLables 存在时才生成
-  const filteredDataByFilterLable = filterLables?.map((item) => ({
+  // 根据 filterLabel 筛选数据 - 只有当 filterLabels 存在时才生成
+  const filteredDataByFilterLabel = filterLabels?.map((item) => ({
     key: item,
     label: item,
   }));
@@ -434,10 +434,10 @@ const RadarChart: React.FC<RadarChartProps> = ({
         filterOptions={filterEnum}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        {...(filterLables && {
-          customOptions: filteredDataByFilterLable,
-          selectedCustomSelection: selectedFilterLable,
-          onSelectionChange: setSelectedFilterLable,
+        {...(filterLabels && {
+          customOptions: filteredDataByFilterLabel,
+          selectedCustomSelection: selectedFilterLabel,
+          onSelectionChange: setSelectedFilterLabel,
         })}
         theme={currentConfig.theme}
       />

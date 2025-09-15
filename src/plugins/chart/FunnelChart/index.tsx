@@ -8,6 +8,7 @@ import {
   LinearScale,
   Tooltip,
 } from 'chart.js';
+import type { LegendItem, PointStyle } from 'chart.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
@@ -108,12 +109,12 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const [selectedFilter, setSelectedFilter] = useState<string>(
     categories.find(Boolean) || '',
   );
-  const [selectedFilterLable, setSelectedFilterLable] = useState<string | undefined>(
+  const [selectedFilterLabel, setSelectedFilterLabel] = useState<string | undefined>(
     undefined,
   );
 
   // 二级筛选（可选）- 仅基于当前选中 category 的可用标签
-  const filterLables = useMemo(() => {
+  const filterLabels = useMemo(() => {
     const labels = data
       .filter((d) => !selectedFilter || d.category === selectedFilter)
       .map((d) => d.filterLabel)
@@ -123,23 +124,23 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 当切换 category 时，如当前二级筛选不在可选列表中，则重置为该类目第一项或清空
   useEffect(() => {
-    const first = filterLables && filterLables.length > 0 ? filterLables[0] : undefined;
-    if (!filterLables || filterLables.length === 0) {
-      if (selectedFilterLable !== undefined) setSelectedFilterLable(undefined);
+    const first = filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined;
+    if (!filterLabels || filterLabels.length === 0) {
+      if (selectedFilterLabel !== undefined) setSelectedFilterLabel(undefined);
       return;
     }
-    if (!selectedFilterLable || !filterLables.includes(selectedFilterLable)) {
-      setSelectedFilterLable(first);
+    if (!selectedFilterLabel || !filterLabels.includes(selectedFilterLabel)) {
+      setSelectedFilterLabel(first);
     }
-  }, [filterLables]);
+  }, [filterLabels]);
 
   // 数据筛选
   const filteredData = useMemo(() => {
     if (!selectedFilter) return data;
     const categoryMatch = data.filter((d) => d.category === selectedFilter);
-    if (!filterLables || !selectedFilterLable) return categoryMatch;
-    return categoryMatch.filter((d) => d.filterLabel === selectedFilterLable);
-  }, [data, selectedFilter, filterLables, selectedFilterLable]);
+    if (!filterLabels || !selectedFilterLabel) return categoryMatch;
+    return categoryMatch.filter((d) => d.filterLabel === selectedFilterLabel);
+  }, [data, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 阶段（使用 x 值作为阶段名称），按 y 从大到小排序以符合漏斗习惯
   const stages = useMemo(() => {
@@ -167,7 +168,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const finalHeight = chartHeight;
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
-  const processedData: ChartData<'bar'> = useMemo(() => {
+  const processedData: ChartData<'bar', (number | [number, number] | null)[], string> = useMemo(() => {
     const baseColor = defaultColors;
     const labels = stages.map((x) => x.toString());
 
@@ -181,7 +182,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     const typeName = '转化';
 
     // 中心对称的浮动条：[-v/2, v/2]
-    const datasetData = values.map((v) => [-v / 2, v / 2]);
+    const datasetData: [number, number][] = values.map((v) => ([-v / 2, v / 2] as [number, number]));
 
     // 生成从上到下由深到浅的颜色
     const hexToRgb = (hex: string) => {
@@ -240,8 +241,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   );
 
   const customOptions = useMemo(() => {
-    return filterLables?.map((l) => ({ key: l, label: l }));
-  }, [filterLables]);
+    return filterLabels?.map((l) => ({ key: l, label: l }));
+  }, [filterLabels]);
 
   const isLight = theme === 'light';
   const axisTextColor = isLight
@@ -276,12 +277,12 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           padding: isMobile ? 10 : 12,
           usePointStyle: true,
           pointStyle: 'rect',
-          generateLabels: (chart) => {
+          generateLabels: (chart): LegendItem[] => {
             // 使用默认生成 + 追加“转化率”图例；统一正方形样式
             // @ts-ignore
-            const base = (ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []).map((it) => ({
+            const base: LegendItem[] = (ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []).map((it) => ({
               ...it,
-              pointStyle: 'rect',
+              pointStyle: 'rect' as PointStyle,
             }));
             return [
               ...base,
@@ -292,7 +293,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
                 lineWidth: 0,
                 hidden: !showTrapezoid,
                 datasetIndex: chart.data.datasets.length, // 非真实数据集，仅用于展示
-                pointStyle: 'rect',
+                pointStyle: 'rect' as PointStyle,
               },
             ];
           },
@@ -321,10 +322,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         displayColors: false,
         callbacks: {
           label: (ctx) => {
-            const raw = ctx?.raw;
-            const width = Math.abs((raw?.[1] ?? 0) - (raw?.[0] ?? 0));
-            const allValues = (ctx?.dataset?.data || []).map((it) => {
-              if (Array.isArray(it)) return Math.abs(it[1] - it[0]);
+            const raw = ctx.raw as [number, number] | number | null | undefined;
+            const width = Array.isArray(raw)
+              ? Math.abs((raw[1] ?? 0) - (raw[0] ?? 0))
+              : typeof raw === 'number'
+              ? Math.abs(raw)
+              : 0;
+            const allValues = (ctx.dataset.data as (number | [number, number] | null)[]).map((it) => {
+              if (Array.isArray(it)) return Math.abs((it[1] ?? 0) - (it[0] ?? 0));
               const n = typeof it === 'number' ? it : Number(it);
               return Number.isFinite(n) ? n : 0;
             });
@@ -540,8 +545,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         onFilterChange={setSelectedFilter}
         {...(customOptions && {
           customOptions,
-          selectedCustomSelection: selectedFilterLable,
-          onSelectionChange: setSelectedFilterLable,
+          selectedCustomSelection: selectedFilterLabel,
+          onSelectionChange: setSelectedFilterLabel,
         })}
         theme={theme}
       />

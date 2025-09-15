@@ -65,7 +65,7 @@ const StackedBarChartExample: React.FC = () => {
     { category: '部门预算', type: '设备成本', x: 4, y: 12000, xtitle: '部门', ytitle: '预算金额', filterLabel: '全球' },
     { category: '部门预算', type: '设备成本', x: 5, y: 15000, xtitle: '部门', ytitle: '预算金额', filterLabel: '全球' },
 
-    // 美国数据（带filterLable）
+    // 美国数据（带filterLabel）
     { category: '流量来源', type: '直接访问', x: 1, y: 180, xtitle: '日期', ytitle: 'PV', filterLabel: '美国' },
     { category: '流量来源', type: '直接访问', x: 2, y: 195, xtitle: '日期', ytitle: 'PV', filterLabel: '美国' },
     { category: '流量来源', type: '直接访问', x: 3, y: 160, xtitle: '日期', ytitle: 'PV', filterLabel: '美国' },

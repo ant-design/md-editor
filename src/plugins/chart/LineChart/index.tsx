@@ -139,7 +139,7 @@ const LineChart: React.FC<LineChartProps> = ({
   }, [data]);
 
   // 从数据中提取 filterLabel，过滤掉 undefined 值
-  const validFilterLables = useMemo(() => {
+  const validFilterLabels = useMemo(() => {
     return data
       .map((item) => item.filterLabel)
       .filter(
@@ -147,16 +147,16 @@ const LineChart: React.FC<LineChartProps> = ({
       );
   }, [data]);
 
-  const filterLables = useMemo(() => {
-    return validFilterLables.length > 0
-      ? [...new Set(validFilterLables)]
+  const filterLabels = useMemo(() => {
+    return validFilterLabels.length > 0
+      ? [...new Set(validFilterLabels)]
       : undefined;
-  }, [validFilterLables]);
+  }, [validFilterLabels]);
 
   // 状态管理
   const [selectedFilter, setSelectedFilter] = useState<string>(categories.find(Boolean) || '');
-  const [selectedFilterLable, setSelectedFilterLable] = useState(
-    filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
+  const [selectedFilterLabel, setSelectedFilterLabel] = useState(
+    filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
 
   // 当数据变化导致当前选中分类失效时，自动回退到首个有效分类或空（显示全部）
@@ -173,16 +173,16 @@ const LineChart: React.FC<LineChartProps> = ({
       (item) => item.category === selectedFilter,
     );
 
-    // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
-    if (!filterLables || !selectedFilterLable) {
+    // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
+    if (!filterLabels || !selectedFilterLabel) {
       return categoryMatch;
     }
 
     // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
     return categoryMatch.filter(
-      (item) => item.filterLabel === selectedFilterLable,
+      (item) => item.filterLabel === selectedFilterLabel,
     );
-  }, [data, selectedFilter, filterLables, selectedFilterLable]);
+  }, [data, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 从数据中提取唯一的类型
   const types = useMemo(() => {
@@ -249,13 +249,13 @@ const LineChart: React.FC<LineChartProps> = ({
     }));
   }, [categories]);
 
-  // 根据 filterLabel 筛选数据 - 只有当 filterLables 存在时才生成
-  const filteredDataByFilterLable = useMemo(() => {
-    return filterLables?.map((item) => ({
+  // 根据 filterLabel 筛选数据 - 只有当 filterLabels 存在时才生成
+  const filteredDataByFilterLabel = useMemo(() => {
+    return filterLabels?.map((item) => ({
       key: item,
       label: item,
     }));
-  }, [filterLables]);
+  }, [filterLabels]);
 
   const isLight = theme === 'light';
   const axisTextColor = isLight
@@ -389,10 +389,10 @@ const LineChart: React.FC<LineChartProps> = ({
         filterOptions={filterOptions}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        {...(filterLables && {
-          customOptions: filteredDataByFilterLable,
-          selectedCustomSelection: selectedFilterLable,
-          onSelectionChange: setSelectedFilterLable,
+        {...(filterLabels && {
+          customOptions: filteredDataByFilterLabel,
+          selectedCustomSelection: selectedFilterLabel,
+          onSelectionChange: setSelectedFilterLabel,
         })}
         theme={theme}
       />
