@@ -163,7 +163,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   }, [filteredData]);
 
   const BAR_THICKNESS = 30;
-  const ROW_GAP = 20;
+  const ROW_GAP = 24;
   const PADDING_Y = isMobile ? 48 : 64;
   const chartHeight = useMemo(() => {
     const rows = Math.max(1, stages.length);
