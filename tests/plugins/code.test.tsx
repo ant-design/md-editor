@@ -233,43 +233,6 @@ describe('Code Plugin', () => {
       expect(mockWriteText).toHaveBeenCalledWith('console.log("Hello World");');
     });
 
-    it('应该支持全屏模式', () => {
-      const TestFullscreenToggle = () => {
-        const [isFullscreen, setIsFullscreen] = React.useState(false);
-
-        return (
-          <div>
-            <div
-              data-testid="code-container"
-              className={isFullscreen ? 'fullscreen' : 'normal'}
-            >
-              Code Editor Content
-            </div>
-            <button
-              type="button"
-              data-testid="fullscreen-toggle"
-              onClick={() => setIsFullscreen(!isFullscreen)}
-            >
-              {isFullscreen ? '退出全屏' : '全屏'}
-            </button>
-          </div>
-        );
-      };
-
-      render(<TestFullscreenToggle />);
-
-      const toggleButton = screen.getByTestId('fullscreen-toggle');
-      const container = screen.getByTestId('code-container');
-
-      expect(container).toHaveClass('normal');
-      expect(toggleButton).toHaveTextContent('全屏');
-
-      fireEvent.click(toggleButton);
-
-      expect(container).toHaveClass('fullscreen');
-      expect(toggleButton).toHaveTextContent('退出全屏');
-    });
-
     it('应该支持代码格式化', () => {
       const TestCodeFormatter = () => {
         const [code, setCode] = React.useState('const x=1;let y=2;');

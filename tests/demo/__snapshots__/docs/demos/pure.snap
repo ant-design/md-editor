@@ -27,11 +27,13 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
             zindex="-1"
           >
-            <div
+            <h1
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="新能源基金现状及投资"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="true"
               id="新能源基金现状及投资"
-              style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -48,12 +50,14 @@
                   </span>
                 </span>
               </span>
-            </div>
-            <div
+            </h1>
+            <h2
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="一、新能源板块现状：机遇与挑战并存"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="一、新能源板块现状：机遇与挑战并存"
-              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -70,12 +74,14 @@
                   </span>
                 </span>
               </span>
-            </div>
-            <div
+            </h2>
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_1-1-走势分化，结构性机会凸显"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_1-1-走势分化，结构性机会凸显"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -92,7 +98,7 @@
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -551,11 +557,13 @@
                 </span>
               </span>
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_1-2-高估值与产能过剩的双重压力"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_1-2-高估值与产能过剩的双重压力"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -572,7 +580,7 @@
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -1313,11 +1321,13 @@
                 </li>
               </ul>
             </div>
-            <div
+            <h2
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="二、未来投资策略"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="二、未来投资策略"
-              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -1334,12 +1344,14 @@
                   </span>
                 </span>
               </span>
-            </div>
-            <div
+            </h2>
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_2-1-重点布局方向"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_2-1-重点布局方向"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -1356,7 +1368,7 @@
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -1875,11 +1887,13 @@
                 </span>
               </span>
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_2-2-核心策略建议"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_2-2-核心策略建议"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -1896,7 +1910,7 @@
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -2068,11 +2082,13 @@
                 </span>
               </span>
             </div>
-            <div
+            <h2
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="三、配置策略组合"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="三、配置策略组合"
-              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -2089,12 +2105,14 @@
                   </span>
                 </span>
               </span>
-            </div>
-            <div
+            </h2>
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_3-1-核心-卫星配置模型"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_3-1-核心-卫星配置模型"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -2111,7 +2129,7 @@
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -2762,7 +2780,7 @@
             </div>
             <div
               data-slate-node="element"
-              style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.25; overflow-x: auto; word-break: break-all; word-wrap: break-word;"
+              style="height: 240px; min-width: 398px; max-width: 800px; min-height: 240px; display: flex; flex-direction: column; align-items: center; align-self: stretch; z-index: 5; color: rgb(27, 27, 27); padding: 1em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; word-wrap: break-word; border-radius: 12px; background: rgb(255, 255, 255); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04);"
             >
               # 保守型配置示例
 def conservative_allocation():
@@ -2784,11 +2802,13 @@ def aggressive_allocation():
     cash = 0.1 * reserve  # 现金储备
     return core + satellite + cash
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_3-2-调整动态要素"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_3-2-调整动态要素"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -2805,7 +2825,7 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -3027,11 +3047,13 @@ def aggressive_allocation():
                 </li>
               </ul>
             </div>
-            <div
+            <h2
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="投资风险提示"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="投资风险提示"
-              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -3048,12 +3070,14 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
-            <div
+            </h2>
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="风险因素分析"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="风险因素分析"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -3070,7 +3094,7 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -3589,11 +3613,13 @@ def aggressive_allocation():
                 </span>
               </span>
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="投资建议"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="投资建议"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -3610,7 +3636,7 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <blockquote
               data-be="blockquote"
               data-slate-node="element"
@@ -3918,11 +3944,13 @@ def aggressive_allocation():
                 </span>
               </div>
             </div>
-            <div
+            <h2
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="四、实战投资策略"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="四、实战投资策略"
-              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -3939,12 +3967,14 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
-            <div
+            </h2>
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_4-1-分阶段策略布局"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_4-1-分阶段策略布局"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -3961,7 +3991,7 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -4393,11 +4423,13 @@ def aggressive_allocation():
                 </span>
               </span>
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_4-2-典型案例与数据参考"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_4-2-典型案例与数据参考"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -4414,7 +4446,7 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -4628,11 +4660,13 @@ def aggressive_allocation():
                 </li>
               </ul>
             </div>
-            <div
+            <h3
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="_4-3-2025年q1短视频用户分布"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="_4-3-2025年q1短视频用户分布"
-              style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -4649,7 +4683,7 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
+            </h3>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -5052,11 +5086,13 @@ def aggressive_allocation():
                 </span>
               </span>
             </div>
-            <div
+            <h2
+              class="ant-md-editor-drag-el"
+              data-be="head"
+              data-head="五、总结与展望"
               data-slate-node="element"
-              data-testid="markdown-heading"
+              data-title="false"
               id="五、总结与展望"
-              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -5073,7 +5109,7 @@ def aggressive_allocation():
                   </span>
                 </span>
               </span>
-            </div>
+            </h2>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"

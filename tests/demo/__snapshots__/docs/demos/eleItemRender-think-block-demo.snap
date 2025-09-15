@@ -54,11 +54,13 @@
               style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
               zindex="-1"
             >
-              <div
+              <h1
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="eleitemrender-think-块自定义渲染-demo"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="true"
                 id="eleitemrender-think-块自定义渲染-demo"
-                style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -75,7 +77,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h1>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"
@@ -131,11 +133,13 @@
                   </span>
                 </span>
               </div>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="默认-think-块"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="默认-think-块"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -152,7 +156,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h2>
               <div
                 data-slate-node="element"
               >
@@ -200,11 +204,13 @@
                   </span>
                 </span>
               </div>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="自定义渲染的-think-块"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="自定义渲染的-think-块"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -221,7 +227,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h2>
               <div
                 data-slate-node="element"
               >
@@ -288,11 +294,13 @@
                   </span>
                 </span>
               </div>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="长内容-think-块"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="长内容-think-块"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -309,7 +317,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h2>
               <div
                 data-slate-node="element"
               >
@@ -382,11 +390,13 @@
                   </span>
                 </span>
               </div>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="普通代码块（不受影响）"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="普通代码块（不受影响）"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -403,7 +413,7 @@
                     </span>
                   </span>
                 </span>
-              </div>
+              </h2>
               <div
                 data-slate-node="element"
               >
@@ -416,54 +426,127 @@
                   tabindex="-1"
                 >
                   <div
-                    contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
+                    class="ace-container drag-el "
+                    data-testid="code-editor-container"
+                    style="box-sizing: border-box; max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; transition: border-color 0.2s ease-in-out; border-radius: 12px; background: rgb(255, 255, 255); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04);"
                   >
                     <div
-                      class="ace-container drag-el "
-                      data-testid="code-editor-container"
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
+                      contenteditable="false"
+                      data-testid="code-toolbar"
+                      style="background-color: rgb(255, 255, 255); width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; height: 38px; display: flex; align-items: center; padding: 12px; gap: 16px; align-self: stretch; box-sizing: border-box; user-select: none; transition: all 0.2s ease-in-out; border-width: 0px 0px 1px 0px; border-style: solid; border-color: rgba(0, 16, 32, 0.063);"
+                    >
+                      <button
+                        aria-describedby="test-id"
+                        class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+                        style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                        title="切换语言"
+                        type="button"
+                      >
+                        <span
+                          class="ant-btn-icon"
+                        >
+                          <div
+                            style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                          >
+                            <svg
+                              height="16"
+                              viewBox="0 0 24 24"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                                fill="#ffca28"
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                        <span>
+                          <div>
+                            <span>
+                              javascript
+                            </span>
+                          </div>
+                        </span>
+                      </button>
+                      <div
+                        style="display: flex; gap: 5px; align-items: center;"
+                      >
+                        <span
+                          aria-describedby="test-id"
+                          aria-label="复制"
+                          class="ant-md-editor-action-icon-box"
+                          role="button"
+                          style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                          tabindex="0"
+                          title="复制"
+                        >
+                          <svg
+                            fill="none"
+                            height="1em"
+                            version="1.1"
+                            viewBox="0 0 14 14"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                          >
+                            <g>
+                              <path
+                                d="M8.57814331346512,1.9218533134651183Q8.750003313465118,2.0937033134651184,8.750003313465118,2.3333333134651184C8.750003313465118,2.6555033134651183,9.011163313465119,2.9166633134651185,9.333333313465118,2.9166633134651185C9.655503313465118,2.9166633134651185,9.916663313465119,2.6555033134651183,9.916663313465119,2.3333333134651184Q9.916663313465119,1.6104633134651185,9.403103313465119,1.0968963134651184Q8.889543313465119,0.5833333134651184,8.166663313465119,0.5833333134651184L2.3333333134651184,0.5833333134651184Q1.6104633134651185,0.5833333134651184,1.0968963134651184,1.0968963134651184Q0.5833333134651184,1.6104633134651185,0.5833333134651184,2.3333333134651184L0.5833333134651184,8.166663313465119Q0.5833333134651184,8.889543313465119,1.0968963134651184,9.403103313465119Q1.6104633134651185,9.916663313465119,2.3333333134651184,9.916663313465119C2.6555033134651183,9.916663313465119,2.9166633134651185,9.655503313465118,2.9166633134651185,9.333333313465118C2.9166633134651185,9.011163313465119,2.6555033134651183,8.750003313465118,2.3333333134651184,8.750003313465118Q2.0937033134651184,8.750003313465118,1.9218533134651183,8.57814331346512Q1.7500033134651185,8.406293313465119,1.7500033134651185,8.166663313465119L1.7500033134651185,2.3333333134651184Q1.7500033134651185,2.0937033134651184,1.9218533134651183,1.9218533134651183Q2.0937033134651184,1.7500033134651185,2.3333333134651184,1.7500033134651185L8.166663313465119,1.7500033134651185Q8.406293313465119,1.7500033134651185,8.57814331346512,1.9218533134651183ZM4.083333313465118,11.666633313465118L4.083333313465118,5.833333313465118Q4.083333313465118,5.108463313465118,4.595893313465118,4.595893313465118Q5.108463313465118,4.083333313465118,5.833333313465118,4.083333313465118L11.666633313465118,4.083333313465118Q12.391533313465118,4.083333313465118,12.904133313465119,4.595893313465118Q13.416633313465118,5.108463313465118,13.416633313465118,5.833333313465118L13.416633313465118,11.666633313465118Q13.416633313465118,12.391533313465118,12.904133313465119,12.904133313465119Q12.391533313465118,13.416633313465118,11.666633313465118,13.416633313465118L5.833333313465118,13.416633313465118Q5.108463313465118,13.416633313465118,4.595893313465118,12.904133313465119Q4.083333313465118,12.391533313465118,4.083333313465118,11.666633313465118ZM5.250003313465118,11.666633313465118Q5.250003313465118,11.908333313465118,5.420853313465118,12.079133313465118Q5.591713313465118,12.250033313465119,5.833333313465118,12.250033313465119L11.666633313465118,12.250033313465119Q11.908333313465118,12.250033313465119,12.079133313465118,12.079133313465118Q12.250033313465119,11.908333313465118,12.250033313465119,11.666633313465118L12.250033313465119,5.833333313465118Q12.250033313465119,5.591713313465118,12.079133313465118,5.420853313465118Q11.908333313465118,5.250003313465118,11.666633313465118,5.250003313465118L5.833333313465118,5.250003313465118Q5.591713313465118,5.250003313465118,5.420853313465118,5.420853313465118Q5.250003313465118,5.591713313465118,5.250003313465118,5.833333313465118L5.250003313465118,11.666633313465118Z"
+                                fill="currentColor"
+                                fill-opacity="1"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      style="padding: 12px;"
                     >
                       <div
-                        contenteditable="false"
-                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
-                      />
-                      <div
-                        data-testid="ace-editor-container"
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        data-testid="code-content-copy"
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                        style="height: 100%; width: 100%; display: block;"
                       >
-                        // 这是一个普通的 JavaScript 代码块 // 不会被 eleItemRender 修改 console.log('Hello World');
-                        <span
-                          data-slate-node="text"
+                        <div
+                          data-testid="ace-editor-container"
+                          style="height: 200px; line-height: 22px;"
+                        />
+                        <div
+                          data-testid="code-content-copy"
+                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          // 这是一个普通的 JavaScript 代码块 // 不会被 eleItemRender 修改 console.log('Hello World');
                           <span
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-node="text"
                           >
                             <span
-                              data-slate-string="true"
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                              // 这是一个普通的 JavaScript 代码块
+                              <span
+                                data-slate-string="true"
+                              >
+                                // 这是一个普通的 JavaScript 代码块
 // 不会被 eleItemRender 修改
 console.log('Hello World');
+                              </span>
                             </span>
                           </span>
-                        </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="使用说明"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="使用说明"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -480,7 +563,7 @@ console.log('Hello World');
                     </span>
                   </span>
                 </span>
-              </div>
+              </h2>
               <div
                 class="ant-md-editor-list-container relative"
                 data-be="list"
@@ -680,11 +763,13 @@ console.log('Hello World');
                   </li>
                 </ol>
               </div>
-              <div
+              <h2
+                class="ant-md-editor-drag-el"
+                data-be="head"
+                data-head="技术要点"
                 data-slate-node="element"
-                data-testid="markdown-heading"
+                data-title="false"
                 id="技术要点"
-                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -701,7 +786,7 @@ console.log('Hello World');
                     </span>
                   </span>
                 </span>
-              </div>
+              </h2>
               <div
                 class="ant-md-editor-list-container relative"
                 data-be="list"

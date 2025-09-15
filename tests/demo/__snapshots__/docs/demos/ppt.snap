@@ -84,11 +84,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h1
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="umi-研究报告"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="umi-研究报告"
-                  style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -105,7 +107,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h1>
               </div>
             </div>
           </div>
@@ -135,11 +137,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="创始人"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="创始人"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -156,7 +160,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="paragraph"
@@ -207,11 +211,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="部门"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="部门"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -228,7 +234,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   class="ant-md-editor-list-container relative"
                   data-be="list"
@@ -612,11 +618,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="战略"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="战略"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -633,7 +641,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   class="ant-md-editor-list-container relative"
                   data-be="list"
@@ -852,11 +860,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="表格"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="表格"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -873,7 +883,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-be="card"
                   data-slate-node="element"
@@ -4096,11 +4106,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="链接"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="链接"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -4117,7 +4129,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-slate-node="element"
                 >
@@ -4274,11 +4286,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="description"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="description"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -4295,7 +4309,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-be="card"
                   data-slate-node="element"
@@ -5124,11 +5138,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="图表"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="图表"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -5145,7 +5161,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-be="card"
                   data-slate-node="element"
@@ -6367,11 +6383,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="复杂图表"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="复杂图表"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -6388,7 +6406,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-be="card"
                   data-slate-node="element"
@@ -12692,11 +12710,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="图片"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="图片"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -12713,7 +12733,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-be="card"
                   data-slate-node="element"
@@ -12887,11 +12907,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="视频"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="视频"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -12908,7 +12930,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-be="card"
                   data-slate-node="element"
@@ -13039,11 +13061,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="附件"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="附件"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -13060,7 +13084,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-be="card"
                   data-slate-node="element"
@@ -13267,11 +13291,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="引用"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="引用"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -13288,7 +13314,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="paragraph"
@@ -14897,11 +14923,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="表单"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="表单"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -14918,7 +14946,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   data-testid="schema-container"
                   style="display: flex; flex-direction: column; width: 100%;"
@@ -15003,11 +15031,13 @@
                 style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px; max-height: 80vh; overflow: auto;"
                 zindex="-1"
               >
-                <div
+                <h2
+                  class="ant-md-editor-drag-el"
+                  data-be="head"
+                  data-head="删除线"
                   data-slate-node="element"
-                  data-testid="markdown-heading"
+                  data-title="true"
                   id="删除线"
-                  style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
                     data-slate-node="text"
@@ -15024,7 +15054,7 @@
                       </span>
                     </span>
                   </span>
-                </div>
+                </h2>
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="paragraph"

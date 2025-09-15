@@ -4,11 +4,12 @@
  * @author Code Plugin Team
  */
 
-import { CloseCircleOutlined, CopyOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined } from '@ant-design/icons';
 import { message, Segmented } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../../i18n';
+import { CopyIcon } from '../../../icons/CopyIcon';
 import { ActionIconBox } from '../../../MarkdownEditor/editor/components/ActionIconBox';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { langIconMap } from '../langIconMap';
@@ -60,7 +61,6 @@ export interface CodeToolbarProps {
  *   element={codeElement}
  *   readonly={false}
  *   onCloseClick={() => setHidden(true)}
- *   isFullScreen={false}
  *   languageSelectorProps={langProps}
  * />
  * ```
@@ -182,6 +182,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         {/* HTML/Markdown 视图模式切换按钮 */}
         {element?.language === 'html' || element?.language === 'markdown' ? (
           <Segmented
+            data-testid="preview"
             options={[
               {
                 label: '预览',
@@ -220,7 +221,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             }
           }}
         >
-          <CopyOutlined />
+          <CopyIcon />
         </ActionIconBox>
       </div>
     </div>

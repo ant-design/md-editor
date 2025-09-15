@@ -1,13 +1,10 @@
-﻿import {
-  CloseCircleFilled,
-  CopyOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
+﻿import { CloseCircleFilled, EditOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
 import { I18nContext } from '../i18n';
+import { CopyIcon } from '../icons/CopyIcon';
 import { ActionIconBox } from '../index';
 import {
   MarkdownEditor,
@@ -274,7 +271,7 @@ export const ToolCall = (
                     }
                   }}
                 >
-                  <CopyOutlined />
+                  <CopyIcon />
                 </ActionIconBox>
                 {props.onChangeItem ? (
                   <ActionIconBox
@@ -383,7 +380,7 @@ export const ToolCall = (
                       }
                     }}
                   >
-                    <CopyOutlined />
+                    <CopyIcon />
                   </ActionIconBox>
                 </div>
               </div>
@@ -469,7 +466,7 @@ export const ToolCall = (
                       }
                     }}
                   >
-                    <CopyOutlined />
+                    <CopyIcon />
                   </ActionIconBox>
                 </div>
               </div>

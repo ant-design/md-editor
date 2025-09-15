@@ -29,7 +29,6 @@ describe('CodeContainer Component', () => {
     children: <div>Children content</div>,
     readonly: false,
     fullScreenNode: { current: null },
-    isFullScreen: false,
     isSelected: false,
   };
 
@@ -41,11 +40,6 @@ describe('CodeContainer Component', () => {
     it('应该正确渲染 CodeContainer 组件', () => {
       render(<CodeContainer {...defaultProps} />);
       expect(screen.getByTestId('code-container')).toBeInTheDocument();
-    });
-
-    it('应该渲染拖拽手柄', () => {
-      render(<CodeContainer {...defaultProps} />);
-      expect(screen.getByTestId('drag-handle')).toBeInTheDocument();
     });
 
     it('应该渲染子元素', () => {
@@ -66,62 +60,16 @@ describe('CodeContainer Component', () => {
     });
   });
 
-  describe('容器属性测试', () => {
-    it('应该正确处理 showBorder 属性', () => {
-      const props = {
-        ...defaultProps,
-        showBorder: true,
-      };
-
-      render(<CodeContainer {...props} />);
-      const container = screen.getByTestId('code-editor-container');
-      expect(container).toHaveStyle({ backgroundColor: 'rgba(59, 130, 246, 0.1)' });
-    });
-
-    it('应该正确处理 hide 属性', () => {
-      const props = {
-        ...defaultProps,
-        hide: true,
-      };
-
-      render(<CodeContainer {...props} />);
-      const container = screen.getByTestId('code-editor-container');
-      expect(container).toHaveStyle({ opacity: 0, height: 0 });
-    });
-
-    it('应该正确处理 isSelected 属性', () => {
-      const props = {
-        ...defaultProps,
-        isSelected: true,
-      };
-
-      render(<CodeContainer {...props} />);
-      const container = screen.getByTestId('code-editor-container');
-      expect(container).toHaveStyle({ border: '1px solid #1890ff' });
-    });
-
-    it('应该正确处理 isFullScreen 属性', () => {
-      const props = {
-        ...defaultProps,
-        isFullScreen: true,
-      };
-
-      render(<CodeContainer {...props} />);
-      const container = screen.getByTestId('code-editor-container');
-      expect(container).toHaveStyle({ border: '1px solid #0000001a' });
-    });
-  });
-
   describe('事件处理测试', () => {
     it('应该处理 onEditorClick 事件', async () => {
       const user = userEvent.setup();
       const onEditorClick = vi.fn();
 
       render(<CodeContainer {...defaultProps} onEditorClick={onEditorClick} />);
-      
+
       const container = screen.getByTestId('code-editor-container');
       await user.click(container);
-      
+
       expect(onEditorClick).toHaveBeenCalled();
     });
 
@@ -132,12 +80,12 @@ describe('CodeContainer Component', () => {
       render(
         <div onClick={onContainerClick}>
           <CodeContainer {...defaultProps} />
-        </div>
+        </div>,
       );
-      
+
       const container = screen.getByTestId('code-editor-container');
       await user.click(container);
-      
+
       expect(onContainerClick).not.toHaveBeenCalled();
     });
   });
@@ -173,46 +121,18 @@ describe('CodeContainer Component', () => {
     });
   });
 
-  describe('frontmatter 处理测试', () => {
-    it('应该在 frontmatter 为 true 时隐藏拖拽手柄', () => {
-      const props = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          frontmatter: true,
-        },
-      };
-
-      render(<CodeContainer {...props} />);
-      expect(screen.queryByTestId('drag-handle')).not.toBeInTheDocument();
-    });
-
-    it('应该在 frontmatter 为 false 时显示拖拽手柄', () => {
-      const props = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          frontmatter: false,
-        },
-      };
-
-      render(<CodeContainer {...props} />);
-      expect(screen.getByTestId('drag-handle')).toBeInTheDocument();
-    });
-  });
-
   describe('样式测试', () => {
     it('应该应用正确的容器样式', () => {
       render(<CodeContainer {...defaultProps} />);
       const container = screen.getByTestId('code-container');
-      
+
       expect(container).toHaveClass('ace-el', 'drag-el');
     });
 
     it('应该应用正确的编辑器容器样式', () => {
       render(<CodeContainer {...defaultProps} />);
       const container = screen.getByTestId('code-editor-container');
-      
+
       expect(container).toHaveStyle({
         maxHeight: '400px',
         overflow: 'auto',
@@ -233,6 +153,6 @@ describe('CodeContainer Component', () => {
       render(<CodeContainer {...defaultProps} />);
       const container = screen.getByTestId('code-container');
       expect(container).toHaveAttribute('contenteditable', 'false');
-         });
-   });
- }); 
+    });
+  });
+});

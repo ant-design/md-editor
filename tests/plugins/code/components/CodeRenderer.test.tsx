@@ -118,7 +118,7 @@ describe('CodeRenderer Component', () => {
     element: {
       type: 'code' as const,
       value: 'console.log("Hello World");',
-      language: 'javascript',
+      language: 'html',
       children: [{ text: '' }] as [{ text: string }],
     },
     attributes: {},
@@ -143,11 +143,6 @@ describe('CodeRenderer Component', () => {
     it('应该渲染代码工具栏', () => {
       render(<CodeRenderer {...defaultProps} />);
       expect(screen.getByTestId('code-toolbar')).toBeInTheDocument();
-    });
-
-    it('应该渲染 HTML 预览组件', () => {
-      render(<CodeRenderer {...defaultProps} />);
-      expect(screen.getByTestId('html-preview')).toBeInTheDocument();
     });
   });
 

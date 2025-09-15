@@ -223,7 +223,6 @@ vi.mock('antd', () => ({
 // Mock 图标
 vi.mock('@ant-design/icons', () => ({
   ExportOutlined: () => <div data-testid="export-icon">Export</div>,
-  CopyOutlined: () => <div data-testid="copy-icon">Copy</div>,
   DislikeOutlined: () => <div data-testid="dislike-icon">Dislike</div>,
   LikeOutlined: () => <div data-testid="like-icon">Like</div>,
   SelectOutlined: () => <div data-testid="select-icon">Select</div>,

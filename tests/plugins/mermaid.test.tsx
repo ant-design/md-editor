@@ -314,44 +314,6 @@ describe('Mermaid Plugin', () => {
         'graph TD\nA --> B\nB --> C',
       );
     });
-
-    it('应该支持全屏编辑', () => {
-      const TestMermaidFullscreen = () => {
-        const [isFullscreen, setIsFullscreen] = React.useState(false);
-
-        return (
-          <div
-            data-testid="mermaid-container"
-            className={`mermaid-editor ${isFullscreen ? 'fullscreen' : 'normal'}`}
-          >
-            <div className="editor-header">
-              <button
-                type="button"
-                data-testid="fullscreen-toggle"
-                onClick={() => setIsFullscreen(!isFullscreen)}
-              >
-                {isFullscreen ? '退出全屏' : '全屏模式'}
-              </button>
-            </div>
-            <textarea className="mermaid-input" />
-            <div className="mermaid-preview" />
-          </div>
-        );
-      };
-
-      render(<TestMermaidFullscreen />);
-
-      const container = screen.getByTestId('mermaid-container');
-      const toggleButton = screen.getByTestId('fullscreen-toggle');
-
-      expect(container).toHaveClass('normal');
-      expect(toggleButton).toHaveTextContent('全屏模式');
-
-      fireEvent.click(toggleButton);
-
-      expect(container).toHaveClass('fullscreen');
-      expect(toggleButton).toHaveTextContent('退出全屏');
-    });
   });
 
   describe('Mermaid 错误处理', () => {
