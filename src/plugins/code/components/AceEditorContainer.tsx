@@ -19,7 +19,6 @@ export function AceEditorContainer({
 }: AceEditorContainerProps) {
   return (
     <>
-      {/* Ace 编辑器容器 */}
       <div
         data-testid="ace-editor-container"
         ref={dom}

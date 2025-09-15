@@ -3,13 +3,12 @@
  * 封装代码编辑器的所有渲染逻辑
  */
 
-import DOMPurify from 'dompurify';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { MarkdownEditor } from '../../../MarkdownEditor';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { CodeNode, ElementProps } from '../../../MarkdownEditor/el';
 import {
   useCodeEditorState,
-  useFullScreenControl,
   useRenderConditions,
   useToolbarConfig,
 } from '../hooks';
@@ -36,8 +35,6 @@ import {
  */
 export function CodeRenderer(props: ElementProps<CodeNode>) {
   const { editorProps, readonly } = useEditorStore();
-  const { handle, isFullScreen, handleFullScreenToggle } =
-    useFullScreenControl();
 
   // 使用状态管理Hook
   const {
@@ -45,7 +42,6 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     update,
     path,
     handleCloseClick,
-    handleRunHtml,
     handleHtmlPreviewClose,
     handleShowBorderChange,
     handleHideChange,
@@ -53,6 +49,9 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
 
   // 选中状态管理
   const [isSelected, setIsSelected] = React.useState(false);
+
+  // 视图模式状态管理（用于HTML和Markdown）
+  const [viewMode, setViewMode] = useState<'preview' | 'code'>('code');
 
   // 使用Ace编辑器Hook
   const { dom, setLanguage, focusEditor } = AceEditor({
@@ -72,17 +71,20 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     shouldRenderAsCodeEditor,
   } = useRenderConditions(props.element, readonly);
 
+  // 视图模式切换处理函数
+  const handleViewModeToggle = () => {
+    setViewMode((prev) => (prev === 'preview' ? 'code' : 'preview'));
+  };
+
   // 使用工具栏配置Hook
   const { toolbarProps } = useToolbarConfig({
     element: props.element,
     readonly,
-    isFullScreen,
     onCloseClick: handleCloseClick,
-    onRunHtml: handleRunHtml,
-    onFullScreenToggle: handleFullScreenToggle,
     setLanguage,
-    isSelected,
     onSelectionChange: setIsSelected,
+    onViewModeToggle: handleViewModeToggle,
+    viewMode,
   });
 
   // 渲染组件
@@ -97,19 +99,6 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
       return <ThinkBlock element={props.element} />;
     }
 
-    if (props.element?.language === 'html' && readonly) {
-      return (
-        <div
-          {...props.attributes}
-          style={{
-            display: props.element?.otherProps?.isConfig ? 'none' : 'block',
-          }}
-        >
-          {DOMPurify.sanitize(props.element?.value?.trim())}
-        </div>
-      );
-    }
-
     // 主要的代码编辑器渲染
     if (shouldRenderAsCodeEditor) {
       return (
@@ -119,9 +108,6 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
             showBorder={state.showBorder}
             hide={state.hide}
             onEditorClick={focusEditor}
-            fullScreenNode={handle.node}
-            isFullScreen={isFullScreen}
-            isSelected={isSelected}
           >
             {/* 工具栏 */}
             {!props.element.frontmatter &&
@@ -129,17 +115,28 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                 <CodeToolbar {...toolbarProps} />
               )}
 
-            {/* Ace 编辑器容器 */}
-            <AceEditorContainer dom={dom} element={props.element}>
-              {props.children}
-            </AceEditorContainer>
+            <div style={{ padding: 12 }}>
+              {viewMode === 'preview' && props.element.language === 'html' && (
+                <HtmlPreview htmlStr={props.element?.value} />
+              )}
+              {viewMode === 'preview' &&
+                props.element.language &&
+                props.element.language === 'markdown' && (
+                  <MarkdownEditor initValue={props.element?.value} />
+                )}
+              <div
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  display: viewMode === 'code' ? 'block' : 'none',
+                }}
+              >
+                <AceEditorContainer dom={dom} element={props.element}>
+                  {props.children}
+                </AceEditorContainer>
+              </div>
+            </div>
           </CodeContainer>
-
-          {/* HTML 预览模态框 */}
-          <HtmlPreview
-            htmlStr={state.htmlStr}
-            onClose={handleHtmlPreviewClose}
-          />
         </div>
       );
     }
@@ -159,5 +156,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     editorProps.codeProps?.hideToolBar,
     toolbarProps,
     handleHtmlPreviewClose,
+    viewMode,
+    handleViewModeToggle,
   ]);
 }

@@ -69,8 +69,6 @@ vi.mock('../../../../src/plugins/code/hooks', () => ({
       readonly: false,
       isFullScreen: false,
       onCloseClick: vi.fn(),
-      onRunHtml: vi.fn(),
-      onFullScreenToggle: vi.fn(),
       setLanguage: vi.fn(),
       isSelected: true, // 设置为选中状态以便显示工具栏
       onSelectionChange: vi.fn(),

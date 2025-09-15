@@ -68,8 +68,6 @@ describe('CodeToolbar', () => {
     element: defaultElement,
     readonly: false,
     onCloseClick: vi.fn(),
-    onRunHtml: vi.fn(),
-    onFullScreenToggle: vi.fn(),
     isFullScreen: false,
     languageSelectorProps: {
       element: defaultElement,
@@ -138,21 +136,6 @@ describe('CodeToolbar', () => {
 
       expect(mockCopy).toHaveBeenCalledWith('console.log("Hello World");');
       expect(message.success).toHaveBeenCalledWith('复制成功');
-    });
-
-    it('应该正确处理全屏切换', () => {
-      render(<CodeToolbar {...defaultProps} isSelected={true} />);
-
-      // 点击下拉按钮显示工具栏
-      const dropdownButton = screen
-        .getByRole('img', { name: 'down' })
-        .closest('div');
-      fireEvent.click(dropdownButton!);
-
-      const fullscreenButton = screen.getByTitle('全屏');
-      fireEvent.click(fullscreenButton);
-
-      expect(defaultProps.onFullScreenToggle).toHaveBeenCalled();
     });
 
     it('应该正确处理收起功能', () => {

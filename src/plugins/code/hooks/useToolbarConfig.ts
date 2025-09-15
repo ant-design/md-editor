@@ -10,25 +10,23 @@ import { LanguageSelectorProps } from '../components';
 interface UseToolbarConfigProps {
   element: CodeNode;
   readonly: boolean;
-  isFullScreen: boolean;
   onCloseClick: () => void;
-  onRunHtml: () => void;
-  onFullScreenToggle: () => void;
   setLanguage: (lang: string) => void;
   isSelected?: boolean;
   onSelectionChange?: (selected: boolean) => void;
+  onViewModeToggle?: () => void;
+  viewMode?: 'preview' | 'code';
 }
 
 export function useToolbarConfig({
   element,
   readonly,
-  isFullScreen,
   onCloseClick,
-  onRunHtml,
-  onFullScreenToggle,
   setLanguage,
   isSelected,
   onSelectionChange,
+  onViewModeToggle,
+  viewMode,
 }: UseToolbarConfigProps) {
   // 组装语言选择器属性
   const languageSelectorProps: LanguageSelectorProps = useCallback(
@@ -46,23 +44,21 @@ export function useToolbarConfig({
       element,
       readonly,
       onCloseClick,
-      onRunHtml,
-      onFullScreenToggle,
-      isFullScreen,
       languageSelectorProps,
       isSelected,
       onSelectionChange,
+      onViewModeToggle,
+      viewMode,
     }),
     [
       element,
       readonly,
       onCloseClick,
-      onRunHtml,
-      onFullScreenToggle,
-      isFullScreen,
       languageSelectorProps,
       isSelected,
       onSelectionChange,
+      onViewModeToggle,
+      viewMode,
     ],
   )();
 
