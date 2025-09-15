@@ -234,8 +234,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const filterOptions = useMemo(
     () =>
       categories.map((c) => ({
-        label: c || '',
-        value: c || '',
+        label: c || '默认',
+        value: c || '默认',
       })),
     [categories],
   );

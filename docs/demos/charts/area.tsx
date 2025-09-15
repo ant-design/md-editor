@@ -594,8 +594,6 @@ const DynamicAreaChartExample: React.FC = () => {
     );
   };
 
-  console.log(data);
-
   return (
     <div style={{ padding: '20px' }}>
       <h2 style={{ marginBottom: '20px', color: '#333' }}>
