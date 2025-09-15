@@ -13,6 +13,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   ChartContainer,
+  ChartContainerProps,
   ChartFilter,
   ChartToolBar,
   downloadChart,
@@ -36,7 +37,7 @@ export interface FunnelChartDataItem {
   ratio?: number | string;
 }
 
-export interface FunnelChartProps {
+export interface FunnelChartProps extends ChartContainerProps {
   /** 图表标题 */
   title: string;
   /** 扁平化数据数组（x 为阶段名，y 为数值） */
@@ -80,6 +81,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   legendAlign = 'start',
   showPercent = true,
   toolbarExtra,
+  ...props
 }) => {
   // 响应式尺寸
   const [windowWidth, setWindowWidth] = useState(
@@ -565,6 +567,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       className={className}
       theme={theme}
       isMobile={isMobile}
+      variant={props.variant}
       style={{
         width: responsiveWidth,
       }}

@@ -13,6 +13,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   ChartContainer,
+  ChartContainerProps,
   ChartFilter,
   ChartToolBar,
   downloadChart,
@@ -46,7 +47,7 @@ export interface BarChartConfigItem {
   indexAxis?: 'x' | 'y';
 }
 
-export interface BarChartProps {
+export interface BarChartProps extends ChartContainerProps {
   /** 图表标题 */
   title: string;
   /** 扁平化数据数组 */
@@ -130,6 +131,7 @@ const BarChart: React.FC<BarChartProps> = ({
   stacked = false,
   indexAxis = 'x',
   toolbarExtra,
+  variant,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -541,6 +543,7 @@ const BarChart: React.FC<BarChartProps> = ({
       className={className}
       theme={theme}
       isMobile={isMobile}
+      variant={variant}
       style={{
         width: responsiveWidth,
         height: responsiveHeight,

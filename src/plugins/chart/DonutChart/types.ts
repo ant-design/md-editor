@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChartContainerProps } from '../components';
 
 export interface DonutChartData {
   category?: string; // 分类
@@ -20,7 +21,7 @@ export interface DonutChartConfig {
   chartStyle?: 'donut' | 'pie';
 }
 
-export interface DonutChartProps {
+export interface DonutChartProps extends ChartContainerProps {
   data: DonutChartData[];
   configs?: DonutChartConfig[];
   width?: number;

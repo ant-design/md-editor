@@ -15,6 +15,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   ChartContainer,
+  ChartContainerProps,
   ChartFilter,
   ChartToolBar,
   downloadChart,
@@ -54,7 +55,7 @@ export interface AreaChartConfigItem {
   yAxisStep?: number;
 }
 
-export interface AreaChartProps {
+export interface AreaChartProps extends ChartContainerProps {
   /** 图表标题 */
   title: string;
   /** 扁平化数据数组 */
@@ -136,6 +137,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   xPosition = 'bottom',
   yPosition = 'left',
   toolbarExtra,
+  variant,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -423,6 +425,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
       className={className}
       theme={theme}
       isMobile={isMobile}
+      variant={variant}
       style={{
         width: responsiveWidth,
         height: responsiveHeight,

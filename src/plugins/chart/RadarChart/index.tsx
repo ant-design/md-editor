@@ -15,6 +15,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
 import {
   ChartContainer,
+  ChartContainerProps,
   ChartFilter,
   ChartToolBar,
   downloadChart,
@@ -40,7 +41,7 @@ export interface RadarChartDataItem {
   filterLabel?: string;
 }
 
-interface RadarChartProps {
+interface RadarChartProps extends ChartContainerProps {
   data: RadarChartDataItem[];
   title: string;
   width?: number;
@@ -78,6 +79,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   borderColor,
   backgroundColor,
   pointBackgroundColor,
+  ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('radar-chart');
@@ -421,6 +423,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
       baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
       theme={currentConfig.theme}
       isMobile={isMobile}
+      variant={props.variant}
       style={{
         width: responsiveWidth,
         height: responsiveHeight,

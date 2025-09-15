@@ -54,6 +54,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   enableAutoCategory = true,
   singleMode = false,
   toolbarExtra,
+  ...props
 }) => {
   const { isMobile, windowWidth } = useMobile();
 
@@ -262,6 +263,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
       <ChartContainer
         baseClassName={baseClassName}
         className={className}
+        variant={props.variant}
         style={{
           ['--donut-item-min-width' as any]: `${dimensions.width}px`,
         }}

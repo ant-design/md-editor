@@ -14,6 +14,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import {
   ChartContainer,
+  ChartContainerProps,
   ChartFilter,
   ChartToolBar,
   downloadChart,
@@ -32,7 +33,7 @@ export interface ScatterChartDataItem {
   filterLabel?: string;
 }
 
-export interface ScatterChartProps {
+export interface ScatterChartProps extends ChartContainerProps {
   data: ScatterChartDataItem[];
   title: string;
   width?: number;
@@ -71,6 +72,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   yLabel,
   borderColor,
   backgroundColor,
+  ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('scatter-chart');
@@ -438,6 +440,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
       theme={currentConfig.theme}
       isMobile={isMobile}
+      variant={props.variant}
       style={{
         width: responsiveWidth,
         height: responsiveHeight,
