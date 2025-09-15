@@ -5,12 +5,45 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { I18nContext } from '../../../src/i18n';
 import { ChartRender } from '../../../src/plugins/chart/ChartRender';
 
-// Mock Chart.js
+// Mock Chart.js（补齐 CategoryScale 等导出）
 vi.mock('chart.js', () => ({
-  Chart: vi.fn().mockImplementation(() => ({
-    render: vi.fn(),
-    destroy: vi.fn(),
-  })),
+  Chart: {
+    register: vi.fn(),
+  },
+  CategoryScale: vi.fn(),
+  LinearScale: vi.fn(),
+  PointElement: vi.fn(),
+  LineElement: vi.fn(),
+  BarElement: vi.fn(),
+  ArcElement: vi.fn(),
+  Title: vi.fn(),
+  Tooltip: vi.fn(),
+  Legend: vi.fn(),
+  Filler: vi.fn(),
+  RadialLinearScale: vi.fn(),
+  TimeScale: vi.fn(),
+  TimeSeriesScale: vi.fn(),
+  Decimation: vi.fn(),
+  Zoom: vi.fn(),
+}));
+
+// Mock react-chartjs-2 to prevent DOM operations
+vi.mock('react-chartjs-2', () => ({
+  Doughnut: vi.fn().mockImplementation(() => (
+    <div data-testid="doughnut-chart">Mocked Doughnut Chart</div>
+  )),
+  Bar: vi.fn().mockImplementation(() => (
+    <div data-testid="bar-chart">Mocked Bar Chart</div>
+  )),
+  Line: vi.fn().mockImplementation(() => (
+    <div data-testid="line-chart">Mocked Line Chart</div>
+  )),
+  Scatter: vi.fn().mockImplementation(() => (
+    <div data-testid="scatter-chart">Mocked Scatter Chart</div>
+  )),
+  Radar: vi.fn().mockImplementation(() => (
+    <div data-testid="radar-chart">Mocked Radar Chart</div>
+  )),
 }));
 
 // Mock ChartMark components
@@ -101,7 +134,7 @@ vi.mock('../../../src/MarkdownEditor/hooks/useFullScreenHandle', () => ({
     active: false,
     enter: vi.fn(),
     exit: vi.fn(),
-    node: { current: null },
+    node: { current: document.body },
   }),
 }));
 
@@ -165,6 +198,74 @@ describe('ChartRender', () => {
     if (typeof window === 'undefined') {
       global.window = {} as any;
     }
+    
+    // Mock DOM methods that Chart.js might use
+    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+      value: vi.fn(() => ({
+        fillRect: vi.fn(),
+        clearRect: vi.fn(),
+        getImageData: vi.fn(() => ({ data: new Array(4) })),
+        putImageData: vi.fn(),
+        createImageData: vi.fn(() => ({ data: new Array(4) })),
+        setTransform: vi.fn(),
+        drawImage: vi.fn(),
+        save: vi.fn(),
+        fillText: vi.fn(),
+        restore: vi.fn(),
+        beginPath: vi.fn(),
+        moveTo: vi.fn(),
+        lineTo: vi.fn(),
+        closePath: vi.fn(),
+        stroke: vi.fn(),
+        translate: vi.fn(),
+        scale: vi.fn(),
+        rotate: vi.fn(),
+        arc: vi.fn(),
+        fill: vi.fn(),
+        measureText: vi.fn(() => ({ width: 0 })),
+        transform: vi.fn(),
+        rect: vi.fn(),
+        clip: vi.fn(),
+      })),
+      writable: true,
+    });
+
+    // Mock getBoundingClientRect
+    Element.prototype.getBoundingClientRect = vi.fn(() => ({
+      width: 400,
+      height: 300,
+      top: 0,
+      left: 0,
+      bottom: 300,
+      right: 400,
+      x: 0,
+      y: 0,
+      toJSON: vi.fn(),
+    }));
+
+    // Mock ownerDocument for Chart.js DOM operations
+    Object.defineProperty(HTMLElement.prototype, 'ownerDocument', {
+      value: {
+        defaultView: {
+          getComputedStyle: vi.fn(() => ({
+            getPropertyValue: vi.fn(() => ''),
+            width: '400px',
+            height: '300px',
+          })),
+        },
+        documentElement: {
+          style: {},
+        },
+      },
+      writable: true,
+    });
+
+    // Mock ResizeObserver
+    global.ResizeObserver = vi.fn().mockImplementation(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    }));
   });
 
   afterEach(() => {

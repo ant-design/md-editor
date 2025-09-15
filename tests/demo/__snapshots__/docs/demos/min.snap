@@ -29,7 +29,7 @@
       style="padding: 24px; border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%;"
     >
       <div
-        data-length="494"
+        data-length="718"
         data-testid="md-editor"
       >
         MarkdownEditor(Mock)
@@ -39,7 +39,27 @@
       style="padding: 24px; border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%;"
     >
       <div
-        data-length="628"
+        data-length="1886"
+        data-testid="md-editor"
+      >
+        MarkdownEditor(Mock)
+      </div>
+    </div>
+    <div
+      style="padding: 24px; border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%;"
+    >
+      <div
+        data-length="862"
+        data-testid="md-editor"
+      >
+        MarkdownEditor(Mock)
+      </div>
+    </div>
+    <div
+      style="padding: 24px; border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%;"
+    >
+      <div
+        data-length="712"
         data-testid="md-editor"
       >
         MarkdownEditor(Mock)
@@ -89,7 +109,7 @@
       style="padding: 24px; border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%;"
     >
       <div
-        data-length="1169"
+        data-length="1268"
         data-testid="md-editor"
       >
         MarkdownEditor(Mock)
@@ -169,7 +189,7 @@
       style="padding: 24px; border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%;"
     >
       <div
-        data-length="530"
+        data-length="563"
         data-testid="md-editor"
       >
         MarkdownEditor(Mock)

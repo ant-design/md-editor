@@ -6,31 +6,27 @@ import {
   ChartOptions,
   Legend,
   LinearScale,
+  ScriptableContext,
   Tooltip,
 } from 'chart.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartFilter, ChartToolBar, downloadChart } from '../components';
-import { useStyle } from './style';
+import {
+  ChartContainer,
+  ChartContainerProps,
+  ChartFilter,
+  ChartToolBar,
+  downloadChart,
+} from '../components';
+import {
+  ChartDataItem,
+  extractAndSortXValues,
+  findDataPointByXValue,
+} from '../utils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-export interface BarChartDataItem {
-  /** 数据类别 */
-  category: string;
-  /** 数据类型 */
-  type: string;
-  /** X轴值 */
-  x: number;
-  /** Y轴值 */
-  y: number;
-  /** X轴标题 */
-  xtitle?: string;
-  /** Y轴标题 */
-  ytitle?: string;
-  /** 筛选标签 */
-  filterLable?: string;
-}
+export type BarChartDataItem = ChartDataItem;
 
 export interface BarChartConfigItem {
   datasets: Array<(string | { x: number; y: number })[]>;
@@ -51,9 +47,9 @@ export interface BarChartConfigItem {
   indexAxis?: 'x' | 'y';
 }
 
-export interface BarChartProps {
+export interface BarChartProps extends ChartContainerProps {
   /** 图表标题 */
-  title: string;
+  title?: string;
   /** 扁平化数据数组 */
   data: BarChartDataItem[];
   /** 图表宽度，默认600px */
@@ -62,8 +58,15 @@ export interface BarChartProps {
   height?: number;
   /** 自定义CSS类名 */
   className?: string;
+  /** 数据时间 */
+  dataTime?: string;
   /** 图表主题 */
   theme?: 'dark' | 'light';
+  /** 自定义主色（可选），支持 string 或 string[]；
+   *  - 非正负图：数组按序对应各数据序列
+   *  - 正负图：取数组前两位分别作为正/负色；仅一位则全用同色
+   */
+  color?: string | string[];
   /** 是否显示图例，默认true */
   showLegend?: boolean;
   /** 图例位置 */
@@ -80,20 +83,35 @@ export interface BarChartProps {
   stacked?: boolean;
   /** 图表轴向，'x'为垂直柱状图，'y'为水平柱状图 */
   indexAxis?: 'x' | 'y';
+  /** 头部工具条额外按钮 */
+  toolbarExtra?: React.ReactNode;
 }
 
-const defaultColors = [
-  '#1677ff',
-  '#8954FC',
-  '#15e7e4',
-  '#F45BB5',
-  '#00A6FF',
-  '#33E59B',
-  '#D666E4',
-  '#6151FF',
-  '#BF3C93',
-  '#005EE0',
-];
+const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
+
+// 将十六进制颜色转换为带透明度的 rgba 字符串
+const hexToRgba = (hex: string, alpha: number): string => {
+  const sanitized = hex.replace('#', '');
+  const isShort = sanitized.length === 3;
+  const r = parseInt(
+    isShort ? sanitized[0] + sanitized[0] : sanitized.slice(0, 2),
+    16,
+  );
+  const g = parseInt(
+    isShort ? sanitized[1] + sanitized[1] : sanitized.slice(2, 4),
+    16,
+  );
+  const b = parseInt(
+    isShort ? sanitized[2] + sanitized[2] : sanitized.slice(4, 6),
+    16,
+  );
+  const a = Math.max(0, Math.min(1, alpha));
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+};
+
+// 正负柱状图颜色（与需求给定的 rgba 保持一致）
+const POSITIVE_COLOR_HEX = '#388BFF'; // rgba(56, 139, 255, 1)
+const NEGATIVE_COLOR_HEX = '#F78826'; // rgba(247, 136, 38, 1)
 
 const BarChart: React.FC<BarChartProps> = ({
   title,
@@ -101,7 +119,9 @@ const BarChart: React.FC<BarChartProps> = ({
   width = 600,
   height = 400,
   className,
+  dataTime,
   theme = 'light',
+  color,
   showLegend = true,
   legendPosition = 'bottom',
   legendAlign = 'start',
@@ -110,6 +130,8 @@ const BarChart: React.FC<BarChartProps> = ({
   yPosition = 'left',
   stacked = false,
   indexAxis = 'x',
+  toolbarExtra,
+  variant,
 }) => {
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -133,53 +155,65 @@ const BarChart: React.FC<BarChartProps> = ({
 
   // 样式注册
   const baseClassName = 'bar-chart-container';
-  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(data.map((item) => item.category))];
+    const uniqueCategories = [
+      ...new Set(data.map((item) => item.category)),
+    ].filter(Boolean);
     return uniqueCategories;
   }, [data]);
 
-  // 从数据中提取 filterLable，过滤掉 undefined 值
-  const validFilterLables = useMemo(() => {
+  // 从数据中提取 filterLabel，过滤掉 undefined 值
+  const validFilterLabels = useMemo(() => {
     return data
-      .map((item) => item.filterLable)
+      .map((item) => item.filterLabel)
       .filter(
-        (filterLable): filterLable is string => filterLable !== undefined,
+        (filterLabel): filterLabel is string => filterLabel !== undefined,
       );
   }, [data]);
 
-  const filterLables = useMemo(() => {
-    return validFilterLables.length > 0
-      ? [...new Set(validFilterLables)]
+  const filterLabels = useMemo(() => {
+    return validFilterLabels.length > 0
+      ? [...new Set(validFilterLabels)]
       : undefined;
-  }, [validFilterLables]);
+  }, [validFilterLabels]);
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState<string>(categories?.[0]);
-  const [selectedFilterLable, setSelectedFilterLable] = useState(
-    filterLables && filterLables.length > 0 ? filterLables[0] : undefined,
+  const [selectedFilter, setSelectedFilter] = useState<string>(
+    categories.find(Boolean) || '',
   );
+  const [selectedFilterLabel, setSelectedFilterLabel] = useState(
+    filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
+  );
+
+  // 当数据变化导致当前选中分类失效时，自动回退到首个有效分类或空（显示全部）
+  useEffect(() => {
+    if (selectedFilter && !categories.includes(selectedFilter)) {
+      setSelectedFilter(categories.find(Boolean) || '');
+    }
+  }, [categories, selectedFilter]);
 
   // 筛选数据
   const filteredData = useMemo(() => {
+    if (!selectedFilter) return data;
+
     const categoryMatch = data.filter(
       (item) => item.category === selectedFilter,
     );
 
-    // 如果没有 filterLables 或 selectedFilterLable，只按 category 筛选
-    if (!filterLables || !selectedFilterLable) {
+    // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
+    if (!filterLabels || !selectedFilterLabel) {
       return categoryMatch;
     }
 
-    // 如果有 filterLable 筛选，需要同时匹配 category 和 filterLable
+    // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
     return categoryMatch.filter(
-      (item) => item.filterLable === selectedFilterLable,
+      (item) => item.filterLabel === selectedFilterLabel,
     );
-  }, [data, selectedFilter, filterLables, selectedFilterLable]);
+  }, [data, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 从数据中提取唯一的类型
   const types = useMemo(() => {
@@ -188,8 +222,7 @@ const BarChart: React.FC<BarChartProps> = ({
 
   // 从数据中提取唯一的x值并排序
   const xValues = useMemo(() => {
-    const uniqueX = [...new Set(filteredData.map((item) => item.x))];
-    return uniqueX.sort((a, b) => a - b);
+    return extractAndSortXValues(filteredData);
   }, [filteredData]);
 
   // 从数据中获取xtitle和ytitle
@@ -207,26 +240,112 @@ const BarChart: React.FC<BarChartProps> = ({
     return titles[0] || '';
   }, [filteredData]);
 
+  // 是否是正负柱图（同一批次同时存在正值与负值）
+  const hasPositive = useMemo(() => {
+    return filteredData.some((item) => {
+      const v = typeof item.y === 'number' ? item.y : Number(item.y);
+      return Number.isFinite(v) && v > 0;
+    });
+  }, [filteredData]);
+  const hasNegative = useMemo(() => {
+    return filteredData.some((item) => {
+      const v = typeof item.y === 'number' ? item.y : Number(item.y);
+      return Number.isFinite(v) && v < 0;
+    });
+  }, [filteredData]);
+  const isDiverging = hasPositive && hasNegative;
+
   // 构建Chart.js数据结构
   const processedData: ChartData<'bar'> = useMemo(() => {
     const labels = xValues.map((x) => x.toString());
 
     const datasets = types.map((type, index) => {
-      const baseColor = defaultColors[index % defaultColors.length];
+      const provided = color;
+      const pickByIndex = (i: number) =>
+        Array.isArray(provided)
+          ? provided[i] ||
+            provided[0] ||
+            defaultColors[i % defaultColors.length]
+          : provided || defaultColors[i % defaultColors.length];
+      const baseColor = pickByIndex(index);
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
-        const dataPoint = filteredData.find(
-          (item) => item.type === type && item.x === x,
-        );
-        return dataPoint ? dataPoint.y : null;
+        const dataPoint = findDataPointByXValue(filteredData, x, type);
+        const v = dataPoint?.y;
+        const n = typeof v === 'number' ? v : Number(v);
+        return Number.isFinite(n) ? n : null;
       });
 
       return {
-        label: type,
+        label: type || '默认',
         data: typeData,
-        borderColor: baseColor,
-        backgroundColor: baseColor,
+        borderColor: (ctx: ScriptableContext<'bar'>) => {
+          const parsed: any = ctx.parsed as any;
+          const value =
+            indexAxis === 'y'
+              ? typeof parsed?.x === 'number'
+                ? parsed.x
+                : 0
+              : typeof parsed?.y === 'number'
+                ? parsed.y
+                : 0;
+          let base = baseColor;
+          if (!color && isDiverging) {
+            base = value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX;
+          } else if (Array.isArray(color) && isDiverging) {
+            const pos = color[0] || baseColor;
+            const neg = color[1] || color[0] || baseColor;
+            base = value >= 0 ? pos : neg;
+          }
+          return hexToRgba(base, 0.95);
+        },
+        backgroundColor: (ctx: ScriptableContext<'bar'>) => {
+          const chart = ctx.chart;
+          const chartArea = chart.chartArea;
+          const parsed: any = ctx.parsed as any;
+          if (!chartArea) return hexToRgba(baseColor, 0.6);
+
+          const xScale = chart.scales['x'];
+          const yScale = chart.scales['y'];
+          const startAlpha = 0.65;
+          const endAlpha = 0.95;
+
+          if (indexAxis === 'y') {
+            const value = typeof parsed?.x === 'number' ? parsed.x : 0;
+            let base = baseColor;
+            if (!color && isDiverging) {
+              base = value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX;
+            } else if (Array.isArray(color) && isDiverging) {
+              const pos = color[0] || baseColor;
+              const neg = color[1] || color[0] || baseColor;
+              base = value >= 0 ? pos : neg;
+            }
+            const x0 = xScale.getPixelForValue(0);
+            const x1 = xScale.getPixelForValue(value);
+            // 从靠近坐标轴的零点开始，向数据端渐深
+            const gradient = chart.ctx.createLinearGradient(x0, 0, x1, 0);
+            gradient.addColorStop(0, hexToRgba(base, startAlpha));
+            gradient.addColorStop(1, hexToRgba(base, endAlpha));
+            return gradient;
+          }
+
+          const value = typeof parsed?.y === 'number' ? parsed.y : 0;
+          let base = baseColor;
+          if (!color && isDiverging) {
+            base = value >= 0 ? POSITIVE_COLOR_HEX : NEGATIVE_COLOR_HEX;
+          } else if (Array.isArray(color) && isDiverging) {
+            const pos = color[0] || baseColor;
+            const neg = color[1] || color[0] || baseColor;
+            base = value >= 0 ? pos : neg;
+          }
+          const y0 = yScale.getPixelForValue(0);
+          const y1 = yScale.getPixelForValue(value);
+          const gradient = chart.ctx.createLinearGradient(0, y0, 0, y1);
+          gradient.addColorStop(0, hexToRgba(base, startAlpha));
+          gradient.addColorStop(1, hexToRgba(base, endAlpha));
+          return gradient;
+        },
         borderWidth: 0,
         categoryPercentage: 0.7,
         barPercentage: 0.8,
@@ -309,18 +428,18 @@ const BarChart: React.FC<BarChartProps> = ({
   // 筛选器选项
   const filterOptions = useMemo(() => {
     return categories.map((category) => ({
-      label: category,
-      value: category,
+      label: category || '默认',
+      value: category || '默认',
     }));
   }, [categories]);
 
-  // 根据 filterLable 筛选数据 - 只有当 filterLables 存在时才生成
-  const filteredDataByFilterLable = useMemo(() => {
-    return filterLables?.map((item) => ({
+  // 根据 filterLabel 筛选数据 - 只有当 filterLabels 存在时才生成
+  const filteredDataByFilterLabel = useMemo(() => {
+    return filterLabels?.map((item) => ({
       key: item,
       label: item,
     }));
-  }, [filterLables]);
+  }, [filterLabels]);
 
   const isLight = theme === 'light';
   const axisTextColor = isLight
@@ -418,40 +537,42 @@ const BarChart: React.FC<BarChartProps> = ({
     downloadChart(chartRef.current, 'bar-chart');
   };
 
-  return wrapSSR(
-    <div
-      className={`${baseClassName} ${hashId} ${className || ''}`}
+  return (
+    <ChartContainer
+      baseClassName={baseClassName}
+      className={className}
+      theme={theme}
+      isMobile={isMobile}
+      variant={variant}
       style={{
         width: responsiveWidth,
         height: responsiveHeight,
-        backgroundColor: isLight ? '#fff' : '#1a1a1a',
-        borderRadius: isMobile ? '6px' : '8px',
-        padding: isMobile ? '12px' : '20px',
-        position: 'relative',
-        border: isLight ? '1px solid #e8e8e8' : 'none',
-        margin: isMobile ? '0 auto' : 'initial',
-        maxWidth: isMobile ? '100%' : 'none',
-        boxSizing: 'border-box',
       }}
     >
-      <ChartToolBar title={title} theme={theme} onDownload={handleDownload} />
+      <ChartToolBar
+        title={title}
+        theme={theme}
+        onDownload={handleDownload}
+        extra={toolbarExtra}
+        dataTime={dataTime}
+      />
 
       <ChartFilter
         filterOptions={filterOptions}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        {...(filterLables && {
-          customOptions: filteredDataByFilterLable,
-          selectedCustomSelection: selectedFilterLable,
-          onSelectionChange: setSelectedFilterLable,
+        {...(filterLabels && {
+          customOptions: filteredDataByFilterLabel,
+          selectedCustomSelection: selectedFilterLabel,
+          onSelectionChange: setSelectedFilterLabel,
         })}
         theme={theme}
       />
 
-      <div className="chart-wrapper">
+      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Bar ref={chartRef} data={processedData} options={options} />
       </div>
-    </div>,
+    </ChartContainer>
   );
 };
 

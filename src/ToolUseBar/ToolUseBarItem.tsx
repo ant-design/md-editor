@@ -55,7 +55,7 @@ export interface ToolCall {
   time: React.ReactNode;
   icon?: React.ReactNode;
   errorMessage?: string;
-  type?: 'summary' | 'normal';
+  type?: 'summary' | 'normal' | string;
   content?: React.ReactNode;
   status?: 'idle' | 'loading' | 'success' | 'error';
   testId?: string;

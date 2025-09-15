@@ -1,20 +1,19 @@
-﻿import {
-  DownloadOutlined,
-  DownOutlined,
-  FullscreenOutlined,
-  ReloadOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+﻿import { DownOutlined, SettingOutlined } from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
-import { Chart } from 'chart.js';
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
-import { ChartAttrToolBar } from './ChartAttrToolBar';
-import { Area, Bar, Column, Line, Pie } from './ChartMark';
+import AreaChart from './AreaChart';
+import BarChart from './BarChart';
+import DonutChart from './DonutChart';
+import FunnelChart from './FunnelChart';
+import LineChart from './LineChart';
+import RadarChart from './RadarChart';
+import ScatterChart from './ScatterChart';
+import { isNotEmpty, toNumber } from './utils';
 
 /**
  * 图表类型映射配置
@@ -22,7 +21,11 @@ import { Area, Bar, Column, Line, Pie } from './ChartMark';
 const ChartMap = {
   pie: {
     title: '饼图',
-    changeData: ['table'],
+    changeData: ['donut', 'table'],
+  },
+  donut: {
+    title: '环形图',
+    changeData: ['pie', 'table'],
   },
   bar: {
     title: '条形图',
@@ -40,13 +43,25 @@ const ChartMap = {
     title: '面积图',
     changeData: ['column', 'bar', 'line', 'table'],
   },
+  radar: {
+    title: '雷达图',
+    changeData: ['table'],
+  },
+  scatter: {
+    title: '散点图',
+    changeData: ['table'],
+  },
+  funnel: {
+    title: '漏斗图',
+    changeData: ['table'],
+  },
   table: {
     title: '表格',
-    changeData: ['column', 'line', 'area', 'pie'],
+    changeData: ['column', 'line', 'area', 'pie', 'donut'],
   },
   descriptions: {
     title: '定义列表',
-    changeData: ['column', 'line', 'area', 'table', 'pie'],
+    changeData: ['column', 'line', 'area', 'table', 'pie', 'donut'],
   },
 };
 
@@ -74,6 +89,10 @@ const ChartMap = {
  * @param {boolean} [props.isChartList] - 是否为图表列表
  * @param {number} [props.columnLength] - 列长度
  * @param {(value: number) => void} [props.onColumnLengthChange] - 列长度变化回调
+ * @param {string} [props.dataTime] - 数据时间
+ * @param {string} [props.groupBy] - 业务分组维度
+ * @param {string} [props.filterBy] - 主筛选维度
+ * @param {string} [props.colorLegend] - 数据系列维度
  *
  * @example
  * ```tsx
@@ -86,6 +105,7 @@ const ChartMap = {
  *     y: "value"
  *   }}
  *   title="销售数据"
+ *   dataTime="2025-06-30 00:00:00"
  * />
  * ```
  *
@@ -104,10 +124,14 @@ const ChartMap = {
 export const ChartRender: React.FC<{
   chartType:
     | 'pie'
+    | 'donut'
     | 'bar'
     | 'line'
     | 'column'
     | 'area'
+    | 'radar'
+    | 'scatter'
+    | 'funnel'
     | 'descriptions'
     | 'table';
   chartData: Record<string, any>[];
@@ -125,23 +149,137 @@ export const ChartRender: React.FC<{
   isChartList?: boolean;
   columnLength?: number;
   onColumnLengthChange?: (value: number) => void;
+  dataTime?: string;
+  groupBy?: string;
+  filterBy?: string;
+  colorLegend?: string;
 }> = (props) => {
   const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
-    'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions' | 'table'
+    | 'pie'
+    | 'donut'
+    | 'bar'
+    | 'line'
+    | 'column'
+    | 'area'
+    | 'radar'
+    | 'scatter'
+    | 'descriptions'
+    | 'table'
+    | 'funnel'
   >(() => props.chartType);
   const {
     chartData,
-    node,
     isChartList,
     onColumnLengthChange,
     columnLength,
     title,
+    dataTime,
+    groupBy,
+    filterBy,
+    colorLegend,
   } = props;
-
-  const chartRef = useRef<Chart>();
   const i18n = useContext(I18nContext);
   const [config, setConfig] = useState(() => props.config);
+  const [renderKey, setRenderKey] = useState(0);
+
+  const getAxisTitles = () => {
+    const xCol = config?.columns?.find?.(
+      (c: any) => c?.dataIndex === config?.x,
+    );
+    const yCol = config?.columns?.find?.(
+      (c: any) => c?.dataIndex === config?.y,
+    );
+    return {
+      xTitle: xCol?.title || String(config?.x || ''),
+      yTitle: yCol?.title || String(config?.y || ''),
+    };
+  };
+
+  const buildXIndexer = () => {
+    const map = new Map<any, number>();
+    let idx = 1;
+    (chartData || []).forEach((row: any) => {
+      const key = row?.[config?.x];
+      if (isNotEmpty(key) && !map.has(key)) {
+        map.set(key, idx++);
+      }
+    });
+    return map;
+  };
+
+  const getFieldValue = (row: any, field?: string): string | undefined => {
+    if (field && isNotEmpty(row[field])) {
+      return String(row[field]);
+    }
+    return undefined;
+  };
+
+  const convertFlatData = useMemo(() => {
+    const { xTitle, yTitle } = getAxisTitles();
+    const xIndexer = buildXIndexer();
+
+    return (chartData || []).map((row: any, i: number) => {
+      const rawX = row?.[config?.x];
+      const rawY = row?.[config?.y];
+      const category = getFieldValue(row, groupBy);
+      const type = getFieldValue(row, colorLegend);
+      const filterLabel = getFieldValue(row, filterBy);
+      const x =
+        typeof rawX === 'number'
+          ? rawX
+          : isNotEmpty(rawX)
+            ? String(rawX)
+            : String(xIndexer.get(rawX) ?? i + 1);
+
+      const y =
+        typeof rawY === 'number' ? rawY : isNotEmpty(rawY) ? String(rawY) : '';
+
+      return {
+        x,
+        y,
+        xtitle: xTitle,
+        ytitle: yTitle,
+        ...(type ? { type } : {}),
+        ...(category ? { category } : {}),
+        ...(filterLabel ? { filterLabel } : {}),
+      };
+    });
+  }, [
+    JSON.stringify(chartData),
+    JSON.stringify(config),
+    title,
+    groupBy,
+    colorLegend,
+    filterBy,
+  ]);
+
+  const convertDonutData = useMemo(() => {
+    return (chartData || []).map((row: any) => {
+      const category = getFieldValue(row, groupBy);
+      const label = String(row?.[config?.x] ?? '');
+      const value = toNumber(row?.[config?.y], 0);
+      const filterLabel = getFieldValue(row, filterBy);
+
+      return {
+        label,
+        value,
+        ...(category ? { category } : {}),
+        ...(filterLabel ? { filterLabel } : {}),
+      };
+    });
+  }, [
+    JSON.stringify(chartData),
+    JSON.stringify(config),
+    title,
+    groupBy,
+    filterBy,
+  ]);
+
+  React.useEffect(() => {
+    setChartType(props.chartType);
+  }, [props.chartType]);
+
   /**
    * 图表配置
    */
@@ -163,6 +301,7 @@ export const ChartRender: React.FC<{
               };
             }) || [],
         }}
+        getPopupContainer={() => document.body}
       >
         <span
           style={{
@@ -197,6 +336,7 @@ export const ChartRender: React.FC<{
               };
             }),
           }}
+          getPopupContainer={() => document.body}
         >
           <span
             style={{
@@ -228,6 +368,7 @@ export const ChartRender: React.FC<{
         key="config"
         title={i18n?.locale?.configChart || '配置图表'}
         trigger={'click'}
+        getPopupContainer={() => document.body}
         content={
           <ConfigProvider componentSize="small">
             <ProForm
@@ -245,6 +386,7 @@ export const ChartRender: React.FC<{
                   ...props.config,
                   ...values,
                 });
+                setRenderKey((k) => k + 1);
               }}
             >
               <div
@@ -301,7 +443,7 @@ export const ChartRender: React.FC<{
       >
         <ActionIconBox
           title={i18n?.locale?.configChart || '配置图表'}
-          onClick={() => chartRef.current?.render()}
+          onClick={() => setRenderKey((k) => k + 1)}
         >
           <SettingOutlined />
         </ActionIconBox>
@@ -341,75 +483,158 @@ export const ChartRender: React.FC<{
     }
     if (chartType === 'pie') {
       return (
-        <Pie
-          chartRef={chartRef}
-          index={config?.index}
-          key={config?.index}
-          data={chartData}
-          yField={config?.y || 'value'}
-          xField={config?.x || 'type'}
+        <DonutChart
+          key={`${config?.index}-pie-${renderKey}`}
+          data={convertDonutData}
+          configs={[{ chartStyle: 'pie', showLegend: true }]}
+          height={config?.height || 400}
+          title={title}
+          showToolbar={true}
+          dataTime={dataTime}
+        />
+      );
+    }
+    if (chartType === 'donut') {
+      return (
+        <DonutChart
+          key={`${config?.index}-donut-${renderKey}`}
+          data={convertDonutData}
+          configs={[{ chartStyle: 'donut', showLegend: true }]}
+          height={config?.height || 400}
+          title={title}
+          showToolbar={true}
+          dataTime={dataTime}
         />
       );
     }
     if (chartType === 'bar') {
       return (
-        <Bar
-          chartRef={chartRef}
-          data={chartData}
-          index={config?.index}
-          yField={config?.y}
-          key={config?.index}
-          xField={config?.x}
+        <BarChart
+          key={`${config?.index}-bar-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          indexAxis={'y'}
+          stacked={config?.rest?.stacked}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
         />
       );
     }
 
     if (chartType === 'line') {
       return (
-        <Line
-          chartRef={chartRef}
-          key={config?.index}
-          index={config?.index}
-          data={chartData}
-          yField={config?.y}
-          xField={config?.x}
+        <LineChart
+          key={`${config?.index}-line-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
         />
       );
     }
     if (chartType === 'column') {
       return (
-        <Column
-          chartRef={chartRef}
-          key={config?.index}
-          index={config?.index}
-          data={chartData}
-          yField={config?.y}
-          xField={config?.x}
+        <BarChart
+          key={`${config?.index}-column-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          indexAxis={'x'}
+          stacked={config?.rest?.stacked}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
         />
       );
     }
 
     if (chartType === 'area') {
       return (
-        <Area
-          chartRef={chartRef}
-          key={config?.index}
-          data={chartData}
-          index={config?.index}
-          yField={config?.y}
-          xField={config?.x}
+        <AreaChart
+          key={`${config?.index}-area-${renderKey}`}
+          data={convertFlatData}
           height={config?.height || 400}
-          {...config?.rest}
-          title=""
+          title={title || ''}
+          showLegend={config?.rest?.showLegend ?? true}
+          showGrid={config?.rest?.showGrid ?? true}
+          dataTime={dataTime}
+        />
+      );
+    }
+    if (chartType === 'radar') {
+      // Radar 数据需要映射为 { category, label, type, score }
+      const radarData = (chartData || []).map((row: any, i: number) => {
+        const filterLabel = getFieldValue(row, filterBy);
+        const category = getFieldValue(row, groupBy);
+        const type = getFieldValue(row, colorLegend);
+        return {
+          label: String(row?.[config?.x] ?? i + 1),
+          score: row?.[config?.y],
+          ...(category ? { category } : {}),
+          ...(type ? { type } : {}),
+          ...(filterLabel ? { filterLabel } : {}),
+        };
+      });
+      return (
+        <RadarChart
+          key={`${config?.index}-radar-${renderKey}`}
+          data={radarData}
+          height={config?.height || 400}
+          title={title || ''}
+          dataTime={dataTime}
+        />
+      );
+    }
+    if (chartType === 'scatter') {
+      // Scatter 数据需要映射为 { category, type, x, y }
+      const scatterData = (chartData || []).map((row: any) => {
+        const filterLabel = getFieldValue(row, filterBy);
+        const category = getFieldValue(row, groupBy);
+        const type = getFieldValue(row, colorLegend);
+        return {
+          x: row?.[config?.x],
+          y: row?.[config?.y],
+          ...(category ? { category } : {}),
+          ...(type ? { type } : {}),
+          ...(filterLabel ? { filterLabel } : {}),
+        };
+      });
+      return (
+        <ScatterChart
+          key={`${config?.index}-scatter-${renderKey}`}
+          data={scatterData}
+          height={config?.height || 400}
+          title={title || ''}
+          dataTime={dataTime}
+        />
+      );
+    }
+    if (chartType === 'funnel') {
+      // Funnel 数据需要映射为 { category?, type?, filterLabel?, x, y, ratio? }
+      const funnelData = (chartData || []).map((row: any, i: number) => {
+        const filterLabel = getFieldValue(row, filterBy);
+        const category = getFieldValue(row, groupBy);
+        const type = getFieldValue(row, colorLegend);
+        return {
+          x: String(row?.[config?.x] ?? i + 1),
+          y: toNumber(row?.[config?.y], 0),
+          ...(row?.ratio !== undefined ? { ratio: row.ratio } : {}),
+          ...(category ? { category } : {}),
+          ...(type ? { type } : {}),
+          ...(filterLabel ? { filterLabel } : {}),
+        };
+      });
+      return (
+        <FunnelChart
+          key={`${config?.index}-funnel-${renderKey}`}
+          data={funnelData}
+          height={config?.height || 400}
+          title={title || ''}
+          dataTime={dataTime}
         />
       );
     }
@@ -441,7 +666,7 @@ export const ChartRender: React.FC<{
                 }}
                 items={
                   config?.columns
-                    .map((column: { title: string; dataIndex: string }) => {
+                    .map((column: { title?: string; dataIndex: string }) => {
                       if (!column.title || !column.dataIndex) return null;
                       return {
                         label: column.title || '',
@@ -474,103 +699,9 @@ export const ChartRender: React.FC<{
         (handle.node.current || document?.body) as HTMLElement
       }
     >
-      <div
-        ref={handle.node}
-        style={{
-          background: '#fff',
-          borderRadius: 'inherit',
-        }}
-      >
-        <div
-          style={{
-            userSelect: 'none',
-          }}
-          contentEditable={false}
-        >
-          <ChartAttrToolBar
-            title={title || ''}
-            node={node}
-            options={[
-              {
-                style: { padding: 0 },
-                icon: toolBar.at(0),
-              },
-              {
-                style: { padding: 0 },
-                icon: toolBar.at(1),
-              },
-              {
-                style: { padding: 0 },
-                icon: toolBar.at(2),
-              },
-              {
-                style: { padding: 0 },
-                icon: (
-                  <ActionIconBox
-                    title={i18n?.locale?.rerender || '重新渲染'}
-                    onClick={() => chartRef.current?.render()}
-                  >
-                    <ReloadOutlined />
-                  </ActionIconBox>
-                ),
-              },
-              {
-                style: { padding: 0 },
-                icon: (
-                  <ActionIconBox
-                    title={i18n?.locale?.download || '下载'}
-                    onClick={() => {
-                      const csvString = chartData
-                        .map((item) => {
-                          return Object.values(item).join(',');
-                        })
-                        .join('\n');
-                      const blob = new Blob([csvString], {
-                        type: 'text/csv;charset=utf-8;',
-                      });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement('a');
-                      a.href = url;
-                      a.download = 'data.csv';
-                      a.click();
-                      URL.revokeObjectURL(url);
-                    }}
-                  >
-                    <DownloadOutlined />
-                  </ActionIconBox>
-                ),
-              },
-              {
-                style: { padding: 0 },
-                icon: (
-                  <ActionIconBox
-                    title={i18n?.locale?.fullScreen || '全屏'}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (handle.active) {
-                        handle.exit();
-                        setConfig(props.config);
-                      } else {
-                        handle.enter();
-                        setConfig({
-                          ...props.config,
-                          height: undefined,
-                        });
-                      }
-                    }}
-                  >
-                    {handle.active ? (
-                      <FullscreenOutlined />
-                    ) : (
-                      <FullscreenOutlined />
-                    )}
-                  </ActionIconBox>
-                ),
-              },
-            ]}
-          />
-        </div>
+      <div ref={handle.node}>
         {chartDom ?? null}
+        {toolBar}
       </div>
     </ConfigProvider>
   );

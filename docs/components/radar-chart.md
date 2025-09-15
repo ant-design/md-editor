@@ -18,24 +18,25 @@ group:
 
 ### RadarChartProps
 
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| data | `RadarChartDataItem[]` | - | 扁平化数据数组 |
-| title | `string` | - | 图表标题 |
-| width | `number` | `600` | 宽度（px），移动端自适应为 100% |
-| height | `number` | `400` | 高度（px），移动端按正方形比例，最大约 400 |
-| className | `string` | - | 自定义类名 |
+| 属性      | 类型                   | 默认值 | 说明                                       |
+| --------- | ---------------------- | ------ | ------------------------------------------ |
+| data      | `RadarChartDataItem[]` | -      | 扁平化数据数组                             |
+| title     | `string`               | -      | 图表标题                                   |
+| width     | `number`               | `600`  | 宽度（px），移动端自适应为 100%            |
+| height    | `number`               | `400`  | 高度（px），移动端按正方形比例，最大约 400 |
+| className | `string`               | -      | 自定义类名                                 |
 
 ### RadarChartDataItem
 
-| 字段 | 类型 | 必填 | 说明 |
-| --- | --- | --- | --- |
-| category | `string` | 是 | 分类（用于外层筛选）|
-| label | `string` | 是 | 指标名称（将作为雷达图各轴标签）|
-| type | `string` | 是 | 数据序列名称（映射为 dataset）|
-| score | `number` | 是 | 指标分值 |
-| filterLable | `string` | 否 | 二级筛选标签（可选）|
+| 字段        | 类型     | 必填 | 说明                             |
+| ----------- | -------- | ---- | -------------------------------- |
+| category    | `string` | 是   | 分类（用于外层筛选）             |
+| label       | `string` | 是   | 指标名称（将作为雷达图各轴标签） |
+| type        | `string` | 是   | 数据序列名称（映射为 dataset）   |
+| score       | `number` | 是   | 指标分值                         |
+| filterLabel | `string` | 否   | 二级筛选标签（可选）             |
 
 ## 说明
+
 - 内置色板自动为不同 `type` 分配颜色并填充区域。
-- 图例在移动端自动放置到底部、字体缩放优化。 
+- 图例在移动端自动放置到底部、字体缩放优化。

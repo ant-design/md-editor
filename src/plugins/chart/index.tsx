@@ -15,6 +15,7 @@ export { ChartRender } from './ChartRender';
 export { default as AreaChart } from './AreaChart';
 export { default as BarChart } from './BarChart';
 export { default as DonutChart } from './DonutChart';
+export { default as FunnelChart } from './FunnelChart';
 export { default as LineChart } from './LineChart';
 export { default as RadarChart } from './RadarChart';
 export { default as ScatterChart } from './ScatterChart';
@@ -35,17 +36,14 @@ export type {
   DonutChartData,
   DonutChartProps,
 } from './DonutChart';
+export type { FunnelChartDataItem, FunnelChartProps } from './FunnelChart';
 export type {
   LineChartConfigItem,
   LineChartDataItem,
   LineChartProps,
 } from './LineChart';
-export type { RadarChartConfigItem, RadarChartDataItem } from './RadarChart';
-export type {
-  ScatterChartConfigItem,
-  ScatterChartDataItem,
-  ScatterChartProps,
-} from './ScatterChart';
+export type { RadarChartDataItem } from './RadarChart';
+export type { ScatterChartDataItem, ScatterChartProps } from './ScatterChart';
 
 // 工具与常量
 export { defaultColorList } from './const';
@@ -336,6 +334,10 @@ export const ChartElement = (props: RenderElementProps) => {
                               rest,
                             }}
                             title={key}
+                            dataTime={rest?.dataTime}
+                            groupBy={rest?.groupBy}
+                            filterBy={rest?.filterBy}
+                            colorLegend={rest?.colorLegend}
                           />
                         );
                         return dom;
@@ -350,6 +352,10 @@ export const ChartElement = (props: RenderElementProps) => {
                         chartType={chartType}
                         chartData={chartData}
                         title={rest?.title}
+                        dataTime={rest?.dataTime}
+                        groupBy={rest?.groupBy}
+                        filterBy={rest?.filterBy}
+                        colorLegend={rest?.colorLegend}
                         config={{
                           height,
                           x,
@@ -369,8 +375,6 @@ export const ChartElement = (props: RenderElementProps) => {
                           <div
                             key={index + subIndex}
                             style={{
-                              border: '1px solid #eee',
-                              borderRadius: '0.5em',
                               margin: 'auto',
                               minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
                               flex: 1,
@@ -389,8 +393,6 @@ export const ChartElement = (props: RenderElementProps) => {
                         contentEditable={false}
                         style={{
                           userSelect: 'none',
-                          border: '1px solid #eee',
-                          borderRadius: '0.5em',
                           margin: 'auto',
                           minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
                           flex: 1,

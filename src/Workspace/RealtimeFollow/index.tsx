@@ -263,7 +263,6 @@ export const RealtimeFollow: React.FC<{
 }) => {
   const mdInstance = useRef<MarkdownEditorInstance>();
   const isTestEnv = process.env.NODE_ENV === 'test';
-
   // 添加自动滚动功能（测试环境下禁用）
   const { containerRef: autoScrollRef, scrollToBottom } = useAutoScroll({
     SCROLL_TOLERANCE: 30,
@@ -292,7 +291,6 @@ export const RealtimeFollow: React.FC<{
         mdInstance.current.store.plugins,
       );
       mdInstance.current.store.updateNodeList(schema);
-
       // 在打字机模式下，内容更新后触发自动滚动
       if (data.typewriter && !isTestEnv) {
         // 使用 setTimeout 确保 DOM 更新完成后再滚动

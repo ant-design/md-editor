@@ -58,3 +58,144 @@ export function debounce(
   };
   return fn;
 }
+
+/**
+ * 数据项接口，用于图表数据处理
+ */
+export interface ChartDataItem {
+  /** 数据类别 */
+  category?: string;
+  /** 数据类型 */
+  type?: string;
+  /** X轴值 */
+  x: number | string;
+  /** Y轴值 */
+  y: number | string;
+  /** X轴标题 */
+  xtitle?: string;
+  /** Y轴标题 */
+  ytitle?: string;
+  /** 筛选标签 */
+  filterLabel?: string;
+}
+
+/**
+ * 归一化 x 轴值，将字符串数字转换为数字，避免重复标签
+ * @param value - 原始 x 轴值
+ * @returns 归一化后的值
+ */
+export const normalizeXValue = (value: number | string): number | string => {
+  if (typeof value === 'number') return value;
+  const s = String(value).trim();
+  if (s === '') return value;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : value;
+};
+
+/**
+ * 比较两个 x 轴值的大小，用于排序
+ * @param a - 第一个值
+ * @param b - 第二个值
+ * @returns 比较结果
+ */
+export const compareXValues = (
+  a: number | string,
+  b: number | string,
+): number => {
+  const normalizedA = normalizeXValue(a);
+  const normalizedB = normalizeXValue(b);
+
+  // 如果都是数字，按数值比较
+  if (typeof normalizedA === 'number' && typeof normalizedB === 'number') {
+    return normalizedA - normalizedB;
+  }
+
+  // 如果一个是数字，一个是字符串，数字优先
+  if (typeof normalizedA === 'number' && typeof normalizedB === 'string') {
+    return -1;
+  }
+  if (typeof normalizedA === 'string' && typeof normalizedB === 'number') {
+    return 1;
+  }
+
+  // 如果都是字符串，按字符串比较
+  return String(normalizedA).localeCompare(String(normalizedB));
+};
+
+/**
+ * 检查两个 x 轴值是否相等
+ * @param a - 第一个值
+ * @param b - 第二个值
+ * @returns 是否相等
+ */
+export const isXValueEqual = (
+  a: number | string,
+  b: number | string,
+): boolean => {
+  const normalizedA = normalizeXValue(a);
+  const normalizedB = normalizeXValue(b);
+
+  // 如果都是数字，按数值比较
+  if (typeof normalizedA === 'number' && typeof normalizedB === 'number') {
+    return normalizedA === normalizedB;
+  }
+
+  // 否则按字符串比较
+  return String(normalizedA) === String(normalizedB);
+};
+
+/**
+ * 从数据中提取并排序 x 轴值
+ * @param data - 图表数据数组
+ * @returns 排序后的唯一 x 轴值数组
+ */
+export const extractAndSortXValues = (
+  data: ChartDataItem[],
+): Array<number | string> => {
+  // 提取所有 x 值并归一化
+  const normalizedValues = data.map((item) => normalizeXValue(item.x));
+
+  // 去重并排序
+  const uniqueValues = [...new Set(normalizedValues)];
+
+  return uniqueValues.sort(compareXValues);
+};
+
+/**
+ * 根据 x 轴值查找对应的数据点
+ * @param data - 数据数组
+ * @param type - 数据类型
+ * @param xValue - x 轴值
+ * @returns 匹配的数据点，如果未找到返回 undefined
+ */
+export const findDataPointByXValue = (
+  data: ChartDataItem[],
+  xValue: number | string,
+  type?: string,
+): ChartDataItem | undefined => {
+  if (!type) return data.find((item) => isXValueEqual(item.x, xValue));
+  return data.find(
+    (item) => item.type === type && isXValueEqual(item.x, xValue),
+  );
+};
+
+/**
+ * 将值转换为数字
+ * @param val - 要转换的值
+ * @param fallback - 转换失败时的默认值
+ * @returns 转换后的数字
+ */
+export const toNumber = (val: any, fallback: number): number => {
+  if (typeof val === 'number' && !Number.isNaN(val)) return val;
+  const n = Number(val);
+  return Number.isFinite(n) ? n : fallback;
+};
+
+/**
+ * 检查值是否不为空
+ * @param val - 要检查的值
+ * @returns 是否不为空
+ */
+export const isNotEmpty = (val: any) => {
+  return val !== null && val !== undefined;
+};

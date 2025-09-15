@@ -30,7 +30,7 @@ import { getOffsetTop, slugify } from '../utils/dom';
  * 目录项数据结构
  */
 interface Leading {
-  title: string;
+  title?: string;
   level: number;
   id: string;
   key: string;
@@ -63,7 +63,7 @@ const TocTitle: React.FC<{
  * 用于构建层级目录树的节点类型
  */
 interface TreeNode {
-  title: string;
+  title?: string;
   version?: string;
   children: TreeNode[];
   id: string;

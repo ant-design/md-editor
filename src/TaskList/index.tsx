@@ -118,7 +118,7 @@ function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
 type ThoughtChainProps = {
   items: {
     key: string;
-    title: string;
+    title?: string;
     content: React.ReactNode | React.ReactNode[];
     status: 'success' | 'pending' | 'loading' | 'error';
   }[];
@@ -136,7 +136,7 @@ const TaskListItem = memo(
   }: {
     item: {
       key: string;
-      title: string;
+      title?: string;
       content: React.ReactNode | React.ReactNode[];
       status: 'success' | 'pending' | 'loading' | 'error';
     };

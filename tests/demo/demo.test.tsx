@@ -115,29 +115,6 @@ vi.mock('@ant-design/md-editor/plugins/chart/DonutChart', () => ({
   ),
 }));
 
-// Mock chart components
-vi.mock('@ant-design/md-editor/plugins/chart/components', () => ({
-  ChartToolBar: ({ title, onDownload }: any) => (
-    <div data-testid="chart-toolbar" onClick={onDownload}>
-      {title}
-    </div>
-  ),
-  ChartFilter: ({ filterOptions, selectedFilter, onFilterChange }: any) => (
-    <div data-testid="chart-filter">
-      {filterOptions?.map((option: any, index: number) => (
-        <button
-          key={index}
-          onClick={() => onFilterChange?.(option.value)}
-          data-selected={selectedFilter === option.value}
-        >
-          {option.label}
-        </button>
-      ))}
-    </div>
-  ),
-  downloadChart: vi.fn(),
-}));
-
 // Mock md-editor exports to avoid heavy rendering while preserving other exports
 vi.mock('@ant-design/md-editor', async (importOriginal) => {
   const actual: any = await importOriginal();

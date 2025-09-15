@@ -1,16 +1,17 @@
 import { DownloadOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useContext } from 'react';
-import { useStyle } from './ChartToolBar/style';
-import TimeIcon from './icons/TimeIcon';
+import { default as React, useContext } from 'react';
+import TimeIcon from '../icons/TimeIcon';
+import { useStyle } from './style';
 
 export interface ChartToolBarProps {
-  title: string;
+  title?: string;
   dataTime?: string;
   className?: string;
   theme?: 'light' | 'dark';
   onDownload?: () => void;
+  extra?: React.ReactNode;
 }
 
 const ChartToolBar: React.FC<ChartToolBarProps> = ({
@@ -19,6 +20,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   className = '',
   theme = 'light',
   onDownload,
+  extra,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('chart-toolbar');
@@ -29,6 +31,10 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
       onDownload();
     }
   };
+
+  if (!title && !extra && !dataTime) {
+    return null;
+  }
 
   return wrapSSR(
     <div
@@ -50,6 +56,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
         <span className={classNames(`${prefixCls}-data-time`, hashId)}>
           数据时间: {dataTime}
         </span>
+        {extra}
         <DownloadOutlined
           className={classNames(`${prefixCls}-download-btn`, hashId)}
           onClick={handleDownload}
