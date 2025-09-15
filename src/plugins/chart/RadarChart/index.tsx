@@ -35,17 +35,6 @@ export interface RadarChartDataItem {
   filterLabel?: string;
 }
 
-// 雷达图配置接口 - 移除 type 字段，因为 type 现在是 Record 的 key
-export interface RadarChartConfigItem {
-  datasets: Array<(string | number)[]>;
-  maxValue?: number;
-  minValue?: number;
-  stepSize?: number;
-  theme?: 'dark' | 'light';
-  showLegend?: boolean;
-  legendPosition?: 'top' | 'left' | 'bottom' | 'right';
-}
-
 interface RadarChartProps {
   data: RadarChartDataItem[];
   title: string;
@@ -54,6 +43,9 @@ interface RadarChartProps {
   className?: string;
   toolbarExtra?: React.ReactNode;
   dataTime?: string;
+  borderColor?: string;
+  backgroundColor?: string;
+  pointBackgroundColor?: string;
 }
 
 // 默认颜色配置
@@ -78,6 +70,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
   className,
   toolbarExtra,
   dataTime,
+  borderColor,
+  backgroundColor,
+  pointBackgroundColor,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('radar-chart');
@@ -131,7 +126,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
       : undefined;
 
   // 状态管理
-  const [selectedFilter, setSelectedFilter] = useState(categories.find(Boolean) || '');
+  const [selectedFilter, setSelectedFilter] = useState(
+    categories.find(Boolean) || '',
+  );
   const [selectedFilterLabel, setSelectedFilterLabel] = useState(
     filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
@@ -167,10 +164,12 @@ const RadarChart: React.FC<RadarChartProps> = ({
     return {
       label: type || '默认',
       data: scores,
-      borderColor: defaultColors[index % defaultColors.length],
-      backgroundColor: `${defaultColors[index % defaultColors.length]}20`,
+      borderColor: borderColor || defaultColors[index % defaultColors.length],
+      backgroundColor:
+        backgroundColor || `${defaultColors[index % defaultColors.length]}20`,
       borderWidth: isMobile ? 1.5 : 2,
-      pointBackgroundColor: defaultColors[index % defaultColors.length],
+      pointBackgroundColor:
+        pointBackgroundColor || defaultColors[index % defaultColors.length],
       pointBorderColor: '#fff',
       pointBorderWidth: isMobile ? 1 : 2,
       pointRadius: isMobile ? 3 : 4,
@@ -229,11 +228,11 @@ const RadarChart: React.FC<RadarChartProps> = ({
           pointStyle: 'rectRounded',
         },
       },
-            tooltip: {
+      tooltip: {
         enabled: false, // 禁用默认 tooltip
         external: (context) => {
           const { chart, tooltip } = context;
-          
+
           // 如果没有 tooltip 数据，隐藏
           if (tooltip.opacity === 0) {
             const tooltipEl = document.getElementById('custom-radar-tooltip');
@@ -254,23 +253,26 @@ const RadarChart: React.FC<RadarChartProps> = ({
             document.body.appendChild(tooltipEl);
           }
 
-                     // 获取数据
-           const dataPoint = tooltip.dataPoints[0];
-           const dimensionTitle = dataPoint.label || ''; // 维度标题，如"技术"
-           const label = dataPoint.dataset.label || '数据指标'; // 数据集标签
-           const value = typeof dataPoint.parsed.r === 'number' 
-             ? dataPoint.parsed.r.toFixed(1) 
-             : dataPoint.parsed.r;
-           
-           // 获取数据集颜色作为图标颜色
-           const iconColor = dataPoint.dataset.borderColor || '#388BFF';
+          // 获取数据
+          const dataPoint = tooltip.dataPoints[0];
+          const dimensionTitle = dataPoint.label || ''; // 维度标题，如"技术"
+          const label = dataPoint.dataset.label || '数据指标'; // 数据集标签
+          const value =
+            typeof dataPoint.parsed.r === 'number'
+              ? dataPoint.parsed.r.toFixed(1)
+              : dataPoint.parsed.r;
 
-           // 创建 HTML 内容
-           const isDark = currentConfig.theme !== 'light';
-           const bgColor = isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.95)';
-           const labelColor = isDark ? '#fff' : '#767E8B'; // 左边图标信息颜色
+          // 获取数据集颜色作为图标颜色
+          const iconColor = dataPoint.dataset.borderColor || '#388BFF';
 
-           tooltipEl.innerHTML = `
+          // 创建 HTML 内容
+          const isDark = currentConfig.theme !== 'light';
+          const bgColor = isDark
+            ? 'rgba(0, 0, 0, 0.8)'
+            : 'rgba(255, 255, 255, 0.95)';
+          const labelColor = isDark ? '#fff' : '#767E8B'; // 左边图标信息颜色
+
+          tooltipEl.innerHTML = `
              <div style="
                background-color: ${bgColor};
                border: 1px solid ${isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 16, 32, 0.0627)'};
@@ -339,13 +341,15 @@ const RadarChart: React.FC<RadarChartProps> = ({
              </div>
            `;
 
-           // 定位 tooltip
-           const position = chart.canvas.getBoundingClientRect();
-           
-           tooltipEl.style.opacity = '1';
-           tooltipEl.style.left = position.left + window.pageXOffset + tooltip.caretX + 'px';
-           tooltipEl.style.top = position.top + window.pageYOffset + tooltip.caretY + 'px';
-           tooltipEl.style.zIndex = '1000';
+          // 定位 tooltip
+          const position = chart.canvas.getBoundingClientRect();
+
+          tooltipEl.style.opacity = '1';
+          tooltipEl.style.left =
+            position.left + window.pageXOffset + tooltip.caretX + 'px';
+          tooltipEl.style.top =
+            position.top + window.pageYOffset + tooltip.caretY + 'px';
+          tooltipEl.style.zIndex = '1000';
         },
       },
     },
