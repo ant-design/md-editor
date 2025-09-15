@@ -66,7 +66,7 @@ export interface FunnelChartProps extends ChartContainerProps {
   toolbarExtra?: React.ReactNode;
 }
 
-const defaultColors = '#1677ff';
+const defaultColors = '#917ef7';
 
 const FunnelChart: React.FC<FunnelChartProps> = ({
   title,
@@ -163,7 +163,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   }, [filteredData]);
 
   const BAR_THICKNESS = 30;
-  const ROW_GAP = 2;
+  const ROW_GAP = 20;
   const PADDING_Y = isMobile ? 48 : 64;
   const chartHeight = useMemo(() => {
     const rows = Math.max(1, stages.length);
