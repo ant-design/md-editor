@@ -7,109 +7,9 @@ import AreaChart, {
 const DynamicAreaChartExample: React.FC = () => {
   // 扁平化数据结构
   const [data, setData] = useState<AreaChartDataItem[]>([
-    // 访客数据类别
-    {
-      type: '本周访客',
-      x: 1,
-      y: 120,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '本周访客',
-      x: 2,
-      y: 132,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '本周访客',
-      x: 3,
-      y: 101,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '本周访客',
-      x: 4,
-      y: 134,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '本周访客',
-      x: 5,
-      y: 90,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '本周访客',
-      x: 6,
-      y: 230,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '本周访客',
-      x: 7,
-      y: 210,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-
-    {
-      type: '上周访客',
-      x: 1,
-      y: 220,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '上周访客',
-      x: 2,
-      y: 182,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '上周访客',
-      x: 3,
-      y: 191,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '上周访客',
-      x: 4,
-      y: 234,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '上周访客',
-      x: 5,
-      y: 290,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '上周访客',
-      x: 6,
-      y: 330,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-    {
-      type: '上周访客',
-      x: 7,
-      y: 310,
-      xtitle: '日期',
-      ytitle: '访客数',
-    },
-
     // 营收数据类别
     {
+      category: '营收数据',
       type: '本年营收',
       x: 1,
       y: 45000,
@@ -117,6 +17,7 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '营收金额',
     },
     {
+      category: '营收数据',
       type: '本年营收',
       x: 2,
       y: 52000,
@@ -207,6 +108,7 @@ const DynamicAreaChartExample: React.FC = () => {
 
     // 全球数据（带filterLable）
     {
+      category: '访客数据',
       type: '本周访客',
       x: 1,
       y: 120,
@@ -214,6 +116,7 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
+      category: '访客数据',
       type: '本周访客',
       x: 2,
       y: 132,
@@ -221,6 +124,7 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
+      category: '访客数据',
       type: '本周访客',
       x: 3,
       y: 101,
@@ -228,7 +132,7 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-
+      category: '访客数据',
       type: '本周访客',
       x: 4,
       y: 134,
@@ -689,6 +593,8 @@ const DynamicAreaChartExample: React.FC = () => {
       })),
     );
   };
+
+  console.log(data);
 
   return (
     <div style={{ padding: '20px' }}>
