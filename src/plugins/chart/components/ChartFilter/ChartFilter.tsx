@@ -51,6 +51,9 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   if (!hasMain && !hasSecondary) {
     return null;
   }
+  if (!filterOptions || filterOptions.length < 2) {
+    return null;
+  }
 
   return wrapSSR(
     <div
@@ -95,17 +98,19 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
         </div>
       )}
 
-      {filterOptions && filterOptions.length > 1 && <Segmented
-        options={filterOptions || []}
-        value={selectedFilter}
-        size="small"
-        className={classNames(
-          `${prefixCls}-segmented-filter`,
-          'custom-segmented',
-          hashId,
-        )}
-        onChange={(value) => onFilterChange?.(value as string)}
-      />}
+      {filterOptions && filterOptions.length > 1 && (
+        <Segmented
+          options={filterOptions || []}
+          value={selectedFilter}
+          size="small"
+          className={classNames(
+            `${prefixCls}-segmented-filter`,
+            'custom-segmented',
+            hashId,
+          )}
+          onChange={(value) => onFilterChange?.(value as string)}
+        />
+      )}
     </div>,
   );
 };
