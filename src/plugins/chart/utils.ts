@@ -76,7 +76,7 @@ export interface ChartDataItem {
   /** Y轴标题 */
   ytitle?: string;
   /** 筛选标签 */
-  filterLable?: string;
+  filterLabel?: string;
 }
 
 /**

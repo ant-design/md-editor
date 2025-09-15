@@ -32,7 +32,7 @@
       </div>
       <div
         class="bar-chart-container  "
-        style="width: 700px; height: 500px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
+        style="width: 700px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
       >
         <div
           data-testid="chart-toolbar"
@@ -55,9 +55,10 @@
         </div>
         <div
           class="chart-wrapper"
+          style="height: 500px;"
         >
           <div
-            data-datasets="[{"label":"利润","data":[120,-60,80,-30],"borderColor":"#1677ff","backgroundColor":"#1677ff","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"成本","data":[-90,-40,-50,-20],"borderColor":"#8954FC","backgroundColor":"#8954FC","borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
+            data-datasets="[{"label":"利润","data":[120,-60,80,-30],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"成本","data":[-90,-40,-50,-20],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
             data-labels="["1","2","3","4"]"
             data-testid="bar-chart"
           >

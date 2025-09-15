@@ -9,7 +9,6 @@ const DynamicAreaChartExample: React.FC = () => {
   const [data, setData] = useState<AreaChartDataItem[]>([
     // 访客数据类别
     {
-      category: '访客数据',
       type: '本周访客',
       x: 1,
       y: 120,
@@ -17,7 +16,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 2,
       y: 132,
@@ -25,7 +23,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 3,
       y: 101,
@@ -33,7 +30,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 4,
       y: 134,
@@ -41,7 +37,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 5,
       y: 90,
@@ -49,7 +44,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 6,
       y: 230,
@@ -57,7 +51,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 7,
       y: 210,
@@ -66,7 +59,6 @@ const DynamicAreaChartExample: React.FC = () => {
     },
 
     {
-      category: '访客数据',
       type: '上周访客',
       x: 1,
       y: 220,
@@ -74,7 +66,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '上周访客',
       x: 2,
       y: 182,
@@ -82,7 +73,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '上周访客',
       x: 3,
       y: 191,
@@ -90,7 +80,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '上周访客',
       x: 4,
       y: 234,
@@ -98,7 +87,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '上周访客',
       x: 5,
       y: 290,
@@ -106,7 +94,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '上周访客',
       x: 6,
       y: 330,
@@ -114,7 +101,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '访客数',
     },
     {
-      category: '访客数据',
       type: '上周访客',
       x: 7,
       y: 310,
@@ -124,7 +110,6 @@ const DynamicAreaChartExample: React.FC = () => {
 
     // 营收数据类别
     {
-      category: '营收数据',
       type: '本年营收',
       x: 1,
       y: 45000,
@@ -132,7 +117,6 @@ const DynamicAreaChartExample: React.FC = () => {
       ytitle: '营收金额',
     },
     {
-      category: '营收数据',
       type: '本年营收',
       x: 2,
       y: 52000,
@@ -223,40 +207,33 @@ const DynamicAreaChartExample: React.FC = () => {
 
     // 全球数据（带filterLable）
     {
-      category: '访客数据',
       type: '本周访客',
       x: 1,
       y: 120,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 2,
       y: 132,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
     },
     {
-      category: '访客数据',
       type: '本周访客',
       x: 3,
       y: 101,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
     },
     {
-      category: '访客数据',
+
       type: '本周访客',
       x: 4,
       y: 134,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
     },
     {
       category: '访客数据',
@@ -265,7 +242,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 90,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -274,7 +251,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 230,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -283,7 +260,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 210,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
 
     {
@@ -293,7 +270,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 220,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -302,7 +279,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 182,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -311,7 +288,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 191,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -320,7 +297,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 234,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -329,7 +306,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 290,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -338,7 +315,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 330,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '访客数据',
@@ -347,7 +324,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 310,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
 
     // 营收数据类别 - 全球
@@ -358,7 +335,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 45000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -367,7 +344,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 52000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -376,7 +353,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 48000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -385,7 +362,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 61000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -394,7 +371,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 55000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -403,7 +380,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 67000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
 
     {
@@ -413,7 +390,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 38000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -422,7 +399,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 41000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -431,7 +408,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 42000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -440,7 +417,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 48000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -449,7 +426,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 45000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
     {
       category: '营收数据',
@@ -458,7 +435,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 52000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '全球',
+      filterLabel: '全球',
     },
 
     // 美国数据（带filterLable）
@@ -469,7 +446,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 180,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -478,7 +455,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 195,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -487,7 +464,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 160,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -496,7 +473,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 210,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -505,7 +482,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 140,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -514,7 +491,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 280,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -523,7 +500,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 260,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
 
     {
@@ -533,7 +510,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 280,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -542,7 +519,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 240,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -551,7 +528,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 220,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -560,7 +537,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 290,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -569,7 +546,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 350,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -578,7 +555,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 390,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '访客数据',
@@ -587,7 +564,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 370,
       xtitle: '日期',
       ytitle: '访客数',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
 
     {
@@ -597,7 +574,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 55000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -606,7 +583,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 62000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -615,7 +592,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 58000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -624,7 +601,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 71000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -633,7 +610,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 65000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -642,7 +619,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 77000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
 
     {
@@ -652,7 +629,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 48000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -661,7 +638,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 51000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -670,7 +647,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 52000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -679,7 +656,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 58000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -688,7 +665,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 55000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
     {
       category: '营收数据',
@@ -697,7 +674,7 @@ const DynamicAreaChartExample: React.FC = () => {
       y: 62000,
       xtitle: '月份',
       ytitle: '营收金额',
-      filterLable: '美国',
+      filterLabel: '美国',
     },
   ]);
 

@@ -29,7 +29,7 @@ export interface FunnelChartDataItem {
   /** Y轴值 */
   y: number | string;
   /** 筛选标签 */
-  filterLable?: string;
+  filterLabel?: string;
   /** 当前层与下一层的比率（百分比，0-100，最后一层可为0）*/
   ratio?: number | string;
 }
@@ -116,7 +116,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const filterLables = useMemo(() => {
     const labels = data
       .filter((d) => !selectedFilter || d.category === selectedFilter)
-      .map((d) => d.filterLable)
+      .map((d) => d.filterLabel)
       .filter((v): v is string => v !== undefined);
     return labels.length > 0 ? [...new Set(labels)] : undefined;
   }, [data, selectedFilter]);
@@ -138,7 +138,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     if (!selectedFilter) return data;
     const categoryMatch = data.filter((d) => d.category === selectedFilter);
     if (!filterLables || !selectedFilterLable) return categoryMatch;
-    return categoryMatch.filter((d) => d.filterLable === selectedFilterLable);
+    return categoryMatch.filter((d) => d.filterLabel === selectedFilterLable);
   }, [data, selectedFilter, filterLables, selectedFilterLable]);
 
   // 阶段（使用 x 值作为阶段名称），按 y 从大到小排序以符合漏斗习惯

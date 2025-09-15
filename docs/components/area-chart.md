@@ -42,9 +42,9 @@ group:
 | y | `number` | 是 | 纵轴值 |
 | xtitle | `string` | 否 | X 轴标题（从数据中提取）|
 | ytitle | `string` | 否 | Y 轴标题（从数据中提取）|
-| filterLable | `string` | 否 | 二级筛选标签（可选）|
+| filterLabel | `string` | 否 | 二级筛选标签（可选）|
 
 ## 说明
 - 移动端自动启用响应式：宽度 100%，高度不超过 400px。
-- 当 `filterLable` 存在时，组件会在分类基础上增加二级筛选。
+- 当 `filterLabel` 存在时，组件会在分类基础上增加二级筛选。
 - 不同 `type` 自动分配调色板并以填充形式展示面积。 

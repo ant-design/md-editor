@@ -10,7 +10,12 @@ import React, { useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { ChartFilter, ChartToolBar, downloadChart } from '../components';
 import LegendView from './Legend';
-import { BASE_CLASS_NAME, DEFAULT_COLORS, SINGLE_MODE_DESKTOP_CUTOUT, SINGLE_MODE_MOBILE_CUTOUT } from './constants';
+import {
+  BASE_CLASS_NAME,
+  DEFAULT_COLORS,
+  SINGLE_MODE_DESKTOP_CUTOUT,
+  SINGLE_MODE_MOBILE_CUTOUT,
+} from './constants';
 import {
   useAutoCategory,
   useFilterLabels,
@@ -53,17 +58,19 @@ const DonutChart: React.FC<DonutChartProps> = ({
   const finalConfigs = configs || defaultConfigs;
   const baseClassName = BASE_CLASS_NAME;
   const { wrapSSR, hashId } = useStyle(baseClassName);
-  const chartRef = useRef<ChartJS<'doughnut'>>(null);
+  // 多图场景下独立管理每个图表实例，避免引用被覆盖
+  const chartRefs = useRef<Array<ChartJS<'doughnut'> | null>>([]);
 
-  const [hiddenDataIndices, setHiddenDataIndices] = useState<Set<number>>(
-    new Set(),
-  );
+  // 多图场景下按图索引隔离 Legend 隐藏状态
+  const [hiddenDataIndicesByChart, setHiddenDataIndicesByChart] = useState<
+    Record<number, Set<number>>
+  >({});
 
   const {
-    filterLables,
-    filteredDataByFilterLable,
-    selectedFilterLable,
-    setSelectedFilterLable,
+    filterLabels,
+    filteredDataByFilterLabel,
+    selectedFilterLabel,
+    setSelectedFilterLabel,
   } = useFilterLabels(data);
 
   const {
@@ -78,28 +85,30 @@ const DonutChart: React.FC<DonutChartProps> = ({
       ? data.filter((item) => item.category === selectedCategory)
       : data;
 
-    if (!filterLables || !selectedFilterLable) {
+    if (!filterLabels || !selectedFilterLabel) {
       return byCategory;
     }
 
     return byCategory.filter(
-      (item) => item.filterLable === selectedFilterLable,
+      (item) => item.filterLabel === selectedFilterLabel,
     );
-  }, [data, selectedCategory, filterLables, selectedFilterLable]);
+  }, [data, selectedCategory, filterLabels, selectedFilterLabel]);
 
   const handleInternalCategoryChange = (category: string) => {
     setInternalSelectedCategory(category);
   };
 
-  const handleLegendItemClick = (index: number) => {
-    setHiddenDataIndices((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
+  const handleLegendItemClick = (chartIndex: number, dataIndex: number) => {
+    setHiddenDataIndicesByChart((prev) => {
+      const next: Record<number, Set<number>> = { ...prev };
+      const currentSet = new Set(next[chartIndex] ?? new Set<number>());
+      if (currentSet.has(dataIndex)) {
+        currentSet.delete(dataIndex);
       } else {
-        newSet.add(index);
+        currentSet.add(dataIndex);
       }
-      return newSet;
+      next[chartIndex] = currentSet;
+      return next;
     });
   };
 
@@ -124,7 +133,65 @@ const DonutChart: React.FC<DonutChartProps> = ({
   }
 
   const handleDownload = () => {
-    onDownload ? onDownload() : downloadChart(chartRef.current, 'donut-chart');
+    if (onDownload) {
+      onDownload();
+      return;
+    }
+    const instances = (chartRefs.current || []).filter(
+      (c): c is ChartJS<'doughnut'> => !!c,
+    );
+
+    if (instances.length <= 1) {
+      const target = instances[0] ?? null;
+      downloadChart(target as any, 'donut-chart');
+      return;
+    }
+
+    try {
+      // 将多个 canvas 竖直拼接为一张图片
+      const canvases = instances
+        .map((inst) => (inst as any)?.canvas as HTMLCanvasElement)
+        .filter(Boolean);
+
+      if (canvases.length === 0) {
+        return;
+      }
+
+      const GAP = 16; // 竖向间距
+      const widths = canvases.map((c) => c.width);
+      const heights = canvases.map((c) => c.height);
+      const maxWidth = Math.max(...widths);
+      const totalHeight =
+        heights.reduce((sum, h) => sum + h, 0) + GAP * (canvases.length - 1);
+
+      const composite = document.createElement('canvas');
+      composite.width = maxWidth;
+      composite.height = totalHeight;
+      const ctx = composite.getContext('2d');
+      if (!ctx) return;
+
+      // 背景填充为白色，避免透明背景在 jpeg 下变黑
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, composite.width, composite.height);
+
+      let offsetY = 0;
+      canvases.forEach((c, i) => {
+        const x = Math.floor((maxWidth - c.width) / 2);
+        ctx.drawImage(c, x, offsetY);
+        offsetY += c.height + (i < canvases.length - 1 ? GAP : 0);
+      });
+
+      const link = document.createElement('a');
+      link.download = `donut-charts-${Date.now()}.png`;
+      link.href = composite.toDataURL('image/png', 1);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (e) {
+      // 兜底：任意异常回退为下载第一张
+      const target = instances[0] ?? null;
+      downloadChart(target as any, 'donut-chart');
+    }
   };
 
   const shouldShowFilter =
@@ -178,10 +245,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
               })}
               selectedFilter={finalSelectedFilter || ''}
               onFilterChange={finalOnFilterChange}
-              {...(filterLables && {
-                customOptions: filteredDataByFilterLable,
-                selectedCustomSelection: selectedFilterLable,
-                onSelectionChange: setSelectedFilterLable,
+              {...(filterLabels && {
+                customOptions: filteredDataByFilterLabel,
+                selectedCustomSelection: selectedFilterLabel,
+                onSelectionChange: setSelectedFilterLabel,
               })}
               theme={chartFilterTheme}
             />
@@ -218,8 +285,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
             ];
           }
 
+          const hiddenSetForChart =
+            hiddenDataIndicesByChart[idx] || new Set<number>();
           const visibleData = chartData.filter(
-            (_, index) => !hiddenDataIndices.has(index),
+            (_, index) => !hiddenSetForChart.has(index),
           );
           const toNum = (v: any) => (typeof v === 'number' ? v : Number(v));
           const rawLabels = visibleData.map((d) => d.label);
@@ -227,6 +296,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
             ? rawLabels.map((labelText, i) => (i === 1 ? '' : labelText))
             : rawLabels;
           const values = visibleData.map((d) => toNum(d.value));
+          const safeValues = values.map((v) => (Number.isFinite(v) ? v : 0));
           const total = values.reduce(
             (sum, v) => sum + (Number.isFinite(v) ? v : 0),
             0,
@@ -241,32 +311,44 @@ const DonutChart: React.FC<DonutChartProps> = ({
             labels,
             datasets: [
               {
-                data: values,
+                data: safeValues,
                 backgroundColor: isSingleValueMode
                   ? [mainColor, 'transparent']
                   : backgroundColors.slice(0, values.length),
                 borderColor: isSingleValueMode
                   ? [cfg.borderColor || '#fff', 'transparent']
-                  : (cfg.borderColor || '#fff'),
-                borderWidth: isMobile ? 1 : 1,
-                spacing: isSingleValueMode ? 0 : isMobile ? 3 : 6,
-                borderRadius: 4,
+                  : cfg.borderColor || '#fff',
+                borderWidth: cfg.chartStyle === 'pie' ? 0 : (isMobile ? 1 : 1),
+                spacing: isSingleValueMode ? 0 : cfg.chartStyle === 'pie' ? 0 : (isMobile ? 3 : 6),
+                borderRadius: cfg.chartStyle === 'pie' ? 0 : 4,
                 hoverOffset: (ctx: any) =>
                   isSingleValueMode && ctx?.dataIndex === 1
                     ? 0
                     : isMobile
-                    ? 4
-                    : 6,
+                      ? 4
+                      : 6,
               },
             ],
           };
 
           const cutout = (() => {
+            // 如果明确指定为饼图，cutout 为 0（实心）
+            if (cfg.chartStyle === 'pie') {
+              return 0;
+            }
+            
+            // 环形图的逻辑
             if (isMobile) {
               if (typeof cfg.cutout === 'number') return cfg.cutout * 0.9;
-              return (cfg.cutout as any) ?? (isSingleValueMode ? SINGLE_MODE_MOBILE_CUTOUT : '70%');
+              return (
+                (cfg.cutout as any) ??
+                (isSingleValueMode ? SINGLE_MODE_MOBILE_CUTOUT : '70%')
+              );
             }
-            return (cfg.cutout as any) ?? (isSingleValueMode ? SINGLE_MODE_DESKTOP_CUTOUT : '75%');
+            return (
+              (cfg.cutout as any) ??
+              (isSingleValueMode ? SINGLE_MODE_DESKTOP_CUTOUT : '75%')
+            );
           })();
 
           const isDarkTheme = cfg.theme === 'dark';
@@ -304,8 +386,8 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     const val = typeof raw === 'number' ? raw : Number(raw);
                     const pct =
                       total > 0 && Number.isFinite(val)
-                        ? ((val / total) * 100).toFixed(1)
-                        : '0.0';
+                        ? ((val / total) * 100).toFixed(0)
+                        : '0';
                     return `${label}: ${Number.isFinite(val) ? val : raw} (${pct}%)`;
                   },
                 },
@@ -340,20 +422,25 @@ const DonutChart: React.FC<DonutChartProps> = ({
                   }}
                 >
                   <Doughnut
-                    ref={chartRef}
+                    ref={(instance) => {
+                      chartRefs.current[idx] = instance as any;
+                    }}
                     data={chartJsData}
                     options={options}
                     plugins={[
-                      createCenterTextPlugin(
-                        ((typeof (currentDataItem as any).value === 'number'
-                          ? (currentDataItem as any).value
-                          : Number((currentDataItem as any).value)) /
-                          (total || 1)) *
-                          100,
-                        (currentDataItem as any).label,
-                        isMobile,
-                      ),
-                      createBackgroundArcPlugin(), // 背景色
+                      // 只有环形图才显示中心文本和背景
+                      ...(cfg.chartStyle !== 'pie' ? [
+                        createCenterTextPlugin(
+                          ((typeof (currentDataItem as any).value === 'number'
+                            ? (currentDataItem as any).value
+                            : Number((currentDataItem as any).value)) /
+                            (total || 1)) *
+                            100,
+                          (currentDataItem as any).label,
+                          isMobile,
+                        ),
+                        createBackgroundArcPlugin(), // 背景色
+                      ] : [])
                     ]}
                   />
                 </div>
@@ -376,7 +463,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     }}
                   >
                     <Doughnut
-                      ref={chartRef}
+                      ref={(instance) => {
+                        chartRefs.current[idx] = instance as any;
+                      }}
                       data={chartJsData}
                       options={options}
                     />
@@ -385,8 +474,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     <LegendView
                       chartData={chartData}
                       backgroundColors={backgroundColors}
-                      hiddenDataIndices={hiddenDataIndices}
-                      onLegendItemClick={handleLegendItemClick}
+                      hiddenDataIndicesByChart={hiddenDataIndicesByChart}
+                      chartIndex={idx}
+                      onLegendItemClick={(dataIndex) =>
+                        handleLegendItemClick(idx, dataIndex)
+                      }
                       total={total}
                       baseClassName={baseClassName}
                       hashId={hashId}

@@ -1,7 +1,7 @@
 ---
 title: ToolUseBar 工具使用栏
 group:
-  title: 功能组件
+  title: 数据展示
   order: 2
 ---
 

@@ -35,7 +35,7 @@
       >
         <div
           class="line-chart-container  "
-          style="width: 700px; height: 500px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
+          style="width: 700px; background-color: rgb(255, 255, 255); border-radius: 8px; padding: 20px; position: relative; border: 1px solid rgb(232, 232, 232); margin: initial; max-width: none; box-sizing: border-box;"
         >
           <div
             data-testid="chart-toolbar"
@@ -58,9 +58,10 @@
           </div>
           <div
             class="chart-wrapper"
+            style="height: 500px;"
           >
             <div
-              data-datasets="[{"label":"本周访客","data":[120,132,101,134,90,230,210],"borderColor":"#1677ff","backgroundColor":"#1677ff33","pointBackgroundColor":"#1677ff","pointBorderColor":"#fff","borderWidth":3,"tension":0,"fill":false},{"label":"上周访客","data":[220,182,191,234,290,330,310],"borderColor":"#8954FC","backgroundColor":"#8954FC33","pointBackgroundColor":"#8954FC","pointBorderColor":"#fff","borderWidth":3,"tension":0,"fill":false}]"
+              data-datasets="[{"label":"本周访客","data":[120,132,101,134,90,230,210],"borderColor":"#1677ff","backgroundColor":"#1677ff33","pointBackgroundColor":"#1677ff","pointBorderColor":"#fff","pointBorderWidth":1,"borderWidth":3,"tension":0,"fill":false},{"label":"上周访客","data":[220,182,191,234,290,330,310],"borderColor":"#8954FC","backgroundColor":"#8954FC33","pointBackgroundColor":"#8954FC","pointBorderColor":"#fff","pointBorderWidth":1,"borderWidth":3,"tension":0,"fill":false}]"
               data-labels="["1","2","3","4","5","6","7"]"
               data-testid="line-chart"
             >
@@ -80,7 +81,7 @@
         <pre
           style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
         >
-          // 扁平化数据格式：包含 xtitle、ytitle 和 filterLable 字段
+          // 扁平化数据格式：包含 xtitle、ytitle 和 filterLabel 字段
 [
   {
     category: "访客数据",
@@ -89,7 +90,7 @@
     y: 120,
     xtitle: "日期",
     ytitle: "访客数",
-    filterLable: "全球"
+    filterLabel: "全球"
   },
   {
     category: "转化率数据",
@@ -98,7 +99,7 @@
     y: 3.2,
     xtitle: "周数",
     ytitle: "转化率(%)",
-    filterLable: "全球"
+    filterLabel: "全球"
   },
   {
     category: "访客数据",
@@ -107,7 +108,7 @@
     y: 180,
     xtitle: "日期",
     ytitle: "访客数",
-    filterLable: "美国"
+    filterLabel: "美国"
   },
   // ... 更多数据
 ]

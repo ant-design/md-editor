@@ -4,7 +4,7 @@ export interface DonutChartData {
   category?: string; // 分类
   label: string;
   value: number | string;
-  filterLable?: string;
+  filterLabel?: string;
 }
 
 export interface DonutChartConfig {
@@ -16,6 +16,8 @@ export interface DonutChartConfig {
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
   backgroundColor?: string[];
   borderColor?: string;
+  /** 图表样式：'donut' 为环形图（默认），'pie' 为饼图 */
+  chartStyle?: 'donut' | 'pie';
 }
 
 export interface DonutChartProps {

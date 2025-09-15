@@ -6,47 +6,47 @@ const NegativeBarChartExample: React.FC = () => {
   // 扁平化数据结构 - 正负柱状图
   const [data, setData] = useState<BarChartDataItem[]>([
     // 财务数据 - 全球
-    { category: '财务数据', type: '利润', x: 1, y: 120, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
-    { category: '财务数据', type: '利润', x: 2, y: -60, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
-    { category: '财务数据', type: '利润', x: 3, y: 80, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
-    { category: '财务数据', type: '利润', x: 4, y: -30, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
+    { category: '财务数据', type: '利润', x: 1, y: 120, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
+    { category: '财务数据', type: '利润', x: 2, y: -60, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
+    { category: '财务数据', type: '利润', x: 3, y: 80, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
+    { category: '财务数据', type: '利润', x: 4, y: -30, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
 
-    { category: '财务数据', type: '成本', x: 1, y: -90, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
-    { category: '财务数据', type: '成本', x: 2, y: -40, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
-    { category: '财务数据', type: '成本', x: 3, y: -50, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
-    { category: '财务数据', type: '成本', x: 4, y: -20, xtitle: '季度', ytitle: '金额', filterLable: '全球' },
+    { category: '财务数据', type: '成本', x: 1, y: -90, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
+    { category: '财务数据', type: '成本', x: 2, y: -40, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
+    { category: '财务数据', type: '成本', x: 3, y: -50, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
+    { category: '财务数据', type: '成本', x: 4, y: -20, xtitle: '季度', ytitle: '金额', filterLabel: '全球' },
 
     // 温度变化数据 - 全球
-    { category: '温度变化', type: '最高温', x: 1, y: 15, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
-    { category: '温度变化', type: '最高温', x: 2, y: 22, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
-    { category: '温度变化', type: '最高温', x: 3, y: 28, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
-    { category: '温度变化', type: '最高温', x: 4, y: 32, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
+    { category: '温度变化', type: '最高温', x: 1, y: 15, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
+    { category: '温度变化', type: '最高温', x: 2, y: 22, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
+    { category: '温度变化', type: '最高温', x: 3, y: 28, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
+    { category: '温度变化', type: '最高温', x: 4, y: 32, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
 
-    { category: '温度变化', type: '最低温', x: 1, y: -5, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
-    { category: '温度变化', type: '最低温', x: 2, y: -2, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
-    { category: '温度变化', type: '最低温', x: 3, y: 5, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
-    { category: '温度变化', type: '最低温', x: 4, y: 12, xtitle: '月份', ytitle: '温度(°C)', filterLable: '全球' },
+    { category: '温度变化', type: '最低温', x: 1, y: -5, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
+    { category: '温度变化', type: '最低温', x: 2, y: -2, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
+    { category: '温度变化', type: '最低温', x: 3, y: 5, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
+    { category: '温度变化', type: '最低温', x: 4, y: 12, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '全球' },
 
     // 美国数据（带filterLable）
-    { category: '财务数据', type: '利润', x: 1, y: 180, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
-    { category: '财务数据', type: '利润', x: 2, y: -80, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
-    { category: '财务数据', type: '利润', x: 3, y: 120, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
-    { category: '财务数据', type: '利润', x: 4, y: -50, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
+    { category: '财务数据', type: '利润', x: 1, y: 180, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
+    { category: '财务数据', type: '利润', x: 2, y: -80, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
+    { category: '财务数据', type: '利润', x: 3, y: 120, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
+    { category: '财务数据', type: '利润', x: 4, y: -50, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
 
-    { category: '财务数据', type: '成本', x: 1, y: -120, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
-    { category: '财务数据', type: '成本', x: 2, y: -60, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
-    { category: '财务数据', type: '成本', x: 3, y: -70, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
-    { category: '财务数据', type: '成本', x: 4, y: -30, xtitle: '季度', ytitle: '金额', filterLable: '美国' },
+    { category: '财务数据', type: '成本', x: 1, y: -120, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
+    { category: '财务数据', type: '成本', x: 2, y: -60, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
+    { category: '财务数据', type: '成本', x: 3, y: -70, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
+    { category: '财务数据', type: '成本', x: 4, y: -30, xtitle: '季度', ytitle: '金额', filterLabel: '美国' },
 
-    { category: '温度变化', type: '最高温', x: 1, y: 25, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
-    { category: '温度变化', type: '最高温', x: 2, y: 30, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
-    { category: '温度变化', type: '最高温', x: 3, y: 35, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
-    { category: '温度变化', type: '最高温', x: 4, y: 38, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
+    { category: '温度变化', type: '最高温', x: 1, y: 25, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
+    { category: '温度变化', type: '最高温', x: 2, y: 30, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
+    { category: '温度变化', type: '最高温', x: 3, y: 35, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
+    { category: '温度变化', type: '最高温', x: 4, y: 38, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
 
-    { category: '温度变化', type: '最低温', x: 1, y: 5, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
-    { category: '温度变化', type: '最低温', x: 2, y: 8, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
-    { category: '温度变化', type: '最低温', x: 3, y: 12, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
-    { category: '温度变化', type: '最低温', x: 4, y: 16, xtitle: '月份', ytitle: '温度(°C)', filterLable: '美国' },
+    { category: '温度变化', type: '最低温', x: 1, y: 5, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
+    { category: '温度变化', type: '最低温', x: 2, y: 8, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
+    { category: '温度变化', type: '最低温', x: 3, y: 12, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
+    { category: '温度变化', type: '最低温', x: 4, y: 16, xtitle: '月份', ytitle: '温度(°C)', filterLabel: '美国' },
   ]);
 
   const handleRandomize = () => {

@@ -156,11 +156,11 @@ const Demo = () => {
           nodes={[
             {
               id: '1',
-              name: '项目计划.docx',
-              type: 'word',
+              name: '项目计划.txt',
               size: '2.5MB',
               lastModified: '2025-08-11 10:00:00',
-              url: '/docs/project-plan.docx',
+              url: '/docs/project-plan.txt',
+              displayType: 'txt',
             },
             {
               id: '2',

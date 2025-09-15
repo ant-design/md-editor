@@ -143,7 +143,38 @@
                     <span
                       data-slate-string="true"
                     >
-                      这是一个支持评论的文档。在报告模式下，用户可以对文档内容进行评论。
+                      这是一个支持评论的文档。在报告模式下，
+                    </span>
+                  </span>
+                  <span
+                    class="ant-md-editor-content-comment-highlight"
+                    data-be="comment-text"
+                    data-testid="comment-view"
+                    id="comment-1757562229525"
+                  >
+                    <span
+                      class="ant-md-editor-content-comment"
+                      data-be="text"
+                      data-comment="comment"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        用户可以对文档内容
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      进行评论。
                     </span>
                   </span>
                 </span>
@@ -429,7 +460,38 @@
                           <span
                             data-slate-string="true"
                           >
-                            ：对文档内容进行详细审查
+                            ：
+                          </span>
+                        </span>
+                        <span
+                          class="ant-md-editor-content-comment-highlight"
+                          data-be="comment-text"
+                          data-testid="comment-view"
+                          id="comment-1757562274794"
+                        >
+                          <span
+                            class="ant-md-editor-content-comment"
+                            data-be="text"
+                            data-comment="comment"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              对文档内容进行详
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            细审查
                           </span>
                         </span>
                       </span>
@@ -643,14 +705,23 @@
                         data-slate-node="text"
                       >
                         <span
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
+                          class="ant-md-editor-content-comment-highlight"
+                          data-be="comment-text"
+                          data-testid="comment-view"
+                          id="comment-1757562256636"
                         >
                           <span
-                            data-slate-string="true"
+                            class="ant-md-editor-content-comment"
+                            data-be="text"
+                            data-comment="comment"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
-                            多人同时审阅
+                            <span
+                              data-slate-string="true"
+                            >
+                              多人同时审阅
+                            </span>
                           </span>
                         </span>
                       </span>

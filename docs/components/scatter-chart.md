@@ -33,7 +33,7 @@ group:
 | type | `string` | 是 | 数据序列名称（映射为 dataset）|
 | x | `number` | 是 | 横坐标 |
 | y | `number` | 是 | 纵坐标 |
-| filterLable | `string` | 否 | 二级筛选标签（可选，支持“全部”）|
+| filterLabel | `string` | 否 | 二级筛选标签（可选，支持“全部”）|
 
 ## 说明
 - 移动端会减小点的半径与 hover 半径以提升观感。 

@@ -25,7 +25,7 @@
         <div
           style="padding: 8px 12px; background-color: rgb(255, 255, 255); border: 1px solid rgb(217, 217, 217); border-radius: 4px; font-size: 12px; color: rgb(102, 102, 102);"
         >
-          💡 固定数据：使用预设的扁平化数据，包含 filterLable 字段支持二级筛选。
+          💡 固定数据：使用预设的扁平化数据，包含 filterLabel 字段支持二级筛选。
         </div>
       </div>
       <div
@@ -78,28 +78,28 @@
         <pre
           style="background-color: rgb(255, 255, 255); padding: 10px; border-radius: 4px; font-size: 11px; margin: 0px; overflow: auto;"
         >
-          // 扁平化数据格式：包含 filterLable 字段
+          // 扁平化数据格式：包含 filterLabel 字段
 [
   { 
     category: "年龄", 
     label: "技术", 
     type: "当前能力", 
     score: 75, 
-    filterLable: "全球" 
+    filterLabel: "全球" 
   },
   { 
     category: "年龄", 
     label: "设计", 
     type: "当前能力", 
     score: 60, 
-    filterLable: "全球" 
+    filterLabel: "全球" 
   },
   { 
     category: "年龄", 
     label: "技术", 
     type: "当前能力", 
     score: 65, 
-    filterLable: "美国" 
+    filterLabel: "美国" 
   }
   // ... 更多数据
 ]

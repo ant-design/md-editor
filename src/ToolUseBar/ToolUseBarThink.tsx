@@ -57,8 +57,8 @@ function ExpandIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export interface ToolUseBarThinkProps {
   toolName: React.ReactNode;
-  toolTarget: React.ReactNode;
-  time: React.ReactNode;
+  toolTarget?: React.ReactNode;
+  time?: React.ReactNode;
   icon?: React.ReactNode;
   thinkContent?: React.ReactNode;
   testId?: string;
