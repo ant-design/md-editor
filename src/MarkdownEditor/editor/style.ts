@@ -159,7 +159,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     // 评论拖拽手柄样式
     '.comment-drag-handle': {
       position: 'absolute',
-      right: '-8px',
       top: '50%',
       transform: 'translateY(-50%)',
       width: '6px',
@@ -173,6 +172,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&:hover': {
         opacity: 1,
       },
+    },
+
+    // 开始拖拽手柄
+    '.comment-drag-handle-start': {
+      left: '-8px',
+    },
+
+    // 结束拖拽手柄
+    '.comment-drag-handle-end': {
+      right: '-8px',
+    },
+
+    // 拖拽高亮样式变体
+    '.comment-drag-highlight-start': {
+      borderLeft: '2px solid #1890ff',
+    },
+
+    '.comment-drag-highlight-end': {
+      borderRight: '2px solid #1890ff',
     },
 
     // 评论拖拽状态样式
