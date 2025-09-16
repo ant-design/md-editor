@@ -66,7 +66,6 @@ export interface MarkdownPreviewProps {
  * @description
  * 这是一个用于渲染 Markdown 内容的预览组件。它支持以下功能：
  * - 普通 Markdown 渲染
- * - 幻灯片模式展示
  * - 支持打字机效果
  * - 错误边界处理
  * - 支持 Apaasify 自定义渲染

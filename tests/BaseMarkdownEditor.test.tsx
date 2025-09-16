@@ -350,15 +350,6 @@ describe('BaseMarkdownEditor', () => {
         container.querySelector('.ant-md-editor-report'),
       ).toBeInTheDocument();
     });
-
-    it('应该在幻灯片模式下应用幻灯片样式', () => {
-      const { container } = render(
-        <BaseMarkdownEditor {...defaultProps} slideMode={true} />,
-      );
-      expect(
-        container.querySelector('.ant-md-editor-slide'),
-      ).toBeInTheDocument();
-    });
   });
 
   describe('ID 属性', () => {

@@ -48,7 +48,6 @@ export const LOADING_FLAT = '...';
  * - 组件会自动处理 Markdown 内容的渲染
  * - 支持异常消息的特殊展示
  * - 提供完整的交互操作（点赞、点踩、复制等）
- * - 支持幻灯片模式，可以全屏查看内容
  * - 可以通过 extraRender 完全自定义额外操作区域
  *
  * @see {@link BubbleProps} 了解更多关于聊天项属性的信息

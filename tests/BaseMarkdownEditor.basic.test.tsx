@@ -278,13 +278,6 @@ describe('BaseMarkdownEditor - 基本功能测试', () => {
       // 验证组件能正常渲染，报告模式的样式在组件内部处理
       expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
     });
-
-    it('应该在幻灯片模式下应用幻灯片样式', () => {
-      render(<BaseMarkdownEditor {...defaultProps} slideMode={true} />);
-
-      // 验证组件能正常渲染，幻灯片模式的样式在组件内部处理
-      expect(screen.getByTestId('slate-markdown-editor')).toBeInTheDocument();
-    });
   });
 
   describe('ID 属性测试', () => {

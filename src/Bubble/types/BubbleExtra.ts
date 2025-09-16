@@ -143,14 +143,6 @@ export type BubbleExtraProps = {
   }>;
 
   /**
-   * 打开幻灯片模式的回调函数
-   * @description 当用户点击打开幻灯片模式时触发
-   * @callback
-   * @optional
-   */
-  onOpenSlidesMode?: () => void;
-
-  /**
    * 额外内容为空时的回调函数
    * @description 当额外内容为空时触发，用于通知父组件
    * @param isNull - 是否为空

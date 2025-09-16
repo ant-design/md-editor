@@ -208,20 +208,6 @@ describe('BubbleExtra', () => {
       expect(screen.getByTestId('like-button')).toBeInTheDocument();
       expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
     });
-
-    it('应该处理幻灯片模式操作', async () => {
-      const onOpenSlidesMode = vi.fn();
-      const props = {
-        ...defaultProps,
-        onOpenSlidesMode,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      // 检查组件是否正确渲染
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
   });
 
   describe('配置测试', () => {
