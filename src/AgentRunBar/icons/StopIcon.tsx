@@ -1,6 +1,8 @@
 ﻿import * as React from 'react';
 
 export function StopIcon(props: React.SVGProps<SVGSVGElement>) {
+  const uid = React.useId();
+  const clipId = `stopIconClip-${uid}`;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +15,7 @@ export function StopIcon(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <clipPath id="a">
+        <clipPath id={clipId}>
           <rect x={8} y={8} width={16} height={16} rx={0} />
         </clipPath>
       </defs>
