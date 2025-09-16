@@ -26,8 +26,7 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
           maxWidth: '680px',
         },
       }}
-      toolName="思考中"
-      toolTarget="分析需求"
+      toolName={content.endsWith('...') ? '深度思考...' : '深度思考'}
       thinkContent={content}
       status={content.endsWith('...') ? 'loading' : 'success'}
     />
