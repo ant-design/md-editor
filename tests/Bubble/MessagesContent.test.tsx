@@ -19,7 +19,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
     typing,
     extra,
     docListNode,
-    slidesMode,
     onCloseSlides,
     fncProps,
     markdownRenderConfig,
@@ -32,7 +31,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
         <div data-testid="content">{content}</div>
         <div data-testid="is-finished">{isFinished ? 'true' : 'false'}</div>
         <div data-testid="typing">{typing ? 'true' : 'false'}</div>
-        <div data-testid="slides-mode">{slidesMode ? 'true' : 'false'}</div>
         {extra && <div data-testid="extra">{extra}</div>}
         {docListNode && <div data-testid="doc-list">{docListNode}</div>}
         {fncProps && <div data-testid="fnc-props">fncProps</div>}
@@ -60,7 +58,6 @@ vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
     readonly,
     bubble,
     onRenderExtraNull,
-    slidesModeProps,
     render,
   }: any) => (
     <div data-testid="bubble-extra" style={style}>
@@ -85,9 +82,6 @@ vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
       >
         Set Extra Null
       </button>
-      {slidesModeProps?.enable && (
-        <div data-testid="slides-enabled">Slides Enabled</div>
-      )}
       {render && <div data-testid="custom-render">Custom Render</div>}
     </div>
   ),
@@ -541,7 +535,6 @@ describe('BubbleMessageDisplay', () => {
     it('应该处理幻灯片模式', () => {
       const props = {
         ...defaultProps,
-        slidesModeProps: { enable: true },
         bubbleRenderConfig: {
           extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
         },
@@ -926,7 +919,6 @@ describe('BubbleMessageDisplay', () => {
     it('应该处理幻灯片模式状态变化', () => {
       const props = {
         ...defaultProps,
-        slidesModeProps: { enable: true },
         bubbleRenderConfig: {
           extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
         },
@@ -943,7 +935,6 @@ describe('BubbleMessageDisplay', () => {
     it('应该处理幻灯片模式关闭', () => {
       const props = {
         ...defaultProps,
-        slidesModeProps: { enable: true },
       };
 
       renderWithContext(props);

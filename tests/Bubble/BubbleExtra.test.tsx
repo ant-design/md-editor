@@ -77,7 +77,6 @@ describe('BubbleExtra', () => {
     onReply: vi.fn(),
     onOpenSlidesMode: vi.fn(),
     onRenderExtraNull: vi.fn(),
-    slidesModeProps: { enable: false },
     readonly: false,
     feedback: undefined,
     answerStatus: 'finished',
@@ -226,18 +225,6 @@ describe('BubbleExtra', () => {
   });
 
   describe('配置测试', () => {
-    it('应该处理幻灯片模式启用', () => {
-      const props = {
-        ...defaultProps,
-        slidesModeProps: { enable: true },
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-
     it('应该处理onRenderExtraNull回调', () => {
       const onRenderExtraNull = vi.fn();
       const props = {

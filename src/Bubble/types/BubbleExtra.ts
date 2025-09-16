@@ -151,17 +151,6 @@ export type BubbleExtraProps = {
   onOpenSlidesMode?: () => void;
 
   /**
-   * 幻灯片模式的配置属性
-   * @description 继承自 BubbleChatProps 的幻灯片模式配置
-   */
-  slidesModeProps?: {
-    /** 是否启用幻灯片模式 */
-    enable?: boolean;
-    /** 幻灯片切换后的回调 */
-    afterOpenChange?: (message: MessageBubbleData<Record<string, any>>) => void;
-  };
-
-  /**
    * 额外内容为空时的回调函数
    * @description 当额外内容为空时触发，用于通知父组件
    * @param isNull - 是否为空

@@ -1,16 +1,12 @@
-﻿import { CloseCircleFilled } from '@ant-design/icons';
-import { ConfigProvider, theme } from 'antd';
+﻿import { theme } from 'antd';
 import React, { useContext, useEffect, useMemo } from 'react';
-import ReactDOM from 'react-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
-  ActionIconBox,
   MarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorProps,
   parserMdToSchema,
 } from '../../';
-import { Slides } from '../../Slides';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { MessageBubbleData } from '../type';
 import { MessagesContext } from './BubbleContext';
@@ -43,10 +39,6 @@ export interface MarkdownPreviewProps {
   htmlRef?: React.RefObject<HTMLDivElement>;
   /** 内容是否已完成加载，例如: true */
   isFinished?: boolean;
-  /** 是否启用幻灯片模式，例如: true */
-  slidesMode?: boolean;
-  /** 关闭幻灯片模式的回调函数，例如: () => setSlideMode(false) */
-  onCloseSlides?: () => void;
   style?: React.CSSProperties;
   originData?: MessageBubbleData;
   markdownRenderConfig?: MarkdownEditorProps;
@@ -68,8 +60,6 @@ export interface MarkdownPreviewProps {
  * @param {Object} props.fncProps - 功能属性
  * @param {ReactNode} props.docListNode - 文档列表节点
  * @param {boolean} props.isFinished - 内容是否已完成
- * @param {boolean} props.slidesMode - 是否为幻灯片模式
- * @param {() => void} props.onCloseSlides - 关闭幻灯片模式的回调函数
  * @param {ReactNode} props.beforeContent - 在 content 前面插入的 DOM 元素
  * @param {ReactNode} props.afterContent - 在 content 后面插入的 DOM 元素
  *
@@ -104,8 +94,6 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
     fncProps,
     docListNode,
     isFinished,
-    slidesMode,
-    onCloseSlides,
     beforeContent,
     afterContent,
   } = props;
@@ -140,44 +128,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
         ? Math.max((htmlRef?.current?.clientWidth || 600) - 23, 500)
         : Math.min((htmlRef?.current?.clientWidth || 600) - 128, 500)
       : undefined;
-    return slidesMode ? (
-      ReactDOM.createPortal(
-        <div
-          style={{
-            position: 'fixed',
-            width: '100vw',
-            height: '100vh',
-            top: 0,
-            left: 0,
-            background: '#FFF',
-            zIndex: 9999,
-          }}
-          id="slides-container"
-        >
-          <div
-            style={{ position: 'absolute', top: 20, right: 20, zIndex: 9999 }}
-          >
-            <ActionIconBox
-              title={locale?.['slides.closeSlidesMode'] || '关闭幻灯片模式'}
-              onClick={onCloseSlides}
-            >
-              <CloseCircleFilled />
-            </ActionIconBox>
-          </div>
-          <ConfigProvider
-            getPopupContainer={() =>
-              document.getElementById('slides-container')!
-            }
-            getTargetContainer={() =>
-              document.getElementById('slides-container')!
-            }
-          >
-            <Slides initValue={content.trim()} />
-          </ConfigProvider>
-        </div>,
-        document.body,
-      )
-    ) : (
+    return (
       <MarkdownEditor
         {...(props.markdownRenderConfig || {})}
         fncProps={fncProps}
@@ -206,7 +157,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
         readonly
       />
     );
-  }, [slidesMode, hidePadding, typing, isPaddingHidden, content]);
+  }, [hidePadding, typing, isPaddingHidden, content]);
 
   const errorDom = (
     <div

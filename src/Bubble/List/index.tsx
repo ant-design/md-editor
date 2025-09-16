@@ -191,7 +191,6 @@ export type BubbleListProps = {
   onReply?: BubbleProps['onReply'];
   onAvatarClick?: BubbleProps['onAvatarClick'];
   onDoubleClick?: BubbleProps['onDoubleClick'];
-  slidesModeProps?: BubbleProps['slidesModeProps'];
   markdownRenderConfig?: BubbleProps['markdownRenderConfig'];
   docListProps?: BubbleProps['docListProps'];
 
@@ -345,7 +344,6 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
             },
           }}
           readonly={props.readonly}
-          slidesModeProps={props.slidesModeProps}
           onReply={props.onReply}
           onDisLike={props.onDisLike}
           onLike={props.onLike}

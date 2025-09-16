@@ -67,12 +67,6 @@ export const BubbleMessageDisplay: React.FC<
   const context = useContext(BubbleConfigContext);
   const { locale } = useContext(I18nContext);
 
-  /**
-   * 幻灯片模式状态
-   * @type {[boolean, React.Dispatch<React.SetStateAction<boolean>>]}
-   */
-  const [slidesMode, setSlidesMode] = React.useState(false);
-
   const [isExtraNull, setIsExtraNull] = React.useState(false);
 
   const [nodeList, setNodeList] = React.useState<
@@ -167,8 +161,6 @@ export const BubbleMessageDisplay: React.FC<
           }
           bubble={props as any}
           onRenderExtraNull={(isNull) => setIsExtraNull(isNull)}
-          onOpenSlidesMode={() => setSlidesMode(true)}
-          slidesModeProps={props.slidesModeProps}
           onLike={
             props.onLike
               ? async () => {
@@ -418,8 +410,6 @@ export const BubbleMessageDisplay: React.FC<
           },
           ...(props.markdownRenderConfig?.fncProps || {}),
         }}
-        slidesMode={slidesMode}
-        onCloseSlides={() => setSlidesMode(false)}
         typing={typing}
         docListNode={docInfoDom}
         extra={isExtraNull ? null : extra}
@@ -439,7 +429,6 @@ export const BubbleMessageDisplay: React.FC<
     props?.originData?.feedback,
     props.originData?.isFinished,
     props.originData?.isAborted,
-    slidesMode,
     isExtraNull,
     props.deps,
     props.bubbleRenderConfig?.beforeMessageRender,

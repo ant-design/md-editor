@@ -1,8 +1,4 @@
-﻿import {
-  DislikeOutlined,
-  LikeOutlined,
-  SelectOutlined,
-} from '@ant-design/icons';
+﻿import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 import { ConfigProvider, Divider } from 'antd';
 import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
@@ -290,22 +286,6 @@ export const BubbleExtra = ({
     );
   }, [props.shouldShowVoice, props.useSpeech, bubble.originData?.content]);
 
-  const slidesModeButton = useMemo(
-    () =>
-      props.slidesModeProps?.enable && !typing ? (
-        <ActionIconBox
-          onClick={props.onOpenSlidesMode}
-          title="幻灯片模式"
-          style={{
-            color: 'var(--color-gray-a9)',
-          }}
-        >
-          <SelectOutlined />
-        </ActionIconBox>
-      ) : null,
-    [props.slidesModeProps?.enable, typing, props.onOpenSlidesMode],
-  );
-
   const dom = useMemo(
     () =>
       voiceDom || copyDom || like || disLike ? (
@@ -348,10 +328,9 @@ export const BubbleExtra = ({
           )}
           {like ? like : null}
           {disLike ? disLike : null}
-          {slidesModeButton ? slidesModeButton : null}
         </motion.div>
       ) : null,
-    [voiceDom, copyDom, like, disLike, prefixCls, slidesModeButton],
+    [voiceDom, copyDom, like, disLike, prefixCls],
   );
 
   const reSend = useMemo(() => {
@@ -416,7 +395,6 @@ export const BubbleExtra = ({
               bubble,
               onReply,
               onRenderExtraNull: props.onRenderExtraNull,
-              slidesModeProps: props.slidesModeProps,
             },
             {
               like,

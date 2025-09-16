@@ -517,14 +517,6 @@ export interface BubbleProps<T = Record<string, any>>
   onReply?: (message: string) => void;
 
   /**
-   * 幻灯片模式配置
-   */
-  slidesModeProps?: {
-    enable?: boolean;
-    afterOpenChange?: (message: MessageBubbleData<Record<string, any>>) => void;
-  };
-
-  /**
    * 文档列表配置
    */
   docListProps?: DocInfoListProps & {
