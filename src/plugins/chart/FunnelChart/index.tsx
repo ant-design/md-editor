@@ -302,15 +302,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           font: { size: isMobile ? 10 : 12, weight: 'normal' },
           padding: isMobile ? 10 : 12,
           usePointStyle: true,
-          pointStyle: 'rect',
+          pointStyle: 'rectRounded',
           generateLabels: (chart): LegendItem[] => {
-            // 使用默认生成 + 追加“转化率”图例；统一正方形样式
             // @ts-ignore
             const base: LegendItem[] = (
               ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []
             ).map((it) => ({
               ...it,
-              pointStyle: 'rect' as PointStyle,
+              pointStyle: 'rectRounded' as PointStyle,
             }));
             return [
               ...base,
@@ -321,7 +320,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
                 lineWidth: 0,
                 hidden: !showTrapezoid,
                 datasetIndex: chart.data.datasets.length, // 非真实数据集，仅用于展示
-                pointStyle: 'rect' as PointStyle,
+                pointStyle: 'rectRounded' as PointStyle,
               },
             ];
           },

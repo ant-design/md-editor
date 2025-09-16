@@ -461,7 +461,7 @@ const BarChart: React.FC<BarChartProps> = ({
           font: { size: isMobile ? 10 : 12, weight: 'normal' },
           padding: isMobile ? 10 : 12,
           usePointStyle: true,
-          pointStyle: 'rect',
+          pointStyle: 'rectRounded',
         },
       },
       tooltip: {
