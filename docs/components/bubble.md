@@ -646,7 +646,18 @@ const customBeforeContentRender = (props, defaultDom) => {
 
 const customAfterContentRender = (props, defaultDom) => {
   return (
-
+    <div
+      style={{
+        padding: '8px 12px',
+        background: '#e6f7ff',
+        borderRadius: '6px',
+        marginTop: '8px',
+        fontSize: '12px',
+        color: '#1890ff',
+      }}
+    >
+      ✅ 消息状态: {props.originData?.isFinished ? '已完成' : '生成中...'}
+    </div>
   );
 };
 
