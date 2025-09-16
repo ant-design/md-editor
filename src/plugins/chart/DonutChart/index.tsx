@@ -230,9 +230,16 @@ const DonutChart: React.FC<DonutChartProps> = ({
       : finalConfigs;
 
   return (
-    <>
+    <ChartContainer
+      baseClassName={baseClassName}
+      className={className}
+      variant={props.variant}
+      style={{
+        ['--donut-item-min-width' as any]: `${dimensions.width}px`,
+      }}
+    >
       {showToolbar && (
-        <ChartContainer baseClassName={`${baseClassName}-toolbar-wrapper`}>
+        <ChartContainer baseClassName={`${baseClassName}-toolbar-wrapper`} variant="borderless">
           {title && (
             <ChartToolBar
               title={title}
@@ -262,12 +269,8 @@ const DonutChart: React.FC<DonutChartProps> = ({
         </ChartContainer>
       )}
       <ChartContainer
-        baseClassName={baseClassName}
-        className={className}
-        variant={props.variant}
-        style={{
-          ['--donut-item-min-width' as any]: `${dimensions.width}px`,
-        }}
+        baseClassName={`${baseClassName}-content`}
+        variant="borderless"
       >
         {renderConfigs.map((cfg, idx) => {
           const currentDataItem = filteredData[idx];
@@ -423,10 +426,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
             <ChartContainer
               key={idx}
               baseClassName={`${baseClassName}-chart-wrapper`}
+              variant="borderless"
             >
               {isSingleValueMode ? (
                 <ChartContainer
                   baseClassName={`${baseClassName}-single`}
+                  variant="borderless"
                   style={{
                     ['--donut-chart-height' as any]: `${dimensions.height}px`,
                     ['--donut-chart-width' as any]: `${dimensions.width}px`,
@@ -464,6 +469,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
               ) : (
                 <ChartContainer
                   baseClassName={`${baseClassName}-row`}
+                  variant="borderless"
                   style={{
                     ...(isMobile
                       ? { flexDirection: 'column', alignItems: 'stretch' }
@@ -472,6 +478,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
                 >
                   <ChartContainer
                     baseClassName={`${baseClassName}-chart`}
+                    variant="borderless"
                     style={{
                       ['--donut-chart-width' as any]: `${dimensions.chartWidth}px`,
                       ['--donut-chart-height' as any]: `${dimensions.chartHeight}px`,
@@ -508,7 +515,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
           );
         })}
       </ChartContainer>
-    </>
+    </ChartContainer>
   );
 };
 

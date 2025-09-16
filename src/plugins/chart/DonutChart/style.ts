@@ -7,15 +7,23 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      display: 'grid',
-      gap: 16,
-      gridTemplateColumns:
-        'repeat(auto-fit, minmax(var(--donut-item-min-width, 200px), 1fr))',
+      display: 'flex',
+      flexDirection: 'column',
 
       '&-toolbar-wrapper': {
-        marginBottom: 8,
+        marginBottom: 16,
         [`@media (max-width: 768px)`]: {
-          marginBottom: 6,
+          marginBottom: 12,
+        },
+      },
+
+      '&-content': {
+        display: 'grid',
+        gap: 16,
+        gridTemplateColumns:
+          'repeat(auto-fit, minmax(var(--donut-item-min-width, 200px), 1fr))',
+        [`@media (max-width: 480px)`]: {
+          gap: 8,
         },
       },
 
