@@ -191,7 +191,11 @@ const FunnelDemo: React.FC = () => {
           随机更新数据
         </Button>
       </div>
-      <FunnelChart title="网站转化漏斗" data={data} height={480} />
+      <FunnelChart
+        title="网站转化漏斗"
+        data={data}
+        height="280px"
+      />
     </div>
   );
 };

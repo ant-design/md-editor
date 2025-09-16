@@ -73,6 +73,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   data,
   color,
   width = 600,
+  height = 400,
   className,
   dataTime,
   theme = 'light',
@@ -165,13 +166,22 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const BAR_THICKNESS = 30;
   const ROW_GAP = 24;
   const PADDING_Y = isMobile ? 48 : 64;
+  
+  // 计算图表高度
   const chartHeight = useMemo(() => {
     const rows = Math.max(1, stages.length);
     return rows * (BAR_THICKNESS + ROW_GAP) + PADDING_Y;
   }, [stages.length, PADDING_Y]);
 
-  // 为了让柱间距与梯形高度一致，这里采用按行数计算的高度
-  const finalHeight = chartHeight;
+  // 最终高度计算逻辑
+  const finalHeight = useMemo(() => {
+    if (typeof height === 'number') {
+      return height;
+    } else if (typeof height === 'string' && height.includes('px')) {
+      return parseInt(height, 10) || chartHeight;
+    }
+    return chartHeight;
+  }, [height, chartHeight]);
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
   const processedData: ChartData<
