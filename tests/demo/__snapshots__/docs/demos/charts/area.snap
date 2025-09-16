@@ -34,7 +34,7 @@
         style="margin-bottom: 20px;"
       >
         <div
-          class="area-chart-container area-chart-container-light-theme area-chart-container-desktop"
+          class="ant-area-chart-container ant-area-chart-container-light-theme ant-area-chart-container-desktop"
           style="width: 700px; height: 500px;"
         >
           <div

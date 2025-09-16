@@ -26,7 +26,7 @@
         </button>
       </div>
       <div
-        class="funnel-chart-container funnel-chart-container-light-theme funnel-chart-container-desktop"
+        class="ant-funnel-chart-container ant-funnel-chart-container-light-theme ant-funnel-chart-container-desktop"
         style="width: 600px;"
       >
         <div

@@ -34,7 +34,7 @@
         style="margin-bottom: 20px;"
       >
         <div
-          class="bar-chart-container bar-chart-container-light-theme bar-chart-container-desktop"
+          class="ant-bar-chart-container ant-bar-chart-container-light-theme ant-bar-chart-container-desktop"
           style="width: 700px; height: 500px;"
         >
           <div

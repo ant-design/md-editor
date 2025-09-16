@@ -34,7 +34,7 @@
         style="margin-bottom: 20px;"
       >
         <div
-          class="line-chart-container line-chart-container-light-theme line-chart-container-desktop"
+          class="ant-line-chart-container ant-line-chart-container-light-theme ant-line-chart-container-desktop"
           style="width: 700px;"
         >
           <div
