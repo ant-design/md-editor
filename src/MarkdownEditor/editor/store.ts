@@ -1520,14 +1520,12 @@ export class EditorStore {
     options: {
       caseSensitive?: boolean;
       wholeWord?: boolean;
-      selectFirst?: boolean;
       maxResults?: number;
     } = {},
   ) {
     const {
       caseSensitive = false,
       wholeWord = false,
-      selectFirst = true,
       maxResults = 50,
     } = options;
 
@@ -1666,23 +1664,6 @@ export class EditorStore {
 
         if (results.length >= maxResults) break;
       }
-
-      // 如果设置了自动选择第一个匹配项
-      if (selectFirst && results.length > 0) {
-        try {
-          Transforms.select(editor, results[0].range);
-          // 聚焦编辑器
-          setTimeout(() => {
-            try {
-              ReactEditor.focus(editor);
-            } catch (e) {
-              console.debug('聚焦编辑器失败:', e);
-            }
-          }, 0);
-        } catch (e) {
-          console.error('选择文本失败:', e);
-        }
-      }
     } catch (error) {
       console.error('查找过程中出错:', error);
     }
@@ -1708,7 +1689,6 @@ export class EditorStore {
     description: string,
     options: {
       caseSensitive?: boolean;
-      selectFirst?: boolean;
     } = {},
   ) {
     // 简单的文本解析
@@ -1753,11 +1733,10 @@ export class EditorStore {
       return [];
     }
 
-    const { caseSensitive = false, selectFirst = true } = options;
+    const { caseSensitive = false } = options;
 
     return this.findByPathAndText('', searchText, {
       caseSensitive,
-      selectFirst,
       // 如果是标识符，使用完整单词匹配
       wholeWord: /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(searchText),
     });
