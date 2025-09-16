@@ -310,6 +310,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
       const placement = item.role === 'user' ? 'right' : 'left';
       // 保持向后兼容性，设置isLatest
       (item as any).isLatest = isLast;
+      (item as any).isLast = isLast;
       return (
         <Bubble
           key={item.id}
