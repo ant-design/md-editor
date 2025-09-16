@@ -89,6 +89,10 @@ Stop and show understanding.
 For it will surely sprout wings and fly off to the sky like an eagle
  \n * 数据表1 \n * 数据表二 8. 绘制表格
 
+\`\`\`think
+这是一个思考块，表示正在分析需求或处理复杂逻辑。
+\`\`\`
+
 | 作品名称        | 在线地址   |  上线日期  |
 | :--------  | :-----  | :----:  |
 | 逍遥自在轩 | [https://niceshare.site](https://niceshare.site/?ref=markdown.lovejade.cn) |2024-04-26|
@@ -246,6 +250,11 @@ export default () => {
     <MarkdownEditor
       readonly
       initValue={`# 只读模式示例
+
+\`\`\`think
+这是一个思考块，表示正在分析需求或处理复杂逻辑。
+\`\`\`
+
 
 这是一个只读模式的编辑器，用户无法编辑内容，但可以查看和复制。
 
