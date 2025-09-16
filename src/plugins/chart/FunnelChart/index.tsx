@@ -9,7 +9,8 @@ import {
   LinearScale,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ConfigProvider } from 'antd';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -100,7 +101,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   }, []);
 
   // 样式注册
-  const baseClassName = 'funnel-chart-container';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context?.getPrefixCls('funnel-chart-container');
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
   const [showTrapezoid, setShowTrapezoid] = useState(true);

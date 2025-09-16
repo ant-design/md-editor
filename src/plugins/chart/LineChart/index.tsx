@@ -10,7 +10,8 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ConfigProvider } from 'antd';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -139,7 +140,8 @@ const LineChart: React.FC<LineChartProps> = ({
   }, []);
 
   // 样式注册
-  const baseClassName = 'line-chart-container';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context?.getPrefixCls('line-chart-container');
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 

@@ -11,7 +11,8 @@ import {
   ScriptableContext,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ConfigProvider } from 'antd';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -160,7 +161,8 @@ const AreaChart: React.FC<AreaChartProps> = ({
   }, []);
 
   // 样式注册
-  const baseClassName = 'area-chart-container';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context?.getPrefixCls('area-chart-container');
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
