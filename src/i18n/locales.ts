@@ -1,7 +1,9 @@
 /**
  * 中文标签映射对象
  *
- * 包含所有界面文本的中文翻译，用于国际化支持。
+ * 包含所有界面文本的中文翻译，用于国际化  dataTime: '数据时间',
+  columns: '列',
+  all: '全部',
  * 提供完整的用户界面文本本地化。
  */
 export const cnLabels = {
@@ -28,6 +30,10 @@ export const cnLabels = {
   uploadSuccess: '上传成功',
   uploading: '上传中...',
   pieChart: '饼图',
+  donutChart: '环形图',
+  radarChart: '雷达图',
+  scatterChart: '散点图',
+  funnelChart: '漏斗图',
   configChart: '配置图表',
   updateChart: '更新',
   barChart: '条形图',
@@ -35,6 +41,9 @@ export const cnLabels = {
   columnChart: '柱状图',
   areaChart: '面积图',
   descriptions: '定义列表',
+  dataTime: 'Data Time',
+  columns: 'Columns',
+  all: 'All',
   TableSql: '表查询',
   ToolCall: '工具查询',
   RagRetrieval: '文档查询',
@@ -347,11 +356,18 @@ export const enLabels: typeof cnLabels = {
   uploadSuccess: 'Upload succeeded',
   uploading: 'Uploading...',
   pieChart: 'Pie Chart',
+  donutChart: 'Donut Chart',
+  radarChart: 'Radar Chart',
+  scatterChart: 'Scatter Chart',
+  funnelChart: 'Funnel Chart',
   barChart: 'Bar Chart',
   lineChart: 'Line Chart',
   columnChart: 'Column Chart',
   areaChart: 'Area Chart',
   table: 'Table',
+  dataTime: 'Data Time',
+  columns: 'Columns',
+  all: 'All',
   descriptions: 'Definition List',
   preview: 'Preview',
   copy: 'Copy',

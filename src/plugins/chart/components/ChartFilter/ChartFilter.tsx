@@ -2,6 +2,7 @@ import { DownOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Dropdown, Segmented } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
+import { I18nContext } from '../../../../i18n';
 import { useStyle } from './style';
 
 export interface FilterOption {
@@ -36,6 +37,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   theme = 'light',
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const i18n = useContext(I18nContext);
   const prefixCls = getPrefixCls('chart-filter');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
@@ -88,7 +90,9 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
             >
               <span>
                 {customOptions.find((r) => r.key === selectedCustomSelection)
-                  ?.label || '全球'}
+                  ?.label ||
+                  i18n?.locale?.all ||
+                  '全部'}
               </span>
               <DownOutlined
                 className={classNames(`${prefixCls}-dropdown-icon`, hashId)}
