@@ -725,14 +725,15 @@ describe('Utility functions', () => {
     });
 
     it('should extract text from markdown link syntax', () => {
-      const result = normalizeMarkdownSearchText('[link text](https://example.com)');
+      const result = normalizeMarkdownSearchText(
+        '[link text](https://example.com)',
+      );
       expect(result).toContain('[link text](https://example.com)'); // original
       expect(result).toContain('link text'); // cleaned
     });
 
     it('should extract alt text from markdown image syntax', () => {
       const result = normalizeMarkdownSearchText('![alt text](image.jpg)');
-      console.log('Image syntax result:', result); // Debug output
       expect(result).toContain('![alt text](image.jpg)'); // original
       expect(result).toContain('alt text'); // cleaned
     });
@@ -786,7 +787,9 @@ describe('Utility functions', () => {
     });
 
     it('should handle complex markdown with multiple syntax elements', () => {
-      const result = normalizeMarkdownSearchText('**Bold** and *italic* with [link](url)');
+      const result = normalizeMarkdownSearchText(
+        '**Bold** and *italic* with [link](url)',
+      );
       expect(result).toContain('**Bold** and *italic* with [link](url)'); // original
       expect(result).toContain('Bold and italic with link'); // fully cleaned
     });
@@ -805,7 +808,7 @@ describe('Utility functions', () => {
       expect(result).toContain('**single**'); // original
       expect(result).toContain('single'); // cleaned
       // Should not have duplicate 'single' from word splitting
-      expect(result.filter(item => item === 'single').length).toBe(1);
+      expect(result.filter((item) => item === 'single').length).toBe(1);
     });
 
     it('should filter out words with less than 2 characters', () => {
@@ -821,11 +824,13 @@ describe('Utility functions', () => {
       const result = normalizeMarkdownSearchText('![](image.jpg)');
       expect(result).toContain('![](image.jpg)'); // original
       // Should not add empty string for alt text
-      expect(result.filter(item => item === '').length).toBe(0);
+      expect(result.filter((item) => item === '').length).toBe(0);
     });
 
     it('should handle nested markdown syntax', () => {
-      const result = normalizeMarkdownSearchText('**Bold with *italic* inside**');
+      const result = normalizeMarkdownSearchText(
+        '**Bold with *italic* inside**',
+      );
       expect(result).toContain('**Bold with *italic* inside**'); // original
       expect(result).toContain('Bold with italic inside'); // fully cleaned
     });

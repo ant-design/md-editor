@@ -1029,10 +1029,10 @@ export function normalizeMarkdownSearchText(searchText: string): string[] {
 
   // 移除常见的 Markdown 语法
   let cleanText = searchText
+    // 移除图片语法 ![alt](url) -> alt (必须在链接语法之前处理)
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
     // 移除链接语法 [text](url) -> text
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    // 移除图片语法 ![alt](url) -> alt
-    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
     // 移除粗体语法 **text** 或 __text__ -> text
     .replace(/\*\*(.*?)\*\*/g, '$1')
     .replace(/__(.*?)__/g, '$1')
