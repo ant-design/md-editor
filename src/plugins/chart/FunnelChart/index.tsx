@@ -65,6 +65,11 @@ export interface FunnelChartProps extends ChartContainerProps {
   showPercent?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+
+  typeNames: {
+    translationKey: string;
+    name: string;
+  };
 }
 
 const defaultColors = '#1890ff';
@@ -83,6 +88,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   legendAlign = 'start',
   showPercent = true,
   toolbarExtra,
+  typeNames,
   ...props
 }) => {
   // 响应式尺寸
@@ -201,7 +207,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     });
 
     // 取当前数据的类型名作为数据集 label
-    const typeName = '转化';
+    const typeName = typeNames.name || '转化';
 
     // 中心对称的浮动条：[-v/2, v/2]
     const datasetData: [number, number][] = values.map(
@@ -316,7 +322,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
             return [
               ...base,
               {
-                text: '转化率',
+                text: typeNames.translationKey || '转化率',
                 fillStyle: '#F1F2F4',
                 strokeStyle: '#F1F2F4',
                 lineWidth: 0,
@@ -328,7 +334,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           },
         },
         onClick: (e, legendItem, legend) => {
-          if (legendItem.text === '转化率') {
+          if (legendItem.text === (typeNames.translationKey || '转化率')) {
             setShowTrapezoid((v) => !v);
             setPluginToggleKey((k) => k + 1);
             return;
