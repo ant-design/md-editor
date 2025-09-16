@@ -895,7 +895,6 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
                 offset: findDom.offset.end,
               },
             };
-            console.log(newSelection);
             fragment = Editor.fragment(markdownEditorRef.current, newSelection);
           }
         }

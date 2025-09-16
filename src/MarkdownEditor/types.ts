@@ -208,6 +208,88 @@ export type MarkdownEditorProps = {
         attributes: any;
       },
     ) => React.ReactNode;
+    /**
+     * 评论范围拖拽配置
+     */
+    dragRange?: {
+      /**
+       * 是否启用评论范围拖拽功能
+       */
+      enable?: boolean;
+      /**
+       * 拖拽手柄样式配置
+       */
+      handleStyle?: {
+        /**
+         * 手柄颜色
+         */
+        color?: string;
+        /**
+         * 手柄背景色
+         */
+        backgroundColor?: string;
+        /**
+         * 手柄大小
+         */
+        size?: string;
+        /**
+         * 手柄圆角
+         */
+        borderRadius?: string;
+        /**
+         * 手柄透明度
+         */
+        opacity?: number;
+        /**
+         * 自定义手柄类名
+         */
+        className?: string;
+      };
+      /**
+       * 拖拽过程中的高亮样式
+       */
+      highlightStyle?: {
+        /**
+         * 高亮颜色
+         */
+        color?: string;
+        /**
+         * 高亮背景色
+         */
+        backgroundColor?: string;
+        /**
+         * 高亮边框样式
+         */
+        border?: string;
+        /**
+         * 高亮圆角
+         */
+        borderRadius?: string;
+        /**
+         * 高亮透明度
+         */
+        opacity?: number;
+        /**
+         * 自定义高亮类名
+         */
+        className?: string;
+      };
+      /**
+       * 范围更新回调函数
+       * @param commentId 评论ID
+       * @param newRange 新的选中范围
+       * @param newContent 新的选中内容
+       */
+      onRangeChange?: (
+        commentId: string | number,
+        newRange: {
+          anchorOffset: number;
+          focusOffset: number;
+          refContent: string;
+        },
+        newContent: string,
+      ) => void;
+    };
   };
 
   /**
