@@ -19,7 +19,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
     typing,
     extra,
     docListNode,
-    onCloseSlides,
     fncProps,
     markdownRenderConfig,
     style,
@@ -40,9 +39,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
         {style && <div data-testid="style">style</div>}
         {originData && <div data-testid="origin-data">originData</div>}
         {htmlRef && <div data-testid="html-ref">htmlRef</div>}
-        <button data-testid="close-slides" onClick={onCloseSlides}>
-          Close Slides
-        </button>
       </div>
     );
   },
@@ -53,7 +49,6 @@ vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
     onLike,
     onDisLike,
     onReply,
-    onOpenSlidesMode,
     style,
     readonly,
     bubble,
@@ -73,9 +68,7 @@ vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
       <button data-testid="reply-btn" onClick={() => onReply?.('test reply')}>
         Reply
       </button>
-      <button data-testid="slides-btn" onClick={onOpenSlidesMode}>
-        Slides
-      </button>
+
       <button
         data-testid="extra-null-btn"
         onClick={() => onRenderExtraNull?.(true)}
@@ -532,22 +525,6 @@ describe('BubbleMessageDisplay', () => {
       expect(onReply).toHaveBeenCalledWith('test reply');
     });
 
-    it('应该处理幻灯片模式', () => {
-      const props = {
-        ...defaultProps,
-        bubbleRenderConfig: {
-          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
-        },
-      };
-
-      renderWithContext(props);
-
-      const slidesButton = screen.getByTestId('slides-btn');
-      fireEvent.click(slidesButton);
-
-      expect(screen.getByTestId('slides-enabled')).toBeInTheDocument();
-    });
-
     it('应该处理自定义渲染函数', () => {
       const customRender = vi
         .fn()
@@ -912,37 +889,6 @@ describe('BubbleMessageDisplay', () => {
       renderWithContext(props);
 
       expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
-    });
-  });
-
-  describe('幻灯片模式测试', () => {
-    it('应该处理幻灯片模式状态变化', () => {
-      const props = {
-        ...defaultProps,
-        bubbleRenderConfig: {
-          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
-        },
-      };
-
-      renderWithContext(props);
-
-      const slidesButton = screen.getByTestId('slides-btn');
-      fireEvent.click(slidesButton);
-
-      expect(screen.getByTestId('slides-enabled')).toBeInTheDocument();
-    });
-
-    it('应该处理幻灯片模式关闭', () => {
-      const props = {
-        ...defaultProps,
-      };
-
-      renderWithContext(props);
-
-      const closeButton = screen.getByTestId('close-slides');
-      fireEvent.click(closeButton);
-
-      expect(screen.getByTestId('close-slides')).toBeInTheDocument();
     });
   });
 

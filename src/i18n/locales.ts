@@ -201,8 +201,6 @@ export const cnLabels = {
   'docInfo.items': '项',
   'docInfo.expand': '展开',
   'docInfo.collapse': '收起',
-  // 幻灯片模式相关
-  'slides.closeSlidesMode': '关闭幻灯片模式',
   // 任务相关
   'task.default': '任务',
   // 错误信息相关
@@ -490,8 +488,6 @@ export const enLabels: typeof cnLabels = {
   'docInfo.items': 'items',
   'docInfo.expand': 'Expand',
   'docInfo.collapse': 'Collapse',
-  // Slides mode related
-  'slides.closeSlidesMode': 'Close Slides Mode',
   // Task related
   'task.default': 'Task',
   // Error messages related
