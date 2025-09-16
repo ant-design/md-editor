@@ -1,6 +1,7 @@
+import { ConfigProvider } from 'antd';
 import classNamesFn from 'classnames';
 import { useMergedState } from 'rc-util';
-import React from 'react';
+import React, { useContext } from 'react';
 import { ThinkIcon } from '../icons/ThinkIcon';
 import { useStyle } from './thinkStyle';
 
@@ -118,7 +119,8 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   classNames,
   styles,
 }) => {
-  const prefixCls = 'tool-use-bar-think';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('tool-use-bar-think');
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [expandedState, setExpandedState] = useMergedState(defaultExpanded, {
     value: expanded,
@@ -220,7 +222,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
             )}
           </div>
         </div>
-        {toolTarget && (
+        {toolTarget ? (
           <div
             className={classNamesFn(
               `${prefixCls}-target`,
@@ -231,6 +233,8 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
           >
             {toolTarget}
           </div>
+        ) : (
+          <div style={{ flex: 1 }} />
         )}
         {time && (
           <div
@@ -280,7 +284,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
               ? {}
               : {
                   height: 1,
-                  padding: 0,
+                  padding: '0 8px',
                   margin: 0,
                   overflow: 'hidden',
                   minHeight: 0,

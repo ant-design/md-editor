@@ -20,8 +20,13 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
   return (
     <ToolUseBarThink
       testId="think-block"
-      toolName="思考中"
-      toolTarget="分析需求"
+      styles={{
+        root: {
+          boxSizing: 'border-box',
+          maxWidth: '680px',
+        },
+      }}
+      toolName={content.endsWith('...') ? '深度思考...' : '深度思考'}
       thinkContent={content}
       status={content.endsWith('...') ? 'loading' : 'success'}
     />
