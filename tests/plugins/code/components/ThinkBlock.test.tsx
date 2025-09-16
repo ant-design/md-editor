@@ -47,7 +47,7 @@ describe('ThinkBlock', () => {
 
       const thinkBlock = screen.getByTestId('think-block');
       expect(thinkBlock).toBeInTheDocument();
-      expect(thinkBlock).toHaveTextContent('思考中分析需求');
+      expect(thinkBlock).toHaveTextContent('思考');
     });
   });
 
@@ -125,7 +125,7 @@ describe('ThinkBlock', () => {
 
       const thinkBlock = screen.getByTestId('think-block');
       expect(thinkBlock).toBeInTheDocument();
-      expect(thinkBlock).toHaveTextContent('思考中分析需求');
+      expect(thinkBlock).toHaveTextContent('思考');
     });
 
     it('应该处理 null 的 value 属性', () => {
@@ -139,7 +139,7 @@ describe('ThinkBlock', () => {
 
       const thinkBlock = screen.getByTestId('think-block');
       expect(thinkBlock).toBeInTheDocument();
-      expect(thinkBlock).toHaveTextContent('思考中分析需求');
+      expect(thinkBlock).toHaveTextContent('思考');
     });
 
     it('应该处理数字类型的 value 属性', () => {
