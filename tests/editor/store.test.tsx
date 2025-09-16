@@ -1517,21 +1517,6 @@ describe('EditorStore', () => {
     });
   });
 
-  describe('smartFind', () => {
-    beforeEach(() => {
-      editor.children = [
-        {
-          type: 'paragraph',
-          children: [{ text: 'function replaceText() { return focus; }' }],
-        },
-        {
-          type: 'paragraph',
-          children: [{ text: 'const store = new EditorStore();' }],
-        },
-      ];
-    });
-  });
-
   describe('replaceAll', () => {
     beforeEach(() => {
       editor.children = [
