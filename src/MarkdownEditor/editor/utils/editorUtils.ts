@@ -1012,6 +1012,86 @@ export function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * 清理和标准化 Markdown 搜索文本
+ *
+ * @param searchText - 原始搜索文本，可能包含 Markdown 语法
+ * @returns 包含原文本和清理后文本的数组
+ * @public
+ */
+export function normalizeMarkdownSearchText(searchText: string): string[] {
+  if (!searchText.trim()) return [];
+
+  const searchVariants: Set<string> = new Set();
+
+  // 添加原始文本
+  searchVariants.add(searchText.trim());
+
+  // 移除常见的 Markdown 语法
+  let cleanText = searchText
+    // 移除链接语法 [text](url) -> text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // 移除图片语法 ![alt](url) -> alt
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+    // 移除粗体语法 **text** 或 __text__ -> text
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/__(.*?)__/g, '$1')
+    // 移除斜体语法 *text* 或 _text_ -> text
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/_(.*?)_/g, '$1')
+    // 移除行内代码语法 `code` -> code
+    .replace(/`([^`]+)`/g, '$1')
+    // 移除删除线语法 ~~text~~ -> text
+    .replace(/~~(.*?)~~/g, '$1')
+    // 移除标题语法 # text -> text
+    .replace(/^#+\s+(.*)$/gm, '$1')
+    // 移除引用语法 > text -> text
+    .replace(/^>\s*(.*)$/gm, '$1')
+    // 移除列表标记 - text 或 * text 或 + text -> text
+    .replace(/^[\s]*[-*+]\s+(.*)$/gm, '$1')
+    // 移除有序列表标记 1. text -> text
+    .replace(/^\s*\d+\.\s+(.*)$/gm, '$1')
+    .trim();
+
+  if (cleanText && cleanText !== searchText.trim()) {
+    searchVariants.add(cleanText);
+  }
+
+  // 如果清理后的文本包含多个单词，也添加每个单词
+  const words = cleanText.split(/\s+/).filter((word) => word.length > 1);
+  if (words.length > 1) {
+    words.forEach((word) => searchVariants.add(word));
+  }
+
+  // 移除空字符串
+  return Array.from(searchVariants).filter((text) => text.length > 0);
+}
+
+/**
+ * 在编辑器中按路径和文本搜索内容，支持 Markdown 文本的智能处理
+ *
+ * @param editor - 编辑器实例
+ * @param pathDescription - 搜索范围的路径描述
+ * @param searchText - 搜索文本，支持 Markdown 语法
+ * @param options - 搜索选项
+ * @param options.caseSensitive - 是否区分大小写，默认 false
+ * @param options.wholeWord - 是否全词匹配，默认 false
+ * @param options.maxResults - 最大结果数量，默认 2
+ * @param options.includeMarkdownVariants - 是否包含 Markdown 语法的清理变体，默认 true
+ * @returns 搜索结果数组，包含路径、范围、节点等信息
+ *
+ * @description
+ * 该函数支持以下功能：
+ * - 自动清理 Markdown 语法（链接、粗体、斜体、代码等）
+ * - 生成多个搜索变体以提高匹配率
+ * - 避免重复匹配同一位置的文本
+ * - 记录匹配的搜索变体信息
+ *
+ * @example
+ * // 搜索包含 Markdown 语法的文本
+ * const results = findByPathAndText(editor, [0], "**粗体文本**");
+ * // 将同时匹配 "**粗体文本**" 和 "粗体文本"
+ */
 export function findByPathAndText(
   editor: Editor,
   pathDescription: Path,
@@ -1020,9 +1100,15 @@ export function findByPathAndText(
     caseSensitive?: boolean;
     wholeWord?: boolean;
     maxResults?: number;
+    includeMarkdownVariants?: boolean;
   } = {},
 ) {
-  const { caseSensitive = false, wholeWord = false, maxResults = 2 } = options;
+  const {
+    caseSensitive = false,
+    wholeWord = false,
+    maxResults = 2,
+    includeMarkdownVariants = true,
+  } = options;
 
   if (!searchText.trim()) return [];
 
@@ -1034,13 +1120,24 @@ export function findByPathAndText(
     offset: { start: number; end: number };
     lineContent: string;
     nodeType?: string;
+    searchVariant?: string; // 记录匹配的搜索变体
   }> = [];
 
-  // 创建搜索正则表达式
+  // 获取所有搜索变体
+  const searchVariants = includeMarkdownVariants
+    ? normalizeMarkdownSearchText(searchText)
+    : [searchText.trim()];
+
+  if (searchVariants.length === 0) return [];
+
+  // 为每个搜索变体创建正则表达式
   const flags = caseSensitive ? 'g' : 'gi';
-  const pattern = wholeWord
-    ? new RegExp(`\\b${escapeRegExp(searchText)}\\b`, flags)
-    : new RegExp(escapeRegExp(searchText), flags);
+  const patterns = searchVariants.map((variant) => ({
+    variant,
+    pattern: wholeWord
+      ? new RegExp(`\\b${escapeRegExp(variant)}\\b`, flags)
+      : new RegExp(escapeRegExp(variant), flags),
+  }));
 
   try {
     // 根据 pathDescription 确定搜索范围
@@ -1099,46 +1196,67 @@ export function findByPathAndText(
     for (const [node, path] of textNodesGenerator) {
       if (!Text.isText(node) || !node.text) continue;
 
-      let match;
-      pattern.lastIndex = 0;
+      // 对每个搜索变体进行匹配
+      for (const { variant, pattern } of patterns) {
+        let match: RegExpExecArray | null;
+        pattern.lastIndex = 0;
 
-      while ((match = pattern.exec(node.text)) !== null) {
-        // 获取父节点信息
-        let lineContent = node.text;
-        let nodeType = 'text';
+        while ((match = pattern.exec(node.text)) !== null) {
+          // 获取父节点信息
+          let lineContent = node.text;
+          let nodeType = 'text';
 
-        try {
-          const parentPath = Path.parent(path);
-          if (Editor.hasPath(editor, parentPath)) {
-            const parent = Node.get(editor, parentPath);
-            if (Element.isElement(parent)) {
-              lineContent = Node.string(parent);
-              nodeType = parent.type || 'unknown';
+          try {
+            const parentPath = Path.parent(path);
+            if (Editor.hasPath(editor, parentPath)) {
+              const parent = Node.get(editor, parentPath);
+              if (Element.isElement(parent)) {
+                lineContent = Node.string(parent);
+                nodeType = parent.type || 'unknown';
+              }
             }
+          } catch (e) {
+            // 如果获取父节点失败，使用原始文本
           }
-        } catch (e) {
-          // 如果获取父节点失败，使用原始文本
+
+          const matchIndex = match.index;
+          const matchLength = match[0].length;
+          const matchText = match[0];
+
+          const range: Range = {
+            anchor: { path, offset: matchIndex },
+            focus: { path, offset: matchIndex + matchLength },
+          };
+
+          // 检查是否已经有相同位置的匹配结果，避免重复
+          const isDuplicate = results.some(
+            (result) =>
+              Path.equals(result.path, path) &&
+              result.offset.start === matchIndex &&
+              result.offset.end === matchIndex + matchLength,
+          );
+
+          if (!isDuplicate) {
+            results.push({
+              path,
+              range,
+              node,
+              matchedText: matchText,
+              offset: {
+                start: matchIndex,
+                end: matchIndex + matchLength,
+              },
+              lineContent: lineContent.trim(),
+              nodeType,
+              searchVariant:
+                variant !== searchText.trim() ? variant : undefined,
+            });
+          }
+
+          // 限制结果数量避免性能问题
+          if (results.length >= maxResults) break;
         }
 
-        const range: Range = {
-          anchor: { path, offset: match.index },
-          focus: { path, offset: match.index + match[0].length },
-        };
-
-        results.push({
-          path,
-          range,
-          node,
-          matchedText: match[0],
-          offset: {
-            start: match.index,
-            end: match.index + match[0].length,
-          },
-          lineContent: lineContent.trim(),
-          nodeType,
-        });
-
-        // 限制结果数量避免性能问题
         if (results.length >= maxResults) break;
       }
 
