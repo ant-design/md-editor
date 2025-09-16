@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   CategoryScale,
   ChartData,
@@ -11,7 +12,6 @@ import {
   ScriptableContext,
   Tooltip,
 } from 'chart.js';
-import { ConfigProvider } from 'antd';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {

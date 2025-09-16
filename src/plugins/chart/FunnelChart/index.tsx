@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import type { LegendItem, PointStyle } from 'chart.js';
 import {
   BarElement,
@@ -9,7 +10,6 @@ import {
   LinearScale,
   Tooltip,
 } from 'chart.js';
-import { ConfigProvider } from 'antd';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -168,7 +168,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   const BAR_THICKNESS = 30;
   const ROW_GAP = 24;
   const PADDING_Y = isMobile ? 48 : 64;
-  
+
   // 计算图表高度
   const chartHeight = useMemo(() => {
     const rows = Math.max(1, stages.length);

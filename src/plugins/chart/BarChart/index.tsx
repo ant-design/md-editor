@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   BarElement,
   CategoryScale,
@@ -9,7 +10,6 @@ import {
   ScriptableContext,
   Tooltip,
 } from 'chart.js';
-import { ConfigProvider } from 'antd';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -314,7 +314,12 @@ const BarChart: React.FC<BarChartProps> = ({
           const endAlpha = 0.95;
 
           // 安全检查：确保坐标轴已正确初始化
-          if (!xScale || !yScale || typeof xScale.getPixelForValue !== 'function' || typeof yScale.getPixelForValue !== 'function') {
+          if (
+            !xScale ||
+            !yScale ||
+            typeof xScale.getPixelForValue !== 'function' ||
+            typeof yScale.getPixelForValue !== 'function'
+          ) {
             return hexToRgba(baseColor, 0.6);
           }
 
@@ -328,16 +333,16 @@ const BarChart: React.FC<BarChartProps> = ({
               const neg = color[1] || color[0] || baseColor;
               base = value >= 0 ? pos : neg;
             }
-            
+
             // 安全获取像素值，添加有限性检查
             const x0 = xScale.getPixelForValue(0);
             const x1 = xScale.getPixelForValue(value);
-            
+
             // 检查像素值是否为有限数
             if (!Number.isFinite(x0) || !Number.isFinite(x1)) {
               return hexToRgba(base, endAlpha);
             }
-            
+
             // 从靠近坐标轴的零点开始，向数据端渐深
             const gradient = chart.ctx.createLinearGradient(x0, 0, x1, 0);
             gradient.addColorStop(0, hexToRgba(base, startAlpha));
@@ -354,16 +359,16 @@ const BarChart: React.FC<BarChartProps> = ({
             const neg = color[1] || color[0] || baseColor;
             base = value >= 0 ? pos : neg;
           }
-          
+
           // 安全获取像素值，添加有限性检查
           const y0 = yScale.getPixelForValue(0);
           const y1 = yScale.getPixelForValue(value);
-          
+
           // 检查像素值是否为有限数
           if (!Number.isFinite(y0) || !Number.isFinite(y1)) {
             return hexToRgba(base, endAlpha);
           }
-          
+
           const gradient = chart.ctx.createLinearGradient(0, y0, 0, y1);
           gradient.addColorStop(0, hexToRgba(base, startAlpha));
           gradient.addColorStop(1, hexToRgba(base, endAlpha));

@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   ArcElement,
   Chart as ChartJS,
@@ -5,7 +6,6 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
-import { ConfigProvider } from 'antd';
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import {
