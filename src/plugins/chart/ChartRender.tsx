@@ -635,6 +635,7 @@ export const ChartRender: React.FC<{
           height={config?.height || 400}
           title={title || ''}
           dataTime={dataTime}
+          typeNames={{ translationKey: '转化率', name: colorLegend || '转化' }}
         />
       );
     }
