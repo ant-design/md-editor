@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import type { LegendItem, PointStyle } from 'chart.js';
 import {
   BarElement,
@@ -9,7 +10,7 @@ import {
   LinearScale,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -45,9 +46,9 @@ export interface FunnelChartProps extends ChartContainerProps {
   /** 自定义主色 */
   color?: string;
   /** 图表宽度，默认600px */
-  width?: number;
+  width?: number | string;
   /** 图表高度，默认400px */
-  height?: number;
+  height?: number | string;
   /** 自定义CSS类名 */
   className?: string;
   /** 数据时间 */
@@ -66,13 +67,14 @@ export interface FunnelChartProps extends ChartContainerProps {
   toolbarExtra?: React.ReactNode;
 }
 
-const defaultColors = '#1677ff';
+const defaultColors = '#1890ff';
 
 const FunnelChart: React.FC<FunnelChartProps> = ({
   title,
   data,
   color,
   width = 600,
+  height = 400,
   className,
   dataTime,
   theme = 'light',
@@ -99,7 +101,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   }, []);
 
   // 样式注册
-  const baseClassName = 'funnel-chart-container';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context?.getPrefixCls('funnel-chart-container');
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
   const [showTrapezoid, setShowTrapezoid] = useState(true);
@@ -163,15 +166,24 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   }, [filteredData]);
 
   const BAR_THICKNESS = 30;
-  const ROW_GAP = 2;
+  const ROW_GAP = 24;
   const PADDING_Y = isMobile ? 48 : 64;
+
+  // 计算图表高度
   const chartHeight = useMemo(() => {
     const rows = Math.max(1, stages.length);
     return rows * (BAR_THICKNESS + ROW_GAP) + PADDING_Y;
   }, [stages.length, PADDING_Y]);
 
-  // 为了让柱间距与梯形高度一致，这里采用按行数计算的高度
-  const finalHeight = chartHeight;
+  // 最终高度计算逻辑
+  const finalHeight = useMemo(() => {
+    if (typeof height === 'number') {
+      return height;
+    } else if (typeof height === 'string' && height.includes('px')) {
+      return parseInt(height, 10) || chartHeight;
+    }
+    return chartHeight;
+  }, [height, chartHeight]);
 
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
   const processedData: ChartData<
@@ -292,15 +304,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           font: { size: isMobile ? 10 : 12, weight: 'normal' },
           padding: isMobile ? 10 : 12,
           usePointStyle: true,
-          pointStyle: 'rect',
+          pointStyle: 'rectRounded',
           generateLabels: (chart): LegendItem[] => {
-            // 使用默认生成 + 追加“转化率”图例；统一正方形样式
             // @ts-ignore
             const base: LegendItem[] = (
               ChartJS.defaults.plugins.legend.labels.generateLabels(chart) || []
             ).map((it) => ({
               ...it,
-              pointStyle: 'rect' as PointStyle,
+              pointStyle: 'rectRounded' as PointStyle,
             }));
             return [
               ...base,
@@ -311,7 +322,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
                 lineWidth: 0,
                 hidden: !showTrapezoid,
                 datasetIndex: chart.data.datasets.length, // 非真实数据集，仅用于展示
-                pointStyle: 'rect' as PointStyle,
+                pointStyle: 'rectRounded' as PointStyle,
               },
             ];
           },

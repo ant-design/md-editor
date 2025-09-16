@@ -49,6 +49,7 @@ import { useStyle } from './style';
 import { MARKDOWN_EDITOR_EVENTS, parserSlateNodeToMarkdown } from './utils';
 import {
   EditorUtils,
+  findByPathAndText,
   findLeafPath,
   getSelectionFromDomSelection,
   hasEditableTarget,
@@ -851,53 +852,79 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       itemMap.forEach((itemList) => {
         const item = itemList[0];
         const { anchor, focus } = item.selection || {};
-        if (!anchor || !focus) return decorateList;
-        const AnchorPath = anchor.path;
-        const FocusPath = focus.path;
 
+        let newSelection: BaseSelection | undefined = undefined;
+        let fragment = undefined;
         if (
-          isPath(FocusPath) &&
-          isPath(AnchorPath) &&
+          anchor &&
+          focus &&
+          isPath(anchor.path) &&
+          focus.path &&
+          isPath(focus.path) &&
           Editor.hasPath(markdownEditorRef.current, anchor.path) &&
           Editor.hasPath(markdownEditorRef.current, focus.path)
         ) {
-          const newSelection = {
+          newSelection = {
             anchor: {
-              ...anchor,
-              path: findLeafPath(markdownEditorRef.current, AnchorPath),
+              path: findLeafPath(markdownEditorRef.current, anchor.path),
+              offset: anchor.offset,
             },
             focus: {
-              ...focus,
-              path: findLeafPath(markdownEditorRef.current, FocusPath),
+              path: findLeafPath(markdownEditorRef.current, focus.path),
+              offset: focus.offset,
             },
-          };
-
-          const fragment = Editor.fragment(
+          } as BaseSelection;
+          fragment = Editor.fragment(markdownEditorRef.current, newSelection!);
+        } else if (item.refContent) {
+          const findDom = findByPathAndText(
             markdownEditorRef.current,
-            newSelection,
-          );
-          if (fragment) {
-            const newAnchorPath = anchor.path;
-            const newFocusPath = focus.path;
+            item.path,
+            item.refContent,
+          ).at(0);
 
-            if (
-              isPath(newFocusPath) &&
-              isPath(newAnchorPath) &&
-              Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
-              Editor.hasPath(markdownEditorRef.current, newFocusPath)
-            ) {
-              ranges.push({
-                anchor: { path: newAnchorPath, offset: anchor.offset },
-                focus: { path: newFocusPath, offset: focus.offset },
-                data: itemList,
-                comment: true,
-                id: item.id,
-                updateTime: itemList
-                  .map((i) => i.updateTime)
-                  .sort()
-                  .join(','),
-              } as Range);
-            }
+          if (findDom) {
+            newSelection = {
+              anchor: {
+                ...anchor,
+                path: findLeafPath(markdownEditorRef.current, findDom.path),
+                offset: findDom.offset.start,
+              },
+              focus: {
+                ...focus,
+                path: findLeafPath(markdownEditorRef.current, findDom.path),
+                offset: findDom.offset.end,
+              },
+            };
+            console.log(newSelection);
+            fragment = Editor.fragment(markdownEditorRef.current, newSelection);
+          }
+        }
+
+        // 尝试调整路径，处理可能的节点变化
+
+        if (fragment && newSelection) {
+          const newAnchorPath = newSelection.anchor.path;
+          const newFocusPath = newSelection.focus.path;
+          if (
+            isPath(newFocusPath) &&
+            isPath(newAnchorPath) &&
+            Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
+            Editor.hasPath(markdownEditorRef.current, newFocusPath)
+          ) {
+            ranges.push({
+              anchor: {
+                path: newAnchorPath,
+                offset: newSelection.anchor.offset,
+              },
+              focus: { path: newFocusPath, offset: newSelection.focus.offset },
+              data: itemList,
+              comment: true,
+              id: item.id,
+              updateTime: itemList
+                .map((i) => i.updateTime)
+                .sort()
+                .join(','),
+            } as Range);
           }
         }
       });

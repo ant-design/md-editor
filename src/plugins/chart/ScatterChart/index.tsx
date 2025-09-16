@@ -36,8 +36,8 @@ export interface ScatterChartDataItem {
 export interface ScatterChartProps extends ChartContainerProps {
   data: ScatterChartDataItem[];
   title?: string;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   className?: string;
   toolbarExtra?: React.ReactNode;
   dataTime?: string;

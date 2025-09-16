@@ -1000,3 +1000,153 @@ export function findLeafPath(editor: Editor, path: Path) {
   if (!node) return path;
   return node[1];
 }
+
+/**
+ * 转义正则表达式特殊字符
+ *
+ * @param string - 需要转义的字符串
+ * @returns 转义后的字符串
+ * @private
+ */
+export function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+export function findByPathAndText(
+  editor: Editor,
+  pathDescription: Path,
+  searchText: string,
+  options: {
+    caseSensitive?: boolean;
+    wholeWord?: boolean;
+    maxResults?: number;
+  } = {},
+) {
+  const { caseSensitive = false, wholeWord = false, maxResults = 2 } = options;
+
+  if (!searchText.trim()) return [];
+
+  const results: Array<{
+    path: Path;
+    range: Range;
+    node: Node;
+    matchedText: string;
+    offset: { start: number; end: number };
+    lineContent: string;
+    nodeType?: string;
+  }> = [];
+
+  // 创建搜索正则表达式
+  const flags = caseSensitive ? 'g' : 'gi';
+  const pattern = wholeWord
+    ? new RegExp(`\\b${escapeRegExp(searchText)}\\b`, flags)
+    : new RegExp(escapeRegExp(searchText), flags);
+
+  try {
+    // 根据 pathDescription 确定搜索范围
+    let searchRange: Path[] | undefined;
+
+    if (pathDescription && pathDescription.length > 0) {
+      // 路径数组模式：直接在指定路径中搜索
+      try {
+        if (Editor.hasPath(editor, pathDescription)) {
+          searchRange = [pathDescription];
+        }
+      } catch (e) {
+        console.debug('无效的搜索路径:', pathDescription, e);
+        searchRange = undefined;
+      }
+    }
+
+    // 获取文本节点
+    let textNodesGenerator;
+
+    if (searchRange && searchRange.length > 0) {
+      // 在指定路径范围内搜索
+      const allTextNodes: Array<[Node, Path]> = [];
+
+      for (const rangePath of searchRange) {
+        try {
+          const rangeNodes = Array.from(
+            Editor.nodes(editor, {
+              at: rangePath,
+              match: (n) =>
+                Text.isText(n) &&
+                typeof n.text === 'string' &&
+                n.text.length > 0,
+            }),
+          );
+          allTextNodes.push(...rangeNodes);
+        } catch (e) {
+          // 忽略无效路径
+          continue;
+        }
+      }
+
+      textNodesGenerator = allTextNodes;
+    } else {
+      // 在整个编辑器中搜索
+      textNodesGenerator = Array.from(
+        Editor.nodes(editor, {
+          at: [],
+          match: (n) =>
+            Text.isText(n) && typeof n.text === 'string' && n.text.length > 0,
+        }),
+      );
+    }
+
+    // 遍历文本节点查找匹配
+    for (const [node, path] of textNodesGenerator) {
+      if (!Text.isText(node) || !node.text) continue;
+
+      let match;
+      pattern.lastIndex = 0;
+
+      while ((match = pattern.exec(node.text)) !== null) {
+        // 获取父节点信息
+        let lineContent = node.text;
+        let nodeType = 'text';
+
+        try {
+          const parentPath = Path.parent(path);
+          if (Editor.hasPath(editor, parentPath)) {
+            const parent = Node.get(editor, parentPath);
+            if (Element.isElement(parent)) {
+              lineContent = Node.string(parent);
+              nodeType = parent.type || 'unknown';
+            }
+          }
+        } catch (e) {
+          // 如果获取父节点失败，使用原始文本
+        }
+
+        const range: Range = {
+          anchor: { path, offset: match.index },
+          focus: { path, offset: match.index + match[0].length },
+        };
+
+        results.push({
+          path,
+          range,
+          node,
+          matchedText: match[0],
+          offset: {
+            start: match.index,
+            end: match.index + match[0].length,
+          },
+          lineContent: lineContent.trim(),
+          nodeType,
+        });
+
+        // 限制结果数量避免性能问题
+        if (results.length >= maxResults) break;
+      }
+
+      if (results.length >= maxResults) break;
+    }
+  } catch (error) {
+    console.error('查找过程中出错:', error);
+  }
+
+  return results;
+}

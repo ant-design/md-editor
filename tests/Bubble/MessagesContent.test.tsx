@@ -19,8 +19,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
     typing,
     extra,
     docListNode,
-    slidesMode,
-    onCloseSlides,
     fncProps,
     markdownRenderConfig,
     style,
@@ -32,7 +30,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
         <div data-testid="content">{content}</div>
         <div data-testid="is-finished">{isFinished ? 'true' : 'false'}</div>
         <div data-testid="typing">{typing ? 'true' : 'false'}</div>
-        <div data-testid="slides-mode">{slidesMode ? 'true' : 'false'}</div>
         {extra && <div data-testid="extra">{extra}</div>}
         {docListNode && <div data-testid="doc-list">{docListNode}</div>}
         {fncProps && <div data-testid="fnc-props">fncProps</div>}
@@ -42,9 +39,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
         {style && <div data-testid="style">style</div>}
         {originData && <div data-testid="origin-data">originData</div>}
         {htmlRef && <div data-testid="html-ref">htmlRef</div>}
-        <button data-testid="close-slides" onClick={onCloseSlides}>
-          Close Slides
-        </button>
       </div>
     );
   },
@@ -55,12 +49,10 @@ vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
     onLike,
     onDisLike,
     onReply,
-    onOpenSlidesMode,
     style,
     readonly,
     bubble,
     onRenderExtraNull,
-    slidesModeProps,
     render,
   }: any) => (
     <div data-testid="bubble-extra" style={style}>
@@ -76,18 +68,13 @@ vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
       <button data-testid="reply-btn" onClick={() => onReply?.('test reply')}>
         Reply
       </button>
-      <button data-testid="slides-btn" onClick={onOpenSlidesMode}>
-        Slides
-      </button>
+
       <button
         data-testid="extra-null-btn"
         onClick={() => onRenderExtraNull?.(true)}
       >
         Set Extra Null
       </button>
-      {slidesModeProps?.enable && (
-        <div data-testid="slides-enabled">Slides Enabled</div>
-      )}
       {render && <div data-testid="custom-render">Custom Render</div>}
     </div>
   ),
@@ -538,23 +525,6 @@ describe('BubbleMessageDisplay', () => {
       expect(onReply).toHaveBeenCalledWith('test reply');
     });
 
-    it('应该处理幻灯片模式', () => {
-      const props = {
-        ...defaultProps,
-        slidesModeProps: { enable: true },
-        bubbleRenderConfig: {
-          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
-        },
-      };
-
-      renderWithContext(props);
-
-      const slidesButton = screen.getByTestId('slides-btn');
-      fireEvent.click(slidesButton);
-
-      expect(screen.getByTestId('slides-enabled')).toBeInTheDocument();
-    });
-
     it('应该处理自定义渲染函数', () => {
       const customRender = vi
         .fn()
@@ -919,39 +889,6 @@ describe('BubbleMessageDisplay', () => {
       renderWithContext(props);
 
       expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
-    });
-  });
-
-  describe('幻灯片模式测试', () => {
-    it('应该处理幻灯片模式状态变化', () => {
-      const props = {
-        ...defaultProps,
-        slidesModeProps: { enable: true },
-        bubbleRenderConfig: {
-          extraRender: (props: any, defaultDom: any) => defaultDom, // 确保 BubbleExtra 被渲染
-        },
-      };
-
-      renderWithContext(props);
-
-      const slidesButton = screen.getByTestId('slides-btn');
-      fireEvent.click(slidesButton);
-
-      expect(screen.getByTestId('slides-enabled')).toBeInTheDocument();
-    });
-
-    it('应该处理幻灯片模式关闭', () => {
-      const props = {
-        ...defaultProps,
-        slidesModeProps: { enable: true },
-      };
-
-      renderWithContext(props);
-
-      const closeButton = screen.getByTestId('close-slides');
-      fireEvent.click(closeButton);
-
-      expect(screen.getByTestId('close-slides')).toBeInTheDocument();
     });
   });
 

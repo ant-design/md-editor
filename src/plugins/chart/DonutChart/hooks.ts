@@ -24,18 +24,18 @@ export const useMobile = () => {
 export const useResponsiveDimensions = (
   isMobile: boolean,
   windowWidth: number,
-  width: number,
-  height: number,
+  width: number | string,
+  height: number | string,
 ) => {
   if (isMobile) {
     const mobileWidth = Math.min(
       windowWidth - 40,
-      width,
+      Number(width),
       MOBILE_MAX_CHART_SIZE,
     );
     const mobileHeight = Math.min(
       windowWidth - 40,
-      height,
+      Number(height),
       MOBILE_MAX_CHART_SIZE,
     );
     return {

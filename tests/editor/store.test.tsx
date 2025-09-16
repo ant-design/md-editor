@@ -1430,4 +1430,282 @@ describe('EditorStore', () => {
       expect(result).toBe(true);
     });
   });
+
+  describe('findByPathAndText', () => {
+    beforeEach(() => {
+      // 设置测试数据
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'This is a test paragraph with focus method' }],
+        },
+        {
+          type: 'table',
+          children: [
+            {
+              type: 'table-row',
+              children: [
+                {
+                  type: 'table-cell',
+                  children: [{ text: 'table cell with replaceText function' }],
+                },
+                {
+                  type: 'table-cell',
+                  children: [{ text: 'another cell' }],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [{ text: 'Another paragraph with store methods' }],
+        },
+      ];
+    });
+
+    it('应该在整个编辑器中查找文本（pathDescription 为空）', () => {
+      const results = store.findByPathAndText('', 'test', {
+        selectFirst: false,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+      expect(results[0].matchedText).toBe('test');
+      expect(results[0].lineContent).toContain('test');
+    });
+
+    it('应该根据节点类型限制搜索范围', () => {
+      const results = store.findByPathAndText('table', 'replaceText', {
+        selectFirst: false,
+        wholeWord: true,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+      expect(results[0].matchedText).toBe('replaceText');
+      expect(results[0].nodeType).toBe('table-cell');
+    });
+
+    it('应该根据内容描述限制搜索范围', () => {
+      const results = store.findByPathAndText('store', 'methods', {
+        selectFirst: false,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+      expect(results[0].matchedText).toBe('methods');
+    });
+
+    it('应该支持大小写敏感搜索', () => {
+      const results = store.findByPathAndText('', 'Focus', {
+        selectFirst: false,
+        caseSensitive: true,
+      });
+
+      expect(results.length).toBe(0);
+
+      const resultsInsensitive = store.findByPathAndText('', 'Focus', {
+        selectFirst: false,
+        caseSensitive: false,
+      });
+
+      expect(resultsInsensitive.length).toBeGreaterThan(0);
+    });
+
+    it('应该支持完整单词匹配', () => {
+      const results = store.findByPathAndText('', 'test', {
+        selectFirst: false,
+        wholeWord: true,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+
+      const partialResults = store.findByPathAndText('', 'tes', {
+        selectFirst: false,
+        wholeWord: true,
+      });
+
+      expect(partialResults.length).toBe(0);
+    });
+
+    it('应该限制结果数量', () => {
+      const results = store.findByPathAndText('', 'a', {
+        selectFirst: false,
+        maxResults: 2,
+      });
+
+      expect(results.length).toBeLessThanOrEqual(2);
+    });
+
+    it('应该返回正确的匹配信息', () => {
+      const results = store.findByPathAndText('', 'focus', {
+        selectFirst: false,
+      });
+
+      expect(results[0]).toHaveProperty('path');
+      expect(results[0]).toHaveProperty('range');
+      expect(results[0]).toHaveProperty('node');
+      expect(results[0]).toHaveProperty('matchedText');
+      expect(results[0]).toHaveProperty('offset');
+      expect(results[0]).toHaveProperty('lineContent');
+      expect(results[0].matchedText).toBe('focus');
+      expect(results[0].offset.start).toBeGreaterThanOrEqual(0);
+      expect(results[0].offset.end).toBeGreaterThan(results[0].offset.start);
+    });
+  });
+
+  describe('replaceText', () => {
+    beforeEach(() => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'old text with old value and OLD item' }],
+        },
+        {
+          type: 'paragraph',
+          children: [{ text: 'another old paragraph' }],
+        },
+      ];
+    });
+
+    it('应该替换所有匹配的文本（默认行为）', () => {
+      const count = store.replaceText('old', 'new');
+
+      expect(count).toBe(4); // 4个 "old" (不区分大小写: old, old, OLD, old)
+    });
+
+    it('应该支持大小写敏感替换', () => {
+      const count = store.replaceText('OLD', 'NEW', { caseSensitive: true });
+
+      expect(count).toBe(1); // 只有1个大写的 "OLD"
+    });
+
+    it('应该支持完整单词替换', () => {
+      const count = store.replaceText('old', 'new', { wholeWord: true });
+
+      expect(count).toBe(4); // "old" 作为完整单词出现4次
+    });
+
+    it('应该支持只替换第一个匹配项', () => {
+      const count = store.replaceText('old', 'new', { replaceAll: false });
+
+      expect(count).toBe(1); // 只替换第一个
+    });
+
+    it('应该处理空字符串搜索', () => {
+      const count = store.replaceText('', 'new');
+
+      expect(count).toBe(0);
+    });
+  });
+
+  describe('replaceTextInSelection', () => {
+    beforeEach(() => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'old text with old value' }],
+        },
+      ];
+
+      // 模拟选中区域
+      editor.selection = {
+        anchor: { path: [0, 0], offset: 0 },
+        focus: { path: [0, 0], offset: 13 }, // 选中 "old text with" - 包含2个 "old"
+      };
+    });
+
+    it('应该在选中区域内替换文本', () => {
+      const count = store.replaceTextInSelection('old', 'new');
+
+      expect(count).toBe(2); // 选中区域内有2个 "old" ("old" 和 "old" 在 "with old")
+    });
+
+    it('应该在没有选中时返回0', () => {
+      editor.selection = null;
+      const count = store.replaceTextInSelection('old', 'new');
+
+      expect(count).toBe(0);
+    });
+
+    it('应该在折叠选区时返回0', () => {
+      editor.selection = {
+        anchor: { path: [0, 0], offset: 5 },
+        focus: { path: [0, 0], offset: 5 }, // 折叠选区
+      };
+
+      const count = store.replaceTextInSelection('old', 'new');
+
+      expect(count).toBe(0);
+    });
+  });
+
+  describe('smartFind', () => {
+    beforeEach(() => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'function replaceText() { return focus; }' }],
+        },
+        {
+          type: 'paragraph',
+          children: [{ text: 'const store = new EditorStore();' }],
+        },
+      ];
+    });
+
+    it('应该从引号中提取搜索文本', () => {
+      const results = store.smartFind('查找 "focus" 方法', {
+        selectFirst: false,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+      expect(results[0].matchedText).toBe('focus');
+    });
+
+    it('应该识别函数名标识符', () => {
+      const results = store.smartFind('查找 replaceText 函数', {
+        selectFirst: false,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+      expect(results[0].matchedText).toBe('replaceText');
+    });
+
+    it('应该过滤常用词汇', () => {
+      const results = store.smartFind('在 store 中查找方法', {
+        selectFirst: false,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+      expect(results[0].matchedText).toBe('store');
+    });
+
+    it('应该处理无效的描述', () => {
+      const results = store.smartFind('查找 中的 方法', { selectFirst: false });
+
+      expect(results.length).toBe(0);
+    });
+  });
+
+  describe('replaceAll', () => {
+    beforeEach(() => {
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [{ text: 'test Test TEST text' }],
+        },
+      ];
+    });
+
+    it('应该替换所有匹配项（不区分大小写）', () => {
+      const count = store.replaceAll('test', 'replaced');
+
+      expect(count).toBe(3); // test, Test, TEST
+    });
+
+    it('应该支持大小写敏感替换', () => {
+      const count = store.replaceAll('test', 'replaced', true);
+
+      expect(count).toBe(1); // 只有小写的 "test"
+    });
+  });
 });

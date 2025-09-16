@@ -18,7 +18,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
   } = useEditorStore();
   const { locale } = useContext(I18nContext);
   const [selected, path] = useSelStatus(props.element);
-  const isLatest = useMemo(() => {
+  const isLast = useMemo(() => {
     if (markdownEditorRef.current?.children.length === 0) return false;
     if (!typewriter) return false;
     return store.isLatestNode(props.element);
@@ -45,7 +45,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         data-be={'paragraph'}
         className={classNames('ant-md-editor-drag-el', {
           empty: isEmpty,
-          typewriter: isLatest && typewriter,
+          typewriter: isLast && typewriter,
         })}
         data-align={props.element.align}
         data-slate-placeholder={
@@ -70,7 +70,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
     props.element.align,
     readonly,
     selected,
-    isLatest,
+    isLast,
     markdownEditorRef.current?.children.length,
     editorProps.titlePlaceholderContent,
     typewriter,

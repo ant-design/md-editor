@@ -28,10 +28,6 @@ nav:
 
 <code src="../demos/minPreview.tsx" background="var(--main-bg-color)" iframe=540></code>
 
-### PPT 模式
-
-<code src="../demos/ppt.tsx" background="var(--main-bg-color)" iframe=540 ></code>
-
 ### 文本框输入
 
 <code src="../demos/markdownInputField.tsx"  background="var(--main-bg-color)" iframe=540 ></code>

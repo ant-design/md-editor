@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   ArcElement,
   Chart as ChartJS,
@@ -5,7 +6,7 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -15,7 +16,6 @@ import {
 } from '../components';
 import LegendView from './Legend';
 import {
-  BASE_CLASS_NAME,
   DEFAULT_COLORS,
   SINGLE_MODE_DESKTOP_CUTOUT,
   SINGLE_MODE_MOBILE_CUTOUT,
@@ -61,7 +61,8 @@ const DonutChart: React.FC<DonutChartProps> = ({
   // 默认配置：当 configs 不传时，使用默认配置，showLegend 默认为 true
   const defaultConfigs: DonutChartConfig[] = [{ showLegend: true }];
   const finalConfigs = configs || defaultConfigs;
-  const baseClassName = BASE_CLASS_NAME;
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context?.getPrefixCls('donut-chart');
   const { hashId } = useStyle(baseClassName);
   // 多图场景下独立管理每个图表实例，避免引用被覆盖
   const chartRefs = useRef<Array<ChartJS<'doughnut'> | null>>([]);

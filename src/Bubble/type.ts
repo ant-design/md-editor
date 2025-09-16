@@ -339,12 +339,19 @@ export interface MessageBubbleData<
   fileMap?: Map<string, AttachmentFile>;
 
   /**
+   * @deprecated 已废弃，请使用 isLast 代替
+   * @description 已废弃，请使用 isLast 代替
+   * @example true
+   */
+  isLatest?: boolean;
+
+  /**
    * @title 是否为最后一个节点
    * @description 用于标识当前消息是否为对话中的最新消息
    * @default false
    * @optional
    */
-  isLatest?: boolean;
+  isLast?: boolean;
 }
 
 /**
@@ -508,14 +515,6 @@ export interface BubbleProps<T = Record<string, any>>
    * 回复回调
    */
   onReply?: (message: string) => void;
-
-  /**
-   * 幻灯片模式配置
-   */
-  slidesModeProps?: {
-    enable?: boolean;
-    afterOpenChange?: (message: MessageBubbleData<Record<string, any>>) => void;
-  };
 
   /**
    * 文档列表配置

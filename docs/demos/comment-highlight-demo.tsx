@@ -54,6 +54,16 @@ export default () => {
       commentType: 'highlight',
     },
     {
+      path: [12],
+      time: 1757562256636,
+      id: 1757562256636,
+      content: '',
+      anchorOffset: 0,
+      focusOffset: 6,
+      refContent: '通',
+      commentType: 'highlight',
+    },
+    {
       selection: {
         anchor: {
           path: [8, 0, 0, 1],

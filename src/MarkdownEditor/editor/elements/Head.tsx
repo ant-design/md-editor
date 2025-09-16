@@ -21,7 +21,7 @@ export function Head({
   const editor = useSlate();
   const [selected, path] = useSelStatus(element);
 
-  const isLatest = useMemo(() => {
+  const isLast = useMemo(() => {
     if (editor.children.length === 0) return false;
     if (!typewriter) return false;
     return store.isLatestNode(element);
@@ -45,7 +45,7 @@ export function Head({
         ['data-align']: element.align,
         className: classNames('ant-md-editor-drag-el', {
           empty: !str,
-          typewriter: isLatest && typewriter,
+          typewriter: isLast && typewriter,
         }),
       },
       <>
@@ -53,5 +53,5 @@ export function Head({
         {children}
       </>,
     );
-  }, [element.level, isLatest, str, element.children, selected, path]);
+  }, [element.level, isLast, str, element.children, selected, path]);
 }

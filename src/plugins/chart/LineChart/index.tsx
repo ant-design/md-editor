@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import {
   CategoryScale,
   ChartData,
@@ -10,7 +11,7 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -60,9 +61,9 @@ export interface LineChartProps extends ChartContainerProps {
   /** 扁平化数据数组 */
   data: LineChartDataItem[];
   /** 图表宽度，默认600px */
-  width?: number;
+  width?: number | string;
   /** 图表高度，默认400px */
-  height?: number;
+  height?: number | string;
   /** 自定义CSS类名 */
   className?: string;
   /** 数据时间 */
@@ -139,7 +140,8 @@ const LineChart: React.FC<LineChartProps> = ({
   }, []);
 
   // 样式注册
-  const baseClassName = 'line-chart-container';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context?.getPrefixCls('line-chart-container');
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 

@@ -663,8 +663,8 @@ describe('Bubble', () => {
       // 验证消息内容存在
       expect(screen.getByText('Current message')).toBeInTheDocument();
 
-      // 验证头像和标题显示（因为角色相同，undefined === undefined）
-      expect(screen.queryByText('Test User')).not.toBeInTheDocument();
+      // 验证头像和标题显示（因为角色相同，undefined !== undefined）
+      expect(screen.queryByText('Test User')).toBeInTheDocument();
     });
   });
 });

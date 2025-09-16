@@ -16,7 +16,7 @@ export interface ChartToolBarProps {
 
 const ChartToolBar: React.FC<ChartToolBarProps> = ({
   title,
-  dataTime = '2025-06-30 00:00:00',
+  dataTime,
   className = '',
   theme = 'light',
   onDownload,
@@ -32,7 +32,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
     }
   };
 
-  if (!title && !extra && !dataTime) {
+  if (!title && !extra) {
     return null;
   }
 
@@ -52,15 +52,23 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
 
       {/* 右侧时间+下载按钮 */}
       <div className={classNames(`${prefixCls}-header-actions`, hashId)}>
-        <TimeIcon className={classNames(`${prefixCls}-time-icon`, hashId)} />
-        <span className={classNames(`${prefixCls}-data-time`, hashId)}>
-          数据时间: {dataTime}
-        </span>
+        {dataTime ? (
+          <>
+            <TimeIcon
+              className={classNames(`${prefixCls}-time-icon`, hashId)}
+            />
+            <span className={classNames(`${prefixCls}-data-time`, hashId)}>
+              数据时间: {dataTime}
+            </span>
+          </>
+        ) : null}
         {extra}
-        <DownloadOutlined
-          className={classNames(`${prefixCls}-download-btn`, hashId)}
-          onClick={handleDownload}
-        />
+        {handleDownload ? (
+          <DownloadOutlined
+            className={classNames(`${prefixCls}-download-btn`, hashId)}
+            onClick={handleDownload}
+          />
+        ) : null}
       </div>
     </div>,
   );

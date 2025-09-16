@@ -4,7 +4,9 @@
     "https://www.schemastore.org/github-workflow.json": "file:///e%3A/github/md-editor/.github/workflows/codecov.yml"
   },
   "eslint.validate": ["typescript", "typescriptreact"],
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "search.exclude": {
     "**/node_modules": true,
     "**/*.log": true,
