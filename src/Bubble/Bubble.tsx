@@ -105,6 +105,12 @@ export const Bubble: React.FC<
   ]);
 
   const preMessageSameRole = useMemo(() => {
+    if (
+      props.preMessage?.role === undefined ||
+      props.originData?.role === undefined
+    ) {
+      return false;
+    }
     return props.preMessage?.role === props.originData?.role;
   }, [props.preMessage, props.originData]);
 
