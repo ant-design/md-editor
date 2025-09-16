@@ -48,6 +48,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'none!important',
         padding: 0,
       },
+
+      // 错误边界容器样式（简化版，使用 antd Result 组件）
+      '&&-error-boundary': {
+        // antd Result 组件已经有完善的样式，这里只需要基础容器样式
+        minHeight: '200px',
+      },
     },
   };
 };
