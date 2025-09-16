@@ -839,7 +839,27 @@
                     <span
                       data-slate-string="true"
                     >
-                      💬 协作沟通
+                      💬 协作沟
+                    </span>
+                  </span>
+                  <span
+                    class="ant-md-editor-content-comment-highlight"
+                    data-be="comment-text"
+                    data-testid="comment-view"
+                    id="comment-1757562256636"
+                  >
+                    <span
+                      class="ant-md-editor-content-comment"
+                      data-be="text"
+                      data-comment="comment"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        通
+                      </span>
                     </span>
                   </span>
                 </span>
