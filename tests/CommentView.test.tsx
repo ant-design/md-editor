@@ -37,7 +37,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock EditorStoreContext and useEditorStore
 vi.mock('../src/MarkdownEditor/editor/store', async (importOriginal) => {
-  const actual = await importOriginal() as any;
+  const actual = (await importOriginal()) as any;
   return {
     ...actual,
     EditorStoreContext: React.createContext({
