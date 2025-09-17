@@ -282,19 +282,17 @@ describe('AttachmentButton', () => {
     });
 
     it('should use custom supported formats', () => {
-      const customFormats = [
-        {
-          icon: <span>Custom Icon</span>,
-          type: 'Custom Type',
-          maxSize: 5 * 1024,
-          extensions: ['custom'],
-        },
-      ];
+      const customFormats = {
+        icon: <span>Custom Icon</span>,
+        type: 'Custom Type',
+        maxSize: 5 * 1024,
+        extensions: ['custom'],
+      };
 
       render(
         <AttachmentButton
           uploadImage={mockUploadImage}
-          supportedFormats={customFormats}
+          supportedFormat={customFormats}
         />,
       );
 
@@ -302,7 +300,7 @@ describe('AttachmentButton', () => {
       const { container } = render(
         <AttachmentButton
           uploadImage={mockUploadImage}
-          supportedFormats={customFormats}
+          supportedFormat={customFormats}
         />,
       );
       expect(container.firstChild).toBeInTheDocument();
