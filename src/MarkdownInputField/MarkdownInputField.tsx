@@ -536,12 +536,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     },
   );
   // 默认支持的文件格式
-  const supportedFormats = useMemo(() => {
-    if (props.attachment?.supportedFormats) {
-      return props.attachment.supportedFormats;
+  const supportedFormat = useMemo(() => {
+    if (props.attachment?.supportedFormat) {
+      return props.attachment.supportedFormat;
     }
-    return SupportedFileFormats;
-  }, [props.attachment?.supportedFormats]);
+    return SupportedFileFormats.image;
+  }, [props.attachment?.supportedFormat]);
 
   /**
    * 上传图片的函数
@@ -553,9 +553,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     input.id = 'uploadImage' + '_' + Math.random();
     input.type = 'file';
 
-    input.accept =
-      supportedFormats?.map((item) => item.extensions?.join(',')).join(',') ||
-      'image/*';
+    input.accept = supportedFormat?.extensions?.join(',') || 'image/*';
 
     input.multiple = true;
     input.style.display = 'none';
@@ -607,7 +605,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           uploadImage={uploadImage}
           key="attachment-button"
           {...props.attachment}
-          supportedFormats={supportedFormats}
+          supportedFormat={supportedFormat}
           fileMap={fileMap}
           onFileMapChange={(fileMap) => {
             updateAttachmentFiles(fileMap);

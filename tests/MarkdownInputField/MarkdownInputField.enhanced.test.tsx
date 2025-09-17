@@ -137,10 +137,10 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
 vi.mock(
   '../../src/MarkdownInputField/AttachmentButton/AttachmentButtonPopover',
   () => ({
-    SupportedFileFormats: [
-      { name: 'Image', extensions: ['.jpg', '.png', '.gif'] },
-      { name: 'Document', extensions: ['.pdf', '.doc', '.docx'] },
-    ],
+    SupportedFileFormats: {
+      image: { name: 'Image', extensions: ['.jpg', '.png', '.gif'] },
+      document: { name: 'Document', extensions: ['.pdf', '.doc', '.docx'] },
+    },
   }),
 );
 
