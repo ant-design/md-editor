@@ -833,12 +833,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   ? {
                       width: '100%',
                       flex: 1,
-                      padding: 4,
+                      padding: 0,
                     }
                   : {
                       width: '100%',
                       flex: 1,
-                      padding: 4,
+                      padding: 0,
                       paddingRight: rightPadding || 52,
                     }
               }
