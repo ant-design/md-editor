@@ -134,6 +134,7 @@ const BarChart: React.FC<BarChartProps> = ({
   toolbarExtra,
   variant,
 }) => {
+  const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -163,19 +164,19 @@ const BarChart: React.FC<BarChartProps> = ({
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
     const uniqueCategories = [
-      ...new Set(data.map((item) => item.category)),
+      ...new Set(safeData.map((item) => item.category)),
     ].filter(Boolean);
     return uniqueCategories;
-  }, [data]);
+  }, [safeData]);
 
   // 从数据中提取 filterLabel，过滤掉 undefined 值
   const validFilterLabels = useMemo(() => {
-    return data
+    return safeData
       .map((item) => item.filterLabel)
       .filter(
         (filterLabel): filterLabel is string => filterLabel !== undefined,
       );
-  }, [data]);
+  }, [safeData]);
 
   const filterLabels = useMemo(() => {
     return validFilterLabels.length > 0
@@ -200,22 +201,18 @@ const BarChart: React.FC<BarChartProps> = ({
 
   // 筛选数据
   const filteredData = useMemo(() => {
-    if (!selectedFilter) return data;
+    // 先按分类与可选的 filterLabel 进行筛选
+    const base = selectedFilter
+      ? safeData.filter((item) => item.category === selectedFilter)
+      : safeData;
 
-    const categoryMatch = data.filter(
-      (item) => item.category === selectedFilter,
-    );
+    const withFilterLabel = !filterLabels || !selectedFilterLabel
+      ? base
+      : base.filter((item) => item.filterLabel === selectedFilterLabel);
 
-    // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
-    if (!filterLabels || !selectedFilterLabel) {
-      return categoryMatch;
-    }
-
-    // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
-    return categoryMatch.filter(
-      (item) => item.filterLabel === selectedFilterLabel,
-    );
-  }, [data, selectedFilter, filterLabels, selectedFilterLabel]);
+    // 最终统一过滤掉 x 为空（null/undefined）的数据，避免后续 toString 报错
+    return withFilterLabel.filter((item) => item.x !== null && item.x !== undefined);
+  }, [safeData, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 从数据中提取唯一的类型
   const types = useMemo(() => {
@@ -226,7 +223,13 @@ const BarChart: React.FC<BarChartProps> = ({
   const xValues = useMemo(() => {
     if (indexAxis === 'y') {
       // 水平柱状图时，x是类目轴，应保持原始顺序而不排序
-      const uniqueValues = [...new Set(filteredData.map((item) => item.x))];
+      const uniqueValues = [
+        ...new Set(
+          filteredData
+            .map((item) => item.x)
+            .filter((x) => x !== null && x !== undefined),
+        ),
+      ];
       return uniqueValues;
     }
     return extractAndSortXValues(filteredData);

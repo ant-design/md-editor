@@ -92,6 +92,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   typeNames,
   ...props
 }) => {
+  const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -117,8 +118,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 类别筛选（外层）
   const categories = useMemo(() => {
-    return [...new Set(data.map((d) => d.category))];
-  }, [data]);
+    return [...new Set(safeData.map((d) => d.category))];
+  }, [safeData]);
 
   // 状态
   const [selectedFilter, setSelectedFilter] = useState<string>(
@@ -130,12 +131,12 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 二级筛选（可选）- 仅基于当前选中 category 的可用标签
   const filterLabels = useMemo(() => {
-    const labels = data
+    const labels = safeData
       .filter((d) => !selectedFilter || d.category === selectedFilter)
       .map((d) => d.filterLabel)
       .filter((v): v is string => v !== undefined);
     return labels.length > 0 ? [...new Set(labels)] : undefined;
-  }, [data, selectedFilter]);
+  }, [safeData, selectedFilter]);
 
   // 当切换 category 时，如当前二级筛选不在可选列表中，则重置为该类目第一项或清空
   useEffect(() => {
@@ -152,15 +153,25 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 数据筛选
   const filteredData = useMemo(() => {
-    if (!selectedFilter) return data;
-    const categoryMatch = data.filter((d) => d.category === selectedFilter);
-    if (!filterLabels || !selectedFilterLabel) return categoryMatch;
-    return categoryMatch.filter((d) => d.filterLabel === selectedFilterLabel);
-  }, [data, selectedFilter, filterLabels, selectedFilterLabel]);
+    const base = selectedFilter
+      ? safeData.filter((d) => d.category === selectedFilter)
+      : safeData;
+    const withFilterLabel = !filterLabels || !selectedFilterLabel
+      ? base
+      : base.filter((d) => d.filterLabel === selectedFilterLabel);
+    // 统一过滤掉 x 为空（null/undefined）的数据，避免后续 toString 报错
+    return withFilterLabel.filter((d) => d.x !== null && d.x !== undefined);
+  }, [safeData, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 阶段（使用 x 值作为阶段名称），按 y 从大到小排序以符合漏斗习惯
   const stages = useMemo(() => {
-    const unique = [...new Set(filteredData.map((d) => d.x))];
+    const unique = [
+      ...new Set(
+        filteredData
+          .map((d) => d.x)
+          .filter((x) => x !== null && x !== undefined),
+      ),
+    ];
     // 映射阶段 -> 数值
     const values = unique.map((x) => {
       const dp = findDataPointByXValue(filteredData, x);
