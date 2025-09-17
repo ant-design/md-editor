@@ -409,16 +409,12 @@ export const CommentView = (props: CommentViewProps) => {
             style={{
               position: 'absolute',
               left: '-8px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: dragRangeConfig.handleStyle?.size || '6px',
-              height: dragRangeConfig.handleStyle?.size || '6px',
-              backgroundColor:
-                dragRangeConfig.handleStyle?.backgroundColor || '#1890ff',
-              borderRadius: dragRangeConfig.handleStyle?.borderRadius || '50%',
-              opacity: dragRangeConfig.handleStyle?.opacity || 0.6,
+              top: '0',
+              width: '12px',
+              height: '100%',
               cursor: 'grab',
               zIndex: 1001,
+              opacity: dragRangeConfig.handleStyle?.opacity || 0.8,
             }}
             onMouseDown={(e) => {
               e.preventDefault();
@@ -428,7 +424,31 @@ export const CommentView = (props: CommentViewProps) => {
               setDragStartPos({ x: e.clientX, y: e.clientY });
               setDragEndPos({ x: e.clientX, y: e.clientY });
             }}
-          />
+          >
+            {/* 圆形顶部 */}
+            <div
+              style={{
+                width: '8px',
+                height: '8px',
+                backgroundColor: '#1890ff',
+                borderRadius: '50%',
+                position: 'absolute',
+                top: '0',
+                left: '2px',
+              }}
+            />
+            {/* 垂直线 */}
+            <div
+              style={{
+                width: '2px',
+                height: 'calc(100% - 4px)',
+                backgroundColor: '#1890ff',
+                position: 'absolute',
+                top: '4px',
+                left: '5px',
+              }}
+            />
+          </div>
           {/* 结束拖拽手柄 */}
           <div
             className={classNames(
@@ -439,16 +459,12 @@ export const CommentView = (props: CommentViewProps) => {
             style={{
               position: 'absolute',
               right: '-8px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: dragRangeConfig.handleStyle?.size || '6px',
-              height: dragRangeConfig.handleStyle?.size || '6px',
-              backgroundColor:
-                dragRangeConfig.handleStyle?.backgroundColor || '#1890ff',
-              borderRadius: dragRangeConfig.handleStyle?.borderRadius || '50%',
-              opacity: dragRangeConfig.handleStyle?.opacity || 0.6,
+              top: '0',
+              width: '12px',
+              height: '100%',
               cursor: 'grab',
               zIndex: 1001,
+              opacity: dragRangeConfig.handleStyle?.opacity || 0.8,
             }}
             onMouseDown={(e) => {
               e.preventDefault();
@@ -458,7 +474,31 @@ export const CommentView = (props: CommentViewProps) => {
               setDragStartPos({ x: e.clientX, y: e.clientY });
               setDragEndPos({ x: e.clientX, y: e.clientY });
             }}
-          />
+          >
+            {/* 垂直线 */}
+            <div
+              style={{
+                width: '2px',
+                height: 'calc(100% - 4px)',
+                backgroundColor: '#1890ff',
+                position: 'absolute',
+                top: '0',
+                left: '5px',
+              }}
+            />
+            {/* 圆形底部 */}
+            <div
+              style={{
+                width: '8px',
+                height: '8px',
+                backgroundColor: '#1890ff',
+                borderRadius: '50%',
+                position: 'absolute',
+                bottom: '0',
+                left: '2px',
+              }}
+            />
+          </div>
         </>
       )}
     </span>
