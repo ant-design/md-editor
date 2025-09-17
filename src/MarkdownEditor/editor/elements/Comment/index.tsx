@@ -99,7 +99,7 @@ export const CommentView = (props: {
         // 获取当前选中的范围
         const currentSelection = thisComment.selection;
         if (!currentSelection) {
-          console.warn('当前没有选中范围');
+          console.warn('当前没有选中范围', thisComment);
           return;
         }
 

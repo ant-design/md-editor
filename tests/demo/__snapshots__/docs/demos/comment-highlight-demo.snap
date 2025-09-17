@@ -153,6 +153,7 @@
                     data-be="comment-text"
                     data-testid="comment-view"
                     id="comment-1757562229525"
+                    style="position: relative; cursor: text; user-select: text;"
                   >
                     <span
                       class="ant-md-editor-content-comment"
@@ -167,6 +168,14 @@
                         用户可以对文档内容
                       </span>
                     </span>
+                    <div
+                      class="comment-drag-handle comment-drag-handle-start"
+                      style="position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                    />
+                    <div
+                      class="comment-drag-handle comment-drag-handle-end"
+                      style="position: absolute; right: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                    />
                   </span>
                   <span
                     data-be="text"
@@ -476,6 +485,7 @@
                           data-be="comment-text"
                           data-testid="comment-view"
                           id="comment-1757562274794"
+                          style="position: relative; cursor: text; user-select: text;"
                         >
                           <span
                             class="ant-md-editor-content-comment"
@@ -490,6 +500,14 @@
                               对文档内容进行详
                             </span>
                           </span>
+                          <div
+                            class="comment-drag-handle comment-drag-handle-start"
+                            style="position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                          />
+                          <div
+                            class="comment-drag-handle comment-drag-handle-end"
+                            style="position: absolute; right: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                          />
                         </span>
                         <span
                           data-be="text"
@@ -719,6 +737,7 @@
                           data-be="comment-text"
                           data-testid="comment-view"
                           id="comment-1757562256636"
+                          style="position: relative; cursor: text; user-select: text;"
                         >
                           <span
                             class="ant-md-editor-content-comment"
@@ -733,6 +752,14 @@
                               多人同时审阅
                             </span>
                           </span>
+                          <div
+                            class="comment-drag-handle comment-drag-handle-start"
+                            style="position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                          />
+                          <div
+                            class="comment-drag-handle comment-drag-handle-end"
+                            style="position: absolute; right: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                          />
                         </span>
                       </span>
                     </div>
@@ -847,6 +874,7 @@
                     data-be="comment-text"
                     data-testid="comment-view"
                     id="comment-1757562256636"
+                    style="position: relative; cursor: text; user-select: text;"
                   >
                     <span
                       class="ant-md-editor-content-comment"
@@ -861,6 +889,14 @@
                         通
                       </span>
                     </span>
+                    <div
+                      class="comment-drag-handle comment-drag-handle-start"
+                      style="position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                    />
+                    <div
+                      class="comment-drag-handle comment-drag-handle-end"
+                      style="position: absolute; right: -8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background-color: rgb(82, 196, 26); border-radius: 50%; opacity: 0.8; cursor: grab; z-index: 1001;"
+                    />
                   </span>
                 </span>
               </h3>
