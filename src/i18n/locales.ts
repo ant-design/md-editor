@@ -86,6 +86,9 @@ export const cnLabels = {
   executionParameters: '执行入参',
   apiCalling: 'API调用中',
   networkQuerying: '网络查询中',
+  // ThinkBlock 组件相关
+  'think.deepThinking': '深度思考',
+  'think.deepThinkingInProgress': '深度思考...',
   switchLanguage: '切换语言',
   insertLink: '插入链接',
   clearFormatting: '清除格式',
@@ -328,6 +331,9 @@ export const enLabels: typeof cnLabels = {
   executionParameters: 'Execution Parameters',
   apiCalling: 'API Calling...',
   networkQuerying: 'Network Querying...',
+  // ThinkBlock component related
+  'think.deepThinking': 'Deep Thinking',
+  'think.deepThinkingInProgress': 'Deep Thinking...',
   bold: 'Bold',
   italic: 'Italic',
   strikethrough: 'Strikethrough',

@@ -3,7 +3,8 @@
  * 只读模式下渲染思考类型的代码块
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
+import { I18nContext } from '../../../i18n';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { ToolUseBarThink } from '../../../ToolUseBar';
 
@@ -12,10 +13,17 @@ interface ThinkBlockProps {
 }
 
 export function ThinkBlock({ element }: ThinkBlockProps) {
+  const { locale } = useContext(I18nContext);
+
   const content =
     element?.value !== null && element?.value !== undefined
       ? String(element.value).trim()
       : '';
+
+  const isLoading = content.endsWith('...');
+  const toolNameText = isLoading
+    ? locale?.['think.deepThinkingInProgress'] || '深度思考...'
+    : locale?.['think.deepThinking'] || '深度思考';
 
   return (
     <ToolUseBarThink
@@ -26,9 +34,9 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
           maxWidth: '680px',
         },
       }}
-      toolName={content.endsWith('...') ? '深度思考...' : '深度思考'}
+      toolName={toolNameText}
       thinkContent={content}
-      status={content.endsWith('...') ? 'loading' : 'success'}
+      status={isLoading ? 'loading' : 'success'}
     />
   );
 }
