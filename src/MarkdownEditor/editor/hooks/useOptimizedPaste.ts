@@ -2,19 +2,42 @@ import { message } from 'antd';
 import { useCallback, useRef } from 'react';
 import { Editor, Transforms } from 'slate';
 
-// 性能优化常量
-const PASTE_DEBOUNCE_DELAY = 100; // 粘贴防抖延迟
+/** 性能优化相关常量配置 */
+const PASTE_DEBOUNCE_DELAY = 100; // 粘贴防抖延迟（毫秒）
 const LARGE_CONTENT_THRESHOLD = 5000; // 大内容阈值（字符数）
 
+/**
+ * 优化粘贴处理 Hook 的配置选项
+ */
 interface UseOptimizedPasteOptions {
+  /** 粘贴开始时的回调函数 */
   onPasteStart?: () => void;
+  /** 粘贴结束时的回调函数 */
   onPasteEnd?: () => void;
+  /** 粘贴错误时的回调函数 */
   onPasteError?: (error: Error) => void;
 }
 
 /**
- * 优化的粘贴处理Hook
- * 提供防抖、分段处理和进度反馈
+ * 优化的粘贴处理 Hook
+ *
+ * 提供以下优化功能：
+ * - 防抖处理：避免频繁的粘贴操作
+ * - 分段处理：大内容分批处理，避免阻塞UI
+ * - 进度反馈：提供粘贴开始/结束/错误状态
+ * - 队列管理：处理并发粘贴操作
+ *
+ * @param options - 配置选项
+ * @returns 包含优化粘贴方法的对象
+ *
+ * @example
+ * ```typescript
+ * const { debouncedPaste, processBatchPaste } = useOptimizedPaste({
+ *   onPasteStart: () => setLoading(true),
+ *   onPasteEnd: () => setLoading(false),
+ *   onPasteError: (error) => message.error('粘贴失败')
+ * });
+ * ```
  */
 export const useOptimizedPaste = (options: UseOptimizedPasteOptions = {}) => {
   const pasteTimeoutRef = useRef<NodeJS.Timeout>();
@@ -23,6 +46,19 @@ export const useOptimizedPaste = (options: UseOptimizedPasteOptions = {}) => {
 
   /**
    * 防抖的粘贴处理函数
+   *
+   * 避免频繁的粘贴操作影响性能，通过队列管理并发请求
+   *
+   * @param pasteHandler - 实际执行粘贴操作的异步函数
+   * @returns Promise<void>
+   *
+   * @example
+   * ```typescript
+   * await debouncedPaste(async () => {
+   *   // 执行具体的粘贴逻辑
+   *   Editor.insertText(editor, pastedText);
+   * });
+   * ```
    */
   const debouncedPaste = useCallback(
     async (pasteHandler: () => Promise<void>) => {

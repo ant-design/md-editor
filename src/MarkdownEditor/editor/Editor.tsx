@@ -57,15 +57,29 @@ import {
   isPath,
 } from './utils/editorUtils';
 
+/**
+ * Markdown 编辑器组件的属性接口
+ *
+ * 扩展了基础的 MarkdownEditorProps，添加了编辑器特定的配置
+ */
 export type MEditorProps = {
+  /** 自定义元素项渲染函数 */
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
+  /** 自定义叶子节点渲染函数 */
   leafRender?: MarkdownEditorProps['leafRender'];
+  /** 内容变化时的回调函数 */
   onChange?: MarkdownEditorProps['onChange'];
+  /** 编辑器实例对象 */
   instance: MarkdownEditorInstance;
+  /** 自定义CSS类名 */
   className?: string;
+  /** 评论相关配置 */
   comment?: MarkdownEditorProps['comment'];
+  /** CSS前缀类名 */
   prefixCls?: string;
+  /** 是否为报告模式 */
   reportMode?: MarkdownEditorProps['reportMode'];
+  /** 输入框占位符文本 */
   placeholder?: string;
 } & MarkdownEditorProps;
 
@@ -73,11 +87,12 @@ export type MEditorProps = {
  * 生成表格最小尺寸配置
  *
  * 该函数用于设置表格的最小列数和行数，确保表格的基本结构。
+ * 通过递归遍历编辑器元素，找到表格元素并应用最小尺寸约束。
  *
- * @param {Elements[]} elements - 编辑器元素数组
- * @param {Object} [config] - 配置对象
- * @param {number} [config.minColumn] - 最小列数
- * @param {number} [config.minRows] - 最小行数
+ * @param elements - 编辑器元素数组
+ * @param config - 配置对象
+ * @param config.minColumn - 最小列数
+ * @param config.minRows - 最小行数
  */
 const genTableMinSize = (
   elements: Elements[],

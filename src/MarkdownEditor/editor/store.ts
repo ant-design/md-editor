@@ -30,31 +30,69 @@ import { EditorUtils, findByPathAndText } from './utils/editorUtils';
 import { markdownToHtmlSync } from './utils/markdownToHtml';
 const { createContext, useContext } = React;
 
-export const EditorStoreContext = createContext<{
+/**
+ * 编辑器上下文接口
+ *
+ * 提供编辑器组件间共享的状态和方法
+ */
+export interface EditorStoreContextType {
+  /** 编辑器核心状态存储 */
   store: EditorStore;
+  /** 是否启用打字机模式 */
   typewriter: boolean;
+  /** 根容器引用 */
   rootContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
+  /** 设置显示评论列表 */
   setShowComment: (list: CommentDataType[]) => void;
+  /** 是否为只读模式 */
   readonly: boolean;
+  /** 键盘任务流 */
   keyTask$: Subject<{
     key: Methods<KeyboardTask>;
     args?: any[];
   }>;
+  /** 插入自动完成文本流 */
   insertCompletionText$: Subject<string>;
+  /** 打开插入链接流 */
   openInsertLink$: Subject<Selection>;
+  /** 是否刷新浮动工具栏 */
   refreshFloatBar?: boolean;
+  /** DOM矩形信息 */
   domRect: DOMRect | null;
+  /** 设置DOM矩形 */
   setDomRect: (rect: DOMRect | null) => void;
+  /** 设置刷新浮动工具栏状态 */
   setRefreshFloatBar?: (refresh: boolean) => void;
+  /** 是否打开插入自动完成 */
   openInsertCompletion?: boolean;
+  /** 设置打开插入自动完成状态 */
   setOpenInsertCompletion?: (open: boolean) => void;
+  /** 编辑器属性配置 */
   editorProps: MarkdownEditorProps;
+  /** Markdown编辑器引用 */
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
   >;
+  /** Markdown容器引用 */
   markdownContainerRef: React.MutableRefObject<HTMLDivElement | null>;
-} | null>(null);
+}
 
+export const EditorStoreContext = createContext<EditorStoreContextType | null>(
+  null,
+);
+
+/**
+ * 获取编辑器存储上下文的Hook
+ *
+ * 提供安全的上下文访问，包含默认值处理
+ *
+ * @returns 编辑器存储上下文对象
+ *
+ * @example
+ * ```tsx
+ * const { store, readonly, typewriter } = useEditorStore();
+ * ```
+ */
 export const useEditorStore = () => {
   return (
     useContext(EditorStoreContext)! || {
@@ -67,26 +105,45 @@ export const useEditorStore = () => {
   );
 };
 
+/** 支持键入操作的标签类型列表 */
 const SUPPORT_TYPING_TAG = ['table-cell', 'paragraph', 'head'];
+
 /**
- * 表示更新操作的类型
+ * 表示更新操作的类型枚举
  */
 type OperationType = 'insert' | 'remove' | 'update' | 'replace' | 'text';
 
 /**
- * 表示一个更新操作
+ * 表示一个更新操作的接口
  */
 interface UpdateOperation {
+  /** 操作类型 */
   type: OperationType;
+  /** 操作路径 */
   path: Path;
+  /** 节点对象 */
   node?: Node;
+  /** 节点属性 */
   properties?: Partial<Node>;
+  /** 文本内容 */
   text?: string;
-  priority: number; // 优先级，越小越先执行
+  /** 操作优先级，越小越先执行 */
+  priority: number;
 }
 
+/**
+ * 编辑器核心状态管理类
+ *
+ * 负责管理编辑器的所有状态、操作和事件处理
+ * 包括文档结构、选择状态、高亮、拖拽、历史记录等
+ *
+ * @class
+ */
 export class EditorStore {
+  /** 高亮缓存映射表 */
   highlightCache = new Map<object, Range[]>();
+
+  /** 允许进入的元素类型集合 */
   private ableToEnter = new Set([
     'paragraph',
     'head',
@@ -97,6 +154,8 @@ export class EditorStore {
     'media',
     'attach',
   ]);
+
+  /** 当前拖拽的元素 */
   draggedElement: null | HTMLElement = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   inputComposition = false;

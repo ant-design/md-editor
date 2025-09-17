@@ -5,20 +5,46 @@ import { BaseRange } from 'slate';
 import { CommentDataType, MarkdownEditorProps } from '../../../types';
 import { useEditorStore } from '../../store';
 
-export const CommentView = (props: {
+/**
+ * 评论视图组件的属性接口
+ */
+interface CommentViewProps {
+  /** 子元素 */
   children: React.ReactNode;
+  /** 评论配置对象 */
   comment: MarkdownEditorProps['comment'];
+  /** 评论数据列表 */
   commentItem: CommentDataType[];
+  /** 评论的唯一标识符 */
   id: string;
+  /** Slate.js 选择范围 */
   selection?: BaseRange;
+  /** 哈希标识符用于样式类名 */
   hashId: string;
+  /** 设置显示评论的回调函数 */
   setShowComment?: (comments: CommentDataType[]) => void;
-}) => {
+}
+
+/**
+ * 评论视图组件 - 显示和管理 Markdown 编辑器中的评论
+ *
+ * 功能特性：
+ * - 支持评论范围的拖拽调整
+ * - 提供可视化的拖拽手柄
+ * - 支持实时范围高亮显示
+ * - 集成 Slate.js 进行精确的文本范围计算
+ *
+ * @param props - 组件属性
+ * @returns 渲染的评论视图组件
+ */
+export const CommentView = (props: CommentViewProps) => {
   const { setShowComment } = props;
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
   const { markdownEditorRef } = useEditorStore();
   const commentRef = useRef<HTMLSpanElement>(null);
+
+  // 拖拽相关状态
   const [isDragging, setIsDragging] = useState(false);
   const [dragType, setDragType] = useState<'start' | 'end' | null>(null);
   const [dragStartPos, setDragStartPos] = useState<{
@@ -29,12 +55,26 @@ export const CommentView = (props: {
     null,
   );
 
+  /**
+   * 查找当前评论数据
+   * 通过解析 props.id 来匹配对应的评论项
+   */
   const thisComment = useMemo(() => {
     return props.commentItem?.find?.(
       (c) => `${c.id}` === props.id.split('-').at(-1),
     );
   }, [props.id]);
 
+  /**
+   * 评论范围拖拽功能的核心逻辑
+   *
+   * 实现功能：
+   * - 监听鼠标事件以处理拖拽操作
+   * - 区分开始和结束拖拽点（前1/3和后1/3区域）
+   * - 使用 Slate.js API 进行精确的文本范围计算
+   * - 支持拖拽过程中的实时反馈
+   * - 提供降级处理机制
+   */
   // 评论范围拖拽功能
   useEffect(() => {
     if (
@@ -49,6 +89,10 @@ export const CommentView = (props: {
     const dragRangeConfig = props.comment.dragRange;
     const onRangeChange = dragRangeConfig.onRangeChange;
 
+    /**
+     * 处理鼠标按下事件，判断拖拽类型
+     * @param e - 鼠标事件对象
+     */
     const handleMouseDown = (e: React.MouseEvent) => {
       if (e.button !== 0) return; // 只处理左键
 
@@ -75,12 +119,27 @@ export const CommentView = (props: {
       }
     };
 
+    /**
+     * 处理鼠标移动事件，更新拖拽位置
+     * @param e - 鼠标事件对象
+     */
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDragging) return;
 
       setDragEndPos({ x: e.clientX, y: e.clientY });
     };
 
+    /**
+     * 处理鼠标释放事件，完成拖拽操作并计算新的文本范围
+     *
+     * 主要步骤：
+     * 1. 获取 Slate.js 编辑器实例
+     * 2. 计算拖拽距离对应的字符数
+     * 3. 根据拖拽类型调整范围边界
+     * 4. 使用 Slate.js API 获取新的文本内容
+     * 5. 调用 onRangeChange 回调更新范围
+     * 6. 提供降级处理机制
+     */
     const handleMouseUp = () => {
       if (!isDragging || !dragStartPos || !dragEndPos || !dragType) return;
 
@@ -406,9 +465,26 @@ export const CommentView = (props: {
   );
 };
 
-export const CommentCreate = (props: {
+/**
+ * 评论创建组件的属性接口
+ */
+interface CommentCreateProps {
+  /** 评论配置对象 */
   comment: MarkdownEditorProps['comment'];
-}) => {
+}
+
+/**
+ * 评论创建组件 - 提供创建新评论的界面
+ *
+ * 功能说明：
+ * - 如果提供了自定义的编辑器渲染器，则使用自定义渲染
+ * - 否则渲染默认的空白创建界面
+ * - 支持测试标识符以便于测试
+ *
+ * @param props - 组件属性
+ * @returns 渲染的评论创建组件
+ */
+export const CommentCreate = (props: CommentCreateProps) => {
   const dom = <div data-testid="comment-create-default"></div>;
   if (props.comment?.editorRender) {
     return props.comment.editorRender(dom);
