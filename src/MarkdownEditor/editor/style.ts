@@ -394,7 +394,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       'div[data-be="paragraph"]': {
         position: 'relative',
-        paddingTop: '.25em',
+        paddingTop: '0em',
         display: 'block',
         fontSize: '1em',
         lineHeight: 1.6,
@@ -632,8 +632,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       'ul:not([data-be="list"]), ol:not([data-be="list"])': {
         paddingLeft: '24px',
         marginTop: '8px',
-        marginBottom: '16px',
-
+        marginBottom: '8px',
         li: {
           position: 'relative',
 
