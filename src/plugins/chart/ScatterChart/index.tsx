@@ -109,64 +109,159 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   }, []);
   const chartRef = useRef<ChartJS<'scatter'>>(null);
 
-  // 从扁平化数据中提取分类
-  const categories = Array.from(new Set(data.map((item) => item.category)));
+  // 数据安全检查和处理 - 直接处理，不用 useMemo
+  const safeData =
+    !data || !Array.isArray(data)
+      ? []
+      : data.filter(
+          (item): item is ScatterChartDataItem =>
+            item !== null &&
+            item !== undefined &&
+            typeof item === 'object' &&
+            'x' in item &&
+            'y' in item,
+        );
 
-  // 从数据中提取 filterLabel，过滤掉 undefined 值
-  const validFilterLabels = data
-    .map((item) => item.filterLabel)
-    .filter((category): category is string => category !== undefined);
+  // 从扁平化数据中提取分类，添加安全检查
+  const categories = Array.from(
+    new Set(
+      safeData
+        .map((item) => item?.category)
+        .filter((category): category is string => Boolean(category)),
+    ),
+  );
+
+  // 从数据中提取 filterLabel，过滤掉 undefined 值，添加安全检查
+  const validFilterLabels = safeData
+    .map((item) => item?.filterLabel)
+    .filter(
+      (category): category is string =>
+        category !== undefined && category !== null && Boolean(category),
+    );
 
   const filterLabels: string[] | undefined =
     validFilterLabels.length > 0
       ? Array.from(new Set(validFilterLabels))
       : undefined;
 
-  // 状态管理 - 使用第一个分类作为默认值
+  // 状态管理，添加安全检查
   const [selectedFilter, setSelectedFilter] = useState(
-    categories.find(Boolean) || '',
+    () => categories.find((cat): cat is string => Boolean(cat)) || '',
   );
-  const [selectedFilterLabel, setSelectedFilterLabel] = useState(
+  const [selectedFilterLabel, setSelectedFilterLabel] = useState(() =>
     filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
 
-  // 根据选定的分类筛选数据
-  const filteredData = data.filter((item) => {
+  // 根据选定的分类筛选数据，添加安全检查
+  const filteredData = safeData.filter((item) => {
+    if (!item) return false; // 额外的安全检查
     if (!selectedFilter) return true;
-    const categoryMatch = item.category === selectedFilter;
+    const categoryMatch = item?.category === selectedFilter;
     // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
     if (!filterLabels || !selectedFilterLabel) {
       return categoryMatch;
     }
     // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
-    return categoryMatch && item.filterLabel === selectedFilterLabel;
+    return categoryMatch && item?.filterLabel === selectedFilterLabel;
   });
 
-  // 提取数据集类型
+  // 提取数据集类型，添加安全检查
   const datasetTypes = Array.from(
-    new Set(filteredData.map((item) => item.type)),
+    new Set(
+      filteredData
+        .map((item) => item?.type)
+        .filter((type): type is string => Boolean(type)),
+    ),
   );
 
-  // 构建数据集
+  // 如果没有有效数据，返回空状态
+  if (safeData.length === 0 || datasetTypes.length === 0) {
+    return wrapSSR(
+      <ChartContainer
+        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        theme={'light'}
+        isMobile={isMobile}
+        variant={props.variant}
+        style={{
+          width: responsiveWidth,
+          height: responsiveHeight,
+        }}
+      >
+        <ChartToolBar
+          title={title || '散点图'}
+          onDownload={() => {}}
+          extra={toolbarExtra}
+          dataTime={dataTime}
+        />
+        <div
+          className={classNames(`${prefixCls}-empty-wrapper`, hashId)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: responsiveHeight,
+            color: '#999',
+            fontSize: '14px',
+          }}
+        >
+          暂无有效数据
+        </div>
+      </ChartContainer>,
+    );
+  }
+
+  // 构建数据集，添加更强的安全检查
   const datasets = datasetTypes.map((type, index) => {
-    const typeData = filteredData.filter((item) => item.type === type);
+    const typeData = filteredData.filter((item) => item?.type === type);
     const coordinates = typeData.map((item) => {
-      const nx = typeof item.x === 'number' ? item.x : Number(item.x);
-      const ny = typeof item.y === 'number' ? item.y : Number(item.y);
-      return {
-        x: Number.isFinite(nx) ? nx : 0,
-        y: Number.isFinite(ny) ? ny : 0,
-      };
+      if (!item) return { x: 0, y: 0 };
+
+      // 增强的 x, y 坐标处理
+      let x = 0,
+        y = 0;
+
+      // 处理 x 坐标
+      if (item.x !== null && item.x !== undefined) {
+        if (typeof item.x === 'number') {
+          x = Number.isFinite(item.x) ? item.x : 0;
+        } else if (typeof item.x === 'string') {
+          const trimmed = item.x.trim();
+          if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
+            const parsed = Number(trimmed);
+            x = Number.isFinite(parsed) ? parsed : 0;
+          }
+        }
+      }
+
+      // 处理 y 坐标
+      if (item.y !== null && item.y !== undefined) {
+        if (typeof item.y === 'number') {
+          y = Number.isFinite(item.y) ? item.y : 0;
+        } else if (typeof item.y === 'string') {
+          const trimmed = item.y.trim();
+          if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
+            const parsed = Number(trimmed);
+            y = Number.isFinite(parsed) ? parsed : 0;
+          }
+        }
+      }
+
+      return { x, y };
     });
+
+    // 确保颜色数组安全访问
+    const safeIndex = Math.max(0, index % defaultColors.length);
+    const safeDefaultColors = defaultColors[safeIndex] ||
+      defaultColors[0] || {
+        backgroundColor: '#917EF7',
+        borderColor: '#917EF7',
+      };
 
     return {
       label: type || '默认',
       data: coordinates,
-      backgroundColor:
-        backgroundColor ||
-        defaultColors[index % defaultColors.length].backgroundColor,
-      borderColor:
-        borderColor || defaultColors[index % defaultColors.length].borderColor,
+      backgroundColor: backgroundColor || safeDefaultColors.backgroundColor,
+      borderColor: borderColor || safeDefaultColors.borderColor,
       pointRadius: isMobile ? 4 : 6,
       pointHoverRadius: isMobile ? 6 : 8,
     };
@@ -179,11 +274,16 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     legendPosition: 'bottom' as const,
   };
 
-  // 筛选器的枚举 - 从分类生成
-  const filterEnum = categories.map((category) => ({
-    label: category || '',
-    value: category || '',
-  }));
+  // 筛选器的枚举，添加安全检查
+  const filterEnum =
+    categories.length > 0
+      ? categories
+          .filter((category): category is string => Boolean(category))
+          .map((category) => ({
+            label: category,
+            value: category,
+          }))
+      : [];
 
   // 根据 filterLabel 筛选数据 - 只有当 filterLabels 存在时才生成
   const filteredDataByFilterLabel = filterLabels?.map((item) => ({
@@ -191,9 +291,21 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     label: item,
   }));
 
-  // 处理数据，应用默认颜色
+  // 处理数据，应用默认颜色，添加最终安全检查
   const processedData: ChartData<'scatter'> = {
-    datasets: datasets,
+    datasets:
+      datasets.length > 0
+        ? datasets
+        : [
+            {
+              label: '默认',
+              data: [{ x: 0, y: 0 }],
+              backgroundColor: defaultColors[0]?.backgroundColor || '#917EF7',
+              borderColor: defaultColors[0]?.borderColor || '#917EF7',
+              pointRadius: isMobile ? 4 : 6,
+              pointHoverRadius: isMobile ? 6 : 8,
+            },
+          ],
   };
 
   // 图表配置选项
@@ -247,18 +359,46 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
             document.body.appendChild(tooltipEl);
           }
 
-          // 获取数据
+          // 获取数据，添加安全检查
+          if (!tooltip.dataPoints || tooltip.dataPoints.length === 0) {
+            return;
+          }
+
           const dataPoint = tooltip.dataPoints[0];
-          const dimensionTitle = xUnit
-            ? `${dataPoint.parsed.x}${xUnit}`
-            : `${dataPoint.parsed.x}`; // 散点图的维度标题
-          const label = dataPoint.dataset.label; // 数据集标签
-          const coordinates = yUnit
-            ? `${dataPoint.parsed.y}${yUnit}`
-            : `${dataPoint.parsed.y}`;
+          if (!dataPoint) {
+            return;
+          }
+
+          // 安全获取坐标数据
+          let xValue = '',
+            yValue = '';
+          try {
+            const rawX = dataPoint?.parsed?.x;
+            const rawY = dataPoint?.parsed?.y;
+
+            if (typeof rawX === 'number' && Number.isFinite(rawX)) {
+              xValue = String(rawX);
+            } else {
+              xValue = String(rawX || 0);
+            }
+
+            if (typeof rawY === 'number' && Number.isFinite(rawY)) {
+              yValue = String(rawY);
+            } else {
+              yValue = String(rawY || 0);
+            }
+          } catch (error) {
+            xValue = '0';
+            yValue = '0';
+          }
+
+          const dimensionTitle = xUnit ? `${xValue}${xUnit}` : xValue;
+          const label = dataPoint?.dataset?.label?.toString() || '数据指标';
+          const coordinates = yUnit ? `${yValue}${yUnit}` : yValue;
 
           // 获取数据集颜色作为图标颜色
-          const iconColor = dataPoint.dataset.borderColor || '#917EF7';
+          const iconColor =
+            dataPoint?.dataset?.borderColor?.toString() || '#917EF7';
 
           // 创建 HTML 内容
           const isDark = currentConfig.theme !== 'light';
@@ -432,47 +572,92 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   };
 
   const handleDownload = () => {
-    downloadChart(chartRef.current, 'scatter-chart');
+    try {
+      if (chartRef.current) {
+        downloadChart(chartRef.current, 'scatter-chart');
+      }
+    } catch (error) {
+      console.warn('图表下载失败:', error);
+    }
   };
 
-  return wrapSSR(
-    <ChartContainer
-      baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
-      theme={currentConfig.theme}
-      isMobile={isMobile}
-      variant={props.variant}
-      style={{
-        width: responsiveWidth,
-        height: responsiveHeight,
-      }}
-    >
-      <ChartToolBar
-        title={title}
-        onDownload={handleDownload}
-        extra={toolbarExtra}
-        dataTime={dataTime}
-      />
-
-      <ChartFilter
-        filterOptions={filterEnum}
-        selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
-        {...(filterLabels && {
-          customOptions: filteredDataByFilterLabel,
-          selectedCustomSelection: selectedFilterLabel,
-          onSelectionChange: setSelectedFilterLabel,
-        })}
+  // 最终渲染，包含错误边界
+  try {
+    return wrapSSR(
+      <ChartContainer
+        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
         theme={currentConfig.theme}
-      />
-
-      <div
-        className={classNames(`${prefixCls}-chart-wrapper`, hashId)}
-        style={{ height: responsiveHeight }}
+        isMobile={isMobile}
+        variant={props.variant}
+        style={{
+          width: responsiveWidth,
+          height: responsiveHeight,
+        }}
       >
-        <Scatter ref={chartRef} data={processedData} options={options} />
-      </div>
-    </ChartContainer>,
-  );
+        <ChartToolBar
+          title={title || '散点图'}
+          onDownload={handleDownload}
+          extra={toolbarExtra}
+          dataTime={dataTime}
+        />
+
+        {filterEnum.length > 0 && (
+          <ChartFilter
+            filterOptions={filterEnum}
+            selectedFilter={selectedFilter}
+            onFilterChange={setSelectedFilter}
+            {...(filterLabels && {
+              customOptions: filteredDataByFilterLabel,
+              selectedCustomSelection: selectedFilterLabel,
+              onSelectionChange: setSelectedFilterLabel,
+            })}
+            theme={currentConfig.theme}
+          />
+        )}
+
+        <div
+          className={classNames(`${prefixCls}-chart-wrapper`, hashId)}
+          style={{ height: responsiveHeight }}
+        >
+          <Scatter ref={chartRef} data={processedData} options={options} />
+        </div>
+      </ChartContainer>,
+    );
+  } catch (error) {
+    console.error('ScatterChart 渲染错误:', error);
+    return wrapSSR(
+      <ChartContainer
+        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        theme={'light'}
+        isMobile={isMobile}
+        variant={props.variant}
+        style={{
+          width: responsiveWidth,
+          height: responsiveHeight,
+        }}
+      >
+        <ChartToolBar
+          title={title || '散点图'}
+          onDownload={() => {}}
+          extra={toolbarExtra}
+          dataTime={dataTime}
+        />
+        <div
+          className={classNames(`${prefixCls}-error-wrapper`, hashId)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: responsiveHeight,
+            color: '#ff4d4f',
+            fontSize: '14px',
+          }}
+        >
+          图表渲染失败，请检查数据格式
+        </div>
+      </ChartContainer>,
+    );
+  }
 };
 
 export default ScatterChart;
