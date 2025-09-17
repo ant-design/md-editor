@@ -1,4 +1,4 @@
-import { BaseEditor, BaseElement } from 'slate';
+import { BaseEditor, BaseElement, BaseRange } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor, RenderElementProps } from 'slate-react';
 import {
@@ -256,6 +256,7 @@ export type CustomLeaf<T = Record<string, any>> = {
   fnc?: boolean;
   fnd?: boolean;
   comment?: boolean;
+  selection?: BaseRange;
   id?: string;
   data?: Record<string, any>;
 };

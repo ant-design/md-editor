@@ -1,6 +1,7 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { BaseRange } from 'slate';
 import { CommentDataType, MarkdownEditorProps } from '../../../types';
 import { useEditorStore } from '../../store';
 
@@ -9,6 +10,7 @@ export const CommentView = (props: {
   comment: MarkdownEditorProps['comment'];
   commentItem: CommentDataType[];
   id: string;
+  selection?: BaseRange;
   hashId: string;
   setShowComment?: (comments: CommentDataType[]) => void;
 }) => {
@@ -97,7 +99,7 @@ export const CommentView = (props: {
       // 使用 Slate.js 的 API 来获取准确的文本内容
       try {
         // 获取当前选中的范围
-        const currentSelection = thisComment.selection;
+        const currentSelection = props.selection || thisComment.selection;
         if (!currentSelection) {
           console.warn('当前没有选中范围', thisComment);
           return;

@@ -919,6 +919,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
               data: itemList,
               comment: true,
               id: item.id,
+              selection: newSelection,
               updateTime: itemList
                 .map((i) => i.updateTime)
                 .sort()
