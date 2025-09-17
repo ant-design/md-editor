@@ -1,12 +1,4 @@
-import React, {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
 import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
@@ -121,6 +113,7 @@ type ThoughtChainProps = {
     title?: string;
     content: React.ReactNode | React.ReactNode[];
     status: 'success' | 'pending' | 'loading' | 'error';
+    collapse?: boolean;
   }[];
   className?: string;
 };
@@ -132,7 +125,6 @@ const TaskListItem = memo(
     prefixCls,
     hashId,
     itemsCollapseStatus,
-    onToggle,
   }: {
     item: {
       key: string;
@@ -143,11 +135,14 @@ const TaskListItem = memo(
     isLast: boolean;
     prefixCls: string;
     hashId: string;
-    itemsCollapseStatus: React.MutableRefObject<Map<string, boolean>>;
+    itemsCollapseStatus?: boolean;
     onToggle: (key: string) => void;
   }) => {
     const { locale } = useContext(I18nContext);
-    const isCollapsed = itemsCollapseStatus.current.get(item.key);
+    const [collapse, setCollapse] = useState(itemsCollapseStatus);
+    useEffect(() => {
+      setCollapse(itemsCollapseStatus);
+    }, [itemsCollapseStatus]);
 
     const hasContent = useMemo(() => {
       if (Array.isArray(item.content)) {
@@ -160,7 +155,7 @@ const TaskListItem = memo(
       <div key={item.key} className={`${prefixCls}-thoughtChainItem ${hashId}`}>
         <div
           className={`${prefixCls}-left ${hashId}`}
-          onClick={() => onToggle(item.key)}
+          onClick={() => setCollapse(!collapse)}
         >
           <div
             className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
@@ -183,32 +178,32 @@ const TaskListItem = memo(
         <div className={`${prefixCls}-right ${hashId}`}>
           <div
             className={`${prefixCls}-top ${hashId}`}
-            onClick={() => onToggle(item.key)}
+            onClick={() => setCollapse(!collapse)}
           >
             <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
             {hasContent && (
               <div
                 className={`${prefixCls}-arrowContainer ${hashId}`}
-                onClick={() => onToggle(item.key)}
+                onClick={() => setCollapse(!collapse)}
               >
                 <ActionIconBox
                   title={
-                    !isCollapsed
+                    !collapse
                       ? locale?.['taskList.collapse'] || '收起'
                       : locale?.['taskList.expand'] || '展开'
                   }
                   iconStyle={{
-                    transform: isCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
+                    transform: collapse ? 'rotate(0deg)' : 'rotate(180deg)',
                   }}
                   loading={false}
-                  onClick={() => onToggle(item.key)}
+                  onClick={() => setCollapse(!collapse)}
                 >
                   <ChevronUpIcon className={`${prefixCls}-arrow ${hashId}`} />
                 </ActionIconBox>
               </div>
             )}
           </div>
-          {!isCollapsed && (
+          {!collapse && (
             <div className={`${prefixCls}-body ${hashId}`}>
               <div className={`${prefixCls}-content ${hashId}`}>
                 {item.content}
@@ -262,44 +257,6 @@ TaskListItem.displayName = 'TaskListItem';
 export const TaskList = memo(({ items, className }: ThoughtChainProps) => {
   const prefixCls = 'task-list';
   const { wrapSSR, hashId } = useStyle(prefixCls);
-  const [reFresh, setReFresh] = useState(false);
-  const itemsCollapseStatus = useRef(new Map());
-
-  useEffect(() => {
-    return () => {
-      itemsCollapseStatus.current.clear();
-    };
-  }, []);
-
-  useEffect(() => {
-    let flag = false;
-    items.forEach((item) => {
-      const oldStatus = itemsCollapseStatus.current.has(item.key);
-      if (oldStatus) {
-        itemsCollapseStatus.current.set(
-          item.key,
-          !!itemsCollapseStatus.current.get(item.key),
-        );
-      } else {
-        flag = true;
-        itemsCollapseStatus.current.set(item.key, false);
-      }
-    });
-    if (flag) {
-      setReFresh(!reFresh);
-    }
-  }, [items, reFresh]);
-
-  const handleToggle = useCallback(
-    (key: string) => {
-      itemsCollapseStatus.current.set(
-        key,
-        !itemsCollapseStatus.current.get(key),
-      );
-      setReFresh(!reFresh);
-    },
-    [reFresh],
-  );
 
   return wrapSSR(
     <div className={className}>
@@ -310,8 +267,7 @@ export const TaskList = memo(({ items, className }: ThoughtChainProps) => {
           isLast={index === items.length - 1}
           prefixCls={prefixCls}
           hashId={hashId}
-          itemsCollapseStatus={itemsCollapseStatus}
-          onToggle={handleToggle}
+          itemsCollapseStatus={item.collapse}
         />
       ))}
     </div>,

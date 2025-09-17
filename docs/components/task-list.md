@@ -31,6 +31,7 @@ group:
 | title   | 任务标题     | `string`                               | -      |
 | content | 任务内容     | `React.ReactNode \| React.ReactNode[]` | -      |
 | status  | 任务状态     | `'success' \| 'error' \| 'pending'`    | -      |
+| collapse | 折叠状态 | `boolean` | -      |
 
 ### 样式定制
 
