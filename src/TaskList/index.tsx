@@ -124,25 +124,19 @@ const TaskListItem = memo(
     isLast,
     prefixCls,
     hashId,
-    itemsCollapseStatus,
+    collapse: propsCollapse,
   }: {
-    item: {
-      key: string;
-      title?: string;
-      content: React.ReactNode | React.ReactNode[];
-      status: 'success' | 'pending' | 'loading' | 'error';
-    };
+    item: ThoughtChainProps['items'][number];
     isLast: boolean;
     prefixCls: string;
     hashId: string;
-    itemsCollapseStatus?: boolean;
-    onToggle: (key: string) => void;
+    collapse?: boolean;
   }) => {
     const { locale } = useContext(I18nContext);
-    const [collapse, setCollapse] = useState(itemsCollapseStatus);
+    const [collapse, setCollapse] = useState(propsCollapse);
     useEffect(() => {
-      setCollapse(itemsCollapseStatus);
-    }, [itemsCollapseStatus]);
+      setCollapse(propsCollapse);
+    }, [propsCollapse]);
 
     const hasContent = useMemo(() => {
       if (Array.isArray(item.content)) {
@@ -196,7 +190,10 @@ const TaskListItem = memo(
                     transform: collapse ? 'rotate(0deg)' : 'rotate(180deg)',
                   }}
                   loading={false}
-                  onClick={() => setCollapse(!collapse)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCollapse(!collapse);
+                  }}
                 >
                   <ChevronUpIcon className={`${prefixCls}-arrow ${hashId}`} />
                 </ActionIconBox>
