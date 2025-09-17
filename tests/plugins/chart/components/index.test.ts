@@ -27,6 +27,9 @@ describe('Chart Components Index', () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
+    // Mock Date.getTime() to return a fixed timestamp
+    vi.spyOn(Date.prototype, 'getTime').mockReturnValue(1234567890);
+
     // Mock link element
     const mockLink = {
       download: '',
@@ -148,7 +151,7 @@ describe('Chart Components Index', () => {
       consoleSpy.mockRestore();
     });
 
-    it.skip('应该处理 toBase64Image 抛出错误的情况', () => {
+    it('应该处理 toBase64Image 抛出错误的情况', () => {
       const mockChartInstance = {
         toBase64Image: vi.fn().mockImplementation(() => {
           throw new Error('Chart rendering failed');
@@ -170,7 +173,7 @@ describe('Chart Components Index', () => {
       consoleSpy.mockRestore();
     });
 
-    it.skip('应该处理 toBase64Image 返回无效数据的情况', () => {
+    it('应该处理 toBase64Image 返回无效数据的情况', () => {
       const mockChartInstance = {
         toBase64Image: vi.fn().mockReturnValue(''),
       };
@@ -298,7 +301,7 @@ describe('Chart Components Index', () => {
       );
     });
 
-    it.skip('应该处理空文件名的情况', () => {
+    it('应该处理空文件名的情况', () => {
       const mockChartInstance = {
         toBase64Image: vi
           .fn()
@@ -311,7 +314,7 @@ describe('Chart Components Index', () => {
       expect(linkElement.download).toMatch(/^-1234567890\.png$/);
     });
 
-    it.skip('应该处理特殊字符的文件名', () => {
+    it('应该处理特殊字符的文件名', () => {
       const mockChartInstance = {
         toBase64Image: vi
           .fn()

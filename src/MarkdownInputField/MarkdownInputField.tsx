@@ -379,6 +379,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     ],
   },
   markdownProps,
+  borderRadius = 16,
   onBlur,
   onFocus,
   ...props
@@ -675,7 +676,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         })}
         style={{
           ...props.style,
-          borderRadius: props.borderRadius || 16,
+          borderRadius: borderRadius || 16,
         }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -796,7 +797,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             zIndex: 9,
             flexDirection: 'column',
             boxSizing: 'border-box',
-            borderRadius: (props.borderRadius || 12) - 2 || 10,
+            borderRadius: (borderRadius || 16) - 2 || 10,
             cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
             opacity: props.disabled ? 0.5 : 1,
           }}
@@ -805,7 +806,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             style={{
               display: 'flex',
               flexDirection: 'column',
-              borderRadius: (props.borderRadius || 12) - 2 || 10,
+              borderRadius: (borderRadius || 16) - 2 || 10,
               maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
               flex: 1,
             }}

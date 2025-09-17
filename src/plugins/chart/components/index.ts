@@ -26,6 +26,11 @@ export const downloadChart = (
     const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
     const base64Image = chartInstance.toBase64Image(mimeType, quality);
 
+    // 验证 base64 数据是否有效
+    if (!base64Image || base64Image.trim() === '') {
+      throw new Error('Invalid base64 image data');
+    }
+
     // 创建下载链接
     const link = document.createElement('a');
     link.download = `${filename}-${new Date().getTime()}.${format}`;
