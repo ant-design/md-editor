@@ -67,13 +67,20 @@ export const VoicePlayLottie: React.FC<LottieVoiceProps> = ({
   const containerStyle: React.CSSProperties = {
     width: size,
     height: size,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     ...style,
   };
 
   return (
-    <div style={containerStyle} className={className}>
-      <Lottie animationData={voicePlay} loop={loop} autoplay={autoplay} />
-    </div>
+    <Lottie
+      style={containerStyle}
+      className={className}
+      animationData={voicePlay}
+      loop={loop}
+      autoplay={autoplay}
+    />
   );
 };
 

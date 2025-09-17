@@ -20,7 +20,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       fontSize: '32px',
-      padding: '0px 6px',
       height: 32,
       display: 'flex',
       alignItems: 'center',
