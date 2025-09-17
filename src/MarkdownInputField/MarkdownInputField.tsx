@@ -625,7 +625,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       ) : null,
       <SendButton
         key="send-button"
-        typing={!!props.typing || isLoading || recording}
+        typing={!!props.typing || isLoading}
         isHover={isHover}
         disabled={props.disabled}
         onClick={() => {

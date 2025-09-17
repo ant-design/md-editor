@@ -10,10 +10,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       height: '32px',
       width: '32px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       padding: '8px',
       cursor: 'pointer',
       borderRadius: '8px',
       backdropFilter: 'blur(20px)',
+      fontSize: '16px',
       '&:hover': {
         background: 'rgba(0, 28, 57, 0.0353)',
       },
