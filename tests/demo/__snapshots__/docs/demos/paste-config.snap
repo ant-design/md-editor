@@ -61,7 +61,7 @@
         </h2>
         <div
           class="ant-dropdown-trigger ant-md-input-field"
-          style="border-radius: 12px;"
+          style="border-radius: 16px;"
         >
           <div
             class="ant-md-input-field-background"
@@ -237,7 +237,7 @@
         </h2>
         <div
           class="ant-dropdown-trigger ant-md-input-field"
-          style="border-radius: 12px;"
+          style="border-radius: 16px;"
         >
           <div
             class="ant-md-input-field-background"
@@ -413,7 +413,7 @@
         </h2>
         <div
           class="ant-dropdown-trigger ant-md-input-field"
-          style="border-radius: 12px;"
+          style="border-radius: 16px;"
         >
           <div
             class="ant-md-input-field-background"
@@ -589,7 +589,7 @@
         </h2>
         <div
           class="ant-dropdown-trigger ant-md-input-field"
-          style="border-radius: 12px;"
+          style="border-radius: 16px;"
         >
           <div
             class="ant-md-input-field-background"

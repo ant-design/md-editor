@@ -675,7 +675,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         })}
         style={{
           ...props.style,
-          borderRadius: props.borderRadius || 12,
+          borderRadius: props.borderRadius || 16,
         }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
