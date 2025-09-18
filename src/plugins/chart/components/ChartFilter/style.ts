@@ -8,7 +8,7 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      padding: '8px 0',
+      padding: '12px 0',
       display: 'flex',
       gap: '8px',
       justifyContent: 'flex-start',

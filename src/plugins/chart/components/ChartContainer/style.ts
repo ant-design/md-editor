@@ -31,7 +31,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 移动端适配
       '&&-mobile': {
         borderRadius: '6px',
-        padding: '12px',
+        padding: '10px',
         margin: '0 auto',
         maxWidth: '100%',
       },
@@ -39,7 +39,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 桌面端适配
       '&&-desktop': {
         borderRadius: '8px',
-        padding: '20px',
+        padding: '12px',
         margin: 'initial',
         maxWidth: 'none',
       },

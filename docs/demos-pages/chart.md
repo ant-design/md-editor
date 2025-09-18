@@ -48,3 +48,7 @@ nav:
 ## 漏斗图
 
 <code src="../demos/charts/funnel.tsx" background="var(--main-bg-color)" iframe=540></code>
+
+## 带数据概览的图表
+
+<code src="../demos/charts/chartWithStatic.tsx" background="var(--main-bg-color)" iframe=540></code>

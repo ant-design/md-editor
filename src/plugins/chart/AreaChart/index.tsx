@@ -18,9 +18,12 @@ import {
   ChartContainer,
   ChartContainerProps,
   ChartFilter,
+  ChartStatic,
+  ChartStaticProps,
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { useChartStatic } from '../hooks/useChartStatic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -87,6 +90,8 @@ export interface AreaChartProps extends ChartContainerProps {
   yPosition?: 'left' | 'right';
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** ChartStatic组件配置：boolean表示是否启用（使用默认配置），object表示详细配置 */
+  static?: boolean | Omit<ChartStaticProps, 'theme'>;
 }
 
 const defaultColors = [
@@ -138,6 +143,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   xPosition = 'bottom',
   yPosition = 'left',
   toolbarExtra,
+  static: staticConfig,
   variant,
 }) => {
   const safeData = Array.isArray(data) ? data : [];
@@ -166,6 +172,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
   const baseClassName = context?.getPrefixCls('area-chart-container');
 
   const chartRef = useRef<ChartJS<'line'>>(null);
+
+  // ChartStatic 组件配置
+  const staticComponentConfig = useChartStatic(staticConfig);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -440,6 +449,10 @@ const AreaChart: React.FC<AreaChartProps> = ({
         dataTime={dataTime}
       />
 
+      {staticComponentConfig && (
+        <ChartStatic {...staticComponentConfig} theme={theme} />
+      )}
+
       <ChartFilter
         filterOptions={filterOptions}
         selectedFilter={selectedFilter}
@@ -452,7 +465,10 @@ const AreaChart: React.FC<AreaChartProps> = ({
         theme={theme}
       />
 
-      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
+      <div
+        className="chart-wrapper"
+        style={{ marginTop: '20px', height: responsiveHeight }}
+      >
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
     </ChartContainer>
