@@ -296,17 +296,24 @@ describe('MarkdownInputField Enhanced Tests', () => {
           Actions
         </div>,
       ]);
+      const quickActionRender = vi.fn(() => [
+        <div key="quick-actions" data-testid="custom-quick-actions">
+          quickActionRender
+        </div>,
+      ]);
 
       render(
         <MarkdownInputField
           value="test"
           toolsRender={toolsRender}
           actionsRender={actionsRender}
+          quickActionRender={quickActionRender}
         />,
       );
 
       expect(screen.getByTestId('custom-tools')).toBeInTheDocument();
       expect(screen.getByTestId('custom-actions')).toBeInTheDocument();
+      expect(screen.getByTestId('custom-quick-actions')).toBeInTheDocument();
     });
   });
 

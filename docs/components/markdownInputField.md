@@ -285,6 +285,11 @@ export default () => {
             </button>,
             ...defaultActions,
           ]}
+          quickActionRender={(props) => [
+            <button key="top-right" onClick={() => console.log('右上按钮')}>
+              右上
+            </button>,
+          ]}
         />
       </div>
       <div>
@@ -303,6 +308,9 @@ export default () => {
                 <code>defaultActions</code> - 默认的操作按钮数组
               </li>
             </ul>
+          </li>
+          <li>
+            <code>quickActionRender</code> - 在编辑区域右上、贴右侧渲染按钮组；组件会根据其宽度自动为文本区域预留右侧内边距，避免遮挡。
           </li>
         </ul>
       </div>
