@@ -142,7 +142,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   }
 
   // 使用ChartStatic hook处理配置
-  const staticComponentConfig = useChartStatic(staticConfig);
+  const staticComponentConfigs = useChartStatic(staticConfig);
 
   const handleDownload = () => {
     if (onDownload) {
@@ -257,8 +257,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
               dataTime={dataTime}
             />
           )}
-          {staticComponentConfig && (
-            <ChartStatic {...staticComponentConfig} theme={chartFilterTheme} />
+          {staticComponentConfigs && (
+            <div className="chart-static-container">
+              {staticComponentConfigs.map((config, index) => (
+                <ChartStatic key={index} {...config} theme={chartFilterTheme} />
+              ))}
+            </div>
           )}
           {shouldShowFilter && (
             <ChartFilter

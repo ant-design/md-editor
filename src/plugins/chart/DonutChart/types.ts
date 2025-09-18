@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChartContainerProps } from '../components';
-import { ChartStaticProps } from '../components/ChartStatic';
+import { StaticConfigType } from '../hooks/useChartStatic';
 
 export interface DonutChartData {
   category?: string; // 分类
@@ -45,6 +45,6 @@ export interface DonutChartProps extends ChartContainerProps {
   singleMode?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
-  /** ChartStatic组件配置：boolean表示是否启用（使用默认配置），object表示详细配置 */
-  static?: boolean | Omit<ChartStaticProps, 'theme'>;
+  /** ChartStatic组件配置：object表示单个配置，array表示多个配置 */
+  static?: StaticConfigType;
 }

@@ -18,13 +18,8 @@ const DonutSingleDemo: React.FC = () => {
         width={120}
         height={120}
         singleMode
+        title="用户性别分布"
         showToolbar={true}
-        static={{
-          title: '发布工作流数',
-          value: 38,
-          suffix: '个',
-          tooltip: '发布工作流数tips',
-        }}
       />
       {/* 数据格式说明 */}
       <div

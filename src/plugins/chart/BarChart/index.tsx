@@ -17,11 +17,10 @@ import {
   ChartContainerProps,
   ChartFilter,
   ChartStatic,
-  ChartStaticProps,
   ChartToolBar,
   downloadChart,
 } from '../components';
-import { useChartStatic } from '../hooks/useChartStatic';
+import { StaticConfigType, useChartStatic } from '../hooks/useChartStatic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -89,8 +88,8 @@ export interface BarChartProps extends ChartContainerProps {
   indexAxis?: 'x' | 'y';
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
-  /** ChartStatic组件配置：boolean表示是否启用（使用默认配置），object表示详细配置 */
-  static?: boolean | Omit<ChartStaticProps, 'theme'>;
+  /** ChartStatic组件配置：object表示单个配置，array表示多个配置 */
+  static?: StaticConfigType;
 }
 
 const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
@@ -168,7 +167,7 @@ const BarChart: React.FC<BarChartProps> = ({
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
   // ChartStatic 组件配置
-  const staticComponentConfig = useChartStatic(staticConfig);
+  const staticComponentConfigs = useChartStatic(staticConfig);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -215,12 +214,15 @@ const BarChart: React.FC<BarChartProps> = ({
       ? safeData.filter((item) => item.category === selectedFilter)
       : safeData;
 
-    const withFilterLabel = !filterLabels || !selectedFilterLabel
-      ? base
-      : base.filter((item) => item.filterLabel === selectedFilterLabel);
+    const withFilterLabel =
+      !filterLabels || !selectedFilterLabel
+        ? base
+        : base.filter((item) => item.filterLabel === selectedFilterLabel);
 
     // 最终统一过滤掉 x 为空（null/undefined）的数据，避免后续 toString 报错
-    return withFilterLabel.filter((item) => item.x !== null && item.x !== undefined);
+    return withFilterLabel.filter(
+      (item) => item.x !== null && item.x !== undefined,
+    );
   }, [safeData, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 从数据中提取唯一的类型
@@ -602,8 +604,12 @@ const BarChart: React.FC<BarChartProps> = ({
         dataTime={dataTime}
       />
 
-      {staticComponentConfig && (
-        <ChartStatic {...staticComponentConfig} theme={theme} />
+      {staticComponentConfigs && (
+        <div className="chart-static-container">
+          {staticComponentConfigs.map((config, index) => (
+            <ChartStatic key={index} {...config} theme={theme} />
+          ))}
+        </div>
       )}
 
       <ChartFilter

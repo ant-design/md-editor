@@ -1,26 +1,27 @@
 import React from 'react';
 import { ChartStaticProps } from '../components/ChartStatic';
 
+export type ChartStaticConfig = Omit<ChartStaticProps, 'theme'>;
+export type StaticConfigType = ChartStaticConfig | ChartStaticConfig[];
+
 /**
  * 通用的 ChartStatic 组件配置处理 hook
- * @param staticConfig ChartStatic 组件配置
- * @returns 处理后的配置对象
+ * @param staticConfig ChartStatic 组件配置，支持单个或数组
+ * @returns 处理后的配置数组
  */
-export const useChartStatic = (
-  staticConfig: boolean | Omit<ChartStaticProps, 'theme'> | undefined,
-) => {
+export const useChartStatic = (staticConfig: StaticConfigType | undefined) => {
   // 处理 ChartStatic 组件配置
-  const staticComponentConfig = React.useMemo(() => {
+  const staticComponentConfigs = React.useMemo(() => {
     if (!staticConfig) return null;
 
-    // 如果是 boolean 类型，使用默认配置
-    if (typeof staticConfig === 'boolean') {
-      return staticConfig ? {} : null;
+    // 如果是数组类型，直接返回
+    if (Array.isArray(staticConfig)) {
+      return staticConfig.length > 0 ? staticConfig : null;
     }
 
-    // 如果是对象类型，直接返回配置
-    return staticConfig;
+    // 如果是对象类型，包装成数组返回
+    return [staticConfig];
   }, [staticConfig]);
 
-  return staticComponentConfig;
+  return staticComponentConfigs;
 };

@@ -11,6 +11,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       flexDirection: 'column',
       gap: '12px',
+      minWidth: '160px',
 
       [`${token.componentCls}-header`]: {
         display: 'flex',

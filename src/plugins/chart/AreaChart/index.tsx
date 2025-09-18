@@ -19,11 +19,10 @@ import {
   ChartContainerProps,
   ChartFilter,
   ChartStatic,
-  ChartStaticProps,
   ChartToolBar,
   downloadChart,
 } from '../components';
-import { useChartStatic } from '../hooks/useChartStatic';
+import { StaticConfigType, useChartStatic } from '../hooks/useChartStatic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -90,8 +89,8 @@ export interface AreaChartProps extends ChartContainerProps {
   yPosition?: 'left' | 'right';
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
-  /** ChartStatic组件配置：boolean表示是否启用（使用默认配置），object表示详细配置 */
-  static?: boolean | Omit<ChartStaticProps, 'theme'>;
+  /** ChartStatic组件配置：object表示单个配置，array表示多个配置 */
+  static?: StaticConfigType;
 }
 
 const defaultColors = [
@@ -174,7 +173,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   const chartRef = useRef<ChartJS<'line'>>(null);
 
   // ChartStatic 组件配置
-  const staticComponentConfig = useChartStatic(staticConfig);
+  const staticComponentConfigs = useChartStatic(staticConfig);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -220,9 +219,10 @@ const AreaChart: React.FC<AreaChartProps> = ({
       ? safeData.filter((item) => item.category === selectedFilter)
       : safeData;
 
-    const withFilterLabel = !filterLabels || !selectedFilterLabel
-      ? base
-      : base.filter((item) => item.filterLabel === selectedFilterLabel);
+    const withFilterLabel =
+      !filterLabels || !selectedFilterLabel
+        ? base
+        : base.filter((item) => item.filterLabel === selectedFilterLabel);
 
     // 统一过滤掉 x 为空（null/undefined）的数据，避免后续 toString 报错
     return withFilterLabel.filter(
@@ -449,8 +449,12 @@ const AreaChart: React.FC<AreaChartProps> = ({
         dataTime={dataTime}
       />
 
-      {staticComponentConfig && (
-        <ChartStatic {...staticComponentConfig} theme={theme} />
+      {staticComponentConfigs && (
+        <div className="chart-static-container">
+          {staticComponentConfigs.map((config, index) => (
+            <ChartStatic key={index} {...config} theme={theme} />
+          ))}
+        </div>
       )}
 
       <ChartFilter

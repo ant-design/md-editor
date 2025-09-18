@@ -51,4 +51,4 @@ nav:
 
 ## 带数据概览的图表
 
-<code src="../demos/charts/chartWithStatic.tsx" background="var(--main-bg-color)" iframe=540></code>
+<code src="../demos/charts/chartWithStatic.tsx" background="var(--main-bg-color)" iframe=1000></code>
