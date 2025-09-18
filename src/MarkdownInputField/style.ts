@@ -88,6 +88,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '8px',
         alignItems: 'center',
       },
+      '&-quick-actions': {
+        position: 'absolute',
+        userSelect: 'none',
+        right: 18,
+        top: 12,
+        boxSizing: 'border-box',
+        zIndex: 99,
+        display: 'flex',
+        gap: '8px',
+        alignItems: 'center',
+      },
       '&-send-has-tools': {
         boxSizing: 'border-box',
         position: 'relative',

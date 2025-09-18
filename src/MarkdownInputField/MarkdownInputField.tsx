@@ -234,6 +234,32 @@ export type MarkdownInputFieldProps = {
   ) => React.ReactNode[];
 
   /**
+   * 自定义右上操作按钮渲染函数
+   * @description 在编辑区域右上角、贴靠右侧渲染一组操作按钮，组件会根据其宽度为编辑区域自动预留右侧内边距，避免遮挡文本。
+   * @param {Object} props - 包含组件所有属性以及当前状态的对象
+   * @param {boolean} props.isHover - 当前是否处于悬停状态
+   * @param {boolean} props.isLoading - 当前是否处于加载状态
+   * @param {'uploading' | 'done' | 'error'} props.fileUploadStatus - 文件上传状态
+   * @returns {React.ReactNode[]} 返回要渲染的操作按钮节点数组
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   quickActionRender={(props) => [
+   *     <MyQuickAction key="quick-action" />,
+   *   ]}
+   * />
+   * ```
+   */
+  quickActionRender?: (
+    props: MarkdownInputFieldProps &
+      MarkdownInputFieldProps['attachment'] & {
+        isHover: boolean;
+        isLoading: boolean;
+        fileUploadStatus: 'uploading' | 'done' | 'error';
+      },
+  ) => React.ReactNode[];
+
+  /**
    * Markdown 编辑器实例的引用
    * @description 用于获取编辑器实例，可以通过该实例调用编辑器的方法
    * @type {React.MutableRefObject<MarkdownEditorInstance | undefined>}
@@ -393,6 +419,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
 
   const actionsRef = React.useRef<HTMLDivElement>(null);
+  const quickActionsRef = React.useRef<HTMLDivElement>(null);
 
   const [value, setValue] = useMergedState('', {
     value: props.value,
@@ -400,6 +427,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   });
 
   const [rightPadding, setRightPadding] = useState(64);
+  const [topRightPadding, setTopRightPadding] = useState(0);
+
+  const computedRightPadding = useMemo(() => {
+    const bottomOverlayPadding = props.toolsRender ? 0 : rightPadding || 52;
+    const topOverlayPadding = topRightPadding || 0;
+    return Math.max(bottomOverlayPadding, topOverlayPadding);
+  }, [props.toolsRender, rightPadding, topRightPadding]);
 
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
@@ -717,6 +751,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           if (actionsRef.current?.contains(e.target as Node)) {
             return;
           }
+          if (quickActionsRef.current?.contains(e.target as Node)) {
+            return;
+          }
           if (
             markdownEditorRef.current?.store?.editor &&
             !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
@@ -828,20 +865,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             <BaseMarkdownEditor
               editorRef={markdownEditorRef}
               leafRender={props.leafRender}
-              style={
-                props.toolsRender
-                  ? {
-                      width: '100%',
-                      flex: 1,
-                      padding: 0,
-                    }
-                  : {
-                      width: '100%',
-                      flex: 1,
-                      padding: 0,
-                      paddingRight: rightPadding || 52,
-                    }
-              }
+              style={{
+                width: '100%',
+                flex: 1,
+                padding: 0,
+                paddingRight: computedRightPadding,
+              }}
               toolBar={{
                 enable: false,
               }}
@@ -850,7 +879,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               }}
               readonly={isLoading}
               contentStyle={{
-                padding: '8px',
+                padding: '12px',
               }}
               textAreaProps={{
                 enable: true,
@@ -998,6 +1027,37 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               </div>
             </RcResizeObserver>
           )}
+          {props?.quickActionRender ? (
+            <RcResizeObserver
+              onResize={(e) => {
+                setTopRightPadding(e.offsetWidth);
+              }}
+            >
+              <div
+                ref={quickActionsRef}
+                contentEditable={false}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                onKeyDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                className={classNames(`${baseCls}-quick-actions`, hashId)}
+              >
+                {props?.quickActionRender({
+                  value,
+                  fileMap,
+                  onFileMapChange: setFileMap,
+                  ...props,
+                  isHover,
+                  isLoading,
+                  fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                })}
+              </div>
+            </RcResizeObserver>
+          ) : null}
         </div>
       </div>
     </Suggestion>,
