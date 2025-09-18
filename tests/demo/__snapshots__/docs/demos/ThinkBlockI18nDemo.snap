@@ -1,0 +1,61 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px;"
+    >
+      <div
+        style="margin-bottom: 20px;"
+      >
+        <button
+          style="padding: 8px 16px; margin-right: 10px; background-color: rgb(24, 144, 255); color: white; border-radius: 4px; cursor: pointer;"
+          type="button"
+        >
+          切换语言 / Switch Language
+        </button>
+        <span>
+          当前语言 / Current Language: 中文
+        </span>
+      </div>
+      <div
+        style="padding: 16px; background-color: rgb(245, 245, 245); border-radius: 8px;"
+      >
+        <h4>
+          ThinkBlock 国际化支持
+        </h4>
+        <p>
+          ThinkBlock 组件现已支持国际化：
+        </p>
+        <ul>
+          <li>
+            中文环境：「深度思考」、「深度思考...」
+          </li>
+          <li>
+            英文环境：「Deep Thinking」、「Deep Thinking...」
+          </li>
+        </ul>
+        <h5>
+          使用方法：
+        </h5>
+        <pre
+          style="background-color: rgb(255, 255, 255); padding: 12px; border-radius: 4px; overflow: auto;"
+        >
+          import { ThinkBlock, I18nProvide } from '@ant-design/md-editor';
+
+// 在 I18nProvide 包裹下使用
+&lt;I18nProvide defaultLanguage="zh-CN"&gt;
+  &lt;ThinkBlock element={codeElement} /&gt;
+&lt;/I18nProvide&gt;
+
+// ThinkBlock 会自动根据当前语言环境显示对应文本
+// - 中文：深度思考 / 深度思考...
+// - 英文：Deep Thinking / Deep Thinking...
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

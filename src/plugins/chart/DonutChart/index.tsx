@@ -239,7 +239,10 @@ const DonutChart: React.FC<DonutChartProps> = ({
       }}
     >
       {showToolbar && (
-        <ChartContainer baseClassName={`${baseClassName}-toolbar-wrapper`} variant="borderless">
+        <ChartContainer
+          baseClassName={`${baseClassName}-toolbar-wrapper`}
+          variant="borderless"
+        >
           {title && (
             <ChartToolBar
               title={title}

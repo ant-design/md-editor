@@ -1,12 +1,5 @@
-import React, {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useMergedState } from 'rc-util';
+import React, { memo, useCallback, useContext, useMemo } from 'react';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
 import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
@@ -123,6 +116,10 @@ type ThoughtChainProps = {
     status: 'success' | 'pending' | 'loading' | 'error';
   }[];
   className?: string;
+  /** 受控模式：指定当前展开的任务项 key 数组 */
+  expandedKeys?: string[];
+  /** 受控模式：展开状态变化时的回调函数 */
+  onExpandedKeysChange?: (expandedKeys: string[]) => void;
 };
 
 const TaskListItem = memo(
@@ -131,7 +128,7 @@ const TaskListItem = memo(
     isLast,
     prefixCls,
     hashId,
-    itemsCollapseStatus,
+    expandedKeys,
     onToggle,
   }: {
     item: {
@@ -143,11 +140,11 @@ const TaskListItem = memo(
     isLast: boolean;
     prefixCls: string;
     hashId: string;
-    itemsCollapseStatus: React.MutableRefObject<Map<string, boolean>>;
+    expandedKeys: string[];
     onToggle: (key: string) => void;
   }) => {
     const { locale } = useContext(I18nContext);
-    const isCollapsed = itemsCollapseStatus.current.get(item.key);
+    const isCollapsed = !expandedKeys.includes(item.key);
 
     const hasContent = useMemo(() => {
       if (Array.isArray(item.content)) {
@@ -228,24 +225,54 @@ TaskListItem.displayName = 'TaskListItem';
  *
  * 该组件显示任务列表，支持任务的展开/折叠、状态管理等功能。
  * 每个任务项显示标题、内容等信息，支持点击交互和动画效果。
+ * 支持受控和非受控两种模式。
  *
  * @component
  * @description 任务列表组件，显示任务列表和状态管理
  * @param {ThoughtChainProps} props - 组件属性
  * @param {TaskItem[]} props.items - 任务列表数据
  * @param {string} [props.className] - 自定义CSS类名
+ * @param {string[]} [props.expandedKeys] - 受控模式：指定当前展开的任务项 key 数组
+ * @param {(expandedKeys: string[]) => void} [props.onExpandedKeysChange] - 受控模式：展开状态变化时的回调函数
  *
  * @example
+ * // 非受控模式（默认）
  * ```tsx
  * <TaskList
  *   items={[
  *     {
  *       key: 'task1',
  *       title: '任务1',
- *       content: '任务内容'
+ *       content: '任务内容',
+ *       status: 'success'
  *     }
  *   ]}
  *   className="custom-task-list"
+ * />
+ * ```
+ *
+ * @example
+ * // 受控模式
+ * ```tsx
+ * const [expandedKeys, setExpandedKeys] = useState(['task1']);
+ *
+ * <TaskList
+ *   items={[
+ *     {
+ *       key: 'task1',
+ *       title: '任务1',
+ *       content: '任务内容',
+ *       status: 'success'
+ *     },
+ *     {
+ *       key: 'task2',
+ *       title: '任务2',
+ *       content: '任务内容',
+ *       status: 'pending'
+ *     }
+ *   ]}
+ *   expandedKeys={expandedKeys}
+ *   onExpandedKeysChange={setExpandedKeys}
  * />
  * ```
  *
@@ -257,65 +284,62 @@ TaskListItem.displayName = 'TaskListItem';
  * - 显示任务标题和内容
  * - 支持点击交互
  * - 提供动画效果
- * - 自动管理折叠状态
+ * - 自动管理折叠状态（非受控模式）
+ * - 支持受控模式，通过 expandedKeys 和 onExpandedKeysChange 控制展开状态
  */
-export const TaskList = memo(({ items, className }: ThoughtChainProps) => {
-  const prefixCls = 'task-list';
-  const { wrapSSR, hashId } = useStyle(prefixCls);
-  const [reFresh, setReFresh] = useState(false);
-  const itemsCollapseStatus = useRef(new Map());
+export const TaskList = memo(
+  ({
+    items,
+    className,
+    expandedKeys,
+    onExpandedKeysChange,
+  }: ThoughtChainProps) => {
+    const prefixCls = 'task-list';
+    const { wrapSSR, hashId } = useStyle(prefixCls);
 
-  useEffect(() => {
-    return () => {
-      itemsCollapseStatus.current.clear();
-    };
-  }, []);
+    // 如果是受控模式，使用传入的 expandedKeys
+    // 如果是非受控模式，默认所有任务都展开（为了保持向后兼容）
+    const defaultExpandedKeys = useMemo(() => {
+      return expandedKeys !== undefined ? [] : items.map((item) => item.key);
+    }, [items, expandedKeys]);
 
-  useEffect(() => {
-    let flag = false;
-    items.forEach((item) => {
-      const oldStatus = itemsCollapseStatus.current.has(item.key);
-      if (oldStatus) {
-        itemsCollapseStatus.current.set(
-          item.key,
-          !!itemsCollapseStatus.current.get(item.key),
-        );
-      } else {
-        flag = true;
-        itemsCollapseStatus.current.set(item.key, false);
-      }
+    // 使用 useMergedState 管理展开状态
+    const [internalExpandedKeys, setInternalExpandedKeys] = useMergedState<
+      string[]
+    >(defaultExpandedKeys, {
+      value: expandedKeys,
+      onChange: onExpandedKeysChange,
     });
-    if (flag) {
-      setReFresh(!reFresh);
-    }
-  }, [items, reFresh]);
 
-  const handleToggle = useCallback(
-    (key: string) => {
-      itemsCollapseStatus.current.set(
-        key,
-        !itemsCollapseStatus.current.get(key),
-      );
-      setReFresh(!reFresh);
-    },
-    [reFresh],
-  );
+    const handleToggle = useCallback(
+      (key: string) => {
+        // 在受控模式下使用 expandedKeys，在非受控模式下使用 internalExpandedKeys
+        const currentExpanded =
+          expandedKeys !== undefined ? expandedKeys : internalExpandedKeys;
+        const newExpandedKeys = currentExpanded.includes(key)
+          ? currentExpanded.filter((k) => k !== key)
+          : [...currentExpanded, key];
+        setInternalExpandedKeys(newExpandedKeys);
+      },
+      [expandedKeys, internalExpandedKeys, setInternalExpandedKeys],
+    );
 
-  return wrapSSR(
-    <div className={className}>
-      {items.map((item, index) => (
-        <TaskListItem
-          key={item.key}
-          item={item}
-          isLast={index === items.length - 1}
-          prefixCls={prefixCls}
-          hashId={hashId}
-          itemsCollapseStatus={itemsCollapseStatus}
-          onToggle={handleToggle}
-        />
-      ))}
-    </div>,
-  );
-});
+    return wrapSSR(
+      <div className={className}>
+        {items.map((item, index) => (
+          <TaskListItem
+            key={item.key}
+            item={item}
+            isLast={index === items.length - 1}
+            prefixCls={prefixCls}
+            hashId={hashId}
+            expandedKeys={internalExpandedKeys}
+            onToggle={handleToggle}
+          />
+        ))}
+      </div>,
+    );
+  },
+);
 
 TaskList.displayName = 'TaskList';

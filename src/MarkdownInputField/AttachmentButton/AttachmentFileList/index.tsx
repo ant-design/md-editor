@@ -90,22 +90,6 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
         }
         className={classNames(prefix, hashId)}
       >
-        <Image
-          key="preview"
-          src={imgSrc}
-          alt="Preview"
-          style={{ display: 'none' }}
-          preview={{
-            visible: !!imgSrc,
-            scaleStep: 1,
-            src: imgSrc,
-            onVisibleChange: (value) => {
-              if (!value) {
-                setImgSrc(undefined);
-              }
-            },
-          }}
-        />
         <AnimatePresence initial={false}>
           {Array.from(props.fileMap?.values() || []).map((file, index) => (
             <AttachmentFileListItem
@@ -133,6 +117,22 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
             />
           ))}
         </AnimatePresence>
+        <Image
+          key="preview"
+          src={imgSrc}
+          alt="Preview"
+          style={{ display: 'none' }}
+          preview={{
+            visible: !!imgSrc,
+            scaleStep: 1,
+            src: imgSrc,
+            onVisibleChange: (value) => {
+              if (!value) {
+                setImgSrc(undefined);
+              }
+            },
+          }}
+        />
       </motion.div>
       {Array.from(props.fileMap?.values() || []).every(
         (file) => file.status === 'done',

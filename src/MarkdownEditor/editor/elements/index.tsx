@@ -596,6 +596,7 @@ const MLeafComponent = (
       id={`comment-${props.leaf?.id}`}
       comment={props.comment}
       hashId={props.hashId}
+      selection={leaf?.selection}
       commentItem={leaf?.comment ? (leaf.data as any) : null}
       setShowComment={setShowComment}
     >

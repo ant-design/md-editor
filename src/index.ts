@@ -9,6 +9,7 @@ export type {
 } from './Bubble/type';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
+export * from './components/VisualList';
 export * from './hooks/useAutoScroll';
 export { useLanguage } from './hooks/useLanguage';
 export * from './hooks/useRefFunction';

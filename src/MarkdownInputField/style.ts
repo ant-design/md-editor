@@ -1,9 +1,20 @@
-﻿import {
+﻿import { Keyframes } from '@ant-design/cssinjs';
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
 } from '../hooks/useStyle';
+
+// 定义旋转动画
+const stopIconRotate = new Keyframes('stopIconRotate', {
+  '0%': {
+    transform: 'rotate(0deg)',
+  },
+  '100%': {
+    transform: 'rotate(360deg)',
+  },
+});
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -16,8 +27,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '2px',
-      borderRadius: '12px',
-      minHeight: '32px',
+      borderRadius: '16px',
+      minHeight: '48px',
       maxWidth: 980,
       backdropFilter: 'blur(5.44px)',
       position: 'relative',
@@ -95,6 +106,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         right: 'inherit',
         bottom: 'inherit',
         top: 'inherit',
+      },
+
+      // 旋转动画样式
+      '.stop-icon-ring': {
+        transition: 'transform 0.1s ',
+        transformOrigin: '16px 16px',
+        animationName: stopIconRotate,
+        animationDuration: '1s',
+        animationTimingFunction: 'linear',
+        animationIterationCount: 'infinite',
       },
     },
   };

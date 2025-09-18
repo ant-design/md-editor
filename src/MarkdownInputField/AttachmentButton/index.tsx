@@ -49,20 +49,18 @@ export type AttachmentButtonProps = {
 
   /**
    * 定义附件按钮支持的文件格式
-   * @see AttachmentButtonPopoverProps.supportedFormats
+   * @see AttachmentButtonPopoverProps.supportedFormat
    * @example
-   * const formats ={
+   * const format = {
    *   icon: <FileImageOutlined />,
    *   type: '图片',
    *   maxSize: 10 * 1024,
    *   extensions: ['jpg', 'jpeg', 'png', 'gif'],
    * };
    */
-  supportedFormats?: AttachmentButtonPopoverProps['supportedFormats'];
-
-  /**
+  supportedFormat?: AttachmentButtonPopoverProps['supportedFormat'] /**
    * 是否禁用附件上传按钮
-   */
+   */;
   disabled?: boolean;
 
   /**
@@ -200,12 +198,13 @@ export const AttachmentButton: React.FC<
   const { wrapSSR, hashId } = useStyle(prefix);
 
   // 默认支持的文件格式
-  const supportedFormats = useMemo(() => {
-    if (props.supportedFormats) {
-      return props.supportedFormats;
+  const supportedFormat = useMemo(() => {
+    if (props.supportedFormat) {
+      return props.supportedFormat;
     }
-    return SupportedFileFormats;
-  }, [props.supportedFormats]);
+    // 使用默认格式（图片）
+    return SupportedFileFormats.image;
+  }, [props.supportedFormat]);
 
   return wrapSSR(
     <div
@@ -218,7 +217,7 @@ export const AttachmentButton: React.FC<
       }}
       data-testid="attachment-button"
     >
-      <AttachmentButtonPopover supportedFormats={supportedFormats}>
+      <AttachmentButtonPopover supportedFormat={supportedFormat}>
         <AttachmentIcon />
       </AttachmentButtonPopover>
     </div>,

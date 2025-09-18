@@ -1,10 +1,13 @@
-import { EyeOutlined, PlusOutlined, UndoOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Space, Tooltip } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { I18nContext } from '../i18n';
 import { PauseIcon } from './icons/PauseIcon';
 import { PlayIcon } from './icons/PlayIcon';
+import { SimplePauseIcon } from './icons/SimplePauseIcon';
+import { SimplePlayIcon } from './icons/SimplePlayIcon';
+import { SimpleStopIcon } from './icons/SimpleStopIcon';
 import { StopIcon } from './icons/StopIcon';
 import Robot from './Robot';
 import { useStyle } from './style';
@@ -42,16 +45,29 @@ export enum TASK_RUNNING_STATUS {
 }
 
 /**
+ * 主题样式变体
+ */
+export type TaskRunningVariant = 'simple' | 'default';
+
+/**
+ * 任务操作按钮渲染函数
+ */
+export type TaskRunningActionsRender = (props: {
+  status?: TASK_STATUS;
+  runningStatus?: TASK_RUNNING_STATUS;
+}) => React.ReactNode;
+
+/**
  * TaskRunning组件的属性接口
  * @interface TaskRunningProps
  */
-interface TaskRunningProps {
+export interface TaskRunningProps {
   /** 任务状态 */
   taskStatus: TASK_STATUS;
   /** 任务运行状态 */
   taskRunningStatus: TASK_RUNNING_STATUS;
   /** 创建新任务的回调函数 */
-  onCreateNewTask: () => void;
+  onCreateNewTask?: () => void;
   /** 暂停任务的回调函数 */
   onPause?: () => void;
   /** 继续任务的回调函数 */
@@ -72,12 +88,20 @@ interface TaskRunningProps {
   title?: string;
   /** 描述文案 */
   description?: string;
+  /** 自定义操作按钮 */
+  actionsRender?: TaskRunningActionsRender | false;
+  /** 主题样式变体 */
+  variant?: TaskRunningVariant;
   /** 国际化配置 */
   locale?: {
     agentRunBar?: {
       play?: string;
       pause?: string;
       stop?: string;
+      createNewTask?: string;
+      replayTask?: string;
+      newTask?: string;
+      submitTask?: string;
     };
   };
 }
@@ -92,122 +116,110 @@ interface TaskRunningProps {
  * @param locale 国际化配置
  * @returns 按钮组JSX
  */
-const renderButtonGroup = (
-  status: TASK_STATUS,
-  runningStatus: TASK_RUNNING_STATUS,
-  callbacks: {
-    onCreateNewTask?: () => void;
-    onPause?: () => void;
-    onResume?: () => void;
-    onStop?: () => void;
-    onReplay?: () => void;
-    onViewResult?: () => void;
-  },
-  baseCls: string,
-  hashId: string,
-  locale?: {
-    agentRunBar?: {
-      play?: string;
-      pause?: string;
-      stop?: string;
-    };
-  },
-) => {
-  const { onCreateNewTask, onPause, onResume, onStop, onReplay, onViewResult } =
-    callbacks;
-
+const renderButtonGroup = ({
+  taskStatus,
+  taskRunningStatus,
+  actionsRender,
+  baseCls,
+  hashId,
+  locale,
+  onCreateNewTask,
+  onReplay,
+  onViewResult,
+  onPause,
+  onResume,
+  onStop,
+  variant,
+}: Pick<
+  TaskRunningProps,
+  | 'taskStatus'
+  | 'taskRunningStatus'
+  | 'onCreateNewTask'
+  | 'onPause'
+  | 'onResume'
+  | 'onStop'
+  | 'onReplay'
+  | 'onViewResult'
+  | 'actionsRender'
+  | 'locale'
+  | 'variant'
+> & {
+  baseCls: string;
+  hashId: string;
+}) => {
   // 任务运行中状态
-  if (
-    status === TASK_STATUS.RUNNING &&
-    runningStatus === TASK_RUNNING_STATUS.RUNNING
-  ) {
-    return (
-      <Space>
-        {onPause && (
-          <div className={`${baseCls}-pause ${hashId}`} onClick={onPause}>
-            <PauseIcon title={locale?.agentRunBar?.pause} />
-          </div>
-        )}
-        {onStop && (
-          <div className={`${baseCls}-pause ${hashId}`} onClick={onStop}>
-            <StopIcon title={locale?.agentRunBar?.stop} />
-          </div>
-        )}
-      </Space>
-    );
-  }
+  const isRunning =
+    taskStatus === TASK_STATUS.RUNNING &&
+    taskRunningStatus === TASK_RUNNING_STATUS.RUNNING;
 
   // 任务已暂停状态
-  if (
-    status === TASK_STATUS.PAUSE ||
-    (status === TASK_STATUS.RUNNING &&
-      runningStatus === TASK_RUNNING_STATUS.PAUSE)
-  ) {
-    return (
-      <div className={`${baseCls}-button-wrapper ${hashId}`}>
-        {onCreateNewTask && (
-          <Button
-            onClick={onCreateNewTask}
-            icon={<PlusOutlined />}
-            color="default"
-            variant="solid"
-          >
-            新任务
-          </Button>
-        )}
-        {onResume && (
-          <div className={`${baseCls}-play ${hashId}`} onClick={onResume}>
-            <PlayIcon title={locale?.agentRunBar?.play} />
-          </div>
-        )}
-      </div>
+  const isPause =
+    taskStatus === TASK_STATUS.PAUSE ||
+    (taskStatus === TASK_STATUS.RUNNING &&
+      taskRunningStatus === TASK_RUNNING_STATUS.PAUSE);
+
+  let actionNode: React.ReactNode = null;
+
+  // 自定义操作按钮
+  if (actionsRender || actionsRender === false) {
+    actionNode =
+      typeof actionsRender === 'function'
+        ? actionsRender({
+            status: taskStatus,
+            runningStatus: taskRunningStatus,
+          })
+        : actionsRender;
+  }
+  // 任务已暂停状态
+  else if (isPause) {
+    actionNode = onCreateNewTask && (
+      <Button
+        onClick={onCreateNewTask}
+        icon={<PlusOutlined />}
+        color="default"
+        variant="solid"
+      >
+        {locale?.agentRunBar?.newTask}
+      </Button>
     );
   }
-
   // 任务已停止状态
-  if (status === TASK_STATUS.STOPPED || status === TASK_STATUS.CANCELLED) {
-    return (
-      <div className={`${baseCls}-button-wrapper ${hashId}`}>
-        {onCreateNewTask && (
-          <Button
-            type="primary"
-            onClick={onCreateNewTask}
-            icon={<PlusOutlined />}
-            color="default"
-            variant="solid"
-          >
-            创建新任务
-          </Button>
-        )}
-      </div>
+  else if (
+    taskStatus === TASK_STATUS.STOPPED ||
+    taskStatus === TASK_STATUS.CANCELLED
+  ) {
+    actionNode = onCreateNewTask && (
+      <Button
+        type="primary"
+        onClick={onCreateNewTask}
+        icon={<PlusOutlined />}
+        color="default"
+        variant="solid"
+      >
+        {locale?.agentRunBar?.createNewTask}
+      </Button>
     );
   }
-
   // 任务已完成状态
-  if (
-    status === TASK_STATUS.SUCCESS &&
-    runningStatus === TASK_RUNNING_STATUS.COMPLETE
+  else if (
+    taskStatus === TASK_STATUS.SUCCESS &&
+    taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE
   ) {
-    return (
-      <div className={`${baseCls}-button-wrapper ${hashId}`}>
+    actionNode = (
+      <>
+        {onReplay && (
+          <Button onClick={onReplay} variant="solid" autoInsertSpace={false}>
+            {locale?.agentRunBar?.replayTask}
+          </Button>
+        )}
         {onViewResult && (
           <Button
             onClick={onViewResult}
-            icon={<EyeOutlined />}
             color="default"
             variant="solid"
+            autoInsertSpace={false}
           >
-            查看
-          </Button>
-        )}
-        {onReplay && (
-          <Button
-            onClick={onReplay}
-            icon={<UndoOutlined />}
-            color="default"
-            variant="solid"
-          >
-            重新执行
+            {locale?.agentRunBar?.submitTask}
           </Button>
         )}
         {onCreateNewTask && (
@@ -217,26 +229,19 @@ const renderButtonGroup = (
             color="default"
             variant="solid"
           >
-            新任务
+            {locale?.agentRunBar?.newTask}
           </Button>
         )}
-      </div>
+      </>
     );
   }
-
   // 任务出错状态
-  if (status === TASK_STATUS.ERROR) {
-    return (
-      <div className={`${baseCls}-button-wrapper ${hashId}`}>
+  else if (taskStatus === TASK_STATUS.ERROR) {
+    actionNode = (
+      <>
         {onReplay && (
-          <Button
-            type="primary"
-            onClick={onReplay}
-            icon={<UndoOutlined />}
-            color="default"
-            variant="solid"
-          >
-            重新执行
+          <Button onClick={onReplay} variant="solid" autoInsertSpace={false}>
+            {locale?.agentRunBar?.replayTask}
           </Button>
         )}
         {onCreateNewTask && (
@@ -246,25 +251,75 @@ const renderButtonGroup = (
             color="default"
             variant="solid"
           >
-            新任务
+            {locale?.agentRunBar?.newTask}
           </Button>
         )}
-      </div>
+      </>
+    );
+  }
+  // 默认状态
+  else if (!isRunning && !isPause) {
+    actionNode = onCreateNewTask && (
+      <Button
+        onClick={onCreateNewTask}
+        icon={<PlusOutlined />}
+        color="default"
+        variant="solid"
+      >
+        {locale?.agentRunBar?.createNewTask}
+      </Button>
     );
   }
 
-  // 默认状态
+  const stopTitle = locale?.agentRunBar?.stop;
+  const pauseTitle = locale?.agentRunBar?.pause;
+  const playTitle = locale?.agentRunBar?.play;
+
   return (
     <div className={`${baseCls}-button-wrapper ${hashId}`}>
-      {onCreateNewTask && (
-        <Button
-          onClick={onCreateNewTask}
-          icon={<PlusOutlined />}
-          color="default"
-          variant="solid"
-        >
-          创建新任务
-        </Button>
+      {actionNode}
+
+      {/* 停止按钮 */}
+      {(isRunning || isPause) && onStop && (
+        <Tooltip title={stopTitle}>
+          <div
+            className={`${baseCls}-pause ${hashId}`}
+            role="button"
+            tabIndex={0}
+            aria-label={stopTitle}
+            onClick={onStop}
+          >
+            {variant === 'simple' ? <SimpleStopIcon /> : <StopIcon />}
+          </div>
+        </Tooltip>
+      )}
+      {/* 暂停按钮 */}
+      {isRunning && onPause && (
+        <Tooltip title={pauseTitle}>
+          <div
+            className={`${baseCls}-pause ${hashId}`}
+            role="button"
+            tabIndex={0}
+            aria-label={pauseTitle}
+            onClick={onPause}
+          >
+            {variant === 'simple' ? <SimplePauseIcon /> : <PauseIcon />}
+          </div>
+        </Tooltip>
+      )}
+      {/* 继续按钮 */}
+      {isPause && onResume && (
+        <Tooltip title={playTitle}>
+          <div
+            className={`${baseCls}-play ${hashId}`}
+            role="button"
+            tabIndex={0}
+            aria-label={playTitle}
+            onClick={onResume}
+          >
+            {variant === 'simple' ? <SimplePlayIcon /> : <PlayIcon />}
+          </div>
+        </Tooltip>
       )}
     </div>
   );
@@ -293,6 +348,8 @@ const renderButtonGroup = (
  * @param {string} [props.description] - 描述文案
  * @param {React.ReactNode} [props.icon] - 自定义图标
  * @param {string} [props.iconTooltip] - 图标提示文案
+ * @param {TaskRunningActionsRender | false} [props.actionsRender] - 自定义操作按钮
+ * @param {TaskRunningVariant} [props.variant] - 样式变体
  *
  * @example
  * ```tsx
@@ -336,6 +393,8 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
     description,
     icon,
     iconTooltip,
+    actionsRender,
+    variant = 'default',
   } = rest;
 
   const context = useContext(ConfigProvider.ConfigContext);
@@ -366,19 +425,31 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
   };
 
   return wrapSSR(
-    <div className={classNames(baseCls, hashId, className)} style={rest.style}>
+    <div
+      className={classNames(
+        baseCls,
+        hashId,
+        className,
+        `${baseCls}-${variant}`,
+      )}
+      style={rest.style}
+    >
+      <div className={`${baseCls}-border ${hashId}`} />
+      <div className={`${baseCls}-background ${hashId}`} />
       <div className={`${baseCls}-left ${hashId}`}>
-        <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
-          <Tooltip title={iconTooltip}>
-            <Robot icon={icon} status={getRobotStatus()} size={36} />
-          </Tooltip>
-        </div>
+        {icon !== false && (
+          <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
+            <Tooltip title={iconTooltip}>
+              <Robot icon={icon} status={getRobotStatus()} size={36} />
+            </Tooltip>
+          </div>
+        )}
         {/* 文字区 */}
         <div className={`${baseCls}-left-content ${hashId}`}>
           {title && (
             <div className={`${baseCls}-left-main-text ${hashId}`}>{title}</div>
           )}
-          {description && (
+          {variant !== 'simple' && description && (
             <div className={`${baseCls}-left-text ${hashId}`}>
               {description}
             </div>
@@ -387,21 +458,21 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
       </div>
 
       {/* 按钮区 */}
-      {renderButtonGroup(
+      {renderButtonGroup({
         taskStatus,
         taskRunningStatus,
-        {
-          onCreateNewTask,
-          onPause,
-          onResume,
-          onStop,
-          onReplay,
-          onViewResult,
-        },
+        onCreateNewTask,
+        onPause,
+        onResume,
+        onStop,
+        onReplay,
+        onViewResult,
+        actionsRender,
         baseCls,
         hashId,
         locale,
-      )}
+        variant,
+      })}
     </div>,
   );
 };

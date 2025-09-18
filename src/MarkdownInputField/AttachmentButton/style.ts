@@ -15,11 +15,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       height: '2em',
       fontSize: '16px',
       padding: '0.5em',
-      borderRadius: '50%',
+      borderRadius: '8px',
       transition: 'background-color 0.3s ease',
       cursor: 'pointer',
       '&:hover': {
-        backgroundColor: '#F0F2F5',
+        backgroundColor: 'rgba(0, 28, 57, 0.0353)',
       },
       [`${token.componentCls}-file-list`]: {
         '&-item': {

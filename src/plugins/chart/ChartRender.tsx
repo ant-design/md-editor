@@ -17,53 +17,54 @@ import { isNotEmpty, toNumber } from './utils';
 
 /**
  * 图表类型映射配置
+ * @param {object} i18n - 国际化上下文
  */
-const ChartMap = {
+const getChartMap = (i18n: any) => ({
   pie: {
-    title: '饼图',
+    title: i18n?.locale?.pieChart || '饼图',
     changeData: ['donut', 'table'],
   },
   donut: {
-    title: '环形图',
+    title: i18n?.locale?.donutChart || '环形图',
     changeData: ['pie', 'table'],
   },
   bar: {
-    title: '条形图',
+    title: i18n?.locale?.barChart || '条形图',
     changeData: ['column', 'line', 'area', 'table'],
   },
   line: {
-    title: '折线图',
+    title: i18n?.locale?.lineChart || '折线图',
     changeData: ['column', 'bar', 'area', 'table'],
   },
   column: {
-    title: '柱状图',
+    title: i18n?.locale?.columnChart || '柱状图',
     changeData: ['bar', 'line', 'area', 'table'],
   },
   area: {
-    title: '面积图',
+    title: i18n?.locale?.areaChart || '面积图',
     changeData: ['column', 'bar', 'line', 'table'],
   },
   radar: {
-    title: '雷达图',
+    title: i18n?.locale?.radarChart || '雷达图',
     changeData: ['table'],
   },
   scatter: {
-    title: '散点图',
+    title: i18n?.locale?.scatterChart || '散点图',
     changeData: ['table'],
   },
   funnel: {
-    title: '漏斗图',
+    title: i18n?.locale?.funnelChart || '漏斗图',
     changeData: ['table'],
   },
   table: {
-    title: '表格',
+    title: i18n?.locale?.table || '表格',
     changeData: ['column', 'line', 'area', 'pie', 'donut'],
   },
   descriptions: {
-    title: '定义列表',
+    title: i18n?.locale?.descriptions || '定义列表',
     changeData: ['column', 'line', 'area', 'table', 'pie', 'donut'],
   },
-};
+});
 
 /**
  * ChartRender 组件 - 图表渲染组件
@@ -182,6 +183,9 @@ export const ChartRender: React.FC<{
   const i18n = useContext(I18nContext);
   const [config, setConfig] = useState(() => props.config);
   const [renderKey, setRenderKey] = useState(0);
+
+  // 获取国际化的图表类型映射
+  const ChartMap = useMemo(() => getChartMap(i18n), [i18n]);
 
   const getAxisTitles = () => {
     const xCol = config?.columns?.find?.(
@@ -349,7 +353,7 @@ export const ChartRender: React.FC<{
               borderRadius: '1em',
             }}
           >
-            {columnLength} 列
+            {columnLength} {i18n?.locale?.columns || '列'}
             <DownOutlined
               style={{
                 fontSize: 8,

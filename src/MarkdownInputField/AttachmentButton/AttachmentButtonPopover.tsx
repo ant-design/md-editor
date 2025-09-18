@@ -4,20 +4,19 @@
   FileTextFilled,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Popover } from 'antd';
-import React, { useContext, useMemo } from 'react';
-import { I18nContext } from '../../i18n';
+import { Tooltip } from 'antd';
+import React, { useMemo } from 'react';
 import { kbToSize } from './utils';
 
 export type AttachmentButtonPopoverProps = {
   children?: React.ReactNode;
-  supportedFormats?: {
+  supportedFormat?: {
     type: string;
     maxSize: number;
     extensions: string[];
     icon: React.ReactNode;
     content?: React.ReactNode;
-  }[];
+  };
 };
 
 /**
@@ -26,14 +25,14 @@ export type AttachmentButtonPopoverProps = {
  * 定义系统支持的文件类型、大小限制和扩展名等信息。
  * 包括图片、文档、音频、视频等常见文件类型。
  */
-export const SupportedFileFormats = [
-  {
+export const SupportedFileFormats = {
+  image: {
     icon: <FileImageOutlined />,
     type: '图片',
     maxSize: 10 * 1024,
     extensions: ['jpg', 'jpeg', 'png', 'gif'],
   },
-  {
+  document: {
     icon: <FileTextFilled />,
     type: '文档',
     maxSize: 10 * 1024,
@@ -50,19 +49,19 @@ export const SupportedFileFormats = [
       'xml',
     ],
   },
-  {
+  audio: {
     icon: <AudioOutlined />,
     type: '音频',
     maxSize: 50 * 1024,
     extensions: ['mp3', 'wav'],
   },
-  {
+  video: {
     icon: <VideoCameraOutlined />,
     type: '视频',
     maxSize: 100 * 1024,
     extensions: ['mp4', 'avi', 'mov'],
   },
-];
+};
 
 /**
  * AttachmentSupportedFormatsContent 组件 - 附件支持格式内容组件
@@ -74,12 +73,12 @@ export const SupportedFileFormats = [
  * @description 附件支持格式内容组件，显示支持的文件格式信息
  * @param {AttachmentButtonPopoverProps} props - 组件属性
  * @param {React.ReactNode} [props.children] - 子组件
- * @param {Array} [props.supportedFormats] - 自定义支持的文件格式
+ * @param {Object} [props.supportedFormat] - 自定义支持的文件格式
  *
  * @example
  * ```tsx
  * <AttachmentSupportedFormatsContent
- *   supportedFormats={customFormats}
+ *   supportedFormat={customFormat}
  * />
  * ```
  *
@@ -96,90 +95,26 @@ export const SupportedFileFormats = [
 export const AttachmentSupportedFormatsContent = (
   props: AttachmentButtonPopoverProps,
 ) => {
-  const { locale } = useContext(I18nContext);
-  const supportedFormats = useMemo(() => {
-    if (props.supportedFormats) {
-      return props.supportedFormats;
+  const supportedFormat = useMemo(() => {
+    if (props.supportedFormat) {
+      return props.supportedFormat;
     }
-    return SupportedFileFormats;
+    return SupportedFileFormats.image;
   }, [
-    props.supportedFormats,
-  ]) as AttachmentButtonPopoverProps['supportedFormats'];
+    props.supportedFormat,
+  ]) as AttachmentButtonPopoverProps['supportedFormat'];
 
-  if (!supportedFormats?.length) return null;
+  if (!supportedFormat) return null;
 
   return (
     <div
       style={{
         fontSize: 16,
         lineHeight: '1.5em',
+        maxWidth: 275,
       }}
     >
-      {locale?.attachmentSupportedFormats || '支持上传的文件类型和格式：'}
-      <div
-        style={{
-          fontSize: '1em',
-          lineHeight: '1.2em',
-          display: 'flex',
-          flexDirection: 'column',
-          paddingTop: 16,
-          gap: 8,
-        }}
-      >
-        {supportedFormats?.map((format, index) => (
-          <div
-            key={index}
-            style={{
-              display: 'flex',
-              marginBottom: 8,
-              gap: 12,
-            }}
-          >
-            <div
-              style={{
-                height: 24,
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: 16,
-                  gap: 4,
-                }}
-              >
-                {format.icon}
-                {format.type}:
-              </div>
-            </div>
-            {format?.content ? (
-              format.content
-            ) : (
-              <div
-                style={{
-                  maxWidth: 180,
-                  textWrap: 'wrap',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 4,
-                }}
-              >
-                <div>
-                  {locale?.attachmentSingleMax || '单个最大'}{' '}
-                  {kbToSize(format.maxSize)}
-                </div>
-                <div
-                  style={{
-                    color: 'rgba(0, 0, 0, 0.45)',
-                  }}
-                >
-                  {format.extensions.join(', ')}
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+      {`支持上传文件，每个文件不超过 ${kbToSize(supportedFormat?.maxSize || 5000)}，支持 ${supportedFormat?.extensions?.join(', ') || ''}等格式。`}
     </div>
   );
 };
@@ -194,11 +129,11 @@ export const AttachmentSupportedFormatsContent = (
  * @description 附件按钮弹出框组件，显示支持的文件格式信息
  * @param {AttachmentButtonPopoverProps} props - 组件属性
  * @param {React.ReactNode} [props.children] - 子组件，通常是附件按钮
- * @param {Array} [props.supportedFormats] - 自定义支持的文件格式
+ * @param {Object} [props.supportedFormat] - 自定义支持的文件格式
  *
  * @example
  * ```tsx
- * <AttachmentButtonPopover supportedFormats={customFormats}>
+ * <AttachmentButtonPopover supportedFormat={customFormat}>
  *   <Button>上传附件</Button>
  * </AttachmentButtonPopover>
  * ```
@@ -216,20 +151,20 @@ export const AttachmentSupportedFormatsContent = (
 export const AttachmentButtonPopover: React.FC<AttachmentButtonPopoverProps> = (
   props,
 ) => {
-  if (!props?.supportedFormats?.length) return null;
+  if (!props?.supportedFormat) return null;
   return (
-    <Popover
+    <Tooltip
       arrow={false}
-      content={
+      title={
         <AttachmentSupportedFormatsContent
-          supportedFormats={props.supportedFormats}
+          supportedFormat={props.supportedFormat}
         />
       }
       trigger="hover"
       placement="topRight"
     >
       {props.children}
-    </Popover>
+    </Tooltip>
   );
 };
 

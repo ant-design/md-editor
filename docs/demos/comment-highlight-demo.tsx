@@ -218,6 +218,27 @@ export default () => {
             },
             onDelete: async (id) => {
               console.log('删除评论:', id);
+            }, // 评论范围拖拽配置
+            dragRange: {
+              enable: true,
+              // 自定义拖拽手柄样式
+              handleStyle: {
+                backgroundColor: '#52c41a',
+                size: '8px',
+                borderRadius: '50%',
+                opacity: 0.8,
+              },
+              // 自定义拖拽高亮样式
+              highlightStyle: {
+                backgroundColor: 'rgba(82, 196, 26, 0.2)',
+                border: '1px solid rgba(82, 196, 26, 0.5)',
+                borderRadius: '3px',
+                opacity: 0.9,
+              },
+              // 范围更新回调
+              onRangeChange: (id, data, newContent) => {
+                console.log('范围更新:', id, data, newContent);
+              },
             },
             onSubmit: async (id, data) => {
               setCommentList((prev) => {
