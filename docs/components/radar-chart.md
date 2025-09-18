@@ -18,23 +18,28 @@ group:
 
 ### RadarChartProps
 
-| 属性      | 类型                   | 默认值 | 说明                                       |
-| --------- | ---------------------- | ------ | ------------------------------------------ |
-| data      | `RadarChartDataItem[]` | -      | 扁平化数据数组                             |
-| title     | `string`               | -      | 图表标题                                   |
-| width     | `number`               | `600`  | 宽度（px），移动端自适应为 100%            |
-| height    | `number`               | `400`  | 高度（px），移动端按正方形比例，最大约 400 |
-| className | `string`               | -      | 自定义类名                                 |
+| 属性                 | 类型                   | 默认值 | 说明                                       |
+| -------------------- | ---------------------- | ------ | ------------------------------------------ |
+| data                 | `RadarChartDataItem[]` | -      | 扁平化数据数组                             |
+| title                | `string`               | -      | 图表标题                                   |
+| width                | `number \| string`     | `600`  | 宽度（px），移动端自适应为 100%            |
+| height               | `number \| string`     | `400`  | 高度（px），移动端按正方形比例，最大约 400 |
+| className            | `string`               | -      | 自定义类名                                 |
+| toolbarExtra         | `React.ReactNode`      | -      | 头部工具条额外按钮                         |
+| dataTime             | `string`               | -      | 数据时间                                   |
+| borderColor          | `string`               | -      | 边框颜色                                   |
+| backgroundColor      | `string`               | -      | 背景颜色                                   |
+| pointBackgroundColor | `string`               | -      | 点背景颜色                                 |
 
 ### RadarChartDataItem
 
-| 字段        | 类型     | 必填 | 说明                             |
-| ----------- | -------- | ---- | -------------------------------- |
-| category    | `string` | 是   | 分类（用于外层筛选）             |
-| label       | `string` | 是   | 指标名称（将作为雷达图各轴标签） |
-| type        | `string` | 是   | 数据序列名称（映射为 dataset）   |
-| score       | `number` | 是   | 指标分值                         |
-| filterLabel | `string` | 否   | 二级筛选标签（可选）             |
+| 字段        | 类型              | 必填 | 说明                             |
+| ----------- | ----------------- | ---- | -------------------------------- |
+| category    | `string`          | 否   | 分类（用于外层筛选）             |
+| label       | `string`          | 是   | 指标名称（将作为雷达图各轴标签） |
+| type        | `string`          | 否   | 数据序列名称（映射为 dataset）   |
+| score       | `number \| string` | 是   | 指标分值                         |
+| filterLabel | `string`          | 否   | 二级筛选标签（可选）             |
 
 ## 说明
 

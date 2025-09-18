@@ -22,9 +22,10 @@ group:
 | -------------- | ---------------------------------------- | ---------- | ------------------------------------------------- |
 | title          | `string`                                 | -          | 图表标题                                          |
 | data           | `AreaChartDataItem[]`                    | -          | 扁平化数据数组                                    |
-| width          | `number`                                 | `600`      | 图表宽度（px），移动端自适应为 100%               |
-| height         | `number`                                 | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400） |
+| width          | `number \| string`                       | `600`      | 图表宽度（px），移动端自适应为 100%               |
+| height         | `number \| string`                       | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400） |
 | className      | `string`                                 | -          | 自定义类名                                        |
+| dataTime       | `string`                                 | -          | 数据时间                                          |
 | theme          | `'dark' \| 'light'`                      | `'light'`  | 主题风格                                          |
 | color          | `string \| string[]`                     | -          | 自定义主色；数组按序对应各数据序列                |
 | showLegend     | `boolean`                                | `true`     | 是否显示图例                                      |
@@ -33,6 +34,8 @@ group:
 | showGrid       | `boolean`                                | `true`     | 是否显示网格线                                    |
 | xPosition      | `'top' \| 'bottom'`                      | `'bottom'` | X 轴位置                                          |
 | yPosition      | `'left' \| 'right'`                      | `'left'`   | Y 轴位置                                          |
+| toolbarExtra   | `React.ReactNode`                        | -          | 头部工具条额外按钮                                |
+| static         | `boolean \| ChartStaticConfig`               | -      | ChartStatic组件配置：boolean表示是否启用（使用默认配置），object表示详细配置 |
 
 ### AreaChartDataItem
 
@@ -45,6 +48,21 @@ group:
 | xtitle      | `string` | 否   | X 轴标题（从数据中提取）             |
 | ytitle      | `string` | 否   | Y 轴标题（从数据中提取）             |
 | filterLabel | `string` | 否   | 二级筛选标签（可选）                 |
+
+### ChartStaticConfig
+
+| 字段           | 类型                                        | 默认值 | 说明                                         |
+| -------------- | ------------------------------------------- | ------ | -------------------------------------------- |
+| title          | `string`                                    | -      | 静态数据标题                                 |
+| tooltip        | `string`                                    | -      | 提示信息                                     |
+| value          | `number \| string \| null \| undefined`    | -      | 显示的数值                                   |
+| precision      | `number`                                    | -      | 数值精度（小数点后位数）                     |
+| groupSeparator | `string`                                    | -      | 千分位分隔符                                 |
+| prefix         | `string`                                    | -      | 数值前缀                                     |
+| suffix         | `string`                                    | -      | 数值后缀                                     |
+| formatter      | `(value: number \| string \| null \| undefined) => React.ReactNode` | -      | 自定义格式化函数 |
+| className      | `string`                                    | -      | 自定义类名                                   |
+| size           | `'small' \| 'default' \| 'large'`           | `'default'` | 组件尺寸                                |
 
 ## 说明
 
