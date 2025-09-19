@@ -151,7 +151,7 @@
           </div>
           <div
             class="chart-wrapper"
-            style="height: 500px;"
+            style="margin-top: 20px; height: 500px;"
           >
             <div
               data-datasets="[{"label":"本周访客","data":[120,132,101,134,90,230,210],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"上周访客","data":[220,182,191,234,290,330,310],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"
