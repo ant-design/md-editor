@@ -599,7 +599,7 @@ const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
   }
 
   if (el && !Array.isArray(el)) {
-    el.isConfig = currentElement?.value.trim()?.startsWith('<!--');
+    el.isConfig = currentElement?.value?.trim()?.startsWith('<!--');
     el.otherProps = contextProps;
   }
 

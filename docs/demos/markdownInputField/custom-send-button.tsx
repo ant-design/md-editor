@@ -49,9 +49,9 @@ const CustomSendButtonDemo: React.FC = () => {
           size="small"
           icon={<SendOutlined />}
           loading={isLoading || loading}
-          disabled={disabled || !value.trim()}
+          disabled={disabled || !value?.trim()}
           onClick={() => {
-            if (value.trim()) {
+            if (value?.trim()) {
               handleSend(value);
             }
           }}
