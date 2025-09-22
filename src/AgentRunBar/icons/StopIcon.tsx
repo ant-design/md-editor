@@ -1,8 +1,13 @@
 ﻿import * as React from 'react';
 
 export function StopIcon(props: React.SVGProps<SVGSVGElement>) {
-  const uid = React.useId();
-  const clipId = `stopIconClip-${uid}`;
+  const uuid = React.useMemo(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      return 'dev';
+    }
+    return Math.random().toString(36).substring(2, 10);
+  }, []);
+  const clipId = `stopIconClip-` + uuid;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
