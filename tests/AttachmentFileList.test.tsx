@@ -96,7 +96,9 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(container.firstChild).toHaveStyle({ height: '0px' });
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toHaveStyle({ height: '0px' });
   });
 
   it('should render empty list when fileMap is empty', () => {
@@ -109,7 +111,9 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(container.firstChild).toHaveStyle({ height: '0px' });
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toHaveStyle({ height: '0px' });
   });
 
   it('should render file list when files are provided', () => {

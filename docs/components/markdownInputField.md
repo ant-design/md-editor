@@ -22,7 +22,7 @@ group:
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
 
@@ -44,7 +44,7 @@ const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
 };
 export default () => {
   const [value, setValue] = React.useState(
-    '`${placeholder:目标场景}` `${placeholder:目标事件}` 今天的拒绝率为什么下降？',
+    '`${placeholder:目标场景}` `${placeholder:目标事件}` 今天的拒绝率为什么下降？输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
   );
 
   return (
@@ -165,6 +165,7 @@ export default () => {
             zIndex: 1,
           }}
         >
+          <GlobalOutlined />
           深度思考
         </div>,
         <div
@@ -181,6 +182,7 @@ export default () => {
             zIndex: 1,
           }}
         >
+          <AimOutlined />
           联网搜索
         </div>,
       ]}
