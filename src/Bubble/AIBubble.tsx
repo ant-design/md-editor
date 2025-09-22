@@ -197,6 +197,7 @@ export const AIBubble: React.FC<
       pure={props.pure}
       onCancelLike={props.onCancelLike}
       shouldShowCopy={props.shouldShowCopy}
+      shouldShowVoice={props.shouldShowVoice}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );
