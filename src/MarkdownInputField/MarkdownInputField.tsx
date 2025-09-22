@@ -442,9 +442,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [topRightPadding, setTopRightPadding] = useState(0);
 
   const computedRightPadding = useMemo(() => {
+    const positionRightOffset = props?.quickActionRender || props.refinePrompt?.enable ? 12 : 0;
     const bottomOverlayPadding = props.toolsRender ? 0 : rightPadding || 52;
     const topOverlayPadding = topRightPadding || 0;
-    return Math.max(bottomOverlayPadding, topOverlayPadding);
+    return Math.max(bottomOverlayPadding, topOverlayPadding)-positionRightOffset;
   }, [props.toolsRender, rightPadding, topRightPadding]);
 
   // 是否需要多行布局
