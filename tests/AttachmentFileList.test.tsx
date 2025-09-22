@@ -148,7 +148,7 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    const clearButton = screen.getByRole('img', { name: 'delete' });
+    const clearButton = screen.getByRole('img', { name: 'close' });
     expect(clearButton).toBeInTheDocument();
   });
 
@@ -186,7 +186,7 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    const clearButton = screen.getByRole('img', { name: 'delete' });
+    const clearButton = screen.getByRole('img', { name: 'close' });
     fireEvent.click(clearButton);
 
     expect(mockOnClearFileMap).toHaveBeenCalledTimes(1);
