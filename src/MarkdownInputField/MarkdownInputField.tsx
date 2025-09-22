@@ -27,8 +27,8 @@ import {
 import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover';
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
 import { AttachmentFile } from './AttachmentButton/types';
-import { SendButton } from './SendButton';
 import { RefinePromptButton } from './RefinePromptButton';
+import { SendButton } from './SendButton';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
@@ -428,10 +428,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [isHover, setHover] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
-  const [refineStatus, setRefineStatus] = useState<'idle' | 'loading'>(
-    'idle',
-  );
-  
+  const [refineStatus, setRefineStatus] = useState<'idle' | 'loading'>('idle');
 
   const actionsRef = React.useRef<HTMLDivElement>(null);
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
@@ -449,6 +446,21 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     const topOverlayPadding = topRightPadding || 0;
     return Math.max(bottomOverlayPadding, topOverlayPadding);
   }, [props.toolsRender, rightPadding, topRightPadding]);
+
+  // 是否需要多行布局
+  const isMultiRowLayout = useMemo(() => {
+    return !!(
+      props?.quickActionRender ||
+      props?.refinePrompt?.enable ||
+      props?.actionsRender ||
+      props?.toolsRender
+    );
+  }, [
+    props?.quickActionRender,
+    props?.refinePrompt?.enable,
+    props?.actionsRender,
+    props?.toolsRender,
+  ]);
 
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
@@ -743,6 +755,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           [`${baseCls}-disabled`]: props.disabled,
           [`${baseCls}-typing`]: false,
           [`${baseCls}-loading`]: isLoading,
+          [`${baseCls}-is-multi-row`]: isMultiRowLayout,
         })}
         style={{
           ...props.style,
@@ -873,11 +886,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             borderRadius: (borderRadius || 16) - 2 || 10,
             cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
             opacity: props.disabled ? 0.5 : 1,
-            ...(props.refinePrompt?.enable || props?.quickActionRender
-              ? {
-                  minHeight: 96,
-                }
-              : {}),
+            minHeight: isMultiRowLayout ? 96 : undefined,
           }}
         >
           <div

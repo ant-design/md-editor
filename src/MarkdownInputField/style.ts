@@ -88,6 +88,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '8px',
         alignItems: 'center',
       },
+      '&-is-multi-row': {
+        [`${token.componentCls}-send-actions`]: {
+          right: 12,
+          bottom: 12,
+        },
+      },
       '&-quick-actions': {
         position: 'absolute',
         userSelect: 'none',
