@@ -625,7 +625,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       <SendButton
         key="send-button"
         isSendable={
-          !!value.trim() || (fileMap && fileMap.size > 0) || recording
+          !!value?.trim() || (fileMap && fileMap.size > 0) || recording
         }
         typing={!!props.typing || isLoading || recording}
         disabled={props.disabled}

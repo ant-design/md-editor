@@ -98,7 +98,7 @@ const parserNode = (
           const codeNode = converted as any;
           const language = codeNode.lang || '';
           const value = codeNode.value || '';
-          if (!value.trim()) {
+          if (!value?.trim()) {
             return `${preString}\`\`\`${language}\n${preString}\`\`\``;
           }
           const codeLines = value.split('\n');

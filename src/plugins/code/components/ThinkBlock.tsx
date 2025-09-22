@@ -5,6 +5,7 @@
 
 import React, { useContext } from 'react';
 import { I18nContext } from '../../../i18n';
+import { EditorStoreContext } from '../../../MarkdownEditor/editor/store';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { ToolUseBarThink } from '../../../ToolUseBar';
 
@@ -14,6 +15,7 @@ interface ThinkBlockProps {
 
 export function ThinkBlock({ element }: ThinkBlockProps) {
   const { locale } = useContext(I18nContext);
+  const { editorProps } = useContext(EditorStoreContext) || {};
 
   const content =
     element?.value !== null && element?.value !== undefined
@@ -34,6 +36,9 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
           maxWidth: '680px',
         },
       }}
+      expanded={
+        editorProps?.codeProps?.alwaysExpandedDeepThink ? true : undefined
+      }
       toolName={toolNameText}
       thinkContent={content}
       status={isLoading ? 'loading' : 'success'}
