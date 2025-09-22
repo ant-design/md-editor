@@ -4,7 +4,7 @@ interface PugIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const PugIcon: React.FC<PugIconProps> = ({ size = 24, ...props }) => {
+export const PugIcon: React.FC<PugIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

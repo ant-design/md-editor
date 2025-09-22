@@ -4,7 +4,10 @@ interface WgslIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const WgslIcon: React.FC<WgslIconProps> = ({ size = 24, ...props }) => {
+export const WgslIcon: React.FC<WgslIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

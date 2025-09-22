@@ -50,7 +50,7 @@ const mockFileMessage: MessageBubbleData = {
   },
   meta: {
     avatar:
-      'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
     title: 'Ant Design Assistant',
     description: 'AI 助手',
   },

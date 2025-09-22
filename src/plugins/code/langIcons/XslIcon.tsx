@@ -4,7 +4,7 @@ interface XslIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const XslIcon: React.FC<XslIconProps> = ({ size = 24, ...props }) => {
+export const XslIcon: React.FC<XslIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

@@ -324,7 +324,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
             ...(item.role === 'user' ? userMeta : assistantMeta),
             ...(item as any).meta,
           }}
-          preMessage={bubbleList?.at(index - 1)}
+          preMessage={bubbleList[index - 1]}
           id={item.id}
           style={{
             ...styles?.bubbleListItemStyle,

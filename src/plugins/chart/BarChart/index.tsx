@@ -222,10 +222,15 @@ const BarChart: React.FC<BarChartProps> = ({
     return [...new Set(filteredData.map((item) => item.type))];
   }, [filteredData]);
 
-  // 从数据中提取唯一的x值并排序
+  // 从数据中提取唯一的x值 - 水平柱状图时保持原始顺序
   const xValues = useMemo(() => {
+    if (indexAxis === 'y') {
+      // 水平柱状图时，x是类目轴，应保持原始顺序而不排序
+      const uniqueValues = [...new Set(filteredData.map((item) => item.x))];
+      return uniqueValues;
+    }
     return extractAndSortXValues(filteredData);
-  }, [filteredData]);
+  }, [filteredData, indexAxis]);
 
   // 从数据中获取xtitle和ytitle
   const xTitle = useMemo(() => {

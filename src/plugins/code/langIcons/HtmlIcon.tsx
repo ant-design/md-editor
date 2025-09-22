@@ -4,7 +4,10 @@ interface HtmlIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const HtmlIcon: React.FC<HtmlIconProps> = ({ size = 24, ...props }) => {
+export const HtmlIcon: React.FC<HtmlIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

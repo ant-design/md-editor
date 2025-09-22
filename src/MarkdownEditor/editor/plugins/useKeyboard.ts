@@ -22,15 +22,44 @@ import { TabKey } from './hotKeyCommands/tab';
 import { useEditorStore } from '../store';
 
 /**
- * 用于处理 Markdown 编辑器中的键盘事件的自定义 Hook。
+ * 键盘事件处理 Hook - 管理 Markdown 编辑器的所有键盘交互
  *
- * 该 Hook 负责拦截和处理各种键盘快捷键（如 Tab、Backspace、Enter、方向键等），
- * 并根据编辑器状态和配置执行相应的操作，如移动光标、插入特殊字符、触发补全面板等。
+ * 该 Hook 负责拦截和处理各种键盘快捷键和特殊按键操作，提供丰富的编辑体验：
  *
- * @param store 编辑器的全局状态管理对象
- * @param markdownEditorRef 指向编辑器实例的 ref
- * @param props 编辑器的属性配置
- * @returns 返回一个用于绑定到编辑器组件的键盘事件处理函数
+ * 支持的快捷键操作：
+ * - Tab/Shift+Tab：代码块缩进控制、列表层级调整
+ * - Backspace：智能删除、格式清理、列表处理
+ * - Enter：段落分割、列表项创建、代码块换行
+ * - 方向键：光标移动、选择范围调整
+ * - Ctrl/Cmd 组合键：文本格式化（粗体、斜体等）
+ *
+ * 特殊功能：
+ * - 自动补全面板的键盘导航
+ * - 表格单元格间的 Tab 导航
+ * - 代码块的语法高亮触发
+ * - Markdown 语法的智能识别和转换
+ *
+ * @param store - 编辑器的全局状态管理对象
+ * @param markdownEditorRef - 指向 Slate.js 编辑器实例的引用
+ * @param props - 编辑器的属性配置对象
+ * @returns 返回键盘事件处理函数，用于绑定到 Slate.js 的 onKeyDown 属性
+ *
+ * @example
+ * ```typescript
+ * const onKeyDown = useKeyboard(store, editorRef, editorProps);
+ *
+ * return (
+ *   <Slate editor={editor} initialValue={value}>
+ *     <Editable onKeyDown={onKeyDown} />
+ *   </Slate>
+ * );
+ * ```
+ *
+ * @remarks
+ * - 所有按键处理都经过 isHotkey 库进行精确匹配
+ * - 支持跨平台快捷键（Windows/Mac）
+ * - 与编辑器状态深度集成，实现上下文相关的行为
+ * - 提供良好的用户体验和 Markdown 编辑效率
  */
 export const useKeyboard = (
   store: EditorStore,

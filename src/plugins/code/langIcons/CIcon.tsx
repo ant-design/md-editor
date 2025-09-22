@@ -4,7 +4,7 @@ interface CIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const CIcon: React.FC<CIconProps> = ({ size = 24, ...props }) => {
+export const CIcon: React.FC<CIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

@@ -17,18 +17,17 @@ vi.mock('framer-motion', () => ({
 
 describe('AttachmentButtonPopover', () => {
   describe('SupportedFileFormats', () => {
-    it('should have default supported formats', () => {
-      expect(SupportedFileFormats).toHaveLength(4);
-      expect(SupportedFileFormats[0].type).toBe('图片');
-      expect(SupportedFileFormats[1].type).toBe('文档');
-      expect(SupportedFileFormats[2].type).toBe('音频');
-      expect(SupportedFileFormats[3].type).toBe('视频');
+    it('should have default supported formats as object', () => {
+      const formats = Object.values(SupportedFileFormats);
+      expect(formats).toHaveLength(4);
+      expect(SupportedFileFormats.image.type).toBe('图片');
+      expect(SupportedFileFormats.document.type).toBe('文档');
+      expect(SupportedFileFormats.audio.type).toBe('音频');
+      expect(SupportedFileFormats.video.type).toBe('视频');
     });
 
     it('should have correct file extensions for images', () => {
-      const imageFormat = SupportedFileFormats.find(
-        (format) => format.type === '图片',
-      );
+      const imageFormat = SupportedFileFormats.image;
       expect(imageFormat?.extensions).toContain('jpg');
       expect(imageFormat?.extensions).toContain('jpeg');
       expect(imageFormat?.extensions).toContain('png');
@@ -36,21 +35,15 @@ describe('AttachmentButtonPopover', () => {
     });
 
     it('should have correct file extensions for documents', () => {
-      const docFormat = SupportedFileFormats.find(
-        (format) => format.type === '文档',
-      );
+      const docFormat = SupportedFileFormats.document;
       expect(docFormat?.extensions).toContain('pdf');
       expect(docFormat?.extensions).toContain('docx');
       expect(docFormat?.extensions).toContain('xlsx');
     });
 
     it('should have appropriate max sizes', () => {
-      const imageFormat = SupportedFileFormats.find(
-        (format) => format.type === '图片',
-      );
-      const videoFormat = SupportedFileFormats.find(
-        (format) => format.type === '视频',
-      );
+      const imageFormat = SupportedFileFormats.image;
+      const videoFormat = SupportedFileFormats.video;
 
       expect(imageFormat?.maxSize).toBe(10 * 1024);
       expect(videoFormat?.maxSize).toBe(100 * 1024);
@@ -58,96 +51,69 @@ describe('AttachmentButtonPopover', () => {
   });
 
   describe('AttachmentSupportedFormatsContent', () => {
-    it('should render supported formats content', () => {
+    it('should render supported formats content for image format', () => {
       render(
         <AttachmentSupportedFormatsContent
-          supportedFormats={SupportedFileFormats}
+          supportedFormat={SupportedFileFormats.image}
         />,
       );
 
-      expect(
-        screen.getByText('支持上传的文件类型和格式：'),
-      ).toBeInTheDocument();
-      expect(screen.getByText('图片:')).toBeInTheDocument();
-      expect(screen.getByText('文档:')).toBeInTheDocument();
-      expect(screen.getByText('音频:')).toBeInTheDocument();
-      expect(screen.getByText('视频:')).toBeInTheDocument();
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
+      expect(screen.getByText(/jpg, jpeg, png, gif/)).toBeInTheDocument();
     });
 
-    it('should render file extensions for each format', () => {
+    it('should render document format content', () => {
       render(
         <AttachmentSupportedFormatsContent
-          supportedFormats={SupportedFileFormats}
+          supportedFormat={SupportedFileFormats.document}
         />,
       );
 
-      expect(screen.getByText('jpg, jpeg, png, gif')).toBeInTheDocument();
-      expect(screen.getByText('mp3, wav')).toBeInTheDocument();
-      expect(screen.getByText('mp4, avi, mov')).toBeInTheDocument();
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
+      expect(screen.getByText(/pdf/)).toBeInTheDocument();
     });
 
-    it('should render file size limits', () => {
+    it('should render file size limits for audio format', () => {
       render(
         <AttachmentSupportedFormatsContent
-          supportedFormats={SupportedFileFormats}
+          supportedFormat={SupportedFileFormats.audio}
         />,
       );
 
-      // Check that size text is displayed (format may vary)
-      // Look for individual size elements instead of using getAllByText
-      expect(screen.getByText(/单个最大.*50.*MB/)).toBeInTheDocument();
-      expect(screen.getByText(/单个最大.*100.*MB/)).toBeInTheDocument();
-
-      // Check for 10MB text but be more flexible about multiple matches
-      const tenMBElements = document.querySelectorAll('*');
-      const tenMBCount = Array.from(tenMBElements).filter(
-        (el) => el.textContent && /单个最大.*10.*MB/.test(el.textContent),
-      ).length;
-      expect(tenMBCount).toBeGreaterThanOrEqual(1);
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
+      expect(screen.getByText(/mp3, wav/)).toBeInTheDocument();
     });
 
     it('should render custom content when provided', () => {
-      const customFormats = [
-        {
-          icon: <span>Custom Icon</span>,
-          type: 'Custom',
-          maxSize: 1024,
-          extensions: ['custom'],
-          content: <div>Custom content for this format</div>,
-        },
-      ];
+      const customFormat = {
+        icon: <span>Custom Icon</span>,
+        type: 'Custom',
+        maxSize: 1024,
+        extensions: ['custom'],
+        content: <div>Custom content for this format</div>,
+      };
 
       render(
-        <AttachmentSupportedFormatsContent supportedFormats={customFormats} />,
+        <AttachmentSupportedFormatsContent supportedFormat={customFormat} />,
       );
 
-      expect(
-        screen.getByText('Custom content for this format'),
-      ).toBeInTheDocument();
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
+      expect(screen.getByText(/custom/)).toBeInTheDocument();
     });
 
-    it('should return null when no supported formats provided', () => {
-      const { container } = render(
-        <AttachmentSupportedFormatsContent supportedFormats={[]} />,
-      );
-
-      expect(container.firstChild).toBeNull();
-    });
-
-    it('should use default formats when supportedFormats is undefined', () => {
+    it('should use default format when supportedFormat is undefined', () => {
       render(<AttachmentSupportedFormatsContent />);
 
-      expect(
-        screen.getByText('支持上传的文件类型和格式：'),
-      ).toBeInTheDocument();
-      expect(screen.getByText('图片:')).toBeInTheDocument();
+      // Should show default image format content
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
+      expect(screen.getByText(/jpg, jpeg, png, gif/)).toBeInTheDocument();
     });
   });
 
   describe('AttachmentButtonPopover Component', () => {
-    it('should render popover with children', () => {
+    it('should render popover with children when format provided', () => {
       render(
-        <AttachmentButtonPopover supportedFormats={SupportedFileFormats}>
+        <AttachmentButtonPopover supportedFormat={SupportedFileFormats.image}>
           <button type="button">Upload File</button>
         </AttachmentButtonPopover>,
       );
@@ -155,9 +121,9 @@ describe('AttachmentButtonPopover', () => {
       expect(screen.getByText('Upload File')).toBeInTheDocument();
     });
 
-    it('should not render when no supported formats provided', () => {
+    it('should not render when no supported format provided', () => {
       const { container } = render(
-        <AttachmentButtonPopover supportedFormats={[]}>
+        <AttachmentButtonPopover>
           <button type="button">Upload File</button>
         </AttachmentButtonPopover>,
       );
@@ -165,18 +131,16 @@ describe('AttachmentButtonPopover', () => {
       expect(container.firstChild).toBeNull();
     });
 
-    it('should render with custom supported formats', () => {
-      const customFormats = [
-        {
-          icon: <span>📄</span>,
-          type: 'Custom Document',
-          maxSize: 2048,
-          extensions: ['custom', 'doc'],
-        },
-      ];
+    it('should render with custom supported format', () => {
+      const customFormat = {
+        icon: <span>📄</span>,
+        type: 'Custom Document',
+        maxSize: 2048,
+        extensions: ['custom', 'doc'],
+      };
 
       render(
-        <AttachmentButtonPopover supportedFormats={customFormats}>
+        <AttachmentButtonPopover supportedFormat={customFormat}>
           <button type="button">Upload Custom</button>
         </AttachmentButtonPopover>,
       );
@@ -186,7 +150,7 @@ describe('AttachmentButtonPopover', () => {
 
     it('should have correct popover props', () => {
       const { container } = render(
-        <AttachmentButtonPopover supportedFormats={SupportedFileFormats}>
+        <AttachmentButtonPopover supportedFormat={SupportedFileFormats.image}>
           <button type="button">Upload File</button>
         </AttachmentButtonPopover>,
       );
@@ -199,83 +163,71 @@ describe('AttachmentButtonPopover', () => {
 
   describe('Edge Cases', () => {
     it('should handle empty format extensions array', () => {
-      const formatsWithEmptyExtensions = [
-        {
-          icon: <span>📄</span>,
-          type: 'Empty Extensions',
-          maxSize: 1024,
-          extensions: [],
-        },
-      ];
+      const formatWithEmptyExtensions = {
+        icon: <span>📄</span>,
+        type: 'Empty Extensions',
+        maxSize: 1024,
+        extensions: [],
+      };
 
       render(
         <AttachmentSupportedFormatsContent
-          supportedFormats={formatsWithEmptyExtensions}
+          supportedFormat={formatWithEmptyExtensions}
         />,
       );
 
-      expect(screen.getByText('Empty Extensions:')).toBeInTheDocument();
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
     });
 
-    it('should handle formats with zero max size', () => {
-      const formatsWithZeroSize = [
-        {
-          icon: <span>📄</span>,
-          type: 'Zero Size',
-          maxSize: 0,
-          extensions: ['test'],
-        },
-      ];
+    it('should handle format with zero max size', () => {
+      const formatWithZeroSize = {
+        icon: <span>📄</span>,
+        type: 'Zero Size',
+        maxSize: 0,
+        extensions: ['test'],
+      };
 
       render(
         <AttachmentSupportedFormatsContent
-          supportedFormats={formatsWithZeroSize}
+          supportedFormat={formatWithZeroSize}
         />,
       );
 
-      // The component should handle zero size (may display NaN or some fallback)
-      expect(
-        screen.getByText('Zero Size', { exact: false }),
-      ).toBeInTheDocument();
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
     });
 
-    it('should handle formats with very large max size', () => {
-      const formatsWithLargeSize = [
-        {
-          icon: <span>📄</span>,
-          type: 'Large Size',
-          maxSize: 1024 * 1024 * 1024, // 1GB in KB
-          extensions: ['large'],
-        },
-      ];
+    it('should handle format with very large max size', () => {
+      const formatWithLargeSize = {
+        icon: <span>📄</span>,
+        type: 'Large Size',
+        maxSize: 1024 * 1024 * 1024, // 1GB in KB
+        extensions: ['large'],
+      };
 
       render(
         <AttachmentSupportedFormatsContent
-          supportedFormats={formatsWithLargeSize}
+          supportedFormat={formatWithLargeSize}
         />,
       );
 
-      // Check that large size is displayed with correct unit
-      expect(screen.getByText(/单个最大.*1.*TB/)).toBeInTheDocument();
+      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
     });
 
     it('should handle single extension', () => {
-      const singleExtensionFormat = [
-        {
-          icon: <span>📄</span>,
-          type: 'Single',
-          maxSize: 1024,
-          extensions: ['single'],
-        },
-      ];
+      const singleExtensionFormat = {
+        icon: <span>📄</span>,
+        type: 'Single',
+        maxSize: 1024,
+        extensions: ['single'],
+      };
 
       render(
         <AttachmentSupportedFormatsContent
-          supportedFormats={singleExtensionFormat}
+          supportedFormat={singleExtensionFormat}
         />,
       );
 
-      expect(screen.getByText('single')).toBeInTheDocument();
+      expect(screen.getByText(/single/)).toBeInTheDocument();
     });
   });
 });

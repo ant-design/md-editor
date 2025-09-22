@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
+import { I18nContext } from '../../../i18n';
 import { ChartNode, EditorUtils } from '../../../MarkdownEditor';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { useStyle } from './ChartAttrToolBarStyle';
@@ -62,6 +63,7 @@ export const ChartAttrToolBar: React.FC<{
   title?: React.ReactNode;
 }> = (props) => {
   const { markdownEditorRef, readonly } = useEditorStore();
+  const i18n = useContext(I18nContext);
 
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();
 
@@ -130,7 +132,7 @@ export const ChartAttrToolBar: React.FC<{
         );
       })}
       {readonly ? null : (
-        <Tooltip title="删除">
+        <Tooltip title={i18n?.locale?.delete || '删除'}>
           <div className={classNames(`${baseClassName}-item`, hashId)}>
             <DeleteOutlined onClick={remove} />
           </div>

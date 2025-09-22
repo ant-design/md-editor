@@ -38,7 +38,7 @@ titleRender 允许你完全自定义消息气泡的标题区域，可以：
       isFinished: true,
       meta: {
         avatar:
-          'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+          'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
         title: 'AI Assistant',
         description: '智能助手 v2.1',
       },
@@ -94,7 +94,7 @@ const handleClick = useCallback(() => {
       isFinished: true,
       meta: {
         avatar:
-          'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+          'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
         title: 'AI Assistant',
         description: '智能助手 v2.1',
       },

@@ -10,12 +10,20 @@ import { useEditorStore } from '../store';
  * 该组件用于渲染 Schema 类型的代码节点，支持自定义渲染、AgentAR 卡片渲染和默认渲染模式。
  * 根据不同的配置和节点类型提供不同的渲染方式。
  *
- * @component
- * @description 模式渲染组件，支持多种渲染模式
- * @param {RenderElementProps} props - 组件属性
- * @param {CodeNode} props.element - 代码节点元素
- * @param {React.ReactNode} props.children - 子组件
- * @param {Object} props.attributes - 元素属性
+ * 功能特性：
+ * - 支持自定义 apaasify/apassify 渲染模式
+ * - 支持 AgentAR 卡片渲染
+ * - 提供默认的 JSON 字符串渲染
+ * - 包含隐藏的 JSON 数据用于调试和编辑
+ * - 支持点击和键盘事件处理
+ * - 响应式布局设计
+ * - 提供测试 ID 支持
+ *
+ * @param props - Slate.js 渲染元素属性
+ * @param props.element - 代码节点元素，包含 Schema 数据
+ * @param props.children - 子组件，通常是文本内容
+ * @param props.attributes - 元素的 DOM 属性
+ * @returns 渲染的模式组件
  *
  * @example
  * ```tsx
@@ -27,16 +35,11 @@ import { useEditorStore } from '../store';
  * </Schema>
  * ```
  *
- * @returns {React.ReactElement} 渲染的模式组件
- *
  * @remarks
- * - 支持自定义 apaasify 渲染模式
- * - 支持 AgentAR 卡片渲染
- * - 提供默认的 JSON 字符串渲染
- * - 包含隐藏的 JSON 数据用于调试
- * - 支持点击和键盘事件处理
- * - 响应式布局设计
- * - 提供测试 ID 支持
+ * 渲染优先级：
+ * 1. 自定义 apaasify 渲染器
+ * 2. AgentAR 卡片渲染
+ * 3. 默认 JSON 字符串渲染
  */
 export const Schema: React.FC<RenderElementProps> = (props) => {
   const { element: node } = props;

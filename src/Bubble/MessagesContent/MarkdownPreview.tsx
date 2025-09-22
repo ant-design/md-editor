@@ -1,4 +1,4 @@
-﻿import { theme } from 'antd';
+﻿import { Popover, theme } from 'antd';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
@@ -29,6 +29,7 @@ export interface MarkdownPreviewProps {
   content: string;
   /** markdown 编辑器的功能属性配置，控制编辑器行为 */
   fncProps?: MarkdownEditorProps['fncProps'];
+  placement?: 'left' | 'right';
   /** 是否启用打字机效果，例如: true */
   typing?: boolean;
   /** 额外的 React 节点，用于显示附加内容，例如: <Button>更多</Button> */
@@ -161,10 +162,10 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   const errorDom = (
     <div
       style={{
-        padding: '12px 20px',
+        padding: 'var(--padding-5x)',
         background: ' #FFFFFF',
         color: token.colorError,
-        borderRadius: '12px 6px 12px 12px',
+        borderRadius: '16px 16px 2px 16px',
         border: '1px solid ' + token.colorErrorBorder,
       }}
     >
@@ -172,22 +173,66 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
     </div>
   );
 
+  if (props.placement !== 'right') {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: 0,
+          maxWidth: '100%',
+        }}
+      >
+        <ErrorBoundary fallback={errorDom}>
+          {beforeContent}
+          {markdown}
+          {docListNode}
+          {afterContent}
+        </ErrorBoundary>
+        {extra}
+      </div>
+    );
+  }
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minWidth: 0,
-        maxWidth: '100%',
+    <Popover
+      align={{
+        points: ['tr', 'br'],
+        offset: [0, -12],
       }}
+      content={extra}
+      styles={{
+        root: {
+          padding: 0,
+          borderRadius: 'var(--radius-control-sm)',
+          background: 'var(--color-primary-bg-page)',
+          boxShadow: 'var(--shadow-control-base)',
+        },
+        body: {
+          padding: 'var(--padding-0-5x)',
+          borderRadius: 'var(--radius-control-sm)',
+          background: 'var(--color-primary-bg-page)',
+          boxShadow: 'var(--shadow-control-base)',
+        },
+      }}
+      arrow={false}
+      placement="bottomRight"
     >
-      <ErrorBoundary fallback={errorDom}>
-        {beforeContent}
-        {markdown}
-        {docListNode}
-        {afterContent}
-      </ErrorBoundary>
-      {extra}
-    </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: 0,
+          maxWidth: '100%',
+        }}
+      >
+        <ErrorBoundary fallback={errorDom}>
+          {beforeContent}
+          {markdown}
+          {docListNode}
+          {afterContent}
+        </ErrorBoundary>
+      </div>
+    </Popover>
   );
 };

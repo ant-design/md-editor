@@ -4,7 +4,10 @@ interface RubyIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const RubyIcon: React.FC<RubyIconProps> = ({ size = 24, ...props }) => {
+export const RubyIcon: React.FC<RubyIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

@@ -4,7 +4,7 @@ interface AdaIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const AdaIcon: React.FC<AdaIconProps> = ({ size = 24, ...props }) => {
+export const AdaIcon: React.FC<AdaIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

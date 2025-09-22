@@ -4,7 +4,10 @@ interface MojoIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const MojoIcon: React.FC<MojoIconProps> = ({ size = 24, ...props }) => {
+export const MojoIcon: React.FC<MojoIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

@@ -4,7 +4,7 @@ interface MdxIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const MdxIcon: React.FC<MdxIconProps> = ({ size = 24, ...props }) => {
+export const MdxIcon: React.FC<MdxIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

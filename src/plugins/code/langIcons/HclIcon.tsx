@@ -4,7 +4,7 @@ interface HclIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const HclIcon: React.FC<HclIconProps> = ({ size = 24, ...props }) => {
+export const HclIcon: React.FC<HclIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

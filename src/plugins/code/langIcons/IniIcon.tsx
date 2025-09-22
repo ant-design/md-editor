@@ -4,7 +4,7 @@ interface IniIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const IniIcon: React.FC<IniIconProps> = ({ size = 24, ...props }) => {
+export const IniIcon: React.FC<IniIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

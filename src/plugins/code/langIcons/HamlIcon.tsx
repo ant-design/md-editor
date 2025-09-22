@@ -4,7 +4,10 @@ interface HamlIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const HamlIcon: React.FC<HamlIconProps> = ({ size = 24, ...props }) => {
+export const HamlIcon: React.FC<HamlIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

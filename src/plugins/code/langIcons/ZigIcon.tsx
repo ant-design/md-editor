@@ -4,7 +4,7 @@ interface ZigIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const ZigIcon: React.FC<ZigIconProps> = ({ size = 24, ...props }) => {
+export const ZigIcon: React.FC<ZigIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

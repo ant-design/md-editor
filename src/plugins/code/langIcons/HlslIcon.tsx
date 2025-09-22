@@ -4,7 +4,10 @@ interface HlslIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const HlslIcon: React.FC<HlslIconProps> = ({ size = 24, ...props }) => {
+export const HlslIcon: React.FC<HlslIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

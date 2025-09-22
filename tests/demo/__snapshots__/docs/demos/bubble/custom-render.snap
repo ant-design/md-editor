@@ -118,7 +118,7 @@
                     style="width: 40px; height: 40px; font-size: 20px; border: 2px solid rgb(24, 144, 255); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
                   >
                     <img
-                      src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                      src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original"
                     />
                   </span>
                   <sup
@@ -723,7 +723,7 @@ const OptimizedComponent = React.memo(({ data }) =&gt; {
                     style="width: 40px; height: 40px; font-size: 20px; border: 2px solid rgb(24, 144, 255); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
                   >
                     <img
-                      src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                      src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original"
                     />
                   </span>
                   <sup

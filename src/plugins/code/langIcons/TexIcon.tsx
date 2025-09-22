@@ -4,7 +4,7 @@ interface TexIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const TexIcon: React.FC<TexIconProps> = ({ size = 24, ...props }) => {
+export const TexIcon: React.FC<TexIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

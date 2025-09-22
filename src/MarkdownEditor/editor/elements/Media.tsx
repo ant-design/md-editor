@@ -23,9 +23,44 @@ import { getMediaType } from '../utils/dom';
 import { ImageAndError } from './Image';
 
 /**
- * 修复图片大小的问题
- * @param props
- * @returns
+ * 可调整大小的图片组件的属性接口
+ */
+interface ResizeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  /** 调整大小开始时的回调函数 */
+  onResizeStart?: () => void;
+  /** 调整大小结束时的回调函数 */
+  onResizeStop?: (size: {
+    width: number | string;
+    height: number | string;
+  }) => void;
+  /** 默认尺寸配置 */
+  defaultSize?: { width?: number; height?: number };
+  /** 是否被选中状态 */
+  selected?: boolean;
+}
+
+/**
+ * 可调整大小的图片组件
+ *
+ * 功能特性：
+ * - 支持拖拽调整图片尺寸
+ * - 保持图片宽高比
+ * - 加载状态处理
+ * - 选中状态视觉反馈
+ * - 响应式尺寸调整
+ *
+ * @param props - 组件属性
+ * @returns 可调整大小的图片元素
+ *
+ * @example
+ * ```tsx
+ * <ResizeImage
+ *   src="image.jpg"
+ *   selected={true}
+ *   defaultSize={{ width: 300, height: 200 }}
+ *   onResizeStop={(size) => console.log('新尺寸:', size)}
+ * />
+ * ```
  */
 export const ResizeImage = ({
   onResizeStart,
@@ -33,18 +68,7 @@ export const ResizeImage = ({
   selected,
   defaultSize,
   ...props
-}: React.ImgHTMLAttributes<HTMLImageElement> & {
-  onResizeStart?: () => void;
-  onResizeStop?: (size: {
-    width: number | string;
-    height: number | string;
-  }) => void;
-  defaultSize?: {
-    width?: number;
-    height?: number;
-  };
-  selected?: boolean;
-}) => {
+}: ResizeImageProps) => {
   const [loading, setLoading] = React.useState(true);
   const radio = useRef<number>(1);
   const [size, setSize] = React.useState({

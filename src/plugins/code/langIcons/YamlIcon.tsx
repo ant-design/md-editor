@@ -4,7 +4,10 @@ interface YamlIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const YamlIcon: React.FC<YamlIconProps> = ({ size = 24, ...props }) => {
+export const YamlIcon: React.FC<YamlIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

@@ -4,7 +4,10 @@ interface JsonIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const JsonIcon: React.FC<JsonIconProps> = ({ size = 24, ...props }) => {
+export const JsonIcon: React.FC<JsonIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

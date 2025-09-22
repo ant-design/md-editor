@@ -14,7 +14,7 @@ const message: MessageBubbleData = {
   isFinished: true,
   meta: {
     avatar:
-      'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
     title: 'AI 助手',
   },
 };

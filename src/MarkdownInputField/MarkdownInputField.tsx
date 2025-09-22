@@ -1,4 +1,4 @@
-﻿import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
@@ -379,6 +379,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     ],
   },
   markdownProps,
+  borderRadius = 16,
   onBlur,
   onFocus,
   ...props
@@ -535,12 +536,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     },
   );
   // 默认支持的文件格式
-  const supportedFormats = useMemo(() => {
-    if (props.attachment?.supportedFormats) {
-      return props.attachment.supportedFormats;
+  const supportedFormat = useMemo(() => {
+    if (props.attachment?.supportedFormat) {
+      return props.attachment.supportedFormat;
     }
-    return SupportedFileFormats;
-  }, [props.attachment?.supportedFormats]);
+    return SupportedFileFormats.image;
+  }, [props.attachment?.supportedFormat]);
 
   /**
    * 上传图片的函数
@@ -552,9 +553,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     input.id = 'uploadImage' + '_' + Math.random();
     input.type = 'file';
 
-    input.accept =
-      supportedFormats?.map((item) => item.extensions?.join(',')).join(',') ||
-      'image/*';
+    input.accept = supportedFormat?.extensions?.join(',') || 'image/*';
 
     input.multiple = true;
     input.style.display = 'none';
@@ -606,7 +605,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           uploadImage={uploadImage}
           key="attachment-button"
           {...props.attachment}
-          supportedFormats={supportedFormats}
+          supportedFormat={supportedFormat}
           fileMap={fileMap}
           onFileMapChange={(fileMap) => {
             updateAttachmentFiles(fileMap);
@@ -626,7 +625,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       <SendButton
         key="send-button"
         typing={!!props.typing || isLoading}
-        isHover={isHover}
+        isSendable={
+          !!value?.trim() || (fileMap && fileMap.size > 0) || recording
+        }
         disabled={props.disabled}
         onClick={() => {
           if (props.typing || isLoading) {
@@ -643,6 +644,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   }, [
     props.attachment,
     fileUploadDone,
+    value,
     isLoading,
     isHover,
     props.disabled,
@@ -675,7 +677,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         })}
         style={{
           ...props.style,
-          borderRadius: props.borderRadius || 12,
+          borderRadius: borderRadius || 16,
         }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -796,7 +798,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             zIndex: 9,
             flexDirection: 'column',
             boxSizing: 'border-box',
-            borderRadius: (props.borderRadius || 12) - 2 || 10,
+            borderRadius: (borderRadius || 16) - 2 || 10,
             cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
             opacity: props.disabled ? 0.5 : 1,
           }}
@@ -805,7 +807,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             style={{
               display: 'flex',
               flexDirection: 'column',
-              borderRadius: (props.borderRadius || 12) - 2 || 10,
+              borderRadius: (borderRadius || 16) - 2 || 10,
               maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
               flex: 1,
             }}
@@ -834,12 +836,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   ? {
                       width: '100%',
                       flex: 1,
-                      padding: 4,
+                      padding: 0,
                     }
                   : {
                       width: '100%',
                       flex: 1,
-                      padding: 4,
+                      padding: 0,
                       paddingRight: rightPadding || 52,
                     }
               }

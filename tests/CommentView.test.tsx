@@ -35,12 +35,25 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock EditorStoreContext
-vi.mock('../src/MarkdownEditor/editor/store', () => ({
-  EditorStoreContext: React.createContext({
-    setShowComment: vi.fn(),
-  }),
-}));
+// Mock EditorStoreContext and useEditorStore
+vi.mock('../src/MarkdownEditor/editor/store', async (importOriginal) => {
+  const actual = (await importOriginal()) as any;
+  return {
+    ...actual,
+    EditorStoreContext: React.createContext({
+      setShowComment: vi.fn(),
+      markdownEditorRef: { current: null },
+    }),
+    useEditorStore: vi.fn(() => ({
+      store: {},
+      readonly: true,
+      typewriter: false,
+      editorProps: {},
+      markdownEditorRef: { current: null },
+      setShowComment: vi.fn(),
+    })),
+  };
+});
 
 // Mock useStyle hook
 vi.mock('../src/MarkdownEditor/editor/elements/Comment/style', () => ({

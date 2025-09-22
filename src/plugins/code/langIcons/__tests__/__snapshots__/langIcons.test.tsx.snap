@@ -23,10 +23,10 @@ exports[`Language Icons > 应该渲染 AbapIcon 图标 1`] = `
 <div>
   <svg
     data-testid="abapicon-icon"
-    height="24"
+    height="1em"
     version="1.1"
     viewBox="0 0 200 200"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -93,9 +93,9 @@ exports[`Language Icons > 应该渲染 AdaIcon 图标 1`] = `
 <div>
   <svg
     data-testid="adaicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -636,9 +636,9 @@ exports[`Language Icons > 应该渲染 ApexIcon 图标 1`] = `
 <div>
   <svg
     data-testid="apexicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -692,9 +692,9 @@ exports[`Language Icons > 应该渲染 AplIcon 图标 1`] = `
 <div>
   <svg
     data-testid="aplicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -822,9 +822,9 @@ exports[`Language Icons > 应该渲染 AwkIcon 图标 1`] = `
 <div>
   <svg
     data-testid="awkicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -1058,9 +1058,9 @@ exports[`Language Icons > 应该渲染 BatIcon 图标 1`] = `
 <div>
   <svg
     data-testid="baticon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
   >
@@ -1315,10 +1315,10 @@ exports[`Language Icons > 应该渲染 CIcon 图标 1`] = `
 <div>
   <svg
     data-testid="cicon-icon"
-    height="24"
+    height="1em"
     version="1.1"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
      
@@ -1692,10 +1692,10 @@ exports[`Language Icons > 应该渲染 CppIcon 图标 1`] = `
 <div>
   <svg
     data-testid="cppicon-icon"
-    height="24"
+    height="1em"
     version="1.1"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
      
@@ -1805,9 +1805,9 @@ exports[`Language Icons > 应该渲染 CssIcon 图标 1`] = `
 <div>
   <svg
     data-testid="cssicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -1840,10 +1840,10 @@ exports[`Language Icons > 应该渲染 DIcon 图标 1`] = `
 <div>
   <svg
     data-testid="dicon-icon"
-    height="24"
+    height="1em"
     version="1.0"
     viewBox="0 0 300 300"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -1887,9 +1887,9 @@ exports[`Language Icons > 应该渲染 DartIcon 图标 1`] = `
 <div>
   <svg
     data-testid="darticon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -1967,9 +1967,9 @@ exports[`Language Icons > 应该渲染 DiffIcon 图标 1`] = `
 <div>
   <svg
     data-testid="difficon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -2142,9 +2142,9 @@ exports[`Language Icons > 应该渲染 ElmIcon 图标 1`] = `
 <div>
   <svg
     data-testid="elmicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 323 323"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -2200,9 +2200,9 @@ exports[`Language Icons > 应该渲染 ErbIcon 图标 1`] = `
 <div>
   <svg
     data-testid="erbicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -2414,9 +2414,9 @@ exports[`Language Icons > 应该渲染 GlslIcon 图标 1`] = `
 <div>
   <svg
     data-testid="glslicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -2550,9 +2550,9 @@ exports[`Language Icons > 应该渲染 GoIcon 图标 1`] = `
 <div>
   <svg
     data-testid="goicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 300 300"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -2730,9 +2730,9 @@ exports[`Language Icons > 应该渲染 HackIcon 图标 1`] = `
 <div>
   <svg
     data-testid="hackicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 253.6 253.6"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -2777,9 +2777,9 @@ exports[`Language Icons > 应该渲染 HamlIcon 图标 1`] = `
 <div>
   <svg
     data-testid="hamlicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 300 300"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -2922,10 +2922,10 @@ exports[`Language Icons > 应该渲染 HclIcon 图标 1`] = `
 <div>
   <svg
     data-testid="hclicon-icon"
-    height="24"
+    height="1em"
     style="clip-rule: evenodd; fill-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 1.4142;"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -3114,9 +3114,9 @@ exports[`Language Icons > 应该渲染 HlslIcon 图标 1`] = `
 <div>
   <svg
     data-testid="hlslicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -3163,9 +3163,9 @@ exports[`Language Icons > 应该渲染 HtmlIcon 图标 1`] = `
 <div>
   <svg
     data-testid="htmlicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -3197,9 +3197,9 @@ exports[`Language Icons > 应该渲染 HttpIcon 图标 1`] = `
 <div>
   <svg
     data-testid="httpicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -3233,10 +3233,10 @@ exports[`Language Icons > 应该渲染 ImbaIcon 图标 1`] = `
 <div>
   <svg
     data-testid="imbaicon-icon"
-    height="24"
+    height="1em"
     style="clip-rule: evenodd; fill-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 1.4142;"
     viewBox="0 0 201 201"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -3272,9 +3272,9 @@ exports[`Language Icons > 应该渲染 IniIcon 图标 1`] = `
 <div>
   <svg
     data-testid="iniicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -3309,9 +3309,9 @@ exports[`Language Icons > 应该渲染 JavaIcon 图标 1`] = `
 <div>
   <svg
     data-testid="javaicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -3529,9 +3529,9 @@ exports[`Language Icons > 应该渲染 JsonIcon 图标 1`] = `
 <div>
   <svg
     data-testid="jsonicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -3860,9 +3860,9 @@ exports[`Language Icons > 应该渲染 LessIcon 图标 1`] = `
 <div>
   <svg
     data-testid="lessicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 300 300"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -3929,9 +3929,9 @@ exports[`Language Icons > 应该渲染 LispIcon 图标 1`] = `
 <div>
   <svg
     data-testid="lispicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -3983,9 +3983,9 @@ exports[`Language Icons > 应该渲染 LuaIcon 图标 1`] = `
 <div>
   <svg
     data-testid="luaicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g
@@ -4240,9 +4240,9 @@ exports[`Language Icons > 应该渲染 MdxIcon 图标 1`] = `
 <div>
   <svg
     data-testid="mdxicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -4339,12 +4339,12 @@ exports[`Language Icons > 应该渲染 MojoIcon 图标 1`] = `
     clip-rule="evenodd"
     data-testid="mojoicon-icon"
     fill-rule="evenodd"
-    height="24"
+    height="1em"
     stroke-linejoin="round"
     stroke-miterlimit="2"
     version="1.1"
     viewBox="0 0 48 48"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -4423,9 +4423,9 @@ exports[`Language Icons > 应该渲染 NimIcon 图标 1`] = `
 <div>
   <svg
     data-testid="nimicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -4465,9 +4465,9 @@ exports[`Language Icons > 应该渲染 NixIcon 图标 1`] = `
 <div>
   <svg
     data-testid="nixicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 500 500"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g
@@ -5305,9 +5305,9 @@ exports[`Language Icons > 应该渲染 PerlIcon 图标 1`] = `
 <div>
   <svg
     data-testid="perlicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -5339,9 +5339,9 @@ exports[`Language Icons > 应该渲染 PhpIcon 图标 1`] = `
 <div>
   <svg
     data-testid="phpicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -5834,9 +5834,9 @@ exports[`Language Icons > 应该渲染 PugIcon 图标 1`] = `
 <div>
   <svg
     data-testid="pugicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 128 128"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -6225,9 +6225,9 @@ exports[`Language Icons > 应该渲染 RIcon 图标 1`] = `
 <div>
   <svg
     data-testid="ricon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -6363,9 +6363,9 @@ exports[`Language Icons > 应该渲染 RubyIcon 图标 1`] = `
 <div>
   <svg
     data-testid="rubyicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -6397,9 +6397,9 @@ exports[`Language Icons > 应该渲染 RustIcon 图标 1`] = `
 <div>
   <svg
     data-testid="rusticon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 144 144"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -6431,9 +6431,9 @@ exports[`Language Icons > 应该渲染 SasIcon 图标 1`] = `
 <div>
   <svg
     data-testid="sasicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 6.35 6.35"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -6468,9 +6468,9 @@ exports[`Language Icons > 应该渲染 SassIcon 图标 1`] = `
 <div>
   <svg
     data-testid="sassicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 500 500"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -7163,9 +7163,9 @@ exports[`Language Icons > 应该渲染 TclIcon 图标 1`] = `
 <div>
   <svg
     data-testid="tclicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -7217,11 +7217,11 @@ exports[`Language Icons > 应该渲染 TexIcon 图标 1`] = `
     clip-rule="evenodd"
     data-testid="texicon-icon"
     fill-rule="evenodd"
-    height="24"
+    height="1em"
     stroke-linejoin="round"
     stroke-miterlimit="1.414"
     viewBox="0 0 500 500"
-    width="24"
+    width="1em"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -7278,9 +7278,9 @@ exports[`Language Icons > 应该渲染 TomlIcon 图标 1`] = `
 <div>
   <svg
     data-testid="tomlicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -7323,9 +7323,9 @@ exports[`Language Icons > 应该渲染 TwigIcon 图标 1`] = `
 <div>
   <svg
     data-testid="twigicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 50 50"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -7440,9 +7440,9 @@ exports[`Language Icons > 应该渲染 VhdlIcon 图标 1`] = `
 <div>
   <svg
     data-testid="vhdlicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -7671,9 +7671,9 @@ exports[`Language Icons > 应该渲染 VimIcon 图标 1`] = `
 <div>
   <svg
     data-testid="vimicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
   >
@@ -7901,9 +7901,9 @@ exports[`Language Icons > 应该渲染 VueIcon 图标 1`] = `
 <div>
   <svg
     data-testid="vueicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -8162,9 +8162,9 @@ exports[`Language Icons > 应该渲染 WgslIcon 图标 1`] = `
 <div>
   <svg
     data-testid="wgslicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 768 600"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <defs>
@@ -8293,9 +8293,9 @@ exports[`Language Icons > 应该渲染 XmlIcon 图标 1`] = `
 <div>
   <svg
     data-testid="xmlicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -8338,9 +8338,9 @@ exports[`Language Icons > 应该渲染 XslIcon 图标 1`] = `
 <div>
   <svg
     data-testid="xslicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 32 32"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>
@@ -8383,9 +8383,9 @@ exports[`Language Icons > 应该渲染 YamlIcon 图标 1`] = `
 <div>
   <svg
     data-testid="yamlicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -8431,9 +8431,9 @@ exports[`Language Icons > 应该渲染 ZigIcon 图标 1`] = `
 <div>
   <svg
     data-testid="zigicon-icon"
-    height="24"
+    height="1em"
     viewBox="0 0 24 24"
-    width="24"
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g

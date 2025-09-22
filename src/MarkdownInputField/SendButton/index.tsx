@@ -65,10 +65,10 @@ function SendIcon(
  */
 type SendButtonProps = {
   /**
-   * 指示按钮是否处于悬停状态
-   * Indicates whether the button is in a hover state.
+   * 指示按钮是可以发送状态
+   * Indicates whether the button is in a sendable state.
    */
-  isHover: boolean;
+  isSendable: boolean;
 
   /**
    * 指示用户是否正在输入
@@ -144,7 +144,7 @@ type SendButtonProps = {
  * - 在SSR环境下不渲染
  */
 export const SendButton: React.FC<SendButtonProps> = (props) => {
-  const { isHover, disabled, typing, onClick, style } = props;
+  const { isSendable, disabled, typing, onClick, style } = props;
   useEffect(() => {
     props.onInit?.();
   }, []);
@@ -178,7 +178,7 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
     >
       <ErrorBoundary fallback={<div />}>
         <SendIcon
-          hover={isHover && !disabled}
+          hover={isSendable && !disabled}
           disabled={disabled}
           typing={typing}
         />

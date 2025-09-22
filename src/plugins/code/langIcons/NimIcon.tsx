@@ -4,7 +4,7 @@ interface NimIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const NimIcon: React.FC<NimIconProps> = ({ size = 24, ...props }) => {
+export const NimIcon: React.FC<NimIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

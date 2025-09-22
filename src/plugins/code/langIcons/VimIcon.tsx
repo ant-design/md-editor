@@ -4,7 +4,7 @@ interface VimIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const VimIcon: React.FC<VimIconProps> = ({ size = 24, ...props }) => {
+export const VimIcon: React.FC<VimIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

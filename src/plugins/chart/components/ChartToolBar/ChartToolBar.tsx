@@ -2,6 +2,7 @@ import { DownloadOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
+import { I18nContext } from '../../../../i18n';
 import TimeIcon from '../icons/TimeIcon';
 import { useStyle } from './style';
 
@@ -23,6 +24,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   extra,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const i18n = useContext(I18nContext);
   const prefixCls = getPrefixCls('chart-toolbar');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
@@ -58,7 +60,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
               className={classNames(`${prefixCls}-time-icon`, hashId)}
             />
             <span className={classNames(`${prefixCls}-data-time`, hashId)}>
-              数据时间: {dataTime}
+              {i18n?.locale?.dataTime || '数据时间'}: {dataTime}
             </span>
           </>
         ) : null}

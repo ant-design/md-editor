@@ -4,7 +4,7 @@ interface ElmIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const ElmIcon: React.FC<ElmIconProps> = ({ size = 24, ...props }) => {
+export const ElmIcon: React.FC<ElmIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

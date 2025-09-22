@@ -4,7 +4,10 @@ interface ApexIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const ApexIcon: React.FC<ApexIconProps> = ({ size = 24, ...props }) => {
+export const ApexIcon: React.FC<ApexIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

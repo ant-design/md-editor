@@ -34,7 +34,7 @@ export default () => {
     updateAt: 1703123456789,
     meta: {
       avatar:
-        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+        'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
       title: 'Ant Design',
     },
     fileMap: new Map([
@@ -77,7 +77,7 @@ export default () => {
     updateAt: 1703123456789,
     meta: {
       avatar:
-        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+        'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
       title: 'Ant Design',
     },
     fileMap: new Map([

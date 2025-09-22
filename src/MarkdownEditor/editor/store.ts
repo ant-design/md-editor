@@ -26,35 +26,73 @@ import { CommentDataType, MarkdownEditorProps } from '../types';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
-import { EditorUtils } from './utils/editorUtils';
+import { EditorUtils, findByPathAndText } from './utils/editorUtils';
 import { markdownToHtmlSync } from './utils/markdownToHtml';
 const { createContext, useContext } = React;
 
-export const EditorStoreContext = createContext<{
+/**
+ * 编辑器上下文接口
+ *
+ * 提供编辑器组件间共享的状态和方法
+ */
+export interface EditorStoreContextType {
+  /** 编辑器核心状态存储 */
   store: EditorStore;
+  /** 是否启用打字机模式 */
   typewriter: boolean;
+  /** 根容器引用 */
   rootContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
+  /** 设置显示评论列表 */
   setShowComment: (list: CommentDataType[]) => void;
+  /** 是否为只读模式 */
   readonly: boolean;
+  /** 键盘任务流 */
   keyTask$: Subject<{
     key: Methods<KeyboardTask>;
     args?: any[];
   }>;
+  /** 插入自动完成文本流 */
   insertCompletionText$: Subject<string>;
+  /** 打开插入链接流 */
   openInsertLink$: Subject<Selection>;
+  /** 是否刷新浮动工具栏 */
   refreshFloatBar?: boolean;
+  /** DOM矩形信息 */
   domRect: DOMRect | null;
+  /** 设置DOM矩形 */
   setDomRect: (rect: DOMRect | null) => void;
+  /** 设置刷新浮动工具栏状态 */
   setRefreshFloatBar?: (refresh: boolean) => void;
+  /** 是否打开插入自动完成 */
   openInsertCompletion?: boolean;
+  /** 设置打开插入自动完成状态 */
   setOpenInsertCompletion?: (open: boolean) => void;
+  /** 编辑器属性配置 */
   editorProps: MarkdownEditorProps;
+  /** Markdown编辑器引用 */
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
   >;
+  /** Markdown容器引用 */
   markdownContainerRef: React.MutableRefObject<HTMLDivElement | null>;
-} | null>(null);
+}
 
+export const EditorStoreContext = createContext<EditorStoreContextType | null>(
+  null,
+);
+
+/**
+ * 获取编辑器存储上下文的Hook
+ *
+ * 提供安全的上下文访问，包含默认值处理
+ *
+ * @returns 编辑器存储上下文对象
+ *
+ * @example
+ * ```tsx
+ * const { store, readonly, typewriter } = useEditorStore();
+ * ```
+ */
 export const useEditorStore = () => {
   return (
     useContext(EditorStoreContext)! || {
@@ -67,26 +105,45 @@ export const useEditorStore = () => {
   );
 };
 
+/** 支持键入操作的标签类型列表 */
 const SUPPORT_TYPING_TAG = ['table-cell', 'paragraph', 'head'];
+
 /**
- * 表示更新操作的类型
+ * 表示更新操作的类型枚举
  */
 type OperationType = 'insert' | 'remove' | 'update' | 'replace' | 'text';
 
 /**
- * 表示一个更新操作
+ * 表示一个更新操作的接口
  */
 interface UpdateOperation {
+  /** 操作类型 */
   type: OperationType;
+  /** 操作路径 */
   path: Path;
+  /** 节点对象 */
   node?: Node;
+  /** 节点属性 */
   properties?: Partial<Node>;
+  /** 文本内容 */
   text?: string;
-  priority: number; // 优先级，越小越先执行
+  /** 操作优先级，越小越先执行 */
+  priority: number;
 }
 
+/**
+ * 编辑器核心状态管理类
+ *
+ * 负责管理编辑器的所有状态、操作和事件处理
+ * 包括文档结构、选择状态、高亮、拖拽、历史记录等
+ *
+ * @class
+ */
 export class EditorStore {
+  /** 高亮缓存映射表 */
   highlightCache = new Map<object, Range[]>();
+
+  /** 允许进入的元素类型集合 */
   private ableToEnter = new Set([
     'paragraph',
     'head',
@@ -97,6 +154,8 @@ export class EditorStore {
     'media',
     'attach',
   ]);
+
+  /** 当前拖拽的元素 */
   draggedElement: null | HTMLElement = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   inputComposition = false;
@@ -1506,16 +1565,9 @@ export class EditorStore {
    * ```ts
    * // 查找所有包含 "focus" 的位置
    * const results = store.findByPathAndText("", "focus");
-   *
-   * // 在表格中查找 "replaceText"
-   * const results = store.findByPathAndText("table", "replaceText", { wholeWord: true });
-   *
-   * // 在包含 "store" 的区域中查找方法定义
-   * const results = store.findByPathAndText("store", "replaceText", { wholeWord: true });
-   * ```
    */
   findByPathAndText(
-    pathDescription: string,
+    pathDescription: Path,
     searchText: string,
     options: {
       caseSensitive?: boolean;
@@ -1532,213 +1584,10 @@ export class EditorStore {
     if (!searchText.trim()) return [];
 
     const editor = this._editor.current;
-    const results: Array<{
-      path: Path;
-      range: Range;
-      node: Node;
-      matchedText: string;
-      offset: { start: number; end: number };
-      lineContent: string;
-      nodeType?: string;
-    }> = [];
-
-    // 创建搜索正则表达式
-    const flags = caseSensitive ? 'g' : 'gi';
-    const pattern = wholeWord
-      ? new RegExp(`\\b${this.escapeRegExp(searchText)}\\b`, flags)
-      : new RegExp(this.escapeRegExp(searchText), flags);
-
-    try {
-      // 根据 pathDescription 确定搜索范围
-      let searchRange: Path[] | undefined;
-
-      if (pathDescription && pathDescription.trim()) {
-        // 如果提供了路径描述，先找到匹配的节点
-        const pathNodes = Array.from(
-          Editor.nodes(editor, {
-            at: [],
-            match: (n) => {
-              if (Element.isElement(n)) {
-                // 检查节点类型、属性或内容是否匹配路径描述
-                const nodeString = Node.string(n).toLowerCase();
-                const pathDesc = pathDescription.toLowerCase();
-
-                return (
-                  n.type?.includes(pathDesc) ||
-                  nodeString.includes(pathDesc) ||
-                  JSON.stringify(n).toLowerCase().includes(pathDesc)
-                );
-              }
-              return false;
-            },
-          }),
-        );
-
-        // 提取匹配节点的路径作为搜索范围
-        searchRange = pathNodes.map(([, path]) => path);
-      }
-
-      // 获取文本节点
-      let textNodesGenerator;
-
-      if (searchRange && searchRange.length > 0) {
-        // 在指定路径范围内搜索
-        const allTextNodes: Array<[Node, Path]> = [];
-
-        for (const rangePath of searchRange) {
-          try {
-            const rangeNodes = Array.from(
-              Editor.nodes(editor, {
-                at: rangePath,
-                match: (n) =>
-                  Text.isText(n) &&
-                  typeof n.text === 'string' &&
-                  n.text.length > 0,
-              }),
-            );
-            allTextNodes.push(...rangeNodes);
-          } catch (e) {
-            // 忽略无效路径
-            continue;
-          }
-        }
-
-        textNodesGenerator = allTextNodes;
-      } else {
-        // 在整个编辑器中搜索
-        textNodesGenerator = Array.from(
-          Editor.nodes(editor, {
-            at: [],
-            match: (n) =>
-              Text.isText(n) && typeof n.text === 'string' && n.text.length > 0,
-          }),
-        );
-      }
-
-      // 遍历文本节点查找匹配
-      for (const [node, path] of textNodesGenerator) {
-        if (!Text.isText(node) || !node.text) continue;
-
-        let match;
-        pattern.lastIndex = 0;
-
-        while ((match = pattern.exec(node.text)) !== null) {
-          // 获取父节点信息
-          let lineContent = node.text;
-          let nodeType = 'text';
-
-          try {
-            const parentPath = Path.parent(path);
-            if (Editor.hasPath(editor, parentPath)) {
-              const parent = Node.get(editor, parentPath);
-              if (Element.isElement(parent)) {
-                lineContent = Node.string(parent);
-                nodeType = parent.type || 'unknown';
-              }
-            }
-          } catch (e) {
-            // 如果获取父节点失败，使用原始文本
-          }
-
-          const range: Range = {
-            anchor: { path, offset: match.index },
-            focus: { path, offset: match.index + match[0].length },
-          };
-
-          results.push({
-            path,
-            range,
-            node,
-            matchedText: match[0],
-            offset: {
-              start: match.index,
-              end: match.index + match[0].length,
-            },
-            lineContent: lineContent.trim(),
-            nodeType,
-          });
-
-          // 限制结果数量避免性能问题
-          if (results.length >= maxResults) break;
-        }
-
-        if (results.length >= maxResults) break;
-      }
-    } catch (error) {
-      console.error('查找过程中出错:', error);
-    }
-
-    return results;
-  }
-
-  /**
-   * 智能查找：根据描述自动解析并查找
-   *
-   * @param description - 描述文字，如 "查找 focus 方法" 或 "store 中的 replaceText"
-   * @param options - 查找选项
-   * @returns 匹配结果数组
-   *
-   * @example
-   * ```ts
-   * // 智能查找
-   * const results = store.smartFind("查找 focus 方法");
-   * const results = store.smartFind("replaceText 函数");
-   * ```
-   */
-  smartFind(
-    description: string,
-    options: {
-      caseSensitive?: boolean;
-    } = {},
-  ) {
-    // 简单的文本解析
-    const parseDescription = (desc: string) => {
-      // 提取引号中的内容
-      const quotedMatch = desc.match(/["']([^"']+)["']/);
-      if (quotedMatch) {
-        return quotedMatch[1];
-      }
-
-      // 提取可能的标识符（函数名、变量名等）
-      const words = desc
-        .split(/\s+/)
-        .filter(
-          (word) =>
-            word.length > 2 &&
-            ![
-              '查找',
-              '搜索',
-              '中的',
-              '方法',
-              '函数',
-              '类',
-              '定义',
-              '在',
-              '中',
-            ].includes(word),
-        );
-
-      // 查找符合标识符规则的词
-      const identifier = words.find((word) =>
-        /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(word),
-      );
-
-      return identifier || words[0] || '';
-    };
-
-    const searchText = parseDescription(description);
-
-    if (!searchText) {
-      console.warn('无法从描述中解析出搜索文本:', description);
-      return [];
-    }
-
-    const { caseSensitive = false } = options;
-
-    return this.findByPathAndText('', searchText, {
+    return findByPathAndText(editor, pathDescription, searchText, {
       caseSensitive,
-      // 如果是标识符，使用完整单词匹配
-      wholeWord: /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(searchText),
+      wholeWord,
+      maxResults,
     });
   }
 

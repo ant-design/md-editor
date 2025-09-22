@@ -4,7 +4,10 @@ interface RustIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const RustIcon: React.FC<RustIconProps> = ({ size = 24, ...props }) => {
+export const RustIcon: React.FC<RustIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

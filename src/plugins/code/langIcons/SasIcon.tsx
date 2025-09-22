@@ -4,7 +4,7 @@ interface SasIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const SasIcon: React.FC<SasIconProps> = ({ size = 24, ...props }) => {
+export const SasIcon: React.FC<SasIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

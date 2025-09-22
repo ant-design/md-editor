@@ -4,7 +4,7 @@ interface AwkIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const AwkIcon: React.FC<AwkIconProps> = ({ size = 24, ...props }) => {
+export const AwkIcon: React.FC<AwkIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

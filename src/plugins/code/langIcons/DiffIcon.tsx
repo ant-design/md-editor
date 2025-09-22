@@ -4,7 +4,10 @@ interface DiffIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const DiffIcon: React.FC<DiffIconProps> = ({ size = 24, ...props }) => {
+export const DiffIcon: React.FC<DiffIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

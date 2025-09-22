@@ -16,22 +16,37 @@ import { TestSlateWrapper } from './TestSlateWrapper';
 // Mock dependencies
 const mockSetShowComment = vi.hoisted(() => vi.fn());
 
-vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
-  EditorStoreContext: React.createContext({
-    store: {},
-    typewriter: false,
-    setShowComment: mockSetShowComment(),
-    readonly: false,
-    keyTask$: { next: vi.fn() },
-    insertCompletionText$: { next: vi.fn() },
-    openInsertLink$: { next: vi.fn() },
-    domRect: null,
-    setDomRect: vi.fn(),
-    editorProps: {},
-    markdownEditorRef: { current: null },
-    markdownContainerRef: { current: null },
-  }),
-}));
+vi.mock(
+  '../../../../src/MarkdownEditor/editor/store',
+  async (importOriginal) => {
+    const actual = (await importOriginal()) as any;
+    return {
+      ...actual,
+      EditorStoreContext: React.createContext({
+        store: {},
+        typewriter: false,
+        setShowComment: mockSetShowComment(),
+        readonly: false,
+        keyTask$: { next: vi.fn() },
+        insertCompletionText$: { next: vi.fn() },
+        openInsertLink$: { next: vi.fn() },
+        domRect: null,
+        setDomRect: vi.fn(),
+        editorProps: {},
+        markdownEditorRef: { current: null },
+        markdownContainerRef: { current: null },
+      }),
+      useEditorStore: vi.fn(() => ({
+        store: {},
+        readonly: false,
+        typewriter: false,
+        editorProps: {},
+        markdownEditorRef: { current: null },
+        setShowComment: mockSetShowComment(),
+      })),
+    };
+  },
+);
 
 describe('Comment', () => {
   const renderWithProvider = (component: React.ReactElement) => {

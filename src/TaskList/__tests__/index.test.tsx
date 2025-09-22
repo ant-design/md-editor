@@ -467,4 +467,152 @@ describe('TaskList', () => {
       expect(dashLines).toHaveLength(0);
     });
   });
+
+  describe('受控模式测试', () => {
+    it('应该根据 expandedKeys 控制展开状态', () => {
+      const mockExpandedKeys = ['1', '2'];
+      const mockOnChange = vi.fn();
+
+      render(
+        <TaskList
+          items={mockItems}
+          expandedKeys={mockExpandedKeys}
+          onExpandedKeysChange={mockOnChange}
+        />,
+      );
+
+      // 检查展开的任务内容是否可见
+      expect(screen.getByText('Success content')).toBeVisible();
+      expect(screen.getByText('Pending content 1')).toBeVisible();
+      expect(screen.getByText('Pending content 2')).toBeVisible();
+
+      // 检查未展开的任务内容是否不可见
+      expect(screen.queryByText('Another pending content')).toBeNull();
+    });
+
+    it('点击时应该调用 onExpandedKeysChange 回调', () => {
+      let mockExpandedKeys = ['1', '2'];
+      const mockOnChange = vi.fn((newKeys) => {
+        mockExpandedKeys = newKeys; // 模拟父组件更新状态
+      });
+
+      const { rerender } = render(
+        <TaskList
+          items={mockItems}
+          expandedKeys={mockExpandedKeys}
+          onExpandedKeysChange={mockOnChange}
+        />,
+      );
+
+      // 点击已展开的任务，应该收起
+      const firstTaskTitle = screen.getByText('Success Task');
+      fireEvent.click(firstTaskTitle);
+
+      // 验证第一次调用
+      expect(mockOnChange).toHaveBeenCalled();
+      const lastCall =
+        mockOnChange.mock.calls[mockOnChange.mock.calls.length - 1];
+      expect(lastCall[0]).toEqual(['2']); // 移除 '1'，保留 '2'
+
+      // 重新渲染组件以模拟受控模式下的状态更新
+      rerender(
+        <TaskList
+          items={mockItems}
+          expandedKeys={mockExpandedKeys} // 使用更新后的值
+          onExpandedKeysChange={mockOnChange}
+        />,
+      );
+
+      mockOnChange.mockClear();
+
+      // 点击未展开的任务，应该展开
+      const thirdTaskTitle = screen.getByText('Another Pending Task');
+      fireEvent.click(thirdTaskTitle);
+
+      // 验证第二次调用
+      expect(mockOnChange).toHaveBeenCalled();
+      const secondLastCall =
+        mockOnChange.mock.calls[mockOnChange.mock.calls.length - 1];
+      expect(secondLastCall[0]).toEqual(['2', '3']); // 添加 '3' 到当前的 ['2']
+    });
+
+    it('应该支持动态更新 expandedKeys', () => {
+      let expandedKeys = ['1'];
+      const mockOnChange = vi.fn();
+
+      const { rerender } = render(
+        <TaskList
+          items={mockItems}
+          expandedKeys={expandedKeys}
+          onExpandedKeysChange={mockOnChange}
+        />,
+      );
+
+      // 初始状态：只有第一个任务展开
+      expect(screen.getByText('Success content')).toBeVisible();
+      expect(screen.queryByText('Pending content 1')).toBeNull();
+
+      // 更新 expandedKeys
+      expandedKeys = ['1', '2'];
+      rerender(
+        <TaskList
+          items={mockItems}
+          expandedKeys={expandedKeys}
+          onExpandedKeysChange={mockOnChange}
+        />,
+      );
+
+      // 现在两个任务都应该展开
+      expect(screen.getByText('Success content')).toBeVisible();
+      expect(screen.getByText('Pending content 1')).toBeVisible();
+    });
+
+    it('在受控模式下箭头图标应该正确显示', () => {
+      const mockExpandedKeys = ['1'];
+      const mockOnChange = vi.fn();
+
+      render(
+        <TaskList
+          items={mockItems}
+          expandedKeys={mockExpandedKeys}
+          onExpandedKeysChange={mockOnChange}
+        />,
+      );
+
+      const taskItems = document.querySelectorAll(
+        '.task-list-thoughtChainItem',
+      );
+
+      // 第一个任务是展开的，箭头应该是向下的（旋转180度）
+      const firstArrow = taskItems[0].querySelector('.task-list-arrow');
+      expect(firstArrow).toHaveStyle({
+        transform: 'rotate(180deg)',
+      });
+
+      // 第二个任务是收起的，箭头应该是向上的（旋转0度）
+      const secondArrow = taskItems[1].querySelector('.task-list-arrow');
+      expect(secondArrow).toHaveStyle({
+        transform: 'rotate(0deg)',
+      });
+    });
+  });
+
+  describe('非受控模式兼容性测试', () => {
+    it('在没有传入 expandedKeys 时应该使用内部状态管理', () => {
+      render(<TaskList items={mockItems} />);
+
+      // 初始状态：所有任务都应该是展开的（保持向后兼容）
+      expect(screen.getByText('Success content')).toBeVisible();
+      expect(screen.getByText('Pending content 1')).toBeVisible();
+
+      // 点击折叠第一个任务
+      const firstTaskTitle = screen.getByText('Success Task');
+      fireEvent.click(firstTaskTitle);
+
+      // 第一个任务应该折叠
+      expect(screen.queryByText('Success content')).toBeNull();
+      // 其他任务仍然展开
+      expect(screen.getByText('Pending content 1')).toBeVisible();
+    });
+  });
 });

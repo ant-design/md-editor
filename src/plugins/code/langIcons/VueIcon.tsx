@@ -4,7 +4,7 @@ interface VueIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const VueIcon: React.FC<VueIconProps> = ({ size = 24, ...props }) => {
+export const VueIcon: React.FC<VueIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

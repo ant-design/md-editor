@@ -17,21 +17,58 @@ group:
 
 ### FunnelChartProps
 
-| 属性           | 类型                                     | 默认值     | 说明                                              |
+<<<<<<< HEAD
+<<<<<<< HEAD
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| title | `string` | - | 图表标题 |
+| data | `FunnelChartDataItem[]` | - | 扁平化数据数组（x 为阶段，y 为数值）|
+| color | `string` | - | 自定义主色 |
+| width | `number` | `600` | 图表宽度（px），移动端自适应为 100% |
+| height | `number` | `400` | 图表高度（px），移动端最大约 80% 屏宽（上限 400）|
+| className | `string` | - | 自定义类名 |
+| theme | `'dark' \| 'light'` | `'light'` | 主题风格 |
+| showLegend | `boolean` | `true` | 是否显示图例|
+| legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置 |
+| legendAlign | `'start' \| 'center' \| 'end'` | `'start'` | 图例水平对齐方式 |
+| showGrid | `boolean` | `false` | 是否显示网格线 |
+| dataTime | `string` | - | 数据时间 |
+| showPercent | `boolean` | `true` | Tooltip 显示相对第一层的百分比 |
+=======
+| 属性 | 类型 | 默认值 | 说明 |
 | -------------- | ---------------------------------------- | ---------- | ------------------------------------------------- |
-| title          | `string`                                 | -          | 图表标题                                          |
-| data           | `FunnelChartDataItem[]`                  | -          | 扁平化数据数组（x 为阶段，y 为数值）              |
-| color          | `string`                                 | -          | 自定义主色                                        |
-| width          | `number`                                 | `600`      | 图表宽度（px），移动端自适应为 100%               |
-| height         | `number`                                 | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400） |
-| className      | `string`                                 | -          | 自定义类名                                        |
-| theme          | `'dark' \| 'light'`                      | `'light'`  | 主题风格                                          |
-| showLegend     | `boolean`                                | `true`     | 是否显示图例                                      |
-| legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置                                          |
-| legendAlign    | `'start' \| 'center' \| 'end'`           | `'start'`  | 图例水平对齐方式                                  |
-| showGrid       | `boolean`                                | `false`    | 是否显示网格线                                    |
-| dataTime       | `string`                                 | -          | 数据时间                                          |
-| showPercent    | `boolean`                                | `true`     | Tooltip 显示相对第一层的百分比                    |
+| title | `string` | - | 图表标题 |
+| data | `FunnelChartDataItem[]` | - | 扁平化数据数组（x 为阶段，y 为数值） |
+| width | `number` | `600` | 图表宽度（px），移动端自适应为 100% |
+| height | `number` | `400` | 图表高度（px），移动端最大约 80% 屏宽（上限 400） |
+| className | `string` | - | 自定义类名 |
+| theme | `'dark' \| 'light'` | `'light'` | 主题风格 |
+| showLegend | `boolean` | `true` | 是否显示图例 |
+| legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置 |
+| legendAlign | `'start' \| 'center' \| 'end'` | `'start'` | 图例水平对齐方式 |
+| showGrid | `boolean` | `false` | 是否显示网格线 |
+| dataTime | `string` | - | 数据时间 |
+| showPercent | `boolean` | `true` | Tooltip 显示相对第一层的百分比 |
+
+> > > > > > > # fde95d7f (refactor: update chart component documentation and improve formatting for better readability; add ChartContainer component for enhanced layout management)
+> > > > > > >
+> > > > > > > | 属性           | 类型                                     | 默认值     | 说明                                              |
+> > > > > > > | -------------- | ---------------------------------------- | ---------- | ------------------------------------------------- |
+> > > > > > > | title          | `string`                                 | -          | 图表标题                                          |
+> > > > > > > | data           | `FunnelChartDataItem[]`                  | -          | 扁平化数据数组（x 为阶段，y 为数值）              |
+> > > > > > > | color          | `string`                                 | -          | 自定义主色                                        |
+> > > > > > > | width          | `number`                                 | `600`      | 图表宽度（px），移动端自适应为 100%               |
+> > > > > > > | height         | `number`                                 | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400） |
+> > > > > > > | className      | `string`                                 | -          | 自定义类名                                        |
+> > > > > > > | theme          | `'dark' \| 'light'`                      | `'light'`  | 主题风格                                          |
+> > > > > > > | showLegend     | `boolean`                                | `true`     | 是否显示图例                                      |
+> > > > > > > | legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置                                          |
+> > > > > > > | legendAlign    | `'start' \| 'center' \| 'end'`           | `'start'`  | 图例水平对齐方式                                  |
+> > > > > > > | showGrid       | `boolean`                                | `false`    | 是否显示网格线                                    |
+> > > > > > > | dataTime       | `string`                                 | -          | 数据时间                                          |
+> > > > > > > | showPercent    | `boolean`                                | `true`     | Tooltip 显示相对第一层的百分比                    |
+> > > > > > >
+> > > > > > > main
 
 ### FunnelChartDataItem
 

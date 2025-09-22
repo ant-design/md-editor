@@ -4,7 +4,7 @@ interface PhpIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const PhpIcon: React.FC<PhpIconProps> = ({ size = 24, ...props }) => {
+export const PhpIcon: React.FC<PhpIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}
