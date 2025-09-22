@@ -1,8 +1,8 @@
-﻿import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
+import { CloseIcon } from '../../../icons/CloseIcon';
 import { AttachmentFile } from '../types';
 import { isImageFile } from '../utils';
 import { AttachmentFileListItem } from './AttachmentFileListItem';
@@ -63,7 +63,7 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
 
   return wrapSSR(
-    <>
+    <div className={classNames(`${prefix}-container`, hashId)}>
       <motion.div
         variants={{
           visible: {
@@ -147,9 +147,9 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
           }}
           className={classNames(`${`${prefix}`}-close-icon`, hashId)}
         >
-          <DeleteOutlined />
+          <CloseIcon />
         </div>
       ) : null}
-    </>,
+    </div>,
   );
 };

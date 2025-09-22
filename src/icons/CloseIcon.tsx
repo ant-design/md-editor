@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 /**
  * CloseIcon 组件 - 关闭图标组件

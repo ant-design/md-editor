@@ -1,4 +1,4 @@
-﻿import {
+import {
   CodeFilled,
   FileExcelFilled,
   FileTextFilled,
