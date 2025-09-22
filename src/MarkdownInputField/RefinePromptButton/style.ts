@@ -18,9 +18,8 @@ const spinnerRotate = new Keyframes('refineSpinnerRotate', {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      width: 28,
-      height: 28,
-      padding: 4,
+      width: 20,
+      height: 20,
       borderRadius: 6,
       display: 'flex',
       alignItems: 'center',

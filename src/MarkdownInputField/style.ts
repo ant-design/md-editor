@@ -90,7 +90,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-is-multi-row': {
         [`${token.componentCls}-send-actions`]: {
-          right: 12,
+          right: 6,
           bottom: 12,
         },
       },
