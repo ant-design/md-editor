@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
@@ -18,14 +18,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: 4,
       transition: 'all 0.3s',
       justifyContent: 'center',
-      borderRadius: token.borderRadius,
+      borderRadius: 'var(--radius-control-sm)',
       fontSize: '1em',
       color: 'var(--color-gray-a9)',
       '&-noPadding': {
         padding: 0,
       },
       '&:hover': {
-        background: 'rgba(0, 16, 32, 0.0627)',
+        background: 'var(--color-gray-control-fill-active)',
+        boxSizing: 'border-box',
+        border: 'var(--color-gray-border-light)',
       },
       '&-standalone': {
         minWidth: 'inherit',

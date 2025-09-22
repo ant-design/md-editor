@@ -294,14 +294,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'none',
       },
 
-    // CSS变量定义
-    ':root': {
-      '--markdown-input-field-tag-color': 'rgb(22, 119, 255)',
-      '--markdown-input-field-tag-placeholder-color': 'rgb(22, 119, 255)',
-      '--markdown-input-field-tag-border-color': 'rgb(145, 202, 255)',
-      '--markdown-input-field-tag-hint-opacity': '0.5',
-    },
-
     // 全局样式
     '*': {
       scrollbarWidth: 'thin',

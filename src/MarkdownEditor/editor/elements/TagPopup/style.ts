@@ -11,16 +11,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       margin: '0 4px',
       cursor: 'pointer',
       padding: '0px 4px',
-      borderRadius: '4px',
       fontSize: '0.9em',
       display: 'inline-flex',
       lineHeight: '1.5',
-      color: 'var(--markdown-input-field-tag-color)',
-      border: '1px solid var(--markdown-input-field-tag-border-color)',
+      color: 'var(--color-primary-text-secondary)',
+      borderRadius: 'var(--radius-control-sm)',
+      background: 'var(--color-primary-bg-tip)',
 
       '&-tag-popup-input': {
         '&:not(.tag-popup-input-composition).empty::before': {
-          color: 'var(--markdown-input-field-tag-placeholder-color)',
+          color: 'var(--color-primary-text-disabled)',
           content: 'attr(title)',
           opacity: 0.5,
           userSelect: 'none',
