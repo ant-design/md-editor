@@ -181,11 +181,12 @@ export default () => {
       <h3>基础用法</h3>
       <VisualList data={mockData} />
 
-      <h3 style={{ marginTop: 24 }}>圆形头像</h3>
-      <VisualList data={mockData} shape="circle" />
-
-      <h3 style={{ marginTop: 24 }}>过滤数据</h3>
-      <VisualList data={mockData} filter={(item) => item.href !== undefined} />
+      <h3 style={{ marginTop: 24 }}>描述</h3>
+      <VisualList
+        data={mockData}
+        shape="circle"
+        description={`${mockData.length}个成员`}
+      />
 
       <div style={{ marginTop: '20px' }}>
         <h4>Props 说明：</h4>

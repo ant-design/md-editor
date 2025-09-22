@@ -14,6 +14,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: 0,
       flexFlow: 'wrap',
       gap: '4px',
+      // 容器样式
+
       [`${token.componentCls}-item`]: {
         marginRight: '-12px',
         marginBottom: '0px',
@@ -46,8 +48,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`${token.componentCls}-image`]: {
         objectFit: 'cover',
         display: 'block',
-        width: '24px',
-        height: '24px',
+        width: '18px',
+        height: '18px',
       },
 
       [`${token.componentCls}-loading`]: {
@@ -79,6 +81,46 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`${token.componentCls}-item-circle`]: {
         borderRadius: '50%',
       },
+
+      // 变体样式
+      [`${token.componentCls}-outline`]: {
+        border: '1px solid #d9d9d9',
+        borderRadius: '6px',
+        padding: '12px',
+        backgroundColor: '#fafafa',
+      },
+
+      [`${token.componentCls}-borderless`]: {
+        border: 'none',
+        padding: 0,
+        backgroundColor: 'transparent',
+      },
+
+      [`${token.componentCls}-default`]: {
+        // 默认样式，无特殊边框处理
+      },
+    },
+    [`${token.componentCls}-container`]: {
+      position: 'relative',
+      borderRadius: '200px',
+      height: 28,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 6,
+      width: 'max-content',
+      padding: '0 8px',
+      background: '#FFFFFF',
+      boxShadow:
+        '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+    },
+
+    // 描述文字样式
+    [`${token.componentCls}-description`]: {
+      fontSize: '13px',
+      fontWeight: 'normal',
+      lineHeight: '22px',
+      letterSpacing: 'normal',
+      color: '#767E8B',
     },
   };
 };

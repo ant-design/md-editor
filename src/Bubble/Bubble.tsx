@@ -1,19 +1,9 @@
-import { memo, MutableRefObject, useContext, useMemo } from 'react';
+import { memo, MutableRefObject } from 'react';
 
-import { ConfigProvider, Flex } from 'antd';
-import cx from 'classnames';
-import React from 'react';
-import { LoadingIcon } from '../icons/LoadingIcon';
-import { BubbleAvatar } from './Avatar';
-import { BubbleBeforeNode } from './before';
-import { BubbleConfigContext } from './BubbleConfigProvide';
-import { BubbleFileView } from './FileView';
-import { BubbleMessageDisplay } from './MessagesContent';
-import { MessagesContext } from './MessagesContent/BubbleContext';
-import { BubbleExtra } from './MessagesContent/BubbleExtra';
-import { useStyle } from './style';
-import { BubbleTitle } from './Title';
-import type { BubbleMetaData, BubbleProps } from './type';
+import React, { useMemo } from 'react';
+import { AIBubble } from './AIBubble';
+import { UserBubble } from './UserBubble';
+import type { BubbleProps } from './type';
 
 export const runRender = (
   render: any,
@@ -35,15 +25,16 @@ export const runRender = (
 };
 
 /**
- * Bubble 组件 - 聊天气泡组件
+ * Bubble 组件 - 聊天气泡组件（智能分发器）
  *
- * 该组件是聊天气泡的核心组件，用于显示单条聊天消息。
- * 支持左右布局、头像显示、标题、时间、消息内容等功能。
+ * 该组件是聊天气泡的智能分发器，根据消息角色自动选择合适的子组件进行渲染。
+ * - 用户消息（role: 'user'）使用 UserBubble 组件，采用右侧布局
+ * - AI消息（其他角色）使用 AIBubble 组件，采用左侧布局，支持完整交互功能
  *
  * @component
- * @description 聊天气泡组件，用于显示单条聊天消息
+ * @description 聊天气泡智能分发组件，根据消息角色自动选择渲染方式
  * @param {BubbleProps & {deps?: any[], bubbleRef?: MutableRefObject<any>}} props - 组件属性
- * @param {string} [props.placement='left'] - 气泡位置，'left' 或 'right'
+ * @param {string} [props.placement] - 气泡位置，会被自动覆盖
  * @param {BubbleAvatarProps} [props.avatar] - 头像配置
  * @param {string | number | Date} [props.time] - 消息时间
  * @param {React.ReactNode} [props.children] - 消息内容
@@ -55,20 +46,21 @@ export const runRender = (
  * @param {Function} [props.onAvatarClick] - 头像点击回调
  * @param {any[]} [props.deps] - 依赖数组
  * @param {MutableRefObject} [props.bubbleRef] - 气泡引用
+ * @param {MessageBubbleData} [props.originData] - 消息数据，包含角色信息
  *
  * @example
  * ```tsx
+ * // 用户消息会自动使用 UserBubble
  * <Bubble
- *   placement="left"
- *   avatar={{
- *     avatar: "https://example.com/avatar.jpg",
- *     title: "用户"
- *   }}
- *   time={new Date()}
- *   style={itemStyle}
- * >
- *   这是一条消息内容
- * </Bubble>
+ *   originData={{ role: 'user', content: '你好' }}
+ *   avatar={{ avatar: "user.jpg", title: "用户" }}
+ * />
+ *
+ * // AI消息会自动使用 AIBubble
+ * <Bubble
+ *   originData={{ role: 'assistant', content: '你好！有什么可以帮助你的吗？' }}
+ *   avatar={{ avatar: "ai.jpg", title: "AI助手" }}
+ * />
  * ```
  *
  * @returns {React.ReactElement} 渲染的聊天气泡组件
@@ -79,376 +71,26 @@ export const Bubble: React.FC<
     bubbleRef?: MutableRefObject<any | undefined>;
   }
 > = memo((props) => {
-  const {
-    onAvatarClick,
-    className,
-    placement = 'left',
-    avatar,
-    style,
-    time,
-    bubbleRenderConfig,
-    classNames,
-    styles,
-  } = props;
-
-  const typing = useMemo(() => {
-    return (
-      props.originData?.isAborted !== true &&
-      props.originData?.isFinished === false &&
-      props?.originData?.extra?.isHistory === undefined &&
-      props.originData?.isFinished !== undefined
-    );
-  }, [
-    props.originData?.isAborted,
-    props.originData?.isFinished,
-    props.originData?.extra?.isHistory,
-  ]);
-
-  const preMessageSameRole = useMemo(() => {
-    if (
-      props.preMessage?.role === undefined ||
-      props.originData?.role === undefined
-    ) {
-      return false;
+  // 根据角色自动选择组件
+  const isUserMessage = useMemo(() => {
+    if (props.placement === undefined) {
+      return props.originData?.role === 'user';
     }
-    return props.preMessage?.role === props.originData?.role;
-  }, [props.preMessage, props.originData]);
+    return props.placement === 'right';
+  }, [props.placement, props.originData?.role]);
 
-  const [hidePadding, setHidePadding] = React.useState(false);
+  // 自动设置正确的 placement，确保类型安全
+  const bubbleProps = {
+    ...props,
+    placement:
+      props.placement ||
+      ((isUserMessage ? 'right' : 'left') as 'left' | 'right'),
+  };
 
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  // 根据角色分发到对应的子组件
+  if (isUserMessage) {
+    return <UserBubble {...bubbleProps} />;
+  }
 
-  const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
-
-  const prefixClass = getPrefixCls('agent-list');
-
-  const { wrapSSR, hashId } = useStyle(prefixClass);
-
-  const titleDom = useMemo(() => {
-    return runRender(
-      bubbleRenderConfig?.titleRender,
-      props,
-      <BubbleTitle
-        bubbleNameClassName={classNames?.bubbleNameClassName}
-        className={classNames?.bubbleListItemTitleClassName}
-        style={styles?.bubbleListItemTitleStyle}
-        prefixClass={cx(`${prefixClass}-bubble-title`)}
-        title={avatar?.title || avatar?.name}
-        placement={placement}
-        time={time}
-      />,
-    );
-  }, [
-    bubbleRenderConfig?.titleRender,
-    classNames?.bubbleListItemTitleClassName,
-    props.originData?.updateAt,
-    time,
-    styles?.bubbleListItemTitleStyle,
-    avatar?.title,
-    placement,
-  ]);
-
-  const avatarDom = useMemo(
-    () =>
-      runRender(
-        bubbleRenderConfig?.avatarRender,
-        props,
-        <BubbleAvatar
-          className={classNames?.bubbleListItemAvatarClassName}
-          avatar={avatar?.avatar}
-          background={avatar?.backgroundColor}
-          title={avatar?.title || avatar?.name}
-          onClick={onAvatarClick}
-          prefixCls={`${prefixClass}-bubble-avatar`}
-          style={styles?.bubbleListItemAvatarStyle}
-        />,
-      ),
-    [
-      avatar?.backgroundColor,
-      avatar?.title,
-      props.originData?.updateAt,
-      avatar?.avatar,
-      classNames?.bubbleListItemAvatarClassName,
-      styles?.bubbleListItemAvatarStyle,
-    ],
-  );
-
-  const messageContent = (
-    <BubbleMessageDisplay
-      markdownRenderConfig={props.markdownRenderConfig}
-      docListProps={props.docListProps}
-      bubbleListRef={props.bubbleListRef}
-      bubbleListItemExtraStyle={styles?.bubbleListItemExtraStyle}
-      bubbleRef={props.bubbleRef}
-      content={props?.originData?.content}
-      key={props?.originData?.id}
-      data-id={props?.originData?.id}
-      avatar={props?.originData?.meta as BubbleMetaData}
-      readonly={props.readonly ?? false}
-      onReply={props.onReply}
-      id={props.id}
-      originData={props.originData}
-      placement={props.originData?.role === 'user' ? 'right' : 'left'}
-      time={props.originData?.updateAt || props.originData?.createAt}
-      onDisLike={props.onDisLike}
-      onLike={props.onLike}
-      customConfig={props?.bubbleRenderConfig?.customConfig}
-      pure={props.pure}
-      onCancelLike={props.onCancelLike}
-      shouldShowCopy={props.shouldShowCopy}
-      bubbleRenderConfig={props.bubbleRenderConfig}
-    />
-  );
-
-  const childrenDom = useMemo(() => {
-    return runRender(bubbleRenderConfig?.contentRender, props, messageContent);
-  }, [
-    props.originData?.content,
-    props.originData?.feedback,
-    props.originData?.isAborted,
-    props.originData?.isFinished,
-    props.deps,
-  ]);
-
-  const contentBeforeDom = useMemo(
-    () =>
-      runRender(
-        bubbleRenderConfig?.contentBeforeRender,
-        props,
-        <BubbleBeforeNode bubble={props as any} />,
-      ),
-    [
-      bubbleRenderConfig?.contentBeforeRender,
-      props.originData?.extra?.white_box_process,
-      props.originData?.isAborted,
-      props.originData?.isFinished,
-      props.originData?.updateAt,
-      props.deps,
-    ],
-  );
-
-  const contentAfterDom = runRender(
-    bubbleRenderConfig?.contentAfterRender,
-    props,
-    null,
-  );
-
-  const itemDom = wrapSSR(
-    <BubbleConfigContext.Provider
-      value={{
-        compact,
-        standalone: !!standalone,
-        locale: locale as any,
-        bubble: props as any,
-      }}
-    >
-      <Flex
-        className={cx(
-          hashId,
-          className,
-          `${prefixClass}-bubble`,
-          `${prefixClass}-bubble-{placement}`,
-          {
-            [`${prefixClass}-bubble-compact`]: compact,
-          },
-          classNames?.bubbleClassName,
-        )}
-        style={style}
-        vertical
-        id={props.id}
-        data-id={props.id}
-        gap={12}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-            alignItems: 'flex-start',
-            ...style,
-          }}
-          className={cx(`${prefixClass}-bubble-container`, hashId)}
-        >
-          {placement === 'right' || preMessageSameRole ? null : (
-            <div
-              className={cx(
-                `${prefixClass}-bubble-avatar-title`,
-                `${prefixClass}-bubble-avatar-title-${placement}`,
-                classNames?.bubbleAvatarTitleClassName,
-                hashId,
-              )}
-            >
-              {avatarDom}
-              {typing && <LoadingIcon style={{ fontSize: 16 }} />}
-              {titleDom}
-            </div>
-          )}
-          <div
-            style={{
-              display: 'flex',
-              gap: 4,
-              flexDirection: 'column',
-            }}
-            className={cx(
-              `${prefixClass}-bubble-container`,
-              `${prefixClass}-bubble-container-${placement}`,
-              {
-                [`${prefixClass}-bubble-container-pure`]: props.pure,
-              },
-              classNames?.bubbleContainerClassName,
-              hashId,
-            )}
-            data-testid="chat-message"
-          >
-            {contentBeforeDom ? (
-              <div
-                style={styles?.bubbleListItemExtraStyle}
-                className={cx(
-                  `${prefixClass}-bubble-before`,
-                  `${prefixClass}-bubble-before-${placement}`,
-                  hashId,
-                )}
-                data-testid="message-before"
-              >
-                {contentBeforeDom}
-              </div>
-            ) : null}
-            <div
-              style={{
-                minWidth: standalone ? 'min(16px,100%)' : '0px',
-                ...styles?.bubbleListItemContentStyle,
-              }}
-              className={cx(
-                `${prefixClass}-bubble-content`,
-                `${prefixClass}-bubble-content-${placement}`,
-                {
-                  [`${prefixClass}-bubble-content-pure`]: props.pure,
-                },
-                classNames?.bubbleListItemContentClassName,
-                hashId,
-              )}
-              onDoubleClick={props.onDoubleClick}
-              data-testid="message-content"
-            >
-              {childrenDom}
-            </div>
-            {contentAfterDom || (props?.originData?.fileMap?.size || 0) > 0 ? (
-              <div
-                style={{
-                  minWidth: standalone ? 'min(296px,100%)' : '0px',
-                  ...styles?.bubbleListItemExtraStyle,
-                }}
-                className={cx(
-                  `${prefixClass}-bubble-after`,
-                  `${prefixClass}-bubble-after-${placement}`,
-                  hashId,
-                )}
-                data-testid="message-after"
-              >
-                <BubbleFileView
-                  bubbleListRef={props.bubbleListRef}
-                  bubble={props as any}
-                />
-                {contentAfterDom}
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </Flex>
-    </BubbleConfigContext.Provider>,
-  );
-
-  if (bubbleRenderConfig?.render === false) return null;
-  return (
-    <MessagesContext.Provider
-      value={{
-        message: props.originData,
-        hidePadding,
-        setHidePadding,
-        setMessage: (message) => {
-          props?.bubbleRef?.current?.setMessageItem?.(
-            props.id!,
-            message as any,
-          );
-        },
-      }}
-    >
-      <>
-        {bubbleRenderConfig?.render?.(
-          props,
-          {
-            avatar: (
-              <BubbleAvatar
-                avatar={avatar?.avatar}
-                title={avatar?.title || avatar?.name}
-              />
-            ),
-            title: titleDom,
-            header: (
-              <div
-                className={cx(
-                  `${prefixClass}-bubble-avatar-title`,
-                  `${prefixClass}-bubble-avatar-title-${placement}`,
-                  classNames?.bubbleAvatarTitleClassName,
-                  hashId,
-                )}
-              >
-                {avatarDom}
-                {typing && <LoadingIcon style={{ fontSize: 16 }} />}
-                {titleDom}
-              </div>
-            ),
-            extra:
-              props?.bubbleRenderConfig?.extraRender === false ? null : (
-                <BubbleExtra
-                  pure
-                  style={props.styles?.bubbleListItemExtraStyle}
-                  readonly={props.readonly}
-                  rightRender={props?.bubbleRenderConfig?.extraRightRender}
-                  onReply={props.onReply}
-                  onCancelLike={props.onCancelLike}
-                  shouldShowCopy={props.shouldShowCopy}
-                  useSpeech={props.useSpeech}
-                  shouldShowVoice={props.shouldShowVoice}
-                  onDisLike={
-                    props.onDisLike
-                      ? async () => {
-                          try {
-                            await props.onDisLike?.(props.originData as any);
-                            props.bubbleRef?.current?.setMessageItem?.(
-                              props.id!,
-                              {
-                                feedback: 'thumbsDown',
-                              } as any,
-                            );
-                          } catch (error) {}
-                        }
-                      : undefined
-                  }
-                  bubble={props as any}
-                  onLike={
-                    props.onLike
-                      ? async () => {
-                          try {
-                            await props.onLike?.(props.originData as any);
-                            props.bubbleRef?.current?.setMessageItem?.(
-                              props.id!,
-                              {
-                                feedback: 'thumbsUp',
-                              } as any,
-                            );
-                          } catch (error) {}
-                        }
-                      : undefined
-                  }
-                />
-              ),
-            messageContent: messageContent,
-            itemDom,
-          },
-          itemDom,
-        ) || itemDom}
-      </>
-    </MessagesContext.Provider>
-  );
+  return <AIBubble {...bubbleProps} />;
 });

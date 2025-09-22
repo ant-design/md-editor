@@ -27,7 +27,7 @@
           style="padding: 24px;"
         >
           <div
-            class="ant-agent-list-bubble ant-agent-list-bubble-{placement} ant-flex ant-flex-align-stretch ant-flex-vertical"
+            class="ant-agent-list-bubble ant-agent-list-bubble-left ant-agent-list-bubble-ai ant-flex ant-flex-align-stretch ant-flex-vertical"
             style="gap: 12px;"
           >
             <div
@@ -35,7 +35,7 @@
               style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
             >
               <div
-                class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+                class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left ant-agent-list-bubble-avatar-title-ai"
               >
                 <span
                   class="ant-avatar ant-avatar-circle ant-agent-list-bubble-avatar"
@@ -58,16 +58,16 @@
                 </div>
               </div>
               <div
-                class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+                class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left ant-agent-list-bubble-container-ai"
                 data-testid="chat-message"
-                style="display: flex; gap: 4px; flex-direction: column;"
+                style="display: flex; gap: 4px; flex-direction: column; align-items: flex-start;"
               >
                 <div
-                  class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+                  class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left ant-agent-list-bubble-before-ai"
                   data-testid="message-before"
                 />
                 <div
-                  class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+                  class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-ai"
                   data-testid="message-content"
                   style="min-width: 0px;"
                 >
@@ -462,11 +462,8 @@
                     </div>
                     <div
                       class="ant-chat-item-extra"
-                      style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-gray-a9);"
+                      style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding-left: var(--padding-5x); padding-right: var(--padding-5x); padding-bottom: var(--padding-5x); color: var(--color-gray-a9); font-size: 13px; gap: 4px;"
                     >
-                      <div
-                        style="font-size: 13px; display: flex; align-items: center; gap: 4px;"
-                      />
                       <div
                         animate="visible"
                         class="ant-chat-item-extra-action-box"

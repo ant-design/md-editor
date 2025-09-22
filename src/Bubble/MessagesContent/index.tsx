@@ -138,6 +138,7 @@ export const BubbleMessageDisplay: React.FC<
     const defaultExtra =
       props?.bubbleRenderConfig?.extraRender === false ? null : (
         <BubbleExtra
+          placement={props.placement}
           style={props.bubbleListItemExtraStyle}
           readonly={readonly}
           rightRender={props?.bubbleRenderConfig?.extraRightRender}
@@ -204,6 +205,7 @@ export const BubbleMessageDisplay: React.FC<
             beforeContent={beforeContent}
             afterContent={afterContent}
             {...props.markdownRenderConfig}
+            placement={props.placement}
             markdownRenderConfig={props.markdownRenderConfig}
             isFinished={true}
             style={
@@ -410,6 +412,7 @@ export const BubbleMessageDisplay: React.FC<
           ...(props.markdownRenderConfig?.fncProps || {}),
         }}
         typing={typing}
+        placement={props.placement}
         docListNode={docInfoDom}
         extra={isExtraNull ? null : extra}
         htmlRef={props.bubbleListRef}

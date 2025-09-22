@@ -41,6 +41,7 @@ export const BubbleExtra = ({
   bubble,
   readonly,
   pure,
+  placement,
   ...props
 }: BubbleExtraProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -425,39 +426,25 @@ export const BubbleExtra = ({
       className={prefixCls}
       style={{
         display: 'flex',
-        gap: 8,
-        height: context?.compact ? '2em' : '2.8em',
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        minWidth: '215px',
-        padding: context?.compact ? '0 8px' : '0px 12px',
+        paddingLeft: placement === 'right' ? 0 : 'var(--padding-5x)',
+        paddingRight: placement === 'right' ? 0 : 'var(--padding-5x)',
+        paddingBottom: placement === 'right' ? 0 : 'var(--padding-5x)',
         color: 'var(--color-gray-a9)',
+        fontSize: context?.compact ? '11px' : '13px',
+        gap: 4,
         ...props.style,
       }}
     >
-      <div
-        style={{
-          fontSize: context?.compact ? '11px' : '13px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 4,
-        }}
-      >
-        {typing && originalData.content !== '...' ? (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-            }}
-          >
-            <LoadingLottie size={context?.compact ? 20 : 16} />
-            <span>{context?.locale?.['chat.message.generating'] || ''}</span>
-          </div>
-        ) : null}
-        {reSend || null}
-      </div>
+      {typing && originalData.content !== '...' ? (
+        <>
+          <LoadingLottie size={context?.compact ? 20 : 16} />
+          <span>{context?.locale?.['chat.message.generating'] || ''}</span>
+        </>
+      ) : null}
+      {reSend || null}
       {originalData?.isAborted ? copyDom : rightDom}
     </div>
   );

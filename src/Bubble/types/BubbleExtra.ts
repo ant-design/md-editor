@@ -190,4 +190,5 @@ export type BubbleExtraProps = {
       },
     ) => React.ReactNode
   >;
+  placement?: 'left' | 'right';
 };

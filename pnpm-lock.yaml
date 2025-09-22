@@ -18,8 +18,8 @@ importers:
         specifier: ^2.8.10
         version: 2.8.10(antd@5.27.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rc-field-form@2.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/theme-token':
-        specifier: ^0.0.9
-        version: 0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.0.10tn
+        version: 0.0.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@babel/runtime':
         specifier: ^7.28.4
         version: 7.28.4
@@ -453,8 +453,8 @@ packages:
     peerDependencies:
       react: '>=16.9.0'
 
-  '@ant-design/theme-token@0.0.9':
-    resolution: {integrity: sha512-R/cVDw3cN4JYnGEGGeRObYbOdbR0uVVOg0LuniQUutep4mU896lAKSj5vs/EpmziJwf5yvhed14keaO7Ryl76g==}
+  '@ant-design/theme-token@0.0.10':
+    resolution: {integrity: sha512-7zinDPzUZ/VG8EEDMif5dAiNa0YlHcIyyLxz6WOoSEyC+49neJkac1x5cXbm79bQFapzFKsop6dldQb5LYpqMg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -9931,7 +9931,7 @@ snapshots:
       resize-observer-polyfill: 1.5.1
       throttle-debounce: 5.0.2
 
-  '@ant-design/theme-token@0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@ant-design/theme-token@0.0.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ant-design/cssinjs': 1.24.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1

@@ -73,11 +73,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-bubble-content': {
         fontSize: '1em',
         minHeight: '2em',
-        width: 'max-content',
-        borderRadius: '12px',
-        background: 'var(--color-gray-bg-card-white)',
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
         maxWidth: 'min(860px,100%)',
         justifyContent: 'center',
         gap: 0,
@@ -85,6 +80,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: 0,
         backdropFilter: 'blur(10px)',
         color: 'var(--color-gray-text-secondary)',
+        width: 'max-content',
+        borderRadius: '12px',
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow:
+          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
         display: 'flex',
         flexDirection: 'column',
         zIndex: 0,
@@ -93,7 +93,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           padding: '0px',
         },
         '&&-pure': {
-          boxShadow: 'none',
+          width: '100%',
+          boxShadow: 'none !important',
+          background: 'transparent',
           backgroundColor: 'transparent',
           color: 'var(--color-gray-text-default)',
         },
@@ -136,11 +138,64 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        background: 'var(--color-primary-bg-card-light)',
+        borderRadius: '16px 16px 2px 16px',
+        background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-gray-text-default)',
-        borderRadius: '12px 6px 12px 12px',
         '&&-pure': {
           background: 'var(--color-primary-control-fill-primary)',
+        },
+      },
+
+      // 用户消息特定样式
+      '&-bubble-user': {
+        '&-avatar-title-user': {
+          flexDirection: 'row-reverse', // 用户消息头像和标题顺序相反
+          justifyContent: 'flex-end',
+        },
+        '&-container-user': {
+          alignItems: 'flex-end',
+        },
+        '&-content-user': {
+          background: 'var(--color-primary-bg-card-light)',
+          color: 'var(--color-gray-text-default)',
+          borderRadius: '12px 6px 12px 12px',
+          maxWidth: '668px',
+          '&&-pure': {
+            background: 'var(--color-primary-control-fill-primary)',
+          },
+        },
+        '&-before-user': {
+          justifyContent: 'flex-end',
+        },
+        '&-after-user': {
+          justifyContent: 'flex-end',
+        },
+      },
+
+      // AI消息特定样式
+      '&-bubble-ai': {
+        '&-avatar-title-ai': {
+          flexDirection: 'row', // AI消息头像和标题正常顺序
+          justifyContent: 'flex-start',
+        },
+        '&-container-ai': {
+          alignItems: 'flex-start',
+        },
+        '&-content-ai': {
+          background: 'var(--color-gray-bg-card-white)',
+          color: 'var(--color-gray-text-secondary)',
+          borderRadius: '12px',
+          '&&-pure': {
+            boxShadow: 'none',
+            backgroundColor: 'transparent',
+            color: 'var(--color-gray-text-default)',
+          },
+        },
+        '&-before-ai': {
+          justifyContent: 'flex-start',
+        },
+        '&-after-ai': {
+          justifyContent: 'flex-start',
         },
       },
     },

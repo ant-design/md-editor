@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { useStyle } from './style';
 
@@ -47,6 +48,10 @@ export interface VisualListProps {
   shape?: 'default' | 'circle';
   /** 样式前缀类名 */
   prefixCls?: string;
+  /** 组件变体 */
+  variant?: 'default' | 'outline' | 'borderless';
+  /** 描述文字 */
+  description?: string;
 }
 
 /**
@@ -75,7 +80,16 @@ export interface VisualListProps {
  * <VisualList data={imageData} />
  *
  * // 大尺寸圆形头像
- * <VisualList data={imageData} size="large" shape="circle" />
+ * <VisualList data={imageData} shape="circle" />
+ *
+ * // 带边框的列表
+ * <VisualList data={imageData} variant="outline" />
+ *
+ * // 无边框的列表
+ * <VisualList data={imageData} variant="borderless" />
+ *
+ * // 带描述文字的列表
+ * <VisualList data={imageData} description="用户头像列表" />
  *
  * // 过滤数据
  * <VisualList data={imageData} filter={(item) => item.href !== undefined} />
@@ -98,6 +112,8 @@ export const VisualList: React.FC<VisualListProps> = ({
   linkStyle,
   shape = 'default',
   prefixCls = 'visual-list',
+  variant = 'default',
+  description,
 }) => {
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
@@ -172,14 +188,35 @@ export const VisualList: React.FC<VisualListProps> = ({
     );
   };
 
+  // 构建容器类名
+  const containerClassName = classNames(
+    `${prefixCls}-container`,
+    hashId,
+    {
+      [`${prefixCls}-outline`]: variant === 'outline',
+      [`${prefixCls}-borderless`]: variant === 'borderless',
+      [`${prefixCls}-default`]: variant === 'default',
+    },
+    className,
+  );
+
   return wrapSSR(
-    <ul className={`${prefixCls} ${hashId} ${className || ''}`} style={style}>
-      {displayList.map((item, index) => {
-        if (renderItem) {
-          return renderItem(item, index);
-        }
-        return defaultRenderItem(item, index);
-      })}
-    </ul>,
+    <div className={containerClassName} style={style}>
+      <ul className={`${prefixCls} ${hashId}`}>
+        {displayList.map((item, index) => {
+          if (renderItem) {
+            return renderItem(item, index);
+          }
+          return defaultRenderItem(item, index);
+        })}
+      </ul>
+      {/* 用来处理margin-8*/}
+      <div style={{ width: 4 }} />
+      {description && (
+        <div className={`${prefixCls}-description ${hashId}`}>
+          {description}
+        </div>
+      )}
+    </div>,
   );
 };
