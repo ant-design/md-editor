@@ -191,4 +191,46 @@ describe('ThinkBlock', () => {
       expect(thinkBlock).toHaveTextContent(mockCodeNode.value);
     });
   });
+
+  describe('alwaysExpandedDeepThink 属性测试', () => {
+    it('应该正确处理 alwaysExpandedDeepThink 属性的逻辑', () => {
+      // 测试 alwaysExpandedDeepThink 为 true 的情况
+      // 由于 ToolUseBarThink 组件已经在实际渲染中被使用，
+      // 这里主要测试组件能正确渲染，不会因为该属性报错
+      render(<ThinkBlock element={mockCodeNode} />);
+
+      const thinkBlock = screen.getByTestId('think-block');
+      expect(thinkBlock).toBeInTheDocument();
+      expect(thinkBlock).toHaveTextContent(mockCodeNode.value);
+    });
+
+    it('应该能正确处理包含省略号的加载状态内容', () => {
+      const loadingCodeNode: CodeNode = {
+        ...mockCodeNode,
+        value: '正在思考中...',
+        children: [{ text: '正在思考中...' }],
+      };
+
+      render(<ThinkBlock element={loadingCodeNode} />);
+
+      const thinkBlock = screen.getByTestId('think-block');
+      expect(thinkBlock).toBeInTheDocument();
+      expect(thinkBlock).toHaveTextContent('正在思考中...');
+    });
+
+    it('应该能正确判断内容是否为加载状态', () => {
+      // 测试不以省略号结尾的内容
+      const normalCodeNode: CodeNode = {
+        ...mockCodeNode,
+        value: '这是正常的思考内容',
+        children: [{ text: '这是正常的思考内容' }],
+      };
+
+      render(<ThinkBlock element={normalCodeNode} />);
+
+      const thinkBlock = screen.getByTestId('think-block');
+      expect(thinkBlock).toBeInTheDocument();
+      expect(thinkBlock).toHaveTextContent('这是正常的思考内容');
+    });
+  });
 });

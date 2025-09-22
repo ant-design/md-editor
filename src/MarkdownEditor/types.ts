@@ -108,6 +108,7 @@ export type MarkdownEditorProps = {
   codeProps?: {
     Languages?: string[];
     hideToolBar?: boolean;
+    alwaysExpandedDeepThink?: boolean;
   } & Partial<Ace.EditorOptions>;
 
   anchorProps?: AnchorProps;
