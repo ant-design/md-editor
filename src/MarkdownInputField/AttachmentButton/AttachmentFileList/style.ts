@@ -14,7 +14,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       overflow: 'auto',
       background: 'var(--color-gray-bg-page-light)',
       gap: 'var(--margin-2x)',
-      height: '127px',
+      maxHeight: '127px',
+      height: 'max-content',
       borderRadius: 'inherit',
       padding: 'var(--padding-3x)',
       flexWrap: 'wrap',
@@ -49,7 +50,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-item': {
         width: '168px',
-        height: 'var(--height-control-lg)',
+        height: '48px',
         opacity: 1,
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
