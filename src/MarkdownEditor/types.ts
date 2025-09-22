@@ -81,6 +81,7 @@ export type MarkdownEditorProps = {
   tagInputProps?: {
     enable?: boolean;
     placeholder?: string;
+    type?: 'panel' | 'dropdown';
   } & TagPopupProps;
 
   editorStyle?: React.CSSProperties;

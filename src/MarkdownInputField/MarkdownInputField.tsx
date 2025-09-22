@@ -376,15 +376,7 @@ export function generateEdges(colors: string[]) {
  * - 支持自定义渲染配置
  */
 export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
-  tagInputProps = {
-    enable: true,
-    items: [
-      {
-        key: 'Bold',
-        label: 'Bold',
-      },
-    ],
-  },
+  tagInputProps,
   markdownProps,
   borderRadius = 16,
   onBlur,
@@ -686,14 +678,19 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   }, [props, isHover, isLoading]);
 
   return wrapSSR(
-    <Suggestion tagInputProps={tagInputProps}>
-      <>
-        {beforeTools ? (
-          <div className={classNames(`${baseCls}-before-tools`, hashId)}>
-            {beforeTools}
-          </div>
-        ) : null}
-
+    <>
+      {beforeTools ? (
+        <div className={classNames(`${baseCls}-before-tools`, hashId)}>
+          {beforeTools}
+        </div>
+      ) : null}
+      <Suggestion
+        tagInputProps={{
+          enable: true,
+          type: 'dropdown',
+          ...tagInputProps,
+        }}
+      >
         <div
           className={classNames(baseCls, hashId, props.className, {
             [`${baseCls}-disabled`]: props.disabled,
@@ -891,7 +888,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   placeholder: props.placeholder,
                   triggerSendKey: props.triggerSendKey || 'Enter',
                 }}
-                tagInputProps={tagInputProps}
+                tagInputProps={{
+                  enable: true,
+                  type: 'dropdown',
+                  ...tagInputProps,
+                }}
                 initValue={props.value}
                 onChange={(value) => {
                   setValue(value);
@@ -1038,7 +1039,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             )}
           </div>
         </div>
-      </>
-    </Suggestion>,
+      </Suggestion>
+    </>,
   );
 };

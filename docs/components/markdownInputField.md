@@ -68,6 +68,19 @@ export default () => {
           await new Promise((resolve) => setTimeout(resolve, 500));
         },
       }}
+      tagInputProps={{
+        type: 'dropdown',
+        enable: true,
+        items: async (props) => {
+          console.log('items', props);
+          return ['tag1', 'tag2', 'tag3'].map((item) => {
+            return {
+              key: item,
+              label: props?.placeholder + item,
+            };
+          });
+        },
+      }}
       beforeToolsRender={() => {
         return (
           <>

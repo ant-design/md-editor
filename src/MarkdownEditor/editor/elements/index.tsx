@@ -325,6 +325,7 @@ const MLeafComponent = (
     const { text, tag, placeholder, autoOpen, triggerText } = (props?.leaf ||
       {}) as any;
     const { enable, tagTextRender } = props.tagInputProps || {};
+    console.log('TagPopup props.tagInputProps', props.tagInputProps);
     if (enable && tag) {
       children = (
         <>
