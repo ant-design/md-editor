@@ -118,6 +118,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         animationIterationCount: 'infinite',
       },
     },
+    [`${token.componentCls}-before-tools`]: {
+      display: 'flex',
+      gap: 8,
+      width: '100%',
+      padding: '0 8px',
+      marginBottom: '8px',
+      font: 'var(--font-text-body-base)',
+      color: 'var(--color-gray-text-default)',
+      '> div': {
+        cursor: 'pointer',
+      },
+    },
   };
 };
 

@@ -22,7 +22,26 @@ group:
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
+import { DownOutlined } from '@ant-design/icons';
+import { Space } from 'antd';
+import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
 
+const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+  let timer: ReturnType<typeof setInterval>;
+  return {
+    start: async () => {
+      // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
+      let i = 0;
+      timer = setInterval(() => {
+        onPartial(`语音片段${i} `);
+        i += 1;
+      }, 500);
+    },
+    stop: async () => {
+      clearInterval(timer);
+    },
+  };
+};
 export default () => {
   const [value, setValue] = React.useState(
     '`${placeholder:目标场景}` `${placeholder:目标事件}` 今天的拒绝率为什么下降？',
@@ -31,10 +50,145 @@ export default () => {
   return (
     <MarkdownInputField
       value={value}
+      voiceRecognizer={createRecognizer}
+      attachment={{
+        enable: true,
+        accept: '.pdf,.doc,.docx,image/*',
+        maxSize: 10 * 1024 * 1024, // 10MB
+        onUpload: async (file) => {
+          // 模拟上传文件
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          return {
+            url: URL.createObjectURL(file),
+            name: file.name,
+          };
+        },
+        onDelete: async (file) => {
+          console.log('删除文件:', file);
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        },
+      }}
+      beforeToolsRender={() => {
+        return (
+          <>
+            <div
+              style={{
+                borderRadius: '200px',
+                boxSizing: 'border-box',
+                border: '1px solid var(--color-gray-border-light) ',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '5px 12px',
+                gap: '8px',
+                zIndex: 1,
+              }}
+            >
+              <img
+                width="16"
+                height="16"
+                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              />
+              快捷技能
+            </div>
+            <div
+              style={{
+                borderRadius: '200px',
+                boxSizing: 'border-box',
+                border: '1px solid var(--color-gray-border-light) ',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '5px 12px',
+                gap: '8px',
+                zIndex: 1,
+              }}
+            >
+              <img
+                width="16"
+                height="16"
+                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              />
+              快捷技能
+            </div>
+            <div
+              style={{
+                borderRadius: '200px',
+                boxSizing: 'border-box',
+                border: '1px solid var(--color-gray-border-light) ',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '5px 12px',
+                gap: '8px',
+                zIndex: 1,
+              }}
+            >
+              <img
+                width="16"
+                height="16"
+                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              />
+              快捷技能
+            </div>
+          </>
+        );
+      }}
+      toolsRender={() => [
+        <div
+          key="bold"
+          style={{
+            borderRadius: '200px',
+            boxSizing: 'border-box',
+            border: '1px solid var(--color-gray-border-light) ',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '5px 12px',
+            gap: '8px',
+            zIndex: 1,
+          }}
+        >
+          DeepThink <DownOutlined />
+        </div>,
+        <div
+          key="italic"
+          style={{
+            borderRadius: '200px',
+            boxSizing: 'border-box',
+            border: '1px solid var(--color-gray-border-light) ',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '5px 12px',
+            gap: '8px',
+            zIndex: 1,
+          }}
+        >
+          深度思考
+        </div>,
+        <div
+          key="link"
+          style={{
+            borderRadius: '200px',
+            boxSizing: 'border-box',
+            border: '1px solid var(--color-gray-border-light) ',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '5px 12px',
+            gap: '8px',
+            zIndex: 1,
+          }}
+        >
+          联网搜索
+        </div>,
+      ]}
       onChange={(newValue) => {
         setValue(newValue);
         console.log('newValue', newValue);
       }}
+      ac
       placeholder="请输入内容..."
       onSend={async (text) => {
         console.log('发送内容:', text);
@@ -76,6 +230,8 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
+import { Button } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 const App = () => {
   const [value, setValue] = React.useState('');
@@ -84,6 +240,56 @@ const App = () => {
     <>
       <MarkdownInputField
         value={value}
+        toolsRender={() => [
+          <div
+            key="bold"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            DeepThink <DownOutlined />
+          </div>,
+          <div
+            key="italic"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            深度思考
+          </div>,
+          <div
+            key="link"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            联网搜索
+          </div>,
+        ]}
         onChange={(newValue) => setValue(newValue)}
         placeholder="请输入内容..."
         onSend={async (text) => {
@@ -119,7 +325,7 @@ export default App;
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
 import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
-
+import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
     let timer: ReturnType<typeof setInterval>;
@@ -141,6 +347,56 @@ export default () => {
   return (
     <MarkdownInputField
       placeholder="请开始讲话..."
+      toolsRender={() => [
+        <div
+          key="bold"
+          style={{
+            borderRadius: '200px',
+            boxSizing: 'border-box',
+            border: '1px solid var(--color-gray-border-light) ',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '5px 12px',
+            gap: '8px',
+            zIndex: 1,
+          }}
+        >
+          DeepThink <DownOutlined />
+        </div>,
+        <div
+          key="italic"
+          style={{
+            borderRadius: '200px',
+            boxSizing: 'border-box',
+            border: '1px solid var(--color-gray-border-light) ',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '5px 12px',
+            gap: '8px',
+            zIndex: 1,
+          }}
+        >
+          深度思考
+        </div>,
+        <div
+          key="link"
+          style={{
+            borderRadius: '200px',
+            boxSizing: 'border-box',
+            border: '1px solid var(--color-gray-border-light) ',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '5px 12px',
+            gap: '8px',
+            zIndex: 1,
+          }}
+        >
+          联网搜索
+        </div>,
+      ]}
       voiceRecognizer={createRecognizer}
       onChange={(a) => console.log(a)}
       onSend={async (text) => {
@@ -161,7 +417,7 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-
+import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -201,7 +457,7 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-
+import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -209,6 +465,56 @@ export default () => {
       <MarkdownInputField
         value={value}
         onChange={setValue}
+        toolsRender={() => [
+          <div
+            key="bold"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            DeepThink <DownOutlined />
+          </div>,
+          <div
+            key="italic"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            深度思考
+          </div>,
+          <div
+            key="link"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            联网搜索
+          </div>,
+        ]}
         attachment={{
           enable: true,
           accept: '.pdf,.doc,.docx,image/*',
@@ -261,7 +567,7 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-
+import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -273,17 +579,61 @@ export default () => {
       >
         <MarkdownInputField
           value={value}
+          toolsRender={() => [
+            <div
+              key="bold"
+              style={{
+                borderRadius: '200px',
+                boxSizing: 'border-box',
+                border: '1px solid var(--color-gray-border-light) ',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '5px 12px',
+                gap: '8px',
+                zIndex: 1,
+              }}
+            >
+              DeepThink <DownOutlined />
+            </div>,
+            <div
+              key="italic"
+              style={{
+                borderRadius: '200px',
+                boxSizing: 'border-box',
+                border: '1px solid var(--color-gray-border-light) ',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '5px 12px',
+                gap: '8px',
+                zIndex: 1,
+              }}
+            >
+              深度思考
+            </div>,
+            <div
+              key="link"
+              style={{
+                borderRadius: '200px',
+                boxSizing: 'border-box',
+                border: '1px solid var(--color-gray-border-light) ',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '5px 12px',
+                gap: '8px',
+                zIndex: 1,
+              }}
+            >
+              联网搜索
+            </div>,
+          ]}
           onChange={setValue}
           toolsRender={(props) => [
             <button key="custom" onClick={() => console.log('自定义按钮')}>
               自定义
             </button>,
-          ]}
-          actionsRender={(props, defaultActions) => [
-            <button key="custom" onClick={() => console.log('自定义按钮')}>
-              自定义
-            </button>,
-            ...defaultActions,
           ]}
         />
       </div>
@@ -315,7 +665,7 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-
+import { DownOutlined } from '@ant-design/icons';
 const App = () => {
   const editorRef = React.useRef();
   const [value, setValue] = React.useState('');
@@ -325,6 +675,56 @@ const App = () => {
         inputRef={editorRef}
         value={value}
         onChange={setValue}
+        toolsRender={() => [
+          <div
+            key="bold"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            DeepThink <DownOutlined />
+          </div>,
+          <div
+            key="italic"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            深度思考
+          </div>,
+          <div
+            key="link"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            联网搜索
+          </div>,
+        ]}
       />
       <button
         onClick={() => {
@@ -347,7 +747,7 @@ export default App;
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-
+import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   const [isFocused, setIsFocused] = React.useState(false);
@@ -357,6 +757,56 @@ export default () => {
       <MarkdownInputField
         value={value}
         onChange={setValue}
+        toolsRender={() => [
+          <div
+            key="bold"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            DeepThink <DownOutlined />
+          </div>,
+          <div
+            key="italic"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            深度思考
+          </div>,
+          <div
+            key="link"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            联网搜索
+          </div>,
+        ]}
         placeholder="点击输入框获得焦点..."
         onFocus={(value, schema) => {
           console.log('输入框获得焦点:', { value, schema });
@@ -395,7 +845,6 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-
 export default () => {
   const [value, setValue] = React.useState('**粗体文本** *斜体文本* `代码`');
 
