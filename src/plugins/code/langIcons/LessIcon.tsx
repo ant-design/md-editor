@@ -4,7 +4,10 @@ interface LessIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const LessIcon: React.FC<LessIconProps> = ({ size = 24, ...props }) => {
+export const LessIcon: React.FC<LessIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

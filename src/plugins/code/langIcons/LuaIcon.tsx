@@ -4,7 +4,7 @@ interface LuaIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const LuaIcon: React.FC<LuaIconProps> = ({ size = 24, ...props }) => {
+export const LuaIcon: React.FC<LuaIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

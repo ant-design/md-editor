@@ -4,7 +4,10 @@ interface LispIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const LispIcon: React.FC<LispIconProps> = ({ size = 24, ...props }) => {
+export const LispIcon: React.FC<LispIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

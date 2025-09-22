@@ -4,7 +4,7 @@ interface CssIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const CssIcon: React.FC<CssIconProps> = ({ size = 24, ...props }) => {
+export const CssIcon: React.FC<CssIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

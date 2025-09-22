@@ -4,7 +4,10 @@ interface HackIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const HackIcon: React.FC<HackIconProps> = ({ size = 24, ...props }) => {
+export const HackIcon: React.FC<HackIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

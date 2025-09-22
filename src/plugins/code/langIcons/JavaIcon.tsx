@@ -4,7 +4,10 @@ interface JavaIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const JavaIcon: React.FC<JavaIconProps> = ({ size = 24, ...props }) => {
+export const JavaIcon: React.FC<JavaIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

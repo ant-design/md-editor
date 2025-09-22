@@ -38,7 +38,7 @@ Bubble 组件支持自定义标题渲染，可以：
       isFinished: true,
       meta: {
         avatar:
-          'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+          'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
         title: 'Code Assistant',
         description: '代码助手 v2.1',
       },
@@ -109,7 +109,7 @@ const customTitleRender = (props: any) => {
       isFinished: true,
       meta: {
         avatar:
-          'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+          'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
         title: 'Code Assistant',
         description: '代码助手 v2.1',
       },

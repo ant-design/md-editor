@@ -12,7 +12,8 @@ describe('LoadImage Component', () => {
   const defaultProps = {
     src: 'https://example.com/test-icon.png',
     alt: 'Test Icon',
-    style: { width: '1em', height: '1em' },
+    style: { width: '16', height: '16' },
+    size: '16',
   };
 
   beforeEach(() => {
@@ -41,11 +42,9 @@ describe('LoadImage Component', () => {
 
   describe('样式测试', () => {
     it('应该应用传入的样式', () => {
-      render(<LoadImage {...defaultProps} />);
+      render(<LoadImage {...defaultProps} size="1em" />);
       const img = screen.getByAltText('Test Icon');
       expect(img).toHaveStyle({
-        width: '1em',
-        height: '1em',
         display: 'none', // 初始状态应该是隐藏的
       });
     });

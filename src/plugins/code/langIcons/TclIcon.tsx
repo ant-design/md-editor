@@ -4,7 +4,7 @@ interface TclIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const TclIcon: React.FC<TclIconProps> = ({ size = 24, ...props }) => {
+export const TclIcon: React.FC<TclIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

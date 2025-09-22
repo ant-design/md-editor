@@ -51,7 +51,7 @@ const mockMessage: MessageBubbleData = {
   },
   meta: {
     avatar:
-      'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
     title: 'Ant Design Assistant',
     description: 'AI 助手',
   },
@@ -96,7 +96,7 @@ Bubble 组件是一个功能丰富的聊天气泡组件，支持：
   },
   meta: {
     avatar:
-      'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
     title: 'Ant Design Assistant',
     description: 'AI 助手',
   },

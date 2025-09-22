@@ -89,7 +89,7 @@ export const Bubble: React.FC<
 
   // 根据角色分发到对应的子组件
   if (isUserMessage) {
-    return <UserBubble {...bubbleProps} />;
+    return <UserBubble {...bubbleProps} pure={false} />;
   }
 
   return <AIBubble {...bubbleProps} />;

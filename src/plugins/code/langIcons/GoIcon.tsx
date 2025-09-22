@@ -4,7 +4,7 @@ interface GoIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const GoIcon: React.FC<GoIconProps> = ({ size = 24, ...props }) => {
+export const GoIcon: React.FC<GoIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

@@ -4,7 +4,7 @@ interface XmlIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const XmlIcon: React.FC<XmlIconProps> = ({ size = 24, ...props }) => {
+export const XmlIcon: React.FC<XmlIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

@@ -29,7 +29,7 @@ Pure 模式是 Bubble 组件的简洁版本，特点：
     isFinished: true,
     meta: {
       avatar:
-        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+        'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
       title: 'Design System',
       description: '设计系统助手',
     } as BubbleMetaData,
@@ -74,7 +74,7 @@ Pure 模式是 Bubble 组件的简洁版本，特点：
     isFinished: true,
     meta: {
       avatar:
-        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+        'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
       title: 'Design System',
       description: '设计系统助手',
     } as BubbleMetaData,
@@ -114,7 +114,7 @@ Pure 模式是 Bubble 组件的简洁版本，特点：
     isFinished: true,
     meta: {
       avatar:
-        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+        'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
       title: 'Design System',
       description: '设计系统助手',
     } as BubbleMetaData,

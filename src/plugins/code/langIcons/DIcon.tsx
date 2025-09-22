@@ -4,7 +4,7 @@ interface DIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const DIcon: React.FC<DIconProps> = ({ size = 24, ...props }) => {
+export const DIcon: React.FC<DIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

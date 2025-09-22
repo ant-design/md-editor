@@ -4,7 +4,10 @@ interface AbapIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const AbapIcon: React.FC<AbapIconProps> = ({ size = 24, ...props }) => {
+export const AbapIcon: React.FC<AbapIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

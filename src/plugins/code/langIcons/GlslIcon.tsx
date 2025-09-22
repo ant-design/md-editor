@@ -4,7 +4,10 @@ interface GlslIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const GlslIcon: React.FC<GlslIconProps> = ({ size = 24, ...props }) => {
+export const GlslIcon: React.FC<GlslIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

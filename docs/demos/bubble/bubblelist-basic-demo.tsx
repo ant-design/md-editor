@@ -23,7 +23,7 @@ const createMockMessage = (
   meta: {
     avatar:
       role === 'assistant'
-        ? 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'
+        ? 'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original'
         : 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     title: role === 'assistant' ? 'AI助手' : '用户',
   } as BubbleMetaData,
@@ -46,7 +46,7 @@ export default () => {
   // 元数据配置
   const assistantMeta: BubbleMetaData = {
     avatar:
-      'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
     title: 'AI助手',
   };
 

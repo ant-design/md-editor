@@ -4,7 +4,7 @@ interface ErbIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const ErbIcon: React.FC<ErbIconProps> = ({ size = 24, ...props }) => {
+export const ErbIcon: React.FC<ErbIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

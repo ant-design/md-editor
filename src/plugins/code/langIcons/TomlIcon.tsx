@@ -4,7 +4,10 @@ interface TomlIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const TomlIcon: React.FC<TomlIconProps> = ({ size = 24, ...props }) => {
+export const TomlIcon: React.FC<TomlIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

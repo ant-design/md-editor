@@ -4,7 +4,10 @@ interface TwigIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const TwigIcon: React.FC<TwigIconProps> = ({ size = 24, ...props }) => {
+export const TwigIcon: React.FC<TwigIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

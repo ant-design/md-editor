@@ -4,7 +4,7 @@ interface RIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const RIcon: React.FC<RIconProps> = ({ size = 24, ...props }) => {
+export const RIcon: React.FC<RIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

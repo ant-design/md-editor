@@ -4,7 +4,7 @@ interface AplIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const AplIcon: React.FC<AplIconProps> = ({ size = 24, ...props }) => {
+export const AplIcon: React.FC<AplIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

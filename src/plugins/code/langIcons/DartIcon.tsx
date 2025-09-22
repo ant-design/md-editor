@@ -4,7 +4,10 @@ interface DartIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const DartIcon: React.FC<DartIconProps> = ({ size = 24, ...props }) => {
+export const DartIcon: React.FC<DartIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

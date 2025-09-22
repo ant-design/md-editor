@@ -6,8 +6,8 @@ const XlsxIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     fill="none"
     version="1.1"
-    width="16"
-    height="16"
+    width="1em"
+    height="1em"
     viewBox="0 0 16 16"
     {...props}
   >

@@ -4,7 +4,7 @@ interface NixIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const NixIcon: React.FC<NixIconProps> = ({ size = 24, ...props }) => {
+export const NixIcon: React.FC<NixIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

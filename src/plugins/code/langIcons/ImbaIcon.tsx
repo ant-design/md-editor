@@ -4,7 +4,10 @@ interface ImbaIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const ImbaIcon: React.FC<ImbaIconProps> = ({ size = 24, ...props }) => {
+export const ImbaIcon: React.FC<ImbaIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

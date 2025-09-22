@@ -4,7 +4,7 @@ interface CppIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const CppIcon: React.FC<CppIconProps> = ({ size = 24, ...props }) => {
+export const CppIcon: React.FC<CppIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

@@ -4,7 +4,10 @@ interface PerlIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const PerlIcon: React.FC<PerlIconProps> = ({ size = 24, ...props }) => {
+export const PerlIcon: React.FC<PerlIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}

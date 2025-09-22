@@ -33,7 +33,7 @@ export const langOptions = Array.from(langIconMap).map(([lang, Icon]) => {
     label: (
       <span style={{ display: 'flex', alignItems: 'center' }}>
         {/* 语言图标 */}
-        <Icon size={16} />
+        <Icon size={'1em'} />
         {/* 语言名称，添加间距 */}
         <span style={{ marginLeft: '0.25em' }}>{lang}</span>
       </span>

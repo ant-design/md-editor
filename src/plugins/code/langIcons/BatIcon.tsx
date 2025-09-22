@@ -4,7 +4,7 @@ interface BatIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const BatIcon: React.FC<BatIconProps> = ({ size = 24, ...props }) => {
+export const BatIcon: React.FC<BatIconProps> = ({ size = '1em', ...props }) => {
   return (
     <svg
       width={size}

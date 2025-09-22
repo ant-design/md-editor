@@ -4,7 +4,10 @@ interface VhdlIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | string;
 }
 
-export const VhdlIcon: React.FC<VhdlIconProps> = ({ size = 24, ...props }) => {
+export const VhdlIcon: React.FC<VhdlIconProps> = ({
+  size = '1em',
+  ...props
+}) => {
   return (
     <svg
       width={size}
