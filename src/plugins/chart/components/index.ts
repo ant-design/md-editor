@@ -6,8 +6,8 @@ export type {
   FilterOption,
   RegionOption,
 } from './ChartFilter/ChartFilter';
-export { default as ChartStatic } from './ChartStatic';
-export type { ChartStaticProps } from './ChartStatic';
+export { default as ChartStatistic } from '../ChartStatistic';
+export type { ChartStatisticProps } from '../ChartStatistic';
 export { default as ChartToolBar } from './ChartToolBar/ChartToolBar';
 export type { ChartToolBarProps } from './ChartToolBar/ChartToolBar';
 

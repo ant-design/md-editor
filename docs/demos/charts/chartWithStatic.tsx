@@ -82,12 +82,12 @@ const ChartWithStaticDemo: React.FC = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h3>单个静态数据组件</h3>
+      <h3>单个统计数据组件</h3>
       <AreaChart
         data={data}
         width={700}
         height={500}
-        static={{
+        statistic={{
           title: '总营收',
           value: 655350,
           suffix: '元',
@@ -95,12 +95,12 @@ const ChartWithStaticDemo: React.FC = () => {
         legendAlign="center"
       />
       <div style={{ padding: '20px' }}>
-        <h3>多个静态数据组件</h3>
+        <h3>多个统计数据组件</h3>
         <AreaChart
           data={data}
           width={700}
           height={500}
-          static={[
+          statistic={[
             {
               title: '总营收',
               value: 655350,
@@ -112,6 +112,39 @@ const ChartWithStaticDemo: React.FC = () => {
               value: 365,
               suffix: '天',
               tooltip: '营业天数tips',
+            },
+          ]}
+          legendAlign="center"
+        />
+      </div>
+
+      <div style={{ padding: '20px' }}>
+        <h3>Block 模式</h3>
+        <AreaChart
+          data={data}
+          width={700}
+          height={500}
+          statistic={[
+            {
+              title: '总营收',
+              value: 655350,
+              suffix: '元',
+              tooltip: '使用 block 模式',
+              block: true,
+            },
+            {
+              title: '营业天数',
+              value: 365,
+              suffix: '天',
+              tooltip: '平分父容器宽度',
+              block: true,
+            },
+            {
+              title: '平均日营收',
+              value: 1795,
+              suffix: '元',
+              tooltip: '左对齐显示',
+              block: true,
             },
           ]}
           legendAlign="center"

@@ -5,7 +5,7 @@ import { default as React, useContext } from 'react';
 import { useStyle } from './style';
 import { formatNumber, NumberFormatOptions } from './utils';
 
-export interface ChartStaticProps {
+export interface ChartStatisticProps {
   title?: string;
   tooltip?: string;
   value?: number | string | null | undefined;
@@ -17,9 +17,11 @@ export interface ChartStaticProps {
   className?: string;
   theme?: 'light' | 'dark';
   size?: 'small' | 'default' | 'large';
+  block?: boolean;
+  extra?: React.ReactNode;
 }
 
-const ChartStatic: React.FC<ChartStaticProps> = ({
+const ChartStatistic: React.FC<ChartStatisticProps> = ({
   title,
   tooltip,
   value,
@@ -31,9 +33,11 @@ const ChartStatic: React.FC<ChartStaticProps> = ({
   className = '',
   theme = 'light',
   size = 'default',
+  block = false,
+  extra,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('chart-static');
+  const prefixCls = getPrefixCls('chart-statistic');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 渲染数值
@@ -54,11 +58,11 @@ const ChartStatic: React.FC<ChartStaticProps> = ({
 
   // 渲染标题和问号图标
   const renderHeader = () => {
-    if (!title) return null;
+    if (!title && !extra) return null;
 
-    const titleElement = (
+    const titleElement = title ? (
       <span className={classNames(`${prefixCls}-title`, hashId)}>{title}</span>
-    );
+    ) : null;
 
     const questionIcon = tooltip ? (
       <Tooltip title={tooltip} placement="top">
@@ -68,10 +72,15 @@ const ChartStatic: React.FC<ChartStaticProps> = ({
       </Tooltip>
     ) : null;
 
+    const extraElement = extra ? <div>{extra}</div> : null;
+
     return (
       <div className={classNames(`${prefixCls}-header`, hashId)}>
-        {titleElement}
-        {questionIcon}
+        <div className={classNames(`${prefixCls}-header-left`, hashId)}>
+          {titleElement}
+          {questionIcon}
+        </div>
+        {extraElement}
       </div>
     );
   };
@@ -82,6 +91,7 @@ const ChartStatic: React.FC<ChartStaticProps> = ({
         prefixCls,
         `${prefixCls}-${theme}`,
         size !== 'default' && `${prefixCls}-${size}`,
+        block && `${prefixCls}-block`,
         hashId,
         className,
       )}
@@ -104,4 +114,4 @@ const ChartStatic: React.FC<ChartStaticProps> = ({
   );
 };
 
-export default ChartStatic;
+export default ChartStatistic;

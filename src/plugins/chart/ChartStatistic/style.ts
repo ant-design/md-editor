@@ -3,7 +3,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../../../hooks/useStyle';
+} from '../../../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -16,13 +16,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`${token.componentCls}-header`]: {
         display: 'flex',
         alignItems: 'center',
-        gap: '4px',
+        justifyContent: 'space-between',
+
+        [`${token.componentCls}-header-left`]: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          flex: 1,
+        },
 
         [`${token.componentCls}-title`]: {
           fontFamily: 'PingFang SC',
           fontSize: '13px',
           fontWeight: 500,
-          lineHeight: '20px',
           color: '#2C3E5D',
           margin: 0,
         },
@@ -76,6 +82,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`${token.componentCls}-value`]: {
           color: '#fff',
+          [`${token.componentCls}-value-prefix`]: {
+            color: '#fff',
+          },
+          [`${token.componentCls}-value-suffix`]: {
+            color: '#fff',
+          },
         },
       },
 
@@ -84,17 +96,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         [`${token.componentCls}-header`]: {
           [`${token.componentCls}-title`]: {
             fontSize: '12px',
-            lineHeight: '18px',
           },
 
           [`${token.componentCls}-question-icon`]: {
-            fontSize: '12px',
+            fontSize: '14px',
           },
         },
 
         [`${token.componentCls}-value`]: {
           fontSize: '20px',
-          lineHeight: '28px',
         },
       },
 
@@ -103,18 +113,31 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`${token.componentCls}-header`]: {
           [`${token.componentCls}-title`]: {
-            fontSize: '16px',
-            lineHeight: '24px',
+            fontSize: '13px',
           },
 
           [`${token.componentCls}-question-icon`]: {
-            fontSize: '16px',
+            fontSize: '14px',
           },
         },
 
         [`${token.componentCls}-value`]: {
-          fontSize: '32px',
-          lineHeight: '40px',
+          fontSize: '30px',
+        },
+      },
+
+      // Block mode - 占满整个区域，多个时平分父容器，左对齐
+      '&-block': {
+        flex: 1,
+        minWidth: 0,
+        textAlign: 'left',
+
+        [`${token.componentCls}-header`]: {
+          justifyContent: 'flex-start',
+        },
+
+        [`${token.componentCls}-value`]: {
+          textAlign: 'left',
         },
       },
     },
@@ -122,17 +145,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 /**
- * Static Style
+ * Statistic Style
  * @param prefixCls
  * @returns
  */
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('Static', (token) => {
-    const staticToken = {
+  return useEditorStyleRegister('Statistic', (token) => {
+    const statisticToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [resetComponent(staticToken), genStyle(staticToken)];
+    return [resetComponent(statisticToken), genStyle(statisticToken)];
   });
 }

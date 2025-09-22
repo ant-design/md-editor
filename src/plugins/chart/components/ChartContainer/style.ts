@@ -54,6 +54,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         // antd Result 组件已经有完善的样式，这里只需要基础容器样式
         minHeight: '200px',
       },
+
+      // 统计数据容器样式
+      '.chart-statistic-container': {
+        display: 'flex',
+        gap: '16px',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+      },
     },
   };
 };

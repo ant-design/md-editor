@@ -12,6 +12,7 @@ import {
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
+import ChartStatistic from '../ChartStatistic';
 import {
   ChartContainer,
   ChartContainerProps,
@@ -19,6 +20,10 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import {
+  StatisticConfigType,
+  useChartStatistic,
+} from '../hooks/useChartStatistic';
 import { useStyle } from './style';
 
 // 注册 Chart.js 组件
@@ -47,6 +52,8 @@ export interface ScatterChartProps extends ChartContainerProps {
   yLabel?: string;
   borderColor?: string;
   backgroundColor?: string;
+  /** 统计数据组件配置 */
+  statistic?: StatisticConfigType;
 }
 
 // 默认颜色配置
@@ -72,11 +79,15 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   yLabel,
   borderColor,
   backgroundColor,
+  statistic,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('scatter-chart');
   const { wrapSSR, hashId } = useStyle(prefixCls);
+
+  // 处理 ChartStatistic 组件配置
+  const statisticComponentConfigs = useChartStatistic(statistic);
 
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -613,6 +624,19 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
             })}
             theme={currentConfig.theme}
           />
+        )}
+
+        {/* 统计数据组件 */}
+        {statisticComponentConfigs && (
+          <div style={{ marginBottom: 16 }}>
+            {statisticComponentConfigs.map((config, index) => (
+              <ChartStatistic
+                key={index}
+                {...config}
+                theme={currentConfig.theme}
+              />
+            ))}
+          </div>
         )}
 
         <div

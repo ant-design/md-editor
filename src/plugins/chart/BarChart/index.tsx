@@ -16,11 +16,14 @@ import {
   ChartContainer,
   ChartContainerProps,
   ChartFilter,
-  ChartStatic,
+  ChartStatistic,
   ChartToolBar,
   downloadChart,
 } from '../components';
-import { StaticConfigType, useChartStatic } from '../hooks/useChartStatic';
+import {
+  StatisticConfigType,
+  useChartStatistic,
+} from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -88,8 +91,8 @@ export interface BarChartProps extends ChartContainerProps {
   indexAxis?: 'x' | 'y';
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
-  /** ChartStatic组件配置：object表示单个配置，array表示多个配置 */
-  static?: StaticConfigType;
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
+  statistic?: StatisticConfigType;
 }
 
 const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
@@ -136,7 +139,7 @@ const BarChart: React.FC<BarChartProps> = ({
   stacked = false,
   indexAxis = 'x',
   toolbarExtra,
-  static: staticConfig,
+  statistic: statisticConfig,
   variant,
 }) => {
   const safeData = Array.isArray(data) ? data : [];
@@ -166,8 +169,8 @@ const BarChart: React.FC<BarChartProps> = ({
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
-  // ChartStatic 组件配置
-  const staticComponentConfigs = useChartStatic(staticConfig);
+  // ChartStatistic 组件配置
+  const statisticComponentConfigs = useChartStatistic(statisticConfig);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -604,10 +607,10 @@ const BarChart: React.FC<BarChartProps> = ({
         dataTime={dataTime}
       />
 
-      {staticComponentConfigs && (
-        <div className="chart-static-container">
-          {staticComponentConfigs.map((config, index) => (
-            <ChartStatic key={index} {...config} theme={theme} />
+      {statisticComponentConfigs && (
+        <div className="chart-statistic-container">
+          {statisticComponentConfigs.map((config, index) => (
+            <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>
       )}

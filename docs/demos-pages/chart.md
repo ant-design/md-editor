@@ -49,6 +49,12 @@ nav:
 
 <code src="../demos/charts/funnel.tsx" background="var(--main-bg-color)" iframe=540></code>
 
-## 带数据概览的图表
+## 指标卡
+
+用于显示单个关键指标数据的卡片组件，支持自定义格式化、主题切换、尺寸调整和弹性布局等功能。
+
+<code src="../demos/charts/chartStatic.tsx" background="var(--main-bg-color)" iframe=540></code>
+
+## 带指标卡的图表
 
 <code src="../demos/charts/chartWithStatic.tsx" background="var(--main-bg-color)" iframe=1000></code>

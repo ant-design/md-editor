@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import ChartStatistic from '../ChartStatistic';
 import {
   ChartContainer,
   ChartContainerProps,
@@ -19,6 +20,10 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import {
+  StatisticConfigType,
+  useChartStatistic,
+} from '../hooks/useChartStatistic';
 import { findDataPointByXValue, toNumber } from '../utils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
@@ -57,6 +62,8 @@ export interface FunnelChartProps extends ChartContainerProps {
   theme?: 'dark' | 'light';
   /** 是否显示图例 */
   showLegend?: boolean;
+  /** 统计数据组件配置 */
+  statistic?: StatisticConfigType;
   /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
   /** 图例水平对齐方式 */
@@ -90,9 +97,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   showPercent = true,
   toolbarExtra,
   typeNames,
+  statistic,
   ...props
 }) => {
   const safeData = Array.isArray(data) ? data : [];
+
+  // 处理 ChartStatistic 组件配置
+  const statisticComponentConfigs = useChartStatistic(statistic);
+
   // 响应式尺寸
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -156,9 +168,10 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     const base = selectedFilter
       ? safeData.filter((d) => d.category === selectedFilter)
       : safeData;
-    const withFilterLabel = !filterLabels || !selectedFilterLabel
-      ? base
-      : base.filter((d) => d.filterLabel === selectedFilterLabel);
+    const withFilterLabel =
+      !filterLabels || !selectedFilterLabel
+        ? base
+        : base.filter((d) => d.filterLabel === selectedFilterLabel);
     // 统一过滤掉 x 为空（null/undefined）的数据，避免后续 toString 报错
     return withFilterLabel.filter((d) => d.x !== null && d.x !== undefined);
   }, [safeData, selectedFilter, filterLabels, selectedFilterLabel]);
@@ -620,6 +633,15 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         })}
         theme={theme}
       />
+
+      {/* 统计数据组件 */}
+      {statisticComponentConfigs && (
+        <div style={{ marginBottom: 16 }}>
+          {statisticComponentConfigs.map((config, index) => (
+            <ChartStatistic key={index} {...config} theme={theme} />
+          ))}
+        </div>
+      )}
 
       <div className="chart-wrapper" style={{ height: finalHeight }}>
         <Bar

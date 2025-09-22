@@ -11,11 +11,11 @@ import { Doughnut } from 'react-chartjs-2';
 import {
   ChartContainer,
   ChartFilter,
-  ChartStatic,
+  ChartStatistic,
   ChartToolBar,
   downloadChart,
 } from '../components';
-import { useChartStatic } from '../hooks/useChartStatic';
+import { useChartStatistic } from '../hooks/useChartStatistic';
 import LegendView from './Legend';
 import {
   DEFAULT_COLORS,
@@ -56,7 +56,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   enableAutoCategory = true,
   singleMode = false,
   toolbarExtra,
-  static: staticConfig,
+  statistic: statisticConfig,
   ...props
 }) => {
   const { isMobile, windowWidth } = useMobile();
@@ -141,8 +141,8 @@ const DonutChart: React.FC<DonutChartProps> = ({
     }
   }
 
-  // 使用ChartStatic hook处理配置
-  const staticComponentConfigs = useChartStatic(staticConfig);
+  // 使用ChartStatistic hook处理配置
+  const statisticComponentConfigs = useChartStatistic(statisticConfig);
 
   const handleDownload = () => {
     if (onDownload) {
@@ -257,10 +257,14 @@ const DonutChart: React.FC<DonutChartProps> = ({
               dataTime={dataTime}
             />
           )}
-          {staticComponentConfigs && (
-            <div className="chart-static-container">
-              {staticComponentConfigs.map((config, index) => (
-                <ChartStatic key={index} {...config} theme={chartFilterTheme} />
+          {statisticComponentConfigs && (
+            <div className="chart-statistic-container">
+              {statisticComponentConfigs.map((config, index) => (
+                <ChartStatistic
+                  key={index}
+                  {...config}
+                  theme={chartFilterTheme}
+                />
               ))}
             </div>
           )}

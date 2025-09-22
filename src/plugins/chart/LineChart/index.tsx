@@ -17,11 +17,14 @@ import {
   ChartContainer,
   ChartContainerProps,
   ChartFilter,
-  ChartStatic,
+  ChartStatistic,
   ChartToolBar,
   downloadChart,
 } from '../components';
-import { StaticConfigType, useChartStatic } from '../hooks/useChartStatic';
+import {
+  StatisticConfigType,
+  useChartStatistic,
+} from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -88,8 +91,8 @@ export interface LineChartProps extends ChartContainerProps {
   yPosition?: 'left' | 'right';
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
-  /** ChartStatic组件配置：object表示单个配置，array表示多个配置 */
-  static?: StaticConfigType;
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
+  statistic?: StatisticConfigType;
 }
 
 const defaultColors = [
@@ -121,7 +124,7 @@ const LineChart: React.FC<LineChartProps> = ({
   xPosition = 'bottom',
   yPosition = 'left',
   toolbarExtra,
-  static: staticConfig,
+  statistic: statisticConfig,
   ...props
 }) => {
   const safeData = Array.isArray(data) ? data : [];
@@ -151,8 +154,8 @@ const LineChart: React.FC<LineChartProps> = ({
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
-  // ChartStatic 组件配置
-  const staticComponentConfigs = useChartStatic(staticConfig);
+  // ChartStatistic 组件配置
+  const statisticComponentConfigs = useChartStatistic(statisticConfig);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -416,10 +419,10 @@ const LineChart: React.FC<LineChartProps> = ({
         dataTime={dataTime}
       />
 
-      {staticComponentConfigs && (
-        <div className="chart-static-container">
-          {staticComponentConfigs.map((config, index) => (
-            <ChartStatic key={index} {...config} theme={theme} />
+      {statisticComponentConfigs && (
+        <div className="chart-statistic-container">
+          {statisticComponentConfigs.map((config, index) => (
+            <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>
       )}
