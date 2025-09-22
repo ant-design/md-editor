@@ -39,6 +39,7 @@ export const VoiceIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
       width="1em"
       height="1em"
       viewBox="0 0 1em 1em"
+      color='#767E8B'
       {...props}
     >
       <defs>

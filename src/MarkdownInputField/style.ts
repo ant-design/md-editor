@@ -105,7 +105,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         zIndex: 99,
         bottom: 8,
         display: 'flex',
-        gap: '8px',
+        gap: '4px',
         alignItems: 'center',
         font: 'var(--font-text-body-base)',
         color: 'var(--color-gray-text-default)',

@@ -200,6 +200,12 @@ export type BubbleListProps = {
   shouldShowCopy?: boolean | ((bubbleItem: any) => boolean);
 
   /**
+   * 控制语音按钮的显示
+   * @description 控制语音按钮是否显示
+   */
+  shouldShowVoice?: boolean;
+
+  /**
    * 滚动事件的回调
    */
   onScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
@@ -352,6 +358,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
           onDoubleClick={props.onDoubleClick}
           customConfig={props?.bubbleRenderConfig?.customConfig}
           shouldShowCopy={props.shouldShowCopy}
+          shouldShowVoice={props.shouldShowVoice}
         />
       );
     });
