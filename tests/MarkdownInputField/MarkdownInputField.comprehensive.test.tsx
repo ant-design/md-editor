@@ -51,6 +51,25 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
 
 vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
   SkillModeBar: ({ skillMode, onSkillModeOpenChange, ...props }: any) => {
+    // 使用 useRef 和 useEffect 来模拟状态变化监听
+    const prevOpenRef = React.useRef<boolean | undefined>(skillMode?.open);
+
+    React.useEffect(() => {
+      const currentOpen = skillMode?.open;
+      const prevOpen = prevOpenRef.current;
+
+      // 跳过初始渲染，只在后续更新时触发回调
+      if (prevOpen !== undefined && currentOpen !== prevOpen) {
+        onSkillModeOpenChange?.(!!currentOpen);
+      }
+
+      prevOpenRef.current = currentOpen;
+    }, [skillMode?.open, onSkillModeOpenChange]);
+
+    // 如果 enable 为 false，不渲染任何内容
+    if (skillMode?.enable === false) return null;
+
+    // 如果 open 为 false，不渲染任何内容
     if (!skillMode?.open) return null;
 
     return (
@@ -480,10 +499,11 @@ describe('MarkdownInputField Comprehensive Tests', () => {
   });
 
   describe('技能模式功能', () => {
-    it('应该在 skillMode.open 为 true 时显示技能模式', () => {
+    it('应该在 skillMode.enable 为 true 且 open 为 true 时显示技能模式', () => {
       const props = {
         ...defaultProps,
         skillMode: {
+          enable: true,
           open: true,
           title: 'AI助手模式',
           closable: true,
@@ -499,10 +519,73 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       expect(screen.getByTestId('skill-mode-close')).toBeInTheDocument();
     });
 
+    it('应该在 skillMode.enable 为 false 时完全不渲染技能模式组件', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          enable: false,
+          open: true,
+          title: 'AI助手模式',
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
+    });
+
+    it('应该在 skillMode.enable 为 true 且 open 为 true 时显示技能模式', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          enable: true,
+          open: true,
+          title: 'AI助手模式',
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
+      expect(screen.getByTestId('skill-mode-title')).toHaveTextContent(
+        'AI助手模式',
+      );
+    });
+
+    it('应该在 skillMode.enable 为 true 但 open 为 false 时隐藏技能模式', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          enable: true,
+          open: false,
+          title: 'AI助手模式',
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
+    });
+
+    it('应该在 skillMode.enable 未设置时默认启用技能模式', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          open: true,
+          title: 'AI助手模式',
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
+    });
+
     it('应该在 skillMode.open 为 false 时隐藏技能模式', () => {
       const props = {
         ...defaultProps,
         skillMode: {
+          enable: true,
           open: false,
           title: 'AI助手模式',
         },
@@ -524,6 +607,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       const props = {
         ...defaultProps,
         skillMode: {
+          enable: true,
           open: true,
           title: '测试标题',
           rightContent,
@@ -540,6 +624,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       const props = {
         ...defaultProps,
         skillMode: {
+          enable: true,
           open: true,
           title: '不可关闭模式',
           closable: false,
@@ -557,6 +642,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       const props = {
         ...defaultProps,
         skillMode: {
+          enable: true,
           open: true,
           title: '可关闭模式',
         },
@@ -583,6 +669,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       const props = {
         ...defaultProps,
         skillMode: {
+          enable: true,
           open: true,
           title: customTitle,
         },
@@ -612,7 +699,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       const { rerender } = render(
         <MarkdownInputField
           {...defaultProps}
-          skillMode={{ open: false }}
+          skillMode={{ enable: true, open: false }}
           onSkillModeOpenChange={onSkillModeOpenChange}
         />,
       );
@@ -624,7 +711,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       rerender(
         <MarkdownInputField
           {...defaultProps}
-          skillMode={{ open: true }}
+          skillMode={{ enable: true, open: true }}
           onSkillModeOpenChange={onSkillModeOpenChange}
         />,
       );
@@ -633,6 +720,52 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(onSkillModeOpenChange).toHaveBeenCalledWith(true);
+    });
+
+    it('应该支持 enable 参数的动态切换', () => {
+      const { rerender } = render(
+        <MarkdownInputField
+          {...defaultProps}
+          skillMode={{
+            enable: true,
+            open: true,
+            title: '动态切换测试',
+          }}
+        />,
+      );
+
+      // 初始状态应该显示技能模式
+      expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
+
+      // 切换 enable 为 false
+      rerender(
+        <MarkdownInputField
+          {...defaultProps}
+          skillMode={{
+            enable: false,
+            open: true,
+            title: '动态切换测试',
+          }}
+        />,
+      );
+
+      // 组件应该完全消失
+      expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
+
+      // 重新启用
+      rerender(
+        <MarkdownInputField
+          {...defaultProps}
+          skillMode={{
+            enable: true,
+            open: true,
+            title: '动态切换测试',
+          }}
+        />,
+      );
+
+      // 组件应该重新出现
+      expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
     });
   });
 });

@@ -940,21 +940,69 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-import { Tag, Button, Space } from 'antd';
+import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
 
 export default () => {
   const [value, setValue] = React.useState('');
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
+  const [enableFeature, setEnableFeature] = React.useState(true);
   const [changeLog, setChangeLog] = React.useState([]);
 
   return (
     <>
+      {/* 控制面板 */}
+      <div
+        style={{
+          marginBottom: 16,
+          padding: 16,
+          background: '#f6f8fa',
+          borderRadius: 6,
+        }}
+      >
+        <Space split={<Divider type="vertical" />}>
+          <label>
+            功能开关:
+            <Switch
+              checked={enableFeature}
+              onChange={setEnableFeature}
+              style={{ marginLeft: 8 }}
+            />
+          </label>
+          <label>
+            显示控制:
+            <Switch
+              checked={skillModeEnabled}
+              onChange={setSkillModeEnabled}
+              disabled={!enableFeature}
+              style={{ marginLeft: 8 }}
+            />
+          </label>
+          <Button size="small" onClick={() => setChangeLog([])}>
+            清空日志
+          </Button>
+        </Space>
+
+        <div style={{ marginTop: 8, fontSize: 12, color: '#666' }}>
+          <p style={{ margin: '4px 0' }}>
+            <strong>enable={enableFeature ? 'true' : 'false'}</strong> -{' '}
+            {enableFeature
+              ? '功能启用时，组件正常渲染和工作'
+              : '功能禁用时，组件完全不渲染，不执行任何逻辑'}
+          </p>
+          <p style={{ margin: '4px 0' }}>
+            <strong>open={skillModeEnabled ? 'true' : 'false'}</strong> -{' '}
+            控制技能模式的显示与隐藏
+          </p>
+        </div>
+      </div>
+
       <MarkdownInputField
         value={value}
         onChange={setValue}
         placeholder="请输入内容..."
         skillMode={{
+          enable: enableFeature, // 控制整个功能是否启用
           open: skillModeEnabled,
           title: (
             <Space>
@@ -965,6 +1013,13 @@ export default () => {
           rightContent: [
             <Tag key="version" color="blue">
               v2.0
+            </Tag>,
+            <Tag
+              key="status"
+              color={enableFeature ? 'green' : 'red'}
+              style={{ fontSize: 11 }}
+            >
+              {enableFeature ? '已启用' : '已禁用'}
             </Tag>,
             <Button
               key="settings"
@@ -992,22 +1047,7 @@ export default () => {
         }}
       />
 
-      <div style={{ marginTop: 16, display: 'flex', gap: '8px' }}>
-        <button
-          onClick={() => setSkillModeEnabled(true)}
-          disabled={skillModeEnabled}
-        >
-          外部打开
-        </button>
-        <button
-          onClick={() => setSkillModeEnabled(false)}
-          disabled={!skillModeEnabled}
-        >
-          外部关闭
-        </button>
-        <button onClick={() => setChangeLog([])}>清空日志</button>
-      </div>
-
+      {/* 状态变化日志 */}
       {changeLog.length > 0 && (
         <div
           style={{
@@ -1037,6 +1077,9 @@ export default () => {
           <li>
             <code>skillMode</code> - 技能模式配置
             <ul>
+              <li>
+                <code>enable</code> - 是否启用技能模式组件，默认为 true
+              </li>
               <li>
                 <code>open</code> - 是否打开技能模式
               </li>
@@ -1075,10 +1118,14 @@ export default () => {
 
 > 交互说明：
 >
-> - 技能模式在输入框顶部显示，提供特殊的工作模式标识
-> - 支持上下滑动动画效果（300ms 缓动动画）
-> - 支持自定义标题和右侧内容，可以显示版本、设置按钮等
-> - `onSkillModeOpenChange` 监听技能模式的开启和关闭
+> - **功能开关**: `enable` 参数控制整个技能模式功能的启用状态
+>   - 当 `enable={false}` 时，组件完全不渲染，不执行任何逻辑，提供最佳性能
+>   - 当 `enable={true}` 时，组件正常工作，可通过 `open` 参数控制显示/隐藏
+> - **显示控制**: `open` 参数控制技能模式的显示与隐藏状态
+> - **动画效果**: 支持流畅的上下滑动动画效果（300ms 缓动动画）
+> - **自定义内容**: 支持自定义标题和右侧内容，可以显示版本、设置按钮等
+> - **状态监听**: `onSkillModeOpenChange` 监听所有状态变化，包括点击关闭按钮和外部代码修改
+> - **交互演示**: 通过控制面板可以实时体验不同参数的效果，状态变化日志实时记录所有操作
 
 ### 粘贴配置
 

@@ -9,6 +9,7 @@ import { useStyle } from './style';
 /**
  * 技能模式配置接口
  * @interface SkillModeConfig
+ * @property {boolean} [enable] - 是否启用技能模式组件，默认为 true
  * @property {boolean} [open] - 是否打开技能模式
  * @property {React.ReactNode} [title] - 技能模式标题，支持字符串或React节点
  * @property {React.ReactNode[]} [rightContent] - 右侧自定义内容数组
@@ -17,6 +18,14 @@ import { useStyle } from './style';
  * @property {string} [className] - 技能模式容器类名
  */
 export interface SkillModeConfig {
+  /**
+   * 是否启用技能模式组件
+   * @description 控制整个技能模式组件是否渲染，当为 false 时组件完全不渲染任何内容
+   * @default true
+   * @example enable={skillModeFeatureEnabled}
+   */
+  enable?: boolean;
+
   /**
    * 是否打开技能模式
    * @description 控制技能模式的显示与隐藏状态
@@ -80,12 +89,12 @@ export interface SkillModeBarProps {
 }
 
 /**
- * 技能模式条组件
- * @description 用于显示技能模式的标题栏，包含标题、右侧内容和关闭按钮
+ * 技能模式条内部组件
+ * @description 包含所有hooks和渲染逻辑的内部实现组件
  * @param props - 组件属性
  * @returns React 组件
  */
-export const SkillModeBar: React.FC<SkillModeBarProps> = ({
+const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
   skillMode,
   onSkillModeOpenChange,
 }) => {
@@ -211,5 +220,29 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
         </motion.div>
       )}
     </AnimatePresence>,
+  );
+};
+
+/**
+ * 技能模式条组件
+ * @description 用于显示技能模式的标题栏，包含标题、右侧内容和关闭按钮
+ * @param props - 组件属性
+ * @returns React 组件
+ */
+export const SkillModeBar: React.FC<SkillModeBarProps> = ({
+  skillMode,
+  onSkillModeOpenChange,
+}) => {
+  // 早期返回：当 enable 为 false 时，不渲染任何内容且不执行任何逻辑
+  if (skillMode?.enable === false) {
+    return null;
+  }
+
+  // 渲染内部组件，确保 hooks 始终按相同顺序执行
+  return (
+    <SkillModeBarInner
+      skillMode={skillMode}
+      onSkillModeOpenChange={onSkillModeOpenChange}
+    />
   );
 };
