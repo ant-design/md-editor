@@ -1,10 +1,14 @@
-import { useRefFunction } from '@ant-design/md-editor/hooks/useRefFunction';
-import { useEffect, useRef } from 'react';
-import type { SkillModeConfig } from '../index';
+import { useRef } from 'react';
+import { useUpdateEffect } from 'react-use';
+import type { SkillModeConfig } from '../';
+import { useRefFunction } from '../../../hooks/useRefFunction';
 
 /**
  * 技能模式状态管理 Hook
- * @description 处理技能模式的状态变化，避免重复回调
+ * @description 处理技能模式的状态变化，具备以下特性：
+ * - 使用 useUpdateEffect 自动跳过初始化时的回调
+ * - 防止内部操作触发的重复回调
+ * - 只在真正的外部状态变化时触发回调
  * @param skillMode 技能模式配置
  * @param onSkillModeOpenChange 状态变化回调函数
  * @returns 内部状态变化处理函数
@@ -37,8 +41,8 @@ export function useSkillModeState(
     onSkillModeOpenChange?.(open);
   });
 
-  // 监听外部技能模式状态变化
-  useEffect(() => {
+  // 监听外部技能模式状态变化（跳过初始化）
+  useUpdateEffect(() => {
     const currentOpen = skillMode?.open;
     const prevOpen = prevSkillModeOpenRef.current;
 
@@ -51,10 +55,8 @@ export function useSkillModeState(
         return;
       }
 
-      // 触发外部状态变化回调（排除初始化）
-      if (onSkillModeOpenChange && prevOpen !== undefined) {
-        onSkillModeOpenChange(!!currentOpen);
-      }
+      // 触发外部状态变化回调
+      onSkillModeOpenChange?.(!!currentOpen);
     }
   }, [skillMode?.open, onSkillModeOpenChange]);
 

@@ -331,8 +331,8 @@ export type MarkdownInputFieldProps = {
    *     ],
    *     closable: true
    *   }}
-   *   onSkillModeOpenChange={(open, trigger) => {
-   *     console.log(`技能模式${open ? '打开' : '关闭'}，触发方式：${trigger}`);
+   *   onSkillModeOpenChange={(open) => {
+   *     console.log(`技能模式${open ? '打开' : '关闭'}`);
    *     setSkillModeEnabled(open);
    *   }}
    * />
