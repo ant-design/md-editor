@@ -18,21 +18,24 @@ group:
 
 ### AreaChartProps
 
-| 属性           | 类型                                     | 默认值     | 说明                                              |
-| -------------- | ---------------------------------------- | ---------- | ------------------------------------------------- |
-| title          | `string`                                 | -          | 图表标题                                          |
-| data           | `AreaChartDataItem[]`                    | -          | 扁平化数据数组                                    |
-| width          | `number`                                 | `600`      | 图表宽度（px），移动端自适应为 100%               |
-| height         | `number`                                 | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400） |
-| className      | `string`                                 | -          | 自定义类名                                        |
-| theme          | `'dark' \| 'light'`                      | `'light'`  | 主题风格                                          |
-| color          | `string \| string[]`                     | -          | 自定义主色；数组按序对应各数据序列                |
-| showLegend     | `boolean`                                | `true`     | 是否显示图例                                      |
-| legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置                                          |
-| legendAlign    | `'start' \| 'center' \| 'end'`           | `'start'`  | 图例水平对齐方式                                  |
-| showGrid       | `boolean`                                | `true`     | 是否显示网格线                                    |
-| xPosition      | `'top' \| 'bottom'`                      | `'bottom'` | X 轴位置                                          |
-| yPosition      | `'left' \| 'right'`                      | `'left'`   | Y 轴位置                                          |
+| 属性           | 类型                                             | 默认值     | 说明                                                          |
+| -------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------- |
+| title          | `string`                                         | -          | 图表标题                                                      |
+| data           | `AreaChartDataItem[]`                            | -          | 扁平化数据数组                                                |
+| width          | `number \| string`                               | `600`      | 图表宽度（px），移动端自适应为 100%                           |
+| height         | `number \| string`                               | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400）             |
+| className      | `string`                                         | -          | 自定义类名                                                    |
+| dataTime       | `string`                                         | -          | 数据时间                                                      |
+| theme          | `'dark' \| 'light'`                              | `'light'`  | 主题风格                                                      |
+| color          | `string \| string[]`                             | -          | 自定义主色；数组按序对应各数据序列                            |
+| showLegend     | `boolean`                                        | `true`     | 是否显示图例                                                  |
+| legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'`         | `'bottom'` | 图例位置                                                      |
+| legendAlign    | `'start' \| 'center' \| 'end'`                   | `'start'`  | 图例水平对齐方式                                              |
+| showGrid       | `boolean`                                        | `true`     | 是否显示网格线                                                |
+| xPosition      | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                      |
+| yPosition      | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                      |
+| toolbarExtra   | `React.ReactNode`                                | -          | 头部工具条额外按钮                                            |
+| statistic      | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置 |
 
 ### AreaChartDataItem
 
@@ -46,8 +49,28 @@ group:
 | ytitle      | `string` | 否   | Y 轴标题（从数据中提取）             |
 | filterLabel | `string` | 否   | 二级筛选标签（可选）                 |
 
+### ChartStatisticConfig
+
+`ChartStatisticConfig` 继承自 [ChartStatistic](/components/chart-statistic#chartstatisticprops) 组件的所有属性，详细 API 请参考 [ChartStatistic 文档](/components/chart-statistic)。
+
+| 字段           | 类型                                                                | 默认值      | 说明                                                   |
+| -------------- | ------------------------------------------------------------------- | ----------- | ------------------------------------------------------ |
+| title          | `string`                                                            | -           | 指标标题                                               |
+| tooltip        | `string`                                                            | -           | 鼠标悬停时显示的提示信息                               |
+| value          | `number \| string \| null \| undefined`                             | -           | 显示的数值                                             |
+| precision      | `number`                                                            | -           | 数值精度（小数点后位数）                               |
+| groupSeparator | `string`                                                            | `','`       | 千分位分隔符                                           |
+| prefix         | `string`                                                            | `''`        | 数值前缀（如货币符号）                                 |
+| suffix         | `string`                                                            | `''`        | 数值后缀（如单位）                                     |
+| formatter      | `(value: number \| string \| null \| undefined) => React.ReactNode` | -           | 自定义格式化函数，优先级高于其他格式化选项             |
+| className      | `string`                                                            | `''`        | 自定义类名                                             |
+| size           | `'small' \| 'default' \| 'large'`                                   | `'default'` | 组件尺寸                                               |
+| block          | `boolean`                                                           | `false`     | 是否使用块级布局（弹性占用空间，多个时平分父容器宽度） |
+| extra          | `React.ReactNode`                                                   | -           | 右上角自定义内容（图标、按钮等）                       |
+
 ## 说明
 
 - 移动端自动启用响应式：宽度 100%，高度不超过 400px。
 - 当 `filterLabel` 存在时，组件会在分类基础上增加二级筛选。
 - 不同 `type` 自动分配调色板并以填充形式展示面积。
+- `statistic` 属性支持数组形式，可同时渲染多个统计数据组件，如 `[{title: '点赞数', value: 380}, {title: '点踩数', value: 126}]`。

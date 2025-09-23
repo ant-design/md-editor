@@ -148,7 +148,7 @@
         </div>
         <div
           class="chart-wrapper"
-          style="height: 500px;"
+          style="margin-top: 20px; height: 500px;"
         >
           <div
             data-datasets="[{"label":"直接访问","data":[120,132,101,134,90,230,210],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"搜索引擎","data":[220,182,191,234,290,330,310],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"外链引荐","data":[150,232,201,154,190,330,410],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"测试访问","data":[220,182,191,234,290,330,310],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false},{"label":"流量购买","data":[125,232,201,154,190,330,410],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"stack":"stack","borderSkipped":false}]"
