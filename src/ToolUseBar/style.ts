@@ -32,7 +32,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
         outline: '1px solid rgba(20, 22, 28, 0.07)',
         boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
-        minHeight: '28px',
+        minHeight: '20px',
         width: 'max-content',
         maxWidth: 'min(800px,100%)',
         display: 'flex',
@@ -45,7 +45,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-tool-bar': {
         borderRadius: '12px',
-        minHeight: '28px',
+        minHeight: '20px',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -59,7 +59,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-header': {
-        height: 28,
+        height: 20,
         display: 'flex',
         alignItems: 'center',
         gap: 8,

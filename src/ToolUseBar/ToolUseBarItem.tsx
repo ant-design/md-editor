@@ -217,9 +217,8 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             tool.status === 'loading'
               ? {
                   maskImage: [
-                    'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)',
-                    'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) 150%, rgba(0,0,0,0.99) 120%)',
-                    'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  120%)',
                   ],
                 }
               : {}
@@ -228,7 +227,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             tool.status === 'loading'
               ? {
                   maskImage: {
-                    duration: 3.2,
+                    duration: 1.6,
                     repeat: Infinity,
                     ease: 'linear',
                   },
