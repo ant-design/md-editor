@@ -178,9 +178,14 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
             >
               {/* 右侧自定义内容 */}
               {skillMode?.rightContent &&
-                skillMode.rightContent.map((content, index) => (
-                  <React.Fragment key={index}>{content}</React.Fragment>
-                ))}
+                skillMode.rightContent.map((content, index) => {
+                  // 尝试从React元素中提取key，如果没有则使用index
+                  const key =
+                    React.isValidElement(content) && content.key
+                      ? content.key
+                      : index;
+                  return <React.Fragment key={key}>{content}</React.Fragment>;
+                })}
 
               {/* 分割线 - 只有当有右侧内容且可关闭时才显示 */}
               {skillMode?.rightContent &&
