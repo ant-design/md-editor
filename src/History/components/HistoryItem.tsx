@@ -397,6 +397,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
             display: 'flex',
             flexDirection: 'column',
             gap: 4,
+            paddingRight: 10,
           }}
         >
           {/* 标题 */}
@@ -467,7 +468,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                     (isTask ? locale?.['task.default'] || '任务' : '')}
                 </div>
                 <Divider type="vertical" />
-                <span style={{ minWidth: 30 }}>
+                <span style={{ minWidth: 26 }}>
                   {formatTime(item.gmtCreate)}
                 </span>
               </div>

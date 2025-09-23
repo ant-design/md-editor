@@ -71,9 +71,22 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
         justifyContent: 'center',
         width: 'max-content',
         maxWidth: 'min(860px,100%)',
+        position: 'relative',
       }}
     >
-      {isHover || props.agent?.enabled ? (
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          opacity: isHover || props.agent?.enabled ? 1 : 0,
+          transition: 'opacity 0.2s ease',
+          pointerEvents: isHover || props.agent?.enabled ? 'auto' : 'none',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         <Space size={4}>
           {props.agent?.enabled && props.item && props?.agent?.onFavorite && (
             <ActionIconBox
@@ -184,11 +197,19 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
             </Popconfirm>
           )}
         </Space>
-      ) : !props.agent?.enabled ? (
-        props.children
-      ) : (
-        <span style={{ width: 24, height: 24 }}></span>
-      )}
+      </div>
+      <div
+        style={{
+          opacity: !isHover || props.agent?.enabled ? 1 : 0,
+          transition: 'opacity 0.2s ease',
+        }}
+      >
+        {!props.agent?.enabled ? (
+          props.children
+        ) : (
+          <span style={{ width: 24, height: 24 }}></span>
+        )}
+      </div>
     </div>
   );
 };
