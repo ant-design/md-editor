@@ -17,10 +17,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         justifyContent: 'space-between',
         cursor: 'pointer',
-        borderRadius: '8px',
+        borderRadius: 'var(--radius-control-base)',
         padding: '6px 6px 6px 12px',
         backgroundColor: 'transparent',
-        color: token.colorText || 'rgba(0, 0, 0, 0.88)',
+        color: token.colorText || 'var(--color-gray-text-default)',
         fontSize: 'var(--font-size-base)',
         fontWeight: 400,
         position: 'relative',
@@ -29,19 +29,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         transition: 'all 0.2s ease',
 
         '&:hover:not(&-disabled)': {
-          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
-          color: '#343A45',
+          backgroundColor: 'var(--color-gray-control-fill-active)',
+          color: 'var(--color-gray-text-default)',
         },
 
         '&-selected': {
-          backgroundColor: 'rgba(0, 28, 57, 0.0353)',
+          backgroundColor: 'var(--color-gray-control-fill-active)',
           fontWeight: 600,
-          color: '#343A45',
+          color: 'var(--color-gray-text-default)',
         },
 
         '&-disabled': {
           cursor: 'not-allowed',
-          color: token.colorTextDisabled || 'rgba(0, 0, 0, 0.25)',
+          color: token.colorTextDisabled || 'var(--color-gray-text-default)',
           opacity: 0.6,
 
           '&:hover': {
@@ -80,7 +80,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           padding: '6px 12px 6px',
           lineHeight: '20px',
           letterSpacing: 'normal',
-          color: 'rgba(0, 25, 61, 0.3255)',
+          color: 'var(--color-gray-text-default)',
           zIndex: 0,
         },
         '&:active:not(&-disabled)': {
@@ -108,7 +108,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-submenu-title': {
         fontSize: 'var(--font-size-base)',
-        color: token.colorTextSecondary || 'rgba(0, 0, 0, 0.45)',
+        color: token.colorTextSecondary || 'var(--color-gray-text-default)',
         fontWeight: 500,
         padding: '4px 12px',
       },
@@ -128,11 +128,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&::-webkit-scrollbar-thumb': {
-        backgroundColor: token.colorBorder || '#d9d9d9',
+        backgroundColor: token.colorBorder || 'var(--color-gray-border-light)',
         borderRadius: '3px',
 
         '&:hover': {
-          backgroundColor: token.colorTextSecondary || '#bfbfbf',
+          backgroundColor:
+            token.colorTextSecondary || 'var(--color-gray-text-default)',
         },
       },
 

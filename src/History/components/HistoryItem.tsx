@@ -164,7 +164,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
         {/* 内容区域 */}
         <div
           style={{
-            color: '#666F8D',
+            color: 'var(--color-gray-text-default)',
             overflow: 'hidden',
             flex: 1,
             display: 'flex',
@@ -184,14 +184,15 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
             <div
               style={{
                 width: 'max-content',
-                fontWeight: 500,
-                fontSize: 14,
                 overflow: 'hidden',
                 maxWidth: 'min(860px,100%)',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 WebkitLineClamp: 1,
                 WebkitBoxOrient: 'vertical',
+                fontSize: 'var(--font-text-body-base)',
+                letterSpacing: 'var(--letter-spacing-body-base, normal)',
+                color: 'var(--color-gray-text-default)',
               }}
             >
               {item.sessionTitle}
@@ -390,7 +391,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
         {/* 内容区域 */}
         <div
           style={{
-            color: '#666F8D',
+            color: 'var(--color-gray-text-default)',
             overflow: 'hidden',
             flex: 1,
             display: 'flex',
@@ -411,7 +412,6 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
             <div
               style={{
                 width: 'max-content',
-                fontWeight: 500,
                 display: '-webkit-box',
                 maxWidth: 'min(860px,100%)',
                 overflow: 'hidden',
