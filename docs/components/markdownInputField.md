@@ -239,7 +239,7 @@ export default () => {
 | `leafRender`            | `(props, defaultDom) => React.ReactElement`      | -         | 自定义叶子节点渲染函数             |
 | `inputRef`              | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
 | `skillMode`             | `SkillModeConfig`                                | -         | 技能模式配置                       |
-| `onSkillModeOpenChange` | `(open: boolean) => void`       | -         | 技能模式状态变化回调               |
+| `onSkillModeOpenChange` | `(open: boolean) => void`                        | -         | 技能模式状态变化回调               |
 | `pasteConfig`           | `{ enabled?: boolean; allowedTypes?: string[] }` | -         | 粘贴配置                           |
 
 ## 示例
