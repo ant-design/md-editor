@@ -101,6 +101,13 @@ export default () => (
 
 <code src="../demos/bubble/avatar-render-demo.tsx"></code>
 
+### 引用演示
+
+引用Demo，使用 `onFootnoteDefinitionChange` 获取 引用 节点列表，使用 `render` 方法自定义渲染。
+引用需要用 `Popover` 组件包裹。
+
+<code src="../demos/bubble/footnote-demo.tsx"></code>
+
 ### 操作区域定制
 
 展示 `extraRender` 功能，自定义气泡的操作按钮和交互区域。
