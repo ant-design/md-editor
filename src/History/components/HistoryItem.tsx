@@ -164,7 +164,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
         {/* 内容区域 */}
         <div
           style={{
-            color: '#666F8D',
+            color: 'var(--color-gray-text-default)',
             overflow: 'hidden',
             flex: 1,
             display: 'flex',
@@ -184,14 +184,15 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
             <div
               style={{
                 width: 'max-content',
-                fontWeight: 500,
-                fontSize: 14,
                 overflow: 'hidden',
                 maxWidth: 'min(860px,100%)',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 WebkitLineClamp: 1,
                 WebkitBoxOrient: 'vertical',
+                fontSize: 'var(--font-text-body-base)',
+                letterSpacing: 'var(--letter-spacing-body-base, normal)',
+                color: 'var(--color-gray-text-default)',
               }}
             >
               {item.sessionTitle}
@@ -345,9 +346,12 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   alignItems: 'center',
                   padding: '8px',
                   gap: '10px',
-                  fontSize: 15,
+                  fontSize: isSelected
+                    ? 'var(--font-text-h6-base)'
+                    : 'var(--font-text-body-base)',
                   borderRadius: '200px',
-                  background: '#F1F2F4',
+                  background: 'var(--color-gray-bg-page-dark)',
+                  color: 'var(--color-primary-text-secondary)',
                 }}
               >
                 <HistoryRunningIcon
@@ -355,6 +359,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   height={16}
                   animated={true}
                   duration={2}
+                  color="var(--color-primary-text-secondary)"
                 />
               </div>
             ) : React.isValidElement(item.icon) ? (
@@ -370,9 +375,11 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   alignItems: 'center',
                   padding: '8px',
                   gap: '10px',
-                  fontSize: 15,
+                  fontSize: isSelected
+                    ? 'var(--font-text-h6-base)'
+                    : 'var(--font-text-body-base)',
                   borderRadius: '200px',
-                  background: '#F1F2F4',
+                  background: 'var(--color-gray-bg-page-dark)',
                 }}
               >
                 {item.icon || (isTask ? '📋' : '📄')}
@@ -384,7 +391,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
         {/* 内容区域 */}
         <div
           style={{
-            color: '#666F8D',
+            color: 'var(--color-gray-text-default)',
             overflow: 'hidden',
             flex: 1,
             display: 'flex',
@@ -405,8 +412,6 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
             <div
               style={{
                 width: 'max-content',
-                fontWeight: 500,
-                fontSize: 14,
                 display: '-webkit-box',
                 maxWidth: 'min(860px,100%)',
                 overflow: 'hidden',
@@ -415,6 +420,11 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                 WebkitLineClamp: 1,
                 WebkitBoxOrient: 'vertical',
                 lineHeight: '20px',
+                fontSize: isSelected
+                  ? 'var(--font-text-h6-base)'
+                  : 'var(--font-text-body-base)',
+                letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+                color: 'var(--color-gray-text-default)',
               }}
             >
               {item.sessionTitle}
@@ -437,23 +447,29 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
             >
               <div
                 style={{
-                  fontSize: '10px',
-                  fontWeight: 'normal',
-                  lineHeight: '18px',
-                  letterSpacing: 'normal',
-                  color: '#767E8B',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'normal',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 1,
-                  WebkitBoxOrient: 'vertical',
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontSize: 'var(--font-text-body-xs)',
+                  color: 'var(--color-gray-text-secondary)',
+
+                  letterSpacing: 'var(--letter-spacing-body-xs, normal)',
                 }}
               >
-                {item.description ||
-                  (isTask ? locale?.['task.default'] || '任务' : '')}
+                <div
+                  style={{
+                    flex: 1,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {item.description ||
+                    (isTask ? locale?.['task.default'] || '任务' : '')}
+                </div>
                 <Divider type="vertical" />
-                {formatTime(item.gmtCreate)}
+                <span style={{ minWidth: 30 }}>
+                  {formatTime(item.gmtCreate)}
+                </span>
               </div>
             </Tooltip>
           )}

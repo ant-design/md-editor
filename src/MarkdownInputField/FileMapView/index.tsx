@@ -1,4 +1,4 @@
-﻿import { RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
