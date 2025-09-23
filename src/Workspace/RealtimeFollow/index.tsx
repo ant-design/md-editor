@@ -49,6 +49,8 @@ export interface RealtimeFollowData {
   labels?: { preview?: string; code?: string };
   // 右侧分段器（Segmented）自定义
   segmentedItems?: Array<{ label: React.ReactNode; value: string }>; // 自定义 items
+  // Segmented 右侧额外内容（当存在 segmentedItems 或默认 Segmented 时附加在其右侧）
+  segmentedExtra?: React.ReactNode;
 }
 
 // 获取不同type的配置信息
@@ -441,43 +443,48 @@ export const RealtimeFollowList: React.FC<{
     code: data.labels?.code || locale?.['htmlPreview.code'] || '代码',
   };
 
-  // 右侧：优先使用外部自定义 rightContent，其次使用 segmentedItems，再次使用默认的预览/代码
-  const rightContent = (() => {
-    if (data.rightContent) return data.rightContent;
-    if (data.type !== 'html') return null;
-
-    if (data.segmentedItems && data.segmentedItems.length > 0) {
-      return (
-        <Segmented
-          options={data.segmentedItems}
-          onChange={(val) => data.onViewModeChange?.(String(val) as any)}
-        />
-      );
-    }
-
-    return (
-      <Segmented
-        options={[
-          { label: labels.preview, value: 'preview' },
-          { label: labels.code, value: 'code' },
-        ]}
-        value={htmlViewMode}
-        onChange={(val) => handleSetMode(val as 'preview' | 'code')}
-      />
-    );
-  })();
-
-  const headerData: RealtimeFollowData = { ...data, rightContent };
-
-  // 使用 ConfigProvider 获取前缀类名
+  // 使用 ConfigProvider 获取前缀类名，并提前计算样式作用域，供右侧区域使用
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('workspace-realtime');
-
   const styleResult = useRealtimeFollowStyle(prefixCls);
   const { wrapSSR, hashId } = styleResult || {
     wrapSSR: (node: any) => node,
     hashId: '',
   };
+
+  // 右侧：优先使用外部自定义 rightContent；否则 html 类型下显示 Segmented（自定义或默认）+ 可选 extra
+  const rightContent = (() => {
+    if (data.rightContent) return data.rightContent;
+    if (data.type !== 'html') return null;
+
+    const segmentedNode =
+      data.segmentedItems && data.segmentedItems.length > 0 ? (
+        <Segmented
+          options={data.segmentedItems}
+          onChange={(val) => data.onViewModeChange?.(String(val) as any)}
+        />
+      ) : (
+        <Segmented
+          options={[
+            { label: labels.preview, value: 'preview' },
+            { label: labels.code, value: 'code' },
+          ]}
+          value={htmlViewMode}
+          onChange={(val) => handleSetMode(val as 'preview' | 'code')}
+        />
+      );
+
+    if (!data.segmentedExtra) return segmentedNode;
+
+    return (
+      <div className={`${prefixCls}-segmented-right ${hashId}`}>
+        {segmentedNode}
+        {data.segmentedExtra}
+      </div>
+    );
+  })();
+
+  const headerData: RealtimeFollowData = { ...data, rightContent };
 
   return wrapSSR(
     <div
