@@ -46,19 +46,19 @@ interface IconNodeProps {
 
 const IconNode: React.FC<IconNodeProps> = (props) => {
   const { icon, prefixCls, type, hashId } = props;
-  const iconType = iconMapFilled[type!] || null;
+  const iconType = type ? iconMapFilled[type] : null;
   if (icon) {
     if (!isValidElement(icon)) {
       return <span className={`${prefixCls}-icon ${hashId}`}>{icon}</span>;
     }
-    return React.cloneElement(icon, {
-      // @ts-ignore
+    return React.cloneElement(icon as React.ReactElement<any>, {
       className: classNames(
         `${prefixCls}-icon ${hashId}`,
         icon.props.className,
       ),
     });
   }
+  if (!iconType) return null;
   return React.createElement(iconType, {
     className: `${prefixCls}-icon ${hashId}`,
   });

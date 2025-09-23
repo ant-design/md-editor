@@ -38,8 +38,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 'normal',
       },
 
-      '&-action': {},
-
       '&-close-icon': {
         padding: 0,
         backgroundColor: 'transparent',

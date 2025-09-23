@@ -29,7 +29,7 @@ AnswerAlert 是一个用于展示系统状态和用户提示的组件，特别�
 | type        | 指定指示器的样式                      | `'success' \| 'error' \| 'warning' \| 'info' \| 'gray'` | -       | -    |
 | action      | 自定义操作项                          | `React.ReactNode`                                       | -       | -    |
 | closable    | 可关闭配置                            | `boolean`                                               | `false` | -    |
-| onClose     | 关闭时触发的回调函数                  | `(e: React.MouseEvent<HTMLDivElement>) => void`         | -       | -    |
+| onClose     | 关闭时触发的回调函数                  | `(e: React.MouseEvent<HTMLButtonElement>) => void`      | -       | -    |
 
 ## 类型说明
 
@@ -75,7 +75,7 @@ export default () => {
       message="LUI Chat 已停止，你的额度不足，无法继续。"
       description={
         <Space direction="vertical">
-          每日额度将在在每天 08:00 更新
+          每日额度将在每天 08:00 更新
           <Button type="primary">继续对话</Button>
         </Space>
       }
@@ -87,10 +87,11 @@ export default () => {
 ### 可关闭的提示
 
 ```tsx
+import React from 'react';
 import { AnswerAlert } from '@ant-design/md-editor';
 
 export default () => {
-  const handleClose = (e) => {
+  const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('提示已关闭', e);
   };
 

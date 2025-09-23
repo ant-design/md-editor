@@ -1,5 +1,5 @@
 import { AnswerAlert, Bubble, MessageBubbleData } from '@ant-design/md-editor';
-import React from 'antd';
+import React from 'react';
 
 // Mock data for the demo
 const mockMessage: MessageBubbleData = {
@@ -39,7 +39,7 @@ const AnsweringIndicatorDemo = () => {
       }}
     >
       <Bubble
-        avatar={mockMessage.meta!}
+        avatar={mockMessage.meta}
         placement="left"
         originData={mockMessage}
       />
