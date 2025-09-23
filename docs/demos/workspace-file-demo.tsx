@@ -31,9 +31,10 @@ const WorkspaceFileDemo: React.FC = () => {
           id: 'customPreviewDomID1',
           // type: 'word',// 非必填，会自动推断
           size: '2.3MB',
-          lastModified: '08-20 12:30',
+          lastModified: '12:30',
           url: '/downloads/project-requirements.docx',
-          canDownload: false,
+          canPreview: true,
+          canShare: true,
         },
         {
           id: 'customPreviewDomID2',
