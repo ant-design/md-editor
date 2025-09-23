@@ -2,7 +2,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { StarFilledIcon, StarIcon } from '../../icons';
+import { StarIcon } from '../../icons';
 import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';
 
@@ -74,7 +74,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
       }}
     >
       {isHover || props.agent?.enabled ? (
-        <Space>
+        <Space size={0}>
           {props.agent?.enabled && props.item && props?.agent?.onFavorite && (
             <ActionIconBox
               scale
@@ -103,20 +103,32 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
                   : i18nLocale?.['chat.history.favorite'] || '收藏'
               }
+              style={
+                props.item!.isFavorite
+                  ? {
+                      width: 20,
+                      height: 20,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 'var(--radius-control-sm)',
+                      background: 'var(--color-gray-control-fill-active)',
+                      border: 'var(--color-gray-border-light)',
+                    }
+                  : {
+                      width: 20,
+                      height: 20,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }
+              }
             >
-              {props.item!.isFavorite ? (
-                <StarFilledIcon
-                  style={{
-                    color: '#1D7AFC',
-                  }}
-                />
-              ) : (
-                <StarIcon
-                  style={{
-                    color: '--color-gray-a9',
-                  }}
-                />
-              )}
+              <StarIcon
+                style={{
+                  color: 'var(--color-gray-text-disabled)',
+                }}
+              />
             </ActionIconBox>
           )}
           {props?.onDeleteItem && props.item && (
@@ -165,7 +177,11 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 }}
                 title={i18nLocale?.['chat.history.delete'] || '删除'}
               >
-                <DeleteOutlined />
+                <DeleteOutlined
+                  style={{
+                    color: 'var(--color-gray-text-disabled)',
+                  }}
+                />
               </ActionIconBox>
             </Popconfirm>
           )}

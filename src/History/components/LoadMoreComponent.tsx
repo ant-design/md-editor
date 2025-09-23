@@ -1,8 +1,11 @@
-import { HistoryOutlined } from '@ant-design/icons';
+import {
+  EllipsisOutlined,
+  HistoryOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
 import { Button } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-
 /**
  * 历史记录加载更多组件属性接口
  */
@@ -11,6 +14,8 @@ interface HistoryLoadMoreProps {
   onLoadMore: () => void;
   /** 是否启用加载更多功能 */
   enabled?: boolean;
+  /** 历史记录类型 */
+  type?: 'chat' | 'task';
 }
 
 /**
@@ -30,6 +35,7 @@ interface HistoryLoadMoreProps {
  * <HistoryLoadMore
  *   onLoadMore={() => handleLoadMore()}
  *   enabled={true}
+ *   type="task"
  * />
  * ```
  *
@@ -45,33 +51,77 @@ interface HistoryLoadMoreProps {
  */
 export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
   onLoadMore,
+  type,
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
+  const onClickFn = async () => {
+    try {
+      setLoading(true);
+      await onLoadMore();
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Button
-      type="text"
-      variant="text"
-      style={{
-        color: 'rgba(0, 25, 61, 0.3255)',
-        width: '100%',
-      }}
-      icon={<HistoryOutlined />}
-      loading={loading}
-      onClick={async () => {
-        try {
-          setLoading(true);
-          await onLoadMore();
-          setLoading(false);
-        } catch (error) {
-          // 处理错误
-        } finally {
-          setLoading(false);
-        }
-      }}
-    >
-      {locale?.['chat.history.loadMore'] || '查看更多'}
-    </Button>
+    <>
+      {type === 'task' ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            marginRight: 8,
+            fontSize: 'var(--font-text-body-base)',
+            letterSpacing: 'var(--letter-spacing-body-base, normal)',
+            color: 'var(--color-gray-text-default)',
+            padding: '0 12px',
+            cursor: 'pointer',
+          }}
+          onClick={onClickFn}
+        >
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '8px',
+              gap: '10px',
+              borderRadius: '200px',
+              background: 'var(--color-gray-bg-card-light)',
+              marginRight: 8,
+            }}
+          >
+            {loading ? <LoadingOutlined /> : <EllipsisOutlined />}
+          </div>
+          {locale?.['task.history.loadMore'] || '查看更多'}
+        </div>
+      ) : (
+        <Button
+          type="text"
+          variant="text"
+          style={{
+            fontSize: 'var(--font-text-body-base)',
+            letterSpacing: 'var(--letter-spacing-body-base, normal)',
+            color: 'var(--color-gray-text-light)',
+            width: '100%',
+            borderRadius: 'var(--radius-control-base)',
+          }}
+          icon={<HistoryOutlined />}
+          loading={loading}
+          onClick={onClickFn}
+        >
+          {locale?.['chat.history.loadMore'] || '查看更多'}
+        </Button>
+      )}
+    </>
   );
 };

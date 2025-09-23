@@ -136,11 +136,11 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
         <>
           <div
             style={{
-              fontSize: '12px',
               fontWeight: 500,
               lineHeight: '20px',
-              letterSpacing: 'normal',
-              color: 'rgba(0, 25, 61, 0.3255)',
+              fontSize: 'var(--font-text-body-emphasized-sm)',
+              letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+              color: 'var(--color-gray-text-light)',
             }}
           >
             {locale?.['chat.history.historyTasks'] || '历史任务'}
@@ -149,7 +149,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
             onClick={handleToggleSearch}
             title={locale?.['chat.history.search'] || '搜索'}
             style={{
-              width: 40,
+              width: 20,
             }}
           >
             <SearchIcon

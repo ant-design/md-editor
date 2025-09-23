@@ -119,7 +119,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           className={menuPrefixCls}
         />
         {props.agent?.enabled && !!props.agent?.onLoadMore && (
-          <HistoryLoadMore onLoadMore={handleLoadMore} />
+          <HistoryLoadMore onLoadMore={handleLoadMore} type={props.type} />
         )}
       </div>
     );
@@ -148,7 +148,7 @@ export const History: React.FC<HistoryProps> = (props) => {
             className={menuPrefixCls}
           />
           {props.agent?.enabled && !!props.agent?.onLoadMore && (
-            <HistoryLoadMore onLoadMore={handleLoadMore} />
+            <HistoryLoadMore onLoadMore={handleLoadMore} type={props.type} />
           )}
         </>
       }
@@ -168,9 +168,9 @@ export const History: React.FC<HistoryProps> = (props) => {
         <ActionIconBox
           key="history"
           style={{
-            color: '#666F8D',
-            width: 24,
-            height: 24,
+            color: 'var(--color-gray-text-default)',
+            width: 25,
+            height: 25,
           }}
           noPadding
           title={locale?.['chat.history'] || '历史记录'}
