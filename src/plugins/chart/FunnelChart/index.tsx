@@ -24,7 +24,7 @@ import {
   StatisticConfigType,
   useChartStatistic,
 } from '../hooks/useChartStatistic';
-import { findDataPointByXValue, toNumber } from '../utils';
+import { findDataPointByXValue, isXValueEqual, toNumber } from '../utils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -289,6 +289,24 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
   }, [filteredData, stages]);
 
+  const ratioOrder = useMemo(() => {
+    const normalizeRatio = (v: any) => {
+      if (typeof v === 'string') {
+        const s = v.trim().replace('%', '');
+        const n = Number(s);
+        return Number.isFinite(n) ? n : NaN;
+      }
+      if (typeof v === 'number') return v;
+      return NaN;
+    };
+    return stages.map((_, i) => {
+      if (i === 0) return 100;
+      const prevStage = stages[i - 1];
+      const dp = (filteredData || []).find((d) => isXValueEqual(d.x, prevStage));
+      return normalizeRatio(dp?.ratio);
+    });
+  }, [filteredData, stages]);
+
   // 过滤器选项
   const filterOptions = useMemo(
     () =>
@@ -380,8 +398,13 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.2)',
         borderWidth: 1,
         cornerRadius: isMobile ? 6 : 8,
+        padding: 8,
         displayColors: false,
         callbacks: {
+          title: (items) => {
+            const it = items?.[0];
+            return it?.label ? String(it.label) : '';
+          },
           label: (ctx) => {
             const raw = ctx.raw as [number, number] | number | null | undefined;
             const width = Array.isArray(raw)
@@ -397,12 +420,18 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
               const n = typeof it === 'number' ? it : Number(it);
               return Number.isFinite(n) ? n : 0;
             });
-            const base = allValues[0] || 1;
-            const percent = ((width / base) * 100).toFixed(1) + '%';
-            if (showPercent) {
-              return `${ctx.label}: ${width} (${percent})`;
+            const idx = ctx.dataIndex ?? 0;
+            let percentStr: string | undefined;
+            const r = ratioOrder?.[idx];
+            if (Number.isFinite(r)) {
+              percentStr = `${(r as number).toFixed(1)}%`;
+            } else {
+              const base = allValues[0] || 1;
+              percentStr = `${((width / base) * 100).toFixed(1)}%`;
             }
-            return `${ctx.label}: ${width}`;
+            return showPercent === false
+              ? `${width}`
+              : `${width}（${percentStr}）`;
           },
         },
       },
@@ -450,20 +479,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         const xScale = scales?.x;
         const ds = cdata?.datasets?.[0]?.data || [];
 
-        // 归一化用户传入的比率，长度应为 n-1
-        const normalizeRatio = (v: any) => {
-          if (typeof v === 'string') {
-            const s = v.trim().replace('%', '');
-            const n = Number(s);
-            return Number.isFinite(n) ? n : NaN;
-          }
-          if (typeof v === 'number') return v;
-          return NaN;
-        };
-        // 从 filteredData 读取每层 ratio
-        const providedRatios: number[] = (filteredData || []).map((it: any) =>
-          normalizeRatio(it?.ratio),
-        );
+        const providedRatios: number[] = ratioOrder;
 
         const centerX = xScale?.getPixelForValue
           ? xScale.getPixelForValue(0)
@@ -504,8 +520,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const topY = joinTop + seam; // 向下收一点，避免覆盖上柱
           const botY = joinBot - seam; // 向上收一点，避免覆盖下柱
 
-          // 比率（优先用户传入），范围 0~100，仅用于文本展示
-          let ratioVal = providedRatios?.[i];
+          // 比率（优先用户传入，与排序对齐），范围 0~100，仅用于文本展示
+          let ratioVal = providedRatios?.[i + 1];
           if (!Number.isFinite(ratioVal)) {
             const base = topWidthPx || 1;
             ratioVal = (botWidthPx / base) * 100;
