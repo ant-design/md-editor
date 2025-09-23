@@ -305,7 +305,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     const provided = stages.map((_, i) => {
       if (i === 0) return false;
       const prevStage = stages[i - 1];
-      const dp = (filteredData || []).find((d) => isXValueEqual(d.x, prevStage));
+      const dp = (filteredData || []).find((d) =>
+        isXValueEqual(d.x, prevStage),
+      );
       const v = dp?.ratio;
       if (v === null || v === undefined) return false;
       if (typeof v === 'string') return v.trim() !== '';
@@ -315,7 +317,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     const display = stages.map((_, i) => {
       if (i === 0) return anyProvided ? '100%' : undefined;
       const prevStage = stages[i - 1];
-      const dp = (filteredData || []).find((d) => isXValueEqual(d.x, prevStage));
+      const dp = (filteredData || []).find((d) =>
+        isXValueEqual(d.x, prevStage),
+      );
       return formatRaw(dp?.ratio);
     });
     return { ratioDisplay: display, ratioProvided: provided };

@@ -57,11 +57,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
         }}
       >
         <ErrorBoundary fallback={<div />}>
-          {recording ? (
-            <VoicingLottie size={16} />
-          ) : (
-            <VoiceIcon />
-          )}
+          {recording ? <VoicingLottie size={16} /> : <VoiceIcon />}
         </ErrorBoundary>
       </div>
     </Tooltip>,

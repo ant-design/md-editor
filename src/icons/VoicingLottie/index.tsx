@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Lottie from 'lottie-react';
 import React from 'react';
 import voicingLottie from './voicing.json';
