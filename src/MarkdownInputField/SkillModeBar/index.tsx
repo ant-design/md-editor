@@ -1,9 +1,10 @@
 import { CloseOutlined } from '@ant-design/icons';
-import { Divider, Flex } from 'antd';
+import { ConfigProvider, Divider, Flex } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSkillModeState } from './hooks';
+import { useStyle } from './style';
 
 /**
  * 技能模式配置接口
@@ -41,7 +42,7 @@ export interface SkillModeConfig {
 
   /**
    * 是否显示默认关闭按钮
-   * @description 控制是否在右侧显示默认的关闭按钮，点击后会触发onSkillModeClose回调
+   * @description 控制是否在右侧显示默认的关闭按钮，点击后会触发 onSkillModeOpenChange(false)
    * @default true
    * @example closable={false} // 不显示关闭按钮
    */
@@ -76,16 +77,6 @@ export interface SkillModeBarProps {
    * }}
    */
   onSkillModeOpenChange?: (open: boolean) => void;
-
-  /**
-   * 基础类名前缀
-   */
-  baseCls?: string;
-
-  /**
-   * Hash ID 用于样式作用域
-   */
-  hashId?: string;
 }
 
 /**
@@ -97,14 +88,25 @@ export interface SkillModeBarProps {
 export const SkillModeBar: React.FC<SkillModeBarProps> = ({
   skillMode,
   onSkillModeOpenChange,
-  baseCls = 'ant-md-input-field',
-  hashId = '',
 }) => {
+  // 获取样式前缀和配置
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('skill-mode');
+
+  // 注册样式
+  const { wrapSSR, hashId } = useStyle(prefixCls);
+
   // 使用技能模式状态管理 hook
   const handleInternalSkillModeChange = useSkillModeState(
     skillMode,
     onSkillModeOpenChange,
   );
+
+  // 提取常用判断条件，消除重复逻辑
+  const rightContent = skillMode?.rightContent || [];
+  const hasRightContent = rightContent.length > 0;
+  const isClosable = skillMode?.closable !== false;
+  const shouldShowDivider = hasRightContent && isClosable;
 
   const handleCloseClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -114,16 +116,15 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
     handleInternalSkillModeChange(false);
   };
 
-  return (
+  return wrapSSR(
     <AnimatePresence>
       {skillMode?.open && (
         <motion.div
-          initial={{ height: 0, opacity: 0, marginBottom: 0 }}
-          animate={{ height: 'auto', opacity: 1, marginBottom: 9 }}
-          exit={{ height: 0, opacity: 0, marginBottom: 0 }}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{ overflow: 'hidden' }}
-          className={classNames(`${baseCls}-skill-mode-container`, hashId)}
+          className={classNames(`${prefixCls}-skill-mode-container`, hashId)}
           data-testid="skill-mode-bar"
         >
           <motion.div
@@ -143,31 +144,16 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
               borderColor: 'transparent',
             }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            style={{
-              borderWidth: '0px 0px 1px 0px',
-              width: '100%',
-              height: 'fit-content',
-              minHeight: '48px',
-              alignSelf: 'stretch',
-              borderStyle: 'solid',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              ...skillMode?.style,
-            }}
+            style={skillMode?.style}
             className={classNames(
-              `${baseCls}-skill-mode`,
+              `${prefixCls}-skill-mode`,
               hashId,
               skillMode?.className,
             )}
           >
             {/* 左侧区域 - 技能模式标题 */}
             <div
-              style={{
-                font: 'var(--font-text-h5-base)',
-                letterSpacing: 'var(--letter-spacing-h5-base, normal)',
-                color: 'var(--color-primary-control-fill-primary)',
-              }}
+              className={classNames(`${prefixCls}-skill-mode-title`, hashId)}
             >
               {skillMode?.title}
             </div>
@@ -177,42 +163,46 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
               justify="flex-end"
               align="center"
               gap={8}
-              style={{
-                font: 'var(--font-text-body-sm)',
-                letterSpacing: 'var(--letter-spacing-body-sm, normal)',
-                color: 'var(--color-gray-text-secondary)',
-              }}
+              className={classNames(`${prefixCls}-skill-mode-right`, hashId)}
             >
               {/* 右侧自定义内容 */}
-              {skillMode?.rightContent &&
-                skillMode.rightContent.map((content, index) => {
-                  // 尝试从React元素中提取key，如果没有则使用index
-                  const key =
-                    React.isValidElement(content) && content.key
-                      ? content.key
-                      : index;
-                  return <React.Fragment key={key}>{content}</React.Fragment>;
-                })}
+              {rightContent.map((content, index) => {
+                // 优先使用React元素的key，fallback到index
+                const key =
+                  React.isValidElement(content) && content.key
+                    ? content.key
+                    : index;
+                return <React.Fragment key={key}>{content}</React.Fragment>;
+              })}
 
               {/* 分割线 - 只有当有右侧内容且可关闭时才显示 */}
-              {skillMode?.rightContent &&
-                skillMode.rightContent.length > 0 &&
-                skillMode.closable !== false && (
-                  <Divider
-                    type="vertical"
-                    style={{
-                      margin: '0',
-                    }}
-                  />
-                )}
+              {shouldShowDivider && (
+                <Divider
+                  type="vertical"
+                  className={classNames(
+                    `${prefixCls}-skill-mode-divider`,
+                    hashId,
+                  )}
+                />
+              )}
 
               {/* 技能模式关闭按钮 */}
-              {skillMode?.closable !== false && (
+              {isClosable && (
                 <CloseOutlined
-                  style={{
-                    cursor: 'pointer',
-                  }}
+                  role="button"
+                  aria-label="关闭技能模式"
+                  tabIndex={0}
+                  className={classNames(
+                    `${prefixCls}-skill-mode-close`,
+                    hashId,
+                  )}
                   onClick={handleCloseClick}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleCloseClick(e as any);
+                    }
+                  }}
                   data-testid="skill-mode-close"
                 />
               )}
@@ -220,6 +210,6 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
   );
 };

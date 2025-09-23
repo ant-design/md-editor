@@ -26,7 +26,7 @@ import { useRefFunction } from '../../../hooks/useRefFunction';
 export function useSkillModeState(
   skillMode?: SkillModeConfig,
   onSkillModeOpenChange?: (open: boolean) => void,
-) {
+): (open: boolean) => void {
   // 追踪技能模式状态变化
   const prevSkillModeOpenRef = useRef<boolean | undefined>(skillMode?.open);
 
@@ -35,10 +35,11 @@ export function useSkillModeState(
 
   // 简洁的内部技能模式状态变化处理
   const handleInternalSkillModeChange = useRefFunction((open: boolean) => {
-    // 标记跳过下一次外部回调（避免重复）
-    skipNextCallbackRef.current = true;
-    // 触发回调
-    onSkillModeOpenChange?.(open);
+    // 仅在存在回调时才设置跳过标志
+    if (onSkillModeOpenChange) {
+      skipNextCallbackRef.current = true;
+      onSkillModeOpenChange(open);
+    }
   });
 
   // 监听外部技能模式状态变化（跳过初始化）

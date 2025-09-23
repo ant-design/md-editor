@@ -28,7 +28,8 @@ import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
 import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
-import { SkillModeBar, SkillModeConfig } from './SkillModeBar';
+import type { SkillModeConfig } from './SkillModeBar';
+import { SkillModeBar } from './SkillModeBar';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
@@ -720,7 +721,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           {beforeTools}
         </div>
       ) : null}
-
       <Suggestion
         tagInputProps={{
           enable: true,
@@ -885,8 +885,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               <SkillModeBar
                 skillMode={props.skillMode}
                 onSkillModeOpenChange={props.onSkillModeOpenChange}
-                baseCls={baseCls}
-                hashId={hashId}
               />
 
               {useMemo(() => {
