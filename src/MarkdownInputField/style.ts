@@ -80,7 +80,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-send-actions': {
         position: 'absolute',
         userSelect: 'none',
-        right: 4,
+        right: 8,
         boxSizing: 'border-box',
         zIndex: 99,
         bottom: 8,
@@ -90,7 +90,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-is-multi-row': {
         [`${token.componentCls}-send-actions`]: {
-          right: 6,
+          right: 12,
           bottom: 12,
         },
       },

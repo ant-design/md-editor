@@ -440,13 +440,16 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   const [rightPadding, setRightPadding] = useState(64);
   const [topRightPadding, setTopRightPadding] = useState(0);
+  const [quickRightOffset, setQuickRightOffset] = useState(0);
+  const [sendRightOffset, setSendRightOffset] = useState(0);
 
   const computedRightPadding = useMemo(() => {
-    const positionRightOffset = props?.quickActionRender || props.refinePrompt?.enable ? 12 : 0;
-    const bottomOverlayPadding = props.toolsRender ? 0 : rightPadding || 52;
-    const topOverlayPadding = topRightPadding || 0;
-    return Math.max(bottomOverlayPadding, topOverlayPadding)-positionRightOffset;
-  }, [props.toolsRender, rightPadding, topRightPadding]);
+    const bottomOverlayPadding = props.toolsRender
+      ? 0
+      : (rightPadding || 52) + (sendRightOffset || 0);
+    const topOverlayPadding = (topRightPadding || 0) + (quickRightOffset || 0);
+    return Math.max(bottomOverlayPadding, topOverlayPadding);
+  }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset, sendRightOffset]);
 
   // 是否需要多行布局
   const isMultiRowLayout = useMemo(() => {
@@ -932,7 +935,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               }}
               readonly={isLoading}
               contentStyle={{
-                padding: '12px',
+                padding: '12px 8px 12px 12px',
               }}
               textAreaProps={{
                 enable: true,
@@ -998,6 +1001,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               <RcResizeObserver
                 onResize={(e) => {
                   setRightPadding(e.offsetWidth);
+                  try {
+                    const styles = window.getComputedStyle(
+                      actionsRef.current as Element,
+                    );
+                    const right = parseFloat(styles.right || '0');
+                    if (!Number.isNaN(right)) setSendRightOffset(right);
+                  } catch {}
                 }}
               >
                 <div
@@ -1042,6 +1052,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             <RcResizeObserver
               onResize={(e) => {
                 setRightPadding(e.offsetWidth);
+                try {
+                  const styles = window.getComputedStyle(
+                    actionsRef.current as Element,
+                  );
+                  const right = parseFloat(styles.right || '0');
+                  if (!Number.isNaN(right)) setSendRightOffset(right);
+                } catch {}
               }}
             >
               <div
@@ -1084,6 +1101,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             <RcResizeObserver
               onResize={(e) => {
                 setTopRightPadding(e.offsetWidth);
+                try {
+                  const styles = window.getComputedStyle(
+                    quickActionsRef.current as Element,
+                  );
+                  const right = parseFloat(styles.right || '0');
+                  if (!Number.isNaN(right)) setQuickRightOffset(right);
+                } catch {}
               }}
             >
               <div
