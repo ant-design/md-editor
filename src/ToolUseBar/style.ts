@@ -138,18 +138,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-image': {
-        color: '#767E8B',
-        fontSize: 'var(--font-size-lg)',
         position: 'absolute',
         zIndex: 999,
         borderRadius: '50%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        font: 'var(--font-text-body-emphasized-sm)',
+        letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+        color: 'var(--color-gray-text-secondary)',
       },
 
       '&-tool-target': {
-        fontSize: 'var(--font-size-sm)',
         fontWeight: 'normal',
         lineHeight: '20px',
         flex: 1,
@@ -159,8 +159,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineClamp: 1,
         overflow: 'hidden',
         textWrap: 'nowrap ',
-        color: '#959DA8',
-
+        font: 'var(--font-text-body-sm)',
+        letterSpacing: 'var(--letter-spacing-body-sm, normal)',
+        color: 'var(--color-gray-text-light)',
         marginRight: 30,
         '&-loading': {
           position: 'relative',
