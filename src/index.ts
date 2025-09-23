@@ -53,6 +53,9 @@ export * from './ThoughtChainList';
 export * from './ToolUseBar';
 export * from './Workspace';
 
+// Quote 组件导出
+export { default as Quote } from './Quote';
+
 // 新增：图表插件对外导出
 export * from './plugins/chart';
 
