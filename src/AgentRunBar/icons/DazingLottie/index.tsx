@@ -1,8 +1,8 @@
 import Lottie from 'lottie-react';
 import React from 'react';
-import voicingLottie from './voicing.json';
+import dazingLottie from './dazing.json';
 
-export interface LottieVoiceProps {
+export interface DazingLottieProps {
   /**
    * 是否自动播放动画
    */
@@ -26,7 +26,7 @@ export interface LottieVoiceProps {
 }
 
 /**
- * VoicingLottie 组件 - Lottie语音播报动画组件
+ * DazingLottie 组件 - Lottie呼吸+眨眼睛动画组件
  *
  * 该组件使用Lottie动画库提供流畅的加载动画效果，支持自定义尺寸、播放控制等。
  *
@@ -59,7 +59,7 @@ export interface LottieVoiceProps {
  * - 支持自定义样式
  * - 提供默认的加载动画
  */
-export const DazingLottie: React.FC<LottieVoiceProps> = ({
+export const DazingLottie: React.FC<DazingLottieProps> = ({
   autoplay = true,
   loop = true,
   className,
@@ -80,7 +80,7 @@ export const DazingLottie: React.FC<LottieVoiceProps> = ({
       style={containerStyle}
       className={className}
       aria-hidden="true"
-      animationData={voicingLottie}
+      animationData={dazingLottie}
       loop={loop}
       autoplay={autoplay}
     />

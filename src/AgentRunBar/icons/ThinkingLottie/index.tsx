@@ -1,8 +1,8 @@
 import Lottie from 'lottie-react';
 import React from 'react';
-import voicingLottie from './voicing.json';
+import thinkingLottie from './thinking.json';
 
-export interface LottieVoiceProps {
+export interface ThinkingLottieProps {
   /**
    * 是否自动播放动画
    */
@@ -26,7 +26,7 @@ export interface LottieVoiceProps {
 }
 
 /**
- * VoicingLottie 组件 - Lottie语音播报动画组件
+ * ThinkingLottie 组件 - Lottie眨眼跑+追星星动画组件
  *
  * 该组件使用Lottie动画库提供流畅的加载动画效果，支持自定义尺寸、播放控制等。
  *
@@ -41,7 +41,7 @@ export interface LottieVoiceProps {
  *
  * @example
  * ```tsx
- * <VoicingLottie
+ * <ThinkingLottie
  *   autoplay={true}
  *   loop={true}
  *   size={48}
@@ -59,7 +59,7 @@ export interface LottieVoiceProps {
  * - 支持自定义样式
  * - 提供默认的加载动画
  */
-export const ThinkingLottie: React.FC<LottieVoiceProps> = ({
+export const ThinkingLottie: React.FC<ThinkingLottieProps> = ({
   autoplay = true,
   loop = true,
   className,
@@ -80,7 +80,7 @@ export const ThinkingLottie: React.FC<LottieVoiceProps> = ({
       style={containerStyle}
       className={className}
       aria-hidden="true"
-      animationData={voicingLottie}
+      animationData={thinkingLottie}
       loop={loop}
       autoplay={autoplay}
     />

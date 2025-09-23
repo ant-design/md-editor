@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { isString } from 'lodash';
 import React from 'react';
 import DazingLottie from './icons/DazingLottie';
 import ThinkingLottie from './icons/ThinkingLottie';
@@ -88,6 +89,15 @@ const Robot: React.FC<RobotProps> = ({
     >
       {React.isValidElement(icon) ? (
         icon
+      ) : isString(icon) ? (
+        <img
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          src={icon as string}
+          alt="robot"
+        />
       ) : (
         <>
           {status === 'thinking' ? (
