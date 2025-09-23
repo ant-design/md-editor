@@ -32,6 +32,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`${token.componentCls}-header-actions`]: {
         display: 'flex',
         alignItems: 'center',
+        gap: '8px',
 
         [`${token.componentCls}-time-icon`]: {
           fontSize: '14px',
