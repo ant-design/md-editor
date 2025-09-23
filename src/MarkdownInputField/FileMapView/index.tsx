@@ -9,9 +9,16 @@ import { FileMapViewItem } from './FileMapViewItem';
 import { useStyle } from './style';
 
 export type FileMapViewProps = {
+  /** 文件映射表 */
   fileMap?: Map<string, AttachmentFile>;
+  /** 预览文件回调 */
   onPreview?: (file: AttachmentFile) => void;
+  /** 下载文件回调 */
   onDownload?: (file: AttachmentFile) => void;
+  /** 自定义根容器样式（可覆盖布局，如 flexDirection、gap、wrap 等） */
+  style?: React.CSSProperties;
+  /** 自定义根容器类名 */
+  className?: string;
 };
 
 /**
@@ -97,7 +104,8 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         whileInView="visible"
         initial="hidden"
         animate={'visible'}
-        className={classNames(prefix, hashId)}
+        className={classNames(prefix, hashId, props.className)}
+        style={props.style}
       >
         <Image.PreviewGroup>
           {fileList.map((file, index) => {
@@ -153,11 +161,13 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         whileInView="visible"
         initial="hidden"
         animate={'visible'}
-        className={classNames(prefix, hashId)}
+        className={classNames(prefix, hashId, props.className)}
+        style={props.style}
       >
         {fileList.map((file, index) => {
           return (
             <FileMapViewItem
+              style={{ width: (props.style as any)?.width }}
               onPreview={() => {
                 if (props.onPreview) {
                   props.onPreview?.(file);

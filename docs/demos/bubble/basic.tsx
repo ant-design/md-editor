@@ -1,6 +1,8 @@
+import { UnorderedListOutlined } from '@ant-design/icons';
 import {
   AttachmentFile,
   Bubble,
+  FileMapView,
   MessageBubbleData,
 } from '@ant-design/md-editor';
 import { message } from 'antd';
@@ -73,6 +75,46 @@ const mockUserMessage: MessageBubbleData = {
   },
 };
 
+// 用于在回答内容中内联展示的文件列表（不挂载到 originData.fileMap）
+const mockInlineFileMap = new Map<string, AttachmentFile>([
+  [
+    'bubble-design-spec.pdf',
+    createMockFile(
+      'bubble-design-spec.pdf',
+      'application/pdf',
+      2048576,
+      'https://example.com/bubble-design-spec.pdf',
+    ),
+  ],
+  [
+    'component-preview.png',
+    createMockFile(
+      'component-preview.png',
+      'image/png',
+      1048576,
+      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    ),
+  ],
+  [
+    'api-reference.json',
+    createMockFile(
+      'api-reference.json',
+      'application/json',
+      512000,
+      'https://example.com/api-reference.json',
+    ),
+  ],
+  [
+    'more-example.docx',
+    createMockFile(
+      'more-example.docx',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      8847360,
+      'https://example.com/more-example.docx',
+    ),
+  ],
+]);
+
 const mockFileMessage: MessageBubbleData = {
   id: '3',
   role: 'assistant',
@@ -100,35 +142,6 @@ Bubble 组件是一个功能丰富的聊天气泡组件，支持：
     title: 'Ant Design Assistant',
     description: 'AI 助手',
   },
-  fileMap: new Map<string, AttachmentFile>([
-    [
-      'bubble-design-spec.pdf',
-      createMockFile(
-        'bubble-design-spec.pdf',
-        'application/pdf',
-        2048576, // 2MB
-        'https://example.com/bubble-design-spec.pdf',
-      ),
-    ],
-    [
-      'component-preview.png',
-      createMockFile(
-        'component-preview.png',
-        'image/png',
-        1048576, // 1MB
-        'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-      ),
-    ],
-    [
-      'api-reference.json',
-      createMockFile(
-        'api-reference.json',
-        'application/json',
-        512000, // 512KB
-        'https://example.com/api-reference.json',
-      ),
-    ],
-  ]),
 };
 
 export default () => {
@@ -199,6 +212,84 @@ export default () => {
           placement="left"
           bubbleRef={bubbleRef}
           originData={mockFileMessage}
+          bubbleRenderConfig={{
+            afterMessageRender: () => {
+              const allFiles = Array.from(mockInlineFileMap.values());
+              const top3 = allFiles.slice(0, 3);
+              if (top3.length === 0) return null;
+
+              const top3Map = new Map<string, AttachmentFile>();
+              top3.forEach((f, idx) => top3Map.set(String(idx), f));
+              const hasMore = allFiles.length > 3;
+
+              return (
+                <>
+                  <FileMapView
+                    fileMap={top3Map}
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 8,
+                    }}
+                  />
+                  {hasMore ? (
+                    <div
+                      style={{
+                        width: '100%',
+                        height: 56,
+                        borderRadius: 12,
+                        background: '#FFFFFF',
+                        border: '1px solid #E6ECF4',
+                        padding: 8,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        cursor: 'pointer',
+                        margin: '0 8px 8px 8px',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 40,
+                          height: 40,
+                          background: '#F7F8FA',
+                          border: '0.5px solid #E6ECF4',
+                          borderRadius: 6,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#8A8F98',
+                        }}
+                      >
+                        <UnorderedListOutlined />
+                      </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 2,
+                        }}
+                      >
+                        <div style={{ display: 'flex' }}>
+                          <span
+                            style={{
+                              maxWidth: 150,
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                            }}
+                          >
+                            查看此任务中的所有文件
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                </>
+              );
+            },
+          }}
           onLike={handleLike}
           onDisLike={handleDisLike}
           onReply={handleReply}

@@ -51,6 +51,7 @@ export const FileMapViewItem: React.FC<{
   className?: string;
   prefixCls?: string;
   hashId?: string;
+  style?: React.CSSProperties;
 }> = (props) => {
   const file = props.file;
   const { locale } = useContext(I18nContext);
@@ -66,6 +67,7 @@ export const FileMapViewItem: React.FC<{
         arrow={false}
       >
         <motion.div
+          style={props.style}
           onClick={() => {
             if (file.status === 'error') {
               return;
