@@ -1,4 +1,4 @@
-﻿/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { PlusCircleFilled } from '@ant-design/icons';
 import { Divider, Dropdown } from 'antd';
 import classnames from 'classnames';
