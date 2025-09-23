@@ -197,23 +197,18 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
 
               {/* 技能模式关闭按钮 */}
               {isClosable && (
-                <CloseOutlined
-                  role="button"
+                <button
+                  type="button"
                   aria-label="关闭技能模式"
-                  tabIndex={0}
                   className={classNames(
                     `${prefixCls}-skill-mode-close`,
                     hashId,
                   )}
                   onClick={handleCloseClick}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleCloseClick(e as any);
-                    }
-                  }}
                   data-testid="skill-mode-close"
-                />
+                >
+                  <CloseOutlined />
+                </button>
               )}
             </Flex>
           </motion.div>
