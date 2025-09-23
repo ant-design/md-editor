@@ -4,15 +4,13 @@ export const CornerLeftUp: React.FC<React.SVGProps<SVGSVGElement>> = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="none"
       version="1.1"
       width={'1em'}
       height={'1em'}
-      viewBox="0 0 14 14"
     >
       <defs>
-        <clipPath id="master_svg0_775_20888/685_49018/184_43209">
+        <clipPath>
           <rect x="0" y="0" width="1em" height="1em" rx="0" />
         </clipPath>
       </defs>

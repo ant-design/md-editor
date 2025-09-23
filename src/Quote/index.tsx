@@ -11,9 +11,9 @@ interface QuoteProps {
   /** 行号范围（可选） */
   lineRange?: string;
   /** 引用内容描述 */
-  content: string;
+  quoteDesc: string;
   /** 详细内容（点击查看详情） */
-  detail?: string;
+  popupDetail?: string;
   /** 是否显示关闭按钮 */
   closable?: boolean;
   /** 关闭回调 */
@@ -29,8 +29,8 @@ interface QuoteProps {
 const Quote: React.FC<QuoteProps> = ({
   fileName,
   lineRange,
-  content,
-  detail,
+  quoteDesc,
+  popupDetail,
   closable = false,
   onClose,
   className,
@@ -49,7 +49,7 @@ const Quote: React.FC<QuoteProps> = ({
 
   // 样式类名
   const containerCls = classNames(`${prefixCls}-container`, hashId, className);
-  const fileNameCls = classNames(`${prefixCls}-file-name`, hashId);
+  const quoteDescCls = classNames(`${prefixCls}-quoteDesc`, hashId);
   const closeCls = classNames(`${prefixCls}-close-button`, hashId);
   const quoteIconCls = classNames(`${prefixCls}-quote-icon`, hashId);
 
@@ -65,7 +65,7 @@ const Quote: React.FC<QuoteProps> = ({
       <div className={quoteIconCls}>
         <QuoteIcon />
       </div>
-      <span className={fileNameCls}>{content}</span>
+      <span className={quoteDescCls}>{quoteDesc}</span>
       {closable && onClose && (
         <div style={{ fontSize: 16 }} onClick={onClose} className={closeCls}>
           <CloseFillIcon />
@@ -73,7 +73,7 @@ const Quote: React.FC<QuoteProps> = ({
       )}
 
       {/* 弹出层 - 通过CSS hover控制显示 */}
-      {detail && (
+      {popupDetail && (
         <div className={popupCls}>
           {(fileName || lineRange) && (
             <div className={popupHeaderCls} onClick={handleFileClick}>
@@ -92,7 +92,7 @@ const Quote: React.FC<QuoteProps> = ({
               )}
             </div>
           )}
-          <div className={popupContentCls}>{detail}</div>
+          <div className={popupContentCls}>{popupDetail}</div>
         </div>
       )}
     </div>,

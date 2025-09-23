@@ -33,8 +33,8 @@ export default function QuoteDemo() {
           <Quote
             fileName="utils/helper.ts"
             lineRange="12-25"
-            content="这是一个工具函数的引用，用于处理数据格式化"
-            detail="export const formatData = (data: any) => {
+            quoteDesc="这是一个工具函数的引用，用于处理数据格式化"
+            popupDetail="export const formatData = (data: any) => {
   if (!data) return null;
   return {
     id: data.id,
@@ -51,7 +51,7 @@ export default function QuoteDemo() {
           <Quote
             fileName="components/Button.tsx"
             lineRange="45-60"
-            content="Button组件的点击事件处理逻辑"
+            quoteDesc="Button组件的点击事件处理逻辑"
             closable={true}
             onClose={handleClose}
             onFileClick={handleFileClick}
@@ -61,8 +61,8 @@ export default function QuoteDemo() {
         <div>
           <h3>不传文件名</h3>
           <Quote
-            content="这是一个没有文件来源的引用内容"
-            detail="这里是详细的说明文本，可以包含多行内容。
+            quoteDesc="这是一个没有文件来源的引用内容"
+            popupDetail="这里是详细的说明文本，可以包含多行内容。
 当内容过多时，会出现滚动条。
 用户可以通过滚动查看完整内容。"
           />
@@ -72,7 +72,7 @@ export default function QuoteDemo() {
           <h3>纯内容引用</h3>
           <Quote
             fileName="README.md"
-            content="项目使用说明和API文档"
+            quoteDesc="项目使用说明和API文档"
             onFileClick={handleFileClick}
           />
         </div>
@@ -82,8 +82,8 @@ export default function QuoteDemo() {
           <Quote
             fileName="src/components/ComplexComponent/SubComponent/VeryLongFileName.tsxsrc/components/ComplexComponent/SubComponent/VeryLongFileName.tsx"
             lineRange="100-150"
-            content="这是一个很长的文件路径，用来测试文件名的省略效果"
-            detail="interface VeryLongInterfaceName {
+            quoteDesc="这是一个很长的文件路径，用来测试文件名的省略效果"
+            popupDetail="interface VeryLongInterfaceName {
   propertyWithVeryLongName: string;
   anotherPropertyWithEvenLongerName: number;
   yetAnotherPropertyThatIsEvenLonger: boolean;

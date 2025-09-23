@@ -42,7 +42,7 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'none',
       },
 
-      '&-file-name': {
+      '&-quoteDesc': {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
@@ -64,8 +64,6 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
         border: '1px solid var(--color-gray-border-light)',
         boxShadow: 'var(--shadow-popover-base)',
-        // boxShadow:
-        //   '0px 0px 1px 0px rgba(0, 15, 41, 0.05),0px 6px 16px 0px rgba(0, 15, 41, 0.08)',
 
         display: 'none', // 默认隐藏
         flexDirection: 'column',

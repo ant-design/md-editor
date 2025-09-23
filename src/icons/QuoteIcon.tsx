@@ -8,15 +8,13 @@ export const QuoteIcon: React.FC<QuoteIconProps> = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="none"
       version="1.1"
       width={'1em'}
       height={'1em'}
-      viewBox="0 0 16 16"
     >
       <defs>
-        <clipPath id="master_svg0_870_302234/623_10409/558_60363/870_297645/623_14524">
+        <clipPath>
           <rect x="0" y="0" width="16" height="16" rx="0" />
         </clipPath>
       </defs>
