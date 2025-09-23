@@ -69,12 +69,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         [`${token.componentCls}-title`]: {
           font: 'var(--font-text-h6-base)',
           marginLeft: 12,
-          lineHeight: '20px',
           textAlign: 'justify',
           letterSpacing: 'var(--letter-spacing-h6-base, normal)',
           color: 'var(--color-gray-text-default)',
-          fontSize: 'var(--font-size-base)',
-          fontWeight: 600,
         },
 
         [`${token.componentCls}-loading`]: {
@@ -115,9 +112,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
-          fontSize: 'var(--font-size-sm)',
-          fontWeight: 'normal',
-          lineHeight: '160%',
           letterSpacing: 'var(--letter-spacing-paragraph-sm, normal)',
           color: 'var(--color-gray-text-secondary)',
         },
