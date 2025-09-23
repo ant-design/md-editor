@@ -88,10 +88,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                     props.item!.sessionId!,
                     !props.item!.isFavorite,
                   );
-                  await props.onFavorite?.(
-                    props.item!.sessionId!,
-                    !props.item!.isFavorite,
-                  );
                 } catch (error) {
                   // 处理错误
                 } finally {
