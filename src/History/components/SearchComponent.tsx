@@ -158,6 +158,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
             title={locale?.['chat.history.search'] || '搜索'}
             style={{
               width: 20,
+              height: 20,
             }}
           >
             <SearchIcon
