@@ -26,7 +26,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 验证 SkillModeBar 组件是否被正确渲染（通过实际的类名）
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       expect(screen.getByText('Unit Test Mode')).toBeInTheDocument();
       expect(screen.getByTestId('right-content')).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 当 skillMode 为 undefined 时不应该渲染 SkillModeBar 容器
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).not.toBeInTheDocument();
     });
 
@@ -45,11 +45,11 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       render(<MarkdownInputField skillMode={{ open: true }} />);
 
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       // 默认应该显示关闭按钮（CloseOutlined）
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-close'),
+        document.querySelector('.ant-skill-mode-close'),
       ).toBeInTheDocument();
     });
 
@@ -59,7 +59,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       );
 
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-close'),
+        document.querySelector('.ant-skill-mode-close'),
       ).toBeInTheDocument();
 
       // 重新渲染为不可关闭
@@ -68,7 +68,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       );
 
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-close'),
+        document.querySelector('.ant-skill-mode-close'),
       ).not.toBeInTheDocument();
     });
   });
@@ -86,7 +86,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       );
 
       const closeButton = document.querySelector(
-        '.ant-skill-mode-skill-mode-close',
+        '.ant-skill-mode-close',
       ) as HTMLElement;
       expect(closeButton).toBeInTheDocument();
 
@@ -102,7 +102,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       );
 
       const closeButton = document.querySelector(
-        '.ant-skill-mode-skill-mode-close',
+        '.ant-skill-mode-close',
       ) as HTMLElement;
 
       expect(() => {
@@ -191,7 +191,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
         />,
       );
 
-      const skillModeBar = document.querySelector('.ant-skill-mode-skill-mode');
+      const skillModeBar = document.querySelector('.ant-skill-mode');
       expect(skillModeBar).toBeInTheDocument();
 
       // 验证自定义样式被应用到 style 属性中
@@ -211,7 +211,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       );
 
       const skillModeBar = document.querySelector(
-        '.ant-skill-mode-skill-mode.custom-skill-mode',
+        '.ant-skill-mode.custom-skill-mode',
       );
       expect(skillModeBar).toBeInTheDocument();
     });
@@ -227,7 +227,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 验证组件正确渲染
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
     });
   });
@@ -292,11 +292,9 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 应该只显示关闭按钮，没有其他右侧内容
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-close'),
+        document.querySelector('.ant-skill-mode-close'),
       ).toBeInTheDocument();
-      expect(
-        document.querySelector('.ant-skill-mode-skill-mode'),
-      ).toBeInTheDocument();
+      expect(document.querySelector('.ant-skill-mode')).toBeInTheDocument();
       // 没有自定义右侧内容时，只显示关闭按钮
     });
 
@@ -378,7 +376,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 即使标题为空，组件也应该正常渲染
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
     });
 
@@ -393,7 +391,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       );
 
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
     });
   });
@@ -407,14 +405,12 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 初始状态：不显示
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).not.toBeInTheDocument();
 
       // 打开
       rerender(<MarkdownInputField skillMode={{ open: true }} />);
-      const container = document.querySelector(
-        '.ant-skill-mode-skill-mode-container',
-      );
+      const container = document.querySelector('.ant-skill-mode-container');
       expect(container).toBeInTheDocument();
 
       // 关闭 - 注意：framer-motion 的 AnimatePresence 在退出动画期间仍会保持元素在 DOM 中
@@ -436,7 +432,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       expect(screen.getByText('Initial Title')).toBeInTheDocument();
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-close'),
+        document.querySelector('.ant-skill-mode-close'),
       ).toBeInTheDocument();
 
       // 更新配置
@@ -473,7 +469,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // SkillMode 不应该影响其他功能
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       expect(
         document.querySelector('.ant-md-input-field-send-button'),
@@ -503,7 +499,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // SkillMode 状态应该保持
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
 
       // 不应该因为其他 props 变化而触发状态变化回调
@@ -531,7 +527,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 组件应该正常工作
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       expect(screen.getByText('Stable Config')).toBeInTheDocument();
     });
@@ -565,7 +561,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       );
 
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
     });
 
@@ -580,11 +576,11 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       render(<MarkdownInputField skillMode={skillModeConfig} />);
 
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       // 默认应该显示关闭按钮（closable 默认为 true）
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-close'),
+        document.querySelector('.ant-skill-mode-close'),
       ).toBeInTheDocument();
     });
   });
@@ -604,7 +600,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 当 enable 为 false 时，SkillModeBar 应该完全不渲染
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).not.toBeInTheDocument();
     });
 
@@ -621,7 +617,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 当 enable 为 true 且 open 为 true 时，SkillModeBar 应该正常渲染
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       expect(screen.getByText('Test Mode')).toBeInTheDocument();
     });
@@ -638,7 +634,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 当 enable 未设置时，默认为 true，应该正常渲染
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       expect(screen.getByText('Test Mode')).toBeInTheDocument();
     });
@@ -656,7 +652,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 初始状态应该渲染 SkillModeBar
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
 
       // 将 enable 改为 false
@@ -672,7 +668,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // SkillModeBar 应该完全消失
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).not.toBeInTheDocument();
     });
 
@@ -689,7 +685,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 初始状态不应该渲染 SkillModeBar
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).not.toBeInTheDocument();
 
       // 将 enable 改为 true
@@ -705,7 +701,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // SkillModeBar 应该重新出现
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       expect(screen.getByText('Test Mode')).toBeInTheDocument();
     });
@@ -727,7 +723,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
       // 组件不应该渲染，也不应该执行任何回调
       expect(
-        document.querySelector('.ant-skill-mode-skill-mode-container'),
+        document.querySelector('.ant-skill-mode-container'),
       ).not.toBeInTheDocument();
       // 由于组件没有渲染，不会有任何交互，所以回调也不会被调用
       expect(onSkillModeOpenChange).not.toHaveBeenCalled();

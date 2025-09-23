@@ -7,11 +7,11 @@ import {
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
-    [`${token.componentCls}-skill-mode-container`]: {
+    [`${token.componentCls}-container`]: {
       overflow: 'hidden',
     },
 
-    [`${token.componentCls}-skill-mode`]: {
+    [`${token.componentCls}`]: {
       borderWidth: '0px 0px 1px 0px',
       width: '100%',
       height: 'fit-content',
@@ -23,23 +23,23 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'space-between',
     },
 
-    [`${token.componentCls}-skill-mode-title`]: {
+    [`${token.componentCls}-title`]: {
       font: 'var(--font-text-h5-base)',
       letterSpacing: 'var(--letter-spacing-h5-base, normal)',
       color: 'var(--color-primary-control-fill-primary)',
     },
 
-    [`${token.componentCls}-skill-mode-right`]: {
+    [`${token.componentCls}-right`]: {
       font: 'var(--font-text-body-sm)',
       letterSpacing: 'var(--letter-spacing-body-sm, normal)',
       color: 'var(--color-gray-text-secondary)',
     },
 
-    [`${token.componentCls}-skill-mode-divider`]: {
+    [`${token.componentCls}-divider`]: {
       margin: '0',
     },
 
-    [`${token.componentCls}-skill-mode-close`]: {
+    [`${token.componentCls}-close`]: {
       cursor: 'pointer',
       outline: 'none',
       border: 'none',

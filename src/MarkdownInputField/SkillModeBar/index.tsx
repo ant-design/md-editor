@@ -119,7 +119,6 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
 
   const handleCloseClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    e.preventDefault();
 
     // 使用内部状态变化处理函数
     handleInternalSkillModeChange(false);
@@ -133,7 +132,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-          className={classNames(`${prefixCls}-skill-mode-container`, hashId)}
+          className={classNames(`${prefixCls}-container`, hashId)}
           data-testid="skill-mode-bar"
         >
           <motion.div
@@ -155,14 +154,14 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             style={skillMode?.style}
             className={classNames(
-              `${prefixCls}-skill-mode`,
+              `${prefixCls}`,
               hashId,
               skillMode?.className,
             )}
           >
             {/* 左侧区域 - 技能模式标题 */}
             <div
-              className={classNames(`${prefixCls}-skill-mode-title`, hashId)}
+              className={classNames(`${prefixCls}-title`, hashId)}
             >
               {skillMode?.title}
             </div>
@@ -172,7 +171,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
               justify="flex-end"
               align="center"
               gap={8}
-              className={classNames(`${prefixCls}-skill-mode-right`, hashId)}
+              className={classNames(`${prefixCls}-right`, hashId)}
             >
               {/* 右侧自定义内容 */}
               {rightContent.map((content, index) => {
@@ -189,7 +188,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
                 <Divider
                   type="vertical"
                   className={classNames(
-                    `${prefixCls}-skill-mode-divider`,
+                    `${prefixCls}-divider`,
                     hashId,
                   )}
                 />
@@ -201,7 +200,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
                   type="button"
                   aria-label="关闭技能模式"
                   className={classNames(
-                    `${prefixCls}-skill-mode-close`,
+                    `${prefixCls}-close`,
                     hashId,
                   )}
                   onClick={handleCloseClick}
