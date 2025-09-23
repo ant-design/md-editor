@@ -75,11 +75,20 @@ vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
     return (
       <div data-testid="skill-mode-bar" {...props}>
         <div data-testid="skill-mode-title">{skillMode.title}</div>
-        {skillMode.rightContent?.map((content: any, index: number) => (
-          <div key={index} data-testid={`skill-mode-content-${index}`}>
-            {content}
-          </div>
-        ))}
+        {(() => {
+          if (!skillMode.rightContent) return null;
+          
+          // 将 rightContent 统一转换为数组处理
+          const contentArray = Array.isArray(skillMode.rightContent) 
+            ? skillMode.rightContent 
+            : [skillMode.rightContent];
+            
+          return contentArray.map((content: any, index: number) => (
+            <div key={index} data-testid={`skill-mode-content-${index}`}>
+              {content}
+            </div>
+          ));
+        })()}
         {skillMode.closable !== false && (
           <button
             data-testid="skill-mode-close"
@@ -596,7 +605,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
     });
 
-    it('应该显示技能模式的右侧内容', () => {
+    it('应该显示技能模式的右侧内容（数组形式）', () => {
       const rightContent = [
         <div key="tag">标签内容</div>,
         <button key="btn" type="button">
@@ -618,6 +627,28 @@ describe('MarkdownInputField Comprehensive Tests', () => {
 
       expect(screen.getByTestId('skill-mode-content-0')).toBeInTheDocument();
       expect(screen.getByTestId('skill-mode-content-1')).toBeInTheDocument();
+    });
+
+    it('应该显示技能模式的右侧内容（单个ReactNode）', () => {
+      const rightContent = (
+        <div data-testid="single-content">单个内容节点</div>
+      );
+
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          enable: true,
+          open: true,
+          title: '测试标题',
+          rightContent,
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.getByTestId('skill-mode-content-0')).toBeInTheDocument();
+      expect(screen.getByTestId('single-content')).toBeInTheDocument();
+      expect(screen.getByText('单个内容节点')).toBeInTheDocument();
     });
 
     it('应该在 closable 为 false 时隐藏关闭按钮', () => {

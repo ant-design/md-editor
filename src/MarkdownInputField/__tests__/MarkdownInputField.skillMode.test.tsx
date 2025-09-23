@@ -280,6 +280,26 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       expect(screen.getByTestId('skill-info')).toBeInTheDocument();
     });
 
+    it('should render single rightContent ReactNode', () => {
+      const rightContent = (
+        <button data-testid="single-skill-action" type="button">
+          Single Action
+        </button>
+      );
+
+      render(
+        <MarkdownInputField
+          skillMode={{
+            open: true,
+            rightContent,
+          }}
+        />,
+      );
+
+      expect(screen.getByTestId('single-skill-action')).toBeInTheDocument();
+      expect(screen.getByText('Single Action')).toBeInTheDocument();
+    });
+
     it('should handle empty rightContent array', () => {
       render(
         <MarkdownInputField

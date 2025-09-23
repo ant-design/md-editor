@@ -12,7 +12,7 @@ import { useStyle } from './style';
  * @property {boolean} [enable] - 是否启用技能模式组件，默认为 true
  * @property {boolean} [open] - 是否打开技能模式
  * @property {React.ReactNode} [title] - 技能模式标题，支持字符串或React节点
- * @property {React.ReactNode[]} [rightContent] - 右侧自定义内容数组
+ * @property {React.ReactNode | React.ReactNode[]} [rightContent] - 右侧自定义内容，支持单个节点或数组
  * @property {boolean} [closable] - 是否显示默认关闭按钮
  * @property {React.CSSProperties} [style] - 技能模式容器样式
  * @property {string} [className] - 技能模式容器类名
@@ -43,11 +43,12 @@ export interface SkillModeConfig {
   title?: React.ReactNode;
 
   /**
-   * 右侧自定义内容数组
-   * @description 在技能模式右侧显示的自定义内容，如标签、按钮等
+   * 右侧自定义内容
+   * @description 在技能模式右侧显示的自定义内容，支持单个节点或数组
+   * @example rightContent={<Tag>v2.0</Tag>}
    * @example rightContent={[<Tag key="version">v2.0</Tag>, <Button key="settings">设置</Button>]}
    */
-  rightContent?: React.ReactNode[];
+  rightContent?: React.ReactNode | React.ReactNode[];
 
   /**
    * 是否显示默认关闭按钮
@@ -112,8 +113,15 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
   );
 
   // 提取常用判断条件，消除重复逻辑
-  const rightContent = skillMode?.rightContent || [];
-  const hasRightContent = rightContent.length > 0;
+  // 将 rightContent 统一转换为数组处理
+  const rightContentArray = React.useMemo(() => {
+    if (!skillMode?.rightContent) return [];
+    return Array.isArray(skillMode.rightContent)
+      ? skillMode.rightContent
+      : [skillMode.rightContent];
+  }, [skillMode?.rightContent]);
+
+  const hasRightContent = rightContentArray.length > 0;
   const isClosable = skillMode?.closable !== false;
   const shouldShowDivider = hasRightContent && isClosable;
 
@@ -153,16 +161,10 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
             }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             style={skillMode?.style}
-            className={classNames(
-              `${prefixCls}`,
-              hashId,
-              skillMode?.className,
-            )}
+            className={classNames(`${prefixCls}`, hashId, skillMode?.className)}
           >
             {/* 左侧区域 - 技能模式标题 */}
-            <div
-              className={classNames(`${prefixCls}-title`, hashId)}
-            >
+            <div className={classNames(`${prefixCls}-title`, hashId)}>
               {skillMode?.title}
             </div>
 
@@ -174,7 +176,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
               className={classNames(`${prefixCls}-right`, hashId)}
             >
               {/* 右侧自定义内容 */}
-              {rightContent.map((content, index) => {
+              {rightContentArray.map((content, index) => {
                 // 优先使用React元素的key，fallback到index
                 const key =
                   React.isValidElement(content) && content.key
@@ -187,10 +189,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
               {shouldShowDivider && (
                 <Divider
                   type="vertical"
-                  className={classNames(
-                    `${prefixCls}-divider`,
-                    hashId,
-                  )}
+                  className={classNames(`${prefixCls}-divider`, hashId)}
                 />
               )}
 
@@ -199,10 +198,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
                 <button
                   type="button"
                   aria-label="关闭技能模式"
-                  className={classNames(
-                    `${prefixCls}-close`,
-                    hashId,
-                  )}
+                  className={classNames(`${prefixCls}-close`, hashId)}
                   onClick={handleCloseClick}
                   data-testid="skill-mode-close"
                 >
