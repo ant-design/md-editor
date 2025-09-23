@@ -17,6 +17,7 @@ group:
 - 📎 支持附件上传
 - 🔘 支持自定义操作按钮
 - 🍵 支持插槽输入
+- 🎯 支持技能模式
 
 ## 基本使用
 
@@ -203,28 +204,30 @@ export default () => {
 
 ## API
 
-| 属性名           | 类型                                             | 默认值    | 描述                               |
-| ---------------- | ------------------------------------------------ | --------- | ---------------------------------- |
-| `value`          | `string`                                         | -         | 当前的 markdown 文本值             |
-| `onChange`       | `(value: string) => void`                        | -         | 当输入值改变时触发的回调函数       |
-| `placeholder`    | `string`                                         | -         | 输入字段的占位文本                 |
-| `style`          | `React.CSSProperties`                            | -         | 应用于输入字段的内联样式           |
-| `className`      | `string`                                         | -         | 应用于输入字段的 CSS 类名          |
-| `disabled`       | `boolean`                                        | -         | 是否禁用输入字段                   |
-| `typing`         | `boolean`                                        | -         | 用户是否正在输入的状态标志         |
-| `triggerSendKey` | `'Enter' \| 'Mod+Enter'`                         | `'Enter'` | 触发发送操作的键盘快捷键           |
-| `onSend`         | `(value: string) => Promise<void>`               | -         | 当内容发送时触发的异步回调函数     |
-| `onStop`         | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
-| `onFocus`        | `(value: string, schema: Elements[]) => void`    | -         | 当输入字段获得焦点时触发的回调函数 |
-| `tagInputProps`  | `MarkdownEditorProps['tagInputProps']`           | -         | 标签输入的相关属性                 |
-| `bgColorList`    | `[string, string, string, string]`               | -         | 背景颜色列表                       |
-| `borderRadius`   | `number`                                         | `12`      | 边框圆角大小                       |
-| `attachment`     | `{ enable?: boolean } & AttachmentButtonProps`   | -         | 附件配置                           |
-| `actionsRender`  | `(props, defaultActions) => React.ReactNode[]`   | -         | 自定义渲染操作按钮的函数           |
-| `toolsRender`    | `(props) => React.ReactNode[]`                   | -         | 自定义渲染操作按钮前内容的函数     |
-| `leafRender`     | `(props, defaultDom) => React.ReactElement`      | -         | 自定义叶子节点渲染函数             |
-| `inputRef`       | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
-| `p`              | `{ enabled?: boolean; allowedTypes?: string[] }` | -         | 粘贴配置                           |
+| 属性名                  | 类型                                             | 默认值    | 描述                               |
+| ----------------------- | ------------------------------------------------ | --------- | ---------------------------------- |
+| `value`                 | `string`                                         | -         | 当前的 markdown 文本值             |
+| `onChange`              | `(value: string) => void`                        | -         | 当输入值改变时触发的回调函数       |
+| `placeholder`           | `string`                                         | -         | 输入字段的占位文本                 |
+| `style`                 | `React.CSSProperties`                            | -         | 应用于输入字段的内联样式           |
+| `className`             | `string`                                         | -         | 应用于输入字段的 CSS 类名          |
+| `disabled`              | `boolean`                                        | -         | 是否禁用输入字段                   |
+| `typing`                | `boolean`                                        | -         | 用户是否正在输入的状态标志         |
+| `triggerSendKey`        | `'Enter' \| 'Mod+Enter'`                         | `'Enter'` | 触发发送操作的键盘快捷键           |
+| `onSend`                | `(value: string) => Promise<void>`               | -         | 当内容发送时触发的异步回调函数     |
+| `onStop`                | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
+| `onFocus`               | `(value: string, schema: Elements[]) => void`    | -         | 当输入字段获得焦点时触发的回调函数 |
+| `tagInputProps`         | `MarkdownEditorProps['tagInputProps']`           | -         | 标签输入的相关属性                 |
+| `bgColorList`           | `[string, string, string, string]`               | -         | 背景颜色列表                       |
+| `borderRadius`          | `number`                                         | `12`      | 边框圆角大小                       |
+| `attachment`            | `{ enable?: boolean } & AttachmentButtonProps`   | -         | 附件配置                           |
+| `actionsRender`         | `(props, defaultActions) => React.ReactNode[]`   | -         | 自定义渲染操作按钮的函数           |
+| `toolsRender`           | `(props) => React.ReactNode[]`                   | -         | 自定义渲染操作按钮前内容的函数     |
+| `leafRender`            | `(props, defaultDom) => React.ReactElement`      | -         | 自定义叶子节点渲染函数             |
+| `inputRef`              | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
+| `skillMode`             | `SkillModeConfig`                                | -         | 技能模式配置                       |
+| `onSkillModeOpenChange` | `(open: boolean) => void`       | -         | 技能模式状态变化回调               |
+| `pasteConfig`           | `{ enabled?: boolean; allowedTypes?: string[] }` | -         | 粘贴配置                           |
 
 ## 示例
 
@@ -919,6 +922,150 @@ export default () => {
   );
 };
 ```
+
+### 技能模式
+
+```tsx
+import { MarkdownInputField } from '@ant-design/md-editor';
+import { Tag, Button, Space } from 'antd';
+import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
+
+export default () => {
+  const [value, setValue] = React.useState('');
+  const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
+  const [changeLog, setChangeLog] = React.useState([]);
+
+  return (
+    <>
+      <MarkdownInputField
+        value={value}
+        onChange={setValue}
+        placeholder="请输入内容..."
+        skillMode={{
+          open: skillModeEnabled,
+          title: (
+            <Space>
+              <ExperimentOutlined />
+              AI助手模式
+            </Space>
+          ),
+          rightContent: [
+            <Tag key="version" color="blue">
+              v2.0
+            </Tag>,
+            <Button
+              key="settings"
+              type="text"
+              size="small"
+              icon={<SettingOutlined />}
+              onClick={() => console.log('设置点击')}
+            >
+              设置
+            </Button>,
+          ],
+          closable: true,
+        }}
+        onSkillModeOpenChange={(open) => {
+          const timestamp = new Date().toLocaleTimeString();
+          const actionText = open ? '打开' : '关闭';
+          const logEntry = `[${timestamp}] ${actionText}`;
+
+          setChangeLog((prev) => [logEntry, ...prev.slice(0, 4)]);
+          setSkillModeEnabled(open);
+        }}
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }}
+      />
+
+      <div style={{ marginTop: 16, display: 'flex', gap: '8px' }}>
+        <button
+          onClick={() => setSkillModeEnabled(true)}
+          disabled={skillModeEnabled}
+        >
+          外部打开
+        </button>
+        <button
+          onClick={() => setSkillModeEnabled(false)}
+          disabled={!skillModeEnabled}
+        >
+          外部关闭
+        </button>
+        <button onClick={() => setChangeLog([])}>清空日志</button>
+      </div>
+
+      {changeLog.length > 0 && (
+        <div
+          style={{
+            marginTop: 16,
+            padding: 12,
+            background: '#f6f8fa',
+            borderRadius: 6,
+            maxHeight: 120,
+            overflow: 'auto',
+          }}
+        >
+          <strong>状态变化日志：</strong>
+          {changeLog.map((log, index) => (
+            <div
+              key={index}
+              style={{ fontSize: 12, color: '#666', margin: '4px 0' }}
+            >
+              {log}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ marginTop: 16 }}>
+        <h4>Props 说明</h4>
+        <ul>
+          <li>
+            <code>skillMode</code> - 技能模式配置
+            <ul>
+              <li>
+                <code>open</code> - 是否打开技能模式
+              </li>
+              <li>
+                <code>title</code> - 技能模式标题，支持React节点
+              </li>
+              <li>
+                <code>rightContent</code> - 右侧自定义内容数组
+              </li>
+              <li>
+                <code>closable</code> - 是否显示默认关闭按钮
+              </li>
+              <li>
+                <code>style</code> - 容器样式
+              </li>
+              <li>
+                <code>className</code> - 容器类名
+              </li>
+            </ul>
+          </li>
+          <li>
+            <code>onSkillModeOpenChange</code> -
+            技能模式状态变化时触发的回调函数
+            <ul>
+              <li>
+                <code>open</code> - 新的开关状态
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
+```
+
+> 交互说明：
+>
+> - 技能模式在输入框顶部显示，提供特殊的工作模式标识
+> - 支持上下滑动动画效果（300ms 缓动动画）
+> - 支持自定义标题和右侧内容，可以显示版本、设置按钮等
+> - `onSkillModeOpenChange` 监听技能模式的开启和关闭
 
 ### 粘贴配置
 

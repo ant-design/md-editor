@@ -2,11 +2,11 @@
  * MarkdownInputField 组件全面测试文件
  */
 
+import { MarkdownInputField } from '@ant-design/md-editor';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { MarkdownInputField } from '../../src/MarkdownInputField/MarkdownInputField';
 
 // Mock dependencies
 vi.mock('../../src/MarkdownEditor', () => ({
@@ -47,6 +47,32 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
       {children}
     </button>
   ),
+}));
+
+vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
+  SkillModeBar: ({ skillMode, onSkillModeOpenChange, ...props }: any) => {
+    if (!skillMode?.open) return null;
+
+    return (
+      <div data-testid="skill-mode-bar" {...props}>
+        <div data-testid="skill-mode-title">{skillMode.title}</div>
+        {skillMode.rightContent?.map((content: any, index: number) => (
+          <div key={index} data-testid={`skill-mode-content-${index}`}>
+            {content}
+          </div>
+        ))}
+        {skillMode.closable !== false && (
+          <button
+            data-testid="skill-mode-close"
+            onClick={() => onSkillModeOpenChange?.(false)}
+            type="button"
+          >
+            关闭
+          </button>
+        )}
+      </div>
+    );
+  },
 }));
 
 describe('MarkdownInputField Comprehensive Tests', () => {
@@ -450,6 +476,163 @@ describe('MarkdownInputField Comprehensive Tests', () => {
     it('应该正确处理容器大小变化', () => {
       render(<MarkdownInputField {...defaultProps} />);
       expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+    });
+  });
+
+  describe('技能模式功能', () => {
+    it('应该在 skillMode.open 为 true 时显示技能模式', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          open: true,
+          title: 'AI助手模式',
+          closable: true,
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
+      expect(screen.getByTestId('skill-mode-title')).toHaveTextContent(
+        'AI助手模式',
+      );
+      expect(screen.getByTestId('skill-mode-close')).toBeInTheDocument();
+    });
+
+    it('应该在 skillMode.open 为 false 时隐藏技能模式', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          open: false,
+          title: 'AI助手模式',
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
+    });
+
+    it('应该显示技能模式的右侧内容', () => {
+      const rightContent = [
+        <div key="tag">标签内容</div>,
+        <button key="btn" type="button">
+          按钮
+        </button>,
+      ];
+
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          open: true,
+          title: '测试标题',
+          rightContent,
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.getByTestId('skill-mode-content-0')).toBeInTheDocument();
+      expect(screen.getByTestId('skill-mode-content-1')).toBeInTheDocument();
+    });
+
+    it('应该在 closable 为 false 时隐藏关闭按钮', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          open: true,
+          title: '不可关闭模式',
+          closable: false,
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
+      expect(screen.queryByTestId('skill-mode-close')).not.toBeInTheDocument();
+    });
+
+    it('应该在点击关闭按钮时调用 onSkillModeOpenChange', () => {
+      const onSkillModeOpenChange = vi.fn();
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          open: true,
+          title: '可关闭模式',
+        },
+        onSkillModeOpenChange,
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      const closeButton = screen.getByTestId('skill-mode-close');
+      fireEvent.click(closeButton);
+
+      expect(onSkillModeOpenChange).toHaveBeenCalledTimes(1);
+      expect(onSkillModeOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('应该支持 React 节点作为标题', () => {
+      const customTitle = (
+        <div>
+          <span>图标</span>
+          自定义标题
+        </div>
+      );
+
+      const props = {
+        ...defaultProps,
+        skillMode: {
+          open: true,
+          title: customTitle,
+        },
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.getByTestId('skill-mode-title')).toContainHTML(
+        '<span>图标</span>',
+      );
+      expect(screen.getByText('自定义标题')).toBeInTheDocument();
+    });
+
+    it('应该处理未定义的 skillMode', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: undefined,
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
+    });
+
+    it('应该在 skillMode 状态变化时触发 onSkillModeOpenChange', async () => {
+      const onSkillModeOpenChange = vi.fn();
+      const { rerender } = render(
+        <MarkdownInputField
+          {...defaultProps}
+          skillMode={{ open: false }}
+          onSkillModeOpenChange={onSkillModeOpenChange}
+        />,
+      );
+
+      // 初始状态不会触发回调
+      expect(onSkillModeOpenChange).not.toHaveBeenCalled();
+
+      // 状态改变时会触发回调
+      rerender(
+        <MarkdownInputField
+          {...defaultProps}
+          skillMode={{ open: true }}
+          onSkillModeOpenChange={onSkillModeOpenChange}
+        />,
+      );
+
+      // 等待状态变化效果
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      expect(onSkillModeOpenChange).toHaveBeenCalledWith(true);
     });
   });
 });

@@ -28,6 +28,7 @@ import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
 import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
+import { SkillModeBar, SkillModeConfig } from './SkillModeBar';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
@@ -314,6 +315,41 @@ export type MarkdownInputFieldProps = {
       | 'text/plain'
     >;
   };
+
+  /**
+   * 技能模式配置
+   * @description 配置技能模式的显示和行为，可以显示特定的技能或AI助手模式
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   skillMode={{
+   *     open: skillModeEnabled,
+   *     title: "AI助手模式",
+   *     rightContent: [
+   *       <Tag key="version">v2.0</Tag>,
+   *       <Button key="settings" size="small">设置</Button>
+   *     ],
+   *     closable: true
+   *   }}
+   *   onSkillModeOpenChange={(open, trigger) => {
+   *     console.log(`技能模式${open ? '打开' : '关闭'}，触发方式：${trigger}`);
+   *     setSkillModeEnabled(open);
+   *   }}
+   * />
+   * ```
+   */
+  skillMode?: SkillModeConfig;
+
+  /**
+   * 技能模式开关状态变化时触发的回调函数
+   * @description 监听技能模式 open 状态的所有变化，包括用户点击关闭按钮和外部直接修改状态
+   * @param open 新的开关状态
+   * @example onSkillModeOpenChange={(open) => {
+   *   console.log(`技能模式${open ? '打开' : '关闭'}`);
+   *   setSkillModeEnabled(open);
+   * }}
+   */
+  onSkillModeOpenChange?: (open: boolean) => void;
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -401,6 +437,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   const actionsRef = React.useRef<HTMLDivElement>(null);
 
+  // 用于追踪技能模式状态变化
+  const prevSkillModeOpenRef = React.useRef<boolean | undefined>(
+    props.skillMode?.open,
+  );
+
   const [value, setValue] = useMergedState('', {
     value: props.value,
     onChange: props.onChange,
@@ -466,6 +507,24 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     if (!markdownEditorRef.current) return;
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
+
+  // 监听技能模式开关状态变化
+  useEffect(() => {
+    const currentOpen = props.skillMode?.open;
+    const prevOpen = prevSkillModeOpenRef.current;
+
+    // 如果状态发生了变化
+    if (currentOpen !== prevOpen) {
+      // 更新 ref 记录当前状态
+      prevSkillModeOpenRef.current = currentOpen;
+
+      // 如果有状态变化监听器，且不是初始化（prevOpen !== undefined）
+      if (props.onSkillModeOpenChange && prevOpen !== undefined) {
+        // 触发状态变化回调
+        props.onSkillModeOpenChange(!!currentOpen);
+      }
+    }
+  }, [props.skillMode?.open, props.onSkillModeOpenChange]);
 
   useEffect(() => {
     return () => {
@@ -687,12 +746,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   return wrapSSR(
     <Suggestion tagInputProps={tagInputProps}>
-      <>
-        {beforeTools ? (
-          <div className={classNames(`${baseCls}-before-tools`, hashId)}>
-            {beforeTools}
-          </div>
-        ) : null}
+    <>
+      {beforeTools ? (
+        <div className={classNames(`${baseCls}-before-tools`, hashId)}>
+          {beforeTools}
+        </div>
+      ) : null}
 
         <div
           className={classNames(baseCls, hashId, props.className, {
@@ -847,6 +906,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 [`${baseCls}-editor-disabled`]: props.disabled,
               })}
             >
+              {/* 技能模式部分 */}
+              <SkillModeBar
+                skillMode={props.skillMode}
+                onSkillModeOpenChange={props.onSkillModeOpenChange}
+                baseCls={baseCls}
+                hashId={hashId}
+              />
+
               {useMemo(() => {
                 return props.attachment?.enable ? (
                   <AttachmentFileList
