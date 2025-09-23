@@ -127,7 +127,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             inset: '0',
             borderRadius: '50%',
             background:
-              'conic-gradient(from var(--rotation, 0deg), var(--sub1-color) 0 45deg, transparent 45deg 360deg)',
+              'conic-gradient(from var(--rotate, 0deg), var(--sub1-color) 0 45deg, transparent 45deg 360deg)',
             WebkitMask:
               'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
             mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',

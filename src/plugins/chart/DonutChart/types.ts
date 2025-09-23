@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChartContainerProps } from '../components';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 
 export interface DonutChartData {
   category?: string; // 分类
@@ -44,4 +45,6 @@ export interface DonutChartProps extends ChartContainerProps {
   singleMode?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
+  statistic?: StatisticConfigType;
 }
