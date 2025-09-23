@@ -70,10 +70,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             fontSize: 'var(--font-size-sm)',
             color: '#6c757d',
             background: 'rgba(20, 22, 28, 0.06)',
-            padding: '2px 6px',
+            padding: '4px 6px',
             borderRadius: '200px',
             minWidth: '20px',
-            textAlign: 'center',
+            height: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           },
 
           // 分组内容区域
@@ -101,7 +104,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: '4px',
       marginBottom: '4px',
       padding: '4px',
-      borderRadius: '4px',
+      borderRadius: 'var(--radius-control-base)',
       cursor: 'pointer',
       transition: 'all 0.2s ease',
 
@@ -110,9 +113,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&:hover': {
-        background: 'rgba(20, 22, 28, 0.03)',
+        background: 'var(--color-gray-bg-card-light)',
         boxSizing: 'border-box',
-        border: '0px solid rgba(20, 22, 28, 0.07)',
+        boxShadow: 'var(--shadow-border-base)',
 
         // 鼠标悬浮时显示操作区
         [`${token.componentCls}-item-actions`]: {
