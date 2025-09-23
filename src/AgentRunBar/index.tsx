@@ -440,7 +440,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         {icon !== false && (
           <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
             <Tooltip title={iconTooltip}>
-              <Robot icon={icon} status={getRobotStatus()} size={36} />
+              <Robot icon={icon} status={getRobotStatus()} size={40} />
             </Tooltip>
           </div>
         )}
