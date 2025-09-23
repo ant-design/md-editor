@@ -1,3 +1,4 @@
+import { DownOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNamesFn from 'classnames';
 import { useMergedState } from 'rc-util';
@@ -65,6 +66,7 @@ export interface ToolUseBarThinkProps {
   testId?: string;
   status?: 'loading' | 'success' | 'error';
   expanded?: boolean;
+  light?: boolean;
   defaultExpanded?: boolean;
   onExpandedChange?: (expanded: boolean) => void;
   floatingExpanded?: boolean;
@@ -118,6 +120,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   onFloatingExpandedChange,
   classNames,
   styles,
+  light = false,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('tool-use-bar-think');
@@ -162,6 +165,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
         [`${prefixCls}-loading`]: status === 'loading',
         [`${prefixCls}-active`]: expandedState,
         [`${prefixCls}-success`]: status === 'success',
+        [`${prefixCls}-light`]: light,
       })}
       style={styles?.root}
     >
@@ -187,31 +191,47 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
             )}
             style={styles?.headerLeft}
           >
-            <div
-              className={classNamesFn(
-                `${prefixCls}-image-wrapper`,
-                hashId,
-                classNames?.imageWrapper,
-              )}
-              style={styles?.imageWrapper}
-            >
-              {icon || (
-                <div
-                  className={classNamesFn(
-                    `${prefixCls}-image`,
-                    hashId,
-                    classNames?.image,
-                  )}
-                  style={styles?.image}
-                >
-                  {defaultIcon}
-                </div>
-              )}
-            </div>
+            {light ? (
+              <DownOutlined
+                style={{
+                  fontSize: '13px',
+                  color: 'rgba(52, 58, 69, 1)',
+                  transform: expandedState ? 'rotate(0deg)' : 'rotate(-90deg)',
+                  transition: 'transform 0.2s',
+                }}
+                title="展开/收起"
+                onClick={handleToggleExpand}
+              />
+            ) : (
+              <div
+                className={classNamesFn(
+                  `${prefixCls}-image-wrapper`,
+                  hashId,
+                  classNames?.imageWrapper,
+                )}
+                style={styles?.imageWrapper}
+              >
+                {icon || (
+                  <div
+                    className={classNamesFn(
+                      `${prefixCls}-image`,
+                      hashId,
+                      classNames?.image,
+                    )}
+                    style={styles?.image}
+                  >
+                    {defaultIcon}
+                  </div>
+                )}
+              </div>
+            )}
             {toolName && (
               <div
                 className={classNamesFn(
                   `${prefixCls}-name`,
+                  {
+                    [`${prefixCls}-name-light`]: light,
+                  },
                   hashId,
                   classNames?.name,
                 )}
@@ -248,7 +268,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
             {time}
           </div>
         )}
-        {thinkContent && (
+        {thinkContent && !light && (
           <div
             className={classNamesFn(
               `${prefixCls}-expand`,
@@ -272,6 +292,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
               [`${prefixCls}-container-expanded`]: expandedState,
               [`${prefixCls}-container-loading`]:
                 status === 'loading' && !floatingExpandedState,
+              [`${prefixCls}-container-light`]: light,
               [`${prefixCls}-container-floating-expanded`]:
                 floatingExpandedState,
             },
@@ -303,7 +324,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
           >
             {thinkContent}
           </div>
-          {status === 'loading' && isHovered && (
+          {status === 'loading' && isHovered && !light ? (
             <div
               className={classNamesFn(
                 `${prefixCls}-floating-expand`,
@@ -317,7 +338,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
               {floatingExpandedState ? <ExpandDownIcon /> : <ExpandIcon />}
               {floatingExpandedState ? '收起' : '展开'}
             </div>
-          )}
+          ) : null}
         </div>
       )}
     </div>,
