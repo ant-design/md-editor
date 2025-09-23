@@ -54,12 +54,19 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
         <NewChatIcon
           style={{
             fontSize: 16,
+            paddingTop: 2,
           }}
         />
       }
       style={{
-        fontWeight: 500,
         justifyContent: 'flex-start',
+        borderRadius: 'var(--radius-control-base)',
+        background: 'var(--color-primary-control-fill-secondary)',
+        fontSize: '14px',
+        fontWeight: 600,
+        lineHeight: '22px',
+        letterSpacing: 'normal',
+        color: 'var(--color-primary-text-secondary)',
       }}
       loading={loading}
       onClick={async () => {
