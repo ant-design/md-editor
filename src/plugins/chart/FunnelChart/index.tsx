@@ -289,21 +289,52 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
   }, [filteredData, stages]);
 
-  const ratioOrder = useMemo(() => {
-    const normalizeRatio = (v: any) => {
+  const ratioDisplay = useMemo(() => {
+    const formatRaw = (v: any): string | undefined => {
+      if (v === null || v === undefined) return undefined;
       if (typeof v === 'string') {
-        const s = v.trim().replace('%', '');
-        const n = Number(s);
-        return Number.isFinite(n) ? n : NaN;
+        const s = v.trim();
+        if (!s) return undefined;
+        return s.endsWith('%') ? s : `${s}%`;
       }
-      if (typeof v === 'number') return v;
-      return NaN;
+      if (typeof v === 'number' && Number.isFinite(v)) {
+        return `${String(v)}%`;
+      }
+      return undefined;
     };
-    return stages.map((_, i) => {
-      if (i === 0) return 100;
+    // 检查除顶层外，是否至少有一层提供了 ratio
+    const anyNonTopProvided = stages.some((_, i) => {
+      if (i === 0) return false;
       const prevStage = stages[i - 1];
-      const dp = (filteredData || []).find((d) => isXValueEqual(d.x, prevStage));
-      return normalizeRatio(dp?.ratio);
+      const dp = (filteredData || []).find((d) =>
+        isXValueEqual(d.x, prevStage),
+      );
+      const v = dp?.ratio;
+      if (v === null || v === undefined) return false;
+      if (typeof v === 'string') return v.trim() !== '';
+      return true;
+    });
+    return stages.map((_, i) => {
+      if (i === 0) return anyNonTopProvided ? '100%' : undefined;
+      const prevStage = stages[i - 1];
+      const dp = (filteredData || []).find((d) =>
+        isXValueEqual(d.x, prevStage),
+      );
+      return formatRaw(dp?.ratio);
+    });
+  }, [filteredData, stages]);
+
+  const ratioProvided = useMemo(() => {
+    return stages.map((_, i) => {
+      if (i === 0) return false;
+      const prevStage = stages[i - 1];
+      const dp = (filteredData || []).find((d) =>
+        isXValueEqual(d.x, prevStage),
+      );
+      const v = dp?.ratio;
+      if (v === null || v === undefined) return false;
+      if (typeof v === 'string') return v.trim() !== '';
+      return true;
     });
   }, [filteredData, stages]);
 
@@ -362,6 +393,19 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
               ...it,
               pointStyle: 'rectRounded' as PointStyle,
             }));
+            // 若除顶层外没有任何 ratio，则移除“转化率”图例
+            const anyNonTopProvided = stages.some((_, i) => {
+              if (i === 0) return false;
+              const prevStage = stages[i - 1];
+              const dp = (filteredData || []).find((d) =>
+                isXValueEqual(d.x, prevStage),
+              );
+              const v = dp?.ratio;
+              if (v === null || v === undefined) return false;
+              if (typeof v === 'string') return v.trim() !== '';
+              return true;
+            });
+            if (!anyNonTopProvided) return base;
             return [
               ...base,
               {
@@ -370,7 +414,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
                 strokeStyle: '#F1F2F4',
                 lineWidth: 0,
                 hidden: !showTrapezoid,
-                datasetIndex: chart.data.datasets.length, // 非真实数据集，仅用于展示
+                datasetIndex: chart.data.datasets.length,
                 pointStyle: 'rectRounded' as PointStyle,
               },
             ];
@@ -412,26 +456,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
               : typeof raw === 'number'
                 ? Math.abs(raw)
                 : 0;
-            const allValues = (
-              ctx.dataset.data as (number | [number, number] | null)[]
-            ).map((it) => {
-              if (Array.isArray(it))
-                return Math.abs((it[1] ?? 0) - (it[0] ?? 0));
-              const n = typeof it === 'number' ? it : Number(it);
-              return Number.isFinite(n) ? n : 0;
-            });
+            // 不计算基于第一层的比例，保持仅在提供 ratio 时展示百分比
             const idx = ctx.dataIndex ?? 0;
-            let percentStr: string | undefined;
-            const r = ratioOrder?.[idx];
-            if (Number.isFinite(r)) {
-              percentStr = `${(r as number).toFixed(1)}%`;
-            } else {
-              const base = allValues[0] || 1;
-              percentStr = `${((width / base) * 100).toFixed(1)}%`;
+            const percentStr: string | undefined = ratioDisplay?.[idx];
+            // 仅当传入了 ratio 时展示百分比，否则只展示数值
+            if (showPercent === false || !percentStr) {
+              return `${width}`;
             }
-            return showPercent === false
-              ? `${width}`
-              : `${width}（${percentStr}）`;
+            return `${width}（${percentStr}）`;
           },
         },
       },
@@ -442,7 +474,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         ticks: { display: false },
         title: { display: false },
         border: { display: false },
-        afterFit: (scale: any) => {
+        afterFit: (scale) => {
           const rows = Math.max(1, stages.length);
           const per = BAR_THICKNESS + ROW_GAP;
           const total = rows * per;
@@ -479,7 +511,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         const xScale = scales?.x;
         const ds = cdata?.datasets?.[0]?.data || [];
 
-        const providedRatios: number[] = ratioOrder;
+        const providedRatioText: (string | undefined)[] = ratioDisplay;
+        const providedFlags: boolean[] = ratioProvided;
 
         const centerX = xScale?.getPixelForValue
           ? xScale.getPixelForValue(0)
@@ -508,25 +541,21 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const botRx = xScale?.getPixelForValue
             ? xScale.getPixelForValue(Math.max(sBot, eBot))
             : elBot.x + Math.abs(eBot - sBot) / 2;
-          const topWidthPx = Math.abs(topRx - topLx);
-          const botWidthPx = Math.abs(botRx - botLx);
 
           const dpr =
             (typeof window !== 'undefined' && (window.devicePixelRatio || 1)) ||
             1;
-          const seam = (isMobile ? 0.25 : 0.35) / dpr; // 极小内缩，基本不可见
+          const seam = (isMobile ? 0.25 : 0.35) / dpr;
           const joinTop = elTop.y + elTop.height / 2;
           const joinBot = elBot.y - elBot.height / 2;
-          const topY = joinTop + seam; // 向下收一点，避免覆盖上柱
-          const botY = joinBot - seam; // 向上收一点，避免覆盖下柱
+          const topY = joinTop + seam;
+          const botY = joinBot - seam;
 
-          // 比率（优先用户传入，与排序对齐），范围 0~100，仅用于文本展示
-          let ratioVal = providedRatios?.[i + 1];
-          if (!Number.isFinite(ratioVal)) {
-            const base = topWidthPx || 1;
-            ratioVal = (botWidthPx / base) * 100;
+          // 如果该层未显式提供 ratio，则不绘制梯形
+          if (!providedFlags?.[i + 1]) {
+            continue;
           }
-          ratioVal = Math.max(0, Math.min(100, Number(ratioVal)));
+          const ratioText = providedRatioText?.[i + 1] ?? '0%';
 
           // 梯形边与上下柱完全对齐
           const topL = Math.min(topLx, topRx);
@@ -553,7 +582,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           ctx.font = `${isMobile ? 10 : 12}px sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(`${ratioVal.toFixed(1)}%`, cx, midY);
+          ctx.fillText(String(ratioText), cx, midY);
           ctx.restore();
         }
       },
