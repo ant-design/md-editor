@@ -154,6 +154,7 @@ export type TagPopupProps = {
 export const TagPopup = (props: RenderProps) => {
   const { onSelect, items, children, type } = props || {};
   const editor = useSlate();
+  const [open, setOpen] = useState(false);
 
   const [loading, setLoading] = React.useState(false);
 
@@ -218,7 +219,7 @@ export const TagPopup = (props: RenderProps) => {
       }
     };
     loadingData();
-  }, [open]);
+  }, [open, items]);
 
   useEffect(() => {
     // 默认选中一下
@@ -232,8 +233,12 @@ export const TagPopup = (props: RenderProps) => {
   }, [props.text, suggestionConnext.open]);
 
   useEffect(() => {
-    if (props.autoOpen && suggestionConnext?.setOpen) {
-      suggestionConnext.setOpen(true);
+    if (props.autoOpen) {
+      if (type === 'dropdown') {
+        setOpen(true);
+      } else if (suggestionConnext?.setOpen) {
+        suggestionConnext.setOpen(true);
+      }
     }
   }, []);
 
@@ -337,6 +342,8 @@ export const TagPopup = (props: RenderProps) => {
       {type === 'dropdown' ? (
         <Dropdown
           trigger={['click']}
+          open={open}
+          onOpenChange={setOpen}
           menu={{
             items: selectedItems as MenuProps['items'],
             onClick: (e) => {
