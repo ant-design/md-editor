@@ -1,6 +1,7 @@
 import classNames from 'classnames';
+import { gsap } from 'gsap';
 import { useMergedState } from 'rc-util';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { ChevronUpIcon } from '../TaskList';
 
 function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -84,6 +85,8 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   onExpandedChange,
   defaultExpanded,
 }) => {
+  const loadingRef = React.useRef<HTMLDivElement>(null);
+  const textRef = React.useRef<HTMLDivElement>(null);
   // 使用 useMergedState 来管理展开状态
   const [expanded, setExpanded] = useMergedState(defaultExpanded ?? false, {
     value: isExpanded,
@@ -130,6 +133,39 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     return !!errorDom || !!contentDom;
   }, [errorDom, contentDom]);
 
+  useEffect(() => {
+    if (tool.status !== 'loading') {
+      return;
+    }
+    if (!loadingRef.current || !textRef.current) {
+      return;
+    }
+    gsap.set(loadingRef.current, {
+      '--rotation': '0deg',
+      '--sub1-color': '#0090FF',
+    });
+
+    gsap.to(loadingRef.current, {
+      '--rotation': '360deg',
+      '--sub1-color': '#3E63DD',
+      duration: 1,
+      repeat: -1,
+      ease: 'linear',
+    });
+
+    gsap.set(textRef.current, {
+      maskImage:
+        'linear-gradient(to right, rgba(0,0,0,0.99)  -30%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)   120%)',
+    });
+    gsap.to(textRef.current, {
+      maskImage:
+        'linear-gradient(to right, rgba(0,0,0,0.99)  -30%,  rgba(0,0,0,0.15)   150%,rgba(0,0,0,0.99)   120%)',
+      duration: 1.6,
+      repeat: -1,
+      ease: 'linear',
+    });
+  }, [tool.status === 'loading']);
+
   if (tool.type === 'summary') {
     return (
       <div
@@ -163,45 +199,51 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           className={`${prefixCls}-tool-header ${hashId}`}
           data-testid="tool-user-item-tool-header"
         >
-          <div className={`${prefixCls}-tool-header-left ${hashId}`}>
-            <div
-              className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
-                [`${prefixCls}-tool-image-wrapper-rotating`]:
-                  tool.status === 'loading',
-                [`${prefixCls}-tool-image-wrapper-loading`]:
-                  tool.status === 'loading',
-              })}
-            >
-              {tool.icon || (
-                <div className={`${prefixCls}-tool-image ${hashId}`}>
-                  <ToolIcon />
-                </div>
-              )}
-            </div>
-            {tool.toolName && (
-              <div
-                className={classNames(`${prefixCls}-tool-name ${hashId}`, {
-                  [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
-                })}
-              >
-                {tool.toolName}
+          <div
+            className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
+              [`${prefixCls}-tool-image-wrapper-rotating`]:
+                tool.status === 'loading',
+              [`${prefixCls}-tool-image-wrapper-loading`]:
+                tool.status === 'loading',
+            })}
+            ref={loadingRef}
+          >
+            {tool.icon || (
+              <div className={`${prefixCls}-tool-image ${hashId}`}>
+                <ToolIcon />
               </div>
             )}
           </div>
         </div>
-        {tool.toolTarget && (
-          <div
-            className={classNames(`${prefixCls}-tool-target ${hashId}`, {
-              [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
-            })}
-            title={tool.toolTarget?.toString() ?? undefined}
-          >
-            {tool.toolTarget}
-          </div>
-        )}
+
+        <div
+          className={`${prefixCls}-tool-header-right ${hashId}`}
+          ref={textRef}
+        >
+          {tool.toolName && (
+            <div
+              className={classNames(`${prefixCls}-tool-name ${hashId}`, {
+                [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
+              })}
+            >
+              {tool.toolName}
+            </div>
+          )}
+          {tool.toolTarget && (
+            <div
+              className={classNames(`${prefixCls}-tool-target ${hashId}`, {
+                [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
+              })}
+              title={tool.toolTarget?.toString() ?? undefined}
+            >
+              {tool.toolTarget}
+            </div>
+          )}
+        </div>
         {tool.time && (
           <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
         )}
+
         {showContent && (
           <div
             className={`${prefixCls}-tool-expand ${hashId}`}
