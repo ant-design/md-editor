@@ -101,7 +101,7 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
           >
             {loading ? <LoadingOutlined /> : <EllipsisOutlined />}
           </div>
-          {locale?.['task.history.loadMore'] || '查看更多'}
+          {locale?.['task.history.loadMore'] || '查看更多历史'}
         </div>
       ) : (
         <Button
