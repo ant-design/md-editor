@@ -3,6 +3,7 @@ import { Divider, Flex } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
+import { useSkillModeState } from './hooks';
 
 /**
  * 技能模式配置接口
@@ -99,12 +100,18 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
   baseCls = 'ant-md-input-field',
   hashId = '',
 }) => {
+  // 使用技能模式状态管理 hook
+  const handleInternalSkillModeChange = useSkillModeState(
+    skillMode,
+    onSkillModeOpenChange,
+  );
+
   const handleCloseClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
 
-    // 触发状态变化回调
-    onSkillModeOpenChange?.(false);
+    // 使用内部状态变化处理函数
+    handleInternalSkillModeChange(false);
   };
 
   return (

@@ -429,11 +429,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   const actionsRef = React.useRef<HTMLDivElement>(null);
 
-  // 用于追踪技能模式状态变化
-  const prevSkillModeOpenRef = React.useRef<boolean | undefined>(
-    props.skillMode?.open,
-  );
-
   const [value, setValue] = useMergedState('', {
     value: props.value,
     onChange: props.onChange,
@@ -499,24 +494,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     if (!markdownEditorRef.current) return;
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
-
-  // 监听技能模式开关状态变化
-  useEffect(() => {
-    const currentOpen = props.skillMode?.open;
-    const prevOpen = prevSkillModeOpenRef.current;
-
-    // 如果状态发生了变化
-    if (currentOpen !== prevOpen) {
-      // 更新 ref 记录当前状态
-      prevSkillModeOpenRef.current = currentOpen;
-
-      // 如果有状态变化监听器，且不是初始化（prevOpen !== undefined）
-      if (props.onSkillModeOpenChange && prevOpen !== undefined) {
-        // 触发状态变化回调
-        props.onSkillModeOpenChange(!!currentOpen);
-      }
-    }
-  }, [props.skillMode?.open, props.onSkillModeOpenChange]);
 
   useEffect(() => {
     return () => {
