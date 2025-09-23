@@ -89,7 +89,7 @@ const Robot: React.FC<RobotProps> = ({
     >
       {React.isValidElement(icon) ? (
         icon
-      ) : isString(icon) ? (
+      ) : icon && isString(icon) ? (
         <img
           style={{
             width: '100%',
