@@ -136,6 +136,9 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
     <AnimatePresence>
       {skillMode?.open && (
         <motion.div
+          role="region"
+          aria-live="polite"
+          aria-label="技能模式"
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}

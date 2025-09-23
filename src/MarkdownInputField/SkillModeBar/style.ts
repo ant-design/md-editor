@@ -63,7 +63,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&:focus': {
-        outline: '2px solid #3b82f6',
+        outline: `2px solid ${token.colorPrimary}`,
         outlineOffset: '2px',
       },
 
