@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { gsap } from 'gsap';
+import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { ChevronUpIcon } from '../TaskList';
 
 function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -85,8 +85,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   onExpandedChange,
   defaultExpanded,
 }) => {
-  const loadingRef = React.useRef<HTMLDivElement>(null);
-  const textRef = React.useRef<HTMLDivElement>(null);
   // 使用 useMergedState 来管理展开状态
   const [expanded, setExpanded] = useMergedState(defaultExpanded ?? false, {
     value: isExpanded,
@@ -133,39 +131,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     return !!errorDom || !!contentDom;
   }, [errorDom, contentDom]);
 
-  useEffect(() => {
-    if (tool.status !== 'loading') {
-      return;
-    }
-    if (!loadingRef.current || !textRef.current) {
-      return;
-    }
-    gsap.set(loadingRef.current, {
-      '--rotation': '0deg',
-      '--sub1-color': '#0090FF',
-    });
-
-    gsap.to(loadingRef.current, {
-      '--rotation': '360deg',
-      '--sub1-color': '#3E63DD',
-      duration: 1,
-      repeat: -1,
-      ease: 'linear',
-    });
-
-    gsap.set(textRef.current, {
-      maskImage:
-        'linear-gradient(to right, rgba(0,0,0,0.99)  -30%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)   120%)',
-    });
-    gsap.to(textRef.current, {
-      maskImage:
-        'linear-gradient(to right, rgba(0,0,0,0.99)  -30%,  rgba(0,0,0,0.15)   150%,rgba(0,0,0,0.99)   120%)',
-      duration: 1.6,
-      repeat: -1,
-      ease: 'linear',
-    });
-  }, [tool.status === 'loading']);
-
   if (tool.type === 'summary') {
     return (
       <div
@@ -199,26 +164,85 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           className={`${prefixCls}-tool-header ${hashId}`}
           data-testid="tool-user-item-tool-header"
         >
-          <div
+          <motion.div
             className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
               [`${prefixCls}-tool-image-wrapper-rotating`]:
                 tool.status === 'loading',
               [`${prefixCls}-tool-image-wrapper-loading`]:
                 tool.status === 'loading',
             })}
-            ref={loadingRef}
+            animate={
+              tool.status === 'loading'
+                ? {
+                    '--rotate': ['0deg', '360deg'],
+                    '--sub1-color': ['#0090FF', '#3E63DD', '#0090FF'],
+                  }
+                : {}
+            }
+            transition={
+              tool.status === 'loading'
+                ? {
+                    '--rotate': {
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    },
+                    '--sub1-color': {
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    },
+                  }
+                : {}
+            }
+            style={
+              {
+                '--rotation': tool.status === 'loading' ? '360deg' : '0deg',
+                '--sub1-color':
+                  tool.status === 'loading' ? '#0090FF' : undefined,
+              } as React.CSSProperties
+            }
           >
             {tool.icon || (
               <div className={`${prefixCls}-tool-image ${hashId}`}>
                 <ToolIcon />
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
 
-        <div
+        <motion.div
           className={`${prefixCls}-tool-header-right ${hashId}`}
-          ref={textRef}
+          animate={
+            tool.status === 'loading'
+              ? {
+                  maskImage: [
+                    'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) 150%, rgba(0,0,0,0.99) 120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)',
+                  ],
+                }
+              : {}
+          }
+          transition={
+            tool.status === 'loading'
+              ? {
+                  maskImage: {
+                    duration: 3.2,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  },
+                }
+              : {}
+          }
+          style={
+            {
+              maskImage:
+                tool.status === 'loading'
+                  ? 'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)'
+                  : undefined,
+            } as React.CSSProperties
+          }
         >
           {tool.toolName && (
             <div
@@ -239,7 +263,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
               {tool.toolTarget}
             </div>
           )}
-        </div>
+        </motion.div>
         {tool.time && (
           <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
         )}
