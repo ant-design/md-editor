@@ -674,6 +674,24 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
 
   // 测试 enable 参数功能
   describe('skillMode enable parameter', () => {
+    it('should not render SkillModeBar when skillMode is explicitly set to undefined', () => {
+      render(<MarkdownInputField skillMode={undefined} />);
+
+      // 当 skillMode 明确设置为 undefined 时，SkillModeBar 应该完全不渲染
+      expect(
+        document.querySelector('.ant-skill-mode-container'),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should not render SkillModeBar when skillMode is undefined', () => {
+      render(<MarkdownInputField skillMode={undefined} />);
+
+      // 当 skillMode 为 undefined 时，SkillModeBar 应该完全不渲染
+      expect(
+        document.querySelector('.ant-skill-mode-container'),
+      ).not.toBeInTheDocument();
+    });
+
     it('should not render SkillModeBar when enable is false', () => {
       render(
         <MarkdownInputField
@@ -791,6 +809,44 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
         document.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
       expect(screen.getByText('Test Mode')).toBeInTheDocument();
+    });
+
+    it('should not execute any hooks when skillMode is explicitly set to undefined', () => {
+      // 这个测试确保当 skillMode 明确设置为 undefined 时，组件完全不执行任何逻辑
+      const onSkillModeOpenChange = vi.fn();
+
+      render(
+        <MarkdownInputField
+          skillMode={undefined}
+          onSkillModeOpenChange={onSkillModeOpenChange}
+        />,
+      );
+
+      // 组件不应该渲染，也不应该执行任何回调
+      expect(
+        document.querySelector('.ant-skill-mode-container'),
+      ).not.toBeInTheDocument();
+      // 由于组件没有渲染，不会有任何交互，所以回调也不会被调用
+      expect(onSkillModeOpenChange).not.toHaveBeenCalled();
+    });
+
+    it('should not execute any hooks when skillMode is undefined', () => {
+      // 这个测试确保当 skillMode 为 undefined 时，组件完全不执行任何逻辑
+      const onSkillModeOpenChange = vi.fn();
+
+      render(
+        <MarkdownInputField
+          skillMode={undefined}
+          onSkillModeOpenChange={onSkillModeOpenChange}
+        />,
+      );
+
+      // 组件不应该渲染，也不应该执行任何回调
+      expect(
+        document.querySelector('.ant-skill-mode-container'),
+      ).not.toBeInTheDocument();
+      // 由于组件没有渲染，不会有任何交互，所以回调也不会被调用
+      expect(onSkillModeOpenChange).not.toHaveBeenCalled();
     });
 
     it('should not execute any hooks when enable is false', () => {

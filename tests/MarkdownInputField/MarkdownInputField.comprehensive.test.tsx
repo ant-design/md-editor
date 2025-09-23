@@ -66,8 +66,8 @@ vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
       prevOpenRef.current = currentOpen;
     }, [skillMode?.open, onSkillModeOpenChange]);
 
-    // 如果 enable 为 false，不渲染任何内容
-    if (skillMode?.enable === false) return null;
+    // 如果 skillMode 不存在或 enable 为 false，不渲染任何内容
+    if (!skillMode || skillMode.enable === false) return null;
 
     // 如果 open 为 false，不渲染任何内容
     if (!skillMode?.open) return null;
@@ -77,12 +77,12 @@ vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
         <div data-testid="skill-mode-title">{skillMode.title}</div>
         {(() => {
           if (!skillMode.rightContent) return null;
-          
+
           // 将 rightContent 统一转换为数组处理
-          const contentArray = Array.isArray(skillMode.rightContent) 
-            ? skillMode.rightContent 
+          const contentArray = Array.isArray(skillMode.rightContent)
+            ? skillMode.rightContent
             : [skillMode.rightContent];
-            
+
           return contentArray.map((content: any, index: number) => (
             <div key={index} data-testid={`skill-mode-content-${index}`}>
               {content}
@@ -630,9 +630,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
     });
 
     it('应该显示技能模式的右侧内容（单个ReactNode）', () => {
-      const rightContent = (
-        <div data-testid="single-content">单个内容节点</div>
-      );
+      const rightContent = <div data-testid="single-content">单个内容节点</div>;
 
       const props = {
         ...defaultProps,
@@ -715,6 +713,17 @@ describe('MarkdownInputField Comprehensive Tests', () => {
     });
 
     it('应该处理未定义的 skillMode', () => {
+      const props = {
+        ...defaultProps,
+        skillMode: undefined,
+      };
+
+      render(<MarkdownInputField {...props} />);
+
+      expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
+    });
+
+    it('应该处理明确设置为 undefined 的 skillMode', () => {
       const props = {
         ...defaultProps,
         skillMode: undefined,
