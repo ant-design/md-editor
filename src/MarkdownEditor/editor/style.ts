@@ -1,4 +1,4 @@
-﻿import { Keyframes } from '@ant-design/cssinjs';
+import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
@@ -888,7 +888,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '.ant-md-editor-content .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type span[data-slate-string]':
         {
           borderRight: '0.15em solid var(--color-primary-control-fill-primary)',
-          animation: `${typing.getName()} 3.5s steps(30, end), ${blinkCaret.getName()} 0.5s step-end infinite`,
+          animationName: `${typing.getName()}, ${blinkCaret.getName()}`,
+          animationDuration: '3.5s, 0.5s',
+          animationTimingFunction: 'steps(30, end), step-end',
+          animationIterationCount: '1, infinite',
+          animationFillMode: 'forwards, both',
         },
     },
     [`${token.componentCls}-compact`]: {

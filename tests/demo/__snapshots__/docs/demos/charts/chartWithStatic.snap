@@ -9,33 +9,37 @@
       style="padding: 20px;"
     >
       <h3>
-        单个静态数据组件
+        单个统计数据组件
       </h3>
       <div
         class="ant-area-chart-container ant-area-chart-container-light-theme ant-area-chart-container-desktop"
         style="width: 700px; height: 500px;"
       >
         <div
-          class="chart-static-container"
+          class="chart-statistic-container"
         >
           <div
-            class="ant-chart-static ant-chart-static-light"
+            class="ant-chart-statistic ant-chart-statistic-light"
           >
             <div
-              class="ant-chart-static-header"
+              class="ant-chart-statistic-header"
             >
-              <span
-                class="ant-chart-static-title"
+              <div
+                class="ant-chart-statistic-header-left"
               >
-                总营收
-              </span>
+                <span
+                  class="ant-chart-statistic-title"
+                >
+                  总营收
+                </span>
+              </div>
             </div>
             <div
-              class="ant-chart-static-value"
+              class="ant-chart-statistic-value"
             >
               655,350
               <span
-                class="ant-chart-static-value-suffix"
+                class="ant-chart-statistic-value-suffix"
               >
                 元
               </span>
@@ -59,104 +63,290 @@
         style="padding: 20px;"
       >
         <h3>
-          多个静态数据组件
+          多个统计数据组件
         </h3>
         <div
           class="ant-area-chart-container ant-area-chart-container-light-theme ant-area-chart-container-desktop"
           style="width: 700px; height: 500px;"
         >
           <div
-            class="chart-static-container"
+            class="chart-statistic-container"
           >
             <div
-              class="ant-chart-static ant-chart-static-light"
+              class="ant-chart-statistic ant-chart-statistic-light"
             >
               <div
-                class="ant-chart-static-header"
+                class="ant-chart-statistic-header"
               >
-                <span
-                  class="ant-chart-static-title"
+                <div
+                  class="ant-chart-statistic-header-left"
                 >
-                  总营收
-                </span>
-                <span
-                  aria-describedby="test-id"
-                  aria-label="question-circle"
-                  class="anticon anticon-question-circle ant-chart-static-question-icon"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="question-circle"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
+                  <span
+                    class="ant-chart-statistic-title"
                   >
-                    <path
-                      d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                    />
-                    <path
-                      d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
-                    />
-                  </svg>
-                </span>
+                    总营收
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="question-circle"
+                    class="anticon anticon-question-circle ant-chart-statistic-question-icon"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="question-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                      <path
+                        d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
               <div
-                class="ant-chart-static-value"
+                class="ant-chart-statistic-value"
               >
                 655,350
                 <span
-                  class="ant-chart-static-value-suffix"
+                  class="ant-chart-statistic-value-suffix"
                 >
                   元
                 </span>
               </div>
             </div>
             <div
-              class="ant-chart-static ant-chart-static-light"
+              class="ant-chart-statistic ant-chart-statistic-light"
             >
               <div
-                class="ant-chart-static-header"
+                class="ant-chart-statistic-header"
               >
-                <span
-                  class="ant-chart-static-title"
+                <div
+                  class="ant-chart-statistic-header-left"
                 >
-                  营业天数
-                </span>
-                <span
-                  aria-describedby="test-id"
-                  aria-label="question-circle"
-                  class="anticon anticon-question-circle ant-chart-static-question-icon"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="question-circle"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
+                  <span
+                    class="ant-chart-statistic-title"
                   >
-                    <path
-                      d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                    />
-                    <path
-                      d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
-                    />
-                  </svg>
-                </span>
+                    营业天数
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="question-circle"
+                    class="anticon anticon-question-circle ant-chart-statistic-question-icon"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="question-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                      <path
+                        d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
               <div
-                class="ant-chart-static-value"
+                class="ant-chart-statistic-value"
               >
                 365
                 <span
-                  class="ant-chart-static-value-suffix"
+                  class="ant-chart-statistic-value-suffix"
                 >
                   天
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="chart-wrapper"
+            style="margin-top: 20px; height: 500px;"
+          >
+            <div
+              data-datasets="[{"label":"本年营收","data":[45000,52000,48000,61000,55000,67000,72000,68000,75000,78000,82000,85000],"borderColor":"#1677ff","pointBackgroundColor":"#1677ff","pointBorderColor":"#fff","pointBorderWidth":1,"borderWidth":3,"tension":0,"fill":true}]"
+              data-labels="["1","2","3","4","5","6","7","8","9","10","11","12"]"
+              data-testid="line-chart"
+            >
+              Line Chart
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="padding: 20px;"
+      >
+        <h3>
+          Block 模式
+        </h3>
+        <div
+          class="ant-area-chart-container ant-area-chart-container-light-theme ant-area-chart-container-desktop"
+          style="width: 700px; height: 500px;"
+        >
+          <div
+            class="chart-statistic-container"
+          >
+            <div
+              class="ant-chart-statistic ant-chart-statistic-light ant-chart-statistic-block"
+            >
+              <div
+                class="ant-chart-statistic-header"
+              >
+                <div
+                  class="ant-chart-statistic-header-left"
+                >
+                  <span
+                    class="ant-chart-statistic-title"
+                  >
+                    总营收
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="question-circle"
+                    class="anticon anticon-question-circle ant-chart-statistic-question-icon"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="question-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                      <path
+                        d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="ant-chart-statistic-value"
+              >
+                655,350
+                <span
+                  class="ant-chart-statistic-value-suffix"
+                >
+                  元
+                </span>
+              </div>
+            </div>
+            <div
+              class="ant-chart-statistic ant-chart-statistic-light ant-chart-statistic-block"
+            >
+              <div
+                class="ant-chart-statistic-header"
+              >
+                <div
+                  class="ant-chart-statistic-header-left"
+                >
+                  <span
+                    class="ant-chart-statistic-title"
+                  >
+                    营业天数
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="question-circle"
+                    class="anticon anticon-question-circle ant-chart-statistic-question-icon"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="question-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                      <path
+                        d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="ant-chart-statistic-value"
+              >
+                365
+                <span
+                  class="ant-chart-statistic-value-suffix"
+                >
+                  天
+                </span>
+              </div>
+            </div>
+            <div
+              class="ant-chart-statistic ant-chart-statistic-light ant-chart-statistic-block"
+            >
+              <div
+                class="ant-chart-statistic-header"
+              >
+                <div
+                  class="ant-chart-statistic-header-left"
+                >
+                  <span
+                    class="ant-chart-statistic-title"
+                  >
+                    平均日营收
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    aria-label="question-circle"
+                    class="anticon anticon-question-circle ant-chart-statistic-question-icon"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="question-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                      <path
+                        d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="ant-chart-statistic-value"
+              >
+                1,795
+                <span
+                  class="ant-chart-statistic-value-suffix"
+                >
+                  元
                 </span>
               </div>
             </div>
