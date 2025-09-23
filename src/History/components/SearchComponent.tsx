@@ -133,7 +133,15 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
           autoFocus
         />
       ) : (
-        <>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0 8px',
+          }}
+        >
           <div
             style={{
               fontWeight: 500,
@@ -159,7 +167,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
               }}
             />
           </ActionIconBox>
-        </>
+        </div>
       )}
     </div>
   );

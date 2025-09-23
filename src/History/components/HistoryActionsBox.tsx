@@ -74,7 +74,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
       }}
     >
       {isHover || props.agent?.enabled ? (
-        <Space size={0}>
+        <Space size={4}>
           {props.agent?.enabled && props.item && props?.agent?.onFavorite && (
             <ActionIconBox
               scale
@@ -102,6 +102,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
               style={{
                 width: 20,
                 height: 20,
+                padding: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -116,6 +117,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
             >
               <StarIcon
                 style={{
+                  fontSize: 14,
                   color: 'var(--color-gray-text-disabled)',
                 }}
               />
@@ -166,9 +168,15 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   e.preventDefault();
                 }}
                 title={i18nLocale?.['chat.history.delete'] || '删除'}
+                style={{
+                  padding: 0,
+                  width: 20,
+                  height: 20,
+                }}
               >
                 <DeleteOutlined
                   style={{
+                    fontSize: 14,
                     color: 'var(--color-gray-text-disabled)',
                   }}
                 />
