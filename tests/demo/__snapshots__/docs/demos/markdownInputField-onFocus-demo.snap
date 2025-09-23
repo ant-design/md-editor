@@ -28,7 +28,7 @@
         </p>
       </div>
       <div
-        class="ant-md-input-field"
+        class="ant-dropdown-trigger ant-md-input-field"
         style="border-radius: 16px;"
       >
         <div

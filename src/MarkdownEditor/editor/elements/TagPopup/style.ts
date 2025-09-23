@@ -37,6 +37,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           overflow: 'hidden',
           userSelect: 'none',
         },
+        '&-arrow': {
+          position: 'absolute',
+          right: '4px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+        },
+      },
+      '&-tag-popup-input-has-arrow.empty': {
+        paddingRight: '12px',
       },
     },
   };

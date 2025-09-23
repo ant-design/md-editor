@@ -148,7 +148,7 @@
         </div>
         <div
           class="chart-wrapper"
-          style="height: 500px;"
+          style="margin-top: 20px; height: 500px;"
         >
           <div
             data-datasets="[{"label":"销量","data":[320,452,301,334,390],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"

@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import ChartStatistic from '../ChartStatistic';
 import {
   ChartContainer,
   ChartContainerProps,
@@ -19,7 +20,11 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
-import { findDataPointByXValue, toNumber } from '../utils';
+import {
+  StatisticConfigType,
+  useChartStatistic,
+} from '../hooks/useChartStatistic';
+import { findDataPointByXValue, isXValueEqual, toNumber } from '../utils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -57,6 +62,8 @@ export interface FunnelChartProps extends ChartContainerProps {
   theme?: 'dark' | 'light';
   /** 是否显示图例 */
   showLegend?: boolean;
+  /** 统计数据组件配置 */
+  statistic?: StatisticConfigType;
   /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
   /** 图例水平对齐方式 */
@@ -90,8 +97,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   showPercent = true,
   toolbarExtra,
   typeNames,
+  statistic,
   ...props
 }) => {
+  const safeData = Array.isArray(data) ? data : [];
+
+  // 处理 ChartStatistic 组件配置
+  const statisticComponentConfigs = useChartStatistic(statistic);
+
   // 响应式尺寸
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -117,8 +130,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 类别筛选（外层）
   const categories = useMemo(() => {
-    return [...new Set(data.map((d) => d.category))];
-  }, [data]);
+    return [...new Set(safeData.map((d) => d.category))];
+  }, [safeData]);
 
   // 状态
   const [selectedFilter, setSelectedFilter] = useState<string>(
@@ -130,12 +143,12 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 二级筛选（可选）- 仅基于当前选中 category 的可用标签
   const filterLabels = useMemo(() => {
-    const labels = data
+    const labels = safeData
       .filter((d) => !selectedFilter || d.category === selectedFilter)
       .map((d) => d.filterLabel)
       .filter((v): v is string => v !== undefined);
     return labels.length > 0 ? [...new Set(labels)] : undefined;
-  }, [data, selectedFilter]);
+  }, [safeData, selectedFilter]);
 
   // 当切换 category 时，如当前二级筛选不在可选列表中，则重置为该类目第一项或清空
   useEffect(() => {
@@ -152,15 +165,26 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
   // 数据筛选
   const filteredData = useMemo(() => {
-    if (!selectedFilter) return data;
-    const categoryMatch = data.filter((d) => d.category === selectedFilter);
-    if (!filterLabels || !selectedFilterLabel) return categoryMatch;
-    return categoryMatch.filter((d) => d.filterLabel === selectedFilterLabel);
-  }, [data, selectedFilter, filterLabels, selectedFilterLabel]);
+    const base = selectedFilter
+      ? safeData.filter((d) => d.category === selectedFilter)
+      : safeData;
+    const withFilterLabel =
+      !filterLabels || !selectedFilterLabel
+        ? base
+        : base.filter((d) => d.filterLabel === selectedFilterLabel);
+    // 统一过滤掉 x 为空（null/undefined）的数据，避免后续 toString 报错
+    return withFilterLabel.filter((d) => d.x !== null && d.x !== undefined);
+  }, [safeData, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 阶段（使用 x 值作为阶段名称），按 y 从大到小排序以符合漏斗习惯
   const stages = useMemo(() => {
-    const unique = [...new Set(filteredData.map((d) => d.x))];
+    const unique = [
+      ...new Set(
+        filteredData
+          .map((d) => d.x)
+          .filter((x) => x !== null && x !== undefined),
+      ),
+    ];
     // 映射阶段 -> 数值
     const values = unique.map((x) => {
       const dp = findDataPointByXValue(filteredData, x);
@@ -265,6 +289,24 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
   }, [filteredData, stages]);
 
+  const ratioOrder = useMemo(() => {
+    const normalizeRatio = (v: any) => {
+      if (typeof v === 'string') {
+        const s = v.trim().replace('%', '');
+        const n = Number(s);
+        return Number.isFinite(n) ? n : NaN;
+      }
+      if (typeof v === 'number') return v;
+      return NaN;
+    };
+    return stages.map((_, i) => {
+      if (i === 0) return 100;
+      const prevStage = stages[i - 1];
+      const dp = (filteredData || []).find((d) => isXValueEqual(d.x, prevStage));
+      return normalizeRatio(dp?.ratio);
+    });
+  }, [filteredData, stages]);
+
   // 过滤器选项
   const filterOptions = useMemo(
     () =>
@@ -356,8 +398,13 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.2)',
         borderWidth: 1,
         cornerRadius: isMobile ? 6 : 8,
+        padding: 8,
         displayColors: false,
         callbacks: {
+          title: (items) => {
+            const it = items?.[0];
+            return it?.label ? String(it.label) : '';
+          },
           label: (ctx) => {
             const raw = ctx.raw as [number, number] | number | null | undefined;
             const width = Array.isArray(raw)
@@ -373,12 +420,18 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
               const n = typeof it === 'number' ? it : Number(it);
               return Number.isFinite(n) ? n : 0;
             });
-            const base = allValues[0] || 1;
-            const percent = ((width / base) * 100).toFixed(1) + '%';
-            if (showPercent) {
-              return `${ctx.label}: ${width} (${percent})`;
+            const idx = ctx.dataIndex ?? 0;
+            let percentStr: string | undefined;
+            const r = ratioOrder?.[idx];
+            if (Number.isFinite(r)) {
+              percentStr = `${(r as number).toFixed(1)}%`;
+            } else {
+              const base = allValues[0] || 1;
+              percentStr = `${((width / base) * 100).toFixed(1)}%`;
             }
-            return `${ctx.label}: ${width}`;
+            return showPercent === false
+              ? `${width}`
+              : `${width}（${percentStr}）`;
           },
         },
       },
@@ -426,20 +479,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         const xScale = scales?.x;
         const ds = cdata?.datasets?.[0]?.data || [];
 
-        // 归一化用户传入的比率，长度应为 n-1
-        const normalizeRatio = (v: any) => {
-          if (typeof v === 'string') {
-            const s = v.trim().replace('%', '');
-            const n = Number(s);
-            return Number.isFinite(n) ? n : NaN;
-          }
-          if (typeof v === 'number') return v;
-          return NaN;
-        };
-        // 从 filteredData 读取每层 ratio
-        const providedRatios: number[] = (filteredData || []).map((it: any) =>
-          normalizeRatio(it?.ratio),
-        );
+        const providedRatios: number[] = ratioOrder;
 
         const centerX = xScale?.getPixelForValue
           ? xScale.getPixelForValue(0)
@@ -480,8 +520,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const topY = joinTop + seam; // 向下收一点，避免覆盖上柱
           const botY = joinBot - seam; // 向上收一点，避免覆盖下柱
 
-          // 比率（优先用户传入），范围 0~100，仅用于文本展示
-          let ratioVal = providedRatios?.[i];
+          // 比率（优先用户传入，与排序对齐），范围 0~100，仅用于文本展示
+          let ratioVal = providedRatios?.[i + 1];
           if (!Number.isFinite(ratioVal)) {
             const base = topWidthPx || 1;
             ratioVal = (botWidthPx / base) * 100;
@@ -609,6 +649,15 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         })}
         theme={theme}
       />
+
+      {/* 统计数据组件 */}
+      {statisticComponentConfigs && (
+        <div style={{ marginBottom: 16 }}>
+          {statisticComponentConfigs.map((config, index) => (
+            <ChartStatistic key={index} {...config} theme={theme} />
+          ))}
+        </div>
+      )}
 
       <div className="chart-wrapper" style={{ height: finalHeight }}>
         <Bar

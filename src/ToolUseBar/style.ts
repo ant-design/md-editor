@@ -1,4 +1,3 @@
-import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
@@ -6,15 +5,6 @@ import {
 } from '../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
-  const rotate = new Keyframes(`lui-tool-use-bar-rotate`, {
-    '100%': { transform: 'rotate(360deg)' },
-  });
-  const maskMove = new Keyframes(`lui-tool-use-bar-maskMove`, {
-    '0%': { backgroundPosition: '200% 0' },
-    '40%': { backgroundPosition: '0% 0' },
-    '100%': { backgroundPosition: '-100% 0' },
-  });
-
   return {
     [token.componentCls]: {
       display: 'flex',
@@ -76,7 +66,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
       },
 
-      '&-tool-header-left': {
+      '&-tool-header-right': {
         display: 'flex',
         alignItems: 'center',
         gap: 4,
@@ -111,15 +101,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: '#767E8B',
         '&-loading': {
           position: 'relative',
-          background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          backgroundSize: '200% auto',
-          animationName: maskMove,
-          animationDuration: '2s',
-          animationTimingFunction: 'linear',
-          animationIterationCount: 'infinite',
         },
       },
 
@@ -145,28 +126,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             position: 'absolute',
             inset: '0',
             borderRadius: '50%',
-            padding: '2px',
-            left: '-2px',
-            top: '-2px',
-            right: '-2px',
-            bottom: '-2px',
             background:
-              'conic-gradient(from 0deg, #4facfe 0deg, #00f2fe 60deg, transparent 120deg, transparent 360deg)',
+              'conic-gradient(from var(--rotate, 0deg), var(--sub1-color) 0 45deg, transparent 45deg 360deg)',
             WebkitMask:
-              'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            WebkitMaskComposite: 'xor',
-            maskComposite: 'exclude',
-            animationName: rotate,
-            animationDuration: '1.2s',
-            animationTimingFunction: 'cubic-bezier(0.55, 0.06, 0.68, 0.19)',
-            animationIterationCount: 'infinite',
-          },
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            inset: '4px',
-            background: '#f9f9f9',
-            borderRadius: '50%',
+              'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
+            mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
+            transformOrigin: '50% 50%',
+            filter: 'blur(4px)',
           },
         },
       },
@@ -194,18 +160,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         overflow: 'hidden',
         textWrap: 'nowrap ',
         color: '#959DA8',
+
         marginRight: 30,
         '&-loading': {
           position: 'relative',
-          background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          backgroundSize: '200% auto',
-          animationName: maskMove,
-          animationDuration: '2s',
-          animationTimingFunction: 'linear',
-          animationIterationCount: 'infinite',
         },
       },
       '&-tool-time': {
@@ -223,7 +181,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '4px 6px',
         color: '#767E8B',
         gap: '8px',
-        fontFamily: `Rubik, sans-serif`,
         zIndex: 1,
       },
       '&-tool-container': {
