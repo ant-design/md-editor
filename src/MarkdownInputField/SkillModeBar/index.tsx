@@ -226,8 +226,8 @@ export const SkillModeBar: React.FC<SkillModeBarProps> = ({
   skillMode,
   onSkillModeOpenChange,
 }) => {
-  // 早期返回：当 enable 为 false 时，不渲染任何内容且不执行任何逻辑
-  if (skillMode?.enable === false) {
+  // 早期返回：当 skillMode 不存在或 enable 为 false 时，不渲染任何内容且不执行任何逻辑
+  if (!skillMode || skillMode.enable === false) {
     return null;
   }
 
