@@ -103,26 +103,20 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
                   : i18nLocale?.['chat.history.favorite'] || '收藏'
               }
-              style={
-                props.item!.isFavorite
+              style={{
+                width: 20,
+                height: 20,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...(props.item!.isFavorite
                   ? {
-                      width: 20,
-                      height: 20,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
                       borderRadius: 'var(--radius-control-sm)',
                       background: 'var(--color-gray-control-fill-active)',
-                      border: 'var(--color-gray-border-light)',
+                      border: '1px solid var(--color-gray-border-light)',
                     }
-                  : {
-                      width: 20,
-                      height: 20,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }
-              }
+                  : {}),
+              }}
             >
               <StarIcon
                 style={{

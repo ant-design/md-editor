@@ -60,7 +60,6 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
     try {
       setLoading(true);
       await onLoadMore();
-      setLoading(false);
     } catch (error) {
       console.error(error);
     } finally {
