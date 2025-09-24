@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { Editor, Transforms } from 'slate';
@@ -678,9 +679,16 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     return null;
   }, [props, isHover, isLoading]);
 
+  const containerRef = useRef<MarkdownEditorInstance | undefined>(undefined);
   return wrapSSR(
-    <>
-      <TopOperation />
+    <div
+      style={{
+        height: '800px',
+        overflow: 'auto',
+      }}
+    >
+      <div ref={containerRef as any} style={{ height: '1200px' }} />
+      <TopOperation chanContainerRef={containerRef} />
       {beforeTools ? (
         <div className={classNames(`${baseCls}-before-tools`, hashId)}>
           {beforeTools}
@@ -702,6 +710,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           style={{
             ...props.style,
             borderRadius: borderRadius || 16,
+            height: '500px',
           }}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
@@ -1042,6 +1051,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           </div>
         </div>
       </Suggestion>
-    </>,
+    </div>,
   );
 };

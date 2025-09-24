@@ -36,16 +36,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-arrow-icon': {
         cursor: 'pointer',
-        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
-        
-        '&:hover': {
-          transform: 'scale(1.05)',
-          opacity: 0.8,
-        },
-        
-        '&:active': {
-          transform: 'scale(0.95)',
-        },
       },
 
       '&-up-arrow-icon': {
