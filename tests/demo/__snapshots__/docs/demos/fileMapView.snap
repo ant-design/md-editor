@@ -66,51 +66,9 @@
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
           >
-            <svg
-              fill="none"
-              height="32"
-              version="1.1"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_663_048994"
-                >
-                  <rect
-                    height="24"
-                    rx="0"
-                    width="20"
-                    x="6"
-                    y="4"
-                  />
-                </clippath>
-              </defs>
-              <g>
-                <g
-                  clip-path="url(#master_svg0_663_048994)"
-                >
-                  <g>
-                    <path
-                      d="M19.7501,4L11,4C9.24983,4,8.35497,4.0034012,7.68888,4.334855C7.11556,4.62015,6.645989,5.07094,6.348807,5.62133C6.00354291,6.26077,6,7.11984,6,8.8L6,23.2C6,24.8802,6.00354298,25.7392,6.348807,26.3787C6.645989,26.9291,7.11556,27.3799,7.68888,27.6651C8.35497,27.9966,9.24983,28,11,28L21,28C22.7502,28,23.645,27.9966,24.3111,27.6651C24.8844,27.3799,25.354,26.9291,25.6512,26.3787C25.9965,25.7392,26,24.8802,26,23.2L26,9.999929999999999L19.7501,4ZM11.43938,12.91101L20.872500000000002,12.91101L20.872500000000002,14.8226L11.43938,14.8226L11.43938,12.91101ZM18.4265,17.1774L11.43938,17.1774L11.43938,19.089L18.4265,19.089L18.4265,17.1774Z"
-                      fill="#8590A2"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
-                      fill="#DCDFE4"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <div
+              style="width: 40px; height: 40px; overflow: hidden; border-radius: 6px; background-image: url("https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original"); background-size: cover; background-position: center; background-repeat: no-repeat;"
+            />
           </div>
           <div
             class="ant-md-editor-file-view-list-item-file-info"
@@ -156,51 +114,9 @@
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
           >
-            <svg
-              fill="none"
-              height="32"
-              version="1.1"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_663_048994"
-                >
-                  <rect
-                    height="24"
-                    rx="0"
-                    width="20"
-                    x="6"
-                    y="4"
-                  />
-                </clippath>
-              </defs>
-              <g>
-                <g
-                  clip-path="url(#master_svg0_663_048994)"
-                >
-                  <g>
-                    <path
-                      d="M19.7501,4L11,4C9.24983,4,8.35497,4.0034012,7.68888,4.334855C7.11556,4.62015,6.645989,5.07094,6.348807,5.62133C6.00354291,6.26077,6,7.11984,6,8.8L6,23.2C6,24.8802,6.00354298,25.7392,6.348807,26.3787C6.645989,26.9291,7.11556,27.3799,7.68888,27.6651C8.35497,27.9966,9.24983,28,11,28L21,28C22.7502,28,23.645,27.9966,24.3111,27.6651C24.8844,27.3799,25.354,26.9291,25.6512,26.3787C25.9965,25.7392,26,24.8802,26,23.2L26,9.999929999999999L19.7501,4ZM11.43938,12.91101L20.872500000000002,12.91101L20.872500000000002,14.8226L11.43938,14.8226L11.43938,12.91101ZM18.4265,17.1774L11.43938,17.1774L11.43938,19.089L18.4265,19.089L18.4265,17.1774Z"
-                      fill="#8590A2"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
-                      fill="#DCDFE4"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <div
+              style="width: 40px; height: 40px; overflow: hidden; border-radius: 6px; background-image: url("https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original"); background-size: cover; background-position: center; background-repeat: no-repeat;"
+            />
           </div>
           <div
             class="ant-md-editor-file-view-list-item-file-info"
@@ -246,51 +162,9 @@
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
           >
-            <svg
-              fill="none"
-              height="32"
-              version="1.1"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_663_048994"
-                >
-                  <rect
-                    height="24"
-                    rx="0"
-                    width="20"
-                    x="6"
-                    y="4"
-                  />
-                </clippath>
-              </defs>
-              <g>
-                <g
-                  clip-path="url(#master_svg0_663_048994)"
-                >
-                  <g>
-                    <path
-                      d="M19.7501,4L11,4C9.24983,4,8.35497,4.0034012,7.68888,4.334855C7.11556,4.62015,6.645989,5.07094,6.348807,5.62133C6.00354291,6.26077,6,7.11984,6,8.8L6,23.2C6,24.8802,6.00354298,25.7392,6.348807,26.3787C6.645989,26.9291,7.11556,27.3799,7.68888,27.6651C8.35497,27.9966,9.24983,28,11,28L21,28C22.7502,28,23.645,27.9966,24.3111,27.6651C24.8844,27.3799,25.354,26.9291,25.6512,26.3787C25.9965,25.7392,26,24.8802,26,23.2L26,9.999929999999999L19.7501,4ZM11.43938,12.91101L20.872500000000002,12.91101L20.872500000000002,14.8226L11.43938,14.8226L11.43938,12.91101ZM18.4265,17.1774L11.43938,17.1774L11.43938,19.089L18.4265,19.089L18.4265,17.1774Z"
-                      fill="#8590A2"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
-                      fill="#DCDFE4"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <div
+              style="width: 40px; height: 40px; overflow: hidden; border-radius: 6px; background-image: url("https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original"); background-size: cover; background-position: center; background-repeat: no-repeat;"
+            />
           </div>
           <div
             class="ant-md-editor-file-view-list-item-file-info"
@@ -436,51 +310,9 @@
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
           >
-            <svg
-              fill="none"
-              height="32"
-              version="1.1"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_663_048994"
-                >
-                  <rect
-                    height="24"
-                    rx="0"
-                    width="20"
-                    x="6"
-                    y="4"
-                  />
-                </clippath>
-              </defs>
-              <g>
-                <g
-                  clip-path="url(#master_svg0_663_048994)"
-                >
-                  <g>
-                    <path
-                      d="M19.7501,4L11,4C9.24983,4,8.35497,4.0034012,7.68888,4.334855C7.11556,4.62015,6.645989,5.07094,6.348807,5.62133C6.00354291,6.26077,6,7.11984,6,8.8L6,23.2C6,24.8802,6.00354298,25.7392,6.348807,26.3787C6.645989,26.9291,7.11556,27.3799,7.68888,27.6651C8.35497,27.9966,9.24983,28,11,28L21,28C22.7502,28,23.645,27.9966,24.3111,27.6651C24.8844,27.3799,25.354,26.9291,25.6512,26.3787C25.9965,25.7392,26,24.8802,26,23.2L26,9.999929999999999L19.7501,4ZM11.43938,12.91101L20.872500000000002,12.91101L20.872500000000002,14.8226L11.43938,14.8226L11.43938,12.91101ZM18.4265,17.1774L11.43938,17.1774L11.43938,19.089L18.4265,19.089L18.4265,17.1774Z"
-                      fill="#8590A2"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
-                      fill="#DCDFE4"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <div
+              style="width: 40px; height: 40px; overflow: hidden; border-radius: 6px; background-image: url("https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original"); background-size: cover; background-position: center; background-repeat: no-repeat;"
+            />
           </div>
           <div
             class="ant-md-editor-file-view-list-item-file-info"
@@ -526,51 +358,9 @@
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
           >
-            <svg
-              fill="none"
-              height="32"
-              version="1.1"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_663_048994"
-                >
-                  <rect
-                    height="24"
-                    rx="0"
-                    width="20"
-                    x="6"
-                    y="4"
-                  />
-                </clippath>
-              </defs>
-              <g>
-                <g
-                  clip-path="url(#master_svg0_663_048994)"
-                >
-                  <g>
-                    <path
-                      d="M19.7501,4L11,4C9.24983,4,8.35497,4.0034012,7.68888,4.334855C7.11556,4.62015,6.645989,5.07094,6.348807,5.62133C6.00354291,6.26077,6,7.11984,6,8.8L6,23.2C6,24.8802,6.00354298,25.7392,6.348807,26.3787C6.645989,26.9291,7.11556,27.3799,7.68888,27.6651C8.35497,27.9966,9.24983,28,11,28L21,28C22.7502,28,23.645,27.9966,24.3111,27.6651C24.8844,27.3799,25.354,26.9291,25.6512,26.3787C25.9965,25.7392,26,24.8802,26,23.2L26,9.999929999999999L19.7501,4ZM11.43938,12.91101L20.872500000000002,12.91101L20.872500000000002,14.8226L11.43938,14.8226L11.43938,12.91101ZM18.4265,17.1774L11.43938,17.1774L11.43938,19.089L18.4265,19.089L18.4265,17.1774Z"
-                      fill="#8590A2"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
-                      fill="#DCDFE4"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <div
+              style="width: 40px; height: 40px; overflow: hidden; border-radius: 6px; background-image: url("https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*IsRPRJJps0cAAAAAAAAAAAAADkN6AQ/original"); background-size: cover; background-position: center; background-repeat: no-repeat;"
+            />
           </div>
           <div
             class="ant-md-editor-file-view-list-item-file-info"
@@ -616,51 +406,9 @@
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
           >
-            <svg
-              fill="none"
-              height="32"
-              version="1.1"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_663_048994"
-                >
-                  <rect
-                    height="24"
-                    rx="0"
-                    width="20"
-                    x="6"
-                    y="4"
-                  />
-                </clippath>
-              </defs>
-              <g>
-                <g
-                  clip-path="url(#master_svg0_663_048994)"
-                >
-                  <g>
-                    <path
-                      d="M19.7501,4L11,4C9.24983,4,8.35497,4.0034012,7.68888,4.334855C7.11556,4.62015,6.645989,5.07094,6.348807,5.62133C6.00354291,6.26077,6,7.11984,6,8.8L6,23.2C6,24.8802,6.00354298,25.7392,6.348807,26.3787C6.645989,26.9291,7.11556,27.3799,7.68888,27.6651C8.35497,27.9966,9.24983,28,11,28L21,28C22.7502,28,23.645,27.9966,24.3111,27.6651C24.8844,27.3799,25.354,26.9291,25.6512,26.3787C25.9965,25.7392,26,24.8802,26,23.2L26,9.999929999999999L19.7501,4ZM11.43938,12.91101L20.872500000000002,12.91101L20.872500000000002,14.8226L11.43938,14.8226L11.43938,12.91101ZM18.4265,17.1774L11.43938,17.1774L11.43938,19.089L18.4265,19.089L18.4265,17.1774Z"
-                      fill="#8590A2"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      d="M19.75,4L26,10L22.25,10C21.37492,10,20.92748,9.9983,20.594442,9.83257C20.307779,9.68993,20.072995,9.46453,19.924403,9.18934C19.75177149,8.869620000000001,19.75,8.44008,19.75,7.6L19.75,4Z"
-                      fill="#DCDFE4"
-                      fill-opacity="1"
-                      fill-rule="evenodd"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <div
+              style="width: 40px; height: 40px; overflow: hidden; border-radius: 6px; background-image: url("https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original"); background-size: cover; background-position: center; background-repeat: no-repeat;"
+            />
           </div>
           <div
             class="ant-md-editor-file-view-list-item-file-info"

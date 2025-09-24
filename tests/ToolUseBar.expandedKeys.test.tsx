@@ -42,7 +42,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // tool1 应该是展开的
     const contentContainers = container.querySelectorAll(
-      '[class*="tool-use-bar-tool-container"]',
+      '[class*="ant-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(1);
     expect(contentContainers[0]).toHaveTextContent('Tool 1 content');
@@ -98,7 +98,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // 应该有两个展开的内容容器
     const contentContainers = container.querySelectorAll(
-      '[class*="tool-use-bar-tool-container"]',
+      '[class*="ant-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(2);
   });
@@ -113,7 +113,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // tool2 应该是默认展开的
     const contentContainers = container.querySelectorAll(
-      '[class*="tool-use-bar-tool-container"]',
+      '[class*="ant-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(1);
     expect(contentContainers[0]).toHaveTextContent('Tool 2 error');
@@ -129,7 +129,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // 初始状态应该展开 tool1
     let contentContainers = container.querySelectorAll(
-      '[class*="tool-use-bar-tool-container"]',
+      '[class*="ant-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(1);
 
@@ -141,7 +141,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // 应该收起
     contentContainers = container.querySelectorAll(
-      '[class*="tool-use-bar-tool-container"]',
+      '[class*="ant-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(0);
   });
