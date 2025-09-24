@@ -17,8 +17,6 @@ export interface FollowUpQuestionProps {
   className?: string;
   style?: React.CSSProperties;
   items?: FollowUpItem[];
-  disabled?: boolean;
-  loading?: boolean;
   onAsk?: (value: string) => void | Promise<void>;
 }
 
@@ -28,17 +26,10 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
   className,
   style,
   items,
-  disabled,
-  loading,
   onAsk,
 }) => {
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [submitting, setSubmitting] = useState(false);
-
-  const isDisabled = useMemo(
-    () => disabled || loading || submitting,
-    [disabled, loading, submitting],
-  );
 
   const derivedItems: FollowUpItem[] = useMemo(() => {
     if (Array.isArray(items) && items.length > 0) return items;
@@ -56,9 +47,9 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
         >
           {derivedItems?.slice(0, 6).map((item) => {
             const label = typeof item?.text === 'string' ? item?.text : undefined;
-            const isItemDisabled = isDisabled || item?.disabled;
+            const isDisabled = submitting || item?.disabled;
             const handleClick = async () => {
-              if (isItemDisabled) return;
+              if (isDisabled) return;
               try {
                 setSubmitting(true);
                 if (item?.onClick) {
@@ -76,7 +67,7 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
                 type="button"
                 className={`${prefixCls}-suggestion ${hashId}`}
                 onClick={handleClick}
-                disabled={isItemDisabled}
+                disabled={isDisabled}
                 aria-label={`选择建议：${label || '追问'}`}
               >
                 {item?.icon ? (
@@ -101,7 +92,7 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
           })}
         </div>
       ) : null}
-    </div>,
+    </div>
   );
 };
 
