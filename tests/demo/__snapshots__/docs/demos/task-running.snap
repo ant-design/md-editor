@@ -42,7 +42,7 @@
             <div
               class=""
               data-testid="robot"
-              style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+              style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
             >
               <img
                 alt="robot"
@@ -240,12 +240,14 @@
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
+                  <div
+                    aria-hidden="true"
+                    data-autoplay="true"
+                    data-loop="true"
+                    data-testid="lottie-animation"
+                    style="width: 56px; height: 56px; display: flex; justify-content: center; align-items: center;"
                   />
                 </div>
               </div>
@@ -431,12 +433,14 @@
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
+                  <div
+                    aria-hidden="true"
+                    data-autoplay="true"
+                    data-loop="true"
+                    data-testid="lottie-animation"
+                    style="width: 52px; height: 52px; display: flex; justify-content: center; align-items: center;"
                   />
                 </div>
               </div>
@@ -656,12 +660,14 @@
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
+                  <div
+                    aria-hidden="true"
+                    data-autoplay="true"
+                    data-loop="true"
+                    data-testid="lottie-animation"
+                    style="width: 52px; height: 52px; display: flex; justify-content: center; align-items: center;"
                   />
                 </div>
               </div>
@@ -751,12 +757,14 @@
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
+                  <div
+                    aria-hidden="true"
+                    data-autoplay="true"
+                    data-loop="true"
+                    data-testid="lottie-animation"
+                    style="width: 52px; height: 52px; display: flex; justify-content: center; align-items: center;"
                   />
                 </div>
               </div>
@@ -857,12 +865,14 @@
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
+                  <div
+                    aria-hidden="true"
+                    data-autoplay="true"
+                    data-loop="true"
+                    data-testid="lottie-animation"
+                    style="width: 52px; height: 52px; display: flex; justify-content: center; align-items: center;"
                   />
                 </div>
               </div>
@@ -960,12 +970,14 @@
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
+                  <div
+                    aria-hidden="true"
+                    data-autoplay="true"
+                    data-loop="true"
+                    data-testid="lottie-animation"
+                    style="width: 52px; height: 52px; display: flex; justify-content: center; align-items: center;"
                   />
                 </div>
               </div>
