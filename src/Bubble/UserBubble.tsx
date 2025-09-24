@@ -5,7 +5,6 @@ import cx from 'classnames';
 import React from 'react';
 import { Quote, QuoteProps } from '../Quote';
 import { BubbleConfigContext } from './BubbleConfigProvide';
-import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { BubbleExtra } from './MessagesContent/BubbleExtra';
@@ -142,6 +141,8 @@ export const UserBubble: React.FC<
       customConfig={props?.bubbleRenderConfig?.customConfig}
       pure={props.pure}
       shouldShowCopy={props.shouldShowCopy}
+      onFileConfig={props.onFileConfig}
+      renderFileMoreAction={props.renderFileMoreAction}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );
@@ -274,11 +275,6 @@ export const UserBubble: React.FC<
                 )}
                 data-testid="message-after"
               >
-                <BubbleFileView
-             
-                  bubbleListRef={props.bubbleListRef}
-                  bubble={props as any}
-                />
                 {contentAfterDom}
               </div>
             ) : null}

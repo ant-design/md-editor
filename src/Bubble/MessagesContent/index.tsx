@@ -8,6 +8,7 @@ import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
 import { LoadingIcon } from '../../icons/LoadingIcon';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
+import { FileMapView } from '../../MarkdownInputField/FileMapView';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
 import { BubbleExtra } from './BubbleExtra';
@@ -104,15 +105,60 @@ export const BubbleMessageDisplay: React.FC<
       : null;
   }, [props.bubbleRenderConfig?.beforeMessageRender, typing, props.originData]);
 
+  const filesMap = useMemo(() => {
+    if (props.originData?.fileMap && props.originData.fileMap.size > 0) {
+      return props.originData.fileMap;
+    }
+    return undefined;
+  }, [props.originData?.fileMap]);
+
+  const attachmentsDom = useMemo(() => {
+    if (!filesMap || filesMap.size === 0) return null;
+    const defaultHandlers = {
+      onPreview: (_file: any) => {},
+      onDownload: (_file: any) => {},
+      onMore: (_file: any) => {},
+      onViewAll: (_files: any[]) => {},
+    } as const;
+    const override = props.onFileConfig?.(defaultHandlers) || {};
+    const handlers = {
+      onPreview: override.onPreview || defaultHandlers.onPreview,
+      onDownload: override.onDownload || defaultHandlers.onDownload,
+      onMore: override.onMore || defaultHandlers.onMore,
+      onViewAll: override.onViewAll || defaultHandlers.onViewAll,
+    };
+    return (
+      <FileMapView
+        fileMap={filesMap}
+        onPreview={(file) => handlers.onPreview(file)}
+        onDownload={(file) => handlers.onDownload(file)}
+        onMore={(file) => handlers.onMore(file)}
+        renderMoreAction={props.renderFileMoreAction}
+        onViewAll={() => handlers.onViewAll(Array.from(filesMap.values()))}
+        data-testid="file-item"
+      />
+    );
+  }, [filesMap, props.onFileConfig, props.renderFileMoreAction]);
+
   const afterContent = useMemo(() => {
-    return props.bubbleRenderConfig?.afterMessageRender
-      ? props.bubbleRenderConfig.afterMessageRender(props, contentAfterDom)
-      : contentAfterDom;
+    const userAfter = props.bubbleRenderConfig?.afterMessageRender
+      ? props.bubbleRenderConfig.afterMessageRender(props, null)
+      : null;
+    if (!attachmentsDom && !userAfter) return null;
+    return (
+      <>
+        {attachmentsDom}
+        {userAfter}
+      </>
+    );
   }, [
     props.bubbleRenderConfig?.afterMessageRender,
-    contentAfterDom,
     typing,
     props.originData,
+    attachmentsDom,
+    props.bubbleRenderConfig?.afterMessageRender,
+    contentAfterDom,
+    typing
   ]);
 
   const memo = useMemo(() => {
