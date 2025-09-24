@@ -27,7 +27,7 @@ const FootnotePopverContent: React.FC<{
         borderRadius: 12,
         boxShadow:
           '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
-        padding: 8,
+        padding: '8px 12px',
         position: 'relative',
       }}
     >
@@ -37,7 +37,6 @@ const FootnotePopverContent: React.FC<{
           href={href}
           target="_blank"
           rel="noreferrer"
-          aria-label="在新标签页打开"
           style={{
             position: 'absolute',
             right: 8,
@@ -299,6 +298,8 @@ export default () => {
               },
             }}
             preMessage={conversation[idx - 1]}
+            onLike={() => {}}
+            onDisLike={() => {}}
           />
         ))}
       </div>

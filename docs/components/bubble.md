@@ -260,10 +260,9 @@ export default () => (
 
 <code src="../demos/bubble/avatar-render-demo.tsx"></code>
 
-### 引用演示
+### 引用
 
-引用Demo，使用 `onFootnoteDefinitionChange` 获取 引用 节点列表，使用 `render` 方法自定义渲染。
-引用需要用 `Popover` 组件包裹。
+展示如何实现引用弹框及消息底部的引用汇总功能。
 
 <code src="../demos/bubble/footnote-demo.tsx"></code>
 
