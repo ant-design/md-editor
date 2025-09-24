@@ -32,6 +32,7 @@ export { markdownToHtmlSync } from './MarkdownEditor/editor/utils/markdownToHtml
 export { default as Workspace } from './Workspace';
 // HTML to Markdown conversion utilities
 export * from './AnswerAlert';
+export * from './BackTo';
 export * from './History';
 export {
   batchHtmlToMarkdown,
