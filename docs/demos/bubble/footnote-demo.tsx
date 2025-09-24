@@ -198,11 +198,11 @@ const items: VisualListItem[] = [
 export default () => {
   const [nodeList, setNodeList] = React.useState<
     {
-      id: any;
-      placeholder: any;
-      origin_text: any;
-      url: any;
-      origin_url: any;
+      id: string;
+      placeholder: string;
+      origin_text: string;
+      url: string;
+      origin_url: string;
     }[]
   >([]);
 
