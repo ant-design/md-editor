@@ -6,6 +6,10 @@ import { CornerLeftUp } from '../icons/CornerLeftUp';
 import QuoteIcon from '../icons/QuoteIcon';
 import { useStyle } from './style';
 
+/**
+ * Quote 组件的属性接口
+ * @interface QuoteProps
+ */
 interface QuoteProps {
   /** 文件名 */
   fileName?: string;
@@ -27,6 +31,50 @@ interface QuoteProps {
   onFileClick?: (fileName: string, lineRange?: string) => void;
 }
 
+/**
+ * Quote 组件 - 引用组件
+ *
+ * 该组件用于显示代码引用或文档引用，支持显示文件名、行号范围、引用描述等信息。
+ * 提供悬停显示详细内容的功能，支持关闭按钮和点击交互。
+ *
+ * @component
+ * @description 引用组件，用于显示代码或文档引用信息
+ * @param {QuoteProps} props - 组件属性
+ * @param {string} [props.fileName] - 文件名
+ * @param {string} [props.lineRange] - 行号范围（可选）
+ * @param {string} props.quoteDesc - 引用内容描述
+ * @param {string} [props.popupDetail] - 详细内容（悬停显示）
+ * @param {boolean} [props.closable=false] - 是否显示关闭按钮
+ * @param {() => void} [props.onClose] - 关闭回调
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {(fileName: string, lineRange?: string) => void} [props.onFileClick] - 点击文件名回调
+ *
+ * @example
+ * ```tsx
+ * <Quote
+ *   fileName="example.js"
+ *   lineRange="10-15"
+ *   quoteDesc="这是一个函数定义"
+ *   popupDetail="function example() { return 'hello'; }"
+ *   closable={true}
+ *   onClose={() => console.log('关闭引用')}
+ *   onFileClick={(fileName, lineRange) => {
+ *     console.log('点击文件:', fileName, '行号:', lineRange);
+ *   }}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的引用组件
+ *
+ * @remarks
+ * - 支持文件名和行号范围显示
+ * - 提供悬停显示详细内容功能
+ * - 支持关闭按钮和点击交互
+ * - 提供自定义样式和类名
+ * - 集成图标和动画效果
+ * - 支持响应式布局
+ */
 const Quote: React.FC<QuoteProps> = ({
   fileName,
   lineRange,
