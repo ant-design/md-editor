@@ -44,32 +44,32 @@
             >
               <div
                 aria-label="追问区域"
-                class="follow-up"
+                class="ant-follow-up"
                 role="group"
               >
                 <div
                   aria-label="追问建议"
-                  class="follow-up-suggestions"
+                  class="ant-follow-up-suggestions"
                 >
                   <div
                     aria-label="选择建议：关税对消费类基金的影响"
-                    class="follow-up-suggestion"
+                    class="ant-follow-up-suggestion"
                     role="button"
                   >
                     <span
-                      class="follow-up-icon"
+                      class="ant-follow-up-icon"
                     >
                       💸
                     </span>
                     <span
                       aria-describedby="test-id"
-                      class="follow-up-label"
+                      class="ant-follow-up-label"
                     >
                       关税对消费类基金的影响
                     </span>
                     <span
                       aria-hidden="true"
-                      class="follow-up-arrow"
+                      class="ant-follow-up-arrow"
                     >
                       <svg
                         fill="none"
@@ -91,23 +91,23 @@
                   </div>
                   <div
                     aria-label="选择建议： 恒生科技指数基金相关新闻"
-                    class="follow-up-suggestion"
+                    class="ant-follow-up-suggestion"
                     role="button"
                   >
                     <span
-                      class="follow-up-icon"
+                      class="ant-follow-up-icon"
                     >
                       📝
                     </span>
                     <span
                       aria-describedby="test-id"
-                      class="follow-up-label"
+                      class="ant-follow-up-label"
                     >
                        恒生科技指数基金相关新闻
                     </span>
                     <span
                       aria-hidden="true"
-                      class="follow-up-arrow"
+                      class="ant-follow-up-arrow"
                     >
                       <svg
                         fill="none"
@@ -129,23 +129,23 @@
                   </div>
                   <div
                     aria-label="选择建议： 数据分析与可视化"
-                    class="follow-up-suggestion follow-up-suggestion-disabled"
+                    class="ant-follow-up-suggestion ant-follow-up-suggestion-disabled"
                     role="button"
                   >
                     <span
-                      class="follow-up-icon"
+                      class="ant-follow-up-icon"
                     >
                       📊
                     </span>
                     <span
                       aria-describedby="test-id"
-                      class="follow-up-label"
+                      class="ant-follow-up-label"
                     >
                        数据分析与可视化
                     </span>
                     <span
                       aria-hidden="true"
-                      class="follow-up-arrow"
+                      class="ant-follow-up-arrow"
                     >
                       <svg
                         fill="none"

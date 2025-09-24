@@ -7,6 +7,7 @@ import { LoadingIcon } from '../icons/LoadingIcon';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { BubbleConfigContext } from './BubbleConfigProvide';
+import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { BubbleExtra } from './MessagesContent/BubbleExtra';
@@ -198,7 +199,6 @@ export const AIBubble: React.FC<
       onCancelLike={props.onCancelLike}
       shouldShowCopy={props.shouldShowCopy}
       onFileConfig={props.onFileConfig}
-      renderFileMoreAction={props.renderFileMoreAction}
       shouldShowVoice={props.shouldShowVoice}
       bubbleRenderConfig={props.bubbleRenderConfig}
       contentAfterDom={
@@ -218,6 +218,7 @@ export const AIBubble: React.FC<
             data-testid="message-after"
           >
             <BubbleFileView
+              placement={placement}
               bubbleListRef={props.bubbleListRef}
               bubble={props as any}
             />

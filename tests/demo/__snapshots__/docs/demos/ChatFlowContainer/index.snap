@@ -1,0 +1,249 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="height: 600px; background-color: rgb(245, 245, 245); display: flex;"
+    >
+      <div
+        style="width: 250px; padding: 16px;"
+      >
+        <h3>
+          左侧边栏
+        </h3>
+        <p>
+          这里可以放置历史记录、设置等内容
+        </p>
+      </div>
+      <div
+        style="flex: 1 1 0%; display: flex; flex-direction: column;"
+      >
+        <div
+          class="chat-flow-container  custom-chat-container"
+        >
+          <div
+            class="chat-flow-container-header "
+          >
+            <div
+              class="chat-flow-container-header-left "
+            >
+              <button
+                aria-label="折叠左侧边栏"
+                class="chat-flow-container-header-left-collapse-btn "
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <defs>
+                    <clippath
+                      id="master_svg0_1168_99268/397_98475"
+                    >
+                      <rect
+                        height="16"
+                        rx="0"
+                        width="16"
+                        x="0"
+                        y="0"
+                      />
+                    </clippath>
+                  </defs>
+                  <g
+                    clip-path="url(#master_svg0_1168_99268/397_98475)"
+                  >
+                    <g>
+                      <path
+                        d="M1.3333333730697632,12.666633373069763L1.3333333730697632,3.333333373069763Q1.3333333730697632,2.504903373069763,1.919120373069763,1.9191193730697633Q2.504903373069763,1.3333333730697632,3.333333373069763,1.3333333730697632L12.666633373069763,1.3333333730697632Q13.495133373069763,1.3333333730697632,14.080833373069764,1.9191193730697633Q14.666633373069763,2.504903373069763,14.666633373069763,3.333333373069763L14.666633373069763,12.666633373069763Q14.666633373069763,13.495133373069763,14.080833373069764,14.080833373069764Q13.495133373069763,14.666633373069763,12.666633373069763,14.666633373069763L3.333333373069763,14.666633373069763Q2.504903373069763,14.666633373069763,1.919120373069763,14.080833373069764Q1.3333333730697632,13.495133373069763,1.3333333730697632,12.666633373069763ZM6.666663373069763,13.333333373069763L12.666633373069763,13.333333373069763Q13.333333373069763,13.333333373069763,13.333333373069763,12.666633373069763L13.333333373069763,3.333333373069763Q13.333333373069763,2.6666633730697633,12.666633373069763,2.6666633730697633L6.666663373069763,2.6666633730697633L6.666663373069763,13.333333373069763ZM5.333333373069763,2.6666633730697633L5.333333373069763,13.333333373069763L3.333333373069763,13.333333373069763Q2.6666633730697633,13.333333373069763,2.6666633730697633,12.666633373069763L2.6666633730697633,3.333333373069763Q2.6666633730697633,2.6666633730697633,3.333333373069763,2.6666633730697633L5.333333373069763,2.6666633730697633Z"
+                        fill="currentColor"
+                        fill-opacity="1"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <h1
+                class="chat-flow-container-header-left-title "
+              >
+                AI 助手
+              </h1>
+            </div>
+            <div
+              class="chat-flow-container-header-right "
+            >
+              <button
+                aria-label="分享对话"
+                class="chat-flow-container-header-right-share-btn "
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <defs>
+                    <clippath
+                      id="master_svg0_1168_99269/440_02432"
+                    >
+                      <rect
+                        height="16"
+                        rx="0"
+                        width="16"
+                        x="0"
+                        y="0"
+                      />
+                    </clippath>
+                  </defs>
+                  <g
+                    clip-path="url(#master_svg0_1168_99269/440_02432)"
+                  >
+                    <g>
+                      <path
+                        d="M3.333984375,4.66680609375L7.333984375,4.66680609375C7.702174375,4.66680609375,8.000674375,4.368376093749999,8.000674375,4.00018609375C8.000674375,3.63199609375,7.702174375,3.33349609375,7.333984375,3.33349609375L3.333984375,3.33349609375Q2.505554375,3.33349609375,1.919799375,3.91931609375Q1.3340133429,4.50509609375,1.333984375,5.33349609375L1.333984375,12.66679609375Q1.333984375,13.49529609375,1.9197713749999998,14.08099609375Q2.505554375,14.66679609375,3.333984375,14.66679609375L10.667294375,14.66679609375Q11.495684375,14.66679609375,12.081584375,14.08109609375Q12.667284375,13.49529609375,12.667284375,12.66679609375L12.667284375,8.66680609375C12.667284375,8.298616093749999,12.368884375,8.00018609375,12.000684375,8.00018609375C11.632484375,8.00018609375,11.333984375,8.298616093749999,11.333984375,8.66680609375L11.333984375,12.66679609375Q11.333984375,12.94299609375,11.138734375,13.13819609375Q10.943474375,13.33349609375,10.667294375,13.33349609375L3.333984375,13.33349609375Q3.057844375,13.33349609375,2.862584375,13.13819609375Q2.667314375,12.94299609375,2.667314375,12.66679609375L2.667294375,5.33349609375Q2.667294375,5.05735609375,2.8626143749999997,4.86212609375Q3.057874375,4.66685609375,3.333984375,4.66680609375ZM14.667284375,6.00016609375L14.667284375,2.00016309375C14.667284375,1.63197309375,14.368884375,1.33349609375,14.000684375,1.33349609375L10.000654375,1.33349609375C9.632464375,1.33349609375,9.333984375,1.63197309375,9.333984375,2.00016309375C9.333984375,2.36835609375,9.632464375,2.66682609375,10.000654375,2.66682609375L12.391184375,2.66682609375L7.529244375,7.52875609375C7.404224375,7.65378609375,7.333984375,7.82335609375,7.333984375,8.00016609375C7.333984375,8.36835609375,7.632464375,8.66682609375,8.000654375,8.66682609375C8.177464375,8.66682609375,8.347034375,8.59658609375,8.472054374999999,8.471566093749999L13.333984375,3.60963609375L13.333984375,6.00016609375C13.333984375,6.36835609375,13.632484375,6.66682609375,14.000684375,6.66682609375C14.368884375,6.66682609375,14.667284375,6.36835609375,14.667284375,6.00016609375Z"
+                        fill="currentColor"
+                        fill-opacity="1"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </g>
+                </svg>
+                 分享
+              </button>
+            </div>
+          </div>
+          <div
+            class="chat-flow-container-content "
+          >
+            <div
+              class="chat-flow-container-content-scrollable "
+            >
+              <div
+                assistantmeta="[object Object]"
+                bubblelist="[object Object],[object Object]"
+                data-testid="bubble-list"
+                usermeta="[object Object]"
+              >
+                bubble-list
+              </div>
+            </div>
+          </div>
+          <div
+            class="chat-flow-container-footer "
+          >
+            <div
+              style="display: flex; align-items: center; justify-content: center;"
+            >
+              <div
+                class="ant-task-running ant-task-running-default"
+              >
+                <div
+                  class="ant-task-running-border"
+                />
+                <div
+                  class="ant-task-running-background"
+                />
+                <div
+                  class="ant-task-running-left"
+                >
+                  <div
+                    class="ant-task-running-left-icon-wrapper"
+                  >
+                    <div
+                      class=""
+                      data-testid="robot"
+                      style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                    >
+                      <div
+                        aria-hidden="true"
+                        data-autoplay="true"
+                        data-loop="true"
+                        data-testid="lottie-animation"
+                        style="width: 52px; height: 52px; display: flex; justify-content: center; align-items: center;"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="ant-task-running-left-content"
+                  >
+                    <div
+                      class="ant-task-running-left-main-text"
+                    >
+                      任务已完成, 耗时03分00秒
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-task-running-button-wrapper"
+                >
+                  <button
+                    class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                    type="button"
+                  >
+                    <span>
+                      重试
+                    </span>
+                  </button>
+                  <button
+                    class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                    type="button"
+                  >
+                    <span>
+                      提交
+                    </span>
+                  </button>
+                  <button
+                    class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                    type="button"
+                  >
+                    <span
+                      class="ant-btn-icon"
+                    >
+                      <span
+                        aria-label="plus"
+                        class="anticon anticon-plus"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="plus"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                          />
+                          <path
+                            d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span>
+                      新任务
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
