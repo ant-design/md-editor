@@ -6,6 +6,44 @@ import {
   useEditorStyleRegister,
 } from '../hooks/useStyle';
 
+// MarkdownInputField 样式常量
+// Glow border effect constants - 辉光边框效果常量
+const GLOW_BORDER_OFFSET = 2; // px - 辉光边框偏移量
+export const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 4px - 总偏移量（上下左右）
+
+// CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
+const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
+export const getGlowBorderTotalSize = () =>
+  `calc(100% + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
+
+// 为内容层减去辉光边框偏移，确保总体尺寸不变 - Subtract glow border offset for content layer
+export const subtractGlowBorderOffset = (size: string | number) => {
+  if (typeof size === 'number') {
+    return `${size - GLOW_BORDER_TOTAL_OFFSET}px`;
+  }
+  if (size.includes('calc(')) {
+    // 如果已经是 calc 表达式，在其基础上减偏移
+    return `calc(${size} - ${GLOW_BORDER_TOTAL_OFFSET}px)`;
+  }
+  if (
+    size.includes('px') ||
+    size.includes('%') ||
+    size.includes('rem') ||
+    size.includes('em')
+  ) {
+    // 对于其他 CSS 单位，包装成 calc 表达式
+    return `calc(${size} - ${GLOW_BORDER_TOTAL_OFFSET}px)`;
+  }
+  // 对于不确定的值，返回原值（如 'auto', 'inherit' 等）
+  return size;
+};
+
+// Input field padding constants - 输入字段内边距常量
+const INPUT_FIELD_PADDING = {
+  NONE: '0px',
+  SMALL: '2px',
+} as const;
+
 // 定义旋转动画
 const stopIconRotate = new Keyframes('stopIconRotate', {
   '0%': {
@@ -26,7 +64,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '0px',
+      padding: INPUT_FIELD_PADDING.NONE,
       borderRadius: '16px',
       minHeight: '48px',
       maxWidth: 980,
@@ -49,8 +87,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
         opacity: 0,
         position: 'absolute',
-        top: '-2px',
-        left: '-2px',
+        top: getGlowBorderOffset(),
+        left: getGlowBorderOffset(),
         width: '100%',
         height: '100%',
         zIndex: 2,
