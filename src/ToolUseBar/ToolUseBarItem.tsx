@@ -92,17 +92,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       : undefined,
   });
 
-  const handleClick = () => {
-    onClick?.(tool.id);
-    if (onActiveChange) {
-      onActiveChange(tool.id, !isActive);
-    }
-    // 如果有内容需要展示，则切换展开状态
-    if (tool.content || (tool.status === 'error' && tool.errorMessage)) {
-      setExpanded(!expanded);
-    }
-  };
-
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
       <div className={`${prefixCls}-tool-content-error ${hashId}`}>
@@ -127,6 +116,17 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   const showContent = useMemo(() => {
     return !!errorDom || !!contentDom;
   }, [errorDom, contentDom]);
+
+  const handleClick = () => {
+    onClick?.(tool.id);
+    if (onActiveChange) {
+      onActiveChange(tool.id, !isActive);
+    }
+    // 如果有内容需要展示，则切换展开状态
+    if (showContent) {
+      setExpanded(!expanded);
+    }
+  };
 
   if (tool.type === 'summary') {
     return (
