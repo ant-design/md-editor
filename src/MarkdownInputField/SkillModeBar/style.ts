@@ -50,25 +50,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       justifyContent: 'center',
       transition: 'all 0.3s ease',
+      color: 'var(--color-gray-text-light)',
 
       '&:hover': {
         backgroundColor: 'var(--color-gray-control-fill-active)',
-        color: 'var(--color-gray-text-default)',
+        color: 'var(--color-gray-text-light)',
+        borderRadius: 'var(--radius-control-sm)',
       },
 
       '&:active': {
         backgroundColor: 'var(--color-gray-control-fill-pressed)',
         outline: 'none',
         border: 'none',
-      },
-
-      '&:focus': {
-        outline: `2px solid ${token.colorPrimary}`,
-        outlineOffset: '2px',
-      },
-
-      '&:focus:not(:focus-visible)': {
-        outline: 'none',
       },
     },
   };

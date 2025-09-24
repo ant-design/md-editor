@@ -352,6 +352,7 @@ export type MarkdownInputFieldProps = {
    */
   onSkillModeOpenChange?: (open: boolean) => void;
 };
+
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
  * 对于数组中的每种颜色，该函数会创建一个新的序列，其中颜色按照循环顺序排列，
@@ -802,8 +803,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             })}
             style={{
               minHeight: props.style?.minHeight || 0,
-              height: props.style?.height || '100%',
-              width: props.style?.width || '100%',
+              height: props.style?.height || 'calc(100% + 4px)',
+              width: props.style?.width || 'calc(100% + 4px)',
             }}
           >
             <svg
@@ -854,6 +855,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               </g>
             </svg>
           </div>
+
           <div
             style={{
               flex: 1,
