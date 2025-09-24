@@ -110,6 +110,49 @@ const COMPONENT_MAP = new Map<WorkspaceChildComponent, ComponentType>([
   [CustomComponent, ComponentType.CUSTOM],
 ]);
 
+/**
+ * Workspace 组件 - 工作空间组件
+ *
+ * 该组件提供一个多标签页的工作空间界面，支持实时跟随、浏览器、任务、文件等多种功能模块。
+ * 每个标签页可以独立配置，支持自定义图标、标题、计数等功能。
+ *
+ * @component
+ * @description 工作空间组件，提供多标签页功能模块管理
+ * @param {WorkspaceProps} props - 组件属性
+ * @param {string} [props.activeTabKey] - 当前激活的标签页key
+ * @param {(key: string) => void} [props.onTabChange] - 标签页切换回调
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {string} [props.title] - 工作空间标题
+ * @param {() => void} [props.onClose] - 关闭回调
+ * @param {React.ReactNode} [props.children] - 子组件，支持Workspace.Realtime、Workspace.Browser等
+ *
+ * @example
+ * ```tsx
+ * <Workspace
+ *   title="我的工作空间"
+ *   activeTabKey="realtime"
+ *   onTabChange={(key) => console.log('切换到:', key)}
+ *   onClose={() => console.log('关闭工作空间')}
+ * >
+ *   <Workspace.Realtime data={realtimeData} />
+ *   <Workspace.Browser data={browserData} />
+ *   <Workspace.Task data={taskData} />
+ *   <Workspace.File {...fileProps} />
+ * </Workspace>
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的工作空间组件
+ *
+ * @remarks
+ * - 支持多种功能模块标签页
+ * - 自动根据子组件生成标签页
+ * - 支持标签页的展开/折叠状态管理
+ * - 提供响应式布局适配
+ * - 支持自定义标签页配置
+ * - 集成国际化支持
+ * - 提供关闭功能
+ */
 const Workspace: FC<WorkspaceProps> & {
   Realtime: typeof RealtimeComponent;
   Browser: typeof BrowserComponent;

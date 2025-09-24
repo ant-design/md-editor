@@ -80,9 +80,7 @@ export const AIBubble: React.FC<
   const {
     onAvatarClick,
     className,
-    avatar,
     style,
-    time,
     bubbleRenderConfig,
     classNames,
     styles,
@@ -117,7 +115,10 @@ export const AIBubble: React.FC<
 
   const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
 
-  const prefixClass = getPrefixCls('agent-list');
+  const prefixClass = getPrefixCls('agent');
+
+  const time = props?.originData?.createAt || props.time;
+  const avatar = props?.originData?.meta || props.avatar;
 
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
@@ -200,6 +201,29 @@ export const AIBubble: React.FC<
       renderFileMoreAction={props.renderFileMoreAction}
       shouldShowVoice={props.shouldShowVoice}
       bubbleRenderConfig={props.bubbleRenderConfig}
+      contentAfterDom={
+        (props?.originData?.fileMap?.size || 0) > 0 ? (
+          <div
+            style={{
+              minWidth: standalone ? 'min(296px,100%)' : '0px',
+              paddingLeft: 12,
+              ...styles?.bubbleListItemExtraStyle,
+            }}
+            className={cx(
+              `${prefixClass}-bubble-after`,
+              `${prefixClass}-bubble-after-${placement}`,
+              `${prefixClass}-bubble-after-ai`, // AI消息 after 特定样式
+              hashId,
+            )}
+            data-testid="message-after"
+          >
+            <BubbleFileView
+              bubbleListRef={props.bubbleListRef}
+              bubble={props as any}
+            />
+          </div>
+        ) : null
+      }
     />
   );
 
@@ -267,7 +291,7 @@ export const AIBubble: React.FC<
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 8,
+            gap: 2,
             alignItems: 'flex-start', // AI消息左对齐
             ...style,
           }}
@@ -341,23 +365,7 @@ export const AIBubble: React.FC<
             >
               {childrenDom}
             </div>
-            {contentAfterDom ? (
-              <div
-                style={{
-                  minWidth: standalone ? 'min(296px,100%)' : '0px',
-                  ...styles?.bubbleListItemExtraStyle,
-                }}
-                className={cx(
-                  `${prefixClass}-bubble-after`,
-                  `${prefixClass}-bubble-after-${placement}`,
-                  `${prefixClass}-bubble-after-ai`, // AI消息 after 特定样式
-                  hashId,
-                )}
-                data-testid="message-after"
-              >
-                {contentAfterDom}
-              </div>
-            ) : null}
+            {contentAfterDom}
           </div>
         </div>
       </Flex>

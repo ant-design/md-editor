@@ -27,6 +27,7 @@ export type FileMapViewProps = {
   className?: string;
   /** 最多展示的文件数量，默认展示 3 个 */
   maxDisplayCount?: number;
+  placement?: 'left' | 'right';
 };
 
 /**
@@ -69,6 +70,7 @@ export type FileMapViewProps = {
  * - 支持自定义样式和交互
  */
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
+  const { placement = 'left' } = props;
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context?.getPrefixCls('md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
@@ -118,8 +120,8 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         whileInView="visible"
         initial="hidden"
         animate={'visible'}
-        className={classNames(prefix, hashId, props.className)}
         style={props.style}
+        className={classNames(prefix, hashId, props.className, `${prefix}-${placement}`)}
       >
         <Image.PreviewGroup>
           {limitedFiles.map((file, index) => {
@@ -190,7 +192,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         whileInView="visible"
         initial="hidden"
         animate={'visible'}
-        className={classNames(prefix, hashId, props.className)}
+        className={classNames(prefix, hashId, props.className,`${prefix}-${placement}`)}
         style={props.style}
       >
         {limitedFiles.map((file, index) => {

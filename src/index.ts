@@ -7,6 +7,7 @@ export type {
   BubbleProps,
   MessageBubbleData,
 } from './Bubble/type';
+export * from './components/ChatFlowContainer';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './components/VisualList';
@@ -32,6 +33,7 @@ export { markdownToHtmlSync } from './MarkdownEditor/editor/utils/markdownToHtml
 export { default as Workspace } from './Workspace';
 // HTML to Markdown conversion utilities
 export * from './AnswerAlert';
+export * from './BackTo';
 export * from './History';
 export {
   batchHtmlToMarkdown,

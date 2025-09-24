@@ -18,6 +18,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: 8,
       position: 'relative',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      '&-left': {
+        flexDirection: 'row',
+      },
+      '&-right': {
+        flexDirection: 'row-reverse',
+      },
       '&::-webkit-scrollbar': {
         width: 6,
       },
@@ -146,6 +152,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: '40px',
           opacity: 1,
           overflow: 'hidden',
+          '> svg': {
+            width: '40px',
+            height: '40px',
+          },
         },
         '&-file-info': {
           display: 'flex',

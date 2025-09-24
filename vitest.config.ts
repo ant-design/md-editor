@@ -6,6 +6,9 @@ export default defineConfig({
     //jsxInject: "import React from 'react'",
   },
   resolve: {},
+  server: {
+    host: '127.0.0.1'
+  },
   test: {
     environment: 'jsdom',
     globals: true,

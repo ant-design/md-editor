@@ -60,13 +60,14 @@ export const BubbleFileView: React.FC<BubbleBeforeNodeProps> = (props) => {
   };
   return (
     <FileMapView
-      fileMap={_.originData?.fileMap}
       onPreview={(file) => handlers.onPreview(file)}
       onDownload={(file) => handlers.onDownload(file)}
       onMore={(file) => handlers.onMore(file)}
       onViewAll={() =>
         handlers.onViewAll(Array.from(_.originData?.fileMap?.values() || []))
       }
+      placement={props.bubble.placement}
+      fileMap={_.originData?.fileMap}
       data-testid="file-item"
     />
   );

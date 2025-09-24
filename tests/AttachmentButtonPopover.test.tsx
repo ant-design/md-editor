@@ -90,14 +90,14 @@ describe('AttachmentButtonPopover', () => {
         type: 'Custom',
         maxSize: 1024,
         extensions: ['custom'],
-        content: <div>Custom content for this format</div>,
+        content: <div>每个文件不超过1024kb，支持custom格式</div>,
       };
 
       render(
         <AttachmentSupportedFormatsContent supportedFormat={customFormat} />,
       );
 
-      expect(screen.getByText(/每个文件不超过/)).toBeInTheDocument();
+      expect(screen.getByText(/每个文件不超过1024kb/)).toBeInTheDocument();
       expect(screen.getByText(/custom/)).toBeInTheDocument();
     });
 

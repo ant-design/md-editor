@@ -66,6 +66,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: 4,
+        '&-icon': {
+          font: 'var(--font-text-body-emphasized-base)',
+          color: 'var(--color-gray-text-default)',
+          width: 20,
+          height: 20,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 'var(--radius-control-sm)',
+          '&:hover': {
+            backgroundColor: 'var(--color-gray-control-fill-hover)',
+          },
+        },
       },
 
       '&-expand': {
@@ -165,6 +178,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         '&-light': {
           borderLeft: '1px solid var(--color-gray-border-light)',
+          paddingLeft: 12,
+          marginLeft: 16,
+          marginTop: -10,
         },
       },
       '&-container-loading': {
@@ -208,12 +224,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       '&-content': {
-        flex: 1,
-        fontSize: '13px',
-        fontWeight: 'normal',
-        lineHeight: '22px',
-        letterSpacing: 'normal',
-        color: 'var(--color-gray-text-light)',
+        font: 'var(--font-text-paragraph-sm)',
+        letterSpacing: 'var(--letter-spacing-paragraph-sm, normal)',
+        color: 'var(--color-gray-text-secondary)',
+        '&-light': {
+          color: 'var(--color-gray-text-light)',
+        },
       },
       '&-floating-expand': {
         position: 'absolute',

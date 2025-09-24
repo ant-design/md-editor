@@ -305,7 +305,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       boxSizing: 'border-box',
       caretColor: 'var(--color-primary-control-fill-primary)',
       color: 'inherit',
-      font: 'var(--font-text-h5-base)',
+      font: 'var(--font-text-paragraph-lg)',
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',

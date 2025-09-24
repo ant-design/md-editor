@@ -109,7 +109,7 @@
           >
             <div
               class="ant-md-editor markdown-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-h5-base); letter-spacing: var(--letter-spacing-h5-base, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
             >
               <div
                 style="padding: 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
