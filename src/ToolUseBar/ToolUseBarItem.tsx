@@ -93,19 +93,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       : undefined,
   });
 
-  const handleClick = () => {
-    onClick?.(tool.id);
-    if (onActiveChange) {
-      onActiveChange(tool.id, !isActive);
-    }
-  };
-
-  const handleExpandClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // 通过 setExpanded 切换状态，useMergedState 会自动处理受控和非受控模式
-    setExpanded(!expanded);
-  };
-
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
       <div className={classNames(`${prefixCls}-tool-content-error`, hashId)}>
@@ -134,6 +121,26 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   const showContent = useMemo(() => {
     return !!errorDom || !!contentDom;
   }, [errorDom, contentDom]);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    onClick?.(tool.id);
+    if (onActiveChange) {
+      onActiveChange(tool.id, !isActive);
+    }
+
+    // 如果没有内容需要展示，则早返回
+    if (!showContent) return;
+
+    // 避免在交互性子元素上误触发折叠
+    if (e.target instanceof Element) {
+      const tag = e.target.tagName.toLowerCase();
+      if (['a', 'button', 'input', 'textarea', 'select', 'label'].includes(tag))
+        return;
+    }
+
+    // 使用函数式更新避免闭包陈旧值问题
+    setExpanded((prev) => !prev);
+  };
 
   if (tool.type === 'summary') {
     return (
@@ -276,7 +283,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         {showContent && (
           <div
             className={classNames(`${prefixCls}-tool-expand`, hashId)}
-            onClick={handleExpandClick}
+          
           >
             <ChevronUpIcon
               style={{
