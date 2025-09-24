@@ -142,6 +142,11 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     setExpanded((prev) => !prev);
   };
 
+  const handleExpandClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation(); // 阻止事件冒泡到父元素
+    setExpanded((prev) => !prev);
+  };
+
   if (tool.type === 'summary') {
     return (
       <div
@@ -165,6 +170,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         tool.status === 'error' && `${prefixCls}-tool-error`,
         tool.status === 'idle' && `${prefixCls}-tool-idle`,
         isActive && `${prefixCls}-tool-active`,
+        expanded && `${prefixCls}-tool-expanded`,
       )}
     >
       <div
@@ -283,7 +289,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         {showContent && (
           <div
             className={classNames(`${prefixCls}-tool-expand`, hashId)}
-          
+            onClick={handleExpandClick}
           >
             <ChevronUpIcon
               style={{
