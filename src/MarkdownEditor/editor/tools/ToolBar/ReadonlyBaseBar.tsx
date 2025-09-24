@@ -1,4 +1,4 @@
-﻿import {
+import {
   CommentOutlined,
   CopyFilled,
   HighlightFilled,

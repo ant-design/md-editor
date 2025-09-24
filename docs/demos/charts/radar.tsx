@@ -1,12 +1,12 @@
 import RadarChart, {
   RadarChartDataItem,
 } from '@ant-design/md-editor/plugins/chart/RadarChart';
-import React, { useState } from 'react';
+import React from 'react';
 
 // 实际使用示例：动态数据雷达图
 const DynamicRadarChartExample: React.FC = () => {
   // 雷达图扁平化数据（固定数据）
-  const initialData: RadarChartDataItem[] = [
+  const data: RadarChartDataItem[] = [
     {
       category: '年龄',
       label: '技术',
@@ -346,13 +346,6 @@ const DynamicRadarChartExample: React.FC = () => {
     },
   ];
 
-  const [data, setData] = useState<RadarChartDataItem[]>(initialData);
-
-  // 重置数据到初始状态
-  const handleDataReset = () => {
-    setData([...initialData]);
-  };
-
   return (
     <div style={{ padding: '20px', backgroundColor: '#f5f5f5' }}>
       <h2 style={{ marginBottom: '20px', color: '#333' }}>
@@ -367,21 +360,6 @@ const DynamicRadarChartExample: React.FC = () => {
           flexWrap: 'wrap',
         }}
       >
-        <button
-          type="button"
-          onClick={handleDataReset}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#388BFF',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
-          重置数据
-        </button>
-
         <div
           style={{
             padding: '8px 12px',

@@ -11,9 +11,11 @@ import { Doughnut } from 'react-chartjs-2';
 import {
   ChartContainer,
   ChartFilter,
+  ChartStatistic,
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { useChartStatistic } from '../hooks/useChartStatistic';
 import LegendView from './Legend';
 import {
   DEFAULT_COLORS,
@@ -54,6 +56,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   enableAutoCategory = true,
   singleMode = false,
   toolbarExtra,
+  statistic: statisticConfig,
   ...props
 }) => {
   const { isMobile, windowWidth } = useMobile();
@@ -137,6 +140,9 @@ const DonutChart: React.FC<DonutChartProps> = ({
       );
     }
   }
+
+  // 使用ChartStatistic hook处理配置
+  const statisticComponentConfigs = useChartStatistic(statisticConfig);
 
   const handleDownload = () => {
     if (onDownload) {
@@ -250,6 +256,17 @@ const DonutChart: React.FC<DonutChartProps> = ({
               extra={toolbarExtra}
               dataTime={dataTime}
             />
+          )}
+          {statisticComponentConfigs && (
+            <div className="chart-statistic-container">
+              {statisticComponentConfigs.map((config, index) => (
+                <ChartStatistic
+                  key={index}
+                  {...config}
+                  theme={chartFilterTheme}
+                />
+              ))}
+            </div>
           )}
           {shouldShowFilter && (
             <ChartFilter
@@ -440,6 +457,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
                     ['--donut-chart-width' as any]: `${dimensions.width}px`,
                     width: dimensions.width,
                     height: dimensions.height,
+                    marginTop: '20px',
                     ...(isMobile ? { margin: '0 auto' } : {}),
                   }}
                 >
@@ -487,6 +505,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
                       ['--donut-chart-height' as any]: `${dimensions.chartHeight}px`,
                       width: dimensions.chartWidth,
                       height: dimensions.chartHeight,
+                      marginTop: '20px',
                     }}
                   >
                     <Doughnut

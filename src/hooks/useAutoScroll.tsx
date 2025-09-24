@@ -21,7 +21,7 @@ const SCROLL_TOLERANCE = 20; // 滚动到底部的容差阈值
  * ```tsx
  * const { containerRef, scrollToBottom } = useAutoScroll({
  *   SCROLL_TOLERANCE: 30,
- *   onResize: (size) => console.log('容器尺寸:', size),
+ *   onResize: () => {},
  *   timeout: 200
  * });
  *

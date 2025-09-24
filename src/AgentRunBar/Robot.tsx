@@ -1,5 +1,8 @@
 import classNames from 'classnames';
+import { isString } from 'lodash';
 import React from 'react';
+import DazingLottie from './icons/DazingLottie';
+import ThinkingLottie from './icons/ThinkingLottie';
 
 export type RobotStatus = 'default' | 'thinking' | 'dazing';
 
@@ -51,7 +54,13 @@ export interface RobotProps {
  * - 支持字符串类型的图片URL或React元素
  * - 组件使用 React.memo 进行性能优化
  */
-const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
+const Robot: React.FC<RobotProps> = ({
+  icon,
+  size = 42,
+  status,
+  className,
+  style,
+}) => {
   return (
     <div
       className={classNames(className)}
@@ -80,18 +89,23 @@ const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
     >
       {React.isValidElement(icon) ? (
         icon
-      ) : (
+      ) : icon && isString(icon) ? (
         <img
           style={{
             width: '100%',
             height: '100%',
           }}
-          src={
-            (icon as string) ||
-            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp'
-          }
+          src={icon as string}
           alt="robot"
         />
+      ) : (
+        <>
+          {status === 'thinking' ? (
+            <ThinkingLottie size={56} />
+          ) : (
+            <DazingLottie size={52} />
+          )}
+        </>
       )}
     </div>
   );

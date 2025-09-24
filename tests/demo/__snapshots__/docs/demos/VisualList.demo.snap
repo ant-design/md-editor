@@ -15,18 +15,18 @@
         class="visual-list-container visual-list-default"
       >
         <ul
-          class="visual-list "
+          class="visual-list"
         >
           <li
             class="visual-list-item"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user1"
             >
               <img
                 alt="User 1"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/1?v=4"
                 title="GitHub User 1"
               />
@@ -36,12 +36,12 @@
             class="visual-list-item"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user2"
             >
               <img
                 alt="User 2"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/2?v=4"
                 title="GitHub User 2"
               />
@@ -52,7 +52,7 @@
           >
             <img
               alt="User 3"
-              class="visual-list-image "
+              class="visual-list-image"
               src="https://avatars.githubusercontent.com/u/3?v=4"
               title="GitHub User 3"
             />
@@ -61,12 +61,12 @@
             class="visual-list-item"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user4"
             >
               <img
                 alt="User 4"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/4?v=4"
                 title="GitHub User 4"
               />
@@ -84,18 +84,18 @@
         class="visual-list-container visual-list-default"
       >
         <ul
-          class="visual-list "
+          class="visual-list"
         >
           <li
             class="visual-list-item visual-list-item-circle"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user1"
             >
               <img
                 alt="User 1"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/1?v=4"
                 title="GitHub User 1"
               />
@@ -105,12 +105,12 @@
             class="visual-list-item visual-list-item-circle"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user2"
             >
               <img
                 alt="User 2"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/2?v=4"
                 title="GitHub User 2"
               />
@@ -121,7 +121,7 @@
           >
             <img
               alt="User 3"
-              class="visual-list-image "
+              class="visual-list-image"
               src="https://avatars.githubusercontent.com/u/3?v=4"
               title="GitHub User 3"
             />
@@ -130,12 +130,12 @@
             class="visual-list-item visual-list-item-circle"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user4"
             >
               <img
                 alt="User 4"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/4?v=4"
                 title="GitHub User 4"
               />
@@ -153,18 +153,18 @@
         class="visual-list-container visual-list-default"
       >
         <ul
-          class="visual-list "
+          class="visual-list"
         >
           <li
             class="visual-list-item"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user1"
             >
               <img
                 alt="User 1"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/1?v=4"
                 title="GitHub User 1"
               />
@@ -174,12 +174,12 @@
             class="visual-list-item"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user2"
             >
               <img
                 alt="User 2"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/2?v=4"
                 title="GitHub User 2"
               />
@@ -189,12 +189,12 @@
             class="visual-list-item"
           >
             <a
-              class="visual-list-link "
+              class="visual-list-link"
               href="https://github.com/user4"
             >
               <img
                 alt="User 4"
-                class="visual-list-image "
+                class="visual-list-image"
                 src="https://avatars.githubusercontent.com/u/4?v=4"
                 title="GitHub User 4"
               />
@@ -212,7 +212,7 @@
         class="visual-list-container visual-list-default"
       >
         <ul
-          class="visual-list "
+          class="visual-list"
         >
           <li
             style="margin: 4px; padding: 8px; border: 2px solid rgb(0, 122, 204); border-radius: 12px; background-color: rgb(240, 248, 255);"
@@ -279,7 +279,7 @@
         空状态
       </h2>
       <ul
-        class="visual-list visual-list-empty  "
+        class="visual-list visual-list-empty"
       >
         <div
           style="color: rgb(153, 153, 153); font-style: italic;"
@@ -291,7 +291,7 @@
         加载状态
       </h2>
       <ul
-        class="visual-list visual-list-loading  "
+        class="visual-list visual-list-loading"
       >
         <div
           style="color: rgb(0, 122, 204);"

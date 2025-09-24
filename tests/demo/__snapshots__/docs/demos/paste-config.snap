@@ -60,7 +60,7 @@
           示例 1: 只允许纯文本
         </h2>
         <div
-          class="ant-md-input-field"
+          class="ant-dropdown-trigger ant-md-input-field"
           style="border-radius: 16px;"
         >
           <div
@@ -141,7 +141,7 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
                   style="padding: 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
@@ -236,7 +236,7 @@
           示例 2: 允许 HTML 和 Markdown
         </h2>
         <div
-          class="ant-md-input-field"
+          class="ant-dropdown-trigger ant-md-input-field"
           style="border-radius: 16px;"
         >
           <div
@@ -317,7 +317,7 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
                   style="padding: 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
@@ -412,7 +412,7 @@
           示例 3: 禁用粘贴功能
         </h2>
         <div
-          class="ant-md-input-field"
+          class="ant-dropdown-trigger ant-md-input-field"
           style="border-radius: 16px;"
         >
           <div
@@ -493,7 +493,7 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
                   style="padding: 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
@@ -588,7 +588,7 @@
           示例 4: 允许所有类型
         </h2>
         <div
-          class="ant-md-input-field"
+          class="ant-dropdown-trigger ant-md-input-field"
           style="border-radius: 16px;"
         >
           <div
@@ -669,7 +669,7 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
                   style="padding: 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"

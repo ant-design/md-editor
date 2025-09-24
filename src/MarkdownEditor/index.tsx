@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { standardPlugins } from '../plugins/defaultPlugins';
 import { BaseMarkdownEditor, MarkdownEditorProps } from './BaseMarkdownEditor';
 import './index.css';

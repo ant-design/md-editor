@@ -1,8 +1,15 @@
 import { runFunction } from '@ant-design/pro-components';
-import { ConfigProvider, MenuProps } from 'antd';
+import { ConfigProvider, Dropdown, MenuProps } from 'antd';
 import classNames from 'classnames';
-import React, { ReactNode, useContext, useEffect, useRef } from 'react';
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { ReactEditor, useSlate } from 'slate-react';
+import { DownOutlined } from '../../../../icons/DownOutlined';
 import { SuggestionConnext } from '../../../../MarkdownInputField/Suggestion';
 import { useStyle } from './style';
 
@@ -118,6 +125,8 @@ export type TagPopupProps = {
    * @returns
    */
   onChange?: (value: string, props: RenderProps) => void;
+
+  type?: 'panel' | 'dropdown';
 };
 
 /**
@@ -143,8 +152,11 @@ export type TagPopupProps = {
  * @returns 一个带有下拉菜单的标签弹出组件
  */
 export const TagPopup = (props: RenderProps) => {
-  const { onSelect, children } = props || {};
+  const { onSelect, items, children, type } = props || {};
   const editor = useSlate();
+  const [open, setOpen] = useState(false);
+
+  const [loading, setLoading] = React.useState(false);
 
   const domRef = useRef<HTMLDivElement>(null);
 
@@ -188,6 +200,27 @@ export const TagPopup = (props: RenderProps) => {
     }
   }, [props.text]);
 
+  const [selectedItems, setSelectedItems] = useState(() => {
+    if (typeof items === 'function') {
+      return [];
+    }
+    return items || [];
+  });
+
+  useEffect(() => {
+    const loadingData = async () => {
+      if (typeof items === 'function') {
+        setLoading(true);
+        const result = await items(props);
+        if (Array.isArray(result)) {
+          setSelectedItems(result || []);
+        }
+        setLoading(false);
+      }
+    };
+    loadingData();
+  }, [open, items]);
+
   useEffect(() => {
     // 默认选中一下
     props.onChange?.(props.text || '', {
@@ -200,8 +233,12 @@ export const TagPopup = (props: RenderProps) => {
   }, [props.text, suggestionConnext.open]);
 
   useEffect(() => {
-    if (props.autoOpen && suggestionConnext?.setOpen) {
-      suggestionConnext.setOpen(true);
+    if (props.autoOpen) {
+      if (type === 'dropdown') {
+        setOpen(true);
+      } else if (suggestionConnext?.setOpen) {
+        suggestionConnext.setOpen(true);
+      }
     }
   }, []);
 
@@ -212,6 +249,8 @@ export const TagPopup = (props: RenderProps) => {
       ref={domRef}
       className={classNames(`${baseCls}-tag-popup-input`, hashId, {
         empty: !props.text?.trim(),
+        [`${baseCls}-tag-popup-input-loading`]: loading,
+        [`${baseCls}-tag-popup-input-has-arrow`]: selectedItems?.length > 0,
       })}
       onMouseEnter={() => {
         const target = domRef.current;
@@ -223,9 +262,17 @@ export const TagPopup = (props: RenderProps) => {
         if (!target) return;
         target?.classList.remove(`${baseCls}-tag-popup-input-focus`);
       }}
+      contentEditable={!(selectedItems?.length > 0)}
       title={placeholder}
     >
       {children}
+      {selectedItems?.length > 0 && !props.text?.trim() ? (
+        <DownOutlined
+          className={classNames(`${baseCls}-tag-popup-input-arrow `, hashId, {
+            empty: !props.text?.trim(),
+          })}
+        />
+      ) : null}
     </div>
   );
 
@@ -250,6 +297,7 @@ export const TagPopup = (props: RenderProps) => {
         props.className,
         props.prefixCls,
         props.tagTextClassName,
+        `${baseCls}-type-${type}`,
       )}
       style={{
         ...runFunction(props.tagTextStyle, {
@@ -271,6 +319,9 @@ export const TagPopup = (props: RenderProps) => {
             return;
           }
         }
+        if (type === 'dropdown') {
+          return;
+        }
 
         if (suggestionConnext?.triggerNodeContext) {
           suggestionConnext.triggerNodeContext.current = {
@@ -288,7 +339,24 @@ export const TagPopup = (props: RenderProps) => {
         suggestionConnext?.setOpen?.(true);
       }}
     >
-      {renderDom}
+      {type === 'dropdown' ? (
+        <Dropdown
+          trigger={['click']}
+          open={open}
+          onOpenChange={setOpen}
+          menu={{
+            items: selectedItems as MenuProps['items'],
+            onClick: (e) => {
+              onSelect?.(e.key, currentNodePath.current || []);
+              suggestionConnext?.setOpen?.(false);
+            },
+          }}
+        >
+          {renderDom}
+        </Dropdown>
+      ) : (
+        renderDom
+      )}
     </div>,
   );
 };

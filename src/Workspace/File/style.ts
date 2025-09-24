@@ -25,14 +25,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-
-              [`.ant-btn, .ant-btn .anticon`]: {
-                color: '#767E8B',
-              },
-              [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]:
-                {
-                  color: '#767E8B',
-                },
             },
           },
 
@@ -68,27 +60,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           // 文件数量
           [`&-count`]: {
             fontSize: 'var(--font-size-sm)',
-            color: '#6c757d',
-            background: 'rgba(20, 22, 28, 0.06)',
-            padding: '2px 6px',
+            color: 'var(--color-gray-text-secondary)',
+            background: 'var(--color-gray-control-fill-active)',
+            padding: '4px 6px',
             borderRadius: '200px',
             minWidth: '20px',
-            textAlign: 'center',
+            height: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           },
-
+          [`&-action-btn`]: {
+            color: 'rgba(80, 92, 113, 0.42)',
+          },
           // 分组内容区域
           [`&-content`]: {
             paddingLeft: '12px',
-          },
-
-          // 分组动作按钮（下载等）图标颜色保持一致
-          [`&-action-btn`]: {
-            [`.anticon`]: {
-              color: '#767E8B',
-            },
-            ['&:hover .anticon, &:focus .anticon, &:active .anticon']: {
-              color: '#767E8B',
-            },
           },
         },
       },
@@ -101,7 +88,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: '4px',
       marginBottom: '4px',
       padding: '4px',
-      borderRadius: '4px',
+      borderRadius: 'var(--radius-control-base)',
       cursor: 'pointer',
       transition: 'all 0.2s ease',
 
@@ -110,9 +97,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&:hover': {
-        background: 'rgba(20, 22, 28, 0.03)',
+        background: 'var(--color-gray-bg-card-light)',
         boxSizing: 'border-box',
-        border: '0px solid rgba(20, 22, 28, 0.07)',
+        boxShadow: 'var(--shadow-border-base)',
 
         // 鼠标悬浮时显示操作区
         [`${token.componentCls}-item-actions`]: {
@@ -167,8 +154,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 文件类型、大小、时间
       [`&-type, &-size, &-time`]: {
-        fontSize: '12px',
-        color: '#959da8',
+        font: 'var(--font-text-body-sm)',
+        color: 'var(--color-gray-text-light)',
       },
 
       // 分割符
@@ -357,6 +344,37 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           margin: '8px 0',
           fontSize: '13px',
         },
+      },
+      // 不可预览占位容器
+      [`&-unsupported`]: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 12,
+        height: '100%',
+        minHeight: '500px',
+      },
+      [`&-unsupported-item`]: {
+        borderRadius: ' var(--radius-card-base)',
+        background: 'var(--color-gray-bg-card-white)',
+        border: 'var(--color-gray-border-light)',
+        boxShadow: 'var(--shadow-control-base)',
+        padding: '8px',
+        minWidth: 294,
+        height: 56,
+        marginBottom: 0,
+        cursor: 'unset',
+        '&:hover': {
+          background: 'var(--color-gray-bg-card-white)',
+          border: 'var(--color-gray-border-light)',
+          boxShadow: 'var(--shadow-control-base)',
+        },
+      },
+      // 不可预览说明文案
+      [`&-unsupported-text`]: {
+        font: 'var(--font-text-body-sm)',
+        color: 'var(--color-text-secondary)',
       },
     },
   };

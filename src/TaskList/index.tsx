@@ -1,3 +1,5 @@
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { memo, useCallback, useContext, useMemo } from 'react';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
@@ -102,7 +104,7 @@ function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
       <path
         d="M.586 10.955l3.125 3.126q.586.585 1.414.586h4.416q.828 0 1.414-.586l3.126-3.125q.585-.586.586-1.415V5.125q0-.828-.586-1.414L10.956.586Q10.37 0 9.54 0H5.125q-.828 0-1.414.586L.586 3.71Q0 4.297 0 5.125v4.416q0 .828.586 1.414zm4.54 2.378q-.277 0-.472-.195L1.53 10.013q-.196-.196-.196-.472V5.125q0-.276.196-.47l3.125-3.126q.196-.196.471-.196h4.416q.276 0 .471.196l3.126 3.125q.195.196.195.471v4.416q0 .276-.195.471l-3.125 3.126q-.196.195-.472.195H5.125zm4.874-8c0 .177-.07.347-.195.472L8.276 7.333l1.528 1.529a.667.667 0 11-.942.942L7.333 8.276 5.805 9.805a.667.667 0 01-.943-.943L6.39 7.333 4.86 5.805a.667.667 0 11.944-.943l1.528 1.529 1.529-1.529A.667.667 0 0110 5.333z"
         fillRule="evenodd"
-        fill="#F15B50"
+        fill="var(--color-red-control-fill-primary)"
       />
     </svg>
   );
@@ -154,39 +156,55 @@ const TaskListItem = memo(
     }, [item.content]);
 
     return (
-      <div key={item.key} className={`${prefixCls}-thoughtChainItem ${hashId}`}>
+      <div
+        key={item.key}
+        className={classNames(`${prefixCls}-thoughtChainItem`, hashId)}
+        data-testid="task-list-thoughtChainItem"
+      >
         <div
-          className={`${prefixCls}-left ${hashId}`}
+          className={classNames(`${prefixCls}-left`, hashId)}
           onClick={() => onToggle(item.key)}
+          data-testid="task-list-left"
         >
           <div
-            className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
+            className={classNames(
+              `${prefixCls}-status`,
+              `${prefixCls}-status-${item.status}`,
+              hashId,
+            )}
+            data-testid={`task-list-status-${item.status}`}
           >
             {item.status === 'success' ? <SuccessIcon /> : null}
             {item.status === 'loading' ? <LoadingLottie size={16} /> : null}
             {item.status === 'pending' ? (
-              <div className={`${prefixCls}-status-idle ${hashId}`}>
+              <div className={classNames(`${prefixCls}-status-idle`, hashId)}>
                 <DashPendingIcon />
               </div>
             ) : null}
             {item.status === 'error' ? <ErrorIcon /> : null}
           </div>
-          <div className={`${prefixCls}-content-left ${hashId}`}>
+          <div className={classNames(`${prefixCls}-content-left`, hashId)}>
             {!isLast && (
-              <div className={`${prefixCls}-dash-line ${hashId}`}></div>
+              <div
+                className={classNames(`${prefixCls}-dash-line`, hashId)}
+                data-testid="task-list-dash-line"
+              ></div>
             )}
           </div>
         </div>
-        <div className={`${prefixCls}-right ${hashId}`}>
+        <div className={classNames(`${prefixCls}-right`, hashId)}>
           <div
-            className={`${prefixCls}-top ${hashId}`}
+            className={classNames(`${prefixCls}-top`, hashId)}
             onClick={() => onToggle(item.key)}
           >
-            <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
+            <div className={classNames(`${prefixCls}-title`, hashId)}>
+              {item.title}
+            </div>
             {hasContent && (
               <div
-                className={`${prefixCls}-arrowContainer ${hashId}`}
+                className={classNames(`${prefixCls}-arrowContainer`, hashId)}
                 onClick={() => onToggle(item.key)}
+                data-testid="task-list-arrowContainer"
               >
                 <ActionIconBox
                   title={
@@ -200,14 +218,17 @@ const TaskListItem = memo(
                   loading={false}
                   onClick={() => onToggle(item.key)}
                 >
-                  <ChevronUpIcon className={`${prefixCls}-arrow ${hashId}`} />
+                  <ChevronUpIcon
+                    className={classNames(`${prefixCls}-arrow`, hashId)}
+                    data-testid="task-list-arrow"
+                  />
                 </ActionIconBox>
               </div>
             )}
           </div>
           {!isCollapsed && (
-            <div className={`${prefixCls}-body ${hashId}`}>
-              <div className={`${prefixCls}-content ${hashId}`}>
+            <div className={classNames(`${prefixCls}-body`, hashId)}>
+              <div className={classNames(`${prefixCls}-content`, hashId)}>
                 {item.content}
               </div>
             </div>
@@ -294,7 +315,8 @@ export const TaskList = memo(
     expandedKeys,
     onExpandedKeysChange,
   }: ThoughtChainProps) => {
-    const prefixCls = 'task-list';
+    const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+    const prefixCls = getPrefixCls('task-list');
     const { wrapSSR, hashId } = useStyle(prefixCls);
 
     // 如果是受控模式，使用传入的 expandedKeys

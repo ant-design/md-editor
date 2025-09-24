@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import katex from 'katex';
 import React, { useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
@@ -61,7 +62,9 @@ export const Katex = (props: { el?: CodeNode }) => {
     >
       <div
         ref={divRef}
-        className={`${!state().code.trim() ? 'hidden' : ''} katex-container`}
+        className={classNames('katex-container', {
+          hidden: !state().code.trim(),
+        })}
       />
       {!state().code.trim() && (
         <div style={{ textAlign: 'center', color: '#6B7280' }}>Formula</div>

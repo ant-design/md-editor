@@ -7,15 +7,16 @@ import { COLORS } from '../../constants/colors';
 
 // 函数标签样式 (fnc)
 export const FNC_TAG_STYLES = {
-  background: COLORS.blue.light,
-  border: `0.4px solid ${COLORS.blue.border}`,
+  background: 'var(--color-gray-border-light)',
+  color: 'var(--color-gray-text-light)',
   fontSize: '12px',
-  fontWeight: 600,
-  height: '14px',
-  minWidth: '14px',
+  fontWeight: 500,
+  letterSpacing: '0.04em',
+  height: '20px',
+  minWidth: '20px',
   margin: '0 2px',
   lineHeight: '14px',
-  top: '-0.5em',
+  top: '0',
   position: 'relative' as const,
   textAlign: 'center' as const,
   justifyContent: 'center' as const,
@@ -28,9 +29,8 @@ export const FNC_TAG_STYLES = {
   padding: 2,
   borderRadius: 12,
   '&:hover': {
-    background: COLORS.blue.dark,
-    border: `0.4px solid ${COLORS.blue.border}`,
-    color: COLORS.blue.contrast,
+    background: 'var(--color-gray-control-fill-secondary-active)',
+    color: 'var(--color-gray-text-secondary)',
   },
 };
 
