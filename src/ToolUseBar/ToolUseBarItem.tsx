@@ -97,12 +97,10 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     if (onActiveChange) {
       onActiveChange(tool.id, !isActive);
     }
-  };
-
-  const handleExpandClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // 通过 setExpanded 切换状态，useMergedState 会自动处理受控和非受控模式
-    setExpanded(!expanded);
+    // 如果有内容需要展示，则切换展开状态
+    if (tool.content || (tool.status === 'error' && tool.errorMessage)) {
+      setExpanded(!expanded);
+    }
   };
 
   const errorDom = useMemo(() => {
@@ -203,10 +201,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
         )}
         {showContent && (
-          <div
-            className={`${prefixCls}-tool-expand ${hashId}`}
-            onClick={handleExpandClick}
-          >
+          <div className={`${prefixCls}-tool-expand ${hashId}`}>
             <ChevronUpIcon
               style={{
                 transition: 'transform 0.3s ease-in-out',
