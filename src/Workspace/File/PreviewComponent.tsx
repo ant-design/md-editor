@@ -1,9 +1,4 @@
 import {
-  ArrowLeftOutlined,
-  DownloadOutlined,
-  ExportOutlined,
-} from '@ant-design/icons';
-import {
   Alert,
   Button,
   ConfigProvider,
@@ -22,6 +17,9 @@ import {
   type MarkdownEditorProps,
 } from '../../MarkdownEditor';
 import { HtmlPreview } from '../HtmlPreview';
+import DownloadIcon from '../icons/DownloadIcon';
+import LeftIcon from '../icons/LeftIcon';
+import ShareIcon from '../icons/ShareIcon';
 import { FileNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import {
@@ -447,7 +445,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             {onDownload && (
               <Button
                 type="primary"
-                icon={<DownloadOutlined />}
+                icon={<DownloadIcon />}
                 onClick={handleDownload}
                 aria-label={locale?.['workspace.file.download'] || '下载'}
               >
@@ -649,7 +647,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
                 locale?.['workspace.file.backToFileList'] || '返回文件列表'
               }
             >
-              <ArrowLeftOutlined
+              <LeftIcon
                 className={classNames(`${prefixCls}-back-icon`, hashId)}
               />
             </button>
@@ -717,7 +715,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
                   size="small"
                   type="text"
                   className={classNames(`${prefixCls}-item-action-btn`, hashId)}
-                  icon={<ExportOutlined />}
+                  icon={<ShareIcon />}
                   aria-label={locale?.['workspace.file.share'] || '分享'}
                   onClick={handleShare}
                 />
@@ -729,7 +727,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
                   size="small"
                   type="text"
                   className={classNames(`${prefixCls}-item-action-btn`, hashId)}
-                  icon={<DownloadOutlined />}
+                  icon={<DownloadIcon />}
                   onClick={handleDownload}
                   aria-label={locale?.['workspace.file.download'] || '下载'}
                 />

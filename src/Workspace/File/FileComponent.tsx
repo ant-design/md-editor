@@ -1,11 +1,4 @@
-import {
-  DownloadOutlined,
-  DownOutlined,
-  ExportOutlined,
-  EyeOutlined,
-  RightOutlined,
-  SearchOutlined,
-} from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import {
   Button,
   ConfigProvider,
@@ -21,6 +14,11 @@ import classNames from 'classnames';
 import React, { type FC, useContext, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
+import DownIcon from '../icons/DownIcon';
+import DownloadIcon from '../icons/DownloadIcon';
+import EyeIcon from '../icons/EyeIcon';
+import RightIcon from '../icons/RightIcon';
+import ShareIcon from '../icons/ShareIcon';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import { fileTypeProcessor, isImageFile } from './FileTypeProcessor';
@@ -277,7 +275,7 @@ const FileItemComponent: FC<{
                     `${finalPrefixCls}-item-action-btn`,
                     hashId,
                   )}
-                  icon={<EyeOutlined />}
+                  icon={<EyeIcon />}
                   onClick={handlePreview}
                   aria-label={locale?.['workspace.file.preview'] || '预览'}
                 />
@@ -292,7 +290,7 @@ const FileItemComponent: FC<{
                     `${finalPrefixCls}-item-action-btn`,
                     hashId,
                   )}
-                  icon={<ExportOutlined />}
+                  icon={<ShareIcon />}
                   onClick={handleShare}
                   aria-label={locale?.['workspace.file.share'] || '分享'}
                 />
@@ -307,7 +305,7 @@ const FileItemComponent: FC<{
                     `${finalPrefixCls}-item-action-btn`,
                     hashId,
                   )}
-                  icon={<DownloadOutlined />}
+                  icon={<DownloadIcon />}
                   onClick={handleDownload}
                   aria-label={locale?.['workspace.file.download'] || '下载'}
                 />
@@ -346,7 +344,7 @@ const GroupHeader: FC<{
     onGroupDownload?.(group.children, groupType);
   };
 
-  const CollapseIcon = group.collapsed ? RightOutlined : DownOutlined;
+  const CollapseIcon = group.collapsed ? RightIcon : DownIcon;
 
   // 获取分组的代表性文件名，用于决定图标
   const getRepresentativeFileName = (): string | undefined => {
@@ -403,17 +401,19 @@ const GroupHeader: FC<{
             >
               {group.children.length}
             </span>
-            <Button
-              size="small"
-              type="text"
-              className={classNames(
-                `${finalPrefixCls}-group-action-btn`,
-                hashId,
-              )}
-              icon={<DownloadOutlined />}
-              onClick={handleDownload}
-              aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
-            />
+            <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+              <Button
+                size="small"
+                type="text"
+                className={classNames(
+                  `${finalPrefixCls}-group-action-btn`,
+                  hashId,
+                )}
+                icon={<DownloadIcon />}
+                onClick={handleDownload}
+                aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
+              />
+            </Tooltip>
           </div>
         </>
       }

@@ -25,14 +25,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-
-              [`.ant-btn, .ant-btn .anticon`]: {
-                color: '#767E8B',
-              },
-              [`.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn:hover .anticon, .ant-btn:focus .anticon, .ant-btn:active .anticon`]:
-                {
-                  color: '#767E8B',
-                },
             },
           },
 
@@ -78,20 +70,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             alignItems: 'center',
             justifyContent: 'center',
           },
-
+          [`&-action-btn`]: {
+            color: 'rgba(80, 92, 113, 0.42)',
+          },
           // 分组内容区域
           [`&-content`]: {
             paddingLeft: '12px',
-          },
-
-          // 分组动作按钮（下载等）图标颜色保持一致
-          [`&-action-btn`]: {
-            [`.anticon`]: {
-              color: '#767E8B',
-            },
-            ['&:hover .anticon, &:focus .anticon, &:active .anticon']: {
-              color: '#767E8B',
-            },
           },
         },
       },
