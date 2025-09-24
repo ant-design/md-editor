@@ -802,8 +802,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             })}
             style={{
               minHeight: props.style?.minHeight || 0,
-              height: props.style?.height || '100%',
-              width: props.style?.width || '100%',
+              height: props.style?.height || 'calc(100% + 4px)',
+              width: props.style?.width || 'calc(100% + 4px)',
             }}
           >
             <svg
@@ -854,6 +854,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               </g>
             </svg>
           </div>
+
           <div
             style={{
               flex: 1,
