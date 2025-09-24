@@ -56,6 +56,7 @@ export const AttachmentFileListItem: React.FC<{
   hashId?: string;
 }> = (props) => {
   const file = props.file;
+
   return (
     <motion.div
       variants={{
