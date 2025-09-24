@@ -22,39 +22,39 @@ import { isNotEmpty, toNumber } from './utils';
 const getChartMap = (i18n: any) => ({
   pie: {
     title: i18n?.locale?.pieChart || '饼图',
-    changeData: ['donut', 'table'],
+    changeData: ['donut'],
   },
   donut: {
     title: i18n?.locale?.donutChart || '环形图',
-    changeData: ['pie', 'table'],
+    changeData: ['pie'],
   },
   bar: {
     title: i18n?.locale?.barChart || '条形图',
-    changeData: ['column', 'line', 'area', 'table'],
+    changeData: ['column', 'line', 'area'],
   },
   line: {
     title: i18n?.locale?.lineChart || '折线图',
-    changeData: ['column', 'bar', 'area', 'table'],
+    changeData: ['column', 'bar', 'area'],
   },
   column: {
     title: i18n?.locale?.columnChart || '柱状图',
-    changeData: ['bar', 'line', 'area', 'table'],
+    changeData: ['bar', 'line', 'area'],
   },
   area: {
     title: i18n?.locale?.areaChart || '面积图',
-    changeData: ['column', 'bar', 'line', 'table'],
+    changeData: ['column', 'bar', 'line'],
   },
   radar: {
     title: i18n?.locale?.radarChart || '雷达图',
-    changeData: ['table'],
+    changeData: [],
   },
   scatter: {
     title: i18n?.locale?.scatterChart || '散点图',
-    changeData: ['table'],
+    changeData: [],
   },
   funnel: {
     title: i18n?.locale?.funnelChart || '漏斗图',
-    changeData: ['table'],
+    changeData: [],
   },
   table: {
     title: i18n?.locale?.table || '表格',
@@ -62,7 +62,7 @@ const getChartMap = (i18n: any) => ({
   },
   descriptions: {
     title: i18n?.locale?.descriptions || '定义列表',
-    changeData: ['column', 'line', 'area', 'table', 'pie', 'donut'],
+    changeData: ['column', 'line', 'area', 'pie', 'donut'],
   },
 });
 
@@ -449,10 +449,12 @@ export const ChartRender: React.FC<{
           title={i18n?.locale?.configChart || '配置图表'}
           onClick={() => setRenderKey((k) => k + 1)}
         >
-          <SettingOutlined />
+          <SettingOutlined style={{ color: 'rgba(0, 25, 61, 0.3255)' }} />
         </ActionIconBox>
       </Popover>,
     ].filter((item) => !!item) as JSX.Element[];
+
+  const toolBar = getChartPopover();
 
   const chartDom = useMemo(() => {
     if (typeof window === 'undefined') return null;
@@ -495,6 +497,7 @@ export const ChartRender: React.FC<{
           title={title}
           showToolbar={true}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -508,6 +511,7 @@ export const ChartRender: React.FC<{
           title={title}
           showToolbar={true}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -523,6 +527,7 @@ export const ChartRender: React.FC<{
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -537,6 +542,7 @@ export const ChartRender: React.FC<{
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -552,6 +558,7 @@ export const ChartRender: React.FC<{
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -566,6 +573,7 @@ export const ChartRender: React.FC<{
           showLegend={config?.rest?.showLegend ?? true}
           showGrid={config?.rest?.showGrid ?? true}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -590,6 +598,7 @@ export const ChartRender: React.FC<{
           height={config?.height || 400}
           title={title || ''}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -614,6 +623,7 @@ export const ChartRender: React.FC<{
           height={config?.height || 400}
           title={title || ''}
           dataTime={dataTime}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -640,6 +650,7 @@ export const ChartRender: React.FC<{
           title={title || ''}
           dataTime={dataTime}
           typeNames={{ rate: '转化率', name: colorLegend || '转化' }}
+          toolbarExtra={toolBar}
         />
       );
     }
@@ -693,8 +704,6 @@ export const ChartRender: React.FC<{
     JSON.stringify(config),
   ]);
 
-  const toolBar = getChartPopover();
-
   if (!chartDom) return null;
 
   return (
@@ -704,10 +713,7 @@ export const ChartRender: React.FC<{
         (handle.node.current || document?.body) as HTMLElement
       }
     >
-      <div ref={handle.node}>
-        {chartDom ?? null}
-        {toolBar}
-      </div>
+      <div ref={handle.node}>{chartDom ?? null}</div>
     </ConfigProvider>
   );
 };
