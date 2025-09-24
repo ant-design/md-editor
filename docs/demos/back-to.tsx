@@ -66,14 +66,12 @@ export default () => {
         assistantMeta={assistantMeta}
         userMeta={userMeta}
       />
-      <>
-        <BackTo.Top
-          tooltip="回到顶部"
-          shouldVisible={() => true}
-          style={{ insetInlineEnd: 64 }}
-        />
-        <BackTo.Bottom tooltip="回到底部" shouldVisible={() => true} />
-      </>
+      <BackTo.Top
+        tooltip="回到顶部"
+        shouldVisible={() => true}
+        style={{ insetInlineEnd: 64 }}
+      />
+      <BackTo.Bottom tooltip="回到底部" shouldVisible={() => true} />
     </div>
   );
 };

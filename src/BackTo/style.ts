@@ -23,6 +23,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       boxShadow: 'var(--shadow-popover-base)',
       borderRadius: '50%',
       cursor: 'pointer',
+      transition: 'all 0.2s',
 
       ['&-content']: {
         display: 'flex',
@@ -31,6 +32,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         textAlign: 'center',
         overflow: 'hidden',
+      },
+
+      ['&:hover']: {
+        color: 'var(--color-gray-text-disabled)',
+        background: 'var(--color-gray-control-fill-disabled)',
+        border: 'var(--color-gray-control-fill-disabled)',
       },
     },
   };
