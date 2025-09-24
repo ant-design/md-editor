@@ -163,6 +163,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       <div
         className={classNames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
+        onClick={handleClick}
       >
         <div
           className={classNames(`${prefixCls}-tool-header`, hashId)}
@@ -214,7 +215,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             )}
           </motion.div>
         </div>
-
         <motion.div
           className={classNames(`${prefixCls}-tool-header-right`, hashId)}
           animate={

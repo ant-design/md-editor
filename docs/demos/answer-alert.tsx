@@ -5,7 +5,7 @@ import React from 'react';
 const mockMessage: MessageBubbleData = {
   id: '1',
   role: 'assistant',
-  content: `# 欢迎使用 Ant Design MD Editor！
+  content: `
 
 我是 Ant Design 聊天助手，可以帮你：
 
@@ -39,6 +39,7 @@ const AnsweringIndicatorDemo = () => {
       }}
     >
       <Bubble
+        pure
         avatar={mockMessage.meta}
         placement="left"
         originData={mockMessage}

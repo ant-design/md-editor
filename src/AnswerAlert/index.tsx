@@ -9,6 +9,10 @@ import { SuccessIcon } from './components/SuccessIcon';
 import { WarningIcon } from './components/WarningIcon';
 import { useStyle } from './style';
 
+/**
+ * AnswerAlert 组件的属性接口
+ * @interface AnswerAlertProps
+ */
 export interface AnswerAlertProps {
   className?: string;
   style?: React.CSSProperties;
@@ -67,6 +71,49 @@ const IconNode: React.FC<IconNodeProps> = (props) => {
   });
 };
 
+/**
+ * AnswerAlert 组件 - 答案提示组件
+ *
+ * 该组件用于显示各种类型的提示信息，支持成功、错误、警告、信息等多种状态。
+ * 提供图标显示、关闭功能、自定义操作等特性，适用于消息提示、状态反馈等场景。
+ *
+ * @component
+ * @description 答案提示组件，用于显示各种类型的提示信息
+ * @param {AnswerAlertProps} props - 组件属性
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {React.ReactNode} [props.message] - 提示内容
+ * @param {React.ReactNode} [props.description] - 辅助性文字介绍
+ * @param {React.ReactNode} [props.icon] - 自定义图标
+ * @param {boolean} [props.showIcon] - 是否显示辅助图标
+ * @param {'success' | 'error' | 'warning' | 'info' | 'gray'} [props.type] - 提示类型
+ * @param {React.ReactNode} [props.action] - 自定义操作项
+ * @param {boolean} [props.closable] - 是否可关闭
+ * @param {(e: React.MouseEvent<HTMLButtonElement>) => void} [props.onClose] - 关闭回调
+ *
+ * @example
+ * ```tsx
+ * <AnswerAlert
+ *   type="success"
+ *   message="操作成功"
+ *   description="您的操作已经成功完成"
+ *   showIcon={true}
+ *   closable={true}
+ *   onClose={() => console.log('关闭提示')}
+ * />
+ * ```
+ *
+ * @returns {React.ReactElement} 渲染的答案提示组件
+ *
+ * @remarks
+ * - 支持多种提示类型（成功、错误、警告、信息、灰色）
+ * - 提供图标显示功能
+ * - 支持自定义操作项
+ * - 支持关闭功能
+ * - 提供描述文字显示
+ * - 支持自定义样式和类名
+ * - 响应式布局适配
+ */
 export function AnswerAlert({
   className,
   style,

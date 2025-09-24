@@ -1,4 +1,3 @@
-import { DownOutlined } from '@ant-design/icons';
 import { runFunction } from '@ant-design/pro-components';
 import { ConfigProvider, Dropdown, MenuProps } from 'antd';
 import classNames from 'classnames';
@@ -10,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 import { ReactEditor, useSlate } from 'slate-react';
+import { DownOutlined } from '../../../../icons/DownOutlined';
 import { SuggestionConnext } from '../../../../MarkdownInputField/Suggestion';
 import { useStyle } from './style';
 

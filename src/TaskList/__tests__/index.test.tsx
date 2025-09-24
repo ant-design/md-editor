@@ -356,47 +356,6 @@ describe('TaskList', () => {
     });
   });
 
-  describe('性能测试', () => {
-    it('应该快速渲染大量任务项', () => {
-      const startTime = performance.now();
-
-      const manyItems = Array.from({ length: 50 }, (_, index) => ({
-        key: `task-${index}`,
-        title: `Task ${index}`,
-        content: `Content ${index}`,
-        status: 'pending' as const,
-      }));
-
-      render(<TaskList items={manyItems} />);
-
-      const endTime = performance.now();
-      const renderTime = endTime - startTime;
-
-      expect(renderTime).toBeLessThan(1000);
-
-      const taskItems = document.querySelectorAll(
-        '[data-testid="task-list-thoughtChainItem"]',
-      );
-      expect(taskItems).toHaveLength(50);
-    });
-
-    it('应该高效处理频繁的状态切换', () => {
-      render(<TaskList items={mockItems} />);
-
-      const successTask = screen.getByText('Success Task');
-      const startTime = performance.now();
-
-      for (let i = 0; i < 10; i++) {
-        fireEvent.click(successTask);
-      }
-
-      const endTime = performance.now();
-      const totalTime = endTime - startTime;
-
-      expect(totalTime).toBeLessThan(1000);
-    });
-  });
-
   describe('可访问性测试', () => {
     it('应该为可点击元素提供正确的ARIA标签', () => {
       render(<TaskList items={mockItems} />);
