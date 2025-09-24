@@ -31,6 +31,7 @@ export * from './MarkdownEditor/editor/utils/docx/index';
 export { markdownToHtmlSync } from './MarkdownEditor/editor/utils/markdownToHtml';
 export { default as Workspace } from './Workspace';
 // HTML to Markdown conversion utilities
+export * from './AnswerAlert';
 export * from './History';
 export {
   batchHtmlToMarkdown,
