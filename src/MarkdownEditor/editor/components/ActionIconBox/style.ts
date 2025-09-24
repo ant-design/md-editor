@@ -27,7 +27,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&:hover': {
         background: 'var(--color-gray-control-fill-active)',
         boxSizing: 'border-box',
-        border: '1px solid var(--color-gray-border-light)',
       },
       '&-standalone': {
         minWidth: 'inherit',
@@ -58,11 +57,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&:hover': {
           color: token.colorPrimary,
           background: 'none!important',
-        },
-      },
-      '&-only-icon': {
-        '&:hover': {
-          transform: 'scale(1.1)',
         },
       },
       '&-transform': {
