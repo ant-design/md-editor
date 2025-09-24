@@ -1,4 +1,4 @@
-﻿import { RightOutlined } from '@ant-design/icons';
+﻿import { MoreFileIcon } from '@ant-design/md-editor/icons/FileIconList';
 import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
@@ -15,10 +15,18 @@ export type FileMapViewProps = {
   onPreview?: (file: AttachmentFile) => void;
   /** 下载文件回调 */
   onDownload?: (file: AttachmentFile) => void;
+  /** 更多操作回调 */
+  onMore?: (file: AttachmentFile) => void;
+  /** 点击“查看所有文件”回调，携带当前所有文件列表 */
+  onViewAll?: (files: AttachmentFile[]) => void;
+  /** 自定义更多操作 DOM（优先于 onMore，传入则展示该 DOM，不传则不展示更多按钮） */
+  renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
   /** 自定义根容器样式（可覆盖布局，如 flexDirection、gap、wrap 等） */
   style?: React.CSSProperties;
   /** 自定义根容器类名 */
   className?: string;
+  /** 最多展示的文件数量，默认展示 3 个 */
+  maxDisplayCount?: number;
 };
 
 /**
@@ -65,17 +73,23 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   const prefix = context?.getPrefixCls('md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
 
-  const [collapse, setCollapse] = React.useState(false);
+  const maxCount = props.maxDisplayCount ?? 3;
 
   const fileList = useMemo(() => {
     if (!props.fileMap) {
       return [];
     }
-    if (collapse) {
-      return Array.from(props.fileMap.values()).slice(0, 4);
-    }
     return Array.from(props.fileMap?.values() || []);
-  }, [collapse]);
+  }, [props.fileMap]);
+
+  const limitedFiles = useMemo(() => {
+    return fileList.slice(0, Math.max(0, maxCount));
+  }, [fileList, maxCount]);
+
+  const hasMore = useMemo(
+    () => fileList.length > maxCount,
+    [fileList, maxCount],
+  );
 
   const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
 
@@ -108,7 +122,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         style={props.style}
       >
         <Image.PreviewGroup>
-          {fileList.map((file, index) => {
+          {limitedFiles.map((file, index) => {
             return (
               <Image
                 className={classNames(`${prefix}-image`, hashId)}
@@ -120,6 +134,21 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             );
           })}
         </Image.PreviewGroup>
+        {hasMore ? (
+          <div
+            className={classNames(hashId, `${prefix}-more-file-container`)}
+            onClick={() => props.onViewAll?.(fileList)}
+          >
+            <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
+              <MoreFileIcon />
+            </div>
+            <div className={classNames(hashId, `${prefix}-more-file-name`)}>
+              <span style={{ whiteSpace: 'nowrap' }}>
+                查看此任务中的所有文件
+              </span>
+            </div>
+          </div>
+        ) : null}
       </motion.div>,
     );
   }
@@ -164,10 +193,10 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         className={classNames(prefix, hashId, props.className)}
         style={props.style}
       >
-        {fileList.map((file, index) => {
+        {limitedFiles.map((file, index) => {
           return (
             <FileMapViewItem
-              style={{ width: (props.style as any)?.width }}
+              style={{ width: props.style?.width }}
               onPreview={() => {
                 if (props.onPreview) {
                   props.onPreview?.(file);
@@ -183,6 +212,10 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
               onDownload={() => {
                 props.onDownload?.(file);
               }}
+              onMore={() => {
+                props.onMore?.(file);
+              }}
+              renderMoreAction={props.renderMoreAction}
               key={file?.uuid || file?.name || index}
               prefixCls={`${prefix}-item`}
               hashId={hashId}
@@ -193,27 +226,19 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         })}
       </motion.div>
 
-      {(props.fileMap?.size || 0) > 4 && (
-        <div>
-          <div
-            className={classNames(`${prefix}-collapse-button`, hashId)}
-            onClick={() => {
-              setCollapse(!collapse);
-            }}
-          >
-            <RightOutlined
-              className={classNames(
-                `${prefix}-collapse-button-icon`,
-                {
-                  [`${prefix}-collapse-button-icon-collapse`]: collapse,
-                },
-                hashId,
-              )}
-            />
-            <span>{collapse ? '展开' : '收起'}</span>
+      {hasMore ? (
+        <div
+          className={classNames(hashId, `${prefix}-more-file-container`)}
+          onClick={() => props.onViewAll?.(fileList)}
+        >
+          <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
+            <MoreFileIcon />
+          </div>
+          <div className={classNames(hashId, `${prefix}-more-file-name`)}>
+            <span style={{ whiteSpace: 'nowrap' }}>查看此任务中的所有文件</span>
           </div>
         </div>
-      )}
+      ) : null}
     </>,
   );
 };

@@ -564,4 +564,26 @@ export interface BubbleProps<T = Record<string, any>>
    * 预加载消息
    */
   preMessage?: MessageBubbleData;
+
+  /**
+   * 文件卡片事件配置
+   * @description 通过单一回调暴露四个文件事件方法，使用者可从第一个参数中拿到回调，
+   * 也可以返回一个包含覆盖实现的对象用于替换默认实现
+   */
+  onFileConfig?: (handlers: {
+    onPreview: (file: AttachmentFile) => void;
+    onDownload: (file: AttachmentFile) => void;
+    onMore: (file: AttachmentFile) => void;
+    onViewAll: (files: AttachmentFile[]) => void;
+  }) => Partial<{
+    onPreview: (file: AttachmentFile) => void;
+    onDownload: (file: AttachmentFile) => void;
+    onMore: (file: AttachmentFile) => void;
+    onViewAll: (files: AttachmentFile[]) => void;
+  }> | void;
+
+  /**
+   * 自定义“更多”操作渲染 DOM
+   */
+  renderFileMoreAction?: (file: AttachmentFile) => React.ReactNode;
 }

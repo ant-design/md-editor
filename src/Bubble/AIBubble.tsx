@@ -7,7 +7,6 @@ import { LoadingIcon } from '../icons/LoadingIcon';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { BubbleConfigContext } from './BubbleConfigProvide';
-import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { BubbleExtra } from './MessagesContent/BubbleExtra';
@@ -197,6 +196,8 @@ export const AIBubble: React.FC<
       pure={props.pure}
       onCancelLike={props.onCancelLike}
       shouldShowCopy={props.shouldShowCopy}
+      onFileConfig={props.onFileConfig}
+      renderFileMoreAction={props.renderFileMoreAction}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );
@@ -339,7 +340,7 @@ export const AIBubble: React.FC<
             >
               {childrenDom}
             </div>
-            {contentAfterDom || (props?.originData?.fileMap?.size || 0) > 0 ? (
+            {contentAfterDom ? (
               <div
                 style={{
                   minWidth: standalone ? 'min(296px,100%)' : '0px',
@@ -353,10 +354,6 @@ export const AIBubble: React.FC<
                 )}
                 data-testid="message-after"
               >
-                <BubbleFileView
-                  bubbleListRef={props.bubbleListRef}
-                  bubble={props as any}
-                />
                 {contentAfterDom}
               </div>
             ) : null}

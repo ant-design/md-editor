@@ -1,11 +1,17 @@
-import { UnorderedListOutlined } from '@ant-design/icons';
+import {
+  CheckOutlined,
+  CopyOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+  EditOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons';
 import {
   AttachmentFile,
   Bubble,
-  FileMapView,
   MessageBubbleData,
 } from '@ant-design/md-editor';
-import { message } from 'antd';
+import { message, Popover } from 'antd';
 import React, { useRef } from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';
 
@@ -142,6 +148,7 @@ Bubble 组件是一个功能丰富的聊天气泡组件，支持：
     title: 'Ant Design Assistant',
     description: 'AI 助手',
   },
+  fileMap: mockInlineFileMap,
 };
 
 export default () => {
@@ -212,84 +219,117 @@ export default () => {
           placement="left"
           bubbleRef={bubbleRef}
           originData={mockFileMessage}
-          bubbleRenderConfig={{
-            afterMessageRender: () => {
-              const allFiles = Array.from(mockInlineFileMap.values());
-              const top3 = allFiles.slice(0, 3);
-              if (top3.length === 0) return null;
-
-              const top3Map = new Map<string, AttachmentFile>();
-              top3.forEach((f, idx) => top3Map.set(String(idx), f));
-              const hasMore = allFiles.length > 3;
-
-              return (
-                <>
-                  <FileMapView
-                    fileMap={top3Map}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 8,
-                    }}
-                  />
-                  {hasMore ? (
+          onFileConfig={({ onPreview, onDownload, onMore, onViewAll }) => ({
+            onPreview: (file) => {
+              onPreview(file);
+              console.log('预览文件:', file);
+            },
+            onDownload: (file) => {
+              onDownload(file);
+              console.log('下载文件:', file);
+            },
+            onMore: (file) => {
+              onMore(file);
+              console.log('更多操作:', file);
+            },
+            onViewAll: (files) => {
+              onViewAll(files);
+              console.log('查看所有文件:', files);
+            },
+          })}
+          renderFileMoreAction={(file) => (
+            <Popover
+              placement="bottomRight"
+              arrow={false}
+              trigger={['hover']}
+              content={
+                <div
+                  style={{
+                    width: 180,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 4,
+                  }}
+                >
+                  {[
+                    {
+                      key: 'copy',
+                      label: '复制',
+                      icon: <CopyOutlined />,
+                      onClick: () => console.log('复制', file),
+                    },
+                    {
+                      key: 'download',
+                      label: '下载',
+                      icon: <DownloadOutlined />,
+                      onClick: () => console.log('下载', file),
+                    },
+                    {
+                      key: 'edit',
+                      label: '编辑',
+                      icon: <EditOutlined />,
+                      onClick: () => console.log('编辑', file),
+                    },
+                    {
+                      key: 'share',
+                      label: '分享',
+                      icon: <ShareAltOutlined />,
+                      onClick: () => console.log('分享', file),
+                    },
+                  ].map((item) => (
                     <div
+                      key={item.key}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        item.onClick();
+                      }}
                       style={{
-                        width: '100%',
-                        height: 56,
-                        borderRadius: 12,
-                        background: '#FFFFFF',
-                        border: '1px solid #E6ECF4',
-                        padding: 8,
+                        height: 36,
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 8,
+                        padding: '0 12px',
+                        borderRadius: 8,
                         cursor: 'pointer',
-                        margin: '0 8px 8px 8px',
                       }}
                     >
-                      <div
-                        style={{
-                          width: 40,
-                          height: 40,
-                          background: '#F7F8FA',
-                          border: '0.5px solid #E6ECF4',
-                          borderRadius: 6,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: '#8A8F98',
-                        }}
-                      >
-                        <UnorderedListOutlined />
-                      </div>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: 2,
-                        }}
-                      >
-                        <div style={{ display: 'flex' }}>
-                          <span
-                            style={{
-                              maxWidth: 150,
-                              whiteSpace: 'nowrap',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                            }}
-                          >
-                            查看此任务中的所有文件
-                          </span>
-                        </div>
-                      </div>
+                      <span style={{ width: 20 }}>{item.icon}</span>
+                      <span style={{ flex: 1 }}>{item.label}</span>
+                      {item.key === 'copy' ? (
+                        <CheckOutlined style={{ color: '#2f54eb' }} />
+                      ) : null}
                     </div>
-                  ) : null}
-                </>
-              );
-            },
-          }}
+                  ))}
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      console.log('删除', file);
+                    }}
+                    style={{
+                      height: 36,
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '0 12px',
+                      borderRadius: 8,
+                      cursor: 'pointer',
+                      color: '#ff4d4f',
+                    }}
+                  >
+                    <span style={{ width: 20 }}>
+                      <DeleteOutlined />
+                    </span>
+                    <span style={{ flex: 1 }}>删除</span>
+                  </div>
+                </div>
+              }
+            >
+              <div
+                style={{
+                  width: 18,
+                  height: 18,
+                }}
+              />
+            </Popover>
+          )}
           onLike={handleLike}
           onDisLike={handleDisLike}
           onReply={handleReply}
