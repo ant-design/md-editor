@@ -88,10 +88,10 @@
       >
         <div
           class="ant-md-editor markdown-editor chunk-content-editor ant-md-editor-readonly ant-md-editor-report"
-          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-h5-base); letter-spacing: var(--letter-spacing-h5-base, normal); color: var(--color-gray-text-default); min-height: 600px;"
+          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); min-height: 600px;"
         >
           <div
-            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+            style="padding: 4px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
             tabindex="-1"
           >
             <div

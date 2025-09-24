@@ -57,7 +57,7 @@
           </div>
           <span
             class="ant-quote-quoteDescription"
-            data-testid="quote-desc"
+            data-testid="quote-description"
           >
             这是一个工具函数的引用，用于处理数据格式化
           </span>
@@ -180,7 +180,7 @@
           </div>
           <span
             class="ant-quote-quoteDescription"
-            data-testid="quote-desc"
+            data-testid="quote-description"
           >
             Button组件的点击事件处理逻辑
           </span>
@@ -268,7 +268,7 @@
           </div>
           <span
             class="ant-quote-quoteDescription"
-            data-testid="quote-desc"
+            data-testid="quote-description"
           >
             这是一个没有文件来源的引用内容
           </span>
@@ -333,7 +333,7 @@
           </div>
           <span
             class="ant-quote-quoteDescription"
-            data-testid="quote-desc"
+            data-testid="quote-description"
           >
             项目使用说明和API文档
           </span>
@@ -385,7 +385,7 @@
           </div>
           <span
             class="ant-quote-quoteDescription"
-            data-testid="quote-desc"
+            data-testid="quote-description"
           >
             这是一个很长的文件路径，用来测试文件名的省略效果
           </span>
