@@ -433,7 +433,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             </div>
             {readonly || props?.textAreaProps?.enable ? null : (
               <div
-                className={`${baseClassName}-focus`}
+                className={classNames(`${baseClassName}-focus`)}
                 style={{
                   height: 64,
                 }}

@@ -16,10 +16,12 @@
           基础用法
         </h3>
         <div
-          class="quote-container"
+          class="ant-quote-container"
+          data-testid="quote-container"
         >
           <div
-            class="quote-quote-icon"
+            class="ant-quote-quote-icon"
+            data-testid="quote-icon"
           >
             <svg
               fill="none"
@@ -54,17 +56,21 @@
             </svg>
           </div>
           <span
-            class="quote-quoteDesc"
+            class="ant-quote-quoteDesc"
+            data-testid="quote-desc"
           >
             这是一个工具函数的引用，用于处理数据格式化
           </span>
           <div
-            class="quote-popup"
+            class="ant-quote-popup"
+            data-testid="quote-popup"
           >
             <div
-              class="quote-popup-header"
+              class="ant-quote-popup-header"
+              data-testid="quote-popup-header"
             >
               <div
+                data-testid="quote-popup-icon"
                 style="font-size: 14px; display: flex; align-items: center;"
               >
                 <svg
@@ -100,18 +106,21 @@
                 </svg>
               </div>
               <span
-                class="quote-popup-title"
+                class="ant-quote-popup-title"
+                data-testid="quote-popup-title"
               >
                 utils/helper.ts
               </span>
               <span
-                class="quote-popup-range"
+                class="ant-quote-popup-range"
+                data-testid="quote-popup-range"
               >
                 (12-25)
               </span>
             </div>
             <div
-              class="quote-popup-content"
+              class="ant-quote-popup-content"
+              data-testid="quote-popup-content"
             >
               export const formatData = (data: any) =&gt; {
   if (!data) return null;
@@ -130,10 +139,12 @@
           可关闭的引用
         </h3>
         <div
-          class="quote-container"
+          class="ant-quote-container"
+          data-testid="quote-container"
         >
           <div
-            class="quote-quote-icon"
+            class="ant-quote-quote-icon"
+            data-testid="quote-icon"
           >
             <svg
               fill="none"
@@ -168,12 +179,14 @@
             </svg>
           </div>
           <span
-            class="quote-quoteDesc"
+            class="ant-quote-quoteDesc"
+            data-testid="quote-desc"
           >
             Button组件的点击事件处理逻辑
           </span>
           <div
-            class="quote-close-button"
+            class="ant-quote-close-button"
+            data-testid="quote-close-button"
             style="font-size: 16px;"
           >
             <svg
@@ -214,10 +227,12 @@
           不传文件名
         </h3>
         <div
-          class="quote-container"
+          class="ant-quote-container"
+          data-testid="quote-container"
         >
           <div
-            class="quote-quote-icon"
+            class="ant-quote-quote-icon"
+            data-testid="quote-icon"
           >
             <svg
               fill="none"
@@ -252,15 +267,18 @@
             </svg>
           </div>
           <span
-            class="quote-quoteDesc"
+            class="ant-quote-quoteDesc"
+            data-testid="quote-desc"
           >
             这是一个没有文件来源的引用内容
           </span>
           <div
-            class="quote-popup"
+            class="ant-quote-popup"
+            data-testid="quote-popup"
           >
             <div
-              class="quote-popup-content"
+              class="ant-quote-popup-content"
+              data-testid="quote-popup-content"
             >
               这里是详细的说明文本，可以包含多行内容。
 当内容过多时，会出现滚动条。
@@ -274,10 +292,12 @@
           纯内容引用
         </h3>
         <div
-          class="quote-container"
+          class="ant-quote-container"
+          data-testid="quote-container"
         >
           <div
-            class="quote-quote-icon"
+            class="ant-quote-quote-icon"
+            data-testid="quote-icon"
           >
             <svg
               fill="none"
@@ -312,7 +332,8 @@
             </svg>
           </div>
           <span
-            class="quote-quoteDesc"
+            class="ant-quote-quoteDesc"
+            data-testid="quote-desc"
           >
             项目使用说明和API文档
           </span>
@@ -323,10 +344,12 @@
           长文件名测试
         </h3>
         <div
-          class="quote-container"
+          class="ant-quote-container"
+          data-testid="quote-container"
         >
           <div
-            class="quote-quote-icon"
+            class="ant-quote-quote-icon"
+            data-testid="quote-icon"
           >
             <svg
               fill="none"
@@ -361,17 +384,21 @@
             </svg>
           </div>
           <span
-            class="quote-quoteDesc"
+            class="ant-quote-quoteDesc"
+            data-testid="quote-desc"
           >
             这是一个很长的文件路径，用来测试文件名的省略效果
           </span>
           <div
-            class="quote-popup"
+            class="ant-quote-popup"
+            data-testid="quote-popup"
           >
             <div
-              class="quote-popup-header"
+              class="ant-quote-popup-header"
+              data-testid="quote-popup-header"
             >
               <div
+                data-testid="quote-popup-icon"
                 style="font-size: 14px; display: flex; align-items: center;"
               >
                 <svg
@@ -407,18 +434,21 @@
                 </svg>
               </div>
               <span
-                class="quote-popup-title"
+                class="ant-quote-popup-title"
+                data-testid="quote-popup-title"
               >
                 src/components/ComplexComponent/SubComponent/VeryLongFileName.tsxsrc/components/ComplexComponent/SubComponent/VeryLongFileName.tsx
               </span>
               <span
-                class="quote-popup-range"
+                class="ant-quote-popup-range"
+                data-testid="quote-popup-range"
               >
                 (100-150)
               </span>
             </div>
             <div
-              class="quote-popup-content"
+              class="ant-quote-popup-content"
+              data-testid="quote-popup-content"
             >
               interface VeryLongInterfaceName {
   propertyWithVeryLongName: string;

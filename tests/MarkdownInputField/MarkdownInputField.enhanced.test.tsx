@@ -6,6 +6,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import classNames from 'classnames';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
@@ -125,7 +126,9 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
         onClick={handleClick}
         disabled={disabled}
         data-typing={typing}
-        className={`${typing ? 'ant-md-input-field-send-button-typing' : ''}`}
+        className={classNames({
+          'ant-md-input-field-send-button-typing': typing,
+        })}
         {...props}
       >
         Send

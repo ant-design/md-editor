@@ -17,13 +17,13 @@
         bubble
       </div>
       <div
-        class="answer-alert answer-alert-success"
+        class="ant-answer-alert ant-answer-alert-success"
       >
         <div
-          class="answer-alert-content "
+          class="ant-answer-alert-content"
         >
           <svg
-            class="answer-alert-icon "
+            class="ant-answer-alert-icon "
             fill="none"
             height="1em"
             version="1.1"
@@ -59,13 +59,13 @@
             </g>
           </svg>
           <div
-            class="answer-alert-message "
+            class="ant-answer-alert-message"
           >
             LUI chat 已完成当前任务
           </div>
         </div>
         <div
-          class="answer-alert-description "
+          class="ant-answer-alert-description"
         />
       </div>
     </div>

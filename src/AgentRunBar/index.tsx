@@ -276,14 +276,14 @@ const renderButtonGroup = ({
   const playTitle = locale?.agentRunBar?.play;
 
   return (
-    <div className={`${baseCls}-button-wrapper ${hashId}`}>
+    <div className={classNames(`${baseCls}-button-wrapper`, hashId)}>
       {actionNode}
 
       {/* 停止按钮 */}
       {(isRunning || isPause) && onStop && (
         <Tooltip title={stopTitle}>
           <div
-            className={`${baseCls}-pause ${hashId}`}
+            className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
             tabIndex={0}
             aria-label={stopTitle}
@@ -297,7 +297,7 @@ const renderButtonGroup = ({
       {isRunning && onPause && (
         <Tooltip title={pauseTitle}>
           <div
-            className={`${baseCls}-pause ${hashId}`}
+            className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
             tabIndex={0}
             aria-label={pauseTitle}
@@ -311,7 +311,7 @@ const renderButtonGroup = ({
       {isPause && onResume && (
         <Tooltip title={playTitle}>
           <div
-            className={`${baseCls}-play ${hashId}`}
+            className={classNames(`${baseCls}-play`, hashId)}
             role="button"
             tabIndex={0}
             aria-label={playTitle}
@@ -434,23 +434,25 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
       )}
       style={rest.style}
     >
-      <div className={`${baseCls}-border ${hashId}`} />
-      <div className={`${baseCls}-background ${hashId}`} />
-      <div className={`${baseCls}-left ${hashId}`}>
+      <div className={classNames(`${baseCls}-border`, hashId)} />
+      <div className={classNames(`${baseCls}-background`, hashId)} />
+      <div className={classNames(`${baseCls}-left`, hashId)}>
         {icon !== false && (
-          <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
+          <div className={classNames(`${baseCls}-left-icon-wrapper`, hashId)}>
             <Tooltip title={iconTooltip}>
               <Robot icon={icon} status={getRobotStatus()} size={40} />
             </Tooltip>
           </div>
         )}
         {/* 文字区 */}
-        <div className={`${baseCls}-left-content ${hashId}`}>
+        <div className={classNames(`${baseCls}-left-content`, hashId)}>
           {title && (
-            <div className={`${baseCls}-left-main-text ${hashId}`}>{title}</div>
+            <div className={classNames(`${baseCls}-left-main-text`, hashId)}>
+              {title}
+            </div>
           )}
           {variant !== 'simple' && description && (
-            <div className={`${baseCls}-left-text ${hashId}`}>
+            <div className={classNames(`${baseCls}-left-text`, hashId)}>
               {description}
             </div>
           )}

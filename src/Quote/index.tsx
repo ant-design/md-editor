@@ -1,6 +1,6 @@
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { ConfigProvider } from 'antd';
 import { CloseFillIcon } from '../icons/CloseFillIcon';
 import { CornerLeftUp } from '../icons/CornerLeftUp';
 import QuoteIcon from '../icons/QuoteIcon';
@@ -63,38 +63,58 @@ const Quote: React.FC<QuoteProps> = ({
   const popupContentCls = classNames(`${prefixCls}-popup-content`, hashId);
 
   return wrapSSR(
-    <div className={containerCls} style={style}>
-      <div className={quoteIconCls}>
+    <div className={containerCls} style={style} data-testid="quote-container">
+      <div className={quoteIconCls} data-testid="quote-icon">
         <QuoteIcon />
       </div>
-      <span className={quoteDescCls}>{quoteDesc}</span>
+      <span className={quoteDescCls} data-testid="quote-desc">
+        {quoteDesc}
+      </span>
       {closable && onClose && (
-        <div style={{ fontSize: 16 }} onClick={onClose} className={closeCls}>
+        <div
+          style={{ fontSize: 16 }}
+          onClick={onClose}
+          className={closeCls}
+          data-testid="quote-close-button"
+        >
           <CloseFillIcon />
         </div>
       )}
 
       {/* 弹出层 - 通过CSS hover控制显示 */}
       {popupDetail && (
-        <div className={popupCls}>
+        <div className={popupCls} data-testid="quote-popup">
           {(fileName || lineRange) && (
-            <div className={popupHeaderCls} onClick={handleFileClick}>
+            <div
+              className={popupHeaderCls}
+              onClick={handleFileClick}
+              data-testid="quote-popup-header"
+            >
               <div
                 style={{
                   fontSize: 14,
                   display: 'flex',
                   alignItems: 'center',
                 }}
+                data-testid="quote-popup-icon"
               >
                 <CornerLeftUp />
               </div>
-              {fileName && <span className={popupTitleCls}>{fileName}</span>}
+              {fileName && (
+                <span className={popupTitleCls} data-testid="quote-popup-title">
+                  {fileName}
+                </span>
+              )}
               {lineRange && (
-                <span className={popupRangeCls}>({lineRange})</span>
+                <span className={popupRangeCls} data-testid="quote-popup-range">
+                  ({lineRange})
+                </span>
               )}
             </div>
           )}
-          <div className={popupContentCls}>{popupDetail}</div>
+          <div className={popupContentCls} data-testid="quote-popup-content">
+            {popupDetail}
+          </div>
         </div>
       )}
     </div>,

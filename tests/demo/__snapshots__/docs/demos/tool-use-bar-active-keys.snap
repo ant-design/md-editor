@@ -23,11 +23,11 @@
           data-testid="ToolUserItem"
         >
           <div
-            class="ant-tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar"
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="ant-tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header"
               data-testid="tool-user-item-tool-header"
             >
               <div
@@ -37,7 +37,7 @@
                 transition="[object Object]"
               >
                 <div
-                  class="ant-tool-use-bar-tool-image "
+                  class="ant-tool-use-bar-tool-image"
                 >
                   <svg
                     fill="none"
@@ -70,23 +70,23 @@
             </div>
             <div
               animate="[object Object]"
-              class="ant-tool-use-bar-tool-header-right "
+              class="ant-tool-use-bar-tool-header-right"
               transition="[object Object]"
             >
               <div
-                class="ant-tool-use-bar-tool-name "
+                class="ant-tool-use-bar-tool-name"
               >
                 文件搜索
               </div>
               <div
-                class="ant-tool-use-bar-tool-target "
+                class="ant-tool-use-bar-tool-target"
                 title="搜索 "react" 相关文件"
               >
                 搜索 "react" 相关文件
               </div>
             </div>
             <div
-              class="ant-tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time"
             >
               3
             </div>
@@ -97,11 +97,11 @@
           data-testid="ToolUserItem"
         >
           <div
-            class="ant-tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar"
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="ant-tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header"
               data-testid="tool-user-item-tool-header"
             >
               <div
@@ -111,7 +111,7 @@
                 transition="[object Object]"
               >
                 <div
-                  class="ant-tool-use-bar-tool-image "
+                  class="ant-tool-use-bar-tool-image"
                 >
                   <svg
                     fill="none"
@@ -144,24 +144,24 @@
             </div>
             <div
               animate="[object Object]"
-              class="ant-tool-use-bar-tool-header-right "
+              class="ant-tool-use-bar-tool-header-right"
               style="mask-image: linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%);"
               transition="[object Object]"
             >
               <div
-                class="ant-tool-use-bar-tool-name  ant-tool-use-bar-tool-name-loading"
+                class="ant-tool-use-bar-tool-name ant-tool-use-bar-tool-name-loading"
               >
                 代码分析
               </div>
               <div
-                class="ant-tool-use-bar-tool-target  ant-tool-use-bar-tool-target-loading"
+                class="ant-tool-use-bar-tool-target ant-tool-use-bar-tool-target-loading"
                 title="分析 src/components 目录"
               >
                 分析 src/components 目录
               </div>
             </div>
             <div
-              class="ant-tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time"
             >
               3
             </div>
@@ -172,11 +172,11 @@
           data-testid="ToolUserItem"
         >
           <div
-            class="ant-tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar"
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="ant-tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header"
               data-testid="tool-user-item-tool-header"
             >
               <div
@@ -186,7 +186,7 @@
                 transition="[object Object]"
               >
                 <div
-                  class="ant-tool-use-bar-tool-image "
+                  class="ant-tool-use-bar-tool-image"
                 >
                   <svg
                     fill="none"
@@ -219,23 +219,23 @@
             </div>
             <div
               animate="[object Object]"
-              class="ant-tool-use-bar-tool-header-right "
+              class="ant-tool-use-bar-tool-header-right"
               transition="[object Object]"
             >
               <div
-                class="ant-tool-use-bar-tool-name "
+                class="ant-tool-use-bar-tool-name"
               >
                 代码格式化
               </div>
               <div
-                class="ant-tool-use-bar-tool-target "
+                class="ant-tool-use-bar-tool-target"
                 title="格式化 TypeScript 文件"
               >
                 格式化 TypeScript 文件
               </div>
             </div>
             <div
-              class="ant-tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time"
             >
               3
             </div>
@@ -246,11 +246,11 @@
           data-testid="ToolUserItem"
         >
           <div
-            class="ant-tool-use-bar-tool-bar "
+            class="ant-tool-use-bar-tool-bar"
             data-testid="tool-user-item-tool-bar"
           >
             <div
-              class="ant-tool-use-bar-tool-header "
+              class="ant-tool-use-bar-tool-header"
               data-testid="tool-user-item-tool-header"
             >
               <div
@@ -260,7 +260,7 @@
                 transition="[object Object]"
               >
                 <div
-                  class="ant-tool-use-bar-tool-image "
+                  class="ant-tool-use-bar-tool-image"
                 >
                   <svg
                     fill="none"
@@ -293,23 +293,23 @@
             </div>
             <div
               animate="[object Object]"
-              class="ant-tool-use-bar-tool-header-right "
+              class="ant-tool-use-bar-tool-header-right"
               transition="[object Object]"
             >
               <div
-                class="ant-tool-use-bar-tool-name "
+                class="ant-tool-use-bar-tool-name"
               >
                 单元测试
               </div>
               <div
-                class="ant-tool-use-bar-tool-target "
+                class="ant-tool-use-bar-tool-target"
                 title="运行 Jest 测试套件"
               >
                 运行 Jest 测试套件
               </div>
             </div>
             <div
-              class="ant-tool-use-bar-tool-time "
+              class="ant-tool-use-bar-tool-time"
             >
               3
             </div>

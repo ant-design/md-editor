@@ -249,7 +249,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         >
           {tool.toolName && (
             <div
-              className={classNames(`${prefixCls}-tool-name ${hashId}`, {
+              className={classNames(`${prefixCls}-tool-name`, hashId, {
                 [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
               })}
             >
@@ -258,7 +258,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
           {tool.toolTarget && (
             <div
-              className={classNames(`${prefixCls}-tool-target ${hashId}`, {
+              className={classNames(`${prefixCls}-tool-target`, hashId, {
                 [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
               })}
               title={tool.toolTarget?.toString() ?? undefined}

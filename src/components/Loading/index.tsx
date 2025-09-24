@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext } from 'react';
 import { useStyle } from './style';
 
 /**
@@ -30,10 +31,22 @@ export const Loading = () => {
   const prefixCls = getPrefixCls('loading-container');
   const { wrapSSR, hashId } = useStyle(prefixCls);
   return wrapSSR(
-    <div className={`${prefixCls} ${hashId}`}>
-      <div className={`${prefixCls}-item ${hashId}`}></div>
-      <div className={`${prefixCls}-item ${hashId}`}></div>
-      <div className={`${prefixCls}-item ${hashId}`}></div>
+    <div
+      className={classNames(prefixCls, hashId)}
+      data-testid="loading-container"
+    >
+      <div
+        className={classNames(`${prefixCls}-item`, hashId)}
+        data-testid="loading-item"
+      ></div>
+      <div
+        className={classNames(`${prefixCls}-item`, hashId)}
+        data-testid="loading-item"
+      ></div>
+      <div
+        className={classNames(`${prefixCls}-item`, hashId)}
+        data-testid="loading-item"
+      ></div>
     </div>,
   );
 };

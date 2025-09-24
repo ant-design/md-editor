@@ -1,6 +1,7 @@
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { memo, useCallback, useContext, useMemo } from 'react';
-import { ConfigProvider } from 'antd';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
 import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
@@ -155,39 +156,55 @@ const TaskListItem = memo(
     }, [item.content]);
 
     return (
-      <div key={item.key} className={`${prefixCls}-thoughtChainItem ${hashId}`}>
+      <div
+        key={item.key}
+        className={classNames(`${prefixCls}-thoughtChainItem`, hashId)}
+        data-testid="task-list-thoughtChainItem"
+      >
         <div
-          className={`${prefixCls}-left ${hashId}`}
+          className={classNames(`${prefixCls}-left`, hashId)}
           onClick={() => onToggle(item.key)}
+          data-testid="task-list-left"
         >
           <div
-            className={`${prefixCls}-status ${prefixCls}-status-${item.status} ${hashId}`}
+            className={classNames(
+              `${prefixCls}-status`,
+              `${prefixCls}-status-${item.status}`,
+              hashId,
+            )}
+            data-testid={`task-list-status-${item.status}`}
           >
             {item.status === 'success' ? <SuccessIcon /> : null}
             {item.status === 'loading' ? <LoadingLottie size={16} /> : null}
             {item.status === 'pending' ? (
-              <div className={`${prefixCls}-status-idle ${hashId}`}>
+              <div className={classNames(`${prefixCls}-status-idle`, hashId)}>
                 <DashPendingIcon />
               </div>
             ) : null}
             {item.status === 'error' ? <ErrorIcon /> : null}
           </div>
-          <div className={`${prefixCls}-content-left ${hashId}`}>
+          <div className={classNames(`${prefixCls}-content-left`, hashId)}>
             {!isLast && (
-              <div className={`${prefixCls}-dash-line ${hashId}`}></div>
+              <div
+                className={classNames(`${prefixCls}-dash-line`, hashId)}
+                data-testid="task-list-dash-line"
+              ></div>
             )}
           </div>
         </div>
-        <div className={`${prefixCls}-right ${hashId}`}>
+        <div className={classNames(`${prefixCls}-right`, hashId)}>
           <div
-            className={`${prefixCls}-top ${hashId}`}
+            className={classNames(`${prefixCls}-top`, hashId)}
             onClick={() => onToggle(item.key)}
           >
-            <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
+            <div className={classNames(`${prefixCls}-title`, hashId)}>
+              {item.title}
+            </div>
             {hasContent && (
               <div
-                className={`${prefixCls}-arrowContainer ${hashId}`}
+                className={classNames(`${prefixCls}-arrowContainer`, hashId)}
                 onClick={() => onToggle(item.key)}
+                data-testid="task-list-arrowContainer"
               >
                 <ActionIconBox
                   title={
@@ -201,14 +218,17 @@ const TaskListItem = memo(
                   loading={false}
                   onClick={() => onToggle(item.key)}
                 >
-                  <ChevronUpIcon className={`${prefixCls}-arrow ${hashId}`} />
+                  <ChevronUpIcon
+                    className={classNames(`${prefixCls}-arrow`, hashId)}
+                    data-testid="task-list-arrow"
+                  />
                 </ActionIconBox>
               </div>
             )}
           </div>
           {!isCollapsed && (
-            <div className={`${prefixCls}-body ${hashId}`}>
-              <div className={`${prefixCls}-content ${hashId}`}>
+            <div className={classNames(`${prefixCls}-body`, hashId)}>
+              <div className={classNames(`${prefixCls}-content`, hashId)}>
                 {item.content}
               </div>
             </div>

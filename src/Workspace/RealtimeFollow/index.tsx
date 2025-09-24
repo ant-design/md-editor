@@ -86,8 +86,10 @@ const RealtimeHeader: React.FC<{
   hasBorder?: boolean;
   prefixCls?: string;
   hashId?: string;
-}> = ({ data, hasBorder, prefixCls = 'workspace-realtime', hashId }) => {
+}> = ({ data, hasBorder, prefixCls, hashId }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-realtime');
   const config = getTypeConfig(data.type, locale);
 
   const IconComponent = data.icon || config.icon;
@@ -97,36 +99,38 @@ const RealtimeHeader: React.FC<{
   return (
     <header
       className={classNames(
-        `${prefixCls}-header`,
+        `${finalPrefixCls}-header`,
         {
-          [`${prefixCls}-header-with-border`]: hasBorder,
+          [`${finalPrefixCls}-header-with-border`]: hasBorder,
         },
         hashId,
       )}
     >
-      <div className={classNames(`${prefixCls}-header-left`, hashId)}>
+      <div className={classNames(`${finalPrefixCls}-header-left`, hashId)}>
         <div
           className={classNames(
-            `${prefixCls}-header-icon`,
+            `${finalPrefixCls}-header-icon`,
             {
-              [`${prefixCls}-header-icon--html`]: data?.type === 'html',
-              [`${prefixCls}-header-icon--default`]: data?.type !== 'html',
+              [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
+              [`${finalPrefixCls}-header-icon--default`]: data?.type !== 'html',
             },
             hashId,
           )}
         >
           <IconComponent />
         </div>
-        <div className={classNames(`${prefixCls}-header-content`, hashId)}>
-          <div className={classNames(`${prefixCls}-header-title`, hashId)}>
+        <div className={classNames(`${finalPrefixCls}-header-content`, hashId)}>
+          <div className={classNames(`${finalPrefixCls}-header-title`, hashId)}>
             {headerTitle}
           </div>
-          <div className={classNames(`${prefixCls}-header-subtitle`, hashId)}>
+          <div
+            className={classNames(`${finalPrefixCls}-header-subtitle`, hashId)}
+          >
             {headerSubTitle}
           </div>
         </div>
       </div>
-      <div className={classNames(`${prefixCls}-header-right`, hashId)}>
+      <div className={classNames(`${finalPrefixCls}-header-right`, hashId)}>
         {data.rightContent}
       </div>
     </header>
@@ -136,7 +140,7 @@ const RealtimeHeader: React.FC<{
 // 获取不同type的MarkdownEditor配置
 const getEditorConfig = (
   type: RealtimeFollowMode,
-  prefixCls = 'workspace-realtime',
+  prefixCls: string,
   hashId?: string,
 ): Partial<MarkdownEditorProps> => {
   const baseConfig = {
@@ -183,14 +187,10 @@ const Overlay: React.FC<{
   errorRender?: React.ReactNode | (() => React.ReactNode);
   prefixCls?: string;
   hashId?: string;
-}> = ({
-  status,
-  loadingRender,
-  errorRender,
-  prefixCls = 'workspace-realtime',
-  hashId,
-}) => {
+}> = ({ status, loadingRender, errorRender, prefixCls, hashId }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-realtime');
   if (status !== 'loading' && status !== 'error') return null;
   const loadingNode =
     typeof loadingRender === 'function' ? loadingRender() : loadingRender;
@@ -199,10 +199,10 @@ const Overlay: React.FC<{
   return (
     <div
       className={classNames(
-        `${prefixCls}-overlay`,
+        `${finalPrefixCls}-overlay`,
         {
-          [`${prefixCls}-overlay--loading`]: status === 'loading',
-          [`${prefixCls}-overlay--error`]: status === 'error',
+          [`${finalPrefixCls}-overlay--loading`]: status === 'loading',
+          [`${finalPrefixCls}-overlay--error`]: status === 'error',
         },
         hashId,
       )}
@@ -257,12 +257,9 @@ export const RealtimeFollow: React.FC<{
   htmlViewMode?: 'preview' | 'code';
   prefixCls?: string;
   hashId?: string;
-}> = ({
-  data,
-  htmlViewMode = 'preview',
-  prefixCls = 'workspace-realtime',
-  hashId,
-}) => {
+}> = ({ data, htmlViewMode = 'preview', prefixCls, hashId }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-realtime');
   const mdInstance = useRef<MarkdownEditorInstance>();
   const isTestEnv = process.env.NODE_ENV === 'test';
   // 添加自动滚动功能（测试环境下禁用）
@@ -313,7 +310,7 @@ export const RealtimeFollow: React.FC<{
   if (data.type === 'html') {
     const html = typeof data.content === 'string' ? data.content : '';
     return (
-      <div className={classNames(`${prefixCls}-content`, hashId)}>
+      <div className={classNames(`${finalPrefixCls}-content`, hashId)}>
         <HtmlPreview
           html={html}
           status={isTestEnv ? 'done' : data.status}
@@ -336,7 +333,7 @@ export const RealtimeFollow: React.FC<{
     return null;
   }
 
-  const defaultProps = getEditorConfig(data.type, prefixCls, hashId);
+  const defaultProps = getEditorConfig(data.type, finalPrefixCls, hashId);
   const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
@@ -359,7 +356,7 @@ export const RealtimeFollow: React.FC<{
 
   return (
     <div
-      className={classNames(`${prefixCls}-content`, hashId)}
+      className={classNames(`${finalPrefixCls}-content`, hashId)}
       ref={isTestEnv ? undefined : autoScrollRef}
     >
       {!isTestEnv && (
@@ -372,7 +369,7 @@ export const RealtimeFollow: React.FC<{
         />
       )}
       {shouldShowEmpty ? (
-        <div className={classNames(`${prefixCls}-empty`, hashId)}>
+        <div className={classNames(`${finalPrefixCls}-empty`, hashId)}>
           {emptyNode || <Empty />}
         </div>
       ) : (
@@ -477,7 +474,7 @@ export const RealtimeFollowList: React.FC<{
     if (!data.segmentedExtra) return segmentedNode;
 
     return (
-      <div className={`${prefixCls}-segmented-right ${hashId}`}>
+      <div className={classNames(`${prefixCls}-segmented-right`, hashId)}>
         {segmentedNode}
         {data.segmentedExtra}
       </div>

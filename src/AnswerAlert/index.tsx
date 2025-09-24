@@ -1,6 +1,6 @@
-import classNames from 'classnames';
-import React, { isValidElement, useState, useContext } from 'react';
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { isValidElement, useContext, useState } from 'react';
 import { CloseIcon } from './components/CloseIcon';
 import { ErrorIcon } from './components/ErrorIcon';
 import { InfoIcon } from './components/InfoIcon';
@@ -50,7 +50,9 @@ const IconNode: React.FC<IconNodeProps> = (props) => {
   const iconType = type ? iconMapFilled[type] : null;
   if (icon) {
     if (!isValidElement(icon)) {
-      return <span className={`${prefixCls}-icon ${hashId}`}>{icon}</span>;
+      return (
+        <span className={classNames(`${prefixCls}-icon`, hashId)}>{icon}</span>
+      );
     }
     return React.cloneElement(icon as React.ReactElement<any>, {
       className: classNames(
@@ -104,7 +106,7 @@ export function AnswerAlert({
 
   return wrapSSR(
     <div className={alertCls} style={style}>
-      <div className={`${prefixCls}-content ${hashId}`}>
+      <div className={classNames(`${prefixCls}-content`, hashId)}>
         {showIcon ? (
           <IconNode
             icon={icon}
@@ -113,14 +115,18 @@ export function AnswerAlert({
             hashId={hashId}
           />
         ) : null}
-        <div className={`${prefixCls}-message ${hashId}`}>{message}</div>
+        <div className={classNames(`${prefixCls}-message`, hashId)}>
+          {message}
+        </div>
         {action ? (
-          <div className={`${prefixCls}-action ${hashId}`}>{action}</div>
+          <div className={classNames(`${prefixCls}-action`, hashId)}>
+            {action}
+          </div>
         ) : null}
         {closable && (
           <button
             type="button"
-            className={`${prefixCls}-close-icon ${hashId}`}
+            className={classNames(`${prefixCls}-close-icon`, hashId)}
             tabIndex={0}
             onClick={handleClose}
           >
@@ -128,7 +134,9 @@ export function AnswerAlert({
           </button>
         )}
       </div>
-      <div className={`${prefixCls}-description ${hashId}`}>{description}</div>
+      <div className={classNames(`${prefixCls}-description`, hashId)}>
+        {description}
+      </div>
     </div>,
   );
 }

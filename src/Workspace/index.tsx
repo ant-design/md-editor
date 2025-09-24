@@ -157,11 +157,11 @@ const Workspace: FC<WorkspaceProps> & {
         label: (
           <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
             {tabConfig.icon}
-            <span className={`${prefixCls}-tab-title ${hashId}`}>
+            <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
               {tabConfig.title}
             </span>
             {tabConfig.count !== undefined && (
-              <span className={`${prefixCls}-tab-count ${hashId}`}>
+              <span className={classNames(`${prefixCls}-tab-count`, hashId)}>
                 {tabConfig.count}
               </span>
             )}
@@ -230,11 +230,13 @@ const Workspace: FC<WorkspaceProps> & {
       style={style}
     >
       {/* header */}
-      <div className={`${prefixCls}-header ${hashId}`}>
-        <div className={`${prefixCls}-title ${hashId}`}>{displayTitle}</div>
+      <div className={classNames(`${prefixCls}-header`, hashId)}>
+        <div className={classNames(`${prefixCls}-title`, hashId)}>
+          {displayTitle}
+        </div>
         {onClose && (
           <CloseOutlined
-            className={`${prefixCls}-close ${hashId}`}
+            className={classNames(`${prefixCls}-close`, hashId)}
             onClick={onClose}
             aria-label={locale?.['workspace.closeWorkspace'] || '关闭工作空间'}
           />
@@ -243,10 +245,10 @@ const Workspace: FC<WorkspaceProps> & {
 
       {/* tabs */}
       {availableTabs.length > 1 && (
-        <div className={`${prefixCls}-tabs ${hashId}`}>
+        <div className={classNames(`${prefixCls}-tabs`, hashId)}>
           <Segmented
             key={segmentedKey} // ⭐ 每次宽度从 0 变为 >0，重新挂载
-            className={`${prefixCls}-segmented ${hashId}`}
+            className={classNames(`${prefixCls}-segmented`, hashId)}
             options={availableTabs.map(({ label, key }) => ({
               label,
               value: key,
@@ -259,7 +261,7 @@ const Workspace: FC<WorkspaceProps> & {
       )}
 
       {/* content */}
-      <div className={`${prefixCls}-content ${hashId}`}>
+      <div className={classNames(`${prefixCls}-content`, hashId)}>
         {availableTabs.find((tab) => tab.key === currentActiveTab)?.content}
       </div>
     </div>,

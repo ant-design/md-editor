@@ -28,16 +28,16 @@
         class="ant-task-running ant-task-running-default"
       >
         <div
-          class="ant-task-running-border "
+          class="ant-task-running-border"
         />
         <div
-          class="ant-task-running-background "
+          class="ant-task-running-background"
         />
         <div
-          class="ant-task-running-left "
+          class="ant-task-running-left"
         >
           <div
-            class="ant-task-running-left-icon-wrapper "
+            class="ant-task-running-left-icon-wrapper"
           >
             <div
               class=""
@@ -52,27 +52,27 @@
             </div>
           </div>
           <div
-            class="ant-task-running-left-content "
+            class="ant-task-running-left-content"
           >
             <div
-              class="ant-task-running-left-main-text "
+              class="ant-task-running-left-main-text"
             >
               任务运行中
             </div>
             <div
-              class="ant-task-running-left-text "
+              class="ant-task-running-left-text"
             >
               AI模型正在训练中，请耐心等待...
             </div>
           </div>
         </div>
         <div
-          class="ant-task-running-button-wrapper "
+          class="ant-task-running-button-wrapper"
         >
           <div
             aria-describedby="test-id"
             aria-label="停止"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >
@@ -118,7 +118,7 @@
           <div
             aria-describedby="test-id"
             aria-label="暂停"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >
@@ -226,16 +226,16 @@
             class="ant-task-running ant-task-running-default"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
@@ -252,27 +252,27 @@
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
                 <div
-                  class="ant-task-running-left-main-text "
+                  class="ant-task-running-left-main-text"
                 >
                   任务运行中, 已耗时1小时20分12秒。
                 </div>
                 <div
-                  class="ant-task-running-left-text "
+                  class="ant-task-running-left-text"
                 >
                   AI模型正在训练中，请耐心等待...
                 </div>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <div
                 aria-describedby="test-id"
                 aria-label="停止"
-                class="ant-task-running-pause "
+                class="ant-task-running-pause"
                 role="button"
                 tabindex="0"
               >
@@ -318,7 +318,7 @@
               <div
                 aria-describedby="test-id"
                 aria-label="暂停"
-                class="ant-task-running-pause "
+                class="ant-task-running-pause"
                 role="button"
                 tabindex="0"
               >
@@ -419,16 +419,16 @@
             class="ant-task-running ant-task-running-default"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
@@ -445,22 +445,22 @@
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
                 <div
-                  class="ant-task-running-left-main-text "
+                  class="ant-task-running-left-main-text"
                 >
                   任务已暂停
                 </div>
                 <div
-                  class="ant-task-running-left-text "
+                  class="ant-task-running-left-text"
                 >
                   任务执行已暂停，点击继续按钮恢复执行
                 </div>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
@@ -499,7 +499,7 @@
               <div
                 aria-describedby="test-id"
                 aria-label="停止"
-                class="ant-task-running-pause "
+                class="ant-task-running-pause"
                 role="button"
                 tabindex="0"
               >
@@ -545,7 +545,7 @@
               <div
                 aria-describedby="test-id"
                 aria-label="继续"
-                class="ant-task-running-play "
+                class="ant-task-running-play"
                 role="button"
                 tabindex="0"
               >
@@ -646,16 +646,16 @@
             class="ant-task-running ant-task-running-default"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
@@ -672,22 +672,22 @@
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
                 <div
-                  class="ant-task-running-left-main-text "
+                  class="ant-task-running-left-main-text"
                 >
                   任务已停止
                 </div>
                 <div
-                  class="ant-task-running-left-text "
+                  class="ant-task-running-left-text"
                 >
                   任务执行已停止，无法恢复，请创建新任务
                 </div>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-primary ant-btn-color-default ant-btn-variant-solid"
@@ -743,16 +743,16 @@
             class="ant-task-running ant-task-running-default"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
@@ -769,17 +769,17 @@
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
                 <div
-                  class="ant-task-running-left-main-text "
+                  class="ant-task-running-left-main-text"
                 >
                   任务已完成, 耗时10小时02分10秒
                 </div>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
@@ -851,16 +851,16 @@
             class="ant-task-running ant-task-running-default"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
@@ -877,22 +877,22 @@
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
                 <div
-                  class="ant-task-running-left-main-text "
+                  class="ant-task-running-left-main-text"
                 >
                   任务执行出错
                 </div>
                 <div
-                  class="ant-task-running-left-text "
+                  class="ant-task-running-left-text"
                 >
                   任务执行过程中发生错误，请重新执行或创建新任务
                 </div>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
@@ -956,16 +956,16 @@
             class="ant-task-running ant-task-running-default"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
@@ -982,22 +982,22 @@
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
                 <div
-                  class="ant-task-running-left-main-text "
+                  class="ant-task-running-left-main-text"
                 >
                   任务已取消
                 </div>
                 <div
-                  class="ant-task-running-left-text "
+                  class="ant-task-running-left-text"
                 >
                   任务已被用户取消，请创建新任务
                 </div>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-primary ant-btn-color-default ant-btn-variant-solid"
@@ -1056,31 +1056,31 @@
         class="ant-task-running ant-task-running-simple"
       >
         <div
-          class="ant-task-running-border "
+          class="ant-task-running-border"
         />
         <div
-          class="ant-task-running-background "
+          class="ant-task-running-background"
         />
         <div
-          class="ant-task-running-left "
+          class="ant-task-running-left"
         >
           <div
-            class="ant-task-running-left-content "
+            class="ant-task-running-left-content"
           >
             <div
-              class="ant-task-running-left-main-text "
+              class="ant-task-running-left-main-text"
             >
               任务运行中, 已耗时1小时20分12秒。 4/6 模型训练
             </div>
           </div>
         </div>
         <div
-          class="ant-task-running-button-wrapper "
+          class="ant-task-running-button-wrapper"
         >
           <div
             aria-describedby="test-id"
             aria-label="停止"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >
@@ -1105,7 +1105,7 @@
           <div
             aria-describedby="test-id"
             aria-label="暂停"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >

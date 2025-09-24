@@ -36,7 +36,7 @@ describe('Quote 组件', () => {
     expect(getByText('示例内容')).toBeInTheDocument();
 
     // 弹出层中应该显示文件名和行号
-    const popup = container.querySelector('.quote-popup');
+    const popup = container.querySelector('[data-testid="quote-popup"]');
     expect(popup).toBeInTheDocument();
     expect(popup).toHaveTextContent('example.ts');
     expect(popup).toHaveTextContent('(10-20)');
@@ -53,7 +53,9 @@ describe('Quote 组件', () => {
       />,
     );
 
-    const closeButton = container.querySelector('.quote-close-button');
+    const closeButton = container.querySelector(
+      '[data-testid="quote-close-button"]',
+    );
     expect(closeButton).toBeInTheDocument();
 
     fireEvent.click(closeButton!);
@@ -66,7 +68,7 @@ describe('Quote 组件', () => {
     );
 
     // 弹框应该存在但默认隐藏
-    const popup = container.querySelector('.quote-popup');
+    const popup = container.querySelector('[data-testid="quote-popup"]');
     expect(popup).toBeInTheDocument();
 
     // hover容器后通过CSS控制显示，这里验证弹框内容存在
@@ -86,7 +88,9 @@ describe('Quote 组件', () => {
     );
 
     // 点击弹出层的header
-    const popupHeader = container.querySelector('.quote-popup-header');
+    const popupHeader = container.querySelector(
+      '[data-testid="quote-popup-header"]',
+    );
     expect(popupHeader).toBeInTheDocument();
 
     fireEvent.click(popupHeader!);
@@ -104,7 +108,9 @@ describe('Quote 组件', () => {
       />,
     );
 
-    const popupHeader = container.querySelector('.quote-popup-header');
+    const popupHeader = container.querySelector(
+      '[data-testid="quote-popup-header"]',
+    );
     expect(popupHeader).toBeInTheDocument();
 
     fireEvent.click(popupHeader!);
@@ -117,7 +123,9 @@ describe('Quote 组件', () => {
       <Quote fileName="test.ts" quoteDesc="测试内容" style={customStyle} />,
     );
 
-    const quoteContainer = container.querySelector('.quote-container');
+    const quoteContainer = container.querySelector(
+      '[data-testid="quote-container"]',
+    );
     expect(quoteContainer).toHaveStyle('background-color: rgb(255, 0, 0)');
   });
 
@@ -147,7 +155,9 @@ describe('Quote 组件', () => {
       <Quote fileName="test.ts" quoteDesc="测试内容" popupDetail="详细信息" />,
     );
 
-    const popupHeader = container.querySelector('.quote-popup-header');
+    const popupHeader = container.querySelector(
+      '[data-testid="quote-popup-header"]',
+    );
     expect(popupHeader).toBeInTheDocument();
 
     // 应该不会抛出错误
