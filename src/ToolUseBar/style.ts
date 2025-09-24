@@ -22,6 +22,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           boxShadow:
             '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
         },
+        '&-loading': {
+          background: 'var(--color-gray-bg-card-white)',
+          boxSizing: 'border-box',
+          border: 'var(--color-blue-control-fill-border-active)',
+          boxShadow:
+            '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
+        },
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         cursor: 'pointer',
         '&:hover': {
@@ -121,6 +128,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-loading': {
           borderRadius: '50%',
           position: 'relative',
+
           '&::before': {
             content: '""',
             position: 'absolute',

@@ -8,7 +8,7 @@
     <div>
       <div
         class="ant-md-editor markdown-editor ant-md-editor-edit ant-md-editor-report"
-        style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
+        style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-h5-base); letter-spacing: var(--letter-spacing-h5-base, normal); color: var(--color-gray-text-default);"
       >
         <div
           style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"

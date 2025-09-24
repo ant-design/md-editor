@@ -42,6 +42,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           right: '4px',
           top: '50%',
           transform: 'translateY(-50%)',
+          color: 'var(--color-primary-text-disabled)',
         },
       },
       '&-tag-popup-input-has-arrow.empty': {

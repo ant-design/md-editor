@@ -39,7 +39,7 @@ describe('useHistory Hook', () => {
 
       expect(result.current.open).toBe(false);
       expect(result.current.searchKeyword).toBe('');
-      expect(result.current.selectedIds).toEqual([]);
+      expect(result.current.selectedIds).toEqual(['current-session']);
       expect(result.current.filteredList).toEqual([]);
     });
 

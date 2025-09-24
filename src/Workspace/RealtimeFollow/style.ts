@@ -63,6 +63,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           alignItems: 'center',
         },
+
+        // Segmented 右侧额外内容容器
+        [`&-segmented-right`]: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        },
       },
 
       [`&--shell`]: {

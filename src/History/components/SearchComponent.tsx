@@ -133,14 +133,22 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
           autoFocus
         />
       ) : (
-        <>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0 8px',
+          }}
+        >
           <div
             style={{
-              fontSize: '12px',
               fontWeight: 500,
               lineHeight: '20px',
-              letterSpacing: 'normal',
-              color: 'rgba(0, 25, 61, 0.3255)',
+              fontSize: 'var(--font-text-body-emphasized-sm)',
+              letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+              color: 'var(--color-gray-text-light)',
             }}
           >
             {locale?.['chat.history.historyTasks'] || '历史任务'}
@@ -149,7 +157,8 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
             onClick={handleToggleSearch}
             title={locale?.['chat.history.search'] || '搜索'}
             style={{
-              width: 40,
+              width: 20,
+              height: 20,
             }}
           >
             <SearchIcon
@@ -159,7 +168,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
               }}
             />
           </ActionIconBox>
-        </>
+        </div>
       )}
     </div>
   );

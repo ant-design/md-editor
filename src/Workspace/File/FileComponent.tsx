@@ -7,7 +7,6 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import {
-  Alert,
   Button,
   ConfigProvider,
   Image,
@@ -675,23 +674,9 @@ export const FileComponent: FC<{
       } catch (err) {
         if (previewRequestIdRef.current !== currentCallId) return;
 
-        setCustomPreviewContent(
-          <div style={{ padding: 24 }}>
-            <Alert
-              type="error"
-              message={
-                locale?.['workspace.previewLoadFailed'] || '预览加载失败'
-              }
-              description={
-                err instanceof Error
-                  ? err.message
-                  : locale?.['workspace.previewError'] ||
-                    '获取预览内容时发生错误'
-              }
-              showIcon
-            />
-          </div>,
-        );
+        // 最小化处理：清空自定义内容，回退到内置预览逻辑
+        setCustomPreviewContent(null);
+        setPreviewFile(file);
         return;
       }
     }

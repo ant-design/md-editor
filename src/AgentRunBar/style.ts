@@ -37,7 +37,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderRadius: 16,
+      borderRadius: 'var(--radius-card-lg)',
 
       '&-border': {
         position: 'absolute',
@@ -48,9 +48,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         zIndex: -1,
         background:
           'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
-        borderRadius: 16,
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 15, 41, 0.05),0px 6px 16px 0px rgba(0, 15, 41, 0.08)',
+        borderRadius: 'var(--radius-card-lg)',
+        boxShadow: 'var(--shadow-popover-base)',
         pointerEvents: 'none',
       },
 
@@ -61,7 +60,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         right: 2,
         bottom: 2,
         zIndex: -1,
-        background: '#FFFFFF',
+        background: 'var(--color-gray-bg-card-white)',
         borderRadius: 14,
         pointerEvents: 'none',
       },
@@ -89,26 +88,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // title
       '&-left-main-text': {
-        fontSize: 'var(--font-size-base)',
+        color: 'var(--color-gray-text-default)',
         lineHeight: '20px',
-        fontWeight: 600,
-        color: '#343A45',
+        font: 'var(--font-text-h6-base)',
+        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
       },
 
       // description
       '&-left-text': {
-        fontSize: 'var(--font-size-sm)',
-        fontWeight: 'normal',
         lineHeight: '20px',
+        font: 'var(--font-text-body-sm)',
         alignItems: 'center',
-        letterSpacing: 'normal',
+        letterSpacing: 'var(--letter-spacing-body-sm, normal)',
         display: '-webkit-box',
         '-webkit-line-clamp': '1',
         lineClamp: 1,
         '-webkit-box-orient': 'vertical',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        color: 'rgba(0, 25, 61, 0.3255)',
+        color: 'var(--color-gray-text-light)',
       },
 
       '&-button-wrapper': {

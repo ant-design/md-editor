@@ -344,6 +344,9 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               display: 'flex',
               flexDirection: 'column',
               maxHeight: '100%',
+              font: 'var(--font-text-h5-base)',
+              letterSpacing: 'var(--letter-spacing-h5-base, normal)',
+              color: 'var(--color-gray-text-default)',
               ...style,
             }}
           >

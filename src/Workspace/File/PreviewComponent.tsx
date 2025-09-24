@@ -11,6 +11,7 @@ import {
   Segmented,
   Spin,
   Tooltip,
+  Typography,
 } from 'antd';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
@@ -21,7 +22,7 @@ import {
 } from '../../MarkdownEditor';
 import { HtmlPreview } from '../HtmlPreview';
 import { FileNode } from '../types';
-import { formatLastModified } from '../utils';
+import { formatFileSize, formatLastModified } from '../utils';
 import {
   getLanguageFromFilename,
   wrapContentInCodeBlock,
@@ -63,7 +64,7 @@ export interface PreviewComponentProps {
 
 // 提取通用的占位符组件
 const PlaceholderContent: FC<{
-  children: React.ReactNode;
+  children?: React.ReactNode;
   showFileInfo?: boolean;
   file?: FileNode;
   onDownload?: () => void;
@@ -334,16 +335,85 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     // 如果不支持预览
     if (!canPreview || previewMode === 'none') {
       return (
-        <PlaceholderContent
-          file={file}
-          showFileInfo
-          onDownload={onDownload ? handleDownload : undefined}
-          prefixCls={prefixCls}
-          hashId={hashId}
-        >
-          <p>此文件类型不支持预览</p>
-          <p>文件类型：{typeInference.fileType}</p>
-          <p>MIME类型：{dataSource.mimeType}</p>
+        <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
+          <div className={`${prefixCls}-unsupported ${hashId}`}>
+            <div
+              className={`${filePrefixCls}-item ${prefixCls}-unsupported-item ${hashId}`}
+            >
+              <div className={`${filePrefixCls}-item-icon ${hashId}`}>
+                {getFileTypeIcon(
+                  fileTypeProcessor.inferFileType(file).fileType,
+                  file.icon,
+                  file.name,
+                )}
+              </div>
+              <div
+                className={`${filePrefixCls}-item-info ${hashId}`}
+                style={{ textAlign: 'left' }}
+              >
+                <div className={`${filePrefixCls}-item-name ${hashId}`}>
+                  <Typography.Text
+                    ellipsis={{ tooltip: file.name }}
+                    style={{
+                      font: 'var(--font-text-h6-base)',
+                      color: 'var(--color-gray-text-default)',
+                    }}
+                  >
+                    {file.name}
+                  </Typography.Text>
+                </div>
+                <div className={`${filePrefixCls}-item-details ${hashId}`}>
+                  <Typography.Text type="secondary" ellipsis>
+                    <span className={`${filePrefixCls}-item-type ${hashId}`}>
+                      {fileTypeProcessor.inferFileType(file).displayType ||
+                        fileTypeProcessor.inferFileType(file).fileType}
+                    </span>
+                    {file.size && (
+                      <>
+                        <span
+                          className={`${filePrefixCls}-item-separator ${hashId}`}
+                        >
+                          |
+                        </span>
+                        <span
+                          className={`${filePrefixCls}-item-size ${hashId}`}
+                        >
+                          {formatFileSize(file.size as number)}
+                        </span>
+                      </>
+                    )}
+                    {file.lastModified && (
+                      <>
+                        <span
+                          className={`${filePrefixCls}-item-separator ${hashId}`}
+                        >
+                          |
+                        </span>
+                        <span
+                          className={`${filePrefixCls}-item-time ${hashId}`}
+                        >
+                          {formatLastModified(file.lastModified as any)}
+                        </span>
+                      </>
+                    )}
+                  </Typography.Text>
+                </div>
+              </div>
+            </div>
+            <div className={`${prefixCls}-unsupported-text ${hashId}`}>
+              此文件无法预览，请下载查看。
+            </div>
+            {onDownload && (
+              <Button
+                type="primary"
+                icon={<DownloadOutlined />}
+                onClick={handleDownload}
+                aria-label={locale?.['workspace.file.download'] || '下载'}
+              >
+                下载
+              </Button>
+            )}
+          </div>
         </PlaceholderContent>
       );
     }

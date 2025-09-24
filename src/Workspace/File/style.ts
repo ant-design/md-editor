@@ -170,8 +170,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 文件类型、大小、时间
       [`&-type, &-size, &-time`]: {
-        fontSize: '12px',
-        color: '#959da8',
+        font: 'var(--font-text-body-sm)',
+        color: 'var(--color-gray-text-light)',
       },
 
       // 分割符
@@ -360,6 +360,36 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           margin: '8px 0',
           fontSize: '13px',
         },
+      },
+      // 不可预览占位容器
+      [`&-unsupported`]: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 12,
+        height: '100%',
+        minHeight: '500px',
+      },
+      [`&-unsupported-item`]: {
+        borderRadius: ' var(--radius-card-base)',
+        background: 'var(--color-gray-bg-card-white)',
+        border: 'var(--color-gray-border-light)',
+        boxShadow: 'var(--shadow-control-base)',
+        padding: '8px',
+        minWidth: 294,
+        height: 56,
+        cursor: 'unset',
+        '&:hover': {
+          background: 'var(--color-gray-bg-card-white)',
+          border: 'var(--color-gray-border-light)',
+          boxShadow: 'var(--shadow-control-base)',
+        },
+      },
+      // 不可预览说明文案
+      [`&-unsupported-text`]: {
+        font: 'var(--font-text-body-sm)',
+        color: 'var(--color-text-secondary)',
       },
     },
   };

@@ -1,4 +1,4 @@
-﻿import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';

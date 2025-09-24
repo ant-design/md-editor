@@ -39,6 +39,7 @@ export const useHistory = (props: HistoryProps) => {
   }, []);
 
   useEffect(() => {
+    props.sessionId && setSelectedIds([props.sessionId]);
     loadHistory();
   }, [props.sessionId]);
 
