@@ -363,6 +363,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '8px',
         minWidth: 294,
         height: 56,
+        marginBottom: 0,
         cursor: 'unset',
         '&:hover': {
           background: 'var(--color-gray-bg-card-white)',
