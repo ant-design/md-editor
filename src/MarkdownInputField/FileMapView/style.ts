@@ -18,6 +18,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: 8,
       position: 'relative',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      '&-left': {
+        flexDirection: 'row',
+      },
+      '&-right': {
+        flexDirection: 'row-reverse',
+      },
       '&::-webkit-scrollbar': {
         width: 6,
       },

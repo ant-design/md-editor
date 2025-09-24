@@ -1,13 +1,16 @@
-import React from 'react';
+import { BookOutlined } from '@ant-design/icons';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { FollowUpQuestion } from '../../src/Bubble/FollowUpQuestion';
-import { BookOutlined } from '@ant-design/icons';
 
 describe('FollowUpQuestion', () => {
   it('renders items vertically and respects max count 6', async () => {
-    const items = Array.from({ length: 8 }).map((_, i) => ({ key: i, text: `问${i}` }));
+    const items = Array.from({ length: 8 }).map((_, i) => ({
+      key: i,
+      text: `问${i}`,
+    }));
     const { getAllByRole } = render(<FollowUpQuestion items={items as any} />);
 
     // Should render at most 6
@@ -43,14 +46,19 @@ describe('FollowUpQuestion', () => {
     const { getByRole } = render(
       <FollowUpQuestion
         onAsk={onAsk}
-        items={[{ text: '带图标', icon: <BookOutlined />, tooltip: '提示', disabled: true }]}
+        items={[
+          {
+            text: '带图标',
+            icon: <BookOutlined />,
+            tooltip: '提示',
+            disabled: true,
+          },
+        ]}
       />,
     );
     const btn = getByRole('button');
-    expect(btn).toBeDisabled();
+    expect(btn).toHaveClass('follow-up-suggestion-disabled');
     await userEvent.click(btn);
     expect(onAsk).not.toHaveBeenCalled();
   });
 });
-
-

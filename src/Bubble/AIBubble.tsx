@@ -205,6 +205,7 @@ export const AIBubble: React.FC<
           <div
             style={{
               minWidth: standalone ? 'min(296px,100%)' : '0px',
+              paddingLeft: 12,
               ...styles?.bubbleListItemExtraStyle,
             }}
             className={cx(

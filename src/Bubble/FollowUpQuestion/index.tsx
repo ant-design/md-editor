@@ -42,11 +42,12 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
     <div className={rootCls} style={style} role="group" aria-label="追问区域">
       {derivedItems?.length > 0 ? (
         <div
-          className={`${prefixCls}-suggestions ${hashId}`}
+          className={classNames(`${prefixCls}-suggestions`, hashId)}
           aria-label="追问建议"
         >
           {derivedItems?.slice(0, 6).map((item) => {
-            const label = typeof item?.text === 'string' ? item?.text : undefined;
+            const label =
+              typeof item?.text === 'string' ? item?.text : undefined;
             const isDisabled = submitting || item?.disabled;
             const handleClick = async () => {
               if (isDisabled) return;
@@ -62,36 +63,37 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
               }
             };
             return (
-              <button
+              <div
                 key={item?.key ?? label}
-                type="button"
-                className={`${prefixCls}-suggestion ${hashId}`}
+                role="button"
+                className={classNames(`${prefixCls}-suggestion`, hashId, {
+                  [`${prefixCls}-suggestion-disabled`]: isDisabled,
+                })}
                 onClick={handleClick}
-                disabled={isDisabled}
                 aria-label={`选择建议：${label || '追问'}`}
               >
                 {item?.icon ? (
-                  <span className={`${prefixCls}-icon ${hashId}`}>
+                  <span className={classNames(`${prefixCls}-icon`, hashId)}>
                     {item?.icon}
                   </span>
                 ) : null}
                 <Tooltip title={item?.tooltip ?? label} placement="top">
-                  <span className={`${prefixCls}-label ${hashId}`}>
+                  <span className={classNames(`${prefixCls}-label`, hashId)}>
                     {item?.text}
                   </span>
                 </Tooltip>
-                <span className={`${prefixCls}-arrow ${hashId}`} aria-hidden>
-                  <SwapRightIcon
-                    width={16}
-                    height={16}
-                  />
+                <span
+                  className={classNames(`${prefixCls}-arrow`, hashId)}
+                  aria-hidden
+                >
+                  <SwapRightIcon width={16} height={16} />
                 </span>
-              </button>
+              </div>
             );
           })}
         </div>
       ) : null}
-    </div>
+    </div>,
   );
 };
 

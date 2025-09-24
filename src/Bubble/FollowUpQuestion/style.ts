@@ -1,4 +1,8 @@
-import { ChatTokenType, GenerateStyle, useEditorStyleRegister } from '../../hooks/useStyle';
+import {
+  ChatTokenType,
+  GenerateStyle,
+  useEditorStyleRegister,
+} from '../../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -43,25 +47,26 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           'background-color .2s ease, box-shadow .2s ease, transform .08s ease',
 
         // hover 态（非禁用）
-        '&:hover:not(:disabled)': {
-          background: 'var(--color-gray-bg-card-light, var(--color-gray-bg-card-white))',
+        '&:hover:not(&-disabled)': {
+          background:
+            'var(--color-gray-bg-card-light, var(--color-gray-bg-card-white))',
           boxShadow: 'var(--shadow-control-base)',
         },
 
         // active 态（非禁用）
-        '&:active:not(:disabled)': {
+        '&:active:not(&-disabled)': {
           transform: 'scale(0.99)',
         },
 
         // 禁用态
-        '&:disabled': {
+        '&-disabled': {
           opacity: 0.5,
           cursor: 'not-allowed',
           boxShadow: 'none',
         },
 
         // hover 时箭头位移动画
-        [`&:hover:not(:disabled) ${token.componentCls}-arrow`]: {
+        [`&:hover:not(&-disabled) ${token.componentCls}-arrow`]: {
           transform: 'translateX(2px)',
         },
       },
@@ -111,5 +116,3 @@ export function useStyle(prefixCls?: string) {
     return [genStyle(followToken)];
   });
 }
-
-

@@ -51,7 +51,7 @@
       </div>
       <div
         animate="visible"
-        class="ant-md-editor-file-view-list"
+        class="ant-md-editor-file-view-list ant-md-editor-file-view-list-left"
         initial="hidden"
         variants="[object Object]"
         whileinview="visible"
@@ -948,7 +948,7 @@
       </div>
       <div
         animate="visible"
-        class="ant-md-editor-file-view-list"
+        class="ant-md-editor-file-view-list ant-md-editor-file-view-list-left"
         initial="hidden"
         variants="[object Object]"
         whileinview="visible"
@@ -1243,7 +1243,7 @@
       </h2>
       <div
         animate="visible"
-        class="ant-md-editor-file-view-list"
+        class="ant-md-editor-file-view-list ant-md-editor-file-view-list-left"
         initial="hidden"
         variants="[object Object]"
         whileinview="visible"

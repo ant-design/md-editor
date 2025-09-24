@@ -275,6 +275,7 @@ export const UserBubble: React.FC<
                 data-testid="message-after"
               >
                 <BubbleFileView
+             
                   bubbleListRef={props.bubbleListRef}
                   bubble={props as any}
                 />
