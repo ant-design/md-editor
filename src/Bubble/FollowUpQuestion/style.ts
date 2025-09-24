@@ -30,7 +30,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
-        border: 'var(--color-gray-border-light)',
+        border: 'none',
         boxShadow: 'var(--shadow-control-base)',
         color: 'var(--color-gray-text-secondary)',
         borderWidth: '1px',
