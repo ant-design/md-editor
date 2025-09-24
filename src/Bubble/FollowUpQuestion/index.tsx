@@ -6,7 +6,7 @@ import { useStyle } from './style';
 
 export interface FollowUpItem {
   key?: React.Key;
-  text: React.ReactNode;
+  text: string;
   icon?: React.ReactNode;
   tooltip?: string;
   disabled?: boolean;
@@ -63,7 +63,7 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
             };
             return (
               <button
-                key={item?.key ?? label ?? String(Math.random())}
+                key={item?.key ?? label}
                 type="button"
                 className={`${prefixCls}-suggestion ${hashId}`}
                 onClick={handleClick}
@@ -84,7 +84,6 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
                   <SwapRightIcon
                     width={16}
                     height={16}
-                    style={{ color: 'rgba(80, 92, 113, 0.42)' }}
                   />
                 </span>
               </button>

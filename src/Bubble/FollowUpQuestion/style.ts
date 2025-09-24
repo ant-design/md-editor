@@ -93,7 +93,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'var(--color-gray-text-tertiary)',
+        color: 'var(--color-gray-text-light)',
         fontSize: 12,
         marginLeft: 12,
         transition: 'transform .2s ease',
