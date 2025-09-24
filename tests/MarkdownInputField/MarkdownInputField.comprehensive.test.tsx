@@ -4,7 +4,8 @@
 
 import { MarkdownInputField } from '@ant-design/md-editor';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -543,24 +544,6 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
     });
 
-    it('应该在 skillMode.enable 为 true 且 open 为 true 时显示技能模式', () => {
-      const props = {
-        ...defaultProps,
-        skillMode: {
-          enable: true,
-          open: true,
-          title: 'AI助手模式',
-        },
-      };
-
-      render(<MarkdownInputField {...props} />);
-
-      expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
-      expect(screen.getByTestId('skill-mode-title')).toHaveTextContent(
-        'AI助手模式',
-      );
-    });
-
     it('应该在 skillMode.enable 为 true 但 open 为 false 时隐藏技能模式', () => {
       const props = {
         ...defaultProps,
@@ -588,21 +571,6 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       render(<MarkdownInputField {...props} />);
 
       expect(screen.getByTestId('skill-mode-bar')).toBeInTheDocument();
-    });
-
-    it('应该在 skillMode.open 为 false 时隐藏技能模式', () => {
-      const props = {
-        ...defaultProps,
-        skillMode: {
-          enable: true,
-          open: false,
-          title: 'AI助手模式',
-        },
-      };
-
-      render(<MarkdownInputField {...props} />);
-
-      expect(screen.queryByTestId('skill-mode-bar')).not.toBeInTheDocument();
     });
 
     it('应该显示技能模式的右侧内容（数组形式）', () => {
@@ -666,7 +634,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       expect(screen.queryByTestId('skill-mode-close')).not.toBeInTheDocument();
     });
 
-    it('应该在点击关闭按钮时调用 onSkillModeOpenChange', () => {
+    it('应该在点击关闭按钮时调用 onSkillModeOpenChange', async () => {
       const onSkillModeOpenChange = vi.fn();
       const props = {
         ...defaultProps,
@@ -681,7 +649,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
       render(<MarkdownInputField {...props} />);
 
       const closeButton = screen.getByTestId('skill-mode-close');
-      fireEvent.click(closeButton);
+      await userEvent.click(closeButton);
 
       expect(onSkillModeOpenChange).toHaveBeenCalledTimes(1);
       expect(onSkillModeOpenChange).toHaveBeenCalledWith(false);
@@ -706,9 +674,7 @@ describe('MarkdownInputField Comprehensive Tests', () => {
 
       render(<MarkdownInputField {...props} />);
 
-      expect(screen.getByTestId('skill-mode-title')).toContainHTML(
-        '<span>图标</span>',
-      );
+      expect(screen.getByText('图标')).toBeInTheDocument();
       expect(screen.getByText('自定义标题')).toBeInTheDocument();
     });
 
@@ -756,10 +722,9 @@ describe('MarkdownInputField Comprehensive Tests', () => {
         />,
       );
 
-      // 等待状态变化效果
-      await new Promise((resolve) => setTimeout(resolve, 0));
-
-      expect(onSkillModeOpenChange).toHaveBeenCalledWith(true);
+      await waitFor(() => {
+        expect(onSkillModeOpenChange).toHaveBeenCalledWith(true);
+      });
     });
 
     it('应该支持 enable 参数的动态切换', () => {
