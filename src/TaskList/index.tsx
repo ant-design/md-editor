@@ -1,5 +1,6 @@
 import { useMergedState } from 'rc-util';
 import React, { memo, useCallback, useContext, useMemo } from 'react';
+import { ConfigProvider } from 'antd';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
 import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
@@ -294,7 +295,8 @@ export const TaskList = memo(
     expandedKeys,
     onExpandedKeysChange,
   }: ThoughtChainProps) => {
-    const prefixCls = 'task-list';
+    const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+    const prefixCls = getPrefixCls('task-list');
     const { wrapSSR, hashId } = useStyle(prefixCls);
 
     // 如果是受控模式，使用传入的 expandedKeys

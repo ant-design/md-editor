@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useContext } from 'react';
+import { ConfigProvider } from 'antd';
 import { CloseFillIcon } from '../icons/CloseFillIcon';
 import { CornerLeftUp } from '../icons/CornerLeftUp';
 import QuoteIcon from '../icons/QuoteIcon';
@@ -37,7 +38,8 @@ const Quote: React.FC<QuoteProps> = ({
   style,
   onFileClick,
 }) => {
-  const prefixCls = 'quote';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('quote');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 处理文件名点击

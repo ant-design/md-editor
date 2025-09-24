@@ -35,6 +35,7 @@
               class="ant-chart-toolbar-header-actions"
             >
               <span
+                aria-describedby="test-id"
                 aria-label="download"
                 class="anticon anticon-download ant-chart-toolbar-download-btn"
                 role="img"

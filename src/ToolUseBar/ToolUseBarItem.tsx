@@ -108,11 +108,15 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
-      <div className={`${prefixCls}-tool-content-error ${hashId}`}>
-        <div className={`${prefixCls}-tool-content-error-icon ${hashId}`}>
+      <div className={classNames(`${prefixCls}-tool-content-error`, hashId)}>
+        <div
+          className={classNames(`${prefixCls}-tool-content-error-icon`, hashId)}
+        >
           <ErrorIcon />
         </div>
-        <div className={`${prefixCls}-tool-content-error-text ${hashId}`}>
+        <div
+          className={classNames(`${prefixCls}-tool-content-error-text`, hashId)}
+        >
           {tool.errorMessage}
         </div>
       </div>
@@ -121,7 +125,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const contentDom = useMemo(() => {
     return tool.content ? (
-      <div className={`${prefixCls}-tool-content ${hashId}`}>
+      <div className={classNames(`${prefixCls}-tool-content`, hashId)}>
         {tool.content}
       </div>
     ) : null;
@@ -134,7 +138,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   if (tool.type === 'summary') {
     return (
       <div
-        className={`${prefixCls}-tool-container ${hashId}`}
+        className={classNames(`${prefixCls}-tool-container`, hashId)}
         data-testid="tool-user-item-tool-container "
       >
         {contentDom}
@@ -157,11 +161,11 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       )}
     >
       <div
-        className={`${prefixCls}-tool-bar ${hashId}`}
+        className={classNames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
       >
         <div
-          className={`${prefixCls}-tool-header ${hashId}`}
+          className={classNames(`${prefixCls}-tool-header`, hashId)}
           data-testid="tool-user-item-tool-header"
         >
           <motion.div
@@ -204,7 +208,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             }
           >
             {tool.icon || (
-              <div className={`${prefixCls}-tool-image ${hashId}`}>
+              <div className={classNames(`${prefixCls}-tool-image`, hashId)}>
                 <ToolIcon />
               </div>
             )}
@@ -212,7 +216,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         </div>
 
         <motion.div
-          className={`${prefixCls}-tool-header-right ${hashId}`}
+          className={classNames(`${prefixCls}-tool-header-right`, hashId)}
           animate={
             tool.status === 'loading'
               ? {
@@ -264,12 +268,14 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
         </motion.div>
         {tool.time && (
-          <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
+          <div className={classNames(`${prefixCls}-tool-time`, hashId)}>
+            {tool.time}
+          </div>
         )}
 
         {showContent && (
           <div
-            className={`${prefixCls}-tool-expand ${hashId}`}
+            className={classNames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}
           >
             <ChevronUpIcon
@@ -283,7 +289,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       </div>
       {showContent && expanded ? (
         <div
-          className={`${prefixCls}-tool-container ${hashId}`}
+          className={classNames(`${prefixCls}-tool-container`, hashId)}
           data-testid="tool-user-item-tool-container "
         >
           {contentDom}

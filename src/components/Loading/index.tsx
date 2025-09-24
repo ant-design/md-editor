@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ConfigProvider } from 'antd';
 import { useStyle } from './style';
 
 /**
@@ -25,7 +26,8 @@ import { useStyle } from './style';
  * @returns {React.ReactElement} 渲染的加载动画组件
  */
 export const Loading = () => {
-  const prefixCls = 'loading-container';
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('loading-container');
   const { wrapSSR, hashId } = useStyle(prefixCls);
   return wrapSSR(
     <div className={`${prefixCls} ${hashId}`}>

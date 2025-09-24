@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { isValidElement, useState } from 'react';
+import React, { isValidElement, useState, useContext } from 'react';
+import { ConfigProvider } from 'antd';
 import { CloseIcon } from './components/CloseIcon';
 import { ErrorIcon } from './components/ErrorIcon';
 import { InfoIcon } from './components/InfoIcon';
@@ -64,8 +65,6 @@ const IconNode: React.FC<IconNodeProps> = (props) => {
   });
 };
 
-const prefixCls = 'answer-alert';
-
 export function AnswerAlert({
   className,
   style,
@@ -78,6 +77,8 @@ export function AnswerAlert({
   closable,
   onClose,
 }: AnswerAlertProps) {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('answer-alert');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const [closed, setClosed] = useState(false);
