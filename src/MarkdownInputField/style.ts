@@ -9,21 +9,21 @@ import {
 // MarkdownInputField 样式常量
 // Glow border effect constants - 辉光边框效果常量
 const GLOW_BORDER_OFFSET = 2; // px - 辉光边框偏移量
-export const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 4px - 总偏移量（上下左右）
+const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 4px - 总偏移量（上下左右）
 
 // CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
 const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
 export const getGlowBorderTotalSize = () =>
   `calc(100% + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
 
-// 为内容层减去辉光边框偏移，确保总体尺寸不变 - Subtract glow border offset for content layer
-export const subtractGlowBorderOffset = (size: string | number) => {
+// 为任意尺寸值添加辉光边框偏移 - Add glow border offset to any size value
+export const addGlowBorderOffset = (size: string | number) => {
   if (typeof size === 'number') {
-    return `${size - GLOW_BORDER_TOTAL_OFFSET}px`;
+    return `${size + GLOW_BORDER_TOTAL_OFFSET}px`;
   }
   if (size.includes('calc(')) {
-    // 如果已经是 calc 表达式，在其基础上减偏移
-    return `calc(${size} - ${GLOW_BORDER_TOTAL_OFFSET}px)`;
+    // 如果已经是 calc 表达式，在其基础上加偏移
+    return `calc(${size} + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
   }
   if (
     size.includes('px') ||
@@ -32,7 +32,7 @@ export const subtractGlowBorderOffset = (size: string | number) => {
     size.includes('em')
   ) {
     // 对于其他 CSS 单位，包装成 calc 表达式
-    return `calc(${size} - ${GLOW_BORDER_TOTAL_OFFSET}px)`;
+    return `calc(${size} + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
   }
   // 对于不确定的值，返回原值（如 'auto', 'inherit' 等）
   return size;

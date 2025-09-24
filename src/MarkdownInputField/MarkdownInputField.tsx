@@ -30,7 +30,7 @@ import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
-import { subtractGlowBorderOffset, useStyle } from './style';
+import { addGlowBorderOffset, getGlowBorderTotalSize, useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
   VoiceInputButton,
@@ -803,8 +803,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             })}
             style={{
               minHeight: props.style?.minHeight || 0,
-              height: props.style?.height || '100%',
-              width: props.style?.width || '100%',
+              height: props.style?.height
+                ? addGlowBorderOffset(props.style.height)
+                : getGlowBorderTotalSize(),
+              width: props.style?.width
+                ? addGlowBorderOffset(props.style.width)
+                : getGlowBorderTotalSize(),
             }}
           >
             <svg
@@ -877,12 +881,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 borderRadius: (borderRadius || 16) - 2 || 10,
                 maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
                 flex: 1,
-                width: props.style?.width
-                  ? subtractGlowBorderOffset(props.style.width)
-                  : `calc(100% - 4px)`,
-                height: props.style?.height
-                  ? subtractGlowBorderOffset(props.style.height)
-                  : undefined,
               }}
               className={classNames(`${baseCls}-editor`, hashId, {
                 [`${baseCls}-editor-hover`]: isHover,
