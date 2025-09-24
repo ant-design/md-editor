@@ -118,6 +118,24 @@ const mockInlineFileMap = new Map<string, AttachmentFile>([
       'https://example.com/more-example.docx',
     ),
   ],
+  [
+    'more-example.xlsx',
+    createMockFile(
+      'more-example.xlsx',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      6647360,
+      'https://example.com/more-example.xlsx',
+    ),
+  ],
+  [
+    'more-example.pptx',
+    createMockFile(
+      'more-example.pptx',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      7747360,
+      'https://example.com/more-example.pptx',
+    ),
+  ],
 ]);
 
 const mockFileMessage: MessageBubbleData = {
@@ -218,7 +236,106 @@ export default () => {
           placement="left"
           bubbleRef={bubbleRef}
           originData={mockFileMessage}
-          onFileConfig={({ onPreview, onDownload, onMore, onViewAll }) => ({
+          fileViewConfig={{
+            showMoreButton: true,
+            maxDisplayCount: 4,
+            // className: 'custom-file-view',
+            // customSlot: <>123</>,
+            renderFileMoreAction: () => (file: any) => (
+              <Popover
+                placement="bottomRight"
+                arrow={false}
+                trigger={['hover']}
+                content={
+                  <div
+                    style={{
+                      width: 180,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 4,
+                    }}
+                  >
+                    {[
+                      {
+                        key: 'copy',
+                        label: '复制',
+                        icon: <CopyOutlined />,
+                        onClick: () => console.log('复制', file),
+                      },
+                      {
+                        key: 'download',
+                        label: '下载',
+                        icon: <DownloadOutlined />,
+                        onClick: () => console.log('下载', file),
+                      },
+                      {
+                        key: 'edit',
+                        label: '编辑',
+                        icon: <EditOutlined />,
+                        onClick: () => console.log('编辑', file),
+                      },
+                      {
+                        key: 'share',
+                        label: '分享',
+                        icon: <ShareAltOutlined />,
+                        onClick: () => console.log('分享', file),
+                      },
+                    ].map((item) => (
+                      <div
+                        key={item.key}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          item.onClick();
+                        }}
+                        style={{
+                          height: 36,
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '0 12px',
+                          borderRadius: 8,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <span style={{ width: 20 }}>{item.icon}</span>
+                        <span style={{ flex: 1 }}>{item.label}</span>
+                        {item.key === 'copy' ? (
+                          <CheckOutlined style={{ color: '#2f54eb' }} />
+                        ) : null}
+                      </div>
+                    ))}
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('删除', file);
+                      }}
+                      style={{
+                        height: 36,
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '0 12px',
+                        borderRadius: 8,
+                        cursor: 'pointer',
+                        color: '#ff4d4f',
+                      }}
+                    >
+                      <span style={{ width: 20 }}>
+                        <DeleteOutlined />
+                      </span>
+                      <span style={{ flex: 1 }}>删除</span>
+                    </div>
+                  </div>
+                }
+              >
+                <div
+                  style={{
+                    width: 18,
+                    height: 18,
+                  }}
+                />
+              </Popover>
+            ),
+          }}
+          fileViewEvents={({ onPreview, onDownload, onMore, onViewAll }) => ({
             onPreview: (file) => {
               onPreview(file);
               console.log('预览文件:', file);
@@ -236,99 +353,6 @@ export default () => {
               console.log('查看所有文件:', files);
             },
           })}
-          renderFileMoreAction={(file) => (
-            <Popover
-              placement="bottomRight"
-              arrow={false}
-              trigger={['hover']}
-              content={
-                <div
-                  style={{
-                    width: 180,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 4,
-                  }}
-                >
-                  {[
-                    {
-                      key: 'copy',
-                      label: '复制',
-                      icon: <CopyOutlined />,
-                      onClick: () => console.log('复制', file),
-                    },
-                    {
-                      key: 'download',
-                      label: '下载',
-                      icon: <DownloadOutlined />,
-                      onClick: () => console.log('下载', file),
-                    },
-                    {
-                      key: 'edit',
-                      label: '编辑',
-                      icon: <EditOutlined />,
-                      onClick: () => console.log('编辑', file),
-                    },
-                    {
-                      key: 'share',
-                      label: '分享',
-                      icon: <ShareAltOutlined />,
-                      onClick: () => console.log('分享', file),
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.key}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        item.onClick();
-                      }}
-                      style={{
-                        height: 36,
-                        display: 'flex',
-                        alignItems: 'center',
-                        padding: '0 12px',
-                        borderRadius: 8,
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <span style={{ width: 20 }}>{item.icon}</span>
-                      <span style={{ flex: 1 }}>{item.label}</span>
-                      {item.key === 'copy' ? (
-                        <CheckOutlined style={{ color: '#2f54eb' }} />
-                      ) : null}
-                    </div>
-                  ))}
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log('删除', file);
-                    }}
-                    style={{
-                      height: 36,
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '0 12px',
-                      borderRadius: 8,
-                      cursor: 'pointer',
-                      color: '#ff4d4f',
-                    }}
-                  >
-                    <span style={{ width: 20 }}>
-                      <DeleteOutlined />
-                    </span>
-                    <span style={{ flex: 1 }}>删除</span>
-                  </div>
-                </div>
-              }
-            >
-              <div
-                style={{
-                  width: 18,
-                  height: 18,
-                }}
-              />
-            </Popover>
-          )}
           onLike={handleLike}
           onDisLike={handleDisLike}
           onReply={handleReply}

@@ -120,25 +120,53 @@ export const BubbleMessageDisplay: React.FC<
       onMore: (_file: any) => {},
       onViewAll: (_files: any[]) => {},
     } as const;
-    const override = props.onFileConfig?.(defaultHandlers) || {};
+    // 事件：仅使用 fileViewEvents（onFileConfig 已移除）
+    const override = props.fileViewEvents?.(defaultHandlers as any) || {};
     const handlers = {
       onPreview: override.onPreview || defaultHandlers.onPreview,
       onDownload: override.onDownload || defaultHandlers.onDownload,
       onMore: override.onMore || defaultHandlers.onMore,
       onViewAll: override.onViewAll || defaultHandlers.onViewAll,
     };
+    // 视图配置：来自 fileViewConfig
+    const viewCfg = props.fileViewConfig || {};
+    const className = viewCfg.className || props.className;
+    const style = viewCfg.style || props.style;
+    const maxDisplayCount = viewCfg.maxDisplayCount;
+    const renderFileMoreAction = (file: any) => {
+      const cfg = (viewCfg as any).renderFileMoreAction;
+      if (!cfg) return props.renderFileMoreAction?.(file);
+      if (typeof cfg === 'function') {
+        const res = cfg(file);
+        if (typeof res === 'function') return (res as any)(file);
+        return res;
+      }
+      return cfg;
+    };
     return (
       <FileMapView
+        className={className}
+        style={style}
+        maxDisplayCount={maxDisplayCount}
+        showMoreButton={(viewCfg as any).showMoreButton}
+        customSlot={(viewCfg as any).customSlot as any}
         fileMap={filesMap}
         onPreview={(file) => handlers.onPreview(file)}
         onDownload={(file) => handlers.onDownload(file)}
         onMore={(file) => handlers.onMore(file)}
-        renderMoreAction={props.renderFileMoreAction}
+        renderMoreAction={renderFileMoreAction}
         onViewAll={() => handlers.onViewAll(Array.from(filesMap.values()))}
         data-testid="file-item"
       />
     );
-  }, [filesMap, props.onFileConfig, props.renderFileMoreAction]);
+  }, [
+    filesMap,
+    props.fileViewEvents,
+    props.renderFileMoreAction,
+    props.fileViewConfig,
+    props.className,
+    props.style,
+  ]);
 
   const afterContent = useMemo(() => {
     const userAfter = props.bubbleRenderConfig?.afterMessageRender

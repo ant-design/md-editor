@@ -55,6 +55,7 @@ export const FileMapViewItem: React.FC<{
   onDownload: () => void;
   onMore?: () => void;
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
+  customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
   className?: string;
   prefixCls?: string;
   hashId?: string;
@@ -150,31 +151,7 @@ export const FileMapViewItem: React.FC<{
                 props.hashId,
               )}
             >
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  props.onPreview?.();
-                }}
-                className={classNames(
-                  `${props.prefixCls}-action-btn`,
-                  props.hashId,
-                )}
-              >
-                <EyeOutlined />
-              </div>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  props.onDownload?.();
-                }}
-                className={classNames(
-                  `${props.prefixCls}-action-btn`,
-                  props.hashId,
-                )}
-              >
-                <DownloadOutlined />
-              </div>
-              {props.renderMoreAction ? (
+              {props.customSlot ? (
                 <div
                   onClick={(e) => e.stopPropagation()}
                   className={classNames(
@@ -182,22 +159,62 @@ export const FileMapViewItem: React.FC<{
                     props.hashId,
                   )}
                 >
-                  <EllipsisOutlined
-                    className={classNames(
-                      `${props.prefixCls}-more-icon`,
-                      props.hashId,
-                    )}
-                  />
+                  {typeof props.customSlot === 'function'
+                    ? props.customSlot(file)
+                    : props.customSlot}
+                </div>
+              ) : (
+                <>
                   <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      props.onPreview?.();
+                    }}
                     className={classNames(
-                      `${props.prefixCls}-more-custom`,
+                      `${props.prefixCls}-action-btn`,
                       props.hashId,
                     )}
                   >
-                    {props.renderMoreAction(file)}
+                    <EyeOutlined />
                   </div>
-                </div>
-              ) : null}
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      props.onDownload?.();
+                    }}
+                    className={classNames(
+                      `${props.prefixCls}-action-btn`,
+                      props.hashId,
+                    )}
+                  >
+                    <DownloadOutlined />
+                  </div>
+                  {props.renderMoreAction ? (
+                    <div
+                      onClick={(e) => e.stopPropagation()}
+                      className={classNames(
+                        `${props.prefixCls}-action-btn`,
+                        props.hashId,
+                      )}
+                    >
+                      <EllipsisOutlined
+                        className={classNames(
+                          `${props.prefixCls}-more-icon`,
+                          props.hashId,
+                        )}
+                      />
+                      <div
+                        className={classNames(
+                          `${props.prefixCls}-more-custom`,
+                          props.hashId,
+                        )}
+                      >
+                        {props.renderMoreAction(file)}
+                      </div>
+                    </div>
+                  ) : null}
+                </>
+              )}
             </div>
           ) : null}
         </motion.div>

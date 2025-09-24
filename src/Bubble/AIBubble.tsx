@@ -198,7 +198,8 @@ export const AIBubble: React.FC<
       pure={props.pure}
       onCancelLike={props.onCancelLike}
       shouldShowCopy={props.shouldShowCopy}
-      onFileConfig={props.onFileConfig}
+      fileViewEvents={props.fileViewEvents}
+      fileViewConfig={props.fileViewConfig}
       renderFileMoreAction={props.renderFileMoreAction}
       shouldShowVoice={props.shouldShowVoice}
       bubbleRenderConfig={props.bubbleRenderConfig}

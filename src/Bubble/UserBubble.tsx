@@ -142,7 +142,8 @@ export const UserBubble: React.FC<
       customConfig={props?.bubbleRenderConfig?.customConfig}
       pure={props.pure}
       shouldShowCopy={props.shouldShowCopy}
-      onFileConfig={props.onFileConfig}
+      fileViewEvents={props.fileViewEvents}
+      fileViewConfig={props.fileViewConfig}
       renderFileMoreAction={props.renderFileMoreAction}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />

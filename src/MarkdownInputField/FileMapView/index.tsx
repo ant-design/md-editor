@@ -21,6 +21,8 @@ export type FileMapViewProps = {
   onViewAll?: (files: AttachmentFile[]) => void;
   /** 自定义更多操作 DOM（优先于 onMore，传入则展示该 DOM，不传则不展示更多按钮） */
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
+  /** 自定义悬浮动作区 slot（传入则覆盖默认『预览/下载/更多』动作区） */
+  customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
   /** 自定义根容器样式（可覆盖布局，如 flexDirection、gap、wrap 等） */
   style?: React.CSSProperties;
   /** 自定义根容器类名 */
@@ -28,6 +30,8 @@ export type FileMapViewProps = {
   /** 最多展示的文件数量，默认展示 3 个 */
   maxDisplayCount?: number;
   placement?: 'left' | 'right';
+  /** 是否展示“查看此任务中的所有文件”按钮（默认展示） */
+  showMoreButton?: boolean;
 };
 
 /**
@@ -85,13 +89,12 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   }, [props.fileMap]);
 
   const limitedFiles = useMemo(() => {
+    // 需求：当 showMoreButton === false 时，展示全部文件；否则仅展示前 maxCount 个
+    if (props.showMoreButton === false) {
+      return fileList;
+    }
     return fileList.slice(0, Math.max(0, maxCount));
-  }, [fileList, maxCount]);
-
-  const hasMore = useMemo(
-    () => fileList.length > maxCount,
-    [fileList, maxCount],
-  );
+  }, [fileList, maxCount, props.showMoreButton]);
 
   const imgList = useMemo(() => {
     return limitedFiles.filter((file) => isImageFile(file));
@@ -143,21 +146,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             );
           })}
         </Image.PreviewGroup>
-        {hasMore ? (
-          <div
-            className={classNames(hashId, `${prefix}-more-file-container`)}
-            onClick={() => props.onViewAll?.(fileList)}
-          >
-            <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
-              <MoreFileIcon />
-            </div>
-            <div className={classNames(hashId, `${prefix}-more-file-name`)}>
-              <span style={{ whiteSpace: 'nowrap' }}>
-                查看此任务中的所有文件
-              </span>
-            </div>
-          </div>
-        ) : null}
       </motion.div>
       <motion.div
         variants={{
@@ -205,6 +193,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
                 props.onMore?.(file);
               }}
               renderMoreAction={props.renderMoreAction}
+              customSlot={props.customSlot}
               key={file?.uuid || file?.name || index}
               prefixCls={`${prefix}-item`}
               hashId={hashId}
@@ -213,20 +202,23 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             />
           );
         })}
+        {props.showMoreButton !== false ? (
+          <div
+            style={{ width: props.style?.width }}
+            className={classNames(hashId, `${prefix}-more-file-container`)}
+            onClick={() => props.onViewAll?.(fileList)}
+          >
+            <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
+              <MoreFileIcon />
+            </div>
+            <div className={classNames(hashId, `${prefix}-more-file-name`)}>
+              <span style={{ whiteSpace: 'nowrap' }}>
+                查看此任务中的所有文件
+              </span>
+            </div>
+          </div>
+        ) : null}
       </motion.div>
-      {hasMore ? (
-        <div
-          className={classNames(hashId, `${prefix}-more-file-container`)}
-          onClick={() => props.onViewAll?.(fileList)}
-        >
-          <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
-            <MoreFileIcon />
-          </div>
-          <div className={classNames(hashId, `${prefix}-more-file-name`)}>
-            <span style={{ whiteSpace: 'nowrap' }}>查看此任务中的所有文件</span>
-          </div>
-        </div>
-      ) : null}
     </div>,
   );
 };
