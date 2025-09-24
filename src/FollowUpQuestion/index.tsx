@@ -1,7 +1,7 @@
-import classNames from 'classnames';
-import { SwapRightIcon } from '../icons';
 import { Tooltip } from 'antd';
+import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
+import { SwapRightIcon } from '../icons';
 import { useStyle } from './style';
 
 export interface FollowUpItem {
@@ -35,7 +35,10 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [submitting, setSubmitting] = useState(false);
 
-  const isDisabled = useMemo(() => disabled || loading || submitting, [disabled, loading, submitting]);
+  const isDisabled = useMemo(
+    () => disabled || loading || submitting,
+    [disabled, loading, submitting],
+  );
 
   const derivedItems: FollowUpItem[] = useMemo(() => {
     if (Array.isArray(items) && items.length > 0) return items;
@@ -46,17 +49,20 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
 
   return wrapSSR(
     <div className={rootCls} style={style} role="group" aria-label="追问区域">
-      {derivedItems.length > 0 ? (
-        <div className={`${prefixCls}-suggestions ${hashId}`} aria-label="追问建议">
-          {derivedItems.slice(0, 6).map((item) => {
-            const label = typeof item.text === 'string' ? item.text : undefined;
-            const isItemDisabled = isDisabled || item.disabled;
+      {derivedItems?.length > 0 ? (
+        <div
+          className={`${prefixCls}-suggestions ${hashId}`}
+          aria-label="追问建议"
+        >
+          {derivedItems?.slice(0, 6).map((item) => {
+            const label = typeof item?.text === 'string' ? item?.text : undefined;
+            const isItemDisabled = isDisabled || item?.disabled;
             const handleClick = async () => {
               if (isItemDisabled) return;
               try {
                 setSubmitting(true);
-                if (item.onClick) {
-                  await item.onClick(label ?? '');
+                if (item?.onClick) {
+                  await item?.onClick(label ?? '');
                 } else {
                   await onAsk?.(label ?? '');
                 }
@@ -65,28 +71,32 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
               }
             };
             return (
-            <button
-              key={item.key ?? label ?? String(Math.random())}
-              type="button"
-              className={`${prefixCls}-suggestion ${hashId}`}
-              onClick={handleClick}
-              disabled={isItemDisabled}
-              aria-label={`选择建议：${label || '追问'}`}
-            >
-              {item.icon ? (
-                <span className={`${prefixCls}-icon ${hashId}`}>{item.icon}</span>
-              ) : null}
-              <Tooltip title={item.tooltip ?? label} placement="top">
-                <span className={`${prefixCls}-label ${hashId}`}>{item.text}</span>
-              </Tooltip>
-              <span className={`${prefixCls}-arrow ${hashId}`} aria-hidden>
-                <SwapRightIcon
-                  width={16}
-                  height={16}
-                  style={{ color: 'rgba(80, 92, 113, 0.42)' }}
-                />
-              </span>
-            </button>
+              <button
+                key={item?.key ?? label ?? String(Math.random())}
+                type="button"
+                className={`${prefixCls}-suggestion ${hashId}`}
+                onClick={handleClick}
+                disabled={isItemDisabled}
+                aria-label={`选择建议：${label || '追问'}`}
+              >
+                {item?.icon ? (
+                  <span className={`${prefixCls}-icon ${hashId}`}>
+                    {item?.icon}
+                  </span>
+                ) : null}
+                <Tooltip title={item?.tooltip ?? label} placement="top">
+                  <span className={`${prefixCls}-label ${hashId}`}>
+                    {item?.text}
+                  </span>
+                </Tooltip>
+                <span className={`${prefixCls}-arrow ${hashId}`} aria-hidden>
+                  <SwapRightIcon
+                    width={16}
+                    height={16}
+                    style={{ color: 'rgba(80, 92, 113, 0.42)' }}
+                  />
+                </span>
+              </button>
             );
           })}
         </div>
@@ -96,5 +106,3 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
 };
 
 export default FollowUpQuestion;
-
-

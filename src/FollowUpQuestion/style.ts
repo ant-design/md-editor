@@ -39,6 +39,31 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
+        transition:
+          'background-color .2s ease, box-shadow .2s ease, transform .08s ease',
+
+        // hover 态（非禁用）
+        '&:hover:not(:disabled)': {
+          background: 'var(--color-gray-bg-card-light, var(--color-gray-bg-card-white))',
+          boxShadow: 'var(--shadow-control-base)',
+        },
+
+        // active 态（非禁用）
+        '&:active:not(:disabled)': {
+          transform: 'scale(0.99)',
+        },
+
+        // 禁用态
+        '&:disabled': {
+          opacity: 0.5,
+          cursor: 'not-allowed',
+          boxShadow: 'none',
+        },
+
+        // hover 时箭头位移动画
+        [`&:hover:not(:disabled) ${token.componentCls}-arrow`]: {
+          transform: 'translateX(2px)',
+        },
       },
 
       '&-icon': {
@@ -71,6 +96,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-tertiary)',
         fontSize: 12,
         marginLeft: 12,
+        transition: 'transform .2s ease',
       },
     },
   };
