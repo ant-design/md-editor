@@ -1,5 +1,5 @@
 ---
-title: 对话流容器组件
+title: ChatFlowContainer - 对话流容器组件
 atomId: ChatFlowContainer
 group:
   title: 组件

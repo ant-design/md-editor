@@ -1,7 +1,9 @@
 import React from 'react';
+import { LoadingIcon } from '../../../icons/LoadingIcon';
 import { getFileTypeIcon } from '../../../Workspace/File/utils';
 import { FileType } from '../../../Workspace/types';
 import { AttachmentFile } from '../types';
+import { isImageFile } from '../utils';
 
 /**
  * AttachmentFileIcon 组件 - 附件文件图标组件
@@ -42,6 +44,25 @@ export const AttachmentFileIcon: React.FC<{
   style?: React.CSSProperties;
 }> = (props) => {
   const file = props.file;
+  if (file.status === 'uploading') {
+    return <LoadingIcon />;
+  }
+  if (isImageFile(file)) {
+    return (
+      <div
+        style={{
+          width: '40px',
+          height: '40px',
+          overflow: 'hidden',
+          borderRadius: '6px',
+          backgroundImage: `url(${file.url})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+    );
+  }
   return getFileTypeIcon(
     file.type?.split('/').at(-1) as FileType,
     '',

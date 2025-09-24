@@ -58,7 +58,7 @@ export default () => {
         maxSize: 10 * 1024 * 1024, // 10MB
         onUpload: async (file) => {
           // 模拟上传文件
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, 10000));
           return {
             url: URL.createObjectURL(file),
             name: file.name,

@@ -142,23 +142,16 @@ export const BubbleMessageDisplay: React.FC<
 
   const afterContent = useMemo(() => {
     const userAfter = props.bubbleRenderConfig?.afterMessageRender
-      ? props.bubbleRenderConfig.afterMessageRender(props, null)
-      : null;
-    if (!attachmentsDom && !userAfter) return null;
-    return (
-      <>
-        {attachmentsDom}
-        {userAfter}
-      </>
-    );
+      ? props.bubbleRenderConfig.afterMessageRender(props, contentAfterDom)
+      : contentAfterDom;
+    return <>{userAfter}</>;
   }, [
     props.bubbleRenderConfig?.afterMessageRender,
     typing,
     props.originData,
-    attachmentsDom,
     props.bubbleRenderConfig?.afterMessageRender,
     contentAfterDom,
-    typing
+    typing,
   ]);
 
   const memo = useMemo(() => {

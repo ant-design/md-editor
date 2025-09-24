@@ -93,14 +93,16 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
     [fileList, maxCount],
   );
 
-  const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
-
-  const everythingIsImage = useMemo(() => {
-    return fileList.every((file) => isImageFile(file));
+  const imgList = useMemo(() => {
+    return limitedFiles.filter((file) => isImageFile(file));
   }, [fileList]);
 
-  if (everythingIsImage) {
-    return wrapSSR(
+  const noImageFileList = useMemo(() => {
+    return limitedFiles.filter((file) => !isImageFile(file));
+  }, [fileList]);
+
+  return wrapSSR(
+    <div>
       <motion.div
         variants={{
           visible: {
@@ -121,15 +123,20 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         initial="hidden"
         animate={'visible'}
         style={props.style}
-        className={classNames(prefix, hashId, props.className, `${prefix}-${placement}`)}
+        className={classNames(
+          prefix,
+          hashId,
+          props.className,
+          `${prefix}-${placement}`,
+        )}
       >
         <Image.PreviewGroup>
-          {limitedFiles.map((file, index) => {
+          {imgList.map((file, index) => {
             return (
               <Image
                 className={classNames(`${prefix}-image`, hashId)}
-                width={178}
-                height={178}
+                width={124}
+                height={124}
                 src={file.previewUrl || file.url}
                 key={file.uuid || file.name || index}
               />
@@ -151,28 +158,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             </div>
           </div>
         ) : null}
-      </motion.div>,
-    );
-  }
-
-  return wrapSSR(
-    <>
-      <Image
-        key="preview"
-        src={imgSrc}
-        alt="Preview"
-        style={{ display: 'none' }}
-        preview={{
-          visible: !!imgSrc,
-          scaleStep: 1,
-          src: imgSrc,
-          onVisibleChange: (value) => {
-            if (!value) {
-              setImgSrc(undefined);
-            }
-          },
-        }}
-      />
+      </motion.div>
       <motion.div
         variants={{
           visible: {
@@ -192,20 +178,21 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         whileInView="visible"
         initial="hidden"
         animate={'visible'}
-        className={classNames(prefix, hashId, props.className,`${prefix}-${placement}`)}
+        className={classNames(
+          prefix,
+          hashId,
+          props.className,
+          `${prefix}-${placement}`,
+        )}
         style={props.style}
       >
-        {limitedFiles.map((file, index) => {
+        {noImageFileList.map((file, index) => {
           return (
             <FileMapViewItem
               style={{ width: props.style?.width }}
               onPreview={() => {
                 if (props.onPreview) {
                   props.onPreview?.(file);
-                  return;
-                }
-                if (isImageFile(file)) {
-                  setImgSrc(file.previewUrl || file.url);
                   return;
                 }
                 if (typeof window === 'undefined') return;
@@ -227,7 +214,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           );
         })}
       </motion.div>
-
       {hasMore ? (
         <div
           className={classNames(hashId, `${prefix}-more-file-container`)}
@@ -241,6 +227,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           </div>
         </div>
       ) : null}
-    </>,
+    </div>,
   );
 };

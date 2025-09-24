@@ -260,6 +260,12 @@ export default () => (
 
 <code src="../demos/bubble/avatar-render-demo.tsx"></code>
 
+### 引用
+
+展示如何实现引用弹框及消息底部的引用汇总功能。
+
+<code src="../demos/bubble/footnote-demo.tsx"></code>
+
 ### 操作区域定制
 
 展示 `extraRender` 功能，自定义气泡的操作按钮和交互区域。

@@ -17,7 +17,28 @@ type BubbleBeforeNodeProps = {
     uuid: number;
   }>;
   bubbleListRef: any;
+  placement: 'left' | 'right';
 };
+
+// 默认行为：打开预览链接、新窗口下载等
+const defaultHandlers = {
+  onPreview: (file: any) => {
+    const url = file?.previewUrl || file?.url;
+    if (url && typeof window !== 'undefined') window.open(url, '_blank');
+  },
+  onDownload: (file: any) => {
+    const url = file?.url || file?.previewUrl;
+    if (!url || typeof document === 'undefined') return;
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = file?.name || 'download';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  },
+  onMore: () => {},
+  onViewAll: () => {},
+} as const;
 
 /**
  * @description 聊天项文件视图组件，用于展示聊天项中的文件
@@ -30,25 +51,6 @@ export const BubbleFileView: React.FC<BubbleBeforeNodeProps> = (props) => {
   if (!_.originData?.fileMap || _.originData?.fileMap.size === 0) {
     return null;
   }
-  // 默认行为：打开预览链接、新窗口下载等
-  const defaultHandlers = {
-    onPreview: (file: any) => {
-      const url = file?.previewUrl || file?.url;
-      if (url && typeof window !== 'undefined') window.open(url, '_blank');
-    },
-    onDownload: (file: any) => {
-      const url = file?.url || file?.previewUrl;
-      if (!url || typeof document === 'undefined') return;
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = file?.name || 'download';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    },
-    onMore: (_file: any) => {},
-    onViewAll: (_files: any[]) => {},
-  } as const;
 
   // 提供默认实现给外部包装，若外部返回覆盖，则优先用覆盖
   const override = props.bubble.onFileConfig?.(defaultHandlers) || {};
@@ -66,7 +68,8 @@ export const BubbleFileView: React.FC<BubbleBeforeNodeProps> = (props) => {
       onViewAll={() =>
         handlers.onViewAll(Array.from(_.originData?.fileMap?.values() || []))
       }
-      placement={props.bubble.placement}
+      renderMoreAction={props.bubble.renderFileMoreAction}
+      placement={props.placement}
       fileMap={_.originData?.fileMap}
       data-testid="file-item"
     />

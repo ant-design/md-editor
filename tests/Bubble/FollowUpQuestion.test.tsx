@@ -57,7 +57,7 @@ describe('FollowUpQuestion', () => {
       />,
     );
     const btn = getByRole('button');
-    expect(btn).toHaveClass('follow-up-suggestion-disabled');
+    expect(btn).toHaveClass('ant-follow-up-suggestion-disabled');
     await userEvent.click(btn);
     expect(onAsk).not.toHaveBeenCalled();
   });

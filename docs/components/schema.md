@@ -2,6 +2,7 @@
 nav:
   title: 组件
   order: 1
+atomId: Schema
 group:
   title: 渲染器
   order: 3
