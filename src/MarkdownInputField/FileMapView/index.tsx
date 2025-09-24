@@ -93,8 +93,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
     [fileList, maxCount],
   );
 
-  const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
-
   const imgList = useMemo(() => {
     return limitedFiles.filter((file) => isImageFile(file));
   }, [fileList]);
@@ -161,23 +159,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           </div>
         ) : null}
       </motion.div>
-
-      <Image
-        key="preview"
-        src={imgSrc}
-        alt="Preview"
-        style={{ display: 'none' }}
-        preview={{
-          visible: !!imgSrc,
-          scaleStep: 1,
-          src: imgSrc,
-          onVisibleChange: (value) => {
-            if (!value) {
-              setImgSrc(undefined);
-            }
-          },
-        }}
-      />
       <motion.div
         variants={{
           visible: {
@@ -212,10 +193,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
               onPreview={() => {
                 if (props.onPreview) {
                   props.onPreview?.(file);
-                  return;
-                }
-                if (isImageFile(file)) {
-                  setImgSrc(file.previewUrl || file.url);
                   return;
                 }
                 if (typeof window === 'undefined') return;
