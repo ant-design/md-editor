@@ -44,8 +44,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-status': {
         display: 'flex',
-        lineHeight: '20px',
-        height: 20,
+        lineHeight: '22px',
+        height: 22,
         alignItems: 'center',
         color: 'var(--color-gray-text-disabled)',
         svg: {
