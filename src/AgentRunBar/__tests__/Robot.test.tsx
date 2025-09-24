@@ -1,15 +1,39 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
 import Robot from '../Robot';
 
+// Mock Lottie组件
+vi.mock('lottie-react', () => ({
+  default: ({ animationData, loop, autoplay, style, className, ...props }: any) => (
+    <div
+      data-testid="lottie-animation"
+      data-loop={loop}
+      data-autoplay={autoplay}
+      data-animation={animationData ? 'loaded' : 'empty'}
+      style={style}
+      className={className}
+      {...props}
+    >
+      Lottie Animation
+    </div>
+  ),
+}));
+
 describe('Robot Component', () => {
-  it('should render with default size and image', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should render with default size and dazing animation', () => {
     const { container } = render(<Robot />);
 
-    const robot = screen.getByRole('img');
-    expect(robot).toBeInTheDocument();
-    expect(robot).toHaveAttribute('alt', 'robot');
+    // 检查Lottie动画组件
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-animation', 'loaded');
 
     // 检查容器样式
     const robotContainer = container.firstChild as HTMLElement;
@@ -28,6 +52,10 @@ describe('Robot Component', () => {
     const customSize = 100;
     const { container } = render(<Robot size={customSize} />);
 
+    // 检查Lottie动画组件
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+
     const robotContainer = container.firstChild as HTMLElement;
     expect(robotContainer).toHaveStyle({
       width: `${customSize}px`,
@@ -41,6 +69,9 @@ describe('Robot Component', () => {
 
     expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     expect(screen.getByText('Custom Icon')).toBeInTheDocument();
+
+    // 当有自定义图标时，不应该显示Lottie动画
+    expect(screen.queryByTestId('lottie-animation')).not.toBeInTheDocument();
   });
 
   it('should render with custom icon and not apply size styles', () => {
@@ -67,6 +98,9 @@ describe('Robot Component', () => {
     const robot = screen.getByRole('img');
     expect(robot).toHaveAttribute('src', customIconUrl);
     expect(robot).toHaveAttribute('alt', 'robot');
+
+    // 当有字符串图标时，不应该显示Lottie动画
+    expect(screen.queryByTestId('lottie-animation')).not.toBeInTheDocument();
   });
 
   it('should apply custom className and style', () => {
@@ -81,10 +115,34 @@ describe('Robot Component', () => {
     expect(robotContainer.style.backgroundColor).toBe('red');
   });
 
-  it('should render with different status prop (for type safety)', () => {
-    // 虽然 status 在组件中没有实际使用，但确保传递不会导致错误
-    const { container } = render(<Robot status="thinking" />);
-    expect(container.firstChild).toBeInTheDocument();
+  it('should render thinking status with ThinkingLottie', () => {
+    render(<Robot status="thinking" />);
+
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-animation', 'loaded');
+  });
+
+  it('should render dazing status with DazingLottie', () => {
+    render(<Robot status="dazing" />);
+
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-animation', 'loaded');
+  });
+
+  it('should render default status with DazingLottie', () => {
+    render(<Robot status="default" />);
+
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-animation', 'loaded');
   });
 
   it('should render with all props combined', () => {
@@ -104,6 +162,9 @@ describe('Robot Component', () => {
 
     expect(screen.getByTestId('icon')).toBeInTheDocument();
     expect(screen.getByText('🤖')).toBeInTheDocument();
+
+    // 当有自定义图标时，不应该显示Lottie动画
+    expect(screen.queryByTestId('lottie-animation')).not.toBeInTheDocument();
   });
 
   // 测试记忆化功能
@@ -113,30 +174,35 @@ describe('Robot Component', () => {
     // 重新渲染相同的props，组件应该被memo优化
     rerender(<Robot size={50} />);
 
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByTestId('lottie-animation')).toBeInTheDocument();
   });
 
-  // 测试默认图片URL
-  it('should use default robot image URL', () => {
-    render(<Robot />);
+  // 测试Lottie动画属性
+  it('should render Lottie animation with correct properties', () => {
+    render(<Robot size={60} />);
 
-    const img = screen.getByRole('img');
-    expect(img).toHaveAttribute(
-      'src',
-      'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp',
-    );
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-animation', 'loaded');
+    expect(lottieAnimation).toHaveAttribute('aria-hidden', 'true');
   });
 
   // 测试极端尺寸值
   it('should handle extreme size values', () => {
-    const { container: container1 } = render(<Robot size={1} />);
-    const { container: container2 } = render(<Robot size={1000} />);
-
+    // 测试小尺寸
+    const { container: container1, unmount: unmount1 } = render(<Robot size={1} />);
     const robot1 = container1.firstChild as HTMLElement;
-    const robot2 = container2.firstChild as HTMLElement;
-
     expect(robot1).toHaveStyle({ width: '1px', height: '1px' });
+    expect(screen.getByTestId('lottie-animation')).toBeInTheDocument();
+    unmount1();
+
+    // 测试大尺寸
+    const { container: container2 } = render(<Robot size={1000} />);
+    const robot2 = container2.firstChild as HTMLElement;
     expect(robot2).toHaveStyle({ width: '1000px', height: '1000px' });
+    expect(screen.getByTestId('lottie-animation')).toBeInTheDocument();
   });
 
   // 测试React.isValidElement的分支
@@ -146,39 +212,39 @@ describe('Robot Component', () => {
 
     const img = screen.getByRole('img');
     expect(img).toHaveAttribute('src', stringIcon);
+
+    // 当有字符串图标时，不应该显示Lottie动画
+    expect(screen.queryByTestId('lottie-animation')).not.toBeInTheDocument();
   });
 
   // 测试undefined icon
   it('should handle undefined icon', () => {
     render(<Robot icon={undefined} />);
 
-    const img = screen.getByRole('img');
-    expect(img).toHaveAttribute(
-      'src',
-      'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp',
-    );
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
   });
 
   // 测试null icon
   it('should handle null icon', () => {
     render(<Robot icon={null} />);
 
-    const img = screen.getByRole('img');
-    expect(img).toHaveAttribute(
-      'src',
-      'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp',
-    );
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
   });
 
   // 测试空字符串icon
   it('should handle empty string icon', () => {
     render(<Robot icon="" />);
 
-    const img = screen.getByRole('img');
-    expect(img).toHaveAttribute(
-      'src',
-      'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp',
-    );
+    const lottieAnimation = screen.getByTestId('lottie-animation');
+    expect(lottieAnimation).toBeInTheDocument();
+    expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+    expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
   });
 
   // 测试复杂的React元素icon
@@ -195,6 +261,9 @@ describe('Robot Component', () => {
     expect(screen.getByTestId('complex-icon')).toBeInTheDocument();
     expect(screen.getByText('Robot')).toBeInTheDocument();
     expect(screen.getByAltText('test')).toBeInTheDocument();
+
+    // 当有复杂React元素图标时，不应该显示Lottie动画
+    expect(screen.queryByTestId('lottie-animation')).not.toBeInTheDocument();
   });
 
   // 测试零尺寸
@@ -203,6 +272,9 @@ describe('Robot Component', () => {
     const robot = container.firstChild as HTMLElement;
 
     expect(robot).toHaveStyle({ width: '0px', height: '0px' });
+
+    // 确保Lottie动画仍然存在
+    expect(screen.getByTestId('lottie-animation')).toBeInTheDocument();
   });
 
   // 测试所有status类型
@@ -214,8 +286,17 @@ describe('Robot Component', () => {
     ];
 
     statuses.forEach((status) => {
-      const { container } = render(<Robot status={status} />);
+      const { container, unmount } = render(<Robot status={status} />);
       expect(container.firstChild).toBeInTheDocument();
+
+      // 确保每个状态都显示Lottie动画
+      const lottieAnimation = screen.getByTestId('lottie-animation');
+      expect(lottieAnimation).toBeInTheDocument();
+      expect(lottieAnimation).toHaveAttribute('data-loop', 'true');
+      expect(lottieAnimation).toHaveAttribute('data-autoplay', 'true');
+
+      // 清理DOM，避免影响下一个测试
+      unmount();
     });
   });
 });
