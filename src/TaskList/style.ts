@@ -54,18 +54,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
 
-      '&-status-idle': {
-        display: 'flex',
-        lineHeight: '22px',
-        height: 22,
-        alignItems: 'center',
-        color: 'var(--color-gray-text-disabled)',
-        svg: {
-          width: 16,
-          height: 16,
-        },
-      },
-
       '&-top': {
         display: 'flex',
         marginBottom: 4,

@@ -165,7 +165,7 @@ const TaskListItem = memo(
             {item.status === 'success' ? <SuccessIcon /> : null}
             {item.status === 'loading' ? <LoadingLottie size={16} /> : null}
             {item.status === 'pending' ? (
-              <div className={`${prefixCls}-status-idle ${hashId}`}>
+              <div className={`${prefixCls}-status ${prefixCls}-status-idle ${hashId}`}>
                 <DashPendingIcon />
               </div>
             ) : null}
