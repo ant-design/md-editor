@@ -133,12 +133,6 @@ describe('ToolUseBar', () => {
   it('should expand/collapse content when expand button is clicked', () => {
     const { container } = render(<ToolUseBar tools={mockTools} />);
 
-    // 查找展开按钮
-    const expandButtons = container.querySelectorAll(
-      '[class*="tool-use-bar-tool-expand"]',
-    );
-    const firstExpandButton = expandButtons[0];
-
     // 初始状态应该是收起的
     const contentContainers = container.querySelectorAll(
       '[class*="ant-tool-use-bar-tool-container"]',
