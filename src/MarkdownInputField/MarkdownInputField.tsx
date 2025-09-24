@@ -30,6 +30,7 @@ import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
+import TopOperation from './TopOperation';
 import {
   VoiceInputButton,
   type CreateRecognizer,
@@ -679,6 +680,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   return wrapSSR(
     <>
+      <TopOperation />
       {beforeTools ? (
         <div className={classNames(`${baseCls}-before-tools`, hashId)}>
           {beforeTools}
