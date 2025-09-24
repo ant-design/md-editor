@@ -232,6 +232,12 @@ export default () => (
 
 <code src="../demos/bubble/extra-render.tsx"></code>
 
+### 追问
+
+在消息内容下方渲染追问输入与建议。
+
+<code src="../demos/bubble/followup-basic.tsx"></code>
+
 ### 语音播报（TTS）
 
 展示内置的语音播报按钮及倍速选择功能：
