@@ -98,22 +98,7 @@ export const FileMapViewItem: React.FC<{
                 props.hashId,
               )}
             >
-              <span
-                className={classNames(
-                  `${props.prefixCls}-file-name-text`,
-                  props.hashId,
-                )}
-              >
-                {file?.name?.split('.').slice(0, -1).join('.')}
-              </span>
-              <span
-                className={classNames(
-                  `${props.prefixCls}-file-name-extension`,
-                  props.hashId,
-                )}
-              >
-                .{file?.name?.split('.').slice(-1)}
-              </span>
+              {file?.name}
             </div>
             <div
               className={classNames(
@@ -121,7 +106,9 @@ export const FileMapViewItem: React.FC<{
                 props.hashId,
               )}
             >
-              {kbToSize(file.size / 1024)}
+              {[kbToSize(file.size / 1024) || '', file.type]
+                .filter(Boolean)
+                .join(' | ')}
             </div>
           </div>
         </motion.div>
