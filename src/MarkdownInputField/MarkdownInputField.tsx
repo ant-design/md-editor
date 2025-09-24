@@ -28,6 +28,8 @@ import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
 import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
+import type { SkillModeConfig } from './SkillModeBar';
+import { SkillModeBar } from './SkillModeBar';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
@@ -314,6 +316,41 @@ export type MarkdownInputFieldProps = {
       | 'text/plain'
     >;
   };
+
+  /**
+   * 技能模式配置
+   * @description 配置技能模式的显示和行为，可以显示特定的技能或AI助手模式
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   skillMode={{
+   *     open: skillModeEnabled,
+   *     title: "AI助手模式",
+   *     rightContent: [
+   *       <Tag key="version">v2.0</Tag>,
+   *       <Button key="settings" size="small">设置</Button>
+   *     ],
+   *     closable: true
+   *   }}
+   *   onSkillModeOpenChange={(open) => {
+   *     console.log(`技能模式${open ? '打开' : '关闭'}`);
+   *     setSkillModeEnabled(open);
+   *   }}
+   * />
+   * ```
+   */
+  skillMode?: SkillModeConfig;
+
+  /**
+   * 技能模式开关状态变化时触发的回调函数
+   * @description 监听技能模式 open 状态的所有变化，包括用户点击关闭按钮和外部直接修改状态
+   * @param open 新的开关状态
+   * @example onSkillModeOpenChange={(open) => {
+   *   console.log(`技能模式${open ? '打开' : '关闭'}`);
+   *   setSkillModeEnabled(open);
+   * }}
+   */
+  onSkillModeOpenChange?: (open: boolean) => void;
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -844,6 +881,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 [`${baseCls}-editor-disabled`]: props.disabled,
               })}
             >
+              {/* 技能模式部分 */}
+              <SkillModeBar
+                skillMode={props.skillMode}
+                onSkillModeOpenChange={props.onSkillModeOpenChange}
+              />
+
               {useMemo(() => {
                 return props.attachment?.enable ? (
                   <AttachmentFileList
