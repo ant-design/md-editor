@@ -15,13 +15,13 @@
  * ```tsx
  * const MyComponent = () => {
  *   const [count, setCount] = useState(0);
- *   
+ *
  *   // 使用 useRefFunction 创建稳定的函数引用
  *   const handleClick = useRefFunction((value: number) => {
  *     console.log('点击了:', value);
  *     setCount(count + value);
  *   });
- *   
+ *
  *   return (
  *     <div>
  *       <p>计数: {count}</p>

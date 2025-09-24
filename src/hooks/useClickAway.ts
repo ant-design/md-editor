@@ -15,12 +15,12 @@ const EVENT = 'mousedown';
  * @example
  * ```tsx
  * const ref = useRef<HTMLDivElement>(null);
- * 
+ *
  * useClickAway(() => {
  *   console.log('点击了外部区域');
  *   setOpen(false);
  * }, ref);
- * 
+ *
  * return (
  *   <div ref={ref}>
  *     <button onClick={() => setOpen(true)}>打开菜单</button>
