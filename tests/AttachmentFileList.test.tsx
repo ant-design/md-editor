@@ -96,7 +96,9 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(container.firstChild).toHaveStyle({ height: '0px' });
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toHaveStyle({ height: '0px' });
   });
 
   it('should render empty list when fileMap is empty', () => {
@@ -109,7 +111,9 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(container.firstChild).toHaveStyle({ height: '0px' });
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toHaveStyle({ height: '0px' });
   });
 
   it('should render file list when files are provided', () => {
@@ -148,7 +152,7 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    const clearButton = screen.getByRole('img', { name: 'delete' });
+    const clearButton = screen.getByRole('img', { name: 'close' });
     expect(clearButton).toBeInTheDocument();
   });
 
@@ -186,7 +190,7 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    const clearButton = screen.getByRole('img', { name: 'delete' });
+    const clearButton = screen.getByRole('img', { name: 'close' });
     fireEvent.click(clearButton);
 
     expect(mockOnClearFileMap).toHaveBeenCalledTimes(1);

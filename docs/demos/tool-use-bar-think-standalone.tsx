@@ -15,13 +15,17 @@ const ToolUseBarThinkDemo = () => {
     <div style={{ padding: '20px' }}>
       <h3>ToolUseBarThink 不同状态对比</h3>
 
-      <div style={{ display: 'flex', gap: '16px', maxWidth: '100%' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          width: '100vw',
+        }}
+      >
         {/* Loading 状态 */}
         <div style={{ flex: 1 }}>
           <h4>Loading 状态</h4>
-          <p style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
-            hover 显示浮动按钮
-          </p>
           <ToolUseBarThink
             toolName="思考中..."
             toolTarget="分析需求"
@@ -38,9 +42,7 @@ const ToolUseBarThinkDemo = () => {
         {/* Success 状态 */}
         <div style={{ flex: 1 }}>
           <h4>Success 状态</h4>
-          <p style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
-            无浮动按钮
-          </p>
+
           <ToolUseBarThink
             toolName="思考完成"
             toolTarget="分析需求"
@@ -52,15 +54,11 @@ const ToolUseBarThinkDemo = () => {
 
         {/* Error 状态 */}
         <div style={{ flex: 1 }}>
-          <h4>Error 状态</h4>
-          <p style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
-            无浮动按钮
-          </p>
+          <h4>轻量思考 状态</h4>
+
           <ToolUseBarThink
-            toolName="思考失败"
-            toolTarget="分析需求"
-            time="5.2s"
-            status="error"
+            light
+            toolName="轻量思考"
             thinkContent={thinkContent}
           />
         </div>

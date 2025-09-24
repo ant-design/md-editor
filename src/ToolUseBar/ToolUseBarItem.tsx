@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useMemo } from 'react';
 import { ChevronUpIcon } from '../TaskList';
@@ -107,11 +108,15 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
-      <div className={`${prefixCls}-tool-content-error ${hashId}`}>
-        <div className={`${prefixCls}-tool-content-error-icon ${hashId}`}>
+      <div className={classNames(`${prefixCls}-tool-content-error`, hashId)}>
+        <div
+          className={classNames(`${prefixCls}-tool-content-error-icon`, hashId)}
+        >
           <ErrorIcon />
         </div>
-        <div className={`${prefixCls}-tool-content-error-text ${hashId}`}>
+        <div
+          className={classNames(`${prefixCls}-tool-content-error-text`, hashId)}
+        >
           {tool.errorMessage}
         </div>
       </div>
@@ -120,7 +125,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const contentDom = useMemo(() => {
     return tool.content ? (
-      <div className={`${prefixCls}-tool-content ${hashId}`}>
+      <div className={classNames(`${prefixCls}-tool-content`, hashId)}>
         {tool.content}
       </div>
     ) : null;
@@ -133,7 +138,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   if (tool.type === 'summary') {
     return (
       <div
-        className={`${prefixCls}-tool-container ${hashId}`}
+        className={classNames(`${prefixCls}-tool-container`, hashId)}
         data-testid="tool-user-item-tool-container "
       >
         {contentDom}
@@ -156,55 +161,121 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       )}
     >
       <div
-        className={`${prefixCls}-tool-bar ${hashId}`}
+        className={classNames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
       >
         <div
-          className={`${prefixCls}-tool-header ${hashId}`}
+          className={classNames(`${prefixCls}-tool-header`, hashId)}
           data-testid="tool-user-item-tool-header"
         >
-          <div className={`${prefixCls}-tool-header-left ${hashId}`}>
-            <div
-              className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
-                [`${prefixCls}-tool-image-wrapper-rotating`]:
-                  tool.status === 'loading',
-                [`${prefixCls}-tool-image-wrapper-loading`]:
-                  tool.status === 'loading',
-              })}
-            >
-              {tool.icon || (
-                <div className={`${prefixCls}-tool-image ${hashId}`}>
-                  <ToolIcon />
-                </div>
-              )}
-            </div>
-            {tool.toolName && (
-              <div
-                className={classNames(`${prefixCls}-tool-name ${hashId}`, {
-                  [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
-                })}
-              >
-                {tool.toolName}
+          <motion.div
+            className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
+              [`${prefixCls}-tool-image-wrapper-rotating`]:
+                tool.status === 'loading',
+              [`${prefixCls}-tool-image-wrapper-loading`]:
+                tool.status === 'loading',
+            })}
+            animate={
+              tool.status === 'loading'
+                ? {
+                    '--rotate': ['0deg', '360deg'],
+                    '--sub1-color': ['#0090FF', '#3E63DD', '#0090FF'],
+                  }
+                : {}
+            }
+            transition={
+              tool.status === 'loading'
+                ? {
+                    '--rotate': {
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    },
+                    '--sub1-color': {
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    },
+                  }
+                : {}
+            }
+            style={
+              {
+                '--rotation': tool.status === 'loading' ? '360deg' : '0deg',
+                '--sub1-color':
+                  tool.status === 'loading' ? '#0090FF' : undefined,
+              } as React.CSSProperties
+            }
+          >
+            {tool.icon || (
+              <div className={classNames(`${prefixCls}-tool-image`, hashId)}>
+                <ToolIcon />
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
-        {tool.toolTarget && (
-          <div
-            className={classNames(`${prefixCls}-tool-target ${hashId}`, {
-              [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
-            })}
-            title={tool.toolTarget?.toString() ?? undefined}
-          >
-            {tool.toolTarget}
+
+        <motion.div
+          className={classNames(`${prefixCls}-tool-header-right`, hashId)}
+          animate={
+            tool.status === 'loading'
+              ? {
+                  maskImage: [
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  120%)',
+                  ],
+                }
+              : {}
+          }
+          transition={
+            tool.status === 'loading'
+              ? {
+                  maskImage: {
+                    duration: 1.6,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  },
+                }
+              : {}
+          }
+          style={
+            {
+              maskImage:
+                tool.status === 'loading'
+                  ? 'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)'
+                  : undefined,
+            } as React.CSSProperties
+          }
+        >
+          {tool.toolName && (
+            <div
+              className={classNames(`${prefixCls}-tool-name`, hashId, {
+                [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
+              })}
+            >
+              {tool.toolName}
+            </div>
+          )}
+          {tool.toolTarget && (
+            <div
+              className={classNames(`${prefixCls}-tool-target`, hashId, {
+                [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
+              })}
+              title={tool.toolTarget?.toString() ?? undefined}
+            >
+              {tool.toolTarget}
+            </div>
+          )}
+        </motion.div>
+        {tool.time && (
+          <div className={classNames(`${prefixCls}-tool-time`, hashId)}>
+            {tool.time}
           </div>
         )}
-        {tool.time && (
-          <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
-        )}
+
         {showContent && (
           <div
-            className={`${prefixCls}-tool-expand ${hashId}`}
+            className={classNames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}
           >
             <ChevronUpIcon
@@ -218,7 +289,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       </div>
       {showContent && expanded ? (
         <div
-          className={`${prefixCls}-tool-container ${hashId}`}
+          className={classNames(`${prefixCls}-tool-container`, hashId)}
           data-testid="tool-user-item-tool-container "
         >
           {contentDom}

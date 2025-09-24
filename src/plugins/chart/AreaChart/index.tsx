@@ -18,9 +18,14 @@ import {
   ChartContainer,
   ChartContainerProps,
   ChartFilter,
+  ChartStatistic,
   ChartToolBar,
   downloadChart,
 } from '../components';
+import {
+  StatisticConfigType,
+  useChartStatistic,
+} from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -87,6 +92,8 @@ export interface AreaChartProps extends ChartContainerProps {
   yPosition?: 'left' | 'right';
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
+  statistic?: StatisticConfigType;
 }
 
 const defaultColors = [
@@ -138,8 +145,10 @@ const AreaChart: React.FC<AreaChartProps> = ({
   xPosition = 'bottom',
   yPosition = 'left',
   toolbarExtra,
+  statistic: statisticConfig,
   variant,
 }) => {
+  const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768,
@@ -166,22 +175,25 @@ const AreaChart: React.FC<AreaChartProps> = ({
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
+  // ChartStatistic 组件配置
+  const statisticComponentConfigs = useChartStatistic(statisticConfig);
+
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
     const uniqueCategories = [
-      ...new Set(data.map((item) => item.category)),
+      ...new Set(safeData.map((item) => item.category)),
     ].filter(Boolean);
     return uniqueCategories;
-  }, [data]);
+  }, [safeData]);
 
   // 从数据中提取 filterLabel，过滤掉 undefined 值
   const validFilterLabels = useMemo(() => {
-    return data
+    return safeData
       .map((item) => item.filterLabel)
       .filter(
         (filterLabel): filterLabel is string => filterLabel !== undefined,
       );
-  }, [data]);
+  }, [safeData]);
 
   const filterLabels = useMemo(() => {
     return validFilterLabels.length > 0
@@ -206,21 +218,20 @@ const AreaChart: React.FC<AreaChartProps> = ({
 
   // 筛选数据
   const filteredData = useMemo(() => {
-    if (!selectedFilter) return data;
-    const categoryMatch = data.filter(
-      (item) => item.category === selectedFilter,
-    );
+    const base = selectedFilter
+      ? safeData.filter((item) => item.category === selectedFilter)
+      : safeData;
 
-    // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
-    if (!filterLabels || !selectedFilterLabel) {
-      return categoryMatch;
-    }
+    const withFilterLabel =
+      !filterLabels || !selectedFilterLabel
+        ? base
+        : base.filter((item) => item.filterLabel === selectedFilterLabel);
 
-    // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
-    return categoryMatch.filter(
-      (item) => item.filterLabel === selectedFilterLabel,
+    // 统一过滤掉 x 为空（null/undefined）的数据，避免后续 toString 报错
+    return withFilterLabel.filter(
+      (item) => item.x !== null && item.x !== undefined,
     );
-  }, [data, selectedFilter, filterLabels, selectedFilterLabel]);
+  }, [safeData, selectedFilter, filterLabels, selectedFilterLabel]);
 
   // 从数据中提取唯一的类型
   const types = useMemo(() => {
@@ -441,6 +452,14 @@ const AreaChart: React.FC<AreaChartProps> = ({
         dataTime={dataTime}
       />
 
+      {statisticComponentConfigs && (
+        <div className="chart-statistic-container">
+          {statisticComponentConfigs.map((config, index) => (
+            <ChartStatistic key={index} {...config} theme={theme} />
+          ))}
+        </div>
+      )}
+
       <ChartFilter
         filterOptions={filterOptions}
         selectedFilter={selectedFilter}
@@ -453,7 +472,10 @@ const AreaChart: React.FC<AreaChartProps> = ({
         theme={theme}
       />
 
-      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
+      <div
+        className="chart-wrapper"
+        style={{ marginTop: '20px', height: responsiveHeight }}
+      >
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
     </ChartContainer>

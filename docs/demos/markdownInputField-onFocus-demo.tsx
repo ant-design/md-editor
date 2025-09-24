@@ -1,4 +1,4 @@
-import React from 'react';
+import { default as React } from 'react';
 import { MarkdownInputField } from '../../src/MarkdownInputField/MarkdownInputField';
 
 export default () => {

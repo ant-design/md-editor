@@ -153,6 +153,7 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
       codeProps: {
         showGutter: true,
         showLineNumbers: true,
+        hideToolBar: true,
       },
     };
     return {

@@ -1,5 +1,6 @@
 import { DownOutlined } from '@ant-design/icons';
 import { ConfigProvider, Dropdown, Flex, Tooltip } from 'antd';
+import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
 import { PauseIcon } from '../../../icons/PauseIcon';
@@ -101,7 +102,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
       normalizedRateOptions.map((r) => ({
         key: String(r),
         label: (
-          <div className={`${prefixCls}-rateItem ${hashId}`}>
+          <div className={classNames(`${prefixCls}-rateItem`, hashId)}>
             <span>{`${r}x`}</span>
             {r === rate ? <span>✓</span> : null}
           </div>
@@ -125,7 +126,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           onMouseEnter={() => setIsPlayHover(true)}
           onMouseLeave={() => setIsPlayHover(false)}
           onClick={handleClick}
-          className={`${prefixCls}-playBox ${hashId}`}
+          className={classNames(`${prefixCls}-playBox`, hashId)}
           role="button"
           tabIndex={0}
           aria-label={'语音播报'}
@@ -142,9 +143,9 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           </Tooltip>
         </div>
       ) : (
-        <div className={`${prefixCls}-playingWrap ${hashId}`}>
+        <div className={classNames(`${prefixCls}-playingWrap`, hashId)}>
           <div
-            className={`${prefixCls}-playingBox ${hashId}`}
+            className={classNames(`${prefixCls}-playingBox`, hashId)}
             onMouseEnter={handlePlayingMouseEnter}
             onMouseLeave={handlePlayingMouseLeave}
             onClick={handleStop}
@@ -172,7 +173,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               },
             }}
           >
-            <div className={`${prefixCls}-rateBox ${hashId}`}>
+            <div className={classNames(`${prefixCls}-rateBox`, hashId)}>
               <span style={{ fontSize: 12 }}>
                 {rate === 1 ? '倍速' : rateDisplay}
               </span>

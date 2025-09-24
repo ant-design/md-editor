@@ -31,6 +31,7 @@ export * from './MarkdownEditor/editor/utils/docx/index';
 export { markdownToHtmlSync } from './MarkdownEditor/editor/utils/markdownToHtml';
 export { default as Workspace } from './Workspace';
 // HTML to Markdown conversion utilities
+export * from './AnswerAlert';
 export * from './History';
 export {
   batchHtmlToMarkdown,
@@ -52,6 +53,9 @@ export * from './TaskList';
 export * from './ThoughtChainList';
 export * from './ToolUseBar';
 export * from './Workspace';
+
+// Quote 组件导出
+export { default as Quote } from './Quote';
 
 // 新增：图表插件对外导出
 export * from './plugins/chart';

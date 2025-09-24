@@ -39,7 +39,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: 1,
         boxSizing: 'border-box',
         height: '100%',
-        borderLeft: '1px dashed rgba(0, 3, 9, 0.45)',
+        borderLeft: '1px dashed var(--color-gray-text-disabled)',
       },
 
       '&-status': {
@@ -47,7 +47,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '20px',
         height: 20,
         alignItems: 'center',
-        color: 'rgba(0, 3, 9, 0.45)',
+        color: 'var(--color-gray-text-disabled)',
         svg: {
           width: 16,
           height: 16,
@@ -67,13 +67,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         [`${token.componentCls}-title`]: {
+          font: 'var(--font-text-h6-base)',
           marginLeft: 12,
-          lineHeight: '20px',
           textAlign: 'justify',
-          letterSpacing: 'normal',
+          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
           color: 'var(--color-gray-text-default)',
-          fontSize: 'var(--font-size-base)',
-          fontWeight: 600,
         },
 
         [`${token.componentCls}-loading`]: {
@@ -95,7 +93,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           flexShrink: 0,
           width: 16,
           height: 16,
-          color: 'rgba(0, 3, 9, 45%)',
+          color: 'var(--color-gray-text-default)',
           cursor: 'pointer',
           transition: 'all 0.3s ease',
           '&:hover': {
@@ -109,14 +107,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
 
         [`${token.componentCls}-content`]: {
+          font: 'var(--font-text-paragraph-sm)',
           marginLeft: 12,
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
-          fontSize: 'var(--font-size-sm)',
-          fontWeight: 'normal',
-          lineHeight: '160%',
-          letterSpacing: 'normal',
+          letterSpacing: 'var(--letter-spacing-paragraph-sm, normal)',
           color: 'var(--color-gray-text-secondary)',
         },
       },

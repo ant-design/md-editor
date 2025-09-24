@@ -174,6 +174,7 @@ export const cnLabels = {
   'chat.history.search.placeholder': '历史任务',
   'chat.history.newChat': '新对话',
   'chat.history.loadMore': '查看更多',
+  'task.history.loadMore': '查看更多历史',
   'chat.history.historyTasks': '历史任务',
   // TaskList 组件相关
   'taskList.expand': '展开',
@@ -472,6 +473,7 @@ export const enLabels: typeof cnLabels = {
   'chat.history.search.placeholder': 'History tasks',
   'chat.history.newChat': 'New Chat',
   'chat.history.loadMore': 'Load More',
+  'task.history.loadMore': 'Load More History',
   'chat.history.historyTasks': 'History Tasks',
   // TaskList component related
   'taskList.expand': 'Expand',

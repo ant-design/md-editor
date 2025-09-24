@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -37,32 +37,30 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   return wrapSSR(
-    <div
-      data-testid="voice-input-button"
-      role="button"
-      aria-pressed={recording}
-      className={classNames(baseCls, hashId, {
-        [`${baseCls}-disabled`]: disabled,
-        [`${baseCls}-recording`]: recording,
-      })}
-      style={style}
-      onClick={async () => {
-        if (disabled) return;
-        if (recording) {
-          await onStop();
-        } else {
-          await onStart();
-        }
-      }}
-    >
-      <ErrorBoundary fallback={<div />}>
-        {recording ? (
-          <VoicingLottie size={16} />
-        ) : (
-          <VoiceIcon width={16} height={16} />
-        )}
-      </ErrorBoundary>
-    </div>,
+    <Tooltip title={recording ? '语音输入中，点击可停止。' : '语音输入'}>
+      <div
+        data-testid="voice-input-button"
+        role="button"
+        aria-pressed={recording}
+        className={classNames(baseCls, hashId, {
+          [`${baseCls}-disabled`]: disabled,
+          [`${baseCls}-recording`]: recording,
+        })}
+        style={style}
+        onClick={async () => {
+          if (disabled) return;
+          if (recording) {
+            await onStop();
+          } else {
+            await onStart();
+          }
+        }}
+      >
+        <ErrorBoundary fallback={<div />}>
+          {recording ? <VoicingLottie size={16} /> : <VoiceIcon />}
+        </ErrorBoundary>
+      </div>
+    </Tooltip>,
   );
 };
 

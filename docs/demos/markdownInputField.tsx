@@ -1,4 +1,4 @@
-﻿import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import {
   generateEdges,
   MarkdownEditorInstance,
@@ -143,6 +143,7 @@ export default () => {
         tagInputProps={{
           enable: true,
           items: async (props) => {
+            console.log('items', props);
             return ['tag1', 'tag2', 'tag3'].map((item) => {
               return {
                 key: item,

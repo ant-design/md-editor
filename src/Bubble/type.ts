@@ -550,7 +550,7 @@ export interface BubbleProps<T = Record<string, any>>
 
   /**
    * 控制语音按钮的显示
-   * @description 控制语音按钮是否显示的函数或布尔值
+   * @description 控制语音按钮是否显示
    */
   shouldShowVoice?: boolean;
 

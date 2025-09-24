@@ -77,20 +77,32 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                      style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                       >
                         关于 React Hooks 的讨论
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                       >
-                        昨日
+                        <div
+                          style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s ease; pointer-events: none; display: flex; align-items: center;"
+                        >
+                          <div
+                            class="ant-space ant-space-horizontal ant-space-align-center"
+                            style="column-gap: 4px; row-gap: 4px;"
+                          />
+                        </div>
+                        <div
+                          style="opacity: 1; transition: opacity 0.2s ease;"
+                        >
+                          昨日
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -122,20 +134,32 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                      style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                       >
                         TypeScript 类型系统详解
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                       >
-                        2 days ago
+                        <div
+                          style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s ease; pointer-events: none; display: flex; align-items: center;"
+                        >
+                          <div
+                            class="ant-space ant-space-horizontal ant-space-align-center"
+                            style="column-gap: 4px; row-gap: 4px;"
+                          />
+                        </div>
+                        <div
+                          style="opacity: 1; transition: opacity 0.2s ease;"
+                        >
+                          2 days ago
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -167,20 +191,32 @@
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                   >
                     <div
-                      style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                      style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                       >
                         前端性能优化实践
                       </div>
                     </div>
                     <div>
                       <div
-                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                        style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                       >
-                        3 days ago
+                        <div
+                          style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s ease; pointer-events: none; display: flex; align-items: center;"
+                        >
+                          <div
+                            class="ant-space ant-space-horizontal ant-space-align-center"
+                            style="column-gap: 4px; row-gap: 4px;"
+                          />
+                        </div>
+                        <div
+                          style="opacity: 1; transition: opacity 0.2s ease;"
+                        >
+                          3 days ago
+                        </div>
                       </div>
                     </div>
                   </div>

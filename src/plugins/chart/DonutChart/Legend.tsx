@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { DonutChartData } from './types';
 
@@ -31,7 +32,7 @@ const Legend: React.FC<LegendProps> = ({
   }, [hiddenDataIndicesByChart, chartIndex]);
   return (
     <div
-      className={`${baseClassName}-legend ${hashId}`}
+      className={classNames(`${baseClassName}-legend`, hashId)}
       style={{
         marginLeft: isMobile ? 0 : 12,
         maxHeight: isMobile ? '120px' : 'none',
@@ -44,7 +45,7 @@ const Legend: React.FC<LegendProps> = ({
         return (
           <div
             key={i}
-            className={`${baseClassName}-legend-item ${hashId}`}
+            className={classNames(`${baseClassName}-legend-item`, hashId)}
             style={{
               cursor: 'pointer',
               padding: isMobile ? '4px 0' : '6px 0',
@@ -64,7 +65,7 @@ const Legend: React.FC<LegendProps> = ({
             aria-label={`${isHidden ? '显示' : '隐藏'} ${d.label}`}
           >
             <span
-              className={`${baseClassName}-legend-color ${hashId}`}
+              className={classNames(`${baseClassName}-legend-color`, hashId)}
               style={{
                 ['--donut-legend-color' as any]: backgroundColors[i] || '#ccc',
                 width: isMobile ? 10 : 12,
@@ -74,7 +75,7 @@ const Legend: React.FC<LegendProps> = ({
               }}
             />
             <span
-              className={`${baseClassName}-legend-label ${hashId}`}
+              className={classNames(`${baseClassName}-legend-label`, hashId)}
               style={{
                 fontSize: isMobile ? 11 : 13,
                 flex: isMobile ? '0 1 auto' : 1,
@@ -84,7 +85,7 @@ const Legend: React.FC<LegendProps> = ({
               {d.label}
             </span>
             <span
-              className={`${baseClassName}-legend-value ${hashId}`}
+              className={classNames(`${baseClassName}-legend-value`, hashId)}
               style={{
                 fontSize: isMobile ? 11 : 13,
                 fontWeight: isMobile ? 400 : 500,
@@ -96,7 +97,10 @@ const Legend: React.FC<LegendProps> = ({
             >
               <span>{d.value}</span>
               <span
-                className={`${baseClassName}-legend-percent ${hashId}`}
+                className={classNames(
+                  `${baseClassName}-legend-percent`,
+                  hashId,
+                )}
                 style={{
                   fontSize: isMobile ? 10 : 12,
                   marginLeft: isMobile ? 6 : 8,

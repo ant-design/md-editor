@@ -7,7 +7,6 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import {
-  Alert,
   Button,
   ConfigProvider,
   Image,
@@ -18,6 +17,7 @@ import {
 } from 'antd';
 
 import { Empty } from 'antd';
+import classNames from 'classnames';
 import React, { type FC, useContext, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
@@ -127,16 +127,10 @@ const FileItemComponent: FC<{
   ) => void;
   prefixCls?: string;
   hashId?: string;
-}> = ({
-  file,
-  onClick,
-  onDownload,
-  onPreview,
-  onShare,
-  prefixCls = 'workspace-file',
-  hashId,
-}) => {
+}> = ({ file, onClick, onDownload, onPreview, onShare, prefixCls, hashId }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
   // 确保文件有唯一ID
   const fileWithId = ensureNodeWithId(file);
   const fileTypeInfo = fileTypeProcessor.inferFileType(fileWithId);
@@ -205,40 +199,64 @@ const FileItemComponent: FC<{
     <AccessibleButton
       icon={
         <>
-          <div className={`${prefixCls}-item-icon ${hashId}`}>
+          <div className={classNames(`${finalPrefixCls}-item-icon`, hashId)}>
             {getFileTypeIcon(
               fileTypeInfo.fileType,
               fileWithId.icon,
               fileWithId.name,
             )}
           </div>
-          <div className={`${prefixCls}-item-info ${hashId}`}>
-            <div className={`${prefixCls}-item-name ${hashId}`}>
+          <div className={classNames(`${finalPrefixCls}-item-info`, hashId)}>
+            <div className={classNames(`${finalPrefixCls}-item-name`, hashId)}>
               <Typography.Text ellipsis={{ tooltip: fileWithId.name }}>
                 {fileWithId.name}
               </Typography.Text>
             </div>
-            <div className={`${prefixCls}-item-details ${hashId}`}>
+            <div
+              className={classNames(`${finalPrefixCls}-item-details`, hashId)}
+            >
               <Typography.Text type="secondary" ellipsis>
-                <span className={`${prefixCls}-item-type ${hashId}`}>
+                <span
+                  className={classNames(`${finalPrefixCls}-item-type`, hashId)}
+                >
                   {fileTypeInfo.displayType || fileTypeInfo.fileType}
                 </span>
                 {fileWithId.size && (
                   <>
-                    <span className={`${prefixCls}-item-separator ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-separator`,
+                        hashId,
+                      )}
+                    >
                       |
                     </span>
-                    <span className={`${prefixCls}-item-size ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-size`,
+                        hashId,
+                      )}
+                    >
                       {formatFileSize(fileWithId.size)}
                     </span>
                   </>
                 )}
                 {fileWithId.lastModified && (
                   <>
-                    <span className={`${prefixCls}-item-separator ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-separator`,
+                        hashId,
+                      )}
+                    >
                       |
                     </span>
-                    <span className={`${prefixCls}-item-time ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-time`,
+                        hashId,
+                      )}
+                    >
                       {formatLastModified(fileWithId.lastModified)}
                     </span>
                   </>
@@ -247,7 +265,7 @@ const FileItemComponent: FC<{
             </div>
           </div>
           <div
-            className={`${prefixCls}-item-actions ${hashId}`}
+            className={classNames(`${finalPrefixCls}-item-actions`, hashId)}
             onClick={(e) => e.stopPropagation()}
           >
             {showPreviewButton && (
@@ -255,7 +273,10 @@ const FileItemComponent: FC<{
                 <Button
                   size="small"
                   type="text"
-                  className={`${prefixCls}-item-action-btn ${hashId}`}
+                  className={classNames(
+                    `${finalPrefixCls}-item-action-btn`,
+                    hashId,
+                  )}
                   icon={<EyeOutlined />}
                   onClick={handlePreview}
                   aria-label={locale?.['workspace.file.preview'] || '预览'}
@@ -267,7 +288,10 @@ const FileItemComponent: FC<{
                 <Button
                   size="small"
                   type="text"
-                  className={`${prefixCls}-item-action-btn ${hashId}`}
+                  className={classNames(
+                    `${finalPrefixCls}-item-action-btn`,
+                    hashId,
+                  )}
                   icon={<ExportOutlined />}
                   onClick={handleShare}
                   aria-label={locale?.['workspace.file.share'] || '分享'}
@@ -279,7 +303,10 @@ const FileItemComponent: FC<{
                 <Button
                   size="small"
                   type="text"
-                  className={`${prefixCls}-item-action-btn ${hashId}`}
+                  className={classNames(
+                    `${finalPrefixCls}-item-action-btn`,
+                    hashId,
+                  )}
                   icon={<DownloadOutlined />}
                   onClick={handleDownload}
                   aria-label={locale?.['workspace.file.download'] || '下载'}
@@ -290,7 +317,7 @@ const FileItemComponent: FC<{
         </>
       }
       onClick={handleClick}
-      className={`${prefixCls}-item ${hashId}`}
+      className={classNames(`${finalPrefixCls}-item`, hashId)}
       ariaLabel={`${locale?.['workspace.file'] || '文件'}：${fileWithId.name}`}
     />
   );
@@ -303,14 +330,10 @@ const GroupHeader: FC<{
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   prefixCls?: string;
   hashId?: string;
-}> = ({
-  group,
-  onToggle,
-  onGroupDownload,
-  prefixCls = 'workspace-file',
-  hashId,
-}) => {
+}> = ({ group, onToggle, onGroupDownload, prefixCls, hashId }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
   const groupTypeInfo = fileTypeProcessor.inferFileType(group);
   const groupType = group.type || groupTypeInfo.fileType;
 
@@ -336,29 +359,57 @@ const GroupHeader: FC<{
     <AccessibleButton
       icon={
         <>
-          <div className={`${prefixCls}-group-header-left ${hashId}`}>
+          <div
+            className={classNames(
+              `${finalPrefixCls}-group-header-left`,
+              hashId,
+            )}
+          >
             <CollapseIcon
-              className={`${prefixCls}-group-toggle-icon ${hashId}`}
+              className={classNames(
+                `${finalPrefixCls}-group-toggle-icon`,
+                hashId,
+              )}
             />
-            <div className={`${prefixCls}-group-type-icon ${hashId}`}>
+            <div
+              className={classNames(
+                `${finalPrefixCls}-group-type-icon`,
+                hashId,
+              )}
+            >
               {getFileTypeIcon(
                 groupType,
                 group.icon,
                 getRepresentativeFileName(),
               )}
             </div>
-            <span className={`${prefixCls}-group-type-name ${hashId}`}>
+            <span
+              className={classNames(
+                `${finalPrefixCls}-group-type-name`,
+                hashId,
+              )}
+            >
               {group.name}
             </span>
           </div>
-          <div className={`${prefixCls}-group-header-right ${hashId}`}>
-            <span className={`${prefixCls}-group-count ${hashId}`}>
+          <div
+            className={classNames(
+              `${finalPrefixCls}-group-header-right`,
+              hashId,
+            )}
+          >
+            <span
+              className={classNames(`${finalPrefixCls}-group-count`, hashId)}
+            >
               {group.children.length}
             </span>
             <Button
               size="small"
               type="text"
-              className={`${prefixCls}-group-action-btn ${hashId}`}
+              className={classNames(
+                `${finalPrefixCls}-group-action-btn`,
+                hashId,
+              )}
               icon={<DownloadOutlined />}
               onClick={handleDownload}
               aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
@@ -367,7 +418,7 @@ const GroupHeader: FC<{
         </>
       }
       onClick={handleToggle}
-      className={`${prefixCls}-group-header ${hashId}`}
+      className={classNames(`${finalPrefixCls}-group-header`, hashId)}
       ariaLabel={`${group.collapsed ? locale?.['workspace.expand'] || '展开' : locale?.['workspace.collapse'] || '收起'}${group.name}${locale?.['workspace.group'] || '分组'}`}
     />
   );
@@ -395,20 +446,22 @@ const FileGroupComponent: FC<{
   onFileClick,
   onPreview,
   onShare,
-  prefixCls = 'workspace-file',
+  prefixCls,
   hashId,
 }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
   return (
-    <div className={`${prefixCls}-container--group ${hashId}`}>
+    <div className={classNames(`${finalPrefixCls}-container--group`, hashId)}>
       <GroupHeader
         group={group}
         onToggle={onToggle}
         onGroupDownload={onGroupDownload}
-        prefixCls={prefixCls}
+        prefixCls={finalPrefixCls}
         hashId={hashId}
       />
       {!group.collapsed && (
-        <div className={`${prefixCls}-group-content ${hashId}`}>
+        <div className={classNames(`${finalPrefixCls}-group-content`, hashId)}>
           {group.children.map((file) => (
             <FileItemComponent
               key={file.id}
@@ -417,7 +470,7 @@ const FileGroupComponent: FC<{
               onDownload={onDownload}
               onPreview={onPreview}
               onShare={onShare}
-              prefixCls={prefixCls}
+              prefixCls={finalPrefixCls}
               hashId={hashId}
             />
           ))}
@@ -675,23 +728,9 @@ export const FileComponent: FC<{
       } catch (err) {
         if (previewRequestIdRef.current !== currentCallId) return;
 
-        setCustomPreviewContent(
-          <div style={{ padding: 24 }}>
-            <Alert
-              type="error"
-              message={
-                locale?.['workspace.previewLoadFailed'] || '预览加载失败'
-              }
-              description={
-                err instanceof Error
-                  ? err.message
-                  : locale?.['workspace.previewError'] ||
-                    '获取预览内容时发生错误'
-              }
-              showIcon
-            />
-          </div>,
-        );
+        // 最小化处理：清空自定义内容，回退到内置预览逻辑
+        setCustomPreviewContent(null);
+        setPreviewFile(file);
         return;
       }
     }
@@ -734,9 +773,9 @@ export const FileComponent: FC<{
 
   if ((!nodes || nodes.length === 0) && !loading) {
     return wrapSSR(
-      <div className={`${prefixCls}-container ${hashId}`}>
+      <div className={classNames(`${prefixCls}-container`, hashId)}>
         {showSearch && (
-          <div className={`${prefixCls}-search ${hashId}`}>
+          <div className={classNames(`${prefixCls}-search`, hashId)}>
             <Input
               style={{ marginBottom: 8 }}
               allowClear
@@ -751,7 +790,7 @@ export const FileComponent: FC<{
             />
           </div>
         )}
-        <div className={`${prefixCls}-empty ${hashId}`}>
+        <div className={classNames(`${prefixCls}-empty`, hashId)}>
           {hasKeyword ? (
             <Typography.Text type="secondary">
               {(
@@ -817,9 +856,9 @@ export const FileComponent: FC<{
     <>
       {loading && loadingRender ? (
         // 使用自定义loading渲染函数
-        <div className={`${prefixCls}-container ${hashId}`}>
+        <div className={classNames(`${prefixCls}-container`, hashId)}>
           {showSearch && (
-            <div className={`${prefixCls}-search ${hashId}`}>
+            <div className={classNames(`${prefixCls}-search`, hashId)}>
               <Input
                 style={{ marginBottom: 8 }}
                 allowClear
@@ -839,9 +878,9 @@ export const FileComponent: FC<{
       ) : (
         // 使用默认的Spin组件
         <Spin spinning={!!loading}>
-          <div className={`${prefixCls}-container ${hashId}`}>
+          <div className={classNames(`${prefixCls}-container`, hashId)}>
             {showSearch && (
-              <div className={`${prefixCls}-search ${hashId}`}>
+              <div className={classNames(`${prefixCls}-search`, hashId)}>
                 <Input
                   style={{ marginBottom: 8 }}
                   allowClear
@@ -857,7 +896,7 @@ export const FileComponent: FC<{
               </div>
             )}
             {safeNodes.length === 0 ? (
-              <div className={`${prefixCls}-empty ${hashId}`}>
+              <div className={classNames(`${prefixCls}-empty`, hashId)}>
                 {hasKeyword ? (
                   <Typography.Text type="secondary">
                     {(

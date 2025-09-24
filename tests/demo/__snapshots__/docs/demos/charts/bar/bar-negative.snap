@@ -46,6 +46,7 @@
             class="ant-chart-toolbar-header-actions"
           >
             <span
+              aria-describedby="test-id"
               aria-label="download"
               class="anticon anticon-download ant-chart-toolbar-download-btn"
               role="img"
@@ -148,7 +149,7 @@
         </div>
         <div
           class="chart-wrapper"
-          style="height: 500px;"
+          style="margin-top: 20px; height: 500px;"
         >
           <div
             data-datasets="[{"label":"利润","data":[120,-60,80,-30],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false},{"label":"成本","data":[-90,-40,-50,-20],"borderWidth":0,"categoryPercentage":0.7,"barPercentage":0.8,"borderSkipped":false}]"

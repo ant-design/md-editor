@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 /**
  * CloseIcon 组件 - 关闭图标组件
@@ -33,14 +33,16 @@
 export const CloseIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
-      {...props}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="none"
       version="1.1"
+      role="img"
       width={'1em'}
       height={'1em'}
       viewBox="0 0 12 12"
+      {...props}
+      aria-label="close"
     >
       <g>
         <path

@@ -9,7 +9,7 @@ const ToolUseBarBasicDemo = () => {
       id: 'search',
       toolName: '文件搜索',
       toolTarget: '搜索 "react" 相关文件',
-      time: '10:30',
+      time: '3',
       status: 'success' as const,
       content: (
         <ul style={{ paddingLeft: 20, margin: 0 }}>
@@ -25,14 +25,14 @@ const ToolUseBarBasicDemo = () => {
       id: 'analyze',
       toolName: '代码分析',
       toolTarget: '分析 src/components 目录',
-      time: '10:35',
+      time: '3',
       status: 'loading' as const,
     },
     {
       id: 'format',
       toolName: '代码格式化',
       toolTarget: '格式化 TypeScript 文件',
-      time: '10:40',
+      time: '3',
       errorMessage: '网络请求异常，工具调用失败',
       status: 'error' as const,
     },
@@ -40,7 +40,7 @@ const ToolUseBarBasicDemo = () => {
       id: 'test',
       toolName: '单元测试',
       toolTarget: '运行 Jest 测试套件',
-      time: '10:45',
+      time: '3',
       status: 'idle' as const,
     },
   ];

@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import classNames from 'classnames';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -440,7 +441,7 @@ describe('Katex Plugin', () => {
         return (
           <div
             data-testid="draggable-katex"
-            className={`katex-block ${isDragging ? 'dragging' : ''}`}
+            className={classNames('katex-block', { dragging: isDragging })}
             draggable
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}

@@ -198,6 +198,7 @@ export const AIBubble: React.FC<
       shouldShowCopy={props.shouldShowCopy}
       onFileConfig={props.onFileConfig}
       renderFileMoreAction={props.renderFileMoreAction}
+      shouldShowVoice={props.shouldShowVoice}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );
