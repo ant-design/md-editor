@@ -200,7 +200,7 @@ export default () => {
             状态1: 任务运行中
           </h4>
           <TaskRunning
-            title={`任务运行中, 已耗时${elapsedTime}。 ${progress}`}
+            title={`任务运行中, 已耗时${elapsedTime}。`}
             description="AI模型正在训练中，请耐心等待..."
             taskStatus={TASK_STATUS.RUNNING}
             taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}

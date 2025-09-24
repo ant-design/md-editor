@@ -121,7 +121,12 @@ export const VisualList: React.FC<VisualListProps> = ({
   if (loading) {
     return wrapSSR(
       <ul
-        className={`${prefixCls} ${prefixCls}-loading ${hashId} ${className || ''}`}
+        className={classNames(
+          prefixCls,
+          `${prefixCls}-loading`,
+          hashId,
+          className,
+        )}
         style={style}
       >
         {loadingRender ? loadingRender() : <span>加载中...</span>}
@@ -136,7 +141,12 @@ export const VisualList: React.FC<VisualListProps> = ({
   if (displayList.length === 0) {
     return wrapSSR(
       <ul
-        className={`${prefixCls} ${prefixCls}-empty ${hashId} ${className || ''}`}
+        className={classNames(
+          prefixCls,
+          `${prefixCls}-empty`,
+          hashId,
+          className,
+        )}
         style={style}
       >
         {emptyRender ? emptyRender() : <span>暂无数据</span>}
@@ -164,14 +174,14 @@ export const VisualList: React.FC<VisualListProps> = ({
         {item.href ? (
           <a
             href={item.href}
-            className={`${prefixCls}-link ${hashId}`}
+            className={classNames(`${prefixCls}-link`, hashId)}
             style={linkStyle}
           >
             <img
               src={item.src}
               alt={item.alt || item.title || ''}
               title={item.title}
-              className={`${prefixCls}-image ${hashId}`}
+              className={classNames(`${prefixCls}-image`, hashId)}
               style={imageStyle}
             />
           </a>
@@ -180,7 +190,7 @@ export const VisualList: React.FC<VisualListProps> = ({
             src={item.src}
             alt={item.alt || item.title || ''}
             title={item.title}
-            className={`${prefixCls}-image ${hashId}`}
+            className={classNames(`${prefixCls}-image`, hashId)}
             style={imageStyle}
           />
         )}
@@ -202,7 +212,7 @@ export const VisualList: React.FC<VisualListProps> = ({
 
   return wrapSSR(
     <div className={containerClassName} style={style}>
-      <ul className={`${prefixCls} ${hashId}`}>
+      <ul className={classNames(prefixCls, hashId)}>
         {displayList.map((item, index) => {
           if (renderItem) {
             return renderItem(item, index);
@@ -213,7 +223,7 @@ export const VisualList: React.FC<VisualListProps> = ({
       {/* 用来处理margin-8*/}
       <div style={{ width: 4 }} />
       {description && (
-        <div className={`${prefixCls}-description ${hashId}`}>
+        <div className={classNames(`${prefixCls}-description`, hashId)}>
           {description}
         </div>
       )}

@@ -31,9 +31,10 @@ const WorkspaceFileDemo: React.FC = () => {
           id: 'customPreviewDomID1',
           // type: 'word',// 非必填，会自动推断
           size: '2.3MB',
-          lastModified: '08-20 12:30',
+          lastModified: '12:30',
           url: '/downloads/project-requirements.docx',
-          canDownload: false,
+          canPreview: true,
+          canShare: true,
         },
         {
           id: 'customPreviewDomID2',
@@ -247,11 +248,11 @@ graph TD
       type: 'javascript',
       children: [
         {
-          name: 'hello.js',
+          name: 'hello.html',
           size: '156B',
           lastModified: '2025-08-01 09:00:00',
           content:
-            "console.log('Hello, World!');\n\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\nconsole.log(greet('Workspace'));",
+            "<!doctype html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Hello HTML</title>\n  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,\"Apple Color Emoji\",\"Segoe UI Emoji\";padding:24px} .btn{padding:8px 12px;border:1px solid #d9d9d9;border-radius:6px;cursor:pointer} .btn:active{transform:scale(0.98)}</style>\n</head>\n<body>\n  <h1>你好，HTML！</h1>\n  <p>这是一个用于 Workspace 预览的 HTML 示例。</p>\n  <button class=\"btn\" onclick=\"alert('Hello from HTML!')\">点我</button>\n</body>\n</html>",
         },
         {
           name: 'App.tsx',

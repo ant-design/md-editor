@@ -236,9 +236,10 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: 15px; border-radius: 200px; background: rgb(241, 242, 244);"
+                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark); color: var(--color-primary-text-secondary);"
                               >
                                 <svg
+                                  color="var(--color-primary-text-secondary)"
                                   fill="none"
                                   height="16"
                                   style="animation: history-running-u97npihld 2s linear infinite;"
@@ -282,7 +283,7 @@
                                   >
                                     <path
                                       d="M5.671 4.729L3.738 2.795a.667.667 0 10-.943.943L4.73 5.671a.667.667 0 00.942-.942zM1.333 7.333H4a.667.667 0 110 1.334H1.333a.667.667 0 010-1.334zM5.867 10.8c0 .177-.07.346-.196.471l-1.933 1.933a.667.667 0 11-.943-.942l1.933-1.933a.667.667 0 011.139.471zM7.333 12a.667.667 0 111.334 0v2.667a.667.667 0 11-1.334 0V12zm5.872.262l-1.934-1.933a.667.667 0 00-.942.942l1.933 1.934a.667.667 0 00.943-.943zM12 7.333h2.667a.667.667 0 110 1.334H12a.667.667 0 010-1.334zm1.4-4.066c0 .176-.07.346-.195.471l-1.933 1.933a.667.667 0 01-.943-.942l1.933-1.934a.667.667 0 011.138.472zM7.333 1.333a.667.667 0 111.334 0V4a.667.667 0 01-1.334 0V1.333z"
-                                      fill="url(#history-running-u97npihld-gradient)"
+                                      fill="var(--color-primary-text-secondary)"
                                       fill-rule="evenodd"
                                     />
                                   </g>
@@ -290,67 +291,89 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                               >
                                 数据分析任务
                               </div>
                               <div
                                 aria-describedby="test-id"
-                                style="font-size: 10px; font-weight: normal; line-height: 18px; letter-spacing: normal; color: rgb(118, 126, 139); overflow: hidden; text-overflow: ellipsis; white-space: normal; display: -webkit-box; -webkit-line-clamp: 1;"
+                                style="display: flex; align-items: center; font-size: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                               >
-                                正在分析用户行为数据
+                                <div
+                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                >
+                                  正在分析用户行为数据
+                                </div>
                                 <div
                                   class="ant-divider ant-divider-vertical"
                                   role="separator"
                                 />
-                                今日
+                                <span
+                                  style="min-width: 26px;"
+                                >
+                                  今日
+                                </span>
                               </div>
                             </div>
                             <div
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -373,9 +396,10 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: 15px; border-radius: 200px; background: rgb(241, 242, 244);"
+                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark); color: var(--color-primary-text-secondary);"
                               >
                                 <svg
+                                  color="var(--color-primary-text-secondary)"
                                   fill="none"
                                   height="16"
                                   style="animation: history-running-u97npihld 2s linear infinite;"
@@ -419,7 +443,7 @@
                                   >
                                     <path
                                       d="M5.671 4.729L3.738 2.795a.667.667 0 10-.943.943L4.73 5.671a.667.667 0 00.942-.942zM1.333 7.333H4a.667.667 0 110 1.334H1.333a.667.667 0 010-1.334zM5.867 10.8c0 .177-.07.346-.196.471l-1.933 1.933a.667.667 0 11-.943-.942l1.933-1.933a.667.667 0 011.139.471zM7.333 12a.667.667 0 111.334 0v2.667a.667.667 0 11-1.334 0V12zm5.872.262l-1.934-1.933a.667.667 0 00-.942.942l1.933 1.934a.667.667 0 00.943-.943zM12 7.333h2.667a.667.667 0 110 1.334H12a.667.667 0 010-1.334zm1.4-4.066c0 .176-.07.346-.195.471l-1.933 1.933a.667.667 0 01-.943-.942l1.933-1.934a.667.667 0 011.138.472zM7.333 1.333a.667.667 0 111.334 0V4a.667.667 0 01-1.334 0V1.333z"
-                                      fill="url(#history-running-u97npihld-gradient)"
+                                      fill="var(--color-primary-text-secondary)"
                                       fill-rule="evenodd"
                                     />
                                   </g>
@@ -427,67 +451,89 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                               >
                                 模型训练任务
                               </div>
                               <div
                                 aria-describedby="test-id"
-                                style="font-size: 10px; font-weight: normal; line-height: 18px; letter-spacing: normal; color: rgb(118, 126, 139); overflow: hidden; text-overflow: ellipsis; white-space: normal; display: -webkit-box; -webkit-line-clamp: 1;"
+                                style="display: flex; align-items: center; font-size: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                               >
-                                深度学习模型训练中
+                                <div
+                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                >
+                                  深度学习模型训练中
+                                </div>
                                 <div
                                   class="ant-divider ant-divider-vertical"
                                   role="separator"
                                 />
-                                今日
+                                <span
+                                  style="min-width: 26px;"
+                                >
+                                  今日
+                                </span>
                               </div>
                             </div>
                             <div
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -510,9 +556,10 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: 15px; border-radius: 200px; background: rgb(241, 242, 244);"
+                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark); color: var(--color-primary-text-secondary);"
                               >
                                 <svg
+                                  color="var(--color-primary-text-secondary)"
                                   fill="none"
                                   height="16"
                                   style="animation: history-running-u97npihld 2s linear infinite;"
@@ -556,7 +603,7 @@
                                   >
                                     <path
                                       d="M5.671 4.729L3.738 2.795a.667.667 0 10-.943.943L4.73 5.671a.667.667 0 00.942-.942zM1.333 7.333H4a.667.667 0 110 1.334H1.333a.667.667 0 010-1.334zM5.867 10.8c0 .177-.07.346-.196.471l-1.933 1.933a.667.667 0 11-.943-.942l1.933-1.933a.667.667 0 011.139.471zM7.333 12a.667.667 0 111.334 0v2.667a.667.667 0 11-1.334 0V12zm5.872.262l-1.934-1.933a.667.667 0 00-.942.942l1.933 1.934a.667.667 0 00.943-.943zM12 7.333h2.667a.667.667 0 110 1.334H12a.667.667 0 010-1.334zm1.4-4.066c0 .176-.07.346-.195.471l-1.933 1.933a.667.667 0 01-.943-.942l1.933-1.934a.667.667 0 011.138.472zM7.333 1.333a.667.667 0 111.334 0V4a.667.667 0 01-1.334 0V1.333z"
-                                      fill="url(#history-running-u97npihld-gradient)"
+                                      fill="var(--color-primary-text-secondary)"
                                       fill-rule="evenodd"
                                     />
                                   </g>
@@ -564,67 +611,89 @@
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                               >
                                 代码部署
                               </div>
                               <div
                                 aria-describedby="test-id"
-                                style="font-size: 10px; font-weight: normal; line-height: 18px; letter-spacing: normal; color: rgb(118, 126, 139); overflow: hidden; text-overflow: ellipsis; white-space: normal; display: -webkit-box; -webkit-line-clamp: 1;"
+                                style="display: flex; align-items: center; font-size: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                               >
-                                新版本代码部署到生产环境
+                                <div
+                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                >
+                                  新版本代码部署到生产环境
+                                </div>
                                 <div
                                   class="ant-divider ant-divider-vertical"
                                   role="separator"
                                 />
-                                今日
+                                <span
+                                  style="min-width: 26px;"
+                                >
+                                  今日
+                                </span>
                               </div>
                             </div>
                             <div
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -647,73 +716,95 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: 15px; border-radius: 200px; background: rgb(241, 242, 244);"
+                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark);"
                               >
                                 💾
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                               >
                                 系统备份
                               </div>
                               <div
                                 aria-describedby="test-id"
-                                style="font-size: 10px; font-weight: normal; line-height: 18px; letter-spacing: normal; color: rgb(118, 126, 139); overflow: hidden; text-overflow: ellipsis; white-space: normal; display: -webkit-box; -webkit-line-clamp: 1;"
+                                style="display: flex; align-items: center; font-size: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                               >
-                                定期系统数据备份
+                                <div
+                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                >
+                                  定期系统数据备份
+                                </div>
                                 <div
                                   class="ant-divider ant-divider-vertical"
                                   role="separator"
                                 />
-                                今日
+                                <span
+                                  style="min-width: 26px;"
+                                >
+                                  今日
+                                </span>
                               </div>
                             </div>
                             <div
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -749,73 +840,95 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: 15px; border-radius: 200px; background: rgb(241, 242, 244);"
+                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark);"
                               >
                                 📄
                               </div>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px;"
+                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; line-height: 20px; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                               >
                                 报告生成
                               </div>
                               <div
                                 aria-describedby="test-id"
-                                style="font-size: 10px; font-weight: normal; line-height: 18px; letter-spacing: normal; color: rgb(118, 126, 139); overflow: hidden; text-overflow: ellipsis; white-space: normal; display: -webkit-box; -webkit-line-clamp: 1;"
+                                style="display: flex; align-items: center; font-size: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                               >
-                                已完成的月度报告
+                                <div
+                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                >
+                                  已完成的月度报告
+                                </div>
                                 <div
                                   class="ant-divider ant-divider-vertical"
                                   role="separator"
                                 />
-                                昨日
+                                <span
+                                  style="min-width: 26px;"
+                                >
+                                  昨日
+                                </span>
                               </div>
                             </div>
                             <div
                               style="margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -941,54 +1054,68 @@
                               </svg>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                               >
                                 聊天: 数据分析任务
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -1061,54 +1188,68 @@
                               </svg>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                               >
                                 聊天: 模型训练任务
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -1181,54 +1322,68 @@
                               </svg>
                             </div>
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                               >
                                 聊天: 代码部署
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -1248,54 +1403,68 @@
                             style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                           >
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                               >
                                 聊天: 系统备份
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -1328,54 +1497,68 @@
                             style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                           >
                             <div
-                              style="color: rgb(102, 111, 141); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
                             >
                               <div
                                 aria-describedby="test-id"
-                                style="width: max-content; font-weight: 500; font-size: 14px; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1;"
+                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                               >
                                 聊天: 报告生成
                               </div>
                             </div>
                             <div>
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%);"
+                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
                                 >
                                   <div
-                                    class="ant-space-item"
+                                    class="ant-space ant-space-horizontal ant-space-align-center"
+                                    style="column-gap: 4px; row-gap: 4px;"
                                   >
-                                    <span
-                                      aria-describedby="test-id"
-                                      aria-label="删除"
-                                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
-                                      role="button"
-                                      tabindex="0"
-                                      title="删除"
+                                    <div
+                                      class="ant-space-item"
                                     >
                                       <span
-                                        aria-label="delete"
-                                        class="anticon anticon-delete"
-                                        role="img"
+                                        aria-describedby="test-id"
+                                        aria-label="删除"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        role="button"
+                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        tabindex="0"
+                                        title="删除"
                                       >
-                                        <svg
-                                          aria-hidden="true"
-                                          data-icon="delete"
-                                          fill="currentColor"
-                                          focusable="false"
-                                          height="1em"
-                                          viewBox="64 64 896 896"
-                                          width="1em"
+                                        <span
+                                          aria-label="delete"
+                                          class="anticon anticon-delete"
+                                          role="img"
+                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
                                         >
-                                          <path
-                                            d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
-                                          />
-                                        </svg>
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="delete"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="64 64 896 896"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
+                                </div>
+                                <div
+                                  style="opacity: 1; transition: opacity 0.2s ease;"
+                                >
+                                  <span
+                                    style="width: 24px; height: 24px;"
+                                  />
                                 </div>
                               </div>
                             </div>

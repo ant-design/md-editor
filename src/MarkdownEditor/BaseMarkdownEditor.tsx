@@ -344,6 +344,9 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               display: 'flex',
               flexDirection: 'column',
               maxHeight: '100%',
+              font: 'var(--font-text-paragraph-lg)',
+              letterSpacing: 'var(--letter-spacing-paragraph-lg, normal)',
+              color: 'var(--color-gray-text-default)',
               ...style,
             }}
           >
@@ -369,7 +372,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             ) : readonly ? null : null}
             <div
               style={{
-                padding: '12px 20px',
+                padding: '4px 20px',
                 overflow: 'auto',
                 display: 'flex',
                 height:
@@ -430,7 +433,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             </div>
             {readonly || props?.textAreaProps?.enable ? null : (
               <div
-                className={`${baseClassName}-focus`}
+                className={classNames(`${baseClassName}-focus`)}
                 style={{
                   height: 64,
                 }}

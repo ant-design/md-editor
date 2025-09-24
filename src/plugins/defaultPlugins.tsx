@@ -1,4 +1,4 @@
-﻿import { ChartElement } from './chart';
+import { ChartElement } from './chart';
 import { CodeElement } from './code';
 import { InlineKatex, KatexElement } from './katex';
 

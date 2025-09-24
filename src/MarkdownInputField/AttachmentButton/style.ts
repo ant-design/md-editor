@@ -38,16 +38,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           cursor: 'pointer',
           gap: '8px',
           position: 'relative',
-          '&:hover': {
-            backgroundColor: '#F7F8FA;',
-          },
           '&-file-icon': {
             width: '40px',
             height: '40px',
-            opacity: 1,
-            background: '#F7F8FA',
-            border: '0.5px solid #E6ECF4',
-            borderRadius: '6px',
           },
           '&-file-info': {
             display: 'flex',

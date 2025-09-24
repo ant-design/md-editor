@@ -1,4 +1,4 @@
-﻿import classNames from 'classnames';
+import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React from 'react';
 import { LoadingIcon } from '../../../icons/LoadingIcon';

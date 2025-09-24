@@ -106,6 +106,10 @@ export const AttachmentSupportedFormatsContent = (
 
   if (!supportedFormat) return null;
 
+  if (supportedFormat.content) {
+    return supportedFormat.content;
+  }
+
   return (
     <div
       style={{

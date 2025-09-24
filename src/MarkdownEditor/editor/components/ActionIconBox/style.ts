@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
@@ -18,14 +18,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: 4,
       transition: 'all 0.3s',
       justifyContent: 'center',
-      borderRadius: token.borderRadius,
+      borderRadius: 'var(--radius-control-sm)',
       fontSize: '1em',
       color: 'var(--color-gray-a9)',
       '&-noPadding': {
         padding: 0,
       },
       '&:hover': {
-        background: 'rgba(0, 16, 32, 0.0627)',
+        background: 'var(--color-gray-control-fill-active)',
+        boxSizing: 'border-box',
       },
       '&-standalone': {
         minWidth: 'inherit',
@@ -34,7 +35,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '8px 12px',
         color: '#000000',
         borderRadius: 18,
-        border: '1px solid #E6ECF4',
+        border: '1px solid var(--color-gray-border-light)',
         background: `radial-gradient(22% 66% at 96% 113%, rgba(255, 255, 245, 0.52) 0%, rgba(230, 238, 255, 0) 100%),radial-gradient(14% 234% at 100% 50%, rgba(162, 255, 255, 0.28) 0%, rgba(153, 202, 255, 0.1193) 13%, rgba(229, 189, 255, 0.0826) 38%, rgba(231, 211, 252, 0.0544) 59%, rgba(235, 255, 245, 0) 100%)`,
       },
       '&-danger': {
@@ -56,11 +57,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&:hover': {
           color: token.colorPrimary,
           background: 'none!important',
-        },
-      },
-      '&-only-icon': {
-        '&:hover': {
-          transform: 'scale(1.1)',
         },
       },
       '&-transform': {

@@ -11,7 +11,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '12px 0',
+      paddingBottom: '12px',
 
       [`${token.componentCls}-header-title`]: {
         fontFamily: 'PingFang SC',
@@ -32,6 +32,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`${token.componentCls}-header-actions`]: {
         display: 'flex',
         alignItems: 'center',
+        gap: '8px',
 
         [`${token.componentCls}-time-icon`]: {
           fontSize: '14px',

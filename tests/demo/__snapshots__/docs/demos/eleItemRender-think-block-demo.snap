@@ -35,10 +35,10 @@
       >
         <div
           class="ant-md-editor markdown-editor ant-md-editor-edit"
-          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-height: 600px;"
+          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); min-height: 600px;"
         >
           <div
-            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+            style="padding: 4px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
             tabindex="-1"
           >
             <div
@@ -426,7 +426,7 @@
                   tabindex="-1"
                 >
                   <div
-                    class="ace-container drag-el "
+                    class="ace-container drag-el"
                     data-testid="code-editor-container"
                     style="box-sizing: border-box; max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; transition: border-color 0.2s ease-in-out; border-radius: 12px; background: rgb(255, 255, 255); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04);"
                   >

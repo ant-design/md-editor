@@ -95,6 +95,9 @@ const TestI18nComponent: React.FC<{ locale: any }> = ({ locale }) => {
       <div data-testid="chat-history-load-more">
         {locale?.['chat.history.loadMore'] || '查看更多'}
       </div>
+      <div data-testid="task-history-load-more">
+        {locale?.['task.history.loadMore'] || '查看更多历史'}
+      </div>
       <div data-testid="chat-history-history-tasks">
         {locale?.['chat.history.historyTasks'] || '历史任务'}
       </div>
@@ -243,6 +246,9 @@ describe('Internationalization Tests', () => {
       );
       expect(screen.getByTestId('chat-history-load-more')).toHaveTextContent(
         '查看更多',
+      );
+      expect(screen.getByTestId('task-history-load-more')).toHaveTextContent(
+        '查看更多历史',
       );
       expect(
         screen.getByTestId('chat-history-history-tasks'),

@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { useStyle } from '../style';
@@ -11,7 +12,7 @@ const TestComponent: React.FC<{ prefix?: string }> = ({
   const { wrapSSR, hashId } = useStyle(prefix);
 
   return wrapSSR(
-    <div className={`${prefix} ${hashId}`} data-testid="test-container">
+    <div className={classNames(prefix, hashId)} data-testid="test-container">
       <div data-testid="test-content">
         <div data-testid="test-title">Title</div>
         <div data-testid="test-time">Time</div>

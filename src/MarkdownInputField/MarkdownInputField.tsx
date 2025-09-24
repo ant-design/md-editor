@@ -1,4 +1,4 @@
-﻿import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
@@ -28,6 +28,8 @@ import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
 import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
+import type { SkillModeConfig } from './SkillModeBar';
+import { SkillModeBar } from './SkillModeBar';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
@@ -146,6 +148,13 @@ export type MarkdownInputFieldProps = {
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
   bgColorList?: [string, string, string, string];
   borderRadius?: number;
+
+  beforeToolsRender?: (
+    props: MarkdownInputFieldProps & {
+      isHover: boolean;
+      isLoading: boolean;
+    },
+  ) => React.ReactNode;
 
   /**
    * 附件配置
@@ -307,6 +316,41 @@ export type MarkdownInputFieldProps = {
       | 'text/plain'
     >;
   };
+
+  /**
+   * 技能模式配置
+   * @description 配置技能模式的显示和行为，可以显示特定的技能或AI助手模式
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   skillMode={{
+   *     open: skillModeEnabled,
+   *     title: "AI助手模式",
+   *     rightContent: [
+   *       <Tag key="version">v2.0</Tag>,
+   *       <Button key="settings" size="small">设置</Button>
+   *     ],
+   *     closable: true
+   *   }}
+   *   onSkillModeOpenChange={(open) => {
+   *     console.log(`技能模式${open ? '打开' : '关闭'}`);
+   *     setSkillModeEnabled(open);
+   *   }}
+   * />
+   * ```
+   */
+  skillMode?: SkillModeConfig;
+
+  /**
+   * 技能模式开关状态变化时触发的回调函数
+   * @description 监听技能模式 open 状态的所有变化，包括用户点击关闭按钮和外部直接修改状态
+   * @param open 新的开关状态
+   * @example onSkillModeOpenChange={(open) => {
+   *   console.log(`技能模式${open ? '打开' : '关闭'}`);
+   *   setSkillModeEnabled(open);
+   * }}
+   */
+  onSkillModeOpenChange?: (open: boolean) => void;
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -369,15 +413,7 @@ export function generateEdges(colors: string[]) {
  * - 支持自定义渲染配置
  */
 export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
-  tagInputProps = {
-    enable: true,
-    items: [
-      {
-        key: 'Bold',
-        label: 'Bold',
-      },
-    ],
-  },
+  tagInputProps,
   markdownProps,
   borderRadius = 16,
   onBlur,
@@ -624,10 +660,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       ) : null,
       <SendButton
         key="send-button"
+        typing={!!props.typing || isLoading}
         isSendable={
           !!value?.trim() || (fileMap && fileMap.size > 0) || recording
         }
-        typing={!!props.typing || isLoading || recording}
         disabled={props.disabled}
         onClick={() => {
           if (props.typing || isLoading) {
@@ -667,255 +703,340 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     }
   });
 
+  const beforeTools = useMemo(() => {
+    if (props.beforeToolsRender) {
+      return props.beforeToolsRender({
+        ...props,
+        isHover,
+        isLoading,
+      });
+    }
+    return null;
+  }, [props, isHover, isLoading]);
+
   return wrapSSR(
-    <Suggestion tagInputProps={tagInputProps}>
-      <div
-        className={classNames(baseCls, hashId, props.className, {
-          [`${baseCls}-disabled`]: props.disabled,
-          [`${baseCls}-typing`]: false,
-          [`${baseCls}-loading`]: isLoading,
-        })}
-        style={{
-          ...props.style,
-          borderRadius: borderRadius || 16,
-        }}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onKeyDown={(e) => {
-          if (markdownEditorRef?.current?.store.inputComposition) {
-            return;
-          }
-          const { triggerSendKey = 'Enter' } = props;
-          if (
-            triggerSendKey === 'Enter' &&
-            e.key === 'Enter' &&
-            !(e.ctrlKey || e.metaKey)
-          ) {
-            e.stopPropagation();
-            e.preventDefault();
-            if (props.onSend) {
-              sendMessage();
-            }
-            return;
-          }
-          if (
-            triggerSendKey === 'Mod+Enter' &&
-            (e.ctrlKey || e.metaKey) &&
-            e.key === 'Enter'
-          ) {
-            e.stopPropagation();
-            e.preventDefault();
-            if (props.onSend) {
-              sendMessage();
-            }
-          }
-        }}
-        onClick={(e) => {
-          if (markdownEditorRef?.current?.store.inputComposition) {
-            return;
-          }
-          if (props.disabled) {
-            return;
-          }
-          if (actionsRef.current?.contains(e.target as Node)) {
-            return;
-          }
-          if (
-            markdownEditorRef.current?.store?.editor &&
-            !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
-          ) {
-            const editor = markdownEditorRef.current?.markdownEditorRef.current;
-            if (editor) {
-              ReactEditor.focus(editor);
-              Transforms.move(editor, { distance: 1, unit: 'offset' });
-              Transforms.select(editor, {
-                anchor: Editor.end(editor, []),
-                focus: Editor.end(editor, []),
-              });
-            }
-          }
+    <>
+      {beforeTools ? (
+        <div className={classNames(`${baseCls}-before-tools`, hashId)}>
+          {beforeTools}
+        </div>
+      ) : null}
+      <Suggestion
+        tagInputProps={{
+          enable: true,
+          type: 'dropdown',
+          ...tagInputProps,
         }}
       >
         <div
-          className={classNames(`${baseCls}-background`, hashId, {
-            [`${baseCls}-hover`]: isHover,
+          className={classNames(baseCls, hashId, props.className, {
+            [`${baseCls}-disabled`]: props.disabled,
+            [`${baseCls}-typing`]: false,
+            [`${baseCls}-loading`]: isLoading,
           })}
           style={{
-            minHeight: props.style?.minHeight || 0,
-            height: props.style?.height || '100%',
-            width: props.style?.width || '100%',
+            ...props.style,
+            borderRadius: borderRadius || 16,
           }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            fill="none"
-            version="1.1"
-            width="100%"
-            style={{
-              borderRadius: 'inherit',
-            }}
-            height="100%"
-          >
-            <defs>
-              <radialGradient cx="0.5" cy="1" r="0.5" id="master_svg1_55_47405">
-                {colorList.map((color, index) => {
-                  return (
-                    <stop
-                      key={index}
-                      offset={`${(index * 100) / colorList.length}%`}
-                      stopColor={color[0]}
-                      stopOpacity="0.4"
-                    >
-                      <animate
-                        attributeName="stop-color"
-                        values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
-                        dur="4s"
-                        repeatCount="indefinite"
-                      />
-                    </stop>
-                  );
-                })}
-              </radialGradient>
-            </defs>
-            <g>
-              <rect
-                x={0}
-                y={0}
-                width="100%"
-                height="100%"
-                fill="url(#master_svg1_55_47405)"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          style={{
-            flex: 1,
-            backgroundColor: '#fff',
-            width: '100%',
-            display: 'flex',
-            zIndex: 9,
-            flexDirection: 'column',
-            boxSizing: 'border-box',
-            borderRadius: (borderRadius || 16) - 2 || 10,
-            cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-            opacity: props.disabled ? 0.5 : 1,
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onKeyDown={(e) => {
+            if (markdownEditorRef?.current?.store.inputComposition) {
+              return;
+            }
+            const { triggerSendKey = 'Enter' } = props;
+            if (
+              triggerSendKey === 'Enter' &&
+              e.key === 'Enter' &&
+              !(e.ctrlKey || e.metaKey)
+            ) {
+              e.stopPropagation();
+              e.preventDefault();
+              if (props.onSend) {
+                sendMessage();
+              }
+              return;
+            }
+            if (
+              triggerSendKey === 'Mod+Enter' &&
+              (e.ctrlKey || e.metaKey) &&
+              e.key === 'Enter'
+            ) {
+              e.stopPropagation();
+              e.preventDefault();
+              if (props.onSend) {
+                sendMessage();
+              }
+            }
+          }}
+          onClick={(e) => {
+            if (markdownEditorRef?.current?.store.inputComposition) {
+              return;
+            }
+            if (props.disabled) {
+              return;
+            }
+            if (actionsRef.current?.contains(e.target as Node)) {
+              return;
+            }
+            if (
+              markdownEditorRef.current?.store?.editor &&
+              !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
+            ) {
+              const editor =
+                markdownEditorRef.current?.markdownEditorRef.current;
+              if (editor) {
+                ReactEditor.focus(editor);
+                Transforms.move(editor, { distance: 1, unit: 'offset' });
+                Transforms.select(editor, {
+                  anchor: Editor.end(editor, []),
+                  focus: Editor.end(editor, []),
+                });
+              }
+            }
           }}
         >
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderRadius: (borderRadius || 16) - 2 || 10,
-              maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
-              flex: 1,
-            }}
-            className={classNames(`${baseCls}-editor`, hashId, {
-              [`${baseCls}-editor-hover`]: isHover,
-              [`${baseCls}-editor-disabled`]: props.disabled,
+            className={classNames(`${baseCls}-background`, hashId, {
+              [`${baseCls}-hover`]: isHover,
             })}
+            style={{
+              minHeight: props.style?.minHeight || 0,
+              height: props.style?.height || '100%',
+              width: props.style?.width || '100%',
+            }}
           >
-            {useMemo(() => {
-              return props.attachment?.enable ? (
-                <AttachmentFileList
-                  fileMap={fileMap}
-                  onDelete={handleFileRemoval}
-                  onClearFileMap={() => {
-                    updateAttachmentFiles(new Map());
-                  }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              fill="none"
+              version="1.1"
+              width="100%"
+              style={{
+                borderRadius: 'inherit',
+              }}
+              height="100%"
+            >
+              <defs>
+                <radialGradient
+                  cx="0.5"
+                  cy="1"
+                  r="0.5"
+                  id="master_svg1_55_47405"
+                >
+                  {colorList.map((color, index) => {
+                    return (
+                      <stop
+                        key={index}
+                        offset={`${(index * 100) / colorList.length}%`}
+                        stopColor={color[0]}
+                        stopOpacity="0.4"
+                      >
+                        <animate
+                          attributeName="stop-color"
+                          values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
+                          dur="4s"
+                          repeatCount="indefinite"
+                        />
+                      </stop>
+                    );
+                  })}
+                </radialGradient>
+              </defs>
+              <g>
+                <rect
+                  x={0}
+                  y={0}
+                  width="100%"
+                  height="100%"
+                  fill="url(#master_svg1_55_47405)"
                 />
-              ) : null;
-            }, [fileMap?.values(), props.attachment?.enable])}
-
-            <BaseMarkdownEditor
-              editorRef={markdownEditorRef}
-              leafRender={props.leafRender}
-              style={
-                props.toolsRender
-                  ? {
-                      width: '100%',
-                      flex: 1,
-                      padding: 0,
-                    }
-                  : {
-                      width: '100%',
-                      flex: 1,
-                      padding: 0,
-                      paddingRight: rightPadding || 52,
-                    }
-              }
-              toolBar={{
-                enable: false,
-              }}
-              floatBar={{
-                enable: false,
-              }}
-              readonly={isLoading}
-              contentStyle={{
-                padding: '8px',
-              }}
-              textAreaProps={{
-                enable: true,
-                placeholder: props.placeholder,
-                triggerSendKey: props.triggerSendKey || 'Enter',
-              }}
-              tagInputProps={tagInputProps}
-              initValue={props.value}
-              onChange={(value) => {
-                setValue(value);
-                props.onChange?.(value);
-              }}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              titlePlaceholderContent={props.placeholder}
-              toc={false}
-              pasteConfig={props.pasteConfig}
-              {...markdownProps}
-            />
+              </g>
+            </svg>
           </div>
-          {props.toolsRender ? (
+          <div
+            style={{
+              flex: 1,
+              backgroundColor: '#fff',
+              width: '100%',
+              display: 'flex',
+              zIndex: 9,
+              flexDirection: 'column',
+              boxSizing: 'border-box',
+              borderRadius: (borderRadius || 16) - 2 || 10,
+              cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
+              opacity: props.disabled ? 0.5 : 1,
+            }}
+          >
             <div
               style={{
                 display: 'flex',
-                boxSizing: 'border-box',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 8,
-                width: '100%',
-                minHeight: 42,
-                paddingRight: 8,
-                paddingLeft: 8,
+                flexDirection: 'column',
+                borderRadius: (borderRadius || 16) - 2 || 10,
+                maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
+                flex: 1,
               }}
+              className={classNames(`${baseCls}-editor`, hashId, {
+                [`${baseCls}-editor-hover`]: isHover,
+                [`${baseCls}-editor-disabled`]: props.disabled,
+              })}
             >
-              {props.toolsRender ? (
-                <div
-                  ref={actionsRef}
-                  contentEditable={false}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
+              {/* 技能模式部分 */}
+              <SkillModeBar
+                skillMode={props.skillMode}
+                onSkillModeOpenChange={props.onSkillModeOpenChange}
+              />
+
+              {useMemo(() => {
+                return props.attachment?.enable ? (
+                  <AttachmentFileList
+                    fileMap={fileMap}
+                    onDelete={handleFileRemoval}
+                    onClearFileMap={() => {
+                      updateAttachmentFiles(new Map());
+                    }}
+                  />
+                ) : null;
+              }, [fileMap?.values(), props.attachment?.enable])}
+
+              <BaseMarkdownEditor
+                editorRef={markdownEditorRef}
+                leafRender={props.leafRender}
+                style={
+                  props.toolsRender
+                    ? {
+                        width: '100%',
+                        flex: 1,
+                        padding: 0,
+                      }
+                    : {
+                        width: '100%',
+                        flex: 1,
+                        padding: 0,
+                        paddingRight: rightPadding || 52,
+                      }
+                }
+                toolBar={{
+                  enable: false,
+                }}
+                floatBar={{
+                  enable: false,
+                }}
+                readonly={isLoading}
+                contentStyle={{
+                  padding: '12px',
+                }}
+                textAreaProps={{
+                  enable: true,
+                  placeholder: props.placeholder,
+                  triggerSendKey: props.triggerSendKey || 'Enter',
+                }}
+                tagInputProps={{
+                  enable: true,
+                  type: 'dropdown',
+                  ...tagInputProps,
+                }}
+                initValue={props.value}
+                onChange={(value) => {
+                  setValue(value);
+                  props.onChange?.(value);
+                }}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                titlePlaceholderContent={props.placeholder}
+                toc={false}
+                pasteConfig={props.pasteConfig}
+                {...markdownProps}
+              />
+            </div>
+            {props.toolsRender ? (
+              <div
+                style={{
+                  display: 'flex',
+                  boxSizing: 'border-box',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 8,
+                  width: '100%',
+                  minHeight: 42,
+                  paddingRight: 8,
+                  paddingLeft: 8,
+                }}
+              >
+                {props.toolsRender ? (
+                  <div
+                    ref={actionsRef}
+                    contentEditable={false}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    onKeyDown={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    className={classNames(`${baseCls}-send-tools`, hashId)}
+                  >
+                    {props.toolsRender
+                      ? props.toolsRender({
+                          value,
+                          fileMap,
+                          onFileMapChange: setFileMap,
+                          ...props,
+                          isHover,
+                          isLoading,
+                          fileUploadStatus: fileUploadDone
+                            ? 'done'
+                            : 'uploading',
+                        })
+                      : []}
+                  </div>
+                ) : null}
+                <RcResizeObserver
+                  onResize={(e) => {
+                    setRightPadding(e.offsetWidth);
                   }}
-                  onKeyDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  className={classNames(`${baseCls}-send-tools`, hashId)}
                 >
-                  {props.toolsRender
-                    ? props.toolsRender({
-                        value,
-                        fileMap,
-                        onFileMapChange: setFileMap,
-                        ...props,
-                        isHover,
-                        isLoading,
-                        fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
-                      })
-                    : []}
-                </div>
-              ) : null}
+                  <div
+                    ref={actionsRef}
+                    contentEditable={false}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    onKeyDown={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    className={classNames(
+                      `${baseCls}-send-actions`,
+                      {
+                        [`${baseCls}-send-has-tools`]: props.toolsRender,
+                      },
+                      hashId,
+                    )}
+                  >
+                    {props.actionsRender
+                      ? props.actionsRender(
+                          {
+                            value,
+                            ...props,
+                            fileMap,
+                            onFileMapChange: setFileMap,
+                            isHover,
+                            isLoading,
+                            fileUploadStatus: fileUploadDone
+                              ? 'done'
+                              : 'uploading',
+                          },
+                          defaultSendActions,
+                        )
+                      : defaultSendActions}
+                  </div>
+                </RcResizeObserver>
+              </div>
+            ) : (
               <RcResizeObserver
                 onResize={(e) => {
                   setRightPadding(e.offsetWidth);
@@ -958,51 +1079,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     : defaultSendActions}
                 </div>
               </RcResizeObserver>
-            </div>
-          ) : (
-            <RcResizeObserver
-              onResize={(e) => {
-                setRightPadding(e.offsetWidth);
-              }}
-            >
-              <div
-                ref={actionsRef}
-                contentEditable={false}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-                onKeyDown={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-                className={classNames(
-                  `${baseCls}-send-actions`,
-                  {
-                    [`${baseCls}-send-has-tools`]: props.toolsRender,
-                  },
-                  hashId,
-                )}
-              >
-                {props.actionsRender
-                  ? props.actionsRender(
-                      {
-                        value,
-                        ...props,
-                        fileMap,
-                        onFileMapChange: setFileMap,
-                        isHover,
-                        isLoading,
-                        fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
-                      },
-                      defaultSendActions,
-                    )
-                  : defaultSendActions}
-              </div>
-            </RcResizeObserver>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </Suggestion>,
+      </Suggestion>
+    </>,
   );
 };

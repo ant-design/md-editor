@@ -49,6 +49,7 @@
               class="ant-chart-toolbar-header-actions"
             >
               <span
+                aria-describedby="test-id"
                 aria-label="download"
                 class="anticon anticon-download ant-chart-toolbar-download-btn"
                 role="img"
@@ -151,7 +152,7 @@
           </div>
           <div
             class="chart-wrapper"
-            style="height: 500px;"
+            style="margin-top: 20px; height: 500px;"
           >
             <div
               data-datasets="[{"label":"本年营收","data":[45000,52000,48000,61000,55000,67000],"borderColor":"#1677ff","pointBackgroundColor":"#1677ff","pointBorderColor":"#fff","pointBorderWidth":1,"borderWidth":3,"tension":0,"fill":true},{"label":"去年营收","data":[38000,41000,42000,48000,45000,52000],"borderColor":"#8954FC","pointBackgroundColor":"#8954FC","pointBorderColor":"#fff","pointBorderWidth":1,"borderWidth":3,"tension":0,"fill":true}]"

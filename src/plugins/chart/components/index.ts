@@ -1,3 +1,5 @@
+export { default as ChartStatistic } from '../ChartStatistic';
+export type { ChartStatisticProps } from '../ChartStatistic';
 export { default as ChartContainer } from './ChartContainer/ChartContainer';
 export type { ChartContainerProps } from './ChartContainer/ChartContainer';
 export { default as ChartFilter } from './ChartFilter/ChartFilter';

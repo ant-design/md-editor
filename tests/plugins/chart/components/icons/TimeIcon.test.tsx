@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import classNames from 'classnames';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
 import TimeIcon from '../../../../../src/plugins/chart/components/icons/TimeIcon';
@@ -252,7 +253,7 @@ describe('TimeIcon', () => {
       const { rerender, container } = render(<TimeIcon />);
 
       for (let i = 0; i < 10; i++) {
-        rerender(<TimeIcon className={`test-${i}`} />);
+        rerender(<TimeIcon className={classNames(`test-${i}`)} />);
       }
 
       const svgElement = container.querySelector('svg');

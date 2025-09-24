@@ -1,4 +1,4 @@
-﻿import { RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
@@ -12,6 +12,7 @@ export type FileMapViewProps = {
   fileMap?: Map<string, AttachmentFile>;
   onPreview?: (file: AttachmentFile) => void;
   onDownload?: (file: AttachmentFile) => void;
+  placement?: 'left' | 'right';
 };
 
 /**
@@ -54,6 +55,7 @@ export type FileMapViewProps = {
  * - 支持自定义样式和交互
  */
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
+  const { placement = 'left' } = props;
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context?.getPrefixCls('md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
@@ -97,7 +99,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         whileInView="visible"
         initial="hidden"
         animate={'visible'}
-        className={classNames(prefix, hashId)}
+        className={classNames(prefix, hashId, `${prefix}-${placement}`)}
       >
         <Image.PreviewGroup>
           {fileList.map((file, index) => {
@@ -153,7 +155,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         whileInView="visible"
         initial="hidden"
         animate={'visible'}
-        className={classNames(prefix, hashId)}
+        className={classNames(prefix, hashId, `${prefix}-${placement}`)}
       >
         {fileList.map((file, index) => {
           return (

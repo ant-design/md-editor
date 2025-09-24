@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import React, { type FC, useContext } from 'react';
 import {
   ThoughtChainList,
@@ -76,7 +77,7 @@ export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
   const { wrapSSR, hashId } = useTaskStyle(prefixCls);
 
   return wrapSSR(
-    <div className={`${prefixCls} ${hashId}`}>
+    <div className={classNames(prefixCls, hashId)}>
       <ThoughtChainList
         {...getMergedProps(getDefaultProps())}
         thoughtChainList={data.content}

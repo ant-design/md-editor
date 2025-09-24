@@ -1,4 +1,4 @@
-﻿import { Node } from 'mdast';
+import { Node } from 'mdast';
 import React from 'react';
 import { Editor, NodeEntry } from 'slate';
 import { ElementProps, Elements } from './el';

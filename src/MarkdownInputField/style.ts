@@ -87,6 +87,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         gap: '8px',
         alignItems: 'center',
+        font: 'var(--font-text-body-base)',
+        color: 'var(--color-gray-text-default)',
+        '> div': {
+          cursor: 'pointer',
+          '&:hover': {
+            background: 'var(--color-gray-control-fill-active)',
+            boxShadow: 'var(--shadow-border-base)',
+          },
+        },
       },
       '&-send-actions': {
         position: 'absolute',
@@ -96,8 +105,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         zIndex: 99,
         bottom: 8,
         display: 'flex',
-        gap: '8px',
+        gap: '4px',
         alignItems: 'center',
+        font: 'var(--font-text-body-base)',
+        color: 'var(--color-gray-text-default)',
+        '> div': {
+          cursor: 'pointer',
+          '&:hover': {
+            background: 'var(--color-gray-control-fill-active)',
+            boxShadow: 'var(--shadow-border-base)',
+          },
+        },
       },
       '&-send-has-tools': {
         boxSizing: 'border-box',
@@ -116,6 +134,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         animationDuration: '1s',
         animationTimingFunction: 'linear',
         animationIterationCount: 'infinite',
+      },
+    },
+    [`${token.componentCls}-before-tools`]: {
+      display: 'flex',
+      gap: 8,
+      width: '100%',
+      padding: '0 8px',
+      marginBottom: '8px',
+      font: 'var(--font-text-body-base)',
+      color: 'var(--color-gray-text-default)',
+      '> div': {
+        cursor: 'pointer',
+        '&:hover': {
+          background: 'var(--color-gray-control-fill-active)',
+          boxShadow: 'var(--shadow-border-base)',
+        },
       },
     },
   };

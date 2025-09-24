@@ -14,6 +14,7 @@ export { ChartRender } from './ChartRender';
 // 图表组件
 export { default as AreaChart } from './AreaChart';
 export { default as BarChart } from './BarChart';
+export { default as ChartStatistic } from './ChartStatistic';
 export { default as DonutChart } from './DonutChart';
 export { default as FunnelChart } from './FunnelChart';
 export { default as LineChart } from './LineChart';
@@ -31,6 +32,7 @@ export type {
   BarChartDataItem,
   BarChartProps,
 } from './BarChart';
+export type { ChartStatisticProps } from './ChartStatistic';
 export type {
   DonutChartConfig,
   DonutChartData,
