@@ -46,22 +46,22 @@ export interface TitleProps {
   style?: React.CSSProperties;
 
   bubbleNameClassName?: string;
+
+  quote?: React.ReactNode;
 }
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      fontSize: 12,
-      color: token.colorTextDescription,
-      lineHeight: 1,
-      display: 'flex',
-      alignItems: 'center',
+      font: 'var(--font-text-h6-base)',
+      letterSpacing: ['var(--letter-spacing-h6-base, normal)', 'normal'],
+      textAlign: 'justify',
+      color: 'var(--color-gray-text-default)',
       '&-time': {
         visibility: 'hidden',
-        opacity: 0,
-        color: token.colorTextTertiary,
-        lineHeight: 1,
-        transition: 'all 0.3s ' + token.motionEaseInOut,
+        font: 'var(--font-text-body-sm)',
+        letterSpacing: 'var(--letter-spacing-body-sm, normal)',
+        color: 'var(--color-gray-text-light)',
       },
       '&:hover': {
         [`${token.componentCls}-time`]: {
@@ -121,6 +121,7 @@ export const BubbleTitle: React.FC<TitleProps> = ({
   placement,
   time,
   bubbleNameClassName,
+  quote,
   title,
 }) => {
   const { wrapSSR, hashId } = useStyle(prefixClass);
@@ -135,7 +136,8 @@ export const BubbleTitle: React.FC<TitleProps> = ({
       gap={8}
       data-testid="bubble-title"
     >
-      <span className={bubbleNameClassName}>{title}</span>
+      {title ? <span className={bubbleNameClassName}>{title}</span> : null}
+      {quote}
       {time && (
         <time
           className={cx(`${prefixClass}-time`, hashId)}

@@ -42,7 +42,7 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'none',
       },
 
-      '&-quoteDesc': {
+      '&-quoteDescription': {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',

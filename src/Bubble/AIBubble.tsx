@@ -81,9 +81,7 @@ export const AIBubble: React.FC<
   const {
     onAvatarClick,
     className,
-    avatar,
     style,
-    time,
     bubbleRenderConfig,
     classNames,
     styles,
@@ -118,7 +116,10 @@ export const AIBubble: React.FC<
 
   const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
 
-  const prefixClass = getPrefixCls('agent-list');
+  const prefixClass = getPrefixCls('agent');
+
+  const time = props?.originData?.createAt || props.time;
+  const avatar = props?.originData?.meta || props.avatar;
 
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
@@ -266,7 +267,7 @@ export const AIBubble: React.FC<
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 8,
+            gap: 2,
             alignItems: 'flex-start', // AI消息左对齐
             ...style,
           }}
