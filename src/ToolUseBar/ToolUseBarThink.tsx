@@ -1,10 +1,36 @@
-import { DownOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNamesFn from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { useContext } from 'react';
 import { ThinkIcon } from '../icons/ThinkIcon';
 import { useStyle } from './thinkStyle';
+
+function DownOutlined(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      width="1em"
+      height="1em"
+      viewBox="0 0 14 14"
+      {...props}
+    >
+      <defs>
+        <clipPath id="a">
+          <rect width={14} height={14} rx={0} />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <path
+          d="M10.088 13.83L7 10.741l-3.087 3.087a.583.583 0 11-.825-.825l3.5-3.5a.583.583 0 01.824 0l3.5 3.5a.583.583 0 11-.824.825z"
+          fillRule="evenodd"
+          fill="currentColor"
+          transform="matrix(1 0 0 -1 0 18.667)"
+        />
+      </g>
+    </svg>
+  );
+}
 
 function ExpandDownIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -156,6 +182,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+  const [hover, setHover] = React.useState(false);
 
   return wrapSSR(
     <div
@@ -173,15 +200,21 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
         className={classNamesFn(`${prefixCls}-bar`, hashId, classNames?.bar)}
         data-testid="tool-use-bar-think-bar"
         style={styles?.bar}
+        onClick={handleToggleExpand}
       >
         <div
           className={classNamesFn(
             `${prefixCls}-header`,
             hashId,
             classNames?.header,
+            {
+              [`${prefixCls}-header-light`]: light,
+            },
           )}
           data-testid="tool-use-bar-think-header"
           style={styles?.header}
+          onMouseMove={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
         >
           <div
             className={classNamesFn(
@@ -192,16 +225,25 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
             style={styles?.headerLeft}
           >
             {light ? (
-              <DownOutlined
-                style={{
-                  fontSize: '13px',
-                  color: 'rgba(52, 58, 69, 1)',
-                  transform: expandedState ? 'rotate(0deg)' : 'rotate(-90deg)',
-                  transition: 'transform 0.2s',
-                }}
-                title="展开/收起"
-                onClick={handleToggleExpand}
-              />
+              <div
+                className={classNamesFn(
+                  `${prefixCls}-header-left-icon`,
+                  hashId,
+                )}
+              >
+                {hover ? (
+                  <DownOutlined
+                    style={{
+                      transform: expandedState
+                        ? 'rotate(0deg)'
+                        : 'rotate(-90deg)',
+                      transition: 'transform 0.2s',
+                    }}
+                  />
+                ) : (
+                  <ThinkIcon />
+                )}
+              </div>
             ) : (
               <div
                 className={classNamesFn(

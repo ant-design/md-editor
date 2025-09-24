@@ -97,8 +97,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           cursor: 'pointer',
           transition: 'all 0.3s ease',
           '&:hover': {
-            backgroundColor: 'var(--icon-hover-bg)',
-            borderRadius: 'var(--icon-hover-border-radius)',
+            backgroundColor: 'var(--color-gray-control-fill-hover)',
+            borderRadius: 'var(--radius-control-sm)',
           },
         },
       },
