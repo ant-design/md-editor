@@ -59,7 +59,7 @@ const ChatFlowContainer: React.FC<ChatFlowContainerProps> = ({
   const { wrapSSR, hashId } = useStyle(COMPONENT_NAME);
   const { containerRef } = useAutoScroll({
     SCROLL_TOLERANCE: 30,
-    onResize: (size) => console.log('容器尺寸:', size),
+    onResize: () => {},
     timeout: 200,
   });
 

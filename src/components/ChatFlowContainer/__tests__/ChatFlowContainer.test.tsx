@@ -40,21 +40,6 @@ describe('ChatFlowContainer', () => {
     expect(handleLeftCollapse).toHaveBeenCalledTimes(1);
   });
 
-  // it('calls onRightCollapse when right collapse button is clicked', () => {
-  //   const handleRightCollapse = vi.fn();
-
-  //   render(
-  //     <ChatFlowContainer onRightCollapse={handleRightCollapse}>
-  //       <div>Test content</div>
-  //     </ChatFlowContainer>
-  //   );
-
-  //   const rightCollapseButton = screen.getByLabelText('折叠右侧边栏');
-  //   fireEvent.click(rightCollapseButton);
-
-  //   expect(handleRightCollapse).toHaveBeenCalledTimes(1);
-  // });
-
   it('calls onShare when share button is clicked', () => {
     const handleShare = vi.fn();
 

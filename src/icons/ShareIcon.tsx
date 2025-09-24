@@ -29,7 +29,7 @@ import React from 'react';
  * - 使用 16x16 的 viewBox
  * - 使用 currentColor 继承父元素颜色
  */
-export const ShareIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
+function ShareIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -37,8 +37,8 @@ export const ShareIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="none"
       version="1.1"
-      width={'1em'}
-      height={'1em'}
+      width="1em"
+      height="1em"
       viewBox="0 0 16 16"
     >
       <defs>
@@ -58,4 +58,6 @@ export const ShareIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
       </g>
     </svg>
   );
-};
+}
+
+export { ShareIcon };

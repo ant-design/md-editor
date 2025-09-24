@@ -98,272 +98,278 @@ interface IconCategory {
   }>;
 }
 
+// 图标尺寸映射表 - 移到组件外部作为常量
+const ICON_SIZE_MAP: Record<string, string> = {
+  // 主要图标
+  CodeIcon: '14.83×14.83',
+  DatabaseIcon: '14.99×16.49',
+  FunctionIcon: '18×18',
+  NewChatIcon: '16×16',
+  PanelLeftIcon: '16×16',
+  StarFilledIcon: '16×16',
+  StarIcon: '16×16',
+  ThinkIcon: '16×16',
+
+  // 组件图标
+  RagIcon: '20×20',
+  SearchIcon: '20×20',
+  ShareIcon: '16×16',
+  TableSqlIcon: '20×20',
+  ToolCallIcon: '20×20',
+
+  // UI图标
+  AttachmentIcon: '16×16',
+  CloseIcon: '12×12',
+  CopyIcon: '14×14',
+  EmptyIcon: '80×80',
+  FinishedIcon: '16×16',
+  HistoryIcon: '16×16',
+  LoadingIcon: '16×16',
+  PauseIcon: '16×16',
+  PlayIcon: '16×16',
+  PlusIcon: '10.66×10.66',
+  RunIcon: '16×16',
+  VoiceIcon: '16×16',
+  DocQueryIcon: '21×21',
+  DownloadIcon: '24×24',
+
+  // 文件类型图标
+  DOCSIcon: '24×24',
+  PPTIcon: '24×24',
+  PPTXIcon: '24×24',
+  PDFIcon: '24×24',
+  XLSIcon: '24×24',
+  XLSXIcon: '24×24',
+  HTMLIcon: '24×24',
+  MarkDownIcon: '24×24',
+  CSSIcon: '24×24',
+  XMLIcon: '24×24',
+  YMLIcon: '1024×1024',
+  JSONIcon: '1024×1024',
+
+  // 编程语言图标
+  CIcon: '24×24',
+  CppIcon: '24×24',
+  CsharpIcon: '24×24',
+  LangCssIcon: '24×24',
+  GoIcon: '24×24',
+  LangHtmlIcon: '24×24',
+  JavaIcon: '24×24',
+  JavascriptIcon: '24×24',
+  LangJsonIcon: '24×24',
+  MarkdownIcon: '24×24',
+  PhpIcon: '24×24',
+  PythonIcon: '24×24',
+  ReactIcon: '24×24',
+  RustIcon: '24×24',
+  TypescriptIcon: '24×24',
+  VueIcon: '24×24',
+  LangXmlIcon: '24×24',
+  LangYamlIcon: '24×24',
+};
+
+// 获取图标尺寸信息 - 移到组件外部作为纯函数
+const getIconSize = (iconName: string): string => {
+  return ICON_SIZE_MAP[iconName] || '24×24';
+};
+
+// 定义图标分类 - 移到组件外部作为常量
+const ICON_CATEGORIES: IconCategory[] = [
+  {
+    key: 'all',
+    label: '全部',
+    icons: [],
+  },
+  {
+    key: 'main',
+    label: '主要图标',
+    icons: [
+      { name: 'CodeIcon', component: CodeIcon, description: '代码图标' },
+      {
+        name: 'DatabaseIcon',
+        component: DatabaseIcon,
+        description: '数据库图标',
+      },
+      {
+        name: 'FunctionIcon',
+        component: FunctionIcon,
+        description: '函数图标',
+      },
+      {
+        name: 'NewChatIcon',
+        component: NewChatIcon,
+        description: '新聊天图标',
+      },
+      {
+        name: 'PanelLeftIcon',
+        component: PanelLeftIcon,
+        description: '左侧面板图标',
+      },
+      {
+        name: 'StarFilledIcon',
+        component: StarFilledIcon,
+        description: '实心星标图标',
+      },
+      { name: 'StarIcon', component: StarIcon, description: '空心星标图标' },
+      { name: 'ThinkIcon', component: ThinkIcon, description: '思考图标' },
+    ],
+  },
+  {
+    key: 'components',
+    label: '组件图标',
+    icons: [
+      { name: 'RagIcon', component: RagIcon, description: 'RAG图标' },
+      { name: 'SearchIcon', component: SearchIcon, description: '搜索图标' },
+      { name: 'ShareIcon', component: ShareIcon, description: '分享图标' },
+      {
+        name: 'TableSqlIcon',
+        component: TableSqlIcon,
+        description: 'SQL表格图标',
+      },
+      {
+        name: 'ToolCallIcon',
+        component: ToolCallIcon,
+        description: '工具调用图标',
+      },
+    ],
+  },
+  {
+    key: 'ui',
+    label: 'UI图标',
+    icons: [
+      {
+        name: 'AttachmentIcon',
+        component: AttachmentIcon,
+        description: '附件图标',
+      },
+      { name: 'CloseIcon', component: CloseIcon, description: '关闭图标' },
+      { name: 'CopyIcon', component: CopyIcon, description: '复制图标' },
+      { name: 'EmptyIcon', component: EmptyIcon, description: '空状态图标' },
+      {
+        name: 'FinishedIcon',
+        component: FinishedIcon,
+        description: '完成图标',
+      },
+      {
+        name: 'HistoryIcon',
+        component: HistoryIcon,
+        description: '历史图标',
+      },
+      {
+        name: 'LoadingIcon',
+        component: LoadingIcon,
+        description: '加载图标',
+      },
+      { name: 'PauseIcon', component: PauseIcon, description: '暂停图标' },
+      { name: 'PlayIcon', component: PlayIcon, description: '播放图标' },
+      { name: 'PlusIcon', component: PlusIcon, description: '加号图标' },
+      { name: 'RunIcon', component: RunIcon, description: '运行图标' },
+      { name: 'VoiceIcon', component: VoiceIcon, description: '语音图标' },
+      {
+        name: 'DocQueryIcon',
+        component: DocQueryIcon,
+        description: '文档查询图标',
+      },
+      {
+        name: 'DownloadIcon',
+        component: DownloadIcon,
+        description: '下载图标',
+      },
+    ],
+  },
+  {
+    key: 'files',
+    label: '文件类型',
+    icons: [
+      { name: 'CSSIcon', component: CSSIcon, description: 'CSS文件图标' },
+      { name: 'DOCSIcon', component: DOCSIcon, description: '文档图标' },
+      { name: 'HTMLIcon', component: HTMLIcon, description: 'HTML文件图标' },
+      { name: 'JSONIcon', component: JSONIcon, description: 'JSON文件图标' },
+      {
+        name: 'MarkDownIcon',
+        component: MarkDownIcon,
+        description: 'Markdown文件图标',
+      },
+      { name: 'PDFIcon', component: PDFIcon, description: 'PDF文件图标' },
+      { name: 'PPTIcon', component: PPTIcon, description: 'PPT文件图标' },
+      { name: 'PPTXIcon', component: PPTXIcon, description: 'PPTX文件图标' },
+      { name: 'XLSIcon', component: XLSIcon, description: 'XLS文件图标' },
+      { name: 'XLSXIcon', component: XLSXIcon, description: 'XLSX文件图标' },
+      { name: 'XMLIcon', component: XMLIcon, description: 'XML文件图标' },
+      { name: 'YMLIcon', component: YMLIcon, description: 'YAML文件图标' },
+    ],
+  },
+  {
+    key: 'languages',
+    label: '编程语言',
+    icons: [
+      { name: 'CIcon', component: CIcon, description: 'C语言图标' },
+      { name: 'CppIcon', component: CppIcon, description: 'C++图标' },
+      { name: 'CsharpIcon', component: CsharpIcon, description: 'C#图标' },
+      { name: 'LangCssIcon', component: LangCssIcon, description: 'CSS图标' },
+      { name: 'GoIcon', component: GoIcon, description: 'Go语言图标' },
+      {
+        name: 'LangHtmlIcon',
+        component: LangHtmlIcon,
+        description: 'HTML图标',
+      },
+      { name: 'JavaIcon', component: JavaIcon, description: 'Java图标' },
+      {
+        name: 'JavascriptIcon',
+        component: JavascriptIcon,
+        description: 'JavaScript图标',
+      },
+      {
+        name: 'LangJsonIcon',
+        component: LangJsonIcon,
+        description: 'JSON图标',
+      },
+      {
+        name: 'MarkdownIcon',
+        component: MarkdownIcon,
+        description: 'Markdown图标',
+      },
+      { name: 'PhpIcon', component: PhpIcon, description: 'PHP图标' },
+      {
+        name: 'PythonIcon',
+        component: PythonIcon,
+        description: 'Python图标',
+      },
+      { name: 'ReactIcon', component: ReactIcon, description: 'React图标' },
+      { name: 'RustIcon', component: RustIcon, description: 'Rust图标' },
+      {
+        name: 'TypescriptIcon',
+        component: TypescriptIcon,
+        description: 'TypeScript图标',
+      },
+      { name: 'VueIcon', component: VueIcon, description: 'Vue图标' },
+      { name: 'LangXmlIcon', component: LangXmlIcon, description: 'XML图标' },
+      {
+        name: 'LangYamlIcon',
+        component: LangYamlIcon,
+        description: 'YAML图标',
+      },
+    ],
+  },
+];
+
+// 合并所有图标到"全部"分类 - 移到组件外部
+const allIcons = ICON_CATEGORIES.filter(
+  (category) => category.key !== 'all',
+).flatMap((category) => category.icons);
+
+// 创建完整的图标分类数组，包含所有图标
+const iconCategories: IconCategory[] = [
+  {
+    ...ICON_CATEGORIES[0],
+    icons: allIcons,
+  },
+  ...ICON_CATEGORIES.slice(1),
+];
+
 const IconShowcase: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-
-  // 获取图标尺寸信息
-  const getIconSize = (iconName: string) => {
-    // 根据图标名称返回对应的尺寸信息
-    const sizeMap: Record<string, string> = {
-      // 主要图标
-      CodeIcon: '14.83×14.83',
-      DatabaseIcon: '14.99×16.49',
-      FunctionIcon: '18×18',
-      NewChatIcon: '16×16',
-      PanelLeftIcon: '16×16',
-      StarFilledIcon: '16×16',
-      StarIcon: '16×16',
-      ThinkIcon: '16×16',
-
-      // 组件图标
-      RagIcon: '20×20',
-      SearchIcon: '20×20',
-      ShareIcon: '16×16',
-      TableSqlIcon: '20×20',
-      ToolCallIcon: '20×20',
-
-      // UI图标
-      AttachmentIcon: '16×16',
-      CloseIcon: '12×12',
-      CopyIcon: '14×14',
-      EmptyIcon: '80×80',
-      FinishedIcon: '16×16',
-      HistoryIcon: '16×16',
-      LoadingIcon: '16×16',
-      PauseIcon: '16×16',
-      PlayIcon: '16×16',
-      PlusIcon: '10.66×10.66',
-      RunIcon: '16×16',
-      VoiceIcon: '16×16',
-      DocQueryIcon: '21×21',
-      DownloadIcon: '24×24',
-
-      // 文件类型图标
-      DOCSIcon: '24×24',
-      PPTIcon: '24×24',
-      PPTXIcon: '24×24',
-      PDFIcon: '24×24',
-      XLSIcon: '24×24',
-      XLSXIcon: '24×24',
-      HTMLIcon: '24×24',
-      MarkDownIcon: '24×24',
-      CSSIcon: '24×24',
-      XMLIcon: '24×24',
-      YMLIcon: '1024×1024',
-      JSONIcon: '1024×1024',
-
-      // 编程语言图标
-      CIcon: '24×24',
-      CppIcon: '24×24',
-      CsharpIcon: '24×24',
-      LangCssIcon: '24×24',
-      GoIcon: '24×24',
-      LangHtmlIcon: '24×24',
-      JavaIcon: '24×24',
-      JavascriptIcon: '24×24',
-      LangJsonIcon: '24×24',
-      MarkdownIcon: '24×24',
-      PhpIcon: '24×24',
-      PythonIcon: '24×24',
-      ReactIcon: '24×24',
-      RustIcon: '24×24',
-      TypescriptIcon: '24×24',
-      VueIcon: '24×24',
-      LangXmlIcon: '24×24',
-      LangYamlIcon: '24×24',
-    };
-
-    return sizeMap[iconName] || '24×24';
-  };
-
-  // 定义图标分类
-  const iconCategories: IconCategory[] = [
-    {
-      key: 'all',
-      label: '全部',
-      icons: [],
-    },
-    {
-      key: 'main',
-      label: '主要图标',
-      icons: [
-        { name: 'CodeIcon', component: CodeIcon, description: '代码图标' },
-        {
-          name: 'DatabaseIcon',
-          component: DatabaseIcon,
-          description: '数据库图标',
-        },
-        {
-          name: 'FunctionIcon',
-          component: FunctionIcon,
-          description: '函数图标',
-        },
-        {
-          name: 'NewChatIcon',
-          component: NewChatIcon,
-          description: '新聊天图标',
-        },
-        {
-          name: 'PanelLeftIcon',
-          component: PanelLeftIcon,
-          description: '左侧面板图标',
-        },
-        {
-          name: 'StarFilledIcon',
-          component: StarFilledIcon,
-          description: '实心星标图标',
-        },
-        { name: 'StarIcon', component: StarIcon, description: '空心星标图标' },
-        { name: 'ThinkIcon', component: ThinkIcon, description: '思考图标' },
-      ],
-    },
-    {
-      key: 'components',
-      label: '组件图标',
-      icons: [
-        { name: 'RagIcon', component: RagIcon, description: 'RAG图标' },
-        { name: 'SearchIcon', component: SearchIcon, description: '搜索图标' },
-        { name: 'ShareIcon', component: ShareIcon, description: '分享图标' },
-        {
-          name: 'TableSqlIcon',
-          component: TableSqlIcon,
-          description: 'SQL表格图标',
-        },
-        {
-          name: 'ToolCallIcon',
-          component: ToolCallIcon,
-          description: '工具调用图标',
-        },
-      ],
-    },
-    {
-      key: 'ui',
-      label: 'UI图标',
-      icons: [
-        {
-          name: 'AttachmentIcon',
-          component: AttachmentIcon,
-          description: '附件图标',
-        },
-        { name: 'CloseIcon', component: CloseIcon, description: '关闭图标' },
-        { name: 'CopyIcon', component: CopyIcon, description: '复制图标' },
-        { name: 'EmptyIcon', component: EmptyIcon, description: '空状态图标' },
-        {
-          name: 'FinishedIcon',
-          component: FinishedIcon,
-          description: '完成图标',
-        },
-        {
-          name: 'HistoryIcon',
-          component: HistoryIcon,
-          description: '历史图标',
-        },
-        {
-          name: 'LoadingIcon',
-          component: LoadingIcon,
-          description: '加载图标',
-        },
-        { name: 'PauseIcon', component: PauseIcon, description: '暂停图标' },
-        { name: 'PlayIcon', component: PlayIcon, description: '播放图标' },
-        { name: 'PlusIcon', component: PlusIcon, description: '加号图标' },
-        { name: 'RunIcon', component: RunIcon, description: '运行图标' },
-        { name: 'VoiceIcon', component: VoiceIcon, description: '语音图标' },
-        {
-          name: 'DocQueryIcon',
-          component: DocQueryIcon,
-          description: '文档查询图标',
-        },
-        {
-          name: 'DownloadIcon',
-          component: DownloadIcon,
-          description: '下载图标',
-        },
-      ],
-    },
-    {
-      key: 'files',
-      label: '文件类型',
-      icons: [
-        { name: 'CSSIcon', component: CSSIcon, description: 'CSS文件图标' },
-        { name: 'DOCSIcon', component: DOCSIcon, description: '文档图标' },
-        { name: 'HTMLIcon', component: HTMLIcon, description: 'HTML文件图标' },
-        { name: 'JSONIcon', component: JSONIcon, description: 'JSON文件图标' },
-        {
-          name: 'MarkDownIcon',
-          component: MarkDownIcon,
-          description: 'Markdown文件图标',
-        },
-        { name: 'PDFIcon', component: PDFIcon, description: 'PDF文件图标' },
-        { name: 'PPTIcon', component: PPTIcon, description: 'PPT文件图标' },
-        { name: 'PPTXIcon', component: PPTXIcon, description: 'PPTX文件图标' },
-        { name: 'XLSIcon', component: XLSIcon, description: 'XLS文件图标' },
-        { name: 'XLSXIcon', component: XLSXIcon, description: 'XLSX文件图标' },
-        { name: 'XMLIcon', component: XMLIcon, description: 'XML文件图标' },
-        { name: 'YMLIcon', component: YMLIcon, description: 'YAML文件图标' },
-      ],
-    },
-    {
-      key: 'languages',
-      label: '编程语言',
-      icons: [
-        { name: 'CIcon', component: CIcon, description: 'C语言图标' },
-        { name: 'CppIcon', component: CppIcon, description: 'C++图标' },
-        { name: 'CsharpIcon', component: CsharpIcon, description: 'C#图标' },
-        { name: 'LangCssIcon', component: LangCssIcon, description: 'CSS图标' },
-        { name: 'GoIcon', component: GoIcon, description: 'Go语言图标' },
-        {
-          name: 'LangHtmlIcon',
-          component: LangHtmlIcon,
-          description: 'HTML图标',
-        },
-        { name: 'JavaIcon', component: JavaIcon, description: 'Java图标' },
-        {
-          name: 'JavascriptIcon',
-          component: JavascriptIcon,
-          description: 'JavaScript图标',
-        },
-        {
-          name: 'LangJsonIcon',
-          component: LangJsonIcon,
-          description: 'JSON图标',
-        },
-        {
-          name: 'MarkdownIcon',
-          component: MarkdownIcon,
-          description: 'Markdown图标',
-        },
-        { name: 'PhpIcon', component: PhpIcon, description: 'PHP图标' },
-        {
-          name: 'PythonIcon',
-          component: PythonIcon,
-          description: 'Python图标',
-        },
-        { name: 'ReactIcon', component: ReactIcon, description: 'React图标' },
-        { name: 'RustIcon', component: RustIcon, description: 'Rust图标' },
-        {
-          name: 'TypescriptIcon',
-          component: TypescriptIcon,
-          description: 'TypeScript图标',
-        },
-        { name: 'VueIcon', component: VueIcon, description: 'Vue图标' },
-        { name: 'LangXmlIcon', component: LangXmlIcon, description: 'XML图标' },
-        {
-          name: 'LangYamlIcon',
-          component: LangYamlIcon,
-          description: 'YAML图标',
-        },
-      ],
-    },
-  ];
-
-  // 合并所有图标到"全部"分类
-  const allIcons = iconCategories
-    .filter((category) => category.key !== 'all')
-    .flatMap((category) => category.icons);
-
-  // 更新"全部"分类
-  iconCategories[0].icons = allIcons;
 
   // 过滤图标
   const filteredIcons = useMemo(() => {
@@ -450,10 +456,10 @@ const IconShowcase: React.FC = () => {
           </Title>
 
           <Row gutter={[16, 16]}>
-            {filteredIcons.map((icon, index) => {
+            {filteredIcons.map((icon) => {
               const IconComponent = icon.component;
               return (
-                <Col xs={12} sm={8} md={6} lg={4} xl={3} key={index}>
+                <Col xs={12} sm={8} md={6} lg={4} xl={3} key={icon.name}>
                   <Card
                     hoverable
                     size="small"

@@ -7,7 +7,7 @@ import {
   TASK_STATUS,
   TaskRunning,
 } from '@ant-design/md-editor';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './style.css';
 
 const assistantMeta: BubbleMetaData = {
@@ -61,6 +61,21 @@ const ChatFlowContainerDemo: React.FC = () => {
   const [bubbleList, setBubbleList] =
     useState<MessageBubbleData[]>(initialMessages);
 
+  // 使用 useRef 管理重试状态，避免全局污染
+  const isRetryingRef = useRef(false);
+  const retryTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // 组件卸载时清理定时器，防止内存泄漏
+  useEffect(() => {
+    return () => {
+      if (retryTimerRef.current) {
+        clearInterval(retryTimerRef.current);
+        retryTimerRef.current = null;
+      }
+      isRetryingRef.current = false;
+    };
+  }, []);
+
   // ***************** Header ***************** //
   const handleLeftCollapse = () => {
     setLeftCollapsed(!leftCollapsed);
@@ -89,12 +104,14 @@ const ChatFlowContainerDemo: React.FC = () => {
   const handleRetry = () => {
     console.log('重试任务');
 
-    if ((window as any).__retrying) return;
-    (window as any).__retrying = true;
+    // 防止重复执行
+    if (isRetryingRef.current) return;
+    isRetryingRef.current = true;
 
     let retryCount = 0;
     const MAX_RETRY = 30;
-    const timer = setInterval(() => {
+
+    retryTimerRef.current = setInterval(() => {
       setBubbleList((prev) => {
         const newMessage = createMockMessage(
           `msg-${Date.now()}`,
@@ -103,10 +120,14 @@ const ChatFlowContainerDemo: React.FC = () => {
         );
         return [...prev, newMessage];
       });
+
       retryCount += 1;
       if (retryCount >= MAX_RETRY) {
-        clearInterval(timer);
-        (window as any).__retrying = false;
+        if (retryTimerRef.current) {
+          clearInterval(retryTimerRef.current);
+          retryTimerRef.current = null;
+        }
+        isRetryingRef.current = false;
       }
     }, 2000);
   };
