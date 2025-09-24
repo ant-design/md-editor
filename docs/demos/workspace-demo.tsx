@@ -1,3 +1,4 @@
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Workspace } from '@ant-design/md-editor';
 import RealtimeIcon from '@ant-design/md-editor/Workspace/icons/RealtimeIcon';
 import React, { useEffect, useState } from 'react';
@@ -107,42 +108,43 @@ const Demo = () => {
             ),
           }}
           data={{
-            content: [
+            items: [
               {
-                category: 'DeepThink',
-                info: '性能分析报告',
-                runId: 'perf-analysis',
-                output: {
-                  data: '正在生成系统性能分析报告，包含 CPU、内存、磁盘 IO 和网络性能指标...',
-                  type: 'RUNNING',
-                },
+                key: '1',
+                title: '创建全面的 Tesla 股票分析任务列表',
+                status: 'success',
               },
               {
-                category: 'ToolCall',
-                info: '日志分析',
-                runId: 'log-analysis',
-                input: {
-                  inputArgs: {
-                    params: {
-                      logPath: '/var/log/system.log',
-                      pattern: 'ERROR|WARN',
-                      timeRange: '24h',
-                    },
-                  },
-                },
-                output: {
-                  data: '已完成最近24小时的日志分析，发现3个错误和5个警告',
-                  type: 'END',
-                },
+                key: '2',
+                title: '下载指定的Bilibili视频分集并确保唯一文件名',
+                content: (
+                  <div>
+                    任务已停止
+                    <QuestionCircleOutlined style={{ marginLeft: 4 }} />
+                  </div>
+                ),
+                status: 'error',
+              },
+
+              {
+                key: '3',
+                title: '提取下载的视频帧',
+                status: 'pending',
               },
               {
-                category: 'DeepThink',
-                info: '安全扫描',
-                runId: 'security-scan',
-                output: {
-                  data: '完成系统安全扫描，未发现重大安全隐患',
-                  type: 'END',
-                },
+                key: '4',
+                title: '对提取的视频帧进行文字识别',
+                status: 'pending',
+              },
+              {
+                key: '5',
+                title: '筛选掉OCR识别结果为乱码的图片',
+                status: 'pending',
+              },
+              {
+                key: '6',
+                title: '报告结果并将Word文档发送给用户',
+                status: 'pending',
               },
             ],
           }}
