@@ -27,18 +27,18 @@
           style="padding: 24px;"
         >
           <div
-            class="ant-agent-list-bubble ant-agent-list-bubble-left ant-agent-list-bubble-ai ant-flex ant-flex-align-stretch ant-flex-vertical"
+            class="ant-agent-bubble ant-agent-bubble-left ant-agent-bubble-ai ant-flex ant-flex-align-stretch ant-flex-vertical"
             style="gap: 12px;"
           >
             <div
-              class="ant-agent-list-bubble-container"
-              style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"
+              class="ant-agent-bubble-container"
+              style="display: flex; flex-direction: column; gap: 2px; align-items: flex-start;"
             >
               <div
-                class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left ant-agent-list-bubble-avatar-title-ai"
+                class="ant-agent-bubble-avatar-title ant-agent-bubble-avatar-title-left ant-agent-bubble-avatar-title-ai"
               >
                 <span
-                  class="ant-avatar ant-avatar-circle ant-agent-list-bubble-avatar"
+                  class="ant-avatar ant-avatar-circle ant-agent-bubble-avatar"
                   data-testid="bubble-avatar"
                   style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
                 >
@@ -50,24 +50,29 @@
                   </span>
                 </span>
                 <div
-                  class="ant-agent-list-bubble-title ant-flex"
+                  class="ant-agent-bubble-title ant-flex"
                   data-testid="bubble-title"
-                  style="flex-direction: row; gap: 8px;"
+                  style="flex-direction: row; display: flex; align-items: center; gap: 8px;"
                 >
-                  <span />
+                  <time
+                    class="ant-agent-bubble-title-time"
+                    data-testid="bubble-time"
+                  >
+                    2024-02-27 17:20:00
+                  </time>
                 </div>
               </div>
               <div
-                class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left ant-agent-list-bubble-container-ai"
+                class="ant-agent-bubble-container ant-agent-bubble-container-left ant-agent-bubble-container-ai"
                 data-testid="chat-message"
                 style="display: flex; gap: 4px; flex-direction: column; align-items: flex-start;"
               >
                 <div
-                  class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left ant-agent-list-bubble-before-ai"
+                  class="ant-agent-bubble-before ant-agent-bubble-before-left ant-agent-bubble-before-ai"
                   data-testid="message-before"
                 />
                 <div
-                  class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-ai"
+                  class="ant-agent-bubble-content ant-agent-bubble-content-left ant-agent-bubble-content-ai"
                   data-testid="message-content"
                   style="min-width: 0px;"
                 >
@@ -90,10 +95,10 @@
                     </div>
                     <div
                       class="ant-md-editor markdown-editor ant-md-editor-readonly"
-                      style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-h5-base); letter-spacing: var(--letter-spacing-h5-base, normal); color: var(--color-gray-text-default); padding: 0px; margin: 0px;"
+                      style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); padding: 0px; margin: 0px;"
                     >
                       <div
-                        style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                        style="padding: 4px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
                         tabindex="-1"
                       >
                         <div

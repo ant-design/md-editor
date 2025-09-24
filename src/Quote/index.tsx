@@ -10,13 +10,13 @@ import { useStyle } from './style';
  * Quote 组件的属性接口
  * @interface QuoteProps
  */
-interface QuoteProps {
+export interface QuoteProps {
   /** 文件名 */
   fileName?: string;
   /** 行号范围（可选） */
   lineRange?: string;
-  /** 引用内容描述 */
-  quoteDesc: string;
+  /** 引用描述 */
+  quoteDescription: string;
   /** 详细内容（点击查看详情） */
   popupDetail?: string;
   /** 是否显示关闭按钮 */
@@ -42,7 +42,7 @@ interface QuoteProps {
  * @param {QuoteProps} props - 组件属性
  * @param {string} [props.fileName] - 文件名
  * @param {string} [props.lineRange] - 行号范围（可选）
- * @param {string} props.quoteDesc - 引用内容描述
+ * @param {string} props.quoteDescriptionription - 引用描述
  * @param {string} [props.popupDetail] - 详细内容（悬停显示）
  * @param {boolean} [props.closable=false] - 是否显示关闭按钮
  * @param {() => void} [props.onClose] - 关闭回调
@@ -55,7 +55,7 @@ interface QuoteProps {
  * <Quote
  *   fileName="example.js"
  *   lineRange="10-15"
- *   quoteDesc="这是一个函数定义"
+ *   quoteDescriptionription="函数定义"
  *   popupDetail="function example() { return 'hello'; }"
  *   closable={true}
  *   onClose={() => console.log('关闭引用')}
@@ -75,10 +75,10 @@ interface QuoteProps {
  * - 集成图标和动画效果
  * - 支持响应式布局
  */
-const Quote: React.FC<QuoteProps> = ({
+export const Quote: React.FC<QuoteProps> = ({
   fileName,
   lineRange,
-  quoteDesc,
+  quoteDescription,
   popupDetail,
   closable = false,
   onClose,
@@ -99,7 +99,10 @@ const Quote: React.FC<QuoteProps> = ({
 
   // 样式类名
   const containerCls = classNames(`${prefixCls}-container`, hashId, className);
-  const quoteDescCls = classNames(`${prefixCls}-quoteDesc`, hashId);
+  const quoteDescriptionCls = classNames(
+    `${prefixCls}-quoteDescription`,
+    hashId,
+  );
   const closeCls = classNames(`${prefixCls}-close-button`, hashId);
   const quoteIconCls = classNames(`${prefixCls}-quote-icon`, hashId);
 
@@ -115,8 +118,8 @@ const Quote: React.FC<QuoteProps> = ({
       <div className={quoteIconCls} data-testid="quote-icon">
         <QuoteIcon />
       </div>
-      <span className={quoteDescCls} data-testid="quote-desc">
-        {quoteDesc}
+      <span className={quoteDescriptionCls} data-testid="quote-description">
+        {quoteDescription}
       </span>
       {closable && onClose && (
         <div

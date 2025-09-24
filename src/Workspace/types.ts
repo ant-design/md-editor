@@ -424,5 +424,5 @@ export const getMimeType = (fileType: FileType): string => {
 };
 
 export const getFileCategory = (fileType: FileType): FileCategory => {
-  return FILE_TYPES[fileType].category;
+  return FILE_TYPES?.[fileType]?.category;
 };

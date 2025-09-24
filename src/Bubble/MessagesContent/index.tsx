@@ -57,8 +57,9 @@ export const BubbleMessageDisplay: React.FC<
   BubbleProps & {
     content: MessageBubbleData['content'];
     bubbleListItemExtraStyle?: React.CSSProperties;
+    contentAfterDom?: React.ReactNode;
   }
-> = ({ content, bubbleRef, readonly, ...props }) => {
+> = ({ content, bubbleRef, readonly, contentAfterDom, ...props }) => {
   /**
    * 获取聊天配置上下文
    * @type {ChatConfigContext}
@@ -105,9 +106,14 @@ export const BubbleMessageDisplay: React.FC<
 
   const afterContent = useMemo(() => {
     return props.bubbleRenderConfig?.afterMessageRender
-      ? props.bubbleRenderConfig.afterMessageRender(props, null)
-      : null;
-  }, [props.bubbleRenderConfig?.afterMessageRender, typing, props.originData]);
+      ? props.bubbleRenderConfig.afterMessageRender(props, contentAfterDom)
+      : contentAfterDom;
+  }, [
+    props.bubbleRenderConfig?.afterMessageRender,
+    contentAfterDom,
+    typing,
+    props.originData,
+  ]);
 
   const memo = useMemo(() => {
     if (

@@ -12,10 +12,10 @@ const renderWithProvider = (ui: React.ReactElement) => {
 describe('Quote 组件', () => {
   it('应该正确渲染基本内容', () => {
     const { getByText } = renderWithProvider(
-      <Quote fileName="test.ts" quoteDesc="测试内容" />,
+      <Quote fileName="test.ts" quoteDescription="测试内容" />,
     );
 
-    // 主视图中只显示quoteDesc，不显示fileName
+    // 主视图中只显示quoteDescription，不显示fileName
     expect(getByText('测试内容')).toBeInTheDocument();
 
     // 文件名不在主视图中显示
@@ -27,12 +27,12 @@ describe('Quote 组件', () => {
       <Quote
         fileName="example.ts"
         lineRange="10-20"
-        quoteDesc="示例内容"
+        quoteDescription="示例内容"
         popupDetail="详细信息"
       />,
     );
 
-    // 主视图中显示quoteDesc
+    // 主视图中显示quoteDescription
     expect(getByText('示例内容')).toBeInTheDocument();
 
     // 弹出层中应该显示文件名和行号
@@ -47,7 +47,7 @@ describe('Quote 组件', () => {
     const { container } = renderWithProvider(
       <Quote
         fileName="test.ts"
-        quoteDesc="测试内容"
+        quoteDescription="测试内容"
         closable={true}
         onClose={handleClose}
       />,
@@ -64,7 +64,11 @@ describe('Quote 组件', () => {
 
   it('应该在hover时显示详情弹框', () => {
     const { container } = renderWithProvider(
-      <Quote fileName="test.ts" quoteDesc="测试内容" popupDetail="详细信息" />,
+      <Quote
+        fileName="test.ts"
+        quoteDescription="测试内容"
+        popupDetail="详细信息"
+      />,
     );
 
     // 弹框应该存在但默认隐藏
@@ -81,7 +85,7 @@ describe('Quote 组件', () => {
       <Quote
         fileName="test.ts"
         lineRange="1-5"
-        quoteDesc="测试内容"
+        quoteDescription="测试内容"
         popupDetail="详细信息"
         onFileClick={handleFileClick}
       />,
@@ -102,7 +106,7 @@ describe('Quote 组件', () => {
     const { container } = renderWithProvider(
       <Quote
         fileName="example.ts"
-        quoteDesc="测试内容"
+        quoteDescription="测试内容"
         popupDetail="详细信息"
         onFileClick={handleFileClick}
       />,
@@ -120,7 +124,11 @@ describe('Quote 组件', () => {
   it('应该支持自定义样式', () => {
     const customStyle = { backgroundColor: 'red' };
     const { container } = renderWithProvider(
-      <Quote fileName="test.ts" quoteDesc="测试内容" style={customStyle} />,
+      <Quote
+        fileName="test.ts"
+        quoteDescription="测试内容"
+        style={customStyle}
+      />,
     );
 
     const quoteContainer = container.querySelector(
@@ -131,7 +139,7 @@ describe('Quote 组件', () => {
 
   it('应该支持不传文件名', () => {
     const { getByText } = renderWithProvider(
-      <Quote quoteDesc="无文件来源的内容" />,
+      <Quote quoteDescription="无文件来源的内容" />,
     );
 
     expect(getByText('无文件来源的内容')).toBeInTheDocument();
@@ -139,10 +147,10 @@ describe('Quote 组件', () => {
 
   it('应该支持只有fileName没有popupDetail的情况', () => {
     const { getByText, container } = renderWithProvider(
-      <Quote fileName="test.ts" quoteDesc="测试内容" />,
+      <Quote fileName="test.ts" quoteDescription="测试内容" />,
     );
 
-    // 主视图显示quoteDesc
+    // 主视图显示quoteDescription
     expect(getByText('测试内容')).toBeInTheDocument();
 
     // 没有popupDetail时不应该有弹出层
@@ -152,7 +160,11 @@ describe('Quote 组件', () => {
 
   it('应该正确处理没有onFileClick时的弹框点击', () => {
     const { container } = renderWithProvider(
-      <Quote fileName="test.ts" quoteDesc="测试内容" popupDetail="详细信息" />,
+      <Quote
+        fileName="test.ts"
+        quoteDescription="测试内容"
+        popupDetail="详细信息"
+      />,
     );
 
     const popupHeader = container.querySelector(
