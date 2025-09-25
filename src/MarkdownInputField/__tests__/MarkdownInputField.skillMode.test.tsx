@@ -971,7 +971,7 @@ describe('addGlowBorderOffset', () => {
     });
 
     it('应该处理空字符串（虽然不太可能出现）', () => {
-      expect(addGlowBorderOffset('')).toBe('calc( + 4px)');
+      expect(addGlowBorderOffset('')).toBe('4px');
     });
   });
 });
