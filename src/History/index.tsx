@@ -77,6 +77,7 @@ export const History: React.FC<HistoryProps> = (props) => {
       setOpen(false);
     },
     groupLabelRender: props.groupLabelRender,
+    customOperationExtra: props.customOperationExtra || undefined,
     onDeleteItem: props.onDeleteItem
       ? async (sessionId) => {
           await props.onDeleteItem?.(sessionId);
@@ -112,6 +113,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           <HistorySearch
             searchKeyword={searchKeyword}
             onSearch={handleSearch}
+            type={props.type}
           />
         )}
 
@@ -124,7 +126,11 @@ export const History: React.FC<HistoryProps> = (props) => {
           className={menuPrefixCls}
         />
         {props.agent?.enabled && !!props.agent?.onLoadMore && (
-          <HistoryLoadMore onLoadMore={handleLoadMore} type={props.type} />
+          <HistoryLoadMore
+            onLoadMore={handleLoadMore}
+            type={props.type}
+            className={`${menuPrefixCls}-load-more  ${props.type === 'task' ? '' : 'chat'} ${hashId}`}
+          />
         )}
       </div>,
     );
@@ -153,7 +159,11 @@ export const History: React.FC<HistoryProps> = (props) => {
             className={menuPrefixCls}
           />
           {props.agent?.enabled && !!props.agent?.onLoadMore && (
-            <HistoryLoadMore onLoadMore={handleLoadMore} type={props.type} />
+            <HistoryLoadMore
+              onLoadMore={handleLoadMore}
+              type={props.type}
+              className={`${menuPrefixCls}-load-more ${hashId} ${props.type === 'task' ? '' : 'chat'}`}
+            />
           )}
         </>
       }
@@ -172,15 +182,16 @@ export const History: React.FC<HistoryProps> = (props) => {
       >
         <ActionIconBox
           key="history"
-          style={{
-            color: 'var(--color-gray-text-default)',
-            width: 25,
-            height: 25,
-          }}
           noPadding
           title={locale?.['chat.history'] || '历史记录'}
         >
-          <HistoryIcon />
+          <HistoryIcon
+            style={{
+              color: 'var(--color-gray-text-default)',
+              width: 14,
+              height: 14,
+            }}
+          />
         </ActionIconBox>
       </div>
     </Popover>

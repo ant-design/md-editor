@@ -18,6 +18,7 @@ export interface HistoryProps {
   groupBy?: (item: HistoryDataType) => string;
   groupLabelRender?: HistoryListConfig['groupLabelRender'];
   extra?: (item: HistoryDataType) => React.ReactElement;
+  customOperationExtra?: React.ReactNode;
   sessionSort?:
     | ((pre: HistoryDataType, current: HistoryDataType) => number | boolean)
     | false;

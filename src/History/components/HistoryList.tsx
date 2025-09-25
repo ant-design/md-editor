@@ -67,6 +67,7 @@ export const generateHistoryItems = ({
   groupLabelRender,
   type,
   runningId,
+  customOperationExtra,
 }: HistoryListConfig) => {
   const groupList = groupByCategory(
     filteredList || [],
@@ -116,6 +117,7 @@ export const generateHistoryItems = ({
                 extra={extra}
                 type={type}
                 runningId={runningId}
+                customOperationExtra={customOperationExtra}
               />
             ),
           };

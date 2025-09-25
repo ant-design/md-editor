@@ -291,39 +291,51 @@
                               </div>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
+                              style="display: flex; align-items: flex-start; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
-                              >
-                                数据分析任务
-                              </div>
-                              <div
-                                aria-describedby="test-id"
-                                style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  aria-describedby="test-id"
+                                  data-overflow="false"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
                                 >
-                                  正在分析用户行为数据
+                                  <div
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    数据分析任务
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
                                 </div>
                                 <div
-                                  class="ant-divider ant-divider-vertical"
-                                  role="separator"
-                                />
-                                <span
-                                  style="min-width: 26px;"
+                                  aria-describedby="test-id"
+                                  style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                                 >
-                                  今日
-                                </span>
+                                  <div
+                                    style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  >
+                                    正在分析用户行为数据
+                                  </div>
+                                  <div
+                                    class="ant-divider ant-divider-vertical"
+                                    role="separator"
+                                  />
+                                  <span
+                                    style="min-width: 26px;"
+                                  >
+                                    今日
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             <div
-                              style="margin-top: 4px;"
+                              style="flex-shrink: 0; margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -348,7 +360,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -451,39 +463,51 @@
                               </div>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
+                              style="display: flex; align-items: flex-start; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
-                              >
-                                模型训练任务
-                              </div>
-                              <div
-                                aria-describedby="test-id"
-                                style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  aria-describedby="test-id"
+                                  data-overflow="false"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
                                 >
-                                  深度学习模型训练中
+                                  <div
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    模型训练任务
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
                                 </div>
                                 <div
-                                  class="ant-divider ant-divider-vertical"
-                                  role="separator"
-                                />
-                                <span
-                                  style="min-width: 26px;"
+                                  aria-describedby="test-id"
+                                  style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                                 >
-                                  今日
-                                </span>
+                                  <div
+                                    style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  >
+                                    深度学习模型训练中
+                                  </div>
+                                  <div
+                                    class="ant-divider ant-divider-vertical"
+                                    role="separator"
+                                  />
+                                  <span
+                                    style="min-width: 26px;"
+                                  >
+                                    今日
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             <div
-                              style="margin-top: 4px;"
+                              style="flex-shrink: 0; margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -508,7 +532,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -611,39 +635,51 @@
                               </div>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
+                              style="display: flex; align-items: flex-start; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
-                              >
-                                代码部署
-                              </div>
-                              <div
-                                aria-describedby="test-id"
-                                style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  aria-describedby="test-id"
+                                  data-overflow="false"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
                                 >
-                                  新版本代码部署到生产环境
+                                  <div
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    代码部署
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
                                 </div>
                                 <div
-                                  class="ant-divider ant-divider-vertical"
-                                  role="separator"
-                                />
-                                <span
-                                  style="min-width: 26px;"
+                                  aria-describedby="test-id"
+                                  style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                                 >
-                                  今日
-                                </span>
+                                  <div
+                                    style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  >
+                                    新版本代码部署到生产环境
+                                  </div>
+                                  <div
+                                    class="ant-divider ant-divider-vertical"
+                                    role="separator"
+                                  />
+                                  <span
+                                    style="min-width: 26px;"
+                                  >
+                                    今日
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             <div
-                              style="margin-top: 4px;"
+                              style="flex-shrink: 0; margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -668,7 +704,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -722,39 +758,51 @@
                               </div>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
+                              style="display: flex; align-items: flex-start; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
-                              >
-                                系统备份
-                              </div>
-                              <div
-                                aria-describedby="test-id"
-                                style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  aria-describedby="test-id"
+                                  data-overflow="false"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
                                 >
-                                  定期系统数据备份
+                                  <div
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    系统备份
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
                                 </div>
                                 <div
-                                  class="ant-divider ant-divider-vertical"
-                                  role="separator"
-                                />
-                                <span
-                                  style="min-width: 26px;"
+                                  aria-describedby="test-id"
+                                  style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                                 >
-                                  今日
-                                </span>
+                                  <div
+                                    style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  >
+                                    定期系统数据备份
+                                  </div>
+                                  <div
+                                    class="ant-divider ant-divider-vertical"
+                                    role="separator"
+                                  />
+                                  <span
+                                    style="min-width: 26px;"
+                                  >
+                                    今日
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             <div
-                              style="margin-top: 4px;"
+                              style="flex-shrink: 0; margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -779,7 +827,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -846,39 +894,51 @@
                               </div>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column; gap: 4px; padding-right: 10px;"
+                              style="display: flex; align-items: flex-start; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; display: -webkit-box; max-width: min(860px,100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
-                              >
-                                报告生成
-                              </div>
-                              <div
-                                aria-describedby="test-id"
-                                style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  aria-describedby="test-id"
+                                  data-overflow="false"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
                                 >
-                                  已完成的月度报告
+                                  <div
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    报告生成
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
                                 </div>
                                 <div
-                                  class="ant-divider ant-divider-vertical"
-                                  role="separator"
-                                />
-                                <span
-                                  style="min-width: 26px;"
+                                  aria-describedby="test-id"
+                                  style="display: flex; align-items: center; font: var(--font-text-body-xs); color: var(--color-gray-text-secondary); letter-spacing: var(--letter-spacing-body-xs, normal);"
                                 >
-                                  昨日
-                                </span>
+                                  <div
+                                    style="flex: 1 1 0%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                  >
+                                    已完成的月度报告
+                                  </div>
+                                  <div
+                                    class="ant-divider ant-divider-vertical"
+                                    role="separator"
+                                  />
+                                  <span
+                                    style="min-width: 26px;"
+                                  >
+                                    昨日
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             <div
-                              style="margin-top: 4px;"
+                              style="flex-shrink: 0; margin-top: 4px;"
                             >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -903,7 +963,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -1054,18 +1114,32 @@
                               </svg>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="display: flex; align-items: center; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden;"
                               >
-                                聊天: 数据分析任务
+                                <div
+                                  data-overflow="false"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                >
+                                  <div
+                                    aria-describedby="test-id"
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    聊天: 数据分析任务
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
+                                </div>
                               </div>
                             </div>
-                            <div>
+                            <div
+                              style="flex-shrink: 0;"
+                            >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -1090,7 +1164,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -1188,18 +1262,32 @@
                               </svg>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="display: flex; align-items: center; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden;"
                               >
-                                聊天: 模型训练任务
+                                <div
+                                  data-overflow="false"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                >
+                                  <div
+                                    aria-describedby="test-id"
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    聊天: 模型训练任务
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
+                                </div>
                               </div>
                             </div>
-                            <div>
+                            <div
+                              style="flex-shrink: 0;"
+                            >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -1224,7 +1312,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -1322,18 +1410,32 @@
                               </svg>
                             </div>
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="display: flex; align-items: center; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden;"
                               >
-                                聊天: 代码部署
+                                <div
+                                  data-overflow="false"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                >
+                                  <div
+                                    aria-describedby="test-id"
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    聊天: 代码部署
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
+                                </div>
                               </div>
                             </div>
-                            <div>
+                            <div
+                              style="flex-shrink: 0;"
+                            >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -1358,7 +1460,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -1403,18 +1505,32 @@
                             style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                           >
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="display: flex; align-items: center; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden;"
                               >
-                                聊天: 系统备份
+                                <div
+                                  data-overflow="false"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                >
+                                  <div
+                                    aria-describedby="test-id"
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    聊天: 系统备份
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
+                                </div>
                               </div>
                             </div>
-                            <div>
+                            <div
+                              style="flex-shrink: 0;"
+                            >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -1439,7 +1555,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"
@@ -1497,18 +1613,32 @@
                             style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
                           >
                             <div
-                              style="color: var(--color-gray-text-default); overflow: hidden; flex: 1 1 0%; display: flex; flex-direction: column;"
+                              style="display: flex; align-items: center; flex: 1 1 0%; min-width: 0; gap: 8px;"
                             >
                               <div
-                                aria-describedby="test-id"
-                                style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                style="flex: 1 1 0%; min-width: 0; overflow: hidden;"
                               >
-                                聊天: 报告生成
+                                <div
+                                  data-overflow="false"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                >
+                                  <div
+                                    aria-describedby="test-id"
+                                    style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                                  >
+                                    聊天: 报告生成
+                                  </div>
+                                  <div
+                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                  />
+                                </div>
                               </div>
                             </div>
-                            <div>
+                            <div
+                              style="flex-shrink: 0;"
+                            >
                               <div
-                                style="color: rgba(0, 0, 0, 0.25); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
+                                style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
                                   style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
@@ -1533,7 +1663,7 @@
                                           aria-label="delete"
                                           class="anticon anticon-delete"
                                           role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-disabled);"
+                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
                                         >
                                           <svg
                                             aria-hidden="true"

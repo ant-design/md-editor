@@ -1,4 +1,6 @@
+import { MoreOutlined } from '@ant-design/icons';
 import { History, HistoryDataType } from '@ant-design/md-editor';
+import { Dropdown } from 'antd';
 import React, { useState } from 'react';
 
 const TaskHistoryDemo = () => {
@@ -11,8 +13,9 @@ const TaskHistoryDemo = () => {
       {
         id: '1',
         sessionId: 'session-1',
-        sessionTitle: 'Create Printable PDF from...',
-        description: '这个任务会比较复杂，我会...',
+        sessionTitle: '帮我规划一条重庆两日游路线',
+        description:
+          '这个任务会比较复杂，我会根据你的需求生成一条路线，并给出详细的攻略',
         icon: '📋',
         agentId: agentId,
         gmtCreate: 1703123456789,
@@ -21,7 +24,7 @@ const TaskHistoryDemo = () => {
       {
         id: '3',
         sessionId: 'session-3',
-        sessionTitle: '数据分析任务',
+        sessionTitle: 'Create Printable PDF from Subtitle',
         description: '需要分析用户行为数据并生成报告',
         icon: '📊',
         agentId: agentId,
@@ -44,11 +47,6 @@ const TaskHistoryDemo = () => {
   const handleSelected = (sessionId: string) => {
     setCurrentSessionId(sessionId);
     console.log('选择会话:', sessionId);
-  };
-
-  const handleDeleteItem = async (sessionId: string) => {
-    console.log('删除会话:', sessionId);
-    // 这里可以调用删除 API
   };
 
   return (
@@ -74,7 +72,6 @@ const TaskHistoryDemo = () => {
           request={mockRequest}
           type="task"
           onClick={handleSelected}
-          onDeleteItem={handleDeleteItem}
           standalone
           agent={{
             runningId: ['1'],
@@ -83,6 +80,11 @@ const TaskHistoryDemo = () => {
             onLoadMore: () => {},
             onNewChat: () => {},
           }}
+          customOperationExtra={
+            <Dropdown>
+              <MoreOutlined />
+            </Dropdown>
+          }
         />
       </div>
 
