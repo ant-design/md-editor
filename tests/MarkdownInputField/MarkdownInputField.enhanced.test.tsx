@@ -180,7 +180,19 @@ describe('MarkdownInputField Enhanced Tests', () => {
 
     it('应该处理边界情况', () => {
       expect(generateEdges([])).toEqual([]);
-      expect(generateEdges(['red'])).toEqual([['red', 'red']]);
+
+      // 当只有一个颜色时，扩展基础序列并生成循环动画停靠点，由于颜色相同，结果为重复序列
+      expect(generateEdges(['red'])).toEqual([
+        ['red', 'red', 'red'],
+        ['red', 'red', 'red'],
+      ]);
+
+      // 当有两个颜色时，扩展基础序列以生成平滑的4段循环动画停靠点
+      expect(generateEdges(['red', 'blue'])).toEqual([
+        ['red', 'blue', 'red', 'red'],
+        ['blue', 'red', 'red', 'blue'],
+        ['red', 'red', 'blue', 'red'],
+      ]);
     });
   });
 
