@@ -7,43 +7,58 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
+      position: 'relative',
+      cursor: 'pointer',
+      borderRadius: '24px',
+      background: 'var(--color-gray-bg-card-light)',
+      boxSizing: 'border-box',
+      border: 'var(--color-gray-border-light)',
+      boxShadow: 'var(--shadow-border-base)',
+      minHeight: '20px',
+      width: 'max-content',
+      transition: 'padding 0.2s ease',
       display: 'flex',
+      alignItems: 'center',
       flexDirection: 'column',
-      gap: 4,
+      gap: '8px',
+      zIndex: 1,
+      maxWidth: 'min(800px,100%)',
+      padding: '2px',
+      paddingRight: '4px',
       '*': {
         boxSizing: 'border-box',
       },
-
-      cursor: 'pointer',
       '&:hover': {
-        boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
-      },
-      boxSizing: 'border-box',
-      minHeight: '28px',
-      width: 'max-content',
-      maxWidth: 'min(348px,100%)',
-      alignItems: 'center',
-      padding: '4px',
-      zIndex: 1,
-      borderRadius: 'var(--radius-card-base)',
-      background: 'var(--color-gray-bg-card-white)',
-      boxShadow: 'var(--shadow-control-base)',
-      '&-light': {
-        border: 'none',
-        boxShadow: 'none',
-        '&:hover': {
-          boxShadow: 'none',
-        },
+        background: 'var(--color-gray-control-fill-active)',
+        boxSizing: 'border-box',
+        boxShadow: 'var(--shadow-card-base)',
       },
       '&-expanded': {
+        borderRadius: '14px',
+        padding: 4,
         gap: 0,
+        outline: 'none',
+        '&:hover': {
+          background: 'var(--color-gray-bg-card-light)',
+          boxShadow: 'var(--shadow-border-base)',
+        },
+      },
+      '&-loading': {
+        background: 'var(--color-gray-bg-card-white)',
+        boxSizing: 'border-box',
+        boxShadow:
+          '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
+        '&:hover': {
+          background: 'var(--color-gray-bg-card-white)',
+          boxSizing: 'border-box',
+          boxShadow: 'var(--shadow-card-base)',
+        },
       },
       '&-success': {
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-light)',
         boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
       },
-      '&-loading': {},
       '&-bar': {
         borderRadius: '12px',
         minHeight: '28px',
@@ -59,6 +74,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: 8,
+        flex: 1,
         justifyContent: 'space-between',
       },
 
@@ -87,14 +103,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'center',
         width: '20px',
         height: '20px',
-        color: '#767E8B',
+        color: 'var(--color-gray-text-disabled)',
         fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
-        borderRadius: '4px',
+        borderRadius: '12px',
         transition: 'all 0.2s ease',
         '&:hover': {
-          background: 'rgba(29, 122, 252, 0.1)',
-          color: '#767E8B',
+          background: 'rgba(20, 22, 28, 0.06)',
+          color: '#959DA8',
         },
       },
 
@@ -121,25 +137,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignContent: 'center',
         borderRadius: '200px',
         boxSizing: 'border-box',
-        background:
-          'linear-gradient(180deg, rgba(0, 0, 85, 0) 0%, rgba(0, 0, 85, 0.02) 100%), #FFFFFF',
-        border: '1px solid rgba(0, 31, 62, 0.1294)',
+        boxShadow: 'var(--shadow-border-base)',
+        background: 'var(--color-gray-bg-card-white)',
         zIndex: 0,
         '&-loading': {
           borderRadius: '50%',
           position: 'relative',
-          '&::before': {
+          '&::after': {
             content: '""',
             position: 'absolute',
             inset: '0',
             borderRadius: '50%',
             background:
-              'conic-gradient(from var(--rotate, 0deg), var(--sub1-color) 0 45deg, transparent 45deg 360deg)',
+              'conic-gradient(from var(--rotate, 0deg),transparent 0deg 0deg, #5EF050 35deg 55deg, #37ABFF 105deg 115deg,  #D7B9FF 135deg 135deg, transparent 165deg 360deg)',
             WebkitMask:
               'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
-            mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
-            transformOrigin: '50% 50%',
-            filter: 'blur(4px)',
+            mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 80%, #FF0000 80%, #FF0000 100%)',
           },
         },
       },
@@ -222,6 +235,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           zIndex: 1,
           pointerEvents: 'none',
         },
+      },
+      '&-header-right': {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        flex: 1,
       },
       '&-content': {
         font: 'var(--font-text-paragraph-sm)',

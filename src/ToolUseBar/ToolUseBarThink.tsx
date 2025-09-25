@@ -1,5 +1,6 @@
 import { ConfigProvider } from 'antd';
 import classNamesFn from 'classnames';
+import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useContext } from 'react';
 import { ExpandDownIcon, ExpandIcon } from '../icons';
@@ -169,13 +170,41 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                 )}
               </div>
             ) : (
-              <div
+              <motion.div
                 className={classNamesFn(
                   `${prefixCls}-image-wrapper`,
                   hashId,
                   classNames?.imageWrapper,
+                  {
+                    [`${prefixCls}-image-wrapper-rotating`]:
+                      status === 'loading',
+                    [`${prefixCls}-image-wrapper-loading`]:
+                      status === 'loading',
+                  },
                 )}
-                style={styles?.imageWrapper}
+                animate={
+                  status === 'loading'
+                    ? {
+                        '--rotate': ['0deg', '360deg'],
+                      }
+                    : {}
+                }
+                transition={
+                  status === 'loading'
+                    ? {
+                        '--rotate': {
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: 'linear',
+                        },
+                      }
+                    : {}
+                }
+                style={
+                  {
+                    '--rotation': status === 'loading' ? '360deg' : '0deg',
+                  } as React.CSSProperties
+                }
               >
                 {icon || (
                   <div
@@ -189,8 +218,41 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                     {defaultIcon}
                   </div>
                 )}
-              </div>
+              </motion.div>
             )}
+          </div>
+          <motion.div
+            className={classNamesFn(`${prefixCls}-header-right`, hashId)}
+            animate={
+              status === 'loading'
+                ? {
+                    maskImage: [
+                      'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
+                      'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
+                    ],
+                  }
+                : {}
+            }
+            transition={
+              status === 'loading'
+                ? {
+                    maskImage: {
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    },
+                  }
+                : {}
+            }
+            style={
+              {
+                maskImage:
+                  status === 'loading'
+                    ? 'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)'
+                    : undefined,
+              } as React.CSSProperties
+            }
+          >
             {toolName && (
               <div
                 className={classNamesFn(
@@ -206,22 +268,22 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                 {toolName}
               </div>
             )}
-          </div>
-        </div>
-        {toolTarget ? (
-          <div
-            className={classNamesFn(
-              `${prefixCls}-target`,
-              hashId,
-              classNames?.target,
+            {toolTarget ? (
+              <div
+                className={classNamesFn(
+                  `${prefixCls}-target`,
+                  hashId,
+                  classNames?.target,
+                )}
+                style={styles?.target}
+              >
+                {toolTarget}
+              </div>
+            ) : (
+              <div />
             )}
-            style={styles?.target}
-          >
-            {toolTarget}
-          </div>
-        ) : (
-          <div style={{ flex: 1 }} />
-        )}
+          </motion.div>
+        </div>
         {time && (
           <div
             className={classNamesFn(

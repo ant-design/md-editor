@@ -52,10 +52,11 @@ describe('ToolUseBar', () => {
       <ToolUseBar tools={mockTools} onToolClick={mockOnToolClick} />,
     );
 
-    const toolContainers = container.querySelectorAll(
-      '[class*="tool-use-bar-tool"]',
+    // 点击工具栏，使用正确的选择器
+    const toolBars = container.querySelectorAll(
+      '[data-testid="tool-user-item-tool-bar"]',
     );
-    fireEvent.click(toolContainers[0]);
+    fireEvent.click(toolBars[0]);
 
     expect(mockOnToolClick).toHaveBeenCalledWith('tool1');
   });
@@ -240,11 +241,11 @@ describe('ToolUseBar', () => {
 
     const { container, rerender } = render(<TestComponent />);
 
-    // 点击未激活的工具项
-    const toolItems = container.querySelectorAll(
-      '[data-testid="ToolUserItem"]',
+    // 点击未激活的工具项（tool2 没有内容，所以会触发激活状态变化）
+    const toolBars = container.querySelectorAll(
+      '[data-testid="tool-user-item-tool-bar"]',
     );
-    fireEvent.click(toolItems[1]); // 点击 tool2
+    fireEvent.click(toolBars[1]); // 点击 tool2
 
     // 验证回调函数被正确调用，添加新的激活项
     expect(mockOnActiveKeysChange).toHaveBeenCalledWith(
@@ -265,8 +266,11 @@ describe('ToolUseBar', () => {
     // 清除之前的调用记录
     mockOnActiveKeysChange.mockClear();
 
-    // 点击已激活的工具项
-    fireEvent.click(updatedToolItems[0]); // 点击 tool1
+    // 点击已激活的工具项（tool1 没有内容，所以会触发激活状态变化）
+    const updatedToolBars = container.querySelectorAll(
+      '[data-testid="tool-user-item-tool-bar"]',
+    );
+    fireEvent.click(updatedToolBars[0]); // 点击 tool1
 
     // 验证回调函数被正确调用，移除激活项
     expect(mockOnActiveKeysChange).toHaveBeenCalledWith(
