@@ -6,6 +6,27 @@ import {
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
+    [`${token.componentCls}-new-chat`]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      cursor: 'pointer',
+      padding: '5px 12px',
+      borderRadius: 'var(--radius-control-base)',
+      background: 'var(--color-primary-control-fill-secondary)',
+      fontSize: '14px',
+      fontWeight: 600,
+      lineHeight: '22px',
+      letterSpacing: 'normal',
+      color: 'var(--color-primary-text-secondary)',
+      boxShadow: 'var(--shadow-border-base)',
+      marginBottom: '12px',
+
+      '&:hover': {
+        background: 'var(--color-primary-control-fill-secondary-hover)',
+      },
+    },
+
     [token.componentCls]: {
       width: '100%',
       backgroundColor: 'transparent',
@@ -18,25 +39,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         cursor: 'pointer',
         borderRadius: 'var(--radius-control-base)',
-        padding: '6px 6px 6px 12px',
+        padding: '5px 12px',
         backgroundColor: 'transparent',
         color: token.colorText || 'var(--color-gray-text-default)',
         fontSize: 'var(--font-size-base)',
-        fontWeight: 400,
         position: 'relative',
         userSelect: 'none',
         lineHeight: '20px',
         transition: 'all 0.2s ease',
 
         '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-control-fill-active)',
-          color: 'var(--color-gray-text-default)',
+          backgroundColor: 'var(--color-gray-control-fill-hover)',
         },
 
         '&-selected': {
           backgroundColor: 'var(--color-gray-control-fill-active)',
-          fontWeight: 600,
-          color: 'var(--color-gray-text-default)',
         },
 
         '&-disabled': {
@@ -55,6 +72,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           gap: '8px',
           flex: 1,
           minWidth: 0,
+          font: 'var(--font-text-body-emphasized-sm)',
+          letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+          color: 'var(--color-gray-text-light)',
+          padding: '0 2px',
         },
 
         '&-icon': {
@@ -76,7 +97,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: 'var(--font-size-base)',
-          fontWeight: 500,
           padding: '6px 12px 6px',
           lineHeight: '20px',
           letterSpacing: 'normal',
@@ -110,7 +130,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-base)',
         color: token.colorTextSecondary || 'var(--color-gray-text-default)',
         fontWeight: 500,
-        padding: '4px 12px',
+        padding: '5px 12px',
       },
 
       // Container focus styles
