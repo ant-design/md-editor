@@ -424,8 +424,6 @@ console.log(sum(1, 2));`}
     <div style={{ padding: '20px' }}>
       <div
         style={{
-          border: '1px solid #d9d9d9',
-          borderRadius: '8px',
           maxWidth: '600px',
         }}
       >
