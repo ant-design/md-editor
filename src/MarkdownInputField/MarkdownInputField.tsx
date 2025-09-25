@@ -476,15 +476,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [rightPadding, setRightPadding] = useState(64);
   const [topRightPadding, setTopRightPadding] = useState(0);
   const [quickRightOffset, setQuickRightOffset] = useState(0);
-  const [sendRightOffset, setSendRightOffset] = useState(0);
 
   const computedRightPadding = useMemo(() => {
     const bottomOverlayPadding = props.toolsRender
       ? 0
-      : (rightPadding || 52) + (sendRightOffset || 0);
+      : (rightPadding || 52);
     const topOverlayPadding = (topRightPadding || 0) + (quickRightOffset || 0);
     return Math.max(bottomOverlayPadding, topOverlayPadding);
-  }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset, sendRightOffset]);
+  }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset]);
 
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
@@ -1081,13 +1080,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 <RcResizeObserver
                   onResize={(e) => {
                     setRightPadding(e.offsetWidth);
-                    try {
-                      const styles = window.getComputedStyle(
-                        actionsRef.current as Element,
-                      );
-                      const right = parseFloat(styles.right || '0');
-                      if (!Number.isNaN(right)) setSendRightOffset(right);
-                    } catch {}
                   }}
                 >
                   <div
@@ -1132,13 +1124,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               <RcResizeObserver
                 onResize={(e) => {
                   setRightPadding(e.offsetWidth);
-                  try {
-                    const styles = window.getComputedStyle(
-                      actionsRef.current as Element,
-                    );
-                    const right = parseFloat(styles.right || '0');
-                    if (!Number.isNaN(right)) setSendRightOffset(right);
-                  } catch {}
                 }}
               >
                 <div
