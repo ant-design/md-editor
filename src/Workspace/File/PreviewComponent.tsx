@@ -1,3 +1,4 @@
+import { LoadingOutlined } from '@ant-design/icons';
 import {
   Alert,
   Button,
@@ -311,6 +312,23 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   };
 
   const renderPreviewContent = () => {
+    if (file.loading) {
+      return (
+        <div className={classNames(`${prefixCls}-content-loading `, hashId)}>
+          <span
+            className={classNames(`${prefixCls}-content-loading-tip`, hashId)}
+          >
+            <LoadingOutlined />
+            正在生成
+          </span>
+          <div
+            className={classNames(`${prefixCls}-content-loading-inner`, hashId)}
+          >
+            {file?.content || '...'}
+          </div>
+        </div>
+      );
+    }
     if (customContent) {
       return (
         <div className={classNames(`${prefixCls}-custom-content`, hashId)}>
@@ -500,7 +518,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               {...{
                 initValue: '',
                 readonly: true,
-                contentStyle: { padding: 0 },
+                contentStyle: { padding: '0 12px' },
               }}
               {...markdownEditorProps}
             />

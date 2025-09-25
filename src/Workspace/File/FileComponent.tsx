@@ -644,7 +644,6 @@ export const FileComponent: FC<{
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
     useState<React.ReactNode | null>(null);
-
   const [customPreviewHeader, setCustomPreviewHeader] =
     useState<React.ReactNode | null>(null);
   // 标题区域文件信息覆盖，仅影响展示
@@ -653,10 +652,7 @@ export const FileComponent: FC<{
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
-  }>({
-    visible: false,
-    src: '',
-  });
+  }>({ visible: false, src: '' });
   // 添加内部状态来管理分组的折叠状态
   const [collapsedGroups, setCollapsedGroups] = useState<
     Record<string, boolean>
@@ -723,19 +719,10 @@ export const FileComponent: FC<{
       // 立刻进入预览页并展示 loading
       const currentCallId = ++previewRequestIdRef.current;
       setPreviewFile(file);
-      setCustomPreviewContent(
-        <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
-          <Spin
-            size="large"
-            tip={locale?.['workspace.loadingPreview'] || '正在加载预览...'}
-          />
-        </div>,
-      );
+
       try {
         const previewData = await onPreview(file);
-        // 如果在等待过程中用户已返回列表或触发了新的预览请求，忽略本次结果
         if (previewRequestIdRef.current !== currentCallId) return;
-
         // 当用户返回 false：阻止内部预览逻辑，交由外部处理（如自定义弹窗）
         if (previewData === false) {
           setCustomPreviewContent(null);
@@ -743,7 +730,6 @@ export const FileComponent: FC<{
           setPreviewFile(null);
           return;
         }
-
         if (previewData) {
           // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
           if (
@@ -752,7 +738,6 @@ export const FileComponent: FC<{
             typeof previewData === 'number' ||
             typeof previewData === 'boolean'
           ) {
-            // 如果自定义内容是 ReactElement，注入控制头部/返回/下载的方法
             const content = React.isValidElement(previewData)
               ? React.cloneElement(previewData as React.ReactElement, {
                   setPreviewHeader: (header: React.ReactNode) =>
@@ -779,21 +764,17 @@ export const FileComponent: FC<{
             setCustomPreviewHeader(null);
             setPreviewFile(previewData as FileNode);
           } else {
-            // 非法返回值：忽略并按默认逻辑（使用当前文件预览）
             setCustomPreviewContent(null);
             setCustomPreviewHeader(null);
             setPreviewFile(file);
           }
           return;
         }
-        // 如果用户方法没有返回值，继续使用内部预览逻辑（当前文件）
         setCustomPreviewContent(null);
         setPreviewFile(file);
         return;
       } catch (err) {
         if (previewRequestIdRef.current !== currentCallId) return;
-
-        // 最小化处理：清空自定义内容，回退到内置预览逻辑
         setCustomPreviewContent(null);
         setPreviewFile(file);
         return;
@@ -904,7 +885,6 @@ export const FileComponent: FC<{
                 origin: 'preview',
               });
             } else {
-              // 使用默认分享行为
               handleDefaultShare(file, locale);
             }
           }}

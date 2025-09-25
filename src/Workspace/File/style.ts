@@ -319,6 +319,63 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         overflow: 'auto',
         minHeight: 0, // 确保 flex 子项可以收缩
       },
+      '&-content-loading': {
+        padding: '0 12px',
+        flex: 1,
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
+        '&-tip': {
+          font: 'var(--font-text-h6-base)',
+          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+          color: 'var(--color-gray-text-secondary)',
+          display: 'flex',
+          gap: 8,
+          width: '100%',
+          maxWidth: 419,
+        },
+        '&-inner': {
+          position: 'relative',
+          height: 'auto',
+          maxWidth: 419,
+          maxHeight: '200px',
+          marginTop: 12,
+          font: 'var(--font-text-code-base)',
+          color: 'var(--color-gray-text-secondary)',
+          letterSpacing: 'var(--letter-spacing-code-base, normal)',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'flex-end',
+          // 渐变遮罩效果
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: 48,
+            right: 0,
+            background:
+              'linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          },
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: 48,
+            right: 0,
+            background:
+              'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          },
+        },
+      },
 
       // iframe 预览
       [`&-iframe`]: {
