@@ -107,7 +107,7 @@
               <div
                 animate="[object Object]"
                 class="ant-tool-use-bar-tool-image-wrapper ant-tool-use-bar-tool-image-wrapper-rotating ant-tool-use-bar-tool-image-wrapper-loading"
-                style="--rotation: 360deg; --sub1-color: #0090FF;"
+                style="--rotation: 360deg;"
                 transition="[object Object]"
               >
                 <div

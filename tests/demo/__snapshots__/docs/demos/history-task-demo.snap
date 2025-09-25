@@ -28,6 +28,7 @@
         <div
           agent="[object Object]"
           agentid="test-agent"
+          customoperationextra="[object Object]"
           data-testid="history"
           sessionid="session-1"
           type="task"

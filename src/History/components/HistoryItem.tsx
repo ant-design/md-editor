@@ -8,6 +8,43 @@ import { HistoryActionsBox } from './HistoryActionsBox';
 import { HistoryRunningIcon } from './HistoryRunningIcon';
 
 /**
+ * 文本溢出检测的额外滚动偏移量，用于确保文本滚动动画的平滑过渡
+ * 当文本滚动到末尾时，这个偏移量会让文本多滚动一段距离，使其看起来更自然
+ */
+const EXTRA_SCROLL_OFFSET = 100;
+
+/**
+ * 自定义 hook，用于检测文本溢出并设置相关样式
+ * @param text - 需要检测溢出的文本内容
+ * @returns 包含文本溢出状态和 ref 的对象
+ */
+const useTextOverflow = (text: React.ReactNode) => {
+  const textRef = React.useRef<HTMLDivElement>(null);
+  const [isTextOverflow, setIsTextOverflow] = React.useState(false);
+
+  React.useLayoutEffect(() => {
+    const el = textRef.current;
+    if (!el) return;
+
+    const isOverflow = el.scrollWidth > el.clientWidth;
+    // 仅在 isOverflow 状态变化时更新，避免不必要的渲染
+    setIsTextOverflow((prev) => (prev === isOverflow ? prev : isOverflow));
+    el.setAttribute('data-overflow', String(isOverflow));
+
+    if (isOverflow) {
+      const scrollDistance = -(
+        el.scrollWidth -
+        el.clientWidth +
+        EXTRA_SCROLL_OFFSET
+      );
+      el.style.setProperty('--scroll-width', `${scrollDistance}px`);
+    }
+  }, [text]); // 仅在文本内容变化时重新计算
+
+  return { textRef, isTextOverflow };
+};
+
+/**
  * 历史记录项组件的属性接口
  */
 interface HistoryItemProps {
@@ -40,6 +77,8 @@ interface HistoryItemProps {
   };
   /** 额外的渲染内容，接收历史记录项作为参数 */
   extra?: (item: HistoryDataType) => React.ReactElement;
+  /** 自定义操作区域 */
+  customOperationExtra?: React.ReactNode;
   /** 历史记录类型：聊天记录或任务记录 */
   type?: 'chat' | 'task';
   /** 正在运行的记录ID列表，这些记录将显示运行图标 */
@@ -74,8 +113,9 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
     agent,
     extra,
     runningId,
+    customOperationExtra,
   }) => {
-    const [isTextOverflow, setIsTextOverflow] = React.useState(false);
+    const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
     const isRunning = React.useMemo(
       () => runningId?.includes(String(item.id || '')),
       [runningId, item.id],
@@ -170,25 +210,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
             }}
           >
             <div
-              ref={(el) => {
-                if (el) {
-                  const isOverflow = el.scrollWidth > el.clientWidth;
-                  el.setAttribute('data-overflow', String(isOverflow));
-                  setIsTextOverflow(isOverflow);
-
-                  if (isOverflow) {
-                    const scrollDistance = -(
-                      el.scrollWidth -
-                      el.clientWidth +
-                      100
-                    );
-                    el.style.setProperty(
-                      '--scroll-width',
-                      `${scrollDistance}px`,
-                    );
-                  }
-                }
-              }}
+              ref={textRef}
               style={{
                 position: 'relative',
                 width: 'calc(100% - 10px)',
@@ -240,6 +262,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
+          {customOperationExtra}
         </div>
         {extra?.(item)}
       </div>
@@ -264,6 +287,7 @@ HistoryItemSingle.displayName = 'HistoryItemSingle';
  * @param props.agent - 智能代理相关配置和回调
  * @param props.extra - 额外的渲染内容
  * @param props.type - 历史记录类型，影响图标和描述的显示逻辑
+ * @param props.customOperationExtra - 自定义操作区域
  *
  * @returns 多行模式的历史记录项组件
  */
@@ -279,8 +303,9 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
     extra,
     type,
     runningId,
+    customOperationExtra,
   }) => {
-    const [isTextOverflow, setIsTextOverflow] = React.useState(false);
+    const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
     const isTask = React.useMemo(() => type === 'task', [type]);
     const { locale } = React.useContext(I18nContext);
     const shouldShowIcon = React.useMemo(
@@ -443,25 +468,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
               mouseEnterDelay={0.3}
             >
               <div
-                ref={(el) => {
-                  if (el) {
-                    const isOverflow = el.scrollWidth > el.clientWidth;
-                    el.setAttribute('data-overflow', String(isOverflow));
-                    setIsTextOverflow(isOverflow);
-
-                    if (isOverflow) {
-                      const scrollDistance = -(
-                        el.scrollWidth -
-                        el.clientWidth +
-                        100
-                      );
-                      el.style.setProperty(
-                        '--scroll-width',
-                        `${scrollDistance}px`,
-                      );
-                    }
-                  }
-                }}
+                ref={textRef}
                 style={{
                   position: 'relative',
                   maxWidth: 'calc(100% - 10px)',
@@ -549,6 +556,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
+          {customOperationExtra}
         </div>
         {extra?.(item)}
       </div>

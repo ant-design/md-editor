@@ -219,23 +219,33 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 为超长文本添加滚动效果
       '[data-overflow="true"]': {
         '&:hover': {
+          // 支持直接在元素上的属性
+          '&[aria-describedby]': {
+            animation: 'scrollText 2s linear 0.5s forwards',
+            animationPlayState: 'running',
+          },
+          // 支持子元素上的属性
           '& > div[aria-describedby]': {
             animation: 'scrollText 2s linear 0.5s forwards',
             animationPlayState: 'running',
           },
-          '& > div[style*="linear-gradient"]': {
-            opacity: '0 !important',
-            transition: 'opacity 0.2s',
-          },
+          // 渐变遮罩层
+          '& > div[style*="linear-gradient"], & + div[style*="linear-gradient"]':
+            {
+              opacity: '0 !important',
+              transition: 'opacity 0.2s',
+            },
         },
       },
 
       // 基础样式和重置
-      '[data-overflow="true"] > div[aria-describedby]': {
-        transition: 'transform 0.3s ease-out',
-        transform: 'translateX(0)',
-        animation: 'none',
-      },
+      // 同时支持元素自身和子元素的情况
+      '[data-overflow="true"][aria-describedby], [data-overflow="true"] > div[aria-describedby]':
+        {
+          transition: 'transform 0.3s ease-out',
+          transform: 'translateX(0)',
+          animation: 'none',
+        },
     },
   };
 };
