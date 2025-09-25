@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Tooltip } from 'antd';
+import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { I18nContext } from '../i18n';
@@ -11,6 +11,9 @@ import { SimpleStopIcon } from './icons/SimpleStopIcon';
 import { StopIcon } from './icons/StopIcon';
 import Robot from './Robot';
 import { useStyle } from './style';
+
+export { DazingLottie } from './icons/DazingLottie';
+export { ThinkingLottie } from './icons/ThinkingLottie';
 
 /**
  * 任务状态枚举
@@ -431,6 +434,9 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         hashId,
         className,
         `${baseCls}-${variant}`,
+        {
+          [`${baseCls}-with-description`]: description,
+        },
       )}
       style={rest.style}
     >
@@ -447,14 +453,20 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         {/* 文字区 */}
         <div className={classNames(`${baseCls}-left-content`, hashId)}>
           {title && (
-            <div className={classNames(`${baseCls}-left-main-text`, hashId)}>
+            <Typography.Title
+              className={classNames(`${baseCls}-left-main-text`, hashId)}
+              ellipsis={{ tooltip: title, rows: description ? 1 : 2 }}
+            >
               {title}
-            </div>
+            </Typography.Title>
           )}
           {variant !== 'simple' && description && (
-            <div className={classNames(`${baseCls}-left-text`, hashId)}>
+            <Typography.Text
+              className={classNames(`${baseCls}-left-text`, hashId)}
+              ellipsis={{ tooltip: description }}
+            >
               {description}
-            </div>
+            </Typography.Text>
           )}
         </div>
       </div>

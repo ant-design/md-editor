@@ -101,9 +101,16 @@ const Robot: React.FC<RobotProps> = ({
       ) : (
         <>
           {status === 'thinking' ? (
-            <ThinkingLottie size={56} />
+            <div style={{ paddingLeft: 80, marginRight: 50 }}>
+              <ThinkingLottie size={84} />
+            </div>
           ) : (
-            <DazingLottie size={52} />
+            <div style={{ paddingLeft: 22, marginRight: 20 }}>
+              <DazingLottie
+                size={54}
+                style={{ transform: 'rotateY(180deg)' }}
+              />
+            </div>
           )}
         </>
       )}

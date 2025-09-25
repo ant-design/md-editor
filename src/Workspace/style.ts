@@ -5,10 +5,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       height: '100%',
-      borderRadius: '20px',
+      borderRadius: 'var(--radius-modal-base)',
       background: 'var(--color-gray-bg-card-white)',
       border: '1px solid rgba(140, 171, 255, 0.12)',
-      boxShadow: '0px 1.5px 2px -1px rgba(0, 19, 41, 0.07)',
+      boxShadow: 'var(--shadow-card-base)',
 
       [`${token.componentCls}-header`]: {
         display: 'flex',
@@ -18,9 +18,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-title`]: {
-        fontSize: 'var(--font-size-lg)',
-        fontWeight: 600,
+        font: 'var(--font-text-h5-base)',
         color: 'var(--color-gray-text-default)',
+        letterSpacing: 'var(--letter-spacing-h5-base, normal)',
       },
 
       [`${token.componentCls}-close`]: {
@@ -46,12 +46,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-segmented`]: {
+        color: 'var(--color-gray-text-secondary)',
+        font: 'var(--font-text-body-base)',
+        letterSpacing: 'var(--letter-spacing-body-base, normal)',
+        background: 'var(--color-gray-control-fill-active)',
+        borderRadius: '8px',
+
         // 覆盖 Segmented 组件内部的样式
         '.ant-segmented-item': {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '4px',
+          borderRadius: 'var(--radius-control-base)',
         },
 
         '.ant-segmented-item-label': {
@@ -60,6 +67,23 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           justifyContent: 'center',
           gap: '4px',
         },
+
+        '.ant-segmented-item-selected': {
+          color: 'var(--color-gray-text-default)',
+          background: 'var(--color-gray-bg-card-white)',
+          borderRadius: 'var(--radius-control-base)',
+          boxShadow: 'var(--shadow-control-base)',
+
+          '.ant-workspace-tab-title': {
+            font: 'var(--font-text-h6-base)',
+            letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+          },
+        },
+
+        '.ant-segmented-item:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled)':
+          {
+            color: 'var(--color-gray-text-default)',
+          },
       },
 
       [`${token.componentCls}-tab-item`]: {
