@@ -27,6 +27,31 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
 
+    [`${token.componentCls}-load-more`]: {
+      height: '48px',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      font: 'var(--font-text-body-base)',
+      letterSpacing: 'var(--letter-spacing-body-base, normal)',
+      color: 'var(--color-gray-text-default)',
+      cursor: 'pointer',
+      gap: '4px',
+      padding: '0px 12px',
+      '&.chat': {
+        color: 'var(--color-gray-text-light)',
+        height: '32px',
+        justifyContent: 'center',
+        padding: '0',
+      },
+      '&:hover': {
+        borderRadius: '8px',
+        background: 'var(--color-gray-control-fill-hover)',
+        boxSizing: 'border-box',
+        border: 'var(--color-gray-border-light)',
+      },
+    },
+
     [token.componentCls]: {
       width: '100%',
       backgroundColor: 'transparent',
@@ -39,10 +64,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         cursor: 'pointer',
         borderRadius: 'var(--radius-control-base)',
-        padding: '5px 12px',
+        padding: '5px 6px 5px 12px',
         backgroundColor: 'transparent',
         color: token.colorText || 'var(--color-gray-text-default)',
-        fontSize: 'var(--font-size-base)',
+        font: 'var(--font-text-body-base)',
         position: 'relative',
         userSelect: 'none',
         lineHeight: '20px',
@@ -53,6 +78,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         '&-selected': {
+          font: 'var(--font-text-h6-base)',
           backgroundColor: 'var(--color-gray-control-fill-active)',
         },
 
@@ -75,7 +101,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           font: 'var(--font-text-body-emphasized-sm)',
           letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
           color: 'var(--color-gray-text-light)',
-          padding: '0 2px',
         },
 
         '&-icon': {
@@ -97,7 +122,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: 'var(--font-size-base)',
-          padding: '6px 12px 6px',
+          padding: '6px 6px 6px 12px',
           lineHeight: '20px',
           letterSpacing: 'normal',
           color: 'var(--color-gray-text-default)',
@@ -130,7 +155,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-base)',
         color: token.colorTextSecondary || 'var(--color-gray-text-default)',
         fontWeight: 500,
-        padding: '5px 12px',
+        padding: '5px 6px 5px 12px',
       },
 
       // Container focus styles
@@ -173,6 +198,43 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           opacity: 1,
           transform: 'translateY(0)',
         },
+      },
+
+      // 文本滚动动画
+      '@keyframes scrollText': {
+        '0%': {
+          transform: 'translateX(0)',
+        },
+        '5%': {
+          transform: 'translateX(0)',
+        },
+        '95%': {
+          transform: 'translateX(var(--scroll-width))',
+        },
+        '100%': {
+          transform: 'translateX(var(--scroll-width))',
+        },
+      },
+
+      // 为超长文本添加滚动效果
+      '[data-overflow="true"]': {
+        '&:hover': {
+          '& > div[aria-describedby]': {
+            animation: 'scrollText 2s linear 0.5s forwards',
+            animationPlayState: 'running',
+          },
+          '& > div[style*="linear-gradient"]': {
+            opacity: '0 !important',
+            transition: 'opacity 0.2s',
+          },
+        },
+      },
+
+      // 基础样式和重置
+      '[data-overflow="true"] > div[aria-describedby]': {
+        transition: 'transform 0.3s ease-out',
+        transform: 'translateX(0)',
+        animation: 'none',
       },
     },
   };

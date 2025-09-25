@@ -3,6 +3,7 @@ import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { StarIcon } from '../../icons';
+import { StarFilledIcon } from '../../icons/StarFilledIcon';
 import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';
 
@@ -64,7 +65,8 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
         }
       }}
       style={{
-        color: 'rgba(0, 0, 0, 0.25)',
+        color: 'var(--color-gray-text-light)',
+        font: 'var(--font-text-body-sm)',
         lineHeight: 1,
         display: 'flex',
         alignItems: 'center',
@@ -122,18 +124,27 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 ...(props.item!.isFavorite
                   ? {
                       borderRadius: 'var(--radius-control-sm)',
-                      background: 'var(--color-gray-control-fill-active)',
-                      border: '1px solid var(--color-gray-border-light)',
+                      background: 'var(--color-primary-control-fill-secondary)',
+                      backdropFilter: 'blur(20px)',
                     }
                   : {}),
               }}
             >
-              <StarIcon
-                style={{
-                  fontSize: 14,
-                  color: 'var(--color-gray-text-disabled)',
-                }}
-              />
+              {props.item!.isFavorite ? (
+                <StarFilledIcon
+                  style={{
+                    fontSize: 14,
+                    color: 'var(--color-primary-control-fill-primary)',
+                  }}
+                />
+              ) : (
+                <StarIcon
+                  style={{
+                    fontSize: 14,
+                    color: 'var(--color-gray-text-secondary)',
+                  }}
+                />
+              )}
             </ActionIconBox>
           )}
           {props?.onDeleteItem && props.item && (
@@ -190,7 +201,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 <DeleteOutlined
                   style={{
                     fontSize: 14,
-                    color: 'var(--color-gray-text-disabled)',
+                    color: 'var(--color-gray-text-secondary)',
                   }}
                 />
               </ActionIconBox>
@@ -200,7 +211,8 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
       </div>
       <div
         style={{
-          opacity: !isHover || props.agent?.enabled ? 1 : 0,
+          opacity:
+            !(isHover && props?.onDeleteItem) || props.agent?.enabled ? 1 : 0,
           transition: 'opacity 0.2s ease',
         }}
       >

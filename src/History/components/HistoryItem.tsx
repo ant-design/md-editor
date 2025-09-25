@@ -44,13 +44,6 @@ interface HistoryItemProps {
   type?: 'chat' | 'task';
   /** 正在运行的记录ID列表，这些记录将显示运行图标 */
   runningId?: string[];
-
-  /**
-   * 渲染历史记录项的额外内容
-   * @param item - 历史记录数据项
-   * @returns 额外的渲染内容
-   */
-  renderExtraContent?: (item: HistoryDataType) => React.ReactNode;
 }
 
 /**
@@ -70,7 +63,7 @@ interface HistoryItemProps {
  *
  * @returns 单行模式的历史记录项组件
  */
-const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
+const HistoryItemSingle = React.memo<HistoryItemProps>(
   ({
     item,
     selectedIds,
@@ -82,7 +75,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
     extra,
     runningId,
   }) => {
-    // 使用 useMemo 优化计算属性
+    const [isTextOverflow, setIsTextOverflow] = React.useState(false);
     const isRunning = React.useMemo(
       () => runningId?.includes(String(item.id || '')),
       [runningId, item.id],
@@ -92,10 +85,6 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
       [selectedIds, item.sessionId],
     );
 
-    /**
-     * 处理点击事件
-     * @param e - 鼠标点击事件对象
-     */
     const handleClick = React.useCallback(
       (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -118,7 +107,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
     );
 
     /**
-     * 处理删除事件
+     * 处理删除历史记录项事件
      */
     const handleDelete = React.useCallback(async () => {
       if (onDeleteItem) {
@@ -126,6 +115,10 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
       }
     }, [onDeleteItem, item.sessionId]);
 
+    /**
+     * 渲染单行模式的历史记录项
+     * @returns 历史记录项组件
+     */
     return (
       <div
         style={{
@@ -142,7 +135,6 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
           <Checkbox checked={isSelected} onChange={handleCheckboxChange} />
         )}
 
-        {/* 图标区域 */}
         {isRunning && (
           <div
             style={{
@@ -161,47 +153,85 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
           </div>
         )}
 
-        {/* 内容区域 */}
         <div
           style={{
-            color: 'var(--color-gray-text-default)',
-            overflow: 'hidden',
-            flex: 1,
             display: 'flex',
-            flexDirection: 'column',
+            alignItems: 'center',
+            flex: 1,
+            minWidth: 0,
+            gap: 8,
           }}
         >
-          {/* 标题 */}
-          <Tooltip
-            open={
-              typeof item.sessionTitle === 'string' &&
-              item.sessionTitle.length > 10
-                ? undefined
-                : false
-            }
-            title={item.sessionTitle}
+          <div
+            style={{
+              flex: 1,
+              minWidth: 0,
+              overflow: 'hidden',
+            }}
           >
             <div
+              ref={(el) => {
+                if (el) {
+                  const isOverflow = el.scrollWidth > el.clientWidth;
+                  el.setAttribute('data-overflow', String(isOverflow));
+                  setIsTextOverflow(isOverflow);
+
+                  if (isOverflow) {
+                    const scrollDistance = -(
+                      el.scrollWidth -
+                      el.clientWidth +
+                      100
+                    );
+                    el.style.setProperty(
+                      '--scroll-width',
+                      `${scrollDistance}px`,
+                    );
+                  }
+                }
+              }}
               style={{
-                width: 'max-content',
+                position: 'relative',
+                width: 'calc(100% - 10px)',
                 overflow: 'hidden',
-                maxWidth: 'min(860px,100%)',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                WebkitLineClamp: 1,
-                WebkitBoxOrient: 'vertical',
-                font: 'var(--font-text-body-base)',
-                letterSpacing: 'var(--letter-spacing-body-base, normal)',
-                color: 'var(--color-gray-text-default)',
               }}
             >
-              {item.sessionTitle}
+              <Tooltip
+                title={isTextOverflow ? item.sessionTitle : null}
+                mouseEnterDelay={0.3}
+                open={isTextOverflow ? undefined : false}
+              >
+                <div
+                  style={{
+                    whiteSpace: 'nowrap',
+                    font: isSelected
+                      ? 'var(--font-text-h6-base)'
+                      : 'var(--font-text-body-base)',
+                    letterSpacing: 'var(--letter-spacing-body-base, normal)',
+                    color: 'var(--color-gray-text-default)',
+                  }}
+                >
+                  {item.sessionTitle}
+                </div>
+              </Tooltip>
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  width: '30px',
+                  height: '100%',
+                  background:
+                    'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1))',
+                  opacity: isTextOverflow ? 1 : 0,
+                  transition: 'opacity 0.2s',
+                  pointerEvents: 'none',
+                }}
+              />
             </div>
-          </Tooltip>
+          </div>
         </div>
 
-        {/* 右侧操作区域 */}
-        <div>
+        <div style={{ flexShrink: 0 }}>
           <HistoryActionsBox
             onDeleteItem={onDeleteItem ? handleDelete : undefined}
             agent={agent}
@@ -237,7 +267,7 @@ HistoryItemSingle.displayName = 'HistoryItemSingle';
  *
  * @returns 多行模式的历史记录项组件
  */
-const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
+const HistoryItemMulti = React.memo<HistoryItemProps>(
   ({
     item,
     selectedIds,
@@ -250,9 +280,8 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
     type,
     runningId,
   }) => {
-    // 使用 useMemo 优化计算属性
+    const [isTextOverflow, setIsTextOverflow] = React.useState(false);
     const isTask = React.useMemo(() => type === 'task', [type]);
-
     const { locale } = React.useContext(I18nContext);
     const shouldShowIcon = React.useMemo(
       () => isTask && !!item.icon,
@@ -305,6 +334,10 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
       }
     }, [onDeleteItem, item.sessionId]);
 
+    /**
+     * 渲染多行模式的历史记录项
+     * @returns 历史记录项组件
+     */
     return (
       <div
         style={{
@@ -325,7 +358,6 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
           />
         )}
 
-        {/* 图标区域 */}
         {(shouldShowIcon || isRunning) && (
           <div
             style={{
@@ -388,95 +420,127 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
           </div>
         )}
 
-        {/* 内容区域 */}
         <div
           style={{
-            color: 'var(--color-gray-text-default)',
-            overflow: 'hidden',
-            flex: 1,
             display: 'flex',
-            flexDirection: 'column',
-            gap: 4,
-            paddingRight: 10,
+            alignItems: 'flex-start',
+            flex: 1,
+            minWidth: 0,
+            gap: 8,
           }}
         >
-          {/* 标题 */}
-          <Tooltip
-            open={
-              typeof item.sessionTitle === 'string' &&
-              item.sessionTitle.length > 10
-                ? undefined
-                : false
-            }
-            title={item.sessionTitle}
+          <div
+            style={{
+              flex: 1,
+              minWidth: 0,
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
           >
-            <div
-              style={{
-                width: 'max-content',
-                display: '-webkit-box',
-                maxWidth: 'min(860px,100%)',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                WebkitLineClamp: 1,
-                WebkitBoxOrient: 'vertical',
-                lineHeight: '20px',
-                font: isSelected
-                  ? 'var(--font-text-h6-base)'
-                  : 'var(--font-text-body-base)',
-                letterSpacing: 'var(--letter-spacing-h6-base, normal)',
-                color: 'var(--color-gray-text-default)',
-              }}
-            >
-              {item.sessionTitle}
-            </div>
-          </Tooltip>
-
-          {/* 描述 */}
-          {shouldShowDescription && (item.description || isTask) && (
             <Tooltip
-              open={
-                typeof item.description === 'string' &&
-                item.description.length > 20
-                  ? undefined
-                  : false
-              }
-              title={
-                item.description ||
-                (isTask ? locale?.['task.default'] || '任务' : '')
-              }
+              title={isTextOverflow ? item.sessionTitle : null}
+              mouseEnterDelay={0.3}
             >
               <div
+                ref={(el) => {
+                  if (el) {
+                    const isOverflow = el.scrollWidth > el.clientWidth;
+                    el.setAttribute('data-overflow', String(isOverflow));
+                    setIsTextOverflow(isOverflow);
+
+                    if (isOverflow) {
+                      const scrollDistance = -(
+                        el.scrollWidth -
+                        el.clientWidth +
+                        100
+                      );
+                      el.style.setProperty(
+                        '--scroll-width',
+                        `${scrollDistance}px`,
+                      );
+                    }
+                  }
+                }}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  font: 'var(--font-text-body-xs)',
-                  color: 'var(--color-gray-text-secondary)',
-                  letterSpacing: 'var(--letter-spacing-body-xs, normal)',
+                  position: 'relative',
+                  maxWidth: 'calc(100% - 10px)',
+                  overflow: 'hidden',
                 }}
               >
                 <div
                   style={{
-                    flex: 1,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
+                    font: isSelected
+                      ? 'var(--font-text-h6-base)'
+                      : 'var(--font-text-body-base)',
+                    letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+                    color: 'var(--color-gray-text-default)',
                   }}
                 >
-                  {item.description ||
-                    (isTask ? locale?.['task.default'] || '任务' : '')}
+                  {item.sessionTitle}
                 </div>
-                <Divider type="vertical" />
-                <span style={{ minWidth: 26 }}>
-                  {formatTime(item.gmtCreate)}
-                </span>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '100%',
+                    height: '100%',
+                    background:
+                      'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1))',
+                    opacity: isTextOverflow ? 1 : 0,
+                    transition: 'opacity 0.2s',
+                    pointerEvents: 'none',
+                  }}
+                />
               </div>
             </Tooltip>
-          )}
+
+            {shouldShowDescription && (item.description || isTask) && (
+              <Tooltip
+                open={
+                  typeof item.description === 'string' &&
+                  item.description.length > 20
+                    ? undefined
+                    : false
+                }
+                title={
+                  item.description ||
+                  (isTask ? locale?.['task.default'] || '任务' : '')
+                }
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    font: 'var(--font-text-body-xs)',
+                    color: 'var(--color-gray-text-secondary)',
+                    letterSpacing: 'var(--letter-spacing-body-xs, normal)',
+                  }}
+                >
+                  <div
+                    style={{
+                      flex: 1,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {item.description ||
+                      (isTask ? locale?.['task.default'] || '任务' : '')}
+                  </div>
+                  <Divider type="vertical" />
+                  <span style={{ minWidth: 26 }}>
+                    {formatTime(item.gmtCreate)}
+                  </span>
+                </div>
+              </Tooltip>
+            )}
+          </div>
         </div>
 
-        {/* 右侧操作区域 */}
-        <div style={{ marginTop: 4 }}>
+        <div style={{ flexShrink: 0, marginTop: 4 }}>
           <HistoryActionsBox
             onDeleteItem={onDeleteItem ? handleDelete : undefined}
             agent={agent}
@@ -540,7 +604,7 @@ HistoryItemMulti.displayName = 'HistoryItemMulti';
  * />
  * ```
  */
-export const HistoryItem: React.FC<HistoryItemProps> = React.memo(
+export const HistoryItem = React.memo<HistoryItemProps>(
   ({
     item,
     selectedIds,
@@ -553,14 +617,16 @@ export const HistoryItem: React.FC<HistoryItemProps> = React.memo(
     type,
     runningId,
   }) => {
-    // 自动显示配置
     const isTask = type === 'task';
     const shouldShowIcon = isTask && !!item.icon;
     const shouldShowDescription = isTask && !!item.description;
-    // 如果是任务类型或包含 description 和 icon 就自动打开多行模式
     const isMultiMode = isTask || (shouldShowIcon && shouldShowDescription);
 
-    const commonProps = {
+    /**
+     * 获取组件的属性
+     * @returns 组件属性
+     */
+    const props = {
       item,
       selectedIds,
       onSelectionChange,
@@ -573,10 +639,14 @@ export const HistoryItem: React.FC<HistoryItemProps> = React.memo(
       runningId,
     };
 
+    /**
+     * 根据模式选择渲染组件
+     * @returns 历史记录项组件
+     */
     return isMultiMode ? (
-      <HistoryItemMulti {...commonProps} />
+      <HistoryItemMulti {...props} />
     ) : (
-      <HistoryItemSingle {...commonProps} />
+      <HistoryItemSingle {...props} />
     );
   },
 );
