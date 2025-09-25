@@ -15,42 +15,55 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-tool': {
         position: 'relative',
-        '&-active': {
-          background: '#FFFFFF',
-          boxSizing: 'border-box',
-          outline: '1.5px solid #1D7AFC',
-          boxShadow:
-            '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
-        },
-        borderRadius: '24px',
-        '&-expanded': {
-          borderRadius: '14px',
-        },
-        '&-loading': {
-          background: 'var(--color-gray-bg-card-white)',
-          boxSizing: 'border-box',
-          border: 'var(--color-blue-control-fill-border-active)',
-          boxShadow:
-            '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
-        },
         cursor: 'pointer',
-        '&:hover': {
-          background: 'rgba(20, 22, 28, 0.06)',
-        },
+        borderRadius: '24px',
         background: 'var(--color-gray-bg-card-light)',
         boxSizing: 'border-box',
         border: 'var(--color-gray-border-light)',
         boxShadow: 'var(--shadow-border-base)',
         minHeight: '20px',
         width: 'max-content',
+        transition: 'padding 0.2s ease',
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        gap: '4px',
+        gap: '8px',
         zIndex: 1,
         maxWidth: 'min(800px,100%)',
         padding: '2px',
         paddingRight: '4px',
+
+        '&:hover': {
+          background: 'var(--color-gray-control-fill-active)',
+          boxSizing: 'border-box',
+          boxShadow: 'var(--shadow-card-base)',
+        },
+        '&-active': {
+          background: 'var(--color-gray-bg-card-white)',
+          boxSizing: 'border-box',
+          outline: '1px solid var(--color-primary-control-fill-border-active)',
+          boxShadow: 'var(--shadow-control-base)',
+        },
+        '&-expanded': {
+          borderRadius: '14px',
+          padding: 4,
+          outline: 'none',
+          '&:hover': {
+            background: 'var(--color-gray-bg-card-light)',
+            boxShadow: 'var(--shadow-border-base)',
+          },
+        },
+        '&-loading': {
+          background: 'var(--color-gray-bg-card-white)',
+          boxSizing: 'border-box',
+          boxShadow:
+            '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
+          '&:hover': {
+            background: 'var(--color-gray-bg-card-white)',
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-card-base)',
+          },
+        },
       },
 
       '&-tool-bar': {
@@ -79,7 +92,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-tool-header-right': {
         display: 'flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 8,
       },
 
       '&-tool-expand': {
@@ -88,10 +101,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'center',
         width: '20px',
         height: '20px',
-        color: '#767E8B',
+        color: 'var(--color-gray-text-disabled)',
         fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
-        borderRadius: '4px',
+        borderRadius: '12px',
         transition: 'all 0.2s ease',
         '&:hover': {
           background: 'rgba(20, 22, 28, 0.06)',
@@ -100,17 +113,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-name': {
-        fontSize: 'var(--font-size-sm)',
-        fontWeight: 500,
+        font: 'var(--font-text-body-emphasized-sm)',
+        letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+        color: 'var(--color-gray-text-secondary)',
         lineHeight: '20px',
-        letterSpacing: 'normal',
         display: '-webkit-box',
         WebkitLineClamp: 1,
         WebkitBoxOrient: 'vertical',
         lineClamp: 1,
-        color: '#767E8B',
         '&-loading': {
           position: 'relative',
+          color: '#000',
         },
       },
 
@@ -126,24 +139,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignContent: 'center',
         borderRadius: '200px',
         boxSizing: 'border-box',
-        border: '1px solid var(--color-gray-border-dark)',
+        boxShadow: 'var(--shadow-border-base)',
+        background: 'var(--color-gray-bg-card-white)',
         zIndex: 0,
         '&-loading': {
           borderRadius: '50%',
           position: 'relative',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            inset: '0',
-            borderRadius: '50%',
-            background:
-              'conic-gradient(from var(--rotate, 0deg), var(--sub1-color) 0 45deg, transparent 45deg 360deg)',
-            WebkitMask:
-              'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
-            mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
-            transformOrigin: '50% 50%',
-            filter: 'blur(4px)',
-          },
           '&::after': {
             content: '""',
             position: 'absolute',
@@ -186,6 +187,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginRight: 30,
         '&-loading': {
           position: 'relative',
+          color: '#000',
         },
       },
       '&-tool-time': {
@@ -220,8 +222,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-tool-content-error': {
         display: 'flex',
         width: '100%',
-        borderRadius: '12px',
-        background: 'rgba(255, 187, 0, 0.22)',
+        borderRadius: 'var(--radius-control-base)',
+        background: 'var(--color-yellow-bg-tip)',
         color: '#A56900',
         padding: '8px',
         fontSize: 'var(--font-size-base)',
@@ -230,11 +232,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-tool-content-error-icon': {
         alignItems: 'center',
-        fontSize: 'var(--font-size-base)',
-        fontWeight: 500,
-        lineHeight: '12px',
-        letterSpacing: 'normal',
-        color: '#A56900',
+        font: 'var(--font-text-body-emphasized-base)',
+        letterSpacing: 'var(--letter-spacing-body-emphasized-base, normal)',
+        color: 'var(--color-yellow-text-secondary)',
       },
       '&-tool-error': {
         '&-tool-image-wrapper': {
