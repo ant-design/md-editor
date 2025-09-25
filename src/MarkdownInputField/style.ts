@@ -13,29 +13,22 @@ const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 4px - 总偏移量�
 
 // CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
 const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
-export const getGlowBorderTotalSize = () =>
-  `calc(100% + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
 
 // 为任意尺寸值添加辉光边框偏移 - Add glow border offset to any size value
-export const addGlowBorderOffset = (size: string | number) => {
-  if (typeof size === 'number') {
-    return `${size + GLOW_BORDER_TOTAL_OFFSET}px`;
+export const addGlowBorderOffset = (size: string | number): string => {
+  if (typeof size === 'number') return `${size + GLOW_BORDER_TOTAL_OFFSET}px`;
+
+  const val = size.trim();
+  const keywords = ['auto', 'inherit', 'initial', 'unset'];
+  if (keywords.includes(val)) return val;
+
+  // 纯数字字符串 -> 视为 px
+  if (/^-?\d+(\.\d+)?$/.test(val)) {
+    return `${parseFloat(val) + GLOW_BORDER_TOTAL_OFFSET}px`;
   }
-  if (size.includes('calc(')) {
-    // 如果已经是 calc 表达式，在其基础上加偏移
-    return `calc(${size} + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
-  }
-  if (
-    size.includes('px') ||
-    size.includes('%') ||
-    size.includes('rem') ||
-    size.includes('em')
-  ) {
-    // 对于其他 CSS 单位，包装成 calc 表达式
-    return `calc(${size} + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
-  }
-  // 对于不确定的值，返回原值（如 'auto', 'inherit' 等）
-  return size;
+
+  // 其他任何值（包括 calc()/var()/CSS单位）统一外包 calc
+  return `calc(${val} + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
 };
 
 // Input field padding constants - 输入字段内边距常量
@@ -90,8 +83,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'absolute',
         top: getGlowBorderOffset(),
         left: getGlowBorderOffset(),
-        width: getGlowBorderTotalSize(),
-        height: getGlowBorderTotalSize(),
+        width: addGlowBorderOffset('100%'),
+        height: addGlowBorderOffset('100%'),
         zIndex: 2,
         pointerEvents: 'none',
         borderRadius: 'inherit',

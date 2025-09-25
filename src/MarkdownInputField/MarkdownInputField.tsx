@@ -30,7 +30,7 @@ import { AttachmentFile } from './AttachmentButton/types';
 import { SendButton } from './SendButton';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
-import { addGlowBorderOffset, getGlowBorderTotalSize, useStyle } from './style';
+import { addGlowBorderOffset, useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
   VoiceInputButton,
@@ -364,12 +364,18 @@ export type MarkdownInputFieldProps = {
  * // 返回 [['red', 'blue', 'green', 'red'], ['blue', 'green', 'red', 'blue'], ['green', 'red', 'blue', 'green']]
  * generateEdges(['red', 'blue', 'green'])
  */
-export function generateEdges(colors: string[]) {
-  return colors.map((current, index) => {
-    const rotated = colors.slice(index).concat(colors.slice(0, index));
+export const generateEdges = (colors: string[]): string[][] => {
+  if (!Array.isArray(colors) || colors.length === 0) return [];
+  // 至少保证 3 个颜色，便于后续得到 4 段动画停靠点
+  const base =
+    colors.length >= 3
+      ? colors
+      : [...colors, ...colors.slice(0, 3 - colors.length)];
+  return base.map((current, index) => {
+    const rotated = base.slice(index).concat(base.slice(0, index));
     return [...rotated, current];
   });
-}
+};
 
 /**
  * MarkdownInputField 组件 - Markdown输入字段组件
@@ -572,6 +578,19 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       setFileMap?.(new Map(newFileMap));
     },
   );
+
+  /**
+   * 背景容器尺寸计算
+   */
+  const bgSize = useMemo(() => {
+    const height = props.style?.height
+      ? addGlowBorderOffset(props.style.height)
+      : addGlowBorderOffset('100%');
+    const width = props.style?.width
+      ? addGlowBorderOffset(props.style.width)
+      : addGlowBorderOffset('100%');
+    return { height, width };
+  }, [props.style?.height, props.style?.width]);
   // 默认支持的文件格式
   const supportedFormat = useMemo(() => {
     if (props.attachment?.supportedFormat) {
@@ -803,12 +822,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             })}
             style={{
               minHeight: props.style?.minHeight || 0,
-              height: props.style?.height
-                ? addGlowBorderOffset(props.style.height)
-                : getGlowBorderTotalSize(),
-              width: props.style?.width
-                ? addGlowBorderOffset(props.style.width)
-                : getGlowBorderTotalSize(),
+              height: bgSize.height,
+              width: bgSize.width,
             }}
           >
             <svg
