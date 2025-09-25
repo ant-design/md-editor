@@ -577,12 +577,10 @@ export interface BubbleProps<T = Record<string, any>>
   fileViewEvents?: (handlers: {
     onPreview: (file: AttachmentFile) => void;
     onDownload: (file: AttachmentFile) => void;
-    onMore: (file: AttachmentFile) => void;
     onViewAll: (files: AttachmentFile[]) => void;
   }) => Partial<{
     onPreview: (file: AttachmentFile) => void;
     onDownload: (file: AttachmentFile) => void;
-    onMore: (file: AttachmentFile) => void;
     onViewAll: (files: AttachmentFile[]) => void;
   }> | void;
 
@@ -609,8 +607,10 @@ export interface BubbleProps<T = Record<string, any>>
      * - () => ReactNode
      * - 直接传 ReactNode
      */
-    renderFileMoreAction?: (
-      file: AttachmentFile,
-    ) => React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
+    renderFileMoreAction?:
+      | React.ReactNode
+      | ((file: AttachmentFile) => React.ReactNode)
+      | (() => React.ReactNode)
+      | (() => (file: AttachmentFile) => React.ReactNode);
   };
 }

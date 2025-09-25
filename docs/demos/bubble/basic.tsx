@@ -335,7 +335,7 @@ export default () => {
               </Popover>
             ),
           }}
-          fileViewEvents={({ onPreview, onDownload, onMore, onViewAll }) => ({
+          fileViewEvents={({ onPreview, onDownload, onViewAll }) => ({
             onPreview: (file) => {
               onPreview(file);
               console.log('预览文件:', file);
@@ -343,10 +343,6 @@ export default () => {
             onDownload: (file) => {
               onDownload(file);
               console.log('下载文件:', file);
-            },
-            onMore: (file) => {
-              onMore(file);
-              console.log('更多操作:', file);
             },
             onViewAll: (files) => {
               onViewAll(files);

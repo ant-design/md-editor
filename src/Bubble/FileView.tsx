@@ -25,7 +25,6 @@ type BubbleBeforeNodeProps = {
 const defaultHandlers: {
   onPreview: (file: AttachmentFile) => void;
   onDownload: (file: AttachmentFile) => void;
-  onMore: (file: AttachmentFile) => void;
   onViewAll: (files: AttachmentFile[]) => void;
 } = {
   onPreview: (file: AttachmentFile) => {
@@ -42,7 +41,6 @@ const defaultHandlers: {
     a.click();
     document.body.removeChild(a);
   },
-  onMore: (_file: AttachmentFile) => {},
   onViewAll: (_files: AttachmentFile[]) => {},
 } as const;
 
@@ -58,28 +56,48 @@ export const BubbleFileView: React.FC<BubbleBeforeNodeProps> = (props) => {
     return null;
   }
 
-  // 事件：使用 fileViewEvents
+  // 事件：使用 fileViewEvents（仅在覆写存在时透传，避免覆盖子组件默认行为）
   const override = props.bubble.fileViewEvents?.(defaultHandlers) || {};
-  const handlers = {
-    onPreview: override.onPreview || defaultHandlers.onPreview,
-    onDownload: override.onDownload || defaultHandlers.onDownload,
-    onMore: override.onMore || defaultHandlers.onMore,
-    onViewAll: override.onViewAll || defaultHandlers.onViewAll,
-  };
-  // 配置：从 fileViewConfig 读取，兼容历史 renderFileMoreAction/className/style
+  const allFiles = Array.from(_.originData?.fileMap?.values() || []);
+  const onPreviewProp = override.onPreview
+    ? (file: AttachmentFile) => override.onPreview?.(file)
+    : undefined;
+  const onDownloadProp = override.onDownload
+    ? (file: AttachmentFile) => override.onDownload?.(file)
+    : undefined;
+  const onViewAllProp = override.onViewAll
+    ? () => override.onViewAll?.(allFiles)
+    : undefined;
+  // 配置：仅从 fileViewConfig 读取
   const viewCfg = _.fileViewConfig || {};
-  const className = viewCfg.className || _.className;
-  const style = viewCfg.style || _.style;
+  const className = viewCfg.className;
+  const style = viewCfg.style;
   const maxDisplayCount = viewCfg.maxDisplayCount;
   const renderFileMoreAction = (
     file: AttachmentFile,
   ): React.ReactNode | undefined => {
     const cfg = viewCfg?.renderFileMoreAction;
     if (!cfg) return undefined;
-    const result = cfg(file) as
-      | React.ReactNode
-      | ((file: AttachmentFile) => React.ReactNode);
-    return typeof result === 'function' ? result(file) : result;
+    // 直接传入 ReactNode
+    if (React.isValidElement(cfg) || typeof cfg !== 'function') {
+      return cfg as React.ReactNode;
+    }
+    // 函数：可能是 (file)=>node 或 ()=>node 或 ()=> (file)=>node
+    try {
+      if (cfg.length === 0) {
+        const res = (
+          cfg as () =>
+            | React.ReactNode
+            | ((f: AttachmentFile) => React.ReactNode)
+        )();
+        return typeof res === 'function'
+          ? (res as (f: AttachmentFile) => React.ReactNode)(file)
+          : (res as React.ReactNode);
+      }
+      return (cfg as (f: AttachmentFile) => React.ReactNode)(file);
+    } catch (_e) {
+      return undefined;
+    }
   };
   return (
     <FileMapView
@@ -87,12 +105,9 @@ export const BubbleFileView: React.FC<BubbleBeforeNodeProps> = (props) => {
       style={style}
       maxDisplayCount={maxDisplayCount}
       showMoreButton={viewCfg?.showMoreButton}
-      onPreview={(file) => handlers.onPreview(file)}
-      onDownload={(file) => handlers.onDownload(file)}
-      onMore={(file) => handlers.onMore(file)}
-      onViewAll={() =>
-        handlers.onViewAll(Array.from(_.originData?.fileMap?.values() || []))
-      }
+      onPreview={onPreviewProp}
+      onDownload={onDownloadProp}
+      onViewAll={onViewAllProp}
       renderMoreAction={renderFileMoreAction}
       customSlot={viewCfg?.customSlot}
       placement={props.placement}

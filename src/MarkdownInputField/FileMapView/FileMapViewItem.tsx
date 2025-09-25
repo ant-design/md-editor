@@ -58,7 +58,6 @@ export const FileMapViewItem: React.FC<{
   file: AttachmentFile;
   onPreview: () => void;
   onDownload: () => void;
-  onMore?: () => void;
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
   customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
   className?: string;
@@ -210,21 +209,34 @@ export const FileMapViewItem: React.FC<{
                   </div>
                   {props.renderMoreAction ? (
                     <div
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label="更多操作"
                       className={classNames(
                         `${props.prefixCls}-action-btn`,
                         props.hashId,
                       )}
                     >
                       <MoreIcon />
-                      <div
-                        className={classNames(
-                          `${props.prefixCls}-more-custom`,
-                          props.hashId,
-                        )}
-                      >
-                        {props.renderMoreAction(file)}
-                      </div>
+                      {props.renderMoreAction ? (
+                        <div
+                          className={classNames(
+                            `${props.prefixCls}-more-custom`,
+                            props.hashId,
+                          )}
+                        >
+                          {props.renderMoreAction(file)}
+                        </div>
+                      ) : null}
                     </div>
                   ) : null}
                 </>

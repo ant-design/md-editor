@@ -15,8 +15,6 @@ export type FileMapViewProps = {
   onPreview?: (file: AttachmentFile) => void;
   /** 下载文件回调 */
   onDownload?: (file: AttachmentFile) => void;
-  /** 更多操作回调 */
-  onMore?: (file: AttachmentFile) => void;
   /** 点击“查看所有文件”回调，携带当前所有文件列表 */
   onViewAll?: (files: AttachmentFile[]) => void;
   /** 自定义更多操作 DOM（优先于 onMore，传入则展示该 DOM，不传则不展示更多按钮） */
@@ -190,9 +188,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
               onDownload={() => {
                 props.onDownload?.(file);
               }}
-              onMore={() => {
-                props.onMore?.(file);
-              }}
               renderMoreAction={props.renderMoreAction}
               customSlot={props.customSlot}
               key={file?.uuid || file?.name || index}
@@ -203,7 +198,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             />
           );
         })}
-        {props.showMoreButton !== false ? (
+        {props.showMoreButton !== false && fileList.length > maxCount ? (
           <div
             style={{ width: props.style?.width }}
             className={classNames(hashId, `${prefix}-more-file-container`)}
