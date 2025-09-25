@@ -99,7 +99,6 @@ export const History: React.FC<HistoryProps> = (props) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 8,
         }}
       >
         {props.agent?.enabled && !!props.agent?.onNewChat && (

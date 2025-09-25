@@ -114,9 +114,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 4,
         justifyContent: 'space-between',
-        marginTop: 12,
       }}
     >
       {isExpanded ? (
@@ -131,7 +129,8 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
           style={{
             borderRadius: 'var(--radius-control-base)',
             background: 'var(--color-gray-bg-card-light)',
-            border: 'var(--color-primary-control-fill-primary-active)',
+            border:
+              '1px solid var(--color-primary-control-fill-primary-active)',
             boxShadow: 'var(--shadow-border-base)',
           }}
           allowClear
@@ -145,13 +144,11 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 8px',
+            padding: '8px 12px',
           }}
         >
           <div
             style={{
-              fontWeight: 500,
-              lineHeight: '20px',
               font: 'var(--font-text-body-emphasized-sm)',
               letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
               color: 'var(--color-gray-text-light)',
@@ -170,7 +167,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({ onSearch }) => {
             <SearchIcon
               style={{
                 fontSize: 14,
-                color: 'rgba(0, 24, 61, 0.2471)',
+                color: 'var(--color-gray-text-light)',
               }}
             />
           </ActionIconBox>
