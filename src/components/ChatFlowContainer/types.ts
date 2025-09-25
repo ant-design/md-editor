@@ -27,3 +27,7 @@ export interface ChatFlowContainerProps {
   /** 自定义样式 */
   style?: CSSProperties;
 }
+
+export interface ChatFlowContainerRef {
+  scrollContainer: HTMLDivElement | null;
+}
