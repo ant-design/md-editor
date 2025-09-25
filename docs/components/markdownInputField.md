@@ -471,7 +471,7 @@ export default () => {
 };
 ```
 
-### 启用提示词优化 refinePrompt
+### 启用提示词优化
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
