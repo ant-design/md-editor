@@ -18,7 +18,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-suggestions': {
         display: 'flex',
         flexDirection: 'column',
+        margin: 8,
         gap: 4,
+        // 横向布局
+        '&-horizontal': {
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          gap: 8,
+        },
       },
 
       '&-suggestion': {
@@ -64,9 +71,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         // hover 时箭头位移动画
-        [`&:hover:not(&-disabled) ${token.componentCls}-arrow`]: {
-          transform: 'translateX(2px)',
-        },
+        [`&:hover:not(&-disabled) ${token.componentCls}-arrow:not(${token.componentCls}-arrow-action)`]:
+          {
+            transform: 'translateX(2px)',
+          },
       },
 
       '&-icon': {

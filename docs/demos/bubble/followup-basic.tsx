@@ -1,7 +1,7 @@
 import {
   Bubble,
-  FollowUpQuestion,
   MessageBubbleData,
+  SuggestionList,
 } from '@ant-design/md-editor';
 import { message } from 'antd';
 import React, { useMemo, useRef, useState } from 'react';
@@ -54,8 +54,8 @@ export default function FollowUpBasicDemo() {
 
   return (
     <BubbleDemoCard
-      title="💬 追问组件 FollowUpQuestion"
-      description="在气泡下方渲染追问输入与建议"
+      title="💬 建议列表组件 SuggestionList"
+      description="在气泡下方渲染建议列表"
     >
       <div style={{ padding: 24 }}>
         {list.map((m) => (
@@ -92,7 +92,7 @@ export default function FollowUpBasicDemo() {
                   width: 'fit-content',
                 }}
               >
-                <FollowUpQuestion
+                <SuggestionList
                   items={[
                     {
                       key: 'qwe',
@@ -112,7 +112,39 @@ export default function FollowUpBasicDemo() {
                       disabled: true,
                     },
                   ]}
-                  onAsk={handleAsk}
+                  onItemClick={handleAsk}
+                />
+              </div>
+            ) : null}
+
+            {/* 横向布局示例 */}
+            {m.role === 'assistant' && m.id === 'a-1' ? (
+              <div
+                style={{
+                  paddingLeft: 20,
+                  marginTop: -24,
+                }}
+              >
+                <SuggestionList
+                  layout="horizontal"
+                  maxItems={4}
+                  items={[
+                    {
+                      key: 'quick1',
+                      text: '快速操作1',
+                    },
+                    {
+                      key: 'quick2',
+                      text: '快速操作2',
+                    },
+                    {
+                      key: 'quick3',
+                      text: '快速操作3',
+                    },
+                  ]}
+                  onItemClick={(value) => {
+                    message.info(`横向布局点击了: ${value}`);
+                  }}
                 />
               </div>
             ) : null}

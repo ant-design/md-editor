@@ -28,7 +28,7 @@ Bubble 组件是一个功能丰富的聊天消息气泡组件，为现代化对�
 ```tsx
 import {
   Bubble,
-  FollowUpQuestion,
+  SuggestionList,
   MessageBubbleData,
 } from '@ant-design/md-editor';
 import { Card } from 'antd';
@@ -176,7 +176,7 @@ export default () => (
           marginTop: -24,
         }}
       >
-        <FollowUpQuestion
+        <SuggestionList
           items={[
             {
               key: 'qwe',
@@ -196,7 +196,7 @@ export default () => (
               disabled: true,
             },
           ]}
-          onAsk={() => alert('ask')}
+          onItemClick={() => alert('ask')}
         />
       </div>
     </Card>
