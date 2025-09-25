@@ -14,6 +14,18 @@ const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 4px - 总偏移量�
 // CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
 const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
 
+// 不需要 calc() 包裹的所有关键字（使用 Set 提高查找性能）
+const DIRECT_RETURN_KEYWORDS = new Set([
+  'auto',
+  'inherit',
+  'initial',
+  'unset',
+  'revert',
+  'revert-layer', // CSS 全局关键字
+  'min-content',
+  'max-content', // CSS 内在尺寸关键字
+]);
+
 // 为任意尺寸值添加辉光边框偏移 - Add glow border offset to any size value
 export const addGlowBorderOffset = (size: string | number): string => {
   // 数字类型直接处理
@@ -21,20 +33,16 @@ export const addGlowBorderOffset = (size: string | number): string => {
 
   const val = size.trim();
 
-  // 不需要 calc() 包裹的所有关键字（使用 Set 提高查找性能）
-  const directReturnKeywords = new Set([
-    'auto',
-    'inherit',
-    'initial',
-    'unset',
-    'revert',
-    'revert-layer', // CSS 全局关键字
-    'min-content',
-    'max-content', // CSS 内在尺寸关键字
-  ]);
+  // 空字符串防御
+  if (val === '') return `${GLOW_BORDER_TOTAL_OFFSET}px`;
 
-  // 直接返回的关键字或 fit-content() 函数
-  if (directReturnKeywords.has(val) || /^fit-content\s*\(.*\)$/.test(val)) {
+  const valLower = val.toLowerCase();
+
+  // 直接返回的关键字或 fit-content() 函数（忽略大小写）
+  if (
+    DIRECT_RETURN_KEYWORDS.has(valLower) ||
+    /^fit-content\s*\(.*\)$/i.test(val)
+  ) {
     return val;
   }
 
