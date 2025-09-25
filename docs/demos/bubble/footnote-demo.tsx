@@ -1,14 +1,24 @@
-import { ExportOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import {
-  useRefFunction,
   Bubble,
   BubbleProps,
   MessageBubbleData,
+  useRefFunction,
   VisualList,
   VisualListItem,
 } from '@ant-design/md-editor';
+import { ArrowUpRight } from '@ant-design/md-editor/icons/ArrowUpRight1';
 import { Popover } from 'antd';
 import React, { useMemo } from 'react';
+
+function isValidUrl(input: string) {
+  try {
+    new URL(input);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 
 const FootnotePopverContent: React.FC<{
   href?: string;
@@ -17,18 +27,21 @@ const FootnotePopverContent: React.FC<{
   faviconLetter: string;
 }> = ({ href, titleText, hostText, faviconLetter }) => {
   const [hovered, setHovered] = React.useState(false);
+  const [arrowHovered, setArrowHovered] = React.useState(false);
+  const isTitlePureLink = isValidUrl(titleText?.trim());
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         width: 284,
-        background: '#fff',
-        borderRadius: 12,
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
-        padding: '8px 12px',
+        background: 'var(--color-gray-bg-card-white)',
         position: 'relative',
+        padding: '8px 12px',
+        cursor: 'pointer',
+      }}
+      onClick={() => {
+        window.open(href, '_blank', 'noopener noreferrer');
       }}
     >
       {/* 跳转按钮（浮动显示） */}
@@ -36,33 +49,41 @@ const FootnotePopverContent: React.FC<{
         <a
           href={href}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
+          onMouseEnter={() => setArrowHovered(true)}
+          onMouseLeave={() => setArrowHovered(false)}
           style={{
             position: 'absolute',
-            right: 8,
+            right: 12,
             top: 12,
             width: 32,
             height: 32,
-            borderRadius: 8,
-            background: 'rgba(0, 28, 57, 0.0353)',
+            fontSize: 16,
+            borderRadius: 'var(--radius-control-base)',
+            background: 'var(--color-gray-control-fill-secondary)',
             backdropFilter: 'blur(40px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             opacity: hovered ? 1 : 0,
             transition: 'opacity 120ms ease',
+            ...(arrowHovered && {
+              background: 'var(--color-gray-control-fill-secondary-hover)',
+            }),
           }}
         >
-          <ExportOutlined style={{ color: '#767E8B' }} />
+          <ArrowUpRight style={{ color: 'var(--color-gray-text-secondary)' }} />
         </a>
       ) : null}
 
       {/* 标题（单行截断） */}
       <div
         style={{
+          font: 'var(--font-text-body-base)',
+          letterSpacing: 'var(--letter-spacing-body-base, normal)',
           fontSize: 13,
-          color: '#343A45',
-          lineHeight: '22px',
+          color: 'var(--color-gray-text-default)',
+          lineHeight: '20px',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -73,36 +94,51 @@ const FootnotePopverContent: React.FC<{
       </div>
 
       {/* 域名行（favicon 圆点 + 域名） */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 2 }}>
+      <div
+        style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 2 }}
+      >
         <div
           style={{
-            width: 24,
-            height: 24,
-            borderRadius: 999,
-            background: '#F5F7FF',
-            border: '1px solid #E5EEFF',
+            width: 16,
+            height: 16,
+            borderRadius: 'var(--radius-control-sm)',
+            background: isTitlePureLink
+              ? 'var(--color-primary-control-fill-primary)'
+              : '#000',
+            color: '#fff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 13,
-            fontWeight: 700,
-            color: '#111',
-            boxShadow: 'inset 0 -1px 0 rgba(0,0,0,0.04)',
+            fontSize: 12,
+            lineHeight: '20px',
           }}
         >
-          {faviconLetter}
+          {isTitlePureLink ? <LinkOutlined /> : faviconLetter}
         </div>
         {href ? (
           <a
             href={href}
             target="_blank"
             rel="noreferrer"
-            style={{ color: 'rgba(0, 25, 61, 0.3255)', fontSize: 12 }}
+            style={{
+              color: 'var(--color-gray-text-light)',
+              font: 'var(--font-text-paragraph-sm)',
+              fontSize: 12,
+              lineHeight: '20px',
+            }}
           >
             {hostText}
           </a>
         ) : (
-          <span style={{ color: 'rgba(0, 25, 61, 0.3255)', fontSize: 12 }}>{hostText}</span>
+          <span
+            style={{
+              color: 'var(--color-gray-text-light)',
+              font: 'var(--font-text-paragraph-sm)',
+              fontSize: 12,
+            }}
+          >
+            {hostText}
+          </span>
         )}
       </div>
     </div>
@@ -129,7 +165,7 @@ const message1 = `# 引用（Reference）示例
 
 *** Reference Notes ***
 
-[^1]: [引用帮助把补充但重要的信息从正文中抽离出来。](https://www.baidu.com) 
+[^1]: [](https://www.baidu.com) 
 [^2]: [可通过自定义渲染与变更回调实现引用的预览与收集。](https://www.baidu.com)
 [^3]: [支持从正文引用标记定位到定义处。](https://www.baidu.com)
 [^4]: [支持从定义处回看被引用的上下文。](https://www.baidu.com)
@@ -207,10 +243,7 @@ export default () => {
   >([]);
 
   const renderRef = useRefFunction(
-    (
-      props: { identifier?: string; },
-      _: React.ReactNode,
-    ) => {
+    (props: { identifier?: string }, _: React.ReactNode) => {
       const node = nodeList.find(
         (item) => item.placeholder === props.identifier,
       );
@@ -227,7 +260,12 @@ export default () => {
       const titleText = (node?.origin_text as string) || hostText;
       return (
         <Popover
-          overlayInnerStyle={{ padding: 0, borderRadius: 12 }}
+          overlayInnerStyle={{
+            padding: 0,
+            borderRadius: 'var(--radius-card-base)',
+            boxShadow: 'var(--shadow-control-lg)',
+          }}
+          arrow={false}
           content={
             <FootnotePopverContent
               href={href}
@@ -273,7 +311,11 @@ export default () => {
 
     return (
       <div style={{ padding: 16 }}>
-        <VisualList data={items} shape="circle" description={`${items.length} 个网页`} />
+        <VisualList
+          data={items}
+          shape="circle"
+          description={`${items.length} 个网页`}
+        />
       </div>
     );
   };
