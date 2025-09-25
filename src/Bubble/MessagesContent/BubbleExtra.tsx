@@ -5,7 +5,7 @@ import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
 
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { CopyIcon } from '../../icons/CopyIcon';
+import { Copy } from '../../icons';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import LoadingLottie from '../../TaskList/LoadingLottie';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
@@ -255,7 +255,7 @@ export const BubbleExtra = ({
           }}
           showTitle={false}
         >
-          <CopyIcon />
+          <Copy />
         </CopyButton>
       ) : null,
     [shouldShowCopy, context?.locale, bubble.originData?.content],

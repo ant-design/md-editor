@@ -4,7 +4,7 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
 import { ReactEditor, RenderLeafProps } from 'slate-react';
-import ArrowUpRightIcon from '../../../icons/ArrowUpRightIcon';
+import { ArrowUpRight } from '../../../icons';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -194,7 +194,7 @@ const LinkComponent: React.FC<{
       onDragStart={dragStart}
       data-be="url"
     >
-      {children} <ArrowUpRightIcon />
+      {children} <ArrowUpRight />
     </span>
   );
   return content;

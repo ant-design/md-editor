@@ -26,6 +26,7 @@ export default defineConfig({
         'tests/**',
         '**/MarkdownEditor/editor/slate-react/**',
         '**/slate-table/**',
+        '**/icons/**',
         'test/**',
       ],
     },

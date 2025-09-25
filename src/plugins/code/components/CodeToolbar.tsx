@@ -9,7 +9,7 @@ import { message, Segmented } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../../i18n';
-import { CopyIcon } from '../../../icons/CopyIcon';
+import { Copy } from '../../../icons';
 import { ActionIconBox } from '../../../MarkdownEditor/editor/components/ActionIconBox';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { langIconMap } from '../langIconMap';
@@ -224,7 +224,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             }
           }}
         >
-          <CopyIcon />
+          <Copy />
         </ActionIconBox>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadingIcon } from '../../../icons/LoadingIcon';
+import { Loader } from '../../../icons';
 import { getFileTypeIcon } from '../../../Workspace/File/utils';
 import { FileType } from '../../../Workspace/types';
 import { AttachmentFile } from '../types';
@@ -45,7 +45,7 @@ export const AttachmentFileIcon: React.FC<{
 }> = (props) => {
   const file = props.file;
   if (file.status === 'uploading') {
-    return <LoadingIcon />;
+    return <Loader />;
   }
   if (isImageFile(file)) {
     return (

@@ -168,7 +168,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        }
+        },
       },
 
       [`&--markdown`]: {

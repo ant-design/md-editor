@@ -1,6 +1,6 @@
 import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
-import { PanelLeftIcon, ShareIcon } from '@ant-design/md-editor/icons';
 import React, { forwardRef, useImperativeHandle } from 'react';
+import { MessageSquareShare, PanelLeftFill } from '../../icons';
 import { useStyle } from './style';
 import type { ChatFlowContainerProps, ChatFlowContainerRef } from './types';
 
@@ -102,7 +102,7 @@ const ChatFlowContainer = forwardRef<
                 aria-label="折叠左侧边栏"
                 type="button"
               >
-                <PanelLeftIcon />
+                <PanelLeftFill />
               </button>
             )}
             <h1 className={`${COMPONENT_NAME}-header-left-title ${hashId}`}>
@@ -119,7 +119,7 @@ const ChatFlowContainer = forwardRef<
                 aria-label="分享对话"
                 type="button"
               >
-                <ShareIcon />
+                <MessageSquareShare />
                 &nbsp;分享
               </button>
             )}
@@ -130,7 +130,7 @@ const ChatFlowContainer = forwardRef<
                 aria-label="折叠右侧边栏"
                 type="button"
               >
-                <PanelLeftIcon />
+                <PanelLeftFill />
               </button>
             )}
           </div>

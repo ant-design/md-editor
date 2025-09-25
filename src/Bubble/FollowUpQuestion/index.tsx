@@ -1,7 +1,7 @@
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useMemo, useState } from 'react';
-import { SwapRightIcon } from '../../icons';
+import { SwapRight } from '../../icons';
 import { useStyle } from './style';
 
 export interface FollowUpItem {
@@ -87,7 +87,7 @@ export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
                   className={classNames(`${prefixCls}-arrow`, hashId)}
                   aria-hidden
                 >
-                  <SwapRightIcon width={16} height={16} />
+                  <SwapRight width={16} height={16} />
                 </span>
               </div>
             );

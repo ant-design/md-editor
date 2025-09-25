@@ -1,18 +1,20 @@
 import React from 'react';
-import ArchiveIcon from '../icons/ArchiveIcon';
-import AudioIcon from '../icons/AudioIcon';
-import CodeIcon from '../icons/CodeIcon';
-import CsvIcon from '../icons/CsvIcon';
-import DefaultFileIcon from '../icons/DefaultFileIcon';
-import FolderIcon from '../icons/FolderIcon';
-import HtmlIcon from '../icons/HtmlIcon';
-import ImageIcon from '../icons/ImageIcon';
-import MdIcon from '../icons/MdIcon';
-import PdfIcon from '../icons/PdfIcon';
-import VideoIcon from '../icons/VideoIcon';
-import WordIcon from '../icons/WordIcon';
-import XlsxIcon from '../icons/XlsxIcon';
-import XmlIcon from '../icons/XmlIcon';
+import {
+  FileZip as ArchiveIcon,
+  AudioLines as AudioIcon,
+  CodeXml as CodeIcon,
+  FileText as CsvIcon,
+  File as DefaultFileIcon,
+  Folder,
+  CodeXml as HtmlIcon,
+  FileImage as ImageIcon,
+  FileMarkdown as MdIcon,
+  FilePdf as PdfIcon,
+  File as VideoIcon,
+  FileDoc as WordIcon,
+  FileXlsx as XlsxIcon,
+  FileXml as XmlIcon,
+} from '../../icons';
 import {
   FILE_TYPES,
   FileCategory,
@@ -104,7 +106,7 @@ export const getGroupIcon = (
         if (file.type) {
           return file.type;
         }
-        
+
         // 否则根据文件名推断类型
         const extension = file.name.split('.').pop()?.toLowerCase();
         if (extension) {
@@ -115,14 +117,14 @@ export const getGroupIcon = (
             }
           }
         }
-        
+
         return 'other'; // 默认类型
-      })
+      }),
     );
 
     // 如果有多种不同的文件类型，显示文件夹图标
     if (fileTypes.size > 1) {
-      return <FolderIcon />;
+      return <Folder />;
     }
 
     // 如果只有一种文件类型，使用该类型的图标

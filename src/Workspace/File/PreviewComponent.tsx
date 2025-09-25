@@ -12,14 +12,16 @@ import classNames from 'classnames';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import {
+  Download as DownloadIcon,
+  ArrowLeft as LeftIcon,
+  MessageSquareShare as ShareIcon,
+} from '../../icons';
+import {
   MarkdownEditor,
   type MarkdownEditorInstance,
   type MarkdownEditorProps,
 } from '../../MarkdownEditor';
 import { HtmlPreview } from '../HtmlPreview';
-import DownloadIcon from '../icons/DownloadIcon';
-import LeftIcon from '../icons/LeftIcon';
-import ShareIcon from '../icons/ShareIcon';
 import { FileNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import {

@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { PlusIcon } from '../../src/icons/PlusIcon';
+import { Plus } from '../../src/icons';
 
-describe('PlusIcon', () => {
+describe('Plus', () => {
   it('should render SVG element with correct attributes', () => {
-    const { container } = render(<PlusIcon />);
+    const { container } = render(<Plus />);
     const svg = container.querySelector('svg');
 
     expect(svg).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe('PlusIcon', () => {
 
   it('should pass through custom props', () => {
     const { container } = render(
-      <PlusIcon
+      <Plus
         className="custom-class"
         style={{ color: 'red' }}
         data-testid="plus-icon"
@@ -30,7 +30,7 @@ describe('PlusIcon', () => {
   });
 
   it('should render with custom size', () => {
-    const { container } = render(<PlusIcon width="24px" height="24px" />);
+    const { container } = render(<Plus width="24px" height="24px" />);
     const svg = container.querySelector('svg');
 
     // 自定义尺寸可能不会覆盖默认值，跳过这个检查
@@ -38,14 +38,14 @@ describe('PlusIcon', () => {
   });
 
   it('should render with custom color', () => {
-    const { container } = render(<PlusIcon style={{ color: 'blue' }} />);
+    const { container } = render(<Plus style={{ color: 'blue' }} />);
     const svg = container.querySelector('svg');
 
     expect(svg).toHaveStyle('color: rgb(0, 0, 255)');
   });
 
   it('should have correct path data', () => {
-    const { container } = render(<PlusIcon />);
+    const { container } = render(<Plus />);
     const path = container.querySelector('path');
 
     expect(path).toHaveAttribute(
@@ -55,7 +55,7 @@ describe('PlusIcon', () => {
   });
 
   it('should render as a plus symbol', () => {
-    const { container } = render(<PlusIcon />);
+    const { container } = render(<Plus />);
     const svg = container.querySelector('svg');
 
     // 检查是否包含g元素

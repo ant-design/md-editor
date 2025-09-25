@@ -14,12 +14,14 @@ import { Empty } from 'antd';
 import classNames from 'classnames';
 import React, { type FC, useContext, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
+import {
+  ChevronDown as DownIcon,
+  Download as DownloadIcon,
+  Eye as EyeIcon,
+  ChevronRight as RightIcon,
+  MessageSquareShare as ShareIcon,
+} from '../../icons';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
-import DownIcon from '../icons/DownIcon';
-import DownloadIcon from '../icons/DownloadIcon';
-import EyeIcon from '../icons/EyeIcon';
-import RightIcon from '../icons/RightIcon';
-import ShareIcon from '../icons/ShareIcon';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import { fileTypeProcessor, isImageFile } from './FileTypeProcessor';
