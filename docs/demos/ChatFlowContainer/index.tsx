@@ -1,7 +1,9 @@
 import {
+  BackTo,
   BubbleList,
   BubbleMetaData,
   ChatFlowContainer,
+  ChatFlowContainerRef,
   MessageBubbleData,
   TASK_RUNNING_STATUS,
   TASK_STATUS,
@@ -40,12 +42,6 @@ const createMockMessage = (
   } as BubbleMetaData,
 });
 
-// 初始消息
-const initialMessages: MessageBubbleData[] = [
-  createMockMessage('1', 'assistant', '欢迎使用 BubbleList 组件！'),
-  createMockMessage('2', 'user', '这个组件功能很强大！'),
-];
-
 /**
  * ChatFlowContainer 对话流容器组件演示
  *
@@ -58,8 +54,20 @@ const initialMessages: MessageBubbleData[] = [
 const ChatFlowContainerDemo: React.FC = () => {
   const [leftCollapsed, setLeftCollapsed] = useState(false);
   const [rightCollapsed, setRightCollapsed] = useState(true); // 状态管理
-  const [bubbleList, setBubbleList] =
-    useState<MessageBubbleData[]>(initialMessages);
+  const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
+    const messageCount = 20;
+    const messages: MessageBubbleData[] = [];
+
+    for (let i = 0; i < messageCount; i++) {
+      const role = i % 2 === 0 ? 'assistant' : 'user';
+      const content = `这是第 ${i + 1} 条消息`;
+      messages.push(createMockMessage(`msg-${i}`, role, content));
+    }
+
+    return messages;
+  });
+
+  const containerRef = useRef<ChatFlowContainerRef>(null);
 
   // 使用 useRef 管理重试状态，避免全局污染
   const isRetryingRef = useRef(false);
@@ -158,6 +166,7 @@ const ChatFlowContainerDemo: React.FC = () => {
       {/* 主对话区域 */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <ChatFlowContainer
+          ref={containerRef}
           className="custom-chat-container"
           title="AI 助手"
           onLeftCollapse={handleLeftCollapse}
@@ -165,11 +174,50 @@ const ChatFlowContainerDemo: React.FC = () => {
           footer={
             <div
               style={{
+                position: 'relative',
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-16px',
+                  left: '50%',
+                  transform: 'translate(-50%, -100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 16,
+                }}
+              >
+                <BackTo.Top
+                  tooltip="去顶部"
+                  shouldVisible={200}
+                  target={() =>
+                    containerRef.current?.scrollContainer as HTMLElement
+                  }
+                  style={{
+                    position: 'relative',
+                    bottom: 0,
+                    insetInlineEnd: 0,
+                  }}
+                />
+                <BackTo.Bottom
+                  tooltip="去底部"
+                  shouldVisible={200}
+                  target={() =>
+                    containerRef.current?.scrollContainer as HTMLElement
+                  }
+                  style={{
+                    position: 'relative',
+                    bottom: 0,
+                    insetInlineEnd: 0,
+                  }}
+                />
+              </div>
               <TaskRunning
                 title={`任务已完成, 耗时03分00秒`}
                 taskStatus={TASK_STATUS.SUCCESS}
