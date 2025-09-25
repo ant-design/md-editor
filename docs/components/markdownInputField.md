@@ -495,8 +495,8 @@ export default () => {
             enable: true,
             onRefine: async (input) => {
               // 模拟异步优化（真实项目可调用后端/模型服务）
-              await new Promise((r) => setTimeout(r, 600));
-              return `Optimized: ${input}`;
+              await new Promise((r) => setTimeout(r, 2000));
+              return `你好呀，哈哈哈哈 ${input}`;
             },
           }}
         />
