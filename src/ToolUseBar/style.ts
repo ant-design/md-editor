@@ -93,6 +93,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: 8,
+        flex: 1,
       },
 
       '&-tool-expand': {
