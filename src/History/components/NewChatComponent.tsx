@@ -48,8 +48,6 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
-  console.log(className, 'HistoryNewChat');
-
   return (
     <div
       onClick={async () => {
