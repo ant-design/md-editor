@@ -129,6 +129,43 @@ const AccessibleButton: FC<AccessibleButtonProps> = ({
   </div>
 );
 
+// 搜索框组件 - 确保在所有渲染路径中保持一致
+interface SearchInputProps {
+  keyword?: string;
+  onChange?: (keyword: string) => void;
+  searchPlaceholder?: string;
+  prefixCls: string;
+  hashId: string;
+  locale?: any;
+}
+
+const SearchInput: FC<SearchInputProps> = React.memo(
+  ({ keyword, onChange, searchPlaceholder, prefixCls, hashId, locale }) => {
+    const inputRef = useRef<any>(null);
+
+    return (
+      <div className={classNames(`${prefixCls}-search`, hashId)}>
+        <Input
+          ref={inputRef}
+          key="file-search-input" // 添加稳定的 key
+          style={{ marginBottom: 8 }}
+          allowClear
+          placeholder={
+            searchPlaceholder ||
+            locale?.['workspace.searchPlaceholder'] ||
+            '搜索文件名'
+          }
+          prefix={<SearchOutlined />}
+          value={keyword ?? ''}
+          onChange={(e) => onChange?.(e.target.value)}
+        />
+      </div>
+    );
+  },
+);
+
+SearchInput.displayName = 'SearchInput';
+
 // 文件项组件
 const FileItemComponent: FC<{
   file: FileNode;
@@ -797,44 +834,44 @@ export const FileComponent: FC<{
   const safeNodes = nodes || [];
   const hasKeyword = Boolean((keyword ?? '').trim());
 
-  if ((!nodes || nodes.length === 0) && !loading) {
-    return wrapSSR(
-      <div className={classNames(`${prefixCls}-container`, hashId)}>
-        {showSearch && (
-          <div className={classNames(`${prefixCls}-search`, hashId)}>
-            <Input
-              style={{ marginBottom: 8 }}
-              allowClear
-              placeholder={
-                searchPlaceholder ||
-                locale?.['workspace.searchPlaceholder'] ||
-                '搜索文件名'
-              }
-              prefix={<SearchOutlined />}
-              value={keyword ?? ''}
-              onChange={(e) => onChange?.(e.target.value)}
-            />
-          </div>
-        )}
-        <div className={classNames(`${prefixCls}-empty`, hashId)}>
-          {hasKeyword ? (
-            <Typography.Text type="secondary">
-              {(
-                locale?.['workspace.noResultsFor'] ||
-                `未找到与「${keyword}」匹配的结果`
-              ).replace('${keyword}', String(keyword))}
-            </Typography.Text>
-          ) : typeof emptyRender === 'function' ? (
-            emptyRender()
-          ) : (
-            (emptyRender ?? (
-              <Empty description={locale?.['workspace.empty'] || 'No data'} />
-            ))
-          )}
-        </div>
-      </div>,
+  // 渲染搜索框组件 - 确保在所有情况下都保持一致
+  const renderSearchInput = () => {
+    if (!showSearch) return null;
+    return (
+      <SearchInput
+        keyword={keyword}
+        onChange={onChange}
+        searchPlaceholder={searchPlaceholder}
+        prefixCls={prefixCls}
+        hashId={hashId}
+        locale={locale}
+      />
     );
-  }
+  };
+
+  // 渲染空状态内容
+  const renderEmptyContent = () => {
+    if (hasKeyword) {
+      return (
+        <Typography.Text type="secondary">
+          {(
+            locale?.['workspace.noResultsFor'] ||
+            `未找到与「${keyword}」匹配的结果`
+          ).replace('${keyword}', String(keyword))}
+        </Typography.Text>
+      );
+    }
+
+    if (typeof emptyRender === 'function') {
+      return emptyRender();
+    }
+
+    return (
+      emptyRender ?? (
+        <Empty description={locale?.['workspace.empty'] || 'No data'} />
+      )
+    );
+  };
 
   // 图片预览组件
   const ImagePreviewComponent = (
@@ -879,7 +916,70 @@ export const FileComponent: FC<{
     );
   }
 
-  // 渲染文件列表
+  // 渲染文件内容
+  const renderFileContent = () => {
+    if ((!nodes || nodes.length === 0) && !loading) {
+      return (
+        <div className={classNames(`${prefixCls}-empty`, hashId)}>
+          {renderEmptyContent()}
+        </div>
+      );
+    }
+
+    if (safeNodes.length === 0) {
+      return (
+        <div className={classNames(`${prefixCls}-empty`, hashId)}>
+          {renderEmptyContent()}
+        </div>
+      );
+    }
+
+    return safeNodes.map((node: FileNode | GroupNode) => {
+      const nodeWithId = ensureNodeWithId(node);
+
+      if ('children' in nodeWithId) {
+        // 分组节点，使用内部状态覆盖外部的 collapsed 属性
+        const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
+        const groupType = nodeWithId.type || nodeTypeInfo.fileType;
+        const groupNode: GroupNode = {
+          ...nodeWithId,
+          collapsed: collapsedGroups[groupType] ?? nodeWithId.collapsed,
+          // 确保子节点也有唯一ID
+          children: nodeWithId.children.map(ensureNodeWithId),
+        };
+        return (
+          <FileGroupComponent
+            key={nodeWithId.id}
+            group={groupNode}
+            onToggle={handleToggleGroup}
+            onGroupDownload={onGroupDownload}
+            onDownload={onDownload}
+            onFileClick={onFileClick}
+            onPreview={handlePreview}
+            onShare={onShare}
+            prefixCls={prefixCls}
+            hashId={hashId}
+          />
+        );
+      }
+
+      // 文件节点
+      return (
+        <FileItemComponent
+          key={nodeWithId.id}
+          file={nodeWithId as FileNode}
+          onClick={onFileClick}
+          onDownload={onDownload}
+          onShare={onShare}
+          onPreview={handlePreview}
+          prefixCls={prefixCls}
+          hashId={hashId}
+        />
+      );
+    });
+  };
+
+  // 统一的渲染逻辑 - 确保搜索框位置稳定
   return wrapSSR(
     <>
       {loading && loadingRender ? (
@@ -888,22 +988,7 @@ export const FileComponent: FC<{
           className={classNames(`${prefixCls}-container`, hashId)}
           data-testid="file-component"
         >
-          {showSearch && (
-            <div className={classNames(`${prefixCls}-search`, hashId)}>
-              <Input
-                style={{ marginBottom: 8 }}
-                allowClear
-                placeholder={
-                  searchPlaceholder ||
-                  locale?.['workspace.searchPlaceholder'] ||
-                  '搜索文件名'
-                }
-                prefix={<SearchOutlined />}
-                value={keyword ?? ''}
-                onChange={(e) => onChange?.(e.target.value)}
-              />
-            </div>
-          )}
+          {renderSearchInput()}
           {loadingRender()}
         </div>
       ) : (
@@ -913,88 +998,8 @@ export const FileComponent: FC<{
             className={classNames(`${prefixCls}-container`, hashId)}
             data-testid="file-component"
           >
-            {showSearch && (
-              <div className={classNames(`${prefixCls}-search`, hashId)}>
-                <Input
-                  style={{ marginBottom: 8 }}
-                  allowClear
-                  placeholder={
-                    searchPlaceholder ||
-                    locale?.['workspace.searchPlaceholder'] ||
-                    '搜索文件名'
-                  }
-                  prefix={<SearchOutlined />}
-                  value={keyword ?? ''}
-                  onChange={(e) => onChange?.(e.target.value)}
-                />
-              </div>
-            )}
-            {safeNodes.length === 0 ? (
-              <div className={classNames(`${prefixCls}-empty`, hashId)}>
-                {hasKeyword ? (
-                  <Typography.Text type="secondary">
-                    {(
-                      locale?.['workspace.noResultsFor'] ||
-                      `未找到与「${keyword}」匹配的结果`
-                    ).replace('${keyword}', String(keyword))}
-                  </Typography.Text>
-                ) : typeof emptyRender === 'function' ? (
-                  emptyRender()
-                ) : (
-                  (emptyRender ?? (
-                    <Empty
-                      description={locale?.['workspace.empty'] || 'No data'}
-                    />
-                  ))
-                )}
-              </div>
-            ) : (
-              safeNodes.map((node: FileNode | GroupNode) => {
-                const nodeWithId = ensureNodeWithId(node);
-
-                if ('children' in nodeWithId) {
-                  // 分组节点，使用内部状态覆盖外部的 collapsed 属性
-                  const nodeTypeInfo =
-                    fileTypeProcessor.inferFileType(nodeWithId);
-                  const groupType = nodeWithId.type || nodeTypeInfo.fileType;
-                  const groupNode: GroupNode = {
-                    ...nodeWithId,
-                    collapsed:
-                      collapsedGroups[groupType] ?? nodeWithId.collapsed,
-                    // 确保子节点也有唯一ID
-                    children: nodeWithId.children.map(ensureNodeWithId),
-                  };
-                  return (
-                    <FileGroupComponent
-                      key={nodeWithId.id}
-                      group={groupNode}
-                      onToggle={handleToggleGroup}
-                      onGroupDownload={onGroupDownload}
-                      onDownload={onDownload}
-                      onFileClick={onFileClick}
-                      onPreview={handlePreview}
-                      onShare={onShare}
-                      prefixCls={prefixCls}
-                      hashId={hashId}
-                    />
-                  );
-                }
-
-                // 文件节点
-                return (
-                  <FileItemComponent
-                    key={nodeWithId.id}
-                    file={nodeWithId as FileNode}
-                    onClick={onFileClick}
-                    onDownload={onDownload}
-                    onShare={onShare}
-                    onPreview={handlePreview}
-                    prefixCls={prefixCls}
-                    hashId={hashId}
-                  />
-                );
-              })
-            )}
+            {renderSearchInput()}
+            {renderFileContent()}
           </div>
         </Spin>
       )}
