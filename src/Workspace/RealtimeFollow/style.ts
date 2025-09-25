@@ -16,7 +16,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         paddingBottom: '8px',
 
         [`&-with-border`]: {
-          borderBottom: '1px solid rgba(20, 22, 28, 0.07)',
+          borderBottom: '1px solid var(--color-gray-border-light)',
         },
 
         [`&-left`]: {
@@ -50,13 +50,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         [`&-title`]: {
           fontSize: 'var(--font-size-base)',
           fontWeight: 500,
-          color: '#343a45',
+          lineHeight: '22px',
+          color: 'var(--color-gray-text-default)',
         },
 
         [`&-subtitle`]: {
-          fontSize: 'var(--font-size-sm)',
-          fontWeight: 'normal',
-          color: '#767e8b',
+          color: 'var(--color-gray-text-secondary)',
+          font: 'var(--font-text-body-sm)',
+          letterSpacing: 'var(--letter-spacing-body-sm, normal)',
         },
 
         [`&-right`]: {
@@ -77,11 +78,37 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           marginTop: 0,
           borderRadius: 'unset',
         },
+
+        '.ace_gutter': {
+          color: 'var(--color-gray-text-light)',
+          font: 'var(--font-text-code-base)',
+          letterSpacing: 'var(--letter-spacing-code-base, normal)',
+          background: 'var(--color-gray-bg-card-white)',
+        },
+
+        '.ace_gutter-cell': {
+          paddingLeft: 12,
+        },
+
+        '.ace-tm .ace_comment': {
+          color: '#008604',
+        },
+
+        '.ace-tm .ace_keyword': {
+          color: '#B14089',
+        },
+
+        '.ace_identifier, .ace_paren': {
+          color: '#343A45',
+        }
       },
 
       [`&--markdown`]: {
         '.ant-md-editor-content div[data-be="paragraph"]:last-child': {
           paddingBottom: '16px',
+          color: 'var(--color-gray-text-light)',
+          font: 'var(--font-text-code-base)',
+          letterSpacing: 'var(--letter-spacing-code-base, normal)',
         },
       },
 
@@ -118,6 +145,31 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         minHeight: '240px',
         padding: '24px',
         textAlign: 'center',
+      },
+
+      // ==================== Overrides ====================
+      [`&-segmented`]: {
+        color: 'var(--color-gray-text-secondary)',
+        fontSize: '13px',
+        background: 'var(--color-gray-control-fill-active)',
+        borderRadius: '8px',
+
+        '.ant-segmented-item-selected': {
+          color: 'var(--color-gray-text-default)',
+          background: 'var(--color-gray-bg-card-white)',
+          borderRadius: '8px',
+          boxShadow: 'var(--shadow-control-base)',
+
+          '.ant-workspace-tab-title': {
+            font: 'var(--font-text-h6-base)',
+            letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+          },
+        },
+
+        '.ant-segmented-item:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled)':
+          {
+            color: 'var(--color-gray-text-default)',
+          },
       },
     },
   };

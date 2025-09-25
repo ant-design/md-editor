@@ -11,6 +11,7 @@ import {
 } from './components';
 import { useHistory } from './hooks/useHistory';
 import GroupMenu from './menu';
+import { useStyle } from './style';
 import { HistoryProps } from './types';
 
 export * from './types/HistoryData';
@@ -45,6 +46,8 @@ export const History: React.FC<HistoryProps> = (props) => {
   const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
   const { locale } = useContext(BubbleConfigContext) || {};
   const containerRef = useRef<HTMLDivElement>(null);
+  // 注册样式
+  const { wrapSSR, hashId } = useStyle(menuPrefixCls);
 
   const {
     open,
@@ -91,16 +94,18 @@ export const History: React.FC<HistoryProps> = (props) => {
   });
 
   if (props.standalone) {
-    return (
+    return wrapSSR(
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 8,
         }}
       >
         {props.agent?.enabled && !!props.agent?.onNewChat && (
-          <HistoryNewChat onNewChat={handleNewChat} />
+          <HistoryNewChat
+            className={`${menuPrefixCls}-new-chat ${hashId}`}
+            onNewChat={handleNewChat}
+          />
         )}
 
         {props.agent?.enabled && !!props.agent?.onSearch && (
@@ -121,7 +126,7 @@ export const History: React.FC<HistoryProps> = (props) => {
         {props.agent?.enabled && !!props.agent?.onLoadMore && (
           <HistoryLoadMore onLoadMore={handleLoadMore} type={props.type} />
         )}
-      </div>
+      </div>,
     );
   }
 

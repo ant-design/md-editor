@@ -130,7 +130,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           overflowY: 'auto',
           overflowX: 'hidden',
           padding: 'var(--padding-6x)',
-          scrollBehavior: 'smooth',
 
           '&::-webkit-scrollbar': {
             width: '6px',

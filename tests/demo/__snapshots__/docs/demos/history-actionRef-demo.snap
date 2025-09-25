@@ -44,34 +44,34 @@
         style="border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px;"
       >
         <div
-          style="display: flex; flex-direction: column; gap: 8px;"
+          style="display: flex; flex-direction: column;"
         >
           <div
             aria-label="菜单"
-            class="ant-history-menu ant-agent-chat-history-menu"
+            class="ant-agent-chat-history-menu ant-agent-chat-history-menu"
             role="menu"
             tabindex="0"
           >
             <div
-              class="ant-history-menu-submenu"
+              class="ant-agent-chat-history-menu-submenu"
             >
               <div
-                class="ant-history-menu-item-group"
+                class="ant-agent-chat-history-menu-item-group"
               >
                 <div
-                  class="ant-history-menu-item-content"
+                  class="ant-agent-chat-history-menu-item-content"
                 >
                   昨日
                 </div>
               </div>
               <div
                 aria-selected="false"
-                class="ant-history-menu-item"
+                class="ant-agent-chat-history-menu-item"
                 role="menuitem"
                 tabindex="0"
               >
                 <div
-                  class="ant-history-menu-item-content"
+                  class="ant-agent-chat-history-menu-item-content"
                 >
                   <div
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
@@ -81,7 +81,7 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                       >
                         关于 React Hooks 的讨论
                       </div>
@@ -110,25 +110,25 @@
               </div>
             </div>
             <div
-              class="ant-history-menu-submenu"
+              class="ant-agent-chat-history-menu-submenu"
             >
               <div
-                class="ant-history-menu-item-group"
+                class="ant-agent-chat-history-menu-item-group"
               >
                 <div
-                  class="ant-history-menu-item-content"
+                  class="ant-agent-chat-history-menu-item-content"
                 >
                   2 days ago
                 </div>
               </div>
               <div
                 aria-selected="false"
-                class="ant-history-menu-item"
+                class="ant-agent-chat-history-menu-item"
                 role="menuitem"
                 tabindex="0"
               >
                 <div
-                  class="ant-history-menu-item-content"
+                  class="ant-agent-chat-history-menu-item-content"
                 >
                   <div
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
@@ -138,7 +138,7 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                       >
                         TypeScript 类型系统详解
                       </div>
@@ -167,25 +167,25 @@
               </div>
             </div>
             <div
-              class="ant-history-menu-submenu"
+              class="ant-agent-chat-history-menu-submenu"
             >
               <div
-                class="ant-history-menu-item-group"
+                class="ant-agent-chat-history-menu-item-group"
               >
                 <div
-                  class="ant-history-menu-item-content"
+                  class="ant-agent-chat-history-menu-item-content"
                 >
                   3 days ago
                 </div>
               </div>
               <div
                 aria-selected="false"
-                class="ant-history-menu-item"
+                class="ant-agent-chat-history-menu-item"
                 role="menuitem"
                 tabindex="0"
               >
                 <div
-                  class="ant-history-menu-item-content"
+                  class="ant-agent-chat-history-menu-item-content"
                 >
                   <div
                     style="display: flex; justify-content: space-between; gap: 8px; min-width: 140px; align-items: center; width: 100%;"
@@ -195,7 +195,7 @@
                     >
                       <div
                         aria-describedby="test-id"
-                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font-size: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
+                        style="width: max-content; overflow: hidden; max-width: min(860px,100%); text-overflow: ellipsis; white-space: nowrap; -webkit-line-clamp: 1; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-body-base, normal); color: var(--color-gray-text-default);"
                       >
                         前端性能优化实践
                       </div>

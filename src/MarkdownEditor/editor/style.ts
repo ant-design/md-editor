@@ -426,7 +426,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-secondary)',
       },
       a: {
-        color: 'var(--color-primary-control-fill-primary)',
+        font: 'var(--font-text-body-lg)',
+        letterSpacing: 'var(--letter-spacing-body-lg, normal)',
+        color: 'var(--color-gray-text-default)',
         backgroundColor: 'transparent',
         textDecoration: 'none',
         '&:hover': {

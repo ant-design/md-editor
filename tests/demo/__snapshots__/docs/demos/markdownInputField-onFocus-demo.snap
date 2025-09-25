@@ -167,6 +167,8 @@
               <div
                 class="ant-md-input-field-send-button"
                 data-testid="send-button"
+                role="button"
+                tabindex="0"
               >
                 <svg
                   fill="none"

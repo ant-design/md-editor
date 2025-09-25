@@ -93,19 +93,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       : undefined,
   });
 
-  const handleClick = () => {
-    onClick?.(tool.id);
-    if (onActiveChange) {
-      onActiveChange(tool.id, !isActive);
-    }
-  };
-
-  const handleExpandClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // 通过 setExpanded 切换状态，useMergedState 会自动处理受控和非受控模式
-    setExpanded(!expanded);
-  };
-
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
       <div className={classNames(`${prefixCls}-tool-content-error`, hashId)}>
@@ -135,6 +122,31 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     return !!errorDom || !!contentDom;
   }, [errorDom, contentDom]);
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    onClick?.(tool.id);
+    if (onActiveChange && !showContent) {
+      onActiveChange(tool.id, !isActive);
+    }
+
+    // 如果没有内容需要展示，则早返回
+    if (!showContent) return;
+
+    // 避免在交互性子元素上误触发折叠
+    if (e.target instanceof Element) {
+      const tag = e.target.tagName.toLowerCase();
+      if (['a', 'button', 'input', 'textarea', 'select', 'label'].includes(tag))
+        return;
+    }
+
+    // 使用函数式更新避免闭包陈旧值问题
+    setExpanded((prev) => !prev);
+  };
+
+  const handleExpandClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation(); // 阻止事件冒泡到父元素
+    setExpanded((prev) => !prev);
+  };
+
   if (tool.type === 'summary') {
     return (
       <div
@@ -148,7 +160,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   return (
     <div
-      onClick={handleClick}
       key={tool.id}
       data-testid="ToolUserItem"
       className={classNames(
@@ -157,13 +168,16 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         tool.status === 'loading' && `${prefixCls}-tool-loading`,
         tool.status === 'error' && `${prefixCls}-tool-error`,
         tool.status === 'idle' && `${prefixCls}-tool-idle`,
-        isActive && `${prefixCls}-tool-active`,
+        isActive && !expanded && `${prefixCls}-tool-active`,
+        expanded && `${prefixCls}-tool-expanded`,
       )}
     >
       <div
         className={classNames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
-        onClick={handleClick}
+        onClick={(e) => {
+          handleClick(e);
+        }}
       >
         <div
           className={classNames(`${prefixCls}-tool-header`, hashId)}
@@ -180,7 +194,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
               tool.status === 'loading'
                 ? {
                     '--rotate': ['0deg', '360deg'],
-                    '--sub1-color': ['#0090FF', '#3E63DD', '#0090FF'],
                   }
                 : {}
             }
@@ -192,19 +205,12 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
                       repeat: Infinity,
                       ease: 'linear',
                     },
-                    '--sub1-color': {
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    },
                   }
                 : {}
             }
             style={
               {
                 '--rotation': tool.status === 'loading' ? '360deg' : '0deg',
-                '--sub1-color':
-                  tool.status === 'loading' ? '#0090FF' : undefined,
               } as React.CSSProperties
             }
           >
@@ -221,8 +227,8 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             tool.status === 'loading'
               ? {
                   maskImage: [
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  120%)',
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
                   ],
                 }
               : {}
@@ -231,7 +237,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             tool.status === 'loading'
               ? {
                   maskImage: {
-                    duration: 1.6,
+                    duration: 1,
                     repeat: Infinity,
                     ease: 'linear',
                   },

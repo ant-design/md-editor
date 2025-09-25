@@ -1,10 +1,10 @@
-import { ConfigProvider, Popover } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
-import { ExportOutlined } from '@ant-design/icons';
 import { ReactEditor, RenderLeafProps } from 'slate-react';
+import ArrowUpRightIcon from '../../../icons/ArrowUpRightIcon';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -169,7 +169,7 @@ const LinkComponent: React.FC<{
   readonly: boolean;
   text: string;
   attributes: any;
-}> = React.memo(({ leaf, children, text, style, readonly, attributes }) => {
+}> = React.memo(({ leaf, children, text, style, attributes }) => {
   const { markdownEditorRef } = useEditorStore();
 
   const selectFormat = () => {
@@ -194,32 +194,9 @@ const LinkComponent: React.FC<{
       onDragStart={dragStart}
       data-be="url"
     >
-      {children}
+      {children} <ArrowUpRightIcon />
     </span>
   );
-
-  if (readonly) {
-    return (
-      <Popover
-        content={
-          <div>
-            <div>{leaf.url}</div>
-            <div style={{ marginTop: '8px' }}>
-              <ExportOutlined />
-              <a href={leaf.url} target="_blank" rel="noopener noreferrer">
-                打开链接
-              </a>
-            </div>
-          </div>
-        }
-        title="链接"
-        trigger="hover"
-      >
-        {content}
-      </Popover>
-    );
-  }
-
   return content;
 });
 

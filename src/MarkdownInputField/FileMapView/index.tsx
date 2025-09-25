@@ -15,12 +15,12 @@ export type FileMapViewProps = {
   onPreview?: (file: AttachmentFile) => void;
   /** 下载文件回调 */
   onDownload?: (file: AttachmentFile) => void;
-  /** 更多操作回调 */
-  onMore?: (file: AttachmentFile) => void;
   /** 点击“查看所有文件”回调，携带当前所有文件列表 */
   onViewAll?: (files: AttachmentFile[]) => void;
   /** 自定义更多操作 DOM（优先于 onMore，传入则展示该 DOM，不传则不展示更多按钮） */
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
+  /** 自定义悬浮动作区 slot（传入则覆盖默认『预览/下载/更多』动作区） */
+  customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
   /** 自定义根容器样式（可覆盖布局，如 flexDirection、gap、wrap 等） */
   style?: React.CSSProperties;
   /** 自定义根容器类名 */
@@ -28,6 +28,8 @@ export type FileMapViewProps = {
   /** 最多展示的文件数量，默认展示 3 个 */
   maxDisplayCount?: number;
   placement?: 'left' | 'right';
+  /** 是否展示“查看此任务中的所有文件”按钮（默认展示） */
+  showMoreButton?: boolean;
 };
 
 /**
@@ -85,22 +87,23 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   }, [props.fileMap]);
 
   const limitedFiles = useMemo(() => {
+    // 需求：当 showMoreButton === false 时，展示全部文件；否则仅展示前 maxCount 个
+    if (props.showMoreButton === false) {
+      return fileList;
+    }
     return fileList.slice(0, Math.max(0, maxCount));
-  }, [fileList, maxCount]);
+  }, [fileList, maxCount, props.showMoreButton]);
 
-  const hasMore = useMemo(
-    () => fileList.length > maxCount,
-    [fileList, maxCount],
-  );
-
-  const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
-
-  const everythingIsImage = useMemo(() => {
-    return fileList.every((file) => isImageFile(file));
+  const imgList = useMemo(() => {
+    return limitedFiles.filter((file) => isImageFile(file));
   }, [fileList]);
 
-  if (everythingIsImage) {
-    return wrapSSR(
+  const noImageFileList = useMemo(() => {
+    return limitedFiles.filter((file) => !isImageFile(file));
+  }, [fileList]);
+
+  return wrapSSR(
+    <div>
       <motion.div
         variants={{
           visible: {
@@ -121,23 +124,83 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         initial="hidden"
         animate={'visible'}
         style={props.style}
-        className={classNames(prefix, hashId, props.className, `${prefix}-${placement}`)}
+        className={classNames(
+          prefix,
+          hashId,
+          props.className,
+          `${prefix}-${placement}`,
+        )}
       >
         <Image.PreviewGroup>
-          {limitedFiles.map((file, index) => {
+          {imgList.map((file, index) => {
             return (
               <Image
                 className={classNames(`${prefix}-image`, hashId)}
-                width={178}
-                height={178}
+                width={124}
+                height={124}
                 src={file.previewUrl || file.url}
                 key={file.uuid || file.name || index}
               />
             );
           })}
         </Image.PreviewGroup>
-        {hasMore ? (
+      </motion.div>
+      <motion.div
+        variants={{
+          visible: {
+            opacity: 1,
+            transition: {
+              when: 'beforeChildren',
+              staggerChildren: 0.1,
+            },
+          },
+          hidden: {
+            opacity: 0,
+            transition: {
+              when: 'afterChildren',
+            },
+          },
+        }}
+        whileInView="visible"
+        initial="hidden"
+        animate={'visible'}
+        className={classNames(
+          prefix,
+          `${prefix}-vertical`,
+          hashId,
+          props.className,
+          `${prefix}-${placement}`,
+        )}
+        style={props.style}
+      >
+        {noImageFileList.map((file, index) => {
+          return (
+            <FileMapViewItem
+              style={{ width: props.style?.width }}
+              onPreview={() => {
+                if (props.onPreview) {
+                  props.onPreview?.(file);
+                  return;
+                }
+                if (typeof window === 'undefined') return;
+                window.open(file.previewUrl || file.url, '_blank');
+              }}
+              onDownload={() => {
+                props.onDownload?.(file);
+              }}
+              renderMoreAction={props.renderMoreAction}
+              customSlot={props.customSlot}
+              key={file?.uuid || file?.name || index}
+              prefixCls={`${prefix}-item`}
+              hashId={hashId}
+              className={classNames(hashId, `${prefix}-item`)}
+              file={file}
+            />
+          );
+        })}
+        {props.showMoreButton !== false && fileList.length > maxCount ? (
           <div
+            style={{ width: props.style?.width }}
             className={classNames(hashId, `${prefix}-more-file-container`)}
             onClick={() => props.onViewAll?.(fileList)}
           >
@@ -151,96 +214,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             </div>
           </div>
         ) : null}
-      </motion.div>,
-    );
-  }
-
-  return wrapSSR(
-    <>
-      <Image
-        key="preview"
-        src={imgSrc}
-        alt="Preview"
-        style={{ display: 'none' }}
-        preview={{
-          visible: !!imgSrc,
-          scaleStep: 1,
-          src: imgSrc,
-          onVisibleChange: (value) => {
-            if (!value) {
-              setImgSrc(undefined);
-            }
-          },
-        }}
-      />
-      <motion.div
-        variants={{
-          visible: {
-            opacity: 1,
-            transition: {
-              when: 'beforeChildren',
-              staggerChildren: 0.1,
-            },
-          },
-          hidden: {
-            opacity: 0,
-            transition: {
-              when: 'afterChildren',
-            },
-          },
-        }}
-        whileInView="visible"
-        initial="hidden"
-        animate={'visible'}
-        className={classNames(prefix, hashId, props.className,`${prefix}-${placement}`)}
-        style={props.style}
-      >
-        {limitedFiles.map((file, index) => {
-          return (
-            <FileMapViewItem
-              style={{ width: props.style?.width }}
-              onPreview={() => {
-                if (props.onPreview) {
-                  props.onPreview?.(file);
-                  return;
-                }
-                if (isImageFile(file)) {
-                  setImgSrc(file.previewUrl || file.url);
-                  return;
-                }
-                if (typeof window === 'undefined') return;
-                window.open(file.previewUrl || file.url, '_blank');
-              }}
-              onDownload={() => {
-                props.onDownload?.(file);
-              }}
-              onMore={() => {
-                props.onMore?.(file);
-              }}
-              renderMoreAction={props.renderMoreAction}
-              key={file?.uuid || file?.name || index}
-              prefixCls={`${prefix}-item`}
-              hashId={hashId}
-              className={classNames(hashId, `${prefix}-item`)}
-              file={file}
-            />
-          );
-        })}
       </motion.div>
-
-      {hasMore ? (
-        <div
-          className={classNames(hashId, `${prefix}-more-file-container`)}
-          onClick={() => props.onViewAll?.(fileList)}
-        >
-          <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
-            <MoreFileIcon />
-          </div>
-          <div className={classNames(hashId, `${prefix}-more-file-name`)}>
-            <span style={{ whiteSpace: 'nowrap' }}>查看此任务中的所有文件</span>
-          </div>
-        </div>
-      ) : null}
-    </>,
+    </div>,
   );
 };

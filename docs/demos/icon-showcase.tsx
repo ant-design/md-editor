@@ -470,12 +470,14 @@ const IconShowcase: React.FC = () => {
                       flexDirection: 'column',
                       justifyContent: 'center',
                     }}
-                    bodyStyle={{
-                      padding: '16px 12px',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
+                    styles={{
+                      body: {
+                        padding: '16px 12px',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                      },
                     }}
                   >
                     <div style={{ marginBottom: '8px' }}>

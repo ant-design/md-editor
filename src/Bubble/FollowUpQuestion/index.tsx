@@ -1,6 +1,6 @@
-import { Tooltip } from 'antd';
+import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { SwapRightIcon } from '../../icons';
 import { useStyle } from './style';
 
@@ -20,14 +20,15 @@ export interface FollowUpQuestionProps {
   onAsk?: (value: string) => void | Promise<void>;
 }
 
-const prefixCls = 'follow-up';
-
 export const FollowUpQuestion: React.FC<FollowUpQuestionProps> = ({
   className,
   style,
   items,
   onAsk,
 }) => {
+  const context = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = context?.getPrefixCls('follow-up');
+
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [submitting, setSubmitting] = useState(false);
 

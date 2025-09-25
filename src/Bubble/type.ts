@@ -566,24 +566,51 @@ export interface BubbleProps<T = Record<string, any>>
   preMessage?: MessageBubbleData;
 
   /**
-   * 文件卡片事件配置
-   * @description 通过单一回调暴露四个文件事件方法，使用者可从第一个参数中拿到回调，
-   * 也可以返回一个包含覆盖实现的对象用于替换默认实现
+   * 自定义“更多”操作渲染 DOM
    */
-  onFileConfig?: (handlers: {
+  renderFileMoreAction?: (file: AttachmentFile) => React.ReactNode;
+
+  /**
+   * 文件视图事件（新）
+   * @description 与示例中的 fileViewEvents 对齐：通过回调拿到默认 handlers，并可返回局部覆盖实现
+   */
+  fileViewEvents?: (handlers: {
     onPreview: (file: AttachmentFile) => void;
     onDownload: (file: AttachmentFile) => void;
-    onMore: (file: AttachmentFile) => void;
     onViewAll: (files: AttachmentFile[]) => void;
   }) => Partial<{
     onPreview: (file: AttachmentFile) => void;
     onDownload: (file: AttachmentFile) => void;
-    onMore: (file: AttachmentFile) => void;
     onViewAll: (files: AttachmentFile[]) => void;
   }> | void;
 
   /**
-   * 自定义“更多”操作渲染 DOM
+   * 文件视图配置（新）
+   * @description 与示例中的 fileViewConfig 对齐：控制样式与更多按钮、数量等
    */
-  renderFileMoreAction?: (file: AttachmentFile) => React.ReactNode;
+  fileViewConfig?: {
+    /** 是否展示每个文件项的“更多”按钮 */
+    showMoreButton?: boolean;
+    /** 自定义根容器 className */
+    className?: string;
+    /** 自定义根容器样式 */
+    style?: React.CSSProperties;
+    /** 最大展示条目数（默认 3） */
+    maxDisplayCount?: number;
+    /** 自定义悬浮动作区 */
+    customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
+    /**
+     * 自定义更多操作渲染
+     * 兼容以下几种写法：
+     * - (file) => ReactNode
+     * - () => (file) => ReactNode
+     * - () => ReactNode
+     * - 直接传 ReactNode
+     */
+    renderFileMoreAction?:
+      | React.ReactNode
+      | ((file: AttachmentFile) => React.ReactNode)
+      | (() => React.ReactNode)
+      | (() => (file: AttachmentFile) => React.ReactNode);
+  };
 }
