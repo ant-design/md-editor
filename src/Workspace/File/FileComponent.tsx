@@ -1,4 +1,4 @@
-import { SearchOutlined } from '@ant-design/icons';
+import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
 import {
   Button,
   ConfigProvider,
@@ -7,6 +7,7 @@ import {
   Spin,
   Tooltip,
   Typography,
+  message,
 } from 'antd';
 
 import { Empty } from 'antd';
@@ -76,6 +77,21 @@ const handleFileDownload = (file: FileNode) => {
   }
 };
 
+// 通用的默认分享处理函数
+const handleDefaultShare = async (file: FileNode, locale?: any) => {
+  try {
+    const shareUrl = file.url || file.previewUrl || window.location.href;
+    await navigator.clipboard.writeText(shareUrl);
+    message.success({
+      icon: <CheckOutlined style={{ fontSize: 16 }} />,
+      content: locale?.['workspace.file.linkCopied'] || '已复制链接',
+    });
+  } catch (error) {
+    // 如果复制失败，显示错误提示
+    message.error(locale?.['workspace.file.copyFailed'] || '复制失败');
+  }
+};
+
 // 确保节点有唯一ID的辅助函数
 const ensureNodeWithId = <T extends FileNode | GroupNode>(node: T): T => ({
   ...node,
@@ -140,8 +156,8 @@ const FileItemComponent: FC<{
       return;
     }
 
-    // 如果没有传入 onClick 事件，且显示了预览按钮，则默认打开预览页面
-    if (onPreview && showPreviewButton) {
+    // 如果没有传入 onClick 事件，默认打开预览页面
+    if (onPreview) {
       onPreview(fileWithId);
     }
   };
@@ -175,10 +191,18 @@ const FileItemComponent: FC<{
 
   const handleShare = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onShare?.(fileWithId, {
-      anchorEl: e.currentTarget as HTMLElement,
-      origin: 'list',
-    });
+
+    // 如果有自定义的分享方法，优先使用
+    if (onShare) {
+      onShare(fileWithId, {
+        anchorEl: e.currentTarget as HTMLElement,
+        origin: 'list',
+      });
+      return;
+    }
+
+    // 使用默认分享行为
+    handleDefaultShare(fileWithId, locale);
   };
 
   // 判断是否显示预览按钮：
@@ -199,7 +223,7 @@ const FileItemComponent: FC<{
     );
   })();
 
-  // 分享按钮仅在存在 onShare 且文件 canShare 为 true 时显示
+  // 分享按钮仅在文件 canShare 为 true 时显示
   const showShareButton = fileWithId.canShare === true;
 
   return (
@@ -661,11 +685,6 @@ export const FileComponent: FC<{
     handleFileDownload(file);
   };
 
-  // 预览页面的分享（供预览页调用）
-  const handleShareInPreview = (file: FileNode) => {
-    onShare?.(file);
-  };
-
   // 预览文件处理
   const handlePreview = async (file: FileNode) => {
     // 如果用户提供了预览方法，尝试使用用户的方法
@@ -709,7 +728,13 @@ export const FileComponent: FC<{
                     setCustomPreviewHeader(header),
                   back: handleBackToList,
                   download: () => handleDownloadInPreview(file),
-                  share: () => handleShareInPreview(file),
+                  share: () => {
+                    if (onShare) {
+                      onShare(file);
+                    } else {
+                      handleDefaultShare(file, locale);
+                    }
+                  },
                 })
               : (previewData as React.ReactNode);
             setCustomPreviewHeader(null);
@@ -841,15 +866,17 @@ export const FileComponent: FC<{
           file={previewFile}
           onBack={handleBack}
           onDownload={handleDownloadInPreview}
-          onShare={
-            onShare
-              ? (file, options) =>
-                  onShare(file, {
-                    anchorEl: options?.anchorEl,
-                    origin: 'preview',
-                  })
-              : undefined
-          }
+          onShare={(file, options) => {
+            if (onShare) {
+              onShare(file, {
+                anchorEl: options?.anchorEl,
+                origin: 'preview',
+              });
+            } else {
+              // 使用默认分享行为
+              handleDefaultShare(file, locale);
+            }
+          }}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
           headerFileOverride={headerFileOverride || undefined}
