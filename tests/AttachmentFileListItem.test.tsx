@@ -92,7 +92,9 @@ describe('AttachmentFileListItem', () => {
       />,
     );
 
-    expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
+    // 验证加载图标存在 - 通过查找 SVG 元素和 sofa-icons-icon 类名
+    const loadingIcon = document.querySelector('.sofa-icons-icon');
+    expect(loadingIcon).toBeInTheDocument();
     expect(screen.queryByTestId('file-icon')).not.toBeInTheDocument();
   });
 
@@ -145,7 +147,9 @@ describe('AttachmentFileListItem', () => {
       />,
     );
 
-    const fileItem = screen.getByTestId('loading-icon').closest('div');
+    // 通过类名查找加载图标，然后找到其父级 div 进行点击
+    const loadingIcon = document.querySelector('.sofa-icons-icon');
+    const fileItem = loadingIcon?.closest('div');
     fireEvent.click(fileItem!);
 
     expect(mockOnPreview).not.toHaveBeenCalled();
@@ -263,8 +267,7 @@ describe('AttachmentFileListItem', () => {
         hashId="custom-hash"
       />,
     );
-
-    // Should render with custom prefixCls (the loading icon container will have the class)
-    expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
+    const loadingIcon = document.querySelector('.sofa-icons-icon');
+    expect(loadingIcon).toBeInTheDocument();
   });
 });
