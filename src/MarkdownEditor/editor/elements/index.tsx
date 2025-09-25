@@ -507,10 +507,13 @@ const MLeafComponent = (
           data-slate-inline={true}
           style={{
             ...style,
+            font: 'var(--font-text-body-lg)',
+            letterSpacing: 'var(--letter-spacing-body-lg, normal)',
+            color: 'var(--color-gray-text-default)',
             textDecoration: 'underline',
-            textDecorationColor: style?.color || '#1677ff',
+            textDecorationColor:
+              style?.color || 'var(--color-gray-text-disabled)',
             textUnderlineOffset: '4px',
-            color: '#1677ff',
             cursor: 'pointer',
           }}
           {...props.attributes}
@@ -556,10 +559,13 @@ const MLeafComponent = (
         ...(leaf.url
           ? {
               ...style,
+              font: 'var(--font-text-body-lg)',
+              letterSpacing: 'var(--letter-spacing-body-lg, normal)',
+              color: 'var(--color-gray-text-default)',
               textDecoration: 'underline',
-              textDecorationColor: style?.color || '#1677ff',
+              textDecorationColor:
+                style?.color || 'var(--color-gray-text-disabled)',
               textUnderlineOffset: '4px',
-              color: '#1677ff',
               cursor: 'pointer',
             }
           : style),

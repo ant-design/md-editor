@@ -169,6 +169,13 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
           onClick();
         }
       }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick();
+        }
+      }}
       style={style}
       className={classNames(baseCls, hashId, {
         [`${baseCls}-compact`]: props.compact,
