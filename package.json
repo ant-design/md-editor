@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/md-editor",
-  "version": "1.28.39",
+  "version": "1.28.40",
   "description": "类语雀的编辑器，支持 markdown 渲染和编辑",
   "repository": "git@github.com:ant-design/md-editor.git",
   "license": "MIT",
@@ -128,7 +128,6 @@
     "eslint": "^8.57.1",
     "father": "^4.6.5",
     "glob": "^11.0.3",
-    "html2pdf.js": "^0.10.3",
     "husky": "^8.0.3",
     "jsdom": "^25.0.1",
     "less": "^4.4.1",
