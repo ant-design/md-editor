@@ -4,6 +4,7 @@ import AudioIcon from '../icons/AudioIcon';
 import CodeIcon from '../icons/CodeIcon';
 import CsvIcon from '../icons/CsvIcon';
 import DefaultFileIcon from '../icons/DefaultFileIcon';
+import FolderIcon from '../icons/FolderIcon';
 import HtmlIcon from '../icons/HtmlIcon';
 import ImageIcon from '../icons/ImageIcon';
 import MdIcon from '../icons/MdIcon';
@@ -81,6 +82,59 @@ export const getFileTypeIcon = (
   }
 
   return TYPE_ICON_MAP[getFileCategory(type)] || <DefaultFileIcon />;
+};
+
+/**
+ * 获取分组图标 - 如果分组中有不同类型的文件，显示文件夹图标
+ */
+export const getGroupIcon = (
+  group: GroupNode,
+  groupType: FileType,
+  customIcon?: React.ReactNode,
+) => {
+  if (customIcon) {
+    return customIcon;
+  }
+
+  // 检查分组中是否有不同类型的文件
+  if (group.children.length > 0) {
+    const fileTypes = new Set(
+      group.children.map((file) => {
+        // 如果文件有明确的 type，使用 type
+        if (file.type) {
+          return file.type;
+        }
+        
+        // 否则根据文件名推断类型
+        const extension = file.name.split('.').pop()?.toLowerCase();
+        if (extension) {
+          // 查找对应的文件类型
+          for (const [type, definition] of Object.entries(FILE_TYPES)) {
+            if (definition.extensions.includes(extension)) {
+              return type;
+            }
+          }
+        }
+        
+        return 'other'; // 默认类型
+      })
+    );
+
+    // 如果有多种不同的文件类型，显示文件夹图标
+    if (fileTypes.size > 1) {
+      return <FolderIcon />;
+    }
+
+    // 如果只有一种文件类型，使用该类型的图标
+    if (fileTypes.size === 1) {
+      const singleType = Array.from(fileTypes)[0] as FileType;
+      const representativeFileName = group.children[0]?.name;
+      return getFileTypeIcon(singleType, undefined, representativeFileName);
+    }
+  }
+
+  // 如果没有子文件，使用默认的分组类型图标
+  return getFileTypeIcon(groupType);
 };
 
 // 生成唯一ID的工具函数

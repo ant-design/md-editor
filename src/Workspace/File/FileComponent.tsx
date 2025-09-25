@@ -25,7 +25,7 @@ import { formatFileSize, formatLastModified } from '../utils';
 import { fileTypeProcessor, isImageFile } from './FileTypeProcessor';
 import { PreviewComponent } from './PreviewComponent';
 import { useFileStyle } from './style';
-import { generateUniqueId, getFileTypeIcon } from './utils';
+import { generateUniqueId, getFileTypeIcon, getGroupIcon } from './utils';
 
 // 通用的键盘事件处理函数
 const handleKeyboardEvent = (
@@ -379,12 +379,8 @@ const GroupHeader: FC<{
 
   const CollapseIcon = group.collapsed ? RightIcon : DownIcon;
 
-  // 获取分组的代表性文件名，用于决定图标
-  const getRepresentativeFileName = (): string | undefined => {
-    if (group.children.length === 0) return undefined;
-    // 优先使用第一个文件的名称
-    return group.children[0].name;
-  };
+  // 获取分组图标
+  const groupIcon = getGroupIcon(group, groupType, group.icon);
 
   return (
     <AccessibleButton
@@ -408,11 +404,7 @@ const GroupHeader: FC<{
                 hashId,
               )}
             >
-              {getFileTypeIcon(
-                groupType,
-                group.icon,
-                getRepresentativeFileName(),
-              )}
+              {groupIcon}
             </div>
             <span
               className={classNames(
