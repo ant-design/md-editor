@@ -33,8 +33,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'none',
         boxShadow: 'var(--shadow-control-base)',
         color: 'var(--color-gray-text-secondary)',
-        borderWidth: '1px',
-        borderStyle: 'solid',
         cursor: 'pointer',
         fontSize: 13,
         lineHeight: '21px',
