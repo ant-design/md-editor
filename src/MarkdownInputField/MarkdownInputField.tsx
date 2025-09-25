@@ -146,7 +146,12 @@ export type MarkdownInputFieldProps = {
   ) => void;
 
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
-  bgColorList?: [string, string, string, string];
+  /**
+   * 背景颜色列表 - 用于生成渐变背景效果
+   * @description 推荐使用 3-4 种颜色以获得最佳视觉效果
+   * @default ['#CD36FF', '#FFD972', '#eff0f1']
+   */
+  bgColorList?: string[];
   borderRadius?: number;
 
   beforeToolsRender?: (
@@ -394,7 +399,7 @@ export const generateEdges = (colors: string[]): string[][] => {
  * @param {boolean} [props.disabled] - 是否禁用
  * @param {boolean} [props.typing] - 是否正在输入
  * @param {AttachmentProps} [props.attachment] - 附件配置
- * @param {string[]} [props.bgColorList] - 背景颜色列表
+ * @param {string[]} [props.bgColorList] - 背景颜色列表，推荐使用3-4种颜色
  * @param {React.RefObject} [props.inputRef] - 输入框引用
  * @param {MarkdownRenderConfig} [props.markdownRenderConfig] - Markdown渲染配置
  * @param {SuggestionProps} [props.suggestion] - 自动完成配置
@@ -561,7 +566,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   /**
    * 生成背景颜色列表
-   * @description 该函数用于生成背景颜色列表，默认使用四种颜色。
+   * @description 该函数用于生成背景颜色列表，默认使用三种颜色。
    * @returns {string[][]} 颜色列表
    */
   const colorList = useMemo(() => {

@@ -16,18 +16,34 @@ const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
 
 // 为任意尺寸值添加辉光边框偏移 - Add glow border offset to any size value
 export const addGlowBorderOffset = (size: string | number): string => {
+  // 数字类型直接处理
   if (typeof size === 'number') return `${size + GLOW_BORDER_TOTAL_OFFSET}px`;
 
   const val = size.trim();
-  const keywords = ['auto', 'inherit', 'initial', 'unset'];
-  if (keywords.includes(val)) return val;
 
-  // 纯数字字符串 -> 视为 px
+  // 不需要 calc() 包裹的所有关键字（使用 Set 提高查找性能）
+  const directReturnKeywords = new Set([
+    'auto',
+    'inherit',
+    'initial',
+    'unset',
+    'revert',
+    'revert-layer', // CSS 全局关键字
+    'min-content',
+    'max-content', // CSS 内在尺寸关键字
+  ]);
+
+  // 直接返回的关键字或 fit-content() 函数
+  if (directReturnKeywords.has(val) || /^fit-content\s*\(.*\)$/.test(val)) {
+    return val;
+  }
+
+  // 纯数字字符串 -> 添加偏移并转为 px
   if (/^-?\d+(\.\d+)?$/.test(val)) {
     return `${parseFloat(val) + GLOW_BORDER_TOTAL_OFFSET}px`;
   }
 
-  // 其他任何值（包括 calc()/var()/CSS单位）统一外包 calc
+  // 其他值用 calc() 包裹
   return `calc(${val} + ${GLOW_BORDER_TOTAL_OFFSET}px)`;
 };
 
