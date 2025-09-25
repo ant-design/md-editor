@@ -11,3 +11,6 @@ export { StarFilledIcon } from './StarFilledIcon';
 export { StarIcon } from './StarIcon';
 export { ThinkIcon } from './ThinkIcon';
 export { SwapRightIcon } from './SwapRightIcon';
+export { CopyIcon } from './CopyIcon';
+export { SwitchToWindowsIcon } from './SwitchToWindowsIcon';
+export { FullScreenIcon } from './FullScreenIcon';
