@@ -1,4 +1,3 @@
-import { Button } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { NewChatIcon } from '../../icons';
@@ -9,6 +8,8 @@ import { NewChatIcon } from '../../icons';
 interface HistoryNewChatProps {
   /** 创建新对话的回调函数 */
   onNewChat: () => void;
+  /** 自定义样式类名 */
+  className?: string;
 }
 
 /**
@@ -42,35 +43,18 @@ interface HistoryNewChatProps {
  */
 export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   onNewChat,
+  className,
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
+  console.log(className, 'HistoryNewChat');
+
   return (
-    <Button
-      color="primary"
-      variant="filled"
-      icon={
-        <NewChatIcon
-          style={{
-            fontSize: 16,
-            paddingTop: 2,
-          }}
-        />
-      }
-      style={{
-        justifyContent: 'flex-start',
-        borderRadius: 'var(--radius-control-base)',
-        background: 'var(--color-primary-control-fill-secondary)',
-        fontSize: '14px',
-        fontWeight: 600,
-        lineHeight: '22px',
-        letterSpacing: 'normal',
-        color: 'var(--color-primary-text-secondary)',
-      }}
-      loading={loading}
+    <div
       onClick={async () => {
         try {
+          if (loading) return;
           setLoading(true);
           await onNewChat();
           setLoading(false);
@@ -80,9 +64,15 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
           setLoading(false);
         }
       }}
+      className={className}
     >
+      <NewChatIcon
+        style={{
+          fontSize: 16,
+        }}
+      />
       {locale?.['chat.history.newChat'] || '新对话'}
-    </Button>
+    </div>
   );
 };
 

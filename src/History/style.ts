@@ -6,6 +6,26 @@ import {
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
+    [`${token.componentCls}-new-chat`]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      cursor: 'pointer',
+      padding: '5px 12px',
+      borderRadius: 'var(--radius-control-base)',
+      background: 'var(--color-primary-control-fill-secondary)',
+      fontSize: '14px',
+      fontWeight: 600,
+      lineHeight: '22px',
+      letterSpacing: 'normal',
+      color: 'var(--color-primary-text-secondary)',
+      boxShadow: 'var(--shadow-border-base)',
+
+      '&:hover': {
+        background: 'var(--color-primary-control-fill-secondary-hover)',
+      },
+    },
+
     [token.componentCls]: {
       width: '100%',
       backgroundColor: 'transparent',
@@ -18,7 +38,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         cursor: 'pointer',
         borderRadius: 'var(--radius-control-base)',
-        padding: '6px 6px 6px 12px',
+        padding: '5px 12px',
         backgroundColor: 'transparent',
         color: token.colorText || 'var(--color-gray-text-default)',
         fontSize: 'var(--font-size-base)',
@@ -110,7 +130,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-base)',
         color: token.colorTextSecondary || 'var(--color-gray-text-default)',
         fontWeight: 500,
-        padding: '4px 12px',
+        padding: '5px 12px',
       },
 
       // Container focus styles
