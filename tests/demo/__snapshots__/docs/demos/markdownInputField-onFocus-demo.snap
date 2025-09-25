@@ -33,7 +33,7 @@
       >
         <div
           class="ant-md-input-field-background"
-          style="min-height: 0; height: 100%; width: 100%;"
+          style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
         >
           <svg
             fill="none"
