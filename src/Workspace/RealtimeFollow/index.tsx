@@ -112,11 +112,11 @@ const RealtimeHeader: React.FC<{
         {data?.onBack && (
           <button
             type="button"
-            className={classNames(`${prefixCls}-header-back-button`, hashId)}
+            className={classNames(`${finalPrefixCls}-header-back-button`, hashId)}
             onClick={data.onBack}
           >
             <LeftIcon
-              className={classNames(`${prefixCls}-header-back-icon`, hashId)}
+              className={classNames(`${finalPrefixCls}-header-back-icon`, hashId)}
             />
           </button>
         )}
