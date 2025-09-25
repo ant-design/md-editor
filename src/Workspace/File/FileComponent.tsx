@@ -134,7 +134,16 @@ const FileItemComponent: FC<{
   const fileTypeInfo = fileTypeProcessor.inferFileType(fileWithId);
 
   const handleClick = () => {
-    onClick?.(fileWithId);
+    // 如果有传入 onClick 事件，优先使用
+    if (onClick) {
+      onClick(fileWithId);
+      return;
+    }
+
+    // 如果没有传入 onClick 事件，且显示了预览按钮，则默认打开预览页面
+    if (onPreview && showPreviewButton) {
+      onPreview(fileWithId);
+    }
   };
 
   // 判断是否显示下载按钮：优先使用用户 canDownload；否则当存在 onDownload/url/content/file 时显示
