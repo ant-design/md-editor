@@ -48,7 +48,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '8px',
         background: 'var(--color-gray-control-fill-hover)',
         boxSizing: 'border-box',
-        border: 'var(--color-gray-border-light)',
       },
     },
 
@@ -73,8 +72,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '20px',
         transition: 'all 0.2s ease',
 
+        [`${token.componentCls}-task-icon`]: {
+          width: '32px',
+          height: '32px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '8px',
+          gap: '10px',
+          borderRadius: '50%',
+          background: 'var(--color-gray-bg-page-dark)',
+          color: 'var(--color-gray-text-secondary)',
+        },
+
         '&:hover:not(&-disabled)': {
           backgroundColor: 'var(--color-gray-control-fill-hover)',
+          [`${token.componentCls}-extra-actions`]: {
+            opacity: 1,
+          },
+        },
+
+        [`${token.componentCls}-extra-actions`]: {
+          opacity: 0,
+          transition: 'all 0.2s ease',
         },
 
         '&-selected': {

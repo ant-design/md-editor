@@ -1,11 +1,45 @@
-import { Checkbox, Divider, Tooltip } from 'antd';
+import { Checkbox, ConfigProvider, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import React from 'react';
+import React, { useContext } from 'react';
 import { I18nContext } from '../../i18n';
-import { HistoryDataType } from '../types/HistoryData';
+import { CloseCicleFillIcon } from '../../icons/CloseCicleFillIcon';
+import { FileCheckFillIcon } from '../../icons/FileCheckFillIcon';
+import { WarningFillIcon } from '../../icons/WarningFillIcon';
+import { useStyle } from '../style';
+import {
+  HistoryDataType,
+  TaskStatusData,
+  TaskStatusEnum,
+} from '../types/HistoryData';
 import { formatTime } from '../utils';
 import { HistoryActionsBox } from './HistoryActionsBox';
 import { HistoryRunningIcon } from './HistoryRunningIcon';
+
+const TaskIconMap: (
+  prefixCls: string,
+  hashId: string,
+) => Partial<Record<TaskStatusEnum, React.ReactNode>> = (
+  prefixCls: string,
+  hashId: string,
+) => {
+  return {
+    success: (
+      <div className={`${prefixCls}-task-icon ${hashId}`}>
+        <FileCheckFillIcon />
+      </div>
+    ),
+    error: (
+      <div className={`${prefixCls}-task-icon ${hashId}`}>
+        <WarningFillIcon />
+      </div>
+    ),
+    cancel: (
+      <div className={`${prefixCls}-task-icon ${hashId}`}>
+        <CloseCicleFillIcon />
+      </div>
+    ),
+  };
+};
 
 /**
  * 文本溢出检测的额外滚动偏移量，用于确保文本滚动动画的平滑过渡
@@ -115,6 +149,9 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
     runningId,
     customOperationExtra,
   }) => {
+    const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+    const prefixCls = getPrefixCls('agent-chat-history-menu');
+    const { hashId } = useStyle(prefixCls);
     const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
     const isRunning = React.useMemo(
       () => runningId?.includes(String(item.id || '')),
@@ -240,10 +277,12 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                   position: 'absolute',
                   top: 0,
                   right: 0,
-                  width: '30px',
+                  width: '100%',
                   height: '100%',
-                  background:
-                    'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1))',
+                  WebkitMaskImage:
+                    'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
+                  maskImage:
+                    'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
                   opacity: isTextOverflow ? 1 : 0,
                   transition: 'opacity 0.2s',
                   pointerEvents: 'none',
@@ -262,7 +301,9 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
-          {customOperationExtra}
+          <div className={`${prefixCls}-extra-actions ${hashId}`}>
+            {customOperationExtra}
+          </div>
         </div>
         {extra?.(item)}
       </div>
@@ -305,12 +346,15 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
     runningId,
     customOperationExtra,
   }) => {
+    const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+    const prefixCls = getPrefixCls('agent-chat-history-menu');
+    const { hashId } = useStyle(prefixCls);
     const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
     const isTask = React.useMemo(() => type === 'task', [type]);
     const { locale } = React.useContext(I18nContext);
     const shouldShowIcon = React.useMemo(
-      () => isTask && !!item.icon,
-      [isTask, item.icon],
+      () => isTask && (!!item.icon || TaskStatusData.includes(item.status!)),
+      [isTask, item.icon, item.status],
     );
     const shouldShowDescription = React.useMemo(
       () => isTask && !!item.description,
@@ -421,7 +465,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
               </div>
             ) : React.isValidElement(item.icon) ? (
               item.icon
-            ) : (
+            ) : item.icon ? (
               <div
                 style={{
                   width: '32px',
@@ -435,12 +479,18 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                   fontSize: isSelected
                     ? 'var(--font-text-h6-base)'
                     : 'var(--font-text-body-base)',
-                  borderRadius: '200px',
+                  borderRadius: '50%',
                   background: 'var(--color-gray-bg-page-dark)',
+                  color: 'var(--color-gray-text-secondary)',
                 }}
               >
-                {item.icon || (isTask ? '📋' : '📄')}
+                {item.icon ||
+                  (isTask
+                    ? TaskIconMap(prefixCls, hashId)[item.status!]
+                    : '📄')}
               </div>
+            ) : (
+              TaskIconMap(prefixCls, hashId)[item.status!]
             )}
           </div>
         )}
@@ -494,8 +544,10 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                     right: 0,
                     width: '100%',
                     height: '100%',
-                    background:
-                      'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1))',
+                    WebkitMaskImage:
+                      'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
+                    maskImage:
+                      'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
                     opacity: isTextOverflow ? 1 : 0,
                     transition: 'opacity 0.2s',
                     pointerEvents: 'none',
@@ -547,7 +599,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
           </div>
         </div>
 
-        <div style={{ flexShrink: 0, marginTop: 4 }}>
+        <div style={{ flexShrink: 0 }}>
           <HistoryActionsBox
             onDeleteItem={onDeleteItem ? handleDelete : undefined}
             agent={agent}
@@ -556,7 +608,9 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
-          {customOperationExtra}
+          <div className={`${prefixCls}-extra-actions ${hashId}`}>
+            {customOperationExtra}
+          </div>
         </div>
         {extra?.(item)}
       </div>
@@ -624,9 +678,11 @@ export const HistoryItem = React.memo<HistoryItemProps>(
     extra,
     type,
     runningId,
+    customOperationExtra,
   }) => {
     const isTask = type === 'task';
-    const shouldShowIcon = isTask && !!item.icon;
+    const shouldShowIcon =
+      isTask && (!!item.icon || TaskStatusData.includes(item.status!));
     const shouldShowDescription = isTask && !!item.description;
     const isMultiMode = isTask || (shouldShowIcon && shouldShowDescription);
 
@@ -645,6 +701,7 @@ export const HistoryItem = React.memo<HistoryItemProps>(
       extra,
       type,
       runningId,
+      customOperationExtra,
     };
 
     /**

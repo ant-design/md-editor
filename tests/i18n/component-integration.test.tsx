@@ -77,7 +77,7 @@ describe('Component Integration Tests', () => {
       it('should render search text in Chinese', () => {
         render(
           <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
-            <HistorySearch onSearch={mockOnSearch} />
+            <HistorySearch onSearch={mockOnSearch} type="task" />
           </I18nContext.Provider>,
         );
 
@@ -87,11 +87,13 @@ describe('Component Integration Tests', () => {
       it('should render search text in English', () => {
         render(
           <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
-            <HistorySearch onSearch={mockOnSearch} />
+            <HistorySearch onSearch={mockOnSearch} type="task" />
           </I18nContext.Provider>,
         );
 
-        expect(screen.getByText('History Tasks')).toBeInTheDocument();
+        expect(
+          screen.getByText(enLabels['chat.history.historyTasks']),
+        ).toBeInTheDocument();
       });
 
       it('should render search button title in Chinese', () => {
