@@ -307,7 +307,7 @@
                                     数据分析任务
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                                 <div
@@ -332,7 +332,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0; margin-top: 4px;"
+                              style="flex-shrink: 0;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -388,6 +388,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -479,7 +482,7 @@
                                     模型训练任务
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                                 <div
@@ -504,7 +507,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0; margin-top: 4px;"
+                              style="flex-shrink: 0;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -560,6 +563,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -651,7 +657,7 @@
                                     代码部署
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                                 <div
@@ -676,7 +682,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0; margin-top: 4px;"
+                              style="flex-shrink: 0;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -732,6 +738,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -752,7 +761,7 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark);"
+                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 50%; background: var(--color-gray-bg-page-dark); color: var(--color-gray-text-secondary);"
                               >
                                 💾
                               </div>
@@ -774,7 +783,7 @@
                                     系统备份
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                                 <div
@@ -799,7 +808,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0; margin-top: 4px;"
+                              style="flex-shrink: 0;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -855,6 +864,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -888,7 +900,7 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark);"
+                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 50%; background: var(--color-gray-bg-page-dark); color: var(--color-gray-text-secondary);"
                               >
                                 📄
                               </div>
@@ -910,7 +922,7 @@
                                     报告生成
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                                 <div
@@ -935,7 +947,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0; margin-top: 4px;"
+                              style="flex-shrink: 0;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -991,6 +1003,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -1130,7 +1145,7 @@
                                     聊天: 数据分析任务
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                               </div>
@@ -1192,6 +1207,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -1278,7 +1296,7 @@
                                     聊天: 模型训练任务
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                               </div>
@@ -1340,6 +1358,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -1426,7 +1447,7 @@
                                     聊天: 代码部署
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                               </div>
@@ -1488,6 +1509,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -1521,7 +1545,7 @@
                                     聊天: 系统备份
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                               </div>
@@ -1583,6 +1607,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>
@@ -1629,7 +1656,7 @@
                                     聊天: 报告生成
                                   </div>
                                   <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                                   />
                                 </div>
                               </div>
@@ -1691,6 +1718,9 @@
                                   />
                                 </div>
                               </div>
+                              <div
+                                class="ant-agent-chat-history-menu-extra-actions "
+                              />
                             </div>
                           </div>
                         </div>

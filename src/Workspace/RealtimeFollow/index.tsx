@@ -3,6 +3,7 @@ import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
+import { ArrowLeft as LeftIcon } from '../../icons';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -11,11 +12,9 @@ import {
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import { HtmlPreview } from '../HtmlPreview';
 import HtmlIcon from '../icons/HtmlIcon';
-import LeftIcon from '../icons/LeftIcon';
 import ShellIcon from '../icons/ShellIcon';
 import ThinkIcon from '../icons/ThinkIcon';
 import { useRealtimeFollowStyle } from './style';
-
 export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
 
 export interface DiffContent {
@@ -112,11 +111,17 @@ const RealtimeHeader: React.FC<{
         {data?.onBack && (
           <button
             type="button"
-            className={classNames(`${finalPrefixCls}-header-back-button`, hashId)}
+            className={classNames(
+              `${finalPrefixCls}-header-back-button`,
+              hashId,
+            )}
             onClick={data.onBack}
           >
             <LeftIcon
-              className={classNames(`${finalPrefixCls}-header-back-icon`, hashId)}
+              className={classNames(
+                `${finalPrefixCls}-header-back-icon`,
+                hashId,
+              )}
             />
           </button>
         )}
@@ -495,7 +500,9 @@ export const RealtimeFollowList: React.FC<{
     if (!data.segmentedExtra) return segmentedNode;
 
     return (
-      <div className={classNames(`${prefixCls}-header-segmented-right`, hashId)}>
+      <div
+        className={classNames(`${prefixCls}-header-segmented-right`, hashId)}
+      >
         {segmentedNode}
         {data.segmentedExtra}
       </div>
