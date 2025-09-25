@@ -91,7 +91,9 @@ describe('Component Integration Tests', () => {
           </I18nContext.Provider>,
         );
 
-        expect(screen.getByText('History Tasks')).toBeInTheDocument();
+        expect(
+          screen.getByText(enLabels['chat.history.historyTasks']),
+        ).toBeInTheDocument();
       });
 
       it('should render search button title in Chinese', () => {

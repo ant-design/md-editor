@@ -1,5 +1,20 @@
 import { WhiteBoxProcessInterface } from '../../ThoughtChainList';
 
+export type TaskStatusEnum =
+  | 'success'
+  | 'pending'
+  | 'loading'
+  | 'error'
+  | 'cancel';
+
+export const TaskStatusData = [
+  'success',
+  'pending',
+  'loading',
+  'error',
+  'cancel',
+];
+
 export type HistoryDataType = {
   /** 会话记录ID，自增主键 */
   id?: number | string;
@@ -23,6 +38,8 @@ export type HistoryDataType = {
   isFavorite?: boolean;
   /** 是否选中（多选模式） */
   isSelected?: boolean;
+  /** 任务状态 */
+  status?: TaskStatusEnum;
 };
 
 export type HistoryChatType = {
