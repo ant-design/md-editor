@@ -956,11 +956,11 @@ export const FileComponent: FC<{
                   // 分组节点，使用内部状态覆盖外部的 collapsed 属性
                   const nodeTypeInfo =
                     fileTypeProcessor.inferFileType(nodeWithId);
+                  const groupType = nodeWithId.type || nodeTypeInfo.fileType;
                   const groupNode: GroupNode = {
                     ...nodeWithId,
                     collapsed:
-                      collapsedGroups[nodeTypeInfo.fileType] ??
-                      nodeWithId.collapsed,
+                      collapsedGroups[groupType] ?? nodeWithId.collapsed,
                     // 确保子节点也有唯一ID
                     children: nodeWithId.children.map(ensureNodeWithId),
                   };
