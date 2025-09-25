@@ -38,7 +38,7 @@ export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
   const { wrapSSR, hashId } = useTaskStyle(prefixCls);
 
   return wrapSSR(
-    <div className={classNames(prefixCls, hashId)}>
+    <div className={classNames(prefixCls, hashId)} data-testid="task-list">
       {data.items.map((item) => (
         <div
           key={item.key}

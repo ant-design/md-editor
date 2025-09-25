@@ -49,7 +49,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '4px',
         zIndex: 1,
         maxWidth: 'min(800px,100%)',
-        padding: '4px',
+        padding: '2px',
+        paddingRight: '4px',
       },
 
       '&-tool-bar': {
@@ -68,7 +69,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-header': {
-        height: 20,
+        height: 24,
         display: 'flex',
         alignItems: 'center',
         gap: 8,
@@ -125,12 +126,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignContent: 'center',
         borderRadius: '200px',
         boxSizing: 'border-box',
-        border: '1px solid rgba(0, 16, 40, 0.13)',
+        border: '1px solid var(--color-gray-border-dark)',
         zIndex: 0,
         '&-loading': {
           borderRadius: '50%',
           position: 'relative',
-
           '&::before': {
             content: '""',
             position: 'absolute',
@@ -143,6 +143,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
             transformOrigin: '50% 50%',
             filter: 'blur(4px)',
+          },
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            inset: '0',
+            borderRadius: '50%',
+            background:
+              'conic-gradient(from var(--rotate, 0deg),transparent 0deg 0deg, #5EF050 35deg 55deg, #37ABFF 105deg 115deg,  #D7B9FF 135deg 135deg, transparent 165deg 360deg)',
+            WebkitMask:
+              'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
+            mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 80%, #FF0000 80%, #FF0000 100%)',
           },
         },
       },

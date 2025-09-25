@@ -271,10 +271,17 @@ const Workspace: FC<WorkspaceProps> & {
       ref={containerRef}
       className={classNames(prefixCls, className, hashId)}
       style={style}
+      data-testid="workspace"
     >
       {/* header */}
-      <div className={classNames(`${prefixCls}-header`, hashId)}>
-        <div className={classNames(`${prefixCls}-title`, hashId)}>
+      <div
+        className={classNames(`${prefixCls}-header`, hashId)}
+        data-testid="workspace-header"
+      >
+        <div
+          className={classNames(`${prefixCls}-title`, hashId)}
+          data-testid="workspace-title"
+        >
           {displayTitle}
         </div>
         {onClose && (
@@ -282,13 +289,17 @@ const Workspace: FC<WorkspaceProps> & {
             className={classNames(`${prefixCls}-close`, hashId)}
             onClick={onClose}
             aria-label={locale?.['workspace.closeWorkspace'] || '关闭工作空间'}
+            data-testid="workspace-close"
           />
         )}
       </div>
 
       {/* tabs */}
       {availableTabs.length > 1 && (
-        <div className={classNames(`${prefixCls}-tabs`, hashId)}>
+        <div
+          className={classNames(`${prefixCls}-tabs`, hashId)}
+          data-testid="workspace-tabs"
+        >
           <Segmented
             key={segmentedKey} // ⭐ 每次宽度从 0 变为 >0，重新挂载
             className={classNames(`${prefixCls}-segmented`, hashId)}
@@ -299,12 +310,16 @@ const Workspace: FC<WorkspaceProps> & {
             value={currentActiveTab}
             onChange={handleTabChange}
             block
+            data-testid="workspace-segmented"
           />
         </div>
       )}
 
       {/* content */}
-      <div className={classNames(`${prefixCls}-content`, hashId)}>
+      <div
+        className={classNames(`${prefixCls}-content`, hashId)}
+        data-testid="workspace-content"
+      >
         {availableTabs.find((tab) => tab.key === currentActiveTab)?.content}
       </div>
     </div>,

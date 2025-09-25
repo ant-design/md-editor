@@ -139,6 +139,14 @@
               </div>
             </div>
           </div>
+        </div>
+        <div
+          animate="visible"
+          class="ant-md-editor-file-view-list ant-md-editor-file-view-list-vertical ant-md-editor-file-view-list-left"
+          initial="hidden"
+          variants="[object Object]"
+          whileinview="visible"
+        >
           <div
             class="ant-md-editor-file-view-list-more-file-container"
           >
@@ -189,64 +197,6 @@
                 查看此任务中的所有文件
               </span>
             </div>
-          </div>
-        </div>
-        <div
-          animate="visible"
-          class="ant-md-editor-file-view-list ant-md-editor-file-view-list-left"
-          initial="hidden"
-          variants="[object Object]"
-          whileinview="visible"
-        />
-        <div
-          class="ant-md-editor-file-view-list-more-file-container"
-        >
-          <div
-            class="ant-md-editor-file-view-list-more-file-icon"
-          >
-            <svg
-              fill="none"
-              height="18"
-              version="1.1"
-              viewBox="0 0 18 18"
-              width="18"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_870_69755/64_7739"
-                >
-                  <rect
-                    height="18"
-                    rx="0"
-                    width="18"
-                    x="0"
-                    y="0"
-                  />
-                </clippath>
-              </defs>
-              <g
-                clip-path="url(#master_svg0_870_69755/64_7739)"
-              >
-                <g>
-                  <path
-                    d="M3,3L3,5.25C3,5.66421,3.3357900000000003,6,3.75,6C4.164210000000001,6,4.5,5.66421,4.5,5.25L4.5,3Q4.5,2.25,5.25,2.25L10.5,2.25L10.5,4.5Q10.5,5.43198,11.15901,6.09099Q11.818,6.75,12.75,6.75L15,6.75L15,15Q15,15.75,14.25,15.75L5.24625,15.75Q4.81715,15.7489,4.60128,15.3763L4.6005199999999995,15.375C4.46655,15.143,4.21896,15,3.951,15C3.53679,15,3.201,15.3358,3.201,15.75C3.201,15.8817,3.2356499999999997,16.011,3.3014799999999997,16.125Q3.9491,17.2467,5.24625,17.25L14.25,17.25Q15.182,17.25,15.841,16.591Q16.5,15.932,16.5,15L16.5,5.25C16.5,5.05109,16.421,4.86032,16.2803,4.71967L12.5303,0.96967C12.3897,0.8290179,12.1989,0.75,12,0.75L5.25,0.75Q4.318020000000001,0.75,3.65901,1.409009Q3,2.0680199999999997,3,3ZM12,2.56066L12,4.5Q12,4.81066,12.2197,5.03033Q12.4393,5.25,12.75,5.25L14.6893,5.25L12,2.56066ZM4.5,13.5C5.05636,13.5,5.57734,13.3486,6.02398,13.0846L6.96967,14.0303C7.11032,14.171,7.30109,14.25,7.5,14.25C7.91421,14.25,8.25,13.9142,8.25,13.5C8.25,13.3011,8.17098,13.1103,8.03033,12.9697L7.08464,12.024C7.34855,11.5773,7.5,11.0564,7.5,10.5C7.5,8.84315,6.15685,7.5,4.5,7.5C2.84315,7.5,1.5,8.84315,1.5,10.5C1.5,12.1569,2.84315,13.5,4.5,13.5ZM4.5,9C5.32843,9,6,9.67157,6,10.5C6,11.3284,5.32843,12,4.5,12C3.67157,12,3,11.3284,3,10.5C3,9.67157,3.67157,9,4.5,9Z"
-                    fill="#767E8B"
-                    fill-opacity="1"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div
-            class="ant-md-editor-file-view-list-more-file-name"
-          >
-            <span
-              style="white-space: nowrap;"
-            >
-              查看此任务中的所有文件
-            </span>
           </div>
         </div>
       </div>
@@ -381,6 +331,14 @@
               </div>
             </div>
           </div>
+        </div>
+        <div
+          animate="visible"
+          class="ant-md-editor-file-view-list ant-md-editor-file-view-list-vertical ant-md-editor-file-view-list-left"
+          initial="hidden"
+          variants="[object Object]"
+          whileinview="visible"
+        >
           <div
             class="ant-md-editor-file-view-list-more-file-container"
           >
@@ -431,64 +389,6 @@
                 查看此任务中的所有文件
               </span>
             </div>
-          </div>
-        </div>
-        <div
-          animate="visible"
-          class="ant-md-editor-file-view-list ant-md-editor-file-view-list-left"
-          initial="hidden"
-          variants="[object Object]"
-          whileinview="visible"
-        />
-        <div
-          class="ant-md-editor-file-view-list-more-file-container"
-        >
-          <div
-            class="ant-md-editor-file-view-list-more-file-icon"
-          >
-            <svg
-              fill="none"
-              height="18"
-              version="1.1"
-              viewBox="0 0 18 18"
-              width="18"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_870_69755/64_7739"
-                >
-                  <rect
-                    height="18"
-                    rx="0"
-                    width="18"
-                    x="0"
-                    y="0"
-                  />
-                </clippath>
-              </defs>
-              <g
-                clip-path="url(#master_svg0_870_69755/64_7739)"
-              >
-                <g>
-                  <path
-                    d="M3,3L3,5.25C3,5.66421,3.3357900000000003,6,3.75,6C4.164210000000001,6,4.5,5.66421,4.5,5.25L4.5,3Q4.5,2.25,5.25,2.25L10.5,2.25L10.5,4.5Q10.5,5.43198,11.15901,6.09099Q11.818,6.75,12.75,6.75L15,6.75L15,15Q15,15.75,14.25,15.75L5.24625,15.75Q4.81715,15.7489,4.60128,15.3763L4.6005199999999995,15.375C4.46655,15.143,4.21896,15,3.951,15C3.53679,15,3.201,15.3358,3.201,15.75C3.201,15.8817,3.2356499999999997,16.011,3.3014799999999997,16.125Q3.9491,17.2467,5.24625,17.25L14.25,17.25Q15.182,17.25,15.841,16.591Q16.5,15.932,16.5,15L16.5,5.25C16.5,5.05109,16.421,4.86032,16.2803,4.71967L12.5303,0.96967C12.3897,0.8290179,12.1989,0.75,12,0.75L5.25,0.75Q4.318020000000001,0.75,3.65901,1.409009Q3,2.0680199999999997,3,3ZM12,2.56066L12,4.5Q12,4.81066,12.2197,5.03033Q12.4393,5.25,12.75,5.25L14.6893,5.25L12,2.56066ZM4.5,13.5C5.05636,13.5,5.57734,13.3486,6.02398,13.0846L6.96967,14.0303C7.11032,14.171,7.30109,14.25,7.5,14.25C7.91421,14.25,8.25,13.9142,8.25,13.5C8.25,13.3011,8.17098,13.1103,8.03033,12.9697L7.08464,12.024C7.34855,11.5773,7.5,11.0564,7.5,10.5C7.5,8.84315,6.15685,7.5,4.5,7.5C2.84315,7.5,1.5,8.84315,1.5,10.5C1.5,12.1569,2.84315,13.5,4.5,13.5ZM4.5,9C5.32843,9,6,9.67157,6,10.5C6,11.3284,5.32843,12,4.5,12C3.67157,12,3,11.3284,3,10.5C3,9.67157,3.67157,9,4.5,9Z"
-                    fill="#767E8B"
-                    fill-opacity="1"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div
-            class="ant-md-editor-file-view-list-more-file-name"
-          >
-            <span
-              style="white-space: nowrap;"
-            >
-              查看此任务中的所有文件
-            </span>
           </div>
         </div>
       </div>
@@ -623,6 +523,14 @@
               </div>
             </div>
           </div>
+        </div>
+        <div
+          animate="visible"
+          class="ant-md-editor-file-view-list ant-md-editor-file-view-list-vertical ant-md-editor-file-view-list-left"
+          initial="hidden"
+          variants="[object Object]"
+          whileinview="visible"
+        >
           <div
             class="ant-md-editor-file-view-list-more-file-container"
           >
@@ -673,64 +581,6 @@
                 查看此任务中的所有文件
               </span>
             </div>
-          </div>
-        </div>
-        <div
-          animate="visible"
-          class="ant-md-editor-file-view-list ant-md-editor-file-view-list-left"
-          initial="hidden"
-          variants="[object Object]"
-          whileinview="visible"
-        />
-        <div
-          class="ant-md-editor-file-view-list-more-file-container"
-        >
-          <div
-            class="ant-md-editor-file-view-list-more-file-icon"
-          >
-            <svg
-              fill="none"
-              height="18"
-              version="1.1"
-              viewBox="0 0 18 18"
-              width="18"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <clippath
-                  id="master_svg0_870_69755/64_7739"
-                >
-                  <rect
-                    height="18"
-                    rx="0"
-                    width="18"
-                    x="0"
-                    y="0"
-                  />
-                </clippath>
-              </defs>
-              <g
-                clip-path="url(#master_svg0_870_69755/64_7739)"
-              >
-                <g>
-                  <path
-                    d="M3,3L3,5.25C3,5.66421,3.3357900000000003,6,3.75,6C4.164210000000001,6,4.5,5.66421,4.5,5.25L4.5,3Q4.5,2.25,5.25,2.25L10.5,2.25L10.5,4.5Q10.5,5.43198,11.15901,6.09099Q11.818,6.75,12.75,6.75L15,6.75L15,15Q15,15.75,14.25,15.75L5.24625,15.75Q4.81715,15.7489,4.60128,15.3763L4.6005199999999995,15.375C4.46655,15.143,4.21896,15,3.951,15C3.53679,15,3.201,15.3358,3.201,15.75C3.201,15.8817,3.2356499999999997,16.011,3.3014799999999997,16.125Q3.9491,17.2467,5.24625,17.25L14.25,17.25Q15.182,17.25,15.841,16.591Q16.5,15.932,16.5,15L16.5,5.25C16.5,5.05109,16.421,4.86032,16.2803,4.71967L12.5303,0.96967C12.3897,0.8290179,12.1989,0.75,12,0.75L5.25,0.75Q4.318020000000001,0.75,3.65901,1.409009Q3,2.0680199999999997,3,3ZM12,2.56066L12,4.5Q12,4.81066,12.2197,5.03033Q12.4393,5.25,12.75,5.25L14.6893,5.25L12,2.56066ZM4.5,13.5C5.05636,13.5,5.57734,13.3486,6.02398,13.0846L6.96967,14.0303C7.11032,14.171,7.30109,14.25,7.5,14.25C7.91421,14.25,8.25,13.9142,8.25,13.5C8.25,13.3011,8.17098,13.1103,8.03033,12.9697L7.08464,12.024C7.34855,11.5773,7.5,11.0564,7.5,10.5C7.5,8.84315,6.15685,7.5,4.5,7.5C2.84315,7.5,1.5,8.84315,1.5,10.5C1.5,12.1569,2.84315,13.5,4.5,13.5ZM4.5,9C5.32843,9,6,9.67157,6,10.5C6,11.3284,5.32843,12,4.5,12C3.67157,12,3,11.3284,3,10.5C3,9.67157,3.67157,9,4.5,9Z"
-                    fill="#767E8B"
-                    fill-opacity="1"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div
-            class="ant-md-editor-file-view-list-more-file-name"
-          >
-            <span
-              style="white-space: nowrap;"
-            >
-              查看此任务中的所有文件
-            </span>
           </div>
         </div>
       </div>

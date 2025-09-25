@@ -132,7 +132,7 @@
             >
               <div
                 assistantmeta="[object Object]"
-                bubblelist="[object Object],[object Object]"
+                bubblelist="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
                 data-testid="bubble-list"
                 usermeta="[object Object]"
               >
@@ -144,8 +144,11 @@
             class="chat-flow-container-footer "
           >
             <div
-              style="display: flex; align-items: center; justify-content: center;"
+              style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;"
             >
+              <div
+                style="position: absolute; top: -16px; left: 50%; transform: translate(-50%, -100%); display: flex; align-items: center; justify-content: center; gap: 16px;"
+              />
               <div
                 class="ant-task-running ant-task-running-default"
               >
@@ -167,22 +170,28 @@
                       style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                     >
                       <div
-                        aria-hidden="true"
-                        data-autoplay="true"
-                        data-loop="true"
-                        data-testid="lottie-animation"
-                        style="width: 52px; height: 52px; display: flex; justify-content: center; align-items: center;"
-                      />
+                        style="padding-left: 22px; margin-right: 20px;"
+                      >
+                        <div
+                          aria-hidden="true"
+                          data-autoplay="true"
+                          data-loop="true"
+                          data-testid="lottie-animation"
+                          style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center; transform: rotateY(180deg);"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div
                     class="ant-task-running-left-content"
                   >
-                    <div
-                      class="ant-task-running-left-main-text"
+                    <h1
+                      aria-describedby="test-id"
+                      class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-multiple-line ant-task-running-left-main-text"
+                      style="-webkit-line-clamp: 2;"
                     >
                       任务已完成, 耗时03分00秒
-                    </div>
+                    </h1>
                   </div>
                 </div>
                 <div

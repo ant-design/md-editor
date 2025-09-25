@@ -856,7 +856,10 @@ export const FileComponent: FC<{
     <>
       {loading && loadingRender ? (
         // 使用自定义loading渲染函数
-        <div className={classNames(`${prefixCls}-container`, hashId)}>
+        <div
+          className={classNames(`${prefixCls}-container`, hashId)}
+          data-testid="file-component"
+        >
           {showSearch && (
             <div className={classNames(`${prefixCls}-search`, hashId)}>
               <Input
@@ -878,7 +881,10 @@ export const FileComponent: FC<{
       ) : (
         // 使用默认的Spin组件
         <Spin spinning={!!loading}>
-          <div className={classNames(`${prefixCls}-container`, hashId)}>
+          <div
+            className={classNames(`${prefixCls}-container`, hashId)}
+            data-testid="file-component"
+          >
             {showSearch && (
               <div className={classNames(`${prefixCls}-search`, hashId)}>
                 <Input

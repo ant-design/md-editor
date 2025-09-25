@@ -76,7 +76,7 @@ export const BrowserList: FC<{ data: BrowserItemInput }> = ({ data }) => {
   const { wrapSSR, hashId } = useBrowserStyle(prefixCls);
 
   return wrapSSR(
-    <div className={classNames(prefixCls, hashId)}>
+    <div className={classNames(prefixCls, hashId)} data-testid="browser-list">
       {data.title && (
         <div className={classNames(`${prefixCls}-header`, hashId)}>
           <div className={classNames(`${prefixCls}-title`, hashId)}>

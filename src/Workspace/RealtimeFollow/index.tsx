@@ -487,6 +487,7 @@ export const RealtimeFollowList: React.FC<{
     <div
       className={classNames(`${prefixCls}-container`, data.className, hashId)}
       style={data.style}
+      data-testid="realtime-follow"
     >
       <RealtimeHeader
         data={headerData}
