@@ -1,7 +1,7 @@
 import React from 'react';
 import { standardPlugins } from '../plugins/defaultPlugins';
 import { BaseMarkdownEditor, MarkdownEditorProps } from './BaseMarkdownEditor';
-// import './index.css';
+import './index.css';
 export * from './BaseMarkdownEditor';
 
 /**
