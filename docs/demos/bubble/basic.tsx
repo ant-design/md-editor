@@ -101,12 +101,12 @@ const mockInlineFileMap = new Map<string, AttachmentFile>([
     ),
   ],
   [
-    'api-reference.json',
+    'api-reference-henchangehnchangmingzichang.json',
     createMockFile(
-      'api-reference.json',
+      'api-reference-henchangehnchangmingzichang.json',
       'application/json',
       512000,
-      'https://example.com/api-reference.json',
+      'https://example.com/api-reference-henchangehnchangmingzichang.json',
     ),
   ],
   [

@@ -1,8 +1,13 @@
-﻿import {
-  DownloadOutlined,
-  EllipsisOutlined,
-  EyeOutlined,
-} from '@ant-design/icons';
+﻿// import {
+//   DownloadOutlined,
+//   EllipsisOutlined,
+//   EyeOutlined,
+// } from '@ant-design/icons';
+import {
+  DownloadIcon,
+  MoreIcon,
+  PreviewIcon,
+} from '@ant-design/md-editor/icons/FileIconList';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -126,7 +131,14 @@ export const FileMapViewItem: React.FC<{
               >
                 {file?.name.split('.').slice(-1)}
               </span>
-              |
+              <span
+                className={classNames(
+                  `${props.prefixCls}-separator`,
+                  props.hashId,
+                )}
+              >
+                |
+              </span>
               <div
                 className={classNames(
                   `${props.prefixCls}-file-size`,
@@ -135,7 +147,14 @@ export const FileMapViewItem: React.FC<{
               >
                 {kbToSize(file.size / 1024)}
               </div>
-              |
+              <span
+                className={classNames(
+                  `${props.prefixCls}-separator`,
+                  props.hashId,
+                )}
+              >
+                |
+              </span>
               <div>
                 {file?.lastModified
                   ? dayjs(file?.lastModified).format('HH:mm')
@@ -175,7 +194,7 @@ export const FileMapViewItem: React.FC<{
                       props.hashId,
                     )}
                   >
-                    <EyeOutlined />
+                    <PreviewIcon />
                   </div>
                   <div
                     onClick={(e) => {
@@ -187,7 +206,7 @@ export const FileMapViewItem: React.FC<{
                       props.hashId,
                     )}
                   >
-                    <DownloadOutlined />
+                    <DownloadIcon />
                   </div>
                   {props.renderMoreAction ? (
                     <div
@@ -197,12 +216,7 @@ export const FileMapViewItem: React.FC<{
                         props.hashId,
                       )}
                     >
-                      <EllipsisOutlined
-                        className={classNames(
-                          `${props.prefixCls}-more-icon`,
-                          props.hashId,
-                        )}
-                      />
+                      <MoreIcon />
                       <div
                         className={classNames(
                           `${props.prefixCls}-more-custom`,
