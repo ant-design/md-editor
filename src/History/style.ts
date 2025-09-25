@@ -9,7 +9,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [`${token.componentCls}-new-chat`]: {
       display: 'flex',
       alignItems: 'center',
-      gap: 8,
+      gap: '8px',
       cursor: 'pointer',
       padding: '5px 12px',
       borderRadius: 'var(--radius-control-base)',

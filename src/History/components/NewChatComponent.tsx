@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { NewChatIcon } from '../../icons';
 
@@ -48,20 +48,35 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
+  const handleClick = useCallback(async () => {
+    if (loading) return;
+    try {
+      setLoading(true);
+      await onNewChat();
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, onNewChat]);
+
+  const handleKeyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
+    (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        handleClick();
+      }
+    },
+    [handleClick],
+  );
+
   return (
     <div
-      onClick={async () => {
-        try {
-          if (loading) return;
-          setLoading(true);
-          await onNewChat();
-          setLoading(false);
-        } catch (error) {
-          // 处理错误
-        } finally {
-          setLoading(false);
-        }
-      }}
+      role="button"
+      tabIndex={0}
+      aria-label={locale?.['chat.history.newChat'] || '新对话'}
+      aria-disabled={loading}
+      aria-busy={loading}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       className={className}
     >
       <NewChatIcon
