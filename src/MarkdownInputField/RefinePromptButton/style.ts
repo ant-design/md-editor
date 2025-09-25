@@ -20,18 +20,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       width: 20,
       height: 20,
-      borderRadius: 6,
+      borderRadius: 'var(--radius-control-sm)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       boxSizing: 'border-box',
       cursor: 'pointer',
-      // 图标颜色
-      color: 'rgba(0, 25, 61, 0.3255)',
+      color: 'var(--color-gray-text-light)',
       transition: 'all 0.2s ease',
       '&:hover': {
-        backgroundColor: 'rgba(0, 25, 61, 0.06)',
-        color: 'rgba(0, 25, 61, 0.65)',
+        backgroundColor: 'var(--color-gray-bg-card-light)',
+        color: 'var(--color-gray-text-default)',
       },
       '&&-disabled': {
         cursor: 'not-allowed',

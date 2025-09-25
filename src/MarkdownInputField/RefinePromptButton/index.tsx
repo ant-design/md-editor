@@ -30,14 +30,12 @@ function LoadingIcon() {
         <path
           className="refine-icon-ring"
           d="M16 5.333a10.667 10.667 0 110 21.334A10.667 10.667 0 0116 5.333zm0 2.134a8.533 8.533 0 100 17.066 8.533 8.533 0 000-17.066z"
-          fill="#001C39"
-          fillOpacity={0.12}
+          fill="currentColor"
         />
         <path
           className="refine-icon-spinner"
           d="M16 2.667a13.333 13.333 0 0113.333 13.333 1.333 1.333 0 11-2.666 0 10.667 10.667 0 10-10.667 10.667 1.333 1.333 0 110 2.666A13.333 13.333 0 0116 2.667z"
-          fill="#00183D"
-          fillOpacity={0.25}
+          fill="currentColor"
         />
       </g>
     </svg>
