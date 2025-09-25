@@ -892,6 +892,7 @@ describe('addGlowBorderOffset', () => {
       expect(addGlowBorderOffset('0')).toBe('4px');
       expect(addGlowBorderOffset('-10')).toBe('-6px');
       expect(addGlowBorderOffset('10.5')).toBe('14.5px');
+      expect(addGlowBorderOffset('-10.5')).toBe('-6.5px');
     });
   });
 
@@ -903,6 +904,9 @@ describe('addGlowBorderOffset', () => {
       'unset',
       'revert',
       'revert-layer',
+      // 大小写混合校验
+      'AUTO',
+      'InHerit',
     ];
 
     globalKeywords.forEach((keyword) => {
@@ -913,7 +917,12 @@ describe('addGlowBorderOffset', () => {
   });
 
   describe('CSS 内在尺寸关键字处理', () => {
-    const intrinsicKeywords = ['min-content', 'max-content'];
+    const intrinsicKeywords = [
+      'min-content',
+      'max-content',
+      'MiN-CoNtEnT',
+      'MAX-CONTENT',
+    ];
 
     intrinsicKeywords.forEach((keyword) => {
       it(`应该直接返回内在尺寸关键字 "${keyword}" 而不包裹 calc()`, () => {
@@ -928,6 +937,8 @@ describe('addGlowBorderOffset', () => {
       'fit-content(50%)',
       'fit-content(10em)',
       'fit-content( 100px )', // 带空格
+      'FIT-CONTENT(100px)',
+      'FiT-CoNtEnT( 100% )',
     ];
 
     fitContentValues.forEach((value) => {
