@@ -1,5 +1,4 @@
-import { Button } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { NewChatIcon } from '../../icons';
 
@@ -9,6 +8,8 @@ import { NewChatIcon } from '../../icons';
 interface HistoryNewChatProps {
   /** 创建新对话的回调函数 */
   onNewChat: () => void;
+  /** 自定义样式类名 */
+  className?: string;
 }
 
 /**
@@ -42,47 +43,49 @@ interface HistoryNewChatProps {
  */
 export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   onNewChat,
+  className,
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
-  return (
-    <Button
-      color="primary"
-      variant="filled"
-      icon={
-        <NewChatIcon
-          style={{
-            fontSize: 16,
-            paddingTop: 2,
-          }}
-        />
+  const handleClick = useCallback(async () => {
+    if (loading) return;
+    try {
+      setLoading(true);
+      await onNewChat();
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, onNewChat]);
+
+  const handleKeyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
+    (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        handleClick();
       }
-      style={{
-        justifyContent: 'flex-start',
-        borderRadius: 'var(--radius-control-base)',
-        background: 'var(--color-primary-control-fill-secondary)',
-        fontSize: '14px',
-        fontWeight: 600,
-        lineHeight: '22px',
-        letterSpacing: 'normal',
-        color: 'var(--color-primary-text-secondary)',
-      }}
-      loading={loading}
-      onClick={async () => {
-        try {
-          setLoading(true);
-          await onNewChat();
-          setLoading(false);
-        } catch (error) {
-          // 处理错误
-        } finally {
-          setLoading(false);
-        }
-      }}
+    },
+    [handleClick],
+  );
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      aria-label={locale?.['chat.history.newChat'] || '新对话'}
+      aria-disabled={loading}
+      aria-busy={loading}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      className={className}
     >
+      <NewChatIcon
+        style={{
+          fontSize: 16,
+        }}
+      />
       {locale?.['chat.history.newChat'] || '新对话'}
-    </Button>
+    </div>
   );
 };
 

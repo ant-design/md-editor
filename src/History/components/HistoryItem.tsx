@@ -190,7 +190,7 @@ const HistoryItemSingle: React.FC<HistoryItemProps> = React.memo(
                 whiteSpace: 'nowrap',
                 WebkitLineClamp: 1,
                 WebkitBoxOrient: 'vertical',
-                fontSize: 'var(--font-text-body-base)',
+                font: 'var(--font-text-body-base)',
                 letterSpacing: 'var(--letter-spacing-body-base, normal)',
                 color: 'var(--color-gray-text-default)',
               }}
@@ -346,7 +346,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                   alignItems: 'center',
                   padding: '8px',
                   gap: '10px',
-                  fontSize: isSelected
+                  font: isSelected
                     ? 'var(--font-text-h6-base)'
                     : 'var(--font-text-body-base)',
                   borderRadius: '200px',
@@ -421,7 +421,7 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                 WebkitLineClamp: 1,
                 WebkitBoxOrient: 'vertical',
                 lineHeight: '20px',
-                fontSize: isSelected
+                font: isSelected
                   ? 'var(--font-text-h6-base)'
                   : 'var(--font-text-body-base)',
                 letterSpacing: 'var(--letter-spacing-h6-base, normal)',
@@ -450,9 +450,8 @@ const HistoryItemMulti: React.FC<HistoryItemProps> = React.memo(
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  fontSize: 'var(--font-text-body-xs)',
+                  font: 'var(--font-text-body-xs)',
                   color: 'var(--color-gray-text-secondary)',
-
                   letterSpacing: 'var(--letter-spacing-body-xs, normal)',
                 }}
               >
