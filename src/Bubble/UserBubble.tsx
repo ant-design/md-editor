@@ -5,13 +5,13 @@ import cx from 'classnames';
 import React from 'react';
 import { Quote, QuoteProps } from '../Quote';
 import { BubbleConfigContext } from './BubbleConfigProvide';
-import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { BubbleExtra } from './MessagesContent/BubbleExtra';
 import { useStyle } from './style';
 import type { BubbleMetaData, BubbleProps } from './type';
 
+import { BubbleFileView } from './FileView';
 import { BubbleTitle } from './Title';
 
 export const runRender = (
@@ -142,6 +142,9 @@ export const UserBubble: React.FC<
       customConfig={props?.bubbleRenderConfig?.customConfig}
       pure={props.pure}
       shouldShowCopy={props.shouldShowCopy}
+      fileViewEvents={props.fileViewEvents}
+      fileViewConfig={props.fileViewConfig}
+      renderFileMoreAction={props.renderFileMoreAction}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );

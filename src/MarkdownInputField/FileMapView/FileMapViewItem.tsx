@@ -1,8 +1,13 @@
-﻿import {
-  DownloadOutlined,
-  EllipsisOutlined,
-  EyeOutlined,
-} from '@ant-design/icons';
+﻿// import {
+//   DownloadOutlined,
+//   EllipsisOutlined,
+//   EyeOutlined,
+// } from '@ant-design/icons';
+import {
+  DownloadIcon,
+  MoreIcon,
+  PreviewIcon,
+} from '@ant-design/md-editor/icons/FileIconList';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -53,8 +58,8 @@ export const FileMapViewItem: React.FC<{
   file: AttachmentFile;
   onPreview: () => void;
   onDownload: () => void;
-  onMore?: () => void;
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
+  customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
   className?: string;
   prefixCls?: string;
   hashId?: string;
@@ -125,7 +130,14 @@ export const FileMapViewItem: React.FC<{
               >
                 {file?.name.split('.').slice(-1)}
               </span>
-              |
+              <span
+                className={classNames(
+                  `${props.prefixCls}-separator`,
+                  props.hashId,
+                )}
+              >
+                |
+              </span>
               <div
                 className={classNames(
                   `${props.prefixCls}-file-size`,
@@ -134,7 +146,14 @@ export const FileMapViewItem: React.FC<{
               >
                 {kbToSize(file.size / 1024)}
               </div>
-              |
+              <span
+                className={classNames(
+                  `${props.prefixCls}-separator`,
+                  props.hashId,
+                )}
+              >
+                |
+              </span>
               <div>
                 {file?.lastModified
                   ? dayjs(file?.lastModified).format('HH:mm')
@@ -150,31 +169,7 @@ export const FileMapViewItem: React.FC<{
                 props.hashId,
               )}
             >
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  props.onPreview?.();
-                }}
-                className={classNames(
-                  `${props.prefixCls}-action-btn`,
-                  props.hashId,
-                )}
-              >
-                <EyeOutlined />
-              </div>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  props.onDownload?.();
-                }}
-                className={classNames(
-                  `${props.prefixCls}-action-btn`,
-                  props.hashId,
-                )}
-              >
-                <DownloadOutlined />
-              </div>
-              {props.renderMoreAction ? (
+              {props.customSlot ? (
                 <div
                   onClick={(e) => e.stopPropagation()}
                   className={classNames(
@@ -182,22 +177,70 @@ export const FileMapViewItem: React.FC<{
                     props.hashId,
                   )}
                 >
-                  <EllipsisOutlined
-                    className={classNames(
-                      `${props.prefixCls}-more-icon`,
-                      props.hashId,
-                    )}
-                  />
+                  {typeof props.customSlot === 'function'
+                    ? props.customSlot(file)
+                    : props.customSlot}
+                </div>
+              ) : (
+                <>
                   <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      props.onPreview?.();
+                    }}
                     className={classNames(
-                      `${props.prefixCls}-more-custom`,
+                      `${props.prefixCls}-action-btn`,
                       props.hashId,
                     )}
                   >
-                    {props.renderMoreAction(file)}
+                    <PreviewIcon />
                   </div>
-                </div>
-              ) : null}
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      props.onDownload?.();
+                    }}
+                    className={classNames(
+                      `${props.prefixCls}-action-btn`,
+                      props.hashId,
+                    )}
+                  >
+                    <DownloadIcon />
+                  </div>
+                  {props.renderMoreAction ? (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label="更多操作"
+                      className={classNames(
+                        `${props.prefixCls}-action-btn`,
+                        props.hashId,
+                      )}
+                    >
+                      <MoreIcon />
+                      {props.renderMoreAction ? (
+                        <div
+                          className={classNames(
+                            `${props.prefixCls}-more-custom`,
+                            props.hashId,
+                          )}
+                        >
+                          {props.renderMoreAction(file)}
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </>
+              )}
             </div>
           ) : null}
         </motion.div>

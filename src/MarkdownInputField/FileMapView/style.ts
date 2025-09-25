@@ -24,6 +24,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-right': {
         flexDirection: 'row-reverse',
       },
+      '&-vertical': {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        gap: 2,
+      },
       '&::-webkit-scrollbar': {
         width: 6,
       },
@@ -42,7 +48,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
         color: 'var(--color-gray-a9)',
         fontSize: 'var(--font-size-base)',
-        border: '1px solid #E6ECF4',
+        border: '1px solid var(--color-gray-border-light)',
 
         '&:hover': {
           background: '#F7F8FA',
@@ -58,34 +64,33 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       [`${token.antCls}-image-mask`]: {
-        borderRadius: '16px',
+        borderRadius: 'var(--radius-control-base)',
       },
       img: {
         objectFit: 'cover',
       },
       '&-image': {
-        borderRadius: '18px',
+        borderRadius: 'var(--radius-control-base)',
         opacity: 1,
         background: 'var(--color-gray-bg-card-white)',
         boxSizing: 'border-box',
-        border: '1px solid #E6ECF4',
+        border: '1px solid var(--color-gray-border-light)',
         padding: 6,
       },
       '&-more-file-container': {
-        width: 'calc(100% - 16px)',
+        width: '294px',
         height: '56px',
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
         border: '1px solid var(--color-gray-border-light)',
-        margin: '0 8px 8px 8px',
+        margin: 0,
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
         cursor: 'pointer',
         justifyContent: 'center',
         '&:hover': {
-          boxShadow:
-            '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
+          boxShadow: 'var(--shadow-control-lg)',
         },
       },
       '&-more-file-icon': {
@@ -98,7 +103,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-secondary)',
       },
       '&-item': {
-        width: '100%',
+        width: '294px',
         height: '56px',
         borderRadius: 'var(--radius-card-base)',
         opacity: 1,
@@ -110,18 +115,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'row',
         alignItems: 'center',
         cursor: 'pointer',
-        gap: '8px',
+        gap: '4px',
         position: 'relative',
         '&:hover': {
-          boxShadow:
-            '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
+          boxShadow: 'var(--shadow-control-lg)',
         },
         '&-action-bar': {
           position: 'absolute',
           right: 8,
           top: 8,
           display: 'flex',
-          gap: 8,
+          gap: 2,
         },
         '&-action-btn': {
           width: 36,
@@ -130,14 +134,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
-          borderRadius: 8,
+          borderRadius: 'var(--radius-control-base)',
           background: 'var(--color-gray-control-fill-secondary)',
           backdropFilter: 'blur(40px)',
           cursor: 'pointer',
-        },
-        // “更多”省略号图标：使用父容器 flex 居中，仅保留旋转
-        '&-more-icon': {
-          transform: 'rotate(90deg)',
         },
         '&-more-custom': {
           position: 'absolute',
@@ -166,13 +166,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-file-name': {
           color: 'var(--color-gray-text-default)',
           fontSize: 'var(--font-text-h6-base)',
-          width: '150px',
+          width: '160px',
           alignItems: 'center',
           lineHeight: '18px',
           fontFamily: token.fontFamily,
           gap: -1,
           '&-text': {
-            maxWidth: '150px',
+            maxWidth: '160px',
             whiteSpace: 'nowrap',
             width: '100%',
             overflow: 'hidden',
@@ -189,8 +189,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           color: 'var(--color-gray-text-light)',
           fontSize: '12px',
         },
+        '&-separator': {
+          margin: '0 4px',
+        },
         '&-file-size': {
-          padding: '0 4px',
           color: 'var(--color-gray-text-light)',
           fontSize: '12px',
         },
