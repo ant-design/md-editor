@@ -471,6 +471,57 @@ export default () => {
 };
 ```
 
+### 启用提示词优化 refinePrompt
+
+```tsx
+import { MarkdownInputField } from '@ant-design/md-editor';
+
+export default () => {
+  const [value, setValue] = React.useState(
+    '请将这段提示语优化为更清晰的英文表达，并保留关键术语。',
+  );
+
+  return (
+    <>
+      <div
+        style={{
+          padding: 20,
+        }}
+      >
+        <MarkdownInputField
+          value={value}
+          onChange={setValue}
+          refinePrompt={{
+            enable: true,
+            onRefine: async (input) => {
+              // 模拟异步优化（真实项目可调用后端/模型服务）
+              await new Promise((r) => setTimeout(r, 600));
+              return `Optimized: ${input}`;
+            },
+          }}
+        />
+      </div>
+      <div>
+        <h4>说明</h4>
+        <ul>
+          <li>
+            <code>refinePrompt.enable</code> 为 true
+            时，右上“快速操作”区域会显示“优化提示词/撤销”按钮
+          </li>
+          <li>
+            <code>refinePrompt.onRefine</code> 接收当前输入文本，返回
+            Promise&lt;string&gt; 作为优化后的文本
+          </li>
+          <li>
+            优化完成后按钮切换为“撤销”；若用户手动编辑了优化后的内容，按钮恢复为初始状态
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
+```
+
 ### 启用附件功能
 
 ```tsx
@@ -653,6 +704,16 @@ export default () => {
               自定义
             </button>,
           ]}
+          actionsRender={(props) => [
+            <button key="custom" onClick={() => console.log('自定义按钮')}>
+              自定义
+            </button>,
+          ]}
+          quickActionRender={(props) => [
+            <button key="top-right" onClick={() => console.log('右上按钮')}>
+              右上
+            </button>,
+          ]}
         />
       </div>
       <div>
@@ -671,6 +732,10 @@ export default () => {
                 <code>defaultActions</code> - 默认的操作按钮数组
               </li>
             </ul>
+          </li>
+          <li>
+            <code>quickActionRender</code> -
+            在编辑区域右上、贴右侧渲染按钮组；组件会根据其宽度自动为文本区域预留右侧内边距，避免遮挡。
           </li>
         </ul>
       </div>
