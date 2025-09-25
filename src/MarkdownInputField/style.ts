@@ -41,7 +41,7 @@ export const addGlowBorderOffset = (size: string | number) => {
 // Input field padding constants - 输入字段内边距常量
 const INPUT_FIELD_PADDING = {
   NONE: '0px',
-  SMALL: '2px',
+  SMALL: `${GLOW_BORDER_OFFSET}px`,
 } as const;
 
 // 定义旋转动画
@@ -65,6 +65,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: INPUT_FIELD_PADDING.NONE,
+      margin: INPUT_FIELD_PADDING.SMALL,
       borderRadius: '16px',
       minHeight: '48px',
       maxWidth: 980,
