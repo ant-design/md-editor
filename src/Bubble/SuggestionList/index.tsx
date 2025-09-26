@@ -19,8 +19,12 @@ export interface SuggestionListProps {
   style?: React.CSSProperties;
   items?: SuggestionItem[];
   onItemClick?: (value: string) => void | Promise<void>;
-  layout?: 'vertical' | 'horizontal';
+  /** 最大显示数量 */
   maxItems?: number;
+  /** 布局类型：垂直布局、水平布局 */
+  layout?: 'vertical' | 'horizontal';
+  /** 样式类型：基础版、透明版、白色版 */
+  type?: 'basic' | 'transparent' | 'white';
 }
 
 export const SuggestionList: React.FC<SuggestionListProps> = ({
@@ -30,6 +34,7 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
   onItemClick,
   layout = 'vertical',
   maxItems = 6,
+  type = 'basic',
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const prefixCls = context?.getPrefixCls('follow-up');
@@ -48,6 +53,7 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
     className,
     hashId,
     `${prefixCls}-${layout}`,
+    `${prefixCls}-${type}`,
   );
 
   return wrapSSR(

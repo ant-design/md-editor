@@ -30,6 +30,26 @@ const initAssistant: MessageBubbleData = {
   },
 };
 
+const items = [
+  {
+    key: 'qwe',
+    icon: '💸',
+    text: '关税对消费类基金的影响',
+    tooltip: '关税消费',
+  },
+  {
+    key: 'asd',
+    icon: '📝',
+    text: ' 恒生科技指数基金相关新闻',
+  },
+  {
+    key: 'zxc',
+    icon: '📊',
+    text: ' 数据分析与可视化',
+    disabled: true,
+  },
+];
+
 export default function FollowUpBasicDemo() {
   const bubbleRef = useRef<any>();
   const [list, setList] = useState<MessageBubbleData[]>([initAssistant]);
@@ -84,6 +104,7 @@ export default function FollowUpBasicDemo() {
                 console.log('回复:', content);
               }}
             />
+            <div>基础版本示例</div>
             {m.id === initAssistant.id ? (
               <div
                 style={{
@@ -93,55 +114,53 @@ export default function FollowUpBasicDemo() {
                 }}
               >
                 <SuggestionList
-                  items={[
-                    {
-                      key: 'qwe',
-                      icon: '💸',
-                      text: '关税对消费类基金的影响',
-                      tooltip: '关税消费',
-                    },
-                    {
-                      key: 'asd',
-                      icon: '📝',
-                      text: ' 恒生科技指数基金相关新闻',
-                    },
-                    {
-                      key: 'zxc',
-                      icon: '📊',
-                      text: ' 数据分析与可视化',
-                      disabled: true,
-                    },
-                  ]}
+                  items={items}
+                  onItemClick={handleAsk}
+                  type="basic"
+                />
+              </div>
+            ) : null}
+            <div>透明版本示例</div>
+            {m.role === 'assistant' && m.id === 'a-1' ? (
+              <div
+                style={{
+                  marginLeft: 10,
+                }}
+              >
+                <SuggestionList
+                  type="transparent"
+                  maxItems={4}
+                  items={items}
                   onItemClick={handleAsk}
                 />
               </div>
             ) : null}
-
-            {/* 横向布局示例 */}
+            <div>白色版本示例</div>
             {m.role === 'assistant' && m.id === 'a-1' ? (
               <div
                 style={{
-                  paddingLeft: 20,
-                  marginTop: -24,
+                  marginLeft: 10,
+                }}
+              >
+                <SuggestionList
+                  type="white"
+                  maxItems={4}
+                  items={items}
+                  onItemClick={handleAsk}
+                />
+              </div>
+            ) : null}
+            <div>横向布局示例</div>
+            {m.role === 'assistant' && m.id === 'a-1' ? (
+              <div
+                style={{
+                  marginLeft: 10,
                 }}
               >
                 <SuggestionList
                   layout="horizontal"
                   maxItems={4}
-                  items={[
-                    {
-                      key: 'quick1',
-                      text: '快速操作1',
-                    },
-                    {
-                      key: 'quick2',
-                      text: '快速操作2',
-                    },
-                    {
-                      key: 'quick3',
-                      text: '快速操作3',
-                    },
-                  ]}
+                  items={items}
                   onItemClick={(value) => {
                     message.info(`横向布局点击了: ${value}`);
                   }}

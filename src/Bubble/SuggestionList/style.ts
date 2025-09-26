@@ -76,6 +76,39 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             transform: 'translateX(2px)',
           },
       },
+      // 类型：基础版
+      '&-basic': {
+        [`${token.componentCls}-suggestion`]: {
+          background: 'var(--color-gray-bg-card-light)',
+          boxShadow: 'none',
+          '&:hover:not(&-disabled)': {
+            background: 'var(--color-gray-control-fill-active)',
+            boxShadow: 'none',
+          },
+        },
+      },
+      // 类型：透明版
+      '&-transparent': {
+        [`${token.componentCls}-suggestion`]: {
+          background: 'var(--color-gray-bg-transparent)',
+          boxShadow: 'none',
+          '&:hover:not(&-disabled)': {
+            background: 'var(--color-gray-control-fill-hover)',
+            boxShadow: 'none',
+          },
+        },
+      },
+      // 类型：白色版
+      '&-white': {
+        [`${token.componentCls}-suggestion`]: {
+          background: 'var(--color-gray-bg-card-white)',
+          boxShadow: 'var(--shadow-control-base)',
+          '&:hover:not(&-disabled)': {
+            background: 'var(--color-gray-bg-card-white)',
+            boxShadow: 'var(--shadow-control-lg)',
+          },
+        },
+      },
 
       '&-icon': {
         flex: '0 0 auto',
