@@ -45,7 +45,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'center',
         padding: '0',
       },
-      div: {
+      '& > div:first-child': {
         width: '32px',
         height: '32px',
         display: 'flex',
