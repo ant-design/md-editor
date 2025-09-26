@@ -31,7 +31,7 @@ import { RefinePromptButton } from './RefinePromptButton';
 import { SendButton } from './SendButton';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
-import { useStyle } from './style';
+import { addGlowBorderOffset, useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import {
   VoiceInputButton,
@@ -147,7 +147,12 @@ export type MarkdownInputFieldProps = {
   ) => void;
 
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
-  bgColorList?: [string, string, string, string];
+  /**
+   * 背景颜色列表 - 用于生成渐变背景效果
+   * @description 推荐使用 3-4 种颜色以获得最佳视觉效果
+   * @default ['#CD36FF', '#FFD972', '#eff0f1']
+   */
+  bgColorList?: string[];
   borderRadius?: number;
 
   beforeToolsRender?: (
@@ -389,6 +394,7 @@ export type MarkdownInputFieldProps = {
    */
   onSkillModeOpenChange?: (open: boolean) => void;
 };
+
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
  * 对于数组中的每种颜色，该函数会创建一个新的序列，其中颜色按照循环顺序排列，
@@ -400,12 +406,18 @@ export type MarkdownInputFieldProps = {
  * // 返回 [['red', 'blue', 'green', 'red'], ['blue', 'green', 'red', 'blue'], ['green', 'red', 'blue', 'green']]
  * generateEdges(['red', 'blue', 'green'])
  */
-export function generateEdges(colors: string[]) {
-  return colors.map((current, index) => {
-    const rotated = colors.slice(index).concat(colors.slice(0, index));
+export const generateEdges = (colors: string[]): string[][] => {
+  if (!Array.isArray(colors) || colors.length === 0) return [];
+  // 至少保证 3 个颜色，便于后续得到 4 段动画停靠点
+  const base =
+    colors.length >= 3
+      ? colors
+      : [...colors, ...colors.slice(0, 3 - colors.length)];
+  return base.map((current, index) => {
+    const rotated = base.slice(index).concat(base.slice(0, index));
     return [...rotated, current];
   });
-}
+};
 
 /**
  * MarkdownInputField 组件 - Markdown输入字段组件
@@ -424,7 +436,7 @@ export function generateEdges(colors: string[]) {
  * @param {boolean} [props.disabled] - 是否禁用
  * @param {boolean} [props.typing] - 是否正在输入
  * @param {AttachmentProps} [props.attachment] - 附件配置
- * @param {string[]} [props.bgColorList] - 背景颜色列表
+ * @param {string[]} [props.bgColorList] - 背景颜色列表，推荐使用3-4种颜色
  * @param {React.RefObject} [props.inputRef] - 输入框引用
  * @param {MarkdownRenderConfig} [props.markdownRenderConfig] - Markdown渲染配置
  * @param {SuggestionProps} [props.suggestion] - 自动完成配置
@@ -615,7 +627,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   /**
    * 生成背景颜色列表
-   * @description 该函数用于生成背景颜色列表，默认使用四种颜色。
+   * @description 该函数用于生成背景颜色列表，默认使用三种颜色。
    * @returns {string[][]} 颜色列表
    */
   const colorList = useMemo(() => {
@@ -632,6 +644,19 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       setFileMap?.(new Map(newFileMap));
     },
   );
+
+  /**
+   * 背景容器尺寸计算
+   */
+  const bgSize = useMemo(() => {
+    const height = props.style?.height
+      ? addGlowBorderOffset(props.style.height)
+      : addGlowBorderOffset('100%');
+    const width = props.style?.width
+      ? addGlowBorderOffset(props.style.width)
+      : addGlowBorderOffset('100%');
+    return { height, width };
+  }, [props.style?.height, props.style?.width]);
   // 默认支持的文件格式
   const supportedFormat = useMemo(() => {
     if (props.attachment?.supportedFormat) {
@@ -890,8 +915,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             })}
             style={{
               minHeight: props.style?.minHeight || 0,
-              height: props.style?.height || '100%',
-              width: props.style?.width || '100%',
+              height: bgSize.height,
+              width: bgSize.width,
             }}
           >
             <svg
@@ -942,6 +967,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               </g>
             </svg>
           </div>
+
           <div
             style={{
               flex: 1,

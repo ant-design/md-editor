@@ -1044,7 +1044,6 @@ import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
 
 export default () => {
-  const [value, setValue] = React.useState('');
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
   const [enableFeature, setEnableFeature] = React.useState(true);
   const [changeLog, setChangeLog] = React.useState([]);
@@ -1098,8 +1097,6 @@ export default () => {
       </div>
 
       <MarkdownInputField
-        value={value}
-        onChange={setValue}
         placeholder="请输入内容..."
         skillMode={{
           enable: enableFeature, // 控制整个功能是否启用
@@ -1143,7 +1140,6 @@ export default () => {
         }}
         onSend={async (text) => {
           console.log('发送内容:', text);
-          await new Promise((resolve) => setTimeout(resolve, 1000));
         }}
       />
 
