@@ -94,139 +94,34 @@ export default () => {
         return (
           <ActionItemContainer>
             <ActionItemBox
-              onClick={() => console.log('快捷技能123')}
+              onClick={() => console.log('快捷技能1')}
               icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
               iconSize={16}
               size="small"
               title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能123</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能1</span>
               }
+              key="快捷技能1"
             />
             <ActionItemBox
-              onClick={() => console.log('快捷技能')}
+              onClick={() => console.log('快捷技能2')}
               icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
               iconSize={16}
               size="small"
               title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能2</span>
               }
+              key="快捷技能2"
             />
             <ActionItemBox
-              onClick={() => console.log('快捷技能')}
+              onClick={() => console.log('快捷技能3')}
               icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
               iconSize={16}
               size="small"
               title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能3</span>
               }
-            />
-             <ActionItemBox
-              onClick={() => console.log('快捷技能123')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能123</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
-            />
-             <ActionItemBox
-              onClick={() => console.log('快捷技能123')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能123</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
-            />
-             <ActionItemBox
-              onClick={() => console.log('快捷技能123')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能123</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
-            />
-             <ActionItemBox
-              onClick={() => console.log('快捷技能123')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能123</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能</span>
-              }
+              key="快捷技能3"
             />
           </ActionItemContainer>
         );

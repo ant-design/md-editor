@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { useStyle } from './actionItemBoxStyle';
 
 export type ActionItemContainerProps = {
-  children: React.ReactNode;
+  children: React.ReactElement | React.ReactElement[];
   size?: 'small' | 'large' | 'default';
   style?: React.CSSProperties;
 };
@@ -31,6 +31,19 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   };
 
   const [ordered, setOrdered] = useState<ChildEntry[]>(() => toEntries(props.children));
+  
+  useEffect(() => {
+    let hasMissingKey = false;
+    React.Children.forEach(props.children as any, (child) => {
+      if (!React.isValidElement(child)) return;
+      if (child.key === null) {
+        hasMissingKey = true;
+      }
+    });
+    if (hasMissingKey) {
+      throw new Error('ActionItemContainer: all children must include an explicit `key` prop.');
+    }
+  }, [props.children]);
 
   // keep ordered list in sync when children change; preserve existing order by key when possible
   useEffect(() => {
@@ -185,8 +198,8 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         hashId,
       )}
     >
-      {ordered.map((entry, i) => (
-        <React.Fragment key={entry.key ?? i}>{entry.node}</React.Fragment>
+      {ordered.map((entry) => (
+        <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
       ))}
       <div className={classNames(`${basePrefixCls}-container-overflow-container`, hashId)}>
           <div
@@ -240,7 +253,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                     return ordered.length > 0
                       ? ordered.map((entry, index) => (
                           <div
-                            key={(entry.key as any) ?? index}
+                            key={entry.key as any}
                             className={classNames(
                               `${basePrefixCls}-container-overflow-container-popup-item`,
                               hashId,
