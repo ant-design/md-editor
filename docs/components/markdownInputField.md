@@ -512,9 +512,7 @@ export default () => {
             <code>refinePrompt.onRefine</code> 接收当前输入文本，返回
             Promise&lt;string&gt; 作为优化后的文本
           </li>
-          <li>
-            优化完成后按钮切换为“撤销”；若用户手动编辑了优化后的内容，按钮恢复为初始状态
-          </li>
+          <li>优化完成后按钮恢复为“优化提示词”；</li>
         </ul>
       </div>
     </>

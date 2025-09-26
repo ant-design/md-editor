@@ -1,7 +1,7 @@
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
-import { ConfigProvider } from 'antd';
 import React, {
   useContext,
   useEffect,
@@ -27,8 +27,8 @@ import {
 import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover';
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
 import { AttachmentFile } from './AttachmentButton/types';
-import { SendButton } from './SendButton';
 import { RefinePromptButton } from './RefinePromptButton';
+import { SendButton } from './SendButton';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
 import { useStyle } from './style';
@@ -478,9 +478,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [quickRightOffset, setQuickRightOffset] = useState(0);
 
   const computedRightPadding = useMemo(() => {
-    const bottomOverlayPadding = props.toolsRender
-      ? 0
-      : (rightPadding || 52);
+    const bottomOverlayPadding = props.toolsRender ? 0 : rightPadding || 52;
     const topOverlayPadding = (topRightPadding || 0) + (quickRightOffset || 0);
     return Math.max(bottomOverlayPadding, topOverlayPadding);
   }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset]);
@@ -497,8 +495,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const recognizerRef = React.useRef<VoiceRecognizer | null>(null);
   const pendingRef = React.useRef(false);
 
-   // 是否需要多行布局
-   const isMultiRowLayout = useMemo(() => {
+  // 是否需要多行布局
+  const isMultiRowLayout = useMemo(() => {
     return !!(
       props?.quickActionRender ||
       props?.refinePrompt?.enable ||
@@ -777,29 +775,28 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     return null;
   }, [props, isHover, isLoading]);
 
-    // 统一应用内容到编辑器与受控值
-    const applyEditorContent = useRefFunction((text: string) => {
-      markdownEditorRef?.current?.store?.setMDContent(text);
-      setValue(text);
-      props.onChange?.(text);
-    });
-  
-    const handleRefine = useRefFunction(async () => {
-      if (!props.refinePrompt?.enable) return;
-      if (!props.refinePrompt?.onRefine) return;
-      if (refineStatus === 'loading') return;
-      const current =
-        markdownEditorRef?.current?.store?.getMDContent?.() ?? value ?? '';
-      setRefineStatus('loading');
-      try {
-        const refined = await props.refinePrompt.onRefine(current);
-        applyEditorContent(refined ?? '');
-        setRefineStatus('idle');
-      } catch (e) {
-        setRefineStatus('idle');
-      }
-    });
-  
+  // 统一应用内容到编辑器与受控值
+  const applyEditorContent = useRefFunction((text: string) => {
+    markdownEditorRef?.current?.store?.setMDContent(text);
+    setValue(text);
+    props.onChange?.(text);
+  });
+
+  const handleRefine = useRefFunction(async () => {
+    if (!props.refinePrompt?.enable) return;
+    if (!props.refinePrompt?.onRefine) return;
+    if (refineStatus === 'loading') return;
+    const current =
+      markdownEditorRef?.current?.store?.getMDContent?.() ?? value ?? '';
+    setRefineStatus('loading');
+    try {
+      const refined = await props.refinePrompt.onRefine(current);
+      applyEditorContent(refined ?? '');
+      setRefineStatus('idle');
+    } catch (e) {
+      setRefineStatus('idle');
+    }
+  });
 
   return wrapSSR(
     <>
@@ -1164,59 +1161,59 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 </div>
               </RcResizeObserver>
             )}
-                      {props?.quickActionRender || props.refinePrompt?.enable ? (
-            <RcResizeObserver
-              onResize={(e) => {
-                setTopRightPadding(e.offsetWidth);
-                try {
-                  const styles = window.getComputedStyle(
-                    quickActionsRef.current as Element,
-                  );
-                  const right = parseFloat(styles.right || '0');
-                  if (!Number.isNaN(right)) setQuickRightOffset(right);
-                } catch {}
-              }}
-            >
-              <div
-                ref={quickActionsRef}
-                contentEditable={false}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
+            {props?.quickActionRender || props.refinePrompt?.enable ? (
+              <RcResizeObserver
+                onResize={(e) => {
+                  setTopRightPadding(e.offsetWidth);
+                  try {
+                    const styles = window.getComputedStyle(
+                      quickActionsRef.current as Element,
+                    );
+                    const right = parseFloat(styles.right || '0');
+                    if (!Number.isNaN(right)) setQuickRightOffset(right);
+                  } catch {}
                 }}
-                onKeyDown={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-                className={classNames(`${baseCls}-quick-actions`, hashId)}
               >
-                {(props?.quickActionRender
-                  ? props?.quickActionRender({
-                      value,
-                      fileMap,
-                      onFileMapChange: setFileMap,
-                      ...props,
-                      isHover,
-                      isLoading,
-                      fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
-                    })
-                  : []
-                )?.concat(
-                  props.refinePrompt?.enable
-                    ? [
-                        <RefinePromptButton
-                          key="refine-prompt"
-                          isHover={isHover}
-                          disabled={props.disabled}
-                          status={refineStatus}
-                          onRefine={handleRefine}
-                        />,
-                      ]
-                    : [],
-                )}
-              </div>
+                <div
+                  ref={quickActionsRef}
+                  contentEditable={false}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  className={classNames(`${baseCls}-quick-actions`, hashId)}
+                >
+                  {(props?.quickActionRender
+                    ? props?.quickActionRender({
+                        value,
+                        fileMap,
+                        onFileMapChange: setFileMap,
+                        ...props,
+                        isHover,
+                        isLoading,
+                        fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                      })
+                    : []
+                  )?.concat(
+                    props.refinePrompt?.enable
+                      ? [
+                          <RefinePromptButton
+                            key="refine-prompt"
+                            isHover={isHover}
+                            disabled={props.disabled}
+                            status={refineStatus}
+                            onRefine={handleRefine}
+                          />,
+                        ]
+                      : [],
+                  )}
+                </div>
               </RcResizeObserver>
-          ) : null}
+            ) : null}
           </div>
         </div>
       </Suggestion>
