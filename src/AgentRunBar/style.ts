@@ -58,8 +58,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         // background:
         //   'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
         background:
-          'linear-gradient(90deg, #D3FEFF 0%, #FFF16F 25%, rgba(82, 212, 255, 0.2329) 50%, #D3FEFF 75%, #D3FEFF 100%)',
-        backgroundSize: '200% 100%',
+          'linear-gradient(90deg, #D3FEFF 0%, #FFF16F 16%, rgba(82, 212, 255, 0.2329) 50%, #D3FEFF 75%, #D3FEFF 100%)',
+        backgroundSize: '200% 50%',
         borderRadius: 'var(--radius-card-lg)',
         opacity: 1,
         boxShadow: 'var(--shadow-popover-base)',

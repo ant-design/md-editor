@@ -3,12 +3,9 @@ import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../i18n';
-import { CirclePause, CirclePlay, CircleStop, Pause, Play } from '../icons';
+import { CirclePause, CircleStop, Pause, Play, PlayFill } from '../icons';
 import Robot from './Robot';
 import { useStyle } from './style';
-
-export { DazingLottie } from './icons/DazingLottie';
-export { ThinkingLottie } from './icons/ThinkingLottie';
 
 /**
  * 任务状态枚举
@@ -315,7 +312,7 @@ const renderButtonGroup = ({
             aria-label={playTitle}
             onClick={onResume}
           >
-            {variant === 'simple' ? <CirclePlay /> : <Play />}
+            {variant === 'simple' ? <PlayFill /> : <Play />}
           </div>
         </Tooltip>
       )}
