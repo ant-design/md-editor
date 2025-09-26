@@ -41,6 +41,13 @@ const TaskIconMap: (
   };
 };
 
+const FADE_OUT_GRADIENT = 'linear-gradient(to left, transparent, black 20%)';
+
+const getMaskStyle = (isOverflow: boolean) => ({
+  WebkitMaskImage: isOverflow ? FADE_OUT_GRADIENT : 'none',
+  maskImage: isOverflow ? FADE_OUT_GRADIENT : 'none',
+});
+
 /**
  * 文本溢出检测的额外滚动偏移量，用于确保文本滚动动画的平滑过渡
  * 当文本滚动到末尾时，这个偏移量会让文本多滚动一段距离，使其看起来更自然
@@ -252,12 +259,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                 position: 'relative',
                 width: 'calc(100% - 10px)',
                 overflow: 'hidden',
-                WebkitMaskImage: isTextOverflow
-                  ? 'linear-gradient(to left, transparent, black 20%)'
-                  : 'none',
-                maskImage: isTextOverflow
-                  ? 'linear-gradient(to left, transparent, black 20%)'
-                  : 'none',
+                ...getMaskStyle(isTextOverflow),
               }}
             >
               <Tooltip
@@ -513,12 +515,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                   position: 'relative',
                   maxWidth: 'calc(100% - 10px)',
                   overflow: 'hidden',
-                  WebkitMaskImage: isTextOverflow
-                    ? 'linear-gradient(to left, transparent, black 20%)'
-                    : 'none',
-                  maskImage: isTextOverflow
-                    ? 'linear-gradient(to left, transparent, black 20%)'
-                    : 'none',
+                  ...getMaskStyle(isTextOverflow),
                 }}
               >
                 <div

@@ -134,8 +134,8 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
         <Input
           placeholder={
             type === 'task'
-              ? locale?.['chat.task.search.placeholder'] || '| 搜索任务'
-              : locale?.['chat.history.search.placeholder'] || '| 搜索话题'
+              ? locale?.['chat.task.search.placeholder'] || '搜索任务'
+              : locale?.['chat.history.search.placeholder'] || '搜索话题'
           }
           prefix={loading ? <Spin size="small" /> : <SearchIcon />}
           onChange={(e) => {
@@ -144,11 +144,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
           style={{
             width: '100%',
             height: 32,
-            borderRadius: 'var(--radius-control-base)',
             background: 'var(--color-gray-bg-card-light)',
-            border:
-              '1px solid var(--color-primary-control-fill-primary-active)',
-            boxShadow: 'var(--shadow-border-base)',
           }}
           allowClear
           variant="filled"
