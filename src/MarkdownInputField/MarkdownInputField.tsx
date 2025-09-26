@@ -1,7 +1,7 @@
-﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
+import { ConfigProvider } from 'antd';
 import React, {
   useContext,
   useEffect,
