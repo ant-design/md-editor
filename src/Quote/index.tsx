@@ -1,9 +1,7 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { CloseFillIcon } from '../icons/CloseFillIcon';
-import { CornerLeftUp } from '../icons/CornerLeftUp';
-import QuoteIcon from '../icons/QuoteIcon';
+import { CloseCircleFill, CornerLeftUp, QuoteBefore } from '../icons';
 import { useStyle } from './style';
 
 /**
@@ -116,7 +114,7 @@ export const Quote: React.FC<QuoteProps> = ({
   return wrapSSR(
     <div className={containerCls} style={style} data-testid="quote-container">
       <div className={quoteIconCls} data-testid="quote-icon">
-        <QuoteIcon />
+        <QuoteBefore />
       </div>
       <span className={quoteDescriptionCls} data-testid="quote-description">
         {quoteDescription}
@@ -128,7 +126,7 @@ export const Quote: React.FC<QuoteProps> = ({
           className={closeCls}
           data-testid="quote-close-button"
         >
-          <CloseFillIcon />
+          <CloseCircleFill />
         </div>
       )}
 

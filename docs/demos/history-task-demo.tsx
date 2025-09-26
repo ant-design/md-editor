@@ -1,6 +1,7 @@
-import { History, HistoryDataType } from '@ant-design/md-editor';
+import { MoreOutlined } from '@ant-design/icons';
+import { ActionIconBox, History, HistoryDataType } from '@ant-design/md-editor';
+import { Dropdown } from 'antd';
 import React, { useState } from 'react';
-
 const TaskHistoryDemo = () => {
   const [currentSessionId, setCurrentSessionId] = useState('session-1');
 
@@ -11,9 +12,10 @@ const TaskHistoryDemo = () => {
       {
         id: '1',
         sessionId: 'session-1',
-        sessionTitle: 'Create Printable PDF from...',
-        description: '这个任务会比较复杂，我会...',
-        icon: '📋',
+        sessionTitle: '帮我规划一条重庆两日游路线',
+        description:
+          '这个任务会比较复杂，我会根据你的需求生成一条路线，并给出详细的攻略',
+        status: 'success',
         agentId: agentId,
         gmtCreate: 1703123456789,
         gmtLastConverse: 1703123456789,
@@ -21,9 +23,9 @@ const TaskHistoryDemo = () => {
       {
         id: '3',
         sessionId: 'session-3',
-        sessionTitle: '数据分析任务',
+        sessionTitle: 'Create Printable PDF from Subtitle Test',
         description: '需要分析用户行为数据并生成报告',
-        icon: '📊',
+        status: 'success',
         agentId: agentId,
         gmtCreate: 1702950656789,
         gmtLastConverse: 1702950656789,
@@ -33,7 +35,17 @@ const TaskHistoryDemo = () => {
         sessionId: 'session-4',
         sessionTitle: '代码审查',
         description: '审查前端代码质量和性能优化',
-        icon: '🔍',
+        status: 'error',
+        agentId: agentId,
+        gmtCreate: 1702518656789,
+        gmtLastConverse: 1702518656789,
+      },
+      {
+        id: '5',
+        sessionId: 'session-5',
+        sessionTitle: '推荐杭州两日游路线',
+        description: '我会根据你的需求生成一条路线，并给出详细的攻略',
+        status: 'cancel',
         agentId: agentId,
         gmtCreate: 1702518656789,
         gmtLastConverse: 1702518656789,
@@ -46,9 +58,48 @@ const TaskHistoryDemo = () => {
     console.log('选择会话:', sessionId);
   };
 
-  const handleDeleteItem = async (sessionId: string) => {
-    console.log('删除会话:', sessionId);
-    // 这里可以调用删除 API
+  const handleDeleteItem = () => {
+    console.log('删除任务:', currentSessionId);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 1000);
+    });
+  };
+
+  const handleShareItem = () => {
+    console.log('分享任务:', currentSessionId);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 1000);
+    });
+  };
+
+  const CustomOperationExtra = () => {
+    return (
+      <Dropdown
+        trigger={['hover', 'click']}
+        menu={{
+          items: [
+            {
+              label: '删除',
+              key: 'delete',
+              onClick: handleDeleteItem,
+            },
+            {
+              label: '分享',
+              key: 'share',
+              onClick: handleShareItem,
+            },
+          ],
+        }}
+      >
+        <ActionIconBox>
+          <MoreOutlined />
+        </ActionIconBox>
+      </Dropdown>
+    );
   };
 
   return (
@@ -74,7 +125,6 @@ const TaskHistoryDemo = () => {
           request={mockRequest}
           type="task"
           onClick={handleSelected}
-          onDeleteItem={handleDeleteItem}
           standalone
           agent={{
             runningId: ['1'],
@@ -83,6 +133,7 @@ const TaskHistoryDemo = () => {
             onLoadMore: () => {},
             onNewChat: () => {},
           }}
+          customOperationExtra={<CustomOperationExtra />}
         />
       </div>
 
@@ -126,6 +177,10 @@ const TaskHistoryDemo = () => {
           </li>
           <li>
             <strong>agent.onNewChat</strong>: 新对话回调函数
+          </li>
+          <li>
+            <strong>customOperationExtra</strong>:
+            自定义操作组件，用于在历史记录项右侧添加额外的操作按钮，通常用于实现更多菜单、删除、分享等功能
           </li>
         </ul>
       </div>

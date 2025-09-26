@@ -26,7 +26,11 @@ Bubble 组件是一个功能丰富的聊天消息气泡组件，为现代化对�
 ### 基本用法
 
 ```tsx
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import {
+  Bubble,
+  SuggestionList,
+  MessageBubbleData,
+} from '@ant-design/md-editor';
 import { Card } from 'antd';
 // 创建模拟文件的辅助函数
 const createMockFile = (
@@ -152,6 +156,7 @@ export default () => (
       styles={{
         body: {
           padding: '0',
+          paddingBottom: 24,
         },
       }}
     >
@@ -165,6 +170,35 @@ export default () => (
         avatar={message.meta}
         placement="left"
       />
+      <div
+        style={{
+          paddingLeft: 20,
+          marginTop: -24,
+        }}
+      >
+        <SuggestionList
+          items={[
+            {
+              key: 'qwe',
+              icon: '💸',
+              text: '关税对消费类基金的影响',
+              tooltip: '关税消费',
+            },
+            {
+              key: 'asd',
+              icon: '📝',
+              text: ' 恒生科技指数基金相关新闻',
+            },
+            {
+              key: 'zxc',
+              icon: '📊',
+              text: ' 数据分析与可视化',
+              disabled: true,
+            },
+          ]}
+          onItemClick={() => alert('ask')}
+        />
+      </div>
     </Card>
   </div>
 );
@@ -225,6 +259,12 @@ export default () => (
 专门演示 `avatarRender` 功能，展示如何自定义头像的显示方式。
 
 <code src="../demos/bubble/avatar-render-demo.tsx"></code>
+
+### 脚注（Footnote）
+
+展示如何实现脚注弹框及消息底部的脚注汇总功能。
+
+<code src="../demos/bubble/footnote-demo.tsx"></code>
 
 ### 操作区域定制
 

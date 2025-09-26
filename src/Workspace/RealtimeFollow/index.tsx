@@ -3,6 +3,7 @@ import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
+import { ArrowLeft as LeftIcon } from '../../icons';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -14,7 +15,6 @@ import HtmlIcon from '../icons/HtmlIcon';
 import ShellIcon from '../icons/ShellIcon';
 import ThinkIcon from '../icons/ThinkIcon';
 import { useRealtimeFollowStyle } from './style';
-
 export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
 
 export interface DiffContent {
@@ -40,6 +40,7 @@ export interface RealtimeFollowData {
   emptyRender?: React.ReactNode | (() => React.ReactNode);
   // 通用状态：适用于任意类型（html/shell/markdown）
   status?: 'loading' | 'done' | 'error';
+  onBack?: () => void;
 
   // —— 以下为库化增强配置，主要用于 html 类型 ——
   viewMode?: 'preview' | 'code';
@@ -107,21 +108,46 @@ const RealtimeHeader: React.FC<{
       )}
     >
       <div className={classNames(`${finalPrefixCls}-header-left`, hashId)}>
-        <div
-          className={classNames(
-            `${finalPrefixCls}-header-icon`,
-            {
-              [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
-              [`${finalPrefixCls}-header-icon--default`]: data?.type !== 'html',
-            },
-            hashId,
-          )}
-        >
-          <IconComponent />
-        </div>
-        <div className={classNames(`${finalPrefixCls}-header-content`, hashId)}>
-          <div className={classNames(`${finalPrefixCls}-header-title`, hashId)}>
-            {headerTitle}
+        {data?.onBack && (
+          <button
+            type="button"
+            className={classNames(
+              `${finalPrefixCls}-header-back-button`,
+              hashId,
+            )}
+            onClick={data.onBack}
+          >
+            <LeftIcon
+              className={classNames(
+                `${finalPrefixCls}-header-back-icon`,
+                hashId,
+              )}
+            />
+          </button>
+        )}
+        <div>
+          <div
+            className={classNames(`${finalPrefixCls}-header-content`, hashId)}
+          >
+            <div
+              className={classNames(
+                `${finalPrefixCls}-header-icon`,
+                {
+                  [`${finalPrefixCls}-header-icon--html`]:
+                    data?.type === 'html',
+                  [`${finalPrefixCls}-header-icon--default`]:
+                    data?.type !== 'html',
+                },
+                hashId,
+              )}
+            >
+              <IconComponent />
+            </div>
+            <div
+              className={classNames(`${finalPrefixCls}-header-title`, hashId)}
+            >
+              {headerTitle}
+            </div>
           </div>
           <div
             className={classNames(`${finalPrefixCls}-header-subtitle`, hashId)}
@@ -474,7 +500,9 @@ export const RealtimeFollowList: React.FC<{
     if (!data.segmentedExtra) return segmentedNode;
 
     return (
-      <div className={classNames(`${prefixCls}-segmented-right`, hashId)}>
+      <div
+        className={classNames(`${prefixCls}-header-segmented-right`, hashId)}
+      >
         {segmentedNode}
         {data.segmentedExtra}
       </div>
@@ -487,6 +515,7 @@ export const RealtimeFollowList: React.FC<{
     <div
       className={classNames(`${prefixCls}-container`, data.className, hashId)}
       style={data.style}
+      data-testid="realtime-follow"
     >
       <RealtimeHeader
         data={headerData}

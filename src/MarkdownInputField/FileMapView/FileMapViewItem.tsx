@@ -1,9 +1,15 @@
-﻿import { EyeFilled } from '@ant-design/icons';
+﻿// import {
+//   DownloadOutlined,
+//   EllipsisOutlined,
+//   EyeOutlined,
+// } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
+import { Download, Ellipsis, Eye } from '../../icons';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { kbToSize } from '../AttachmentButton/utils';
@@ -48,36 +54,34 @@ export const FileMapViewItem: React.FC<{
   file: AttachmentFile;
   onPreview: () => void;
   onDownload: () => void;
+  renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
+  customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
   className?: string;
   prefixCls?: string;
   hashId?: string;
+  style?: React.CSSProperties;
 }> = (props) => {
   const file = props.file;
   const { locale } = useContext(I18nContext);
-  return useMemo(
-    () => (
+  const [hovered, setHovered] = React.useState(false);
+
+  return useMemo(() => {
+    return (
       <Tooltip
-        title={
-          <div>
-            <EyeFilled /> {locale?.clickToPreview}
-          </div>
-        }
+        title={<div>{locale?.clickToPreview}</div>}
         placement="topLeft"
         arrow={false}
       >
         <motion.div
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           onClick={() => {
-            if (file.status === 'error') {
-              return;
-            }
+            if (file.status === 'error') return;
             props.onPreview?.();
           }}
           variants={{
             hidden: { x: 20, opacity: 0 },
-            visible: {
-              x: 0,
-              opacity: 1,
-            },
+            visible: { x: 0, opacity: 1 },
             exit: { x: -20, opacity: 0 },
           }}
           exit={{ opacity: 0, x: -20 }}
@@ -98,22 +102,145 @@ export const FileMapViewItem: React.FC<{
                 props.hashId,
               )}
             >
-              {file?.name}
+              <span
+                className={classNames(
+                  `${props.prefixCls}-file-name-text`,
+                  props.hashId,
+                )}
+                title={file?.name}
+              >
+                {file?.name.split('.').slice(0, -1).join('.')}
+              </span>
             </div>
             <div
               className={classNames(
-                `${props.prefixCls}-file-size`,
+                `${props.prefixCls}-file-name-extension-container`,
                 props.hashId,
               )}
             >
-              {[kbToSize(file.size / 1024) || '', file.type]
-                .filter(Boolean)
-                .join(' | ')}
+              <span
+                className={classNames(
+                  `${props.prefixCls}-file-name-extension`,
+                  props.hashId,
+                )}
+              >
+                {file?.name.split('.').slice(-1)}
+              </span>
+              <span
+                className={classNames(
+                  `${props.prefixCls}-separator`,
+                  props.hashId,
+                )}
+              >
+                |
+              </span>
+              <div
+                className={classNames(
+                  `${props.prefixCls}-file-size`,
+                  props.hashId,
+                )}
+              >
+                {kbToSize(file.size / 1024)}
+              </div>
+              <span
+                className={classNames(
+                  `${props.prefixCls}-separator`,
+                  props.hashId,
+                )}
+              >
+                |
+              </span>
+              <div>
+                {file?.lastModified
+                  ? dayjs(file?.lastModified).format('HH:mm')
+                  : ''}
+              </div>
             </div>
           </div>
+
+          {hovered ? (
+            <div
+              className={classNames(
+                `${props.prefixCls}-action-bar`,
+                props.hashId,
+              )}
+            >
+              {props.customSlot ? (
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className={classNames(
+                    `${props.prefixCls}-action-btn`,
+                    props.hashId,
+                  )}
+                >
+                  {typeof props.customSlot === 'function'
+                    ? props.customSlot(file)
+                    : props.customSlot}
+                </div>
+              ) : (
+                <>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      props.onPreview?.();
+                    }}
+                    className={classNames(
+                      `${props.prefixCls}-action-btn`,
+                      props.hashId,
+                    )}
+                  >
+                    <Eye />
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      props.onDownload?.();
+                    }}
+                    className={classNames(
+                      `${props.prefixCls}-action-btn`,
+                      props.hashId,
+                    )}
+                  >
+                    <Download />
+                  </div>
+                  {props.renderMoreAction ? (
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label="更多操作"
+                      className={classNames(
+                        `${props.prefixCls}-action-btn`,
+                        props.hashId,
+                      )}
+                    >
+                      <Ellipsis />
+                      {props.renderMoreAction ? (
+                        <div
+                          className={classNames(
+                            `${props.prefixCls}-more-custom`,
+                            props.hashId,
+                          )}
+                        >
+                          {props.renderMoreAction(file)}
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </>
+              )}
+            </div>
+          ) : null}
         </motion.div>
       </Tooltip>
-    ),
-    [file, file.status],
-  );
+    );
+  }, [file, file.status, hovered]);
 };

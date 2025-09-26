@@ -5,13 +5,13 @@ import cx from 'classnames';
 import React from 'react';
 import { Quote, QuoteProps } from '../Quote';
 import { BubbleConfigContext } from './BubbleConfigProvide';
-import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { BubbleExtra } from './MessagesContent/BubbleExtra';
 import { useStyle } from './style';
 import type { BubbleMetaData, BubbleProps } from './type';
 
+import { BubbleFileView } from './FileView';
 import { BubbleTitle } from './Title';
 
 export const runRender = (
@@ -142,6 +142,9 @@ export const UserBubble: React.FC<
       customConfig={props?.bubbleRenderConfig?.customConfig}
       pure={props.pure}
       shouldShowCopy={props.shouldShowCopy}
+      fileViewEvents={props.fileViewEvents}
+      fileViewConfig={props.fileViewConfig}
+      renderFileMoreAction={props.renderFileMoreAction}
       bubbleRenderConfig={props.bubbleRenderConfig}
     />
   );
@@ -264,12 +267,13 @@ export const UserBubble: React.FC<
               <div
                 style={{
                   minWidth: standalone ? 'min(296px,100%)' : '0px',
+                  paddingLeft: 12,
                   ...styles?.bubbleListItemExtraStyle,
                 }}
                 className={cx(
                   `${prefixClass}-bubble-after`,
                   `${prefixClass}-bubble-after-${placement}`,
-                  `${prefixClass}-bubble-after-user`, // 用户消息 after 特定样式
+                  `${prefixClass}-bubble-after-ai`, // AI消息 after 特定样式
                   hashId,
                 )}
                 data-testid="message-after"
@@ -277,8 +281,8 @@ export const UserBubble: React.FC<
                 <BubbleFileView
                   bubbleListRef={props.bubbleListRef}
                   bubble={props as any}
+                  placement={placement}
                 />
-                {contentAfterDom}
               </div>
             ) : null}
             <div

@@ -44,14 +44,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-status': {
         display: 'flex',
-        lineHeight: '20px',
-        height: 20,
+        height: 22,
         alignItems: 'center',
         color: 'var(--color-gray-text-disabled)',
         svg: {
           width: 16,
           height: 16,
         },
+      },
+
+      '&-status-idle': {
+        height: 16,
       },
 
       '&-top': {

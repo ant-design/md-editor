@@ -1,0 +1,252 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="height: 600px; background-color: rgb(245, 245, 245); display: flex;"
+    >
+      <div
+        style="width: 250px; padding: 16px;"
+      >
+        <h3>
+          左侧边栏
+        </h3>
+        <p>
+          这里可以放置历史记录、设置等内容
+        </p>
+      </div>
+      <div
+        style="flex: 1 1 0%; display: flex; flex-direction: column;"
+      >
+        <div
+          class="chat-flow-container  custom-chat-container"
+        >
+          <div
+            class="chat-flow-container-header "
+          >
+            <div
+              class="chat-flow-container-header-left "
+            >
+              <button
+                aria-label="折叠左侧边栏"
+                class="chat-flow-container-header-left-collapse-btn "
+                type="button"
+              >
+                <svg
+                  class="sofa-icons-icon"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  height="1em"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <clippath
+                      id="PanelLeftFill-master_svg0_2413_13464"
+                    >
+                      <rect
+                        height="24"
+                        rx="0"
+                        width="24"
+                      />
+                    </clippath>
+                  </defs>
+                  <g
+                    clip-path="url(#PanelLeftFill-master_svg0_2413_13464)"
+                  >
+                    <g>
+                      <path
+                        d="M2,6L2,18Q2,19.6569,3.17157,20.8284Q4.34315,22,6,22L18,22Q19.6569,22,20.8284,20.8284Q22,19.6569,22,18L22,6Q22,4.34315,20.8284,3.17157Q19.6569,2,18,2L6,2Q4.34315,2,3.17157,3.17157Q2,4.34315,2,6ZM6,20Q4,20,4,18L4,6Q4,4,6,4L18,4Q20,4,20,6L20,18Q20,20,18,20L6,20ZM5,17.5L5,6.5C5,5.67157,5.67157,5,6.5,5L10.5,5C11.32843,5,12,5.67157,12,6.5L12,17.5C12,18.3284,11.32843,19,10.5,19L6.5,19C5.67157,19,5,18.3284,5,17.5Z"
+                        style="mix-blend-mode: passthrough;"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <h1
+                class="chat-flow-container-header-left-title "
+              >
+                AI 助手
+              </h1>
+            </div>
+            <div
+              class="chat-flow-container-header-right "
+            >
+              <button
+                aria-label="分享对话"
+                class="chat-flow-container-header-right-share-btn "
+                type="button"
+              >
+                <svg
+                  class="sofa-icons-icon"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  height="1em"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <clippath
+                      id="MessageSquareShare-master_svg0_2413_13480"
+                    >
+                      <rect
+                        height="24"
+                        rx="0"
+                        width="24"
+                      />
+                    </clippath>
+                  </defs>
+                  <g
+                    clip-path="url(#MessageSquareShare-master_svg0_2413_13480)"
+                  >
+                    <g>
+                      <path
+                        d="M5,4L12,4C12.5523,4,13,3.55228,13,3C13,2.447715,12.5523,2,12,2L5,2Q3.7573600000000003,2,2.878679,2.87868Q2,3.7573600000000003,2,5L2,21C2,21.5523,2.447715,22,3,22C3.2652200000000002,22,3.51957,21.8946,3.70711,21.7071L7.41421,18L19,18Q20.2426,18,21.1213,17.121299999999998Q22,16.2426,22,15L22,12C22,11.44771,21.5523,11,21,11C20.4477,11,20,11.44771,20,12L20,15Q20,16,19,16L7,16C6.73478,16,6.48043,16.1054,6.29289,16.2929L4,18.5858L4,5Q4,4,5,4ZM21,2L16,2C15.4477,2,15,2.447715,15,3C15,3.55228,15.4477,4,16,4L18.5858,4L15.2929,7.29289C15.1054,7.48043,15,7.73478,15,8C15,8.55228,15.4477,9,16,9C16.2652,9,16.5196,8.894639999999999,16.7074,8.70679L20,5.414210000000001L20,8C20,8.55228,20.4477,9,21,9C21.5523,9,22,8.55228,22,8L22,3C22,2.447715,21.5523,2,21,2Z"
+                        style="mix-blend-mode: passthrough;"
+                      />
+                    </g>
+                  </g>
+                </svg>
+                 分享
+              </button>
+            </div>
+          </div>
+          <div
+            class="chat-flow-container-content "
+          >
+            <div
+              class="chat-flow-container-content-scrollable "
+            >
+              <div
+                assistantmeta="[object Object]"
+                bubblelist="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+                data-testid="bubble-list"
+                usermeta="[object Object]"
+              >
+                bubble-list
+              </div>
+            </div>
+          </div>
+          <div
+            class="chat-flow-container-footer "
+          >
+            <div
+              style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;"
+            >
+              <div
+                style="position: absolute; top: -16px; left: 50%; transform: translate(-50%, -100%); display: flex; align-items: center; justify-content: center; gap: 16px;"
+              />
+              <div
+                class="ant-task-running ant-task-running-default"
+              >
+                <div
+                  class="ant-task-running-border"
+                />
+                <div
+                  class="ant-task-running-background"
+                />
+                <div
+                  class="ant-task-running-left"
+                >
+                  <div
+                    class="ant-task-running-left-icon-wrapper"
+                  >
+                    <div
+                      class=""
+                      data-testid="robot"
+                      style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                    >
+                      <div
+                        style="padding-left: 22px; margin-right: 20px;"
+                      >
+                        <div
+                          aria-hidden="true"
+                          data-autoplay="true"
+                          data-loop="true"
+                          data-testid="lottie-animation"
+                          style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center; transform: rotateY(180deg);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-task-running-left-content"
+                  >
+                    <h1
+                      aria-describedby="test-id"
+                      class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-multiple-line ant-task-running-left-main-text"
+                      style="-webkit-line-clamp: 2;"
+                    >
+                      任务已完成, 耗时03分00秒
+                    </h1>
+                  </div>
+                </div>
+                <div
+                  class="ant-task-running-button-wrapper"
+                >
+                  <button
+                    class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                    type="button"
+                  >
+                    <span>
+                      重试
+                    </span>
+                  </button>
+                  <button
+                    class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                    type="button"
+                  >
+                    <span>
+                      提交
+                    </span>
+                  </button>
+                  <button
+                    class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
+                    type="button"
+                  >
+                    <span
+                      class="ant-btn-icon"
+                    >
+                      <span
+                        aria-label="plus"
+                        class="anticon anticon-plus"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="plus"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                          />
+                          <path
+                            d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span>
+                      新任务
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

@@ -1,0 +1,27 @@
+import * as React from "react";
+function SuccessFill(props) {
+  return /*#__PURE__*/React.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    fillRule: "evenodd"
+  }, props, {
+    style: Object.assign({
+      verticalAlign: '-0.125em'
+    }, props.style),
+    className: ['sofa-icons-icon', props.className].filter(Boolean).join(' '),
+    width: "1em",
+    height: "1em"
+  }), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+    id: "SuccessFill-master_svg0_805_17354"
+  }, /*#__PURE__*/React.createElement("rect", {
+    width: 24,
+    height: 24,
+    rx: 0
+  }))), /*#__PURE__*/React.createElement("g", {
+    clipPath: "url(#SuccessFill-master_svg0_805_17354)"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11m-1.444-6.152 7.993-7.917-1.548-1.563-6.445 6.384-3.007-2.979-1.548 1.563z"
+  })));
+}
+export default SuccessFill;

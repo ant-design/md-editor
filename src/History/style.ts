@@ -6,6 +6,51 @@ import {
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
+    [`${token.componentCls}-new-chat`]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      cursor: 'pointer',
+      padding: '5px 12px',
+      borderRadius: 'var(--radius-control-base)',
+      background: 'var(--color-primary-control-fill-secondary)',
+      fontSize: '14px',
+      fontWeight: 600,
+      lineHeight: '22px',
+      letterSpacing: 'normal',
+      color: 'var(--color-primary-text-secondary)',
+      boxShadow: 'var(--shadow-border-base)',
+      marginBottom: '12px',
+
+      '&:hover': {
+        background: 'var(--color-primary-control-fill-secondary-hover)',
+      },
+    },
+
+    [`${token.componentCls}-load-more`]: {
+      height: '48px',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      font: 'var(--font-text-body-base)',
+      letterSpacing: 'var(--letter-spacing-body-base, normal)',
+      color: 'var(--color-gray-text-default)',
+      cursor: 'pointer',
+      gap: '4px',
+      padding: '0px 12px',
+      '&.chat': {
+        color: 'var(--color-gray-text-light)',
+        height: '32px',
+        justifyContent: 'center',
+        padding: '0',
+      },
+      '&:hover': {
+        borderRadius: '8px',
+        background: 'var(--color-gray-control-fill-hover)',
+        boxSizing: 'border-box',
+      },
+    },
+
     [token.componentCls]: {
       width: '100%',
       backgroundColor: 'transparent',
@@ -18,25 +63,44 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         cursor: 'pointer',
         borderRadius: 'var(--radius-control-base)',
-        padding: '6px 6px 6px 12px',
+        padding: '5px 6px 5px 12px',
         backgroundColor: 'transparent',
         color: token.colorText || 'var(--color-gray-text-default)',
-        fontSize: 'var(--font-size-base)',
-        fontWeight: 400,
+        font: 'var(--font-text-body-base)',
         position: 'relative',
         userSelect: 'none',
         lineHeight: '20px',
         transition: 'all 0.2s ease',
 
+        [`${token.componentCls}-task-icon`]: {
+          width: '32px',
+          height: '32px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '10px',
+          fontSize: '16px',
+          borderRadius: '50%',
+          background: 'var(--color-gray-bg-page-dark)',
+          color: 'var(--color-gray-text-secondary)',
+        },
+
         '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-control-fill-active)',
-          color: 'var(--color-gray-text-default)',
+          backgroundColor: 'var(--color-gray-control-fill-hover)',
+          [`${token.componentCls}-extra-actions`]: {
+            opacity: 1,
+          },
+        },
+
+        [`${token.componentCls}-extra-actions`]: {
+          opacity: 0,
+          transition: 'all 0.2s ease',
         },
 
         '&-selected': {
+          font: 'var(--font-text-h6-base)',
           backgroundColor: 'var(--color-gray-control-fill-active)',
-          fontWeight: 600,
-          color: 'var(--color-gray-text-default)',
         },
 
         '&-disabled': {
@@ -55,6 +119,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           gap: '8px',
           flex: 1,
           minWidth: 0,
+          font: 'var(--font-text-body-emphasized-sm)',
+          letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+          color: 'var(--color-gray-text-light)',
         },
 
         '&-icon': {
@@ -76,8 +143,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: 'var(--font-size-base)',
-          fontWeight: 500,
-          padding: '6px 12px 6px',
+          padding: '6px 6px 6px 12px',
           lineHeight: '20px',
           letterSpacing: 'normal',
           color: 'var(--color-gray-text-default)',
@@ -110,7 +176,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-base)',
         color: token.colorTextSecondary || 'var(--color-gray-text-default)',
         fontWeight: 500,
-        padding: '4px 12px',
+        padding: '5px 6px 5px 12px',
       },
 
       // Container focus styles
@@ -154,6 +220,53 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           transform: 'translateY(0)',
         },
       },
+
+      // 文本滚动动画
+      '@keyframes scrollText': {
+        '0%': {
+          transform: 'translateX(0)',
+        },
+        '5%': {
+          transform: 'translateX(0)',
+        },
+        '95%': {
+          transform: 'translateX(var(--scroll-width))',
+        },
+        '100%': {
+          transform: 'translateX(var(--scroll-width))',
+        },
+      },
+
+      // 为超长文本添加滚动效果
+      '[data-overflow="true"]': {
+        '&:hover': {
+          // 支持直接在元素上的属性
+          '&[aria-describedby]': {
+            animation: 'scrollText 2s linear 0.5s forwards',
+            animationPlayState: 'running',
+          },
+          // 支持子元素上的属性
+          '& > div[aria-describedby]': {
+            animation: 'scrollText 2s linear 0.5s forwards',
+            animationPlayState: 'running',
+          },
+          // 渐变遮罩层
+          '& > div[style*="linear-gradient"], & + div[style*="linear-gradient"]':
+            {
+              opacity: '0 !important',
+              transition: 'opacity 0.2s',
+            },
+        },
+      },
+
+      // 基础样式和重置
+      // 同时支持元素自身和子元素的情况
+      '[data-overflow="true"][aria-describedby], [data-overflow="true"] > div[aria-describedby]':
+        {
+          transition: 'transform 0.3s ease-out',
+          transform: 'translateX(0)',
+          animation: 'none',
+        },
     },
   };
 };

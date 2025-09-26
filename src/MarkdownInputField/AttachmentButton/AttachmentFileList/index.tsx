@@ -2,7 +2,7 @@ import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
-import { CloseIcon } from '../../../icons/CloseIcon';
+import { X } from '../../../icons';
 import { AttachmentFile } from '../types';
 import { isImageFile } from '../utils';
 import { AttachmentFileListItem } from './AttachmentFileListItem';
@@ -147,7 +147,7 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
           }}
           className={classNames(`${`${prefix}`}-close-icon`, hashId)}
         >
-          <CloseIcon />
+          <X />
         </div>
       ) : null}
     </div>,

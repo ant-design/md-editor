@@ -1,9 +1,17 @@
 import {
+  CheckOutlined,
+  CopyOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+  EditOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons';
+import {
   AttachmentFile,
   Bubble,
   MessageBubbleData,
 } from '@ant-design/md-editor';
-import { message } from 'antd';
+import { message, Popover } from 'antd';
 import React, { useRef } from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';
 
@@ -72,6 +80,64 @@ const mockUserMessage: MessageBubbleData = {
   },
 };
 
+// 用于在回答内容中内联展示的文件列表（不挂载到 originData.fileMap）
+const mockInlineFileMap = new Map<string, AttachmentFile>([
+  [
+    'bubble-design-spec.pdf',
+    createMockFile(
+      'bubble-design-spec.pdf',
+      'application/pdf',
+      2048576,
+      'https://example.com/bubble-design-spec.pdf',
+    ),
+  ],
+  [
+    'component-preview.png',
+    createMockFile(
+      'component-preview.png',
+      'image/png',
+      1048576,
+      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    ),
+  ],
+  [
+    'api-reference-henchangehnchangmingzichang.json',
+    createMockFile(
+      'api-reference-henchangehnchangmingzichang.json',
+      'application/json',
+      512000,
+      'https://example.com/api-reference-henchangehnchangmingzichang.json',
+    ),
+  ],
+  [
+    'more-example.docx',
+    createMockFile(
+      'more-example.docx',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      8847360,
+      'https://example.com/more-example.docx',
+    ),
+  ],
+  [
+    'more-example.xlsx',
+    createMockFile(
+      'more-example.xlsx',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      6647360,
+      'https://example.com/more-example.xlsx',
+    ),
+  ],
+  [
+    'more-example.pptx',
+    createMockFile(
+      'more-example.pptx',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      7747360,
+      'https://example.com/more-example.pptx',
+    ),
+  ],
+]);
+
 const mockFileMessage: MessageBubbleData = {
   id: '3',
   role: 'assistant',
@@ -99,35 +165,7 @@ Bubble 组件是一个功能丰富的聊天气泡组件，支持：
     title: 'Ant Design Assistant',
     description: 'AI 助手',
   },
-  fileMap: new Map<string, AttachmentFile>([
-    [
-      'bubble-design-spec.pdf',
-      createMockFile(
-        'bubble-design-spec.pdf',
-        'application/pdf',
-        2048576, // 2MB
-        'https://example.com/bubble-design-spec.pdf',
-      ),
-    ],
-    [
-      'component-preview.png',
-      createMockFile(
-        'component-preview.png',
-        'image/png',
-        1048576, // 1MB
-        'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-      ),
-    ],
-    [
-      'api-reference.json',
-      createMockFile(
-        'api-reference.json',
-        'application/json',
-        512000, // 512KB
-        'https://example.com/api-reference.json',
-      ),
-    ],
-  ]),
+  fileMap: mockInlineFileMap,
 };
 
 export default () => {
@@ -198,6 +236,119 @@ export default () => {
           placement="left"
           bubbleRef={bubbleRef}
           originData={mockFileMessage}
+          fileViewConfig={{
+            showMoreButton: true,
+            maxDisplayCount: 4,
+            // className: 'custom-file-view',
+            // customSlot: <>123</>,
+            renderFileMoreAction: () => (file: any) => (
+              <Popover
+                placement="bottomRight"
+                arrow={false}
+                trigger={['hover']}
+                content={
+                  <div
+                    style={{
+                      width: 180,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 4,
+                    }}
+                  >
+                    {[
+                      {
+                        key: 'copy',
+                        label: '复制',
+                        icon: <CopyOutlined />,
+                        onClick: () => console.log('复制', file),
+                      },
+                      {
+                        key: 'download',
+                        label: '下载',
+                        icon: <DownloadOutlined />,
+                        onClick: () => console.log('下载', file),
+                      },
+                      {
+                        key: 'edit',
+                        label: '编辑',
+                        icon: <EditOutlined />,
+                        onClick: () => console.log('编辑', file),
+                      },
+                      {
+                        key: 'share',
+                        label: '分享',
+                        icon: <ShareAltOutlined />,
+                        onClick: () => console.log('分享', file),
+                      },
+                    ].map((item) => (
+                      <div
+                        key={item.key}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          item.onClick();
+                        }}
+                        style={{
+                          height: 36,
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '0 12px',
+                          borderRadius: 8,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <span style={{ width: 20 }}>{item.icon}</span>
+                        <span style={{ flex: 1 }}>{item.label}</span>
+                        {item.key === 'copy' ? (
+                          <CheckOutlined style={{ color: '#2f54eb' }} />
+                        ) : null}
+                      </div>
+                    ))}
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('删除', file);
+                      }}
+                      style={{
+                        height: 36,
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '0 12px',
+                        borderRadius: 8,
+                        cursor: 'pointer',
+                        color: '#ff4d4f',
+                      }}
+                    >
+                      <span style={{ width: 20 }}>
+                        <DeleteOutlined />
+                      </span>
+                      <span style={{ flex: 1 }}>删除</span>
+                    </div>
+                  </div>
+                }
+              >
+                <div
+                  style={{
+                    width: 18,
+                    height: 18,
+                  }}
+                />
+              </Popover>
+            ),
+          }}
+          fileViewEvents={({ onPreview, onDownload, onViewAll }) => ({
+            onPreview: (file) => {
+              onPreview(file);
+              console.log('预览文件:', file);
+            },
+            onDownload: (file) => {
+              onDownload(file);
+              console.log('下载文件:', file);
+            },
+            onViewAll: (files) => {
+              onViewAll(files);
+              console.log('查看所有文件:', files);
+            },
+          })}
           onLike={handleLike}
           onDisLike={handleDisLike}
           onReply={handleReply}

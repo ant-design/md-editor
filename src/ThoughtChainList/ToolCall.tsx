@@ -4,7 +4,7 @@ import copy from 'copy-to-clipboard';
 import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
 import { I18nContext } from '../i18n';
-import { CopyIcon } from '../icons/CopyIcon';
+import { Copy } from '../icons';
 import { ActionIconBox } from '../index';
 import {
   MarkdownEditor,
@@ -271,7 +271,7 @@ export const ToolCall = (
                     }
                   }}
                 >
-                  <CopyIcon />
+                  <Copy />
                 </ActionIconBox>
                 {props.onChangeItem ? (
                   <ActionIconBox
@@ -380,7 +380,7 @@ export const ToolCall = (
                       }
                     }}
                   >
-                    <CopyIcon />
+                    <Copy />
                   </ActionIconBox>
                 </div>
               </div>
@@ -466,7 +466,7 @@ export const ToolCall = (
                       }
                     }}
                   >
-                    <CopyIcon />
+                    <Copy />
                   </ActionIconBox>
                 </div>
               </div>

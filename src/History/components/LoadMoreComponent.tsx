@@ -1,10 +1,5 @@
-import {
-  EllipsisOutlined,
-  HistoryOutlined,
-  LoadingOutlined,
-} from '@ant-design/icons';
-import { Button } from 'antd';
-import React, { useContext, useState } from 'react';
+import { EllipsisOutlined, LoadingOutlined } from '@ant-design/icons';
+import React, { useCallback, useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
 /**
  * 历史记录加载更多组件属性接口
@@ -16,6 +11,7 @@ interface HistoryLoadMoreProps {
   enabled?: boolean;
   /** 历史记录类型 */
   type?: 'chat' | 'task';
+  className?: string;
 }
 
 /**
@@ -49,15 +45,49 @@ interface HistoryLoadMoreProps {
  * - 响应式按钮设计
  * - 条件渲染支持
  */
+
+const MoreTaskIcon = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      fill="none"
+      version="1.1"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <defs>
+        <clipPath id="master_svg0_2168_68970/645_11584/440_02432">
+          <rect x="0" y="0" width="16" height="16" rx="0" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#master_svg0_2168_68970/645_11584/440_02432)">
+        <g>
+          <path
+            d="M1.3333333730697632,5.333333373069763L1.3333333730697632,2.000000373069763C1.3333333730697632,1.6318103730697633,1.6318103730697633,1.3333333730697632,2.000000373069763,1.3333333730697632C2.3681933730697633,1.3333333730697632,2.6666633730697633,1.6318103730697633,2.6666633730697633,2.000000373069763L2.6666633730697633,3.723853373069763L3.035263373069763,3.3552533730697633Q5.115433373069763,1.344175573069763,7.997493373069763,1.3333333730697632Q10.761423373069762,1.3333286046997632,12.714033373069762,3.285953373069763Q14.666633373069763,5.238573373069763,14.666633373069763,7.999993373069763Q14.666633373069763,10.761423373069762,12.714033373069762,12.714033373069762Q10.761423373069762,14.666633373069763,7.999993373069763,14.666633373069763Q5.238573373069763,14.666633373069763,3.285953373069763,12.714033373069762Q1.3336035810697633,10.761683373069763,1.3333333730697632,8.000753373069763L1.3333333730697632,7.999993373069763C1.3333333730697632,7.631803373069763,1.6318103730697633,7.333333373069763,2.000000373069763,7.333333373069763C2.3681933730697633,7.333333373069763,2.6666633730697633,7.631803373069763,2.6666633730697633,7.999993373069763Q2.6666633730697633,10.209133373069763,4.228763373069763,11.771233373069764Q5.790863373069763,13.333333373069763,7.999993373069763,13.333333373069763Q10.209143373069763,13.333333373069763,11.771233373069764,11.771233373069764Q13.333333373069763,10.209133373069763,13.333333373069763,7.999993373069763Q13.333333373069763,5.790853373069763,11.771233373069764,4.228763373069763Q10.209143373069763,2.6666633730697633,8.002513373069764,2.6666533730697632Q5.656643373069763,2.6754833730697634,3.9780733730697633,4.298063373069763L3.609473373069763,4.666663373069763L5.333333373069763,4.666663373069763C5.701523373069763,4.666663373069763,6.000003373069763,4.965143373069763,6.000003373069763,5.333333373069763C6.000003373069763,5.701523373069763,5.701523373069763,6.000003373069763,5.333333373069763,6.000003373069763L2.000000373069763,5.999993373069763C1.9079523730697632,5.999993373069763,1.8202613730697632,5.981343373069763,1.7405023730697633,5.9476033730697635C1.6514743730697632,5.909953373069763,1.5723283730697633,5.853503373069763,1.508035373069763,5.783243373069763C1.3995321730697632,5.6646633730697635,1.3333333730697632,5.506723373069764,1.3333333730697632,5.333333373069763ZM7.333333373069763,4.666663373069763C7.333333373069763,4.298473373069763,7.631813373069763,4.000003373069763,8.000003373069763,4.000003373069763C8.368193373069763,4.000003373069763,8.666663373069763,4.298473373069763,8.666663373069763,4.666663373069763L8.666663373069763,7.587973373069763L10.964813373069763,8.737053373069763C11.190663373069762,8.849973373069762,11.333333373069763,9.080823373069762,11.333333373069763,9.333333373069763C11.333333373069763,9.701523373069763,11.034853373069764,10.000003373069763,10.666663373069763,10.000003373069763C10.563173373069763,10.000003373069763,10.461093373069764,9.975903373069762,10.368523373069763,9.929613373069763L7.701853373069763,8.596283373069763C7.476003373069763,8.483353373069763,7.333333373069763,8.252513373069764,7.333333373069763,8.000003373069763L7.333333373069763,4.666663373069763Z"
+            fillRule="evenodd"
+            fill="currentColor"
+            fillOpacity="0.41999998688697815"
+          />
+        </g>
+      </g>
+    </svg>
+  );
+};
+
 export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
   onLoadMore,
   type,
+  className,
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
   const onClickFn = async () => {
     try {
+      if (loading) return;
       setLoading(true);
       await onLoadMore();
     } catch (error) {
@@ -67,60 +97,54 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
     }
   };
 
+  const handleKeyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        onClickFn();
+      }
+    },
+    [onClickFn],
+  );
+
   return (
     <>
-      {type === 'task' ? (
+      {
         <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            marginRight: 8,
-            fontSize: 'var(--font-text-body-base)',
-            letterSpacing: 'var(--letter-spacing-body-base, normal)',
-            color: 'var(--color-gray-text-default)',
-            padding: '0 12px',
-            cursor: 'pointer',
-          }}
+          className={`${className}`}
+          tabIndex={0}
+          role="button"
           onClick={onClickFn}
+          onKeyDown={handleKeyDown}
         >
-          <div
-            style={{
-              width: 32,
-              height: 32,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: '8px',
-              gap: '10px',
-              borderRadius: '200px',
-              background: 'var(--color-gray-bg-card-light)',
-              marginRight: 8,
-            }}
-          >
-            {loading ? <LoadingOutlined /> : <EllipsisOutlined />}
-          </div>
-          {locale?.['task.history.loadMore'] || '查看更多历史'}
+          {type === 'task' ? (
+            <>
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: '50%',
+                  background: 'var(--color-gray-bg-card-light)',
+                  marginRight: '8px',
+                  fontSize: '16px',
+                  color: 'var(--color-gray-text-secondary)',
+                }}
+              >
+                {loading ? <LoadingOutlined /> : <EllipsisOutlined />}
+              </div>
+              {locale?.['task.history.loadMore'] || '查看更多历史'}
+            </>
+          ) : (
+            <>
+              {loading ? <LoadingOutlined /> : <MoreTaskIcon />}
+              {locale?.['chat.history.loadMore'] || '查看更多'}
+            </>
+          )}
         </div>
-      ) : (
-        <Button
-          type="text"
-          variant="text"
-          style={{
-            fontSize: 'var(--font-text-body-base)',
-            letterSpacing: 'var(--letter-spacing-body-base, normal)',
-            color: 'var(--color-gray-text-light)',
-            width: '100%',
-            borderRadius: 'var(--radius-control-base)',
-          }}
-          icon={<HistoryOutlined />}
-          loading={loading}
-          onClick={onClickFn}
-        >
-          {locale?.['chat.history.loadMore'] || '查看更多'}
-        </Button>
-      )}
+      }
     </>
   );
 };

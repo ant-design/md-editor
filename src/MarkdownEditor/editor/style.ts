@@ -305,7 +305,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       boxSizing: 'border-box',
       caretColor: 'var(--color-primary-control-fill-primary)',
       color: 'inherit',
-      font: 'var(--font-text-h5-base)',
+      font: 'var(--font-text-paragraph-lg)',
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',
@@ -426,7 +426,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-secondary)',
       },
       a: {
-        color: 'var(--color-primary-control-fill-primary)',
+        font: 'var(--font-text-body-lg)',
+        letterSpacing: 'var(--letter-spacing-body-lg, normal)',
+        color: 'var(--color-gray-text-default)',
         backgroundColor: 'transparent',
         textDecoration: 'none',
         '&:hover': {

@@ -131,6 +131,8 @@ export const BubbleTitle: React.FC<TitleProps> = ({
       className={cx(hashId, prefixClass, className)}
       style={{
         flexDirection: placement === 'left' ? 'row' : 'row-reverse',
+        display: 'flex',
+        alignItems: 'center',
         ...style,
       }}
       gap={8}

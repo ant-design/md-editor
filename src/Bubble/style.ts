@@ -129,7 +129,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        borderRadius: '16px 16px 2px 16px',
+        borderRadius: '16px 2px 16px 16px',
         background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-gray-text-default)',
         '&&-pure': {

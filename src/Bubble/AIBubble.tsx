@@ -3,7 +3,7 @@ import { memo, MutableRefObject, useContext, useMemo } from 'react';
 import { ConfigProvider, Flex } from 'antd';
 import cx from 'classnames';
 import React from 'react';
-import { LoadingIcon } from '../icons/LoadingIcon';
+import { Loader } from '../icons';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { BubbleConfigContext } from './BubbleConfigProvide';
@@ -198,6 +198,9 @@ export const AIBubble: React.FC<
       pure={props.pure}
       onCancelLike={props.onCancelLike}
       shouldShowCopy={props.shouldShowCopy}
+      fileViewEvents={props.fileViewEvents}
+      fileViewConfig={props.fileViewConfig}
+      renderFileMoreAction={props.renderFileMoreAction}
       shouldShowVoice={props.shouldShowVoice}
       bubbleRenderConfig={props.bubbleRenderConfig}
       contentAfterDom={
@@ -205,6 +208,7 @@ export const AIBubble: React.FC<
           <div
             style={{
               minWidth: standalone ? 'min(296px,100%)' : '0px',
+              paddingLeft: 12,
               ...styles?.bubbleListItemExtraStyle,
             }}
             className={cx(
@@ -216,6 +220,7 @@ export const AIBubble: React.FC<
             data-testid="message-after"
           >
             <BubbleFileView
+              placement={placement}
               bubbleListRef={props.bubbleListRef}
               bubble={props as any}
             />
@@ -306,7 +311,7 @@ export const AIBubble: React.FC<
               )}
             >
               {avatarDom}
-              {typing && <LoadingIcon style={{ fontSize: 16 }} />}
+              {typing && <Loader style={{ fontSize: 16 }} />}
               {titleDom}
             </div>
           )}
@@ -363,7 +368,6 @@ export const AIBubble: React.FC<
             >
               {childrenDom}
             </div>
-
             {contentAfterDom}
           </div>
         </div>
@@ -408,7 +412,7 @@ export const AIBubble: React.FC<
                 )}
               >
                 {avatarDom}
-                {typing && <LoadingIcon style={{ fontSize: 16 }} />}
+                {typing && <Loader style={{ fontSize: 16 }} />}
                 {titleDom}
               </div>
             ),

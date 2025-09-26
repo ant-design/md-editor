@@ -6,7 +6,7 @@ import {
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { LoadingIcon } from '../../icons/LoadingIcon';
+import { Loader } from '../../icons';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
@@ -104,15 +104,25 @@ export const BubbleMessageDisplay: React.FC<
       : null;
   }, [props.bubbleRenderConfig?.beforeMessageRender, typing, props.originData]);
 
+  const filesMap = useMemo(() => {
+    if (props.originData?.fileMap && props.originData.fileMap.size > 0) {
+      return props.originData.fileMap;
+    }
+    return undefined;
+  }, [props.originData?.fileMap]);
+
   const afterContent = useMemo(() => {
-    return props.bubbleRenderConfig?.afterMessageRender
+    const userAfter = props.bubbleRenderConfig?.afterMessageRender
       ? props.bubbleRenderConfig.afterMessageRender(props, contentAfterDom)
       : contentAfterDom;
+    return <>{userAfter}</>;
   }, [
+    props.bubbleRenderConfig?.afterMessageRender,
+    typing,
+    props.originData,
     props.bubbleRenderConfig?.afterMessageRender,
     contentAfterDom,
     typing,
-    props.originData,
   ]);
 
   const memo = useMemo(() => {
@@ -133,7 +143,7 @@ export const BubbleMessageDisplay: React.FC<
             className="agent-item-default-content"
             data-testid="message-content"
           >
-            <LoadingIcon />
+            <Loader />
             {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );

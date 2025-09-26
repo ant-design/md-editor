@@ -4,11 +4,6 @@ import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { BubbleMessageDisplay } from '../../src/Bubble/MessagesContent';
 
-// Mock 依赖
-vi.mock('../../src/icons/LoadingIcon', () => ({
-  LoadingIcon: () => <div data-testid="loading-icon">Loading...</div>,
-}));
-
 vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
   MarkdownPreview: ({ content, extra }: any) => (
     <div data-testid="markdown-preview">

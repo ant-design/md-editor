@@ -56,4 +56,6 @@ export interface HistoryListConfig {
   type?: 'chat' | 'task';
   /** 正在运行的记录ID列表，这些记录将显示运行图标 */
   runningId?: string[];
+  /** 自定义操作区域 */
+  customOperationExtra?: React.ReactNode;
 }
