@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import { isString } from 'lodash';
 import React from 'react';
-import DazingLottie from './icons/DazingLottie';
-import ThinkingLottie from './icons/ThinkingLottie';
+import RobotIcon from '../components/Robot';
 
-export type RobotStatus = 'default' | 'thinking' | 'dazing';
+export type RobotStatus = 'default' | 'thinking' | 'dazing' | 'pause';
 
 export interface RobotProps {
   /** 机器人状态 */
@@ -102,14 +101,11 @@ const Robot: React.FC<RobotProps> = ({
         <>
           {status === 'thinking' ? (
             <div style={{ paddingLeft: 80, marginRight: 50 }}>
-              <ThinkingLottie size={84} />
+              <RobotIcon status="running" size={84} />
             </div>
           ) : (
-            <div style={{ paddingLeft: 22, marginRight: 20 }}>
-              <DazingLottie
-                size={54}
-                style={{ transform: 'rotateY(180deg)' }}
-              />
+            <div style={{ paddingLeft: 27, marginRight: 16 }}>
+              <RobotIcon size={54} style={{ transform: 'rotateY(180deg)' }} />
             </div>
           )}
         </>

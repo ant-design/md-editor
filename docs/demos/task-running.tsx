@@ -166,8 +166,6 @@ export default () => {
       </p>
 
       <TaskRunning
-        icon="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
-        iconTooltip="AI助手图标 - 点击查看详情"
         title={currentStatusInfo.title}
         description={currentStatusInfo.description}
         taskStatus={taskStatus}
