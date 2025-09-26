@@ -7,10 +7,5 @@ export {
   type FollowUpQuestionProps,
 } from './FollowUpQuestion';
 export * from './MessagesContent/BubbleContext';
-export {
-  SuggestionList,
-  type SuggestionItem,
-  type SuggestionListProps,
-} from './SuggestionList';
 export * from './type';
 export { UserBubble } from './UserBubble';
