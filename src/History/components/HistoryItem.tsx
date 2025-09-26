@@ -478,18 +478,19 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
               flexDirection: 'column',
             }}
           >
-            <Tooltip
-              title={isTextOverflow ? item.sessionTitle : null}
-              mouseEnterDelay={0.3}
+            <div
+              ref={textRef}
+              style={{
+                position: 'relative',
+                maxWidth: 'calc(100% - 10px)',
+                overflow: 'hidden',
+                ...getMaskStyle(isTextOverflow),
+              }}
             >
-              <div
-                ref={textRef}
-                style={{
-                  position: 'relative',
-                  maxWidth: 'calc(100% - 10px)',
-                  overflow: 'hidden',
-                  ...getMaskStyle(isTextOverflow),
-                }}
+              <Tooltip
+                title={isTextOverflow ? item.sessionTitle : null}
+                mouseEnterDelay={0.3}
+                open={isTextOverflow ? undefined : false}
               >
                 <div
                   style={{
@@ -503,8 +504,8 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                 >
                   {item.sessionTitle}
                 </div>
-              </div>
-            </Tooltip>
+              </Tooltip>
+            </div>
 
             {shouldShowDescription && (item.description || isTask) && (
               <Tooltip
