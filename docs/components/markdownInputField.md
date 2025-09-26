@@ -22,6 +22,7 @@ group:
 ## 基本使用
 
 ```tsx
+import { ActionItemBox, ActionItemContainer } from '@ant-design/md-editor';
 import { MarkdownInputField, SuggestionList } from '@ant-design/md-editor';
 import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
@@ -90,71 +91,41 @@ export default () => {
           },
         }}
         beforeToolsRender={() => {
-          return (
-            <>
-              <div
-                style={{
-                  borderRadius: '200px',
-                  boxSizing: 'border-box',
-                  border: '1px solid var(--color-gray-border-light) ',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '5px 12px',
-                  gap: '8px',
-                  zIndex: 1,
-                }}
-              >
-                <img
-                  width="16"
-                  height="16"
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-                />
-                快捷技能
-              </div>
-              <div
-                style={{
-                  borderRadius: '200px',
-                  boxSizing: 'border-box',
-                  border: '1px solid var(--color-gray-border-light) ',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '5px 12px',
-                  gap: '8px',
-                  zIndex: 1,
-                }}
-              >
-                <img
-                  width="16"
-                  height="16"
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-                />
-                快捷技能
-              </div>
-              <div
-                style={{
-                  borderRadius: '200px',
-                  boxSizing: 'border-box',
-                  border: '1px solid var(--color-gray-border-light) ',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '5px 12px',
-                  gap: '8px',
-                  zIndex: 1,
-                }}
-              >
-                <img
-                  width="16"
-                  height="16"
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-                />
-                快捷技能
-              </div>
-            </>
-          );
-        }}
+        return (
+          <ActionItemContainer>
+            <ActionItemBox
+              onClick={() => console.log('快捷技能1')}
+              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              iconSize={16}
+              size="small"
+              title={
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能1</span>
+              }
+              key="快捷技能1"
+            />
+            <ActionItemBox
+              onClick={() => console.log('快捷技能2')}
+              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              iconSize={16}
+              size="small"
+              title={
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能2</span>
+              }
+              key="快捷技能2"
+            />
+            <ActionItemBox
+              onClick={() => console.log('快捷技能3')}
+              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              iconSize={16}
+              size="small"
+              title={
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能3</span>
+              }
+              key="快捷技能3"
+            />
+          </ActionItemContainer>
+        );
+      }}
         toolsRender={() => [
           <div
             key="bold"
@@ -211,7 +182,6 @@ export default () => {
           setValue(newValue);
           console.log('newValue', newValue);
         }}
-        ac
         placeholder="请输入内容..."
         onSend={async (text) => {
           console.log('发送内容:', text);
