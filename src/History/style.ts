@@ -38,6 +38,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       cursor: 'pointer',
       gap: '4px',
       padding: '0px 12px',
+      marginTop: '4px',
       '&.chat': {
         color: 'var(--color-gray-text-light)',
         height: '32px',
