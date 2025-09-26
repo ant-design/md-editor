@@ -105,7 +105,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         zIndex: 99,
         bottom: 8,
         display: 'flex',
-        gap: '4px',
+        gap: '8px',
         alignItems: 'center',
         font: 'var(--font-text-body-base)',
         color: 'var(--color-gray-text-default)',
@@ -116,6 +116,23 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             boxShadow: 'var(--shadow-border-base)',
           },
         },
+      },
+      '&-is-multi-row': {
+        [`${token.componentCls}-send-actions`]: {
+          right: 12,
+          bottom: 12,
+        },
+      },
+      '&-quick-actions': {
+        position: 'absolute',
+        userSelect: 'none',
+        right: 18,
+        top: 12,
+        boxSizing: 'border-box',
+        zIndex: 99,
+        display: 'flex',
+        gap: '8px',
+        alignItems: 'center',
       },
       '&-send-has-tools': {
         boxSizing: 'border-box',
