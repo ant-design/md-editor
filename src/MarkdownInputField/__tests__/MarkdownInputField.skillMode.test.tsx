@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { MarkdownInputField } from '../MarkdownInputField';
+import { addGlowBorderOffset } from '../style';
 
 /**
  * MarkdownInputField SkillMode 单元测试
@@ -870,6 +871,118 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       ).not.toBeInTheDocument();
       // 由于组件没有渲染，不会有任何交互，所以回调也不会被调用
       expect(onSkillModeOpenChange).not.toHaveBeenCalled();
+    });
+  });
+});
+
+/**
+ * addGlowBorderOffset 函数单元测试
+ * 测试样式工具函数的各种输入处理逻辑
+ */
+describe('addGlowBorderOffset', () => {
+  describe('数字输入处理', () => {
+    it('应该正确处理数字类型输入', () => {
+      expect(addGlowBorderOffset(100)).toBe('104px');
+      expect(addGlowBorderOffset(0)).toBe('4px');
+      expect(addGlowBorderOffset(-10)).toBe('-6px');
+    });
+
+    it('应该正确处理纯数字字符串', () => {
+      expect(addGlowBorderOffset('100')).toBe('104px');
+      expect(addGlowBorderOffset('0')).toBe('4px');
+      expect(addGlowBorderOffset('-10')).toBe('-6px');
+      expect(addGlowBorderOffset('10.5')).toBe('14.5px');
+      expect(addGlowBorderOffset('-10.5')).toBe('-6.5px');
+    });
+  });
+
+  describe('CSS 全局关键字处理', () => {
+    const globalKeywords = [
+      'auto',
+      'inherit',
+      'initial',
+      'unset',
+      'revert',
+      'revert-layer',
+      // 大小写混合校验
+      'AUTO',
+      'InHerit',
+    ];
+
+    globalKeywords.forEach((keyword) => {
+      it(`应该直接返回全局关键字 "${keyword}"`, () => {
+        expect(addGlowBorderOffset(keyword)).toBe(keyword);
+      });
+    });
+  });
+
+  describe('CSS 内在尺寸关键字处理', () => {
+    const intrinsicKeywords = [
+      'min-content',
+      'max-content',
+      'MiN-CoNtEnT',
+      'MAX-CONTENT',
+    ];
+
+    intrinsicKeywords.forEach((keyword) => {
+      it(`应该直接返回内在尺寸关键字 "${keyword}" 而不包裹 calc()`, () => {
+        expect(addGlowBorderOffset(keyword)).toBe(keyword);
+      });
+    });
+  });
+
+  describe('fit-content() 函数处理', () => {
+    const fitContentValues = [
+      'fit-content(200px)',
+      'fit-content(50%)',
+      'fit-content(10em)',
+      'fit-content( 100px )', // 带空格
+      'FIT-CONTENT(100px)',
+      'FiT-CoNtEnT( 100% )',
+    ];
+
+    fitContentValues.forEach((value) => {
+      it(`应该直接返回 "${value}" 而不包裹 calc()`, () => {
+        expect(addGlowBorderOffset(value)).toBe(value);
+      });
+    });
+  });
+
+  describe('其他 CSS 值处理', () => {
+    it('应该对 CSS 单位值使用 calc() 包裹', () => {
+      expect(addGlowBorderOffset('100px')).toBe('calc(100px + 4px)');
+      expect(addGlowBorderOffset('50%')).toBe('calc(50% + 4px)');
+      expect(addGlowBorderOffset('10em')).toBe('calc(10em + 4px)');
+      expect(addGlowBorderOffset('5rem')).toBe('calc(5rem + 4px)');
+      expect(addGlowBorderOffset('100vh')).toBe('calc(100vh + 4px)');
+      expect(addGlowBorderOffset('50vw')).toBe('calc(50vw + 4px)');
+    });
+
+    it('应该对 calc() 表达式使用外层 calc() 包裹', () => {
+      expect(addGlowBorderOffset('calc(100% - 20px)')).toBe(
+        'calc(calc(100% - 20px) + 4px)',
+      );
+    });
+
+    it('应该对 CSS 变量使用 calc() 包裹', () => {
+      expect(addGlowBorderOffset('var(--height)')).toBe(
+        'calc(var(--height) + 4px)',
+      );
+      expect(addGlowBorderOffset('var(--width, 100px)')).toBe(
+        'calc(var(--width, 100px) + 4px)',
+      );
+    });
+  });
+
+  describe('边界情况处理', () => {
+    it('应该正确处理带空格的输入', () => {
+      expect(addGlowBorderOffset('  auto  ')).toBe('auto');
+      expect(addGlowBorderOffset('  100px  ')).toBe('calc(100px + 4px)');
+      expect(addGlowBorderOffset('  min-content  ')).toBe('min-content');
+    });
+
+    it('应该处理空字符串（虽然不太可能出现）', () => {
+      expect(addGlowBorderOffset('')).toBe('4px');
     });
   });
 });
