@@ -7,7 +7,7 @@ export default defineConfig({
   },
   resolve: {},
   server: {
-    host: '127.0.0.1'
+    host: '127.0.0.1',
   },
   test: {
     environment: 'jsdom',
@@ -26,6 +26,7 @@ export default defineConfig({
         'tests/**',
         '**/MarkdownEditor/editor/slate-react/**',
         '**/slate-table/**',
+        '**/icons/**',
         'test/**',
       ],
     },

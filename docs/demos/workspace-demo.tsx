@@ -1,6 +1,8 @@
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { DownloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Workspace } from '@ant-design/md-editor';
+import { Copy, Expand, SwitchToWindow } from '@ant-design/md-editor/icons';
 import RealtimeIcon from '@ant-design/md-editor/Workspace/icons/RealtimeIcon';
+import { Button, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { defaultValue } from './shared/defaultValue';
 
@@ -25,9 +27,72 @@ const Demo = () => {
     <li>准备数据</li>
     <li>运行分析</li>
     <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
   </ol>
 </body>
 </html>`;
+
+  const segmentedContent = (
+    <Space size={8}>
+      <Button
+        size="small"
+        type="text"
+        style={{ color: 'rgba(80, 92, 113, 0.42)' }}
+        icon={<Copy />}
+        onClick={() => {
+          console.log('复制');
+          message.success('复制');
+        }}
+      />
+      <Button
+        size="small"
+        type="text"
+        style={{ color: 'rgba(80, 92, 113, 0.42)' }}
+        icon={<DownloadOutlined />}
+        onClick={() => {
+          console.log('下载');
+          message.success('下载');
+        }}
+      />
+      <Button
+        size="small"
+        type="text"
+        style={{ color: 'rgba(80, 92, 113, 0.42)' }}
+        icon={<SwitchToWindow />}
+        onClick={() => {
+          console.log('切换');
+          message.success('切换');
+        }}
+      />
+      <Button
+        size="small"
+        type="text"
+        style={{ color: '#6b505C71' }}
+        icon={<Expand />}
+        onClick={() => {
+          console.log('全屏');
+          message.success('全屏');
+        }}
+      />
+    </Space>
+  );
+
+  const handleBack = () => {
+    console.log('返回');
+    message.success(`返回`);
+    return true;
+  };
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'test') {
@@ -94,6 +159,8 @@ const Demo = () => {
             labels: { preview: '预览', code: '代码' },
             iframeProps: { sandbox: 'allow-scripts' },
             status: htmlStatus,
+            segmentedExtra: segmentedContent,
+            onBack: handleBack,
           }}
         />
 

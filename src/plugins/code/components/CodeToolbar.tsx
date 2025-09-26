@@ -9,7 +9,7 @@ import { message, Segmented } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../../i18n';
-import { CopyIcon } from '../../../icons/CopyIcon';
+import { Copy } from '../../../icons';
 import { ActionIconBox } from '../../../MarkdownEditor/editor/components/ActionIconBox';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { langIconMap } from '../langIconMap';
@@ -83,7 +83,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
       data-testid="code-toolbar"
       contentEditable={false}
       style={{
-        backgroundColor: '#FFF',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         paddingLeft: '0.25em',
         paddingRight: '0.25em',
         width: '100%',
@@ -91,13 +91,15 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         left: 0,
         top: 0,
         fontSize: '1em',
-        color: 'rgba(0, 0, 0, 0.6)',
+        font: 'var(--font-text-h6-base)',
+        color: 'var(--color-gray-text-default)',
+        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
         justifyContent: 'space-between',
         zIndex: 50,
         height: '38px',
         display: 'flex',
         alignItems: 'center',
-        padding: '12px',
+        padding: '9px 12px',
         gap: '16px',
         alignSelf: 'stretch',
         boxSizing: 'border-box',
@@ -105,7 +107,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         transition: 'all 0.2s ease-in-out',
         borderWidth: '0px 0px 1px 0px',
         borderStyle: 'solid',
-        borderColor: 'rgba(0, 16, 32, 0.0627)',
+        borderColor: 'var(--color-gray-border-light)',
       }}
     >
       {/* 左侧：语言选择器或语言显示 */}
@@ -117,7 +119,8 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             alignItems: 'center',
             cursor: 'pointer',
             gap: 2,
-            color: 'rgba(0, 0, 0, 0.8)',
+            font: 'var(--font-text-h6-base)',
+            color: 'var(--color-gray-text-default)',
             userSelect: 'none',
           }}
           contentEditable={false}
@@ -221,7 +224,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             }
           }}
         >
-          <CopyIcon />
+          <Copy />
         </ActionIconBox>
       </div>
     </div>

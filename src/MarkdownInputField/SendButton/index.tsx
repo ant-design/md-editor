@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { StopIcon } from '../../AgentRunBar/icons/StopIcon';
+import { CircleStop } from '../../icons';
 import { useStyle } from './style';
 
 function SendIcon(
@@ -18,7 +18,7 @@ function SendIcon(
     props.onInit?.();
   }, []);
   if (props.typing) {
-    return <StopIcon />;
+    return <CircleStop />;
   }
   return (
     <svg

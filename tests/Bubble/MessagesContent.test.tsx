@@ -7,11 +7,6 @@ import { BubbleConfigContext } from '../../src/Bubble/BubbleConfigProvide';
 import { BubbleMessageDisplay } from '../../src/Bubble/MessagesContent';
 import { BubbleProps, MessageBubbleData } from '../../src/Bubble/type';
 
-// Mock 依赖组件
-vi.mock('../../src/icons/LoadingIcon', () => ({
-  LoadingIcon: () => <div data-testid="loading-icon">Loading...</div>,
-}));
-
 vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
   MarkdownPreview: ({
     content,
@@ -361,7 +356,6 @@ describe('BubbleMessageDisplay', () => {
 
       renderWithContext(props);
 
-      expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
       expect(screen.getByText('思考中...')).toBeInTheDocument();
     });
 

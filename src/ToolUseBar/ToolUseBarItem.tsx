@@ -124,7 +124,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     onClick?.(tool.id);
-    if (onActiveChange) {
+    if (onActiveChange && !showContent) {
       onActiveChange(tool.id, !isActive);
     }
 
@@ -160,7 +160,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   return (
     <div
-      onClick={handleClick}
       key={tool.id}
       data-testid="ToolUserItem"
       className={classNames(
@@ -169,14 +168,16 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         tool.status === 'loading' && `${prefixCls}-tool-loading`,
         tool.status === 'error' && `${prefixCls}-tool-error`,
         tool.status === 'idle' && `${prefixCls}-tool-idle`,
-        isActive && `${prefixCls}-tool-active`,
+        isActive && !expanded && `${prefixCls}-tool-active`,
         expanded && `${prefixCls}-tool-expanded`,
       )}
     >
       <div
         className={classNames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
-        onClick={handleClick}
+        onClick={(e) => {
+          handleClick(e);
+        }}
       >
         <div
           className={classNames(`${prefixCls}-tool-header`, hashId)}
@@ -193,7 +194,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
               tool.status === 'loading'
                 ? {
                     '--rotate': ['0deg', '360deg'],
-                    '--sub1-color': ['#0090FF', '#3E63DD', '#0090FF'],
                   }
                 : {}
             }
@@ -205,19 +205,12 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
                       repeat: Infinity,
                       ease: 'linear',
                     },
-                    '--sub1-color': {
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    },
                   }
                 : {}
             }
             style={
               {
                 '--rotation': tool.status === 'loading' ? '360deg' : '0deg',
-                '--sub1-color':
-                  tool.status === 'loading' ? '#0090FF' : undefined,
               } as React.CSSProperties
             }
           >
@@ -234,8 +227,8 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             tool.status === 'loading'
               ? {
                   maskImage: [
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  120%)',
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
                   ],
                 }
               : {}
@@ -244,7 +237,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             tool.status === 'loading'
               ? {
                   maskImage: {
-                    duration: 1.6,
+                    duration: 1,
                     repeat: Infinity,
                     ease: 'linear',
                   },

@@ -1,4 +1,4 @@
-﻿import { CloseCircleFilled } from '@ant-design/icons';
+import { CloseCircleFilled } from '@ant-design/icons';
 import { ConfigProvider, Descriptions, Drawer, Typography } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -10,8 +10,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { MagicIcon } from '../components/icons/MagicIcon';
 import { useAutoScroll } from '../hooks/useAutoScroll';
 import { compileTemplate, I18nContext } from '../i18n';
-import { FinishedIcon } from '../icons/FinishedIcon';
-import { LoadingIcon } from '../icons/LoadingIcon';
+import { CircleCheckBig, Loader } from '../icons';
 import { ActionIconBox } from '../MarkdownEditor/editor/components/ActionIconBox';
 import { MarkdownEditorProps } from '../MarkdownEditor/types';
 import { CollapseIcon, ExpandIcon } from './Collapse';
@@ -195,7 +194,7 @@ const ThoughtChainContent = React.memo<
 
       return thoughtChainList.map((item, index) => {
         let info = item.info;
-        let icon = <LoadingIcon />;
+        let icon = <Loader />;
         let isFinished = false;
 
         if (
@@ -204,7 +203,7 @@ const ThoughtChainContent = React.memo<
           item.output?.type !== 'RUNNING'
         ) {
           isFinished = true;
-          icon = <FinishedIcon />;
+          icon = <CircleCheckBig />;
         }
 
         if (item.output?.errorMsg) {

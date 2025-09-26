@@ -1,16 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Tooltip } from 'antd';
+import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { I18nContext } from '../i18n';
-import { PauseIcon } from './icons/PauseIcon';
-import { PlayIcon } from './icons/PlayIcon';
-import { SimplePauseIcon } from './icons/SimplePauseIcon';
-import { SimplePlayIcon } from './icons/SimplePlayIcon';
-import { SimpleStopIcon } from './icons/SimpleStopIcon';
-import { StopIcon } from './icons/StopIcon';
+import { CirclePause, CirclePlay, CircleStop, Pause, Play } from '../icons';
 import Robot from './Robot';
 import { useStyle } from './style';
+
+export { DazingLottie } from './icons/DazingLottie';
+export { ThinkingLottie } from './icons/ThinkingLottie';
 
 /**
  * 任务状态枚举
@@ -289,7 +287,7 @@ const renderButtonGroup = ({
             aria-label={stopTitle}
             onClick={onStop}
           >
-            {variant === 'simple' ? <SimpleStopIcon /> : <StopIcon />}
+            {variant === 'simple' ? <CircleStop /> : <CircleStop />}
           </div>
         </Tooltip>
       )}
@@ -303,7 +301,7 @@ const renderButtonGroup = ({
             aria-label={pauseTitle}
             onClick={onPause}
           >
-            {variant === 'simple' ? <SimplePauseIcon /> : <PauseIcon />}
+            {variant === 'simple' ? <CirclePause /> : <Pause />}
           </div>
         </Tooltip>
       )}
@@ -317,7 +315,7 @@ const renderButtonGroup = ({
             aria-label={playTitle}
             onClick={onResume}
           >
-            {variant === 'simple' ? <SimplePlayIcon /> : <PlayIcon />}
+            {variant === 'simple' ? <CirclePlay /> : <Play />}
           </div>
         </Tooltip>
       )}
@@ -431,6 +429,9 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         hashId,
         className,
         `${baseCls}-${variant}`,
+        {
+          [`${baseCls}-with-description`]: description,
+        },
       )}
       style={rest.style}
     >
@@ -447,14 +448,20 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         {/* 文字区 */}
         <div className={classNames(`${baseCls}-left-content`, hashId)}>
           {title && (
-            <div className={classNames(`${baseCls}-left-main-text`, hashId)}>
+            <Typography.Title
+              className={classNames(`${baseCls}-left-main-text`, hashId)}
+              ellipsis={{ tooltip: title, rows: description ? 1 : 2 }}
+            >
               {title}
-            </div>
+            </Typography.Title>
           )}
           {variant !== 'simple' && description && (
-            <div className={classNames(`${baseCls}-left-text`, hashId)}>
+            <Typography.Text
+              className={classNames(`${baseCls}-left-text`, hashId)}
+              ellipsis={{ tooltip: description }}
+            >
               {description}
-            </div>
+            </Typography.Text>
           )}
         </div>
       </div>

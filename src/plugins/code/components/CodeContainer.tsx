@@ -63,11 +63,11 @@ export function CodeContainer({
           position: 'relative',
           height: hide ? 0 : 'auto',
           opacity: hide ? 0 : 1,
+          borderRadius: 'var(--radius-card-base)',
+          background: 'var(--color-gray-bg-card-white)',
           transition: 'border-color 0.2s ease-in-out',
-          borderRadius: '12px',
-          background: '#FFFFFF',
-          boxShadow:
-            '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+          borderColor: 'var(--color-gray-border-light)',
+          boxShadow: 'var(--shadow-control-base)',
         }}
         className={classNames('ace-container', 'drag-el', {
           frontmatter: safeElement.frontmatter,

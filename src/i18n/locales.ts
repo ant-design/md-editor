@@ -171,11 +171,13 @@ export const cnLabels = {
   'chat.history.favorite': '收藏',
   'chat.history.unfavorite': '取消收藏',
   'chat.history.search': '搜索',
-  'chat.history.search.placeholder': '| 搜索话题',
+  'chat.history.search.placeholder': '搜索话题',
   'chat.history.newChat': '新对话',
   'chat.history.loadMore': '查看更多',
   'task.history.loadMore': '查看更多历史',
   'chat.history.historyTasks': '历史任务',
+  'chat.history.historyChats': '历史对话',
+  'chat.task.search.placeholder': '搜索任务',
   // TaskList 组件相关
   'taskList.expand': '展开',
   'taskList.collapse': '收起',
@@ -204,6 +206,8 @@ export const cnLabels = {
   'workspace.file.download': '下载',
   'workspace.file.share': '分享',
   'workspace.file.preview': '预览',
+  'workspace.file.linkCopied': '已复制链接',
+  'workspace.file.copyFailed': '复制失败',
   // MarkdownInputField 组件相关
   'markdownInput.fileSizeExceeded': '文件大小超过 ${maxSize} KB',
   // 文档信息相关
@@ -470,11 +474,13 @@ export const enLabels: typeof cnLabels = {
   'chat.history.favorite': 'Favorite',
   'chat.history.unfavorite': 'Unfavorite',
   'chat.history.search': 'Search',
-  'chat.history.search.placeholder': '| Search topic',
+  'chat.history.search.placeholder': 'Search topic',
   'chat.history.newChat': 'New Chat',
   'chat.history.loadMore': 'Load More',
   'task.history.loadMore': 'Load More History',
   'chat.history.historyTasks': 'History Tasks',
+  'chat.history.historyChats': 'History Chats',
+  'chat.task.search.placeholder': 'Search Task',
   // TaskList component related
   'taskList.expand': 'Expand',
   'taskList.collapse': 'Collapse',
@@ -503,6 +509,8 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.download': 'Download',
   'workspace.file.share': 'Share',
   'workspace.file.preview': 'Preview',
+  'workspace.file.linkCopied': 'Link copied',
+  'workspace.file.copyFailed': 'Copy failed',
   // MarkdownInputField component related
   'markdownInput.fileSizeExceeded': 'File size exceeds ${maxSize} KB',
   // Document info related
