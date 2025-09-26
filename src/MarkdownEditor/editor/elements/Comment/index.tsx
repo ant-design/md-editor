@@ -1,7 +1,8 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { BaseRange } from 'slate';
+import { ReactEditor } from 'slate-react';
 import { CommentDataType, MarkdownEditorProps } from '../../../types';
 import { useEditorStore } from '../../store';
 
@@ -44,16 +45,16 @@ export const CommentView = (props: CommentViewProps) => {
   const { markdownEditorRef } = useEditorStore();
   const commentRef = useRef<HTMLSpanElement>(null);
 
-  // 拖拽相关状态
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragType, setDragType] = useState<'start' | 'end' | null>(null);
-  const [dragStartPos, setDragStartPos] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
-  const [dragEndPos, setDragEndPos] = useState<{ x: number; y: number } | null>(
-    null,
-  );
+  // 原生 JavaScript 拖拽状态管理 - 避免 React 重新渲染
+  const dragStateRef = useRef({
+    isDragging: false,
+    dragStartPos: null as { x: number; y: number } | null,
+    dragEndPos: null as { x: number; y: number } | null,
+  });
+
+  // CSS Custom Highlight 相关状态 - 使用原生 JS 优化性能
+  const highlightRef = useRef<Highlight | null>(null);
+  const highlightRangesRef = useRef<Range[]>([]);
 
   /**
    * 查找当前评论数据
@@ -66,16 +67,164 @@ export const CommentView = (props: CommentViewProps) => {
   }, [props.id]);
 
   /**
+   * 清除原生 CSS Custom Highlight
+   */
+  const clearNativeHighlight = () => {
+    try {
+      if (highlightRef.current && CSS.highlights.has('comment-drag-preview')) {
+        CSS.highlights.get('comment-drag-preview')?.clear();
+        highlightRef.current = null;
+        highlightRangesRef.current = [];
+      }
+    } catch (error) {
+      console.error('清除原生 CSS Custom Highlight 时出错:', error);
+    }
+  };
+
+  /**
+   * 获取编辑器的当前选择，包含 comment 的 Selection
+   */
+  const getEditorSelection = () => {
+    const editor = markdownEditorRef.current;
+    if (!editor) return null;
+
+    try {
+      // 获取编辑器的当前选择
+      let selection = null;
+
+      // 如果仍然没有选择，返回 null
+      if (!selection) {
+        const range = window.getSelection();
+        if (!range) return null;
+        const slateRange = ReactEditor.toSlateRange(editor, range, {
+          exactMatch: true,
+          suppressThrow: false,
+        });
+
+        selection = slateRange;
+      }
+
+      if (!selection) return null;
+
+      // 转换为 DOM Range
+      const domRange = ReactEditor.toDOMRange(editor, selection);
+      if (!domRange) return null;
+
+      return {
+        slateSelection: selection,
+        domRange,
+        startOffset: selection.anchor.offset,
+        endOffset: selection.focus.offset,
+      };
+    } catch (error) {
+      console.warn('获取编辑器选择失败:', error);
+      return null;
+    }
+  };
+
+  /**
+   * 原生 JavaScript 拖拽开始处理
+   * 避免 React 状态更新导致的卡顿
+   */
+  const handleNativeMouseDown = (e: React.MouseEvent) => {
+    const dragRangeConfig = props.comment?.dragRange;
+    if (!dragRangeConfig?.enable) return;
+    const dragState = dragStateRef.current;
+    dragState.dragStartPos = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+    dragState.isDragging = true;
+
+    e.stopPropagation();
+    // 添加拖拽样式类
+    const commentElement = commentRef.current;
+    if (commentElement) {
+      commentElement.classList.add('comment-dragging');
+    }
+  };
+
+  /**
+   * 原生 JavaScript 拖拽移动处理
+   */
+  const handleNativeMouseMove = (e: MouseEvent) => {
+    const dragState = dragStateRef.current;
+
+    // 更新拖拽位置
+    dragState.dragEndPos = { x: e.clientX, y: e.clientY };
+  };
+
+  /**
+   * 原生 JavaScript 拖拽结束处理
+   */
+  const handleNativeMouseUp = () => {
+    const dragState = dragStateRef.current;
+    if (
+      !dragState.isDragging ||
+      !dragState.dragStartPos ||
+      !dragState.dragEndPos
+    ) {
+      return;
+    }
+
+    const commentElement = commentRef.current;
+
+    try {
+      // 直接获取编辑器的选择
+      const editorSelection = getEditorSelection();
+      if (!editorSelection) return;
+
+      const { slateSelection, domRange, startOffset, endOffset } =
+        editorSelection;
+
+      // 获取选中范围内的文本内容
+      const newContent = domRange.toString();
+
+      const dragRangeConfig = props.comment?.dragRange;
+      const onRangeChange = dragRangeConfig?.onRangeChange;
+      if (onRangeChange && newContent && thisComment) {
+        onRangeChange(
+          thisComment.id,
+          {
+            anchorOffset: startOffset,
+            focusOffset: endOffset,
+            refContent: newContent,
+            selection: slateSelection,
+          },
+          newContent,
+        );
+      }
+    } catch (error) {
+      console.error('处理拖拽结束时出错:', error);
+    }
+
+    // 清除原生 CSS Custom Highlight
+    clearNativeHighlight();
+
+    // 重置拖拽状态
+    dragStateRef.current = {
+      isDragging: false,
+      dragStartPos: null,
+      dragEndPos: null,
+    };
+
+    // 移除拖拽样式类
+    if (commentElement) {
+      commentElement.classList.remove('comment-dragging');
+    }
+  };
+
+  /**
    * 评论范围拖拽功能的核心逻辑
    *
    * 实现功能：
    * - 监听鼠标事件以处理拖拽操作
-   * - 区分开始和结束拖拽点（前1/3和后1/3区域）
+   * - 区分开始和结束拖拽点
    * - 使用 Slate.js API 进行精确的文本范围计算
    * - 支持拖拽过程中的实时反馈
    * - 提供降级处理机制
    */
-  // 评论范围拖拽功能
+  // 原生 JavaScript 拖拽功能 - 避免 React 重新渲染
   useEffect(() => {
     if (
       !props.comment?.dragRange?.enable ||
@@ -85,239 +234,35 @@ export const CommentView = (props: CommentViewProps) => {
       return;
     }
 
-    const commentElement = commentRef.current;
-    const dragRangeConfig = props.comment.dragRange;
-    const onRangeChange = dragRangeConfig.onRangeChange;
-
-    /**
-     * 处理鼠标按下事件，判断拖拽类型
-     * @param e - 鼠标事件对象
-     */
-    const handleMouseDown = (e: React.MouseEvent) => {
-      if (e.button !== 0) return; // 只处理左键
-
-      const rect = commentElement.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const elementWidth = rect.width;
-
-      // 判断点击位置：前1/3为开始拖拽，后1/3为结束拖拽
-      let dragType: 'start' | 'end' | null = null;
-      if (clickX < elementWidth / 3) {
-        dragType = 'start';
-      } else if (clickX > (elementWidth * 2) / 3) {
-        dragType = 'end';
-      }
-
-      if (dragType) {
-        setIsDragging(true);
-        setDragType(dragType);
-        setDragStartPos({ x: e.clientX, y: e.clientY });
-        setDragEndPos({ x: e.clientX, y: e.clientY });
-
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
-    /**
-     * 处理鼠标移动事件，更新拖拽位置
-     * @param e - 鼠标事件对象
-     */
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-
-      setDragEndPos({ x: e.clientX, y: e.clientY });
-    };
-
-    /**
-     * 处理鼠标释放事件，完成拖拽操作并计算新的文本范围
-     *
-     * 主要步骤：
-     * 1. 获取 Slate.js 编辑器实例
-     * 2. 计算拖拽距离对应的字符数
-     * 3. 根据拖拽类型调整范围边界
-     * 4. 使用 Slate.js API 获取新的文本内容
-     * 5. 调用 onRangeChange 回调更新范围
-     * 6. 提供降级处理机制
-     */
-    const handleMouseUp = () => {
-      if (!isDragging || !dragStartPos || !dragEndPos || !dragType) return;
-
-      // 使用 Slate.js 来计算准确的文本内容
-      const textElement =
-        commentElement.querySelector('span') || commentElement;
-      const elementRect = textElement.getBoundingClientRect();
-
-      // 获取 Slate.js 编辑器实例
-      const editor = markdownEditorRef.current;
-      if (!editor) {
-        console.warn('无法获取 Slate.js 编辑器实例');
-        return;
-      }
-
-      // 使用 Slate.js 的 API 来获取准确的文本内容
-      try {
-        // 获取当前选中的范围
-        const currentSelection = props.selection || thisComment.selection;
-        if (!currentSelection) {
-          console.warn('当前没有选中范围', thisComment);
-          return;
-        }
-
-        // 计算拖拽距离
-        const dragDistance = dragEndPos.x - dragStartPos.x;
-        const dragDistanceInChars = Math.round(
-          (Math.abs(dragDistance) / elementRect.width) *
-            Math.max(
-              currentSelection.focus.offset - currentSelection.anchor.offset,
-              1,
-            ),
-        );
-
-        let newAnchorOffset = currentSelection.anchor.offset;
-        let newFocusOffset = currentSelection.focus.offset;
-
-        // 根据拖拽类型调整范围
-        if (dragType === 'start') {
-          // 拖拽开始位置
-          if (dragDistance < 0) {
-            // 向左拖拽，扩大范围
-            newAnchorOffset = Math.max(
-              0,
-              newAnchorOffset - dragDistanceInChars,
-            );
-          } else {
-            // 向右拖拽，缩小范围
-            newAnchorOffset = Math.min(
-              newFocusOffset - 1,
-              newAnchorOffset + dragDistanceInChars,
-            );
-          }
-        } else if (dragType === 'end') {
-          // 拖拽结束位置
-          if (dragDistance > 0) {
-            // 向右拖拽，扩大范围
-            newFocusOffset = newFocusOffset + dragDistanceInChars;
-          } else {
-            // 向左拖拽，缩小范围
-            newFocusOffset = Math.max(
-              newAnchorOffset + 1,
-              newFocusOffset - dragDistanceInChars,
-            );
-          }
-        }
-
-        // 确保范围有效
-        if (newAnchorOffset >= newFocusOffset) {
-          return;
-        }
-
-        // 使用 Slate.js 的 API 获取文本内容
-        const newRange = {
-          anchor: {
-            ...currentSelection.anchor,
-            offset: newAnchorOffset,
-          },
-          focus: {
-            ...currentSelection.focus,
-            offset: newFocusOffset,
-          },
-        };
-
-        // 获取选中范围内的文本内容
-        const newContent = editor.string(newRange);
-
-        if (onRangeChange && newContent) {
-          onRangeChange(
-            thisComment.id,
-            {
-              anchorOffset: newAnchorOffset,
-              focusOffset: newFocusOffset,
-              refContent: newContent,
-            },
-            newContent,
-          );
-        }
-      } catch (error) {
-        console.error('使用 Slate.js 计算文本内容时出错:', error);
-        // 降级到简单的字符串切片
-        const textContent = textElement.textContent || '';
-        const currentSelection = thisComment.selection;
-        if (!currentSelection) return;
-
-        const dragDistance = dragEndPos.x - dragStartPos.x;
-        const dragDistanceInChars = Math.round(
-          (Math.abs(dragDistance) / elementRect.width) * textContent.length,
-        );
-
-        let newAnchorOffset = currentSelection.anchor.offset;
-        let newFocusOffset = currentSelection.focus.offset;
-
-        if (dragType === 'start') {
-          if (dragDistance < 0) {
-            newAnchorOffset = Math.max(
-              0,
-              newAnchorOffset - dragDistanceInChars,
-            );
-          } else {
-            newAnchorOffset = Math.min(
-              newFocusOffset - 1,
-              newAnchorOffset + dragDistanceInChars,
-            );
-          }
-        } else if (dragType === 'end') {
-          if (dragDistance > 0) {
-            newFocusOffset = newFocusOffset + dragDistanceInChars;
-          } else {
-            newFocusOffset = Math.max(
-              newAnchorOffset + 1,
-              newFocusOffset - dragDistanceInChars,
-            );
-          }
-        }
-
-        if (newAnchorOffset >= newFocusOffset) {
-          return;
-        }
-
-        const newContent = textContent.slice(newAnchorOffset, newFocusOffset);
-
-        if (onRangeChange && newContent) {
-          onRangeChange(
-            thisComment.id,
-            {
-              anchorOffset: newAnchorOffset,
-              focusOffset: newFocusOffset,
-              refContent: newContent,
-            },
-            newContent,
-          );
-        }
-      }
-
-      setIsDragging(false);
-      setDragType(null);
-      setDragStartPos(null);
-      setDragEndPos(null);
-    };
-
-    // 添加事件监听器
-    commentElement.addEventListener('mousedown', handleMouseDown as any);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    // 使用原生 JavaScript 事件监听器，避免 React 重新渲染
+    document.addEventListener('mousemove', handleNativeMouseMove);
+    document.addEventListener('mouseup', handleNativeMouseUp);
 
     return () => {
-      commentElement.removeEventListener('mousedown', handleMouseDown as any);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleNativeMouseMove);
+      document.removeEventListener('mouseup', handleNativeMouseUp);
     };
-  }, [
-    props.comment?.dragRange,
-    thisComment,
-    isDragging,
-    dragStartPos,
-    dragEndPos,
-  ]);
+  }, [props.comment?.dragRange, thisComment]);
+
+  // 添加 CSS Custom Highlight 样式
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      ::highlight(comment-drag-preview) {
+        background-color: rgba(24, 144, 255, 0.3);
+        color: inherit;
+        border-radius: 2px;
+        transition: all 0.1s ease;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
+    };
+  }, []);
 
   if (!props.commentItem?.length) {
     return <>{props.children}</>;
@@ -334,7 +279,8 @@ export const CommentView = (props: CommentViewProps) => {
       id={props.id}
       className={classNames(props.hashId, {
         [`${mdEditorBaseClass}-comment-${type}`]: type,
-        [`${mdEditorBaseClass}-comment-dragging`]: isDragging,
+        [`${mdEditorBaseClass}-comment-dragging`]:
+          dragStateRef.current.isDragging,
       })}
       style={{
         position: 'relative',
@@ -346,8 +292,6 @@ export const CommentView = (props: CommentViewProps) => {
           // 如果启用了拖拽功能，不阻止默认行为
           return;
         }
-
-        e.preventDefault();
         e.stopPropagation();
         setShowComment?.(
           props.commentItem?.filter((item: any) => Boolean(item.content)),
@@ -356,48 +300,8 @@ export const CommentView = (props: CommentViewProps) => {
     >
       {props.children}
 
-      {/* 拖拽过程中的高亮显示 */}
-      {isDragging &&
-        dragStartPos &&
-        dragEndPos &&
-        dragRangeConfig?.highlightStyle && (
-          <div
-            className={classNames(
-              'comment-drag-highlight',
-              `comment-drag-highlight-${dragType}`,
-              dragRangeConfig.highlightStyle.className,
-            )}
-            style={{
-              position: 'absolute',
-              left:
-                dragType === 'start'
-                  ? Math.min(dragStartPos.x, dragEndPos.x) -
-                    (commentRef.current?.getBoundingClientRect().left || 0)
-                  : 0,
-              top: 0,
-              width:
-                dragType === 'start'
-                  ? Math.abs(dragEndPos.x - dragStartPos.x)
-                  : Math.max(dragStartPos.x, dragEndPos.x) -
-                    (commentRef.current?.getBoundingClientRect().left || 0),
-              height: '100%',
-              backgroundColor:
-                dragRangeConfig.highlightStyle.backgroundColor ||
-                'rgba(24, 144, 255, 0.2)',
-              border:
-                dragRangeConfig.highlightStyle.border ||
-                '1px solid rgba(24, 144, 255, 0.5)',
-              borderRadius:
-                dragRangeConfig.highlightStyle.borderRadius || '2px',
-              opacity: dragRangeConfig.highlightStyle.opacity || 0.8,
-              pointerEvents: 'none',
-              zIndex: 1000,
-            }}
-          />
-        )}
-
       {/* 拖拽手柄 */}
-      {dragRangeConfig?.enable && !isDragging && (
+      {dragRangeConfig?.enable && !dragStateRef.current.isDragging && (
         <>
           {/* 开始拖拽手柄 */}
           <div
@@ -411,41 +315,53 @@ export const CommentView = (props: CommentViewProps) => {
               left: '-8px',
               top: '0',
               width: '12px',
+              maxHeight: '24px',
               height: '100%',
               cursor: 'grab',
               zIndex: 1001,
               opacity: dragRangeConfig.handleStyle?.opacity || 0.8,
+              transition: 'all 0.1s ease-out', // 添加过渡效果提高跟手性
             }}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setIsDragging(true);
-              setDragType('start');
-              setDragStartPos({ x: e.clientX, y: e.clientY });
-              setDragEndPos({ x: e.clientX, y: e.clientY });
-            }}
+            onMouseDown={(e) => handleNativeMouseDown(e)}
           >
-            {/* 圆形顶部 */}
+            {/* 浏览器原生选择手柄样式 */}
             <div
               style={{
-                width: '8px',
-                height: '8px',
+                width: '6px',
+                height: '6px',
                 backgroundColor: '#1890ff',
-                borderRadius: '50%',
+                borderRadius: '1px',
                 position: 'absolute',
-                top: '0',
-                left: '2px',
+                top: '2px',
+                left: '3px',
+                border: '1px solid #fff',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
               }}
             />
-            {/* 垂直线 */}
+            {/* 垂直线 - 更细更自然 */}
             <div
               style={{
-                width: '2px',
-                height: 'calc(100% - 4px)',
+                width: '1px',
+                height: 'calc(100% - 8px)',
                 backgroundColor: '#1890ff',
                 position: 'absolute',
                 top: '4px',
                 left: '5px',
+                opacity: 0.8,
+              }}
+            />
+            {/* 底部指示器 */}
+            <div
+              style={{
+                width: '4px',
+                height: '4px',
+                backgroundColor: '#1890ff',
+                borderRadius: '1px',
+                position: 'absolute',
+                bottom: '2px',
+                left: '3px',
+                border: '1px solid #fff',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
               }}
             />
           </div>
@@ -459,43 +375,54 @@ export const CommentView = (props: CommentViewProps) => {
             style={{
               position: 'absolute',
               right: '-8px',
-              top: '0',
+              bottom: '0',
+              maxHeight: '24px',
               width: '12px',
               height: '100%',
               cursor: 'grab',
               zIndex: 1001,
               opacity: dragRangeConfig.handleStyle?.opacity || 0.8,
             }}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setIsDragging(true);
-              setDragType('end');
-              setDragStartPos({ x: e.clientX, y: e.clientY });
-              setDragEndPos({ x: e.clientX, y: e.clientY });
-            }}
+            onMouseDown={(e) => handleNativeMouseDown(e)}
           >
-            {/* 垂直线 */}
+            {/* 浏览器原生选择手柄样式 */}
             <div
               style={{
-                width: '2px',
-                height: 'calc(100% - 4px)',
+                width: '6px',
+                height: '6px',
                 backgroundColor: '#1890ff',
+                borderRadius: '1px',
                 position: 'absolute',
-                top: '0',
-                left: '5px',
+                top: '2px',
+                left: '3px',
+                border: '1px solid #fff',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
               }}
             />
-            {/* 圆形底部 */}
+            {/* 垂直线 - 更细更自然 */}
             <div
               style={{
-                width: '8px',
-                height: '8px',
+                width: '1px',
+                height: 'calc(100% - 8px)',
                 backgroundColor: '#1890ff',
-                borderRadius: '50%',
                 position: 'absolute',
-                bottom: '0',
-                left: '2px',
+                top: '4px',
+                left: '5px',
+                opacity: 0.8,
+              }}
+            />
+            {/* 底部指示器 */}
+            <div
+              style={{
+                width: '4px',
+                height: '4px',
+                backgroundColor: '#1890ff',
+                borderRadius: '1px',
+                position: 'absolute',
+                bottom: '2px',
+                left: '3px',
+                border: '1px solid #fff',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
               }}
             />
           </div>
