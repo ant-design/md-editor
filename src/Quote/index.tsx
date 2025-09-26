@@ -121,7 +121,6 @@ export const Quote: React.FC<QuoteProps> = ({
       </span>
       {closable && onClose && (
         <div
-          style={{ fontSize: 16 }}
           onClick={onClose}
           className={closeCls}
           data-testid="quote-close-button"

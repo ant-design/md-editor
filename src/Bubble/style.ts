@@ -38,13 +38,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         gap: 'var(--margin-1x)',
         paddingLeft: '20px',
-        span: {
-          fontWeight: 600,
-          fontSize: '1em',
-          color: 'var(--color-gray-text-default)',
-          display: 'flex',
-          alignItems: 'center',
-        },
       },
       '&-bubble-avatar-emoji': {
         fontSize: 24,
