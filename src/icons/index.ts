@@ -441,3 +441,4 @@ export { default as Zap } from './Zap.js';
 export { default as Zookeeper } from './Zookeeper.js';
 export { default as ZoomIn } from './ZoomIn.js';
 export { default as ZoomOut } from './ZoomOut.js';
+export { SwapRightIcon } from './SwapRightIcon';

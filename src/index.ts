@@ -8,6 +8,7 @@ export type {
   MessageBubbleData,
 } from './Bubble/type';
 export * from './components/ChatFlowContainer';
+export * from './components/SuggestionList';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './components/VisualList';

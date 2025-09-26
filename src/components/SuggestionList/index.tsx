@@ -1,7 +1,7 @@
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useMemo, useState } from 'react';
-import { SwapRight } from '../../icons';
+import { RefreshCcw, SwapRight } from '../../icons';
 import { useStyle } from './style';
 
 export interface SuggestionItem {
@@ -19,8 +19,14 @@ export interface SuggestionListProps {
   style?: React.CSSProperties;
   items?: SuggestionItem[];
   onItemClick?: (value: string) => void | Promise<void>;
-  layout?: 'vertical' | 'horizontal';
+  /** 最大显示数量 */
   maxItems?: number;
+  /** 布局类型：垂直布局、水平布局 */
+  layout?: 'vertical' | 'horizontal';
+  /** 样式类型：基础版、透明版、白色版 */
+  type?: 'basic' | 'transparent' | 'white';
+  /** 是否展示左上角“搜索更多”入口 */
+  showMore?: { enable: boolean; onClick?: () => void };
 }
 
 export const SuggestionList: React.FC<SuggestionListProps> = ({
@@ -30,6 +36,8 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
   onItemClick,
   layout = 'vertical',
   maxItems = 6,
+  type = 'basic',
+  showMore,
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const prefixCls = context?.getPrefixCls('follow-up');
@@ -48,6 +56,7 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
     className,
     hashId,
     `${prefixCls}-${layout}`,
+    `${prefixCls}-${type}`,
   );
 
   return wrapSSR(
@@ -59,6 +68,24 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
           })}
           aria-label="追问建议"
         >
+          {showMore?.enable ? (
+            <div
+              className={classNames(`${prefixCls}-more`, hashId)}
+              aria-label="搜索更多"
+            >
+              <span className={classNames(`${prefixCls}-more-text`, hashId)}>
+                搜索更多
+              </span>
+              <span
+                className={classNames(`${prefixCls}-more-icon`, hashId)}
+                role="button"
+                onClick={() => showMore?.onClick?.()}
+                aria-hidden
+              >
+                <RefreshCcw width={14} height={14} />
+              </span>
+            </div>
+          ) : null}
           {derivedItems?.map((item) => {
             const label =
               typeof item?.text === 'string' ? item?.text : undefined;
