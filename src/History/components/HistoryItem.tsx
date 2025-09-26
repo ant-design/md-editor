@@ -41,6 +41,13 @@ const TaskIconMap: (
   };
 };
 
+const FADE_OUT_GRADIENT = 'linear-gradient(to left, transparent, black 20%)';
+
+const getMaskStyle = (isOverflow: boolean) => ({
+  WebkitMaskImage: isOverflow ? FADE_OUT_GRADIENT : 'none',
+  maskImage: isOverflow ? FADE_OUT_GRADIENT : 'none',
+});
+
 /**
  * 文本溢出检测的额外滚动偏移量，用于确保文本滚动动画的平滑过渡
  * 当文本滚动到末尾时，这个偏移量会让文本多滚动一段距离，使其看起来更自然
@@ -252,6 +259,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                 position: 'relative',
                 width: 'calc(100% - 10px)',
                 overflow: 'hidden',
+                ...getMaskStyle(isTextOverflow),
               }}
             >
               <Tooltip
@@ -272,22 +280,6 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                   {item.sessionTitle}
                 </div>
               </Tooltip>
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '100%',
-                  height: '100%',
-                  WebkitMaskImage:
-                    'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                  maskImage:
-                    'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                  opacity: isTextOverflow ? 1 : 0,
-                  transition: 'opacity 0.2s',
-                  pointerEvents: 'none',
-                }}
-              />
             </div>
           </div>
         </div>
@@ -523,6 +515,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                   position: 'relative',
                   maxWidth: 'calc(100% - 10px)',
                   overflow: 'hidden',
+                  ...getMaskStyle(isTextOverflow),
                 }}
               >
                 <div
@@ -537,22 +530,6 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                 >
                   {item.sessionTitle}
                 </div>
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    width: '100%',
-                    height: '100%',
-                    WebkitMaskImage:
-                      'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                    maskImage:
-                      'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                    opacity: isTextOverflow ? 1 : 0,
-                    transition: 'opacity 0.2s',
-                    pointerEvents: 'none',
-                  }}
-                />
               </div>
             </Tooltip>
 

@@ -23,7 +23,7 @@ const TaskHistoryDemo = () => {
       {
         id: '3',
         sessionId: 'session-3',
-        sessionTitle: 'Create Printable PDF from Subtitle',
+        sessionTitle: 'Create Printable PDF from Subtitle Test',
         description: '需要分析用户行为数据并生成报告',
         status: 'success',
         agentId: agentId,
