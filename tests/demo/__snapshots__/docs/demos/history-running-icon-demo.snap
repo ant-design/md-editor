@@ -299,16 +299,13 @@
                                 <div
                                   aria-describedby="test-id"
                                   data-overflow="false"
-                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     数据分析任务
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                                 <div
                                   aria-describedby="test-id"
@@ -356,26 +353,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -474,16 +481,13 @@
                                 <div
                                   aria-describedby="test-id"
                                   data-overflow="false"
-                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     模型训练任务
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                                 <div
                                   aria-describedby="test-id"
@@ -531,26 +535,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -649,16 +663,13 @@
                                 <div
                                   aria-describedby="test-id"
                                   data-overflow="false"
-                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     代码部署
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                                 <div
                                   aria-describedby="test-id"
@@ -706,26 +717,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -775,16 +796,13 @@
                                 <div
                                   aria-describedby="test-id"
                                   data-overflow="false"
-                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     系统备份
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                                 <div
                                   aria-describedby="test-id"
@@ -832,26 +850,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -914,16 +942,13 @@
                                 <div
                                   aria-describedby="test-id"
                                   data-overflow="false"
-                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     报告生成
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                                 <div
                                   aria-describedby="test-id"
@@ -971,26 +996,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -1136,7 +1171,7 @@
                               >
                                 <div
                                   data-overflow="false"
-                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     aria-describedby="test-id"
@@ -1144,9 +1179,6 @@
                                   >
                                     聊天: 数据分析任务
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                               </div>
                             </div>
@@ -1175,26 +1207,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -1287,7 +1329,7 @@
                               >
                                 <div
                                   data-overflow="false"
-                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     aria-describedby="test-id"
@@ -1295,9 +1337,6 @@
                                   >
                                     聊天: 模型训练任务
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                               </div>
                             </div>
@@ -1326,26 +1365,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -1438,7 +1487,7 @@
                               >
                                 <div
                                   data-overflow="false"
-                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     aria-describedby="test-id"
@@ -1446,9 +1495,6 @@
                                   >
                                     聊天: 代码部署
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                               </div>
                             </div>
@@ -1477,26 +1523,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -1536,7 +1592,7 @@
                               >
                                 <div
                                   data-overflow="false"
-                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     aria-describedby="test-id"
@@ -1544,9 +1600,6 @@
                                   >
                                     聊天: 系统备份
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                               </div>
                             </div>
@@ -1575,26 +1628,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
@@ -1647,7 +1710,7 @@
                               >
                                 <div
                                   data-overflow="false"
-                                  style="position: relative; width: calc(100% - 10px); overflow: hidden;"
+                                  style="position: relative; width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
                                     aria-describedby="test-id"
@@ -1655,9 +1718,6 @@
                                   >
                                     聊天: 报告生成
                                   </div>
-                                  <div
-                                    style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
-                                  />
                                 </div>
                               </div>
                             </div>
@@ -1686,26 +1746,36 @@
                                         tabindex="0"
                                         title="删除"
                                       >
-                                        <span
-                                          aria-label="delete"
-                                          class="anticon anticon-delete"
-                                          role="img"
-                                          style="font-size: 14px; color: var(--color-gray-text-secondary);"
+                                        <svg
+                                          class="sofa-icons-icon"
+                                          fill="currentColor"
+                                          fill-rule="evenodd"
+                                          height="1em"
+                                          style="vertical-align: -0.125em; font-size: 14px; color: var(--color-gray-text-secondary);"
+                                          viewBox="0 0 16 16"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
                                         >
-                                          <svg
-                                            aria-hidden="true"
-                                            data-icon="delete"
-                                            fill="currentColor"
-                                            focusable="false"
-                                            height="1em"
-                                            viewBox="64 64 896 896"
-                                            width="1em"
+                                          <defs>
+                                            <clippath
+                                              id="Trash2-master_svg0_308_02283"
+                                            >
+                                              <rect
+                                                height="16"
+                                                rx="0"
+                                                width="16"
+                                              />
+                                            </clippath>
+                                          </defs>
+                                          <g
+                                            clip-path="url(#Trash2-master_svg0_308_02283)"
                                           >
                                             <path
-                                              d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z"
+                                              d="M10 2.667q0-.224-.221-.446Q9.557 2 9.333 2H6.667q-.224 0-.446.221Q6 2.443 6 2.667v.666h4zm1.333.666v-.666q0-.777-.612-1.388Q10.11.667 9.333.667H6.667q-.777 0-1.388.612-.612.611-.612 1.388v.666H2a.667.667 0 1 0 0 1.334h.667v8.666q0 .776.612 1.388.611.612 1.388.612h6.666q.776 0 1.388-.612t.612-1.388V4.667H14a.667.667 0 0 0 0-1.334zm-.666 1.334H4v8.666q0 .224.221.446.222.22.446.22h6.666q.224 0 .446-.22.221-.222.221-.446V4.667zm-3.334 6.666v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 1 0 1.333 0m2.667 0v-4a.667.667 0 0 0-1.333 0v4a.667.667 0 0 0 1.333 0"
+                                              style="mix-blend-mode: passthrough;"
                                             />
-                                          </svg>
-                                        </span>
+                                          </g>
+                                        </svg>
                                       </span>
                                     </div>
                                   </div>
