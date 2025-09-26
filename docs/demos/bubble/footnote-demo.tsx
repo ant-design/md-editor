@@ -44,7 +44,6 @@ const FootnotePopverContent: React.FC<{
         window.open(href, '_blank', 'noopener noreferrer');
       }}
     >
-      {/* 跳转按钮（浮动显示） */}
       {href ? (
         <a
           href={href}
@@ -75,8 +74,6 @@ const FootnotePopverContent: React.FC<{
           <ArrowUpRight style={{ color: 'var(--color-gray-text-secondary)' }} />
         </a>
       ) : null}
-
-      {/* 标题（单行截断） */}
       <div
         style={{
           font: 'var(--font-text-body-base)',
@@ -92,8 +89,6 @@ const FootnotePopverContent: React.FC<{
       >
         {titleText}
       </div>
-
-      {/* 域名行（favicon 圆点 + 域名） */}
       <div
         style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 2 }}
       >
@@ -145,37 +140,21 @@ const FootnotePopverContent: React.FC<{
   );
 };
 
-const message1 = `# 引用（Reference）示例
+const message1 = `# 脚注（Footnote）示例
 
-在技术文档与产品说明中，引用用于标注来源、补充上下文与延伸阅读，而不打断阅读节奏[^1]。本示例展示如何将正文中的引用渲染为可预览的气泡卡片，并在需要时汇总“引用定义表”方便统计与展示[^2]。
+下面展示如何在对话中引用脚注：当你需要补充来源、解释术语或延迟给出细节时，可在正文中添加引用标记，如这里的“脚注定义”[^1]、框架官网[^2] 与 MDN 文档[^3]。脚注能保持叙述流畅，同时不打断阅读节奏。常见用法包括：给统计数据附上来源，给缩写提供扩展释义，或在回答末尾统一列出外部链接与说明。
 
-引用系统强调三件事：
-
-1. 可定位：从正文引用跳转到引用定义[^3]；
-2. 可回溯：从引用定义回看被引用的语境，形成闭环[^4]；
-3. 可预览：悬浮即可查看标题与关键信息，不打断阅读[^5]。
-
-在长文或多人协作场景中，引用有助于统一管理来源，并在文末集中呈现，或在侧栏生成索引视图[^6]。你可以尝试移动光标、增删引用，观察下方“引用定义表”的实时变化[^7]。
-
-- 产品层面：适用于名词解释、来源标注与合规模块[^8]。
-- 工程层面：可替换为 Tooltip/Popover 等形态并支持样式定制[^9]。
-- 写作层面：可承载参考文献与多语言版本的交叉引用[^10]。
-
-更多示例：当正文混合代码块、列表、图片与图表时，引用的展示应保持一致且不干扰阅读；引用系统需与富文本/Markdown 的节点模型良好整合[^11]。
+要点：
+- 在正文中使用 \`[^标识]\` 引用；
+- 在文末用 \`[^标识]: 进行说明\`，可以是文本或链接；
+- 多个脚注可重复引用，顺序自动编号。
+- 可新增/删除/编辑/引用脚注。
 
 *** Reference Notes ***
 
-[^1]: [](https://www.baidu.com) 
-[^2]: [可通过自定义渲染与变更回调实现引用的预览与收集。](https://www.baidu.com)
-[^3]: [支持从正文引用标记定位到定义处。](https://www.baidu.com)
-[^4]: [支持从定义处回看被引用的上下文。](https://www.baidu.com)
-[^5]: [悬浮展示简要信息以保持阅读连贯性。](https://www.baidu.com)
-[^6]: [统一收敛与索引利于维护与协作。](https://www.baidu.com)
-[^7]: [新增、删除与选区变化会实时反映在定义表。](https://www.baidu.com)
-[^8]: [常见于 FAQ、名词解释和条款说明等模块。](https://www.baidu.com)
-[^9]: [引用组件可替换、可主题化，适配不同产品风格。](https://www.baidu.com)
-[^10]: [适合管理多语言/多版本的跨文档引用。](https://www.baidu.com)
-[^11]: [在多模态内容下仍应保持稳定与一致。](https://www.baidu.com)
+[^1]: 脚注用于承载补充信息与出处说明，避免正文冗长。
+[^2]: [Ant Design 官网](https://ant.design)
+[^3]: [](https://developer.mozilla.org/zh-CN/)
 `;
 
 const items: VisualListItem[] = [
