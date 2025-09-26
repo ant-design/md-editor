@@ -1,4 +1,4 @@
-﻿import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
