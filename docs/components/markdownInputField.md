@@ -182,7 +182,6 @@ export default () => {
           setValue(newValue);
           console.log('newValue', newValue);
         }}
-        ac
         placeholder="请输入内容..."
         onSend={async (text) => {
           console.log('发送内容:', text);

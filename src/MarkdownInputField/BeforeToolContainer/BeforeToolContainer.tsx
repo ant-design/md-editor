@@ -4,8 +4,10 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useStyle } from './actionItemBoxStyle';
 
+type KeyedElement = React.ReactElement & { key: React.Key };
+
 export type ActionItemContainerProps = {
-  children: React.ReactElement | React.ReactElement[];
+  children: KeyedElement | KeyedElement[];
   size?: 'small' | 'large' | 'default';
   style?: React.CSSProperties;
 };
@@ -33,6 +35,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const [ordered, setOrdered] = useState<ChildEntry[]>(() => toEntries(props.children));
   
   useEffect(() => {
+    if (process.env.NODE_ENV === 'production') return;
     let hasMissingKey = false;
     React.Children.forEach(props.children as any, (child) => {
       if (!React.isValidElement(child)) return;
@@ -133,7 +136,9 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     e.dataTransfer.effectAllowed = 'move';
     try {
       e.dataTransfer.setData('text/plain', String(index));
-    } catch {}
+    } catch {
+      console.error(e);
+    }
     setDraggingIndex(index);
   };
 
@@ -262,7 +267,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                                 [`${basePrefixCls}-drag-over`]: overIndex === index,
                               },
                             )}
-                            draggable={isHandlePressRef.current && draggingIndex === index}
+                            draggable
                             onMouseDown={(evt) => {
                               const isHandle = isHandleTarget(evt.target);
                               isHandlePressRef.current = isHandle;
@@ -278,10 +283,6 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                               }
                             }}
                             onDragStart={(evt) => {
-                              if (!isHandlePressRef.current && !isHandleTarget(evt.target)) {
-                                evt.preventDefault();
-                                return;
-                              }
                               handleDragStart(evt, index);
                             }}
                             onDragOver={(evt) => handleDragOver(evt, index)}

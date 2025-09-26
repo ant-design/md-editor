@@ -11,7 +11,6 @@ type ActionItemBoxProps = {
   description?: React.ReactNode;
   iconSize?: number;
   index?: number;
-  actionIcon?: React.ReactNode;
   style?: React.CSSProperties;
   size?: 'small' | 'large' | 'default';
   onInit?: () => void;
@@ -31,13 +30,14 @@ export const ActionItemBox = (props: ActionItemBoxProps) => {
 
   return wrapSSR(
     <motion.div
+      initial="hidden"
+      animate="visible"
       style={{
         flex: props.size ? 'none' : 1,
         display: 'flex',
         height: 'min-content',
         ...props.style,
       }}
-      key={props.index}
       variants={{
         hidden: { x: -10, opacity: 0 },
         visible: {
