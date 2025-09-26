@@ -96,7 +96,7 @@
                       </div>
                     </div>
                     <div
-                      style="flex-shrink: 0;"
+                      style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                     >
                       <div
                         style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -167,7 +167,7 @@
                       </div>
                     </div>
                     <div
-                      style="flex-shrink: 0;"
+                      style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                     >
                       <div
                         style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -238,7 +238,7 @@
                       </div>
                     </div>
                     <div
-                      style="flex-shrink: 0;"
+                      style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                     >
                       <div
                         style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"

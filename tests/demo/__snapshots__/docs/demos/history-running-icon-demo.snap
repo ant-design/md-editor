@@ -236,7 +236,7 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark); color: var(--color-primary-text-secondary);"
+                                class="ant-agent-chat-history-menu-task-icon "
                               >
                                 <svg
                                   color="var(--color-primary-text-secondary)"
@@ -297,11 +297,11 @@
                                 style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  aria-describedby="test-id"
                                   data-overflow="false"
                                   style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
+                                    aria-describedby="test-id"
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     数据分析任务
@@ -329,7 +329,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -418,7 +418,7 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark); color: var(--color-primary-text-secondary);"
+                                class="ant-agent-chat-history-menu-task-icon "
                               >
                                 <svg
                                   color="var(--color-primary-text-secondary)"
@@ -479,11 +479,11 @@
                                 style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  aria-describedby="test-id"
                                   data-overflow="false"
                                   style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
+                                    aria-describedby="test-id"
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     模型训练任务
@@ -511,7 +511,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -600,7 +600,7 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font: var(--font-text-body-base); border-radius: 200px; background: var(--color-gray-bg-page-dark); color: var(--color-primary-text-secondary);"
+                                class="ant-agent-chat-history-menu-task-icon "
                               >
                                 <svg
                                   color="var(--color-primary-text-secondary)"
@@ -661,11 +661,11 @@
                                 style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  aria-describedby="test-id"
                                   data-overflow="false"
                                   style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
+                                    aria-describedby="test-id"
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     代码部署
@@ -693,7 +693,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -782,7 +782,7 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 50%; background: var(--color-gray-bg-page-dark); color: var(--color-gray-text-secondary);"
+                                class="ant-agent-chat-history-menu-task-icon "
                               >
                                 💾
                               </div>
@@ -794,11 +794,11 @@
                                 style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  aria-describedby="test-id"
                                   data-overflow="false"
                                   style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
+                                    aria-describedby="test-id"
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     系统备份
@@ -826,7 +826,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -928,7 +928,7 @@
                               style="flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
                             >
                               <div
-                                style="width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px; gap: 10px; font-size: var(--font-text-body-base); border-radius: 50%; background: var(--color-gray-bg-page-dark); color: var(--color-gray-text-secondary);"
+                                class="ant-agent-chat-history-menu-task-icon "
                               >
                                 📄
                               </div>
@@ -940,11 +940,11 @@
                                 style="flex: 1 1 0%; min-width: 0; overflow: hidden; display: flex; flex-direction: column;"
                               >
                                 <div
-                                  aria-describedby="test-id"
                                   data-overflow="false"
                                   style="position: relative; max-width: calc(100% - 10px); overflow: hidden; mask-image: none;"
                                 >
                                   <div
+                                    aria-describedby="test-id"
                                     style="white-space: nowrap; font: var(--font-text-body-base); letter-spacing: var(--letter-spacing-h6-base, normal); color: var(--color-gray-text-default);"
                                   >
                                     报告生成
@@ -972,7 +972,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -1183,7 +1183,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -1341,7 +1341,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -1499,7 +1499,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -1604,7 +1604,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
@@ -1722,7 +1722,7 @@
                               </div>
                             </div>
                             <div
-                              style="flex-shrink: 0;"
+                              style="flex-shrink: 0; display: flex; align-items: center; gap: 4px;"
                             >
                               <div
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
