@@ -119,22 +119,7 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
         >
           {type === 'task' ? (
             <>
-              <div
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: '50%',
-                  background: 'var(--color-gray-bg-card-light)',
-                  marginRight: '8px',
-                  fontSize: '16px',
-                  color: 'var(--color-gray-text-secondary)',
-                }}
-              >
-                {loading ? <LoadingOutlined /> : <EllipsisOutlined />}
-              </div>
+              <div>{loading ? <LoadingOutlined /> : <EllipsisOutlined />}</div>
               {locale?.['task.history.loadMore'] || '查看更多历史'}
             </>
           ) : (
