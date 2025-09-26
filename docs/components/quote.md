@@ -35,15 +35,16 @@ Quote 组件是一个现代化的文件引用卡片组件，为代码引用和�
 
 #### 核心属性
 
-| 属性             | 说明                     | 类型                                             | 默认值  |
-| ---------------- | ------------------------ | ------------------------------------------------ | ------- |
-| fileName         | 文件名                   | `string`                                         | -       |
-| lineRange        | 行号范围（可选）         | `string`                                         | -       |
-| quoteDescription | 引用内容描述             | `string`                                         | -       |
-| popupDetail      | 详细内容（点击查看详情） | `string`                                         | -       |
-| closable         | 是否显示关闭按钮         | `boolean`                                        | `false` |
-| onClose          | 关闭回调                 | `() => void`                                     | -       |
-| onFileClick      | 文件名点击回调           | `(fileName: string, lineRange?: string) => void` | -       |
+| 属性             | 说明                     | 类型                                             | 默认值   |
+| ---------------- | ------------------------ | ------------------------------------------------ | -------- |
+| fileName         | 文件名                   | `string`                                         | -        |
+| lineRange        | 行号范围（可选）         | `string`                                         | -        |
+| quoteDescription | 引用内容描述             | `string`                                         | -        |
+| popupDetail      | 详细内容（点击查看详情） | `string`                                         | -        |
+| popupDirection   | 弹出层方向               | `'left' \| 'right'`                              | `'left'` |
+| closable         | 是否显示关闭按钮         | `boolean`                                        | `false`  |
+| onClose          | 关闭回调                 | `() => void`                                     | -        |
+| onFileClick      | 文件名点击回调           | `(fileName: string, lineRange?: string) => void` | -        |
 
 #### 样式配置
 
@@ -66,6 +67,8 @@ interface QuoteProps {
   quoteDescription: string;
   /** 详细内容（点击查看详情） */
   popupDetail?: string;
+  /** 弹出层方向 */
+  popupDirection?: 'left' | 'right';
   /** 是否显示关闭按钮 */
   closable?: boolean;
   /** 关闭回调 */
@@ -85,6 +88,7 @@ interface QuoteProps {
 - `lineRange` - 可选的行号范围，如 `'1-10'`，会自动附加到文件名后，仅在弹出层中显示
 - `quoteDescription` - 引用的主要内容，在主视图中显示，支持文本截断
 - `popupDetail` - 详细内容，提供时会显示弹出层，包含文件信息和详细内容
+- `popupDirection` - 弹出层位置方向，`'left'` 表示靠左显示，`'right'` 表示靠右显示，默认为 `'left'`
 - `closable` - 控制是否显示右上角关闭按钮
 - `onClose` - 关闭按钮的回调函数
 - `onFileClick` - 文件名点击回调，当用户点击弹出层中的文件名区域时触发
@@ -95,16 +99,16 @@ interface QuoteProps {
 
 #### 功能特点
 
-- **🖱️ 鼠标交互**：点击内容区域弹出详情，动态计算位置
-- **⌨️ 键盘支持**：支持 Enter/Space 键激活，ESC 键关闭
-- **🔒 滚动锁定**：弹出时自动锁定页面滚动
-- **🎭 遮罩关闭**：点击遮罩层可关闭弹出层
-- **📐 智能定位**：默认向上弹出，空间不足时自动调整
+- **🖱️ 鼠标交互**：鼠标悬停内容区域弹出详情，移出时自动隐藏
+- **📐 方向控制**：通过 `popupDirection` 属性控制弹出层的水平位置（左侧或右侧）
+- **🎯 智能定位**：弹出层在组件上方显示，避免遮挡内容
 - **📱 响应式**：窗口大小变化时自动重新定位
+- **🎨 优雅样式**：内置阴影、边框和圆角，符合设计系统
 
 #### 使用示例
 
 ```tsx | pure
+// 默认左侧弹出
 <Quote
   fileName="example.tsx"
   lineRange="1-10"
@@ -112,6 +116,18 @@ interface QuoteProps {
   popupDetail="详细内容..."
   closable
   onClose={() => console.log('关闭引用')}
+  onFileClick={(fileName, lineRange) => {
+    console.log('打开文件:', fileName, lineRange);
+  }}
+/>
+
+// 右侧弹出
+<Quote
+  fileName="config.json"
+  lineRange="5-15"
+  quoteDescription="配置文件引用"
+  popupDetail="配置详情..."
+  popupDirection="right"
   onFileClick={(fileName, lineRange) => {
     console.log('打开文件:', fileName, lineRange);
   }}
@@ -154,6 +170,35 @@ const handleFileClick = (fileName: string, lineRange?: string) => {
   popupDetail="详细的函数代码..."
   onFileClick={handleFileClick}
 />;
+```
+
+### 弹出方向控制
+
+通过 `popupDirection` 属性可以控制弹出层的水平位置，支持 `'left'`（默认）和 `'right'` 两个方向：
+
+#### 使用场景
+
+- **左侧弹出**：适合页面右侧的引用组件，弹出层向左展开不会超出视口
+- **右侧弹出**：适合页面左侧的引用组件，弹出层向右展开避免遮挡内容
+
+#### 示例代码
+
+```tsx | pure
+// 左侧弹出（默认行为）
+<Quote
+  fileName="utils/helper.ts"
+  quoteDescription="工具函数"
+  popupDetail="详细实现代码..."
+  popupDirection="left"  // 可省略，默认值
+/>
+
+// 右侧弹出
+<Quote
+  fileName="config/settings.json"
+  quoteDescription="配置文件"
+  popupDetail="配置详情..."
+  popupDirection="right"
+/>
 ```
 
 ### 关闭功能

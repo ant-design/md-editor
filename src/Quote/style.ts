@@ -65,7 +65,6 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-popup': {
         position: 'absolute',
         bottom: '30px', // 保持原来的距离
-        left: '0',
         minWidth: '240px',
         maxWidth: '800px',
         /* 圆角-卡片-base */

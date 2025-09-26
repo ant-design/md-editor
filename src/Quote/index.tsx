@@ -17,6 +17,8 @@ export interface QuoteProps {
   quoteDescription: string;
   /** 详细内容（点击查看详情） */
   popupDetail?: string;
+  /** 弹出层方向 */
+  popupDirection?: 'left' | 'right';
   /** 是否显示关闭按钮 */
   closable?: boolean;
   /** 关闭回调 */
@@ -78,6 +80,7 @@ export const Quote: React.FC<QuoteProps> = ({
   lineRange,
   quoteDescription,
   popupDetail,
+  popupDirection = 'left',
   closable = false,
   onClose,
   className,
@@ -131,7 +134,11 @@ export const Quote: React.FC<QuoteProps> = ({
 
       {/* 弹出层 - 通过CSS hover控制显示 */}
       {popupDetail && (
-        <div className={popupCls} data-testid="quote-popup">
+        <div
+          className={popupCls}
+          data-testid="quote-popup"
+          style={{ [popupDirection]: 0 }}
+        >
           {(fileName || lineRange) && (
             <div
               className={popupHeaderCls}

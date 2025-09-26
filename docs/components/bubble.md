@@ -138,9 +138,10 @@ export default () => (
         avatar={message.meta}
         placement="right"
         quote={{
+          popupDirection: 'right',
           fileName: 'utils/helper.ts',
           lineRange: '12-25',
-          quoteDescription: '这是一个工具函数的引用，用于处理数据格式化',
+          quoteDescription: '这是一个工',
           popupDetail: `export const formatData = (data: any) => {
             if (!data) return null;
             return {
