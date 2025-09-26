@@ -284,7 +284,14 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
           </div>
         </div>
 
-        <div style={{ flexShrink: 0 }}>
+        <div
+          style={{
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+          }}
+        >
           <HistoryActionsBox
             onDeleteItem={onDeleteItem ? handleDelete : undefined}
             agent={agent}
@@ -429,24 +436,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
             }}
           >
             {isRunning ? (
-              <div
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: '8px',
-                  gap: '10px',
-                  font: isSelected
-                    ? 'var(--font-text-h6-base)'
-                    : 'var(--font-text-body-base)',
-                  borderRadius: '200px',
-                  background: 'var(--color-gray-bg-page-dark)',
-                  color: 'var(--color-primary-text-secondary)',
-                }}
-              >
+              <div className={`${prefixCls}-task-icon ${hashId}`}>
                 <HistoryRunningIcon
                   width={16}
                   height={16}
@@ -458,24 +448,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
             ) : React.isValidElement(item.icon) ? (
               item.icon
             ) : item.icon ? (
-              <div
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: '8px',
-                  gap: '10px',
-                  fontSize: isSelected
-                    ? 'var(--font-text-h6-base)'
-                    : 'var(--font-text-body-base)',
-                  borderRadius: '50%',
-                  background: 'var(--color-gray-bg-page-dark)',
-                  color: 'var(--color-gray-text-secondary)',
-                }}
-              >
+              <div className={`${prefixCls}-task-icon ${hashId}`}>
                 {item.icon ||
                   (isTask
                     ? TaskIconMap(prefixCls, hashId)[item.status!]
@@ -576,7 +549,14 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
           </div>
         </div>
 
-        <div style={{ flexShrink: 0 }}>
+        <div
+          style={{
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+          }}
+        >
           <HistoryActionsBox
             onDeleteItem={onDeleteItem ? handleDelete : undefined}
             agent={agent}
