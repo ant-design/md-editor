@@ -44,14 +44,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-status': {
         display: 'flex',
-        lineHeight: '20px',
-        height: 20,
+        height: 22,
         alignItems: 'center',
         color: 'var(--color-gray-text-disabled)',
         svg: {
           width: 16,
           height: 16,
         },
+      },
+
+      '&-status-idle': {
+        height: 16,
       },
 
       '&-top': {
@@ -97,8 +100,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           cursor: 'pointer',
           transition: 'all 0.3s ease',
           '&:hover': {
-            backgroundColor: 'var(--icon-hover-bg)',
-            borderRadius: 'var(--icon-hover-border-radius)',
+            backgroundColor: 'var(--color-gray-control-fill-hover)',
+            borderRadius: 'var(--radius-control-sm)',
           },
         },
       },

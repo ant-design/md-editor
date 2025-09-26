@@ -16,7 +16,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       position: 'relative',
       lineHeight: 1.7,
       whiteSpace: 'normal',
-      font: 'var(--font-text-h5-base)',
       '> *': {
         boxSizing: 'border-box',
         scrollbarWidth: 'thin',

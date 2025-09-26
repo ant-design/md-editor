@@ -96,10 +96,10 @@
       >
         <div
           class="ant-md-editor markdown-editor ant-md-editor-edit"
-          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-h5-base); letter-spacing: var(--letter-spacing-h5-base, normal); color: var(--color-gray-text-default); min-height: 400px; padding: 20px;"
+          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); min-height: 400px; padding: 20px;"
         >
           <div
-            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+            style="padding: 4px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
             tabindex="-1"
           >
             <div
@@ -141,8 +141,9 @@
                   <span
                     data-be="text"
                     data-slate-leaf="true"
+                    data-url="url"
                     draggable="false"
-                    style="text-decoration: underline; text-decoration-color: #1677ff; text-underline-offset: 4px; color: rgb(22, 119, 255); cursor: pointer;"
+                    style="font: var(--font-text-body-lg); letter-spacing: var(--letter-spacing-body-lg, normal); color: var(--color-gray-text-default); text-decoration: underline; text-decoration-color: var(--color-gray-text-disabled); text-underline-offset: 4px; cursor: pointer;"
                   >
                     <span
                       data-slate-string="true"
@@ -172,8 +173,9 @@
                   <span
                     data-be="text"
                     data-slate-leaf="true"
+                    data-url="url"
                     draggable="false"
-                    style="text-decoration: underline; text-decoration-color: #1677ff; text-underline-offset: 4px; color: rgb(22, 119, 255); cursor: pointer;"
+                    style="font: var(--font-text-body-lg); letter-spacing: var(--letter-spacing-body-lg, normal); color: var(--color-gray-text-default); text-decoration: underline; text-decoration-color: var(--color-gray-text-disabled); text-underline-offset: 4px; cursor: pointer;"
                   >
                     <span
                       data-slate-string="true"

@@ -8,7 +8,7 @@ import { useGetSetState } from 'react-use';
 import { Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { I18nContext } from '../../i18n';
-import { CopyIcon } from '../../icons/CopyIcon';
+import { Copy } from '../../icons';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
@@ -171,7 +171,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
                   } catch (error) {}
                 }}
               >
-                <CopyIcon />
+                <Copy />
               </ActionIconBox>
             </div>
           </div>

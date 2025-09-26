@@ -71,12 +71,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 8,
         fontSize: 'var(--font-size-base)',
         lineHeight: '20px',
-        color: '#343A45',
+        color: 'var(--color-gray-text-default)',
+        flex: 1,
+        minWidth: 0,
       },
 
       '&-left-icon-wrapper': {
         display: 'flex',
-        padding: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 20,
         width: 40,
         height: 40,
       },
@@ -84,29 +88,37 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-left-content': {
         display: 'flex',
         flexDirection: 'column',
-      },
-
-      // title
-      '&-left-main-text': {
-        color: 'var(--color-gray-text-default)',
-        lineHeight: '20px',
-        font: 'var(--font-text-h6-base)',
-        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
-      },
-
-      // description
-      '&-left-text': {
-        lineHeight: '20px',
-        font: 'var(--font-text-body-sm)',
-        alignItems: 'center',
-        letterSpacing: 'var(--letter-spacing-body-sm, normal)',
-        display: '-webkit-box',
-        '-webkit-line-clamp': '1',
-        lineClamp: 1,
-        '-webkit-box-orient': 'vertical',
+        gap: -2,
         overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: 'var(--color-gray-text-light)',
+
+        // title
+        [`${componentCls}-left-main-text`]: {
+          color: 'var(--color-gray-text-default)',
+          lineHeight: '20px',
+          font: 'var(--font-text-h6-base)',
+          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 2,
+          display: '-webkit-box',
+          margin: 0,
+        },
+
+        // description
+        [`${componentCls}-left-text`]: {
+          lineHeight: '20px',
+          font: 'var(--font-text-body-sm)',
+          alignItems: 'center',
+          letterSpacing: 'var(--letter-spacing-body-sm, normal)',
+          display: '-webkit-box',
+          '-webkit-line-clamp': '1',
+          lineClamp: 1,
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          color: 'var(--color-gray-text-light)',
+        },
       },
 
       '&-button-wrapper': {
@@ -114,6 +126,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         gap: 8,
         justifyContent: 'center',
+        paddingRight: 4,
         '> * ': {
           cursor: 'pointer',
         },
@@ -156,6 +169,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
 
+    // with description
+    [`${componentCls}-with-description`]: {
+      [`${componentCls}-left-main-text`]: {
+        textWrap: 'nowrap',
+        '-webkit-line-clamp': '1',
+        lineClamp: 1,
+      },
+    },
+
     // Simple variant
     [`${componentCls}${componentCls}-simple`]: {
       width: '100%',
@@ -164,10 +186,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderRadius: 8,
 
       [`${componentCls}-border`]: {
-        background: '#F1F2F4',
-        borderRadius: 8,
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+        background: 'var(--color-gray-bg-page-dark)',
+        borderRadius: 'var(--radius-control-base)',
+        boxShadow: 'var(--shadow-control-base)',
       },
 
       [`${componentCls}-background`]: {
@@ -176,16 +197,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         left: 0,
         right: 0,
         bottom: 0,
-        background: '#F1F2F4',
+        background: 'var(--color-gray-bg-page-dark)',
         borderRadius: 8,
       },
 
       // title
       [`${componentCls}-left-main-text`]: {
-        color: '#343A45',
-        fontSize: 'var(--font-size-base)',
+        color: 'var(--color-gray-text-default)',
         fontWeight: 'normal',
         lineHeight: '16px',
+        font: 'var(--font-text-paragraph-base)',
+        letterSpacing: 'var(--letter-spacing-paragraph-base, normal)',
       },
 
       [`${componentCls}-button-wrapper`]: {
@@ -195,11 +217,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`${componentCls}-pause`]: {
         width: 20,
         height: 20,
+        color: 'var(--color-gray-text-default)',
+        background: 'transparent',
+        borderRadius: 'var(--radius-control-sm)',
+
+        '&:hover': {
+          color: 'var(--color-gray-text-secondary)',
+          background: 'var(--color-gray-control-fill-active)',
+        },
       },
 
       [`${componentCls}-play`]: {
         width: 20,
         height: 20,
+        color: 'var(--color-gray-text-default)',
+        background: 'transparent',
+        borderRadius: 'var(--radius-control-sm)',
+
+        '&:hover': {
+          color: 'var(--color-gray-text-secondary)',
+          background: 'var(--color-gray-control-fill-active)',
+        },
       },
     },
   };

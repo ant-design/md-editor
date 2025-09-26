@@ -1,10 +1,11 @@
 ﻿import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 import { ConfigProvider, Divider } from 'antd';
+import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
 
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { CopyIcon } from '../../icons/CopyIcon';
+import { Copy } from '../../icons';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import LoadingLottie from '../../TaskList/LoadingLottie';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
@@ -254,7 +255,7 @@ export const BubbleExtra = ({
           }}
           showTitle={false}
         >
-          <CopyIcon />
+          <Copy />
         </CopyButton>
       ) : null,
     [shouldShowCopy, context?.locale, bubble.originData?.content],
@@ -315,7 +316,7 @@ export const BubbleExtra = ({
           whileInView="visible"
           initial="hidden"
           animate="visible"
-          className={`${prefixCls}-action-box`}
+          className={classNames(`${prefixCls}-action-box`)}
         >
           {voiceDom ? voiceDom : null}
           {copyDom ? copyDom : null}

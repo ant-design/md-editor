@@ -16,6 +16,10 @@ const WorkspaceRealtimeDemo: React.FC = () => {
       'added 156 packages in 2.3s',
       '$ npm run build',
       'webpack compiled successfully',
+      '# 可用性质量指数（UQ-index）计算模型',
+      'from flash_mla import get _mla_metadata, flash_mla_with_kvcache',
+      'tile_scheduler_metadata, num_splits = get_mla_metadata (cache_seqlens, s_q * h_q // h_kv, h_kv)',
+      'for i in range(num_layers):',
     ];
 
     let shellIndex = 0;

@@ -13,6 +13,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -117,7 +118,12 @@ const MockTagPopup = ({
 
   const defaultDom = (
     <div
-      className={`tag-popup-input ${!inputValue?.trim() ? 'empty' : ''} ${isFocused ? 'tag-popup-input-focus' : ''} ${className || ''}`}
+      className={classNames(
+        'tag-popup-input',
+        { empty: !inputValue?.trim() },
+        { 'tag-popup-input-focus': isFocused },
+        className,
+      )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       title={placeholder}
@@ -188,7 +194,7 @@ const MockTagPopup = ({
 
   return (
     <div
-      className={`tag-popup-container ${isOpen ? 'open' : ''}`}
+      className={classNames('tag-popup-container', { open: isOpen })}
       data-testid="tag-popup-container"
     >
       <div onClick={handleClick} data-testid="tag-popup-trigger">

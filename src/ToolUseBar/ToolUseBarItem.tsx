@@ -93,26 +93,17 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       : undefined,
   });
 
-  const handleClick = () => {
-    onClick?.(tool.id);
-    if (onActiveChange) {
-      onActiveChange(tool.id, !isActive);
-    }
-  };
-
-  const handleExpandClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // 通过 setExpanded 切换状态，useMergedState 会自动处理受控和非受控模式
-    setExpanded(!expanded);
-  };
-
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
-      <div className={`${prefixCls}-tool-content-error ${hashId}`}>
-        <div className={`${prefixCls}-tool-content-error-icon ${hashId}`}>
+      <div className={classNames(`${prefixCls}-tool-content-error`, hashId)}>
+        <div
+          className={classNames(`${prefixCls}-tool-content-error-icon`, hashId)}
+        >
           <ErrorIcon />
         </div>
-        <div className={`${prefixCls}-tool-content-error-text ${hashId}`}>
+        <div
+          className={classNames(`${prefixCls}-tool-content-error-text`, hashId)}
+        >
           {tool.errorMessage}
         </div>
       </div>
@@ -121,7 +112,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const contentDom = useMemo(() => {
     return tool.content ? (
-      <div className={`${prefixCls}-tool-content ${hashId}`}>
+      <div className={classNames(`${prefixCls}-tool-content`, hashId)}>
         {tool.content}
       </div>
     ) : null;
@@ -131,10 +122,35 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     return !!errorDom || !!contentDom;
   }, [errorDom, contentDom]);
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    onClick?.(tool.id);
+    if (onActiveChange && !showContent) {
+      onActiveChange(tool.id, !isActive);
+    }
+
+    // 如果没有内容需要展示，则早返回
+    if (!showContent) return;
+
+    // 避免在交互性子元素上误触发折叠
+    if (e.target instanceof Element) {
+      const tag = e.target.tagName.toLowerCase();
+      if (['a', 'button', 'input', 'textarea', 'select', 'label'].includes(tag))
+        return;
+    }
+
+    // 使用函数式更新避免闭包陈旧值问题
+    setExpanded((prev) => !prev);
+  };
+
+  const handleExpandClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation(); // 阻止事件冒泡到父元素
+    setExpanded((prev) => !prev);
+  };
+
   if (tool.type === 'summary') {
     return (
       <div
-        className={`${prefixCls}-tool-container ${hashId}`}
+        className={classNames(`${prefixCls}-tool-container`, hashId)}
         data-testid="tool-user-item-tool-container "
       >
         {contentDom}
@@ -144,7 +160,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   return (
     <div
-      onClick={handleClick}
       key={tool.id}
       data-testid="ToolUserItem"
       className={classNames(
@@ -153,15 +168,19 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         tool.status === 'loading' && `${prefixCls}-tool-loading`,
         tool.status === 'error' && `${prefixCls}-tool-error`,
         tool.status === 'idle' && `${prefixCls}-tool-idle`,
-        isActive && `${prefixCls}-tool-active`,
+        isActive && !expanded && `${prefixCls}-tool-active`,
+        expanded && `${prefixCls}-tool-expanded`,
       )}
     >
       <div
-        className={`${prefixCls}-tool-bar ${hashId}`}
+        className={classNames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
+        onClick={(e) => {
+          handleClick(e);
+        }}
       >
         <div
-          className={`${prefixCls}-tool-header ${hashId}`}
+          className={classNames(`${prefixCls}-tool-header`, hashId)}
           data-testid="tool-user-item-tool-header"
         >
           <motion.div
@@ -175,7 +194,6 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
               tool.status === 'loading'
                 ? {
                     '--rotate': ['0deg', '360deg'],
-                    '--sub1-color': ['#0090FF', '#3E63DD', '#0090FF'],
                   }
                 : {}
             }
@@ -187,38 +205,30 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
                       repeat: Infinity,
                       ease: 'linear',
                     },
-                    '--sub1-color': {
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    },
                   }
                 : {}
             }
             style={
               {
                 '--rotation': tool.status === 'loading' ? '360deg' : '0deg',
-                '--sub1-color':
-                  tool.status === 'loading' ? '#0090FF' : undefined,
               } as React.CSSProperties
             }
           >
             {tool.icon || (
-              <div className={`${prefixCls}-tool-image ${hashId}`}>
+              <div className={classNames(`${prefixCls}-tool-image`, hashId)}>
                 <ToolIcon />
               </div>
             )}
           </motion.div>
         </div>
-
         <motion.div
-          className={`${prefixCls}-tool-header-right ${hashId}`}
+          className={classNames(`${prefixCls}-tool-header-right`, hashId)}
           animate={
             tool.status === 'loading'
               ? {
                   maskImage: [
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  120%)',
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -30%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  120%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
+                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
                   ],
                 }
               : {}
@@ -227,7 +237,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             tool.status === 'loading'
               ? {
                   maskImage: {
-                    duration: 1.6,
+                    duration: 1,
                     repeat: Infinity,
                     ease: 'linear',
                   },
@@ -245,7 +255,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         >
           {tool.toolName && (
             <div
-              className={classNames(`${prefixCls}-tool-name ${hashId}`, {
+              className={classNames(`${prefixCls}-tool-name`, hashId, {
                 [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
               })}
             >
@@ -254,7 +264,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
           {tool.toolTarget && (
             <div
-              className={classNames(`${prefixCls}-tool-target ${hashId}`, {
+              className={classNames(`${prefixCls}-tool-target`, hashId, {
                 [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
               })}
               title={tool.toolTarget?.toString() ?? undefined}
@@ -264,12 +274,14 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
         </motion.div>
         {tool.time && (
-          <div className={`${prefixCls}-tool-time ${hashId}`}>{tool.time}</div>
+          <div className={classNames(`${prefixCls}-tool-time`, hashId)}>
+            {tool.time}
+          </div>
         )}
 
         {showContent && (
           <div
-            className={`${prefixCls}-tool-expand ${hashId}`}
+            className={classNames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}
           >
             <ChevronUpIcon
@@ -283,7 +295,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       </div>
       {showContent && expanded ? (
         <div
-          className={`${prefixCls}-tool-container ${hashId}`}
+          className={classNames(`${prefixCls}-tool-container`, hashId)}
           data-testid="tool-user-item-tool-container "
         >
           {contentDom}

@@ -39,6 +39,7 @@ export const useHistory = (props: HistoryProps) => {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     props.sessionId && setSelectedIds([props.sessionId]);
     loadHistory();
   }, [props.sessionId]);

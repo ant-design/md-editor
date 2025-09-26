@@ -35,15 +35,15 @@ Quote 组件是一个现代化的文件引用卡片组件，为代码引用和�
 
 #### 核心属性
 
-| 属性        | 说明                     | 类型                                             | 默认值  |
-| ----------- | ------------------------ | ------------------------------------------------ | ------- |
-| fileName    | 文件名                   | `string`                                         | -       |
-| lineRange   | 行号范围（可选）         | `string`                                         | -       |
-| quoteDesc   | 引用内容描述             | `string`                                         | -       |
-| popupDetail | 详细内容（点击查看详情） | `string`                                         | -       |
-| closable    | 是否显示关闭按钮         | `boolean`                                        | `false` |
-| onClose     | 关闭回调                 | `() => void`                                     | -       |
-| onFileClick | 文件名点击回调           | `(fileName: string, lineRange?: string) => void` | -       |
+| 属性             | 说明                     | 类型                                             | 默认值  |
+| ---------------- | ------------------------ | ------------------------------------------------ | ------- |
+| fileName         | 文件名                   | `string`                                         | -       |
+| lineRange        | 行号范围（可选）         | `string`                                         | -       |
+| quoteDescription | 引用内容描述             | `string`                                         | -       |
+| popupDetail      | 详细内容（点击查看详情） | `string`                                         | -       |
+| closable         | 是否显示关闭按钮         | `boolean`                                        | `false` |
+| onClose          | 关闭回调                 | `() => void`                                     | -       |
+| onFileClick      | 文件名点击回调           | `(fileName: string, lineRange?: string) => void` | -       |
 
 #### 样式配置
 
@@ -63,7 +63,7 @@ interface QuoteProps {
   /** 行号范围（可选） */
   lineRange?: string;
   /** 引用内容描述 */
-  quoteDesc: string;
+  quoteDescription: string;
   /** 详细内容（点击查看详情） */
   popupDetail?: string;
   /** 是否显示关闭按钮 */
@@ -83,7 +83,7 @@ interface QuoteProps {
 
 - `fileName` - 文件名称，仅在弹出层中显示，不传时弹出层不显示文件信息
 - `lineRange` - 可选的行号范围，如 `'1-10'`，会自动附加到文件名后，仅在弹出层中显示
-- `quoteDesc` - 引用的主要内容，在主视图中显示，支持文本截断
+- `quoteDescription` - 引用的主要内容，在主视图中显示，支持文本截断
 - `popupDetail` - 详细内容，提供时会显示弹出层，包含文件信息和详细内容
 - `closable` - 控制是否显示右上角关闭按钮
 - `onClose` - 关闭按钮的回调函数
@@ -108,7 +108,7 @@ interface QuoteProps {
 <Quote
   fileName="example.tsx"
   lineRange="1-10"
-  quoteDesc="简要描述..."
+  quoteDescription="简要描述..."
   popupDetail="详细内容..."
   closable
   onClose={() => console.log('关闭引用')}
@@ -150,7 +150,7 @@ const handleFileClick = (fileName: string, lineRange?: string) => {
 <Quote
   fileName="src/utils/helper.ts"
   lineRange="10-25"
-  quoteDesc="工具函数实现"
+  quoteDescription="工具函数实现"
   popupDetail="详细的函数代码..."
   onFileClick={handleFileClick}
 />;
@@ -179,7 +179,7 @@ const handleFileClick = (fileName: string, lineRange?: string) => {
 
 <Quote
   fileName="example.tsx"
-  quoteDesc="描述内容"
+  quoteDescription="描述内容"
   closable
   onClose={handleClose}
   onFileClick={handleFileClick}

@@ -1,16 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Tooltip } from 'antd';
+import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { I18nContext } from '../i18n';
-import { PauseIcon } from './icons/PauseIcon';
-import { PlayIcon } from './icons/PlayIcon';
-import { SimplePauseIcon } from './icons/SimplePauseIcon';
-import { SimplePlayIcon } from './icons/SimplePlayIcon';
-import { SimpleStopIcon } from './icons/SimpleStopIcon';
-import { StopIcon } from './icons/StopIcon';
+import { CirclePause, CirclePlay, CircleStop, Pause, Play } from '../icons';
 import Robot from './Robot';
 import { useStyle } from './style';
+
+export { DazingLottie } from './icons/DazingLottie';
+export { ThinkingLottie } from './icons/ThinkingLottie';
 
 /**
  * 任务状态枚举
@@ -276,20 +274,20 @@ const renderButtonGroup = ({
   const playTitle = locale?.agentRunBar?.play;
 
   return (
-    <div className={`${baseCls}-button-wrapper ${hashId}`}>
+    <div className={classNames(`${baseCls}-button-wrapper`, hashId)}>
       {actionNode}
 
       {/* 停止按钮 */}
       {(isRunning || isPause) && onStop && (
         <Tooltip title={stopTitle}>
           <div
-            className={`${baseCls}-pause ${hashId}`}
+            className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
             tabIndex={0}
             aria-label={stopTitle}
             onClick={onStop}
           >
-            {variant === 'simple' ? <SimpleStopIcon /> : <StopIcon />}
+            {variant === 'simple' ? <CircleStop /> : <CircleStop />}
           </div>
         </Tooltip>
       )}
@@ -297,13 +295,13 @@ const renderButtonGroup = ({
       {isRunning && onPause && (
         <Tooltip title={pauseTitle}>
           <div
-            className={`${baseCls}-pause ${hashId}`}
+            className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
             tabIndex={0}
             aria-label={pauseTitle}
             onClick={onPause}
           >
-            {variant === 'simple' ? <SimplePauseIcon /> : <PauseIcon />}
+            {variant === 'simple' ? <CirclePause /> : <Pause />}
           </div>
         </Tooltip>
       )}
@@ -311,13 +309,13 @@ const renderButtonGroup = ({
       {isPause && onResume && (
         <Tooltip title={playTitle}>
           <div
-            className={`${baseCls}-play ${hashId}`}
+            className={classNames(`${baseCls}-play`, hashId)}
             role="button"
             tabIndex={0}
             aria-label={playTitle}
             onClick={onResume}
           >
-            {variant === 'simple' ? <SimplePlayIcon /> : <PlayIcon />}
+            {variant === 'simple' ? <CirclePlay /> : <Play />}
           </div>
         </Tooltip>
       )}
@@ -431,28 +429,39 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         hashId,
         className,
         `${baseCls}-${variant}`,
+        {
+          [`${baseCls}-with-description`]: description,
+        },
       )}
       style={rest.style}
     >
-      <div className={`${baseCls}-border ${hashId}`} />
-      <div className={`${baseCls}-background ${hashId}`} />
-      <div className={`${baseCls}-left ${hashId}`}>
+      <div className={classNames(`${baseCls}-border`, hashId)} />
+      <div className={classNames(`${baseCls}-background`, hashId)} />
+      <div className={classNames(`${baseCls}-left`, hashId)}>
         {icon !== false && (
-          <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
+          <div className={classNames(`${baseCls}-left-icon-wrapper`, hashId)}>
             <Tooltip title={iconTooltip}>
               <Robot icon={icon} status={getRobotStatus()} size={40} />
             </Tooltip>
           </div>
         )}
         {/* 文字区 */}
-        <div className={`${baseCls}-left-content ${hashId}`}>
+        <div className={classNames(`${baseCls}-left-content`, hashId)}>
           {title && (
-            <div className={`${baseCls}-left-main-text ${hashId}`}>{title}</div>
+            <Typography.Title
+              className={classNames(`${baseCls}-left-main-text`, hashId)}
+              ellipsis={{ tooltip: title, rows: description ? 1 : 2 }}
+            >
+              {title}
+            </Typography.Title>
           )}
           {variant !== 'simple' && description && (
-            <div className={`${baseCls}-left-text ${hashId}`}>
+            <Typography.Text
+              className={classNames(`${baseCls}-left-text`, hashId)}
+              ellipsis={{ tooltip: description }}
+            >
               {description}
-            </div>
+            </Typography.Text>
           )}
         </div>
       </div>

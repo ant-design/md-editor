@@ -50,9 +50,7 @@ const WorkspaceFileSearchDemo: React.FC = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      <div
-        style={{ maxWidth: 640, border: '1px solid #d9d9d9', borderRadius: 8 }}
-      >
+      <div style={{ maxWidth: 640 }}>
         <Workspace title="文件管理-搜索">
           <Workspace.File
             nodes={filteredFiles}

@@ -10,4 +10,4 @@ export type {
   FileType,
   GroupNode,
 } from '../types';
-export { getFileTypeIcon } from './utils';
+export { getFileTypeIcon, getGroupIcon } from './utils';

@@ -1,61 +1,15 @@
-import { DownOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNamesFn from 'classnames';
+import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useContext } from 'react';
-import { ThinkIcon } from '../icons/ThinkIcon';
+import {
+  Brain,
+  ChevronDown,
+  ChevronDown as ExpandDownIcon,
+  Expand as ExpandIcon,
+} from '../icons';
 import { useStyle } from './thinkStyle';
-
-function ExpandDownIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width={14}
-      height={14}
-      viewBox="0 0 14 14"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={14} height={14} rx={0} />
-        </clipPath>
-      </defs>
-      <g>
-        <path
-          d="M9.504 12.08L7 9.574l-2.504 2.504a.584.584 0 01-.825-.825l2.917-2.916a.583.583 0 01.824 0l2.917 2.916a.583.583 0 11-.825.825zM3.5 2.332c0 .155.061.303.17.413l2.918 2.916a.583.583 0 00.824 0l2.917-2.916a.583.583 0 10-.825-.825L7 4.425 4.496 1.921a.583.583 0 00-.996.412z"
-          fillRule="evenodd"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
-  );
-}
-function ExpandIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width={14}
-      height={14}
-      viewBox="0 0 14 14"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={14} height={14} rx={0} />
-        </clipPath>
-      </defs>
-      <g>
-        <path
-          d="M9.504 5.662L7 3.158 4.496 5.662a.584.584 0 11-.825-.824L6.588 1.92a.583.583 0 01.824 0l2.917 2.917a.583.583 0 01-.825.824zM7 10.842L4.496 8.338a.583.583 0 10-.825.824l2.917 2.917a.583.583 0 00.824 0l2.917-2.916a.584.584 0 10-.825-.825L7 10.842z"
-          fillRule="evenodd"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
-  );
-}
 
 export interface ToolUseBarThinkProps {
   toolName: React.ReactNode;
@@ -139,7 +93,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   const [isHovered, setIsHovered] = React.useState(false);
 
   // Think 模块的默认图标
-  const defaultIcon = <ThinkIcon />;
+  const defaultIcon = <Brain />;
 
   const handleToggleExpand = () => {
     setExpandedState(!expandedState);
@@ -156,6 +110,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+  const [hover, setHover] = React.useState(false);
 
   return wrapSSR(
     <div
@@ -173,15 +128,21 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
         className={classNamesFn(`${prefixCls}-bar`, hashId, classNames?.bar)}
         data-testid="tool-use-bar-think-bar"
         style={styles?.bar}
+        onClick={handleToggleExpand}
       >
         <div
           className={classNamesFn(
             `${prefixCls}-header`,
             hashId,
             classNames?.header,
+            {
+              [`${prefixCls}-header-light`]: light,
+            },
           )}
           data-testid="tool-use-bar-think-header"
           style={styles?.header}
+          onMouseMove={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
         >
           <div
             className={classNamesFn(
@@ -192,24 +153,61 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
             style={styles?.headerLeft}
           >
             {light ? (
-              <DownOutlined
-                style={{
-                  fontSize: '13px',
-                  color: 'rgba(52, 58, 69, 1)',
-                  transform: expandedState ? 'rotate(0deg)' : 'rotate(-90deg)',
-                  transition: 'transform 0.2s',
-                }}
-                title="展开/收起"
-                onClick={handleToggleExpand}
-              />
-            ) : (
               <div
+                className={classNamesFn(
+                  `${prefixCls}-header-left-icon`,
+                  hashId,
+                )}
+              >
+                {hover ? (
+                  <ChevronDown
+                    style={{
+                      transform: expandedState
+                        ? 'rotate(0deg)'
+                        : 'rotate(-90deg)',
+                      transition: 'transform 0.2s',
+                    }}
+                  />
+                ) : (
+                  <Brain />
+                )}
+              </div>
+            ) : (
+              <motion.div
                 className={classNamesFn(
                   `${prefixCls}-image-wrapper`,
                   hashId,
                   classNames?.imageWrapper,
+                  {
+                    [`${prefixCls}-image-wrapper-rotating`]:
+                      status === 'loading',
+                    [`${prefixCls}-image-wrapper-loading`]:
+                      status === 'loading',
+                  },
                 )}
-                style={styles?.imageWrapper}
+                animate={
+                  status === 'loading'
+                    ? {
+                        '--rotate': ['0deg', '360deg'],
+                      }
+                    : {}
+                }
+                transition={
+                  status === 'loading'
+                    ? {
+                        '--rotate': {
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: 'linear',
+                        },
+                      }
+                    : {}
+                }
+                style={
+                  {
+                    '--rotation': status === 'loading' ? '360deg' : '0deg',
+                  } as React.CSSProperties
+                }
               >
                 {icon || (
                   <div
@@ -223,8 +221,41 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                     {defaultIcon}
                   </div>
                 )}
-              </div>
+              </motion.div>
             )}
+          </div>
+          <motion.div
+            className={classNamesFn(`${prefixCls}-header-right`, hashId)}
+            animate={
+              status === 'loading'
+                ? {
+                    maskImage: [
+                      'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
+                      'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
+                    ],
+                  }
+                : {}
+            }
+            transition={
+              status === 'loading'
+                ? {
+                    maskImage: {
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    },
+                  }
+                : {}
+            }
+            style={
+              {
+                maskImage:
+                  status === 'loading'
+                    ? 'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)'
+                    : undefined,
+              } as React.CSSProperties
+            }
+          >
             {toolName && (
               <div
                 className={classNamesFn(
@@ -240,22 +271,22 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                 {toolName}
               </div>
             )}
-          </div>
-        </div>
-        {toolTarget ? (
-          <div
-            className={classNamesFn(
-              `${prefixCls}-target`,
-              hashId,
-              classNames?.target,
+            {toolTarget ? (
+              <div
+                className={classNamesFn(
+                  `${prefixCls}-target`,
+                  hashId,
+                  classNames?.target,
+                )}
+                style={styles?.target}
+              >
+                {toolTarget}
+              </div>
+            ) : (
+              <div />
             )}
-            style={styles?.target}
-          >
-            {toolTarget}
-          </div>
-        ) : (
-          <div style={{ flex: 1 }} />
-        )}
+          </motion.div>
+        </div>
         {time && (
           <div
             className={classNamesFn(

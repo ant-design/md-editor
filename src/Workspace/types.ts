@@ -318,6 +318,7 @@ export interface FileNode extends BaseNode {
   canDownload?: boolean; // 用户自定义是否可以下载（默认显示，设置为 false 隐藏）
   /** 用户自定义是否可以分享（默认隐藏，设置为 true 显示） */
   canShare?: boolean;
+  loading?: boolean; // 文件是否处于加载中
 }
 
 // 分组节点
@@ -424,5 +425,5 @@ export const getMimeType = (fileType: FileType): string => {
 };
 
 export const getFileCategory = (fileType: FileType): FileCategory => {
-  return FILE_TYPES[fileType].category;
+  return FILE_TYPES?.[fileType]?.category;
 };

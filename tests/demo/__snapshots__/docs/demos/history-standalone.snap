@@ -12,15 +12,17 @@
         History 独立模式
       </h3>
       <p>
-        当前会话ID: session-1
+        当前会话ID: session-2
       </p>
       <div
         style="padding: 20px; width: 348px; margin: 0px auto; border: 1px solid rgb(217, 217, 217);"
       >
         <div
+          agent="[object Object]"
           agentid="test-agent"
           data-testid="history"
-          sessionid="session-1"
+          sessionid="session-2"
+          type="chat"
         >
           history
         </div>
@@ -61,12 +63,6 @@
               onClick
             </strong>
             : 选择历史记录项时的回调函数
-          </li>
-          <li>
-            <strong>
-              onDeleteItem
-            </strong>
-            : 删除历史记录项时的回调函数
           </li>
         </ul>
       </div>

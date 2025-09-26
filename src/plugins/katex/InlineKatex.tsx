@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import katex from 'katex';
 import React, { useEffect, useRef } from 'react';
 import { Editor, Node, Transforms } from 'slate';
@@ -91,7 +92,11 @@ export const InlineKatex = ({
   }
 
   return (
-    <span {...attributes} data-be={'inline-katex'} className={`relative`}>
+    <span
+      {...attributes}
+      data-be={'inline-katex'}
+      className={classNames('relative')}
+    >
       <span
         style={{
           display: 'inline-flex',

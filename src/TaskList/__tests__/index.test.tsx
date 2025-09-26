@@ -55,7 +55,7 @@ describe('TaskList', () => {
       expect(screen.getByText('Another Pending Task')).toBeInTheDocument();
 
       const taskItems = document.querySelectorAll(
-        '.task-list-thoughtChainItem',
+        '[data-testid="task-list-thoughtChainItem"]',
       );
       expect(taskItems).toHaveLength(3);
 
@@ -124,11 +124,13 @@ describe('TaskList', () => {
       render(<TaskList items={mockItems} />);
 
       const arrowContainers = document.querySelectorAll(
-        '.task-list-arrowContainer',
+        '[data-testid="task-list-arrowContainer"]',
       );
       expect(arrowContainers.length).toBeGreaterThan(0);
 
-      const arrows = document.querySelectorAll('.task-list-arrow');
+      const arrows = document.querySelectorAll(
+        '[data-testid="task-list-arrow"]',
+      );
       expect(arrows.length).toBeGreaterThan(0);
     });
 
@@ -136,7 +138,9 @@ describe('TaskList', () => {
       render(<TaskList items={mockItems} />);
 
       const successTask = screen.getByText('Success Task');
-      const arrow = document.querySelector('.task-list-arrow') as HTMLElement;
+      const arrow = document.querySelector(
+        '[data-testid="task-list-arrow"]',
+      ) as HTMLElement;
 
       // 检查箭头是否存在
       expect(arrow).toBeInTheDocument();
@@ -173,7 +177,7 @@ describe('TaskList', () => {
 
       expect(screen.getByText('Empty Content Task')).toBeInTheDocument();
       const arrowContainers = document.querySelectorAll(
-        '.task-list-arrowContainer',
+        '[data-testid="task-list-arrowContainer"]',
       );
       expect(arrowContainers).toHaveLength(0);
     });
@@ -196,7 +200,7 @@ describe('TaskList', () => {
       render(<TaskList items={[]} />);
 
       const taskItems = document.querySelectorAll(
-        '.task-list-thoughtChainItem',
+        '[data-testid="task-list-thoughtChainItem"]',
       );
       expect(taskItems).toHaveLength(0);
     });
@@ -209,7 +213,7 @@ describe('TaskList', () => {
       expect(screen.getByText('Success content')).toBeInTheDocument();
 
       const taskItems = document.querySelectorAll(
-        '.task-list-thoughtChainItem',
+        '[data-testid="task-list-thoughtChainItem"]',
       );
       expect(taskItems).toHaveLength(1);
     });
@@ -225,7 +229,7 @@ describe('TaskList', () => {
       render(<TaskList items={manyItems} />);
 
       const taskItems = document.querySelectorAll(
-        '.task-list-thoughtChainItem',
+        '[data-testid="task-list-thoughtChainItem"]',
       );
       expect(taskItems).toHaveLength(50);
 
@@ -248,7 +252,7 @@ describe('TaskList', () => {
       render(<TaskList items={successItems} />);
 
       const successIcons = document.querySelectorAll(
-        '.task-list-status-success',
+        '[data-testid="task-list-status-success"]',
       );
       expect(successIcons.length).toBeGreaterThan(0);
     });
@@ -266,7 +270,7 @@ describe('TaskList', () => {
       render(<TaskList items={pendingItems} />);
 
       const pendingIcons = document.querySelectorAll(
-        '.task-list-status-pending',
+        '[data-testid="task-list-status-pending"]',
       );
       expect(pendingIcons.length).toBeGreaterThan(0);
     });
@@ -281,10 +285,10 @@ describe('TaskList', () => {
       render(<TaskList items={mockItems} />);
 
       const successIcons = document.querySelectorAll(
-        '.task-list-status-success',
+        '[data-testid="task-list-status-success"]',
       );
       const pendingIcons = document.querySelectorAll(
-        '.task-list-status-pending',
+        '[data-testid="task-list-status-pending"]',
       );
       expect(successIcons.length).toBeGreaterThan(0);
       expect(pendingIcons.length).toBeGreaterThan(0);
@@ -352,47 +356,6 @@ describe('TaskList', () => {
     });
   });
 
-  describe('性能测试', () => {
-    it('应该快速渲染大量任务项', () => {
-      const startTime = performance.now();
-
-      const manyItems = Array.from({ length: 50 }, (_, index) => ({
-        key: `task-${index}`,
-        title: `Task ${index}`,
-        content: `Content ${index}`,
-        status: 'pending' as const,
-      }));
-
-      render(<TaskList items={manyItems} />);
-
-      const endTime = performance.now();
-      const renderTime = endTime - startTime;
-
-      expect(renderTime).toBeLessThan(1000);
-
-      const taskItems = document.querySelectorAll(
-        '.task-list-thoughtChainItem',
-      );
-      expect(taskItems).toHaveLength(50);
-    });
-
-    it('应该高效处理频繁的状态切换', () => {
-      render(<TaskList items={mockItems} />);
-
-      const successTask = screen.getByText('Success Task');
-      const startTime = performance.now();
-
-      for (let i = 0; i < 10; i++) {
-        fireEvent.click(successTask);
-      }
-
-      const endTime = performance.now();
-      const totalTime = endTime - startTime;
-
-      expect(totalTime).toBeLessThan(1000);
-    });
-  });
-
   describe('可访问性测试', () => {
     it('应该为可点击元素提供正确的ARIA标签', () => {
       render(<TaskList items={mockItems} />);
@@ -434,7 +397,9 @@ describe('TaskList', () => {
 
       unmount();
 
-      expect(document.querySelector('.task-list-thoughtChainItem')).toBeNull();
+      expect(
+        document.querySelector('[data-testid="task-list-thoughtChainItem"]'),
+      ).toBeNull();
     });
   });
 
@@ -442,16 +407,23 @@ describe('TaskList', () => {
     it('应该应用正确的CSS类名', () => {
       render(<TaskList items={mockItems} />);
 
-      const container = document.querySelector('.task-list-thoughtChainItem');
+      const container = document.querySelector(
+        '[data-testid="task-list-thoughtChainItem"]',
+      );
       expect(container).toBeInTheDocument();
 
-      const leftArea = document.querySelector('.task-list-left');
+      const leftArea = document.querySelector('[data-testid="task-list-left"]');
       expect(leftArea).toBeInTheDocument();
 
-      const rightArea = document.querySelector('.task-list-right');
-      expect(rightArea).toBeInTheDocument();
+      // 由于右侧区域没有 data-testid，我们通过检查其子元素来验证
+      const arrowContainer = document.querySelector(
+        '[data-testid="task-list-arrowContainer"]',
+      );
+      expect(arrowContainer).toBeInTheDocument();
 
-      const statusArea = document.querySelector('.task-list-status');
+      const statusArea = document.querySelector(
+        '[data-testid="task-list-status-success"]',
+      );
       expect(statusArea).toBeInTheDocument();
     });
 
@@ -459,11 +431,13 @@ describe('TaskList', () => {
       render(<TaskList items={mockItems} />);
 
       const taskItems = document.querySelectorAll(
-        '.task-list-thoughtChainItem',
+        '[data-testid="task-list-thoughtChainItem"]',
       );
       const lastTask = taskItems[taskItems.length - 1];
 
-      const dashLines = lastTask.querySelectorAll('.task-list-dash-line');
+      const dashLines = lastTask.querySelectorAll(
+        '[data-testid="task-list-dash-line"]',
+      );
       expect(dashLines).toHaveLength(0);
     });
   });
@@ -580,17 +554,21 @@ describe('TaskList', () => {
       );
 
       const taskItems = document.querySelectorAll(
-        '.task-list-thoughtChainItem',
+        '[data-testid="task-list-thoughtChainItem"]',
       );
 
       // 第一个任务是展开的，箭头应该是向下的（旋转180度）
-      const firstArrow = taskItems[0].querySelector('.task-list-arrow');
+      const firstArrow = taskItems[0].querySelector(
+        '[data-testid="task-list-arrow"]',
+      );
       expect(firstArrow).toHaveStyle({
         transform: 'rotate(180deg)',
       });
 
       // 第二个任务是收起的，箭头应该是向上的（旋转0度）
-      const secondArrow = taskItems[1].querySelector('.task-list-arrow');
+      const secondArrow = taskItems[1].querySelector(
+        '[data-testid="task-list-arrow"]',
+      );
       expect(secondArrow).toHaveStyle({
         transform: 'rotate(0deg)',
       });

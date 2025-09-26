@@ -1,7 +1,7 @@
 ﻿import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext, useMemo } from 'react';
-import { AttachmentIcon } from '../../icons/AttachmentIcon';
+import { Paperclip } from '../../icons';
 import AttachmentButtonPopover, {
   AttachmentButtonPopoverProps,
   SupportedFileFormats,
@@ -218,7 +218,7 @@ export const AttachmentButton: React.FC<
       data-testid="attachment-button"
     >
       <AttachmentButtonPopover supportedFormat={supportedFormat}>
-        <AttachmentIcon />
+        <Paperclip />
       </AttachmentButtonPopover>
     </div>,
   );

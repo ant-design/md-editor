@@ -22,9 +22,10 @@ group:
 ## 基本使用
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, SuggestionList } from '@ant-design/md-editor';
 import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
 
 const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
@@ -48,169 +49,205 @@ export default () => {
     '`${placeholder:目标场景}` `${placeholder:目标事件}` 今天的拒绝率为什么下降？输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
   );
 
+  const markdownRef = React.useRef<MarkdownEditorInstance>(null);
+
   return (
-    <MarkdownInputField
-      value={value}
-      voiceRecognizer={createRecognizer}
-      attachment={{
-        enable: true,
-        accept: '.pdf,.doc,.docx,image/*',
-        maxSize: 10 * 1024 * 1024, // 10MB
-        onUpload: async (file) => {
-          // 模拟上传文件
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          return {
-            url: URL.createObjectURL(file),
-            name: file.name,
-          };
-        },
-        onDelete: async (file) => {
-          console.log('删除文件:', file);
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        },
-      }}
-      tagInputProps={{
-        type: 'dropdown',
-        enable: true,
-        items: async (props) => {
-          console.log('items', props);
-          return ['tag1', 'tag2', 'tag3'].map((item) => {
+    <>
+      <MarkdownInputField
+        value={value}
+        inputRef={markdownRef}
+        voiceRecognizer={createRecognizer}
+        attachment={{
+          enable: true,
+          accept: '.pdf,.doc,.docx,image/*',
+          maxSize: 10 * 1024 * 1024, // 10MB
+          onUpload: async (file) => {
+            // 模拟上传文件
+            await new Promise((resolve) => setTimeout(resolve, 10000));
             return {
-              key: item,
-              label: props?.placeholder + item,
+              url: URL.createObjectURL(file),
+              name: file.name,
             };
-          });
-        },
-      }}
-      beforeToolsRender={() => {
-        return (
-          <>
-            <div
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
-            >
-              <img
-                width="16"
-                height="16"
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              />
-              快捷技能
-            </div>
-            <div
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
-            >
-              <img
-                width="16"
-                height="16"
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              />
-              快捷技能
-            </div>
-            <div
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
-            >
-              <img
-                width="16"
-                height="16"
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              />
-              快捷技能
-            </div>
-          </>
-        );
-      }}
-      toolsRender={() => [
-        <div
-          key="bold"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
-        >
-          DeepThink <DownOutlined />
-        </div>,
-        <div
-          key="italic"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
-        >
-          <GlobalOutlined />
-          深度思考
-        </div>,
-        <div
-          key="link"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
-        >
-          <AimOutlined />
-          联网搜索
-        </div>,
-      ]}
-      onChange={(newValue) => {
-        setValue(newValue);
-        console.log('newValue', newValue);
-      }}
-      ac
-      placeholder="请输入内容..."
-      onSend={async (text) => {
-        console.log('发送内容:', text);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }}
-    />
+          },
+          onDelete: async (file) => {
+            console.log('删除文件:', file);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+          },
+        }}
+        tagInputProps={{
+          type: 'dropdown',
+          enable: true,
+          items: async (props) => {
+            if (props?.placeholder === '目标场景') {
+              return [];
+            }
+            return ['tag1', 'tag2', 'tag3'].map((item) => {
+              return {
+                key: item,
+                label: props?.placeholder + item,
+              };
+            });
+          },
+        }}
+        beforeToolsRender={() => {
+          return (
+            <>
+              <div
+                style={{
+                  borderRadius: '200px',
+                  boxSizing: 'border-box',
+                  border: '1px solid var(--color-gray-border-light) ',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '5px 12px',
+                  gap: '8px',
+                  zIndex: 1,
+                }}
+              >
+                <img
+                  width="16"
+                  height="16"
+                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                />
+                快捷技能
+              </div>
+              <div
+                style={{
+                  borderRadius: '200px',
+                  boxSizing: 'border-box',
+                  border: '1px solid var(--color-gray-border-light) ',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '5px 12px',
+                  gap: '8px',
+                  zIndex: 1,
+                }}
+              >
+                <img
+                  width="16"
+                  height="16"
+                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                />
+                快捷技能
+              </div>
+              <div
+                style={{
+                  borderRadius: '200px',
+                  boxSizing: 'border-box',
+                  border: '1px solid var(--color-gray-border-light) ',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '5px 12px',
+                  gap: '8px',
+                  zIndex: 1,
+                }}
+              >
+                <img
+                  width="16"
+                  height="16"
+                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                />
+                快捷技能
+              </div>
+            </>
+          );
+        }}
+        toolsRender={() => [
+          <div
+            key="bold"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            DeepThink <DownOutlined />
+          </div>,
+          <div
+            key="italic"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            <GlobalOutlined />
+            深度思考
+          </div>,
+          <div
+            key="link"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            <AimOutlined />
+            联网搜索
+          </div>,
+        ]}
+        onChange={(newValue) => {
+          setValue(newValue);
+          console.log('newValue', newValue);
+        }}
+        ac
+        placeholder="请输入内容..."
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }}
+      />
+      <SuggestionList
+        items={[
+          {
+            key: 'qwe',
+            icon: '💸 ',
+            text: '关税对消费类基金的影响',
+            tooltip: '关税消费',
+            actionIcon: <EditOutlined />,
+          },
+          {
+            key: 'asd',
+            icon: '💸 ',
+            text: ' 关税对消费类基金的影响',
+            actionIcon: <EditOutlined />,
+          },
+          {
+            key: 'zxc',
+            icon: '💸 ',
+            text: '关税对消费类基金的影响',
+            actionIcon: <EditOutlined />,
+          },
+        ]}
+        layout={'horizontal'}
+        onItemClick={() => {
+          markdownRef?.current?.store?.setMDContent(
+            '关税对 `${placeholder:消费类}` 基金的影响',
+          );
+        }}
+      />
+    </>
   );
 };
 ```
