@@ -47,6 +47,8 @@ export * from './MarkdownEditor/plugin';
 export * from './MarkdownInputField/AttachmentButton';
 export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';
+export { ActionItemBox } from './MarkdownInputField/BeforeToolContainer/ActionItemBox';
+export { ActionItemContainer } from './MarkdownInputField/BeforeToolContainer/BeforeToolContainer';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
 export * from './TaskList';

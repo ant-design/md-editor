@@ -718,7 +718,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     <>
       {beforeTools ? (
         <div className={classNames(`${baseCls}-before-tools`, hashId)}>
-          {beforeTools}
+            {beforeTools}
         </div>
       ) : null}
       <Suggestion
