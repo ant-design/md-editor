@@ -3,7 +3,7 @@ import { memo, MutableRefObject, useContext, useMemo } from 'react';
 import { ConfigProvider, Flex } from 'antd';
 import cx from 'classnames';
 import React from 'react';
-import { LoadingIcon } from '../icons/LoadingIcon';
+import { Loader } from '../icons';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { BubbleConfigContext } from './BubbleConfigProvide';
@@ -311,7 +311,7 @@ export const AIBubble: React.FC<
               )}
             >
               {avatarDom}
-              {typing && <LoadingIcon style={{ fontSize: 16 }} />}
+              {typing && <Loader style={{ fontSize: 16 }} />}
               {titleDom}
             </div>
           )}
@@ -412,7 +412,7 @@ export const AIBubble: React.FC<
                 )}
               >
                 {avatarDom}
-                {typing && <LoadingIcon style={{ fontSize: 16 }} />}
+                {typing && <Loader style={{ fontSize: 16 }} />}
                 {titleDom}
               </div>
             ),

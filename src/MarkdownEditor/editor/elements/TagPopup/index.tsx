@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 import { ReactEditor, useSlate } from 'slate-react';
-import { DownOutlined } from '../../../../icons/DownOutlined';
+import { ChevronDown } from '../../../../icons';
 import { SuggestionConnext } from '../../../../MarkdownInputField/Suggestion';
 import { useStyle } from './style';
 
@@ -267,7 +267,7 @@ export const TagPopup = (props: RenderProps) => {
     >
       {children}
       {selectedItems?.length > 0 && !props.text?.trim() ? (
-        <DownOutlined
+        <ChevronDown
           className={classNames(`${baseCls}-tag-popup-input-arrow `, hashId, {
             empty: !props.text?.trim(),
           })}

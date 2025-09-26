@@ -6,7 +6,7 @@ import {
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { LoadingIcon } from '../../icons/LoadingIcon';
+import { Loader } from '../../icons';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
@@ -143,7 +143,7 @@ export const BubbleMessageDisplay: React.FC<
             className="agent-item-default-content"
             data-testid="message-content"
           >
-            <LoadingIcon />
+            <Loader />
             {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );

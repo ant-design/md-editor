@@ -22,8 +22,8 @@ describe('TaskRunning Component', () => {
     render(<TaskRunning {...baseProps} />);
 
     // 应该渲染基本的组件结构，但没有文案内容
-    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
-    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('暂停')).toBeInTheDocument();
+    expect(screen.getByLabelText('停止')).toBeInTheDocument();
   });
 
   // 测试自定义标题和描述
@@ -79,8 +79,8 @@ describe('TaskRunning Component', () => {
         taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}
       />,
     );
-    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
-    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('暂停')).toBeInTheDocument();
+    expect(screen.getByLabelText('停止')).toBeInTheDocument();
 
     // 任务已暂停状态：继续按钮 + 新任务按钮
     rerender(
@@ -90,7 +90,7 @@ describe('TaskRunning Component', () => {
         taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
       />,
     );
-    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('继续')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
   });
 
@@ -139,7 +139,7 @@ describe('TaskRunning Component', () => {
     );
 
     // 任务已暂停：继续按钮 + 新任务按钮
-    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('继续')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
   });
 
@@ -177,7 +177,7 @@ describe('TaskRunning Component', () => {
     render(<TaskRunning {...baseProps} onPause={onPause} />);
 
     // 在运行中状态下，应该显示暂停按钮
-    const pauseButton = screen.getByLabelText('PauseIcon');
+    const pauseButton = screen.getByLabelText('暂停');
     fireEvent.click(pauseButton);
 
     expect(onPause).toHaveBeenCalledTimes(1);
@@ -195,8 +195,8 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    // 在暂停状态下，应该显示继续按钮（PlayIcon）
-    const resumeButton = screen.getByLabelText('PlayIcon');
+    // 在暂停状态下，应该显示继续按钮（继续）
+    const resumeButton = screen.getByLabelText('继续');
     fireEvent.click(resumeButton);
 
     expect(onResume).toHaveBeenCalledTimes(1);
@@ -207,7 +207,7 @@ describe('TaskRunning Component', () => {
     const onStop = vi.fn();
     render(<TaskRunning {...baseProps} onStop={onStop} />);
 
-    const stopButton = screen.getByLabelText('StopIcon');
+    const stopButton = screen.getByLabelText('停止');
     fireEvent.click(stopButton);
 
     expect(onStop).toHaveBeenCalledTimes(1);
@@ -334,15 +334,15 @@ describe('TaskRunning Component', () => {
     );
 
     // 如果没有提供回调函数，相应的按钮不应该显示
-    expect(screen.queryByLabelText('PauseIcon')).not.toBeInTheDocument();
-    expect(screen.queryByLabelText('StopIcon')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('暂停')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('停止')).not.toBeInTheDocument();
     expect(screen.queryByText('创建新任务')).not.toBeInTheDocument();
 
     // 重新渲染，提供所有回调函数
     rerender(<TaskRunning {...baseProps} />);
 
-    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
-    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('暂停')).toBeInTheDocument();
+    expect(screen.getByLabelText('停止')).toBeInTheDocument();
   });
 
   // 测试状态组合的按钮显示
@@ -356,8 +356,8 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
-    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('暂停')).toBeInTheDocument();
+    expect(screen.getByLabelText('停止')).toBeInTheDocument();
 
     // 测试 RUNNING + PAUSE 状态
     rerender(
@@ -368,7 +368,7 @@ describe('TaskRunning Component', () => {
       />,
     );
 
-    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('继续')).toBeInTheDocument();
     expect(screen.getByText('新任务')).toBeInTheDocument();
 
     // 测试 SUCCESS + COMPLETE 状态
@@ -428,8 +428,8 @@ describe('TaskRunning Component', () => {
       <TaskRunning {...baseProps} variant="simple" />,
     );
 
-    expect(screen.getByLabelText('PauseIcon')).toBeInTheDocument();
-    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('暂停')).toBeInTheDocument();
+    expect(screen.getByLabelText('停止')).toBeInTheDocument();
 
     // 任务运行中状态：暂停按钮 + 停止按钮
     rerender(
@@ -440,7 +440,7 @@ describe('TaskRunning Component', () => {
         taskRunningStatus={TASK_RUNNING_STATUS.PAUSE}
       />,
     );
-    expect(screen.getByLabelText('PlayIcon')).toBeInTheDocument();
-    expect(screen.getByLabelText('StopIcon')).toBeInTheDocument();
+    expect(screen.getByLabelText('继续')).toBeInTheDocument();
+    expect(screen.getByLabelText('停止')).toBeInTheDocument();
   });
 });

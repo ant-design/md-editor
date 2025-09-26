@@ -21,11 +21,6 @@ vi.mock('../../src/MarkdownEditor/editor/components', () => ({
   ),
 }));
 
-vi.mock('../../src/icons', () => ({
-  NewChatIcon: () => <span>NewChatIcon</span>,
-  SearchIcon: () => <span>SearchIcon</span>,
-}));
-
 vi.mock('../../src/TaskList/LoadingLottie', () => ({
   LoadingLottie: () => <span>LoadingLottie</span>,
 }));

@@ -67,8 +67,7 @@ export function CodeContainer({
           background: 'var(--color-gray-bg-card-white)',
           transition: 'border-color 0.2s ease-in-out',
           borderColor: 'var(--color-gray-border-light)',
-          boxShadow:
-            'var(--shadow-control-base)',
+          boxShadow: 'var(--shadow-control-base)',
         }}
         className={classNames('ace-container', 'drag-el', {
           frontmatter: safeElement.frontmatter,

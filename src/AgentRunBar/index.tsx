@@ -3,12 +3,7 @@ import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { I18nContext } from '../i18n';
-import { PauseIcon } from './icons/PauseIcon';
-import { PlayIcon } from './icons/PlayIcon';
-import { SimplePauseIcon } from './icons/SimplePauseIcon';
-import { SimplePlayIcon } from './icons/SimplePlayIcon';
-import { SimpleStopIcon } from './icons/SimpleStopIcon';
-import { StopIcon } from './icons/StopIcon';
+import { CirclePause, CirclePlay, CircleStop, Pause, Play } from '../icons';
 import Robot from './Robot';
 import { useStyle } from './style';
 
@@ -292,7 +287,7 @@ const renderButtonGroup = ({
             aria-label={stopTitle}
             onClick={onStop}
           >
-            {variant === 'simple' ? <SimpleStopIcon /> : <StopIcon />}
+            {variant === 'simple' ? <CircleStop /> : <CircleStop />}
           </div>
         </Tooltip>
       )}
@@ -306,7 +301,7 @@ const renderButtonGroup = ({
             aria-label={pauseTitle}
             onClick={onPause}
           >
-            {variant === 'simple' ? <SimplePauseIcon /> : <PauseIcon />}
+            {variant === 'simple' ? <CirclePause /> : <Pause />}
           </div>
         </Tooltip>
       )}
@@ -320,7 +315,7 @@ const renderButtonGroup = ({
             aria-label={playTitle}
             onClick={onResume}
           >
-            {variant === 'simple' ? <SimplePlayIcon /> : <PlayIcon />}
+            {variant === 'simple' ? <CirclePlay /> : <Play />}
           </div>
         </Tooltip>
       )}

@@ -93,7 +93,7 @@
                             关于 React Hooks 的讨论
                           </div>
                           <div
-                            style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                            style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                           />
                         </div>
                       </div>
@@ -118,6 +118,9 @@
                           昨日
                         </div>
                       </div>
+                      <div
+                        class="ant-agent-chat-history-menu-extra-actions "
+                      />
                     </div>
                   </div>
                 </div>
@@ -164,7 +167,7 @@
                             TypeScript 类型系统详解
                           </div>
                           <div
-                            style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                            style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                           />
                         </div>
                       </div>
@@ -189,6 +192,9 @@
                           2 days ago
                         </div>
                       </div>
+                      <div
+                        class="ant-agent-chat-history-menu-extra-actions "
+                      />
                     </div>
                   </div>
                 </div>
@@ -235,7 +241,7 @@
                             前端性能优化实践
                           </div>
                           <div
-                            style="position: absolute; top: 0px; right: 0px; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1)); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
+                            style="position: absolute; top: 0px; right: 0px; width: 100%; height: 100%; mask-image: linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%); opacity: 0; transition: opacity 0.2s; pointer-events: none;"
                           />
                         </div>
                       </div>
@@ -260,6 +266,9 @@
                           3 days ago
                         </div>
                       </div>
+                      <div
+                        class="ant-agent-chat-history-menu-extra-actions "
+                      />
                     </div>
                   </div>
                 </div>

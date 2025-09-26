@@ -115,6 +115,12 @@
             </strong>
             : 新对话回调函数
           </li>
+          <li>
+            <strong>
+              customOperationExtra
+            </strong>
+            : 自定义操作组件，用于在历史记录项右侧添加额外的操作按钮，通常用于实现更多菜单、删除、分享等功能
+          </li>
         </ul>
       </div>
     </div>

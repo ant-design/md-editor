@@ -3,9 +3,12 @@ import classNamesFn from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useContext } from 'react';
-import { ExpandDownIcon, ExpandIcon } from '../icons';
-import { DownOutlined } from '../icons/DownOutlined';
-import { ThinkIcon } from '../icons/ThinkIcon';
+import {
+  Brain,
+  ChevronDown,
+  ChevronDown as ExpandDownIcon,
+  Expand as ExpandIcon,
+} from '../icons';
 import { useStyle } from './thinkStyle';
 
 export interface ToolUseBarThinkProps {
@@ -90,7 +93,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   const [isHovered, setIsHovered] = React.useState(false);
 
   // Think 模块的默认图标
-  const defaultIcon = <ThinkIcon />;
+  const defaultIcon = <Brain />;
 
   const handleToggleExpand = () => {
     setExpandedState(!expandedState);
@@ -157,7 +160,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                 )}
               >
                 {hover ? (
-                  <DownOutlined
+                  <ChevronDown
                     style={{
                       transform: expandedState
                         ? 'rotate(0deg)'
@@ -166,7 +169,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
                     }}
                   />
                 ) : (
-                  <ThinkIcon />
+                  <Brain />
                 )}
               </div>
             ) : (

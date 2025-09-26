@@ -18,15 +18,15 @@ BackTo 是一个用于快速滚动到页面顶部或底部的浮动按钮组件�
 
 以下 API 为 BackTo.Top、BackTo.Bottom 通用的 API。
 
-| 参数          | 说明                              | 类型                                                                           | 默认值         | 版本 |
-| ------------- | --------------------------------- | ------------------------------------------------------------------------------ | -------------- | ---- |
-| className     | 自定义类名                        | `string`                                                                       | -              | -    |
-| style         | 自定义样式                        | `CSSProperties`                                                                | -              | -    |
-| target        | 滚动容器的目标元素                | `() => HTMLElement \| Window`                                                  | `() => window` | -    |
-| duration      | 滚动到顶部/底部的持续时间（毫秒） | `number`                                                                       | `450`          | -    |
-| shouldVisible | 按钮是否显示                      | `number \| ((scrollTop: number, container: HTMLElement \| Window) => boolean)` | `400`          | -    |
-| tooltip       | 气泡卡片的内容                    | `ReactNode` \| [TooltipProps](https://ant.design/components/tooltip-cn#api)    | -              | -    |
-| onClick       | 点击按钮时的回调函数              | `(e: React.MouseEvent<HTMLButtonElement>, container: HTMLElement \| Window) => void`                    | -              | -    |
+| 参数          | 说明                              | 类型                                                                                 | 默认值         | 版本 |
+| ------------- | --------------------------------- | ------------------------------------------------------------------------------------ | -------------- | ---- |
+| className     | 自定义类名                        | `string`                                                                             | -              | -    |
+| style         | 自定义样式                        | `CSSProperties`                                                                      | -              | -    |
+| target        | 滚动容器的目标元素                | `() => HTMLElement \| Window`                                                        | `() => window` | -    |
+| duration      | 滚动到顶部/底部的持续时间（毫秒） | `number`                                                                             | `450`          | -    |
+| shouldVisible | 按钮是否显示                      | `number \| ((scrollTop: number, container: HTMLElement \| Window) => boolean)`       | `400`          | -    |
+| tooltip       | 气泡卡片的内容                    | `ReactNode` \| [TooltipProps](https://ant.design/components/tooltip-cn#api)          | -              | -    |
+| onClick       | 点击按钮时的回调函数              | `(e: React.MouseEvent<HTMLButtonElement>, container: HTMLElement \| Window) => void` | -              | -    |
 
 ## 类型说明
 

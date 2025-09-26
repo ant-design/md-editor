@@ -9,9 +9,7 @@ import React, {
   useState,
 } from 'react';
 import { I18nContext } from '../../i18n';
-import { CopyIcon } from '../../icons/CopyIcon';
-import { EmptyIcon } from '../../icons/EmptyIcon';
-import { RunIcon } from '../../icons/RunIcon';
+import { CircleDashed, Copy, Play } from '../../icons';
 import { SchemaRenderer } from '../SchemaRenderer';
 import { LowCodeSchema } from '../types';
 import { mdDataSchemaValidator } from '../validator';
@@ -259,7 +257,7 @@ export function SchemaEditor({
                 hashId,
               )}
             >
-              <EmptyIcon style={{ width: 80, height: 80 }} />
+              <CircleDashed style={{ width: 80, height: 80 }} />
               <p>{locale['schemaEditor.inputSchemaToPreview']}</p>
             </div>
           )}
@@ -287,14 +285,14 @@ export function SchemaEditor({
           <div style={{ display: 'flex' }}>
             <Button
               type="text"
-              icon={<RunIcon style={{ width: 14, height: 14 }} />}
+              icon={<Play style={{ width: 14, height: 14 }} />}
               onClick={handleRunClick}
             >
               {locale['schemaEditor.run']}
             </Button>
             <Button
               type="text"
-              icon={<CopyIcon style={{ width: 14, height: 14 }} />}
+              icon={<Copy style={{ width: 14, height: 14 }} />}
               onClick={handleCopyHtml}
             />
           </div>
@@ -329,7 +327,7 @@ export function SchemaEditor({
           <div style={{ display: 'flex' }}>
             <Button
               type="text"
-              icon={<CopyIcon style={{ width: 14, height: 14 }} />}
+              icon={<Copy style={{ width: 14, height: 14 }} />}
               onClick={handleCopyJson}
             />
           </div>

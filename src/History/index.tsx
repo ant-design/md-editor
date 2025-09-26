@@ -1,7 +1,7 @@
 ﻿import { ConfigProvider, Popover } from 'antd';
 import React, { useContext, useRef } from 'react';
 import useClickAway from '../hooks/useClickAway';
-import { HistoryIcon } from '../icons/HistoryIcon';
+import { History as HistoryIcon } from '../icons';
 import { ActionIconBox, BubbleConfigContext } from '../index';
 import {
   HistoryLoadMore,
@@ -14,7 +14,11 @@ import GroupMenu from './menu';
 import { useStyle } from './style';
 import { HistoryProps } from './types';
 
+export * from './components';
+export * from './hooks/useHistory';
+export * from './types';
 export * from './types/HistoryData';
+export * from './utils';
 
 /**
  * History 组件 - 用于显示和管理聊天历史记录
@@ -197,8 +201,3 @@ export const History: React.FC<HistoryProps> = (props) => {
     </Popover>
   );
 };
-
-export * from './components';
-export * from './hooks/useHistory';
-export * from './types';
-export * from './utils';
