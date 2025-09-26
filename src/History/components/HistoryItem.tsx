@@ -252,6 +252,12 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                 position: 'relative',
                 width: 'calc(100% - 10px)',
                 overflow: 'hidden',
+                WebkitMaskImage: isTextOverflow
+                  ? 'linear-gradient(to left, transparent, black 20%)'
+                  : 'none',
+                maskImage: isTextOverflow
+                  ? 'linear-gradient(to left, transparent, black 20%)'
+                  : 'none',
               }}
             >
               <Tooltip
@@ -272,22 +278,6 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                   {item.sessionTitle}
                 </div>
               </Tooltip>
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '100%',
-                  height: '100%',
-                  WebkitMaskImage:
-                    'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                  maskImage:
-                    'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                  opacity: isTextOverflow ? 1 : 0,
-                  transition: 'opacity 0.2s',
-                  pointerEvents: 'none',
-                }}
-              />
             </div>
           </div>
         </div>
@@ -523,6 +513,12 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                   position: 'relative',
                   maxWidth: 'calc(100% - 10px)',
                   overflow: 'hidden',
+                  WebkitMaskImage: isTextOverflow
+                    ? 'linear-gradient(to left, transparent, black 20%)'
+                    : 'none',
+                  maskImage: isTextOverflow
+                    ? 'linear-gradient(to left, transparent, black 20%)'
+                    : 'none',
                 }}
               >
                 <div
@@ -537,22 +533,6 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                 >
                   {item.sessionTitle}
                 </div>
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    width: '100%',
-                    height: '100%',
-                    WebkitMaskImage:
-                      'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                    maskImage:
-                      'linear-gradient(90deg, #D8D8D8 81%, rgba(216, 216, 216, 0) 91%)',
-                    opacity: isTextOverflow ? 1 : 0,
-                    transition: 'opacity 0.2s',
-                    pointerEvents: 'none',
-                  }}
-                />
               </div>
             </Tooltip>
 

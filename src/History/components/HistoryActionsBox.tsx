@@ -1,8 +1,8 @@
-import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { Star, StarFill } from '../../icons';
+import TrashIcon from '../../icons/Trash2';
 import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';
 
@@ -197,7 +197,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   height: 20,
                 }}
               >
-                <DeleteOutlined
+                <TrashIcon
                   style={{
                     fontSize: 14,
                     color: 'var(--color-gray-text-secondary)',

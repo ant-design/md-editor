@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { MessageCirclePlus } from '../../icons';
+import { AiAgentManagement } from '../../icons';
 
 /**
  * 新对话组件属性接口
@@ -79,7 +79,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
       onKeyDown={handleKeyDown}
       className={className}
     >
-      <MessageCirclePlus
+      <AiAgentManagement
         style={{
           fontSize: 16,
         }}

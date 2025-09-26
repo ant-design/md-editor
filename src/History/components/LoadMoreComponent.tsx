@@ -129,6 +129,7 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
                   borderRadius: '50%',
                   background: 'var(--color-gray-bg-card-light)',
                   marginRight: '8px',
+                  fontSize: '16px',
                   color: 'var(--color-gray-text-secondary)',
                 }}
               >

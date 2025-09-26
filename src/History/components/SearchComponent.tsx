@@ -127,6 +127,7 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
         justifyContent: 'space-between',
         height: 32, // 固定高度为32px
         padding: isExpanded ? 0 : '0 6px 0 12px', // 输入框状态下移除padding
+        marginBottom: 4,
       }}
     >
       {isExpanded ? (
