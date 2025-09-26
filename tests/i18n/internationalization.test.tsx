@@ -388,7 +388,7 @@ describe('Internationalization Tests', () => {
       );
       expect(
         screen.getByTestId('chat-history-search-placeholder'),
-      ).toHaveTextContent('| Search topic');
+      ).toHaveTextContent('Search topic');
       expect(screen.getByTestId('chat-history-new-chat')).toHaveTextContent(
         'New Chat',
       );
