@@ -44,6 +44,7 @@ const genStyle = (
         [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
           fontSize: '1em',
+          color: 'var(--color-gray-text-default)',
           display: 'flex',
           alignItems: 'center',
         },
