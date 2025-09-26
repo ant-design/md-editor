@@ -91,7 +91,7 @@ export const UserBubble: React.FC<
 
   const prefixClass = getPrefixCls('agent');
 
-  const { wrapSSR, hashId } = useStyle(prefixClass);
+  const { wrapSSR, hashId } = useStyle(prefixClass, classNames);
 
   // 用户消息的 placement 固定为 'right'
   const placement = 'right';
@@ -108,7 +108,7 @@ export const UserBubble: React.FC<
         className={classNames?.bubbleListItemTitleClassName}
         style={styles?.bubbleListItemTitleStyle}
         prefixClass={cx(`${prefixClass}-bubble-title`)}
-        title={null}
+        title={'我'}
         placement={placement}
         time={time}
       />,
