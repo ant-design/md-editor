@@ -18,13 +18,42 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-suggestions': {
         display: 'flex',
         flexDirection: 'column',
-        margin: 8,
         gap: 4,
         // 横向布局
         '&-horizontal': {
           flexDirection: 'row',
           flexWrap: 'wrap',
           gap: 8,
+        },
+      },
+
+      // 搜索更多
+      '&-more': {
+        alignSelf: 'flex-start',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 4,
+        marginBottom: 4,
+        cursor: 'default',
+        [`${token.componentCls}-more-text`]: {
+          color: 'var(--color-gray-text-light)',
+          font: 'var(--font-text-body-emphasized-base)',
+          letterSpacing: 'var(--letter-spacing-body-emphasized-base, normal)',
+        },
+        [`${token.componentCls}-more-icon`]: {
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 12,
+          color: 'var(--color-gray-text-light)',
+          borderRadius: 'var(--radius-control-sm)',
+          cursor: 'pointer',
+        },
+        '&:hover': {
+          opacity: 0.85,
+        },
+        '&:active': {
+          opacity: 0.75,
         },
       },
 
@@ -138,7 +167,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         justifyContent: 'center',
         color: 'var(--color-gray-text-light)',
-        fontSize: 12,
+        fontSize: 16,
         marginLeft: 12,
         transition: 'transform .2s ease',
       },

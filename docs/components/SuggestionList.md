@@ -12,7 +12,7 @@ group:
 
 ## 代码演示
 
-<code src="../demos/bubble/followup-basic.tsx">基础用法</code>
+<code src="../demos/followup-basic.tsx">基础用法</code>
 
 ## API
 
@@ -27,6 +27,7 @@ group:
 | layout     | 布局                         | `'vertical' \| 'horizontal'`         | `'vertical'`|
 | maxItems   | 最大显示数量                 | `number`                              | `6`         |
 | type       | 样式类型                     | `'basic' \| 'transparent' \| 'white'`| `'basic'`   |
+| showMore   | 左上角“搜索更多”入口配置     | `{ enable: boolean; onClick?: () => void }` | - |
 
 ### SuggestionItem
 
