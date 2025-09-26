@@ -260,9 +260,9 @@ export default () => (
 
 <code src="../demos/bubble/avatar-render-demo.tsx"></code>
 
-### 引用
+### 脚注（Footnote）
 
-展示如何实现引用弹框及消息底部的引用汇总功能。
+展示如何实现脚注弹框及消息底部的脚注汇总功能。
 
 <code src="../demos/bubble/footnote-demo.tsx"></code>
 
