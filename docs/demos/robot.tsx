@@ -9,7 +9,7 @@ export default () => {
   const statusOptions = [
     { value: 'default', label: '默认状态' },
     { value: 'running', label: '运行中状态' },
-  ];
+  ] as const;
 
   return (
     <div style={{ padding: '0 24px 24px', maxWidth: 1200 }}>
@@ -41,7 +41,7 @@ export default () => {
               <button
                 key={option.value}
                 type="button"
-                onClick={() => setRobotStatus(option.value as any)}
+                onClick={() => setRobotStatus(option.value)}
                 style={{
                   padding: '4px 8px',
                   border: '1px solid #d9d9d9',

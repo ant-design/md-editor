@@ -39,7 +39,7 @@ export interface RobotProps {
  * import { Robot } from './Robot';
  *
  * // 基本用法
- * <Robot size={50} status="thinking" />
+ * <Robot size={50} status="running" />
  *
  * // 自定义图标
  * <Robot icon={<CustomIcon />} size={60} />
