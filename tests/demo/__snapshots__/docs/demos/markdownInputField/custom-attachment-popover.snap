@@ -14,7 +14,7 @@
       <p>
         通过 
         <code>
-          customPopover
+          render
         </code>
          属性，您可以完全自定义附件按钮的交互体验。
       </p>
