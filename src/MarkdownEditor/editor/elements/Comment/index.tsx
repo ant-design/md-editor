@@ -7,10 +7,58 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import { BaseRange } from 'slate';
+import { BaseRange, Point, Range, Selection } from 'slate';
 import { CommentDataType, MarkdownEditorProps } from '../../../types';
 import { EditorStoreContext } from '../../store';
 import { getSelectionFromDomSelection } from '../../utils/editorUtils';
+
+/**
+ * 合并两个选择区域，创建一个包含两个区域的最小包围选择区域
+ * @param newSelection - 新的选择区域
+ * @param existingSelection - 现有的选择区域
+ * @returns 合并后的选择区域
+ */
+const mergeSelections = (
+  newSelection: Range | null,
+  existingSelection: Selection,
+): BaseRange => {
+  // 如果两个选择区域都是有效的 Range
+  if (Range.isRange(newSelection) && Range.isRange(existingSelection)) {
+    // 找到两个选择区域的起始点和结束点
+    const newStart = Range.start(newSelection);
+    const newEnd = Range.end(newSelection);
+    const existingStart = Range.start(existingSelection);
+    const existingEnd = Range.end(existingSelection);
+
+    // 创建合并后的选择区域：从最早的点到最晚的点
+    const mergedStart = Point.isBefore(newStart, existingStart)
+      ? newStart
+      : existingStart;
+    const mergedEnd = Point.isAfter(newEnd, existingEnd) ? newEnd : existingEnd;
+
+    return {
+      anchor: mergedStart,
+      focus: mergedEnd,
+    };
+  }
+
+  // 如果只有新选择区域有效，返回新选择区域
+  if (Range.isRange(newSelection)) {
+    return newSelection;
+  }
+
+  // 如果只有现有选择区域有效，返回现有选择区域
+  if (Range.isRange(existingSelection)) {
+    return existingSelection;
+  }
+
+  // 如果都不有效，返回空选择
+  return {
+    anchor: { path: [0, 0], offset: 0 },
+    focus: { path: [0, 0], offset: 0 },
+  };
+};
+
 /**
  * 评论视图组件的属性接口
  */
@@ -56,7 +104,7 @@ export const CommentView = (props: CommentViewProps) => {
     dragStartPos: null as { x: number; y: number } | null,
     dragEndPos: null as { x: number; y: number } | null,
     dragHandleType: null as 'start' | 'end' | null,
-    originalSelection: null as Range | null,
+    originalSelection: null as BaseRange | null,
     commentElement: null as HTMLSpanElement | null,
   });
 
@@ -94,12 +142,19 @@ export const CommentView = (props: CommentViewProps) => {
         return;
       }
 
-      // 获取新的选择内容
-      const newContent = newSlateSelection.toString()?.trim();
+      // 合并 newSlateSelection 和 thisComment.selection
+      // 创建一个包含两个选择区域的最小包围选择区域
+      const mergedSelection = mergeSelections(
+        newSlateSelection,
+        thisComment.selection,
+      );
 
-      // 计算新的偏移量
-      const newAnchorOffset = newSlateSelection.anchor.offset;
-      const newFocusOffset = newSlateSelection.focus.offset;
+      // 获取合并后的选择内容
+      const newContent = mergedSelection.toString()?.trim();
+
+      // 计算合并后的偏移量
+      const newAnchorOffset = mergedSelection.anchor.offset;
+      const newFocusOffset = mergedSelection.focus.offset;
 
       // 调用 onRangeChange 回调
       const dragRangeConfig = props.comment?.dragRange;
@@ -107,7 +162,7 @@ export const CommentView = (props: CommentViewProps) => {
         dragRangeConfig.onRangeChange(
           thisComment.id,
           {
-            selection: newSlateSelection,
+            selection: mergedSelection,
             anchorOffset: newAnchorOffset,
             focusOffset: newFocusOffset,
             refContent: newContent,
@@ -169,11 +224,7 @@ export const CommentView = (props: CommentViewProps) => {
       dragStateRef.current.commentElement = commentRef.current;
 
       // 保存原始选择状态
-      const domSelection = window.getSelection();
-      dragStateRef.current.originalSelection =
-        domSelection && domSelection.rangeCount > 0
-          ? domSelection.getRangeAt(0)
-          : null;
+      dragStateRef.current.originalSelection = null; // 暂时设为 null，后续可以通过 getSelectionFromDomSelection 获取
 
       document.addEventListener('mousemove', handleDragMove);
       document.addEventListener('mouseup', handleDragEnd);
