@@ -278,7 +278,6 @@ const CommentViewComponent: React.FC<{
 }> = React.memo(({ props, children }) => {
   const { comment } = props;
   const { leaf } = props;
-  const { markdownEditorRef } = useEditorStore();
 
   if (!comment || !leaf.comment) {
     return children;
@@ -290,7 +289,6 @@ const CommentViewComponent: React.FC<{
       id={`comment-${props.leaf?.id}`}
       comment={comment}
       commentItem={leaf?.comment ? (leaf.data as any) : null}
-      editorRef={markdownEditorRef}
     >
       {children}
     </CommentView>
