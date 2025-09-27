@@ -7,13 +7,17 @@ import { motion } from 'framer-motion';
 import { merge } from 'lodash-es';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { MagicIcon } from '../components/icons/MagicIcon';
 import { useAutoScroll } from '../hooks/useAutoScroll';
 import { I18nContext } from '../i18n';
-import { CircleCheckBig, Loader } from '../icons';
+import {
+  ChevronsDownUp,
+  ChevronsUpDown,
+  CircleCheckBig,
+  Loader,
+  Sparkles,
+} from '../icons';
 import { ActionIconBox } from '../MarkdownEditor/editor/components/ActionIconBox';
 import { MarkdownEditorProps } from '../MarkdownEditor/types';
-import { CollapseIcon, ExpandIcon } from './Collapse';
 import { DotLoading } from './DotAni';
 import { FlipText } from './FlipText';
 import { useStyle } from './style';
@@ -66,7 +70,7 @@ const ThoughtChainTitle = React.memo<{
         title={collapse ? locale?.expand || '展开' : locale?.collapse || '收起'}
         onClick={onCollapseToggle}
       >
-        {!collapse ? <ExpandIcon /> : <CollapseIcon />}
+        {!collapse ? <ChevronsDownUp /> : <ChevronsUpDown />}
       </ActionIconBox>
     );
 
@@ -78,10 +82,11 @@ const ThoughtChainTitle = React.memo<{
         })}
       >
         <div className={classNames(`${prefixCls}-title-content`, hashId)}>
-          <MagicIcon
+          <Sparkles
             style={{
               width: 15,
               height: 15,
+              color: '#0CE0AD',
             }}
           />
           <span
