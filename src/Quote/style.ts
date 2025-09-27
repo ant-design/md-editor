@@ -8,21 +8,28 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       '&-container': {
-        height: '34px',
         width: 'fit-content',
-        minWidth: '80px',
+        minWidth: '150px',
         maxWidth: '560px',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        padding: '6px 8px',
+        padding: '2px 8px',
         gap: '8px',
         borderRadius: 'var(--radius-control-base)',
         cursor: 'pointer',
+        color: 'var(--color-gray-text-light)',
+        font: 'var(--font-text-body-sm)',
       },
 
       '&-container:hover': {
+        /* 圆角-控件-sm */
+        borderRadius: 'var(--radius-control-sm)',
+        /* gray/gray-控件填充-悬停 */
+        /* 样式描述：--gray-a2 */
         background: 'var(--color-gray-control-fill-hover)',
+        /* 投影-描边-base */
+        boxShadow: 'var(--shadow-border-base)',
       },
 
       '&-container:hover &-close-button': {
@@ -31,13 +38,14 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-quote-icon': {
-        fontSize: 16,
+        fontSize: 14,
         display: 'flex',
         alignItems: 'center',
-        color: 'var(--color-gray-text-secondary)',
+        color: 'var(--color-gray-text-light)',
       },
 
       '&-close-button': {
+        fontSize: 14,
         color: 'var(--color-gray-text-default)',
         display: 'none',
       },
@@ -47,20 +55,22 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         flex: 1,
+
+        color: 'var(--color-gray-text-light)',
+        font: 'var(--font-text-body-sm)',
       },
 
       // 弹出层样式
 
       '&-popup': {
         position: 'absolute',
-        bottom: '40px', // 保持原来的距离
-        left: '0',
+        bottom: '30px', // 保持原来的距离
         minWidth: '240px',
         maxWidth: '800px',
         /* 圆角-卡片-base */
 
         borderRadius: 'var(--radius-card-base)',
-        background: 'var(--color-gray-bg-page-light)', //var(--color-gray-bg-page-light);
+        background: 'var(--color-gray-bg-page-light)',
         boxSizing: 'border-box',
         border: '1px solid var(--color-gray-border-light)',
         boxShadow: 'var(--shadow-popover-base)',
@@ -110,6 +120,9 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '20px',
         boxSizing: 'border-box', // 确保 padding 包含在总高度内
         letterSpacing: 'var(--letter-spacing-body-sm, normal)',
+        borderRadius: 'var(--radius-card-base)',
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow: 'var(--shadow-border-base)',
       },
 
       '&-popup-header': {
@@ -117,6 +130,13 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         gap: 4,
         padding: '4px 8px',
+        width: 'fit-content',
+        maxWidth: '100%',
+      },
+
+      '&-popup-header:hover': {
+        borderRadius: 'var(--radius-control-base)',
+        background: 'var(--color-gray-control-fill-hover)',
       },
 
       '&-popup-title': {

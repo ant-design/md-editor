@@ -22,6 +22,7 @@ group:
 ## 基本使用
 
 ```tsx
+import { ActionItemBox, ActionItemContainer } from '@ant-design/md-editor';
 import { MarkdownInputField, SuggestionList } from '@ant-design/md-editor';
 import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
@@ -91,68 +92,50 @@ export default () => {
         }}
         beforeToolsRender={() => {
           return (
-            <>
-              <div
-                style={{
-                  borderRadius: '200px',
-                  boxSizing: 'border-box',
-                  border: '1px solid var(--color-gray-border-light) ',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '5px 12px',
-                  gap: '8px',
-                  zIndex: 1,
-                }}
-              >
-                <img
-                  width="16"
-                  height="16"
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-                />
-                快捷技能
-              </div>
-              <div
-                style={{
-                  borderRadius: '200px',
-                  boxSizing: 'border-box',
-                  border: '1px solid var(--color-gray-border-light) ',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '5px 12px',
-                  gap: '8px',
-                  zIndex: 1,
-                }}
-              >
-                <img
-                  width="16"
-                  height="16"
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-                />
-                快捷技能
-              </div>
-              <div
-                style={{
-                  borderRadius: '200px',
-                  boxSizing: 'border-box',
-                  border: '1px solid var(--color-gray-border-light) ',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '5px 12px',
-                  gap: '8px',
-                  zIndex: 1,
-                }}
-              >
-                <img
-                  width="16"
-                  height="16"
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-                />
-                快捷技能
-              </div>
-            </>
+            <ActionItemContainer>
+              <ActionItemBox
+                onClick={() => console.log('快捷技能1')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能1
+                  </span>
+                }
+                key="快捷技能1"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能2')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能2
+                  </span>
+                }
+                key="快捷技能2"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能3')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能3
+                  </span>
+                }
+                key="快捷技能3"
+              />
+            </ActionItemContainer>
           );
         }}
         toolsRender={() => [
@@ -211,7 +194,6 @@ export default () => {
           setValue(newValue);
           console.log('newValue', newValue);
         }}
-        ac
         placeholder="请输入内容..."
         onSend={async (text) => {
           console.log('发送内容:', text);
@@ -666,6 +648,40 @@ export default () => {
   );
 };
 ```
+
+### 自定义附件按钮渲染
+
+通过 `attachment.render` 属性，您可以完全替换默认的 `AttachmentButtonPopover` 组件，实现自定义的附件按钮交互体验。
+
+<code src="../demos/markdownInputField/custom-attachment-popover.tsx" background="var(--main-bg-color)" iframe=800></code>
+
+#### render 属性
+
+| 参数   | 说明               | 类型                                         | 默认值 | 版本 |
+| ------ | ------------------ | -------------------------------------------- | ------ | ---- |
+| render | 自定义渲染组件函数 | `(props: RenderProps) => React.ReactElement` | -      | -    |
+
+#### RenderProps
+
+| 参数            | 说明                                    | 类型                                              | 默认值 | 版本 |
+| --------------- | --------------------------------------- | ------------------------------------------------- | ------ | ---- |
+| children        | 需要包装的子元素，通常是 Paperclip 图标 | `React.ReactNode`                                 | -      | -    |
+| supportedFormat | 支持的文件格式配置                      | `AttachmentButtonPopoverProps['supportedFormat']` | -      | -    |
+
+#### supportedFormat
+
+| 参数       | 说明                 | 类型              | 默认值 | 版本 |
+| ---------- | -------------------- | ----------------- | ------ | ---- |
+| type       | 文件类型名称         | `string`          | -      | -    |
+| maxSize    | 最大文件大小（KB）   | `number`          | -      | -    |
+| extensions | 支持的文件扩展名数组 | `string[]`        | -      | -    |
+| icon       | 文件类型图标         | `React.ReactNode` | -      | -    |
+
+#### 兼容性
+
+- 完全向后兼容，不使用 `render` 时保持原有行为
+- 支持所有现有的 `AttachmentButton` 属性
+- 可与其他附件配置选项（如 `supportedFormat`、`maxFileSize` 等）配合使用
 
 ### 自定义操作按钮
 

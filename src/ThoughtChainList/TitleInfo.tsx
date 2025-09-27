@@ -63,14 +63,14 @@ export const TitleInfo = (props: {
   category: string;
   title?: string;
   prefixCls: string;
-  setCollapse: (collapse: boolean) => void;
+  setCollapse?: (collapse: boolean) => void;
   collapse: boolean;
   hashId: string;
   isFinished?: boolean;
   onMetaClick?: (meta: Partial<DocMeta>) => void;
   instanceId?: string;
   titleExtraRender?: (defaultDom: React.ReactNode) => React.ReactNode;
-  meta: Record<
+  meta?: Record<
     string,
     {
       name: string;

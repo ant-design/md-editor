@@ -283,7 +283,7 @@ const renderButtonGroup = ({
 
       {/* 停止按钮 */}
       {(isRunning || isPause) && onStop && (
-        <Tooltip title={stopTitle}>
+        <Tooltip mouseEnterDelay={0.3} title={stopTitle}>
           <div
             className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
@@ -297,7 +297,7 @@ const renderButtonGroup = ({
       )}
       {/* 暂停按钮 */}
       {isRunning && onPause && (
-        <Tooltip title={pauseTitle}>
+        <Tooltip title={pauseTitle} mouseEnterDelay={0.3}>
           <div
             className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
@@ -311,7 +311,7 @@ const renderButtonGroup = ({
       )}
       {/* 继续按钮 */}
       {isPause && onResume && (
-        <Tooltip title={playTitle}>
+        <Tooltip title={playTitle} mouseEnterDelay={0.3}>
           <div
             className={classNames(`${baseCls}-play`, hashId)}
             role="button"

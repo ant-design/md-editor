@@ -2,18 +2,16 @@ import React from 'react';
 import {
   FileZip as ArchiveIcon,
   AudioLines as AudioIcon,
-  CodeXml as CodeIcon,
   FileText as CsvIcon,
-  File as DefaultFileIcon,
-  Folder,
-  CodeXml as HtmlIcon,
+  FileOther as DefaultFileIcon,
+  FileDoc,
+  FileFolders,
+  FileMarkdown,
+  FilePdf,
+  FileXlsx,
+  FileXml,
   FileImage as ImageIcon,
-  FileMarkdown as MdIcon,
-  FilePdf as PdfIcon,
   File as VideoIcon,
-  FileDoc as WordIcon,
-  FileXlsx as XlsxIcon,
-  FileXml as XmlIcon,
 } from '../../icons';
 import {
   FILE_TYPES,
@@ -27,16 +25,16 @@ import {
 // 文件扩展名到图标的映射
 const EXTENSION_ICON_MAP: Record<string, React.ReactNode> = {
   txt: <DefaultFileIcon />,
-  xlsx: <XlsxIcon />,
-  xls: <XlsxIcon />,
-  doc: <WordIcon />,
-  docx: <WordIcon />,
-  pdf: <PdfIcon />,
+  xlsx: <FileXlsx />,
+  xls: <FileXlsx />,
+  doc: <FileDoc />,
+  docx: <FileDoc />,
+  pdf: <FilePdf />,
   csv: <CsvIcon />,
-  xml: <XmlIcon />,
-  html: <HtmlIcon />,
-  md: <MdIcon />,
-  markdown: <MdIcon />,
+  xml: <FileXml />,
+  html: <FileXml />,
+  md: <FileMarkdown />,
+  markdown: <FileMarkdown />,
   zip: <ArchiveIcon />,
   rar: <ArchiveIcon />,
   '7z': <ArchiveIcon />,
@@ -47,11 +45,11 @@ const EXTENSION_ICON_MAP: Record<string, React.ReactNode> = {
 
 // 文件类型到默认图标的映射
 const TYPE_ICON_MAP: Record<FileCategory, React.ReactNode> = {
-  [FileCategory.Text]: <MdIcon />,
-  [FileCategory.Code]: <CodeIcon />,
-  [FileCategory.PDF]: <PdfIcon />,
-  [FileCategory.Word]: <WordIcon />,
-  [FileCategory.Excel]: <XlsxIcon />,
+  [FileCategory.Text]: <FileMarkdown />,
+  [FileCategory.Code]: <FileXml />,
+  [FileCategory.PDF]: <FilePdf />,
+  [FileCategory.Word]: <FileDoc />,
+  [FileCategory.Excel]: <FileXlsx />,
   [FileCategory.Image]: <ImageIcon />,
   [FileCategory.Video]: <VideoIcon />,
   [FileCategory.Audio]: <AudioIcon />,
@@ -124,7 +122,7 @@ export const getGroupIcon = (
 
     // 如果有多种不同的文件类型，显示文件夹图标
     if (fileTypes.size > 1) {
-      return <Folder />;
+      return <FileFolders />;
     }
 
     // 如果只有一种文件类型，使用该类型的图标

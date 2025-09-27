@@ -197,9 +197,9 @@ const Workspace: FC<WorkspaceProps> & {
       );
       tabs.push({
         key: tabConfig.key,
+        icon: tabConfig.icon,
         label: (
           <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
-            {tabConfig.icon}
             <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
               {tabConfig.title}
             </span>
@@ -303,9 +303,10 @@ const Workspace: FC<WorkspaceProps> & {
           <Segmented
             key={segmentedKey} // ⭐ 每次宽度从 0 变为 >0，重新挂载
             className={classNames(`${prefixCls}-segmented`, hashId)}
-            options={availableTabs.map(({ label, key }) => ({
+            options={availableTabs.map(({ label, key, icon }) => ({
               label,
               value: key,
+              icon,
             }))}
             value={currentActiveTab}
             onChange={handleTabChange}
