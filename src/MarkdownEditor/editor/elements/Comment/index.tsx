@@ -159,17 +159,16 @@ export const CommentView = (props: CommentViewProps) => {
    */
   const handleNativeMouseUp = () => {
     const dragState = dragStateRef.current;
-    if (
-      !dragState.isDragging ||
-      !dragState.dragStartPos ||
-      !dragState.dragEndPos
-    ) {
+    if (!dragState.isDragging) {
       return;
     }
 
     const commentElement = commentRef.current;
 
     try {
+      if (!dragState.dragStartPos || !dragState.dragEndPos) {
+        return;
+      }
       // 直接获取编辑器的选择
       const editorSelection = getEditorSelection();
       if (!editorSelection) return;
@@ -194,23 +193,21 @@ export const CommentView = (props: CommentViewProps) => {
           newContent,
         );
       }
-    } catch (error) {
-      console.error('处理拖拽结束时出错:', error);
-    }
+    } finally {
+      // 清除原生 CSS Custom Highlight
+      clearNativeHighlight();
 
-    // 清除原生 CSS Custom Highlight
-    clearNativeHighlight();
+      // 重置拖拽状态
+      dragStateRef.current = {
+        isDragging: false,
+        dragStartPos: null,
+        dragEndPos: null,
+      };
 
-    // 重置拖拽状态
-    dragStateRef.current = {
-      isDragging: false,
-      dragStartPos: null,
-      dragEndPos: null,
-    };
-
-    // 移除拖拽样式类
-    if (commentElement) {
-      commentElement.classList.remove('comment-dragging');
+      // 移除拖拽样式类
+      if (commentElement) {
+        commentElement.classList.remove('comment-dragging');
+      }
     }
   };
 
@@ -245,24 +242,6 @@ export const CommentView = (props: CommentViewProps) => {
   }, [props.comment?.dragRange, thisComment]);
 
   // 添加 CSS Custom Highlight 样式
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      ::highlight(comment-drag-preview) {
-        background-color: rgba(24, 144, 255, 0.3);
-        color: inherit;
-        border-radius: 2px;
-        transition: all 0.1s ease;
-      }
-    `;
-    document.head.appendChild(style);
-
-    return () => {
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
-  }, []);
 
   if (!props.commentItem?.length) {
     return <>{props.children}</>;
