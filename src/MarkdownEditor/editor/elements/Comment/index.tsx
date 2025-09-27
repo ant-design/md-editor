@@ -1,8 +1,16 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { BaseRange } from 'slate';
+import { ReactEditor } from 'slate-react';
 import { CommentDataType, MarkdownEditorProps } from '../../../types';
+import { getSelectionFromDomSelection } from '../../utils/editorUtils';
 
 /**
  * 评论视图组件的属性接口
@@ -22,6 +30,8 @@ interface CommentViewProps {
   hashId: string;
   /** 设置显示评论的回调函数 */
   setShowComment?: (comments: CommentDataType[]) => void;
+  /** 编辑器实例引用 */
+  editorRef?: React.MutableRefObject<ReactEditor | null>;
 }
 
 /**
@@ -47,6 +57,9 @@ export const CommentView = (props: CommentViewProps) => {
     isDragging: false,
     dragStartPos: null as { x: number; y: number } | null,
     dragEndPos: null as { x: number; y: number } | null,
+    dragHandleType: null as 'start' | 'end' | null,
+    originalSelection: null as Range | null,
+    commentElement: null as HTMLSpanElement | null,
   });
 
   /**
@@ -58,6 +71,140 @@ export const CommentView = (props: CommentViewProps) => {
       (c) => `${c.id}` === props.id.split('-').at(-1),
     );
   }, [props.id]);
+
+  /**
+   * 合并选择区域并触发 onRangeChange 回调
+   */
+  const mergeSelectionsAndNotify = useCallback(() => {
+    if (!props.editorRef?.current || !thisComment) {
+      return;
+    }
+
+    const editor = props.editorRef.current;
+    const domSelection = window.getSelection();
+
+    if (!domSelection || domSelection.rangeCount === 0) {
+      return;
+    }
+
+    try {
+      // 获取当前的 DOM 选择范围
+      const domRange = domSelection.getRangeAt(0);
+      const newSlateSelection = getSelectionFromDomSelection(
+        editor,
+        domSelection,
+      );
+
+      if (!newSlateSelection) {
+        return;
+      }
+
+      // 获取新的选择内容
+      const newContent = domRange.toString();
+
+      // 计算新的偏移量
+      const newAnchorOffset = newSlateSelection.anchor.offset;
+      const newFocusOffset = newSlateSelection.focus.offset;
+
+      // 调用 onRangeChange 回调
+      const dragRangeConfig = props.comment?.dragRange;
+      if (dragRangeConfig?.onRangeChange && thisComment.id) {
+        dragRangeConfig.onRangeChange(
+          thisComment.id,
+          {
+            anchorOffset: newAnchorOffset,
+            focusOffset: newFocusOffset,
+            refContent: newContent,
+            selection: newSlateSelection,
+          },
+          newContent,
+        );
+      }
+    } catch (error) {
+      console.error('合并选择区域时出错:', error);
+    }
+  }, [props.editorRef, props.comment, thisComment]);
+
+  /**
+   * 拖拽移动处理
+   */
+  const handleDragMove = useCallback((e: MouseEvent) => {
+    if (
+      !dragStateRef.current.isDragging ||
+      !dragStateRef.current.commentElement
+    ) {
+      return;
+    }
+
+    e.preventDefault();
+    dragStateRef.current.dragEndPos = { x: e.clientX, y: e.clientY };
+  }, []);
+
+  /**
+   * 结束拖拽处理
+   */
+  const handleDragEnd = useCallback(() => {
+    if (!dragStateRef.current.isDragging) {
+      return;
+    }
+
+    dragStateRef.current.isDragging = false;
+
+    // 移除全局事件监听器
+    document.removeEventListener('mousemove', handleDragMove);
+    document.removeEventListener('mouseup', handleDragEnd);
+
+    // 合并选择区域并通知
+    setTimeout(() => {
+      mergeSelectionsAndNotify();
+    }, 100);
+
+    // 重置拖拽状态
+    dragStateRef.current.dragStartPos = null;
+    dragStateRef.current.dragEndPos = null;
+    dragStateRef.current.dragHandleType = null;
+    dragStateRef.current.originalSelection = null;
+    dragStateRef.current.commentElement = null;
+  }, [handleDragMove, mergeSelectionsAndNotify]);
+
+  /**
+   * 开始拖拽处理
+   */
+  const handleDragStart = useCallback(
+    (handleType: 'start' | 'end', e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (!commentRef.current || !props.editorRef?.current) {
+        return;
+      }
+
+      dragStateRef.current.isDragging = true;
+      dragStateRef.current.dragHandleType = handleType;
+      dragStateRef.current.dragStartPos = { x: e.clientX, y: e.clientY };
+      dragStateRef.current.commentElement = commentRef.current;
+
+      // 保存原始选择状态
+      const domSelection = window.getSelection();
+      dragStateRef.current.originalSelection =
+        domSelection && domSelection.rangeCount > 0
+          ? domSelection.getRangeAt(0)
+          : null;
+
+      // 添加全局事件监听器
+      document.addEventListener('mousemove', handleDragMove);
+      document.addEventListener('mouseup', handleDragEnd);
+    },
+    [props.editorRef, handleDragMove, handleDragEnd],
+  );
+
+  // 清理事件监听器
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('mousemove', handleDragMove);
+      document.removeEventListener('mouseup', handleDragEnd);
+    };
+  }, [handleDragMove, handleDragEnd]);
 
   // 添加 CSS Custom Highlight 样式
 
@@ -98,7 +245,7 @@ export const CommentView = (props: CommentViewProps) => {
       {props.children}
 
       {/* 拖拽手柄 */}
-      {dragRangeConfig?.enable && !dragStateRef.current.isDragging && (
+      {dragRangeConfig?.enable && (
         <>
           {/* 开始拖拽手柄 */}
           <div
@@ -119,6 +266,7 @@ export const CommentView = (props: CommentViewProps) => {
               opacity: dragRangeConfig.handleStyle?.opacity || 0.8,
               transition: 'all 0.1s ease-out', // 添加过渡效果提高跟手性
             }}
+            onMouseDown={(e) => handleDragStart('start', e)}
           >
             {/* 浏览器原生选择手柄样式 */}
             <div
@@ -179,6 +327,7 @@ export const CommentView = (props: CommentViewProps) => {
               zIndex: 1001,
               opacity: dragRangeConfig.handleStyle?.opacity || 0.8,
             }}
+            onMouseDown={(e) => handleDragStart('end', e)}
           >
             {/* 浏览器原生选择手柄样式 */}
             <div

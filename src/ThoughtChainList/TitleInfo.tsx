@@ -7,8 +7,8 @@ import { RagIcon, ToolCallIcon } from '../components/icons';
 import { DatabaseIcon } from '../components/icons/DatabaseIcon';
 import { DocumentIcon } from '../components/icons/DocumentIcon';
 import { I18nContext } from '../i18n';
+import { ChevronsDownUp, ChevronsUpDown } from '../icons';
 import { ActionIconBox } from '../index';
-import { CollapseIcon, ExpandIcon } from './Collapse';
 import { CostMillis } from './CostMillis';
 import { FlipText } from './FlipText';
 
@@ -228,9 +228,9 @@ export const TitleInfo = (props: {
       }}
     >
       {!collapse ? (
-        <ExpandIcon data-testid="expand-icon" />
+        <ChevronsDownUp data-testid="expand-icon" />
       ) : (
-        <CollapseIcon data-testid="collapse-icon" />
+        <ChevronsUpDown data-testid="collapse-icon" />
       )}
     </ActionIconBox>
   );
