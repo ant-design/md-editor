@@ -118,7 +118,11 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
                     {item?.icon}
                   </span>
                 ) : null}
-                <Tooltip title={item?.tooltip ?? label} placement="top">
+                <Tooltip
+                  mouseEnterDelay={0.3}
+                  title={item?.tooltip ?? label}
+                  placement="top"
+                >
                   <span className={classNames(`${prefixCls}-label`, hashId)}>
                     {item?.text}
                   </span>

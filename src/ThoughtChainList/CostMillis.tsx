@@ -73,7 +73,7 @@ export const CostMillis = (props: { costMillis?: number }) => {
       return null;
     }
     return (
-      <Tooltip title={props.costMillis + 'ms'}>
+      <Tooltip mouseEnterDelay={0.3} title={props.costMillis + 'ms'}>
         <span
           style={{
             display: 'flex',

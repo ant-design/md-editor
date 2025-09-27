@@ -121,7 +121,7 @@ export const ChartAttrToolBar: React.FC<{
           );
         }
         return (
-          <Tooltip key={index} title={item.title}>
+          <Tooltip mouseEnterDelay={0.3} key={index} title={item.title}>
             <div
               className={classNames(`${baseClassName}-item`, hashId)}
               onClick={item.onClick}
@@ -132,7 +132,7 @@ export const ChartAttrToolBar: React.FC<{
         );
       })}
       {readonly ? null : (
-        <Tooltip title={i18n?.locale?.delete || '删除'}>
+        <Tooltip mouseEnterDelay={0.3} title={i18n?.locale?.delete || '删除'}>
           <div className={classNames(`${baseClassName}-item`, hashId)}>
             <DeleteOutlined onClick={remove} />
           </div>

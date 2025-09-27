@@ -339,7 +339,10 @@ const FileItemComponent: FC<{
             onClick={(e) => e.stopPropagation()}
           >
             {showPreviewButton && (
-              <Tooltip title={locale?.['workspace.file.preview'] || '预览'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.preview'] || '预览'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -354,7 +357,10 @@ const FileItemComponent: FC<{
               </Tooltip>
             )}
             {showShareButton && (
-              <Tooltip title={locale?.['workspace.file.share'] || '分享'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.share'] || '分享'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -369,7 +375,10 @@ const FileItemComponent: FC<{
               </Tooltip>
             )}
             {showDownloadButton && (
-              <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -465,7 +474,10 @@ const GroupHeader: FC<{
             >
               {group.children.length}
             </span>
-            <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+            <Tooltip
+              mouseEnterDelay={0.3}
+              title={locale?.['workspace.file.download'] || '下载'}
+            >
               <Button
                 size="small"
                 type="text"

@@ -85,7 +85,7 @@ export default () => {
         reportMode
         fncProps={{
           render: (props, _) => {
-            return <Tooltip title={props.children}>{_}</Tooltip>;
+            return <Tooltip  title={props.children}>{_}</Tooltip>;
           },
         }}
         comment={{

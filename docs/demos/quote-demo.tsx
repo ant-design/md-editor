@@ -91,6 +91,46 @@ export default function QuoteDemo() {
             onFileClick={handleFileClick}
           />
         </div>
+
+        <div>
+          <h3>弹出方向示例</h3>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: '300px' }}>
+              <h4>左侧弹出（默认）</h4>
+              <Quote
+                fileName="src/utils/leftAlign.ts"
+                lineRange="1-20"
+                quoteDescription="左侧对齐的工具函数"
+                popupDirection="left"
+                popupDetail="export const leftAlign = (text: string, width: number) => {
+  return text.padEnd(width, ' ');
+};
+
+// 使用示例
+const aligned = leftAlign('Hello', 10);
+// 'Hello     '"
+                onFileClick={handleFileClick}
+              />
+            </div>
+            <div style={{ flex: 1, minWidth: '300px' }}>
+              <h4>右侧弹出</h4>
+              <Quote
+                fileName="src/utils/rightAlign.ts"
+                lineRange="1-20"
+                quoteDescription="右侧对齐的工具函数"
+                popupDirection="right"
+                popupDetail="export const rightAlign = (text: string, width: number) => {
+  return text.padStart(width, ' ');
+};
+
+// 使用示例
+const aligned = rightAlign('Hello', 10);
+// '     Hello'"
+                onFileClick={handleFileClick}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </ConfigProvider>
   );

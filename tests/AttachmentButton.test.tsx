@@ -339,5 +339,194 @@ describe('AttachmentButton', () => {
 
       expect(container.firstChild).toBeInTheDocument();
     });
+
+    it('should render with custom render function', () => {
+      const CustomRender = ({ children, supportedFormat }: any) => (
+        <div data-testid="custom-render" title={supportedFormat?.type}>
+          {children}
+        </div>
+      );
+
+      const { getByTestId } = render(
+        <AttachmentButton
+          uploadImage={mockUploadImage}
+          render={CustomRender}
+        />,
+      );
+
+      expect(getByTestId('custom-render')).toBeInTheDocument();
+    });
+
+    it('should pass supportedFormat to custom render function', () => {
+      const mockRender = vi.fn(({ children }) => (
+        <div data-testid="custom-render">{children}</div>
+      ));
+
+      const customFormat = {
+        icon: <span>Test Icon</span>,
+        type: 'Test Type',
+        maxSize: 1024,
+        extensions: ['test'],
+      };
+
+      render(
+        <AttachmentButton
+          uploadImage={mockUploadImage}
+          render={mockRender}
+          supportedFormat={customFormat}
+        />,
+      );
+
+      expect(mockRender).toHaveBeenCalledWith({
+        children: expect.anything(),
+        supportedFormat: customFormat,
+      });
+    });
+
+    it('should render Paperclip icon in custom render function', () => {
+      const CustomRender = ({ children }: any) => (
+        <div data-testid="custom-render">{children}</div>
+      );
+
+      const { getByTestId } = render(
+        <AttachmentButton
+          uploadImage={mockUploadImage}
+          render={CustomRender}
+        />,
+      );
+
+      const customRender = getByTestId('custom-render');
+      expect(customRender).toBeInTheDocument();
+      // Verify that the Paperclip icon is passed as children
+      expect(customRender.children.length).toBeGreaterThan(0);
+    });
+
+    it('should fallback to default AttachmentButtonPopover when render is not provided', () => {
+      const { container } = render(
+        <AttachmentButton uploadImage={mockUploadImage} />,
+      );
+
+      // Should render the default popover (not a custom render)
+      expect(container.firstChild).toBeInTheDocument();
+      expect(
+        container.querySelector('[data-testid="custom-render"]'),
+      ).toBeNull();
+    });
+
+    it('should handle click in custom render function', () => {
+      const CustomRender = ({ children }: any) => (
+        <div data-testid="custom-render">{children}</div>
+      );
+
+      const { getByTestId } = render(
+        <AttachmentButton
+          uploadImage={mockUploadImage}
+          render={CustomRender}
+        />,
+      );
+
+      const attachmentButton = getByTestId('attachment-button');
+      fireEvent.click(attachmentButton);
+
+      expect(mockUploadImage).toHaveBeenCalled();
+    });
+
+    it('should not call uploadImage when disabled with custom render', () => {
+      const CustomRender = ({ children }: any) => (
+        <div data-testid="custom-render">{children}</div>
+      );
+
+      const { getByTestId } = render(
+        <AttachmentButton
+          uploadImage={mockUploadImage}
+          render={CustomRender}
+          disabled={true}
+        />,
+      );
+
+      const attachmentButton = getByTestId('attachment-button');
+      fireEvent.click(attachmentButton);
+
+      expect(mockUploadImage).not.toHaveBeenCalled();
+    });
+
+    it('should apply custom render with tooltip functionality', () => {
+      const TooltipRender = ({ children, supportedFormat }: any) => (
+        <div
+          data-testid="tooltip-render"
+          title={`Upload ${supportedFormat?.type} files`}
+        >
+          {children}
+        </div>
+      );
+
+      const customFormat = {
+        icon: <span>Image Icon</span>,
+        type: 'Image',
+        maxSize: 5120,
+        extensions: ['jpg', 'png'],
+      };
+
+      const { getByTestId } = render(
+        <AttachmentButton
+          uploadImage={mockUploadImage}
+          render={TooltipRender}
+          supportedFormat={customFormat}
+        />,
+      );
+
+      const tooltipRender = getByTestId('tooltip-render');
+      expect(tooltipRender).toHaveAttribute('title', 'Upload Image files');
+    });
+
+    it('should handle complex custom render with modal', () => {
+      const ModalRender = ({ children, supportedFormat }: any) => {
+        const [modalVisible, setModalVisible] = React.useState(false);
+
+        return (
+          <>
+            <div
+              data-testid="modal-trigger"
+              onClick={() => setModalVisible(!modalVisible)}
+            >
+              {children}
+            </div>
+            {modalVisible && (
+              <div data-testid="modal-content">
+                Upload {supportedFormat?.type} files
+              </div>
+            )}
+          </>
+        );
+      };
+
+      const customFormat = {
+        type: 'Document',
+        maxSize: 10240,
+        extensions: ['pdf', 'doc'],
+        icon: <span>Doc Icon</span>,
+      };
+
+      const { getByTestId, queryByTestId } = render(
+        <AttachmentButton
+          uploadImage={mockUploadImage}
+          render={ModalRender}
+          supportedFormat={customFormat}
+        />,
+      );
+
+      // Initially modal should not be visible
+      expect(queryByTestId('modal-content')).toBeNull();
+
+      // Click the trigger to show modal
+      const modalTrigger = getByTestId('modal-trigger');
+      fireEvent.click(modalTrigger);
+
+      // Modal should now be visible
+      expect(getByTestId('modal-content')).toBeInTheDocument();
+      expect(getByTestId('modal-content')).toHaveTextContent(
+        'Upload Document files',
+      );
+    });
   });
 });
