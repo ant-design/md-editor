@@ -52,8 +52,7 @@ export const ActionItemBox = (props: ActionItemBoxProps) => {
           {
             [`${basePrefixCls}-container-${props.size}`]: props.size,
             [`${basePrefixCls}-container-standalone`]: props.standalone,
-            [`${basePrefixCls}-container-compact`]:
-            props.compact,
+            [`${basePrefixCls}-container-compact`]: props.compact,
             [`${basePrefixCls}-container-hover-bg`]: props.hoverBg ?? true,
           },
           hashId,
