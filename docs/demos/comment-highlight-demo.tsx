@@ -56,7 +56,7 @@ export default () => {
       commentType: 'highlight',
     },
     {
-      path: [12],
+      path: [13],
       time: 1757562256636,
       id: 1757562256636,
       content: '',
