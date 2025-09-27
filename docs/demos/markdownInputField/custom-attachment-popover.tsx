@@ -88,6 +88,7 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
 
     const handleClick = (e: React.MouseEvent) => {
       e.stopPropagation();
+      e.preventDefault();
       setIsModalOpen(true);
     };
 
@@ -106,7 +107,14 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
           open={isModalOpen}
           onCancel={() => setIsModalOpen(false)}
           footer={[
-            <Button key="cancel" onClick={() => setIsModalOpen(false)}>
+            <Button
+              key="cancel"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setIsModalOpen(false);
+              }}
+            >
               取消
             </Button>,
             <Button
@@ -206,8 +214,7 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
     <div style={{ padding: 24 }}>
       <h2>自定义附件按钮 Popover 演示</h2>
       <p>
-        通过 <code>customPopover</code>{' '}
-        属性，您可以完全自定义附件按钮的交互体验。
+        通过 <code>render</code> 属性，您可以完全自定义附件按钮的交互体验。
       </p>
 
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
@@ -236,7 +243,7 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
               upload: handleUpload,
               fileMap: fileMap,
               onFileMapChange: handleFileMapChange,
-              customPopover: SimpleTooltipPopover,
+              render: SimpleTooltipPopover,
             }}
             placeholder="使用简单 Tooltip 的附件按钮..."
           />
@@ -252,7 +259,7 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
               upload: handleUpload,
               fileMap: fileMap,
               onFileMapChange: handleFileMapChange,
-              customPopover: CustomContentPopover,
+              render: CustomContentPopover,
             }}
             placeholder="显示详细信息的附件按钮..."
           />
@@ -268,7 +275,7 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
               upload: handleUpload,
               fileMap: fileMap,
               onFileMapChange: handleFileMapChange,
-              customPopover: ModalTriggerPopover,
+              render: ModalTriggerPopover,
             }}
             placeholder="点击附件按钮打开上传向导..."
           />
@@ -284,7 +291,7 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
               upload: handleUpload,
               fileMap: fileMap,
               onFileMapChange: handleFileMapChange,
-              customPopover: ColorfulPopover,
+              render: ColorfulPopover,
             }}
             placeholder="彩色样式的附件按钮..."
           />

@@ -39,7 +39,7 @@
             >
               <defs>
                 <clippath
-                  id="backToTopIconClip-:r8u:"
+                  id="backToTopIconClip-:r3:"
                 >
                   <rect
                     height="1rem"
@@ -87,7 +87,6 @@
             >
               <defs>
                 <clippath
-                  id="backToBottomIconClip-:r91:"
                 >
                   <rect
                     height="1rem"
@@ -99,7 +98,6 @@
                 </clippath>
               </defs>
               <g
-                clip-path="url(#backToBottomIconClip-:r91:)"
               >
                 <g>
                   <path
