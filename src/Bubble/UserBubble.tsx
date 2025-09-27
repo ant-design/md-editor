@@ -108,7 +108,7 @@ export const UserBubble: React.FC<
         className={classNames?.bubbleListItemTitleClassName}
         style={styles?.bubbleListItemTitleStyle}
         prefixClass={cx(`${prefixClass}-bubble-title`)}
-        title={'我'}
+        title={''}
         placement={placement}
         time={time}
       />,
