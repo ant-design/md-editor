@@ -241,19 +241,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 12,
       },
 
-      [`${componentCls}-pause`]: {
-        width: 20,
-        height: 20,
-        color: 'var(--color-gray-text-default)',
-        background: 'transparent',
-        borderRadius: 'var(--radius-control-sm)',
-
-        '&:hover': {
-          background: 'var(--color-gray-control-fill-active)',
-        },
-      },
-
-      [`${componentCls}-play`]: {
+      [`${componentCls}-play, ${componentCls}-pause`]: {
         width: 20,
         height: 20,
         color: 'var(--color-gray-text-default)',
