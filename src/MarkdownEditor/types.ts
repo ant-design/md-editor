@@ -288,6 +288,16 @@ export type MarkdownEditorProps = {
           anchorOffset: number;
           focusOffset: number;
           refContent: string;
+          selection?: {
+            anchor: {
+              path: number[];
+              offset: number;
+            };
+            focus: {
+              path: number[];
+              offset: number;
+            };
+          };
         },
         newContent: string,
       ) => void;
