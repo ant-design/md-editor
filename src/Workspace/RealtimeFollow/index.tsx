@@ -125,34 +125,39 @@ const RealtimeHeader: React.FC<{
             />
           </button>
         )}
-        <div>
+        <div className={classNames(`${finalPrefixCls}-header-content`, hashId)}>
           <div
-            className={classNames(`${finalPrefixCls}-header-content`, hashId)}
+            className={classNames(
+              `${finalPrefixCls}-header-icon`,
+              {
+                [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
+                [`${finalPrefixCls}-header-icon--default`]:
+                  data?.type !== 'html',
+              },
+              hashId,
+            )}
           >
-            <div
-              className={classNames(
-                `${finalPrefixCls}-header-icon`,
-                {
-                  [`${finalPrefixCls}-header-icon--html`]:
-                    data?.type === 'html',
-                  [`${finalPrefixCls}-header-icon--default`]:
-                    data?.type !== 'html',
-                },
-                hashId,
-              )}
-            >
-              <IconComponent />
-            </div>
+            <IconComponent />
+          </div>
+          <div
+            className={classNames(
+              `${finalPrefixCls}-header-title-wrapper`,
+              hashId,
+            )}
+          >
             <div
               className={classNames(`${finalPrefixCls}-header-title`, hashId)}
             >
               {headerTitle}
             </div>
-          </div>
-          <div
-            className={classNames(`${finalPrefixCls}-header-subtitle`, hashId)}
-          >
-            {headerSubTitle}
+            <div
+              className={classNames(
+                `${finalPrefixCls}-header-subtitle`,
+                hashId,
+              )}
+            >
+              {headerSubTitle}
+            </div>
           </div>
         </div>
       </div>
@@ -166,8 +171,6 @@ const RealtimeHeader: React.FC<{
 // 获取不同type的MarkdownEditor配置
 const getEditorConfig = (
   type: RealtimeFollowMode,
-  prefixCls: string,
-  hashId?: string,
 ): Partial<MarkdownEditorProps> => {
   const baseConfig = {
     readonly: true,
@@ -184,10 +187,10 @@ const getEditorConfig = (
           padding: 0,
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
-        className: classNames(`${prefixCls}--shell`, hashId),
         codeProps: {
           showGutter: true,
           showLineNumbers: true,
+          hideToolBar: true,
         },
       };
     case 'markdown':
@@ -198,7 +201,6 @@ const getEditorConfig = (
           padding: 16,
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
-        className: classNames(`${prefixCls}--markdown`, hashId),
         height: '100%',
       };
     default:
@@ -359,7 +361,7 @@ export const RealtimeFollow: React.FC<{
     return null;
   }
 
-  const defaultProps = getEditorConfig(data.type, finalPrefixCls, hashId);
+  const defaultProps = getEditorConfig(data.type);
   const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
@@ -513,7 +515,12 @@ export const RealtimeFollowList: React.FC<{
 
   return wrapSSR(
     <div
-      className={classNames(`${prefixCls}-container`, data.className, hashId)}
+      className={classNames(
+        `${prefixCls}-container`,
+        `${prefixCls}--${data.type}`,
+        data.className,
+        hashId,
+      )}
       style={data.style}
       data-testid="realtime-follow"
     >

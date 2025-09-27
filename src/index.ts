@@ -59,6 +59,10 @@ export * from './ThoughtChainList';
 export * from './ToolUseBar';
 export * from './Workspace';
 
+// Robot 组件
+export * from './components/Robot';
+export { default as Robot } from './components/Robot';
+
 // Quote 组件导出
 export { default as Quote } from './Quote';
 

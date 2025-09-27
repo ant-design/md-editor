@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import { isString } from 'lodash';
 import React from 'react';
-import RobotIcon from '../components/Robot';
+import { DazingLottie, ThinkingLottie } from './lotties';
 
-export type RobotStatus = 'default' | 'thinking' | 'dazing' | 'pause';
+export * from './lotties';
+
+export type RobotStatus = 'default' | 'running';
 
 export interface RobotProps {
   /** 机器人状态 */
@@ -26,7 +28,7 @@ export interface RobotProps {
  * @component
  * @description 机器人图标组件，支持自定义大小、状态和图标
  * @param {RobotProps} props - 组件属性
- * @param {RobotStatus} [props.status] - 机器人状态，可选值：'default' | 'thinking' | 'dazing'
+ * @param {RobotStatus} [props.status] - 机器人状态，可选值：'default' | 'running'
  * @param {number} [props.size=42] - 机器人图标大小（像素）
  * @param {string} [props.className] - 自定义CSS类名
  * @param {React.CSSProperties} [props.style] - 自定义样式
@@ -37,7 +39,7 @@ export interface RobotProps {
  * import { Robot } from './Robot';
  *
  * // 基本用法
- * <Robot size={50} status="thinking" />
+ * <Robot size={50} status="running" />
  *
  * // 自定义图标
  * <Robot icon={<CustomIcon />} size={60} />
@@ -99,14 +101,10 @@ const Robot: React.FC<RobotProps> = ({
         />
       ) : (
         <>
-          {status === 'thinking' ? (
-            <div style={{ paddingLeft: 80, marginRight: 50 }}>
-              <RobotIcon status="running" size={84} />
-            </div>
+          {status === 'running' ? (
+            <ThinkingLottie size={size} />
           ) : (
-            <div style={{ paddingLeft: 27, marginRight: 16 }}>
-              <RobotIcon size={54} style={{ transform: 'rotateY(180deg)' }} />
-            </div>
+            <DazingLottie size={size} />
           )}
         </>
       )}
