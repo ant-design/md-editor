@@ -540,7 +540,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       const recognizer = await props.voiceRecognizer({
         onSentenceBegin: () => {
           // 记录当前内容位置，重置本句累积
-          const current = markdownEditorRef?.current?.store?.getMDContent() || '';
+          const current =
+            markdownEditorRef?.current?.store?.getMDContent() || '';
           sentenceStartIndexRef.current = current.length;
         },
         onPartial: updateCurrentSentence,

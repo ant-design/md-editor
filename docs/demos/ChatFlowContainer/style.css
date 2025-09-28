@@ -20,7 +20,10 @@
 .sidebar-left {
   width: 250px;
   padding: 0 16px 16px 16px;
-  transition: width 500ms ease-in-out, padding 500ms ease-in-out, opacity 500ms ease-in-out;
+  transition:
+    width 500ms ease-in-out,
+    padding 500ms ease-in-out,
+    opacity 500ms ease-in-out;
   overflow: hidden;
 }
 

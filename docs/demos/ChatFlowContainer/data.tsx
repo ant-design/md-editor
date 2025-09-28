@@ -1,4 +1,8 @@
-import { BubbleMetaData, MessageBubbleData, AttachmentFile } from '@ant-design/md-editor';
+import {
+  AttachmentFile,
+  BubbleMetaData,
+  MessageBubbleData,
+} from '@ant-design/md-editor';
 
 // 用户和助手的元数据配置
 export const assistantMeta: BubbleMetaData = {
@@ -122,9 +126,9 @@ export const INITIAL_MESSAGES = {
 - **文档说明** - 解释 API 和功能
 
 你想了解什么呢？`,
-  
+
   user: `这是第 2 条消息, 生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。`,
-  
+
   bubbleDoc: `## Bubble 组件功能文档
 
 Bubble 组件是一个功能丰富的聊天气泡组件，支持：

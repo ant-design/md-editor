@@ -237,24 +237,36 @@ describe('MarkdownInputField - voiceInput', () => {
     });
     handlersRef?.onPartial('hello ');
     await vi.waitFor(() => {
-      expect(handleChange).toHaveBeenLastCalledWith('hello ', expect.anything());
+      expect(handleChange).toHaveBeenLastCalledWith(
+        'hello ',
+        expect.anything(),
+      );
     });
 
     // sentence end -> finalize
     handlersRef?.onSentenceEnd('hello world');
     await vi.waitFor(() => {
-      expect(handleChange).toHaveBeenLastCalledWith('hello world', expect.anything());
+      expect(handleChange).toHaveBeenLastCalledWith(
+        'hello world',
+        expect.anything(),
+      );
     });
 
     // next sentence should start after previous content
     handlersRef?.onSentenceBegin();
     handlersRef?.onPartial('foo');
     await vi.waitFor(() => {
-      expect(handleChange).toHaveBeenLastCalledWith('hello worldfoo', expect.anything());
+      expect(handleChange).toHaveBeenLastCalledWith(
+        'hello worldfoo',
+        expect.anything(),
+      );
     });
     handlersRef?.onSentenceEnd('foo.');
     await vi.waitFor(() => {
-      expect(handleChange).toHaveBeenLastCalledWith('hello worldfoo.', expect.anything());
+      expect(handleChange).toHaveBeenLastCalledWith(
+        'hello worldfoo.',
+        expect.anything(),
+      );
     });
   });
 

@@ -490,7 +490,12 @@ import { MarkdownInputField } from '@ant-design/md-editor';
 import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
-  const createRecognizer: CreateRecognizer = async ({ onSentenceBegin, onPartial, onSentenceEnd, onError }) => {
+  const createRecognizer: CreateRecognizer = async ({
+    onSentenceBegin,
+    onPartial,
+    onSentenceEnd,
+    onError,
+  }) => {
     let timer: ReturnType<typeof setInterval>;
     let i = 0;
     return {

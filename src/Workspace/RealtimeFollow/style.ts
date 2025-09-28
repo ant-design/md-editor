@@ -239,7 +239,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '100%',
         overflow: 'auto',
         margin: '0 -16px!important',
-        
+
         '.ant-workspace-html-preview-content': {
           '.ace-container': {
             border: 'none',
