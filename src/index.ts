@@ -8,9 +8,9 @@ export type {
   MessageBubbleData,
 } from './Bubble/type';
 export * from './components/ChatFlowContainer';
-export * from './components/SuggestionList';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
+export * from './components/SuggestionList';
 export * from './components/VisualList';
 export * from './hooks/useAutoScroll';
 export { useLanguage } from './hooks/useLanguage';
@@ -48,10 +48,10 @@ export * from './MarkdownEditor/el';
 export { useSelStatus } from './MarkdownEditor/hooks/editor';
 export * from './MarkdownEditor/plugin';
 export * from './MarkdownInputField/AttachmentButton';
-export * from './MarkdownInputField/FileMapView';
-export * from './MarkdownInputField/MarkdownInputField';
 export { ActionItemBox } from './MarkdownInputField/BeforeToolContainer/ActionItemBox';
 export { ActionItemContainer } from './MarkdownInputField/BeforeToolContainer/BeforeToolContainer';
+export * from './MarkdownInputField/FileMapView';
+export * from './MarkdownInputField/MarkdownInputField';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
 export * from './TaskList';

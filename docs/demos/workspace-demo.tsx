@@ -43,7 +43,6 @@ const Demo = () => {
 </body>
 </html>`;
 
-
   const segmentedContent = (
     <Space size={8}>
       <div
