@@ -426,9 +426,9 @@
                   tabindex="-1"
                 >
                   <div
-                    class="ace-container drag-el"
+                    class="ace-container code-editor-container drag-el"
                     data-testid="code-editor-container"
-                    style="box-sizing: border-box; max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border-radius: var(--radius-card-base); background: var(--color-gray-bg-card-white); transition: border-color 0.2s ease-in-out; border-color: var(--color-gray-border-light); box-shadow: var(--shadow-control-base);"
+                    style="background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
@@ -514,7 +514,7 @@
                       </div>
                     </div>
                     <div
-                      style="padding: 12px;"
+                      class="code-editor-content"
                     >
                       <div
                         style="height: 100%; width: 100%; display: block;"

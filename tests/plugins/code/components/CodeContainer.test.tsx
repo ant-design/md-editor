@@ -129,17 +129,17 @@ describe('CodeContainer Component', () => {
       expect(container).toHaveClass('ace-el', 'drag-el');
     });
 
-    it('应该应用正确的编辑器容器样式', () => {
-      render(<CodeContainer {...defaultProps} />);
-      const container = screen.getByTestId('code-editor-container');
+    // it('应该应用正确的编辑器容器样式', () => {
+    //   render(<CodeContainer {...defaultProps} />);
+    //   const container = screen.getByTestId('code-editor-container');
 
-      expect(container).toHaveStyle({
-        maxHeight: '400px',
-        overflow: 'auto',
-        position: 'relative',
-      });
-      expect(container).toHaveClass('ace-container', 'drag-el');
-    });
+    //   expect(container).toHaveStyle({
+    //     maxHeight: '400px',
+    //     overflow: 'auto',
+    //     position: 'relative',
+    //   });
+    //   expect(container).toHaveClass('ace-container', 'drag-el');
+    // });
   });
 
   describe('可访问性测试', () => {

@@ -299,7 +299,7 @@ export type FileType = keyof typeof FILE_TYPES;
 // 节点基础属性
 export interface BaseNode {
   id?: string;
-  name: string;
+  name: string | ReactNode;
   icon?: ReactNode;
 }
 
@@ -326,6 +326,8 @@ export interface GroupNode extends BaseNode {
   collapsed?: boolean;
   children: FileNode[];
   type: FileType;
+  /** 用户自定义是否可以下载分组（默认显示，设置为 false 隐藏） */
+  canDownload?: boolean;
 }
 
 // 文件组件外部可调用方法

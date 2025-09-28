@@ -104,13 +104,6 @@ export const BubbleMessageDisplay: React.FC<
       : null;
   }, [props.bubbleRenderConfig?.beforeMessageRender, typing, props.originData]);
 
-  const filesMap = useMemo(() => {
-    if (props.originData?.fileMap && props.originData.fileMap.size > 0) {
-      return props.originData.fileMap;
-    }
-    return undefined;
-  }, [props.originData?.fileMap]);
-
   const afterContent = useMemo(() => {
     const userAfter = props.bubbleRenderConfig?.afterMessageRender
       ? props.bubbleRenderConfig.afterMessageRender(props, contentAfterDom)
@@ -372,6 +365,7 @@ export const BubbleMessageDisplay: React.FC<
                     />
                     {item?.docId && item.doc_name ? (
                       <Tooltip
+                        mouseEnterDelay={0.3}
                         title={
                           <Typography.Text copyable={{ text: item.docId }}>
                             {item.docId}

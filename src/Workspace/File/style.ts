@@ -8,6 +8,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
+
       // 分组展示模式
       [`&--group`]: {
         [`${token.componentCls}-group`]: {
@@ -17,7 +18,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             height: '40px',
-            padding: '8px 12px 8px 0px',
+            padding: '8px 0',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
 
@@ -61,7 +62,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           // 文件数量
           [`&-count`]: {
-            fontSize: 'var(--font-size-sm)',
+            fontSize: '10px',
             color: 'var(--color-gray-text-secondary)',
             background: 'var(--color-gray-control-fill-active)',
             padding: '4px 6px',
@@ -318,6 +319,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'column',
         overflow: 'auto',
         minHeight: 0, // 确保 flex 子项可以收缩
+        padding: '16px',
       },
       '&-content-loading': {
         padding: '0 12px',

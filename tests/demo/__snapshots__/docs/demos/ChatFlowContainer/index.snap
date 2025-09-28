@@ -144,7 +144,7 @@
                 style="position: absolute; top: -16px; left: 50%; transform: translate(-50%, -100%); display: flex; align-items: center; justify-content: center; gap: 16px;"
               />
               <div
-                class="ant-task-running ant-task-running-default"
+                class="ant-task-running ant-task-running-default ant-task-running-status-dazing"
               >
                 <div
                   class="ant-task-running-border"
@@ -164,15 +164,20 @@
                       style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                     >
                       <div
-                        style="padding-left: 22px; margin-right: 20px;"
+                        style="padding-left: 27px; margin-right: 16px;"
                       >
                         <div
-                          aria-hidden="true"
-                          data-autoplay="true"
-                          data-loop="true"
-                          data-testid="lottie-animation"
-                          style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center; transform: rotateY(180deg);"
-                        />
+                          class=""
+                          style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
+                        >
+                          <div
+                            aria-hidden="true"
+                            data-autoplay="true"
+                            data-loop="true"
+                            data-testid="lottie-animation"
+                            style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center;"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
