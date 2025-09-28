@@ -1,3 +1,4 @@
+import { m } from 'framer-motion';
 import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
 import { useEditorStyleRegister } from '../../hooks/useStyle';
 
@@ -235,14 +236,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       [`&-content`]: {
         position: 'relative',
-        width: '100%',
+        width: 'auto',
         height: '100%',
-        overflow: 'auto',
+        overflow: 'auto', // 添加滚动支持
+        margin: '0 -16px!important',
+        
+        '.ant-workspace-html-preview-content': {
+          '.ace-container': {
+            border: 'none',
+            borderRadius: 'unset',
+            boxShadow: 'none!important',
+          },
 
-        '.ant-workspace-html-preview-content .ace-container': {
-          border: 'none',
-          borderRadius: 'unset',
-          boxShadow: 'none!important',
+          '.code-editor-content': {
+            padding: '0!important',
+          },
         },
 
         '.ace_gutter': {
@@ -256,8 +264,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           paddingLeft: 12,
         },
 
-        '.ace-tm .ace_comment': {
-          color: '#008604',
+        '.ace-tm .ace_scroller .ace_content': {
+          fontFamily: 'Roboto Mono',
         },
 
         '.ace-tm .ace_keyword': {
