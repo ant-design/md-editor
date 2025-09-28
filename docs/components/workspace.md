@@ -101,6 +101,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | iframeProps         | iframe 属性（html 预览模式）                                         | `React.IframeHTMLAttributes<HTMLIFrameElement>`    | -           |
 | labels              | 视图切换文案（html）                                                 | `{ preview?: string; code?: string }`              | -           |
 | segmentedItems      | 自定义右上角 Segmented 选项（html，若提供则替换默认 预览/代码 切换） | `Array<{ label: React.ReactNode; value: string }>` | -           |
+| segmentedExtra      | Segmented 右侧额外内容（当存在 segmentedItems 或默认 Segmented 时附加在其右侧） | `React.ReactNode` | -           |
 
 #### DiffContent
 
@@ -187,17 +188,19 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | canPreview   | 是否允许预览（用户自定义开关，默认由系统推断是否可预览）   | `boolean`                  |
 | canDownload  | 是否在文件列表页面展示下载图标（用户自定义开关，默认展示） | `boolean`                  |
 | canShare     | 是否在文件列表/预览页展示分享按钮（默认隐藏）              | `boolean`                  |
+| loading      | 文件是否处于加载中状态                                     | `boolean`                  |
 
 #### GroupNode
 
-| 参数      | 说明                       | 类型         |
-| --------- | -------------------------- | ------------ |
-| id        | 唯一标识（可选）           | `string`     |
-| name      | 分组名                     | `string`     |
-| icon      | 自定义图标（可选）         | `ReactNode`  |
-| collapsed | 是否折叠（可选）           | `boolean`    |
-| children  | 子文件列表                 | `FileNode[]` |
-| type      | 分组文件类型（同组同类型） | `FileType`   |
+| 参数        | 说明                                                       | 类型         |
+| ----------- | ---------------------------------------------------------- | ------------ |
+| id          | 唯一标识（可选）                                           | `string`     |
+| name        | 分组名                                                     | `string`     |
+| icon        | 自定义图标（可选）                                         | `ReactNode`  |
+| collapsed   | 是否折叠（可选）                                           | `boolean`    |
+| children    | 子文件列表                                                 | `FileNode[]` |
+| type        | 分组文件类型（同组同类型）                                 | `FileType`   |
+| canDownload | 是否在分组标题展示下载按钮（用户自定义开关，默认展示）     | `boolean`    |
 
 #### FileType
 
