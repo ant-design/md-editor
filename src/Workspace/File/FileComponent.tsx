@@ -430,6 +430,14 @@ const GroupHeader: FC<{
   // 获取分组图标
   const groupIcon = getGroupIcon(group, groupType, group.icon);
 
+  // 判断是否显示下载按钮：优先使用用户 canDownload；否则当存在 onGroupDownload 时显示
+  const showDownloadButton = (() => {
+    if (group.canDownload !== undefined) {
+      return group.canDownload;
+    }
+    return Boolean(onGroupDownload);
+  })();
+
   return (
     <AccessibleButton
       icon={
@@ -474,22 +482,24 @@ const GroupHeader: FC<{
             >
               {group.children.length}
             </span>
-            <Tooltip
-              mouseEnterDelay={0.3}
-              title={locale?.['workspace.file.download'] || '下载'}
-            >
-              <Button
-                size="small"
-                type="text"
-                className={classNames(
-                  `${finalPrefixCls}-group-action-btn`,
-                  hashId,
-                )}
-                icon={<DownloadIcon />}
-                onClick={handleDownload}
-                aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
-              />
-            </Tooltip>
+            {showDownloadButton && (
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
+                <Button
+                  size="small"
+                  type="text"
+                  className={classNames(
+                    `${finalPrefixCls}-group-action-btn`,
+                    hashId,
+                  )}
+                  icon={<DownloadIcon />}
+                  onClick={handleDownload}
+                  aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
+                />
+              </Tooltip>
+            )}
           </div>
         </>
       }
