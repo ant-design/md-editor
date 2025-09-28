@@ -1,0 +1,211 @@
+---
+title: 基础组件
+group:
+  title: 基础组件
+  order: 2
+---
+
+# 基础组件
+
+```tsx
+import { PlusOutlined, SmileOutlined } from '@ant-design/icons';
+import { Button, Flex, Segmented, Divider } from 'antd';
+import React from 'react';
+import {
+  ThemeProvider,
+  globalThemeToken,
+  useCSSVariables,
+} from '@ant-design/theme-token';
+
+export default () => {
+  useCSSVariables('ThemeExample', globalThemeToken);
+  return (
+    <Flex gap={12} vertical>
+      <h1>Button</h1>
+      <Flex gap={12}>
+        <Button color="default" variant="solid" icon={<PlusOutlined />}>
+          主按钮
+        </Button>
+        <Button
+          color="default"
+          variant="solid"
+          disabled
+          icon={<PlusOutlined />}
+        >
+          主按钮
+        </Button>
+        <Button
+          loading
+          color="default"
+          variant="solid"
+          style={{
+            background: 'var(--color-gray-text-disabled)',
+          }}
+          icon={<PlusOutlined />}
+        >
+          主按钮
+        </Button>
+      </Flex>
+
+      <Flex gap={12}>
+        <Button color="default" variant="filled" icon={<PlusOutlined />}>
+          次按钮
+        </Button>
+        <Button
+          color="default"
+          variant="filled"
+          disabled
+          icon={<PlusOutlined />}
+        >
+          次按钮
+        </Button>
+        <Button
+          loading
+          color="default"
+          variant="filled"
+          icon={<PlusOutlined />}
+        >
+          次按钮
+        </Button>
+      </Flex>
+
+      <Flex gap={12}>
+        <Button color="default" icon={<PlusOutlined />}>
+          Ghost 按钮
+        </Button>
+        <Button color="default" disabled icon={<PlusOutlined />}>
+          Ghost 按钮
+        </Button>
+        <Button loading color="default" icon={<PlusOutlined />}>
+          Ghost 按钮
+        </Button>
+      </Flex>
+      <Flex gap={12}>
+        <Button type="text">Text按钮</Button>
+        <Button type="text" disabled>
+          Text(disabled)
+        </Button>
+        <Button type="text" loading>
+          Text(loading)
+        </Button>
+      </Flex>
+
+      <Flex gap={12}>
+        <Button type="primary">Primary按钮</Button>
+        <Button type="primary" disabled>
+          Primary(disabled)
+        </Button>
+        <Button type="primary" loading>
+          Primary(loading)
+        </Button>
+      </Flex>
+      <Divider />
+      <Flex gap={12} vertical>
+        <div>
+          <h2>Segmented</h2>
+          <Segmented
+            options={[
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                value: 'day',
+              },
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                value: 'week',
+              },
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                value: 'month',
+              },
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                value: 'year',
+              },
+            ]}
+          />
+        </div>
+        <div>
+          <Segmented
+            options={[
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                icon: <SmileOutlined />,
+                value: 'day',
+              },
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                icon: <SmileOutlined />,
+                value: 'week',
+              },
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                icon: <SmileOutlined />,
+                value: 'month',
+              },
+              {
+                label: (
+                  <div className="ant-segmented-item-title">
+                    公开 <span className="ant-segmented-item-tag">123</span>
+                  </div>
+                ),
+                icon: <SmileOutlined />,
+                value: 'year',
+              },
+            ]}
+          />
+        </div>
+        <div>
+          <Segmented
+            options={[
+              {
+                label: '公开',
+                value: 'day',
+              },
+              {
+                label: '公开',
+                value: 'week',
+              },
+              {
+                label: '公开',
+                value: 'month',
+              },
+              {
+                label: '公开',
+                value: 'year',
+              },
+            ]}
+          />
+        </div>
+      </Flex>
+    </Flex>
+  );
+};
+```
