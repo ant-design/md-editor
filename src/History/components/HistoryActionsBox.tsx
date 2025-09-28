@@ -53,7 +53,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
   const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(props.item?.isFavorite);
-  const [favaoriteTitle, setFavaoriteTitle] = useState(
+  const [favoriteTitle, setFavoriteTitle] = useState(
     isFavorite
       ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
       : i18nLocale?.['chat.history.favorite'] || '收藏',
@@ -108,9 +108,9 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   setFavoriteLoading(true);
                   await props.onFavorite?.(props.item!.sessionId!, !isFavorite);
                   if (!isFavorite) {
-                    setFavaoriteTitle('已收藏');
+                    setFavoriteTitle('已收藏');
                   } else {
-                    setFavaoriteTitle(
+                    setFavoriteTitle(
                       i18nLocale?.['chat.history.favorite'] || '收藏',
                     );
                   }
@@ -121,7 +121,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   setFavoriteLoading(false);
                 }
               }}
-              title={favaoriteTitle}
+              title={favoriteTitle}
               style={{
                 width: 20,
                 height: 20,
@@ -169,7 +169,10 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 document.body
               }
               placement="left"
-              title={favaoriteTitle}
+              title={
+                i18nLocale?.['chat.history.delete.popconfirm'] ||
+                '确定删除该消息吗？'
+              }
               onConfirm={async (e) => {
                 e?.stopPropagation();
                 e?.preventDefault();
