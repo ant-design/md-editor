@@ -28,7 +28,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '8px 12px',
         position: 'relative',
         overflow: 'visible',
-        boxShadow: 'var(--shadow-border-base)',
         '&-overflow-container': {
           pointerEvents: 'auto',
           position: 'absolute',
