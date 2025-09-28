@@ -53,9 +53,8 @@ const createMockMessage = (
  */
 const ChatFlowContainerDemo: React.FC = () => {
   const [leftCollapsed, setLeftCollapsed] = useState(false);
-  const [rightCollapsed, setRightCollapsed] = useState(true); // 状态管理
   const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
-    const messageCount = 20;
+    const messageCount = 2;
     const messages: MessageBubbleData[] = [];
 
     for (let i = 0; i < messageCount; i++) {
@@ -71,7 +70,7 @@ const ChatFlowContainerDemo: React.FC = () => {
 
   // 使用 useRef 管理重试状态，避免全局污染
   const isRetryingRef = useRef(false);
-  const retryTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const retryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // 组件卸载时清理定时器，防止内存泄漏
   useEffect(() => {
@@ -88,11 +87,6 @@ const ChatFlowContainerDemo: React.FC = () => {
   const handleLeftCollapse = () => {
     setLeftCollapsed(!leftCollapsed);
     console.log('左侧边栏折叠状态:', !leftCollapsed);
-  };
-
-  const handleRightCollapse = () => {
-    setRightCollapsed(!rightCollapsed);
-    console.log('右侧边栏折叠状态:', !rightCollapsed);
   };
 
   const handleShare = () => {
@@ -146,28 +140,19 @@ const ChatFlowContainerDemo: React.FC = () => {
   // ***************** Footer Task Running End ***************** //
 
   return (
-    <div
-      style={{ height: '600px', backgroundColor: '#f5f5f5', display: 'flex' }}
-    >
+    <div className="custom-chat-container-demo">
       {/* 左侧边栏 */}
-      {!leftCollapsed && (
-        <div
-          style={{
-            width: '250px',
-            // borderRight: '1px solid #e0e0e0',
-            padding: '16px',
-          }}
-        >
+      <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>
+        <div className="sidebar-left-content">
           <h3>左侧边栏</h3>
           <p>这里可以放置历史记录、设置等内容</p>
         </div>
-      )}
+      </div>
 
       {/* 主对话区域 */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <ChatFlowContainer
           ref={containerRef}
-          className="custom-chat-container"
           title="AI 助手"
           onLeftCollapse={handleLeftCollapse}
           onShare={handleShare}
@@ -233,6 +218,9 @@ const ChatFlowContainerDemo: React.FC = () => {
           }
         >
           <BubbleList
+            style={{
+              paddingBottom: '60px',
+            }}
             bubbleList={bubbleList}
             assistantMeta={assistantMeta}
             userMeta={userMeta}
