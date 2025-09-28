@@ -730,7 +730,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               />
             )}
             {onShare && file.canShare === true && (
-              <Tooltip title={locale?.['workspace.file.share'] || '分享'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.share'] || '分享'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -742,7 +745,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               </Tooltip>
             )}
             {onDownload && (
-              <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
                 <Button
                   size="small"
                   type="text"

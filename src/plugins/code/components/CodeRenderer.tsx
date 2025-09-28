@@ -115,7 +115,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                 <CodeToolbar {...toolbarProps} />
               )}
 
-            <div style={{ padding: 12 }}>
+            <div className="code-editor-content">
               {viewMode === 'preview' && props.element.language === 'html' && (
                 <HtmlPreview htmlStr={props.element?.value} />
               )}

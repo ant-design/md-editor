@@ -1,11 +1,14 @@
 import {
   ChatTokenType,
-  GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
 } from '../hooks/useStyle';
+import { BubbleProps } from './type';
 
-const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+const genStyle = (
+  token: ChatTokenType,
+  classNames?: BubbleProps['classNames'],
+) => {
   return {
     [token.componentCls]: {
       '&-bubble': {
@@ -38,7 +41,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         gap: 'var(--margin-1x)',
         paddingLeft: '20px',
-        span: {
+        [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
           fontSize: '1em',
           color: 'var(--color-gray-text-default)',
@@ -198,13 +201,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @param prefixCls
  * @returns
  */
-export function useStyle(prefixCls?: string) {
+export function useStyle(
+  prefixCls?: string,
+  classNames?: BubbleProps['classNames'],
+) {
   return useEditorStyleRegister('ListItem', (token) => {
     const proChatToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [resetComponent(proChatToken), genStyle(proChatToken)];
+    return [resetComponent(proChatToken), genStyle(proChatToken, classNames)];
   });
 }

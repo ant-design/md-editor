@@ -15,8 +15,19 @@
         thought-chain-list
       </div>
       <div
+        bubble="[object Object]"
         data-testid="thought-chain-list"
         thoughtchainlist="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+      >
+        thought-chain-list
+      </div>
+      <h3>
+        正在运行中的思维链（收起状态）
+      </h3>
+      <div
+        bubble="[object Object]"
+        data-testid="thought-chain-list"
+        thoughtchainlist="[object Object],[object Object],[object Object]"
       >
         thought-chain-list
       </div>
@@ -29,7 +40,25 @@
             <code>
               loading
             </code>
-             - 加载状态，设置为 false 表示已加载完成
+             - 加载状态，设置为 true 表示正在运行中
+          </li>
+          <li>
+            <code>
+              bubble
+            </code>
+             - 气泡数据，包含运行状态信息
+          </li>
+          <li>
+            <code>
+              bubble.isFinished
+            </code>
+             - 是否已完成，false 表示正在运行
+          </li>
+          <li>
+            <code>
+              bubble.createAt
+            </code>
+             - 创建时间，用于计算运行时长
           </li>
           <li>
             <code>
@@ -83,7 +112,7 @@
             <code>
               output.type
             </code>
-             - 输出类型，如 END 表示执行完成
+             - 输出类型，如 END 表示执行完成，RUNNING 表示正在运行
           </li>
           <li>
             <code>

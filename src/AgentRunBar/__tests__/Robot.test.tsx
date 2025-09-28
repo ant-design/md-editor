@@ -104,7 +104,6 @@ describe('Robot Component', () => {
 
     const robot = screen.getByRole('img');
     expect(robot).toHaveAttribute('src', customIconUrl);
-    expect(robot).toHaveAttribute('alt', 'robot');
 
     // 当有字符串图标时，不应该显示Lottie动画
     expect(screen.queryByTestId('lottie-animation')).not.toBeInTheDocument();

@@ -138,6 +138,7 @@ export default () => (
         avatar={message.meta}
         placement="right"
         quote={{
+          popupDirection: 'right',
           fileName: 'utils/helper.ts',
           lineRange: '12-25',
           quoteDescription: '这是一个工具函数的引用，用于处理数据格式化',
@@ -271,12 +272,6 @@ export default () => (
 展示 `extraRender` 功能，自定义气泡的操作按钮和交互区域。
 
 <code src="../demos/bubble/extra-render.tsx"></code>
-
-### 追问
-
-在消息内容下方渲染追问输入与建议。
-
-<code src="../demos/bubble/followup-basic.tsx"></code>
 
 ### 语音播报（TTS）
 

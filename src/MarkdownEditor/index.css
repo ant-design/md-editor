@@ -201,6 +201,23 @@
   margin-left: 2px;
 }
 
+.code-editor-container {
+  max-height: 400px;
+  overflow: auto;
+  position: relative;
+  border-radius: var(--radius-card-base);
+  background: var(--color-gray-bg-card-white);
+  transition: border-color 0.2s ease-in-out;
+  border-color: var(--color-gray-border-light);
+  box-shadow: var(--shadow-control-base);
+  box-sizing: border-box;
+}
+
+.code-editor-content {
+  padding: 12px;
+  background: var(--color-gray-bg-card-white);
+}
+
 div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
   display: none;
 }

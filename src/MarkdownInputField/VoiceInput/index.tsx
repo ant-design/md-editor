@@ -37,7 +37,10 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   return wrapSSR(
-    <Tooltip title={recording ? '语音输入中，点击可停止。' : '语音输入'}>
+    <Tooltip
+      mouseEnterDelay={0.3}
+      title={recording ? '语音输入中，点击可停止。' : '语音输入'}
+    >
       <div
         data-testid="voice-input-button"
         role="button"

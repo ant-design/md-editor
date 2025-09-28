@@ -1,14 +1,18 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../i18n';
-import { CirclePause, CirclePlay, CircleStop, Pause, Play } from '../icons';
+import {
+  PauseIcon,
+  PlayIcon,
+  SimplePauseIcon,
+  SimplePlayIcon,
+  SimpleStopIcon,
+  StopIcon,
+} from './icons';
 import Robot from './Robot';
 import { useStyle } from './style';
-
-export { DazingLottie } from './icons/DazingLottie';
-export { ThinkingLottie } from './icons/ThinkingLottie';
 
 /**
  * 任务状态枚举
@@ -279,7 +283,7 @@ const renderButtonGroup = ({
 
       {/* 停止按钮 */}
       {(isRunning || isPause) && onStop && (
-        <Tooltip title={stopTitle}>
+        <Tooltip mouseEnterDelay={0.3} title={stopTitle}>
           <div
             className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
@@ -287,13 +291,13 @@ const renderButtonGroup = ({
             aria-label={stopTitle}
             onClick={onStop}
           >
-            {variant === 'simple' ? <CircleStop /> : <CircleStop />}
+            {variant === 'simple' ? <SimpleStopIcon /> : <StopIcon />}
           </div>
         </Tooltip>
       )}
       {/* 暂停按钮 */}
       {isRunning && onPause && (
-        <Tooltip title={pauseTitle}>
+        <Tooltip title={pauseTitle} mouseEnterDelay={0.3}>
           <div
             className={classNames(`${baseCls}-pause`, hashId)}
             role="button"
@@ -301,13 +305,13 @@ const renderButtonGroup = ({
             aria-label={pauseTitle}
             onClick={onPause}
           >
-            {variant === 'simple' ? <CirclePause /> : <Pause />}
+            {variant === 'simple' ? <SimplePauseIcon /> : <PauseIcon />}
           </div>
         </Tooltip>
       )}
       {/* 继续按钮 */}
       {isPause && onResume && (
-        <Tooltip title={playTitle}>
+        <Tooltip title={playTitle} mouseEnterDelay={0.3}>
           <div
             className={classNames(`${baseCls}-play`, hashId)}
             role="button"
@@ -315,7 +319,7 @@ const renderButtonGroup = ({
             aria-label={playTitle}
             onClick={onResume}
           >
-            {variant === 'simple' ? <CirclePlay /> : <Play />}
+            {variant === 'simple' ? <SimplePlayIcon /> : <PlayIcon />}
           </div>
         </Tooltip>
       )}
@@ -403,7 +407,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
   const { locale } = useContext(I18nContext);
 
   // 获取机器人状态
-  const getRobotStatus = () => {
+  const robotStatus = useMemo(() => {
     if (taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE) {
       return 'dazing';
     }
@@ -411,7 +415,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
       taskRunningStatus === TASK_RUNNING_STATUS.PAUSE ||
       taskStatus === TASK_STATUS.PAUSE
     ) {
-      return 'default';
+      return 'pause';
     }
     if (
       taskStatus === TASK_STATUS.SUCCESS ||
@@ -420,7 +424,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
       return 'default';
     }
     return 'thinking';
-  };
+  }, [taskRunningStatus, taskStatus]);
 
   return wrapSSR(
     <div
@@ -431,6 +435,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         `${baseCls}-${variant}`,
         {
           [`${baseCls}-with-description`]: description,
+          [`${baseCls}-status-${robotStatus}`]: robotStatus,
         },
       )}
       style={rest.style}
@@ -441,7 +446,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         {icon !== false && (
           <div className={classNames(`${baseCls}-left-icon-wrapper`, hashId)}>
             <Tooltip title={iconTooltip}>
-              <Robot icon={icon} status={getRobotStatus()} size={40} />
+              <Robot icon={icon} status={robotStatus} size={40} />
             </Tooltip>
           </div>
         )}

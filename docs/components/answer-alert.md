@@ -53,11 +53,11 @@ export default () => {
   return (
     <Space direction="vertical" size={16}>
       <AnswerAlert message="这是一条提示信息" />
-      <AnswerAlert message="操作成功" type="success" showIcon />
-      <AnswerAlert message="出现错误" type="error" showIcon />
-      <AnswerAlert message="警告信息" type="warning" showIcon />
-      <AnswerAlert message="提示信息" type="info" showIcon />
-      <AnswerAlert message="加载中..." type="gray" showIcon />
+      <AnswerAlert message="操作成功" type="success" showIcon closable />
+      <AnswerAlert message="出现错误" type="error" showIcon closable />
+      <AnswerAlert message="警告信息" type="warning" showIcon closable />
+      <AnswerAlert message="提示信息" type="info" showIcon closable />
+      <AnswerAlert message="加载中..." type="gray" showIcon closable />
     </Space>
   );
 };
