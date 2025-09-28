@@ -412,6 +412,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [recording, setRecording] = useState(false);
   const recognizerRef = React.useRef<VoiceRecognizer | null>(null);
   const pendingRef = React.useRef(false);
+  // 句子开始索引
+  const sentenceStartIndexRef = React.useRef<number>(0);
 
   const startRecording = useRefFunction(async () => {
     if (!props.voiceRecognizer) return;
@@ -419,12 +421,24 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     pendingRef.current = true;
     try {
       const recognizer = await props.voiceRecognizer({
-        onPartial: (text: string) => {
-          const current =
-            markdownEditorRef?.current?.store?.getMDContent() || '';
-          const next = `${current}${text}`;
+        onSentenceBegin: () => {
+          // 记录当前内容位置，重置本句累积
+          const current = markdownEditorRef?.current?.store?.getMDContent() || '';
+          sentenceStartIndexRef.current = current.length;
+        },
+        onPartial: (delta: string) => {
+          const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
+          const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
+          const next = `${prefix}${delta}`;
           markdownEditorRef?.current?.store?.setMDContent(next);
-          setValue(next); // 自动触发onChange
+          setValue(next); // 自动触发 onChange
+        },
+        onSentenceEnd: (finalText: string) => {
+          const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
+          const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
+          const next = `${prefix}${finalText}`;
+          markdownEditorRef?.current?.store?.setMDContent(next);
+          setValue(next);
         },
         onError: () => {
           setRecording(false);

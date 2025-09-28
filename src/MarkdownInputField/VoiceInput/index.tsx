@@ -12,7 +12,12 @@ export type VoiceRecognizer = {
 };
 
 export type CreateRecognizer = (handlers: {
+  // 标识句子开始，内容为空
+  onSentenceBegin: () => void;
+  // 中间结果 比如语音输入 123，这个函数被调用三次，分别输入 1, 12, 123
   onPartial: (text: string) => void;
+  // 句子结束 比如语音输入 123, 输入 123
+  onSentenceEnd: (text: string) => void;
   onError?: (error: unknown) => void;
 }) => Promise<VoiceRecognizer>;
 

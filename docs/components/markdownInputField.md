@@ -114,22 +114,28 @@ const App = () => {
 export default App;
 ```
 
-### 启用语音输入按钮
+### 启用语音输入按钮（支持句级回调）
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
 import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
 
 export default () => {
-  const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+  const createRecognizer: CreateRecognizer = async ({ onSentenceBegin, onPartial, onSentenceEnd, onError }) => {
     let timer: ReturnType<typeof setInterval>;
+    let i = 0;
     return {
       start: async () => {
-        // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
-        let i = 0;
+        // 真实场景应启动麦克风与ASR服务，这里用计时器模拟：句子开始 -> 多次增量 -> 句子结束
+        onSentenceBegin();
         timer = setInterval(() => {
-          onPartial(`语音片段${i} `);
-          i += 1;
+          if (i < 3) {
+            onPartial(`片段${i}`);
+            i += 1;
+          } else {
+            clearInterval(timer);
+            onSentenceEnd('完整句子');
+          }
         }, 500);
       },
       stop: async () => {
