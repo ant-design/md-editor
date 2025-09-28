@@ -188,7 +188,7 @@ export type MarkdownInputFieldProps = {
    * 语音输入配置
    * @description 由外部提供语音转写实现，组件仅负责控制与UI，传空不展示语音输入按钮。
    *
-   * onPartial 约定：增量追加（append-delta）：`onPartial(text)` 仅包含“需要追加”的最新片段。
+   * onPartial `onPartial(text)` 为根据语音识别出的的最新片段。拿到后根据上一句起始位置替换
    */
   voiceRecognizer?: CreateRecognizer;
 
@@ -509,6 +509,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   // 句子开始索引
   const sentenceStartIndexRef = React.useRef<number>(0);
 
+  const updateCurrentSentence = useRefFunction((text: string) => {
+    const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
+    const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
+    const next = `${prefix}${text}`;
+    markdownEditorRef?.current?.store?.setMDContent(next);
+    setValue(next);
+  });
+
   // 是否需要多行布局
   const isMultiRowLayout = useMemo(() => {
     return !!(
@@ -535,20 +543,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           const current = markdownEditorRef?.current?.store?.getMDContent() || '';
           sentenceStartIndexRef.current = current.length;
         },
-        onPartial: (delta: string) => {
-          const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
-          const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
-          const next = `${prefix}${delta}`;
-          markdownEditorRef?.current?.store?.setMDContent(next);
-          setValue(next); // 自动触发 onChange
-        },
-        onSentenceEnd: (finalText: string) => {
-          const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
-          const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
-          const next = `${prefix}${finalText}`;
-          markdownEditorRef?.current?.store?.setMDContent(next);
-          setValue(next);
-        },
+        onPartial: updateCurrentSentence,
+        onSentenceEnd: updateCurrentSentence,
         onError: () => {
           setRecording(false);
           recognizerRef.current?.stop?.().catch(() => void 0);
