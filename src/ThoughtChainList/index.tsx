@@ -83,6 +83,7 @@ const ThoughtChainTitle = React.memo<{
       >
         <div className={classNames(`${prefixCls}-title-content`, hashId)}>
           <Sparkles
+            data-testid="magic-icon"
             style={{
               width: 15,
               height: 15,

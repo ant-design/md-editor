@@ -95,7 +95,6 @@ const Robot: React.FC<RobotProps> = ({
             height: '100%',
           }}
           src={icon as string}
-          alt="robot"
         />
       ) : (
         <>

@@ -1,0 +1,225 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 0px 24px 24px; max-width: 1200px;"
+    >
+      <h2>
+        机器人形象组件
+      </h2>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 24px;"
+      >
+        提供多种动画状态的机器人图标，支持自定义大小、状态和图标。
+      </p>
+      <h3>
+        Robot 组件
+      </h3>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 16px;"
+      >
+        基础机器人组件，支持不同状态切换
+      </p>
+      <div
+        style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;"
+      >
+        <div
+          class=""
+          data-testid="robot"
+          style="width: 60px; height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 60px; height: 60px; display: flex; justify-content: center; align-items: center;"
+          />
+        </div>
+        <div>
+          <p
+            style="margin-bottom: 8px;"
+          >
+            当前状态: 默认状态
+          </p>
+          <div
+            style="display: flex; gap: 8px;"
+          >
+            <button
+              style="padding: 4px 8px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: rgb(24, 144, 255); color: rgb(255, 255, 255); cursor: pointer;"
+              type="button"
+            >
+              默认状态
+            </button>
+            <button
+              style="padding: 4px 8px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: rgb(255, 255, 255); color: rgb(0, 0, 0); cursor: pointer;"
+              type="button"
+            >
+              运行中状态
+            </button>
+          </div>
+        </div>
+      </div>
+      <h2>
+        Lottie 动画组件
+      </h2>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 24px;"
+      >
+        动画文件较大，建议按需加载
+      </p>
+      <h3>
+        DazingLottie - 呼吸+眨眼睛动画
+      </h3>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 16px;"
+      >
+        使用Lottie动画库提供的呼吸+眨眼睛动画效果
+      </p>
+      <div
+        style="display: flex; align-items: center; gap: 24px; margin-bottom: 24px;"
+      >
+        <div
+          style="text-align: center;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 32px; height: 32px; display: flex; justify-content: center; align-items: center;"
+          />
+          <p
+            style="margin-top: 8px; font-size: 12px; color: rgb(102, 102, 102);"
+          >
+            小尺寸 (32px)
+          </p>
+        </div>
+        <div
+          style="text-align: center;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 48px; height: 48px; display: flex; justify-content: center; align-items: center;"
+          />
+          <p
+            style="margin-top: 8px; font-size: 12px; color: rgb(102, 102, 102);"
+          >
+            默认尺寸 (48px)
+          </p>
+        </div>
+        <div
+          style="text-align: center;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 64px; height: 64px; display: flex; justify-content: center; align-items: center;"
+          />
+          <p
+            style="margin-top: 8px; font-size: 12px; color: rgb(102, 102, 102);"
+          >
+            大尺寸 (64px)
+          </p>
+        </div>
+      </div>
+      <h3>
+        ThinkingLottie - 眨眼跑+追星星动画
+      </h3>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 16px;"
+      >
+        使用Lottie动画库提供的眨眼跑+追星星动画效果
+      </p>
+      <div
+        style="display: flex; align-items: center; gap: 24px; margin-bottom: 24px;"
+      >
+        <div
+          style="text-align: center;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 32px; height: 32px; display: flex; justify-content: center; align-items: center;"
+          />
+          <p
+            style="margin-top: 8px; font-size: 12px; color: rgb(102, 102, 102);"
+          >
+            小尺寸 (32px)
+          </p>
+        </div>
+        <div
+          style="text-align: center;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 48px; height: 48px; display: flex; justify-content: center; align-items: center;"
+          />
+          <p
+            style="margin-top: 8px; font-size: 12px; color: rgb(102, 102, 102);"
+          >
+            默认尺寸 (48px)
+          </p>
+        </div>
+        <div
+          style="text-align: center;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 64px; height: 64px; display: flex; justify-content: center; align-items: center;"
+          />
+          <p
+            style="margin-top: 8px; font-size: 12px; color: rgb(102, 102, 102);"
+          >
+            大尺寸 (64px)
+          </p>
+        </div>
+      </div>
+      <h3>
+        组合使用示例
+      </h3>
+      <p
+        style="color: rgb(102, 102, 102); margin-bottom: 16px;"
+      >
+        在实际应用中，通常将Robot组件与Lottie动画结合使用
+      </p>
+      <div
+        style="display: flex; align-items: center; gap: 40px; padding: 16px; border: 1px solid rgb(240, 240, 240); border-radius: 8px; background: rgb(250, 250, 250);"
+      >
+        <div
+          class=""
+          data-testid="robot"
+          style="width: 80px; height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+        >
+          <div
+            aria-hidden="true"
+            data-autoplay="true"
+            data-loop="true"
+            data-testid="lottie-animation"
+            style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center;"
+          />
+        </div>
+        <span>
+          AI正在思考中...
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
