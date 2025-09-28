@@ -148,8 +148,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             // drag handle visuals
             [`${token.componentCls}-drag-handle`]: {
               width: 14,
-              height: 14,
-              minWidth: 14,
+              height: 28,
+              lineHeight: 28,
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -174,7 +174,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             [`${token.componentCls}-content-title`]: {
               fontSize: '13px',
               lineHeight: '28px',
-              fontWeight: 500,
             },
           },
         },
@@ -200,10 +199,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         minWidth: 0,
         maxWidth: '100%',
         '&-title': {
-          fontWeight: 500,
           lineHeight: '24px',
           fontSize: '1em',
-          color: '#19213D',
+          color: 'var(--color-gray-text-default)',
         },
         '&-title-no-description': {
           letterSpacing: 'var(--letter-spacing-body-base, normal)',
