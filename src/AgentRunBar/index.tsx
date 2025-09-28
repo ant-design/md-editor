@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../i18n';
 import {
@@ -427,7 +428,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
   }, [taskRunningStatus, taskStatus]);
 
   return wrapSSR(
-    <div
+    <motion.div
       className={classNames(
         baseCls,
         hashId,
@@ -438,6 +439,8 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
           [`${baseCls}-status-${robotStatus}`]: robotStatus,
         },
       )}
+      layout="size"
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       style={rest.style}
     >
       <div className={classNames(`${baseCls}-border`, hashId)} />
@@ -487,6 +490,6 @@ export const TaskRunning: React.FC<TaskRunningProps> = (rest) => {
         locale,
         variant,
       })}
-    </div>,
+    </motion.div>,
   );
 };
