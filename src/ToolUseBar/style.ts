@@ -1,4 +1,3 @@
-import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
@@ -6,15 +5,6 @@ import {
 } from '../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
-  const rotate = new Keyframes(`lui-tool-use-bar-rotate`, {
-    '100%': { transform: 'rotate(360deg)' },
-  });
-  const maskMove = new Keyframes(`lui-tool-use-bar-maskMove`, {
-    '0%': { backgroundPosition: '200% 0' },
-    '40%': { backgroundPosition: '0% 0' },
-    '100%': { backgroundPosition: '-100% 0' },
-  });
-
   return {
     [token.componentCls]: {
       display: 'flex',
@@ -25,41 +15,64 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-tool': {
         position: 'relative',
-        '&-active': {
-          background: '#FFFFFF',
-          boxSizing: 'border-box',
-          outline: '1.5px solid #1D7AFC',
-          boxShadow:
-            '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
-        },
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         cursor: 'pointer',
-        '&:hover': {
-          background: 'rgba(20, 22, 28, 0.06)',
-        },
-        borderRadius: '12px',
-        background: 'rgba(20, 22, 28, 0.03)',
+        borderRadius: '24px',
+        background: 'var(--color-gray-bg-card-light)',
         boxSizing: 'border-box',
-        outline: '1px solid rgba(20, 22, 28, 0.07)',
-        boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
-        minHeight: '28px',
+        border: 'var(--color-gray-border-light)',
+        boxShadow: 'var(--shadow-border-base)',
+        minHeight: '20px',
         width: 'max-content',
-        maxWidth: 'min(800px,100%)',
+        transition: 'padding 0.2s ease',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
-        padding: '4px',
-        gap: '4px',
+        flexDirection: 'column',
+        gap: '8px',
         zIndex: 1,
+        maxWidth: 'min(800px,100%)',
+        padding: '2px',
+        paddingRight: '4px',
+
+        '&:hover': {
+          background: 'var(--color-gray-control-fill-active)',
+          boxSizing: 'border-box',
+          boxShadow: 'var(--shadow-card-base)',
+        },
+        '&-active': {
+          background: 'var(--color-gray-bg-card-white)',
+          boxSizing: 'border-box',
+          outline: '1px solid var(--color-primary-control-fill-border-active)',
+          boxShadow: 'var(--shadow-control-base)',
+        },
+        '&-expanded': {
+          borderRadius: '14px',
+          padding: 4,
+          outline: 'none',
+          '&:hover': {
+            background: 'var(--color-gray-bg-card-light)',
+            boxShadow: 'var(--shadow-border-base)',
+          },
+        },
+        '&-loading': {
+          background: 'var(--color-gray-bg-card-white)',
+          boxSizing: 'border-box',
+          boxShadow:
+            '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
+          '&:hover': {
+            background: 'var(--color-gray-bg-card-white)',
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-card-base)',
+          },
+        },
       },
 
       '&-tool-bar': {
         borderRadius: '12px',
-        minHeight: '28px',
+        minHeight: '20px',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        gap: '8px',
+        gap: '4px',
         zIndex: 1,
       },
 
@@ -69,17 +82,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-header': {
-        height: 28,
+        height: 24,
         display: 'flex',
         alignItems: 'center',
         gap: 8,
         justifyContent: 'space-between',
       },
 
-      '&-tool-header-left': {
+      '&-tool-header-right': {
         display: 'flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 8,
+        flex: 1,
       },
 
       '&-tool-expand': {
@@ -88,10 +102,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'center',
         width: '20px',
         height: '20px',
-        color: '#767E8B',
+        color: 'var(--color-gray-text-disabled)',
         fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
-        borderRadius: '4px',
+        borderRadius: '12px',
         transition: 'all 0.2s ease',
         '&:hover': {
           background: 'rgba(20, 22, 28, 0.06)',
@@ -100,26 +114,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-tool-name': {
-        fontSize: 'var(--font-size-sm)',
-        fontWeight: 500,
+        font: 'var(--font-text-body-emphasized-sm)',
+        letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+        color: 'var(--color-gray-text-secondary)',
         lineHeight: '20px',
-        letterSpacing: 'normal',
         display: '-webkit-box',
         WebkitLineClamp: 1,
         WebkitBoxOrient: 'vertical',
         lineClamp: 1,
-        color: '#767E8B',
         '&-loading': {
           position: 'relative',
-          background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          backgroundSize: '200% auto',
-          animationName: maskMove,
-          animationDuration: '2s',
-          animationTimingFunction: 'linear',
-          animationIterationCount: 'infinite',
+          color: '#000',
         },
       },
 
@@ -135,55 +140,39 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignContent: 'center',
         borderRadius: '200px',
         boxSizing: 'border-box',
-        border: '1px solid rgba(0, 16, 40, 0.13)',
+        boxShadow: 'var(--shadow-border-base)',
+        background: 'var(--color-gray-bg-card-white)',
         zIndex: 0,
         '&-loading': {
           borderRadius: '50%',
           position: 'relative',
-          '&::before': {
+          '&::after': {
             content: '""',
             position: 'absolute',
             inset: '0',
             borderRadius: '50%',
-            padding: '2px',
-            left: '-2px',
-            top: '-2px',
-            right: '-2px',
-            bottom: '-2px',
             background:
-              'conic-gradient(from 0deg, #4facfe 0deg, #00f2fe 60deg, transparent 120deg, transparent 360deg)',
+              'conic-gradient(from var(--rotate, 0deg),transparent 0deg 0deg, #5EF050 35deg 55deg, #37ABFF 105deg 115deg,  #D7B9FF 135deg 135deg, transparent 165deg 360deg)',
             WebkitMask:
-              'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            WebkitMaskComposite: 'xor',
-            maskComposite: 'exclude',
-            animationName: rotate,
-            animationDuration: '1.2s',
-            animationTimingFunction: 'cubic-bezier(0.55, 0.06, 0.68, 0.19)',
-            animationIterationCount: 'infinite',
-          },
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            inset: '4px',
-            background: '#f9f9f9',
-            borderRadius: '50%',
+              'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 65%, #FF0000 100%)',
+            mask: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0) 80%, #FF0000 80%, #FF0000 100%)',
           },
         },
       },
 
       '&-tool-image': {
-        color: '#767E8B',
-        fontSize: 'var(--font-size-lg)',
         position: 'absolute',
         zIndex: 999,
         borderRadius: '50%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        font: 'var(--font-text-body-emphasized-sm)',
+        letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+        color: 'var(--color-gray-text-secondary)',
       },
 
       '&-tool-target': {
-        fontSize: 'var(--font-size-sm)',
         fontWeight: 'normal',
         lineHeight: '20px',
         flex: 1,
@@ -193,19 +182,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineClamp: 1,
         overflow: 'hidden',
         textWrap: 'nowrap ',
-        color: '#959DA8',
+        font: 'var(--font-text-body-sm)',
+        letterSpacing: 'var(--letter-spacing-body-sm, normal)',
+        color: 'var(--color-gray-text-light)',
         marginRight: 30,
         '&-loading': {
           position: 'relative',
-          background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          backgroundSize: '200% auto',
-          animationName: maskMove,
-          animationDuration: '2s',
-          animationTimingFunction: 'linear',
-          animationIterationCount: 'infinite',
+          color: '#000',
         },
       },
       '&-tool-time': {
@@ -218,12 +201,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: '200px',
-        background: 'rgba(20, 22, 28, 0.06)',
+        borderRadius: '12px',
+        background: 'var(--color-gray-control-fill-active)',
         padding: '4px 6px',
         color: '#767E8B',
         gap: '8px',
-        fontFamily: `Rubik, sans-serif`,
         zIndex: 1,
       },
       '&-tool-container': {
@@ -241,8 +223,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-tool-content-error': {
         display: 'flex',
         width: '100%',
-        borderRadius: '8px',
-        background: 'rgba(255, 187, 0, 0.22)',
+        borderRadius: 'var(--radius-control-base)',
+        background: 'var(--color-yellow-bg-tip)',
         color: '#A56900',
         padding: '8px',
         fontSize: 'var(--font-size-base)',
@@ -251,11 +233,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-tool-content-error-icon': {
         alignItems: 'center',
-        fontSize: 'var(--font-size-base)',
-        fontWeight: 500,
-        lineHeight: '12px',
-        letterSpacing: 'normal',
-        color: '#A56900',
+        font: 'var(--font-text-body-emphasized-base)',
+        letterSpacing: 'var(--letter-spacing-body-emphasized-base, normal)',
+        color: 'var(--color-yellow-text-secondary)',
       },
       '&-tool-error': {
         '&-tool-image-wrapper': {

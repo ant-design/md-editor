@@ -1,9 +1,8 @@
-import { ConfigProvider, Popover } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
-import { ExportOutlined } from '@ant-design/icons';
 import { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
 import { MarkdownEditorProps } from '../../types';
 import { useEditorStore } from '../store';
@@ -457,66 +456,39 @@ const MLeafComponent = (
 
   if (leaf?.url && readonly) {
     return (
-      <Popover
-        trigger="hover"
-        content={
-          <div
-            style={{
-              display: 'flex',
-              gap: 4,
-            }}
-          >
-            <div
-              style={{
-                width: 'max-content',
-                maxWidth: 'min(50vw, 200px)',
-                wordBreak: 'break-all',
-                wordWrap: 'break-word',
-              }}
-            >
-              {leaf.url}
-            </div>
-            <ExportOutlined
-              onClick={() => {
-                if (!leaf?.url) return;
-                if (typeof window === 'undefined') return;
-                window.open(leaf?.url);
-              }}
-            />
-          </div>
-        }
+      <span
+        data-be="link"
+        draggable={false}
+        onDragStart={dragStart}
+        data-url={leaf?.url ? 'url' : undefined}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          if (e.metaKey || e.ctrlKey || readonly) {
+            if (!leaf?.url) return;
+            if (typeof window === 'undefined') return;
+            window.open(leaf?.url);
+          } else if (e.detail === 2) {
+            selectFormat();
+          }
+        }}
+        id={leaf?.url}
+        data-slate-inline={true}
+        style={{
+          ...style,
+          font: 'var(--font-text-body-lg)',
+          letterSpacing: 'var(--letter-spacing-body-lg, normal)',
+          color: 'var(--color-gray-text-default)',
+          textDecoration: 'underline',
+          textDecorationColor:
+            style?.color || 'var(--color-gray-text-disabled)',
+          textUnderlineOffset: '4px',
+          cursor: 'pointer',
+        }}
+        {...props.attributes}
       >
-        <span
-          data-be="link"
-          draggable={false}
-          onDragStart={dragStart}
-          data-url={leaf?.url}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            if (e.metaKey || e.ctrlKey || readonly) {
-              if (!leaf?.url) return;
-              if (typeof window === 'undefined') return;
-              window.open(leaf?.url);
-            } else if (e.detail === 2) {
-              selectFormat();
-            }
-          }}
-          id={leaf?.url}
-          data-slate-inline={true}
-          style={{
-            ...style,
-            textDecoration: 'underline',
-            textDecorationColor: style?.color || '#1677ff',
-            textUnderlineOffset: '4px',
-            color: '#1677ff',
-            cursor: 'pointer',
-          }}
-          {...props.attributes}
-        >
-          {children}
-        </span>
-      </Popover>
+        {children}
+      </span>
     );
   }
 
@@ -546,6 +518,7 @@ const MLeafComponent = (
       data-fnc-name={
         leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
       }
+      data-url={leaf.url ? 'url' : undefined}
       data-fnd-name={
         leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
       }
@@ -555,10 +528,13 @@ const MLeafComponent = (
         ...(leaf.url
           ? {
               ...style,
+              font: 'var(--font-text-body-lg)',
+              letterSpacing: 'var(--letter-spacing-body-lg, normal)',
+              color: 'var(--color-gray-text-default)',
               textDecoration: 'underline',
-              textDecorationColor: style?.color || '#1677ff',
+              textDecorationColor:
+                style?.color || 'var(--color-gray-text-disabled)',
               textUnderlineOffset: '4px',
-              color: '#1677ff',
               cursor: 'pointer',
             }
           : style),

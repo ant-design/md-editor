@@ -6,7 +6,7 @@ import {
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { LoadingIcon } from '../../icons/LoadingIcon';
+import { Loader } from '../../icons';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
@@ -57,8 +57,9 @@ export const BubbleMessageDisplay: React.FC<
   BubbleProps & {
     content: MessageBubbleData['content'];
     bubbleListItemExtraStyle?: React.CSSProperties;
+    contentAfterDom?: React.ReactNode;
   }
-> = ({ content, bubbleRef, readonly, ...props }) => {
+> = ({ content, bubbleRef, readonly, contentAfterDom, ...props }) => {
   /**
    * 获取聊天配置上下文
    * @type {ChatConfigContext}
@@ -104,10 +105,18 @@ export const BubbleMessageDisplay: React.FC<
   }, [props.bubbleRenderConfig?.beforeMessageRender, typing, props.originData]);
 
   const afterContent = useMemo(() => {
-    return props.bubbleRenderConfig?.afterMessageRender
-      ? props.bubbleRenderConfig.afterMessageRender(props, null)
-      : null;
-  }, [props.bubbleRenderConfig?.afterMessageRender, typing, props.originData]);
+    const userAfter = props.bubbleRenderConfig?.afterMessageRender
+      ? props.bubbleRenderConfig.afterMessageRender(props, contentAfterDom)
+      : contentAfterDom;
+    return <>{userAfter}</>;
+  }, [
+    props.bubbleRenderConfig?.afterMessageRender,
+    typing,
+    props.originData,
+    props.bubbleRenderConfig?.afterMessageRender,
+    contentAfterDom,
+    typing,
+  ]);
 
   const memo = useMemo(() => {
     if (
@@ -127,7 +136,7 @@ export const BubbleMessageDisplay: React.FC<
             className="agent-item-default-content"
             data-testid="message-content"
           >
-            <LoadingIcon />
+            <Loader />
             {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );
@@ -356,6 +365,7 @@ export const BubbleMessageDisplay: React.FC<
                     />
                     {item?.docId && item.doc_name ? (
                       <Tooltip
+                        mouseEnterDelay={0.3}
                         title={
                           <Typography.Text copyable={{ text: item.docId }}>
                             {item.docId}

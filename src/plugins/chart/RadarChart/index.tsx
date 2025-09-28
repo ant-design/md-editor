@@ -13,6 +13,7 @@ import {
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
+import ChartStatistic from '../ChartStatistic';
 import {
   ChartContainer,
   ChartContainerProps,
@@ -20,6 +21,10 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import {
+  StatisticConfigType,
+  useChartStatistic,
+} from '../hooks/useChartStatistic';
 import { useStyle } from './style';
 
 // 注册 Chart.js 组件
@@ -52,6 +57,10 @@ interface RadarChartProps extends ChartContainerProps {
   borderColor?: string;
   backgroundColor?: string;
   pointBackgroundColor?: string;
+  /** 统计数据组件配置 */
+  statistic?: StatisticConfigType;
+  /** 图例文字最大宽度（像素），超出则显示省略号，默认80px */
+  textMaxWidth?: number;
 }
 
 // 默认颜色配置
@@ -79,11 +88,16 @@ const RadarChart: React.FC<RadarChartProps> = ({
   borderColor,
   backgroundColor,
   pointBackgroundColor,
+  statistic,
+  textMaxWidth = 80,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('radar-chart');
   const { wrapSSR, hashId } = useStyle(prefixCls);
+
+  // 处理 ChartStatistic 组件配置
+  const statisticComponentConfigs = useChartStatistic(statistic);
 
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -119,64 +133,154 @@ const RadarChart: React.FC<RadarChartProps> = ({
   }, []);
   const chartRef = useRef<ChartJS<'radar'>>(null);
 
-  // 从扁平化数据中提取分类
-  const categories = Array.from(new Set(data.map((item) => item.category)));
+  // 数据安全检查和处理 - 直接处理，不用 useMemo
+  const safeData =
+    !data || !Array.isArray(data)
+      ? []
+      : data.filter(
+          (item): item is RadarChartDataItem =>
+            item !== null &&
+            item !== undefined &&
+            typeof item === 'object' &&
+            'label' in item,
+        );
 
-  // 从数据中提取 filterLabel，过滤掉 undefined 值
-  const validFilterLabels = data
-    .map((item) => item.filterLabel)
-    .filter((category): category is string => category !== undefined);
+  // 从扁平化数据中提取分类，添加安全检查
+  const categories = Array.from(
+    new Set(
+      safeData
+        .map((item) => item?.category)
+        .filter((category): category is string => Boolean(category)),
+    ),
+  );
+
+  // 从数据中提取 filterLabel，过滤掉 undefined 值，添加安全检查
+  const validFilterLabels = safeData
+    .map((item) => item?.filterLabel)
+    .filter(
+      (category): category is string =>
+        category !== undefined && category !== null && Boolean(category),
+    );
 
   const filterLabels: string[] | undefined =
     validFilterLabels.length > 0
       ? Array.from(new Set(validFilterLabels))
       : undefined;
 
-  // 状态管理
+  // 状态管理，添加安全检查
   const [selectedFilter, setSelectedFilter] = useState(
-    categories.find(Boolean) || '',
+    () => categories.find((cat): cat is string => Boolean(cat)) || '',
   );
-  const [selectedFilterLabel, setSelectedFilterLabel] = useState(
+  const [selectedFilterLabel, setSelectedFilterLabel] = useState(() =>
     filterLabels && filterLabels.length > 0 ? filterLabels[0] : undefined,
   );
 
-  // 根据选定的分类筛选数据
-  const filteredData = data.filter((item) => {
+  // 根据选定的分类筛选数据，添加安全检查
+  const filteredData = safeData.filter((item) => {
+    if (!item) return false; // 额外的安全检查
     if (!selectedFilter) return true;
-    const categoryMatch = item.category === selectedFilter;
+    const categoryMatch = item?.category === selectedFilter;
     // 如果没有 filterLabels 或 selectedFilterLabel，只按 category 筛选
     if (!filterLabels || !selectedFilterLabel) {
       return categoryMatch;
     }
     // 如果有 filterLabel 筛选，需要同时匹配 category 和 filterLabel
-    return categoryMatch && item.filterLabel === selectedFilterLabel;
+    return categoryMatch && item?.filterLabel === selectedFilterLabel;
   });
 
-  // 提取标签和数据集
-  const labels = Array.from(new Set(filteredData.map((item) => item.label)));
-  const datasetTypes = Array.from(
-    new Set(filteredData.map((item) => item.type)),
+  // 提取标签和数据集，添加安全检查
+  const labels = Array.from(
+    new Set(
+      filteredData
+        .map((item) => item?.label)
+        .filter((label): label is string => Boolean(label)),
+    ),
   );
 
-  // 构建数据集
+  const datasetTypes = Array.from(
+    new Set(
+      filteredData
+        .map((item) => item?.type)
+        .filter((type): type is string => Boolean(type)),
+    ),
+  );
+
+  // 如果没有有效数据，返回空状态
+  if (
+    safeData.length === 0 ||
+    labels.length === 0 ||
+    datasetTypes.length === 0
+  ) {
+    return wrapSSR(
+      <ChartContainer
+        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        theme={'light'}
+        isMobile={isMobile}
+        variant={props.variant}
+        style={{
+          width: responsiveWidth,
+          height: responsiveHeight,
+        }}
+      >
+        <ChartToolBar
+          title={title || '雷达图'}
+          onDownload={() => {}}
+          extra={toolbarExtra}
+          dataTime={dataTime}
+        />
+        <div
+          className={classNames(`${prefixCls}-empty-wrapper`, hashId)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: responsiveHeight,
+            color: '#999',
+            fontSize: '14px',
+          }}
+        >
+          暂无有效数据
+        </div>
+      </ChartContainer>,
+    );
+  }
+
+  // 构建数据集，添加更强的安全检查
   const datasets = datasetTypes.map((type, index) => {
-    const typeData = filteredData.filter((item) => item.type === type);
+    const typeData = filteredData.filter((item) => item?.type === type);
     const scores = labels.map((label) => {
-      const item = typeData.find((d) => d.label === label);
-      const v = item?.score as any;
-      const n = typeof v === 'number' ? v : Number(v);
-      return Number.isFinite(n) ? n : 0;
+      const item = typeData.find((d) => d?.label === label);
+      if (!item || item.score === null || item.score === undefined) {
+        return 0;
+      }
+
+      // 增强的 score 处理
+      const score = item.score;
+      if (typeof score === 'number') {
+        return Number.isFinite(score) && score >= 0 ? score : 0;
+      }
+      if (typeof score === 'string') {
+        const trimmed = score.trim();
+        if (trimmed === '' || trimmed === 'null' || trimmed === 'undefined') {
+          return 0;
+        }
+        const parsed = Number(trimmed);
+        return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+      }
+      return 0;
     });
+
+    // 确保颜色数组安全访问
+    const safeIndex = Math.max(0, index % defaultColors.length);
+    const safeDefaultColor = defaultColors[safeIndex] || '#388BFF';
 
     return {
       label: type || '默认',
       data: scores,
-      borderColor: borderColor || defaultColors[index % defaultColors.length],
-      backgroundColor:
-        backgroundColor || `${defaultColors[index % defaultColors.length]}20`,
+      borderColor: borderColor || safeDefaultColor,
+      backgroundColor: backgroundColor || `${safeDefaultColor}20`,
       borderWidth: isMobile ? 1.5 : 2,
-      pointBackgroundColor:
-        pointBackgroundColor || defaultColors[index % defaultColors.length],
+      pointBackgroundColor: pointBackgroundColor || safeDefaultColor,
       pointBorderColor: '#fff',
       pointBorderWidth: isMobile ? 1 : 2,
       pointRadius: isMobile ? 3 : 4,
@@ -192,11 +296,16 @@ const RadarChart: React.FC<RadarChartProps> = ({
     legendPosition: 'right' as const,
   };
 
-  // 筛选器的枚举
-  const filterEnum = categories?.map((category) => ({
-    label: category || '',
-    value: category || '',
-  }));
+  // 筛选器的枚举，添加安全检查
+  const filterEnum =
+    categories.length > 0
+      ? categories
+          .filter((category): category is string => Boolean(category))
+          .map((category) => ({
+            label: category,
+            value: category,
+          }))
+      : [];
 
   // 根据 filterLabel 筛选数据 - 只有当 filterLabels 存在时才生成
   const filteredDataByFilterLabel = filterLabels?.map((item) => ({
@@ -204,10 +313,27 @@ const RadarChart: React.FC<RadarChartProps> = ({
     label: item,
   }));
 
-  // 处理数据，应用默认颜色和样式
+  // 处理数据，应用默认颜色和样式，添加最终安全检查
   const processedData: ChartData<'radar'> = {
-    labels: labels,
-    datasets: datasets,
+    labels: labels.length > 0 ? labels : ['默认'],
+    datasets:
+      datasets.length > 0
+        ? datasets
+        : [
+            {
+              label: '默认',
+              data: [0],
+              borderColor: defaultColors[0] || '#388BFF',
+              backgroundColor: `${defaultColors[0] || '#388BFF'}20`,
+              borderWidth: isMobile ? 1.5 : 2,
+              pointBackgroundColor: defaultColors[0] || '#388BFF',
+              pointBorderColor: '#fff',
+              pointBorderWidth: isMobile ? 1 : 2,
+              pointRadius: isMobile ? 3 : 4,
+              pointHoverRadius: isMobile ? 5 : 6,
+              fill: true,
+            },
+          ],
   };
 
   // 图表配置选项
@@ -233,6 +359,50 @@ const RadarChart: React.FC<RadarChartProps> = ({
           padding: isMobile ? 10 : 20,
           usePointStyle: true,
           pointStyle: 'rectRounded',
+          generateLabels: (chart) => {
+            const original =
+              ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
+
+            // 创建一个临时 canvas 来测量文字宽度
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return original;
+
+            // 设置字体样式与图例相同
+            const fontSize = isMobile ? 10 : 12;
+            ctx.font = `${fontSize}px 'PingFang SC', sans-serif`;
+
+            return original.map((label) => {
+              const originalText = label.text;
+              const textWidth = ctx.measureText(originalText).width;
+
+              if (textWidth <= textMaxWidth) {
+                return label;
+              }
+
+              // 文字超过最大宽度，需要截断
+              const ellipsis = '...';
+              const ellipsisWidth = ctx.measureText(ellipsis).width;
+              const maxTextWidth = textMaxWidth - ellipsisWidth;
+
+              let truncatedText = originalText;
+              let truncatedWidth = textWidth;
+
+              // 逐个字符减少直到宽度符合要求
+              while (
+                truncatedWidth > maxTextWidth &&
+                truncatedText.length > 0
+              ) {
+                truncatedText = truncatedText.slice(0, -1);
+                truncatedWidth = ctx.measureText(truncatedText).width;
+              }
+
+              return {
+                ...label,
+                text: truncatedText + ellipsis,
+              };
+            });
+          },
         },
       },
       tooltip: {
@@ -260,17 +430,34 @@ const RadarChart: React.FC<RadarChartProps> = ({
             document.body.appendChild(tooltipEl);
           }
 
-          // 获取数据
+          // 获取数据，添加安全检查
+          if (!tooltip.dataPoints || tooltip.dataPoints.length === 0) {
+            return;
+          }
+
           const dataPoint = tooltip.dataPoints[0];
-          const dimensionTitle = dataPoint.label || ''; // 维度标题，如"技术"
-          const label = dataPoint.dataset.label || '数据指标'; // 数据集标签
-          const value =
-            typeof dataPoint.parsed.r === 'number'
-              ? dataPoint.parsed.r.toFixed(1)
-              : dataPoint.parsed.r;
+          if (!dataPoint) {
+            return;
+          }
+
+          const dimensionTitle = dataPoint?.label?.toString() || ''; // 维度标题，如"技术"
+          const label = dataPoint?.dataset?.label?.toString() || '数据指标'; // 数据集标签
+
+          let value = '';
+          try {
+            const rawValue = dataPoint?.parsed?.r;
+            if (typeof rawValue === 'number' && Number.isFinite(rawValue)) {
+              value = rawValue.toFixed(1);
+            } else {
+              value = String(rawValue || 0);
+            }
+          } catch (error) {
+            value = '0';
+          }
 
           // 获取数据集颜色作为图标颜色
-          const iconColor = dataPoint.dataset.borderColor || '#388BFF';
+          const iconColor =
+            dataPoint?.dataset?.borderColor?.toString() || '#388BFF';
 
           // 创建 HTML 内容
           const isDark = currentConfig.theme !== 'light';
@@ -415,43 +602,102 @@ const RadarChart: React.FC<RadarChartProps> = ({
   };
 
   const handleDownload = () => {
-    downloadChart(chartRef.current, 'radar-chart');
+    try {
+      if (chartRef.current) {
+        downloadChart(chartRef.current, 'radar-chart');
+      }
+    } catch (error) {
+      console.warn('图表下载失败:', error);
+    }
   };
 
-  return wrapSSR(
-    <ChartContainer
-      baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
-      theme={currentConfig.theme}
-      isMobile={isMobile}
-      variant={props.variant}
-      style={{
-        width: responsiveWidth,
-        height: responsiveHeight,
-      }}
-    >
-      <ChartToolBar
-        title={title || '2025年第一季度短视频用户分布分析'}
-        onDownload={handleDownload}
-        extra={toolbarExtra}
-        dataTime={dataTime}
-      />
-
-      <ChartFilter
-        filterOptions={filterEnum}
-        selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
-        {...(filterLabels && {
-          customOptions: filteredDataByFilterLabel,
-          selectedCustomSelection: selectedFilterLabel,
-          onSelectionChange: setSelectedFilterLabel,
-        })}
+  // 最终渲染，包含错误边界
+  try {
+    return wrapSSR(
+      <ChartContainer
+        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
         theme={currentConfig.theme}
-      />
-      <div className={classNames(`${prefixCls}-chart-wrapper`, hashId)}>
-        <Radar ref={chartRef} data={processedData} options={options} />
-      </div>
-    </ChartContainer>,
-  );
+        isMobile={isMobile}
+        variant={props.variant}
+        style={{
+          width: responsiveWidth,
+          height: responsiveHeight,
+        }}
+      >
+        <ChartToolBar
+          title={title || '雷达图'}
+          onDownload={handleDownload}
+          extra={toolbarExtra}
+          dataTime={dataTime}
+        />
+
+        {filterEnum.length > 0 && (
+          <ChartFilter
+            filterOptions={filterEnum}
+            selectedFilter={selectedFilter}
+            onFilterChange={setSelectedFilter}
+            {...(filterLabels && {
+              customOptions: filteredDataByFilterLabel,
+              selectedCustomSelection: selectedFilterLabel,
+              onSelectionChange: setSelectedFilterLabel,
+            })}
+            theme={currentConfig.theme}
+          />
+        )}
+
+        {/* 统计数据组件 */}
+        {statisticComponentConfigs && (
+          <div style={{ marginBottom: 16 }}>
+            {statisticComponentConfigs.map((config, index) => (
+              <ChartStatistic
+                key={index}
+                {...config}
+                theme={currentConfig.theme}
+              />
+            ))}
+          </div>
+        )}
+
+        <div className={classNames(`${prefixCls}-chart-wrapper`, hashId)}>
+          <Radar ref={chartRef} data={processedData} options={options} />
+        </div>
+      </ChartContainer>,
+    );
+  } catch (error) {
+    console.error('RadarChart 渲染错误:', error);
+    return wrapSSR(
+      <ChartContainer
+        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        theme={'light'}
+        isMobile={isMobile}
+        variant={props.variant}
+        style={{
+          width: responsiveWidth,
+          height: responsiveHeight,
+        }}
+      >
+        <ChartToolBar
+          title={title || '雷达图'}
+          onDownload={() => {}}
+          extra={toolbarExtra}
+          dataTime={dataTime}
+        />
+        <div
+          className={classNames(`${prefixCls}-error-wrapper`, hashId)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: responsiveHeight,
+            color: '#ff4d4f',
+            fontSize: '14px',
+          }}
+        >
+          图表渲染失败，请检查数据格式
+        </div>
+      </ChartContainer>,
+    );
+  }
 };
 
 export default RadarChart;

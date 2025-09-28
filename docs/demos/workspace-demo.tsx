@@ -1,5 +1,8 @@
+import { DownloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Workspace } from '@ant-design/md-editor';
+import { Copy, Expand, SwitchToWindow } from '@ant-design/md-editor/icons';
 import RealtimeIcon from '@ant-design/md-editor/Workspace/icons/RealtimeIcon';
+import { Button, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { defaultValue } from './shared/defaultValue';
 
@@ -24,9 +27,91 @@ const Demo = () => {
     <li>准备数据</li>
     <li>运行分析</li>
     <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
+    <li>准备数据</li>
+    <li>运行分析</li>
+    <li>生成结果</li>
   </ol>
 </body>
 </html>`;
+
+
+  const segmentedContent = (
+    <Space size={8}>
+      <div
+        style={{
+          height: '20px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '4px 6px',
+          borderRadius: '200px',
+          background: 'rgba(0, 16, 32, 0.0627)',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '10px',
+            fontWeight: 500,
+            lineHeight: '7px',
+            color: 'rgba(84, 93, 109, 0.8)',
+          }}
+        >
+          {sampleHtml.split('\n').length}
+        </div>
+      </div>
+      <Button
+        size="small"
+        type="text"
+        icon={<Copy />}
+        onClick={() => {
+          console.log('复制');
+          message.success('复制');
+        }}
+      />
+      <Button
+        size="small"
+        type="text"
+        icon={<DownloadOutlined />}
+        onClick={() => {
+          console.log('下载');
+          message.success('下载');
+        }}
+      />
+      <Button
+        size="small"
+        type="text"
+        icon={<SwitchToWindow />}
+        onClick={() => {
+          console.log('切换');
+          message.success('切换');
+        }}
+      />
+      <Button
+        size="small"
+        type="text"
+        icon={<Expand />}
+        onClick={() => {
+          console.log('全屏');
+          message.success('全屏');
+        }}
+      />
+    </Space>
+  );
+
+  const handleBack = () => {
+    console.log('返回');
+    message.success(`返回`);
+    return true;
+  };
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'test') {
@@ -93,6 +178,8 @@ const Demo = () => {
             labels: { preview: '预览', code: '代码' },
             iframeProps: { sandbox: 'allow-scripts' },
             status: htmlStatus,
+            segmentedExtra: segmentedContent,
+            onBack: handleBack,
           }}
         />
 
@@ -107,42 +194,43 @@ const Demo = () => {
             ),
           }}
           data={{
-            content: [
+            items: [
               {
-                category: 'DeepThink',
-                info: '性能分析报告',
-                runId: 'perf-analysis',
-                output: {
-                  data: '正在生成系统性能分析报告，包含 CPU、内存、磁盘 IO 和网络性能指标...',
-                  type: 'RUNNING',
-                },
+                key: '1',
+                title: '创建全面的 Tesla 股票分析任务列表',
+                status: 'success',
               },
               {
-                category: 'ToolCall',
-                info: '日志分析',
-                runId: 'log-analysis',
-                input: {
-                  inputArgs: {
-                    params: {
-                      logPath: '/var/log/system.log',
-                      pattern: 'ERROR|WARN',
-                      timeRange: '24h',
-                    },
-                  },
-                },
-                output: {
-                  data: '已完成最近24小时的日志分析，发现3个错误和5个警告',
-                  type: 'END',
-                },
+                key: '2',
+                title: '下载指定的Bilibili视频分集并确保唯一文件名',
+                content: (
+                  <div>
+                    任务已停止
+                    <QuestionCircleOutlined style={{ marginLeft: 4 }} />
+                  </div>
+                ),
+                status: 'error',
+              },
+
+              {
+                key: '3',
+                title: '提取下载的视频帧',
+                status: 'pending',
               },
               {
-                category: 'DeepThink',
-                info: '安全扫描',
-                runId: 'security-scan',
-                output: {
-                  data: '完成系统安全扫描，未发现重大安全隐患',
-                  type: 'END',
-                },
+                key: '4',
+                title: '对提取的视频帧进行文字识别',
+                status: 'pending',
+              },
+              {
+                key: '5',
+                title: '筛选掉OCR识别结果为乱码的图片',
+                status: 'pending',
+              },
+              {
+                key: '6',
+                title: '报告结果并将Word文档发送给用户',
+                status: 'pending',
               },
             ],
           }}

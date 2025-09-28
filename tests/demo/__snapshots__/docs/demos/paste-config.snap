@@ -65,7 +65,7 @@
         >
           <div
             class="ant-md-input-field-background"
-            style="min-height: 0; height: 100%; width: 100%;"
+            style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
           >
             <svg
               fill="none"
@@ -141,10 +141,10 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
-                  style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  style="padding: 12px 8px 12px 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
                   tabindex="-1"
                 >
                   <div
@@ -199,6 +199,8 @@
                 <div
                   class="ant-md-input-field-send-button"
                   data-testid="send-button"
+                  role="button"
+                  tabindex="0"
                 >
                   <svg
                     fill="none"
@@ -241,7 +243,7 @@
         >
           <div
             class="ant-md-input-field-background"
-            style="min-height: 0; height: 100%; width: 100%;"
+            style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
           >
             <svg
               fill="none"
@@ -317,10 +319,10 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
-                  style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  style="padding: 12px 8px 12px 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
                   tabindex="-1"
                 >
                   <div
@@ -375,6 +377,8 @@
                 <div
                   class="ant-md-input-field-send-button"
                   data-testid="send-button"
+                  role="button"
+                  tabindex="0"
                 >
                   <svg
                     fill="none"
@@ -417,7 +421,7 @@
         >
           <div
             class="ant-md-input-field-background"
-            style="min-height: 0; height: 100%; width: 100%;"
+            style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
           >
             <svg
               fill="none"
@@ -493,10 +497,10 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
-                  style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  style="padding: 12px 8px 12px 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
                   tabindex="-1"
                 >
                   <div
@@ -551,6 +555,8 @@
                 <div
                   class="ant-md-input-field-send-button"
                   data-testid="send-button"
+                  role="button"
+                  tabindex="0"
                 >
                   <svg
                     fill="none"
@@ -593,7 +599,7 @@
         >
           <div
             class="ant-md-input-field-background"
-            style="min-height: 0; height: 100%; width: 100%;"
+            style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
           >
             <svg
               fill="none"
@@ -669,10 +675,10 @@
             >
               <div
                 class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
               >
                 <div
-                  style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                  style="padding: 12px 8px 12px 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
                   tabindex="-1"
                 >
                   <div
@@ -727,6 +733,8 @@
                 <div
                   class="ant-md-input-field-send-button"
                   data-testid="send-button"
+                  role="button"
+                  tabindex="0"
                 >
                   <svg
                     fill="none"

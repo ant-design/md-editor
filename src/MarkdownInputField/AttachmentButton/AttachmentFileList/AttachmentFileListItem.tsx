@@ -1,7 +1,7 @@
-﻿import classNames from 'classnames';
+import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React from 'react';
-import { LoadingIcon } from '../../../icons/LoadingIcon';
+import { Loader } from '../../../icons';
 import { AttachmentFile } from '../types';
 import { kbToSize } from '../utils';
 import { AttachmentFileIcon } from './AttachmentFileIcon';
@@ -56,6 +56,7 @@ export const AttachmentFileListItem: React.FC<{
   hashId?: string;
 }> = (props) => {
   const file = props.file;
+
   return (
     <motion.div
       variants={{
@@ -81,7 +82,7 @@ export const AttachmentFileListItem: React.FC<{
               props.hashId,
             )}
           >
-            <LoadingIcon />
+            <Loader />
           </div>
         ) : null}
         {file.status === 'done' ? <AttachmentFileIcon file={file} /> : null}
@@ -98,19 +99,13 @@ export const AttachmentFileListItem: React.FC<{
           >
             {file.name.split('.').slice(0, -1).join('.')}
           </span>
-          <span
-            className={classNames(
-              `${props.prefixCls}-file-name-extension`,
-              props.hashId,
-            )}
-          >
-            .{file.name.split('.').slice(-1)}
-          </span>
         </div>
         <div
           className={classNames(`${props.prefixCls}-file-size`, props.hashId)}
         >
-          {kbToSize(file.size / 1024)}
+          {[file.name.split('.').slice(-1), kbToSize(file.size / 1024)]
+            .filter(Boolean)
+            .join(' | ')}
         </div>
       </div>
       {file.status === 'done' ? (

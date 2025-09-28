@@ -96,7 +96,9 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(container.firstChild).toHaveStyle({ height: '0px' });
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toHaveStyle({ height: '0px' });
   });
 
   it('should render empty list when fileMap is empty', () => {
@@ -109,7 +111,9 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(container.firstChild).toHaveStyle({ height: '0px' });
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toHaveStyle({ height: '0px' });
   });
 
   it('should render file list when files are provided', () => {
@@ -148,7 +152,10 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    const clearButton = screen.getByRole('img', { name: 'delete' });
+    // 通过类名查找清除按钮
+    const clearButton = document.querySelector(
+      '.ant-md-editor-attachment-list-close-icon',
+    );
     expect(clearButton).toBeInTheDocument();
   });
 
@@ -186,8 +193,11 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    const clearButton = screen.getByRole('img', { name: 'delete' });
-    fireEvent.click(clearButton);
+    // 通过类名查找清除按钮并点击
+    const clearButton = document.querySelector(
+      '.ant-md-editor-attachment-list-close-icon',
+    );
+    fireEvent.click(clearButton!);
 
     expect(mockOnClearFileMap).toHaveBeenCalledTimes(1);
   });
@@ -210,7 +220,9 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
+    // 验证加载图标存在 - 通过查找 SVG 元素和 sofa-icons-icon 类名
+    const loadingIcon = document.querySelector('.sofa-icons-icon');
+    expect(loadingIcon).toBeInTheDocument();
     expect(screen.getByText('uploading')).toBeInTheDocument();
   });
 

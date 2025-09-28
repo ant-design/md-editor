@@ -1,5 +1,5 @@
 import { DownloadOutlined } from '@ant-design/icons';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
 import { I18nContext } from '../../../../i18n';
@@ -66,10 +66,15 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
         ) : null}
         {extra}
         {handleDownload ? (
-          <DownloadOutlined
-            className={classNames(`${prefixCls}-download-btn`, hashId)}
-            onClick={handleDownload}
-          />
+          <Tooltip
+            mouseEnterDelay={0.3}
+            title={i18n?.locale?.download || '下载'}
+          >
+            <DownloadOutlined
+              className={classNames(`${prefixCls}-download-btn`, hashId)}
+              onClick={handleDownload}
+            />
+          </Tooltip>
         ) : null}
       </div>
     </div>,

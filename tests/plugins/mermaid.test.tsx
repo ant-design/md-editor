@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import classNames from 'classnames';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -496,7 +497,7 @@ describe('Mermaid Plugin', () => {
             </select>
             <div
               data-testid="mermaid-themed"
-              className={`mermaid theme-${theme}`}
+              className={classNames('mermaid', `theme-${theme}`)}
             >
               graph TD{'\n'}A --{'>'}B
             </div>
@@ -588,7 +589,11 @@ describe('Mermaid Plugin', () => {
             />
             <div
               data-testid="mermaid-responsive"
-              className={`mermaid ${isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop'}`}
+              className={classNames('mermaid', {
+                mobile: isMobile,
+                tablet: isTablet,
+                desktop: !isMobile && !isTablet,
+              })}
               style={{ width: containerWidth }}
             >
               图表内容

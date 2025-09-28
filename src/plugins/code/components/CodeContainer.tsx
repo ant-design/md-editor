@@ -3,6 +3,7 @@
  * 负责代码编辑器的布局、样式和状态管理
  */
 
+import classNames from 'classnames';
 import React, { ReactNode, useRef } from 'react';
 import { CodeNode } from '../../../MarkdownEditor/el';
 
@@ -51,26 +52,22 @@ export function CodeContainer({
         style={{
           padding: hide ? 0 : undefined,
           marginBottom: hide ? 0 : undefined,
-          boxSizing: 'border-box',
           backgroundColor: showBorder
             ? 'rgba(59, 130, 246, 0.1)'
             : hide
               ? 'transparent'
               : 'rgb(252, 252, 252)',
-          maxHeight: 400,
-          overflow: 'auto',
-          position: 'relative',
           height: hide ? 0 : 'auto',
           opacity: hide ? 0 : 1,
-          transition: 'border-color 0.2s ease-in-out',
-          borderRadius: '12px',
-          background: '#FFFFFF',
-          boxShadow:
-            '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
         }}
-        className={`ace-container drag-el ${
-          safeElement.frontmatter ? 'frontmatter' : ''
-        }`}
+        className={classNames(
+          'ace-container',
+          'code-editor-container',
+          'drag-el',
+          {
+            frontmatter: safeElement.frontmatter,
+          },
+        )}
       >
         {children}
       </div>

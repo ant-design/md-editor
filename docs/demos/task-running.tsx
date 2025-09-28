@@ -166,8 +166,6 @@ export default () => {
       </p>
 
       <TaskRunning
-        icon="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
-        iconTooltip="AI助手图标 - 点击查看详情"
         title={currentStatusInfo.title}
         description={currentStatusInfo.description}
         taskStatus={taskStatus}
@@ -200,7 +198,7 @@ export default () => {
             状态1: 任务运行中
           </h4>
           <TaskRunning
-            title={`任务运行中, 已耗时${elapsedTime}。 ${progress}`}
+            title={`任务运行中, 已耗时${elapsedTime}。`}
             description="AI模型正在训练中，请耐心等待..."
             taskStatus={TASK_STATUS.RUNNING}
             taskRunningStatus={TASK_RUNNING_STATUS.RUNNING}

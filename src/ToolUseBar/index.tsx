@@ -1,4 +1,4 @@
-﻿import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { useContext } from 'react';
@@ -17,7 +17,10 @@ interface ToolUseBarProps {
   onActiveKeysChange?: (activeKeys: string[]) => void;
   expandedKeys?: string[];
   defaultExpandedKeys?: string[];
-  onExpandedKeysChange?: (expandedKeys: string[]) => void;
+  onExpandedKeysChange?: (
+    expandedKeys: string[],
+    removedKeys: string[],
+  ) => void;
   testId?: string;
 }
 
@@ -104,7 +107,18 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
       const newExpandedKeys = expanded
         ? [...expandedKeys, id]
         : expandedKeys.filter((key) => key !== id);
+
+      // 计算被移除的键
+      const removedKeys = expandedKeys.filter(
+        (key) => !newExpandedKeys.includes(key),
+      );
+
       setExpandedKeys(newExpandedKeys);
+
+      // 调用回调函数，传递新的展开键列表和被移除的键列表
+      if (onExpandedKeysChange) {
+        onExpandedKeysChange(newExpandedKeys, removedKeys);
+      }
     },
   );
 

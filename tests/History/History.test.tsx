@@ -9,11 +9,6 @@ const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <ConfigProvider>{children}</ConfigProvider>
 );
 
-// Mock 组件
-vi.mock('../../src/icons/HistoryIcon', () => ({
-  HistoryIcon: () => <div data-testid="history-icon">历史图标</div>,
-}));
-
 vi.mock('../../src/History/components', () => ({
   HistoryLoadMore: ({ onLoadMore }: { onLoadMore: () => void }) => (
     <button type="button" data-testid="load-more" onClick={onLoadMore}>
@@ -91,7 +86,9 @@ describe('History 组件', () => {
         </TestWrapper>,
       );
 
-      expect(screen.getByTestId('history-icon')).toBeInTheDocument();
+      // 通过类名查找历史记录图标
+      const historyIcon = document.querySelector('.sofa-icons-icon');
+      expect(historyIcon).toBeInTheDocument();
     });
 
     it('应该正确渲染独立模式', () => {

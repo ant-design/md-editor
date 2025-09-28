@@ -87,13 +87,16 @@ const TestI18nComponent: React.FC<{ locale: any }> = ({ locale }) => {
         {locale?.['chat.history.search'] || '搜索'}
       </div>
       <div data-testid="chat-history-search-placeholder">
-        {locale?.['chat.history.search.placeholder'] || '历史任务'}
+        {locale?.['chat.history.search.placeholder'] || '搜索话题'}
       </div>
       <div data-testid="chat-history-new-chat">
         {locale?.['chat.history.newChat'] || '新对话'}
       </div>
       <div data-testid="chat-history-load-more">
         {locale?.['chat.history.loadMore'] || '查看更多'}
+      </div>
+      <div data-testid="task-history-load-more">
+        {locale?.['task.history.loadMore'] || '查看更多历史'}
       </div>
       <div data-testid="chat-history-history-tasks">
         {locale?.['chat.history.historyTasks'] || '历史任务'}
@@ -237,12 +240,15 @@ describe('Internationalization Tests', () => {
       );
       expect(
         screen.getByTestId('chat-history-search-placeholder'),
-      ).toHaveTextContent('历史任务');
+      ).toHaveTextContent('搜索话题');
       expect(screen.getByTestId('chat-history-new-chat')).toHaveTextContent(
         '新对话',
       );
       expect(screen.getByTestId('chat-history-load-more')).toHaveTextContent(
         '查看更多',
+      );
+      expect(screen.getByTestId('task-history-load-more')).toHaveTextContent(
+        '查看更多历史',
       );
       expect(
         screen.getByTestId('chat-history-history-tasks'),
@@ -382,7 +388,7 @@ describe('Internationalization Tests', () => {
       );
       expect(
         screen.getByTestId('chat-history-search-placeholder'),
-      ).toHaveTextContent('History tasks');
+      ).toHaveTextContent('Search topic');
       expect(screen.getByTestId('chat-history-new-chat')).toHaveTextContent(
         'New Chat',
       );

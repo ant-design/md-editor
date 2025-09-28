@@ -1,4 +1,4 @@
-﻿import { Keyframes } from '@ant-design/cssinjs';
+import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
@@ -305,6 +305,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       boxSizing: 'border-box',
       caretColor: 'var(--color-primary-control-fill-primary)',
       color: 'inherit',
+      font: 'var(--font-text-paragraph-lg)',
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',
@@ -406,13 +407,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       h1: {
         fontWeight: 600,
-        fontSize: '2em',
+        font: 'var(--font-text-h2-base)',
       },
       h2: {
         fontWeight: 600,
-        fontSize: '1.5em',
+        font: 'var(--font-text-h3-base)',
       },
-      h3: { fontWeight: 600, fontSize: '1.25em' },
+      h3: {
+        fontWeight: 600,
+        fontSize: '1.25em',
+        font: 'var(--font-text-h4-base)',
+      },
       h4: { fontWeight: 600, fontSize: '1em' },
       h5: { fontWeight: 600, fontSize: '0.875em' },
       h6: {
@@ -421,7 +426,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-secondary)',
       },
       a: {
-        color: 'var(--color-primary-control-fill-primary)',
+        font: 'var(--font-text-body-lg)',
+        letterSpacing: 'var(--letter-spacing-body-lg, normal)',
+        color: 'var(--color-gray-text-default)',
         backgroundColor: 'transparent',
         textDecoration: 'none',
         '&:hover': {
@@ -514,9 +521,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontFamily: `'Roboto,Mono SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
         margin: '1px 3px',
         wordBreak: 'break-all',
-        fontSize: 'var(--font-size-sm)',
-        fontWeight: 'normal',
-        lineHeight: '160%',
+        font: 'var(--font-text-code-base)',
         letterSpacing: 'normal',
         color: 'var(--color-gray-text-default)',
         alignItems: 'center',
@@ -524,17 +529,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '4px',
         zIndex: 1,
         borderRadius: '6px',
-        background: 'rgba(0, 16, 32, 0.0627)',
+        background: 'var(--color-gray-bg-tip)',
       },
       '& &-comment-comment': {
         display: 'inline-block',
-        background: 'linear-gradient(transparent 65%, rgba(250, 173, 20, 0.4))',
+        background: 'linear-gradient(transparent 65%, rgba(21, 0, 255, 0.15))',
         cursor: 'pointer',
       },
       '& &-comment-highlight': {
         padding: 2,
         borderRadius: '4px',
-        backgroundColor: 'rgba(250, 173, 20, 0.4)',
+        backgroundColor: 'rgba(21, 0, 255, 0.15)',
         borderBottom: 0,
         cursor: 'pointer',
       },
@@ -888,7 +893,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '.ant-md-editor-content .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type span[data-slate-string]':
         {
           borderRight: '0.15em solid var(--color-primary-control-fill-primary)',
-          animation: `${typing.getName()} 3.5s steps(30, end), ${blinkCaret.getName()} 0.5s step-end infinite`,
+          animationName: `${typing.getName()}, ${blinkCaret.getName()}`,
+          animationDuration: '3.5s, 0.5s',
+          animationTimingFunction: 'steps(30, end), step-end',
+          animationIterationCount: '1, infinite',
+          animationFillMode: 'forwards, both',
         },
     },
     [`${token.componentCls}-compact`]: {

@@ -14,22 +14,30 @@ vi.mock('../../src/components/Loading/style', () => ({
 describe('Loading', () => {
   it('should render loading container', () => {
     const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector('.loading-container');
+    const loadingContainer = container.querySelector(
+      '[data-testid="loading-container"]',
+    );
 
     expect(loadingContainer).toBeInTheDocument();
   });
 
   it('should render three loading items', () => {
     const { container } = render(<Loading />);
-    const loadingItems = container.querySelectorAll('.loading-container-item');
+    const loadingItems = container.querySelectorAll(
+      '[data-testid="loading-item"]',
+    );
 
     expect(loadingItems).toHaveLength(3);
   });
 
   it('should apply hashId to container and items', () => {
     const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector('.loading-container');
-    const loadingItems = container.querySelectorAll('.loading-container-item');
+    const loadingContainer = container.querySelector(
+      '[data-testid="loading-container"]',
+    );
+    const loadingItems = container.querySelectorAll(
+      '[data-testid="loading-item"]',
+    );
 
     expect(loadingContainer).toHaveClass('test-hash-id');
     loadingItems.forEach((item) => {
@@ -39,18 +47,24 @@ describe('Loading', () => {
 
   it('should have correct class names', () => {
     const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector('.loading-container');
-    const loadingItems = container.querySelectorAll('.loading-container-item');
+    const loadingContainer = container.querySelector(
+      '[data-testid="loading-container"]',
+    );
+    const loadingItems = container.querySelectorAll(
+      '[data-testid="loading-item"]',
+    );
 
-    expect(loadingContainer).toHaveClass('loading-container');
+    expect(loadingContainer).toHaveClass('ant-loading-container');
     loadingItems.forEach((item) => {
-      expect(item).toHaveClass('loading-container-item');
+      expect(item).toHaveClass('ant-loading-container-item');
     });
   });
 
   it('should render as a loading animation container', () => {
     const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector('.loading-container');
+    const loadingContainer = container.querySelector(
+      '[data-testid="loading-container"]',
+    );
 
     // 检查容器结构
     expect(loadingContainer?.children).toHaveLength(3);

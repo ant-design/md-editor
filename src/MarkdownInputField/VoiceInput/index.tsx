@@ -2,8 +2,8 @@ import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { VoiceIcon } from '../../icons/VoiceIcon';
-import VoicingLottie from '../../icons/VoicingLottie';
+import { MicFill } from '../../icons';
+import VoicingLottie from '../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 
 export type VoiceRecognizer = {
@@ -42,7 +42,10 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   return wrapSSR(
-    <Tooltip title={recording ? '语音输入中，点击可停止。' : '语音输入'}>
+    <Tooltip
+      mouseEnterDelay={0.3}
+      title={recording ? '语音输入中，点击可停止。' : '语音输入'}
+    >
       <div
         data-testid="voice-input-button"
         role="button"
@@ -62,11 +65,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
         }}
       >
         <ErrorBoundary fallback={<div />}>
-          {recording ? (
-            <VoicingLottie size={16} />
-          ) : (
-            <VoiceIcon />
-          )}
+          {recording ? <VoicingLottie size={16} /> : <MicFill />}
         </ErrorBoundary>
       </div>
     </Tooltip>,

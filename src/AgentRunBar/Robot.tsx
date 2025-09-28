@@ -1,7 +1,9 @@
 import classNames from 'classnames';
+import { isString } from 'lodash';
 import React from 'react';
+import RobotIcon from '../components/Robot';
 
-export type RobotStatus = 'default' | 'thinking' | 'dazing';
+export type RobotStatus = 'default' | 'thinking' | 'dazing' | 'pause';
 
 export interface RobotProps {
   /** 机器人状态 */
@@ -51,7 +53,13 @@ export interface RobotProps {
  * - 支持字符串类型的图片URL或React元素
  * - 组件使用 React.memo 进行性能优化
  */
-const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
+const Robot: React.FC<RobotProps> = ({
+  icon,
+  size = 42,
+  status,
+  className,
+  style,
+}) => {
   return (
     <div
       className={classNames(className)}
@@ -80,18 +88,26 @@ const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
     >
       {React.isValidElement(icon) ? (
         icon
-      ) : (
+      ) : icon && isString(icon) ? (
         <img
           style={{
             width: '100%',
             height: '100%',
           }}
-          src={
-            (icon as string) ||
-            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp'
-          }
-          alt="robot"
+          src={icon as string}
         />
+      ) : (
+        <>
+          {status === 'thinking' ? (
+            <div style={{ paddingLeft: 80, marginRight: 50 }}>
+              <RobotIcon status="running" size={84} />
+            </div>
+          ) : (
+            <div style={{ paddingLeft: 27, marginRight: 16 }}>
+              <RobotIcon size={54} style={{ transform: 'rotateY(180deg)' }} />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

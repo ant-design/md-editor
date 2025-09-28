@@ -367,11 +367,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
   if (loading)
     return wrapSSR(
       <div
-        className={cx(
-          `${prefixClass} ${prefixClass}-loading`,
-          className,
-          hashId,
-        )}
+        className={cx(prefixClass, `${prefixClass}-loading`, className, hashId)}
         ref={bubbleListRef}
         style={{
           padding: 24,

@@ -1,11 +1,11 @@
 import { DownOutlined } from '@ant-design/icons';
 import { ConfigProvider, Dropdown, Flex, Tooltip } from 'antd';
+import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
-import { PauseIcon } from '../../../icons/PauseIcon';
-import { PlayIcon } from '../../../icons/PlayIcon';
-import { VoicePlayLottie } from '../../../icons/VoicePlayLottie';
-import { VoicingLottie } from '../../../icons/VoicingLottie';
+import { Pause, Play } from '../../../icons';
+import VoicePlayLottie from '../../../icons/animated/VoicePlayLottie';
+import VoicingLottie from '../../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 import { UseSpeechAdapter } from './types';
 
@@ -101,7 +101,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
       normalizedRateOptions.map((r) => ({
         key: String(r),
         label: (
-          <div className={`${prefixCls}-rateItem ${hashId}`}>
+          <div className={classNames(`${prefixCls}-rateItem`, hashId)}>
             <span>{`${r}x`}</span>
             {r === rate ? <span>✓</span> : null}
           </div>
@@ -125,7 +125,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           onMouseEnter={() => setIsPlayHover(true)}
           onMouseLeave={() => setIsPlayHover(false)}
           onClick={handleClick}
-          className={`${prefixCls}-playBox ${hashId}`}
+          className={classNames(`${prefixCls}-playBox`, hashId)}
           role="button"
           tabIndex={0}
           aria-label={'语音播报'}
@@ -136,15 +136,15 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               {isPlayHover ? (
                 <VoicePlayLottie size={16} autoplay={true} loop={false} />
               ) : (
-                <PlayIcon color="rgb(102, 111, 141)" width={14} />
+                <Play />
               )}
             </Flex>
           </Tooltip>
         </div>
       ) : (
-        <div className={`${prefixCls}-playingWrap ${hashId}`}>
+        <div className={classNames(`${prefixCls}-playingWrap`, hashId)}>
           <div
-            className={`${prefixCls}-playingBox ${hashId}`}
+            className={classNames(`${prefixCls}-playingBox`, hashId)}
             onMouseEnter={handlePlayingMouseEnter}
             onMouseLeave={handlePlayingMouseLeave}
             onClick={handleStop}
@@ -154,11 +154,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           >
             <Tooltip title={tooltipText} mouseEnterDelay={0.1}>
               <Flex align="center" justify="center">
-                {isPlayingHovered ? (
-                  <PauseIcon color="#767E8B" width={14} />
-                ) : (
-                  <VoicingLottie size={16} />
-                )}
+                {isPlayingHovered ? <Pause /> : <VoicingLottie size={16} />}
               </Flex>
             </Tooltip>
           </div>
@@ -172,7 +168,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               },
             }}
           >
-            <div className={`${prefixCls}-rateBox ${hashId}`}>
+            <div className={classNames(`${prefixCls}-rateBox`, hashId)}>
               <span style={{ fontSize: 12 }}>
                 {rate === 1 ? '倍速' : rateDisplay}
               </span>

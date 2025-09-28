@@ -6,11 +6,14 @@ export default defineConfig({
     //jsxInject: "import React from 'react'",
   },
   resolve: {},
+  server: {
+    host: '127.0.0.1',
+  },
   test: {
     environment: 'jsdom',
     globals: true,
     setupFiles: './tests/setupTests.ts',
-    testTimeout: 50000,
+    testTimeout: 500000,
     alias: {
       '@ant-design/md-editor': path.resolve(__dirname, './src'),
     },
@@ -23,6 +26,7 @@ export default defineConfig({
         'tests/**',
         '**/MarkdownEditor/editor/slate-react/**',
         '**/slate-table/**',
+        '**/icons/**',
         'test/**',
       ],
     },

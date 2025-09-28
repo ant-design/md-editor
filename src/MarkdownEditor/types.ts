@@ -81,6 +81,7 @@ export type MarkdownEditorProps = {
   tagInputProps?: {
     enable?: boolean;
     placeholder?: string;
+    type?: 'panel' | 'dropdown';
   } & TagPopupProps;
 
   editorStyle?: React.CSSProperties;
@@ -287,6 +288,16 @@ export type MarkdownEditorProps = {
           anchorOffset: number;
           focusOffset: number;
           refContent: string;
+          selection?: {
+            anchor: {
+              path: number[];
+              offset: number;
+            };
+            focus: {
+              path: number[];
+              offset: number;
+            };
+          };
         },
         newContent: string,
       ) => void;

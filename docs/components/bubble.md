@@ -25,23 +25,183 @@ Bubble 组件是一个功能丰富的聊天消息气泡组件，为现代化对�
 
 ### 基本用法
 
-```tsx | pure
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
-
-const message: MessageBubbleData = {
-  id: '1',
-  role: 'assistant',
-  content: '你好，我是 AI 助手！',
-  createAt: Date.now(),
-  updateAt: Date.now(),
-  meta: {
-    avatar: 'https://example.com/avatar.png',
-    title: 'AI 助手',
+```tsx
+import {
+  Bubble,
+  SuggestionList,
+  MessageBubbleData,
+} from '@ant-design/md-editor';
+import { Card } from 'antd';
+// 创建模拟文件的辅助函数
+const createMockFile = (
+  name: string,
+  type: string,
+  size: number,
+  url: string,
+): AttachmentFile => ({
+  name,
+  type,
+  size,
+  url,
+  lastModified: Date.now(),
+  webkitRelativePath: '',
+  arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+  bytes: () => Promise.resolve(new Uint8Array(0)),
+  text: () => Promise.resolve(''),
+  stream: () => new ReadableStream(),
+  slice: () => new Blob(),
+});
+const props = {
+  time: Date.now(),
+  onLike: () => {
+    message.success('点赞成功');
+  },
+  onDisLike: () => {
+    message.info('点踩成功');
+  },
+  onReply: () => {
+    message.info('回复成功');
+  },
+  onAvatarClick: () => {
+    message.info('头像点击成功');
+  },
+  onDoubleClick: () => {
+    message.info('双击成功');
   },
 };
 
+const message: MessageBubbleData = {
+  id: '1',
+  content:
+    '生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。',
+  createAt: Date.now(),
+  updateAt: Date.now(),
+  preMessage: {
+    id: '2',
+    content:
+      '生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。',
+    createAt: Date.now(),
+    updateAt: Date.now(),
+  },
+  time: Date.now(),
+  meta: {
+    avatar:
+      'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
+    title: 'LUI',
+  },
+  fileMap: new Map<string, AttachmentFile>([
+    [
+      'example-document.pdf',
+      createMockFile(
+        'example-document.pdf',
+        'application/pdf',
+        2048576,
+        'https://example.com/example-document.pdf',
+      ),
+    ],
+    [
+      'preview-image.png',
+      createMockFile(
+        'preview-image.png',
+        'image/png',
+        1048576,
+        'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
+      ),
+    ],
+    [
+      'code-example.js',
+      createMockFile(
+        'code-example.js',
+        'application/javascript',
+        512000,
+        'https://example.com/code-example.js',
+      ),
+    ],
+  ]),
+};
+
 export default () => (
-  <Bubble originData={message} avatar={message.meta} placement="left" />
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 16,
+    }}
+  >
+    <Card title="用户消息">
+      <Bubble
+        style={{
+          flex: 1,
+        }}
+        {...props}
+        originData={message}
+        avatar={message.meta}
+        placement="right"
+        quote={{
+          popupDirection: 'right',
+          fileName: 'utils/helper.ts',
+          lineRange: '12-25',
+          quoteDescription: '这是一个工具函数的引用，用于处理数据格式化',
+          popupDetail: `export const formatData = (data: any) => {
+            if (!data) return null;
+            return {
+              id: data.id,
+              name: data.name,
+              createdAt: new Date(data.created_at)
+            };`,
+        }}
+      />
+    </Card>
+    <Card
+      title="媒体消息"
+      styles={{
+        body: {
+          padding: '0',
+          paddingBottom: 24,
+        },
+      }}
+    >
+      <Bubble
+        style={{
+          flex: 1,
+        }}
+        pure
+        {...props}
+        originData={message}
+        avatar={message.meta}
+        placement="left"
+      />
+      <div
+        style={{
+          paddingLeft: 20,
+          marginTop: -24,
+        }}
+      >
+        <SuggestionList
+          items={[
+            {
+              key: 'qwe',
+              icon: '💸',
+              text: '关税对消费类基金的影响',
+              tooltip: '关税消费',
+            },
+            {
+              key: 'asd',
+              icon: '📝',
+              text: ' 恒生科技指数基金相关新闻',
+            },
+            {
+              key: 'zxc',
+              icon: '📊',
+              text: ' 数据分析与可视化',
+              disabled: true,
+            },
+          ]}
+          onItemClick={() => alert('ask')}
+        />
+      </div>
+    </Card>
+  </div>
 );
 ```
 
@@ -100,6 +260,12 @@ export default () => (
 专门演示 `avatarRender` 功能，展示如何自定义头像的显示方式。
 
 <code src="../demos/bubble/avatar-render-demo.tsx"></code>
+
+### 脚注（Footnote）
+
+展示如何实现脚注弹框及消息底部的脚注汇总功能。
+
+<code src="../demos/bubble/footnote-demo.tsx"></code>
 
 ### 操作区域定制
 

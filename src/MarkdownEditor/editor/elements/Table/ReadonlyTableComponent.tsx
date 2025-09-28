@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react';
 import { I18nContext } from '../../../../i18n';
-import { CopyIcon } from '../../../../icons/CopyIcon';
+import { Copy } from '../../../../icons';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 import { TableNode } from '../../types/Table';
@@ -153,7 +153,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               title={i18n?.locale?.copy || '复制'}
               onClick={handleCopy}
             >
-              <CopyIcon />
+              <Copy />
             </ActionIconBox>
           )}
         </div>

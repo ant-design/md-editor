@@ -16,12 +16,6 @@
       <div
         style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;"
       >
-        <button
-          style="padding: 8px 16px; background-color: rgb(56, 139, 255); color: rgb(255, 255, 255); border-radius: 4px; cursor: pointer;"
-          type="button"
-        >
-          重置数据
-        </button>
         <div
           style="padding: 8px 12px; background-color: rgb(255, 255, 255); border: 1px solid rgb(217, 217, 217); border-radius: 4px; font-size: 12px; color: rgb(102, 102, 102);"
         >
@@ -47,6 +41,7 @@
               class="ant-chart-toolbar-header-actions"
             >
               <span
+                aria-describedby="test-id"
                 aria-label="download"
                 class="anticon anticon-download ant-chart-toolbar-download-btn"
                 role="img"

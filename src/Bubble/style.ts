@@ -1,21 +1,24 @@
-﻿import {
+import {
   ChatTokenType,
-  GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
 } from '../hooks/useStyle';
+import { BubbleProps } from './type';
 
-const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+const genStyle = (
+  token: ChatTokenType,
+  classNames?: BubbleProps['classNames'],
+) => {
   return {
     [token.componentCls]: {
       '&-bubble': {
         position: 'relative',
         maxWidth: '100vw',
-        padding: 'var(--padding-0-5x) var(--padding-3x)',
+        paddingTop: 'var(--padding-3x)',
         marginBottom: 'var(--margin-6x)',
         cursor: 'pointer',
         '&&-compact': {
-          padding: 'var(--padding-0-5x) var(--padding-3x)',
+          padding: 'var(--padding-0-5x)',
         },
       },
 
@@ -23,13 +26,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '12px !important',
         overflow: 'auto',
         padding: 'var(--padding-3x)',
-      },
-      '&:hover': {
-        [`${token.componentCls}-bubble-title-time`]: {
-          visibility: 'visible',
-          opacity: 1,
-          fontWeight: 400,
-        },
       },
       '&-bubble-avatar': {
         width: 40,
@@ -44,16 +40,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--margin-1x)',
-        span: {
+        paddingLeft: '20px',
+        [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
           fontSize: '1em',
           color: 'var(--color-gray-text-default)',
           display: 'flex',
           alignItems: 'center',
         },
-      },
-      '&-bubble-avatar-title-right': {
-        display: 'none',
       },
       '&-bubble-avatar-emoji': {
         fontSize: 24,
@@ -138,7 +132,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        borderRadius: '16px 16px 2px 16px',
+        borderRadius: '16px 2px 16px 16px',
         background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-gray-text-default)',
         '&&-pure': {
@@ -207,13 +201,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @param prefixCls
  * @returns
  */
-export function useStyle(prefixCls?: string) {
+export function useStyle(
+  prefixCls?: string,
+  classNames?: BubbleProps['classNames'],
+) {
   return useEditorStyleRegister('ListItem', (token) => {
     const proChatToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [resetComponent(proChatToken), genStyle(proChatToken)];
+    return [resetComponent(proChatToken), genStyle(proChatToken, classNames)];
   });
 }

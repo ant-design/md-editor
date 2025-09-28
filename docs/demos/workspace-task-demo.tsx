@@ -1,3 +1,4 @@
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Workspace } from '@ant-design/md-editor';
 import React, { useEffect, useState } from 'react';
 
@@ -8,90 +9,45 @@ const WorkspaceTaskDemo: React.FC = () => {
     // 模拟任务数据
     const initialTasks = [
       {
-        category: 'DeepThink',
-        info: '数据分析任务',
-        runId: 'data-analysis-001',
-        output: {
-          data: '正在分析用户行为数据，预计需要 5 分钟...',
-          type: 'RUNNING',
-        },
+        key: '1',
+        title: '创建全面的 Tesla 股票分析任务列表',
+        status: 'success',
       },
       {
-        category: 'ToolCall',
-        info: '文件处理',
-        runId: 'file-process-002',
-        input: {
-          inputArgs: {
-            params: {
-              filePath: '/data/input.csv',
-              outputPath: '/data/output.json',
-              format: 'json',
-            },
-          },
-        },
-        output: {
-          data: '文件处理完成，共处理 1000 条记录',
-          type: 'END',
-        },
+        key: '2',
+        title: '下载指定的Bilibili视频分集并确保唯一文件名',
+        content: (
+          <div>
+            任务已停止
+            <QuestionCircleOutlined style={{ marginLeft: 4 }} />
+          </div>
+        ),
+        status: 'error',
+      },
+
+      {
+        key: '3',
+        title: '提取下载的视频帧',
+        status: 'pending',
       },
       {
-        category: 'DeepThink',
-        info: '模型训练',
-        runId: 'model-training-003',
-        output: {
-          data: '模型训练进度: 75% (150/200 epochs)',
-          type: 'RUNNING',
-        },
+        key: '4',
+        title: '对提取的视频帧进行文字识别',
+        status: 'pending',
+      },
+      {
+        key: '5',
+        title: '筛选掉OCR识别结果为乱码的图片',
+        status: 'pending',
+      },
+      {
+        key: '6',
+        title: '报告结果并将Word文档发送给用户',
+        status: 'pending',
       },
     ];
 
     setTasks(initialTasks);
-
-    // 模拟任务状态更新
-    const interval = setInterval(() => {
-      setTasks((prev) =>
-        prev.map((task) => {
-          if (
-            task.runId === 'data-analysis-001' &&
-            task.output.type === 'RUNNING'
-          ) {
-            return {
-              ...task,
-              output: {
-                data: '数据分析完成，发现 3 个异常模式',
-                type: 'END',
-              },
-            };
-          }
-          if (
-            task.runId === 'model-training-003' &&
-            task.output.type === 'RUNNING'
-          ) {
-            const currentProgress = parseInt(task.output.data.match(/\d+/)[0]);
-            if (currentProgress >= 200) {
-              return {
-                ...task,
-                output: {
-                  data: '模型训练完成，准确率达到 95.2%',
-                  type: 'END',
-                },
-              };
-            } else {
-              return {
-                ...task,
-                output: {
-                  data: `模型训练进度: ${Math.min(currentProgress + 5, 200)}/200 epochs`,
-                  type: 'RUNNING',
-                },
-              };
-            }
-          }
-          return task;
-        }),
-      );
-    }, 3000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -101,13 +57,10 @@ const WorkspaceTaskDemo: React.FC = () => {
           tab={{
             key: 'tasks',
             title: '任务列表',
-            count: tasks.filter((t) => t.output.type === 'RUNNING').length,
+            count: tasks.filter((t) => t.status === 'loading').length,
           }}
           data={{
-            content: tasks,
-            thoughtChainListProps: {
-              style: { maxHeight: '500px', overflow: 'auto' },
-            },
+            items: tasks,
           }}
         />
       </Workspace>

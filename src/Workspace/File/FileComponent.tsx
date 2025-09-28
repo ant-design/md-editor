@@ -1,13 +1,5 @@
+import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
 import {
-  DownloadOutlined,
-  DownOutlined,
-  ExportOutlined,
-  EyeOutlined,
-  RightOutlined,
-  SearchOutlined,
-} from '@ant-design/icons';
-import {
-  Alert,
   Button,
   ConfigProvider,
   Image,
@@ -15,18 +7,27 @@ import {
   Spin,
   Tooltip,
   Typography,
+  message,
 } from 'antd';
 
 import { Empty } from 'antd';
+import classNames from 'classnames';
 import React, { type FC, useContext, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
+import {
+  ChevronDown as DownIcon,
+  Download as DownloadIcon,
+  Eye as EyeIcon,
+  ChevronRight as RightIcon,
+  MessageSquareShare as ShareIcon,
+} from '../../icons';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import { fileTypeProcessor, isImageFile } from './FileTypeProcessor';
 import { PreviewComponent } from './PreviewComponent';
 import { useFileStyle } from './style';
-import { generateUniqueId, getFileTypeIcon } from './utils';
+import { generateUniqueId, getFileTypeIcon, getGroupIcon } from './utils';
 
 // 通用的键盘事件处理函数
 const handleKeyboardEvent = (
@@ -78,6 +79,21 @@ const handleFileDownload = (file: FileNode) => {
   }
 };
 
+// 通用的默认分享处理函数
+const handleDefaultShare = async (file: FileNode, locale?: any) => {
+  try {
+    const shareUrl = file.url || file.previewUrl || window.location.href;
+    await navigator.clipboard.writeText(shareUrl);
+    message.success({
+      icon: <CheckOutlined style={{ fontSize: 16 }} />,
+      content: locale?.['workspace.file.linkCopied'] || '已复制链接',
+    });
+  } catch (error) {
+    // 如果复制失败，显示错误提示
+    message.error(locale?.['workspace.file.copyFailed'] || '复制失败');
+  }
+};
+
 // 确保节点有唯一ID的辅助函数
 const ensureNodeWithId = <T extends FileNode | GroupNode>(node: T): T => ({
   ...node,
@@ -115,6 +131,43 @@ const AccessibleButton: FC<AccessibleButtonProps> = ({
   </div>
 );
 
+// 搜索框组件 - 确保在所有渲染路径中保持一致
+interface SearchInputProps {
+  keyword?: string;
+  onChange?: (keyword: string) => void;
+  searchPlaceholder?: string;
+  prefixCls: string;
+  hashId: string;
+  locale?: any;
+}
+
+const SearchInput: FC<SearchInputProps> = React.memo(
+  ({ keyword, onChange, searchPlaceholder, prefixCls, hashId, locale }) => {
+    const inputRef = useRef<any>(null);
+
+    return (
+      <div className={classNames(`${prefixCls}-search`, hashId)}>
+        <Input
+          ref={inputRef}
+          key="file-search-input" // 添加稳定的 key
+          style={{ marginBottom: 8 }}
+          allowClear
+          placeholder={
+            searchPlaceholder ||
+            locale?.['workspace.searchPlaceholder'] ||
+            '搜索文件名'
+          }
+          prefix={<SearchOutlined />}
+          value={keyword ?? ''}
+          onChange={(e) => onChange?.(e.target.value)}
+        />
+      </div>
+    );
+  },
+);
+
+SearchInput.displayName = 'SearchInput';
+
 // 文件项组件
 const FileItemComponent: FC<{
   file: FileNode;
@@ -127,22 +180,25 @@ const FileItemComponent: FC<{
   ) => void;
   prefixCls?: string;
   hashId?: string;
-}> = ({
-  file,
-  onClick,
-  onDownload,
-  onPreview,
-  onShare,
-  prefixCls = 'workspace-file',
-  hashId,
-}) => {
+}> = ({ file, onClick, onDownload, onPreview, onShare, prefixCls, hashId }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
   // 确保文件有唯一ID
   const fileWithId = ensureNodeWithId(file);
   const fileTypeInfo = fileTypeProcessor.inferFileType(fileWithId);
 
   const handleClick = () => {
-    onClick?.(fileWithId);
+    // 如果有传入 onClick 事件，优先使用
+    if (onClick) {
+      onClick(fileWithId);
+      return;
+    }
+
+    // 如果没有传入 onClick 事件，默认打开预览页面
+    if (onPreview) {
+      onPreview(fileWithId);
+    }
   };
 
   // 判断是否显示下载按钮：优先使用用户 canDownload；否则当存在 onDownload/url/content/file 时显示
@@ -174,10 +230,18 @@ const FileItemComponent: FC<{
 
   const handleShare = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onShare?.(fileWithId, {
-      anchorEl: e.currentTarget as HTMLElement,
-      origin: 'list',
-    });
+
+    // 如果有自定义的分享方法，优先使用
+    if (onShare) {
+      onShare(fileWithId, {
+        anchorEl: e.currentTarget as HTMLElement,
+        origin: 'list',
+      });
+      return;
+    }
+
+    // 使用默认分享行为
+    handleDefaultShare(fileWithId, locale);
   };
 
   // 判断是否显示预览按钮：
@@ -198,47 +262,71 @@ const FileItemComponent: FC<{
     );
   })();
 
-  // 分享按钮仅在存在 onShare 且文件 canShare 为 true 时显示
+  // 分享按钮仅在文件 canShare 为 true 时显示
   const showShareButton = fileWithId.canShare === true;
 
   return (
     <AccessibleButton
       icon={
         <>
-          <div className={`${prefixCls}-item-icon ${hashId}`}>
+          <div className={classNames(`${finalPrefixCls}-item-icon`, hashId)}>
             {getFileTypeIcon(
               fileTypeInfo.fileType,
               fileWithId.icon,
               fileWithId.name,
             )}
           </div>
-          <div className={`${prefixCls}-item-info ${hashId}`}>
-            <div className={`${prefixCls}-item-name ${hashId}`}>
+          <div className={classNames(`${finalPrefixCls}-item-info`, hashId)}>
+            <div className={classNames(`${finalPrefixCls}-item-name`, hashId)}>
               <Typography.Text ellipsis={{ tooltip: fileWithId.name }}>
                 {fileWithId.name}
               </Typography.Text>
             </div>
-            <div className={`${prefixCls}-item-details ${hashId}`}>
+            <div
+              className={classNames(`${finalPrefixCls}-item-details`, hashId)}
+            >
               <Typography.Text type="secondary" ellipsis>
-                <span className={`${prefixCls}-item-type ${hashId}`}>
+                <span
+                  className={classNames(`${finalPrefixCls}-item-type`, hashId)}
+                >
                   {fileTypeInfo.displayType || fileTypeInfo.fileType}
                 </span>
                 {fileWithId.size && (
                   <>
-                    <span className={`${prefixCls}-item-separator ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-separator`,
+                        hashId,
+                      )}
+                    >
                       |
                     </span>
-                    <span className={`${prefixCls}-item-size ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-size`,
+                        hashId,
+                      )}
+                    >
                       {formatFileSize(fileWithId.size)}
                     </span>
                   </>
                 )}
                 {fileWithId.lastModified && (
                   <>
-                    <span className={`${prefixCls}-item-separator ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-separator`,
+                        hashId,
+                      )}
+                    >
                       |
                     </span>
-                    <span className={`${prefixCls}-item-time ${hashId}`}>
+                    <span
+                      className={classNames(
+                        `${finalPrefixCls}-item-time`,
+                        hashId,
+                      )}
+                    >
                       {formatLastModified(fileWithId.lastModified)}
                     </span>
                   </>
@@ -247,40 +335,58 @@ const FileItemComponent: FC<{
             </div>
           </div>
           <div
-            className={`${prefixCls}-item-actions ${hashId}`}
+            className={classNames(`${finalPrefixCls}-item-actions`, hashId)}
             onClick={(e) => e.stopPropagation()}
           >
             {showPreviewButton && (
-              <Tooltip title={locale?.['workspace.file.preview'] || '预览'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.preview'] || '预览'}
+              >
                 <Button
                   size="small"
                   type="text"
-                  className={`${prefixCls}-item-action-btn ${hashId}`}
-                  icon={<EyeOutlined />}
+                  className={classNames(
+                    `${finalPrefixCls}-item-action-btn`,
+                    hashId,
+                  )}
+                  icon={<EyeIcon />}
                   onClick={handlePreview}
                   aria-label={locale?.['workspace.file.preview'] || '预览'}
                 />
               </Tooltip>
             )}
             {showShareButton && (
-              <Tooltip title={locale?.['workspace.file.share'] || '分享'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.share'] || '分享'}
+              >
                 <Button
                   size="small"
                   type="text"
-                  className={`${prefixCls}-item-action-btn ${hashId}`}
-                  icon={<ExportOutlined />}
+                  className={classNames(
+                    `${finalPrefixCls}-item-action-btn`,
+                    hashId,
+                  )}
+                  icon={<ShareIcon />}
                   onClick={handleShare}
                   aria-label={locale?.['workspace.file.share'] || '分享'}
                 />
               </Tooltip>
             )}
             {showDownloadButton && (
-              <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
                 <Button
                   size="small"
                   type="text"
-                  className={`${prefixCls}-item-action-btn ${hashId}`}
-                  icon={<DownloadOutlined />}
+                  className={classNames(
+                    `${finalPrefixCls}-item-action-btn`,
+                    hashId,
+                  )}
+                  icon={<DownloadIcon />}
                   onClick={handleDownload}
                   aria-label={locale?.['workspace.file.download'] || '下载'}
                 />
@@ -290,7 +396,7 @@ const FileItemComponent: FC<{
         </>
       }
       onClick={handleClick}
-      className={`${prefixCls}-item ${hashId}`}
+      className={classNames(`${finalPrefixCls}-item`, hashId)}
       ariaLabel={`${locale?.['workspace.file'] || '文件'}：${fileWithId.name}`}
     />
   );
@@ -303,14 +409,10 @@ const GroupHeader: FC<{
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   prefixCls?: string;
   hashId?: string;
-}> = ({
-  group,
-  onToggle,
-  onGroupDownload,
-  prefixCls = 'workspace-file',
-  hashId,
-}) => {
+}> = ({ group, onToggle, onGroupDownload, prefixCls, hashId }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
   const groupTypeInfo = fileTypeProcessor.inferFileType(group);
   const groupType = group.type || groupTypeInfo.fileType;
 
@@ -323,51 +425,86 @@ const GroupHeader: FC<{
     onGroupDownload?.(group.children, groupType);
   };
 
-  const CollapseIcon = group.collapsed ? RightOutlined : DownOutlined;
+  const CollapseIcon = group.collapsed ? RightIcon : DownIcon;
 
-  // 获取分组的代表性文件名，用于决定图标
-  const getRepresentativeFileName = (): string | undefined => {
-    if (group.children.length === 0) return undefined;
-    // 优先使用第一个文件的名称
-    return group.children[0].name;
-  };
+  // 获取分组图标
+  const groupIcon = getGroupIcon(group, groupType, group.icon);
+
+  // 判断是否显示下载按钮：优先使用用户 canDownload；否则当存在 onGroupDownload 时显示
+  const showDownloadButton = (() => {
+    if (group.canDownload !== undefined) {
+      return group.canDownload;
+    }
+    return Boolean(onGroupDownload);
+  })();
 
   return (
     <AccessibleButton
       icon={
         <>
-          <div className={`${prefixCls}-group-header-left ${hashId}`}>
+          <div
+            className={classNames(
+              `${finalPrefixCls}-group-header-left`,
+              hashId,
+            )}
+          >
             <CollapseIcon
-              className={`${prefixCls}-group-toggle-icon ${hashId}`}
-            />
-            <div className={`${prefixCls}-group-type-icon ${hashId}`}>
-              {getFileTypeIcon(
-                groupType,
-                group.icon,
-                getRepresentativeFileName(),
+              className={classNames(
+                `${finalPrefixCls}-group-toggle-icon`,
+                hashId,
               )}
+            />
+            <div
+              className={classNames(
+                `${finalPrefixCls}-group-type-icon`,
+                hashId,
+              )}
+            >
+              {groupIcon}
             </div>
-            <span className={`${prefixCls}-group-type-name ${hashId}`}>
+            <span
+              className={classNames(
+                `${finalPrefixCls}-group-type-name`,
+                hashId,
+              )}
+            >
               {group.name}
             </span>
           </div>
-          <div className={`${prefixCls}-group-header-right ${hashId}`}>
-            <span className={`${prefixCls}-group-count ${hashId}`}>
+          <div
+            className={classNames(
+              `${finalPrefixCls}-group-header-right`,
+              hashId,
+            )}
+          >
+            <span
+              className={classNames(`${finalPrefixCls}-group-count`, hashId)}
+            >
               {group.children.length}
             </span>
-            <Button
-              size="small"
-              type="text"
-              className={`${prefixCls}-group-action-btn ${hashId}`}
-              icon={<DownloadOutlined />}
-              onClick={handleDownload}
-              aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
-            />
+            {showDownloadButton && (
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
+                <Button
+                  size="small"
+                  type="text"
+                  className={classNames(
+                    `${finalPrefixCls}-group-action-btn`,
+                    hashId,
+                  )}
+                  icon={<DownloadIcon />}
+                  onClick={handleDownload}
+                  aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
+                />
+              </Tooltip>
+            )}
           </div>
         </>
       }
       onClick={handleToggle}
-      className={`${prefixCls}-group-header ${hashId}`}
+      className={classNames(`${finalPrefixCls}-group-header`, hashId)}
       ariaLabel={`${group.collapsed ? locale?.['workspace.expand'] || '展开' : locale?.['workspace.collapse'] || '收起'}${group.name}${locale?.['workspace.group'] || '分组'}`}
     />
   );
@@ -395,20 +532,22 @@ const FileGroupComponent: FC<{
   onFileClick,
   onPreview,
   onShare,
-  prefixCls = 'workspace-file',
+  prefixCls,
   hashId,
 }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
   return (
-    <div className={`${prefixCls}-container--group ${hashId}`}>
+    <div className={classNames(`${finalPrefixCls}-container--group`, hashId)}>
       <GroupHeader
         group={group}
         onToggle={onToggle}
         onGroupDownload={onGroupDownload}
-        prefixCls={prefixCls}
+        prefixCls={finalPrefixCls}
         hashId={hashId}
       />
       {!group.collapsed && (
-        <div className={`${prefixCls}-group-content ${hashId}`}>
+        <div className={classNames(`${finalPrefixCls}-group-content`, hashId)}>
           {group.children.map((file) => (
             <FileItemComponent
               key={file.id}
@@ -417,7 +556,7 @@ const FileGroupComponent: FC<{
               onDownload={onDownload}
               onPreview={onPreview}
               onShare={onShare}
-              prefixCls={prefixCls}
+              prefixCls={finalPrefixCls}
               hashId={hashId}
             />
           ))}
@@ -527,7 +666,6 @@ export const FileComponent: FC<{
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
     useState<React.ReactNode | null>(null);
-
   const [customPreviewHeader, setCustomPreviewHeader] =
     useState<React.ReactNode | null>(null);
   // 标题区域文件信息覆盖，仅影响展示
@@ -536,10 +674,7 @@ export const FileComponent: FC<{
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
     src: string;
-  }>({
-    visible: false,
-    src: '',
-  });
+  }>({ visible: false, src: '' });
   // 添加内部状态来管理分组的折叠状态
   const [collapsedGroups, setCollapsedGroups] = useState<
     Record<string, boolean>
@@ -599,11 +734,6 @@ export const FileComponent: FC<{
     handleFileDownload(file);
   };
 
-  // 预览页面的分享（供预览页调用）
-  const handleShareInPreview = (file: FileNode) => {
-    onShare?.(file);
-  };
-
   // 预览文件处理
   const handlePreview = async (file: FileNode) => {
     // 如果用户提供了预览方法，尝试使用用户的方法
@@ -611,19 +741,10 @@ export const FileComponent: FC<{
       // 立刻进入预览页并展示 loading
       const currentCallId = ++previewRequestIdRef.current;
       setPreviewFile(file);
-      setCustomPreviewContent(
-        <div style={{ display: 'flex', justifyContent: 'center', padding: 24 }}>
-          <Spin
-            size="large"
-            tip={locale?.['workspace.loadingPreview'] || '正在加载预览...'}
-          />
-        </div>,
-      );
+
       try {
         const previewData = await onPreview(file);
-        // 如果在等待过程中用户已返回列表或触发了新的预览请求，忽略本次结果
         if (previewRequestIdRef.current !== currentCallId) return;
-
         // 当用户返回 false：阻止内部预览逻辑，交由外部处理（如自定义弹窗）
         if (previewData === false) {
           setCustomPreviewContent(null);
@@ -631,7 +752,6 @@ export const FileComponent: FC<{
           setPreviewFile(null);
           return;
         }
-
         if (previewData) {
           // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
           if (
@@ -640,14 +760,19 @@ export const FileComponent: FC<{
             typeof previewData === 'number' ||
             typeof previewData === 'boolean'
           ) {
-            // 如果自定义内容是 ReactElement，注入控制头部/返回/下载的方法
             const content = React.isValidElement(previewData)
               ? React.cloneElement(previewData as React.ReactElement, {
                   setPreviewHeader: (header: React.ReactNode) =>
                     setCustomPreviewHeader(header),
                   back: handleBackToList,
                   download: () => handleDownloadInPreview(file),
-                  share: () => handleShareInPreview(file),
+                  share: () => {
+                    if (onShare) {
+                      onShare(file);
+                    } else {
+                      handleDefaultShare(file, locale);
+                    }
+                  },
                 })
               : (previewData as React.ReactNode);
             setCustomPreviewHeader(null);
@@ -661,37 +786,19 @@ export const FileComponent: FC<{
             setCustomPreviewHeader(null);
             setPreviewFile(previewData as FileNode);
           } else {
-            // 非法返回值：忽略并按默认逻辑（使用当前文件预览）
             setCustomPreviewContent(null);
             setCustomPreviewHeader(null);
             setPreviewFile(file);
           }
           return;
         }
-        // 如果用户方法没有返回值，继续使用内部预览逻辑（当前文件）
         setCustomPreviewContent(null);
         setPreviewFile(file);
         return;
       } catch (err) {
         if (previewRequestIdRef.current !== currentCallId) return;
-
-        setCustomPreviewContent(
-          <div style={{ padding: 24 }}>
-            <Alert
-              type="error"
-              message={
-                locale?.['workspace.previewLoadFailed'] || '预览加载失败'
-              }
-              description={
-                err instanceof Error
-                  ? err.message
-                  : locale?.['workspace.previewError'] ||
-                    '获取预览内容时发生错误'
-              }
-              showIcon
-            />
-          </div>,
-        );
+        setCustomPreviewContent(null);
+        setPreviewFile(file);
         return;
       }
     }
@@ -732,44 +839,44 @@ export const FileComponent: FC<{
   const safeNodes = nodes || [];
   const hasKeyword = Boolean((keyword ?? '').trim());
 
-  if ((!nodes || nodes.length === 0) && !loading) {
-    return wrapSSR(
-      <div className={`${prefixCls}-container ${hashId}`}>
-        {showSearch && (
-          <div className={`${prefixCls}-search ${hashId}`}>
-            <Input
-              style={{ marginBottom: 8 }}
-              allowClear
-              placeholder={
-                searchPlaceholder ||
-                locale?.['workspace.searchPlaceholder'] ||
-                '搜索文件名'
-              }
-              prefix={<SearchOutlined />}
-              value={keyword ?? ''}
-              onChange={(e) => onChange?.(e.target.value)}
-            />
-          </div>
-        )}
-        <div className={`${prefixCls}-empty ${hashId}`}>
-          {hasKeyword ? (
-            <Typography.Text type="secondary">
-              {(
-                locale?.['workspace.noResultsFor'] ||
-                `未找到与「${keyword}」匹配的结果`
-              ).replace('${keyword}', String(keyword))}
-            </Typography.Text>
-          ) : typeof emptyRender === 'function' ? (
-            emptyRender()
-          ) : (
-            (emptyRender ?? (
-              <Empty description={locale?.['workspace.empty'] || 'No data'} />
-            ))
-          )}
-        </div>
-      </div>,
+  // 渲染搜索框组件 - 确保在所有情况下都保持一致
+  const renderSearchInput = () => {
+    if (!showSearch) return null;
+    return (
+      <SearchInput
+        keyword={keyword}
+        onChange={onChange}
+        searchPlaceholder={searchPlaceholder}
+        prefixCls={prefixCls}
+        hashId={hashId}
+        locale={locale}
+      />
     );
-  }
+  };
+
+  // 渲染空状态内容
+  const renderEmptyContent = () => {
+    if (hasKeyword) {
+      return (
+        <Typography.Text type="secondary">
+          {(
+            locale?.['workspace.noResultsFor'] ||
+            `未找到与「${keyword}」匹配的结果`
+          ).replace('${keyword}', String(keyword))}
+        </Typography.Text>
+      );
+    }
+
+    if (typeof emptyRender === 'function') {
+      return emptyRender();
+    }
+
+    return (
+      emptyRender ?? (
+        <Empty description={locale?.['workspace.empty'] || 'No data'} />
+      )
+    );
+  };
 
   // 图片预览组件
   const ImagePreviewComponent = (
@@ -793,15 +900,16 @@ export const FileComponent: FC<{
           file={previewFile}
           onBack={handleBack}
           onDownload={handleDownloadInPreview}
-          onShare={
-            onShare
-              ? (file, options) =>
-                  onShare(file, {
-                    anchorEl: options?.anchorEl,
-                    origin: 'preview',
-                  })
-              : undefined
-          }
+          onShare={(file, options) => {
+            if (onShare) {
+              onShare(file, {
+                anchorEl: options?.anchorEl,
+                origin: 'preview',
+              });
+            } else {
+              handleDefaultShare(file, locale);
+            }
+          }}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
           headerFileOverride={headerFileOverride || undefined}
@@ -812,116 +920,90 @@ export const FileComponent: FC<{
     );
   }
 
-  // 渲染文件列表
+  // 渲染文件内容
+  const renderFileContent = () => {
+    if ((!nodes || nodes.length === 0) && !loading) {
+      return (
+        <div className={classNames(`${prefixCls}-empty`, hashId)}>
+          {renderEmptyContent()}
+        </div>
+      );
+    }
+
+    if (safeNodes.length === 0) {
+      return (
+        <div className={classNames(`${prefixCls}-empty`, hashId)}>
+          {renderEmptyContent()}
+        </div>
+      );
+    }
+
+    return safeNodes.map((node: FileNode | GroupNode) => {
+      const nodeWithId = ensureNodeWithId(node);
+
+      if ('children' in nodeWithId) {
+        // 分组节点，使用内部状态覆盖外部的 collapsed 属性
+        const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
+        const groupType = nodeWithId.type || nodeTypeInfo.fileType;
+        const groupNode: GroupNode = {
+          ...nodeWithId,
+          collapsed: collapsedGroups[groupType] ?? nodeWithId.collapsed,
+          // 确保子节点也有唯一ID
+          children: nodeWithId.children.map(ensureNodeWithId),
+        };
+        return (
+          <FileGroupComponent
+            key={nodeWithId.id}
+            group={groupNode}
+            onToggle={handleToggleGroup}
+            onGroupDownload={onGroupDownload}
+            onDownload={onDownload}
+            onFileClick={onFileClick}
+            onPreview={handlePreview}
+            onShare={onShare}
+            prefixCls={prefixCls}
+            hashId={hashId}
+          />
+        );
+      }
+
+      // 文件节点
+      return (
+        <FileItemComponent
+          key={nodeWithId.id}
+          file={nodeWithId as FileNode}
+          onClick={onFileClick}
+          onDownload={onDownload}
+          onShare={onShare}
+          onPreview={handlePreview}
+          prefixCls={prefixCls}
+          hashId={hashId}
+        />
+      );
+    });
+  };
+
+  // 统一的渲染逻辑 - 确保搜索框位置稳定
   return wrapSSR(
     <>
       {loading && loadingRender ? (
         // 使用自定义loading渲染函数
-        <div className={`${prefixCls}-container ${hashId}`}>
-          {showSearch && (
-            <div className={`${prefixCls}-search ${hashId}`}>
-              <Input
-                style={{ marginBottom: 8 }}
-                allowClear
-                placeholder={
-                  searchPlaceholder ||
-                  locale?.['workspace.searchPlaceholder'] ||
-                  '搜索文件名'
-                }
-                prefix={<SearchOutlined />}
-                value={keyword ?? ''}
-                onChange={(e) => onChange?.(e.target.value)}
-              />
-            </div>
-          )}
+        <div
+          className={classNames(`${prefixCls}-container`, hashId)}
+          data-testid="file-component"
+        >
+          {renderSearchInput()}
           {loadingRender()}
         </div>
       ) : (
         // 使用默认的Spin组件
         <Spin spinning={!!loading}>
-          <div className={`${prefixCls}-container ${hashId}`}>
-            {showSearch && (
-              <div className={`${prefixCls}-search ${hashId}`}>
-                <Input
-                  style={{ marginBottom: 8 }}
-                  allowClear
-                  placeholder={
-                    searchPlaceholder ||
-                    locale?.['workspace.searchPlaceholder'] ||
-                    '搜索文件名'
-                  }
-                  prefix={<SearchOutlined />}
-                  value={keyword ?? ''}
-                  onChange={(e) => onChange?.(e.target.value)}
-                />
-              </div>
-            )}
-            {safeNodes.length === 0 ? (
-              <div className={`${prefixCls}-empty ${hashId}`}>
-                {hasKeyword ? (
-                  <Typography.Text type="secondary">
-                    {(
-                      locale?.['workspace.noResultsFor'] ||
-                      `未找到与「${keyword}」匹配的结果`
-                    ).replace('${keyword}', String(keyword))}
-                  </Typography.Text>
-                ) : typeof emptyRender === 'function' ? (
-                  emptyRender()
-                ) : (
-                  (emptyRender ?? (
-                    <Empty
-                      description={locale?.['workspace.empty'] || 'No data'}
-                    />
-                  ))
-                )}
-              </div>
-            ) : (
-              safeNodes.map((node: FileNode | GroupNode) => {
-                const nodeWithId = ensureNodeWithId(node);
-
-                if ('children' in nodeWithId) {
-                  // 分组节点，使用内部状态覆盖外部的 collapsed 属性
-                  const nodeTypeInfo =
-                    fileTypeProcessor.inferFileType(nodeWithId);
-                  const groupNode: GroupNode = {
-                    ...nodeWithId,
-                    collapsed:
-                      collapsedGroups[nodeTypeInfo.fileType] ??
-                      nodeWithId.collapsed,
-                    // 确保子节点也有唯一ID
-                    children: nodeWithId.children.map(ensureNodeWithId),
-                  };
-                  return (
-                    <FileGroupComponent
-                      key={nodeWithId.id}
-                      group={groupNode}
-                      onToggle={handleToggleGroup}
-                      onGroupDownload={onGroupDownload}
-                      onDownload={onDownload}
-                      onFileClick={onFileClick}
-                      onPreview={handlePreview}
-                      onShare={onShare}
-                      prefixCls={prefixCls}
-                      hashId={hashId}
-                    />
-                  );
-                }
-
-                // 文件节点
-                return (
-                  <FileItemComponent
-                    key={nodeWithId.id}
-                    file={nodeWithId as FileNode}
-                    onClick={onFileClick}
-                    onDownload={onDownload}
-                    onShare={onShare}
-                    onPreview={handlePreview}
-                    prefixCls={prefixCls}
-                    hashId={hashId}
-                  />
-                );
-              })
-            )}
+          <div
+            className={classNames(`${prefixCls}-container`, hashId)}
+            data-testid="file-component"
+          >
+            {renderSearchInput()}
+            {renderFileContent()}
           </div>
         </Spin>
       )}

@@ -1,7 +1,7 @@
 ﻿import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext, useMemo } from 'react';
-import { AttachmentIcon } from '../../icons/AttachmentIcon';
+import { Paperclip } from '../../icons';
 import AttachmentButtonPopover, {
   AttachmentButtonPopoverProps,
   SupportedFileFormats,
@@ -62,6 +62,23 @@ export type AttachmentButtonProps = {
    * 是否禁用附件上传按钮
    */;
   disabled?: boolean;
+
+  /**
+   * 自定义渲染函数，用于完全替换默认的 AttachmentButtonPopover
+   * @param children - 需要包装的子元素（通常是 Paperclip 图标）
+   * @param supportedFormat - 支持的文件格式配置
+   * @returns 自定义的渲染组件
+   * @example
+   * const customRender = ({ children, supportedFormat }) => (
+   *   <Tooltip title="自定义上传提示">
+   *     {children}
+   *   </Tooltip>
+   * );
+   */
+  render?: (props: {
+    children: React.ReactNode;
+    supportedFormat?: AttachmentButtonPopoverProps['supportedFormat'];
+  }) => React.ReactElement;
 
   /**
    * 删除文件的回调函数
@@ -176,13 +193,34 @@ export const upLoadFileToServer = async (
  * @param {(file: AttachmentFile) => Promise<string>} [props.upload] - 文件上传处理函数，返回文件URL的Promise
  * @param {Array<{icon: React.ReactNode, type: string, maxSize: number, extensions: string[]}>} [props.supportedFormats] - 支持的文件格式配置，
  *   如不提供则使用默认配置（包括图片、文档、音频、视频格式）
+ * @param {function} [props.render] - 自定义渲染函数，用于完全替换默认的 AttachmentButtonPopover
  *
  * @example
+ * // 使用默认 Popover
  * ```tsx
  * <AttachmentButton
  *   fileMap={fileMap}
  *   onFileMapChange={handleFileMapChange}
  *   upload={uploadFileToServer}
+ * />
+ * ```
+ *
+ * @example
+ * // 使用自定义渲染函数
+ * ```tsx
+ * const customRender = ({ children, supportedFormat }) => (
+ *   <Tooltip title={`支持 ${supportedFormat?.type} 格式`}>
+ *     <div className="custom-attachment-wrapper">
+ *       {children}
+ *     </div>
+ *   </Tooltip>
+ * );
+ *
+ * <AttachmentButton
+ *   fileMap={fileMap}
+ *   onFileMapChange={handleFileMapChange}
+ *   upload={uploadFileToServer}
+ *   render={customRender}
  * />
  * ```
  *
@@ -217,9 +255,16 @@ export const AttachmentButton: React.FC<
       }}
       data-testid="attachment-button"
     >
-      <AttachmentButtonPopover supportedFormat={supportedFormat}>
-        <AttachmentIcon />
-      </AttachmentButtonPopover>
+      {props.render ? (
+        props.render({
+          children: <Paperclip />,
+          supportedFormat: supportedFormat,
+        })
+      ) : (
+        <AttachmentButtonPopover supportedFormat={supportedFormat}>
+          <Paperclip />
+        </AttachmentButtonPopover>
+      )}
     </div>,
   );
 };

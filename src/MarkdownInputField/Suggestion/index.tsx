@@ -1,4 +1,4 @@
-﻿import { Dropdown, Spin } from 'antd';
+import { Dropdown, Spin } from 'antd';
 import { useMergedState } from 'rc-util';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRefFunction } from '../../hooks/useRefFunction';

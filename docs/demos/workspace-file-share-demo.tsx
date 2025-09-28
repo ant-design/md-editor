@@ -31,6 +31,7 @@ const WorkspaceFileShareDemo: React.FC = () => {
         lastModified: '2025-08-01 13:15:00',
         url: '/downloads/readme.md',
         type: 'markdown',
+        canShare: true,
       },
       {
         id: 'file-4',
@@ -39,6 +40,7 @@ const WorkspaceFileShareDemo: React.FC = () => {
         lastModified: '2025-08-01 09:30:00',
         url: `https://t15.baidu.com/it/u=1723601087,48527874&fm=224&app=112&f=JPEG?w=500&h=500`,
         type: 'image',
+        canShare: true,
       },
 
       {
@@ -48,6 +50,7 @@ const WorkspaceFileShareDemo: React.FC = () => {
         lastModified: '2025-08-01 15:20:00',
         url: '/downloads/tutorial.webm',
         type: 'video',
+        canShare: true,
       },
     ],
     [],
@@ -116,8 +119,6 @@ const WorkspaceFileShareDemo: React.FC = () => {
         ref={containerRef}
         style={{
           position: 'relative',
-          border: '1px solid #d9d9d9',
-          borderRadius: '8px',
           maxWidth: '600px',
         }}
       >
@@ -142,7 +143,20 @@ const WorkspaceFileShareDemo: React.FC = () => {
 
         <Workspace title="文件管理">
           <Workspace.File
-            tab={{ count: nodes.length }}
+            tab={{
+              key: 'filesDefaultShare',
+              title: '文件',
+              count: nodes.length,
+            }}
+            nodes={nodes}
+            onDownload={handleDownload}
+          />
+          <Workspace.File
+            tab={{
+              key: 'filesCustomShare',
+              title: '文件-自定义分享',
+              count: nodes.length,
+            }}
             nodes={nodes}
             onDownload={handleDownload}
             onShare={handleShare}

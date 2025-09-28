@@ -1,0 +1,24 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="display: flex; flex-direction: column; gap: 16px;"
+    >
+      <div
+        avatar="[object Object]"
+        bubbleref="[object Object]"
+        bubblerenderconfig="[object Object]"
+        data-testid="bubble"
+        markdownrenderconfig="[object Object]"
+        origindata="[object Object]"
+        placement="left"
+      >
+        bubble
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

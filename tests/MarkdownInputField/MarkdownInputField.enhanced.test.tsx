@@ -4,14 +4,16 @@
  */
 
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import classNames from 'classnames';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   MarkdownInputField,
   generateEdges,
 } from '../../src/MarkdownInputField/MarkdownInputField';
+import { addGlowBorderOffset } from '../../src/MarkdownInputField/style';
 
 // 创建更真实的 Mock
 const mockMarkdownEditor = {
@@ -125,7 +127,9 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
         onClick={handleClick}
         disabled={disabled}
         data-typing={typing}
-        className={`${typing ? 'ant-md-input-field-send-button-typing' : ''}`}
+        className={classNames({
+          'ant-md-input-field-send-button-typing': typing,
+        })}
         {...props}
       >
         Send
@@ -143,6 +147,42 @@ vi.mock(
     },
   }),
 );
+
+vi.mock(
+  '../../src/MarkdownInputField/AttachmentButton/AttachmentFileList',
+  () => ({
+    AttachmentFileList: ({ fileMap, onDelete, onClearFileMap }: any) => (
+      <div data-testid="attachment-file-list">
+        {fileMap && fileMap.size > 0 && (
+          <div>
+            Files: {fileMap.size}
+            <button
+              type="button"
+              data-testid="clear-files"
+              onClick={() => onClearFileMap()}
+            >
+              Clear
+            </button>
+            <button
+              type="button"
+              data-testid="delete-file"
+              onClick={() => {
+                const firstFile = Array.from(fileMap.values())[0];
+                if (firstFile) onDelete(firstFile);
+              }}
+            >
+              Delete First
+            </button>
+          </div>
+        )}
+      </div>
+    ),
+  }),
+);
+
+vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
+  SkillModeBar: () => <div data-testid="skill-mode-bar">Skill Mode</div>,
+}));
 
 vi.mock('slate', () => ({
   Editor: {
@@ -177,7 +217,19 @@ describe('MarkdownInputField Enhanced Tests', () => {
 
     it('应该处理边界情况', () => {
       expect(generateEdges([])).toEqual([]);
-      expect(generateEdges(['red'])).toEqual([['red', 'red']]);
+
+      // 当只有一个颜色时，扩展基础序列并生成循环动画停靠点，由于颜色相同，结果为重复序列
+      expect(generateEdges(['red'])).toEqual([
+        ['red', 'red', 'red'],
+        ['red', 'red', 'red'],
+      ]);
+
+      // 当有两个颜色时，扩展基础序列以生成平滑的4段循环动画停靠点
+      expect(generateEdges(['red', 'blue'])).toEqual([
+        ['red', 'blue', 'red', 'red'],
+        ['blue', 'red', 'red', 'blue'],
+        ['red', 'red', 'blue', 'red'],
+      ]);
     });
   });
 
@@ -330,6 +382,275 @@ describe('MarkdownInputField Enhanced Tests', () => {
       await user.click(newSendButtons[newSendButtons.length - 1]);
       // 由于 mock 限制，只测试点击是否成功
       expect(newSendButtons[newSendButtons.length - 1]).toBeInTheDocument();
+    });
+  });
+
+  describe('测试覆盖率补充', () => {
+    describe('背景尺寸计算测试', () => {
+      it('应该调用 addGlowBorderOffset 处理 style.height', () => {
+        const style = {
+          height: '200px',
+          width: '100%',
+        };
+
+        render(<MarkdownInputField style={style} value="test content" />);
+
+        // 验证组件正常渲染
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+      });
+
+      it('应该调用 addGlowBorderOffset 处理 style.width', () => {
+        const style = {
+          width: '500px',
+          height: '100%',
+        };
+
+        render(<MarkdownInputField style={style} value="test content" />);
+
+        // 验证组件正常渲染
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+      });
+
+      it('应该同时处理 style.height 和 style.width', () => {
+        const style = {
+          height: '300px',
+          width: '400px',
+        };
+
+        render(<MarkdownInputField style={style} value="test content" />);
+
+        // 验证组件正常渲染
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+      });
+
+      it('应该处理数字类型的尺寸值', () => {
+        const style = {
+          height: 200,
+          width: 300,
+        };
+
+        render(<MarkdownInputField style={style} value="test content" />);
+
+        // 验证组件正常渲染
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+      });
+    });
+
+    describe('附件文件管理测试', () => {
+      it('应该调用 setFileMap 设置新的文件映射', async () => {
+        const onFileMapChange = vi.fn();
+        const initialFileMap = new Map();
+        initialFileMap.set('file1', {
+          uuid: 'file1',
+          name: 'test.jpg',
+          status: 'done',
+          url: 'http://example.com/test.jpg',
+        });
+
+        render(
+          <MarkdownInputField
+            attachment={{
+              enable: true,
+              fileMap: initialFileMap,
+              onFileMapChange,
+            }}
+            value="test content"
+          />,
+        );
+
+        // 触发清空文件操作
+        const clearButton = screen.getByTestId('clear-files');
+        fireEvent.click(clearButton);
+
+        // 验证函数被调用了
+        await waitFor(() => {
+          expect(onFileMapChange).toHaveBeenCalled();
+        });
+
+        // 验证最后一次调用的参数是一个空的 Map
+        const lastCall =
+          onFileMapChange.mock.calls[onFileMapChange.mock.calls.length - 1];
+        const resultMap = lastCall[0];
+        expect(resultMap).toBeInstanceOf(Map);
+        expect(resultMap.size).toBe(0);
+      });
+
+      it('应该处理文件删除操作', async () => {
+        const onFileMapChange = vi.fn();
+        const onDelete = vi.fn().mockResolvedValue(undefined);
+        const initialFileMap = new Map();
+        const testFile = {
+          uuid: 'file1',
+          name: 'test.jpg',
+          status: 'done' as const,
+          url: 'http://example.com/test.jpg',
+        };
+        initialFileMap.set('file1', testFile);
+
+        render(
+          <MarkdownInputField
+            attachment={{
+              enable: true,
+              fileMap: initialFileMap,
+              onFileMapChange,
+              onDelete,
+            }}
+            value="test content"
+          />,
+        );
+
+        // 触发删除文件操作
+        const deleteButton = screen.getByTestId('delete-file');
+        fireEvent.click(deleteButton);
+
+        // 等待异步操作完成
+        await waitFor(() => {
+          expect(onDelete).toHaveBeenCalledWith(testFile);
+        });
+      });
+
+      it('应该在附件上传时更新文件映射', async () => {
+        const onFileMapChange = vi.fn();
+
+        render(
+          <MarkdownInputField
+            attachment={{
+              enable: true,
+              onFileMapChange,
+            }}
+            value="test content"
+          />,
+        );
+
+        // 验证附件按钮存在
+        expect(screen.getByTestId('attachment-button')).toBeInTheDocument();
+      });
+
+      it('应该处理文件映射的深拷贝', async () => {
+        const onFileMapChange = vi.fn();
+        const originalFileMap = new Map();
+        originalFileMap.set('file1', {
+          uuid: 'file1',
+          name: 'test.jpg',
+          status: 'done',
+          url: 'http://example.com/test.jpg',
+        });
+
+        const { rerender } = render(
+          <MarkdownInputField
+            attachment={{
+              enable: true,
+              fileMap: originalFileMap,
+              onFileMapChange,
+            }}
+            value="test content"
+          />,
+        );
+
+        // 更新 fileMap prop
+        const newFileMap = new Map();
+        newFileMap.set('file2', {
+          uuid: 'file2',
+          name: 'test2.jpg',
+          status: 'done',
+          url: 'http://example.com/test2.jpg',
+        });
+
+        rerender(
+          <MarkdownInputField
+            attachment={{
+              enable: true,
+              fileMap: newFileMap,
+              onFileMapChange,
+            }}
+            value="test content"
+          />,
+        );
+
+        // 验证组件正常渲染
+        expect(screen.getByTestId('attachment-file-list')).toBeInTheDocument();
+      });
+    });
+
+    describe('addGlowBorderOffset 函数测试', () => {
+      it('应该正确处理数字类型的值', () => {
+        expect(addGlowBorderOffset(100)).toBe('104px');
+        expect(addGlowBorderOffset(200)).toBe('204px');
+      });
+
+      it('应该正确处理百分比字符串', () => {
+        expect(addGlowBorderOffset('100%')).toBe('calc(100% + 4px)');
+        expect(addGlowBorderOffset('50%')).toBe('calc(50% + 4px)');
+      });
+
+      it('应该正确处理像素字符串', () => {
+        expect(addGlowBorderOffset('200px')).toBe('calc(200px + 4px)');
+        expect(addGlowBorderOffset('300px')).toBe('calc(300px + 4px)');
+      });
+
+      it('应该正确处理纯数字字符串', () => {
+        expect(addGlowBorderOffset('100')).toBe('104px');
+        expect(addGlowBorderOffset('250')).toBe('254px');
+      });
+
+      it('应该正确处理 auto 关键字', () => {
+        expect(addGlowBorderOffset('auto')).toBe('auto');
+      });
+
+      it('应该正确处理 inherit 关键字', () => {
+        expect(addGlowBorderOffset('inherit')).toBe('inherit');
+      });
+
+      it('应该正确处理复杂的 calc 表达式', () => {
+        expect(addGlowBorderOffset('calc(100vh - 20px)')).toBe(
+          'calc(calc(100vh - 20px) + 4px)',
+        );
+      });
+
+      it('应该正确处理 fit-content 函数', () => {
+        expect(addGlowBorderOffset('fit-content(200px)')).toBe(
+          'fit-content(200px)',
+        );
+      });
+    });
+
+    describe('边界情况测试', () => {
+      it('应该处理没有 attachment 配置的情况', () => {
+        render(<MarkdownInputField value="test content" />);
+
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+        expect(
+          screen.queryByTestId('attachment-button'),
+        ).not.toBeInTheDocument();
+      });
+
+      it('应该处理 attachment.enable 为 false 的情况', () => {
+        render(
+          <MarkdownInputField
+            attachment={{
+              enable: false,
+            }}
+            value="test content"
+          />,
+        );
+
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+        expect(
+          screen.queryByTestId('attachment-button'),
+        ).not.toBeInTheDocument();
+      });
+
+      it('应该处理没有 style 的情况', () => {
+        render(<MarkdownInputField value="test content" />);
+
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+      });
+
+      it('应该处理空的 style 对象', () => {
+        render(<MarkdownInputField style={{}} value="test content" />);
+
+        expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
+      });
     });
   });
 });

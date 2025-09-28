@@ -5,10 +5,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       height: '100%',
-      borderRadius: '20px',
+      borderRadius: 'var(--radius-modal-base)',
       background: 'var(--color-gray-bg-card-white)',
       border: '1px solid rgba(140, 171, 255, 0.12)',
-      boxShadow: '0px 1.5px 2px -1px rgba(0, 19, 41, 0.07)',
+      boxShadow: 'var(--shadow-card-base)',
 
       [`${token.componentCls}-header`]: {
         display: 'flex',
@@ -18,9 +18,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-title`]: {
-        fontSize: 'var(--font-size-lg)',
-        fontWeight: 600,
+        font: 'var(--font-text-h5-base)',
         color: 'var(--color-gray-text-default)',
+        letterSpacing: 'var(--letter-spacing-h5-base, normal)',
       },
 
       [`${token.componentCls}-close`]: {
@@ -46,6 +46,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-segmented`]: {
+        color: 'var(--color-gray-text-secondary)',
+        font: 'var(--font-text-body-base)',
+        letterSpacing: 'var(--letter-spacing-body-base, normal)',
+        background: 'var(--color-gray-control-fill-active)',
+        borderRadius: '8px',
+
         // 覆盖 Segmented 组件内部的样式
         '.ant-segmented-item': {
           display: 'flex',
@@ -82,18 +88,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '20px',
         padding: '4px 6px',
         marginLeft: '4px',
-        fontSize: 'var(--font-size-xs)',
+        fontSize: '10px',
         fontWeight: 500,
-        lineHeight: 1,
-        color: '#767e8b',
-        backgroundColor: 'rgba(20, 22, 28, 0.06)',
+        letterSpacing: '0.04em',
+        color: 'var(--color-gray-text-secondary)',
+        backgroundColor: 'var(--color-gray-control-fill-active)',
         borderRadius: '200px',
         boxSizing: 'border-box',
       },
 
       [`${token.componentCls}-content`]: {
         height: 'calc(100% - 90px)',
-        overflow: 'auto',
         padding: '0 16px 16px',
       },
     },

@@ -25,54 +25,67 @@
         点击"新任务"按钮可以循环展示不同状态，运行中状态会在5秒后自动变为完成或错误状态
       </p>
       <div
-        class="ant-task-running ant-task-running-default"
+        class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-thinking"
       >
         <div
-          class="ant-task-running-border "
+          class="ant-task-running-border"
         />
         <div
-          class="ant-task-running-background "
+          class="ant-task-running-background"
         />
         <div
-          class="ant-task-running-left "
+          class="ant-task-running-left"
         >
           <div
-            class="ant-task-running-left-icon-wrapper "
+            class="ant-task-running-left-icon-wrapper"
           >
             <div
               class=""
               data-testid="robot"
-              style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+              style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
             >
-              <img
-                alt="robot"
-                src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
-                style="width: 100%; height: 100%;"
-              />
+              <div
+                style="padding-left: 80px; margin-right: 50px;"
+              >
+                <div
+                  class=""
+                  style="width: 84px; height: 84px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-autoplay="true"
+                    data-loop="true"
+                    data-testid="lottie-animation"
+                    style="width: 84px; height: 84px; display: flex; justify-content: center; align-items: center;"
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div
-            class="ant-task-running-left-content "
+            class="ant-task-running-left-content"
           >
-            <div
-              class="ant-task-running-left-main-text "
+            <h1
+              aria-describedby="test-id"
+              class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-main-text"
             >
               任务运行中
-            </div>
-            <div
-              class="ant-task-running-left-text "
+            </h1>
+            <span
+              aria-describedby="test-id"
+              class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-text"
             >
               AI模型正在训练中，请耐心等待...
-            </div>
+            </span>
           </div>
         </div>
         <div
-          class="ant-task-running-button-wrapper "
+          class="ant-task-running-button-wrapper"
         >
           <div
             aria-describedby="test-id"
             aria-label="停止"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >
@@ -118,7 +131,7 @@
           <div
             aria-describedby="test-id"
             aria-label="暂停"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >
@@ -136,7 +149,7 @@
                   color-interpolation-filters="sRGB"
                   filterUnits="objectBoundingBox"
                   height="1"
-                  id="playIconFilter-:r18:"
+                  id="playIconFilter-:r1c:"
                   width="1"
                   x="0"
                   y="0"
@@ -166,7 +179,7 @@
                   />
                 </filter>
                 <clippath
-                  id="playIconClip-:r18:"
+                  id="playIconClip-:r1c:"
                 >
                   <rect
                     height="16"
@@ -178,7 +191,7 @@
                 </clippath>
               </defs>
               <g
-                filter="url(#playIconFilter-:r18:)"
+                filter="url(#playIconFilter-:r1c:)"
               >
                 <rect
                   fill="#001C39"
@@ -188,7 +201,7 @@
                   width="32"
                 />
                 <g
-                  clip-path="url(#playIconClip-:r18:)"
+                  clip-path="url(#playIconClip-:r1c:)"
                 >
                   <path
                     d="M11.333 11.333v9.334q0 .552.39.942.391.391.944.391H14q.552 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942Q14.553 10 14 10h-1.333q-.553 0-.943.39-.39.391-.39.943zm5.334 0v9.334q0 .552.39.942.39.391.943.391h1.333q.553 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942-.39-.391-.943-.391H18q-.552 0-.943.39-.39.391-.39.943z"
@@ -223,54 +236,67 @@
             状态1: 任务运行中
           </h4>
           <div
-            class="ant-task-running ant-task-running-default"
+            class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-thinking"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
-                  />
+                  <div
+                    style="padding-left: 80px; margin-right: 50px;"
+                  >
+                    <div
+                      class=""
+                      style="width: 84px; height: 84px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                    >
+                      <div
+                        aria-hidden="true"
+                        data-autoplay="true"
+                        data-loop="true"
+                        data-testid="lottie-animation"
+                        style="width: 84px; height: 84px; display: flex; justify-content: center; align-items: center;"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
-                <div
-                  class="ant-task-running-left-main-text "
+                <h1
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-main-text"
                 >
-                  任务运行中, 已耗时1小时20分12秒。 4/6 模型训练
-                </div>
-                <div
-                  class="ant-task-running-left-text "
+                  任务运行中, 已耗时1小时20分12秒。
+                </h1>
+                <span
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-text"
                 >
                   AI模型正在训练中，请耐心等待...
-                </div>
+                </span>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <div
                 aria-describedby="test-id"
                 aria-label="停止"
-                class="ant-task-running-pause "
+                class="ant-task-running-pause"
                 role="button"
                 tabindex="0"
               >
@@ -316,7 +342,7 @@
               <div
                 aria-describedby="test-id"
                 aria-label="暂停"
-                class="ant-task-running-pause "
+                class="ant-task-running-pause"
                 role="button"
                 tabindex="0"
               >
@@ -334,7 +360,7 @@
                       color-interpolation-filters="sRGB"
                       filterUnits="objectBoundingBox"
                       height="1"
-                      id="playIconFilter-:r1f:"
+                      id="playIconFilter-:r1n:"
                       width="1"
                       x="0"
                       y="0"
@@ -364,7 +390,7 @@
                       />
                     </filter>
                     <clippath
-                      id="playIconClip-:r1f:"
+                      id="playIconClip-:r1n:"
                     >
                       <rect
                         height="16"
@@ -376,7 +402,7 @@
                     </clippath>
                   </defs>
                   <g
-                    filter="url(#playIconFilter-:r1f:)"
+                    filter="url(#playIconFilter-:r1n:)"
                   >
                     <rect
                       fill="#001C39"
@@ -386,7 +412,7 @@
                       width="32"
                     />
                     <g
-                      clip-path="url(#playIconClip-:r1f:)"
+                      clip-path="url(#playIconClip-:r1n:)"
                     >
                       <path
                         d="M11.333 11.333v9.334q0 .552.39.942.391.391.944.391H14q.552 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942Q14.553 10 14 10h-1.333q-.553 0-.943.39-.39.391-.39.943zm5.334 0v9.334q0 .552.39.942.39.391.943.391h1.333q.553 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942-.39-.391-.943-.391H18q-.552 0-.943.39-.39.391-.39.943z"
@@ -414,49 +440,62 @@
             状态2: 任务已暂停
           </h4>
           <div
-            class="ant-task-running ant-task-running-default"
+            class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-pause"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
-                  />
+                  <div
+                    style="padding-left: 27px; margin-right: 16px;"
+                  >
+                    <div
+                      class=""
+                      style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
+                    >
+                      <div
+                        aria-hidden="true"
+                        data-autoplay="true"
+                        data-loop="true"
+                        data-testid="lottie-animation"
+                        style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center;"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
-                <div
-                  class="ant-task-running-left-main-text "
+                <h1
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-main-text"
                 >
                   任务已暂停
-                </div>
-                <div
-                  class="ant-task-running-left-text "
+                </h1>
+                <span
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-text"
                 >
                   任务执行已暂停，点击继续按钮恢复执行
-                </div>
+                </span>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-solid"
@@ -495,7 +534,7 @@
               <div
                 aria-describedby="test-id"
                 aria-label="停止"
-                class="ant-task-running-pause "
+                class="ant-task-running-pause"
                 role="button"
                 tabindex="0"
               >
@@ -541,7 +580,7 @@
               <div
                 aria-describedby="test-id"
                 aria-label="继续"
-                class="ant-task-running-play "
+                class="ant-task-running-play"
                 role="button"
                 tabindex="0"
               >
@@ -639,49 +678,62 @@
             状态3: 任务已停止
           </h4>
           <div
-            class="ant-task-running ant-task-running-default"
+            class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-dazing"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
-                  />
+                  <div
+                    style="padding-left: 27px; margin-right: 16px;"
+                  >
+                    <div
+                      class=""
+                      style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
+                    >
+                      <div
+                        aria-hidden="true"
+                        data-autoplay="true"
+                        data-loop="true"
+                        data-testid="lottie-animation"
+                        style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center;"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
-                <div
-                  class="ant-task-running-left-main-text "
+                <h1
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-main-text"
                 >
                   任务已停止
-                </div>
-                <div
-                  class="ant-task-running-left-text "
+                </h1>
+                <span
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-text"
                 >
                   任务执行已停止，无法恢复，请创建新任务
-                </div>
+                </span>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-primary ant-btn-color-default ant-btn-variant-solid"
@@ -734,44 +786,57 @@
             状态4: 任务已完成
           </h4>
           <div
-            class="ant-task-running ant-task-running-default"
+            class="ant-task-running ant-task-running-default ant-task-running-status-dazing"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
-                  />
+                  <div
+                    style="padding-left: 27px; margin-right: 16px;"
+                  >
+                    <div
+                      class=""
+                      style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
+                    >
+                      <div
+                        aria-hidden="true"
+                        data-autoplay="true"
+                        data-loop="true"
+                        data-testid="lottie-animation"
+                        style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center;"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
-                <div
-                  class="ant-task-running-left-main-text "
+                <h1
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-multiple-line ant-task-running-left-main-text"
+                  style="-webkit-line-clamp: 2;"
                 >
                   任务已完成, 耗时10小时02分10秒
-                </div>
+                </h1>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
@@ -840,49 +905,62 @@
             状态5: 任务出错
           </h4>
           <div
-            class="ant-task-running ant-task-running-default"
+            class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-dazing"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
-                  />
+                  <div
+                    style="padding-left: 27px; margin-right: 16px;"
+                  >
+                    <div
+                      class=""
+                      style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
+                    >
+                      <div
+                        aria-hidden="true"
+                        data-autoplay="true"
+                        data-loop="true"
+                        data-testid="lottie-animation"
+                        style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center;"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
-                <div
-                  class="ant-task-running-left-main-text "
+                <h1
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-main-text"
                 >
                   任务执行出错
-                </div>
-                <div
-                  class="ant-task-running-left-text "
+                </h1>
+                <span
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-text"
                 >
                   任务执行过程中发生错误，请重新执行或创建新任务
-                </div>
+                </span>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
@@ -943,49 +1021,62 @@
             状态6: 任务已取消
           </h4>
           <div
-            class="ant-task-running ant-task-running-default"
+            class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-dazing"
           >
             <div
-              class="ant-task-running-border "
+              class="ant-task-running-border"
             />
             <div
-              class="ant-task-running-background "
+              class="ant-task-running-background"
             />
             <div
-              class="ant-task-running-left "
+              class="ant-task-running-left"
             >
               <div
-                class="ant-task-running-left-icon-wrapper "
+                class="ant-task-running-left-icon-wrapper"
               >
                 <div
                   class=""
                   data-testid="robot"
-                  style="width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
+                  style="width: 40px; height: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
-                  <img
-                    alt="robot"
-                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*g31JS4bf52oAAAAAQGAAAAgAekN6AQ/fmt.webp"
-                    style="width: 100%; height: 100%;"
-                  />
+                  <div
+                    style="padding-left: 27px; margin-right: 16px;"
+                  >
+                    <div
+                      class=""
+                      style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
+                    >
+                      <div
+                        aria-hidden="true"
+                        data-autoplay="true"
+                        data-loop="true"
+                        data-testid="lottie-animation"
+                        style="width: 54px; height: 54px; display: flex; justify-content: center; align-items: center;"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
-                class="ant-task-running-left-content "
+                class="ant-task-running-left-content"
               >
-                <div
-                  class="ant-task-running-left-main-text "
+                <h1
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-main-text"
                 >
                   任务已取消
-                </div>
-                <div
-                  class="ant-task-running-left-text "
+                </h1>
+                <span
+                  aria-describedby="test-id"
+                  class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-single-line ant-task-running-left-text"
                 >
                   任务已被用户取消，请创建新任务
-                </div>
+                </span>
               </div>
             </div>
             <div
-              class="ant-task-running-button-wrapper "
+              class="ant-task-running-button-wrapper"
             >
               <button
                 class="ant-btn ant-btn-primary ant-btn-color-default ant-btn-variant-solid"
@@ -1041,34 +1132,36 @@
         设置 variant 属性，可以衍生出更多的主题变体样式
       </p>
       <div
-        class="ant-task-running ant-task-running-simple"
+        class="ant-task-running ant-task-running-simple ant-task-running-status-thinking"
       >
         <div
-          class="ant-task-running-border "
+          class="ant-task-running-border"
         />
         <div
-          class="ant-task-running-background "
+          class="ant-task-running-background"
         />
         <div
-          class="ant-task-running-left "
+          class="ant-task-running-left"
         >
           <div
-            class="ant-task-running-left-content "
+            class="ant-task-running-left-content"
           >
-            <div
-              class="ant-task-running-left-main-text "
+            <h1
+              aria-describedby="test-id"
+              class="ant-typography ant-typography-ellipsis ant-typography-ellipsis-multiple-line ant-task-running-left-main-text"
+              style="-webkit-line-clamp: 2;"
             >
               任务运行中, 已耗时1小时20分12秒。 4/6 模型训练
-            </div>
+            </h1>
           </div>
         </div>
         <div
-          class="ant-task-running-button-wrapper "
+          class="ant-task-running-button-wrapper"
         >
           <div
             aria-describedby="test-id"
             aria-label="停止"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >
@@ -1093,7 +1186,7 @@
           <div
             aria-describedby="test-id"
             aria-label="暂停"
-            class="ant-task-running-pause "
+            class="ant-task-running-pause"
             role="button"
             tabindex="0"
           >

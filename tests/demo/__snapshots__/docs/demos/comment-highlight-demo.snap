@@ -57,6 +57,24 @@
               </strong>
               ：查看、编辑、删除评论
             </li>
+            <li>
+              <strong>
+                浏览器原生选择效果
+              </strong>
+              ：实现类似浏览器原生文本选择的拖拽体验
+            </li>
+            <li>
+              <strong>
+                跨段落选择
+              </strong>
+              ：支持选择跨越多个段落的文本内容
+            </li>
+            <li>
+              <strong>
+                智能边界处理
+              </strong>
+              ：自动处理选择范围的边界情况
+            </li>
           </ul>
         </div>
         <div
@@ -80,6 +98,24 @@
             <li>
               支持多种评论类型：普通评论、高亮标记等
             </li>
+            <li>
+              <strong>
+                拖拽功能
+              </strong>
+              ：点击评论范围两侧的拖拽手柄，体验类似浏览器原生的文本选择效果
+            </li>
+            <li>
+              <strong>
+                多段落支持
+              </strong>
+              ：拖拽可以跨越多个段落，自动处理跨段落的文本选择
+            </li>
+            <li>
+              <strong>
+                实时反馈
+              </strong>
+              ：拖拽过程中会显示高亮效果，实时预览选择范围
+            </li>
           </ul>
         </div>
       </div>
@@ -88,10 +124,10 @@
       >
         <div
           class="ant-md-editor markdown-editor chunk-content-editor ant-md-editor-readonly ant-md-editor-report"
-          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-height: 600px;"
+          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); min-height: 600px;"
         >
           <div
-            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+            style="padding: 4px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
             tabindex="-1"
           >
             <div
@@ -153,7 +189,7 @@
                     data-be="comment-text"
                     data-testid="comment-view"
                     id="comment-1757562229525"
-                    style="position: relative; cursor: text; user-select: text;"
+                    style="position: relative;"
                   >
                     <span
                       class="ant-md-editor-content-comment"
@@ -170,24 +206,36 @@
                     </span>
                     <div
                       class="comment-drag-handle comment-drag-handle-start"
-                      style="position: absolute; left: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
+                      style="position: absolute; left: -8px; top: 0px; width: 12px; max-height: 24px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8; transition: all 0.1s ease-out;"
                     >
                       <div
-                        style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; top: 0px; left: 2px;"
+                        class="comment-drag-handle-line"
+                        style="width: 6px; height: 6px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; top: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                       <div
-                        style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px;"
+                        class="comment-drag-handle-line"
+                        style="width: 1px; height: calc(100% - 8px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px; opacity: 0.8;"
+                      />
+                      <div
+                        class="comment-drag-handle-line"
+                        style="width: 4px; height: 4px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; bottom: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                     </div>
                     <div
                       class="comment-drag-handle comment-drag-handle-end"
-                      style="position: absolute; right: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
+                      style="position: absolute; right: -8px; bottom: 0px; max-height: 24px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
                     >
                       <div
-                        style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 0px; left: 5px;"
+                        class="comment-drag-handle-line"
+                        style="width: 6px; height: 6px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; top: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                       <div
-                        style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; bottom: 0px; left: 2px;"
+                        class="comment-drag-handle-line"
+                        style="width: 1px; height: calc(100% - 8px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px; opacity: 0.8;"
+                      />
+                      <div
+                        class="comment-drag-handle-line"
+                        style="width: 4px; height: 4px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; bottom: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                     </div>
                   </span>
@@ -373,6 +421,27 @@
                   </span>
                 </div>
               </blockquote>
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="paragraph"
+                data-slate-node="element"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      武占率习菜九帝许路这米衡将源互该李搞和朝从汽心想术显可深钢剂山价功究北配罪此菜裂志测兴城践章右血原玉找预计贵候简仍染察游议音慢校绍围矿汉白句异国伯等微显化仍代香风感组掉正做她底河物钟苦缺深神验宽规实。军传们脚政叶短套罪入少查越破发罗可操促生促茶去济径背渐跳乙志不胶鲜握上啊希歌补故律却奏复议未效变陆水，杨田战环办了实字商安图广获巴总算六武转职守言急态许阿并唱蒸可伯那继打守切践守重立慢就米之钱该和面跑含逐沉末高直性都引阶培任危假克主位麼须袁似易靠场主云回。入府李广解异意轴态新零技青参衣父因湖百业究宜阶断沿践粒督性祖石离差右角洋接将海求饭买车款表胞案观效多演块率常裂医植部读混甲裂上剧注使吃加家圆包草出盾人船胜岩认散却话波。
+                    </span>
+                  </span>
+                </span>
+              </div>
               <h2
                 class="ant-md-editor-drag-el"
                 data-be="head"
@@ -491,61 +560,7 @@
                           <span
                             data-slate-string="true"
                           >
-                            ：
-                          </span>
-                        </span>
-                        <span
-                          class="ant-md-editor-content-comment-highlight"
-                          data-be="comment-text"
-                          data-testid="comment-view"
-                          id="comment-1757562274794"
-                          style="position: relative; cursor: text; user-select: text;"
-                        >
-                          <span
-                            class="ant-md-editor-content-comment"
-                            data-be="text"
-                            data-comment="comment"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              对文档内容进行详
-                            </span>
-                          </span>
-                          <div
-                            class="comment-drag-handle comment-drag-handle-start"
-                            style="position: absolute; left: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
-                          >
-                            <div
-                              style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; top: 0px; left: 2px;"
-                            />
-                            <div
-                              style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px;"
-                            />
-                          </div>
-                          <div
-                            class="comment-drag-handle comment-drag-handle-end"
-                            style="position: absolute; right: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
-                          >
-                            <div
-                              style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 0px; left: 5px;"
-                            />
-                            <div
-                              style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; bottom: 0px; left: 2px;"
-                            />
-                          </div>
-                        </span>
-                        <span
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
-                        >
-                          <span
-                            data-slate-string="true"
-                          >
-                            细审查
+                            ：对文档内容进行详细审查
                           </span>
                         </span>
                       </span>
@@ -761,47 +776,15 @@
                         data-slate-node="text"
                       >
                         <span
-                          class="ant-md-editor-content-comment-highlight"
-                          data-be="comment-text"
-                          data-testid="comment-view"
-                          id="comment-1757562256636"
-                          style="position: relative; cursor: text; user-select: text;"
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class="ant-md-editor-content-comment"
-                            data-be="text"
-                            data-comment="comment"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              多人同时审阅
-                            </span>
+                            多人同时审阅
                           </span>
-                          <div
-                            class="comment-drag-handle comment-drag-handle-start"
-                            style="position: absolute; left: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
-                          >
-                            <div
-                              style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; top: 0px; left: 2px;"
-                            />
-                            <div
-                              style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px;"
-                            />
-                          </div>
-                          <div
-                            class="comment-drag-handle comment-drag-handle-end"
-                            style="position: absolute; right: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
-                          >
-                            <div
-                              style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 0px; left: 5px;"
-                            />
-                            <div
-                              style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; bottom: 0px; left: 2px;"
-                            />
-                          </div>
                         </span>
                       </span>
                     </div>
@@ -916,7 +899,7 @@
                     data-be="comment-text"
                     data-testid="comment-view"
                     id="comment-1757562256636"
-                    style="position: relative; cursor: text; user-select: text;"
+                    style="position: relative;"
                   >
                     <span
                       class="ant-md-editor-content-comment"
@@ -933,24 +916,36 @@
                     </span>
                     <div
                       class="comment-drag-handle comment-drag-handle-start"
-                      style="position: absolute; left: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
+                      style="position: absolute; left: -8px; top: 0px; width: 12px; max-height: 24px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8; transition: all 0.1s ease-out;"
                     >
                       <div
-                        style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; top: 0px; left: 2px;"
+                        class="comment-drag-handle-line"
+                        style="width: 6px; height: 6px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; top: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                       <div
-                        style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px;"
+                        class="comment-drag-handle-line"
+                        style="width: 1px; height: calc(100% - 8px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px; opacity: 0.8;"
+                      />
+                      <div
+                        class="comment-drag-handle-line"
+                        style="width: 4px; height: 4px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; bottom: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                     </div>
                     <div
                       class="comment-drag-handle comment-drag-handle-end"
-                      style="position: absolute; right: -8px; top: 0px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
+                      style="position: absolute; right: -8px; bottom: 0px; max-height: 24px; width: 12px; height: 100%; cursor: grab; z-index: 1001; opacity: 0.8;"
                     >
                       <div
-                        style="width: 2px; height: calc(100% - 4px); background-color: rgb(24, 144, 255); position: absolute; top: 0px; left: 5px;"
+                        class="comment-drag-handle-line"
+                        style="width: 6px; height: 6px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; top: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                       <div
-                        style="width: 8px; height: 8px; background-color: rgb(24, 144, 255); border-radius: 50%; position: absolute; bottom: 0px; left: 2px;"
+                        class="comment-drag-handle-line"
+                        style="width: 1px; height: calc(100% - 8px); background-color: rgb(24, 144, 255); position: absolute; top: 4px; left: 5px; opacity: 0.8;"
+                      />
+                      <div
+                        class="comment-drag-handle-line"
+                        style="width: 4px; height: 4px; background-color: rgb(24, 144, 255); border-radius: 1px; position: absolute; bottom: 2px; left: 3px; border: 1px solid rgb(255, 255, 255); box-shadow: 0 1px 3px rgba(0,0,0,0.3);"
                       />
                     </div>
                   </span>
@@ -1149,46 +1144,58 @@
                 </code>
                 : 加载@提及用户
               </li>
+              <li>
+                <code>
+                  comment.dragRange
+                </code>
+                : 多方向拖拽配置
+              </li>
             </ul>
           </div>
           <div>
             <h4
               style="margin: 0px 0px 8px 0px; color: rgb(73, 80, 87);"
             >
-              评论类型：
+              拖拽功能：
             </h4>
             <ul
               style="margin: 0px; padding-left: 20px; line-height: 1.6;"
             >
               <li>
                 <code>
-                  highlight
+                  dragRange.enable
                 </code>
-                : 高亮标记类型
+                : 启用拖拽功能
               </li>
               <li>
                 <code>
-                  comment
+                  handleStyle
                 </code>
-                : 普通评论类型
+                : 拖拽手柄样式配置
               </li>
               <li>
                 <code>
-                  selection
+                  highlightStyle
                 </code>
-                : 选择区域信息
+                : 拖拽高亮样式配置
               </li>
               <li>
                 <code>
-                  refContent
+                  onRangeChange
                 </code>
-                : 引用的原文内容
+                : 范围更新回调函数
               </li>
               <li>
-                <code>
-                  user
-                </code>
-                : 评论用户信息
+                <strong>
+                  浏览器原生选择效果
+                </strong>
+                : 类似浏览器原生文本选择的拖拽体验
+              </li>
+              <li>
+                <strong>
+                  跨段落支持
+                </strong>
+                : 支持跨段落的选择调整
               </li>
             </ul>
           </div>
@@ -1200,7 +1207,7 @@
         <strong>
           💡 开发提示：
         </strong>
-        在实际项目中，可以结合后端 API 实现评论的持久化存储、实时同步、权限控制等高级功能。 评论数据结构支持扩展，可以添加更多自定义字段满足业务需求。
+        在实际项目中，可以结合后端 API 实现评论的持久化存储、实时同步、权限控制等高级功能。 评论数据结构支持扩展，可以添加更多自定义字段满足业务需求。 浏览器原生选择效果支持无边界限制，可以根据实际需求调整拖拽的敏感度和计算逻辑。
       </div>
     </div>
   </div>

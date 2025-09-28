@@ -1,4 +1,4 @@
-﻿import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@ant-design/icons';
 import { ConfigProvider, Tooltip, TooltipProps } from 'antd';
 import cx from 'classnames';
 import { useMergedState } from 'rc-util';

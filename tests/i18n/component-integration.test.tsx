@@ -21,11 +21,6 @@ vi.mock('../../src/MarkdownEditor/editor/components', () => ({
   ),
 }));
 
-vi.mock('../../src/icons', () => ({
-  NewChatIcon: () => <span>NewChatIcon</span>,
-  SearchIcon: () => <span>SearchIcon</span>,
-}));
-
 vi.mock('../../src/TaskList/LoadingLottie', () => ({
   LoadingLottie: () => <span>LoadingLottie</span>,
 }));
@@ -77,7 +72,7 @@ describe('Component Integration Tests', () => {
       it('should render search text in Chinese', () => {
         render(
           <I18nContext.Provider value={{ locale: cnLabels, language: 'zh-CN' }}>
-            <HistorySearch onSearch={mockOnSearch} />
+            <HistorySearch onSearch={mockOnSearch} type="task" />
           </I18nContext.Provider>,
         );
 
@@ -87,11 +82,13 @@ describe('Component Integration Tests', () => {
       it('should render search text in English', () => {
         render(
           <I18nContext.Provider value={{ locale: enLabels, language: 'en-US' }}>
-            <HistorySearch onSearch={mockOnSearch} />
+            <HistorySearch onSearch={mockOnSearch} type="task" />
           </I18nContext.Provider>,
         );
 
-        expect(screen.getByText('History Tasks')).toBeInTheDocument();
+        expect(
+          screen.getByText(enLabels['chat.history.historyTasks']),
+        ).toBeInTheDocument();
       });
 
       it('should render search button title in Chinese', () => {
@@ -229,10 +226,12 @@ describe('Component Integration Tests', () => {
       const mockOnSearch = vi.fn();
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale as any, language: 'zh-CN' }}>
+        <I18nContext.Provider
+          value={{ locale: customLocale as any, language: 'zh-CN' }}
+        >
           <div>
             <HistoryNewChat onNewChat={mockOnNewChat} />
-            <HistorySearch onSearch={mockOnSearch} />
+            <HistorySearch onSearch={mockOnSearch} type="task" />
             <TaskList items={[]} />
           </div>
         </I18nContext.Provider>,
@@ -247,7 +246,7 @@ describe('Component Integration Tests', () => {
         <I18nContext.Provider value={{ locale: {} as any, language: 'zh-CN' }}>
           <div>
             <HistoryNewChat onNewChat={vi.fn()} />
-            <HistorySearch onSearch={vi.fn()} />
+            <HistorySearch onSearch={vi.fn()} type="task" />
           </div>
         </I18nContext.Provider>,
       );
@@ -265,7 +264,9 @@ describe('Component Integration Tests', () => {
       };
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale as any, language: 'zh-CN' }}>
+        <I18nContext.Provider
+          value={{ locale: customLocale as any, language: 'zh-CN' }}
+        >
           <div>
             <span data-testid="task-progress">
               {customLocale['taskList.taskInProgress'].replace(
@@ -288,7 +289,9 @@ describe('Component Integration Tests', () => {
       };
 
       render(
-        <I18nContext.Provider value={{ locale: customLocale as any, language: 'zh-CN' }}>
+        <I18nContext.Provider
+          value={{ locale: customLocale as any, language: 'zh-CN' }}
+        >
           <div>
             <span data-testid="file-size-error">
               {customLocale['markdownInput.fileSizeExceeded'].replace(

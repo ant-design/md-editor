@@ -15,6 +15,15 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
   },
 });
 
+const borderSpin = new Keyframes('borderSpin', {
+  '0%': {
+    backgroundPosition: '200% 50%',
+  },
+  '100%': {
+    backgroundPosition: '0% 50%',
+  },
+});
+
 /**
  * 生成任务运行组件的样式
  *
@@ -37,7 +46,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderRadius: 16,
+      borderRadius: 'var(--radius-card-lg)',
 
       '&-border': {
         position: 'absolute',
@@ -46,12 +55,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         right: 0,
         bottom: 0,
         zIndex: -1,
+        // background:
+        //   'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
         background:
-          'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
-        borderRadius: 16,
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 15, 41, 0.05),0px 6px 16px 0px rgba(0, 15, 41, 0.08)',
+          'linear-gradient(90deg, #D3FEFF 0%, #FFF16F 16%, rgba(82, 212, 255, 0.2329) 50%, #D3FEFF 75%, #D3FEFF 100%)',
+        backgroundSize: '200% 50%',
+        borderRadius: 'var(--radius-card-lg)',
+        opacity: 1,
+        boxShadow: 'var(--shadow-popover-base)',
+        animationName: borderSpin,
+        animationDuration: '8s',
+        animationTimingFunction: 'linear',
+        animationIterationCount: 'infinite',
         pointerEvents: 'none',
+        overflow: 'hidden',
+        transition: 'background 0.25s',
       },
 
       '&-background': {
@@ -61,7 +79,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         right: 2,
         bottom: 2,
         zIndex: -1,
-        background: '#FFFFFF',
+        background: 'var(--color-gray-bg-card-white)',
         borderRadius: 14,
         pointerEvents: 'none',
       },
@@ -72,12 +90,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 8,
         fontSize: 'var(--font-size-base)',
         lineHeight: '20px',
-        color: '#343A45',
+        color: 'var(--color-gray-text-default)',
+        flex: 1,
+        minWidth: 0,
       },
 
       '&-left-icon-wrapper': {
         display: 'flex',
-        padding: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 20,
         width: 40,
         height: 40,
       },
@@ -85,30 +107,37 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-left-content': {
         display: 'flex',
         flexDirection: 'column',
-      },
-
-      // title
-      '&-left-main-text': {
-        fontSize: 'var(--font-size-base)',
-        lineHeight: '20px',
-        fontWeight: 600,
-        color: '#343A45',
-      },
-
-      // description
-      '&-left-text': {
-        fontSize: 'var(--font-size-sm)',
-        fontWeight: 'normal',
-        lineHeight: '20px',
-        alignItems: 'center',
-        letterSpacing: 'normal',
-        display: '-webkit-box',
-        '-webkit-line-clamp': '1',
-        lineClamp: 1,
-        '-webkit-box-orient': 'vertical',
+        gap: -2,
         overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: 'rgba(0, 25, 61, 0.3255)',
+
+        // title
+        [`${componentCls}-left-main-text`]: {
+          color: 'var(--color-gray-text-default)',
+          lineHeight: '20px',
+          font: 'var(--font-text-h6-base)',
+          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 2,
+          display: '-webkit-box',
+          margin: 0,
+        },
+
+        // description
+        [`${componentCls}-left-text`]: {
+          lineHeight: '20px',
+          font: 'var(--font-text-body-sm)',
+          alignItems: 'center',
+          letterSpacing: 'var(--letter-spacing-body-sm, normal)',
+          display: '-webkit-box',
+          '-webkit-line-clamp': '1',
+          lineClamp: 1,
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          color: 'var(--color-gray-text-light)',
+        },
       },
 
       '&-button-wrapper': {
@@ -116,6 +145,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         gap: 8,
         justifyContent: 'center',
+        paddingRight: 4,
         '> * ': {
           cursor: 'pointer',
         },
@@ -158,6 +188,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
 
+    // with description
+    [`${componentCls}-with-description`]: {
+      [`${componentCls}-left-main-text`]: {
+        textWrap: 'nowrap',
+        '-webkit-line-clamp': '1',
+        lineClamp: 1,
+      },
+    },
+
+    // Status pause
+    [`${componentCls}-status-pause`]: {
+      [`${componentCls}-border`]: {
+        background: 'var(--color-gray-bg-card-white)',
+      },
+    },
+
     // Simple variant
     [`${componentCls}${componentCls}-simple`]: {
       width: '100%',
@@ -166,10 +212,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderRadius: 8,
 
       [`${componentCls}-border`]: {
-        background: '#F1F2F4',
-        borderRadius: 8,
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+        background: 'var(--color-gray-bg-page-dark)',
+        borderRadius: 'var(--radius-control-base)',
+        boxShadow: 'var(--shadow-control-base)',
       },
 
       [`${componentCls}-background`]: {
@@ -178,30 +223,33 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         left: 0,
         right: 0,
         bottom: 0,
-        background: '#F1F2F4',
+        background: 'var(--color-gray-bg-page-dark)',
         borderRadius: 8,
       },
 
       // title
       [`${componentCls}-left-main-text`]: {
-        color: '#343A45',
-        fontSize: 'var(--font-size-base)',
+        color: 'var(--color-gray-text-default)',
         fontWeight: 'normal',
         lineHeight: '16px',
+        font: 'var(--font-text-paragraph-base)',
+        letterSpacing: 'var(--letter-spacing-paragraph-base, normal)',
       },
 
       [`${componentCls}-button-wrapper`]: {
         gap: 12,
       },
 
-      [`${componentCls}-pause`]: {
+      [`${componentCls}-play, ${componentCls}-pause`]: {
         width: 20,
         height: 20,
-      },
+        color: 'var(--color-gray-text-default)',
+        background: 'transparent',
+        borderRadius: 'var(--radius-control-sm)',
 
-      [`${componentCls}-play`]: {
-        width: 20,
-        height: 20,
+        '&:hover': {
+          background: 'var(--color-gray-control-fill-active)',
+        },
       },
     },
   };
