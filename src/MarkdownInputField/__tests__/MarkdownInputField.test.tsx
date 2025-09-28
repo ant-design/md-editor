@@ -201,7 +201,7 @@ describe('MarkdownInputField - voiceInput', () => {
     });
   });
 
-  it('should append partial text from recognizer and trigger onChange', async () => {
+  it('should handle sentence-level callbacks: begin -> partial -> end', async () => {
     let handlersRef: Parameters<CreateRecognizer>[0] | undefined;
     const start = vi.fn().mockResolvedValue(undefined);
     const stop = vi.fn().mockResolvedValue(undefined);
@@ -228,19 +228,33 @@ describe('MarkdownInputField - voiceInput', () => {
       expect(start).toHaveBeenCalled();
     });
 
-    // simulate partial text
+    // sentence begin -> start index recorded
+    handlersRef?.onSentenceBegin();
+    // partial deltas for current sentence
+    handlersRef?.onPartial('hello');
+    await vi.waitFor(() => {
+      expect(handleChange).toHaveBeenLastCalledWith('hello', expect.anything());
+    });
     handlersRef?.onPartial('hello ');
     await vi.waitFor(() => {
-      expect(handleChange).toHaveBeenCalledWith('hello ', expect.anything());
+      expect(handleChange).toHaveBeenLastCalledWith('hello ', expect.anything());
     });
 
-    // another partial should append
-    handlersRef?.onPartial('world');
+    // sentence end -> finalize
+    handlersRef?.onSentenceEnd('hello world');
     await vi.waitFor(() => {
-      expect(handleChange).toHaveBeenLastCalledWith(
-        'helloworld',
-        expect.anything(),
-      );
+      expect(handleChange).toHaveBeenLastCalledWith('hello world', expect.anything());
+    });
+
+    // next sentence should start after previous content
+    handlersRef?.onSentenceBegin();
+    handlersRef?.onPartial('foo');
+    await vi.waitFor(() => {
+      expect(handleChange).toHaveBeenLastCalledWith('hello worldfoo', expect.anything());
+    });
+    handlersRef?.onSentenceEnd('foo.');
+    await vi.waitFor(() => {
+      expect(handleChange).toHaveBeenLastCalledWith('hello worldfoo.', expect.anything());
     });
   });
 
