@@ -306,7 +306,7 @@
   box-shadow: var(--shadow-control-base);
 }
 
-.ant-input {
+.ant-input-outlined {
   border-radius: var(--radius-control-base);
   background: var(--color-gray-bg-card-white);
   box-shadow: var(--shadow-control-base);
@@ -316,8 +316,7 @@
   border: 1px solid transparent;
 }
 
-.ant-input-outlined:focus,
-.ant-input-outlined:focus-within {
+.ant-input-outlined:hover {
   border-radius: var(--radius-control-base);
   background: var(--color-gray-bg-card-white);
   box-sizing: border-box;
@@ -325,8 +324,17 @@
   box-shadow: var(--shadow-control-base);
 }
 
-.ant-input-outlined.ant-input-disabled,
-.ant-input-outlined[disabled] {
+.ant-input-affix-wrapper-outlined:focus,
+.ant-input-affix-wrapper-outlined:focus-within {
+  border-radius: var(--radius-control-base);
+  background: var(--color-gray-bg-card-white);
+  box-sizing: border-box;
+  border: 1px solid var(--color-primary-control-fill-primary-active);
+  box-shadow: var(--shadow-control-base);
+}
+
+.ant-input-affix-wrapper-outlined.ant-input-disabled,
+.ant-input-affix-wrapper-outlined[disabled] {
   border-color: transparent;
   color: var(--color-gray-text-default);
   border-radius: var(--radius-control-base);

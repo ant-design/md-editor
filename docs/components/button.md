@@ -8,7 +8,7 @@ group:
 # 基础组件
 
 ```tsx
-import { PlusOutlined, SmileOutlined } from '@ant-design/icons';
+import { PlusOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
 import { Button, Input, Flex, Segmented, Divider } from 'antd';
 import React from 'react';
 import {
@@ -310,11 +310,20 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Input placeholder="请输入" />
-        <Input value="已经输入值" placeholder="请输入" />
+        <Input prefix={<SearchOutlined />} placeholder="请输入" />
+        <Input
+          prefix={<SearchOutlined />}
+          value="已经输入值"
+          placeholder="请输入"
+        />
 
-        <Input disabled placeholder="请输入" />
-        <Input disabled value="已经输入值" placeholder="请输入" />
+        <Input prefix={<SearchOutlined />} disabled placeholder="请输入" />
+        <Input
+          prefix={<SearchOutlined />}
+          disabled
+          value="已经输入值"
+          placeholder="请输入"
+        />
       </Flex>
     </Flex>
   );
