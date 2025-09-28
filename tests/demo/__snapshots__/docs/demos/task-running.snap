@@ -49,7 +49,6 @@
               >
                 <div
                   class=""
-                  data-testid="robot"
                   style="width: 84px; height: 84px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                 >
                   <div
@@ -261,7 +260,6 @@
                   >
                     <div
                       class=""
-                      data-testid="robot"
                       style="width: 84px; height: 84px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
                     >
                       <div
@@ -466,7 +464,6 @@
                   >
                     <div
                       class=""
-                      data-testid="robot"
                       style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
                     >
                       <div
@@ -705,7 +702,6 @@
                   >
                     <div
                       class=""
-                      data-testid="robot"
                       style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
                     >
                       <div
@@ -814,7 +810,6 @@
                   >
                     <div
                       class=""
-                      data-testid="robot"
                       style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
                     >
                       <div
@@ -934,7 +929,6 @@
                   >
                     <div
                       class=""
-                      data-testid="robot"
                       style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
                     >
                       <div
@@ -1051,7 +1045,6 @@
                   >
                     <div
                       class=""
-                      data-testid="robot"
                       style="width: 54px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotateY(180deg);"
                     >
                       <div
