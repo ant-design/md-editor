@@ -1,4 +1,3 @@
-import { m } from 'framer-motion';
 import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
 import { useEditorStyleRegister } from '../../hooks/useStyle';
 

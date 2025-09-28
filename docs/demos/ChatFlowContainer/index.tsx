@@ -1,7 +1,6 @@
 import {
   BackTo,
   BubbleList,
-  BubbleMetaData,
   ChatFlowContainer,
   ChatFlowContainerRef,
   MessageBubbleData,
@@ -10,37 +9,15 @@ import {
   TaskRunning,
 } from '@ant-design/md-editor';
 import React, { useEffect, useRef, useState } from 'react';
+import {
+  assistantMeta,
+  createMockMessage,
+  INITIAL_MESSAGES,
+  mockInlineFileMap,
+  RETRY_CONFIG,
+  userMeta,
+} from './data';
 import './style.css';
-
-const assistantMeta: BubbleMetaData = {
-  avatar:
-    'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
-  title: 'AI助手',
-};
-
-const userMeta: BubbleMetaData = {
-  avatar:
-    'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-  title: '用户',
-};
-
-// 创建模拟消息
-const createMockMessage = (
-  id: string,
-  role: 'user' | 'assistant',
-  content: string,
-): MessageBubbleData => ({
-  id,
-  role,
-  content,
-  createAt: Date.now(),
-  updateAt: Date.now(),
-  isFinished: true,
-  meta: {
-    avatar: role === 'assistant' ? assistantMeta.avatar : userMeta.avatar,
-    title: role === 'assistant' ? assistantMeta.title : userMeta.title,
-  } as BubbleMetaData,
-});
 
 /**
  * ChatFlowContainer 对话流容器组件演示
@@ -54,13 +31,13 @@ const createMockMessage = (
 const ChatFlowContainerDemo: React.FC = () => {
   const [leftCollapsed, setLeftCollapsed] = useState(false);
   const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
-    const messageCount = 2;
     const messages: MessageBubbleData[] = [];
 
-    for (let i = 0; i < messageCount; i++) {
+    for (let i = 0; i < RETRY_CONFIG.MESSAGE_COUNT; i++) {
       const role = i % 2 === 0 ? 'assistant' : 'user';
-      const content = `这是第 ${i + 1} 条消息`;
-      messages.push(createMockMessage(`msg-${i}`, role, content));
+      const content =
+        i === 0 ? INITIAL_MESSAGES.assistant : INITIAL_MESSAGES.user;
+      messages.push(createMockMessage(`msg-${i}`, role, content, new Map()));
     }
 
     return messages;
@@ -111,27 +88,35 @@ const ChatFlowContainerDemo: React.FC = () => {
     isRetryingRef.current = true;
 
     let retryCount = 0;
-    const MAX_RETRY = 30;
 
     retryTimerRef.current = setInterval(() => {
+      let content = `这是第 ${retryCount + RETRY_CONFIG.MESSAGE_COUNT + 1} 条消息`;
+      let fileMap = new Map();
+      if (retryCount === RETRY_CONFIG.MAX_RETRY - 1) {
+        content = INITIAL_MESSAGES.bubbleDoc;
+        fileMap = mockInlineFileMap;
+      } else {
+        content = `这是第 ${retryCount + RETRY_CONFIG.MESSAGE_COUNT + 1} 条消息`;
+      }
       setBubbleList((prev) => {
         const newMessage = createMockMessage(
           `msg-${Date.now()}`,
           prev.length % 2 === 0 ? 'user' : 'assistant',
-          `这是第 ${prev.length + 1} 条消息`,
+          content,
+          fileMap,
         );
         return [...prev, newMessage];
       });
 
       retryCount += 1;
-      if (retryCount >= MAX_RETRY) {
+      if (retryCount >= RETRY_CONFIG.MAX_RETRY) {
         if (retryTimerRef.current) {
           clearInterval(retryTimerRef.current);
           retryTimerRef.current = null;
         }
         isRetryingRef.current = false;
       }
-    }, 2000);
+    }, RETRY_CONFIG.INTERVAL);
   };
 
   const handleViewResult = () => {
@@ -221,6 +206,7 @@ const ChatFlowContainerDemo: React.FC = () => {
             style={{
               paddingBottom: '60px',
             }}
+            pure
             bubbleList={bubbleList}
             assistantMeta={assistantMeta}
             userMeta={userMeta}
