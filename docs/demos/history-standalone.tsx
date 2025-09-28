@@ -1,4 +1,5 @@
 import { History, HistoryDataType } from '@ant-design/md-editor';
+import { message } from 'antd';
 import React, { useState } from 'react';
 
 const StandaloneHistoryDemo = () => {
@@ -59,6 +60,18 @@ const StandaloneHistoryDemo = () => {
     console.log('选择会话:', sessionId);
   };
 
+  // 处理加载更多
+  const handleLoadMore = async () => {
+    message.loading('正在加载更多数据...');
+
+    // 模拟加载更多
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
+
+    message.success('加载完成');
+  };
+
   return (
     <div style={{ padding: 20 }}>
       <h3>History 独立模式</h3>
@@ -69,7 +82,7 @@ const StandaloneHistoryDemo = () => {
           padding: '20px',
           width: 348,
           margin: '0 auto',
-          border: '1px solid #d9d9d9',
+          border: '1px solid var(--color-gray-border-light)',
         }}
       >
         <History
@@ -82,9 +95,13 @@ const StandaloneHistoryDemo = () => {
           agent={{
             enabled: true,
             onSearch: () => {},
-            onLoadMore: () => {},
             onNewChat: () => {},
-            onFavorite: () => {},
+            onLoadMore: handleLoadMore,
+            onFavorite: async () => {
+              await new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+              });
+            },
           }}
         />
       </div>

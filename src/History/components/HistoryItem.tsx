@@ -300,9 +300,11 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
-          <div className={`${prefixCls}-extra-actions ${hashId}`}>
-            {customOperationExtra}
-          </div>
+          {customOperationExtra ? (
+            <div className={`${prefixCls}-extra-actions ${hashId}`}>
+              {customOperationExtra}
+            </div>
+          ) : null}
         </div>
         {extra?.(item)}
       </div>
