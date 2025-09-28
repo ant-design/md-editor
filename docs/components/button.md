@@ -9,7 +9,7 @@ group:
 
 ```tsx
 import { PlusOutlined, SmileOutlined } from '@ant-design/icons';
-import { Button, Flex, Segmented, Divider } from 'antd';
+import { Button, Input, Flex, Segmented, Divider } from 'antd';
 import React from 'react';
 import {
   ThemeProvider,
@@ -28,7 +28,13 @@ export default () => {
       }}
     >
       <h1>Button</h1>
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" variant="solid" icon={<PlusOutlined />}>
           主按钮
         </Button>
@@ -53,7 +59,13 @@ export default () => {
         </Button>
       </Flex>
 
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" variant="filled" icon={<PlusOutlined />}>
           次按钮
         </Button>
@@ -75,7 +87,13 @@ export default () => {
         </Button>
       </Flex>
 
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" icon={<PlusOutlined />}>
           Ghost 按钮
         </Button>
@@ -86,7 +104,13 @@ export default () => {
           Ghost 按钮
         </Button>
       </Flex>
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button type="text">Text按钮</Button>
         <Button type="text" disabled>
           Text(disabled)
@@ -96,7 +120,13 @@ export default () => {
         </Button>
       </Flex>
 
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button type="primary">Primary按钮</Button>
         <Button type="primary" disabled>
           Primary(disabled)
@@ -106,12 +136,24 @@ export default () => {
         </Button>
       </Flex>
 
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button icon={<PlusOutlined />} />
         <Button icon={<PlusOutlined />} disabled />
         <Button icon={<PlusOutlined />} loading />
       </Flex>
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" variant="filled" icon={<PlusOutlined />} />
         <Button
           color="default"
@@ -126,7 +168,13 @@ export default () => {
           loading
         />
       </Flex>
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" variant="text" icon={<PlusOutlined />} />
         <Button
           color="default"
@@ -142,7 +190,14 @@ export default () => {
         />
       </Flex>
       <Divider />
-      <Flex gap={12} vertical>
+      <Flex
+        gap={12}
+        vertical
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <div>
           <h2>Segmented</h2>
           <Segmented
@@ -246,6 +301,20 @@ export default () => {
             ]}
           />
         </div>
+      </Flex>
+      <Flex
+        gap={12}
+        vertical
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Input placeholder="请输入" />
+        <Input value="已经输入值" placeholder="请输入" />
+
+        <Input disabled placeholder="请输入" />
+        <Input disabled value="已经输入值" placeholder="请输入" />
       </Flex>
     </Flex>
   );
