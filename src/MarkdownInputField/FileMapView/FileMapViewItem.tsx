@@ -3,17 +3,13 @@
 //   EllipsisOutlined,
 //   EyeOutlined,
 // } from '@ant-design/icons';
-import {
-  DownloadIcon,
-  MoreIcon,
-  PreviewIcon,
-} from '@ant-design/md-editor/icons/FileIconList';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
+import { Download, Ellipsis, Eye } from '../../icons';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { kbToSize } from '../AttachmentButton/utils';
@@ -193,7 +189,7 @@ export const FileMapViewItem: React.FC<{
                       props.hashId,
                     )}
                   >
-                    <PreviewIcon />
+                    <Eye />
                   </div>
                   <div
                     onClick={(e) => {
@@ -205,7 +201,7 @@ export const FileMapViewItem: React.FC<{
                       props.hashId,
                     )}
                   >
-                    <DownloadIcon />
+                    <Download />
                   </div>
                   {props.renderMoreAction ? (
                     <div
@@ -226,7 +222,7 @@ export const FileMapViewItem: React.FC<{
                         props.hashId,
                       )}
                     >
-                      <MoreIcon />
+                      <Ellipsis />
                       {props.renderMoreAction ? (
                         <div
                           className={classNames(

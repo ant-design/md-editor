@@ -1,9 +1,7 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { CloseFillIcon } from '../icons/CloseFillIcon';
-import { CornerLeftUp } from '../icons/CornerLeftUp';
-import QuoteIcon from '../icons/QuoteIcon';
+import { CloseCircleFill, CornerLeftUp, QuoteBefore } from '../icons';
 import { useStyle } from './style';
 
 /**
@@ -19,6 +17,8 @@ export interface QuoteProps {
   quoteDescription: string;
   /** 详细内容（点击查看详情） */
   popupDetail?: string;
+  /** 弹出层方向 */
+  popupDirection?: 'left' | 'right';
   /** 是否显示关闭按钮 */
   closable?: boolean;
   /** 关闭回调 */
@@ -80,6 +80,7 @@ export const Quote: React.FC<QuoteProps> = ({
   lineRange,
   quoteDescription,
   popupDetail,
+  popupDirection = 'left',
   closable = false,
   onClose,
   className,
@@ -116,25 +117,28 @@ export const Quote: React.FC<QuoteProps> = ({
   return wrapSSR(
     <div className={containerCls} style={style} data-testid="quote-container">
       <div className={quoteIconCls} data-testid="quote-icon">
-        <QuoteIcon />
+        <QuoteBefore />
       </div>
       <span className={quoteDescriptionCls} data-testid="quote-description">
         {quoteDescription}
       </span>
       {closable && onClose && (
         <div
-          style={{ fontSize: 16 }}
           onClick={onClose}
           className={closeCls}
           data-testid="quote-close-button"
         >
-          <CloseFillIcon />
+          <CloseCircleFill />
         </div>
       )}
 
       {/* 弹出层 - 通过CSS hover控制显示 */}
       {popupDetail && (
-        <div className={popupCls} data-testid="quote-popup">
+        <div
+          className={popupCls}
+          data-testid="quote-popup"
+          style={{ [popupDirection]: 0 }}
+        >
           {(fileName || lineRange) && (
             <div
               className={popupHeaderCls}

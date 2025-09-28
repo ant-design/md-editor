@@ -9,7 +9,7 @@
       style="padding: 20px;"
     >
       <div
-        style="max-width: 640px; border: 1px solid rgb(217, 217, 217); border-radius: 8px;"
+        style="max-width: 640px;"
       >
         <div
           data-testid="workspace"

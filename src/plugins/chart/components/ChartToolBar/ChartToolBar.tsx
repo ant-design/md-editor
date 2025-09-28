@@ -67,12 +67,13 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
         {extra}
         {handleDownload ? (
           <Tooltip
+            mouseEnterDelay={0.3}
             title={i18n?.locale?.download || '下载'}
           >
             <DownloadOutlined
-            className={classNames(`${prefixCls}-download-btn`, hashId)}
-            onClick={handleDownload}
-          />
+              className={classNames(`${prefixCls}-download-btn`, hashId)}
+              onClick={handleDownload}
+            />
           </Tooltip>
         ) : null}
       </div>

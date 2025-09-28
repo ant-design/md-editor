@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { NewChatIcon } from '../../icons';
+import { AiAgentManagement } from '../../icons';
 
 /**
  * 新对话组件属性接口
@@ -37,7 +37,7 @@ interface HistoryNewChatProps {
  * @remarks
  * - 支持加载状态显示
  * - 包含错误处理机制
- * - 使用NewChatIcon图标
+ * - 使用MessageCirclePlus图标
  * - 响应式按钮设计
  * - 条件渲染支持
  */
@@ -79,7 +79,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
       onKeyDown={handleKeyDown}
       className={className}
     >
-      <NewChatIcon
+      <AiAgentManagement
         style={{
           fontSize: 16,
         }}

@@ -22,9 +22,11 @@ group:
 ## 基本使用
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { ActionItemBox, ActionItemContainer } from '@ant-design/md-editor';
+import { MarkdownInputField, SuggestionList } from '@ant-design/md-editor';
 import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
 
 const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
@@ -48,169 +50,186 @@ export default () => {
     '`${placeholder:目标场景}` `${placeholder:目标事件}` 今天的拒绝率为什么下降？输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
   );
 
+  const markdownRef = React.useRef<MarkdownEditorInstance>(null);
+
   return (
-    <MarkdownInputField
-      value={value}
-      voiceRecognizer={createRecognizer}
-      attachment={{
-        enable: true,
-        accept: '.pdf,.doc,.docx,image/*',
-        maxSize: 10 * 1024 * 1024, // 10MB
-        onUpload: async (file) => {
-          // 模拟上传文件
-          await new Promise((resolve) => setTimeout(resolve, 10000));
-          return {
-            url: URL.createObjectURL(file),
-            name: file.name,
-          };
-        },
-        onDelete: async (file) => {
-          console.log('删除文件:', file);
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        },
-      }}
-      tagInputProps={{
-        type: 'dropdown',
-        enable: true,
-        items: async (props) => {
-          console.log('items', props);
-          return ['tag1', 'tag2', 'tag3'].map((item) => {
+    <>
+      <MarkdownInputField
+        value={value}
+        inputRef={markdownRef}
+        voiceRecognizer={createRecognizer}
+        attachment={{
+          enable: true,
+          accept: '.pdf,.doc,.docx,image/*',
+          maxSize: 10 * 1024 * 1024, // 10MB
+          onUpload: async (file) => {
+            // 模拟上传文件
+            await new Promise((resolve) => setTimeout(resolve, 10000));
             return {
-              key: item,
-              label: props?.placeholder + item,
+              url: URL.createObjectURL(file),
+              name: file.name,
             };
-          });
-        },
-      }}
-      beforeToolsRender={() => {
-        return (
-          <>
-            <div
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
-            >
-              <img
-                width="16"
-                height="16"
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+          },
+          onDelete: async (file) => {
+            console.log('删除文件:', file);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+          },
+        }}
+        tagInputProps={{
+          type: 'dropdown',
+          enable: true,
+          items: async (props) => {
+            if (props?.placeholder === '目标场景') {
+              return [];
+            }
+            return ['tag1', 'tag2', 'tag3'].map((item) => {
+              return {
+                key: item,
+                label: props?.placeholder + item,
+              };
+            });
+          },
+        }}
+        beforeToolsRender={() => {
+          return (
+            <ActionItemContainer>
+              <ActionItemBox
+                onClick={() => console.log('快捷技能1')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能1
+                  </span>
+                }
+                key="快捷技能1"
               />
-              快捷技能
-            </div>
-            <div
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
-            >
-              <img
-                width="16"
-                height="16"
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              <ActionItemBox
+                onClick={() => console.log('快捷技能2')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能2
+                  </span>
+                }
+                key="快捷技能2"
               />
-              快捷技能
-            </div>
-            <div
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
-            >
-              <img
-                width="16"
-                height="16"
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+              <ActionItemBox
+                onClick={() => console.log('快捷技能3')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能3
+                  </span>
+                }
+                key="快捷技能3"
               />
-              快捷技能
-            </div>
-          </>
-        );
-      }}
-      toolsRender={() => [
-        <div
-          key="bold"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
-        >
-          DeepThink <DownOutlined />
-        </div>,
-        <div
-          key="italic"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
-        >
-          <GlobalOutlined />
-          深度思考
-        </div>,
-        <div
-          key="link"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
-        >
-          <AimOutlined />
-          联网搜索
-        </div>,
-      ]}
-      onChange={(newValue) => {
-        setValue(newValue);
-        console.log('newValue', newValue);
-      }}
-      ac
-      placeholder="请输入内容..."
-      onSend={async (text) => {
-        console.log('发送内容:', text);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }}
-    />
+            </ActionItemContainer>
+          );
+        }}
+        toolsRender={() => [
+          <div
+            key="bold"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            DeepThink <DownOutlined />
+          </div>,
+          <div
+            key="italic"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            <GlobalOutlined />
+            深度思考
+          </div>,
+          <div
+            key="link"
+            style={{
+              borderRadius: '200px',
+              boxSizing: 'border-box',
+              border: '1px solid var(--color-gray-border-light) ',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 12px',
+              gap: '8px',
+              zIndex: 1,
+            }}
+          >
+            <AimOutlined />
+            联网搜索
+          </div>,
+        ]}
+        onChange={(newValue) => {
+          setValue(newValue);
+          console.log('newValue', newValue);
+        }}
+        placeholder="请输入内容..."
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }}
+      />
+      <SuggestionList
+        items={[
+          {
+            key: 'qwe',
+            icon: '💸 ',
+            text: '关税对消费类基金的影响',
+            tooltip: '关税消费',
+            actionIcon: <EditOutlined />,
+          },
+          {
+            key: 'asd',
+            icon: '💸 ',
+            text: ' 关税对消费类基金的影响',
+            actionIcon: <EditOutlined />,
+          },
+          {
+            key: 'zxc',
+            icon: '💸 ',
+            text: '关税对消费类基金的影响',
+            actionIcon: <EditOutlined />,
+          },
+        ]}
+        layout={'horizontal'}
+        onItemClick={() => {
+          markdownRef?.current?.store?.setMDContent(
+            '关税对 `${placeholder:消费类}` 基金的影响',
+          );
+        }}
+      />
+    </>
   );
 };
 ```
@@ -471,6 +490,55 @@ export default () => {
 };
 ```
 
+### 启用提示词优化
+
+```tsx
+import { MarkdownInputField } from '@ant-design/md-editor';
+
+export default () => {
+  const [value, setValue] = React.useState(
+    '请将这段提示语优化为更清晰的英文表达，并保留关键术语。',
+  );
+
+  return (
+    <>
+      <div
+        style={{
+          padding: 20,
+        }}
+      >
+        <MarkdownInputField
+          value={value}
+          onChange={setValue}
+          refinePrompt={{
+            enable: true,
+            onRefine: async (input) => {
+              // 模拟异步优化（真实项目可调用后端/模型服务）
+              await new Promise((r) => setTimeout(r, 2000));
+              return `你好呀，哈哈哈哈 ${input}`;
+            },
+          }}
+        />
+      </div>
+      <div>
+        <h4>说明</h4>
+        <ul>
+          <li>
+            <code>refinePrompt.enable</code> 为 true
+            时，右上“快速操作”区域会显示“优化提示词/撤销”按钮
+          </li>
+          <li>
+            <code>refinePrompt.onRefine</code> 接收当前输入文本，返回
+            Promise&lt;string&gt; 作为优化后的文本
+          </li>
+          <li>优化完成后按钮恢复为“优化提示词”；</li>
+        </ul>
+      </div>
+    </>
+  );
+};
+```
+
 ### 启用附件功能
 
 ```tsx
@@ -581,6 +649,40 @@ export default () => {
 };
 ```
 
+### 自定义附件按钮渲染
+
+通过 `attachment.render` 属性，您可以完全替换默认的 `AttachmentButtonPopover` 组件，实现自定义的附件按钮交互体验。
+
+<code src="../demos/markdownInputField/custom-attachment-popover.tsx" background="var(--main-bg-color)" iframe=800></code>
+
+#### render 属性
+
+| 参数   | 说明               | 类型                                         | 默认值 | 版本 |
+| ------ | ------------------ | -------------------------------------------- | ------ | ---- |
+| render | 自定义渲染组件函数 | `(props: RenderProps) => React.ReactElement` | -      | -    |
+
+#### RenderProps
+
+| 参数            | 说明                                    | 类型                                              | 默认值 | 版本 |
+| --------------- | --------------------------------------- | ------------------------------------------------- | ------ | ---- |
+| children        | 需要包装的子元素，通常是 Paperclip 图标 | `React.ReactNode`                                 | -      | -    |
+| supportedFormat | 支持的文件格式配置                      | `AttachmentButtonPopoverProps['supportedFormat']` | -      | -    |
+
+#### supportedFormat
+
+| 参数       | 说明                 | 类型              | 默认值 | 版本 |
+| ---------- | -------------------- | ----------------- | ------ | ---- |
+| type       | 文件类型名称         | `string`          | -      | -    |
+| maxSize    | 最大文件大小（KB）   | `number`          | -      | -    |
+| extensions | 支持的文件扩展名数组 | `string[]`        | -      | -    |
+| icon       | 文件类型图标         | `React.ReactNode` | -      | -    |
+
+#### 兼容性
+
+- 完全向后兼容，不使用 `render` 时保持原有行为
+- 支持所有现有的 `AttachmentButton` 属性
+- 可与其他附件配置选项（如 `supportedFormat`、`maxFileSize` 等）配合使用
+
 ### 自定义操作按钮
 
 ```tsx
@@ -653,6 +755,16 @@ export default () => {
               自定义
             </button>,
           ]}
+          actionsRender={(props) => [
+            <button key="custom" onClick={() => console.log('自定义按钮')}>
+              自定义
+            </button>,
+          ]}
+          quickActionRender={(props) => [
+            <button key="top-right" onClick={() => console.log('右上按钮')}>
+              右上
+            </button>,
+          ]}
         />
       </div>
       <div>
@@ -671,6 +783,10 @@ export default () => {
                 <code>defaultActions</code> - 默认的操作按钮数组
               </li>
             </ul>
+          </li>
+          <li>
+            <code>quickActionRender</code> -
+            在编辑区域右上、贴右侧渲染按钮组；组件会根据其宽度自动为文本区域预留右侧内边距，避免遮挡。
           </li>
         </ul>
       </div>
@@ -944,7 +1060,6 @@ import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
 
 export default () => {
-  const [value, setValue] = React.useState('');
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
   const [enableFeature, setEnableFeature] = React.useState(true);
   const [changeLog, setChangeLog] = React.useState([]);
@@ -998,8 +1113,6 @@ export default () => {
       </div>
 
       <MarkdownInputField
-        value={value}
-        onChange={setValue}
         placeholder="请输入内容..."
         skillMode={{
           enable: enableFeature, // 控制整个功能是否启用
@@ -1043,7 +1156,6 @@ export default () => {
         }}
         onSend={async (text) => {
           console.log('发送内容:', text);
-          await new Promise((resolve) => setTimeout(resolve, 1000));
         }}
       />
 

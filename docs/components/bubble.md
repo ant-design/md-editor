@@ -28,7 +28,7 @@ Bubble 组件是一个功能丰富的聊天消息气泡组件，为现代化对�
 ```tsx
 import {
   Bubble,
-  FollowUpQuestion,
+  SuggestionList,
   MessageBubbleData,
 } from '@ant-design/md-editor';
 import { Card } from 'antd';
@@ -138,6 +138,7 @@ export default () => (
         avatar={message.meta}
         placement="right"
         quote={{
+          popupDirection: 'right',
           fileName: 'utils/helper.ts',
           lineRange: '12-25',
           quoteDescription: '这是一个工具函数的引用，用于处理数据格式化',
@@ -176,7 +177,7 @@ export default () => (
           marginTop: -24,
         }}
       >
-        <FollowUpQuestion
+        <SuggestionList
           items={[
             {
               key: 'qwe',
@@ -196,7 +197,7 @@ export default () => (
               disabled: true,
             },
           ]}
-          onAsk={() => alert('ask')}
+          onItemClick={() => alert('ask')}
         />
       </div>
     </Card>
@@ -260,9 +261,9 @@ export default () => (
 
 <code src="../demos/bubble/avatar-render-demo.tsx"></code>
 
-### 引用
+### 脚注（Footnote）
 
-展示如何实现引用弹框及消息底部的引用汇总功能。
+展示如何实现脚注弹框及消息底部的脚注汇总功能。
 
 <code src="../demos/bubble/footnote-demo.tsx"></code>
 
@@ -271,12 +272,6 @@ export default () => (
 展示 `extraRender` 功能，自定义气泡的操作按钮和交互区域。
 
 <code src="../demos/bubble/extra-render.tsx"></code>
-
-### 追问
-
-在消息内容下方渲染追问输入与建议。
-
-<code src="../demos/bubble/followup-basic.tsx"></code>
 
 ### 语音播报（TTS）
 

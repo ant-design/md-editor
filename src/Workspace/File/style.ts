@@ -8,6 +8,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
+
       // 分组展示模式
       [`&--group`]: {
         [`${token.componentCls}-group`]: {
@@ -17,7 +18,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             height: '40px',
-            padding: '8px 12px 8px 0px',
+            padding: '8px 0',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
 
@@ -61,7 +62,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           // 文件数量
           [`&-count`]: {
-            fontSize: 'var(--font-size-sm)',
+            fontSize: '10px',
             color: 'var(--color-gray-text-secondary)',
             background: 'var(--color-gray-control-fill-active)',
             padding: '4px 6px',
@@ -318,6 +319,64 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'column',
         overflow: 'auto',
         minHeight: 0, // 确保 flex 子项可以收缩
+        padding: '16px',
+      },
+      '&-content-loading': {
+        padding: '0 12px',
+        flex: 1,
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
+        '&-tip': {
+          font: 'var(--font-text-h6-base)',
+          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+          color: 'var(--color-gray-text-secondary)',
+          display: 'flex',
+          gap: 8,
+          width: '100%',
+          maxWidth: 419,
+        },
+        '&-inner': {
+          position: 'relative',
+          height: 'auto',
+          maxWidth: 419,
+          maxHeight: '200px',
+          marginTop: 12,
+          font: 'var(--font-text-code-base)',
+          color: 'var(--color-gray-text-secondary)',
+          letterSpacing: 'var(--letter-spacing-code-base, normal)',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'flex-end',
+          // 渐变遮罩效果
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: 48,
+            right: 0,
+            background:
+              'linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          },
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: 48,
+            right: 0,
+            background:
+              'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          },
+        },
       },
 
       // iframe 预览

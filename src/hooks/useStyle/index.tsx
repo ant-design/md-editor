@@ -79,3 +79,5 @@ export function useEditorStyleRegister(
   // 确保总是返回一个有效的对象
   return result || { wrapSSR: (node: any) => node, hashId: '' };
 }
+
+

@@ -3,10 +3,9 @@ import { ConfigProvider, Dropdown, Flex, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
-import { PauseIcon } from '../../../icons/PauseIcon';
-import { PlayIcon } from '../../../icons/PlayIcon';
-import { VoicePlayLottie } from '../../../icons/VoicePlayLottie';
-import { VoicingLottie } from '../../../icons/VoicingLottie';
+import { Pause, Play } from '../../../icons';
+import VoicePlayLottie from '../../../icons/animated/VoicePlayLottie';
+import VoicingLottie from '../../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 import { UseSpeechAdapter } from './types';
 
@@ -137,7 +136,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               {isPlayHover ? (
                 <VoicePlayLottie size={16} autoplay={true} loop={false} />
               ) : (
-                <PlayIcon color="rgb(102, 111, 141)" width={14} />
+                <Play />
               )}
             </Flex>
           </Tooltip>
@@ -155,11 +154,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           >
             <Tooltip title={tooltipText} mouseEnterDelay={0.1}>
               <Flex align="center" justify="center">
-                {isPlayingHovered ? (
-                  <PauseIcon color="#767E8B" width={14} />
-                ) : (
-                  <VoicingLottie size={16} />
-                )}
+                {isPlayingHovered ? <Pause /> : <VoicingLottie size={16} />}
               </Flex>
             </Tooltip>
           </div>

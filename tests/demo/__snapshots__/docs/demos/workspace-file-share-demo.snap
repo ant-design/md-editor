@@ -12,7 +12,7 @@
         文件分享
       </h2>
       <div
-        style="position: relative; border: 1px solid rgb(217, 217, 217); border-radius: 8px; max-width: 600px;"
+        style="position: relative; max-width: 600px;"
       >
         <span
           aria-describedby="test-id"

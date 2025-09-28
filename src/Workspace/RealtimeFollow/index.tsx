@@ -3,6 +3,7 @@ import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
+import { ArrowLeft as LeftIcon } from '../../icons';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -11,11 +12,9 @@ import {
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import { HtmlPreview } from '../HtmlPreview';
 import HtmlIcon from '../icons/HtmlIcon';
-import LeftIcon from '../icons/LeftIcon';
 import ShellIcon from '../icons/ShellIcon';
 import ThinkIcon from '../icons/ThinkIcon';
 import { useRealtimeFollowStyle } from './style';
-
 export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
 
 export interface DiffContent {
@@ -112,42 +111,53 @@ const RealtimeHeader: React.FC<{
         {data?.onBack && (
           <button
             type="button"
-            className={classNames(`${finalPrefixCls}-header-back-button`, hashId)}
+            className={classNames(
+              `${finalPrefixCls}-header-back-button`,
+              hashId,
+            )}
             onClick={data.onBack}
           >
             <LeftIcon
-              className={classNames(`${finalPrefixCls}-header-back-icon`, hashId)}
+              className={classNames(
+                `${finalPrefixCls}-header-back-icon`,
+                hashId,
+              )}
             />
           </button>
         )}
-        <div>
+        <div className={classNames(`${finalPrefixCls}-header-content`, hashId)}>
           <div
-            className={classNames(`${finalPrefixCls}-header-content`, hashId)}
+            className={classNames(
+              `${finalPrefixCls}-header-icon`,
+              {
+                [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
+                [`${finalPrefixCls}-header-icon--default`]:
+                  data?.type !== 'html',
+              },
+              hashId,
+            )}
           >
-            <div
-              className={classNames(
-                `${finalPrefixCls}-header-icon`,
-                {
-                  [`${finalPrefixCls}-header-icon--html`]:
-                    data?.type === 'html',
-                  [`${finalPrefixCls}-header-icon--default`]:
-                    data?.type !== 'html',
-                },
-                hashId,
-              )}
-            >
-              <IconComponent />
-            </div>
+            <IconComponent />
+          </div>
+          <div
+            className={classNames(
+              `${finalPrefixCls}-header-title-wrapper`,
+              hashId,
+            )}
+          >
             <div
               className={classNames(`${finalPrefixCls}-header-title`, hashId)}
             >
               {headerTitle}
             </div>
-          </div>
-          <div
-            className={classNames(`${finalPrefixCls}-header-subtitle`, hashId)}
-          >
-            {headerSubTitle}
+            <div
+              className={classNames(
+                `${finalPrefixCls}-header-subtitle`,
+                hashId,
+              )}
+            >
+              {headerSubTitle}
+            </div>
           </div>
         </div>
       </div>
@@ -161,8 +171,6 @@ const RealtimeHeader: React.FC<{
 // 获取不同type的MarkdownEditor配置
 const getEditorConfig = (
   type: RealtimeFollowMode,
-  prefixCls: string,
-  hashId?: string,
 ): Partial<MarkdownEditorProps> => {
   const baseConfig = {
     readonly: true,
@@ -179,10 +187,10 @@ const getEditorConfig = (
           padding: 0,
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
-        className: classNames(`${prefixCls}--shell`, hashId),
         codeProps: {
           showGutter: true,
           showLineNumbers: true,
+          hideToolBar: true,
         },
       };
     case 'markdown':
@@ -193,7 +201,6 @@ const getEditorConfig = (
           padding: 16,
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
-        className: classNames(`${prefixCls}--markdown`, hashId),
         height: '100%',
       };
     default:
@@ -354,7 +361,7 @@ export const RealtimeFollow: React.FC<{
     return null;
   }
 
-  const defaultProps = getEditorConfig(data.type, finalPrefixCls, hashId);
+  const defaultProps = getEditorConfig(data.type);
   const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
@@ -495,7 +502,9 @@ export const RealtimeFollowList: React.FC<{
     if (!data.segmentedExtra) return segmentedNode;
 
     return (
-      <div className={classNames(`${prefixCls}-header-segmented-right`, hashId)}>
+      <div
+        className={classNames(`${prefixCls}-header-segmented-right`, hashId)}
+      >
         {segmentedNode}
         {data.segmentedExtra}
       </div>
@@ -506,8 +515,14 @@ export const RealtimeFollowList: React.FC<{
 
   return wrapSSR(
     <div
-      className={classNames(`${prefixCls}-container`, data.className, hashId)}
+      className={classNames(
+        `${prefixCls}-container`,
+        `${prefixCls}--${data.type}`,
+        data.className,
+        hashId,
+      )}
       style={data.style}
+      data-testid="realtime-follow"
     >
       <RealtimeHeader
         data={headerData}

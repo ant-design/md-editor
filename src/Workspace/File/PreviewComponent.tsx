@@ -1,3 +1,4 @@
+import { LoadingOutlined } from '@ant-design/icons';
 import {
   Alert,
   Button,
@@ -12,14 +13,16 @@ import classNames from 'classnames';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import {
+  Download as DownloadIcon,
+  ArrowLeft as LeftIcon,
+  MessageSquareShare as ShareIcon,
+} from '../../icons';
+import {
   MarkdownEditor,
   type MarkdownEditorInstance,
   type MarkdownEditorProps,
 } from '../../MarkdownEditor';
 import { HtmlPreview } from '../HtmlPreview';
-import DownloadIcon from '../icons/DownloadIcon';
-import LeftIcon from '../icons/LeftIcon';
-import ShareIcon from '../icons/ShareIcon';
 import { FileNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import {
@@ -309,6 +312,23 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   };
 
   const renderPreviewContent = () => {
+    if (file.loading) {
+      return (
+        <div className={classNames(`${prefixCls}-content-loading `, hashId)}>
+          <span
+            className={classNames(`${prefixCls}-content-loading-tip`, hashId)}
+          >
+            <LoadingOutlined />
+            正在生成
+          </span>
+          <div
+            className={classNames(`${prefixCls}-content-loading-inner`, hashId)}
+          >
+            {file?.content || '...'}
+          </div>
+        </div>
+      );
+    }
     if (customContent) {
       return (
         <div className={classNames(`${prefixCls}-custom-content`, hashId)}>
@@ -498,7 +518,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               {...{
                 initValue: '',
                 readonly: true,
-                contentStyle: { padding: 0 },
+                contentStyle: { padding: '0 12px' },
               }}
               {...markdownEditorProps}
             />
@@ -710,7 +730,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               />
             )}
             {onShare && file.canShare === true && (
-              <Tooltip title={locale?.['workspace.file.share'] || '分享'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.share'] || '分享'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -722,7 +745,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               </Tooltip>
             )}
             {onDownload && (
-              <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
                 <Button
                   size="small"
                   type="text"

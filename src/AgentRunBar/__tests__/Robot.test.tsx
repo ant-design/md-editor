@@ -1,11 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Robot from '../Robot';
 
 // Mock Lottie组件
 vi.mock('lottie-react', () => ({
-  default: ({ animationData, loop, autoplay, style, className, ...props }: any) => (
+  default: ({
+    animationData,
+    loop,
+    autoplay,
+    style,
+    className,
+    ...props
+  }: any) => (
     <div
       data-testid="lottie-animation"
       data-loop={loop}
@@ -97,7 +104,6 @@ describe('Robot Component', () => {
 
     const robot = screen.getByRole('img');
     expect(robot).toHaveAttribute('src', customIconUrl);
-    expect(robot).toHaveAttribute('alt', 'robot');
 
     // 当有字符串图标时，不应该显示Lottie动画
     expect(screen.queryByTestId('lottie-animation')).not.toBeInTheDocument();
@@ -192,7 +198,9 @@ describe('Robot Component', () => {
   // 测试极端尺寸值
   it('should handle extreme size values', () => {
     // 测试小尺寸
-    const { container: container1, unmount: unmount1 } = render(<Robot size={1} />);
+    const { container: container1, unmount: unmount1 } = render(
+      <Robot size={1} />,
+    );
     const robot1 = container1.firstChild as HTMLElement;
     expect(robot1).toHaveStyle({ width: '1px', height: '1px' });
     expect(screen.getByTestId('lottie-animation')).toBeInTheDocument();

@@ -1,7 +1,7 @@
 ﻿import { ConfigProvider, Popover } from 'antd';
 import React, { useContext, useRef } from 'react';
 import useClickAway from '../hooks/useClickAway';
-import { HistoryIcon } from '../icons/HistoryIcon';
+import { History as HistoryIcon } from '../icons';
 import { ActionIconBox, BubbleConfigContext } from '../index';
 import {
   HistoryLoadMore,
@@ -14,7 +14,11 @@ import GroupMenu from './menu';
 import { useStyle } from './style';
 import { HistoryProps } from './types';
 
+export * from './components';
+export * from './hooks/useHistory';
+export * from './types';
 export * from './types/HistoryData';
+export * from './utils';
 
 /**
  * History 组件 - 用于显示和管理聊天历史记录
@@ -77,6 +81,7 @@ export const History: React.FC<HistoryProps> = (props) => {
       setOpen(false);
     },
     groupLabelRender: props.groupLabelRender,
+    customOperationExtra: props.customOperationExtra || [],
     onDeleteItem: props.onDeleteItem
       ? async (sessionId) => {
           await props.onDeleteItem?.(sessionId);
@@ -112,6 +117,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           <HistorySearch
             searchKeyword={searchKeyword}
             onSearch={handleSearch}
+            type={props.type}
           />
         )}
 
@@ -124,7 +130,11 @@ export const History: React.FC<HistoryProps> = (props) => {
           className={menuPrefixCls}
         />
         {props.agent?.enabled && !!props.agent?.onLoadMore && (
-          <HistoryLoadMore onLoadMore={handleLoadMore} type={props.type} />
+          <HistoryLoadMore
+            onLoadMore={handleLoadMore}
+            type={props.type}
+            className={`${menuPrefixCls}-load-more  ${props.type === 'task' ? '' : 'chat'} ${hashId}`}
+          />
         )}
       </div>,
     );
@@ -153,7 +163,11 @@ export const History: React.FC<HistoryProps> = (props) => {
             className={menuPrefixCls}
           />
           {props.agent?.enabled && !!props.agent?.onLoadMore && (
-            <HistoryLoadMore onLoadMore={handleLoadMore} type={props.type} />
+            <HistoryLoadMore
+              onLoadMore={handleLoadMore}
+              type={props.type}
+              className={`${menuPrefixCls}-load-more ${hashId} ${props.type === 'task' ? '' : 'chat'}`}
+            />
           )}
         </>
       }
@@ -172,22 +186,18 @@ export const History: React.FC<HistoryProps> = (props) => {
       >
         <ActionIconBox
           key="history"
-          style={{
-            color: 'var(--color-gray-text-default)',
-            width: 25,
-            height: 25,
-          }}
           noPadding
           title={locale?.['chat.history'] || '历史记录'}
         >
-          <HistoryIcon />
+          <HistoryIcon
+            style={{
+              color: 'var(--color-gray-text-default)',
+              width: 14,
+              height: 14,
+            }}
+          />
         </ActionIconBox>
       </div>
     </Popover>
   );
 };
-
-export * from './components';
-export * from './hooks/useHistory';
-export * from './types';
-export * from './utils';

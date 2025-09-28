@@ -15,6 +15,15 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
   },
 });
 
+const borderSpin = new Keyframes('borderSpin', {
+  '0%': {
+    backgroundPosition: '200% 50%',
+  },
+  '100%': {
+    backgroundPosition: '0% 50%',
+  },
+});
+
 /**
  * 生成任务运行组件的样式
  *
@@ -46,11 +55,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         right: 0,
         bottom: 0,
         zIndex: -1,
+        // background:
+        //   'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
         background:
-          'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
+          'linear-gradient(90deg, #D3FEFF 0%, #FFF16F 16%, rgba(82, 212, 255, 0.2329) 50%, #D3FEFF 75%, #D3FEFF 100%)',
+        backgroundSize: '200% 50%',
         borderRadius: 'var(--radius-card-lg)',
+        opacity: 1,
         boxShadow: 'var(--shadow-popover-base)',
+        animationName: borderSpin,
+        animationDuration: '8s',
+        animationTimingFunction: 'linear',
+        animationIterationCount: 'infinite',
         pointerEvents: 'none',
+        overflow: 'hidden',
+        transition: 'background 0.2s',
       },
 
       '&-background': {
@@ -178,6 +197,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
 
+    // Status pause
+    [`${componentCls}-status-pause`]: {
+      [`${componentCls}-border`]: {
+        background: 'var(--color-gray-bg-card-white)',
+        animationName: 'none',
+      },
+    },
+
     // Simple variant
     [`${componentCls}${componentCls}-simple`]: {
       width: '100%',
@@ -214,7 +241,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 12,
       },
 
-      [`${componentCls}-pause`]: {
+      [`${componentCls}-play, ${componentCls}-pause`]: {
         width: 20,
         height: 20,
         color: 'var(--color-gray-text-default)',
@@ -222,20 +249,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 'var(--radius-control-sm)',
 
         '&:hover': {
-          color: 'var(--color-gray-text-secondary)',
-          background: 'var(--color-gray-control-fill-active)',
-        },
-      },
-
-      [`${componentCls}-play`]: {
-        width: 20,
-        height: 20,
-        color: 'var(--color-gray-text-default)',
-        background: 'transparent',
-        borderRadius: 'var(--radius-control-sm)',
-
-        '&:hover': {
-          color: 'var(--color-gray-text-secondary)',
           background: 'var(--color-gray-control-fill-active)',
         },
       },

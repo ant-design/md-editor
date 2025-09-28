@@ -52,27 +52,22 @@ export function CodeContainer({
         style={{
           padding: hide ? 0 : undefined,
           marginBottom: hide ? 0 : undefined,
-          boxSizing: 'border-box',
           backgroundColor: showBorder
             ? 'rgba(59, 130, 246, 0.1)'
             : hide
               ? 'transparent'
               : 'rgb(252, 252, 252)',
-          maxHeight: 400,
-          overflow: 'auto',
-          position: 'relative',
           height: hide ? 0 : 'auto',
           opacity: hide ? 0 : 1,
-          borderRadius: 'var(--radius-card-base)',
-          background: 'var(--color-gray-bg-card-white)',
-          transition: 'border-color 0.2s ease-in-out',
-          borderColor: 'var(--color-gray-border-light)',
-          boxShadow:
-            'var(--shadow-control-base)',
         }}
-        className={classNames('ace-container', 'drag-el', {
-          frontmatter: safeElement.frontmatter,
-        })}
+        className={classNames(
+          'ace-container',
+          'code-editor-container',
+          'drag-el',
+          {
+            frontmatter: safeElement.frontmatter,
+          },
+        )}
       >
         {children}
       </div>

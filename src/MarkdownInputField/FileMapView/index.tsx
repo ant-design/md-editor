@@ -1,8 +1,8 @@
-﻿import { MoreFileIcon } from '@ant-design/md-editor/icons/FileIconList';
-import { ConfigProvider, Image } from 'antd';
+﻿import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
+import { File } from '../../icons';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { isImageFile } from '../AttachmentButton/utils';
 import { FileMapViewItem } from './FileMapViewItem';
@@ -205,7 +205,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             onClick={() => props.onViewAll?.(fileList)}
           >
             <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
-              <MoreFileIcon />
+              <File />
             </div>
             <div className={classNames(hashId, `${prefix}-more-file-name`)}>
               <span style={{ whiteSpace: 'nowrap' }}>

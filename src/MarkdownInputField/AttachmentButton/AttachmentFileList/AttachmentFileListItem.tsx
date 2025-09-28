@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React from 'react';
-import { LoadingIcon } from '../../../icons/LoadingIcon';
+import { Loader } from '../../../icons';
 import { AttachmentFile } from '../types';
 import { kbToSize } from '../utils';
 import { AttachmentFileIcon } from './AttachmentFileIcon';
@@ -82,7 +82,7 @@ export const AttachmentFileListItem: React.FC<{
               props.hashId,
             )}
           >
-            <LoadingIcon />
+            <Loader />
           </div>
         ) : null}
         {file.status === 'done' ? <AttachmentFileIcon file={file} /> : null}

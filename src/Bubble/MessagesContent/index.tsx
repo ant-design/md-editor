@@ -6,7 +6,7 @@ import {
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { LoadingIcon } from '../../icons/LoadingIcon';
+import { Loader } from '../../icons';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
@@ -104,13 +104,6 @@ export const BubbleMessageDisplay: React.FC<
       : null;
   }, [props.bubbleRenderConfig?.beforeMessageRender, typing, props.originData]);
 
-  const filesMap = useMemo(() => {
-    if (props.originData?.fileMap && props.originData.fileMap.size > 0) {
-      return props.originData.fileMap;
-    }
-    return undefined;
-  }, [props.originData?.fileMap]);
-
   const afterContent = useMemo(() => {
     const userAfter = props.bubbleRenderConfig?.afterMessageRender
       ? props.bubbleRenderConfig.afterMessageRender(props, contentAfterDom)
@@ -143,7 +136,7 @@ export const BubbleMessageDisplay: React.FC<
             className="agent-item-default-content"
             data-testid="message-content"
           >
-            <LoadingIcon />
+            <Loader />
             {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );
@@ -372,6 +365,7 @@ export const BubbleMessageDisplay: React.FC<
                     />
                     {item?.docId && item.doc_name ? (
                       <Tooltip
+                        mouseEnterDelay={0.3}
                         title={
                           <Typography.Text copyable={{ text: item.docId }}>
                             {item.docId}

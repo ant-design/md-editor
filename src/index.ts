@@ -8,6 +8,7 @@ export type {
   MessageBubbleData,
 } from './Bubble/type';
 export * from './components/ChatFlowContainer';
+export * from './components/SuggestionList';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './components/VisualList';
@@ -49,12 +50,18 @@ export * from './MarkdownEditor/plugin';
 export * from './MarkdownInputField/AttachmentButton';
 export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';
+export { ActionItemBox } from './MarkdownInputField/BeforeToolContainer/ActionItemBox';
+export { ActionItemContainer } from './MarkdownInputField/BeforeToolContainer/BeforeToolContainer';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
 export * from './TaskList';
 export * from './ThoughtChainList';
 export * from './ToolUseBar';
 export * from './Workspace';
+
+// Robot 组件
+export * from './components/Robot';
+export { default as Robot } from './components/Robot';
 
 // Quote 组件导出
 export { default as Quote } from './Quote';

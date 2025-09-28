@@ -12,8 +12,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: '8px',
-        paddingBottom: '8px',
+        padding: '8px 16px',
+        marginLeft: -16,
+        marginRight: -16,
+        marginBottom: 8,
+        borderBottom: '1px solid var(--color-gray-border-light)',
 
         // 返回按钮
         [`&-back-button`]: {
@@ -57,22 +60,29 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRadius: '6px',
 
           [`&--html`]: {
-            width: '16px',
-            height: '16px',
-            background: '#e0f9ff',
+            width: '40px',
+            height: '40px',
+            color: '#00B5FD',
+            background: 'rgba(219, 248, 255, 1)',
           },
 
           [`&--default`]: {
             width: '40px',
             height: '40px',
-            background: '#eef1f6',
+            background: 'linear-gradient(90deg, #EAEEF4, #F4F6F9)',
           },
         },
 
         [`&-content`]: {
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: '12px',
+        },
+
+        [`&-title-wrapper`]: {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '-4px',
         },
 
         [`&-title`]: {
@@ -123,8 +133,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
-         
-          'button' :{
+
+          button: {
             background: 'none',
             cursor: 'pointer',
             color: '#CC545D6D',
@@ -137,14 +147,101 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             '&:hover': {
               background: '#f0f0f0',
             },
-          }
+          },
         },
       },
-      
+
       [`&--shell`]: {
-        '.ace-container': {
-          marginTop: 0,
+        [`${token.componentCls}-header`]: {
+          marginBottom: 0,
+        },
+
+        [`${token.componentCls}-content`]: {
+          margin: '0 -16px',
+          background: 'var(--color-gray-text-default)',
+
+          '.ace-container': {
+            borderRadius: 'unset',
+          },
+
+          '.ace-tm': {
+            color: 'rgba(255, 255, 255, 0.27)',
+            background: 'transparent',
+          },
+
+          '.ace_gutter': {
+            paddingTop: 16,
+            paddingBottom: 16,
+            color: 'rgba(255, 255, 255, 0.45)',
+            font: 'var(--font-text-code-base)',
+            letterSpacing: 'var(--letter-spacing-code-base, normal)',
+            background: 'transparent',
+          },
+
+          '.ace_gutter-cell': {
+            paddingLeft: 12,
+          },
+
+          '.ace-tm .ace_content': {
+            paddingTop: 16,
+            paddingBottom: 16,
+          },
+
+          '.ace-tm .ace_gutter-active-line': {
+            background: 'var(--color-gray-text-default)',
+          },
+
+          '.ace-tm .ace_comment': {
+            color: 'rgba(255, 255, 255, 0.27)',
+          },
+
+          '.ace-tm .ace_keyword': {
+            color: '#E873BB',
+          },
+
+          '.ace_identifier, .ace_paren': {
+            color: '#FFFFFF',
+          },
+
+          '.ace-tm .ace_constant.ace_numeric': {
+            color: '#84DC18',
+          },
+
+          '.code-editor-container': {
+            marginTop: 0,
+            marginBottom: 0,
+            maxHeight: '100%',
+            background: 'transparent !important',
+            border: 'none',
+            boxShadow: 'none',
+          },
+
+          '.code-editor-content': {
+            padding: 0,
+            background: 'transparent',
+          },
+        },
+      },
+
+      [`&--markdown`]: {
+        '.ant-md-editor-content div[data-be="paragraph"]:last-child': {
+          paddingBottom: '16px',
+          color: 'var(--color-gray-text-light)',
+          font: 'var(--font-text-code-base)',
+          letterSpacing: 'var(--letter-spacing-code-base, normal)',
+        },
+      },
+
+      [`&-content`]: {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        overflow: 'auto', // 添加滚动支持
+
+        '.ant-workspace-html-preview-content .ace-container': {
+          border: 'none',
           borderRadius: 'unset',
+          boxShadow: 'none!important',
         },
 
         '.ace_gutter': {
@@ -168,50 +265,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        }
-      },
-
-      [`&--markdown`]: {
-        '.ant-md-editor-content div[data-be="paragraph"]:last-child': {
-          paddingBottom: '16px',
-          color: 'var(--color-gray-text-light)',
-          font: 'var(--font-text-code-base)',
-          letterSpacing: 'var(--letter-spacing-code-base, normal)',
-        },
-      },
-
-      [`&-content`]: {
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        overflow: 'auto', // 添加滚动支持
-
-        '.ace-container': {
-          marginTop: 0,
-          borderRadius: 'unset',
-        },
-
-        '.ant-workspace-html-preview-content .ace-container': {
-          border: 'none',
-          borderRadius: 'unset',
-          boxShadow: 'none!important',
-        },
-
-        '.ace_gutter': {
-          color: 'var(--color-gray-text-light)',
-          font: 'var(--font-text-code-base)',
-          letterSpacing: 'var(--letter-spacing-code-base, normal)',
-          background: 'var(--color-gray-bg-card-white)',
-        },
-
-        '.ace_gutter-cell': {
-          paddingLeft: 12,
-        },
-
-        '.ace-tm .ace_content': {
-          fontFamily: 'Roboto Mono',
-          fontSize: '12px',
-          letterSpacing: 'var(--letter-spacing-code-base, normal)',
         },
       },
 
