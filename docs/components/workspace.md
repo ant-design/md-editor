@@ -79,29 +79,29 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 #### RealtimeFollowData
 
-| 参数                | 说明                                                                 | 类型                                               | 默认值      |
-| ------------------- | -------------------------------------------------------------------- | -------------------------------------------------- | ----------- |
-| type                | 内容类型                                                             | `'shell' \| 'html' \| 'markdown' \| 'md'`          | -           |
-| content             | 展示内容                                                             | `string \| DiffContent`                            | -           |
-| markdownEditorProps | Markdown 编辑器配置（仅 md/shell 或 html 的 code 视图生效）          | `Partial<MarkdownEditorProps>`                     | -           |
-| title               | 自定义主标题                                                         | `string`                                           | -           |
-| subTitle            | 自定义副标题                                                         | `string`                                           | -           |
-| icon                | 自定义图标组件                                                       | `React.ComponentType`                              | -           |
-| typewriter          | 是否启用打字机效果（md/shell 默认启用）                              | `boolean`                                          | -           |
-| rightContent        | 自定义右侧内容（优先级高于下方的 segmentedItems/默认视图切换）       | `React.ReactNode`                                  | -           |
-| errorRender         | 自定义异常渲染                                                       | `React.ReactNode \| () => React.ReactNode`         | -           |
-| className           | 额外类名                                                             | `string`                                           | -           |
-| style               | 内联样式                                                             | `React.CSSProperties`                              | -           |
-| status              | 渲染状态（仅覆盖层处理，html 由 HtmlPreview 内部处理）               | `'loading' \| 'done' \| 'error'`                   | -           |
-| loadingRender       | 自定义加载渲染，非必传                                               | `React.ReactNode \| () => React.ReactNode`         | -           |
-| emptyRender         | 自定义空状态渲染（内容为空时优先显示）                               | `React.ReactNode \| () => React.ReactNode`         | -           |
-| viewMode            | html 受控视图模式                                                    | `'preview' \| 'code'`                              | -           |
-| defaultViewMode     | html 非受控默认视图模式                                              | `'preview' \| 'code'`                              | `'preview'` |
-| onViewModeChange    | 视图模式变更回调（html）                                             | `(mode: 'preview' \| 'code') => void`              | -           |
-| iframeProps         | iframe 属性（html 预览模式）                                         | `React.IframeHTMLAttributes<HTMLIFrameElement>`    | -           |
-| labels              | 视图切换文案（html）                                                 | `{ preview?: string; code?: string }`              | -           |
-| segmentedItems      | 自定义右上角 Segmented 选项（html，若提供则替换默认 预览/代码 切换） | `Array<{ label: React.ReactNode; value: string }>` | -           |
-| segmentedExtra      | Segmented 右侧额外内容（当存在 segmentedItems 或默认 Segmented 时附加在其右侧） | `React.ReactNode` | -           |
+| 参数                | 说明                                                                            | 类型                                               | 默认值      |
+| ------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------- | ----------- |
+| type                | 内容类型                                                                        | `'shell' \| 'html' \| 'markdown' \| 'md'`          | -           |
+| content             | 展示内容                                                                        | `string \| DiffContent`                            | -           |
+| markdownEditorProps | Markdown 编辑器配置（仅 md/shell 或 html 的 code 视图生效）                     | `Partial<MarkdownEditorProps>`                     | -           |
+| title               | 自定义主标题                                                                    | `string`                                           | -           |
+| subTitle            | 自定义副标题                                                                    | `string`                                           | -           |
+| icon                | 自定义图标组件                                                                  | `React.ComponentType`                              | -           |
+| typewriter          | 是否启用打字机效果（md/shell 默认启用）                                         | `boolean`                                          | -           |
+| rightContent        | 自定义右侧内容（优先级高于下方的 segmentedItems/默认视图切换）                  | `React.ReactNode`                                  | -           |
+| errorRender         | 自定义异常渲染                                                                  | `React.ReactNode \| () => React.ReactNode`         | -           |
+| className           | 额外类名                                                                        | `string`                                           | -           |
+| style               | 内联样式                                                                        | `React.CSSProperties`                              | -           |
+| status              | 渲染状态（仅覆盖层处理，html 由 HtmlPreview 内部处理）                          | `'loading' \| 'done' \| 'error'`                   | -           |
+| loadingRender       | 自定义加载渲染，非必传                                                          | `React.ReactNode \| () => React.ReactNode`         | -           |
+| emptyRender         | 自定义空状态渲染（内容为空时优先显示）                                          | `React.ReactNode \| () => React.ReactNode`         | -           |
+| viewMode            | html 受控视图模式                                                               | `'preview' \| 'code'`                              | -           |
+| defaultViewMode     | html 非受控默认视图模式                                                         | `'preview' \| 'code'`                              | `'preview'` |
+| onViewModeChange    | 视图模式变更回调（html）                                                        | `(mode: 'preview' \| 'code') => void`              | -           |
+| iframeProps         | iframe 属性（html 预览模式）                                                    | `React.IframeHTMLAttributes<HTMLIFrameElement>`    | -           |
+| labels              | 视图切换文案（html）                                                            | `{ preview?: string; code?: string }`              | -           |
+| segmentedItems      | 自定义右上角 Segmented 选项（html，若提供则替换默认 预览/代码 切换）            | `Array<{ label: React.ReactNode; value: string }>` | -           |
+| segmentedExtra      | Segmented 右侧额外内容（当存在 segmentedItems 或默认 Segmented 时附加在其右侧） | `React.ReactNode`                                  | -           |
 
 #### DiffContent
 
@@ -174,7 +174,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | 参数         | 说明                                                       | 类型                       |
 | ------------ | ---------------------------------------------------------- | -------------------------- |
 | id           | 唯一标识（可选）                                           | `string`                   |
-| name         | 文件名                                                     | `string`                   |
+| name         | 文件名                                                     | `string \| ReactNode`      |
 | icon         | 自定义图标（可选）                                         | `ReactNode`                |
 | displayType  | 展示在文件标题下方的类型（如类型/大小/更新时间等）         | `string`                   |
 | type         | 文件类型                                                   | `FileType`                 |
@@ -192,15 +192,15 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 #### GroupNode
 
-| 参数        | 说明                                                       | 类型         |
-| ----------- | ---------------------------------------------------------- | ------------ |
-| id          | 唯一标识（可选）                                           | `string`     |
-| name        | 分组名                                                     | `string`     |
-| icon        | 自定义图标（可选）                                         | `ReactNode`  |
-| collapsed   | 是否折叠（可选）                                           | `boolean`    |
-| children    | 子文件列表                                                 | `FileNode[]` |
-| type        | 分组文件类型（同组同类型）                                 | `FileType`   |
-| canDownload | 是否在分组标题展示下载按钮（用户自定义开关，默认展示）     | `boolean`    |
+| 参数        | 说明                                                   | 类型                  |
+| ----------- | ------------------------------------------------------ | --------------------- |
+| id          | 唯一标识（可选）                                       | `string`              |
+| name        | 分组名                                                 | `string \| ReactNode` |
+| icon        | 自定义图标（可选）                                     | `ReactNode`           |
+| collapsed   | 是否折叠（可选）                                       | `boolean`             |
+| children    | 子文件列表                                             | `FileNode[]`          |
+| type        | 分组文件类型（同组同类型）                             | `FileType`            |
+| canDownload | 是否在分组标题展示下载按钮（用户自定义开关，默认展示） | `boolean`             |
 
 #### FileType
 
