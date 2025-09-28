@@ -12,6 +12,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'column',
       height: '100%',
       position: 'relative',
+      borderTopLeftRadius: 'var(--radius-xl)',
+      borderTopRightRadius: 'var(--radius-xl)',
+      borderBottomLeftRadius: 'var(--radius-xl)',
+      borderBottomRightRadius: 'var(--radius-xl)',
+      backgroundColor: 'var(--color-gray-bg-card-white)',
 
       '&-header': {
         display: 'flex',
@@ -118,12 +123,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-content': {
+        width: '100%',
+        maxWidth: '800px',
+        margin: '0 auto',
+        paddingBottom: 'var(--radius-xl)',
         flex: 1,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
-        backgroundColor: 'var(--color-gray-bg-card-white)',
 
         '&-scrollable': {
           flex: 1,
@@ -151,12 +159,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-footer': {
-        padding: 'var(--padding-3x) var(--padding-4x)',
-        backgroundColor: 'var(--color-gray-bg-card-white)',
-        flexShrink: 0,
-        zIndex: 10,
-        position: 'sticky',
+        padding: 'var(--padding-6x)',
+        background: 'linear-gradient(to bottom, #fff0 20%, var(--color-gray-bg-card-white) 70%)',
+        width: '100%',
+        position: 'absolute',
         bottom: 0,
+        zIndex: 100,
         borderBottomLeftRadius: 'var(--radius-xl)',
         borderBottomRightRadius: 'var(--radius-xl)',
       },

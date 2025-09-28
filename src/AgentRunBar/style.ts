@@ -69,7 +69,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         animationIterationCount: 'infinite',
         pointerEvents: 'none',
         overflow: 'hidden',
-        transition: 'background 0.2s',
+        transition: 'background 0.25s',
       },
 
       '&-background': {
@@ -201,7 +201,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [`${componentCls}-status-pause`]: {
       [`${componentCls}-border`]: {
         background: 'var(--color-gray-bg-card-white)',
-        animationName: 'none',
       },
     },
 
