@@ -349,6 +349,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
                 borderColor: isSingleValueMode
                   ? [cfg.borderColor || '#fff', 'transparent']
                   : cfg.borderColor || '#fff',
+                hoverBackgroundColor: isSingleValueMode
+                  ? [mainColor, 'transparent']
+                  : backgroundColors.slice(0, values.length),
+                hoverBorderColor: isSingleValueMode
+                  ? [cfg.borderColor || '#fff', 'transparent']
+                  : cfg.borderColor || '#fff',
                 borderWidth: cfg.chartStyle === 'pie' ? 0 : isMobile ? 1 : 1,
                 spacing: isSingleValueMode
                   ? 0

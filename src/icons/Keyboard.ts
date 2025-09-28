@@ -1,0 +1,32 @@
+import * as React from "react";
+
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  size?: number | string;
+  color?: string;
+}
+function Keyboard(props: IconProps): React.ReactElement {
+  return /*#__PURE__*/React.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    fillRule: "evenodd"
+  }, props, {
+    style: Object.assign({
+      verticalAlign: '-0.125em'
+    }, props.style),
+    className: ['sofa-icons-icon', props.className].filter(Boolean).join(' '),
+    width: "1em",
+    height: "1em"
+  }), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+    id: "Keyboard-master_svg0_2771_15051"
+  }, /*#__PURE__*/React.createElement("rect", {
+    width: 24,
+    height: 24,
+    rx: 0
+  }))), /*#__PURE__*/React.createElement("g", {
+    clipPath: "url(#Keyboard-master_svg0_2771_15051)"
+  }, /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+    d: "M1,6L1,18Q1,19.2426,1.8786800000000001,20.1213Q2.7573600000000003,21,4,21L20,21Q21.2426,21,22.1213,20.1213Q23,19.2426,23,18L23,6Q23,4.75736,22.1213,3.87868Q21.2426,3,20,3L4,3Q2.7573600000000003,3,1.8786800000000001,3.87868Q1,4.75736,1,6ZM4,19Q3,19,3,18L3,6Q3,5,4,5L20,5Q21,5,21,6L21,18Q21,19,20,19L4,19ZM6,9C6.55228,9,7,8.55228,7,8C7,7.44772,6.55228,7,6,7C5.44772,7,5,7.44772,5,8C5,8.55228,5.44772,9,6,9ZM10,9C10.55229,9,11,8.55228,11,8C11,7.44772,10.55229,7,10,7C9.44771,7,9,7.44772,9,8C9,8.55228,9.44771,9,10,9ZM14,9C14.5523,9,15,8.55228,15,8C15,7.44772,14.5523,7,14,7C13.4477,7,13,7.44772,13,8C13,8.55228,13.4477,9,14,9ZM18,9C18.5523,9,19,8.55228,19,8C19,7.44772,18.5523,7,18,7C17.4477,7,17,7.44772,17,8C17,8.55228,17.4477,9,18,9ZM8,13C8.55228,13,9,12.55229,9,12C9,11.44771,8.55228,11,8,11C7.44772,11,7,11.44771,7,12C7,12.55229,7.44772,13,8,13ZM12,13C12.5523,13,13,12.55229,13,12C13,11.44771,12.5523,11,12,11C11.4477,11,11,11.44771,11,12C11,12.55229,11.4477,13,12,13ZM16,13C16.552300000000002,13,17,12.55229,17,12C17,11.44771,16.552300000000002,11,16,11C15.4477,11,15,11.44771,15,12C15,12.55229,15.4477,13,16,13ZM18,16C18,15.4477,17.5523,15,17,15L7,15C6.44772,15,6,15.4477,6,16C6,16.552300000000002,6.44772,17,7,17L17,17C17.5523,17,18,16.552300000000002,18,16Z"
+  }))));
+}
+export default Keyboard;

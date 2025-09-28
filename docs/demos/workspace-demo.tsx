@@ -43,12 +43,34 @@ const Demo = () => {
 </body>
 </html>`;
 
+
   const segmentedContent = (
     <Space size={8}>
+      <div
+        style={{
+          height: '20px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '4px 6px',
+          borderRadius: '200px',
+          background: 'rgba(0, 16, 32, 0.0627)',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '10px',
+            fontWeight: 500,
+            lineHeight: '7px',
+            color: 'rgba(84, 93, 109, 0.8)',
+          }}
+        >
+          {sampleHtml.split('\n').length}
+        </div>
+      </div>
       <Button
         size="small"
         type="text"
-        style={{ color: 'rgba(80, 92, 113, 0.42)' }}
         icon={<Copy />}
         onClick={() => {
           console.log('复制');
@@ -58,7 +80,6 @@ const Demo = () => {
       <Button
         size="small"
         type="text"
-        style={{ color: 'rgba(80, 92, 113, 0.42)' }}
         icon={<DownloadOutlined />}
         onClick={() => {
           console.log('下载');
@@ -68,7 +89,6 @@ const Demo = () => {
       <Button
         size="small"
         type="text"
-        style={{ color: 'rgba(80, 92, 113, 0.42)' }}
         icon={<SwitchToWindow />}
         onClick={() => {
           console.log('切换');
@@ -78,7 +98,6 @@ const Demo = () => {
       <Button
         size="small"
         type="text"
-        style={{ color: '#6b505C71' }}
         icon={<Expand />}
         onClick={() => {
           console.log('全屏');

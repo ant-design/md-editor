@@ -58,7 +58,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
           justifyContent: 'center',
           gap: '4px',
-          borderRadius: 'var(--radius-control-base)',
         },
 
         '.ant-segmented-item-label': {
@@ -67,23 +66,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           justifyContent: 'center',
           gap: '4px',
         },
-
-        '.ant-segmented-item-selected': {
-          color: 'var(--color-gray-text-default)',
-          background: 'var(--color-gray-bg-card-white)',
-          borderRadius: 'var(--radius-control-base)',
-          boxShadow: 'var(--shadow-control-base)',
-
-          '.ant-workspace-tab-title': {
-            font: 'var(--font-text-h6-base)',
-            letterSpacing: 'var(--letter-spacing-h6-base, normal)',
-          },
-        },
-
-        '.ant-segmented-item:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled)':
-          {
-            color: 'var(--color-gray-text-default)',
-          },
       },
 
       [`${token.componentCls}-tab-item`]: {
@@ -106,11 +88,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '20px',
         padding: '4px 6px',
         marginLeft: '4px',
-        fontSize: 'var(--font-size-xs)',
+        fontSize: '10px',
         fontWeight: 500,
-        lineHeight: 1,
-        color: '#767e8b',
-        backgroundColor: 'rgba(20, 22, 28, 0.06)',
+        letterSpacing: '0.04em',
+        color: 'var(--color-gray-text-secondary)',
+        backgroundColor: 'var(--color-gray-control-fill-active)',
         borderRadius: '200px',
         boxSizing: 'border-box',
       },

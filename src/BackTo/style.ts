@@ -18,12 +18,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       insetInlineEnd: 24,
       color: 'var(--color-gray-text-secondary)',
       fontSize: 16,
-      background: '#FFFFFF',
-      border: 'var(--color-gray-border-light)',
-      boxShadow: 'var(--shadow-popover-base)',
+      background: 'var(--color-gray-bg-card-white)',
+      border: 'none',
+      boxShadow: 'var(--shadow-control-base)',
       borderRadius: '50%',
       cursor: 'pointer',
-      transition: 'all 0.2s',
+      transition: 'all 0.2s ease-in-out',
 
       ['&-content']: {
         display: 'flex',
@@ -35,9 +35,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       ['&:hover']: {
-        color: 'var(--color-gray-text-disabled)',
-        background: 'var(--color-gray-control-fill-disabled)',
-        border: 'var(--color-gray-control-fill-disabled)',
+        boxShadow: 'var(--shadow-control-lg)',
+      },
+
+      ['&:focus-within']: {
+        boxShadow: 'var(--shadow-control-base)',
       },
     },
   };

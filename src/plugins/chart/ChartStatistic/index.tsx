@@ -65,7 +65,7 @@ const ChartStatistic: React.FC<ChartStatisticProps> = ({
     ) : null;
 
     const questionIcon = tooltip ? (
-      <Tooltip title={tooltip} placement="top">
+      <Tooltip mouseEnterDelay={0.3} title={tooltip} placement="top">
         <QuestionCircleOutlined
           className={classNames(`${prefixCls}-question-icon`, hashId)}
         />
