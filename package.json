@@ -30,6 +30,12 @@
     "tsc": "tsc --noEmit"
   },
   "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{css,less}": [
+      "prettier --write"
+    ],
     "*.{md,json}": [
       "prettier --write --no-error-on-unmatched-pattern"
     ]

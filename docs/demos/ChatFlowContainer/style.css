@@ -2,10 +2,10 @@
 .custom-chat-container-demo {
   min-height: 600px;
   height: calc(100vh);
-  padding: 40px 0;
+  padding: 8px;
+  border-radius: 8px;
   display: flex;
-  border-radius: 48px;
-  background: var(--color-gray-bg-page);
+  background: var(--color-primary-bg-page-light);
   box-sizing: border-box;
   border: 0px solid;
   border-image: linear-gradient(
@@ -20,7 +20,7 @@
 .sidebar-left {
   width: 250px;
   padding: 0 16px 16px 16px;
-  transition: all 500ms ease-in-out;
+  transition: width 500ms ease-in-out, padding 500ms ease-in-out, opacity 500ms ease-in-out;
   overflow: hidden;
 }
 
@@ -46,4 +46,5 @@
   background-size: 100% 100%;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
+  pointer-events: none;
 }
