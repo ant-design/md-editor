@@ -27,6 +27,26 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const [overIndex, setOverIndex] = useState<number | null>(null);
   const isHandlePressRef = useRef(false);
 
+  // horizontal drag-to-scroll state (main container only)
+  const isPanningRef = useRef(false);
+  const panStartXRef = useRef(0);
+  const panStartScrollLeftRef = useRef(0);
+  const hasPanMovedRef = useRef(false);
+  const panIntentRef = useRef(false);
+
+  const isInteractiveTarget = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false;
+    // ignore common interactive elements
+    if (
+      target.closest(
+        'button, a, input, textarea, select, [role="button"], [contenteditable="true"], [data-no-pan]'
+      )
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   type ChildEntry = { key: React.Key | null; node: React.ReactNode };
   const toEntries = (nodes: React.ReactNode): ChildEntry[] => {
     const array = React.Children.toArray(nodes);
@@ -190,9 +210,10 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         width: '100%',
         gap: 8,
         backgroundColor: 'transparent',
-        overflowX: 'hidden',
+        overflowX: 'auto',
         overflowY: 'visible',
         position: 'relative',
+        WebkitOverflowScrolling: 'touch',
         ...props.style
       }}
       className={classNames(
@@ -203,6 +224,65 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         },
         hashId,
       )}
+      onPointerDown={(e) => {
+        const el = containerRef.current;
+        if (!el) return;
+        if (e.button !== 0) return;
+        // ignore if clicking on the overflow indicator area
+        if (indicatorRef.current && indicatorRef.current.contains(e.target as Node)) return;
+        // if clicking on an interactive child, don't pan
+        if (isInteractiveTarget(e.target)) return;
+        panIntentRef.current = true;
+        hasPanMovedRef.current = false;
+        panStartXRef.current = e.clientX;
+        panStartScrollLeftRef.current = el.scrollLeft;
+      }}
+      onPointerMove={(e) => {
+        const el = containerRef.current;
+        if (!el) return;
+        if (!isPanningRef.current && panIntentRef.current) {
+          const dx = e.clientX - panStartXRef.current;
+          if (Math.abs(dx) > 6) {
+            isPanningRef.current = true;
+            hasPanMovedRef.current = true;
+            try { el.setPointerCapture(e.pointerId); } catch {}
+          }
+        }
+        if (isPanningRef.current) {
+          const dx = e.clientX - panStartXRef.current;
+          el.scrollLeft = panStartScrollLeftRef.current - dx;
+          e.preventDefault();
+        }
+      }}
+      onPointerUp={(e) => {
+        const el = containerRef.current;
+        if (!el) return;
+        panIntentRef.current = false;
+        if (isPanningRef.current) {
+          isPanningRef.current = false;
+          try { el.releasePointerCapture(e.pointerId); } catch {}
+        }
+      }}
+      onPointerCancel={() => {
+        isPanningRef.current = false;
+        panIntentRef.current = false;
+      }}
+      onWheel={(e) => {
+        const el = containerRef.current;
+        if (!el) return;
+        // translate vertical wheel into horizontal scroll
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          el.scrollLeft += e.deltaY;
+        }
+      }}
+      onClick={(e) => {
+        // prevent accidental click when performing a pan
+        if (hasPanMovedRef.current) {
+          e.preventDefault();
+          e.stopPropagation();
+          hasPanMovedRef.current = false;
+        }
+      }}
     >
       {ordered.map((entry) => (
         <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
