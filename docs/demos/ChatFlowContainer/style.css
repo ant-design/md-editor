@@ -1,6 +1,49 @@
-.custom-chat-container .chat-flow-container-footer {
-  background: #fff
-    url(https://console.sofa.antdigital.com/playground/static/task-running-bg.118417dc.png)
+/* ChatFlowContainer Demo 样式定义 */
+.custom-chat-container-demo {
+  min-height: 600px;
+  height: calc(100vh);
+  padding: 40px 0;
+  display: flex;
+  border-radius: 48px;
+  background: var(--color-gray-bg-page);
+  box-sizing: border-box;
+  border: 0px solid;
+  border-image: linear-gradient(
+      270deg,
+      rgba(0, 9, 50, 0.08) 0%,
+      rgba(0, 9, 50, 0.12) 100%
+    )
+    0;
+}
+
+/* 左侧边栏样式 */
+.sidebar-left {
+  width: 250px;
+  padding: 0 16px 16px 16px;
+  transition: all 500ms ease-in-out;
+  overflow: hidden;
+}
+
+.sidebar-left.collapsed {
+  width: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+.sidebar-left.collapsed .sidebar-left-content {
+  display: none;
+}
+
+.custom-chat-container-demo .chat-flow-container-footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(https://console.sofa.antdigital.com/playground/static/task-running-bg.118417dc.png)
     no-repeat center center;
   background-size: 100% 100%;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
