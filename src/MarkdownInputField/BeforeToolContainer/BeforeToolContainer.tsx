@@ -252,6 +252,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           const dx = e.clientX - panStartXRef.current;
           el.scrollLeft = panStartScrollLeftRef.current - dx;
           e.preventDefault();
+          e.stopPropagation();
         }
       }}
       onPointerUp={(e) => {
@@ -267,12 +268,21 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         isPanningRef.current = false;
         panIntentRef.current = false;
       }}
+      onWheelCapture={(e) => {
+        // prevent sibling/parent scroll regions from reacting
+        e.stopPropagation();
+      }}
       onWheel={(e) => {
         const el = containerRef.current;
         if (!el) return;
         // translate vertical wheel into horizontal scroll
         if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
           el.scrollLeft += e.deltaY;
+          e.preventDefault();
+          e.stopPropagation();
+        } else {
+          // consume horizontal wheel as well to avoid bubbling to other scrollers
+          e.stopPropagation();
         }
       }}
       onClick={(e) => {

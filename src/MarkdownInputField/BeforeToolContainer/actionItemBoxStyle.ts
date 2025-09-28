@@ -33,18 +33,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-overflow-container': {
           pointerEvents: 'none',
           position: 'sticky',
-          right: 0,
+          right: -13,
           top: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
-          background:
-            'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
+          background: '#fff',
           borderRadius: 12,
           width: 72,
           height: '100%',
           alignSelf: 'stretch',
           zIndex: 2,
+          overscrollBehavior: 'contain',
 
           '&-indicator': {
             pointerEvents: 'auto',
