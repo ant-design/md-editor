@@ -243,6 +243,7 @@ export default () => {
             padding: 0,
             borderRadius: 'var(--radius-card-base)',
             boxShadow: 'var(--shadow-control-lg)',
+            overflow: 'hidden',
           }}
           arrow={false}
           content={
