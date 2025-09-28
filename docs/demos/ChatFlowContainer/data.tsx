@@ -147,3 +147,5 @@ export const RETRY_CONFIG = {
   MAX_RETRY: 6, // 设置偶数
   INTERVAL: 2000,
 };
+
+export default () => null;
