@@ -333,8 +333,8 @@
   box-shadow: var(--shadow-control-base);
 }
 
-.ant-input-affix-wrapper-outlined.ant-input-disabled,
-.ant-input-affix-wrapper-outlined[disabled] {
+.ant-input-outlined.ant-input-disabled,
+.ant-input[disabled] {
   border-color: transparent;
   color: var(--color-gray-text-default);
   border-radius: var(--radius-control-base);
