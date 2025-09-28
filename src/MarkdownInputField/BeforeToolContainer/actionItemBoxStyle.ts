@@ -41,7 +41,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background:
             'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
           borderRadius: 12,
-          width: 120,
+          width: 72,
 
           '&-indicator': {
             display: 'flex',
@@ -50,7 +50,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: 32,
             height: 32,
             zIndex: 10,
-            background: '#fff',
+            background: 'var(--color-gray-control-fill-active)',
             border: '1px solid rgba(255, 255, 255, 0.45)',
             boxShadow: 'var(--shadow-border-base)',
             borderRadius: 'var(--radius-control-base)',
@@ -96,7 +96,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             },
             // ensure the immediate child (motion.div) also stretches
             ['&-item > div[draggable="false"] > div']: {
-              flex: 1,
+              flex: '1 1 auto !important',
               width: '100%',
               minWidth: 0,
               display: 'flex',
