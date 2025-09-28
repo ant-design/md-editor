@@ -111,19 +111,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
 
           '.ant-segmented': {
-            /* 圆角-控件-base */
             borderRadius: 'var(--radius-control-base)',
-            /* gray/gray-控件填充-按下.激活 */
-            background: 'var(--color-gray-control-fill-active)',
           },
 
-          '.ant-segmented-item-selected': {
+          '.ant-segmented-item-selected ': {
             borderRadius: 'var(--radius-control-base)',
-            /* gray/gray-背景-白色卡片 */
-            /* 样式描述：contrast */
-            background: 'var(--color-gray-bg-card-white)',
-            /* 投影-控件-base */
-            boxShadow: 'var(--shadow-control-base)',
           },
         },
 
@@ -134,18 +126,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           justifyContent: 'center',
           gap: '8px',
 
-          button: {
-            background: 'none',
-            cursor: 'pointer',
-            color: '#CC545D6D',
-            transition: 'all 0.2s ease',
-            backdropFilter: 'blur(20px)',
-            borderRadius: 'var(--radius-control-sm)',
-            boxSizing: 'border-box',
-            border: '0px solid rgba(0, 30, 75, 0.07)',
-
-            '&:hover': {
-              background: '#f0f0f0',
+          [`&-extra`]: {
+            '*': {
+              color: 'rgba(80, 92, 113, 0.42)',
             },
           },
         },
@@ -236,7 +219,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         width: '100%',
         height: '100%',
-        overflow: 'auto', // 添加滚动支持
+        overflow: 'auto',
 
         '.ant-workspace-html-preview-content .ace-container': {
           border: 'none',
@@ -265,7 +248,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        },
+        }
       },
 
       [`&-overlay`]: {
