@@ -340,3 +340,39 @@
   border-radius: var(--radius-control-base);
   background: var(--color-gray-control-fill-disabled);
 }
+
+.ant-select.ant-select-outlined {
+  font: var(--font-text-body-base);
+  letter-spacing: var(--letter-spacing-body-base, normal);
+  color: var(--color-gray-text-default);
+  border-radius: var(--radius-control-base);
+  background: var(--color-gray-bg-card-white);
+}
+
+.ant-select.ant-select-outlined .ant-select-selector {
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-control-base);
+}
+
+.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer):hover
+  .ant-select-selector {
+  border-radius: var(--radius-control-base);
+  background: var(--color-gray-bg-card-white);
+  box-sizing: border-box;
+  border: 1px solid var(--color-primary-control-fill-primary-active);
+  box-shadow: var(--shadow-control-base);
+}
+
+.ant-select.ant-select-outlined.ant-select-disabled {
+  color: var(--color-gray-text-default);
+  border-radius: var(--radius-control-base);
+  background: var(--color-gray-control-fill-disabled);
+}
+
+.ant-select.ant-select-outlined.ant-select-disabled .ant-select-selector {
+  border-color: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
