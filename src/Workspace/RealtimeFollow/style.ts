@@ -234,6 +234,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             padding: 0,
             background: 'transparent',
           },
+
+          '.ant-empty-description': {
+            color: '#d9d9d9',
+          },
         },
       },
 
