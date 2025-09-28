@@ -8,8 +8,8 @@ group:
 # 基础组件
 
 ```tsx
-import { PlusOutlined, SmileOutlined } from '@ant-design/icons';
-import { Button, Flex, Segmented, Divider } from 'antd';
+import { PlusOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
+import { Button, Input, Select, Flex, Segmented, Divider } from 'antd';
 import React from 'react';
 import {
   ThemeProvider,
@@ -20,9 +20,21 @@ import {
 export default () => {
   useCSSVariables('ThemeExample', globalThemeToken);
   return (
-    <Flex gap={12} vertical>
+    <Flex
+      gap={12}
+      vertical
+      style={{
+        padding: '24px',
+      }}
+    >
       <h1>Button</h1>
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" variant="solid" icon={<PlusOutlined />}>
           主按钮
         </Button>
@@ -47,7 +59,13 @@ export default () => {
         </Button>
       </Flex>
 
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" variant="filled" icon={<PlusOutlined />}>
           次按钮
         </Button>
@@ -69,7 +87,13 @@ export default () => {
         </Button>
       </Flex>
 
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button color="default" icon={<PlusOutlined />}>
           Ghost 按钮
         </Button>
@@ -80,7 +104,13 @@ export default () => {
           Ghost 按钮
         </Button>
       </Flex>
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button type="text">Text按钮</Button>
         <Button type="text" disabled>
           Text(disabled)
@@ -90,7 +120,13 @@ export default () => {
         </Button>
       </Flex>
 
-      <Flex gap={12}>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <Button type="primary">Primary按钮</Button>
         <Button type="primary" disabled>
           Primary(disabled)
@@ -99,8 +135,69 @@ export default () => {
           Primary(loading)
         </Button>
       </Flex>
+
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button icon={<PlusOutlined />} />
+        <Button icon={<PlusOutlined />} disabled />
+        <Button icon={<PlusOutlined />} loading />
+      </Flex>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button color="default" variant="filled" icon={<PlusOutlined />} />
+        <Button
+          color="default"
+          variant="filled"
+          icon={<PlusOutlined />}
+          disabled
+        />
+        <Button
+          color="default"
+          variant="filled"
+          icon={<PlusOutlined />}
+          loading
+        />
+      </Flex>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button color="default" variant="text" icon={<PlusOutlined />} />
+        <Button
+          color="default"
+          variant="text"
+          icon={<PlusOutlined />}
+          disabled
+        />
+        <Button
+          color="default"
+          variant="text"
+          icon={<PlusOutlined />}
+          loading
+        />
+      </Flex>
       <Divider />
-      <Flex gap={12} vertical>
+      <Flex
+        gap={12}
+        vertical
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
         <div>
           <h2>Segmented</h2>
           <Segmented
@@ -204,6 +301,52 @@ export default () => {
             ]}
           />
         </div>
+      </Flex>
+      <Flex
+        gap={12}
+        vertical
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Input prefix={<SearchOutlined />} placeholder="请输入" />
+        <Input
+          prefix={<SearchOutlined />}
+          value="已经输入值"
+          placeholder="请输入"
+        />
+
+        <Input prefix={<SearchOutlined />} disabled placeholder="请输入" />
+        <Input
+          prefix={<SearchOutlined />}
+          disabled
+          value="已经输入值"
+          placeholder="请输入"
+        />
+      </Flex>
+      <Flex
+        gap={12}
+        vertical
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Select prefix={<SearchOutlined />} placeholder="请输入" />
+        <Select
+          prefix={<SearchOutlined />}
+          value="已经输入值"
+          placeholder="请输入"
+        />
+
+        <Select prefix={<SearchOutlined />} disabled placeholder="请输入" />
+        <Select
+          prefix={<SearchOutlined />}
+          disabled
+          value="已经输入值"
+          placeholder="请输入"
+        />
       </Flex>
     </Flex>
   );
