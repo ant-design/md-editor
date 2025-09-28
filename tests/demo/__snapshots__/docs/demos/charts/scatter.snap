@@ -17,7 +17,7 @@
         💡 固定数据：使用预设的扁平化数据，包含 filterLabel 字段支持二级筛选。自动应用默认颜色序列。
       </div>
       <div
-        style="margin-bottom: 20px;"
+        style="margin-bottom: 40px; min-height: 600px; overflow: hidden;"
       >
         <div
           class="ant-scatter-chart-container scatter-demo ant-scatter-chart-container scatter-demo-light-theme ant-scatter-chart-container scatter-demo-desktop"

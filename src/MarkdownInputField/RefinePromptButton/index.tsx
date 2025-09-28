@@ -94,6 +94,6 @@ export const RefinePromptButton: React.FC<RefinePromptButtonProps> = (
       >
         <ErrorBoundary fallback={<div />}>{renderIcon()}</ErrorBoundary>
       </div>
-    </Tooltip>
+    </Tooltip>,
   );
 };

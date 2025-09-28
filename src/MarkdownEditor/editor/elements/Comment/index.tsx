@@ -1,4 +1,4 @@
-﻿import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, {
   useCallback,
@@ -149,8 +149,14 @@ export const CommentView = (props: CommentViewProps) => {
         thisComment.selection,
       );
 
+      if (!mergedSelection) {
+        return;
+      }
+
+      const rang = window.getSelection()?.getRangeAt(0);
+
       // 获取合并后的选择内容
-      const newContent = mergedSelection.toString()?.trim();
+      const newContent = rang?.toString()?.trim();
 
       // 计算合并后的偏移量
       const newAnchorOffset = mergedSelection.anchor.offset;
