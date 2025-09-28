@@ -101,7 +101,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             },
             // ensure the immediate child (motion.div) also stretches
             ['&-item > div[draggable="false"] > div']: {
-              flex: '1 1 auto !important',
+              flex: '1 1 auto',
               width: '100%',
               minWidth: 0,
               display: 'flex',
