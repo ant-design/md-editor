@@ -97,12 +97,28 @@ const RealtimeHeader: React.FC<{
   const headerTitle = data.title || config.title;
   const headerSubTitle = data.subTitle;
 
+  const iconNode = (
+    <div
+      className={classNames(
+        `${finalPrefixCls}-header-icon`,
+        {
+          [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
+          [`${finalPrefixCls}-header-icon--default`]: data?.type !== 'html',
+        },
+        hashId,
+      )}
+    >
+      <IconComponent />
+    </div>
+  );
+
   return (
     <header
       className={classNames(
         `${finalPrefixCls}-header`,
         {
           [`${finalPrefixCls}-header-with-border`]: hasBorder,
+          [`${finalPrefixCls}-header-with-back`]: data?.onBack,
         },
         hashId,
       )}
@@ -126,19 +142,7 @@ const RealtimeHeader: React.FC<{
           </button>
         )}
         <div className={classNames(`${finalPrefixCls}-header-content`, hashId)}>
-          <div
-            className={classNames(
-              `${finalPrefixCls}-header-icon`,
-              {
-                [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
-                [`${finalPrefixCls}-header-icon--default`]:
-                  data?.type !== 'html',
-              },
-              hashId,
-            )}
-          >
-            <IconComponent />
-          </div>
+          {!data?.onBack && iconNode}
           <div
             className={classNames(
               `${finalPrefixCls}-header-title-wrapper`,
@@ -148,6 +152,7 @@ const RealtimeHeader: React.FC<{
             <div
               className={classNames(`${finalPrefixCls}-header-title`, hashId)}
             >
+              {data?.onBack && iconNode}
               {headerTitle}
             </div>
             <div
@@ -368,6 +373,11 @@ export const RealtimeFollow: React.FC<{
     typewriter: isTestEnv
       ? false
       : (data.typewriter ?? defaultProps.typewriter),
+    style: {
+      maxHeight: 'auto',
+      ...defaultProps.style,
+      ...data.markdownEditorProps?.style,
+    },
   };
 
   const contentStr = String((data as any).content ?? '');

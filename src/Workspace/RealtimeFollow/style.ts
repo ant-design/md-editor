@@ -47,6 +47,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderBottom: '1px solid rgba(20, 22, 28, 0.07)',
         },
 
+        [`&-with-back`]: {
+          [`${token.componentCls}-header-icon`]: {
+            [`&--html`]: {
+              width: '16px',
+              height: '16px',
+              background: 'transparent',
+            },
+
+            [`&--default`]: {
+              width: '16px',
+              height: '16px',
+              background: 'transparent',
+            },
+          },
+        },
+
         [`&-left`]: {
           display: 'flex',
           alignItems: 'center',
@@ -87,6 +103,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`&-title`]: {
           display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
           fontFamily: 'AlibabaPuHuiTi',
           fontSize: '14px',
           fontWeight: '500',
@@ -157,7 +175,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         [`${token.componentCls}-content`]: {
+          width: 'unset',
           margin: '0 -16px',
+          paddingTop: 16,
+          paddingBottom: 16,
           background: 'var(--color-gray-text-default)',
 
           '.ace-container': {
@@ -170,8 +191,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
 
           '.ace_gutter': {
-            paddingTop: 16,
-            paddingBottom: 16,
             color: 'rgba(255, 255, 255, 0.45)',
             font: 'var(--font-text-code-base)',
             letterSpacing: 'var(--letter-spacing-code-base, normal)',
@@ -180,11 +199,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           '.ace_gutter-cell': {
             paddingLeft: 12,
-          },
-
-          '.ace-tm .ace_content': {
-            paddingTop: 16,
-            paddingBottom: 16,
           },
 
           '.ace-tm .ace_gutter-active-line': {
