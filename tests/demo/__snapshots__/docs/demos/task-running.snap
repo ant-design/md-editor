@@ -26,6 +26,8 @@
       </p>
       <div
         class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-thinking"
+        layout="size"
+        transition="[object Object]"
       >
         <div
           class="ant-task-running-border"
@@ -237,6 +239,8 @@
           </h4>
           <div
             class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-thinking"
+            layout="size"
+            transition="[object Object]"
           >
             <div
               class="ant-task-running-border"
@@ -441,6 +445,8 @@
           </h4>
           <div
             class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-pause"
+            layout="size"
+            transition="[object Object]"
           >
             <div
               class="ant-task-running-border"
@@ -679,6 +685,8 @@
           </h4>
           <div
             class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-dazing"
+            layout="size"
+            transition="[object Object]"
           >
             <div
               class="ant-task-running-border"
@@ -787,6 +795,8 @@
           </h4>
           <div
             class="ant-task-running ant-task-running-default ant-task-running-status-dazing"
+            layout="size"
+            transition="[object Object]"
           >
             <div
               class="ant-task-running-border"
@@ -906,6 +916,8 @@
           </h4>
           <div
             class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-dazing"
+            layout="size"
+            transition="[object Object]"
           >
             <div
               class="ant-task-running-border"
@@ -1022,6 +1034,8 @@
           </h4>
           <div
             class="ant-task-running ant-task-running-default ant-task-running-with-description ant-task-running-status-dazing"
+            layout="size"
+            transition="[object Object]"
           >
             <div
               class="ant-task-running-border"
@@ -1133,6 +1147,8 @@
       </p>
       <div
         class="ant-task-running ant-task-running-simple ant-task-running-status-thinking"
+        layout="size"
+        transition="[object Object]"
       >
         <div
           class="ant-task-running-border"
