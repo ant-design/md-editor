@@ -51,6 +51,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         letterSpacing: 'var(--letter-spacing-body-base, normal)',
         background: 'var(--color-gray-control-fill-active)',
         borderRadius: '8px',
+
+        // 覆盖 Segmented 组件内部的样式
+        '.ant-segmented-item': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '4px',
+        },
+
+        '.ant-segmented-item-label': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '4px',
+        },
       },
 
       [`${token.componentCls}-tab-item`]: {
