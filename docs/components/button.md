@@ -20,7 +20,13 @@ import {
 export default () => {
   useCSSVariables('ThemeExample', globalThemeToken);
   return (
-    <Flex gap={12} vertical>
+    <Flex
+      gap={12}
+      vertical
+      style={{
+        padding: '24px',
+      }}
+    >
       <h1>Button</h1>
       <Flex gap={12}>
         <Button color="default" variant="solid" icon={<PlusOutlined />}>
@@ -98,6 +104,42 @@ export default () => {
         <Button type="primary" loading>
           Primary(loading)
         </Button>
+      </Flex>
+
+      <Flex gap={12}>
+        <Button icon={<PlusOutlined />} />
+        <Button icon={<PlusOutlined />} disabled />
+        <Button icon={<PlusOutlined />} loading />
+      </Flex>
+      <Flex gap={12}>
+        <Button color="default" variant="filled" icon={<PlusOutlined />} />
+        <Button
+          color="default"
+          variant="filled"
+          icon={<PlusOutlined />}
+          disabled
+        />
+        <Button
+          color="default"
+          variant="filled"
+          icon={<PlusOutlined />}
+          loading
+        />
+      </Flex>
+      <Flex gap={12}>
+        <Button color="default" variant="text" icon={<PlusOutlined />} />
+        <Button
+          color="default"
+          variant="text"
+          icon={<PlusOutlined />}
+          disabled
+        />
+        <Button
+          color="default"
+          variant="text"
+          icon={<PlusOutlined />}
+          loading
+        />
       </Flex>
       <Divider />
       <Flex gap={12} vertical>
