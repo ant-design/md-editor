@@ -299,7 +299,7 @@ export type FileType = keyof typeof FILE_TYPES;
 // 节点基础属性
 export interface BaseNode {
   id?: string;
-  name: string | ReactNode;
+  name: string;
   icon?: ReactNode;
 }
 

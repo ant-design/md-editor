@@ -105,6 +105,7 @@ const ChartContainer: React.FC<
     baseClassName: string;
     /** 子元素 */
     children: React.ReactNode;
+    role?: string;
   }
 > = ({
   baseClassName,
