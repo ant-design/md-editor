@@ -91,4 +91,35 @@ describe('SuggestionList', () => {
     const buttons = getAllByRole('button');
     expect(buttons.length).toBe(3);
   });
+
+  it('renders showMore with custom text and icon', () => {
+    const { getByText, getByTestId } = render(
+      <SuggestionList
+        items={[{ text: '测试建议' }]}
+        showMore={{
+          enable: true,
+          text: '查看更多',
+          icon: <span data-testid="custom-icon">🔍</span>,
+          onClick: () => {},
+        }}
+      />,
+    );
+
+    expect(getByText('查看更多')).toBeInTheDocument();
+    expect(getByTestId('custom-icon')).toBeInTheDocument();
+  });
+
+  it('renders showMore with default text and icon when not provided', () => {
+    const { getByText } = render(
+      <SuggestionList
+        items={[{ text: '测试建议' }]}
+        showMore={{
+          enable: true,
+          onClick: () => {},
+        }}
+      />,
+    );
+
+    expect(getByText('搜索更多')).toBeInTheDocument();
+  });
 });
