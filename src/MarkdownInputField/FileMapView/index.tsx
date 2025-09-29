@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
-import { File } from '../../icons';
+import { FileSearch } from '../../icons';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { isImageFile } from '../AttachmentButton/utils';
 import { FileMapViewItem } from './FileMapViewItem';
@@ -204,9 +204,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             className={classNames(hashId, `${prefix}-more-file-container`)}
             onClick={() => props.onViewAll?.(fileList)}
           >
-            <div className={classNames(hashId, `${prefix}-more-file-icon`)}>
-              <File />
-            </div>
+            <FileSearch color="var(--color-gray-text-secondary)" />
             <div className={classNames(hashId, `${prefix}-more-file-name`)}>
               <span style={{ whiteSpace: 'nowrap' }}>
                 查看此任务中的所有文件

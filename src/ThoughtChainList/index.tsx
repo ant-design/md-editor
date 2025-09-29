@@ -449,16 +449,19 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
       return (
         <div>
           {thoughtChainList.at(-1) && collapse ? (
-            <TitleInfo
-              title={thoughtChainList.at(-1)?.info}
-              costMillis={thoughtChainList.at(-1)?.costMillis}
-              category={thoughtChainList.at(-1)?.category || ''}
-              prefixCls={prefixCls}
-              hashId={hashId}
-              isFinished={false}
-              collapse={true}
-              meta={thoughtChainList.at(-1)?.meta?.data || {}}
-            />
+            <>
+              <TitleInfo
+                title={thoughtChainList.at(-1)?.info}
+                costMillis={thoughtChainList.at(-1)?.costMillis}
+                category={thoughtChainList.at(-1)?.category || ''}
+                prefixCls={prefixCls}
+                hashId={hashId}
+                isFinished={false}
+                collapse={true}
+                meta={thoughtChainList.at(-1)?.meta?.data || {}}
+              />
+              {loading && <DotLoading />}
+            </>
           ) : (
             <div>
               {locale?.thinking}

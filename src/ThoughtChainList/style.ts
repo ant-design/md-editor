@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
@@ -16,7 +16,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       marginBottom: 8,
       boxShadow: '0px 1px 3px 0px rgba(25, 33, 61, 0.1)',
       overflow: 'hidden',
-      minWidth: 296,
+      minWidth: 320,
       position: 'relative',
       maxWidth: '100%',
       '.empty': {

@@ -1,4 +1,4 @@
-﻿import type { CSSInterpolation } from '@ant-design/cssinjs';
+import type { CSSInterpolation } from '@ant-design/cssinjs';
 import {
   ComponentToken,
   createStyleRegister,
@@ -79,5 +79,3 @@ export function useEditorStyleRegister(
   // 确保总是返回一个有效的对象
   return result || { wrapSSR: (node: any) => node, hashId: '' };
 }
-
-

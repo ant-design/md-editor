@@ -235,14 +235,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       [`&-content`]: {
         position: 'relative',
-        width: '100%',
+        width: 'auto',
         height: '100%',
         overflow: 'auto',
+        margin: '0 -16px!important',
 
-        '.ant-workspace-html-preview-content .ace-container': {
-          border: 'none',
-          borderRadius: 'unset',
-          boxShadow: 'none!important',
+        '.ant-workspace-html-preview-content': {
+          '.ace-container': {
+            border: 'none',
+            borderRadius: 'unset',
+            boxShadow: 'none!important',
+          },
+
+          '.code-editor-content': {
+            padding: '0!important',
+          },
         },
 
         '.ace_gutter': {
@@ -256,8 +263,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           paddingLeft: 12,
         },
 
-        '.ace-tm .ace_comment': {
-          color: '#008604',
+        '.ace-tm .ace_scroller .ace_content': {
+          fontFamily: 'Roboto Mono',
         },
 
         '.ace-tm .ace_keyword': {
@@ -266,7 +273,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        }
+        },
       },
 
       [`&-overlay`]: {

@@ -47,7 +47,7 @@ describe('TaskList Component', () => {
     children,
   }) => (
     <ConfigProvider>
-      <I18nContext.Provider value={{ locale: mockLocale }}>
+      <I18nContext.Provider value={{ locale: mockLocale as any }}>
         {children}
       </I18nContext.Provider>
     </ConfigProvider>

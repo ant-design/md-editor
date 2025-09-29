@@ -91,131 +91,179 @@ export default () => {
           },
         }}
         beforeToolsRender={() => {
-        return (
-          <ActionItemContainer>
-            <ActionItemBox
-              onClick={() => console.log('快捷技能1')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能1</span>
-              }
-              key="快捷技能1"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能2')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能2</span>
-              }
-              key="快捷技能2"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能3')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能3</span>
-              }
-              key="快捷技能3"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能1')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能4</span>
-              }
-              key="快捷技能4"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能2')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能5</span>
-              }
-              key="快捷技能5"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能3')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能6</span>
-              }
-              key="快捷技能6"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能1')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能7</span>
-              }
-              key="快捷技能7"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能2')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能8</span>
-              }
-              key="快捷技能8"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能3')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能9</span>
-              }
-              key="快捷技能9"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能1')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能10</span>
-              }
-              key="快捷技能10"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能2')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能11</span>
-              }
-              key="快捷技能11"
-            />
-            <ActionItemBox
-              onClick={() => console.log('快捷技能3')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能12</span>
-              }
-              key="快捷技能12"
-            />
-          </ActionItemContainer>
-        );
-      }}
+          return (
+            <ActionItemContainer>
+              <ActionItemBox
+                onClick={() => console.log('快捷技能1')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能1
+                  </span>
+                }
+                key="快捷技能1"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能2')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能2
+                  </span>
+                }
+                key="快捷技能2"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能3')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能3
+                  </span>
+                }
+                key="快捷技能3"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能1')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能4
+                  </span>
+                }
+                key="快捷技能4"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能2')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能5
+                  </span>
+                }
+                key="快捷技能5"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能3')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能6
+                  </span>
+                }
+                key="快捷技能6"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能1')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能7
+                  </span>
+                }
+                key="快捷技能7"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能2')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能8
+                  </span>
+                }
+                key="快捷技能8"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能3')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能9
+                  </span>
+                }
+                key="快捷技能9"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能1')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能10
+                  </span>
+                }
+                key="快捷技能10"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能2')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能11
+                  </span>
+                }
+                key="快捷技能11"
+              />
+              <ActionItemBox
+                onClick={() => console.log('快捷技能3')}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    快捷技能12
+                  </span>
+                }
+                key="快捷技能12"
+              />
+            </ActionItemContainer>
+          );
+        }}
         toolsRender={() => [
           <div
             key="bold"
@@ -282,21 +330,20 @@ export default () => {
         items={[
           {
             key: 'qwe',
-            icon: '💸 ',
+            icon: '💸',
             text: '关税对消费类基金的影响',
-            tooltip: '关税消费',
             actionIcon: <EditOutlined />,
           },
           {
             key: 'asd',
-            icon: '💸 ',
-            text: ' 关税对消费类基金的影响',
+            icon: '📝',
+            text: '恒生科技指数基金相关新闻',
             actionIcon: <EditOutlined />,
           },
           {
             key: 'zxc',
-            icon: '💸 ',
-            text: '关税对消费类基金的影响',
+            icon: '📊',
+            text: '数据分析与可视化',
             actionIcon: <EditOutlined />,
           },
         ]}
@@ -435,22 +482,33 @@ const App = () => {
 export default App;
 ```
 
-### 启用语音输入按钮
+### 启用语音输入按钮（支持句级回调）
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
 import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
-  const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+  const createRecognizer: CreateRecognizer = async ({
+    onSentenceBegin,
+    onPartial,
+    onSentenceEnd,
+    onError,
+  }) => {
     let timer: ReturnType<typeof setInterval>;
+    let i = 0;
     return {
       start: async () => {
-        // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
-        let i = 0;
+        // 真实场景应启动麦克风与ASR服务，这里用计时器模拟：句子开始 -> 多次增量 -> 句子结束
+        onSentenceBegin();
         timer = setInterval(() => {
-          onPartial(`语音片段${i} `);
-          i += 1;
+          if (i < 3) {
+            onPartial(`片段${i}`);
+            i += 1;
+          } else {
+            clearInterval(timer);
+            onSentenceEnd('完整句子');
+          }
         }, 500);
       },
       stop: async () => {

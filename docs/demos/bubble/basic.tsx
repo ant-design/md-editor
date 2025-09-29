@@ -339,14 +339,17 @@ export default () => {
             onPreview: (file) => {
               onPreview(file);
               console.log('预览文件:', file);
+              message.success('预览文件:');
             },
             onDownload: (file) => {
               onDownload(file);
               console.log('下载文件:', file);
+              message.success('下载文件:');
             },
             onViewAll: (files) => {
               onViewAll(files);
               console.log('查看所有文件:', files);
+              message.success('查看所有文件:');
             },
           })}
           onLike={handleLike}
