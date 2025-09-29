@@ -152,8 +152,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-label': {
-        display: 'inline-flex',
-        alignItems: 'center',
+        display: 'inline-block',
         minWidth: 0,
         maxWidth: '100%',
         whiteSpace: 'nowrap',
