@@ -1,15 +1,19 @@
 ---
-title: 基础组件
+title: Button 按钮
 group:
   title: 基础组件
   order: 2
 ---
 
-# 基础组件
+# Button 按钮
+
+按钮组件用于触发操作。
+
+## 代码演示
 
 ```tsx
-import { PlusOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
-import { Button, Input, Select, Flex, Segmented, Divider } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Flex } from 'antd';
 import React from 'react';
 import {
   ThemeProvider,
@@ -187,165 +191,6 @@ export default () => {
           variant="text"
           icon={<PlusOutlined />}
           loading
-        />
-      </Flex>
-      <Divider />
-      <Flex
-        gap={12}
-        vertical
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <div>
-          <h2>Segmented</h2>
-          <Segmented
-            options={[
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                value: 'day',
-              },
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                value: 'week',
-              },
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                value: 'month',
-              },
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                value: 'year',
-              },
-            ]}
-          />
-        </div>
-        <div>
-          <Segmented
-            options={[
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                icon: <SmileOutlined />,
-                value: 'day',
-              },
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                icon: <SmileOutlined />,
-                value: 'week',
-              },
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                icon: <SmileOutlined />,
-                value: 'month',
-              },
-              {
-                label: (
-                  <div className="ant-segmented-item-title">
-                    公开 <span className="ant-segmented-item-tag">123</span>
-                  </div>
-                ),
-                icon: <SmileOutlined />,
-                value: 'year',
-              },
-            ]}
-          />
-        </div>
-        <div>
-          <Segmented
-            options={[
-              {
-                label: '公开',
-                value: 'day',
-              },
-              {
-                label: '公开',
-                value: 'week',
-              },
-              {
-                label: '公开',
-                value: 'month',
-              },
-              {
-                label: '公开',
-                value: 'year',
-              },
-            ]}
-          />
-        </div>
-      </Flex>
-      <Flex
-        gap={12}
-        vertical
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Input prefix={<SearchOutlined />} placeholder="请输入" />
-        <Input
-          prefix={<SearchOutlined />}
-          value="已经输入值"
-          placeholder="请输入"
-        />
-
-        <Input prefix={<SearchOutlined />} disabled placeholder="请输入" />
-        <Input
-          prefix={<SearchOutlined />}
-          disabled
-          value="已经输入值"
-          placeholder="请输入"
-        />
-      </Flex>
-      <Flex
-        gap={12}
-        vertical
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Select prefix={<SearchOutlined />} placeholder="请输入" />
-        <Select
-          prefix={<SearchOutlined />}
-          value="已经输入值"
-          placeholder="请输入"
-        />
-
-        <Select prefix={<SearchOutlined />} disabled placeholder="请输入" />
-        <Select
-          prefix={<SearchOutlined />}
-          disabled
-          value="已经输入值"
-          placeholder="请输入"
         />
       </Flex>
     </Flex>
