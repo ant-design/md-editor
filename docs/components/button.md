@@ -191,6 +191,39 @@ export default () => {
           主按钮
         </Button>
       </Flex>
+
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button size="small" color="default" variant="solid" icon={<Plus />}>
+          主按钮
+        </Button>
+        <Button
+          size="small"
+          color="default"
+          variant="solid"
+          disabled
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+        <Button
+          loading
+          size="small"
+          color="default"
+          variant="solid"
+          style={{
+            background: 'var(--color-gray-text-disabled)',
+          }}
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+      </Flex>
     </Flex>
   );
 };

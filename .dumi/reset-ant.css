@@ -1,8 +1,18 @@
 .ant-btn {
   font-size: var(--font-size-base);
-  height: 32px;
+  height: var(--height-control-base);
   padding: 0px var(--padding-3x);
   border-radius: var(--radius-control-base);
+}
+
+.ant-btn-lg {
+  height: var(--height-control-lg);
+  padding: 0px var(--padding-3x);
+}
+
+.ant-btn-sm {
+  height: var(--height-control-sm);
+  padding: 0px var(--padding-2x);
 }
 
 .ant-btn-color-default.ant-btn-variant-solid {
