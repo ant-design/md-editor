@@ -1,4 +1,4 @@
-﻿import { Keyframes } from '@ant-design/cssinjs';
+import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
@@ -171,12 +171,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             background: 'var(--color-gray-control-fill-active)',
             boxShadow: 'var(--shadow-border-base)',
           },
-        },
-      },
-      '&-is-multi-row': {
-        [`${token.componentCls}-send-actions`]: {
-          right: 12,
-          bottom: 12,
         },
       },
       '&-quick-actions': {
