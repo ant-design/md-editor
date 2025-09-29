@@ -1,6 +1,6 @@
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState, useRef, useEffect } from 'react';
 import { RefreshCcw, SwapRight } from '../../icons';
 import { useStyle } from './style';
 
@@ -25,9 +25,50 @@ export interface SuggestionListProps {
   layout?: 'vertical' | 'horizontal';
   /** 样式类型：基础版、透明版、白色版 */
   type?: 'basic' | 'transparent' | 'white';
-  /** 是否展示左上角“搜索更多”入口 */
+  /** 是否展示左上角"搜索更多"入口 */
   showMore?: { enable: boolean; onClick?: () => void };
 }
+
+const OverflowTooltip: React.FC<{
+  children: React.ReactNode;
+  title: string;
+  prefixCls: string;
+  hashId: string;
+  forceShow?: boolean;
+}> = ({ children, title, prefixCls, hashId, forceShow = false }) => {
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  useEffect(() => {
+    const checkOverflow = () => {
+      if (textRef.current) {
+        const { scrollWidth, clientWidth } = textRef.current;
+        setIsOverflowing(scrollWidth > clientWidth);
+      }
+    };
+
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+    return () => window.removeEventListener('resize', checkOverflow);
+  }, []);
+
+  const shouldShowTooltip = forceShow || isOverflowing;
+
+  return (
+    <Tooltip
+      mouseEnterDelay={0.3}
+      title={shouldShowTooltip ? title : undefined}
+      placement="top"
+    >
+      <span 
+        ref={textRef}
+        className={classNames(`${prefixCls}-label`, hashId)}
+      >
+        {children}
+      </span>
+    </Tooltip>
+  );
+};
 
 export const SuggestionList: React.FC<SuggestionListProps> = ({
   className,
@@ -118,15 +159,14 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
                     {item?.icon}
                   </span>
                 ) : null}
-                <Tooltip
-                  mouseEnterDelay={0.3}
-                  title={item?.tooltip ?? label}
-                  placement="top"
+                <OverflowTooltip
+                  title={item?.tooltip ?? label ?? ''}
+                  prefixCls={prefixCls}
+                  hashId={hashId}
+                  forceShow={!!item?.tooltip}
                 >
-                  <span className={classNames(`${prefixCls}-label`, hashId)}>
-                    {item?.text}
-                  </span>
-                </Tooltip>
+                  {item?.text}
+                </OverflowTooltip>
                 <span
                   className={classNames(`${prefixCls}-arrow`, hashId, {
                     [`${prefixCls}-arrow-action`]: item.actionIcon,

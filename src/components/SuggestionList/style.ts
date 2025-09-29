@@ -14,11 +14,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       background: 'transparent',
       borderRadius: 0,
       boxShadow: 'none',
+      width: '100%',
 
       '&-suggestions': {
         display: 'flex',
         flexDirection: 'column',
         gap: 4,
+        width: '100%',
         // 横向布局
         '&-horizontal': {
           flexDirection: 'row',
