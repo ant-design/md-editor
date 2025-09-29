@@ -10,7 +10,7 @@ export function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
       width="1rem"
       height="1rem"
       role="img"
-      aria-label="PlayIcon"
+      aria-label="PauseIcon"
       viewBox="0 0 16 16"
       {...props}
     >
