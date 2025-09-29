@@ -251,12 +251,6 @@
   padding: 1;
 }
 
-.ant-segmented .ant-segmented-group {
-  /* 圆角-控件-base */
-  border-radius: var(--radius-control-base);
-  /* gray/gray-控件填充-按下.激活 */
-  background: var(--color-gray-control-fill-active);
-}
 .ant-segmented .ant-segmented-item {
   font-size: var(--font-size-base);
   font: var(--font-text-body-base);
@@ -285,6 +279,7 @@
   font-weight: 500;
   /* gray/gray-控件填充-按下.激活 */
   background: var(--color-gray-control-fill-active);
+  color: var(--color-gray-text-secondary);
 }
 
 .ant-segmented .ant-segmented-item .ant-segmented-item-label {
