@@ -316,7 +316,6 @@
 
 .ant-segmented .ant-segmented-item .ant-segmented-item-tag {
   /* 自动布局子元素 */
-  height: 20px;
   min-width: 20px;
   /* 自动布局 */
   display: flex;
