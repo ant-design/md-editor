@@ -16,7 +16,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '8px 16px',
         marginLeft: -16,
         marginRight: -16,
-        marginBottom: 8,
         borderBottom: '1px solid var(--color-gray-border-light)',
 
         // 返回按钮
@@ -86,7 +85,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           [`&--default`]: {
             width: '40px',
             height: '40px',
-            background: 'linear-gradient(90deg, #EAEEF4, #F4F6F9)',
+            background: 'linear-gradient(180deg, #EAEEF4, #F4F6F9)',
           },
         },
 

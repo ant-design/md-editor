@@ -38,8 +38,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'var(--shadow-control-lg)',
       },
 
-      ['&:focus-within']: {
+      ['&:active']: {
         boxShadow: 'var(--shadow-control-base)',
+        transform: 'scale(0.95)',
       },
     },
   };
