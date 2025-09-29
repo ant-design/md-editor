@@ -63,7 +63,12 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
 
   return wrapSSR(
-    <div className={classNames(`${prefix}-container`, hashId)}>
+    <div
+      className={classNames(`${prefix}-container`, hashId, {
+        [`${prefix}-container-empty`]:
+          Array.from(props.fileMap?.values() || []).length === 0,
+      })}
+    >
       <motion.div
         variants={{
           visible: {

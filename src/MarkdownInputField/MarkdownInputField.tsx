@@ -917,9 +917,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               minHeight: props.style?.minHeight || 0,
               height: bgSize.height,
               width: bgSize.width,
-              backgroundColor: 'rgba(0, 9, 50, 0.1)',
             }}
-          ></div>
+          />
 
           <div
             style={{

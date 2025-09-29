@@ -105,7 +105,19 @@ export const AttachmentFileListItem: React.FC<{
         >
           {[file.name.split('.').slice(-1), kbToSize(file.size / 1024)]
             .filter(Boolean)
-            .join(' | ')}
+            .map((item) => {
+              return (
+                <span
+                  key={item?.toString() + ''}
+                  className={classNames(
+                    `${props.prefixCls}-file-size-item`,
+                    props.hashId,
+                  )}
+                >
+                  {item}
+                </span>
+              );
+            })}
         </div>
       </div>
       {file.status === 'done' ? (

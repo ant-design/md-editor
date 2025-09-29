@@ -88,37 +88,37 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       maxWidth: 980,
       backdropFilter: 'blur(5.44px)',
       position: 'relative',
+      tableIndex: 1,
       transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       '> * ': {
         boxSizing: 'border-box',
       },
       '&:active, &:hover': {
-        boxShadow: 'none',
-        background: '#ed97f6',
         [`${token.componentCls}-background`]: {
           opacity: 1,
+          backgroundColor: '#1890ff',
         },
       },
-      '&:focus': {
-        boxShadow: 'none',
-        backgroundImage:
-          'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, var(--color-gray-control-fill-secondary) 84%)',
-        [`${token.componentCls}-background`]: {
-          opacity: 1,
-        },
-      },
+
       '&-background': {
         boxSizing: 'border-box',
         transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
-        opacity: 0,
         position: 'absolute',
         top: getGlowBorderOffset(),
         left: getGlowBorderOffset(),
         width: addGlowBorderOffset('100%'),
         height: addGlowBorderOffset('100%'),
         zIndex: 2,
+        backgroundColor: 'rgba(0, 9, 50, 0.1)',
         pointerEvents: 'none',
         borderRadius: 'inherit',
+      },
+      '&:focus': {
+        boxShadow: 'none',
+        [`${token.componentCls}-background`]: {
+          opacity: 1,
+          backgroundColor: '#1890ff',
+        },
       },
       '&-editor': {
         boxSizing: 'border-box',
