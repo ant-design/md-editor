@@ -2,7 +2,7 @@ import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { MicFill } from '../../icons';
+import { Voice } from '../../icons';
 import VoicingLottie from '../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 
@@ -65,7 +65,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
         }}
       >
         <ErrorBoundary fallback={<div />}>
-          {recording ? <VoicingLottie size={16} /> : <MicFill />}
+          {recording ? <VoicingLottie size={16} /> : <Voice />}
         </ErrorBoundary>
       </div>
     </Tooltip>,
