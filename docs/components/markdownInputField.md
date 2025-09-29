@@ -337,13 +337,13 @@ export default () => {
           {
             key: 'asd',
             icon: '📝',
-            text: ' 恒生科技指数基金相关新闻',
+            text: '恒生科技指数基金相关新闻',
             actionIcon: <EditOutlined />,
           },
           {
             key: 'zxc',
             icon: '📊',
-            text: ' 数据分析与可视化',
+            text: '数据分析与可视化',
             actionIcon: <EditOutlined />,
           },
         ]}
