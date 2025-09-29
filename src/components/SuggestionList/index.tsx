@@ -1,6 +1,6 @@
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useMemo, useState, useRef, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { RefreshCcw, SwapRight } from '../../icons';
 import { useStyle } from './style';
 
@@ -39,31 +39,49 @@ const OverflowTooltip: React.FC<{
   const textRef = useRef<HTMLSpanElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (textRef.current) {
-        const { scrollWidth, clientWidth } = textRef.current;
-        setIsOverflowing(scrollWidth > clientWidth);
-      }
-    };
+  const checkOverflow = () => {
+    if (textRef.current) {
+      const { scrollWidth, clientWidth } = textRef.current;
+      const overflowing = scrollWidth > clientWidth;
+      setIsOverflowing(overflowing);
+    }
+  };
 
+  useEffect(() => {
     checkOverflow();
     window.addEventListener('resize', checkOverflow);
     return () => window.removeEventListener('resize', checkOverflow);
+  }, [children]);
+
+  useEffect(() => {
+    if (!textRef.current) return;
+
+    const observer = new MutationObserver(() => {
+      checkOverflow();
+    });
+
+    observer.observe(textRef.current, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const shouldShowTooltip = forceShow || isOverflowing;
 
+  if (!shouldShowTooltip) {
+    return (
+      <span ref={textRef} className={classNames(`${prefixCls}-label`, hashId)}>
+        {children}
+      </span>
+    );
+  }
+
   return (
-    <Tooltip
-      mouseEnterDelay={0.3}
-      title={shouldShowTooltip ? title : undefined}
-      placement="top"
-    >
-      <span 
-        ref={textRef}
-        className={classNames(`${prefixCls}-label`, hashId)}
-      >
+    <Tooltip mouseEnterDelay={0.3} title={title} placement="top">
+      <span ref={textRef} className={classNames(`${prefixCls}-label`, hashId)}>
         {children}
       </span>
     </Tooltip>
