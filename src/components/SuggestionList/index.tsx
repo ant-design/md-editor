@@ -1,6 +1,6 @@
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { RefreshCcw, SwapRight } from '../../icons';
 import { useStyle } from './style';
 
@@ -44,26 +44,24 @@ const OverflowTooltip: React.FC<{
   const textRef = useRef<HTMLSpanElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
-  const checkOverflow = () => {
+  const checkOverflow = useCallback(() => {
     if (textRef.current) {
       const { scrollWidth, clientWidth } = textRef.current;
       const overflowing = scrollWidth > clientWidth;
       setIsOverflowing(overflowing);
     }
-  };
+  }, []);
 
   useEffect(() => {
     checkOverflow();
     window.addEventListener('resize', checkOverflow);
     return () => window.removeEventListener('resize', checkOverflow);
-  }, [children]);
+  }, [children, checkOverflow]);
 
   useEffect(() => {
     if (!textRef.current) return;
 
-    const observer = new MutationObserver(() => {
-      checkOverflow();
-    });
+    const observer = new MutationObserver(checkOverflow);
 
     observer.observe(textRef.current, {
       childList: true,
@@ -72,7 +70,7 @@ const OverflowTooltip: React.FC<{
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [checkOverflow]);
 
   const shouldShowTooltip = forceShow || isOverflowing;
 
