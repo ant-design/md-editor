@@ -243,6 +243,14 @@
   color: var(--color-gray-text-disabled);
 }
 
+.ant-segmented {
+  /* 圆角-控件-base */
+  border-radius: var(--radius-control-base);
+  /* gray/gray-控件填充-按下.激活 */
+  background: var(--color-gray-control-fill-active);
+  padding: 1;
+}
+
 .ant-segmented .ant-segmented-group {
   /* 圆角-控件-base */
   border-radius: var(--radius-control-base);

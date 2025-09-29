@@ -329,7 +329,7 @@
                     color-interpolation-filters="sRGB"
                     filterUnits="objectBoundingBox"
                     height="1"
-                    id="playIconFilter-:r3j:"
+                    id="playIconFilter-:r3k:"
                     width="1"
                     x="0"
                     y="0"
@@ -359,7 +359,7 @@
                     />
                   </filter>
                   <clippath
-                    id="playIconClip-:r3j:"
+                    id="playIconClip-:r3k:"
                   >
                     <rect
                       height="16"
@@ -371,7 +371,7 @@
                   </clippath>
                 </defs>
                 <g
-                  filter="url(#playIconFilter-:r3j:)"
+                  filter="url(#playIconFilter-:r3k:)"
                 >
                   <rect
                     fill="#001C39"
@@ -381,7 +381,7 @@
                     width="32"
                   />
                   <g
-                    clip-path="url(#playIconClip-:r3j:)"
+                    clip-path="url(#playIconClip-:r3k:)"
                   >
                     <path
                       d="M11.333 11.333v9.334q0 .552.39.942.391.391.944.391H14q.552 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942Q14.553 10 14 10h-1.333q-.553 0-.943.39-.39.391-.39.943zm5.334 0v9.334q0 .552.39.942.39.391.943.391h1.333q.553 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942-.39-.391-.943-.391H18q-.552 0-.943.39-.39.391-.39.943z"
