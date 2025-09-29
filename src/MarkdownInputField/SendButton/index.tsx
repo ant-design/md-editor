@@ -1,9 +1,9 @@
-﻿import { ConfigProvider } from 'antd';
+import { CircleStop } from '@sofa-design/icons';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { CircleStop } from '../../icons';
 import { useStyle } from './style';
 
 function SendIcon(

@@ -1,7 +1,7 @@
+import { Star, StarFill } from '@sofa-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { Star, StarFill } from '../../icons';
 import TrashIcon from '../../icons/Trash2';
 import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';

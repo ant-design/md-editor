@@ -1,9 +1,9 @@
 import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
+import { ArrowLeft as LeftIcon } from '@sofa-design/icons';
 import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { ArrowLeft as LeftIcon } from '../../icons';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,

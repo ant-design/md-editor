@@ -1,8 +1,8 @@
+import { GripVertical } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { GripVertical } from '../../icons';
 import { useStyle } from './actionItemBoxStyle';
 
 type KeyedElement = React.ReactElement & { key: React.Key };

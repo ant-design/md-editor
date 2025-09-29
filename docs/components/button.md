@@ -19,7 +19,7 @@ import {
   globalThemeToken,
   useCSSVariables,
 } from '@ant-design/theme-token';
-import { Plus } from '@ant-design/md-editor/dist/icons';
+import { Plus } from '@sofa-design/icons';
 
 export default () => {
   useCSSVariables('ThemeExample', globalThemeToken);

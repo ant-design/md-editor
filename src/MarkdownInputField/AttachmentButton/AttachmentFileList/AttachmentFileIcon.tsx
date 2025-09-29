@@ -1,5 +1,5 @@
+import { Loader } from '@sofa-design/icons';
 import React from 'react';
-import { Loader } from '../../../icons';
 import { getFileTypeIcon } from '../../../Workspace/File/utils';
 import { FileType } from '../../../Workspace/types';
 import { AttachmentFile } from '../types';

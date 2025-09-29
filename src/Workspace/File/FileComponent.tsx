@@ -10,17 +10,17 @@ import {
   message,
 } from 'antd';
 
-import { Empty } from 'antd';
-import classNames from 'classnames';
-import React, { type FC, useContext, useRef, useState } from 'react';
-import { I18nContext } from '../../i18n';
 import {
   ChevronDown as DownIcon,
   Download as DownloadIcon,
   Eye as EyeIcon,
   ChevronRight as RightIcon,
   MessageSquareShare as ShareIcon,
-} from '../../icons';
+} from '@sofa-design/icons';
+import { Empty } from 'antd';
+import classNames from 'classnames';
+import React, { type FC, useContext, useRef, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';

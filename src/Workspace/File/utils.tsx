@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   FileZip as ArchiveIcon,
   AudioLines as AudioIcon,
@@ -12,7 +11,8 @@ import {
   FileXml,
   FileImage as ImageIcon,
   File as VideoIcon,
-} from '../../icons';
+} from '@sofa-design/icons';
+import React from 'react';
 import {
   FILE_TYPES,
   FileCategory,

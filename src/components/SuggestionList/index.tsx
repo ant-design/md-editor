@@ -1,3 +1,4 @@
+import { RefreshCcw, SwapRight } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, {
@@ -8,7 +9,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { RefreshCcw, SwapRight } from '../../icons';
 import { useStyle } from './style';
 
 export interface SuggestionItem {

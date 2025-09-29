@@ -1,6 +1,6 @@
 import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
+import { MessageSquareShare, PanelLeftFill } from '@sofa-design/icons';
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { MessageSquareShare, PanelLeftFill } from '../../icons';
 import { useStyle } from './style';
 import type { ChatFlowContainerProps, ChatFlowContainerRef } from './types';
 

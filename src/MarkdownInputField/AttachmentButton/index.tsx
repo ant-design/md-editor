@@ -1,7 +1,7 @@
-﻿import { ConfigProvider, message } from 'antd';
+import { Paperclip } from '@sofa-design/icons';
+import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext, useMemo } from 'react';
-import { Paperclip } from '../../icons';
 import AttachmentButtonPopover, {
   AttachmentButtonPopoverProps,
   SupportedFileFormats,

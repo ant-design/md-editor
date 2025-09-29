@@ -1,15 +1,15 @@
-﻿// import {
+// import {
 //   DownloadOutlined,
 //   EllipsisOutlined,
 //   EyeOutlined,
 // } from '@ant-design/icons';
+import { Download, EllipsisVertical, Eye } from '@sofa-design/icons';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { Download, EllipsisVertical, Eye } from '../../icons';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { kbToSize } from '../AttachmentButton/utils';

@@ -1,4 +1,5 @@
 import { runFunction } from '@ant-design/pro-components';
+import { ChevronDown } from '@sofa-design/icons';
 import { ConfigProvider, Dropdown, MenuProps } from 'antd';
 import classNames from 'classnames';
 import React, {
@@ -9,7 +10,6 @@ import React, {
   useState,
 } from 'react';
 import { ReactEditor, useSlate } from 'slate-react';
-import { ChevronDown } from '../../../../icons';
 import { SuggestionConnext } from '../../../../MarkdownInputField/Suggestion';
 import { useStyle } from './style';
 

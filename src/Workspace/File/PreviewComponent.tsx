@@ -1,5 +1,10 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import {
+  Download as DownloadIcon,
+  ArrowLeft as LeftIcon,
+  MessageSquareShare as ShareIcon,
+} from '@sofa-design/icons';
+import {
   Alert,
   Button,
   ConfigProvider,
@@ -12,11 +17,6 @@ import {
 import classNames from 'classnames';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import {
-  Download as DownloadIcon,
-  ArrowLeft as LeftIcon,
-  MessageSquareShare as ShareIcon,
-} from '../../icons';
 import {
   MarkdownEditor,
   type MarkdownEditorInstance,
