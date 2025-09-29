@@ -18,6 +18,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const basePrefixCls = getPrefixCls('agent-chat-action-item-box');
   const { wrapSSR, hashId } = useStyle(basePrefixCls);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
   const [isIndicatorHover, setIsIndicatorHover] = useState(false);
@@ -210,8 +211,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         width: '100%',
         gap: 8,
         backgroundColor: 'transparent',
-        overflowX: 'auto',
-        overflowY: 'visible',
+        overflow: 'visible',
         position: 'relative',
         WebkitOverflowScrolling: 'touch',
         ...props.style
@@ -225,7 +225,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         hashId,
       )}
       onPointerDown={(e) => {
-        const el = containerRef.current;
+        const el = scrollRef.current;
         if (!el) return;
         if (e.button !== 0) return;
         // ignore if clicking on the overflow indicator area
@@ -238,7 +238,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         panStartScrollLeftRef.current = el.scrollLeft;
       }}
       onPointerMove={(e) => {
-        const el = containerRef.current;
+        const el = scrollRef.current;
         if (!el) return;
         if (!isPanningRef.current && panIntentRef.current) {
           const dx = e.clientX - panStartXRef.current;
@@ -256,7 +256,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         }
       }}
       onPointerUp={(e) => {
-        const el = containerRef.current;
+        const el = scrollRef.current;
         if (!el) return;
         panIntentRef.current = false;
         if (isPanningRef.current) {
@@ -273,7 +273,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         e.stopPropagation();
       }}
       onWheel={(e) => {
-        const el = containerRef.current;
+        const el = scrollRef.current;
         if (!el) return;
         // translate vertical wheel into horizontal scroll
         if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
@@ -294,9 +294,20 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         }
       }}
     >
-      {ordered.map((entry) => (
+      <div
+        ref={scrollRef}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+          gap: 8,
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >{ordered.map((entry) => (
         <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
-      ))}
+      ))}</div>
       <div className={classNames(`${basePrefixCls}-container-overflow-container`, hashId)}>
           <div
             className={classNames(`${basePrefixCls}-container-overflow-container-indicator`, hashId)}

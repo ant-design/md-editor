@@ -11,7 +11,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderRadius: '11px',
       display: 'flex',
       alignItems: 'center',
-      padding: '0 8px',
+      padding: '8px 12px',
       width: '100%',
       cursor: 'pointer',
       gap: '12px',
@@ -20,31 +20,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       backgroundColor: '#FFF',
       '&-container': {
         borderRadius: 'var(--radius-control-base)',
-        display: 'flex',
+        position: 'relative',
         backgroundColor: '#FFFFFF',
         alignItems: 'center',
         width: '100%',
         cursor: 'pointer',
-        padding: '8px 12px',
-        position: 'relative',
         overflow: 'visible',
-        overscrollBehaviorX: 'contain',
-        overscrollBehaviorY: 'contain',
         '&-overflow-container': {
           pointerEvents: 'none',
           position: 'sticky',
-          right: -13,
+          right: 0,
           top: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          background: '#fff',
+          background: '',
           borderRadius: 12,
           width: 72,
           height: '100%',
-          alignSelf: 'stretch',
           zIndex: 2,
-          overscrollBehavior: 'contain',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
 
           '&-indicator': {
             pointerEvents: 'auto',
@@ -54,7 +48,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: 32,
             height: 32,
             zIndex: 10,
-            background: 'var(--color-gray-control-fill-active)',
+            // background: 'var(--color-gray-control-fill-active)',
+            background: 'linear-gradient(270deg, #FFFFFF 57%, rgba(255, 255, 255, 0) 100%)',
             border: '1px solid rgba(255, 255, 255, 0.45)',
             boxShadow: 'var(--shadow-border-base)',
             borderRadius: 'var(--radius-control-base)',
@@ -120,7 +115,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               backgroundColor: 'rgba(22, 119, 255, 0.08)',
               outline: '1px dashed rgba(22, 119, 255, 0.45)'
             },
-            // popup specific overrides
+            // ensure the inner ActionItemBox layout inside popup
             [`${token.componentCls}-container`]: {
               background: 'transparent',
               padding: 0,
@@ -128,8 +123,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               boxShadow: 'none',
               border: 'none',
               '&:hover': {
-              backgroundColor: 'transparent',
-              backgroundImage: 'none',
+                backgroundColor: 'transparent',
+                backgroundImage: 'none',
               },
             },
             [token.componentCls]: {
@@ -218,6 +213,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-option': {
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       },
+      // hover background for item itself when `-hover-bg` class present
+      ['&-hover-bg:hover']: {
+        backgroundColor: 'var(--color-gray-control-fill-active)',
+        backgroundImage: 'none',
+      },
+      // hover background when hovering the container (with `-container-hover-bg`)
+      // apply to the inner item so the whole row highlights
+      ['&-container-hover-bg:hover ' + token.componentCls]: {
+        backgroundColor: 'var(--color-gray-control-fill-active)',
+        backgroundImage: 'none',
+      },
     },
   };
 };
@@ -234,6 +240,7 @@ export function useStyle(prefixCls?: string) {
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(proChatToken), resetComponent(proChatToken)];
+    // Apply reset first, then component styles to allow overrides like padding
+    return [resetComponent(proChatToken), genStyle(proChatToken)];
   });
 }
