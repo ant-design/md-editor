@@ -55,6 +55,23 @@ const getMaskStyle = (isOverflow: boolean) => ({
 const EXTRA_SCROLL_OFFSET = 100;
 
 /**
+ * 检查自定义操作区域是否有效
+ * @param extra - 自定义操作区域内容
+ * @returns 是否应该渲染自定义操作区域
+ */
+const isValidCustomOperation = (extra: React.ReactNode): boolean => {
+  if (!extra) return false;
+  if (React.isValidElement(extra)) return true;
+  if (typeof extra === 'string' && extra.trim()) return true;
+  if (
+    Array.isArray(extra) &&
+    extra.some((item) => isValidCustomOperation(item))
+  )
+    return true;
+  return false;
+};
+
+/**
  * 自定义 hook，用于检测文本溢出并设置相关样式
  * @param text - 需要检测溢出的文本内容
  * @returns 包含文本溢出状态和 ref 的对象
@@ -300,11 +317,11 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
-          {customOperationExtra ? (
+          {isValidCustomOperation(customOperationExtra) && (
             <div className={`${prefixCls}-extra-actions ${hashId}`}>
               {customOperationExtra}
             </div>
-          ) : null}
+          )}
         </div>
         {extra?.(item)}
       </div>
@@ -568,10 +585,13 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
-          <div className={`${prefixCls}-extra-actions ${hashId}`}>
-            {customOperationExtra}
-          </div>
+          {isValidCustomOperation(customOperationExtra) && (
+            <div className={`${prefixCls}-extra-actions ${hashId}`}>
+              {customOperationExtra}
+            </div>
+          )}
         </div>
+
         {extra?.(item)}
       </div>
     );
