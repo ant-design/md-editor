@@ -53,11 +53,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
   const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(props.item?.isFavorite);
-  const [favoriteTitle, setFavoriteTitle] = useState(
-    isFavorite
-      ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
-      : i18nLocale?.['chat.history.favorite'] || '收藏',
-  );
 
   return (
     <div
@@ -107,13 +102,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 try {
                   setFavoriteLoading(true);
                   await props.onFavorite?.(props.item!.sessionId!, !isFavorite);
-                  if (!isFavorite) {
-                    setFavoriteTitle('已收藏');
-                  } else {
-                    setFavoriteTitle(
-                      i18nLocale?.['chat.history.favorite'] || '收藏',
-                    );
-                  }
                   setIsFavorite(!isFavorite);
                 } catch (error) {
                   // 处理错误
@@ -121,7 +109,11 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   setFavoriteLoading(false);
                 }
               }}
-              title={favoriteTitle}
+              title={
+                isFavorite
+                  ? i18nLocale?.['chat.history.favorited'] || '已收藏'
+                  : i18nLocale?.['chat.history.favorite'] || '收藏'
+              }
               style={{
                 width: 20,
                 height: 20,
@@ -129,11 +121,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: 'var(--radius-control-sm)',
-                ...(isFavorite
-                  ? {
-                      background: 'var(--color-primary-control-fill-secondary)',
-                    }
-                  : {}),
               }}
             >
               {isFavorite ? (

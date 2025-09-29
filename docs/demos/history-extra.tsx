@@ -54,34 +54,38 @@ const ExtraHistoryDemo = () => {
       new Date(item.gmtCreate as number).toDateString() === 'Thu Dec 21 2023';
 
     return (
-      <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-        {isImportant && (
-          <span
-            style={{
-              backgroundColor: '#ff4d4f',
-              color: 'white',
-              padding: '2px 6px',
-              borderRadius: '4px',
-              fontSize: '10px',
-            }}
-          >
-            重要
-          </span>
+      <>
+        {isImportant && isToday && (
+          <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+            {isImportant && (
+              <span
+                style={{
+                  backgroundColor: '#ff4d4f',
+                  color: 'white',
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                  fontSize: '10px',
+                }}
+              >
+                重要
+              </span>
+            )}
+            {isToday && (
+              <span
+                style={{
+                  backgroundColor: '#52c41a',
+                  color: 'white',
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                  fontSize: '10px',
+                }}
+              >
+                今日
+              </span>
+            )}
+          </div>
         )}
-        {isToday && (
-          <span
-            style={{
-              backgroundColor: '#52c41a',
-              color: 'white',
-              padding: '2px 6px',
-              borderRadius: '4px',
-              fontSize: '10px',
-            }}
-          >
-            今日
-          </span>
-        )}
-      </div>
+      </>
     );
   };
 
