@@ -26,7 +26,12 @@ export interface SuggestionListProps {
   /** 样式类型：基础版、透明版、白色版 */
   type?: 'basic' | 'transparent' | 'white';
   /** 是否展示左上角"搜索更多"入口 */
-  showMore?: { enable: boolean; onClick?: () => void };
+  showMore?: { 
+    enable: boolean; 
+    onClick?: () => void;
+    text?: string;
+    icon?: React.ReactNode;
+  };
 }
 
 const OverflowTooltip: React.FC<{
@@ -130,10 +135,10 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
           {showMore?.enable ? (
             <div
               className={classNames(`${prefixCls}-more`, hashId)}
-              aria-label="搜索更多"
+              aria-label={showMore?.text || "搜索更多"}
             >
               <span className={classNames(`${prefixCls}-more-text`, hashId)}>
-                搜索更多
+                {showMore?.text || "搜索更多"}
               </span>
               <span
                 className={classNames(`${prefixCls}-more-icon`, hashId)}
@@ -141,7 +146,7 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
                 onClick={() => showMore?.onClick?.()}
                 aria-hidden
               >
-                <RefreshCcw width={14} height={14} />
+                {showMore?.icon || <RefreshCcw width={14} height={14} />}
               </span>
             </div>
           ) : null}
