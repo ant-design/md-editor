@@ -637,17 +637,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   });
 
   /**
-   * 生成背景颜色列表
-   * @description 该函数用于生成背景颜色列表，默认使用三种颜色。
-   * @returns {string[][]} 颜色列表
-   */
-  const colorList = useMemo(() => {
-    return generateEdges(
-      props.bgColorList || ['#CD36FF', '#FFD972', '#eff0f1'],
-    );
-  }, [props.bgColorList?.join(',')]);
-
-  /**
    * 更新附件文件列表
    */
   const updateAttachmentFiles = useRefFunction(
@@ -928,56 +917,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               minHeight: props.style?.minHeight || 0,
               height: bgSize.height,
               width: bgSize.width,
+              backgroundColor: 'rgba(0, 9, 50, 0.1)',
             }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              fill="none"
-              version="1.1"
-              width="100%"
-              style={{
-                borderRadius: 'inherit',
-              }}
-              height="100%"
-            >
-              <defs>
-                <radialGradient
-                  cx="0.5"
-                  cy="1"
-                  r="0.5"
-                  id="master_svg1_55_47405"
-                >
-                  {colorList.map((color, index) => {
-                    return (
-                      <stop
-                        key={index}
-                        offset={`${(index * 100) / colorList.length}%`}
-                        stopColor={color[0]}
-                        stopOpacity="0.4"
-                      >
-                        <animate
-                          attributeName="stop-color"
-                          values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
-                          dur="4s"
-                          repeatCount="indefinite"
-                        />
-                      </stop>
-                    );
-                  })}
-                </radialGradient>
-              </defs>
-              <g>
-                <rect
-                  x={0}
-                  y={0}
-                  width="100%"
-                  height="100%"
-                  fill="url(#master_svg1_55_47405)"
-                />
-              </g>
-            </svg>
-          </div>
+          ></div>
 
           <div
             style={{
@@ -988,7 +930,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               zIndex: 9,
               flexDirection: 'column',
               boxSizing: 'border-box',
-              borderRadius: (borderRadius || 16) - 2 || 10,
+              borderRadius: (borderRadius || 16) - 1 || 10,
               cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
               opacity: props.disabled ? 0.5 : 1,
               minHeight: isMultiRowLayout ? 96 : undefined,
@@ -998,7 +940,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                borderRadius: (borderRadius || 16) - 2 || 10,
+                borderRadius: (borderRadius || 16) - 1 || 10,
                 maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
                 flex: 1,
               }}
@@ -1077,9 +1019,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   justifyContent: 'space-between',
                   gap: 8,
                   width: '100%',
-                  minHeight: 42,
                   paddingRight: 8,
                   paddingLeft: 8,
+                  paddingBottom: 12,
                 }}
               >
                 {props.toolsRender ? (

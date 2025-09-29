@@ -8,8 +8,8 @@ import {
 
 // MarkdownInputField 样式常量
 // Glow border effect constants - 辉光边框效果常量
-const GLOW_BORDER_OFFSET = 2; // px - 辉光边框偏移量
-const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 4px - 总偏移量（上下左右）
+const GLOW_BORDER_OFFSET = 1; // px - 辉光边框偏移量
+const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 2px - 总偏移量（上下左右）
 
 // CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
 const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
@@ -92,7 +92,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '> * ': {
         boxSizing: 'border-box',
       },
-      '&:hover': {
+      '&:active, &:hover': {
+        boxShadow: 'none',
+        background: '#ed97f6',
+        [`${token.componentCls}-background`]: {
+          opacity: 1,
+        },
+      },
+      '&:focus': {
         boxShadow: 'none',
         backgroundImage:
           'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, var(--color-gray-control-fill-secondary) 84%)',

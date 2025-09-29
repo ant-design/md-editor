@@ -1,7 +1,6 @@
 import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
 import { useEditorStyleRegister } from '../../hooks/useStyle';
 
-
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
@@ -239,14 +238,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '100%',
         overflow: 'auto',
         margin: '-4px -16px -16px -16px',
-  
+
         '.ant-workspace-html-preview-content': {
           '.ace-container': {
             border: 'unset',
             borderRadius: 'unset',
             boxShadow: 'unset',
           },
-          
+
           '.ace_gutter-cell': {
             paddingLeft: 12,
           },
@@ -285,7 +284,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        }
+        },
       },
 
       [`&-overlay`]: {

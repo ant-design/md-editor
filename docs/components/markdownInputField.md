@@ -327,6 +327,9 @@ export default () => {
         }}
       />
       <SuggestionList
+        style={{
+          marginTop: 8,
+        }}
         items={[
           {
             key: 'qwe',
@@ -375,7 +378,6 @@ export default () => {
 | `onStop`                | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
 | `onFocus`               | `(value: string, schema: Elements[]) => void`    | -         | 当输入字段获得焦点时触发的回调函数 |
 | `tagInputProps`         | `MarkdownEditorProps['tagInputProps']`           | -         | 标签输入的相关属性                 |
-| `bgColorList`           | `[string, string, string, string]`               | -         | 背景颜色列表                       |
 | `borderRadius`          | `number`                                         | `12`      | 边框圆角大小                       |
 | `attachment`            | `{ enable?: boolean } & AttachmentButtonProps`   | -         | 附件配置                           |
 | `actionsRender`         | `(props, defaultActions) => React.ReactNode[]`   | -         | 自定义渲染操作按钮的函数           |
@@ -602,7 +604,6 @@ export default () => {
         triggerSendKey="Mod+Enter"
         style={{ minHeight: '200px' }}
         borderRadius={8}
-        bgColorList={['#4A90E2', '#50E3C2', '#F5A623', '#D0021B']}
       />
       <div>
         <h4>Props 说明</h4>
@@ -615,9 +616,6 @@ export default () => {
           </li>
           <li>
             <code>borderRadius</code> - 边框圆角大小
-          </li>
-          <li>
-            <code>bgColorList</code> - 背景颜色列表
           </li>
         </ul>
       </div>
