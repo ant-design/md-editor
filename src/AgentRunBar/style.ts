@@ -151,26 +151,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
 
-      '&-pause': {
-        width: 32,
-        color: '#343A45',
-        height: 32,
+      // TODO: 抽离为公共图标按钮组件
+      '&-pause, &-play': {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        width: 32,
+        height: 32,
+        color: 'var(--color-gray-text-secondary)',
+        fontSize: 16,
+        background: 'var(--color-gray-control-fill-secondary)',
+        backdropFilter: 'var(--radius-control-base)',
+        borderRadius: 200,
         zIndex: 0,
         cursor: 'pointer',
-      },
+        transition: 'all 0.2s ease-in-out',
 
-      '&-play': {
-        width: 32,
-        color: '#343A45',
-        height: 32,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 0,
-        cursor: 'pointer',
+        '&:hover': {
+          background: 'var(--color-gray-control-fill-secondary-hover)',
+        },
+
+        '&:active': {
+          color: 'var(--color-primary-control-fill-primary)',
+          background: 'var(--color-primary-control-fill-secondary)',
+        },
       },
 
       button: {
@@ -246,6 +250,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-default)',
         background: 'transparent',
         borderRadius: 'var(--radius-control-sm)',
+        cursor: 'pointer',
 
         '&:hover': {
           background: 'var(--color-gray-control-fill-active)',

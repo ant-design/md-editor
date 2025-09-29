@@ -2,60 +2,30 @@
 
 export function PauseIcon(props: React.SVGProps<SVGSVGElement>) {
   const uid = React.useId();
-  const filterId = `playIconFilter-${uid}`;
-  const clipId = `playIconClip-${uid}`;
+  const clipId = `pauseIconClip-${uid}`;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      width={32}
-      height={32}
+      width="1rem"
+      height="1rem"
       role="img"
-      aria-label="PauseIcon"
-      viewBox="0 0 32 32"
+      aria-label="PlayIcon"
+      viewBox="0 0 16 16"
       {...props}
     >
       <defs>
-        <filter
-          id={filterId}
-          filterUnits="objectBoundingBox"
-          colorInterpolationFilters="sRGB"
-          x={0}
-          y={0}
-          width={1}
-          height={1}
-        >
-          <feFlood floodOpacity={0} result="BackgroundImageFix" />
-          <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feGaussianBlur in="BackgroundImageFix" stdDeviation={10} />
-          <feComposite
-            in2="SourceAlpha"
-            operator="in"
-            result="effect1_foregroundBlur"
-          />
-          <feBlend
-            in="SourceGraphic"
-            in2="effect1_foregroundBlur"
-            result="shape"
-          />
-        </filter>
         <clipPath id={clipId}>
-          <rect x={8} y={8} width={16} height={16} rx={0} />
+          <rect x="0" y="0" width="16" height="16" rx="0" />
         </clipPath>
       </defs>
-      <g filter={`url(#${filterId})`}>
-        <rect
-          width={32}
-          height={32}
-          rx={16}
-          fill="#001C39"
-          fillOpacity={0.03530000150203705}
-        />
-        <g clipPath={`url(#${clipId})`}>
+      <g clipPath={`url(#${clipId})`}>
+        <g>
           <path
-            d="M11.333 11.333v9.334q0 .552.39.942.391.391.944.391H14q.552 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942Q14.553 10 14 10h-1.333q-.553 0-.943.39-.39.391-.39.943zm5.334 0v9.334q0 .552.39.942.39.391.943.391h1.333q.553 0 .943-.39.39-.391.39-.943v-9.334q0-.552-.39-.942-.39-.391-.943-.391H18q-.552 0-.943.39-.39.391-.39.943z"
+            d="M3.3333334922790527,3.33333L3.3333334922790527,12.6667Q3.3333335320154527,13.219,3.723857492279053,13.6095Q4.114382492279053,14,4.666663492279053,14L6.000003492279053,14Q6.552283492279052,14,6.942813492279052,13.6095Q7.333333492279053,13.219,7.333333492279053,12.6667L7.333333492279053,3.33333Q7.333333492279053,2.781049,6.942813492279052,2.390524Q6.552283492279052,2,6.000003492279053,2L4.666663492279053,2Q4.114382492279053,2.0000000397364,3.723857492279053,2.390524Q3.3333334922790527,2.781049,3.3333334922790527,3.33333ZM8.666663492279053,3.33333L8.666663492279053,12.6667Q8.666663492279053,13.219,9.057193492279053,13.6095Q9.447713492279053,14,10.000003492279053,14L11.333333492279053,14Q11.885623492279052,14,12.276143492279052,13.6095Q12.666663492279053,13.219,12.666663492279053,12.6667L12.666663492279053,3.33333Q12.666663492279053,2.781049,12.276143492279052,2.390524Q11.885623492279052,2,11.333333492279053,2L10.000003492279053,2Q9.447713492279053,2.0000000397364,9.057193492279053,2.390524Q8.666663492279053,2.781049,8.666663492279053,3.33333Z"
             fillRule="evenodd"
-            fill="#767E8B"
+            fill="currentColor"
+            fillOpacity="0.800000011920929"
           />
         </g>
       </g>
