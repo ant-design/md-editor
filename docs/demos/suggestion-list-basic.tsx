@@ -50,7 +50,7 @@ const items = [
   },
 ];
 
-export default function FollowUpBasicDemo() {
+export default function SuggestionListBasicDemo() {
   const bubbleRef = useRef<any>();
   const [list] = useState<MessageBubbleData[]>([initAssistant]);
 

@@ -12,7 +12,7 @@ group:
 
 ## 代码演示
 
-<code src="../demos/followup-basic.tsx">基础用法</code>
+<code src="../demos/suggestion-list-basic.tsx">基础用法</code>
 
 ## API
 
