@@ -241,7 +241,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${componentCls}-button-wrapper`]: {
-        gap: 8,
+        gap: 4,
       },
 
       [`${componentCls}-play, ${componentCls}-pause`]: {
