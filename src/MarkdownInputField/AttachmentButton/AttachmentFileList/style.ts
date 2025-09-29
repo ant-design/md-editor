@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
@@ -58,7 +58,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 'var(--margin-2x)',
         position: 'relative',
         '&:hover': {
-          backgroundColor: 'var(--color-gray-bg-card-light)',
           [`${token.componentCls}-item-close-icon`]: {
             display: 'flex',
           },
@@ -133,10 +132,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
     [`${token.componentCls}-container`]: {
-      background: 'var(--color-gray-bg-page-light)',
-      '&:hover': {
-        backgroundColor: 'var(--color-gray-bg-card-light)',
-      },
+      background: 'var(--color-gray-bg-page)',
+      borderBottom: '1px solid rgba(0, 16, 64, 0.0627)',
     },
   };
 };
