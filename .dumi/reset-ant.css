@@ -66,11 +66,11 @@
   background: var(--color-gray-control-fill-secondary-active);
 }
 
-.ant-btn-variant-outlined,
-.ant-btn-variant-dashed {
+.ant-btn-variant-outlined {
   border-color: var(--color-gray-border-light);
   background: #ffffff;
 }
+
 .ant-btn-variant-outlined {
   color: var(--color-gray-text-default);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
@@ -103,10 +103,6 @@
 .ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):active {
   color: var(--color-gray-text-default);
   border-color: var(--color-gray-border-light);
-  background: var(--color-gray-control-fill-active);
-}
-
-.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):active {
   background: var(--color-gray-control-fill-active);
 }
 
@@ -215,7 +211,8 @@
   width: 32px;
   border-radius: var(--radius-control-base);
 }
-.ant-btn.ant-btn-variant-text.ant-btn-icon-only:not(:disabled):not(
+
+.ant-btn.ant-btn-icon-only.ant-btn-variant-text:not(:disabled):not(
     .ant-btn-disabled
   ):hover {
   border-radius: var(--radius-control-base);
@@ -225,7 +222,7 @@
   backdrop-filter: blur(40px);
 }
 
-.ant-btn.ant-btn-variant-text.ant-btn-icon-only:not(:disabled):not(
+.ant-btn.ant-btn-icon-only.ant-btn-variant-text:not(:disabled):not(
     .ant-btn-disabled
   ):active {
   border-radius: var(--radius-control-base);
@@ -240,15 +237,51 @@
   border-radius: var(--radius-control-base);
   background: var(--color-gray-control-fill-secondary);
   backdrop-filter: blur(40px);
+  color: var(--color-gray-text-default);
+}
+
+/* --------无边框-------- */
+
+.ant-btn.ant-btn-variant-text {
+  border-radius: var(--radius-control-base);
+  font: var(--font-text-body-base);
+  letter-spacing: var(--letter-spacing-body-base, normal);
+  color: var(--color-gray-text-default);
+  box-shadow: none;
+}
+
+.ant-btn.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):hover {
+  border-radius: var(--radius-control-base);
+  background: var(--color-gray-control-fill-hover);
+}
+
+.ant-btn.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):active {
+  border-radius: var(--radius-control-base);
+  /* gray/gray-控件填充-按下.激活 */
+  background: var(--color-gray-control-fill-active);
+}
+
+.ant-btn.ant-btn-variant-text:disabled,
+.ant-btn.ant-btn-variant-text.ant-btn-disabled {
+  font: var(--font-text-body-base);
+  letter-spacing: var(--letter-spacing-body-base, normal);
   color: var(--color-gray-text-disabled);
 }
+
+.ant-btn.ant-btn-variant-text.ant-btn-loading {
+  color: var(--color-gray-text-disabled);
+  background: var(--color-gray-control-fill-hover);
+  opacity: 1;
+}
+
+/* --------无边框end-------- */
 
 .ant-segmented {
   /* 圆角-控件-base */
   border-radius: var(--radius-control-base);
   /* gray/gray-控件填充-按下.激活 */
   background: var(--color-gray-control-fill-active);
-  padding: 1;
+  padding: 1px;
 }
 
 .ant-segmented .ant-segmented-item {
@@ -256,6 +289,13 @@
   font: var(--font-text-body-base);
   letter-spacing: var(--letter-spacing-body-base, normal);
   color: var(--color-gray-text-secondary);
+}
+
+.ant-segmented
+  .ant-segmented-item:hover:not(.ant-segmented-item-selected):not(
+    .ant-segmented-item-disabled
+  )::after {
+  border-radius: var(--radius-control-base);
 }
 
 .ant-segmented .ant-segmented-item .ant-segmented-item-title {
@@ -297,6 +337,7 @@
   .ant-segmented-item-icon {
   font-size: 16px;
 }
+
 .ant-segmented .ant-segmented-item-selected {
   font: var(--font-text-h6-base);
   letter-spacing: var(--letter-spacing-h6-base, normal);
