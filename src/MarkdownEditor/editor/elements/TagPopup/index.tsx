@@ -266,7 +266,7 @@ export const TagPopup = (props: RenderProps) => {
       title={placeholder}
     >
       {children}
-      {selectedItems?.length > 0 && !props.text?.trim() ? (
+      {selectedItems?.length > 0 ? (
         <ChevronDown
           className={classNames(`${baseCls}-tag-popup-input-arrow `, hashId, {
             empty: !props.text?.trim(),
