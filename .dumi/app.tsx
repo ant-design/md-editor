@@ -5,7 +5,7 @@ import React from 'react';
 import './reset-ant.css';
 
 export function rootContainer(container: any) {
-  insertCSSVariables('ThemeExample', globalThemeToken);
+  insertCSSVariables('ThemeExample', globalThemeToken, 'app');
   return React.createElement(
     ConfigProvider,
     {
