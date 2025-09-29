@@ -161,7 +161,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-secondary)',
         fontSize: 16,
         background: 'var(--color-gray-control-fill-secondary)',
-        backdropFilter: 'var(--radius-control-base)',
+        backdropFilter: 'blur(40px)',
         borderRadius: 200,
         zIndex: 0,
         cursor: 'pointer',
