@@ -46,16 +46,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: 12,
+          width: 28,
+          height: 28,
+          fontSize: 14,
           color: 'var(--color-gray-text-light)',
-          borderRadius: 'var(--radius-control-sm)',
+          borderRadius: 'var(--radius-control-base)',
           cursor: 'pointer',
-        },
-        '&:hover': {
-          opacity: 0.85,
-        },
-        '&:active': {
-          opacity: 0.75,
+          transition: 'background-color .2s ease',
+          '&:hover': {
+            background: 'var(--color-gray-control-fill-hover)',
+          },
+          '&:active': {
+            background: 'var(--color-gray-control-fill-active)',
+          },
         },
       },
 
