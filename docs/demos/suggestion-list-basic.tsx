@@ -35,7 +35,6 @@ const items = [
     key: 'qwe',
     icon: '💸',
     text: '关税对消费类基金的影响',
-    tooltip: '关税消费',
   },
   {
     key: 'asd',
@@ -46,7 +45,6 @@ const items = [
     key: 'zxc',
     icon: '📊',
     text: ' 数据分析与可视化',
-    disabled: true,
   },
 ];
 
