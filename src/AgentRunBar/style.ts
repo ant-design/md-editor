@@ -241,19 +241,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${componentCls}-button-wrapper`]: {
-        gap: 12,
+        gap: 8,
       },
 
       [`${componentCls}-play, ${componentCls}-pause`]: {
-        width: 20,
-        height: 20,
+        width: 28,
+        height: 28,
         color: 'var(--color-gray-text-default)',
+        fontSize: 14,
         background: 'transparent',
         borderRadius: 'var(--radius-control-sm)',
         cursor: 'pointer',
 
         '&:hover': {
           background: 'var(--color-gray-control-fill-active)',
+        },
+
+        '&:active': {
+          color: 'var(--color-primary-control-fill-primary)',
+          background: 'var(--color-primary-control-fill-secondary)',
         },
       },
     },
