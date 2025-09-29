@@ -62,9 +62,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           // 文件数量
           [`&-count`]: {
-            fontSize: '10px',
             color: 'var(--color-gray-text-secondary)',
-            background: 'var(--color-gray-control-fill-active)',
+            font: 'var(--font-text-number-xs)',
+            letterSpacing: 'var(--letter-spacing-number-xs, normal)',
+            backgroundColor: 'var(--color-gray-control-fill-active)',
             padding: '4px 6px',
             borderRadius: '200px',
             minWidth: '20px',
@@ -393,7 +394,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#fafafa',
+        background: 'var(--color-gray-bg-card-white)',
       },
 
       // 占位符内容

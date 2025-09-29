@@ -10,7 +10,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       position: 'relative',
       cursor: 'pointer',
       borderRadius: '24px',
-      background: 'var(--color-gray-bg-card-light)',
       boxSizing: 'border-box',
       border: 'var(--color-gray-border-light)',
       boxShadow: 'var(--shadow-border-base)',

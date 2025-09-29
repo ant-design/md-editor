@@ -1,58 +1,31 @@
 ﻿import * as React from 'react';
 
 export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
+  const uid = React.useId();
+  const clipId = `playIconClip-${uid}`;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      width={32}
-      height={32}
+      width="1rem"
+      height="1rem"
       role="img"
       aria-label="PlayIcon"
-      viewBox="0 0 32 32"
+      viewBox="0 0 16 16"
       {...props}
     >
       <defs>
-        <filter
-          id="objectBoundingBoxsss"
-          filterUnits="objectBoundingBox"
-          colorInterpolationFilters="sRGB"
-          x={0}
-          y={0}
-          width={1}
-          height={1}
-        >
-          <feFlood floodOpacity={0} result="BackgroundImageFix" />
-          <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feGaussianBlur in="BackgroundImageFix" stdDeviation={10} />
-          <feComposite
-            in2="SourceAlpha"
-            operator="in"
-            result="effect1_foregroundBlur"
-          />
-          <feBlend
-            in="SourceGraphic"
-            in2="effect1_foregroundBlur"
-            result="shape"
-          />
-        </filter>
-        <clipPath id="b">
-          <rect x={8} y={8} width={16} height={16} rx={0} />
+        <clipPath id={clipId}>
+          <rect x="0" y="0" width="16" height="16" rx="0" />
         </clipPath>
       </defs>
-      <g filter="url(#objectBoundingBoxsss)">
-        <rect
-          width={32}
-          height={32}
-          rx={16}
-          fill="#001C39"
-          fillOpacity={0.03530000150203705}
-        />
-        <g clipPath="url(#b)">
+      <g clipPath={`url(#${clipId})`}>
+        <g>
           <path
-            d="M11.333 22V10a.667.667 0 011.028-.56l9.333 6a.667.667 0 010 1.12l-9.333 6a.667.667 0 01-1.028-.56z"
+            d="M3.3333334922790527,14.000033373069764L3.3333334922790527,2.000000373069763C3.3333334922790527,1.6318103730697633,3.631810492279053,1.3333333730697632,4.000000492279053,1.3333333730697632C4.127834492279053,1.3333333730697632,4.252973492279053,1.3700869730697631,4.360503492279053,1.4392143730697633L13.693833492279053,7.439213373069763C14.003533492279052,7.638313373069763,14.093233492279053,8.050793373069762,13.894133492279053,8.360503373069763C13.842433492279053,8.440843373069765,13.774133492279052,8.509143373069763,13.693833492279053,8.560783373069764L4.360503492279053,14.560833373069762C4.050791492279052,14.759933373069764,3.6383164922790527,14.670233373069763,3.439214492279053,14.360533373069764C3.3700870922790527,14.252933373069764,3.3333334922790527,14.127833373069763,3.3333334922790527,14.000033373069764Z"
             fillRule="evenodd"
-            fill="#767E8B"
+            fill="currentColor"
+            fillOpacity="0.800000011920929"
           />
         </g>
       </g>

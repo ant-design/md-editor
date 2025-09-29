@@ -1,6 +1,7 @@
 import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
 import { useEditorStyleRegister } from '../../hooks/useStyle';
 
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
@@ -15,7 +16,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '8px 16px',
         marginLeft: -16,
         marginRight: -16,
-        marginBottom: 8,
         borderBottom: '1px solid var(--color-gray-border-light)',
 
         // 返回按钮
@@ -85,7 +85,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           [`&--default`]: {
             width: '40px',
             height: '40px',
-            background: 'linear-gradient(90deg, #EAEEF4, #F4F6F9)',
+            background: 'linear-gradient(180deg, #EAEEF4, #F4F6F9)',
           },
         },
 
@@ -238,33 +238,45 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: 'auto',
         height: '100%',
         overflow: 'auto',
-        margin: '0 -16px!important',
-
+        margin: '-4px -16px -16px -16px',
+  
         '.ant-workspace-html-preview-content': {
           '.ace-container': {
-            border: 'none',
+            border: 'unset',
             borderRadius: 'unset',
-            boxShadow: 'none!important',
+            boxShadow: 'unset',
+          },
+          
+          '.ace_gutter-cell': {
+            paddingLeft: 12,
           },
 
-          '.code-editor-content': {
-            padding: '0!important',
+          '.code-editor-container': {
+            maxHeight: '435px',
+
+            '.code-editor-content': {
+              padding: '0!important',
+
+              '.ace_gutter': {
+                color: 'var(--color-gray-text-default)',
+                font: 'var(--font-text-code-base)',
+                letterSpacing: 'var(--letter-spacing-code-base, normal)',
+                background: 'var(--color-gray-bg-card-white)',
+              },
+
+              '.ace-tm .ace_scroller .ace_content': {
+                fontFamily: 'Roboto Mono',
+              },
+
+              '.ace-tm .ace_gutter-active-line': {
+                background: 'var(--color-gray-control-fill-hover)',
+              },
+
+              '.ace-tm .ace_marker-layer .ace_active-line': {
+                background: 'var(--color-gray-control-fill-hover)',
+              },
+            },
           },
-        },
-
-        '.ace_gutter': {
-          color: 'var(--color-gray-text-light)',
-          font: 'var(--font-text-code-base)',
-          letterSpacing: 'var(--letter-spacing-code-base, normal)',
-          background: 'var(--color-gray-bg-card-white)',
-        },
-
-        '.ace_gutter-cell': {
-          paddingLeft: 12,
-        },
-
-        '.ace-tm .ace_scroller .ace_content': {
-          fontFamily: 'Roboto Mono',
         },
 
         '.ace-tm .ace_keyword': {
@@ -273,7 +285,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        },
+        }
       },
 
       [`&-overlay`]: {

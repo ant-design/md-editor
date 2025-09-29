@@ -12,7 +12,6 @@ group:
 ## 代码演示
 
 ```tsx
-import { PlusOutlined } from '@ant-design/icons';
 import { Button, Flex } from 'antd';
 import React from 'react';
 import {
@@ -20,6 +19,7 @@ import {
   globalThemeToken,
   useCSSVariables,
 } from '@ant-design/theme-token';
+import { Plus } from '@ant-design/md-editor/dist/icons';
 
 export default () => {
   useCSSVariables('ThemeExample', globalThemeToken);
@@ -39,15 +39,10 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Button color="default" variant="solid" icon={<PlusOutlined />}>
+        <Button color="default" variant="solid" icon={<Plus />}>
           主按钮
         </Button>
-        <Button
-          color="default"
-          variant="solid"
-          disabled
-          icon={<PlusOutlined />}
-        >
+        <Button color="default" variant="solid" disabled icon={<Plus />}>
           主按钮
         </Button>
         <Button
@@ -57,7 +52,7 @@ export default () => {
           style={{
             background: 'var(--color-gray-text-disabled)',
           }}
-          icon={<PlusOutlined />}
+          icon={<Plus />}
         >
           主按钮
         </Button>
@@ -70,23 +65,13 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Button color="default" variant="filled" icon={<PlusOutlined />}>
+        <Button color="default" variant="filled" icon={<Plus />}>
           次按钮
         </Button>
-        <Button
-          color="default"
-          variant="filled"
-          disabled
-          icon={<PlusOutlined />}
-        >
+        <Button color="default" variant="filled" disabled icon={<Plus />}>
           次按钮
         </Button>
-        <Button
-          loading
-          color="default"
-          variant="filled"
-          icon={<PlusOutlined />}
-        >
+        <Button loading color="default" variant="filled" icon={<Plus />}>
           次按钮
         </Button>
       </Flex>
@@ -98,13 +83,13 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Button color="default" icon={<PlusOutlined />}>
+        <Button color="default" icon={<Plus />}>
           Ghost 按钮
         </Button>
-        <Button color="default" disabled icon={<PlusOutlined />}>
+        <Button color="default" disabled icon={<Plus />}>
           Ghost 按钮
         </Button>
-        <Button loading color="default" icon={<PlusOutlined />}>
+        <Button loading color="default" icon={<Plus />}>
           Ghost 按钮
         </Button>
       </Flex>
@@ -147,9 +132,9 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Button icon={<PlusOutlined />} />
-        <Button icon={<PlusOutlined />} disabled />
-        <Button icon={<PlusOutlined />} loading />
+        <Button icon={<Plus />} />
+        <Button icon={<Plus />} disabled />
+        <Button icon={<Plus />} loading />
       </Flex>
       <Flex
         gap={12}
@@ -158,19 +143,9 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Button color="default" variant="filled" icon={<PlusOutlined />} />
-        <Button
-          color="default"
-          variant="filled"
-          icon={<PlusOutlined />}
-          disabled
-        />
-        <Button
-          color="default"
-          variant="filled"
-          icon={<PlusOutlined />}
-          loading
-        />
+        <Button color="default" variant="filled" icon={<Plus />} />
+        <Button color="default" variant="filled" icon={<Plus />} disabled />
+        <Button color="default" variant="filled" icon={<Plus />} loading />
       </Flex>
       <Flex
         gap={12}
@@ -179,19 +154,75 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Button color="default" variant="text" icon={<PlusOutlined />} />
+        <Button color="default" variant="text" icon={<Plus />} />
+        <Button color="default" variant="text" icon={<Plus />} disabled />
+        <Button color="default" variant="text" icon={<Plus />} loading />
+      </Flex>
+
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button size="large" color="default" variant="solid" icon={<Plus />}>
+          主按钮
+        </Button>
         <Button
+          size="large"
           color="default"
-          variant="text"
-          icon={<PlusOutlined />}
+          variant="solid"
           disabled
-        />
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
         <Button
-          color="default"
-          variant="text"
-          icon={<PlusOutlined />}
           loading
-        />
+          size="large"
+          color="default"
+          variant="solid"
+          style={{
+            background: 'var(--color-gray-text-disabled)',
+          }}
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+      </Flex>
+
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button size="small" color="default" variant="solid" icon={<Plus />}>
+          主按钮
+        </Button>
+        <Button
+          size="small"
+          color="default"
+          variant="solid"
+          disabled
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+        <Button
+          loading
+          size="small"
+          color="default"
+          variant="solid"
+          style={{
+            background: 'var(--color-gray-text-disabled)',
+          }}
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
       </Flex>
     </Flex>
   );
