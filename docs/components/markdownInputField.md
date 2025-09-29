@@ -330,21 +330,20 @@ export default () => {
         items={[
           {
             key: 'qwe',
-            icon: '💸 ',
+            icon: '💸',
             text: '关税对消费类基金的影响',
-            tooltip: '关税消费',
             actionIcon: <EditOutlined />,
           },
           {
             key: 'asd',
-            icon: '💸 ',
-            text: ' 关税对消费类基金的影响',
+            icon: '📝',
+            text: '恒生科技指数基金相关新闻',
             actionIcon: <EditOutlined />,
           },
           {
             key: 'zxc',
-            icon: '💸 ',
-            text: '关税对消费类基金的影响',
+            icon: '📊',
+            text: '数据分析与可视化',
             actionIcon: <EditOutlined />,
           },
         ]}
