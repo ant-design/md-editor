@@ -14,11 +14,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       background: 'transparent',
       borderRadius: 0,
       boxShadow: 'none',
+      width: '100%',
 
       '&-suggestions': {
         display: 'flex',
         flexDirection: 'column',
         gap: 4,
+        width: '100%',
         // 横向布局
         '&-horizontal': {
           flexDirection: 'row',
@@ -44,16 +46,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: 12,
+          width: 28,
+          height: 28,
+          fontSize: 14,
           color: 'var(--color-gray-text-light)',
-          borderRadius: 'var(--radius-control-sm)',
+          borderRadius: 'var(--radius-control-base)',
           cursor: 'pointer',
-        },
-        '&:hover': {
-          opacity: 0.85,
-        },
-        '&:active': {
-          opacity: 0.75,
+          transition: 'background-color .2s ease',
+          '&:hover': {
+            background: 'var(--color-gray-control-fill-hover)',
+          },
+          '&:active': {
+            background: 'var(--color-gray-control-fill-active)',
+          },
         },
       },
 
@@ -150,8 +155,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-label': {
-        display: 'inline-flex',
-        alignItems: 'center',
+        display: 'inline-block',
         minWidth: 0,
         maxWidth: '100%',
         whiteSpace: 'nowrap',

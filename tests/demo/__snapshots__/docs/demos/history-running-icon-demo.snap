@@ -335,7 +335,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -349,7 +349,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -391,7 +391,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -517,7 +517,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -531,7 +531,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -573,7 +573,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -699,7 +699,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -713,7 +713,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -755,7 +755,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -832,7 +832,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -846,7 +846,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -888,7 +888,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -978,7 +978,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -992,7 +992,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -1034,7 +1034,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -1189,7 +1189,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -1203,7 +1203,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -1245,7 +1245,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -1347,7 +1347,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -1361,7 +1361,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -1403,7 +1403,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -1505,7 +1505,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -1519,7 +1519,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -1561,7 +1561,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -1610,7 +1610,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -1624,7 +1624,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -1666,7 +1666,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>
@@ -1728,7 +1728,7 @@
                                 style="color: var(--color-gray-text-light); font: var(--font-text-body-sm); line-height: 1; display: flex; align-items: center; justify-content: center; width: max-content; max-width: min(860px,100%); position: relative;"
                               >
                                 <div
-                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center;"
+                                  style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); opacity: 1; transition: opacity 0.2s ease; pointer-events: auto; display: flex; align-items: center; background: transparent; z-index: 1;"
                                 >
                                   <div
                                     class="ant-space ant-space-horizontal ant-space-align-center"
@@ -1742,7 +1742,7 @@
                                         aria-label="删除"
                                         class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                                         role="button"
-                                        style="padding: 0px; width: 20px; height: 20px;"
+                                        style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
                                         title="删除"
                                       >
@@ -1784,7 +1784,7 @@
                                   style="opacity: 1; transition: opacity 0.2s ease;"
                                 >
                                   <span
-                                    style="width: 24px; height: 24px;"
+                                    style="width: 20px; height: 20px;"
                                   />
                                 </div>
                               </div>

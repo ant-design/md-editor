@@ -168,8 +168,8 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
             onClick={handleToggleSearch}
             title={locale?.['chat.history.search'] || '搜索'}
             style={{
-              width: 20,
-              height: 20,
+              width: 28,
+              height: 28,
             }}
           >
             <SearchIcon

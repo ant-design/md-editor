@@ -16,14 +16,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderTopRightRadius: 'var(--radius-xl)',
       borderBottomLeftRadius: 'var(--radius-xl)',
       borderBottomRightRadius: 'var(--radius-xl)',
-      backgroundColor: 'var(--color-gray-bg-card-white)',
+      backgroundColor: 'var(--color-primary-bg-page)',
 
       '&-header': {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 'var(--padding-3x) var(--padding-4x)',
-        backgroundColor: 'var(--color-gray-bg-card-white)',
+        backgroundColor: 'var(--color-primary-bg-page)',
         minHeight: '48px',
         flexShrink: 0,
         zIndex: 10,
@@ -160,7 +160,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-footer': {
         padding: 'var(--padding-6x)',
-        background: 'linear-gradient(to bottom, #fff0 20%, var(--color-gray-bg-card-white) 70%)',
+        background:
+          'linear-gradient(to bottom, #fff0 20%, var(--color-gray-bg-card-white) 70%)',
         width: '100%',
         position: 'absolute',
         bottom: 0,

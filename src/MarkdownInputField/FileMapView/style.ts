@@ -48,7 +48,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
         color: 'var(--color-gray-a9)',
         fontSize: 'var(--font-size-base)',
-        border: '1px solid var(--color-gray-border-light)',
+        boxShadow: 'var(--shadow-control-base)',
+        border: 'var(--color-gray-border-light)',
 
         '&:hover': {
           background: '#F7F8FA',
@@ -74,7 +75,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         opacity: 1,
         background: 'var(--color-gray-bg-card-white)',
         boxSizing: 'border-box',
-        border: '1px solid var(--color-gray-border-light)',
+        boxShadow: 'var(--shadow-control-base)',
+        border: 'var(--color-gray-border-light)',
         padding: 6,
       },
       '&-more-file-container': {
@@ -82,7 +84,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '56px',
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
-        border: '1px solid var(--color-gray-border-light)',
+        boxShadow: 'var(--shadow-control-base)',
         margin: 0,
         display: 'flex',
         alignItems: 'center',
@@ -94,8 +96,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       '&-more-file-icon': {
-        width: '15px',
-        height: '17px',
+        width: '16px',
+        height: '16px',
       },
       '&-more-file-name': {
         font: 'var(--font-size-h6)',
@@ -109,7 +111,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         opacity: 1,
         background: 'var(--color-gray-bg-card-white)',
         boxSizing: 'border-box',
-        border: '1px solid var(--color-gray-border-light)',
+        boxShadow: 'var(--shadow-control-base)',
         padding: '8px',
         display: 'flex',
         flexDirection: 'row',
@@ -138,6 +140,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: 'var(--color-gray-control-fill-secondary)',
           backdropFilter: 'blur(40px)',
           cursor: 'pointer',
+
+          '&:hover': {
+            background: 'var(--color-gray-a4)',
+          },
         },
         '&-more-custom': {
           position: 'absolute',

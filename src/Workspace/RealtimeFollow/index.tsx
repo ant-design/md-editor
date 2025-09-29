@@ -501,16 +501,18 @@ export const RealtimeFollowList: React.FC<{
       ) : (
         <Segmented
           options={[
-            { label: (
-              <div className="ant-segmented-item-title">
-                {labels.preview}
-              </div>
-            ), value: 'preview' },
-            { label: (
-              <div className="ant-segmented-item-title">
-                {labels.code}
-              </div>
-            ), value: 'code' },
+            {
+              label: (
+                <div className="ant-segmented-item-title">{labels.preview}</div>
+              ),
+              value: 'preview',
+            },
+            {
+              label: (
+                <div className="ant-segmented-item-title">{labels.code}</div>
+              ),
+              value: 'code',
+            },
           ]}
           value={htmlViewMode}
           onChange={(val) => handleSetMode(val as 'preview' | 'code')}
@@ -525,7 +527,10 @@ export const RealtimeFollowList: React.FC<{
       >
         {segmentedNode}
         <div
-          className={classNames(`${prefixCls}-header-segmented-right-extra`, hashId)}
+          className={classNames(
+            `${prefixCls}-header-segmented-right-extra`,
+            hashId,
+          )}
         >
           {data.segmentedExtra}
         </div>

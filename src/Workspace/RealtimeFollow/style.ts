@@ -1,4 +1,3 @@
-import { m } from 'framer-motion';
 import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
 import { useEditorStyleRegister } from '../../hooks/useStyle';
 
@@ -240,7 +239,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '100%',
         overflow: 'auto',
         margin: '0 -16px!important',
-        
+
         '.ant-workspace-html-preview-content': {
           '.ace-container': {
             border: 'none',
@@ -274,7 +273,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        }
+        },
       },
 
       [`&-overlay`]: {

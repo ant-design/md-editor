@@ -52,6 +52,12 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
   const [open, setOpen] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(props.item?.isFavorite);
+  const [favoriteTitle, setFavoriteTitle] = useState(
+    isFavorite
+      ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
+      : i18nLocale?.['chat.history.favorite'] || '收藏',
+  );
 
   return (
     <div
@@ -86,6 +92,8 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
           pointerEvents: isHover || props.agent?.enabled ? 'auto' : 'none',
           display: 'flex',
           alignItems: 'center',
+          background: 'transparent',
+          zIndex: 1,
         }}
       >
         <Space size={4}>
@@ -98,38 +106,37 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 e.preventDefault();
                 try {
                   setFavoriteLoading(true);
-                  await props.onFavorite?.(
-                    props.item!.sessionId!,
-                    !props.item!.isFavorite,
-                  );
+                  await props.onFavorite?.(props.item!.sessionId!, !isFavorite);
+                  if (!isFavorite) {
+                    setFavoriteTitle('已收藏');
+                  } else {
+                    setFavoriteTitle(
+                      i18nLocale?.['chat.history.favorite'] || '收藏',
+                    );
+                  }
+                  setIsFavorite(!isFavorite);
                 } catch (error) {
                   // 处理错误
                 } finally {
                   setFavoriteLoading(false);
                 }
               }}
-              title={
-                props.item!.isFavorite
-                  ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
-                  : i18nLocale?.['chat.history.favorite'] || '收藏'
-              }
+              title={favoriteTitle}
               style={{
                 width: 20,
                 height: 20,
-                padding: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                ...(props.item!.isFavorite
+                borderRadius: 'var(--radius-control-sm)',
+                ...(isFavorite
                   ? {
-                      borderRadius: 'var(--radius-control-sm)',
                       background: 'var(--color-primary-control-fill-secondary)',
-                      backdropFilter: 'blur(20px)',
                     }
                   : {}),
               }}
             >
-              {props.item!.isFavorite ? (
+              {isFavorite ? (
                 <StarFill
                   style={{
                     fontSize: 14,
@@ -192,9 +199,12 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 }}
                 title={i18nLocale?.['chat.history.delete'] || '删除'}
                 style={{
-                  padding: 0,
                   width: 20,
                   height: 20,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 'var(--radius-control-sm)',
                 }}
               >
                 <TrashIcon
@@ -218,7 +228,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
         {!props.agent?.enabled ? (
           props.children
         ) : (
-          <span style={{ width: 24, height: 24 }}></span>
+          <span style={{ width: 20, height: 20 }}></span>
         )}
       </div>
     </div>

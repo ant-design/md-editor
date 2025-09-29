@@ -70,6 +70,24 @@ const props = {
   },
 };
 
+const items = [
+  {
+    key: 'qwe',
+    icon: '💸',
+    text: '关税对消费类基金的影响',
+  },
+  {
+    key: 'asd',
+    icon: '📝',
+    text: '恒生科技指数基金相关新闻',
+  },
+  {
+    key: 'zxc',
+    icon: '📊',
+    text: '数据分析与可视化',
+  },
+];
+
 const message: MessageBubbleData = {
   id: '1',
   content:
@@ -178,25 +196,7 @@ export default () => (
         }}
       >
         <SuggestionList
-          items={[
-            {
-              key: 'qwe',
-              icon: '💸',
-              text: '关税对消费类基金的影响',
-              tooltip: '关税消费',
-            },
-            {
-              key: 'asd',
-              icon: '📝',
-              text: ' 恒生科技指数基金相关新闻',
-            },
-            {
-              key: 'zxc',
-              icon: '📊',
-              text: ' 数据分析与可视化',
-              disabled: true,
-            },
-          ]}
+          items={items}
           onItemClick={() => alert('ask')}
         />
       </div>

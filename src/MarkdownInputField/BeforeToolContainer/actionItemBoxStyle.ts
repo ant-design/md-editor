@@ -75,8 +75,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             display: 'flex',
             flexDirection: 'column',
             gap: 6,
-            boxShadow:
-              'var(--shadow-popover-base)',
+            boxShadow: 'var(--shadow-popover-base)',
             '> *': {
               width: '100%',
               maxWidth: '100%',
@@ -118,7 +117,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             },
             [`&-item.${token.componentCls.slice(1)}-drag-over`]: {
               backgroundColor: 'rgba(22, 119, 255, 0.08)',
-              outline: '1px dashed rgba(22, 119, 255, 0.45)'
+              outline: '1px dashed rgba(22, 119, 255, 0.45)',
             },
             // popup specific overrides
             [`${token.componentCls}-container`]: {
@@ -128,8 +127,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               boxShadow: 'none',
               border: 'none',
               '&:hover': {
-              backgroundColor: 'transparent',
-              backgroundImage: 'none',
+                backgroundColor: 'transparent',
+                backgroundImage: 'none',
               },
             },
             [token.componentCls]: {

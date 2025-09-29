@@ -6,23 +6,27 @@
       test
     </div>
     <div
-      style="height: 600px; background-color: rgb(245, 245, 245); display: flex;"
+      class="custom-chat-container-demo"
     >
       <div
-        style="width: 250px; padding: 16px;"
+        class="sidebar-left "
       >
-        <h3>
-          左侧边栏
-        </h3>
-        <p>
-          这里可以放置历史记录、设置等内容
-        </p>
+        <div
+          class="sidebar-left-content"
+        >
+          <h3>
+            左侧边栏
+          </h3>
+          <p>
+            这里可以放置历史记录、设置等内容
+          </p>
+        </div>
       </div>
       <div
         style="flex: 1 1 0%; display: flex; flex-direction: column;"
       >
         <div
-          class="chat-flow-container  custom-chat-container"
+          class="chat-flow-container  "
         >
           <div
             class="chat-flow-container-header "
@@ -126,8 +130,9 @@
             >
               <div
                 assistantmeta="[object Object]"
-                bubblelist="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+                bubblelist="[object Object],[object Object]"
                 data-testid="bubble-list"
+                style="padding-bottom: 60px;"
                 usermeta="[object Object]"
               >
                 bubble-list
@@ -145,6 +150,8 @@
               />
               <div
                 class="ant-task-running ant-task-running-default ant-task-running-status-dazing"
+                layout="size"
+                transition="[object Object]"
               >
                 <div
                   class="ant-task-running-border"

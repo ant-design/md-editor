@@ -9,7 +9,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       minWidth: 14,
       minHeight: 14,
-      maxHeight: 24,
       lineHeight: 1,
       display: 'flex',
       cursor: 'pointer',
