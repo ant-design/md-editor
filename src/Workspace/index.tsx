@@ -1,4 +1,10 @@
 import { CloseOutlined } from '@ant-design/icons';
+import {
+  FileStack,
+  Language,
+  ListTodo,
+  MousePointerClick,
+} from '@sofa-design/icons';
 import { ConfigProvider, Segmented } from 'antd';
 import classNames from 'classnames';
 import React, {
@@ -12,10 +18,6 @@ import React, {
 import { I18nContext } from '../i18n';
 import { BrowserList } from './Browser';
 import { File } from './File';
-import BrowserIcon from './icons/BrowserIcon';
-import FileIcon from './icons/FileIcon';
-import RealtimeIcon from './icons/RealtimeIcon';
-import TaskIcon from './icons/TaskIcon';
 import { RealtimeFollowList } from './RealtimeFollow';
 import { useWorkspaceStyle } from './style';
 import { TaskList } from './Task';
@@ -43,25 +45,25 @@ enum ComponentType {
 const DEFAULT_CONFIG = (locale: any): Record<ComponentType, TabItem> => ({
   [ComponentType.REALTIME]: {
     key: ComponentType.REALTIME,
-    icon: <RealtimeIcon />,
+    icon: <MousePointerClick />,
     title: locale?.['workspace.realtimeFollow'] || '实时跟随',
     label: locale?.['workspace.realtimeFollow'] || '实时跟随',
   },
   [ComponentType.BROWSER]: {
     key: ComponentType.BROWSER,
-    icon: <BrowserIcon />,
+    icon: <Language />,
     title: locale?.['workspace.browser'] || '浏览器',
     label: locale?.['workspace.browser'] || '浏览器',
   },
   [ComponentType.TASK]: {
     key: ComponentType.TASK,
-    icon: <TaskIcon />,
+    icon: <ListTodo />,
     title: locale?.['workspace.task'] || '任务',
     label: locale?.['workspace.task'] || '任务',
   },
   [ComponentType.FILE]: {
     key: ComponentType.FILE,
-    icon: <FileIcon />,
+    icon: <FileStack />,
     title: locale?.['workspace.file'] || '文件',
     label: locale?.['workspace.file'] || '文件',
   },

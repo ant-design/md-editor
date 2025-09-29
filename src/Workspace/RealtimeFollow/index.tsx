@@ -1,5 +1,10 @@
 import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
-import { ArrowLeft as LeftIcon } from '@sofa-design/icons';
+import {
+  FileMarkdown,
+  FileXml,
+  ArrowLeft as LeftIcon,
+  SquareTerminal,
+} from '@sofa-design/icons';
 import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
@@ -11,9 +16,6 @@ import {
 } from '../../MarkdownEditor';
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import { HtmlPreview } from '../HtmlPreview';
-import HtmlIcon from '../icons/HtmlIcon';
-import ShellIcon from '../icons/ShellIcon';
-import ThinkIcon from '../icons/ThinkIcon';
 import { useRealtimeFollowStyle } from './style';
 export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
 
@@ -59,23 +61,23 @@ const getTypeConfig = (type: RealtimeFollowMode, locale?: any) => {
   switch (type) {
     case 'shell':
       return {
-        icon: ShellIcon,
+        icon: SquareTerminal,
         title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
     case 'html':
       return {
-        icon: HtmlIcon,
+        icon: FileXml,
         title: locale?.['workspace.createHtmlFile'] || '创建 HTML 文件',
       };
     case 'markdown':
     case 'md':
       return {
-        icon: ThinkIcon,
+        icon: FileMarkdown,
         title: locale?.['workspace.markdownContent'] || 'Markdown 内容',
       };
     default:
       return {
-        icon: ShellIcon,
+        icon: SquareTerminal,
         title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
   }

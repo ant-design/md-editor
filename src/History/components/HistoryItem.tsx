@@ -1,10 +1,12 @@
+import {
+  CloseCircleFill,
+  FileCheckFill,
+  WarningFill,
+} from '@sofa-design/icons';
 import { Checkbox, ConfigProvider, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../i18n';
-import { CloseCicleFillIcon } from '../../icons/CloseCicleFillIcon';
-import { FileCheckFillIcon } from '../../icons/FileCheckFillIcon';
-import { WarningFillIcon } from '../../icons/WarningFillIcon';
 import { useStyle } from '../style';
 import {
   HistoryDataType,
@@ -25,17 +27,17 @@ const TaskIconMap: (
   return {
     success: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <FileCheckFillIcon />
+        <FileCheckFill />
       </div>
     ),
     error: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <WarningFillIcon />
+        <WarningFill />
       </div>
     ),
     cancel: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <CloseCicleFillIcon />
+        <CloseCircleFill />
       </div>
     ),
   };

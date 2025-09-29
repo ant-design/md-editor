@@ -1,4 +1,4 @@
-import { Loader } from '@sofa-design/icons';
+import { FileFailed, FileUploadingSpin } from '@sofa-design/icons';
 import React from 'react';
 import { getFileTypeIcon } from '../../../Workspace/File/utils';
 import { FileType } from '../../../Workspace/types';
@@ -45,7 +45,10 @@ export const AttachmentFileIcon: React.FC<{
 }> = (props) => {
   const file = props.file;
   if (file.status === 'uploading') {
-    return <Loader />;
+    return <FileUploadingSpin />;
+  }
+  if (file.status === 'error') {
+    return <FileFailed />;
   }
   if (isImageFile(file)) {
     return (

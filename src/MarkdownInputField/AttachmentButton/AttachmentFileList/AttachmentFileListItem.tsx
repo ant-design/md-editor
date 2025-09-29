@@ -1,4 +1,4 @@
-import { Loader } from '@sofa-design/icons';
+import { FileFailed, FileUploadingSpin } from '@sofa-design/icons';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React from 'react';
@@ -82,7 +82,17 @@ export const AttachmentFileListItem: React.FC<{
               props.hashId,
             )}
           >
-            <Loader />
+            <FileUploadingSpin />
+          </div>
+        ) : null}
+        {file.status === 'error' ? (
+          <div
+            className={classNames(
+              `${props.prefixCls}-uploading-icon`,
+              props.hashId,
+            )}
+          >
+            <FileFailed />
           </div>
         ) : null}
         {file.status === 'done' ? <AttachmentFileIcon file={file} /> : null}

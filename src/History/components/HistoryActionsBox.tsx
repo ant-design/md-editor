@@ -1,8 +1,7 @@
-import { Star, StarFill } from '@sofa-design/icons';
+import { Star, StarFill, Trash2 } from '@sofa-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import TrashIcon from '../../icons/Trash2';
 import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';
 
@@ -194,7 +193,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   borderRadius: 'var(--radius-control-sm)',
                 }}
               >
-                <TrashIcon
+                <Trash2
                   style={{
                     fontSize: 14,
                     color: 'var(--color-gray-text-secondary)',
