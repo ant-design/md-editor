@@ -1,28 +1,13 @@
----
-title: Button 按钮
-group:
-  title: 基础组件
-  order: 2
----
-
-# Button 按钮
-
-按钮组件用于触发操作。
-
-## 代码演示
-
-```tsx
 import { Button, Flex } from 'antd';
 import React from 'react';
 import {
-  ThemeProvider,
   globalThemeToken,
   useCSSVariables,
 } from '@ant-design/theme-token';
 import { Plus } from '@sofa-design/icons';
 import { IconButton } from '@ant-design/md-editor';
 
-export default () => {
+export const BaseButtonDemo = () => {
   useCSSVariables('ThemeExample', globalThemeToken);
   return (
     <Flex
@@ -135,9 +120,9 @@ export default () => {
           padding: '24px',
         }}
       >
-        <Button icon={<Plus />} />
-        <Button icon={<Plus />} disabled />
-        <Button icon={<Plus />} loading />
+        <IconButton icon={<Plus />} />
+        <IconButton icon={<Plus />} disabled />
+        <IconButton icon={<Plus />} loading />
       </Flex>
       <Flex
         gap={12}
@@ -228,4 +213,128 @@ export default () => {
     </Flex>
   );
 };
-```
+  export const IconButtonDemo = () => {
+    useCSSVariables('ThemeExample', globalThemeToken);
+    return (
+      <Flex
+        gap={12}
+        vertical
+        style={{
+          padding: '24px',
+        }}
+      >
+        图标按钮
+        <Flex
+          gap={12}
+          style={{
+            border: '2px dashed #8358F6',
+            padding: '24px',
+          }}
+        >
+          <IconButton icon={<Plus />} />
+          <IconButton icon={<Plus />} disabled />
+          <IconButton icon={<Plus />} loading />
+        </Flex>
+        <Flex
+          gap={12}
+          style={{
+            border: '2px dashed #8358F6',
+            padding: '24px',
+          }}
+        >
+          <Button color="default" variant="filled" icon={<Plus />} />
+          <Button color="default" variant="filled" icon={<Plus />} disabled />
+          <Button color="default" variant="filled" icon={<Plus />} loading />
+        </Flex>
+        <Flex
+          gap={12}
+          style={{
+            border: '2px dashed #8358F6',
+            padding: '24px',
+          }}
+        >
+          <Button color="default" variant="text" icon={<Plus />} />
+          <Button color="default" variant="text" icon={<Plus />} disabled />
+          <Button color="default" variant="text" icon={<Plus />} loading />
+        </Flex>
+      </Flex>
+    );
+  };
+
+  export const SizeButtonDemo = () => {
+    useCSSVariables('ThemeExample', globalThemeToken);
+    return (
+      <Flex
+        gap={12}
+        vertical
+        style={{
+          padding: '24px',
+        }}
+      >
+        <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button size="large" color="default" variant="solid" icon={<Plus />}>
+          主按钮
+        </Button>
+        <Button
+          size="large"
+          color="default"
+          variant="solid"
+          disabled
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+        <Button
+          loading
+          size="large"
+          color="default"
+          variant="solid"
+          style={{
+            background: 'var(--color-gray-text-disabled)',
+          }}
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+      </Flex>
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <Button size="small" color="default" variant="solid" icon={<Plus />}>
+          主按钮
+        </Button>
+        <Button
+          size="small"
+          color="default"
+          variant="solid"
+          disabled
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+        <Button
+          loading
+          size="small"
+          color="default"
+          variant="solid"
+          style={{
+            background: 'var(--color-gray-text-disabled)',
+          }}
+          icon={<Plus />}
+        >
+          主按钮
+        </Button>
+      </Flex>
+      </Flex>
+    );
+  };
