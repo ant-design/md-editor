@@ -177,6 +177,7 @@ const Workspace: FC<WorkspaceProps> & {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [segmentedKey, setSegmentedKey] = useState(0); // ⭐ 用于强制刷新 Segmented
+  const [resetKey, setResetKey] = useState(0); // 用于重置 FileComponent 状态
 
   const displayTitle = title ?? (locale?.['workspace.title'] || 'Workspace');
   const defaultConfig = DEFAULT_CONFIG(locale);
@@ -212,7 +213,13 @@ const Workspace: FC<WorkspaceProps> & {
             )}
           </div>
         ),
-        content: React.createElement(child.type, child.props),
+        content: React.createElement(child.type, {
+          ...child.props,
+          // 为 FileComponent 传递重置标识，用于重置预览状态
+          ...(componentType === ComponentType.FILE && {
+            resetKey,
+          }),
+        }),
       });
     });
     return tabs;
@@ -263,6 +270,8 @@ const Workspace: FC<WorkspaceProps> & {
   const handleTabChange = (key: string | number) => {
     const tabKey = String(key);
     if (activeTabKey === undefined) setInternalActiveTab(tabKey);
+    // 标签页切换时，增加重置标识以重置所有 FileComponent 的预览状态
+    setResetKey(prev => prev + 1);
     onTabChange?.(tabKey);
   };
 
