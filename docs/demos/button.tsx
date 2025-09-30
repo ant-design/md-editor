@@ -1,6 +1,6 @@
-import { IconButton } from '@ant-design/md-editor';
+import { IconButton, TogalButton } from '@ant-design/md-editor';
 import { globalThemeToken, useCSSVariables } from '@ant-design/theme-token';
-import { Plus } from '@sofa-design/icons';
+import { ChevronDown, Plug, Plus } from '@sofa-design/icons';
 import { Button, Flex } from 'antd';
 import React from 'react';
 
@@ -155,7 +155,7 @@ export const IconButtonDemo = () => {
         padding: '24px',
       }}
     >
-      图标按钮
+      主按钮
       <Flex
         gap={12}
         style={{
@@ -167,6 +167,7 @@ export const IconButtonDemo = () => {
         <IconButton icon={<Plus />} disabled />
         <IconButton icon={<Plus />} loading />
       </Flex>
+      次按钮
       <Flex
         gap={12}
         style={{
@@ -178,6 +179,7 @@ export const IconButtonDemo = () => {
         <Button color="default" variant="filled" icon={<Plus />} disabled />
         <Button color="default" variant="filled" icon={<Plus />} loading />
       </Flex>
+      无边框按钮
       <Flex
         gap={12}
         style={{
@@ -194,15 +196,42 @@ export const IconButtonDemo = () => {
 };
 
 export const TogalButtonDemo = () => {
-  return <Flex>
-    <Button />
-  </Flex>
+  useCSSVariables('ThemeExample', globalThemeToken);
+  return (
+    <Flex
+      gap={12}
+      vertical
+      style={{
+        padding: '24px',
+      }}
+    >
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />}>
+          正常状态
+        </TogalButton>
+        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />} active>
+          激活状态
+        </TogalButton>
+        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />} disabled>
+          禁用状态
+        </TogalButton>
+      </Flex>
+    </Flex>
+  );
 };
 
 export const CloseButtonDemo = () => {
-  return <Flex>
-    <Button />
-  </Flex>
+  return (
+    <Flex>
+      <Button />
+    </Flex>
+  );
 };
 
 export default {
