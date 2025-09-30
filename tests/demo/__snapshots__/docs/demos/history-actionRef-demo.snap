@@ -115,9 +115,6 @@
                           昨日
                         </div>
                       </div>
-                      <div
-                        class="ant-agent-chat-history-menu-extra-actions "
-                      />
                     </div>
                   </div>
                 </div>
@@ -186,9 +183,6 @@
                           2 days ago
                         </div>
                       </div>
-                      <div
-                        class="ant-agent-chat-history-menu-extra-actions "
-                      />
                     </div>
                   </div>
                 </div>
@@ -257,9 +251,6 @@
                           3 days ago
                         </div>
                       </div>
-                      <div
-                        class="ant-agent-chat-history-menu-extra-actions "
-                      />
                     </div>
                   </div>
                 </div>
