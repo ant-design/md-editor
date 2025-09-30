@@ -396,30 +396,6 @@ export type MarkdownInputFieldProps = {
 };
 
 /**
- * 根据提供的颜色数组生成边缘颜色序列。
- * 对于数组中的每种颜色，该函数会创建一个新的序列，其中颜色按照循环顺序排列，
- * 并在序列末尾再添加当前颜色。
- *
- * @param colors - 要处理的颜色数组
- * @returns 一个二维数组，每个子数组包含从特定位置开始循环的颜色序列，并在末尾重复当前颜色
- * @example
- * // 返回 [['red', 'blue', 'green', 'red'], ['blue', 'green', 'red', 'blue'], ['green', 'red', 'blue', 'green']]
- * generateEdges(['red', 'blue', 'green'])
- */
-export const generateEdges = (colors: string[]): string[][] => {
-  if (!Array.isArray(colors) || colors.length === 0) return [];
-  // 至少保证 3 个颜色，便于后续得到 4 段动画停靠点
-  const base =
-    colors.length >= 3
-      ? colors
-      : [...colors, ...colors.slice(0, 3 - colors.length)];
-  return base.map((current, index) => {
-    const rotated = base.slice(index).concat(base.slice(0, index));
-    return [...rotated, current];
-  });
-};
-
-/**
  * MarkdownInputField 组件 - Markdown输入字段组件
  *
  * 该组件提供一个功能完整的Markdown输入框，支持实时预览、文件附件、
@@ -929,7 +905,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               zIndex: 9,
               flexDirection: 'column',
               boxSizing: 'border-box',
-              borderRadius: (borderRadius || 16) - 1 || 10,
+              borderRadius: (borderRadius || 16) - 2 || 10,
               cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
               opacity: props.disabled ? 0.5 : 1,
               minHeight: isMultiRowLayout ? 96 : undefined,
@@ -939,7 +915,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                borderRadius: (borderRadius || 16) - 1 || 10,
+                borderRadius: (borderRadius || 16) - 2 || 10,
                 maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
                 flex: 1,
               }}

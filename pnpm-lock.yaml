@@ -39,8 +39,8 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0
       '@sofa-design/icons':
-        specifier: ^1.4.1
-        version: 1.4.1(react@18.3.1)
+        specifier: ^1.4.2
+        version: 1.4.2(react@18.3.1)
       ace-builds:
         specifier: ^1.43.3
         version: 1.43.3
@@ -2107,8 +2107,8 @@ packages:
   '@sketch-hq/sketch-file-format-ts@6.5.0':
     resolution: {integrity: sha512-shaGl4ttFDpHjYBoMaZpciOtsi/lKvJ3VfcBYk6+PjjbFs6H5GxPAyhbiSqy3Vmx30aos284pd88QzD3rE6iag==}
 
-  '@sofa-design/icons@1.4.1':
-    resolution: {integrity: sha512-4FLFqw2adImYZQDAvSTr0FJZeyimx0pTuBMqQA2usoR0PsR2b4FJ+bQGnnn3a/Dw9J4WpXK5tnuUVv3FmOGIIA==}
+  '@sofa-design/icons@1.4.2':
+    resolution: {integrity: sha512-ElpZOT0Kt+FOwA7UScTPc5mhuy2d7MkDW7t36uUdu9Pzf5DtafjPauO2sipEHJduISZLGzLt3JoQaoio+H2dRw==}
     engines: {install-node: '16'}
     peerDependencies:
       react: '>=16.9.0'
@@ -11385,7 +11385,7 @@ snapshots:
 
   '@sketch-hq/sketch-file-format-ts@6.5.0': {}
 
-  '@sofa-design/icons@1.4.1(react@18.3.1)':
+  '@sofa-design/icons@1.4.2(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.28.4
       react: 18.3.1

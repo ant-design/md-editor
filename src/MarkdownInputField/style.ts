@@ -8,7 +8,7 @@ import {
 
 // MarkdownInputField 样式常量
 // Glow border effect constants - 辉光边框效果常量
-const GLOW_BORDER_OFFSET = 1; // px - 辉光边框偏移量
+const GLOW_BORDER_OFFSET = 2; // px - 辉光边框偏移量
 const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 2px - 总偏移量（上下左右）
 
 // CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
