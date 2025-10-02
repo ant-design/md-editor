@@ -23,11 +23,11 @@ import { IconButtonDemo } from '../demos/button.tsx';
 export default () => <IconButtonDemo />;
 ```
 
-## TogalButton开关按钮
+## ToggleButton开关按钮
 
 ```tsx
-import { TogalButtonDemo } from '../demos/button.tsx';
-export default () => <TogalButtonDemo />;
+import { ToggleButtonDemo } from '../demos/button.tsx';
+export default () => <ToggleButtonDemo />;
 ```
 
 ## CloseButton关闭按钮

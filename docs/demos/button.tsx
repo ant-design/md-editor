@@ -1,4 +1,4 @@
-import { IconButton, TogalButton } from '@ant-design/md-editor';
+import { IconButton, ToggleButton } from '@ant-design/md-editor';
 import { globalThemeToken, useCSSVariables } from '@ant-design/theme-token';
 import { ChevronDown, Plug, Plus } from '@sofa-design/icons';
 import { Button, Flex } from 'antd';
@@ -195,7 +195,7 @@ export const IconButtonDemo = () => {
   );
 };
 
-export const TogalButtonDemo = () => {
+export const ToggleButtonDemo = () => {
   useCSSVariables('ThemeExample', globalThemeToken);
   return (
     <Flex
@@ -212,15 +212,15 @@ export const TogalButtonDemo = () => {
           padding: '24px',
         }}
       >
-        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />}>
+        <ToggleButton icon={<Plug />} triggerIcon={<ChevronDown />}>
           正常状态
-        </TogalButton>
-        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />} active>
+        </ToggleButton>
+        <ToggleButton icon={<Plug />} triggerIcon={<ChevronDown />} active>
           激活状态
-        </TogalButton>
-        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />} disabled>
+        </ToggleButton>
+        <ToggleButton icon={<Plug />} triggerIcon={<ChevronDown />} disabled>
           禁用状态
-        </TogalButton>
+        </ToggleButton>
       </Flex>
     </Flex>
   );
@@ -234,9 +234,17 @@ export const CloseButtonDemo = () => {
   );
 };
 
-export default {
-  BaseButtonDemo,
-  IconButtonDemo,
-  TogalButtonDemo,
-  CloseButtonDemo,
+export default () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        gap: 8,
+        flexDirection: 'column',
+      }}
+    >
+      <BaseButtonDemo /> <IconButtonDemo /> <ToggleButtonDemo />{' '}
+      <CloseButtonDemo />
+    </div>
+  );
 };

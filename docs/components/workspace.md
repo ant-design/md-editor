@@ -209,18 +209,18 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 文件分类枚举，用于对文件类型进行分组：
 
-| 值      | 说明       |
-| ------- | ---------- |
-| Text    | 文本文件   |
-| Code    | 代码文件   |
-| Image   | 图片文件   |
-| Video   | 视频文件   |
-| Audio   | 音频文件   |
-| PDF     | PDF文档    |
-| Word    | Word文档   |
-| Excel   | Excel表格  |
-| Archive | 压缩文件   |
-| Other   | 其他类型   |
+| 值      | 说明      |
+| ------- | --------- |
+| Text    | 文本文件  |
+| Code    | 代码文件  |
+| Image   | 图片文件  |
+| Video   | 视频文件  |
+| Audio   | 音频文件  |
+| PDF     | PDF文档   |
+| Word    | Word文档  |
+| Excel   | Excel表格 |
+| Archive | 压缩文件  |
+| Other   | 其他类型  |
 
 ### Workspace.Browser
 
@@ -297,39 +297,39 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 HTML 预览组件的属性接口，用于 HTML 内容的预览和代码查看。
 
-| 参数              | 说明                                                      | 类型                                                         | 默认值      |
-| ----------------- | --------------------------------------------------------- | ------------------------------------------------------------ | ----------- |
-| html              | HTML 内容字符串                                           | `string`                                                     | -           |
-| status            | 内容状态                                                  | `'generating' \| 'loading' \| 'done' \| 'error'`             | -           |
-| viewMode          | 当前视图模式（受控模式）                                  | `'preview' \| 'code'`                                        | -           |
-| defaultViewMode   | 默认视图模式                                              | `'preview' \| 'code'`                                        | `'preview'` |
-| onViewModeChange  | 视图模式变化回调                                          | `(mode: 'preview' \| 'code') => void`                        | -           |
-| markdownEditorProps | Markdown 编辑器配置                                     | `Partial<MarkdownEditorProps>`                               | -           |
-| iframeProps       | iframe 属性                                               | `React.IframeHTMLAttributes<HTMLIFrameElement>`              | -           |
-| labels            | 自定义标签文本                                            | `{ preview?: string; code?: string }`                        | -           |
-| loadingRender     | 自定义加载渲染                                            | `React.ReactNode \| (() => React.ReactNode)`                 | -           |
-| errorRender       | 自定义错误渲染                                            | `React.ReactNode \| (() => React.ReactNode)`                 | -           |
-| emptyRender       | 自定义空状态渲染                                          | `React.ReactNode \| (() => React.ReactNode)`                 | -           |
-| className         | 自定义 CSS 类名                                           | `string`                                                     | -           |
-| style             | 自定义样式                                                | `React.CSSProperties`                                        | -           |
-| showSegmented     | 是否显示分段控制器                                        | `boolean`                                                    | `true`      |
-| segmentedItems    | 自定义分段选项                                            | `Array<{ label: React.ReactNode; value: string }>`           | -           |
+| 参数                | 说明                     | 类型                                               | 默认值      |
+| ------------------- | ------------------------ | -------------------------------------------------- | ----------- |
+| html                | HTML 内容字符串          | `string`                                           | -           |
+| status              | 内容状态                 | `'generating' \| 'loading' \| 'done' \| 'error'`   | -           |
+| viewMode            | 当前视图模式（受控模式） | `'preview' \| 'code'`                              | -           |
+| defaultViewMode     | 默认视图模式             | `'preview' \| 'code'`                              | `'preview'` |
+| onViewModeChange    | 视图模式变化回调         | `(mode: 'preview' \| 'code') => void`              | -           |
+| markdownEditorProps | Markdown 编辑器配置      | `Partial<MarkdownEditorProps>`                     | -           |
+| iframeProps         | iframe 属性              | `React.IframeHTMLAttributes<HTMLIFrameElement>`    | -           |
+| labels              | 自定义标签文本           | `{ preview?: string; code?: string }`              | -           |
+| loadingRender       | 自定义加载渲染           | `React.ReactNode \| (() => React.ReactNode)`       | -           |
+| errorRender         | 自定义错误渲染           | `React.ReactNode \| (() => React.ReactNode)`       | -           |
+| emptyRender         | 自定义空状态渲染         | `React.ReactNode \| (() => React.ReactNode)`       | -           |
+| className           | 自定义 CSS 类名          | `string`                                           | -           |
+| style               | 自定义样式               | `React.CSSProperties`                              | -           |
+| showSegmented       | 是否显示分段控制器       | `boolean`                                          | `true`      |
+| segmentedItems      | 自定义分段选项           | `Array<{ label: React.ReactNode; value: string }>` | -           |
 
 ### PreviewComponentProps
 
 文件预览组件的属性接口，用于文件内容的预览显示。
 
-| 参数                 | 说明                                                      | 类型                                                                                    | 默认值 |
-| -------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------ |
-| file                 | 文件节点数据                                              | `FileNode`                                                                              | -      |
-| customContent        | 提供自定义内容以替换预览区域                              | `React.ReactNode`                                                                       | -      |
-| customHeader         | 自定义头部（完全替换默认头部）                            | `React.ReactNode`                                                                       | -      |
-| customActions        | 自定义右侧操作区域                                        | `React.ReactNode`                                                                       | -      |
-| onBack               | 返回回调                                                  | `() => void`                                                                            | -      |
-| onDownload           | 下载回调                                                  | `(file: FileNode) => void`                                                              | -      |
-| onShare              | 分享回调                                                  | `(file: FileNode, options?: { anchorEl?: HTMLElement; origin?: string }) => void`       | -      |
-| markdownEditorProps  | Markdown 编辑器配置                                       | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>`          | -      |
-| headerFileOverride   | 仅用于覆盖默认头部区域展示的文件信息                      | `Partial<FileNode>`                                                                     | -      |
+| 参数                | 说明                                 | 类型                                                                              | 默认值 |
+| ------------------- | ------------------------------------ | --------------------------------------------------------------------------------- | ------ |
+| file                | 文件节点数据                         | `FileNode`                                                                        | -      |
+| customContent       | 提供自定义内容以替换预览区域         | `React.ReactNode`                                                                 | -      |
+| customHeader        | 自定义头部（完全替换默认头部）       | `React.ReactNode`                                                                 | -      |
+| customActions       | 自定义右侧操作区域                   | `React.ReactNode`                                                                 | -      |
+| onBack              | 返回回调                             | `() => void`                                                                      | -      |
+| onDownload          | 下载回调                             | `(file: FileNode) => void`                                                        | -      |
+| onShare             | 分享回调                             | `(file: FileNode, options?: { anchorEl?: HTMLElement; origin?: string }) => void` | -      |
+| markdownEditorProps | Markdown 编辑器配置                  | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>`    | -      |
+| headerFileOverride  | 仅用于覆盖默认头部区域展示的文件信息 | `Partial<FileNode>`                                                               | -      |
 
 ## 工具函数
 
@@ -342,9 +342,11 @@ getFileType(filename: string): FileType
 ```
 
 **参数：**
+
 - `filename` - 文件名（包含扩展名）
 
 **返回值：**
+
 - 推断出的文件类型，如果无法识别则返回 `'plainText'`
 
 ### getMimeType
@@ -356,9 +358,11 @@ getMimeType(fileType: FileType): string
 ```
 
 **参数：**
+
 - `fileType` - 文件类型
 
 **返回值：**
+
 - 对应的 MIME 类型字符串
 
 ### getFileCategory
@@ -370,7 +374,9 @@ getFileCategory(fileType: FileType): FileCategory
 ```
 
 **参数：**
+
 - `fileType` - 文件类型
 
 **返回值：**
+
 - 对应的文件分类枚举值

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { useStyle } from './style';
 
-export interface TogalButtonProps {
+export interface ToggleButtonProps {
   key?: React.Key;
   icon?: React.ReactNode;
   triggerIcon?: React.ReactNode;
@@ -15,7 +15,7 @@ export interface TogalButtonProps {
   children?: React.ReactNode;
 }
 
-export const TogalButton: React.FC<TogalButtonProps> = ({
+export const ToggleButton: React.FC<ToggleButtonProps> = ({
   className,
   style,
   icon,
@@ -26,18 +26,18 @@ export const TogalButton: React.FC<TogalButtonProps> = ({
   children,
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = context?.getPrefixCls('togal-button');
+  const prefixCls = context?.getPrefixCls('toggle-button');
 
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const rootCls = classNames(prefixCls, className, hashId);
 
   return wrapSSR(
-    <div 
+    <div
       className={classNames(rootCls, {
         [`${prefixCls}-active`]: active,
         [`${prefixCls}-disabled`]: disabled,
-      })} 
+      })}
       style={style}
     >
       <Button
@@ -55,10 +55,10 @@ export const TogalButton: React.FC<TogalButtonProps> = ({
       >
         {icon && <span className={`${prefixCls}-icon`}>{icon}</span>}
         {children && <span className={`${prefixCls}-text`}>{children}</span>}
-        {triggerIcon && <span className={`${prefixCls}-trigger-icon`}>{triggerIcon}</span>}
+        {triggerIcon && (
+          <span className={`${prefixCls}-trigger-icon`}>{triggerIcon}</span>
+        )}
       </Button>
     </div>,
   );
 };
-
-export default TogalButton;

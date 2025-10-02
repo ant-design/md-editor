@@ -271,7 +271,7 @@ const Workspace: FC<WorkspaceProps> & {
     const tabKey = String(key);
     if (activeTabKey === undefined) setInternalActiveTab(tabKey);
     // 标签页切换时，增加重置标识以重置所有 FileComponent 的预览状态
-    setResetKey(prev => prev + 1);
+    setResetKey((prev) => prev + 1);
     onTabChange?.(tabKey);
   };
 

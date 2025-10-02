@@ -50,13 +50,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
         '&:hover:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-hover, #4096ff)',
-          boxShadow: 'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
+          boxShadow:
+            'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
           transform: 'translateY(-1px)',
         },
 
         '&:active:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-active, #0958d9)',
-          boxShadow: 'var(--shadow-control-active, 0 1px 2px rgba(0, 0, 0, 0.2))',
+          boxShadow:
+            'var(--shadow-control-active, 0 1px 2px rgba(0, 0, 0, 0.2))',
           transform: 'translateY(0)',
         },
 
@@ -76,7 +78,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
           backgroundColor: 'var(--color-gray-bg-card-light, #fbfcfd)',
           borderColor: 'var(--color-blue-primary, #1677ff)',
           color: 'var(--color-blue-primary, #1677ff)',
-          boxShadow: 'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
+          boxShadow:
+            'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
         },
 
         '&:active:not(&-disabled)': {
@@ -148,13 +151,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
         '&:hover:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-hover, #4096ff)',
-          boxShadow: 'var(--shadow-float-hover, 0 6px 16px rgba(22, 119, 255, 0.5))',
+          boxShadow:
+            'var(--shadow-float-hover, 0 6px 16px rgba(22, 119, 255, 0.5))',
           transform: 'translateY(-2px) scale(1.05)',
         },
 
         '&:active:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-active, #0958d9)',
-          boxShadow: 'var(--shadow-float-active, 0 2px 8px rgba(22, 119, 255, 0.3))',
+          boxShadow:
+            'var(--shadow-float-active, 0 2px 8px rgba(22, 119, 255, 0.3))',
           transform: 'translateY(0) scale(1)',
         },
 
@@ -179,13 +184,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
           left: '-100%',
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+          background:
+            'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
           transition: 'left 0.5s ease',
         },
 
         '&:hover:not(&-disabled)': {
           backgroundColor: 'var(--color-green-success-hover, #73d13d)',
-          boxShadow: 'var(--shadow-cta-hover, 0 4px 12px rgba(82, 196, 26, 0.4))',
+          boxShadow:
+            'var(--shadow-cta-hover, 0 4px 12px rgba(82, 196, 26, 0.4))',
           transform: 'translateY(-1px)',
 
           '&::before': {
@@ -195,7 +202,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
         '&:active:not(&-disabled)': {
           backgroundColor: 'var(--color-green-success-active, #389e0d)',
-          boxShadow: 'var(--shadow-cta-active, 0 1px 4px rgba(82, 196, 26, 0.2))',
+          boxShadow:
+            'var(--shadow-cta-active, 0 1px 4px rgba(82, 196, 26, 0.2))',
           transform: 'translateY(0)',
         },
 
