@@ -1003,14 +1003,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   <div
                     ref={actionsRef}
                     contentEditable={false}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
                     className={classNames(`${baseCls}-send-tools`, hashId)}
                   >
                     {props.toolsRender
