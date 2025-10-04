@@ -22,7 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
       lineHeight: 'var(--line-height-base, 1.5)',
       textAlign: 'center',
       textDecoration: 'none',
-      transition: 'all 0.2s ease',
+      transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       userSelect: 'none',
       outline: 'none',
       position: 'relative',
@@ -214,7 +214,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
           height: '100%',
           background:
             'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
-          transition: 'left 0.5s ease',
+          transition: 'left 0.5s cubic-bezier(0.645, 0.045, 0.355, 1)',
         },
 
         '&:hover:not(&-disabled)': {

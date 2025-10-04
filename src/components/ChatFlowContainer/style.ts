@@ -54,7 +54,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             backgroundColor: 'transparent',
             color: 'var(--color-gray-text-secondary)',
             cursor: 'pointer',
-            transition: 'all 0.2s ease',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
             padding: 0,
 
             '&:hover': {
@@ -84,7 +84,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             backgroundColor: 'transparent',
             color: 'var(--color-gray-text-secondary)',
             cursor: 'pointer',
-            transition: 'all 0.2s ease',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
             '&:hover': {
               backgroundColor: 'var(--color-blue-control-fill-hover)',
@@ -107,7 +107,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             backgroundColor: 'transparent',
             color: 'var(--color-gray-text-secondary)',
             cursor: 'pointer',
-            transition: 'all 0.2s ease',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
             padding: 0,
 
             '&:hover': {

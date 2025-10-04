@@ -26,7 +26,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         zIndex: 1,
         cursor: 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         '&:hover': {
           marginRight: '0px',
           marginLeft: '12px',

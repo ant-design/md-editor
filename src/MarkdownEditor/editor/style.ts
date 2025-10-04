@@ -60,7 +60,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     // 可调整大小组件样式
     '.react-resizable': {
       position: 'relative',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       boxSizing: 'border-box',
       border: '1px solid var(--color-gray-border-light)',
     },

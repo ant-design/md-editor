@@ -27,7 +27,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       boxSizing: 'border-box',
       cursor: 'pointer',
       color: 'var(--color-gray-text-light)',
-      transition: 'all 0.2s ease',
+      transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       '&:hover': {
         backgroundColor: 'var(--color-gray-bg-card-light)',
         color: 'var(--color-gray-text-default)',
