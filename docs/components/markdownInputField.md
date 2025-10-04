@@ -25,9 +25,10 @@ group:
 import { ActionItemBox, ActionItemContainer } from '@ant-design/md-editor';
 import { MarkdownInputField, SuggestionList } from '@ant-design/md-editor';
 import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
+import { ToggleButton } from '@ant-design/md-editor';
 import { Space } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
+import type { CreateRecognizer } from '@ant-design/md-editor';
 
 const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
   let timer: ReturnType<typeof setInterval>;
@@ -265,56 +266,27 @@ export default () => {
           );
         }}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            icon={<GlobalOutlined />}
+            onClick={() => console.log('深度思考 clicked')}
           >
-            <GlobalOutlined />
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            icon={<AimOutlined />}
+            onClick={() => console.log('联网搜索 clicked')}
           >
-            <AimOutlined />
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         onChange={(newValue) => {
           setValue(newValue);
@@ -405,54 +377,25 @@ const App = () => {
       <MarkdownInputField
         value={value}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         onChange={(newValue) => setValue(newValue)}
         placeholder="请输入内容..."
@@ -488,7 +431,7 @@ export default App;
 
 ```tsx
 import { MarkdownInputField } from '@ant-design/md-editor';
-import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
+import type { CreateRecognizer } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const createRecognizer: CreateRecognizer = async ({
@@ -523,54 +466,25 @@ export default () => {
     <MarkdownInputField
       placeholder="请开始讲话..."
       toolsRender={() => [
-        <div
+        <ToggleButton
           key="bold"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
+          triggerIcon={<DownOutlined />}
+          onClick={() => console.log('DeepThink clicked')}
         >
-          DeepThink <DownOutlined />
-        </div>,
-        <div
+          DeepThink
+        </ToggleButton>,
+        <ToggleButton
           key="italic"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
+          onClick={() => console.log('深度思考 clicked')}
         >
           深度思考
-        </div>,
-        <div
+        </ToggleButton>,
+        <ToggleButton
           key="link"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
+          onClick={() => console.log('联网搜索 clicked')}
         >
           联网搜索
-        </div>,
+        </ToggleButton>,
       ]}
       voiceRecognizer={createRecognizer}
       onChange={(a) => console.log(a)}
@@ -686,54 +600,25 @@ export default () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         attachment={{
           enable: true,
@@ -834,60 +719,34 @@ export default () => {
         <MarkdownInputField
           value={value}
           toolsRender={() => [
-            <div
+            <ToggleButton
               key="bold"
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
+              triggerIcon={<DownOutlined />}
+              onClick={() => console.log('DeepThink clicked')}
             >
-              DeepThink <DownOutlined />
-            </div>,
-            <div
+              DeepThink
+            </ToggleButton>,
+            <ToggleButton
               key="italic"
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
+              onClick={() => console.log('深度思考 clicked')}
             >
               深度思考
-            </div>,
-            <div
+            </ToggleButton>,
+            <ToggleButton
               key="link"
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
+              onClick={() => console.log('联网搜索 clicked')}
             >
               联网搜索
-            </div>,
+            </ToggleButton>,
           ]}
           onChange={setValue}
           toolsRender={(props) => [
-            <button key="custom" onClick={() => console.log('自定义按钮')}>
+            <ToggleButton
+              key="custom"
+              onClick={() => console.log('自定义按钮')}
+            >
               自定义
-            </button>,
+            </ToggleButton>,
           ]}
           actionsRender={(props) => [
             <button key="custom" onClick={() => console.log('自定义按钮')}>
@@ -944,54 +803,25 @@ const App = () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
       />
       <button
@@ -1026,54 +856,25 @@ export default () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         placeholder="点击输入框获得焦点..."
         onFocus={(value, schema) => {

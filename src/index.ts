@@ -257,6 +257,12 @@ export type {
   UseSpeechSynthesisResult,
 } from './Bubble/MessagesContent/VoiceButton/types';
 
+// MarkdownInputField 语音识别相关类型
+export type {
+  CreateRecognizer,
+  VoiceRecognizer,
+} from './MarkdownInputField/VoiceInput';
+
 // 模板引擎类
 export { TemplateEngine } from './schema/SchemaRenderer/templateEngine';
 

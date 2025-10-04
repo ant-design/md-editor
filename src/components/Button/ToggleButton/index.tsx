@@ -40,25 +40,32 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
       })}
       style={style}
     >
-      <Button
-        disabled={disabled}
-        onClick={onClick}
-        className={classNames(`${prefixCls}-button`, hashId)}
-        style={{
-          border: 'none',
-          background: 'transparent',
-          padding: 0,
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
+      <ConfigProvider
+        wave={{
+          disabled: true,
         }}
       >
-        {icon && <span className={`${prefixCls}-icon`}>{icon}</span>}
-        {children && <span className={`${prefixCls}-text`}>{children}</span>}
-        {triggerIcon && (
-          <span className={`${prefixCls}-trigger-icon`}>{triggerIcon}</span>
-        )}
-      </Button>
+        <Button
+          disabled={disabled}
+          onClick={onClick}
+          className={classNames(`${prefixCls}-button`, hashId)}
+          style={{
+            border: 'none',
+            background: 'transparent',
+            padding: 0,
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            boxShadow: 'none',
+          }}
+        >
+          {icon && <span className={`${prefixCls}-icon`}>{icon}</span>}
+          {children && <span className={`${prefixCls}-text`}>{children}</span>}
+          {triggerIcon && (
+            <span className={`${prefixCls}-trigger-icon`}>{triggerIcon}</span>
+          )}
+        </Button>
+      </ConfigProvider>
     </div>,
   );
 };
