@@ -971,7 +971,7 @@
           >
             <button
               class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-toggle-button-button"
-              style="background: transparent; padding: 0px; height: 100%; display: flex; align-items: center;"
+              style="background: transparent; padding: 0px; height: 100%; display: flex; align-items: center; box-shadow: none;"
               type="button"
             >
               <span
@@ -1057,7 +1057,7 @@
           >
             <button
               class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-toggle-button-button"
-              style="background: transparent; padding: 0px; height: 100%; display: flex; align-items: center;"
+              style="background: transparent; padding: 0px; height: 100%; display: flex; align-items: center; box-shadow: none;"
               type="button"
             >
               <span
@@ -1144,7 +1144,7 @@
             <button
               class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-toggle-button-button"
               disabled=""
-              style="background: transparent; padding: 0px; height: 100%; display: flex; align-items: center;"
+              style="background: transparent; padding: 0px; height: 100%; display: flex; align-items: center; box-shadow: none;"
               type="button"
             >
               <span

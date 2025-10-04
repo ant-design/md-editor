@@ -22,13 +22,21 @@ group:
 ## 基本使用
 
 ```tsx
-import { ActionItemBox, ActionItemContainer } from '@ant-design/md-editor';
-import { MarkdownInputField, SuggestionList } from '@ant-design/md-editor';
-import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
-import { ToggleButton } from '@ant-design/md-editor';
 import { Space } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
-import type { CreateRecognizer } from '@ant-design/md-editor';
+import {
+  DownOutlined,
+  AimOutlined,
+  GlobalOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
+import {
+  ActionItemBox,
+  ActionItemContainer,
+  MarkdownInputField,
+  SuggestionList,
+  ToggleButton,
+  type CreateRecognizer,
+} from '@ant-design/md-editor';
 
 const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
   let timer: ReturnType<typeof setInterval>;
@@ -430,8 +438,10 @@ export default App;
 ### 启用语音输入按钮（支持句级回调）
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
-import type { CreateRecognizer } from '@ant-design/md-editor';
+import {
+  MarkdownInputField,
+  type CreateRecognizer,
+} from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const createRecognizer: CreateRecognizer = async ({
@@ -990,9 +1000,9 @@ export default () => {
 ### 技能模式
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
 import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
+import { MarkdownInputField } from '@ant-design/md-editor';
 
 export default () => {
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
