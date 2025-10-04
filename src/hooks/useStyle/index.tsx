@@ -9,7 +9,7 @@ import { useContext } from 'react';
 
 export type GenerateStyle<T = ComponentToken> = (
   token: T,
-) => Record<string, any>;
+) => Record<string, CSSInterpolation>;
 
 export type ChatTokenType = ComponentToken & {
   themeId?: number;
