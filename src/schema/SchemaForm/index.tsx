@@ -2,7 +2,7 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, InputNumber, Select, Space } from 'antd';
 import type { Rule } from 'antd/es/form';
-import { merge } from 'lodash';
+import { merge } from 'lodash-es';
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { I18nContext, cnLabels } from '../../i18n';
 import { LowCodeSchema, SchemaProperty } from '../../schema/types';

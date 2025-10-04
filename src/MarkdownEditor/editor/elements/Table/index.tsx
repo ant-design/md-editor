@@ -3,13 +3,9 @@
 'use client';
 
 import React from 'react';
-import {
-  RenderElementProps,
-  useSlateSelection,
-  useSlateStatic,
-} from 'slate-react';
+import { RenderElementProps, useSlateSelection } from 'slate-react';
 import { useSelStatus } from '../../../hooks/editor';
-import { TableCursor } from '../../../utils/slate-table';
+// 原生表格编辑器已集成
 import { SimpleTable } from './SimpleTable';
 
 export type {
@@ -66,8 +62,8 @@ export const Th: React.FC<
   }
 
   useSlateSelection();
-  const editor = useSlateStatic();
-  const selected = TableCursor.isSelected(editor, element);
+  // 简化的选中状态检查 - 暂时返回 false，后续可以完善
+  const selected = false;
 
   return (
     <th
@@ -135,8 +131,8 @@ export const Td: React.FC<
   const align = element?.align;
   const width = element?.width;
   useSlateSelection();
-  const editor = useSlateStatic();
-  const selected = TableCursor.isSelected(editor, element);
+  // 简化的选中状态检查 - 暂时返回 false，后续可以完善
+  const selected = false;
 
   if (element.hidden) {
     return <td style={{ display: 'none' }}></td>;

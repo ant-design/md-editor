@@ -216,7 +216,7 @@ export type {
   NodeEntryWithContext,
   SelectionMode,
   WithType,
-} from './MarkdownEditor/utils/slate-table/utils/types';
+} from './MarkdownEditor/utils/native-table/native-table-editor';
 
 // MarkdownEditor 元素类型
 export type {

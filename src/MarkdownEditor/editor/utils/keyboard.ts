@@ -386,60 +386,15 @@ export class KeyboardTask {
         node?.[0]?.type === 'paragraph' && !Node.string(node[0])
           ? node[1]
           : Path.next(node[1]);
-      Transforms.insertNodes(
-        this.editor,
-        EditorUtils.wrapperCardNode({
-          type: 'table',
-          otherProps: {
-            colWidths: new Array(3).fill(200) as number[],
-          },
-          children: [
-            {
-              type: 'table-row',
-              children: [
-                {
-                  type: 'table-cell',
-                  title: true,
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'table-cell',
-                  title: true,
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'table-cell',
-                  title: true,
-                  children: [{ text: '' }],
-                },
-              ],
-            },
-            {
-              type: 'table-row',
-              children: [
-                { type: 'table-cell', children: [{ text: '' }] },
-                {
-                  type: 'table-cell',
-                  children: [{ text: '' }],
-                },
-                { type: 'table-cell', children: [{ text: '' }] },
-              ],
-            },
-            {
-              type: 'table-row',
-              children: [
-                { type: 'table-cell', children: [{ text: '' }] },
-                {
-                  type: 'table-cell',
-                  children: [{ text: '' }],
-                },
-                { type: 'table-cell', children: [{ text: '' }] },
-              ],
-            },
-          ],
-        }),
-        { at: path },
-      );
+
+      // 使用原生表格编辑器插入表格
+      const { NativeTableEditor } = require('../../utils/native-table');
+      NativeTableEditor.insertTable(this.editor, {
+        rows: 3,
+        cols: 3,
+        at: path,
+      });
+
       if (node?.[0]?.type === 'paragraph' && !Node.string(node[0])) {
         Transforms.delete(this.editor, { at: Path.next(path) });
       }
@@ -447,49 +402,12 @@ export class KeyboardTask {
     }
 
     if (node && ['column-cell'].includes(node?.[0]?.type)) {
-      Transforms.insertNodes(
-        this.editor,
-        {
-          type: 'table',
-          children: [
-            {
-              type: 'table-row',
-              children: [
-                { type: 'table-cell', title: true, children: [{ text: '' }] },
-                {
-                  type: 'table-cell',
-                  title: true,
-                  children: [{ text: '' }],
-                },
-                { type: 'table-cell', title: true, children: [{ text: '' }] },
-              ],
-            },
-            {
-              type: 'table-row',
-              children: [
-                { type: 'table-cell', children: [{ text: '' }] },
-                {
-                  type: 'table-cell',
-                  children: [{ text: '' }],
-                },
-                { type: 'table-cell', children: [{ text: '' }] },
-              ],
-            },
-            {
-              type: 'table-row',
-              children: [
-                { type: 'table-cell', children: [{ text: '' }] },
-                {
-                  type: 'table-cell',
-                  children: [{ text: '' }],
-                },
-                { type: 'table-cell', children: [{ text: '' }] },
-              ],
-            },
-          ],
-        },
-        { at: [...node[1], 0] },
-      );
+      const { NativeTableEditor } = require('../../utils/native-table');
+      NativeTableEditor.insertTable(this.editor, {
+        rows: 3,
+        cols: 3,
+        at: [...node[1], 0],
+      });
     }
   }
 

@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
 import type { ComponentProperties } from '../src/schema/types';
 
