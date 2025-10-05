@@ -21,7 +21,7 @@ export * from './hooks/useThrottleFn';
 export * from './i18n';
 export * from './MarkdownEditor';
 export * from './MarkdownEditor/editor/components/index';
-export { ReadonlyTable } from './MarkdownEditor/editor/elements/Table/Table';
+export { SlateTable as ReadonlyTable } from './MarkdownEditor/editor/elements/Table/Table';
 export { TablePropsContext } from './MarkdownEditor/editor/elements/Table/TableContext';
 export { parserMarkdownToSlateNode } from './MarkdownEditor/editor/parser/parserMarkdownToSlateNode';
 export {

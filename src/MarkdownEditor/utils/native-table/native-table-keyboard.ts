@@ -43,7 +43,7 @@ export const NativeTableKeyboard = {
             const [, cellPath] = cellEntry;
             const tableEntry = NativeTableEditor.findTable(editor);
             if (tableEntry) {
-              const [tableNode, tablePath] = tableEntry;
+              const [, tablePath] = tableEntry;
               const rowIndex = cellPath[cellPath.length - 2];
               const colIndex = cellPath[cellPath.length - 1];
 
@@ -66,7 +66,7 @@ export const NativeTableKeyboard = {
             const [, cellPath] = cellEntry;
             const tableEntry = NativeTableEditor.findTable(editor);
             if (tableEntry) {
-              const [tableNode, tablePath] = tableEntry;
+              const [, tablePath] = tableEntry;
               const rowIndex = cellPath[cellPath.length - 2];
               const colIndex = cellPath[cellPath.length - 1];
               const rowCount = tableNode.children.length;
@@ -90,7 +90,7 @@ export const NativeTableKeyboard = {
             const [, cellPath] = cellEntry;
             const tableEntry = NativeTableEditor.findTable(editor);
             if (tableEntry) {
-              const [tableNode, tablePath] = tableEntry;
+              const [, tablePath] = tableEntry;
               const rowIndex = cellPath[cellPath.length - 2];
               const colIndex = cellPath[cellPath.length - 1];
 
@@ -113,7 +113,7 @@ export const NativeTableKeyboard = {
             const [, cellPath] = cellEntry;
             const tableEntry = NativeTableEditor.findTable(editor);
             if (tableEntry) {
-              const [tableNode, tablePath] = tableEntry;
+              const [, tablePath] = tableEntry;
               const rowIndex = cellPath[cellPath.length - 2];
               const colIndex = cellPath[cellPath.length - 1];
               const colCount = (tableNode.children[0] as any).children.length;
@@ -146,7 +146,7 @@ export const NativeTableKeyboard = {
    * @param event - 键盘事件
    * @returns 是否应该处理
    */
-  shouldHandle(editor: Editor, event: KeyboardEvent): boolean {
+  shouldHandle(editor: Editor, _event: KeyboardEvent): boolean {
     return NativeTableEditor.isInTableCell(editor);
   },
 };

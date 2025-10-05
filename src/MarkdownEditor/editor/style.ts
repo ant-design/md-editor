@@ -588,8 +588,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'sticky',
         left: 0,
         zIndex: 100,
-        minWidth: '120px',
-        width: '120px',
         background: 'inherit',
       },
 
@@ -873,7 +871,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         'td:first-child, th:first-child': {
           overflow: 'visible',
-
           '&::after': {
             content: '""',
             position: 'absolute',

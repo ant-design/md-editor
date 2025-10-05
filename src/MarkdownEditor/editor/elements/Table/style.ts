@@ -149,9 +149,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         'th:last-child,td:last-child': {
           borderRight: 'none',
         },
-        '& tr:nth-child(odd) td': {
-          backgroundColor: 'var(--table-odd-row-bg)',
-        },
       },
       'table.htCore': {
         boxSizing: 'content-box',

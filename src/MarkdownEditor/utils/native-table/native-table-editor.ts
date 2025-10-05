@@ -159,7 +159,7 @@ export const NativeTableEditor = {
     const tableRowEntry = this.findTableRow(editor, at);
     if (!tableRowEntry) return;
 
-    const [rowNode, rowPath] = tableRowEntry;
+    const [, rowPath] = tableRowEntry;
     const tableEntry = this.findTable(editor, at);
     if (!tableEntry) return;
 
@@ -195,7 +195,7 @@ export const NativeTableEditor = {
     const tableRowEntry = this.findTableRow(editor, at);
     if (!tableRowEntry) return;
 
-    const [rowNode, rowPath] = tableRowEntry;
+    const [, rowPath] = tableRowEntry;
     const tableEntry = this.findTable(editor, at);
     if (!tableEntry) return;
 
@@ -291,7 +291,7 @@ export const NativeTableEditor = {
     const tableCellEntry = this.findTableCell(editor, at);
     if (!tableCellEntry) return;
 
-    const [cellNode, cellPath] = tableCellEntry;
+    const [, cellPath] = tableCellEntry;
     const tableEntry = this.findTable(editor, at);
     if (!tableEntry) return;
 
@@ -325,7 +325,7 @@ export const NativeTableEditor = {
     const tableCellEntry = this.findTableCell(editor, at);
     if (!tableCellEntry) return;
 
-    const [cellNode, cellPath] = tableCellEntry;
+    const [, cellPath] = tableCellEntry;
     const tableEntry = this.findTable(editor, at);
     if (!tableEntry) return;
 

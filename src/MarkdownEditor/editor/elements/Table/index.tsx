@@ -7,6 +7,7 @@ import { RenderElementProps, useSlateSelection } from 'slate-react';
 import { useSelStatus } from '../../../hooks/editor';
 // 原生表格编辑器已集成
 import { SimpleTable } from './SimpleTable';
+import { TableCellIndex } from './TableCellIndex';
 
 export type {
   TableCustomElement,
@@ -68,7 +69,7 @@ export const Th: React.FC<
   return (
     <th
       style={{
-        backgroundColor: selected ? '#bae6fd' : 'transparent',
+        backgroundColor: selected ? '#bae6fd' : undefined,
 
         ...style,
       }}
@@ -141,7 +142,7 @@ export const Td: React.FC<
   return (
     <td
       style={{
-        backgroundColor: selected ? '#bae6fd' : 'transparent',
+        backgroundColor: selected ? '#bae6fd' : undefined,
         wordWrap: 'break-word',
         wordBreak: 'break-all',
         overflow: 'hidden',
@@ -174,7 +175,10 @@ const TdWrapper: React.FC<
   return <Td {...props} cellPath={path} />;
 };
 
-export const tableRenderElement = (props: RenderElementProps) => {
+export const tableRenderElement = (
+  props: RenderElementProps,
+  config?: { readonly?: boolean },
+) => {
   switch (props.element.type) {
     case 'table':
       return <SimpleTable {...props} />;
@@ -197,7 +201,14 @@ export const tableRenderElement = (props: RenderElementProps) => {
     case 'table-footer':
       return <tfoot {...props.attributes}>{props.children}</tfoot>;
     case 'table-row':
-      return <tr {...props.attributes}>{props.children}</tr>;
+      return (
+        <tr {...props.attributes}>
+          {config?.readonly ? null : (
+            <TableCellIndex targetRow={props.element} />
+          )}
+          {props.children}
+        </tr>
+      );
     case 'header-cell':
       return (
         <ThWrapper

@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { RenderElementProps } from 'slate-react';
 import { TableNode } from '../../types/Table';
 import { useTableStyle } from './style';
-import { ReadonlyTable } from './Table';
+import { SlateTable } from './Table';
 import { TablePropsContext } from './TableContext';
 
 /**
@@ -29,9 +29,9 @@ export const SimpleTable = (props: RenderElementProps) => {
         draggable={false}
         className={classNames(`${baseCls}-container`, hashId)}
       >
-        <ReadonlyTable {...props} hashId={hashId}>
+        <SlateTable {...props} hashId={hashId}>
           {props.children}
-        </ReadonlyTable>
+        </SlateTable>
       </div>
     </TablePropsContext.Provider>,
   );
