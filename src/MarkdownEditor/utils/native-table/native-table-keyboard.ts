@@ -66,7 +66,7 @@ export const NativeTableKeyboard = {
             const [, cellPath] = cellEntry;
             const tableEntry = NativeTableEditor.findTable(editor);
             if (tableEntry) {
-              const [, tablePath] = tableEntry;
+              const [tableNode, tablePath] = tableEntry;
               const rowIndex = cellPath[cellPath.length - 2];
               const colIndex = cellPath[cellPath.length - 1];
               const rowCount = tableNode.children.length;
@@ -110,7 +110,7 @@ export const NativeTableKeyboard = {
         if (editor.selection && editor.selection.anchor.offset === 0) {
           const cellEntry = NativeTableEditor.findTableCell(editor);
           if (cellEntry) {
-            const [, cellPath] = cellEntry;
+            const [tableNode, cellPath] = cellEntry;
             const tableEntry = NativeTableEditor.findTable(editor);
             if (tableEntry) {
               const [, tablePath] = tableEntry;
@@ -146,7 +146,7 @@ export const NativeTableKeyboard = {
    * @param event - 键盘事件
    * @returns 是否应该处理
    */
-  shouldHandle(editor: Editor, _event: KeyboardEvent): boolean {
+  shouldHandle(editor: Editor): boolean {
     return NativeTableEditor.isInTableCell(editor);
   },
 };
