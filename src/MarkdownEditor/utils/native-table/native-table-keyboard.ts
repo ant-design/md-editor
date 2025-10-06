@@ -1,4 +1,4 @@
-import { Editor, KeyboardEvent } from 'slate';
+import { Editor } from 'slate';
 import { NativeTableEditor } from './native-table-editor';
 
 /**

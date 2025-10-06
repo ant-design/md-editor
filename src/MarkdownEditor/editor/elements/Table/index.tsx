@@ -132,8 +132,8 @@ export const Td: React.FC<
   const align = element?.align;
   const width = element?.width;
   useSlateSelection();
-  // 简化的选中状态检查 - 暂时返回 false，后续可以完善
-  const selected = false;
+  // 根据节点的 select 属性判断是否被选中
+  const selected = element?.select === true;
 
   if (element.hidden) {
     return <td style={{ display: 'none' }}></td>;
@@ -142,7 +142,9 @@ export const Td: React.FC<
   return (
     <td
       style={{
-        backgroundColor: selected ? '#bae6fd' : undefined,
+        backgroundColor: selected
+          ? 'var(--color-primary-control-fill-secondary-hover)'
+          : undefined,
         wordWrap: 'break-word',
         wordBreak: 'break-all',
         overflow: 'hidden',
@@ -175,6 +177,23 @@ const TdWrapper: React.FC<
   return <Td {...props} cellPath={path} />;
 };
 
+const TableCellIndexWrapper: React.FC<{
+  targetRow: any;
+}> = ({ targetRow }) => {
+  const [, path] = useSelStatus(targetRow);
+  // 从路径中提取行索引和表格路径
+  const rowIndex = path ? path[path.length - 1] : undefined;
+  const tablePath = path ? path.slice(0, -1) : undefined;
+
+  return (
+    <TableCellIndex
+      targetRow={targetRow}
+      rowIndex={rowIndex}
+      tablePath={tablePath}
+    />
+  );
+};
+
 export const tableRenderElement = (
   props: RenderElementProps,
   config?: { readonly?: boolean },
@@ -204,7 +223,7 @@ export const tableRenderElement = (
       return (
         <tr {...props.attributes}>
           {config?.readonly ? null : (
-            <TableCellIndex targetRow={props.element} />
+            <TableCellIndexWrapper targetRow={props.element} />
           )}
           {props.children}
         </tr>

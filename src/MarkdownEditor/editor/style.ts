@@ -574,24 +574,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 600,
       },
 
-      tr: {
-        background: 'inherit',
-
-        'td:first-child': {
-          fontSize: 'var(--font-size-lg)',
-          lineHeight: '24px',
-          fontWeight: 600,
-        },
-      },
-
       'th:first-child, td:first-child': {
         position: 'sticky',
         left: 0,
         zIndex: 100,
-        background: 'inherit',
       },
 
-      'tbody tr:hover': {
+      'tbody tr:not(.config-tr):hover': {
         background: 'rgba(0, 28, 57, 0.0353)',
       },
 

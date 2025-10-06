@@ -12,7 +12,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '--table-border-color': '#E7E9E8',
       '--table-header-bg': '#f7f7f9',
       '--table-odd-row-bg': 'rgba(35,35,38,.04)',
-      overflow: 'auto',
       '&-container': {
         display: 'flex',
         gap: 1,

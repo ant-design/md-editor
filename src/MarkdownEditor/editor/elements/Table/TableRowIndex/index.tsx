@@ -61,15 +61,21 @@ export const TableRowIndex: React.FC<TableRowIndexProps> = ({
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
   return wrapSSR(
-    <tr className={classNames(baseClassName, hashId, className)} style={style}>
+    <tr
+      className={classNames(baseClassName, hashId, className, 'config-tr')}
+      style={style}
+    >
       <TableCellIndexSpacer
         style={{
           height: 12,
           width: 12,
           minHeight: 12,
           maxHeight: 12,
+          padding: 0,
         }}
+        columnIndex={-1}
         key={-1}
+        tablePath={tablePath}
       />
       {colWidths.map((_: number, index: number) => (
         <TableCellIndexSpacer

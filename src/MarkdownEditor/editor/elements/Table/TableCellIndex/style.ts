@@ -14,6 +14,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       position: 'relative',
       verticalAlign: 'middle',
       contentEditable: false,
+      backgroundColor: 'var(--color-gray-control-fill-secondary)',
+      '&:hover': {
+        backgroundColor: 'var(--color-gray-control-fill-secondary-hover)',
+      },
     },
   };
 };
