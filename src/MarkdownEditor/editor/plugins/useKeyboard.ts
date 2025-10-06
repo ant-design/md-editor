@@ -82,7 +82,12 @@ export const useKeyboard = (
     return (e: React.KeyboardEvent) => {
       // 处理表格键盘事件
       if (NativeTableKeyboard.shouldHandle(markdownEditorRef.current)) {
-        if (NativeTableKeyboard.handleKeyDown(markdownEditorRef.current, e.nativeEvent)) {
+        if (
+          NativeTableKeyboard.handleKeyDown(
+            markdownEditorRef.current,
+            e.nativeEvent,
+          )
+        ) {
           return;
         }
       }

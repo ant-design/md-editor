@@ -164,7 +164,8 @@ export const NativeTableEditor = {
     if (!tableEntry) return;
 
     const [tableNode] = tableEntry;
-    const colCount = ((tableNode as any).children[0] as any)?.children?.length || 1;
+    const colCount =
+      ((tableNode as any).children[0] as any)?.children?.length || 1;
 
     // 创建新行
     const newRow: Node = {

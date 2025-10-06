@@ -111,11 +111,7 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
       for (let rowIdx = 0; rowIdx < rowCount; rowIdx++) {
         const rowElement = tableElement.children[rowIdx];
         if (rowElement && rowElement.children) {
-          for (
-            let colIdx = 0;
-            colIdx < rowElement.children.length;
-            colIdx++
-          ) {
+          for (let colIdx = 0; colIdx < rowElement.children.length; colIdx++) {
             const cellPath = [...tablePath, rowIdx, colIdx];
             if (Editor.hasPath(editor, cellPath)) {
               const [cellNode] = Editor.node(editor, cellPath);
@@ -218,11 +214,7 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
       for (let rowIdx = 0; rowIdx < rowCount; rowIdx++) {
         const rowElement = tableElement.children[rowIdx];
         if (rowElement && rowElement.children) {
-          for (
-            let colIdx = 0;
-            colIdx < rowElement.children.length;
-            colIdx++
-          ) {
+          for (let colIdx = 0; colIdx < rowElement.children.length; colIdx++) {
             const cellPath = [...tablePath, rowIdx, colIdx];
             if (Editor.hasPath(editor, cellPath)) {
               const [cellNode] = Editor.node(editor, cellPath);
@@ -273,11 +265,7 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
         ...style,
       }}
       onClick={handleClick}
-      title={
-        rowIndex !== undefined
-          ? '点击显示删除图标'
-          : undefined
-      }
+      title={rowIndex !== undefined ? '点击显示删除图标' : undefined}
     >
       <div
         className={classNames(
