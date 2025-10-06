@@ -21,8 +21,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
     [`${token.componentCls}-delete-icon`]: {
       position: 'absolute',
-      top: '50%',
-      right: '28px',
+      top: '4px',
+      left: '-28px',
       zIndex: 10,
       padding: '2px',
       display: 'flex',
