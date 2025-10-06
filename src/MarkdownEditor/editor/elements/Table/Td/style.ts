@@ -10,13 +10,20 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       padding: '8px',
       verticalAlign: 'middle',
-      border: '1px solid var(--table-border-color)',
-      backgroundColor: 'var(--color-gray-bg-card-white)',
-      transition: 'background-color 0.2s ease',
-      '&:hover': {
-        backgroundColor: 'var(--color-gray-control-fill-secondary-hover)',
-      },
-      '&[data-selected="true"]': {
+      wordWrap: 'break-word',
+      wordBreak: 'break-all',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'pre-wrap',
+      '&[data-select="true"]:after': {
+        content: '" "',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+        zIndex: 2,
+        pointerEvents: 'none',
         backgroundColor: 'var(--color-primary-control-fill-secondary-hover)',
       },
     },

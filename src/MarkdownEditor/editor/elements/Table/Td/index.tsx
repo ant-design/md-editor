@@ -1,4 +1,6 @@
-import React from 'react';
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext, useEffect, useRef } from 'react';
 import { RenderElementProps, useSlateSelection } from 'slate-react';
 import { useStyle } from './style';
 
@@ -63,35 +65,56 @@ export const Td: React.FC<TdProps> = ({
 
   const align = element?.align;
   const width = element?.width;
+  const isSelected = element?.select;
   useSlateSelection();
   // 根据节点的 select 属性判断是否被选中
-  const selected = element?.select === true;
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefix = getPrefixCls('md-editor-table-td');
+  const tdRef = useRef<HTMLTableDataCellElement | null>(null);
 
-  const { wrapSSR, hashId } = useStyle();
+  const { wrapSSR, hashId } = useStyle(prefix);
+
+  // 监听 select 属性变化，同步更新 DOM 的 data-select 属性
+  useEffect(() => {
+    if (tdRef.current) {
+      tdRef.current.setAttribute('data-select', String(isSelected || false));
+    }
+  }, [isSelected]);
+
+  // 创建 ref 回调函数来处理 ref 冲突
+  const handleRef = (node: HTMLTableDataCellElement | null) => {
+    tdRef.current = node;
+    if (attributes?.ref) {
+      if (typeof attributes.ref === 'function') {
+        attributes.ref(node);
+      }
+    }
+  };
 
   if (element.hidden) {
-    return wrapSSR(<td className={hashId} style={{ display: 'none' }} />);
+    return wrapSSR(
+      <td
+        ref={tdRef}
+        className={classNames(hashId, prefix)}
+        style={{ display: 'none' }}
+        data-select={String(isSelected || false)}
+      />,
+    );
   }
 
   return wrapSSR(
     <td
-      className={hashId}
+      className={classNames(hashId, prefix)}
       style={{
-        backgroundColor: selected
-          ? 'var(--color-primary-control-fill-secondary-hover)'
-          : undefined,
-        wordWrap: 'break-word',
-        wordBreak: 'break-all',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'pre-wrap',
         textAlign: align || 'left', // 默认左对齐
         width: width || 'auto', // 如果有指定宽度则使用，否则自动
         ...style,
       }}
       rowSpan={element?.rowSpan}
       colSpan={element?.colSpan}
+      data-select={String(isSelected || false)}
       {...attributes}
+      ref={handleRef}
     >
       {children}
     </td>,

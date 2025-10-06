@@ -3,7 +3,7 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
 import { Editor, Transforms } from 'slate';
-import { useSlate } from 'slate-react';
+import { ReactEditor, useSlate } from 'slate-react';
 import { useClickAway } from '../../../../../hooks/useClickAway';
 import { useRefFunction } from '../../../../../hooks/useRefFunction';
 import { NativeTableEditor } from '../../../../utils/native-table';
@@ -107,7 +107,7 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
         return;
       }
 
-      // 清除所有行的选中状态
+      // 清除所有行的选中状态 - 通过 DOM 操作设置 data-select 属性
       for (let rowIdx = 0; rowIdx < rowCount; rowIdx++) {
         const rowElement = tableElement.children[rowIdx];
         if (rowElement && rowElement.children) {
@@ -116,6 +116,12 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
             if (Editor.hasPath(editor, cellPath)) {
               const [cellNode] = Editor.node(editor, cellPath);
               if (cellNode && (cellNode as any).type === 'table-cell') {
+                // 通过 DOM 操作设置 data-select 属性
+                const domNode = ReactEditor.toDOMNode(editor, cellNode);
+                if (domNode) {
+                  domNode.setAttribute('data-select', 'false');
+                }
+                // 同时更新 Slate 节点数据
                 Transforms.setNodes(
                   editor,
                   { select: false },
@@ -127,7 +133,7 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
         }
       }
 
-      // 选中指定行的所有单元格
+      // 选中指定行的所有单元格 - 通过 DOM 操作设置 data-select 属性
       const rowElement = tableElement.children[rowIndex];
       if (rowElement && rowElement.children) {
         for (let colIdx = 0; colIdx < rowElement.children.length; colIdx++) {
@@ -135,6 +141,12 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
           if (Editor.hasPath(editor, cellPath)) {
             const [cellNode] = Editor.node(editor, cellPath);
             if (cellNode && (cellNode as any).type === 'table-cell') {
+              // 通过 DOM 操作设置 data-select 属性
+              const domNode = ReactEditor.toDOMNode(editor, cellNode);
+              if (domNode) {
+                domNode.setAttribute('data-select', 'true');
+              }
+              // 同时更新 Slate 节点数据
               Transforms.setNodes(editor, { select: true }, { at: cellPath });
             }
           }
@@ -210,7 +222,7 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
         return;
       }
 
-      // 清除所有行的选中状态
+      // 清除所有行的选中状态 - 通过 DOM 操作设置 data-select 属性
       for (let rowIdx = 0; rowIdx < rowCount; rowIdx++) {
         const rowElement = tableElement.children[rowIdx];
         if (rowElement && rowElement.children) {
@@ -219,6 +231,12 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
             if (Editor.hasPath(editor, cellPath)) {
               const [cellNode] = Editor.node(editor, cellPath);
               if (cellNode && (cellNode as any).type === 'table-cell') {
+                // 通过 DOM 操作设置 data-select 属性
+                const domNode = ReactEditor.toDOMNode(editor, cellNode);
+                if (domNode) {
+                  domNode.setAttribute('data-select', 'false');
+                }
+                // 同时更新 Slate 节点数据
                 Transforms.setNodes(
                   editor,
                   { select: false },
