@@ -81,8 +81,8 @@ export const useKeyboard = (
     const match = new MatchKey(markdownEditorRef.current);
     return (e: React.KeyboardEvent) => {
       // 处理表格键盘事件
-      if (NativeTableKeyboard.shouldHandle(markdownEditorRef.current, e)) {
-        if (NativeTableKeyboard.handleKeyDown(markdownEditorRef.current, e)) {
+      if (NativeTableKeyboard.shouldHandle(markdownEditorRef.current)) {
+        if (NativeTableKeyboard.handleKeyDown(markdownEditorRef.current, e.nativeEvent)) {
           return;
         }
       }

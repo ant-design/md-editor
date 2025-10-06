@@ -1,8 +1,13 @@
+import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useCallback, useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Editor, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
+import { useClickAway } from '../../../../../hooks/useClickAway';
+import { useRefFunction } from '../../../../../hooks/useRefFunction';
+import { NativeTableEditor } from '../../../../utils/native-table';
+import { TablePropsContext } from '../TableContext';
 import { useStyle } from './style';
 
 /**
@@ -66,86 +71,225 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
   const baseClassName = context?.getPrefixCls('md-editor-table-cell-index');
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const editor = useSlate();
+  const tableContext = useContext(TablePropsContext);
+
+  const { deleteIconPosition, setDeleteIconPosition } = tableContext;
 
   /**
-   * 处理点击事件，选中整行
+   * 处理点击事件，选中整行或显示删除图标
    */
-  const handleClick = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (rowIndex === undefined || !tablePath) {
+  const handleClick = useRefFunction((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // 如果提供了行索引，显示删除图标
+    if (rowIndex !== undefined) {
+      setDeleteIconPosition?.({
+        rowIndex: rowIndex,
+        columnIndex: undefined,
+      });
+    }
+
+    if (rowIndex === undefined || !tablePath) {
+      return;
+    }
+
+    try {
+      // 获取表格元素
+      const tableElement = Editor.node(editor, tablePath)[0] as any;
+      if (!tableElement || tableElement.type !== 'table') {
         return;
       }
 
-      try {
-        // 获取表格元素
-        const tableElement = Editor.node(editor, tablePath)[0] as any;
-        if (!tableElement || tableElement.type !== 'table') {
-          return;
-        }
+      // 获取表格的行数和列数
+      const rowCount = tableElement.children?.length || 0;
+      if (rowCount === 0) {
+        return;
+      }
 
-        // 获取表格的行数和列数
-        const rowCount = tableElement.children?.length || 0;
-        if (rowCount === 0) {
-          return;
-        }
-
-        // 清除所有行的选中状态
-        for (let rowIdx = 0; rowIdx < rowCount; rowIdx++) {
-          const rowElement = tableElement.children[rowIdx];
-          if (rowElement && rowElement.children) {
-            for (
-              let colIdx = 0;
-              colIdx < rowElement.children.length;
-              colIdx++
-            ) {
-              const cellPath = [...tablePath, rowIdx, colIdx];
-              if (Editor.hasPath(editor, cellPath)) {
-                const [cellNode] = Editor.node(editor, cellPath);
-                if (cellNode && (cellNode as any).type === 'table-cell') {
-                  Transforms.setNodes(
-                    editor,
-                    { select: false },
-                    { at: cellPath },
-                  );
-                }
-              }
-            }
-          }
-        }
-
-        // 选中指定行的所有单元格
-        const rowElement = tableElement.children[rowIndex];
+      // 清除所有行的选中状态
+      for (let rowIdx = 0; rowIdx < rowCount; rowIdx++) {
+        const rowElement = tableElement.children[rowIdx];
         if (rowElement && rowElement.children) {
-          for (let colIdx = 0; colIdx < rowElement.children.length; colIdx++) {
-            const cellPath = [...tablePath, rowIndex, colIdx];
+          for (
+            let colIdx = 0;
+            colIdx < rowElement.children.length;
+            colIdx++
+          ) {
+            const cellPath = [...tablePath, rowIdx, colIdx];
             if (Editor.hasPath(editor, cellPath)) {
               const [cellNode] = Editor.node(editor, cellPath);
               if (cellNode && (cellNode as any).type === 'table-cell') {
-                Transforms.setNodes(editor, { select: true }, { at: cellPath });
+                Transforms.setNodes(
+                  editor,
+                  { select: false },
+                  { at: cellPath },
+                );
               }
             }
           }
         }
-      } catch (error) {
-        console.warn('Failed to select table row:', error);
       }
-    },
-    [editor, rowIndex, tablePath],
-  );
+
+      // 选中指定行的所有单元格
+      const rowElement = tableElement.children[rowIndex];
+      if (rowElement && rowElement.children) {
+        for (let colIdx = 0; colIdx < rowElement.children.length; colIdx++) {
+          const cellPath = [...tablePath, rowIndex, colIdx];
+          if (Editor.hasPath(editor, cellPath)) {
+            const [cellNode] = Editor.node(editor, cellPath);
+            if (cellNode && (cellNode as any).type === 'table-cell') {
+              Transforms.setNodes(editor, { select: true }, { at: cellPath });
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to select table row:', error);
+    }
+  });
+
+  /**
+   * 处理删除图标点击事件
+   */
+  const handleDeleteClick = useRefFunction((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (!tablePath || rowIndex === undefined) {
+        return;
+      }
+
+      // 获取表格元素
+      const tableElement = Editor.node(editor, tablePath)[0] as any;
+      if (!tableElement || tableElement.type !== 'table') {
+        return;
+      }
+
+      const rowCount = tableElement.children.length;
+      const firstRow = tableElement.children[0] as any;
+      const colCount = firstRow.children.length;
+
+      // 检查是否只有一行一列
+      if (rowCount <= 1 && colCount <= 1) {
+        // 如果只有一行一列，删除整个表格
+        NativeTableEditor.removeTable(editor, tablePath);
+        return;
+      }
+
+      // 检查是否只有一行
+      if (rowCount <= 1) {
+        // 如果只有一行，删除整个表格
+        NativeTableEditor.removeTable(editor, tablePath);
+        return;
+      }
+
+      // 删除指定行
+      const rowPath = [...tablePath, rowIndex];
+      if (Editor.hasPath(editor, rowPath)) {
+        Transforms.removeNodes(editor, { at: rowPath });
+      }
+      setDeleteIconPosition?.(null);
+    } catch (error) {
+      console.warn('Failed to delete table row:', error);
+    }
+  });
+
+  // 添加全局点击监听器
+  React.useEffect(() => {
+    const handleDocumentClick = () => {
+      if (!deleteIconPosition) return;
+      if (!tablePath) return;
+      setDeleteIconPosition?.(null);
+      // 获取表格元素
+      const tableElement = Editor.node(editor, tablePath)[0] as any;
+      if (!tableElement || tableElement.type !== 'table') {
+        return;
+      }
+
+      // 获取表格的行数
+      const rowCount = tableElement.children?.length || 0;
+      if (rowCount === 0) {
+        return;
+      }
+
+      // 清除所有行的选中状态
+      for (let rowIdx = 0; rowIdx < rowCount; rowIdx++) {
+        const rowElement = tableElement.children[rowIdx];
+        if (rowElement && rowElement.children) {
+          for (
+            let colIdx = 0;
+            colIdx < rowElement.children.length;
+            colIdx++
+          ) {
+            const cellPath = [...tablePath, rowIdx, colIdx];
+            if (Editor.hasPath(editor, cellPath)) {
+              const [cellNode] = Editor.node(editor, cellPath);
+              if (cellNode && (cellNode as any).type === 'table-cell') {
+                Transforms.setNodes(
+                  editor,
+                  { select: false },
+                  { at: cellPath },
+                );
+              }
+            }
+          }
+        }
+      }
+    };
+    document.addEventListener('click', handleDocumentClick);
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+
+  const ref = useRef<HTMLTableDataCellElement>(null);
+
+  // 检查是否应该显示删除图标
+  const shouldShowDeleteIcon =
+    deleteIconPosition &&
+    deleteIconPosition.rowIndex === rowIndex &&
+    deleteIconPosition.columnIndex === undefined;
+
+  useClickAway(() => {
+    if (shouldShowDeleteIcon) {
+      setDeleteIconPosition?.(null);
+    }
+  }, ref);
 
   return wrapSSR(
     <td
+      ref={ref}
       className={classNames(baseClassName, hashId, className, 'config-td')}
       contentEditable={false}
       style={{
         padding: 0,
         cursor: rowIndex !== undefined ? 'pointer' : 'default',
+        position: 'relative',
+        backgroundColor: shouldShowDeleteIcon
+          ? 'var(--color-primary-control-fill-primary-active)'
+          : undefined,
         ...style,
       }}
       onClick={handleClick}
-      title={rowIndex !== undefined ? '点击选中整行' : undefined}
-    />,
+      title={
+        rowIndex !== undefined
+          ? '点击显示删除图标'
+          : undefined
+      }
+    >
+      <div
+        className={classNames(
+          `${baseClassName}-delete-icon`,
+          shouldShowDeleteIcon && `${baseClassName}-delete-icon-visible`,
+          hashId,
+        )}
+        onClick={handleDeleteClick}
+        title="删除整行"
+      >
+        <DeleteOutlined />
+      </div>
+    </td>,
   );
 };

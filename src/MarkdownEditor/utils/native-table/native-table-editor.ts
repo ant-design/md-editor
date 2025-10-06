@@ -164,7 +164,7 @@ export const NativeTableEditor = {
     if (!tableEntry) return;
 
     const [tableNode] = tableEntry;
-    const colCount = (tableNode.children[0] as any)?.children?.length || 1;
+    const colCount = ((tableNode as any).children[0] as any)?.children?.length || 1;
 
     // 创建新行
     const newRow: Node = {
@@ -202,7 +202,7 @@ export const NativeTableEditor = {
     const [tableNode] = tableEntry;
 
     // 如果表格只有一行，删除整个表格
-    if (tableNode.children.length <= 1) {
+    if ((tableNode as any).children.length <= 1) {
       this.removeTable(editor, at);
       return;
     }
@@ -226,12 +226,12 @@ export const NativeTableEditor = {
     if (!tableEntry) return;
 
     const [tableNode, tablePath] = tableEntry;
-    const rowCount = tableNode.children.length;
+    const rowCount = (tableNode as any).children.length;
 
     // 为每一行插入新单元格
     for (let i = 0; i < rowCount; i++) {
       const rowPath = [...tablePath, i];
-      const rowNode = tableNode.children[i] as any;
+      const rowNode = (tableNode as any).children[i] as any;
       const colCount = rowNode.children.length;
 
       const newCell: Node = {
@@ -265,11 +265,11 @@ export const NativeTableEditor = {
     if (!tableEntry) return;
 
     const [tableNode, tablePath] = tableEntry;
-    const rowCount = tableNode.children.length;
+    const rowCount = (tableNode as any).children.length;
     const colIndex = cellPath[cellPath.length - 1];
 
     // 检查是否只有一列
-    const firstRow = tableNode.children[0] as any;
+    const firstRow = (tableNode as any).children[0] as any;
     if (firstRow.children.length <= 1) {
       this.removeTable(editor, at);
       return;
@@ -298,8 +298,8 @@ export const NativeTableEditor = {
     const [tableNode, tablePath] = tableEntry;
     const rowIndex = cellPath[cellPath.length - 2];
     const colIndex = cellPath[cellPath.length - 1];
-    const rowCount = tableNode.children.length;
-    const colCount = (tableNode.children[0] as any).children.length;
+    const rowCount = (tableNode as any).children.length;
+    const colCount = ((tableNode as any).children[0] as any).children.length;
 
     // 计算下一个单元格位置
     let nextRowIndex = rowIndex;
@@ -332,7 +332,7 @@ export const NativeTableEditor = {
     const [tableNode, tablePath] = tableEntry;
     const rowIndex = cellPath[cellPath.length - 2];
     const colIndex = cellPath[cellPath.length - 1];
-    const colCount = (tableNode.children[0] as any).children.length;
+    const colCount = ((tableNode as any).children[0] as any).children.length;
 
     // 计算上一个单元格位置
     let prevRowIndex = rowIndex;
