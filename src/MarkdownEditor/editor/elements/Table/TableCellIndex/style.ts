@@ -38,7 +38,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       backgroundRepeat: 'no-repeat',
       transition:
         'opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
-      borderRadius: '2px',
+      borderRadius: '8px',
       background: 'var(--color-gray-bg-card-white)',
       boxShadow: 'var(--shadow-border-base)',
       color: 'var(--color-gray-text-secondary)',

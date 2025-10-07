@@ -112,6 +112,9 @@ const TableCellIndexWrapper: React.FC<{
   );
 };
 
+// 导出组件供测试使用
+export { Td } from './Td';
+
 export const tableRenderElement = (
   props: RenderElementProps,
   config?: { readonly?: boolean },

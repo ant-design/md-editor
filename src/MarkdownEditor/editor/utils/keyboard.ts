@@ -8,6 +8,7 @@ import { ReactEditor } from 'slate-react';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { AttachNode, ListItemNode, MediaNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
+import { NativeTableEditor } from '../../utils/native-table';
 import { EditorStore } from '../store';
 import { EditorUtils } from './editorUtils';
 
@@ -388,7 +389,6 @@ export class KeyboardTask {
           : Path.next(node[1]);
 
       // 使用原生表格编辑器插入表格
-      const { NativeTableEditor } = require('../../utils/native-table');
       NativeTableEditor.insertTable(this.editor, {
         rows: 3,
         cols: 3,
@@ -402,7 +402,6 @@ export class KeyboardTask {
     }
 
     if (node && ['column-cell'].includes(node?.[0]?.type)) {
-      const { NativeTableEditor } = require('../../utils/native-table');
       NativeTableEditor.insertTable(this.editor, {
         rows: 3,
         cols: 3,
