@@ -373,7 +373,7 @@ export default () => {
 ### 基础使用
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
@@ -441,6 +441,7 @@ export default App;
 import {
   MarkdownInputField,
   type CreateRecognizer,
+  ToggleButton,
 } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
@@ -515,7 +516,7 @@ export default () => {
 ### 自定义触发键和样式
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -551,7 +552,7 @@ export default () => {
 ### 启用提示词优化
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 
 export default () => {
   const [value, setValue] = React.useState(
@@ -600,7 +601,7 @@ export default () => {
 ### 启用附件功能
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -715,7 +716,7 @@ export default () => {
 ### 自定义操作按钮
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -801,7 +802,7 @@ export default () => {
 ### 获取编辑器实例
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 const App = () => {
   const editorRef = React.useRef();
@@ -854,7 +855,7 @@ export default App;
 ### 焦点事件处理
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -923,7 +924,7 @@ export default () => {
 ### 自定义叶子节点渲染
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 export default () => {
   const [value, setValue] = React.useState('**粗体文本** *斜体文本* `代码`');
 
@@ -1002,7 +1003,7 @@ export default () => {
 ```tsx
 import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 
 export default () => {
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
@@ -1187,7 +1188,7 @@ export default () => {
 ### 粘贴配置
 
 ```tsx | pure
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 
 export default () => {
   const [value, setValue] = React.useState('');
