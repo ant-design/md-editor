@@ -19,37 +19,60 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backgroundColor: 'var(--color-gray-control-fill-secondary-hover)',
       },
     },
-    [`${token.componentCls}-delete-icon`]: {
+    [`${token.componentCls}-action-buttons`]: {
       position: 'absolute',
       top: '4px',
-      left: '-28px',
-      zIndex: 10,
+      left: '-24px',
+      zIndex: 1000,
+      alignItems: 'center',
+      flexDirection: 'column',
+      gap: '2px',
+      opacity: 0,
+      display: 'none',
+      transition: 'opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+    },
+    [`${token.componentCls}-action-buttons-visible`]: {
+      opacity: 1,
+      display: 'flex',
+    },
+    [`${token.componentCls}-action-button`]: {
       padding: '2px',
       display: 'flex',
       alignItems: 'center',
+      zIndex: 1000,
       justifyContent: 'center',
-      fontSize: 14,
-      opacity: 0,
+      fontSize: 12,
       border: '1px solid var(--table-border-color)',
-      width: '24px',
-      height: '24px',
+      width: '20px',
+      height: '20px',
       cursor: 'pointer',
       backgroundPosition: '50%',
       backgroundRepeat: 'no-repeat',
       transition:
-        'opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
-      borderRadius: '8px',
+        'color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+      borderRadius: '4px',
       background: 'var(--color-gray-bg-card-white)',
       boxShadow: 'var(--shadow-border-base)',
       color: 'var(--color-gray-text-secondary)',
       '&:hover': {
-        color: '#ff4d4f',
         backgroundColor: '#FFF',
         boxShadow: 'var(--shadow-control-lg)',
       },
     },
-    [`${token.componentCls}-delete-icon-visible`]: {
-      opacity: 1,
+    [`${token.componentCls}-delete-icon`]: {
+      '&:hover': {
+        color: '#ff4d4f',
+      },
+    },
+    [`${token.componentCls}-insert-row-before`]: {
+      '&:hover': {
+        color: '#52c41a',
+      },
+    },
+    [`${token.componentCls}-insert-row-after`]: {
+      '&:hover': {
+        color: '#52c41a',
+      },
     },
   };
 };

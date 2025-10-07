@@ -1,4 +1,8 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  InsertRowAboveOutlined,
+  InsertRowBelowOutlined,
+} from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
@@ -121,12 +125,6 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
                 if (domNode) {
                   domNode.setAttribute('data-select', 'false');
                 }
-                // 同时更新 Slate 节点数据
-                Transforms.setNodes(
-                  editor,
-                  { select: false },
-                  { at: cellPath },
-                );
               }
             }
           }
@@ -146,8 +144,6 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
               if (domNode) {
                 domNode.setAttribute('data-select', 'true');
               }
-              // 同时更新 Slate 节点数据
-              Transforms.setNodes(editor, { select: true }, { at: cellPath });
             }
           }
         }
@@ -204,6 +200,99 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
     }
   });
 
+  /**
+   * 处理在前面增加一行点击事件
+   */
+  const handleInsertRowBefore = useRefFunction((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (!tablePath || rowIndex === undefined) {
+        return;
+      }
+
+      // 获取表格元素
+      const tableElement = Editor.node(editor, tablePath)[0] as any;
+      if (!tableElement || tableElement.type !== 'table') {
+        return;
+      }
+
+      const firstRow = tableElement.children[0] as any;
+      const colCount = firstRow.children.length;
+
+      // 创建新行
+      const newRow = {
+        type: 'table-row',
+        children: Array.from({ length: colCount }).map(() => ({
+          type: 'table-cell',
+          children: [
+            {
+              type: 'paragraph',
+              children: [{ text: '' }],
+            },
+          ],
+        })),
+      };
+
+      // 在当前行之前插入新行
+      const rowPath = [...tablePath, rowIndex];
+      Transforms.insertNodes(editor, newRow, { at: rowPath });
+
+      setDeleteIconPosition?.(null);
+    } catch (error) {
+      console.warn('Failed to insert row before:', error);
+    }
+  });
+
+  /**
+   * 处理在后面增加一行点击事件
+   */
+  const handleInsertRowAfter = useRefFunction((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (!tablePath || rowIndex === undefined) {
+        return;
+      }
+
+      // 获取表格元素
+      const tableElement = Editor.node(editor, tablePath)[0] as any;
+      if (!tableElement || tableElement.type !== 'table') {
+        return;
+      }
+
+      const firstRow = tableElement.children[0] as any;
+      const colCount = firstRow.children.length;
+
+      // 创建新行
+      const newRow = {
+        type: 'table-row',
+        children: Array.from({ length: colCount }).map(() => ({
+          type: 'table-cell',
+          children: [
+            {
+              type: 'paragraph',
+              children: [{ text: '' }],
+            },
+          ],
+        })),
+      };
+
+      // 在当前行之后插入新行
+      // 获取表格的行数来检查边界
+      const rowCount = tableElement.children.length;
+      const insertRowIndex = Math.min(rowIndex + 1, rowCount);
+      const rowPath = [...tablePath, insertRowIndex];
+      Transforms.insertNodes(editor, newRow, { at: rowPath });
+
+      setDeleteIconPosition?.(null);
+    } catch (error) {
+      console.warn('Failed to insert row after:', error);
+    }
+  });
+
   // 添加全局点击监听器
   React.useEffect(() => {
     const handleDocumentClick = () => {
@@ -234,14 +323,8 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
                 // 通过 DOM 操作设置 data-select 属性
                 const domNode = ReactEditor.toDOMNode(editor, cellNode);
                 if (domNode) {
-                  domNode.setAttribute('data-select', 'false');
+                  domNode.removeAttribute('data-select');
                 }
-                // 同时更新 Slate 节点数据
-                Transforms.setNodes(
-                  editor,
-                  { select: false },
-                  { at: cellPath },
-                );
               }
             }
           }
@@ -283,18 +366,54 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
         ...style,
       }}
       onClick={handleClick}
-      title={rowIndex !== undefined ? '点击显示删除图标' : undefined}
+      title={rowIndex !== undefined ? '点击显示操作按钮' : undefined}
     >
       <div
         className={classNames(
-          `${baseClassName}-delete-icon`,
-          shouldShowDeleteIcon && `${baseClassName}-delete-icon-visible`,
+          `${baseClassName}-action-buttons`,
+          shouldShowDeleteIcon && `${baseClassName}-action-buttons-visible`,
           hashId,
         )}
-        onClick={handleDeleteClick}
-        title="删除整行"
       >
-        <DeleteOutlined />
+        {/* 在上面插入一行 */}
+        {shouldShowDeleteIcon && (
+          <div
+            className={classNames(
+              `${baseClassName}-action-button`,
+              `${baseClassName}-insert-row-before`,
+              hashId,
+            )}
+            onClick={handleInsertRowBefore}
+            title="在上面增加一行"
+          >
+            <InsertRowAboveOutlined />
+          </div>
+        )}
+        <div
+          className={classNames(
+            `${baseClassName}-action-button`,
+            `${baseClassName}-delete-icon`,
+            hashId,
+          )}
+          onClick={handleDeleteClick}
+          title="删除整行"
+        >
+          <DeleteOutlined />
+        </div>
+        {/* 在下面插入一行 */}
+        {shouldShowDeleteIcon && (
+          <div
+            className={classNames(
+              `${baseClassName}-action-button`,
+              `${baseClassName}-insert-row-after`,
+              hashId,
+            )}
+            onClick={handleInsertRowAfter}
+            title="在下面增加一行"
+          >
+            <InsertRowBelowOutlined />
+          </div>
+        )}
       </div>
     </td>,
   );

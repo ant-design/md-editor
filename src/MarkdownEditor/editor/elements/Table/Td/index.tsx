@@ -1,6 +1,6 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { RenderElementProps, useSlateSelection } from 'slate-react';
 import { useStyle } from './style';
 
@@ -65,7 +65,6 @@ export const Td: React.FC<TdProps> = ({
 
   const align = element?.align;
   const width = element?.width;
-  const isSelected = element?.select;
   useSlateSelection();
   // 根据节点的 select 属性判断是否被选中
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -73,13 +72,6 @@ export const Td: React.FC<TdProps> = ({
   const tdRef = useRef<HTMLTableDataCellElement | null>(null);
 
   const { wrapSSR, hashId } = useStyle(prefix);
-
-  // 监听 select 属性变化，同步更新 DOM 的 data-select 属性
-  useEffect(() => {
-    if (tdRef.current) {
-      tdRef.current.setAttribute('data-select', String(isSelected || false));
-    }
-  }, [isSelected]);
 
   // 创建 ref 回调函数来处理 ref 冲突
   const handleRef = (node: HTMLTableDataCellElement | null) => {
@@ -97,7 +89,6 @@ export const Td: React.FC<TdProps> = ({
         ref={tdRef}
         className={classNames(hashId, prefix)}
         style={{ display: 'none' }}
-        data-select={String(isSelected || false)}
       />,
     );
   }
@@ -112,7 +103,6 @@ export const Td: React.FC<TdProps> = ({
       }}
       rowSpan={element?.rowSpan}
       colSpan={element?.colSpan}
-      data-select={String(isSelected || false)}
       {...attributes}
       ref={handleRef}
     >

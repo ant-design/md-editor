@@ -1,4 +1,8 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  InsertRowLeftOutlined,
+  InsertRowRightOutlined,
+} from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
@@ -24,8 +28,6 @@ export interface TableCellIndexSpacerProps {
   columnIndex?: number;
   /** 表格路径，用于定位表格元素 */
   tablePath?: number[];
-  /** 行索引，用于单元格删除 */
-  rowIndex?: number;
 }
 
 /**
@@ -68,7 +70,6 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
   className,
   columnIndex,
   tablePath,
-  rowIndex,
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls(
@@ -87,9 +88,8 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
     e.preventDefault();
     e.stopPropagation();
 
-    // 如果提供了行索引和列索引，显示删除图标
+    // 如果提供了列索引，显示删除图标
     setDeleteIconPosition?.({
-      rowIndex: rowIndex,
       columnIndex: columnIndex,
     });
 
@@ -183,7 +183,7 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
     e.stopPropagation();
 
     try {
-      if (!tablePath || rowIndex === undefined || columnIndex === undefined) {
+      if (!tablePath || columnIndex === undefined) {
         return;
       }
 
@@ -197,20 +197,6 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
       const firstRow = tableElement.children[0] as any;
       const colCount = firstRow.children.length;
 
-      // 检查是否只有一行一列
-      if (rowCount <= 1 && colCount <= 1) {
-        // 如果只有一行一列，删除整个表格
-        NativeTableEditor.removeTable(editor, tablePath);
-        return;
-      }
-
-      // 检查是否只有一行
-      if (rowCount <= 1) {
-        // 如果只有一行，删除整个表格
-        NativeTableEditor.removeTable(editor, tablePath);
-        return;
-      }
-
       // 检查是否只有一列
       if (colCount <= 1) {
         // 如果只有一列，删除整个表格
@@ -218,14 +204,101 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
         return;
       }
 
-      // 删除指定单元格
-      const cellPath = [...tablePath, rowIndex, columnIndex];
-      if (Editor.hasPath(editor, cellPath)) {
-        Transforms.removeNodes(editor, { at: cellPath });
+      // 删除每一行的指定列
+      for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+        const cellPath = [...tablePath, rowIndex, columnIndex];
+        if (Editor.hasPath(editor, cellPath)) {
+          Transforms.removeNodes(editor, { at: cellPath });
+        }
       }
+
       setDeleteIconPosition?.(null);
     } catch (error) {
-      console.warn('Failed to delete table cell:', error);
+      console.warn('Failed to delete table column:', error);
+    }
+  });
+
+  /**
+   * 处理在前面增加一列点击事件
+   */
+  const handleInsertColumnBefore = useRefFunction((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (!tablePath || columnIndex === undefined) {
+        return;
+      }
+
+      // 获取表格元素
+      const tableElement = Editor.node(editor, tablePath)[0] as any;
+      if (!tableElement || tableElement.type !== 'table') {
+        return;
+      }
+
+      const rowCount = tableElement.children.length;
+
+      // 为每一行在当前列之前插入新单元格
+      for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+        const cellPath = [...tablePath, rowIndex, columnIndex];
+        const newCell = {
+          type: 'table-cell',
+          children: [
+            {
+              type: 'paragraph',
+              children: [{ text: '' }],
+            },
+          ],
+        };
+
+        Transforms.insertNodes(editor, newCell, { at: cellPath });
+      }
+
+      setDeleteIconPosition?.(null);
+    } catch (error) {
+      console.warn('Failed to insert column before:', error);
+    }
+  });
+
+  /**
+   * 处理在后面增加一列点击事件
+   */
+  const handleInsertColumnAfter = useRefFunction((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (!tablePath || columnIndex === undefined) {
+        return;
+      }
+
+      // 获取表格元素
+      const tableElement = Editor.node(editor, tablePath)[0] as any;
+      if (!tableElement || tableElement.type !== 'table') {
+        return;
+      }
+
+      const rowCount = tableElement.children.length;
+
+      // 为每一行在当前列之后插入新单元格
+      for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+        const cellPath = [...tablePath, rowIndex, columnIndex + 1];
+        const newCell = {
+          type: 'table-cell',
+          children: [
+            {
+              type: 'paragraph',
+              children: [{ text: '' }],
+            },
+          ],
+        };
+
+        Transforms.insertNodes(editor, newCell, { at: cellPath });
+      }
+
+      setDeleteIconPosition?.(null);
+    } catch (error) {
+      console.warn('Failed to insert column after:', error);
     }
   });
 
@@ -281,9 +354,10 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
 
   // 检查是否应该显示删除图标
   const shouldShowDeleteIcon =
-    deleteIconPosition &&
-    deleteIconPosition.rowIndex === rowIndex &&
-    deleteIconPosition.columnIndex === columnIndex;
+    deleteIconPosition && deleteIconPosition.columnIndex === columnIndex;
+
+  // 判断是否应该显示增加列的按钮（总是显示）
+  const shouldShowInsertButtons = shouldShowDeleteIcon;
 
   useClickAway(() => {
     if (shouldShowDeleteIcon) {
@@ -297,11 +371,7 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
       className={classNames(baseClassName, hashId, className, 'config-td')}
       contentEditable={false}
       style={{
-        cursor:
-          columnIndex !== undefined ||
-          (rowIndex !== undefined && columnIndex !== undefined)
-            ? 'pointer'
-            : 'default',
+        cursor: columnIndex !== undefined ? 'pointer' : 'default',
         padding: 0,
         position: 'relative',
         backgroundColor: shouldShowDeleteIcon
@@ -311,25 +381,59 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
       }}
       onClick={handleClick}
       title={
-        rowIndex !== undefined && columnIndex !== undefined
-          ? '点击显示删除图标'
-          : columnIndex !== undefined
-            ? columnIndex === -1
-              ? '点击选中整个表格'
-              : '点击选中整列，右键删除列'
-            : undefined
+        columnIndex !== undefined
+          ? columnIndex === -1
+            ? '点击选中整个表格'
+            : '点击选中整列，显示操作按钮'
+          : undefined
       }
     >
       <div
         className={classNames(
-          `${baseClassName}-delete-icon`,
-          shouldShowDeleteIcon && `${baseClassName}-delete-icon-visible`,
+          `${baseClassName}-action-buttons`,
+          shouldShowDeleteIcon && `${baseClassName}-action-buttons-visible`,
           hashId,
         )}
-        onClick={handleDeleteClick}
-        title="删除单元格"
       >
-        <DeleteOutlined />
+        {/* 总是显示增加列的按钮 */}
+        {shouldShowInsertButtons && (
+          <div
+            className={classNames(
+              `${baseClassName}-action-button`,
+              `${baseClassName}-insert-column-before`,
+              hashId,
+            )}
+            onClick={handleInsertColumnBefore}
+            title="在前面增加一列"
+          >
+            <InsertRowLeftOutlined />
+          </div>
+        )}
+        <div
+          className={classNames(
+            `${baseClassName}-action-button`,
+            `${baseClassName}-delete-icon`,
+            hashId,
+          )}
+          onClick={handleDeleteClick}
+          title="删除整列"
+        >
+          <DeleteOutlined />
+        </div>
+        {/* 总是显示增加列的按钮 */}
+        {shouldShowInsertButtons && (
+          <div
+            className={classNames(
+              `${baseClassName}-action-button`,
+              `${baseClassName}-insert-column-after`,
+              hashId,
+            )}
+            onClick={handleInsertColumnAfter}
+            title="在后面增加一列"
+          >
+            <InsertRowRightOutlined />
+          </div>
+        )}
       </div>
     </td>,
   );

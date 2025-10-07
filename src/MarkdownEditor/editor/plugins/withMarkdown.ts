@@ -431,6 +431,9 @@ export const withMarkdown = (editor: Editor) => {
   };
 
   editor.apply = (operation: Operation) => {
+    if (operation.type === 'remove_node') {
+      console.log('operation', operation);
+    }
     // 依次尝试每个处理函数
     for (const handler of operationHandlers) {
       if (handler(editor, operation, apply)) {
