@@ -116,7 +116,8 @@ export const NativeTableKeyboard = {
               const [, tablePath] = tableEntry;
               const rowIndex = cellPath[cellPath.length - 2];
               const colIndex = cellPath[cellPath.length - 1];
-              const colCount = ((tableNode as any).children[0] as any).children.length;
+              const colCount = ((tableNode as any).children[0] as any).children
+                .length;
 
               if (colIndex < colCount - 1) {
                 const rightCellPath = [...tablePath, rowIndex, colIndex + 1];
