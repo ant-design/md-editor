@@ -34,12 +34,11 @@ const clearCardAreaText = (editor: Editor, path: Path) => {
           }
         }
       } catch (domError) {
-        console.log('DOM operation failed, falling back to Slate transforms');
+        // DOM operation failed, falling back to Slate transforms
       }
     }
   } catch (error) {
     // 如果操作失败，忽略错误
-    console.log('clearCardAreaText error:', error);
   }
 };
 
@@ -431,9 +430,6 @@ export const withMarkdown = (editor: Editor) => {
   };
 
   editor.apply = (operation: Operation) => {
-    if (operation.type === 'remove_node') {
-      console.log('operation', operation);
-    }
     // 依次尝试每个处理函数
     for (const handler of operationHandlers) {
       if (handler(editor, operation, apply)) {
