@@ -1232,9 +1232,44 @@
         class="ant-flex"
       >
         <button
-          class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+          class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-btn-icon-only"
           type="button"
-        />
+        >
+          <span
+            class="ant-btn-icon"
+          >
+            <svg
+              class="sofa-icons-icon"
+              fill="currentColor"
+              fill-rule="evenodd"
+              height="1em"
+              style="vertical-align: -0.125em;"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <clippath
+                  id="CloseCircleFill-master_svg0_549_14798"
+                >
+                  <rect
+                    height="24"
+                    rx="0"
+                    width="24"
+                  />
+                </clippath>
+              </defs>
+              <g
+                clip-path="url(#CloseCircleFill-master_svg0_549_14798)"
+              >
+                <path
+                  d="M12 23C5.925 23 1 18.075 1 12S5.925 1 12 1s11 4.925 11 11-4.925 11-11 11m0-12.555L8.89 7.333 7.332 8.889 10.445 12l-3.112 3.11 1.556 1.557L12 13.555l3.11 3.112 1.557-1.556L13.555 12l3.112-3.11-1.556-1.557z"
+                  style="mix-blend-mode: passthrough;"
+                />
+              </g>
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>

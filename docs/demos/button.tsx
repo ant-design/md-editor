@@ -1,6 +1,6 @@
 import { IconButton, ToggleButton } from '@ant-design/md-editor';
 import { globalThemeToken, useCSSVariables } from '@ant-design/theme-token';
-import { ChevronDown, Plug, Plus } from '@sofa-design/icons';
+import { ChevronDown, CloseCircleFill, Plug, Plus } from '@sofa-design/icons';
 import { Button, Flex } from 'antd';
 import React from 'react';
 
@@ -229,7 +229,7 @@ export const ToggleButtonDemo = () => {
 export const CloseButtonDemo = () => {
   return (
     <Flex>
-      <Button />
+      <Button icon={<CloseCircleFill />} />
     </Flex>
   );
 };

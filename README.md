@@ -1,9 +1,9 @@
-# @ant-design/md-editor
+# Agentic UI
 
 [![NPM version](https://img.shields.io/npm/v/@ant-design/md-editor.svg?style=flat)](https://npmjs.org/package/@ant-design/md-editor)
 [![NPM downloads](http://img.shields.io/npm/dm/@ant-design/md-editor.svg?style=flat)](https://npmjs.org/package/@ant-design/md-editor)
 
-基于 React + TypeScript 的现代化 Markdown 编辑器，提供丰富的编辑功能、实时预览、插件系统等特性。
+基于 React + TypeScript 的现代化 Agentic UI 组件库，提供对话容器、思维链展示、工具调用状态、智能建议列表等核心交互组件。
 
 ## ✨ 特性
 
