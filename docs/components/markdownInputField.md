@@ -353,6 +353,7 @@ export default () => {
 | `className`             | `string`                                         | -         | 应用于输入字段的 CSS 类名          |
 | `disabled`              | `boolean`                                        | -         | 是否禁用输入字段                   |
 | `typing`                | `boolean`                                        | -         | 用户是否正在输入的状态标志         |
+| `allowEmptySubmit`      | `boolean`                                        | `false`   | 是否允许在内容为空时也触发发送     |
 | `triggerSendKey`        | `'Enter' \| 'Mod+Enter'`                         | `'Enter'` | 触发发送操作的键盘快捷键           |
 | `onSend`                | `(value: string) => Promise<void>`               | -         | 当内容发送时触发的异步回调函数     |
 | `onStop`                | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
