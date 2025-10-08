@@ -7,6 +7,8 @@ import {
 import { ConfigProvider as AntdConfigProvider, theme as antdTheme } from 'antd';
 import { useContext } from 'react';
 
+export { CSSInterpolation };
+
 export type GenerateStyle<T = ComponentToken> = (
   token: T,
 ) => Record<string, CSSInterpolation>;
