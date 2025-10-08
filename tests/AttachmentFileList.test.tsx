@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -178,12 +178,12 @@ describe('AttachmentFileList', () => {
     expect(clearButton).not.toBeInTheDocument();
   });
 
-  it('should call onClearFileMap when clear button is clicked', () => {
+  it('should call onClearFileMap when clear button is clicked', async () => {
     const fileMap = new Map();
     const file = createMockFile({ name: 'test.txt', status: 'done' });
     fileMap.set('uuid1', file);
 
-    render(
+    const { container } = render(
       <AttachmentFileList
         fileMap={fileMap}
         onDelete={mockOnDelete}
@@ -193,11 +193,20 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    // 通过类名查找清除按钮并点击
-    const clearButton = document.querySelector(
+    // IconButton 渲染为 div 包裹 button，查找 div 内的 button
+    const clearButtonContainer = container.querySelector(
       '.ant-md-editor-attachment-list-close-icon',
     );
-    fireEvent.click(clearButton!);
+    expect(clearButtonContainer).toBeInTheDocument();
+
+    const clearButton = clearButtonContainer?.querySelector('button');
+    expect(clearButton).toBeInTheDocument();
+
+    await act(async () => {
+      if (clearButton) {
+        fireEvent.click(clearButton);
+      }
+    });
 
     expect(mockOnClearFileMap).toHaveBeenCalledTimes(1);
   });
@@ -211,7 +220,7 @@ describe('AttachmentFileList', () => {
     });
     fileMap.set('uploading-uuid', file);
 
-    render(
+    const { container } = render(
       <AttachmentFileList
         fileMap={fileMap}
         onDelete={mockOnDelete}
@@ -220,10 +229,13 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    // 验证加载图标存在 - 通过查找 SVG 元素和 sofa-icons-icon 类名
-    const loadingIcon = document.querySelector('.sofa-icons-icon');
-    expect(loadingIcon).toBeInTheDocument();
+    // 验证文件名显示（不包含扩展名）
     expect(screen.getByText('uploading')).toBeInTheDocument();
+    // 验证上传状态图标的容器存在
+    const uploadingIcon = container.querySelector(
+      '.ant-md-editor-attachment-list-item-uploading-icon',
+    );
+    expect(uploadingIcon).toBeInTheDocument();
   });
 
   it('should render files with error status', () => {
@@ -235,7 +247,7 @@ describe('AttachmentFileList', () => {
     });
     fileMap.set('error-uuid', file);
 
-    render(
+    const { container } = render(
       <AttachmentFileList
         fileMap={fileMap}
         onDelete={mockOnDelete}
@@ -244,16 +256,22 @@ describe('AttachmentFileList', () => {
       />,
     );
 
+    // 验证文件名显示（不包含扩展名）
     expect(screen.getByText('error')).toBeInTheDocument();
+    // 验证错误状态图标的容器存在
+    const errorIcon = container.querySelector(
+      '.ant-md-editor-attachment-list-item-uploading-icon',
+    );
+    expect(errorIcon).toBeInTheDocument();
   });
 
   it('should handle files without uuid by using name as key', () => {
     const fileMap = new Map();
-    const file = createMockFile({ name: 'no-uuid.txt' });
+    const file = createMockFile({ name: 'no-uuid.txt', status: 'done' });
     delete (file as any).uuid;
     fileMap.set('key1', file);
 
-    render(
+    const { container } = render(
       <AttachmentFileList
         fileMap={fileMap}
         onDelete={mockOnDelete}
@@ -262,7 +280,14 @@ describe('AttachmentFileList', () => {
       />,
     );
 
+    // 验证文件名显示（不包含扩展名）
     expect(screen.getByText('no-uuid')).toBeInTheDocument();
+    // 验证文件扩展名显示
+    expect(screen.getByText('txt')).toBeInTheDocument();
+    // 验证组件正常渲染
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list-item'),
+    ).toBeInTheDocument();
   });
 
   it('should use index as fallback key when no uuid or name', () => {
@@ -282,32 +307,17 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    // Should render without crashing
+    // Should render without crashing and use index as key
     expect(container.firstChild).toBeInTheDocument();
+    // Verify the list container exists
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toBeInTheDocument();
   });
 
   it('should render image preview component', () => {
     const fileMap = new Map();
-    const file = createMockFile({ name: 'test.txt' });
-    fileMap.set('uuid1', file);
-
-    render(
-      <AttachmentFileList
-        fileMap={fileMap}
-        onDelete={mockOnDelete}
-        onPreview={mockOnPreview}
-        onDownload={mockOnDownload}
-      />,
-    );
-
-    const imagePreview = screen.getByAltText('Preview');
-    expect(imagePreview).toBeInTheDocument();
-    expect(imagePreview).toHaveStyle({ display: 'none' });
-  });
-
-  it('should handle motion.div variants correctly', () => {
-    const fileMap = new Map();
-    const file = createMockFile({ name: 'test.txt' });
+    const file = createMockFile({ name: 'test.txt', status: 'done' });
     fileMap.set('uuid1', file);
 
     const { container } = render(
@@ -319,7 +329,38 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    // Check that motion.div is rendered
+    // Image preview component should exist in the DOM
+    const imagePreview = screen.getByAltText('Preview');
+    expect(imagePreview).toBeInTheDocument();
+    expect(imagePreview).toHaveStyle({ display: 'none' });
+    // Verify file list is rendered
+    expect(
+      container.querySelector('.ant-md-editor-attachment-list'),
+    ).toBeInTheDocument();
+  });
+
+  it('should handle motion.div variants correctly', () => {
+    const fileMap = new Map();
+    const file = createMockFile({ name: 'test.txt', status: 'done' });
+    fileMap.set('uuid1', file);
+
+    const { container } = render(
+      <AttachmentFileList
+        fileMap={fileMap}
+        onDelete={mockOnDelete}
+        onPreview={mockOnPreview}
+        onDownload={mockOnDownload}
+      />,
+    );
+
+    // Check that motion.div is rendered (mocked as div)
     expect(container.firstChild).toBeInTheDocument();
+    // Verify the attachment list container exists
+    const listContainer = container.querySelector(
+      '.ant-md-editor-attachment-list',
+    );
+    expect(listContainer).toBeInTheDocument();
+    // Verify file item is rendered
+    expect(screen.getByText('test')).toBeInTheDocument();
   });
 });
