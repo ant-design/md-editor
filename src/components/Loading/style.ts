@@ -11,7 +11,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       justifyContent: 'center',
       position: 'relative',
+      width: '2em',
+      height: '2em',
       zIndex: 0,
+      // 添加黑色背景以匹配图片效果
+      backgroundColor: '#000000',
+      borderRadius: '8px',
+      overflow: 'hidden',
     },
   };
 };
