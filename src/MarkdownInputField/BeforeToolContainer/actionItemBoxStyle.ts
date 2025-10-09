@@ -24,7 +24,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         top: 0,
         bottom: 0,
         pointerEvents: 'none',
-        background: 'linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 60%, #FFFFFF 100%)',
+        background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 60%, #FFFFFF 100%)',
         borderRadius: 12,
         width: 72,
         height: '80%',
