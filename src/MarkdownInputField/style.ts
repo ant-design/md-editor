@@ -121,7 +121,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxHeight: 400,
         height: '100%',
         borderRadius: 'inherit',
-        overflowY: 'auto',
+        overflowY: 'visible',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
         '&&-disabled': {
@@ -132,6 +132,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           margin: '0 !important',
           padding: '0 !important',
         },
+      },
+      '&-editor-content': {
+        overflowY: 'auto',
+        maxHeight: 'inherit',
+        scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
+        scrollbarWidth: 'thin',
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',

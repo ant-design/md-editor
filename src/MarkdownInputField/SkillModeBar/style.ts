@@ -8,7 +8,7 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}-container`]: {
-      overflow: 'hidden',
+      // overflow: 'hidden', // 会把Quote的弹框遮挡
     },
 
     [`${token.componentCls}`]: {
@@ -24,6 +24,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     [`${token.componentCls}-title`]: {
+      flex: 1,
       font: 'var(--font-text-h5-base)',
       letterSpacing: 'var(--letter-spacing-h5-base, normal)',
       color: 'var(--color-primary-control-fill-primary)',
