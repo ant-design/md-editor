@@ -88,7 +88,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             font: 'var(--font-text-body-emphasized-sm)',
             letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
             color: 'var(--color-gray-text-default)',
-            maxWidth: '92px',
+            maxWidth: '112px',
             whiteSpace: 'nowrap',
             width: 'max-content',
             overflow: 'hidden',
