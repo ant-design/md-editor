@@ -1,6 +1,7 @@
 import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
 import { useEditorStyleRegister } from '../../hooks/useStyle';
 
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
@@ -12,7 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '8px 16px',
+        padding: '8px 12px',
         marginLeft: -16,
         marginRight: -16,
         marginBottom: 8,
@@ -238,33 +239,46 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: 'auto',
         height: '100%',
         overflow: 'auto',
-        margin: '0 -16px!important',
-
+        margin: '0 -16px',
         '.ant-workspace-html-preview-content': {
           '.ace-container': {
-            border: 'none',
+            border: 'unset',
             borderRadius: 'unset',
-            boxShadow: 'none!important',
+            boxShadow: 'unset',
+          },
+          
+          '.ace_gutter-cell': {
+            paddingLeft: 12,
           },
 
-          '.code-editor-content': {
-            padding: '0!important',
+          '.code-editor-container': {
+            maxHeight: '100%',
+            borderRadius: 'var(--radius-card-base)',
+
+            '.code-editor-content': {
+              padding: '0!important',
+
+              '.ace_gutter': {
+                color: 'var(--color-gray-text-light)',
+                font: 'var(--font-text-code-base)',
+                letterSpacing: 'var(--letter-spacing-code-base, normal)',
+                background: 'var(--color-gray-bg-card-white)',
+              },
+
+              '.ace-tm .ace_scroller .ace_content': {
+                fontFamily: 'Roboto Mono',
+              },
+
+              '.ace-tm .ace_gutter-active-line': {
+                color: 'var(--color-gray-text-default)',
+                background: 'var(--color-gray-control-fill-hover)',
+              },
+
+              '.ace-tm .ace_marker-layer .ace_active-line': {
+                background: 'var(--color-gray-control-fill-hover)',
+              },
+            },
           },
-        },
-
-        '.ace_gutter': {
-          color: 'var(--color-gray-text-light)',
-          font: 'var(--font-text-code-base)',
-          letterSpacing: 'var(--letter-spacing-code-base, normal)',
-          background: 'var(--color-gray-bg-card-white)',
-        },
-
-        '.ace_gutter-cell': {
-          paddingLeft: 12,
-        },
-
-        '.ace-tm .ace_scroller .ace_content': {
-          fontFamily: 'Roboto Mono',
         },
 
         '.ace-tm .ace_keyword': {
@@ -273,7 +287,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        },
+        }
       },
 
       [`&-overlay`]: {

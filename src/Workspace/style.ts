@@ -98,8 +98,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-content`]: {
-        height: 'calc(100% - 90px)',
+        height: 'calc(100% - 95px)',
         padding: '0 16px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 0,
+        overflow: 'hidden',
+        
+        borderRadius: 'var(--radius-card-base)',
       },
     },
   };
