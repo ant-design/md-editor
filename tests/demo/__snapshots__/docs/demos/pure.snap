@@ -9425,7 +9425,6 @@
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    style="user-select: none;"
                   >
                     <colgroup>
                       <col
@@ -9441,9 +9440,7 @@
                         style="width: 89px; min-width: 89px; max-width: 89px;"
                       />
                     </colgroup>
-                    <tbody
-                      style="user-select: none;"
-                    >
+                    <tbody>
                       <tr
                         class="ant-md-editor-table-row-index config-tr"
                       >
@@ -11797,7 +11794,6 @@ def aggressive_allocation():
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    style="user-select: none;"
                   >
                     <colgroup>
                       <col
@@ -11813,9 +11809,7 @@ def aggressive_allocation():
                         style="width: 89px; min-width: 89px; max-width: 89px;"
                       />
                     </colgroup>
-                    <tbody
-                      style="user-select: none;"
-                    >
+                    <tbody>
                       <tr
                         class="ant-md-editor-table-row-index config-tr"
                       >
@@ -13031,7 +13025,6 @@ def aggressive_allocation():
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    style="user-select: none;"
                   >
                     <colgroup>
                       <col
@@ -13047,9 +13040,7 @@ def aggressive_allocation():
                         style="width: 89px; min-width: 89px; max-width: 89px;"
                       />
                     </colgroup>
-                    <tbody
-                      style="user-select: none;"
-                    >
+                    <tbody>
                       <tr
                         class="ant-md-editor-table-row-index config-tr"
                       >
