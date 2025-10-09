@@ -255,7 +255,8 @@ function demoTest() {
 
         await waitFor(
           () => {
-            return wrapper.findAllByText('test');
+            const elements = wrapper.getAllByText('test');
+            expect(elements.length).toBeGreaterThan(0);
           },
           { timeout: 10000 },
         );

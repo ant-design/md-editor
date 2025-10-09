@@ -260,7 +260,7 @@ describe('AttachmentFileList', () => {
     expect(screen.getByText('error')).toBeInTheDocument();
     // 验证错误状态图标的容器存在
     const errorIcon = container.querySelector(
-      '.ant-md-editor-attachment-list-item-uploading-icon',
+      '.ant-md-editor-attachment-list-item-error-icon',
     );
     expect(errorIcon).toBeInTheDocument();
   });
