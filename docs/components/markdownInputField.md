@@ -22,12 +22,21 @@ group:
 ## 基本使用
 
 ```tsx
-import { ActionItemBox, ActionItemContainer } from '@ant-design/md-editor';
-import { MarkdownInputField, SuggestionList } from '@ant-design/md-editor';
-import { DownOutlined, AimOutlined, GlobalOutlined } from '@ant-design/icons';
-import { Space, message } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
-import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
+import { Space } from 'antd';
+import {
+  DownOutlined,
+  AimOutlined,
+  GlobalOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
+import {
+  ActionItemBox,
+  ActionItemContainer,
+  MarkdownInputField,
+  SuggestionList,
+  ToggleButton,
+  type CreateRecognizer,
+} from '@ant-design/md-editor';
 
 const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
   let timer: ReturnType<typeof setInterval>;
