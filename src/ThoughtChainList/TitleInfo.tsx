@@ -1,4 +1,5 @@
-﻿import { Popover } from 'antd';
+import { ChevronsDownUp, ChevronsUpDown } from '@sofa-design/icons';
+import { Popover } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
@@ -7,7 +8,6 @@ import { RagIcon, ToolCallIcon } from '../components/icons';
 import { DatabaseIcon } from '../components/icons/DatabaseIcon';
 import { DocumentIcon } from '../components/icons/DocumentIcon';
 import { I18nContext } from '../i18n';
-import { ChevronsDownUp, ChevronsUpDown } from '../icons';
 import { ActionIconBox } from '../index';
 import { CostMillis } from './CostMillis';
 import { FlipText } from './FlipText';

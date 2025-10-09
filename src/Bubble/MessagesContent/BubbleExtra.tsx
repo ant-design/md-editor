@@ -1,17 +1,16 @@
-﻿import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
+import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 import { ConfigProvider, Divider } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
 
+import { Copy, Refresh } from '@sofa-design/icons';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Copy } from '../../icons';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import LoadingLottie from '../../TaskList/LoadingLottie';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleExtraProps } from '../types/BubbleExtra';
 import { CopyButton } from './CopyButton';
-import { ReloadIcon } from './icons';
 import { VoiceButton } from './VoiceButton';
 
 /**
@@ -371,7 +370,7 @@ export const BubbleExtra = ({
             color: 'var(--color-gray-a9)',
           }}
         >
-          <ReloadIcon />
+          <Refresh />
           <span>
             {context?.locale?.['chat.message.retrySend'] || '重新生成'}
           </span>

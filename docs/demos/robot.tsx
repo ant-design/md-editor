@@ -1,4 +1,11 @@
-import { DazingLottie, Robot, ThinkingLottie } from '@ant-design/md-editor';
+import {
+  DazingLottie,
+  Robot,
+  TASK_RUNNING_STATUS,
+  TASK_STATUS,
+  TaskRunning,
+  ThinkingLottie,
+} from '@ant-design/md-editor';
 import React, { useState } from 'react';
 
 export default () => {
@@ -10,6 +17,12 @@ export default () => {
     { value: 'default', label: '默认状态' },
     { value: 'running', label: '运行中状态' },
   ] as const;
+
+  const [taskStatus, setTaskStatus] = useState<TASK_STATUS>(
+    TASK_STATUS.RUNNING,
+  );
+  const [taskRunningStatus, setTaskRunningStatus] =
+    useState<TASK_RUNNING_STATUS>(TASK_RUNNING_STATUS.RUNNING);
 
   return (
     <div style={{ padding: '0 24px 24px', maxWidth: 1200 }}>
@@ -142,8 +155,48 @@ export default () => {
           background: '#fafafa',
         }}
       >
-        <Robot status="running" size={80} />
-        <span>AI正在思考中...</span>
+        <TaskRunning
+          title={
+            taskStatus === TASK_STATUS.RUNNING
+              ? '任务运行中'
+              : taskStatus === TASK_STATUS.PAUSE
+                ? '任务暂停中'
+                : taskStatus === TASK_STATUS.STOPPED
+                  ? '任务已停止'
+                  : '任务已完成, 耗时10小时02分10秒'
+          }
+          description={
+            taskStatus === TASK_STATUS.RUNNING
+              ? 'AI模型正在训练中，请耐心等待...'
+              : taskStatus === TASK_STATUS.PAUSE
+                ? 'AI模型暂停中，请点击继续按钮继续运行'
+                : taskStatus === TASK_STATUS.STOPPED
+                  ? 'AI模型已停止，请点击重新运行按钮重新运行'
+                  : 'AI模型已完成, 耗时10小时02分10秒'
+          }
+          taskStatus={taskStatus}
+          taskRunningStatus={taskRunningStatus}
+          onPause={() => {
+            setTaskRunningStatus(TASK_RUNNING_STATUS.PAUSE);
+            setTaskStatus(TASK_STATUS.PAUSE);
+          }}
+          onResume={() => {
+            setTaskRunningStatus(TASK_RUNNING_STATUS.RUNNING);
+            setTaskStatus(TASK_STATUS.RUNNING);
+          }}
+          onStop={() => {
+            setTaskStatus(TASK_STATUS.STOPPED);
+            setTaskRunningStatus(TASK_RUNNING_STATUS.COMPLETE);
+          }}
+          onCreateNewTask={() => {
+            setTaskStatus(TASK_STATUS.RUNNING);
+            setTaskRunningStatus(TASK_RUNNING_STATUS.RUNNING);
+          }}
+          onReplay={() => {
+            setTaskStatus(TASK_STATUS.RUNNING);
+            setTaskRunningStatus(TASK_RUNNING_STATUS.RUNNING);
+          }}
+        />
       </div>
     </div>
   );

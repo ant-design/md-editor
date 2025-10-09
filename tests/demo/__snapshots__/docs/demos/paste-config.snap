@@ -66,72 +66,7 @@
           <div
             class="ant-md-input-field-background"
             style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
-          >
-            <svg
-              fill="none"
-              height="100%"
-              style="border-radius: inherit;"
-              version="1.1"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <radialgradient
-                  cx="0.5"
-                  cy="1"
-                  id="master_svg1_55_47405"
-                  r="0.5"
-                >
-                  <stop
-                    offset="0%"
-                    stop-color="#CD36FF"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#CD36FF; #FFD972; #eff0f1; #CD36FF;#CD36FF"
-                    />
-                  </stop>
-                  <stop
-                    offset="33.333333333333336%"
-                    stop-color="#FFD972"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#FFD972; #eff0f1; #CD36FF; #FFD972;#FFD972"
-                    />
-                  </stop>
-                  <stop
-                    offset="66.66666666666667%"
-                    stop-color="#eff0f1"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#eff0f1; #CD36FF; #FFD972; #eff0f1;#eff0f1"
-                    />
-                  </stop>
-                </radialgradient>
-              </defs>
-              <g>
-                <rect
-                  fill="url(#master_svg1_55_47405)"
-                  height="100%"
-                  width="100%"
-                  x="0"
-                  y="0"
-                />
-              </g>
-            </svg>
-          </div>
+          />
           <div
             style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 14px; cursor: auto; opacity: 1;"
           >
@@ -244,72 +179,7 @@
           <div
             class="ant-md-input-field-background"
             style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
-          >
-            <svg
-              fill="none"
-              height="100%"
-              style="border-radius: inherit;"
-              version="1.1"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <radialgradient
-                  cx="0.5"
-                  cy="1"
-                  id="master_svg1_55_47405"
-                  r="0.5"
-                >
-                  <stop
-                    offset="0%"
-                    stop-color="#CD36FF"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#CD36FF; #FFD972; #eff0f1; #CD36FF;#CD36FF"
-                    />
-                  </stop>
-                  <stop
-                    offset="33.333333333333336%"
-                    stop-color="#FFD972"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#FFD972; #eff0f1; #CD36FF; #FFD972;#FFD972"
-                    />
-                  </stop>
-                  <stop
-                    offset="66.66666666666667%"
-                    stop-color="#eff0f1"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#eff0f1; #CD36FF; #FFD972; #eff0f1;#eff0f1"
-                    />
-                  </stop>
-                </radialgradient>
-              </defs>
-              <g>
-                <rect
-                  fill="url(#master_svg1_55_47405)"
-                  height="100%"
-                  width="100%"
-                  x="0"
-                  y="0"
-                />
-              </g>
-            </svg>
-          </div>
+          />
           <div
             style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 14px; cursor: auto; opacity: 1;"
           >
@@ -422,72 +292,7 @@
           <div
             class="ant-md-input-field-background"
             style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
-          >
-            <svg
-              fill="none"
-              height="100%"
-              style="border-radius: inherit;"
-              version="1.1"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <radialgradient
-                  cx="0.5"
-                  cy="1"
-                  id="master_svg1_55_47405"
-                  r="0.5"
-                >
-                  <stop
-                    offset="0%"
-                    stop-color="#CD36FF"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#CD36FF; #FFD972; #eff0f1; #CD36FF;#CD36FF"
-                    />
-                  </stop>
-                  <stop
-                    offset="33.333333333333336%"
-                    stop-color="#FFD972"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#FFD972; #eff0f1; #CD36FF; #FFD972;#FFD972"
-                    />
-                  </stop>
-                  <stop
-                    offset="66.66666666666667%"
-                    stop-color="#eff0f1"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#eff0f1; #CD36FF; #FFD972; #eff0f1;#eff0f1"
-                    />
-                  </stop>
-                </radialgradient>
-              </defs>
-              <g>
-                <rect
-                  fill="url(#master_svg1_55_47405)"
-                  height="100%"
-                  width="100%"
-                  x="0"
-                  y="0"
-                />
-              </g>
-            </svg>
-          </div>
+          />
           <div
             style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 14px; cursor: auto; opacity: 1;"
           >
@@ -600,72 +405,7 @@
           <div
             class="ant-md-input-field-background"
             style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
-          >
-            <svg
-              fill="none"
-              height="100%"
-              style="border-radius: inherit;"
-              version="1.1"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <radialgradient
-                  cx="0.5"
-                  cy="1"
-                  id="master_svg1_55_47405"
-                  r="0.5"
-                >
-                  <stop
-                    offset="0%"
-                    stop-color="#CD36FF"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#CD36FF; #FFD972; #eff0f1; #CD36FF;#CD36FF"
-                    />
-                  </stop>
-                  <stop
-                    offset="33.333333333333336%"
-                    stop-color="#FFD972"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#FFD972; #eff0f1; #CD36FF; #FFD972;#FFD972"
-                    />
-                  </stop>
-                  <stop
-                    offset="66.66666666666667%"
-                    stop-color="#eff0f1"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#eff0f1; #CD36FF; #FFD972; #eff0f1;#eff0f1"
-                    />
-                  </stop>
-                </radialgradient>
-              </defs>
-              <g>
-                <rect
-                  fill="url(#master_svg1_55_47405)"
-                  height="100%"
-                  width="100%"
-                  x="0"
-                  y="0"
-                />
-              </g>
-            </svg>
-          </div>
+          />
           <div
             style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 14px; cursor: auto; opacity: 1;"
           >

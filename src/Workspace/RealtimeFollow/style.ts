@@ -15,7 +15,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '8px 16px',
         marginLeft: -16,
         marginRight: -16,
-        marginBottom: 8,
         borderBottom: '1px solid var(--color-gray-border-light)',
 
         // 返回按钮
@@ -29,7 +28,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: 'none',
           cursor: 'pointer',
           color: '#767e8b',
-          transition: 'all 0.2s ease',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
           borderRadius: 'var(--radius-control-base)',
           backdropFilter: 'blur(20px)',
 
@@ -45,6 +44,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`&-with-border`]: {
           borderBottom: '1px solid rgba(20, 22, 28, 0.07)',
+        },
+
+        [`&-with-back`]: {
+          [`${token.componentCls}-header-icon`]: {
+            [`&--html`]: {
+              width: '16px',
+              height: '16px',
+              background: 'transparent',
+            },
+
+            [`&--default`]: {
+              width: '16px',
+              height: '16px',
+              background: 'transparent',
+            },
+          },
         },
 
         [`&-left`]: {
@@ -69,7 +84,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           [`&--default`]: {
             width: '40px',
             height: '40px',
-            background: 'linear-gradient(90deg, #EAEEF4, #F4F6F9)',
+            background: 'linear-gradient(180deg, #EAEEF4, #F4F6F9)',
           },
         },
 
@@ -87,6 +102,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`&-title`]: {
           display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
           fontFamily: 'AlibabaPuHuiTi',
           fontSize: '14px',
           fontWeight: '500',
@@ -111,19 +128,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
 
           '.ant-segmented': {
-            /* 圆角-控件-base */
             borderRadius: 'var(--radius-control-base)',
-            /* gray/gray-控件填充-按下.激活 */
-            background: 'var(--color-gray-control-fill-active)',
           },
 
-          '.ant-segmented-item-selected': {
+          '.ant-segmented-item-selected ': {
             borderRadius: 'var(--radius-control-base)',
-            /* gray/gray-背景-白色卡片 */
-            /* 样式描述：contrast */
-            background: 'var(--color-gray-bg-card-white)',
-            /* 投影-控件-base */
-            boxShadow: 'var(--shadow-control-base)',
           },
         },
 
@@ -134,18 +143,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           justifyContent: 'center',
           gap: '8px',
 
-          button: {
-            background: 'none',
-            cursor: 'pointer',
-            color: '#CC545D6D',
-            transition: 'all 0.2s ease',
-            backdropFilter: 'blur(20px)',
-            borderRadius: 'var(--radius-control-sm)',
-            boxSizing: 'border-box',
-            border: '0px solid rgba(0, 30, 75, 0.07)',
-
-            '&:hover': {
-              background: '#f0f0f0',
+          [`&-extra`]: {
+            '*': {
+              color: 'rgba(80, 92, 113, 0.42)',
             },
           },
         },
@@ -157,7 +157,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
 
         [`${token.componentCls}-content`]: {
+          width: 'unset',
           margin: '0 -16px',
+          paddingTop: 16,
+          paddingBottom: 16,
           background: 'var(--color-gray-text-default)',
 
           '.ace-container': {
@@ -170,8 +173,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
 
           '.ace_gutter': {
-            paddingTop: 16,
-            paddingBottom: 16,
             color: 'rgba(255, 255, 255, 0.45)',
             font: 'var(--font-text-code-base)',
             letterSpacing: 'var(--letter-spacing-code-base, normal)',
@@ -180,11 +181,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           '.ace_gutter-cell': {
             paddingLeft: 12,
-          },
-
-          '.ace-tm .ace_content': {
-            paddingTop: 16,
-            paddingBottom: 16,
           },
 
           '.ace-tm .ace_gutter-active-line': {
@@ -220,6 +216,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             padding: 0,
             background: 'transparent',
           },
+
+          '.ant-empty-description': {
+            color: '#d9d9d9',
+          },
         },
       },
 
@@ -234,29 +234,48 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       [`&-content`]: {
         position: 'relative',
-        width: '100%',
+        width: 'auto',
         height: '100%',
-        overflow: 'auto', // 添加滚动支持
+        overflow: 'auto',
+        margin: '-4px -16px -16px -16px',
 
-        '.ant-workspace-html-preview-content .ace-container': {
-          border: 'none',
-          borderRadius: 'unset',
-          boxShadow: 'none!important',
-        },
+        '.ant-workspace-html-preview-content': {
+          '.ace-container': {
+            border: 'unset',
+            borderRadius: 'unset',
+            boxShadow: 'unset',
+          },
 
-        '.ace_gutter': {
-          color: 'var(--color-gray-text-light)',
-          font: 'var(--font-text-code-base)',
-          letterSpacing: 'var(--letter-spacing-code-base, normal)',
-          background: 'var(--color-gray-bg-card-white)',
-        },
+          '.ace_gutter-cell': {
+            paddingLeft: 12,
+          },
 
-        '.ace_gutter-cell': {
-          paddingLeft: 12,
-        },
+          '.code-editor-container': {
+            maxHeight: '435px',
 
-        '.ace-tm .ace_comment': {
-          color: '#008604',
+            '.code-editor-content': {
+              padding: '0!important',
+
+              '.ace_gutter': {
+                color: 'var(--color-gray-text-default)',
+                font: 'var(--font-text-code-base)',
+                letterSpacing: 'var(--letter-spacing-code-base, normal)',
+                background: 'var(--color-gray-bg-card-white)',
+              },
+
+              '.ace-tm .ace_scroller .ace_content': {
+                fontFamily: 'Roboto Mono',
+              },
+
+              '.ace-tm .ace_gutter-active-line': {
+                background: 'var(--color-gray-control-fill-hover)',
+              },
+
+              '.ace-tm .ace_marker-layer .ace_active-line': {
+                background: 'var(--color-gray-control-fill-hover)',
+              },
+            },
+          },
         },
 
         '.ace-tm .ace_keyword': {

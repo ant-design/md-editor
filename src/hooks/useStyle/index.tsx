@@ -1,4 +1,4 @@
-﻿import type { CSSInterpolation } from '@ant-design/cssinjs';
+import type { CSSInterpolation } from '@ant-design/cssinjs';
 import {
   ComponentToken,
   createStyleRegister,
@@ -7,9 +7,11 @@ import {
 import { ConfigProvider as AntdConfigProvider, theme as antdTheme } from 'antd';
 import { useContext } from 'react';
 
+export { CSSInterpolation };
+
 export type GenerateStyle<T = ComponentToken> = (
   token: T,
-) => Record<string, any>;
+) => Record<string, CSSInterpolation>;
 
 export type ChatTokenType = ComponentToken & {
   themeId?: number;
@@ -79,5 +81,3 @@ export function useEditorStyleRegister(
   // 确保总是返回一个有效的对象
   return result || { wrapSSR: (node: any) => node, hashId: '' };
 }
-
-

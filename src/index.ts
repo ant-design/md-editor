@@ -7,10 +7,11 @@ export type {
   BubbleProps,
   MessageBubbleData,
 } from './Bubble/type';
+export * from './components/Button';
 export * from './components/ChatFlowContainer';
-export * from './components/SuggestionList';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
+export * from './components/SuggestionList';
 export * from './components/VisualList';
 export * from './hooks/useAutoScroll';
 export { useLanguage } from './hooks/useLanguage';
@@ -20,7 +21,7 @@ export * from './hooks/useThrottleFn';
 export * from './i18n';
 export * from './MarkdownEditor';
 export * from './MarkdownEditor/editor/components/index';
-export { ReadonlyTable } from './MarkdownEditor/editor/elements/Table/Table';
+export { SlateTable as ReadonlyTable } from './MarkdownEditor/editor/elements/Table/Table';
 export { TablePropsContext } from './MarkdownEditor/editor/elements/Table/TableContext';
 export { parserMarkdownToSlateNode } from './MarkdownEditor/editor/parser/parserMarkdownToSlateNode';
 export {
@@ -48,10 +49,10 @@ export * from './MarkdownEditor/el';
 export { useSelStatus } from './MarkdownEditor/hooks/editor';
 export * from './MarkdownEditor/plugin';
 export * from './MarkdownInputField/AttachmentButton';
-export * from './MarkdownInputField/FileMapView';
-export * from './MarkdownInputField/MarkdownInputField';
 export { ActionItemBox } from './MarkdownInputField/BeforeToolContainer/ActionItemBox';
 export { ActionItemContainer } from './MarkdownInputField/BeforeToolContainer/BeforeToolContainer';
+export * from './MarkdownInputField/FileMapView';
+export * from './MarkdownInputField/MarkdownInputField';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
 export * from './TaskList';
@@ -215,7 +216,7 @@ export type {
   NodeEntryWithContext,
   SelectionMode,
   WithType,
-} from './MarkdownEditor/utils/slate-table/utils/types';
+} from './MarkdownEditor/utils/native-table/native-table-editor';
 
 // MarkdownEditor 元素类型
 export type {
@@ -255,6 +256,12 @@ export type {
   UseSpeechSynthesisOptions,
   UseSpeechSynthesisResult,
 } from './Bubble/MessagesContent/VoiceButton/types';
+
+// MarkdownInputField 语音识别相关类型
+export type {
+  CreateRecognizer,
+  VoiceRecognizer,
+} from './MarkdownInputField/VoiceInput';
 
 // 模板引擎类
 export { TemplateEngine } from './schema/SchemaRenderer/templateEngine';

@@ -1,7 +1,7 @@
-﻿import { ConfigProvider, Popover } from 'antd';
+import { History as HistoryIcon } from '@sofa-design/icons';
+import { ConfigProvider, Popover } from 'antd';
 import React, { useContext, useRef } from 'react';
 import useClickAway from '../hooks/useClickAway';
-import { History as HistoryIcon } from '../icons';
 import { ActionIconBox, BubbleConfigContext } from '../index';
 import {
   HistoryLoadMore,
@@ -151,7 +151,7 @@ export const History: React.FC<HistoryProps> = (props) => {
         overflow: 'auto',
         maxWidth: 'min(480px,100%)',
         borderRadius: 'inherit',
-        border: '1px solid #f0f2f5',
+        border: '1px solid var(--color-gray-border-light)',
       }}
       getPopupContainer={(p) => p.parentElement || document.body}
       content={
@@ -186,12 +186,15 @@ export const History: React.FC<HistoryProps> = (props) => {
       >
         <ActionIconBox
           key="history"
-          noPadding
           title={locale?.['chat.history'] || '历史记录'}
+          style={{
+            width: 28,
+            height: 28,
+          }}
         >
           <HistoryIcon
             style={{
-              color: 'var(--color-gray-text-default)',
+              color: 'var(--color-gray-text-secondary)',
               width: 14,
               height: 14,
             }}

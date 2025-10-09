@@ -14,7 +14,7 @@
         <span
           style="font-size: 13px; color: rgba(0, 0, 0, 0.45);"
         >
-          💬 追问组件 FollowUpQuestion
+          💬 追问组件 SuggestionList
         </span>
         <div
           style="font-size: 12px; color: rgba(0, 0, 0, 0.45);"
@@ -103,7 +103,7 @@
                     </span>
                   </div>
                   <div
-                    aria-label="选择建议： 恒生科技指数基金相关新闻"
+                    aria-label="选择建议：恒生科技指数基金相关新闻"
                     class="ant-follow-up-suggestion"
                     role="button"
                   >
@@ -116,7 +116,7 @@
                       aria-describedby="test-id"
                       class="ant-follow-up-label"
                     >
-                       恒生科技指数基金相关新闻
+                      恒生科技指数基金相关新闻
                     </span>
                     <span
                       aria-hidden="true"
@@ -154,7 +154,7 @@
                     </span>
                   </div>
                   <div
-                    aria-label="选择建议： 数据分析与可视化"
+                    aria-label="选择建议：数据分析与可视化"
                     class="ant-follow-up-suggestion ant-follow-up-suggestion-disabled"
                     role="button"
                   >
@@ -167,7 +167,7 @@
                       aria-describedby="test-id"
                       class="ant-follow-up-label"
                     >
-                       数据分析与可视化
+                      数据分析与可视化
                     </span>
                     <span
                       aria-hidden="true"

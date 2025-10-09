@@ -15,7 +15,7 @@
         当前会话ID: session-1
       </p>
       <div
-        style="padding: 20px; width: 348px; margin: 0px auto; border: 1px solid rgb(217, 217, 217);"
+        style="padding: 20px; width: 348px; margin: 0px auto; border: 1px solid var(--color-gray-border-light);"
       >
         <div
           agentid="test-agent"

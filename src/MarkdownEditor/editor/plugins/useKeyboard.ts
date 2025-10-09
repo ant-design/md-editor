@@ -19,6 +19,7 @@ import { EnterKey } from './hotKeyCommands/enter';
 import { MatchKey } from './hotKeyCommands/match';
 import { TabKey } from './hotKeyCommands/tab';
 
+import { NativeTableKeyboard } from '../../utils/native-table';
 import { useEditorStore } from '../store';
 
 /**
@@ -79,6 +80,18 @@ export const useKeyboard = (
     const enter = new EnterKey(store, backspace);
     const match = new MatchKey(markdownEditorRef.current);
     return (e: React.KeyboardEvent) => {
+      // 处理表格键盘事件
+      if (NativeTableKeyboard.shouldHandle(markdownEditorRef.current)) {
+        if (
+          NativeTableKeyboard.handleKeyDown(
+            markdownEditorRef.current,
+            e.nativeEvent,
+          )
+        ) {
+          return;
+        }
+      }
+
       if (openInsertCompletion && (isHotkey('up', e) || isHotkey('down', e))) {
         e.preventDefault();
         return;

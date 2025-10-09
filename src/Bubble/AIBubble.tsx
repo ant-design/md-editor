@@ -1,9 +1,9 @@
 import { memo, MutableRefObject, useContext, useMemo } from 'react';
 
+import { Loader } from '@sofa-design/icons';
 import { ConfigProvider, Flex } from 'antd';
 import cx from 'classnames';
 import React from 'react';
-import { Loader } from '../icons';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { BubbleConfigContext } from './BubbleConfigProvide';

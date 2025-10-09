@@ -28,7 +28,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '6px',
         color: 'var(--color-gray-text-secondary)',
         cursor: 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
         '&:hover': {
           color: 'var(--color-gray-text-default)',
@@ -51,6 +51,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         letterSpacing: 'var(--letter-spacing-body-base, normal)',
         background: 'var(--color-gray-control-fill-active)',
         borderRadius: '8px',
+
+        // 覆盖 Segmented 组件内部的样式
+        '.ant-segmented-item': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '4px',
+        },
+
+        '.ant-segmented-item-label': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '4px',
+        },
       },
 
       [`${token.componentCls}-tab-item`]: {
@@ -73,10 +88,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         height: '20px',
         padding: '4px 6px',
         marginLeft: '4px',
-        fontSize: '10px',
-        fontWeight: 500,
-        letterSpacing: '0.04em',
         color: 'var(--color-gray-text-secondary)',
+        font: 'var(--font-text-number-xs)',
+        letterSpacing: 'var(--letter-spacing-number-xs, normal)',
         backgroundColor: 'var(--color-gray-control-fill-active)',
         borderRadius: '200px',
         boxSizing: 'border-box',

@@ -1,8 +1,7 @@
+import { Star, StarFill, Trash2 } from '@sofa-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { Star, StarFill } from '../../icons';
-import TrashIcon from '../../icons/Trash2';
 import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';
 
@@ -52,6 +51,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
   const [open, setOpen] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(props.item?.isFavorite);
 
   return (
     <div
@@ -86,6 +86,8 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
           pointerEvents: isHover || props.agent?.enabled ? 'auto' : 'none',
           display: 'flex',
           alignItems: 'center',
+          background: 'transparent',
+          zIndex: 1,
         }}
       >
         <Space size={4}>
@@ -98,10 +100,8 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 e.preventDefault();
                 try {
                   setFavoriteLoading(true);
-                  await props.onFavorite?.(
-                    props.item!.sessionId!,
-                    !props.item!.isFavorite,
-                  );
+                  await props.onFavorite?.(props.item!.sessionId!, !isFavorite);
+                  setIsFavorite(!isFavorite);
                 } catch (error) {
                   // 处理错误
                 } finally {
@@ -109,27 +109,20 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 }
               }}
               title={
-                props.item!.isFavorite
-                  ? i18nLocale?.['chat.history.unfavorite'] || '取消收藏'
+                isFavorite
+                  ? i18nLocale?.['chat.history.favorited'] || '已收藏'
                   : i18nLocale?.['chat.history.favorite'] || '收藏'
               }
               style={{
                 width: 20,
                 height: 20,
-                padding: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                ...(props.item!.isFavorite
-                  ? {
-                      borderRadius: 'var(--radius-control-sm)',
-                      background: 'var(--color-primary-control-fill-secondary)',
-                      backdropFilter: 'blur(20px)',
-                    }
-                  : {}),
+                borderRadius: 'var(--radius-control-sm)',
               }}
             >
-              {props.item!.isFavorite ? (
+              {isFavorite ? (
                 <StarFill
                   style={{
                     fontSize: 14,
@@ -192,12 +185,15 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                 }}
                 title={i18nLocale?.['chat.history.delete'] || '删除'}
                 style={{
-                  padding: 0,
                   width: 20,
                   height: 20,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 'var(--radius-control-sm)',
                 }}
               >
-                <TrashIcon
+                <Trash2
                   style={{
                     fontSize: 14,
                     color: 'var(--color-gray-text-secondary)',
@@ -218,7 +214,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
         {!props.agent?.enabled ? (
           props.children
         ) : (
-          <span style={{ width: 24, height: 24 }}></span>
+          <span style={{ width: 20, height: 20 }}></span>
         )}
       </div>
     </div>

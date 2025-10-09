@@ -1,10 +1,8 @@
 import LoadingLottie from '@ant-design/md-editor/TaskList/LoadingLottie';
+import { Check, CircleDashed, OctagonX } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { type FC, useContext } from 'react';
-import DashPendingIcon from '../icons/DashPendingIcon';
-import ErrorIcon from '../icons/ErrorIcon';
-import SuccessIcon from '../icons/SuccessIcon';
 import { useTaskStyle } from './style';
 
 export interface TaskItemInput {
@@ -21,14 +19,14 @@ const StatusIcon: FC<{
 }> = ({ status }) => {
   switch (status) {
     case 'success':
-      return <SuccessIcon />;
+      return <Check />;
     case 'error':
-      return <ErrorIcon />;
+      return <OctagonX />;
     case 'loading':
       return <LoadingLottie />;
     case 'pending':
     default:
-      return <DashPendingIcon />;
+      return <CircleDashed />;
   }
 };
 

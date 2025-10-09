@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FollowUpQuestion renders items vertically and respects max count 6 1`] = `
+exports[`SuggestionList renders items vertically and respects max count 6 1`] = `
 <div
   aria-label="追问区域"
   class="follow-up"

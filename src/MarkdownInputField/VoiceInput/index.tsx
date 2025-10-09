@@ -1,8 +1,8 @@
+import { Voice } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { MicFill } from '../../icons';
 import VoicingLottie from '../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 
@@ -12,7 +12,12 @@ export type VoiceRecognizer = {
 };
 
 export type CreateRecognizer = (handlers: {
+  // 标识句子开始，内容为空
+  onSentenceBegin: () => void;
+  // 中间结果 比如语音输入 123，这个函数被调用三次，分别输入 1, 12, 123
   onPartial: (text: string) => void;
+  // 句子结束 比如语音输入 123, 输入 123
+  onSentenceEnd: (text: string) => void;
   onError?: (error: unknown) => void;
 }) => Promise<VoiceRecognizer>;
 
@@ -60,7 +65,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
         }}
       >
         <ErrorBoundary fallback={<div />}>
-          {recording ? <VoicingLottie size={16} /> : <MicFill />}
+          {recording ? <VoicingLottie size={16} /> : <Voice />}
         </ErrorBoundary>
       </div>
     </Tooltip>,

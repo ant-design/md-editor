@@ -1,6 +1,6 @@
+import { AiAgentManagement } from '@sofa-design/icons';
 import React, { useCallback, useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { AiAgentManagement } from '../../icons';
 
 /**
  * 新对话组件属性接口

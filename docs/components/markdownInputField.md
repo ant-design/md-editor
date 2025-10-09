@@ -62,13 +62,13 @@ export default () => {
           enable: true,
           accept: '.pdf,.doc,.docx,image/*',
           maxSize: 10 * 1024 * 1024, // 10MB
-          onUpload: async (file) => {
+          upload: async (file, index) => {
+            if (index == 3) {
+              throw new Error('上传失败');
+            }
             // 模拟上传文件
-            await new Promise((resolve) => setTimeout(resolve, 10000));
-            return {
-              url: URL.createObjectURL(file),
-              name: file.name,
-            };
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            return URL.createObjectURL(file);
           },
           onDelete: async (file) => {
             console.log('删除文件:', file);
@@ -187,56 +187,27 @@ export default () => {
         );
       }}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            icon={<GlobalOutlined />}
+            onClick={() => console.log('深度思考 clicked')}
           >
-            <GlobalOutlined />
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            icon={<AimOutlined />}
+            onClick={() => console.log('联网搜索 clicked')}
           >
-            <AimOutlined />
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         onChange={(newValue) => {
           setValue(newValue);
@@ -249,24 +220,26 @@ export default () => {
         }}
       />
       <SuggestionList
+        style={{
+          marginTop: 8,
+        }}
         items={[
           {
             key: 'qwe',
-            icon: '💸 ',
+            icon: '💸',
             text: '关税对消费类基金的影响',
-            tooltip: '关税消费',
             actionIcon: <EditOutlined />,
           },
           {
             key: 'asd',
-            icon: '💸 ',
-            text: ' 关税对消费类基金的影响',
+            icon: '📝',
+            text: '恒生科技指数基金相关新闻',
             actionIcon: <EditOutlined />,
           },
           {
             key: 'zxc',
-            icon: '💸 ',
-            text: '关税对消费类基金的影响',
+            icon: '📊',
+            text: '数据分析与可视化',
             actionIcon: <EditOutlined />,
           },
         ]}
@@ -293,12 +266,12 @@ export default () => {
 | `className`             | `string`                                         | -         | 应用于输入字段的 CSS 类名          |
 | `disabled`              | `boolean`                                        | -         | 是否禁用输入字段                   |
 | `typing`                | `boolean`                                        | -         | 用户是否正在输入的状态标志         |
+| `allowEmptySubmit`      | `boolean`                                        | `false`   | 是否允许在内容为空时也触发发送     |
 | `triggerSendKey`        | `'Enter' \| 'Mod+Enter'`                         | `'Enter'` | 触发发送操作的键盘快捷键           |
 | `onSend`                | `(value: string) => Promise<void>`               | -         | 当内容发送时触发的异步回调函数     |
 | `onStop`                | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
 | `onFocus`               | `(value: string, schema: Elements[]) => void`    | -         | 当输入字段获得焦点时触发的回调函数 |
 | `tagInputProps`         | `MarkdownEditorProps['tagInputProps']`           | -         | 标签输入的相关属性                 |
-| `bgColorList`           | `[string, string, string, string]`               | -         | 背景颜色列表                       |
 | `borderRadius`          | `number`                                         | `12`      | 边框圆角大小                       |
 | `attachment`            | `{ enable?: boolean } & AttachmentButtonProps`   | -         | 附件配置                           |
 | `actionsRender`         | `(props, defaultActions) => React.ReactNode[]`   | -         | 自定义渲染操作按钮的函数           |
@@ -314,7 +287,7 @@ export default () => {
 ### 基础使用
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
@@ -326,54 +299,25 @@ const App = () => {
       <MarkdownInputField
         value={value}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         onChange={(newValue) => setValue(newValue)}
         placeholder="请输入内容..."
@@ -405,22 +349,36 @@ const App = () => {
 export default App;
 ```
 
-### 启用语音输入按钮
+### 启用语音输入按钮（支持句级回调）
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
-import type { CreateRecognizer } from '@ant-design/md-editor/es/MarkdownInputField/VoiceInput';
+import {
+  MarkdownInputField,
+  type CreateRecognizer,
+  ToggleButton,
+} from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
-  const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+  const createRecognizer: CreateRecognizer = async ({
+    onSentenceBegin,
+    onPartial,
+    onSentenceEnd,
+    onError,
+  }) => {
     let timer: ReturnType<typeof setInterval>;
+    let i = 0;
     return {
       start: async () => {
-        // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
-        let i = 0;
+        // 真实场景应启动麦克风与ASR服务，这里用计时器模拟：句子开始 -> 多次增量 -> 句子结束
+        onSentenceBegin();
         timer = setInterval(() => {
-          onPartial(`语音片段${i} `);
-          i += 1;
+          if (i < 3) {
+            onPartial(`片段${i}`);
+            i += 1;
+          } else {
+            clearInterval(timer);
+            onSentenceEnd('完整句子');
+          }
         }, 500);
       },
       stop: async () => {
@@ -433,54 +391,25 @@ export default () => {
     <MarkdownInputField
       placeholder="请开始讲话..."
       toolsRender={() => [
-        <div
+        <ToggleButton
           key="bold"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
+          triggerIcon={<DownOutlined />}
+          onClick={() => console.log('DeepThink clicked')}
         >
-          DeepThink <DownOutlined />
-        </div>,
-        <div
+          DeepThink
+        </ToggleButton>,
+        <ToggleButton
           key="italic"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
+          onClick={() => console.log('深度思考 clicked')}
         >
           深度思考
-        </div>,
-        <div
+        </ToggleButton>,
+        <ToggleButton
           key="link"
-          style={{
-            borderRadius: '200px',
-            boxSizing: 'border-box',
-            border: '1px solid var(--color-gray-border-light) ',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '5px 12px',
-            gap: '8px',
-            zIndex: 1,
-          }}
+          onClick={() => console.log('联网搜索 clicked')}
         >
           联网搜索
-        </div>,
+        </ToggleButton>,
       ]}
       voiceRecognizer={createRecognizer}
       onChange={(a) => console.log(a)}
@@ -501,7 +430,7 @@ export default () => {
 ### 自定义触发键和样式
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -514,7 +443,6 @@ export default () => {
         triggerSendKey="Mod+Enter"
         style={{ minHeight: '200px' }}
         borderRadius={8}
-        bgColorList={['#4A90E2', '#50E3C2', '#F5A623', '#D0021B']}
       />
       <div>
         <h4>Props 说明</h4>
@@ -528,9 +456,6 @@ export default () => {
           <li>
             <code>borderRadius</code> - 边框圆角大小
           </li>
-          <li>
-            <code>bgColorList</code> - 背景颜色列表
-          </li>
         </ul>
       </div>
     </>
@@ -541,7 +466,7 @@ export default () => {
 ### 启用提示词优化
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 
 export default () => {
   const [value, setValue] = React.useState(
@@ -590,7 +515,7 @@ export default () => {
 ### 启用附件功能
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -600,66 +525,34 @@ export default () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         attachment={{
           enable: true,
           accept: '.pdf,.doc,.docx,image/*',
           maxSize: 10 * 1024 * 1024, // 10MB
-          onUpload: async (file) => {
+          upload: async (file) => {
             // 模拟上传文件
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            return {
-              url: URL.createObjectURL(file),
-              name: file.name,
-            };
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+            return URL.createObjectURL(file);
           },
           onDelete: async (file) => {
             console.log('删除文件:', file);
@@ -683,7 +576,7 @@ export default () => {
                 <code>maxSize</code> - 文件最大大小限制
               </li>
               <li>
-                <code>onUpload</code> - 文件上传回调函数
+                <code>upload</code> - 文件上传回调函数
               </li>
               <li>
                 <code>onDelete</code> - 文件删除回调函数
@@ -734,7 +627,7 @@ export default () => {
 ### 自定义操作按钮
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -748,60 +641,34 @@ export default () => {
         <MarkdownInputField
           value={value}
           toolsRender={() => [
-            <div
+            <ToggleButton
               key="bold"
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
+              triggerIcon={<DownOutlined />}
+              onClick={() => console.log('DeepThink clicked')}
             >
-              DeepThink <DownOutlined />
-            </div>,
-            <div
+              DeepThink
+            </ToggleButton>,
+            <ToggleButton
               key="italic"
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
+              onClick={() => console.log('深度思考 clicked')}
             >
               深度思考
-            </div>,
-            <div
+            </ToggleButton>,
+            <ToggleButton
               key="link"
-              style={{
-                borderRadius: '200px',
-                boxSizing: 'border-box',
-                border: '1px solid var(--color-gray-border-light) ',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '5px 12px',
-                gap: '8px',
-                zIndex: 1,
-              }}
+              onClick={() => console.log('联网搜索 clicked')}
             >
               联网搜索
-            </div>,
+            </ToggleButton>,
           ]}
           onChange={setValue}
           toolsRender={(props) => [
-            <button key="custom" onClick={() => console.log('自定义按钮')}>
+            <ToggleButton
+              key="custom"
+              onClick={() => console.log('自定义按钮')}
+            >
               自定义
-            </button>,
+            </ToggleButton>,
           ]}
           actionsRender={(props) => [
             <button key="custom" onClick={() => console.log('自定义按钮')}>
@@ -846,7 +713,7 @@ export default () => {
 ### 获取编辑器实例
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 const App = () => {
   const editorRef = React.useRef();
@@ -858,54 +725,25 @@ const App = () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
       />
       <button
@@ -928,7 +766,7 @@ export default App;
 ### 焦点事件处理
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 import { DownOutlined } from '@ant-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -940,54 +778,25 @@ export default () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <div
+          <ToggleButton
             key="bold"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
           >
-            DeepThink <DownOutlined />
-          </div>,
-          <div
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
             key="italic"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </div>,
-          <div
+          </ToggleButton>,
+          <ToggleButton
             key="link"
-            style={{
-              borderRadius: '200px',
-              boxSizing: 'border-box',
-              border: '1px solid var(--color-gray-border-light) ',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 12px',
-              gap: '8px',
-              zIndex: 1,
-            }}
+            onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </div>,
+          </ToggleButton>,
         ]}
         placeholder="点击输入框获得焦点..."
         onFocus={(value, schema) => {
@@ -1026,7 +835,7 @@ export default () => {
 ### 自定义叶子节点渲染
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 export default () => {
   const [value, setValue] = React.useState('**粗体文本** *斜体文本* `代码`');
 
@@ -1103,9 +912,9 @@ export default () => {
 ### 技能模式
 
 ```tsx
-import { MarkdownInputField } from '@ant-design/md-editor';
 import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 
 export default () => {
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
@@ -1290,7 +1099,7 @@ export default () => {
 ### 粘贴配置
 
 ```tsx | pure
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
 
 export default () => {
   const [value, setValue] = React.useState('');

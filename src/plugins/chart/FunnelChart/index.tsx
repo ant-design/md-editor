@@ -289,7 +289,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
   }, [filteredData, stages]);
 
-  const { ratioDisplay, ratioProvided } = useMemo(() => {
+  const ratioDisplay = useMemo(() => {
     const formatRaw = (v: any): string | undefined => {
       if (v === null || v === undefined) return undefined;
       if (typeof v === 'string') {
@@ -302,7 +302,8 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       }
       return undefined;
     };
-    const provided = stages.map((_, i) => {
+    // 检查除顶层外，是否至少有一层提供了 ratio
+    const anyNonTopProvided = stages.some((_, i) => {
       if (i === 0) return false;
       const prevStage = stages[i - 1];
       const dp = (filteredData || []).find((d) =>
@@ -313,16 +314,28 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       if (typeof v === 'string') return v.trim() !== '';
       return true;
     });
-    const anyProvided = provided.some(Boolean);
-    const display = stages.map((_, i) => {
-      if (i === 0) return anyProvided ? '100%' : undefined;
+    return stages.map((_, i) => {
+      if (i === 0) return anyNonTopProvided ? '100%' : undefined;
       const prevStage = stages[i - 1];
       const dp = (filteredData || []).find((d) =>
         isXValueEqual(d.x, prevStage),
       );
       return formatRaw(dp?.ratio);
     });
-    return { ratioDisplay: display, ratioProvided: provided };
+  }, [filteredData, stages]);
+
+  const ratioProvided = useMemo(() => {
+    return stages.map((_, i) => {
+      if (i === 0) return false;
+      const prevStage = stages[i - 1];
+      const dp = (filteredData || []).find((d) =>
+        isXValueEqual(d.x, prevStage),
+      );
+      const v = dp?.ratio;
+      if (v === null || v === undefined) return false;
+      if (typeof v === 'string') return v.trim() !== '';
+      return true;
+    });
   }, [filteredData, stages]);
 
   // 过滤器选项

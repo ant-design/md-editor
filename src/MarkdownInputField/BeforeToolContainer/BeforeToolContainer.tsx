@@ -1,9 +1,9 @@
+import { GripVertical,Menu } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useStyle } from './actionItemBoxStyle';
-import { GripVertical } from '../../icons';
 
 type KeyedElement = React.ReactElement & { key: React.Key };
 
@@ -23,7 +23,10 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [isIndicatorHover, setIsIndicatorHover] = useState(false);
   const [showOverflowPopup, setShowOverflowPopup] = useState(false);
-  const [popupPos, setPopupPos] = useState<{ left: number; top: number } | null>(null);
+  const [popupPos, setPopupPos] = useState<{
+    left: number;
+    top: number;
+  } | null>(null);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [overIndex, setOverIndex] = useState<number | null>(null);
   const isHandlePressRef = useRef(false);
@@ -66,7 +69,9 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
       }
     });
     if (hasMissingKey) {
-      throw new Error('ActionItemContainer: all children must include an explicit `key` prop.');
+      throw new Error(
+        'ActionItemContainer: all children must include an explicit `key` prop.',
+      );
     }
   }, [props.children]);
 
@@ -95,8 +100,6 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.children]);
 
-
-
   // No need to compute hidden index; popup renders all children
 
   const computePopupPosition = () => {
@@ -111,9 +114,11 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     let top = rect.top - popupHeight - gap;
     // Keep within viewport horizontally
     if (left < 8) left = 8;
-    if (left + popupWidth > window.innerWidth - 8) left = window.innerWidth - 8 - popupWidth;
+    if (left + popupWidth > window.innerWidth - 8)
+      left = window.innerWidth - 8 - popupWidth;
     // If not enough space above, place below
-    if (top < 8) top = Math.min(rect.bottom + gap, window.innerHeight - popupHeight - 8);
+    if (top < 8)
+      top = Math.min(rect.bottom + gap, window.innerHeight - popupHeight - 8);
     setPopupPos({ left, top });
   };
 
@@ -123,7 +128,9 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     computePopupPosition();
     requestAnimationFrame(() => computePopupPosition());
     // in case layout/ fonts settle next frame again
-    requestAnimationFrame(() => requestAnimationFrame(() => computePopupPosition()));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => computePopupPosition()),
+    );
     if (typeof window === 'undefined') return;
     const onScroll = () => computePopupPosition();
     const onResize = () => computePopupPosition();
@@ -153,7 +160,10 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     };
   }, [showOverflowPopup]);
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+  const handleDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    index: number,
+  ) => {
     e.stopPropagation();
     e.dataTransfer.effectAllowed = 'move';
     try {
@@ -164,7 +174,10 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     setDraggingIndex(index);
   };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+  const handleDragOver = (
+    e: React.DragEvent<HTMLDivElement>,
+    index: number,
+  ) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     if (overIndex !== index) setOverIndex(index);
@@ -317,31 +330,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           onMouseLeave={() => setIsIndicatorHover(false)}
           onClick={() => setShowOverflowPopup((v) => !v)}
         >
-          {/* <MicFill /> */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            version="1.1"
-          >
-            <defs>
-              <clipPath id="overflow_menu_clip">
-                <rect x="0" y="0" width="16" height="16" rx="0" />
-              </clipPath>
-            </defs>
-            <g clipPath="url(#overflow_menu_clip)">
-              <g>
-                <path
-                  d="M2.666667,11.333333492279053L13.3333,11.333333492279053C13.7015,11.333333492279053,14,11.631813492279052,14,12.000003492279053C14,12.368193492279053,13.7015,12.666663492279053,13.3333,12.666663492279053L2.666667,12.666663492279053C2.298477,12.666663492279053,2,12.368193492279053,2,12.000003492279053C2,11.631813492279052,2.298477,11.333333492279053,2.666667,11.333333492279053ZM2.666667,3.3333334922790527L13.3333,3.3333334922790527C13.7015,3.3333334922790527,14,3.631810492279053,14,4.000000492279053C14,4.368193492279053,13.7015,4.666663492279053,13.3333,4.666663492279053L2.666667,4.666663492279053C2.298477,4.666663492279053,2,4.368193492279053,2,4.000000492279053C2,3.631810492279053,2.298477,3.3333334922790527,2.666667,3.3333334922790527ZM2.666667,7.333333492279053L13.3333,7.333333492279053C13.7015,7.333333492279053,14,7.631813492279052,14,8.000003492279053C14,8.368193492279053,13.7015,8.666663492279053,13.3333,8.666663492279053L2.666667,8.666663492279053C2.298477,8.666663492279053,2,8.368193492279053,2,8.000003492279053C2,7.631813492279052,2.298477,7.333333492279053,2.666667,7.333333492279053Z"
-                  fillRule="evenodd"
-                  fill="#545D6D"
-                  fillOpacity="0.8"
-                />
-              </g>
-            </g>
-          </svg>
+          <Menu />
         </div>
         {showOverflowPopup && popupPos && typeof document !== 'undefined'
           ? createPortal(
@@ -413,5 +402,3 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
 };
 
 ActionItemContainer.displayName = 'ActionItemContainer';
-
-

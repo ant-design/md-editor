@@ -3,10 +3,10 @@ import {
   Chunk,
   WhiteBoxProcessInterface,
 } from '@ant-design/md-editor/ThoughtChainList';
+import { Loader } from '@sofa-design/icons';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { Loader } from '../../icons';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';

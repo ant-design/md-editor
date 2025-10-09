@@ -13,6 +13,7 @@
       </h3>
       <div
         data-testid="loading"
+        style="font-size: 64px;"
       >
         loading
       </div>

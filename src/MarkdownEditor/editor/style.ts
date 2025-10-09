@@ -60,7 +60,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     // 可调整大小组件样式
     '.react-resizable': {
       position: 'relative',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       boxSizing: 'border-box',
       border: '1px solid var(--color-gray-border-light)',
     },
@@ -574,26 +574,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 600,
       },
 
-      tr: {
-        background: 'inherit',
-
-        'td:first-child': {
-          fontSize: 'var(--font-size-lg)',
-          lineHeight: '24px',
-          fontWeight: 600,
-        },
-      },
-
       'th:first-child, td:first-child': {
         position: 'sticky',
         left: 0,
         zIndex: 100,
-        minWidth: '120px',
-        width: '120px',
-        background: 'inherit',
       },
 
-      'tbody tr:hover': {
+      'tbody tr:not(.config-tr):hover': {
         background: 'rgba(0, 28, 57, 0.0353)',
       },
 
@@ -873,7 +860,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         'td:first-child, th:first-child': {
           overflow: 'visible',
-
           '&::after': {
             content: '""',
             position: 'absolute',

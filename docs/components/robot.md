@@ -18,13 +18,13 @@ group:
 
 ### Robot
 
-| 参数      | 说明               | 类型                                             | 默认值      |
-| --------- | ------------------ | ------------------------------------------------ | ----------- |
-| status    | 机器人状态         | `'default' \| 'running'                         | `'default'` |
-| size      | 机器人大小（像素） | `number`                                         | `42`        |
-| className | 自定义类名         | `string`                                         | -           |
-| style     | 自定义样式         | `React.CSSProperties`                            | -           |
-| icon      | 自定义图标         | `React.ReactNode`                                | -           |
+| 参数      | 说明               | 类型                    | 默认值      |
+| --------- | ------------------ | ----------------------- | ----------- |
+| status    | 机器人状态         | `'default' \| 'running' | `'default'` |
+| size      | 机器人大小（像素） | `number`                | `42`        |
+| className | 自定义类名         | `string`                | -           |
+| style     | 自定义样式         | `React.CSSProperties`   | -           |
+| icon      | 自定义图标         | `React.ReactNode`       | -           |
 
 ### 通用 API
 

@@ -1,4 +1,5 @@
 import { FullscreenOutlined } from '@ant-design/icons';
+import { Copy } from '@sofa-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -10,7 +11,6 @@ import React, {
   useState,
 } from 'react';
 import { I18nContext } from '../../../../i18n';
-import { Copy } from '../../../../icons';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 import { TableNode } from '../../types/Table';

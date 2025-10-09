@@ -1,4 +1,11 @@
 import { CloseCircleFilled } from '@ant-design/icons';
+import {
+  ChevronsDownUp,
+  ChevronsUpDown,
+  CircleCheckBig,
+  Loader,
+  Sparkles,
+} from '@sofa-design/icons';
 import { ConfigProvider, Descriptions, Drawer, Typography } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -9,13 +16,6 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useAutoScroll } from '../hooks/useAutoScroll';
 import { I18nContext } from '../i18n';
-import {
-  ChevronsDownUp,
-  ChevronsUpDown,
-  CircleCheckBig,
-  Loader,
-  Sparkles,
-} from '../icons';
 import { ActionIconBox } from '../MarkdownEditor/editor/components/ActionIconBox';
 import { MarkdownEditorProps } from '../MarkdownEditor/types';
 import { DotLoading } from './DotAni';
@@ -449,16 +449,19 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
       return (
         <div>
           {thoughtChainList.at(-1) && collapse ? (
-            <TitleInfo
-              title={thoughtChainList.at(-1)?.info}
-              costMillis={thoughtChainList.at(-1)?.costMillis}
-              category={thoughtChainList.at(-1)?.category || ''}
-              prefixCls={prefixCls}
-              hashId={hashId}
-              isFinished={false}
-              collapse={true}
-              meta={thoughtChainList.at(-1)?.meta?.data || {}}
-            />
+            <>
+              <TitleInfo
+                title={thoughtChainList.at(-1)?.info}
+                costMillis={thoughtChainList.at(-1)?.costMillis}
+                category={thoughtChainList.at(-1)?.category || ''}
+                prefixCls={prefixCls}
+                hashId={hashId}
+                isFinished={false}
+                collapse={true}
+                meta={thoughtChainList.at(-1)?.meta?.data || {}}
+              />
+              {loading && <DotLoading />}
+            </>
           ) : (
             <div>
               {locale?.thinking}

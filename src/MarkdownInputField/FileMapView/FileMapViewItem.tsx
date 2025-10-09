@@ -1,15 +1,15 @@
-﻿// import {
+// import {
 //   DownloadOutlined,
 //   EllipsisOutlined,
 //   EyeOutlined,
 // } from '@ant-design/icons';
+import { Download, EllipsisVertical, Eye } from '@sofa-design/icons';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { Download, Ellipsis, Eye } from '../../icons';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { kbToSize } from '../AttachmentButton/utils';
@@ -189,7 +189,7 @@ export const FileMapViewItem: React.FC<{
                       props.hashId,
                     )}
                   >
-                    <Eye />
+                    <Eye color="var(--color-gray-text-secondary)" />
                   </div>
                   <div
                     onClick={(e) => {
@@ -201,7 +201,7 @@ export const FileMapViewItem: React.FC<{
                       props.hashId,
                     )}
                   >
-                    <Download />
+                    <Download color="var(--color-gray-text-secondary)" />
                   </div>
                   {props.renderMoreAction ? (
                     <div
@@ -222,7 +222,7 @@ export const FileMapViewItem: React.FC<{
                         props.hashId,
                       )}
                     >
-                      <Ellipsis />
+                      <EllipsisVertical color="var(--color-gray-text-secondary)" />
                       {props.renderMoreAction ? (
                         <div
                           className={classNames(
@@ -242,5 +242,5 @@ export const FileMapViewItem: React.FC<{
         </motion.div>
       </Tooltip>
     );
-  }, [file, file.status, hovered]);
+  }, [file, file.status, hovered, props.onPreview, props.onDownload]);
 };

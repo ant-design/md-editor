@@ -1,7 +1,7 @@
-﻿import { ConfigProvider, message } from 'antd';
+import { Paperclip } from '@sofa-design/icons';
+import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext, useMemo } from 'react';
-import { Paperclip } from '../../icons';
 import AttachmentButtonPopover, {
   AttachmentButtonPopoverProps,
   SupportedFileFormats,
@@ -109,7 +109,7 @@ export const upLoadFileToServer = async (
   props: {
     fileMap?: Map<string, AttachmentFile>;
     onFileMapChange?: (files?: Map<string, AttachmentFile>) => void;
-    upload?: (file: AttachmentFile) => Promise<string>;
+    upload?: (file: AttachmentFile, index: number) => Promise<string>;
     maxFileSize?: number;
     maxFileCount?: number;
     minFileCount?: number;
@@ -139,6 +139,7 @@ export const upLoadFileToServer = async (
   }
   props.onFileMapChange?.(map);
   try {
+    let index = 0;
     for await (const file of fileList) {
       await waitTime(16);
       if (props.maxFileSize && file.size > props.maxFileSize) {
@@ -153,19 +154,28 @@ export const upLoadFileToServer = async (
         );
         continue;
       }
-      const url = (await props?.upload?.(file)) || file.previewUrl;
-      if (url) {
-        file.status = 'done';
-        file.url = url;
-        map.set(file.uuid || '', file);
-        props.onFileMapChange?.(map);
-        message.success('Upload success');
-      } else {
+      try {
+        const url = (await props?.upload?.(file, index)) || file.previewUrl;
+        if (url) {
+          file.status = 'done';
+          file.url = url;
+          map.set(file.uuid || '', file);
+          props.onFileMapChange?.(map);
+          message.success('Upload success');
+        } else {
+          file.status = 'error';
+          map.set(file.uuid || '', file);
+          props.onFileMapChange?.(map);
+          message.error('Upload failed');
+        }
+      } catch (error) {
         file.status = 'error';
         map.set(file.uuid || '', file);
         props.onFileMapChange?.(map);
         message.error('Upload failed');
       }
+
+      index++;
     }
   } catch (error) {
     fileList.forEach((file) => {

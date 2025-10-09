@@ -36,7 +36,10 @@ const EVENT = 'mousedown';
  * - 组件卸载时自动清理事件监听
  * - 适用于下拉菜单、弹出层等场景
  */
-const useClickAway = (callback: any, ref: React.RefObject<HTMLDivElement>) => {
+export const useClickAway = (
+  callback: any,
+  ref: React.RefObject<HTMLDivElement>,
+) => {
   useEffect(() => {
     /**
      * 鼠标点击事件的监听函数

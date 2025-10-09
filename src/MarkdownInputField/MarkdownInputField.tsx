@@ -188,7 +188,7 @@ export type MarkdownInputFieldProps = {
    * 语音输入配置
    * @description 由外部提供语音转写实现，组件仅负责控制与UI，传空不展示语音输入按钮。
    *
-   * onPartial 约定：增量追加（append-delta）：`onPartial(text)` 仅包含“需要追加”的最新片段。
+   * onPartial `onPartial(text)` 为根据语音识别出的的最新片段。拿到后根据上一句起始位置替换
    */
   voiceRecognizer?: CreateRecognizer;
 
@@ -393,30 +393,15 @@ export type MarkdownInputFieldProps = {
    * }}
    */
   onSkillModeOpenChange?: (open: boolean) => void;
-};
 
-/**
- * 根据提供的颜色数组生成边缘颜色序列。
- * 对于数组中的每种颜色，该函数会创建一个新的序列，其中颜色按照循环顺序排列，
- * 并在序列末尾再添加当前颜色。
- *
- * @param colors - 要处理的颜色数组
- * @returns 一个二维数组，每个子数组包含从特定位置开始循环的颜色序列，并在末尾重复当前颜色
- * @example
- * // 返回 [['red', 'blue', 'green', 'red'], ['blue', 'green', 'red', 'blue'], ['green', 'red', 'blue', 'green']]
- * generateEdges(['red', 'blue', 'green'])
- */
-export const generateEdges = (colors: string[]): string[][] => {
-  if (!Array.isArray(colors) || colors.length === 0) return [];
-  // 至少保证 3 个颜色，便于后续得到 4 段动画停靠点
-  const base =
-    colors.length >= 3
-      ? colors
-      : [...colors, ...colors.slice(0, 3 - colors.length)];
-  return base.map((current, index) => {
-    const rotated = base.slice(index).concat(base.slice(0, index));
-    return [...rotated, current];
-  });
+  /**
+   * 是否允许在内容为空时也触发发送
+   * @description 默认情况下输入内容为空（且无附件、未录音）时点击发送按钮不会触发 onSend。开启该配置后即使内容为空字符串也会调用 onSend('')。
+   * @default false
+   * @example
+   * <MarkdownInputField allowEmptySubmit onSend={(v) => submit(v)} /> // v 可能为 ''
+   */
+  allowEmptySubmit?: boolean;
 };
 
 /**
@@ -506,6 +491,16 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [recording, setRecording] = useState(false);
   const recognizerRef = React.useRef<VoiceRecognizer | null>(null);
   const pendingRef = React.useRef(false);
+  // 句子开始索引
+  const sentenceStartIndexRef = React.useRef<number>(0);
+
+  const updateCurrentSentence = useRefFunction((text: string) => {
+    const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
+    const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
+    const next = `${prefix}${text}`;
+    markdownEditorRef?.current?.store?.setMDContent(next);
+    setValue(next);
+  });
 
   // 是否需要多行布局
   const isMultiRowLayout = useMemo(() => {
@@ -528,13 +523,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     pendingRef.current = true;
     try {
       const recognizer = await props.voiceRecognizer({
-        onPartial: (text: string) => {
+        onSentenceBegin: () => {
+          // 记录当前内容位置，重置本句累积
           const current =
             markdownEditorRef?.current?.store?.getMDContent() || '';
-          const next = `${current}${text}`;
-          markdownEditorRef?.current?.store?.setMDContent(next);
-          setValue(next); // 自动触发onChange
+          sentenceStartIndexRef.current = current.length;
         },
+        onPartial: updateCurrentSentence,
+        onSentenceEnd: updateCurrentSentence,
         onError: () => {
           setRecording(false);
           recognizerRef.current?.stop?.().catch(() => void 0);
@@ -611,10 +607,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       props.onChange?.(mdValue);
     }
 
-    if (props.onSend && mdValue) {
+    // allowEmptySubmit 开启时，即使内容为空也允许触发发送
+    if (props.onSend && (props.allowEmptySubmit || mdValue)) {
       setIsLoading(true);
       try {
-        await props.onSend(mdValue);
+        await props.onSend(mdValue || '');
         markdownEditorRef?.current?.store?.clearContent();
         props.onChange?.('');
         setValue('');
@@ -624,17 +621,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       }
     }
   });
-
-  /**
-   * 生成背景颜色列表
-   * @description 该函数用于生成背景颜色列表，默认使用三种颜色。
-   * @returns {string[][]} 颜色列表
-   */
-  const colorList = useMemo(() => {
-    return generateEdges(
-      props.bgColorList || ['#CD36FF', '#FFD972', '#eff0f1'],
-    );
-  }, [props.bgColorList?.join(',')]);
 
   /**
    * 更新附件文件列表
@@ -748,7 +734,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         key="send-button"
         typing={!!props.typing || isLoading}
         isSendable={
-          !!value?.trim() || (fileMap && fileMap.size > 0) || recording
+          props.allowEmptySubmit ||
+          !!value?.trim() ||
+          (fileMap && fileMap.size > 0) ||
+          recording
         }
         disabled={props.disabled}
         onClick={() => {
@@ -776,6 +765,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     props.onSend,
     props.onStop,
     props.voiceRecognizer,
+    props.allowEmptySubmit,
   ]);
 
   const handleFileRemoval = useRefFunction(async (file: AttachmentFile) => {
@@ -827,7 +817,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     <>
       {beforeTools ? (
         <div className={classNames(`${baseCls}-before-tools`, hashId)}>
-            {beforeTools}
+          {beforeTools}
         </div>
       ) : null}
       <Suggestion
@@ -918,55 +908,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               height: bgSize.height,
               width: bgSize.width,
             }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              fill="none"
-              version="1.1"
-              width="100%"
-              style={{
-                borderRadius: 'inherit',
-              }}
-              height="100%"
-            >
-              <defs>
-                <radialGradient
-                  cx="0.5"
-                  cy="1"
-                  r="0.5"
-                  id="master_svg1_55_47405"
-                >
-                  {colorList.map((color, index) => {
-                    return (
-                      <stop
-                        key={index}
-                        offset={`${(index * 100) / colorList.length}%`}
-                        stopColor={color[0]}
-                        stopOpacity="0.4"
-                      >
-                        <animate
-                          attributeName="stop-color"
-                          values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
-                          dur="4s"
-                          repeatCount="indefinite"
-                        />
-                      </stop>
-                    );
-                  })}
-                </radialGradient>
-              </defs>
-              <g>
-                <rect
-                  x={0}
-                  y={0}
-                  width="100%"
-                  height="100%"
-                  fill="url(#master_svg1_55_47405)"
-                />
-              </g>
-            </svg>
-          </div>
+          />
 
           <div
             style={{
@@ -1066,23 +1008,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   justifyContent: 'space-between',
                   gap: 8,
                   width: '100%',
-                  minHeight: 42,
                   paddingRight: 8,
                   paddingLeft: 8,
+                  paddingBottom: 12,
                 }}
               >
                 {props.toolsRender ? (
                   <div
                     ref={actionsRef}
                     contentEditable={false}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
                     className={classNames(`${baseCls}-send-tools`, hashId)}
                   >
                     {props.toolsRender

@@ -1,14 +1,14 @@
-import { ConfigProvider } from 'antd';
-import classNamesFn from 'classnames';
-import { motion } from 'framer-motion';
-import { useMergedState } from 'rc-util';
-import React, { useContext } from 'react';
 import {
   Brain,
   ChevronDown,
   ChevronDown as ExpandDownIcon,
   Expand as ExpandIcon,
-} from '../icons';
+} from '@sofa-design/icons';
+import { ConfigProvider } from 'antd';
+import classNamesFn from 'classnames';
+import { motion } from 'framer-motion';
+import { useMergedState } from 'rc-util';
+import React, { useContext } from 'react';
 import { useStyle } from './thinkStyle';
 
 export interface ToolUseBarThinkProps {

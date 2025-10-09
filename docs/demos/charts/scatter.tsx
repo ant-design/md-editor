@@ -140,7 +140,13 @@ const ScatterChartDemo: React.FC = () => {
       </div>
 
       {/* 散点图组件 */}
-      <div style={{ marginBottom: '20px' }}>
+      <div
+        style={{
+          marginBottom: '40px',
+          minHeight: '600px',
+          overflow: 'hidden',
+        }}
+      >
         <ScatterChart
           title="2025年第一季度短视频用户分布分析"
           data={data}
