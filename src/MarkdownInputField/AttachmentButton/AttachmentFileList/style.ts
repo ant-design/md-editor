@@ -107,10 +107,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
           gap: 4,
           '&-item:not(:last-child)': {
-            paddingRight: 4,
             lineHeight: '9px',
-            borderRight: '1px solid var(--color-gray-border-light)',
+            display: 'flex',
+            gap: 4,
+            alignItems: 'center',
             height: 12,
+            '&:after': {
+              content: '""',
+              display: 'block',
+              width: '1px',
+              height: '12px',
+              background: 'var(--color-gray-border-light)',
+            },
           },
         },
         '&-close-icon': {
