@@ -211,6 +211,7 @@ For it will surely sprout wings and fly off to the sky like an eagle
 | editorRef               | `React.MutableRefObject<MarkdownEditorInstance>`                              | 编辑器实例引用     |
 | rootContainer           | `React.MutableRefObject<HTMLDivElement>`                                      | 根容器引用         |
 | onChange                | `(value: string, schema: Elements[]) => void`                                 | 内容变化回调       |
+| onSelectionChange       | `(selection: Selection \| null, markdown: string, nodes: Elements[]) => void` | 选区变化回调       |
 | **自定义渲染**          |
 | eleItemRender           | `(props: ElementProps, defaultDom: React.ReactNode) => React.ReactElement`    | 自定义元素渲染     |
 | leafRender              | `(props: RenderLeafProps, defaultDom: React.ReactNode) => React.ReactElement` | 自定义叶子节点渲染 |
@@ -268,6 +269,66 @@ export default () => {
 > 只读模式常用于文档展示、内容预览等场景。`}
       height="300px"
     />
+  );
+};
+```
+
+### 监听选区变化
+
+```tsx
+import { MarkdownEditor } from '@ant-design/md-editor';
+import { message } from 'antd';
+import { useState } from 'react';
+
+export default () => {
+  const [selectedText, setSelectedText] = useState('');
+
+  return (
+    <>
+      <MarkdownEditor
+        initValue={`# 选区变化监听示例
+
+尝试选中下面的文本，查看选中内容的 Markdown 格式。
+
+## 示例文本
+
+这是一段**加粗**的文本，还有*斜体*文本。
+
+- 列表项 1
+- 列表项 2
+- 列表项 3
+
+\`\`\`javascript
+const hello = 'world';
+console.log(hello);
+\`\`\`
+`}
+        height="400px"
+        onSelectionChange={(selection, markdown, nodes) => {
+          if (markdown) {
+            setSelectedText(markdown);
+            console.log('选中的文本:', markdown);
+            console.log('选区信息:', selection);
+            console.log('选中的节点:', nodes);
+          }
+        }}
+      />
+      {selectedText && (
+        <div
+          style={{
+            marginTop: 16,
+            padding: 12,
+            background: '#f5f5f5',
+            borderRadius: 4,
+          }}
+        >
+          <strong>选中的 Markdown 内容:</strong>
+          <pre style={{ marginTop: 8, whiteSpace: 'pre-wrap' }}>
+            {selectedText}
+          </pre>
+        </div>
+      )}
+    </>
   );
 };
 ```
