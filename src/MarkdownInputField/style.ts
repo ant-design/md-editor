@@ -215,15 +215,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: 8,
       width: '100%',
       padding: '0 8px',
+      paddingRight: '32px',
       marginBottom: '8px',
       font: 'var(--font-text-body-base)',
       color: 'var(--color-gray-text-default)',
       '> div': {
         cursor: 'pointer',
-        '&:hover': {
-          background: 'var(--color-gray-control-fill-active)',
-          boxShadow: 'var(--shadow-border-base)',
-        },
       },
     },
   };

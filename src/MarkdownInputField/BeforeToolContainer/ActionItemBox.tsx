@@ -51,8 +51,6 @@ export const ActionItemBox = (props: ActionItemBoxProps) => {
           `${basePrefixCls}-container`,
           {
             [`${basePrefixCls}-container-${props.size}`]: props.size,
-            [`${basePrefixCls}-container-standalone`]: props.standalone,
-            [`${basePrefixCls}-container-compact`]: props.compact,
             [`${basePrefixCls}-container-hover-bg`]: props.hoverBg ?? true,
           },
           hashId,
@@ -85,7 +83,6 @@ export const ActionItemBox = (props: ActionItemBoxProps) => {
                   height: props.iconSize || 24,
                   minWidth: props.iconSize || 24,
                   minHeight: props.iconSize || 24,
-                  padding: props.size === 'small' ? 2 : 8,
                 }}
                 className={classNames(
                   `${basePrefixCls}-icon`,
