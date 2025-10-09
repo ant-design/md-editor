@@ -146,6 +146,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           padding: 'var(--padding-2x)',
         },
+        '&-error-icon': {
+          width: '40px',
+          height: '40px',
+          fontSize: '40px',
+          display: 'flex',
+        },
       },
     },
     [`${token.componentCls}-container`]: {

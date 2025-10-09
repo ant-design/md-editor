@@ -71,13 +71,13 @@ export default () => {
           enable: true,
           accept: '.pdf,.doc,.docx,image/*',
           maxSize: 10 * 1024 * 1024, // 10MB
-          onUpload: async (file) => {
+          upload: async (file, index) => {
+            if (index == 3) {
+              throw new Error('上传失败');
+            }
             // 模拟上传文件
-            await new Promise((resolve) => setTimeout(resolve, 10000));
-            return {
-              url: URL.createObjectURL(file),
-              name: file.name,
-            };
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            return URL.createObjectURL(file);
           },
           onDelete: async (file) => {
             console.log('删除文件:', file);
@@ -636,13 +636,10 @@ export default () => {
           enable: true,
           accept: '.pdf,.doc,.docx,image/*',
           maxSize: 10 * 1024 * 1024, // 10MB
-          onUpload: async (file) => {
+          upload: async (file) => {
             // 模拟上传文件
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            return {
-              url: URL.createObjectURL(file),
-              name: file.name,
-            };
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+            return URL.createObjectURL(file);
           },
           onDelete: async (file) => {
             console.log('删除文件:', file);
@@ -666,7 +663,7 @@ export default () => {
                 <code>maxSize</code> - 文件最大大小限制
               </li>
               <li>
-                <code>onUpload</code> - 文件上传回调函数
+                <code>upload</code> - 文件上传回调函数
               </li>
               <li>
                 <code>onDelete</code> - 文件删除回调函数

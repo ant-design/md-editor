@@ -88,7 +88,7 @@ export const AttachmentFileListItem: React.FC<{
         {file.status === 'error' ? (
           <div
             className={classNames(
-              `${props.prefixCls}-uploading-icon`,
+              `${props.prefixCls}-error-icon`,
               props.hashId,
             )}
           >
