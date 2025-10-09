@@ -220,10 +220,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       color: 'var(--color-gray-text-default)',
       '> div': {
         cursor: 'pointer',
-        '&:hover': {
-          background: 'var(--color-gray-control-fill-active)',
-          boxShadow: 'var(--shadow-border-base)',
-        },
       },
     },
   };

@@ -203,7 +203,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   };
 
   return wrapSSR(
-    <>
+    <div>
       <div
         ref={containerRef}
         style={{
@@ -309,8 +309,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         >{ordered.map((entry) => (
           <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
         ))}</div>
-      </div>
-      <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)}>
+        <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)}>
         <div
           className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}
           ref={indicatorRef}
@@ -407,8 +406,9 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
             document.body,
           )
           : null}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
