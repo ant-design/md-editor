@@ -197,6 +197,23 @@ export const IconButtonDemo = () => {
 
 export const TogalButtonDemo = () => {
   useCSSVariables('ThemeExample', globalThemeToken);
+
+  const customIcon = (
+    <div style={{
+        width: '100%',
+        height: 16,
+        padding: '4px 6px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '200px',
+        background: 'var(--color-primary-control-fill-secondary-active)',
+        color: 'var(--color-primary-text-secondary)',
+    }}>
+        134
+    </div>
+  )
+
   return (
     <Flex
       gap={12}
@@ -212,14 +229,14 @@ export const TogalButtonDemo = () => {
           padding: '24px',
         }}
       >
-        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />}>
-          正常状态
+        <TogalButton icon={<Plug />}>
+          开关按钮
         </TogalButton>
-        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />} active>
-          激活状态
+        <TogalButton icon={<Plug />} triggerIcon={customIcon} active>
+          开关按钮
         </TogalButton>
         <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />} disabled>
-          禁用状态
+          开关按钮
         </TogalButton>
       </Flex>
     </Flex>

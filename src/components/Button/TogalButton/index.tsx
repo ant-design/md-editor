@@ -1,6 +1,7 @@
 import { Button, ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { ChevronDown, ChevronUp } from '@sofa-design/icons';
 import { useStyle } from './style';
 
 export interface TogalButtonProps {
@@ -9,6 +10,8 @@ export interface TogalButtonProps {
   triggerIcon?: React.ReactNode;
   disabled?: boolean;
   active?: boolean;
+  defaultActive?: boolean;
+  onChange?: (active: boolean) => void;
   onClick?: () => void | Promise<void>;
   className?: string;
   style?: React.CSSProperties;
@@ -22,6 +25,8 @@ export const TogalButton: React.FC<TogalButtonProps> = ({
   triggerIcon,
   disabled,
   active,
+  defaultActive,
+  onChange,
   onClick,
   children,
 }) => {
@@ -30,34 +35,54 @@ export const TogalButton: React.FC<TogalButtonProps> = ({
 
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
-  const rootCls = classNames(prefixCls, className, hashId);
+  const isControlled = typeof active === 'boolean';
+  const [innerActive, setInnerActive] = useState<boolean>(active ?? defaultActive ?? false);
+
+  useEffect(() => {
+    if (isControlled) {
+      setInnerActive(!!active);
+    }
+  }, [active, isControlled]);
+
+  const effectiveActive = isControlled ? !!active : innerActive;
+
+  const rootCls = classNames(
+    `${prefixCls}-button`,
+    prefixCls,
+    className,
+    hashId,
+    {
+      [`${prefixCls}-active`]: effectiveActive,
+      [`${prefixCls}-disabled`]: disabled,
+    },
+  );
+
+  const handleClick = async () => {
+    if (disabled) return;
+    const next = !effectiveActive;
+    if (!isControlled) setInnerActive(next);
+    onChange?.(next);
+    await onClick?.();
+  };
+
+  const renderTriggerIcon = () => {
+    if (triggerIcon) return triggerIcon;
+    return effectiveActive ? <ChevronUp /> : <ChevronDown />;
+  };
 
   return wrapSSR(
-    <div 
-      className={classNames(rootCls, {
-        [`${prefixCls}-active`]: active,
-        [`${prefixCls}-disabled`]: disabled,
-      })} 
+    <Button
+      disabled={disabled}
+      onClick={handleClick}
+      className={rootCls}
       style={style}
+      role="switch"
+      aria-pressed={effectiveActive}
     >
-      <Button
-        disabled={disabled}
-        onClick={onClick}
-        className={classNames(`${prefixCls}-button`, hashId)}
-        style={{
-          border: 'none',
-          background: 'transparent',
-          padding: 0,
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        {icon && <span className={`${prefixCls}-icon`}>{icon}</span>}
-        {children && <span className={`${prefixCls}-text`}>{children}</span>}
-        {triggerIcon && <span className={`${prefixCls}-trigger-icon`}>{triggerIcon}</span>}
-      </Button>
-    </div>,
+      {icon && <span className={`${prefixCls}-icon`}>{icon}</span>}
+      {children && <span className={`${prefixCls}-text`}>{children}</span>}
+      <span className={`${prefixCls}-trigger-icon`}>{renderTriggerIcon()}</span>
+    </Button>,
   );
 };
 

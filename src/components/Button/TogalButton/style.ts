@@ -7,279 +7,132 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
   return {
     [token.componentCls]: {
-      // 基础按钮样式
-      borderRadius: '200px',
-      boxSizing: 'border-box',
-      border: '1px solid var(--color-gray-border-light)',
+      padding: '5px 12px',
       height: '32px',
+      borderRadius: '200px',
+      border: '1px solid var(--color-gray-border-light)',
+      boxSizing: 'border-box',
       display: 'flex',
       alignItems: 'center',
-      padding: '5px 12px',
       cursor: 'pointer',
-      fontFamily: 'var(--font-family-base)',
-      fontSize: 'var(--font-size-base, 14px)',
-      fontWeight: 'var(--font-weight-medium, 500)',
-      lineHeight: 'var(--line-height-base, 1.5)',
-      textAlign: 'center',
-      textDecoration: 'none',
-      transition: 'all 0.2s ease',
-      userSelect: 'none',
-      outline: 'none',
-      position: 'relative',
-      overflow: 'hidden',
-      backgroundColor: 'transparent',
+      background: 'transparent',
+      font: 'var(--font-text-body-base)',
+      letterSpacing: 'var(--letter-spacing-body-base, normal)',
+      color: 'var(--color-gray-text-default)',
 
-      // Hover 状态
+      '&.ant-btn': {
+        borderRadius: '200px',
+        gap: 0,
+      },
+
+      // hover
       '&:hover:not(&-disabled)': {
         background: 'var(--color-gray-control-fill-hover)',
-        boxSizing: 'border-box',
         border: '1px solid var(--color-gray-border-light)',
       },
 
-      // Active 状态
+      // active
       '&:active:not(&-disabled)': {
         background: 'var(--color-primary-bg-card-light)',
-        boxSizing: 'border-box',
         border: '1px solid var(--color-primary-border-light)',
-      },
-
-      // Active 属性状态
-      '&-active': {
-        background: 'var(--color-primary-bg-card-light)',
-        boxSizing: 'border-box',
-        border: '1px solid var(--color-primary-border-light)',
-        
-        // Active 状态下的文字颜色
-        [`${token.componentCls}-text`]: {
+        font: 'var(--font-text-h6-base)',
+        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+        color: 'var(--color-blue-text-secondary)',
+        // 文本与图标颜色显式同步
+        [`${token.componentCls}-text, ${token.componentCls}-icon`]: {
           color: 'var(--color-blue-text-secondary)',
         },
-      },
-
-      // 尺寸变体
-      '&-small': {
-        height: 'var(--height-control-small, 28px)',
-        padding: '0 var(--padding-control-small, 12px)',
-        fontSize: 'var(--font-size-small, 12px)',
-        minWidth: 'var(--min-width-control-small, 60px)',
-      },
-
-      '&-large': {
-        height: 'var(--height-control-large, 40px)',
-        padding: '0 var(--padding-control-large, 16px)',
-        fontSize: 'var(--font-size-base, 14px)',
-        minWidth: 'var(--min-width-control-large, 80px)',
-      },
-
-      // Primary 变体 - 主要按钮
-      '&-primary': {
-        backgroundColor: 'var(--color-blue-primary, #1677ff)',
-        color: 'var(--color-white, #ffffff)',
-        boxShadow: 'var(--shadow-control-base, 0 1px 2px rgba(0, 0, 0, 0.1))',
-
-        '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-blue-primary-hover, #4096ff)',
-          boxShadow: 'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
-          transform: 'translateY(-1px)',
-        },
-
-        '&:active:not(&-disabled)': {
-          backgroundColor: 'var(--color-blue-primary-active, #0958d9)',
-          boxShadow: 'var(--shadow-control-active, 0 1px 2px rgba(0, 0, 0, 0.2))',
-          transform: 'translateY(0)',
-        },
-
-        '&:focus-visible': {
-          boxShadow: '0 0 0 2px var(--color-blue-primary-light, #d6eeff)',
+        [`${token.componentCls}-icon svg`]: {
+          fill: 'currentColor',
+          color: 'currentColor',
         },
       },
 
-      // Secondary 变体 - 次要按钮
-      '&-secondary': {
-        backgroundColor: 'var(--color-gray-bg-card-white, #ffffff)',
-        color: 'var(--color-gray-text-default, #343a45)',
-        border: '1px solid var(--color-gray-border, #e6ecf4)',
-        boxShadow: 'var(--shadow-control-base, 0 1px 2px rgba(0, 0, 0, 0.1))',
-
-        '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-bg-card-light, #fbfcfd)',
-          borderColor: 'var(--color-blue-primary, #1677ff)',
-          color: 'var(--color-blue-primary, #1677ff)',
-          boxShadow: 'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
+      // 受控 active（类名）
+      '&-active': {
+        background: 'var(--color-primary-bg-card-light)',
+        border: '1px solid var(--color-primary-border-light)',
+        font: 'var(--font-text-h6-base)',
+        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+        color: 'var(--color-blue-text-secondary)',
+        [`${token.componentCls}-text, ${token.componentCls}-icon`]: {
+          color: 'var(--color-blue-text-secondary)',
         },
-
-        '&:active:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-control-fill-active, #f0f0f0)',
-          borderColor: 'var(--color-blue-primary-active, #0958d9)',
-          color: 'var(--color-blue-primary-active, #0958d9)',
-        },
-
-        '&:focus-visible': {
-          boxShadow: '0 0 0 2px var(--color-blue-primary-light, #d6eeff)',
+        [`${token.componentCls}-icon svg`]: {
+          fill: 'currentColor',
+          color: 'currentColor',
         },
       },
 
-      // Ghost 变体 - 幽灵按钮
-      '&-ghost': {
-        backgroundColor: 'transparent',
-        color: 'var(--color-gray-text-default, #343a45)',
-        border: '1px solid transparent',
-
-        '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-control-fill-hover, #f5f5f5)',
-          color: 'var(--color-blue-primary, #1677ff)',
-        },
-
-        '&:active:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-control-fill-active, #e6f7ff)',
-          color: 'var(--color-blue-primary-active, #0958d9)',
-        },
-
-        '&:focus-visible': {
-          backgroundColor: 'var(--color-gray-control-fill-hover, #f5f5f5)',
-          boxShadow: '0 0 0 2px var(--color-blue-primary-light, #d6eeff)',
-        },
-      },
-
-      // No-border 变体 - 无边框按钮
-      '&-no-border': {
-        backgroundColor: 'transparent',
-        color: 'var(--color-gray-text-default, #343a45)',
-        border: 'none',
-        boxShadow: 'none',
-
-        '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-control-fill-hover, #f5f5f5)',
-          color: 'var(--color-blue-primary, #1677ff)',
-        },
-
-        '&:active:not(&-disabled)': {
-          backgroundColor: 'var(--color-gray-control-fill-active, #e6f7ff)',
-          color: 'var(--color-blue-primary-active, #0958d9)',
-        },
-
-        '&:focus-visible': {
-          backgroundColor: 'var(--color-gray-control-fill-hover, #f5f5f5)',
-          boxShadow: '0 0 0 2px var(--color-blue-primary-light, #d6eeff)',
-        },
-      },
-
-      // Float 变体 - 浮动按钮
-      '&-float': {
-        backgroundColor: 'var(--color-blue-primary, #1677ff)',
-        color: 'var(--color-white, #ffffff)',
-        borderRadius: '50%',
-        width: 'var(--height-control-large, 40px)',
-        height: 'var(--height-control-large, 40px)',
-        padding: 0,
-        minWidth: 'auto',
-        boxShadow: 'var(--shadow-float, 0 4px 12px rgba(22, 119, 255, 0.4))',
-
-        '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-blue-primary-hover, #4096ff)',
-          boxShadow: 'var(--shadow-float-hover, 0 6px 16px rgba(22, 119, 255, 0.5))',
-          transform: 'translateY(-2px) scale(1.05)',
-        },
-
-        '&:active:not(&-disabled)': {
-          backgroundColor: 'var(--color-blue-primary-active, #0958d9)',
-          boxShadow: 'var(--shadow-float-active, 0 2px 8px rgba(22, 119, 255, 0.3))',
-          transform: 'translateY(0) scale(1)',
-        },
-
-        '&:focus-visible': {
-          boxShadow: '0 0 0 2px var(--color-blue-primary-light, #d6eeff)',
-        },
-      },
-
-      // CTA 变体 - 行动号召按钮
-      '&-cta': {
-        backgroundColor: 'var(--color-green-success, #52c41a)',
-        color: 'var(--color-white, #ffffff)',
-        fontWeight: 'var(--font-weight-semibold, 600)',
-        boxShadow: 'var(--shadow-cta, 0 2px 8px rgba(82, 196, 26, 0.3))',
-        position: 'relative',
-        overflow: 'hidden',
-
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: '-100%',
-          width: '100%',
-          height: '100%',
-          background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
-          transition: 'left 0.5s ease',
-        },
-
-        '&:hover:not(&-disabled)': {
-          backgroundColor: 'var(--color-green-success-hover, #73d13d)',
-          boxShadow: 'var(--shadow-cta-hover, 0 4px 12px rgba(82, 196, 26, 0.4))',
-          transform: 'translateY(-1px)',
-
-          '&::before': {
-            left: '100%',
+      // 与 antd 变体类（outlined）组合时的 active 覆盖（按下）
+      '&.ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):active':
+        {
+          background: 'var(--color-primary-bg-card-light)',
+          borderColor: 'var(--color-primary-border-light)',
+          color: 'var(--color-blue-text-secondary)',
+          [`${token.componentCls}-text, ${token.componentCls}-icon`]: {
+            color: 'var(--color-blue-text-secondary)',
+          },
+          [`${token.componentCls}-icon svg`]: {
+            fill: 'currentColor',
+            color: 'currentColor',
           },
         },
-
-        '&:active:not(&-disabled)': {
-          backgroundColor: 'var(--color-green-success-active, #389e0d)',
-          boxShadow: 'var(--shadow-cta-active, 0 1px 4px rgba(82, 196, 26, 0.2))',
-          transform: 'translateY(0)',
+      // 与 antd 变体类（outlined）组合时的受控 active 常驻覆盖
+      '&.ant-btn-variant-outlined&-active': {
+        background: 'var(--color-primary-bg-card-light)',
+        borderColor: 'var(--color-primary-border-light)',
+        color: 'var(--color-blue-text-secondary)',
+        [`${token.componentCls}-text, ${token.componentCls}-icon`]: {
+          color: 'var(--color-blue-text-secondary)',
         },
-
-        '&:focus-visible': {
-          boxShadow: '0 0 0 2px var(--color-green-success-light, #f6ffed)',
+        [`${token.componentCls}-icon svg`]: {
+          fill: 'currentColor',
+          color: 'currentColor',
         },
       },
 
-      // 禁用状态
+      // disabled
       '&-disabled': {
-        opacity: 0.5,
+        border: '1px solid var(--color-gray-border-light)',
+        color: 'var(--color-gray-text-disabled)',
         cursor: 'not-allowed',
-        pointerEvents: 'none',
-        transform: 'none !important',
-        boxShadow: 'none !important',
-
-        '&:hover': {
-          transform: 'none !important',
-          boxShadow: 'none !important',
+        [`${token.componentCls}-text, ${token.componentCls}-icon`]: {
+          color: 'var(--color-gray-text-disabled)',
         },
-
-        '&:active': {
-          transform: 'none !important',
-          boxShadow: 'none !important',
+        [`${token.componentCls}-icon svg`]: {
+          fill: 'currentColor',
+          color: 'currentColor',
         },
       },
 
-      // 图标样式
-      '&-icon': {
+      [`${token.componentCls}-icon`]: {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 'inherit',
         lineHeight: 1,
-        marginRight: '4px',
+        marginRight: 4,
+        color: 'inherit',
       },
-
-      // 文字样式
-      '&-text': {
+      [`${token.componentCls}-text`]: {
         display: 'inline-block',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        marginRight: '8px',
-        font: 'var(--font-text-body-base)',
-        letterSpacing: 'var(--letter-spacing-body-base, normal)',
-        color: 'var(--color-gray-text-default)',
+        marginRight: 8,
+        color: 'inherit',
+        font: 'inherit',
+        letterSpacing: 'inherit',
+        lineHeight: '19px',
       },
-
-      // 触发图标样式
-      '&-trigger-icon': {
+      [`${token.componentCls}-trigger-icon`]: {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 'inherit',
         lineHeight: 1,
+        color: 'inherit',
       },
     },
   };
