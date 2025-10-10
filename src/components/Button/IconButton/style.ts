@@ -45,9 +45,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
       // 尺寸变体
       '&-button-sm': {
-        width: 28,
-        height: 28,
-        lineHeight: '28px',
+        width: 'var(--height-control-sm)',
+        height: 'var(--height-control-sm)',
+        lineHeight: 'var(--height-control-sm)',
         borderRadius: 'var(--radius-control-sm)',
       },
       '&-button-sm .ant-btn-icon': {
@@ -60,15 +60,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
       // 提升优先级以覆盖 antd 的 icon-only 尺寸（包括 outlined 变体）
       '&-button&-button-sm.ant-btn.ant-btn-icon-only': {
-        width: 28,
-        height: 28,
-        lineHeight: '28px',
+        width: 'var(--height-control-sm)',
+        height: 'var(--height-control-sm)',
+        lineHeight: 'var(--height-control-sm)',
         borderRadius: 'var(--radius-control-sm)',
       },
       '&-button&-button-sm.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only': {
-        width: 28,
-        height: 28,
-        lineHeight: '28px',
+        width: 'var(--height-control-sm)',
+        height: 'var(--height-control-sm)',
+        lineHeight: 'var(--height-control-sm)',
         borderRadius: 'var(--radius-control-sm)',
       },
       '&-button&-button-sm.ant-btn.ant-btn-icon-only .ant-btn-icon': {
@@ -80,9 +80,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
       },
 
       '&-button-xs': {
-        width: 20,
-        height: 20,
-        lineHeight: '20px',
+        width: 'var(--height-control-xs)',
+        height: 'var(--height-control-xs)',
+        lineHeight: 'var(--height-control-xs)',
         borderRadius: 'var(--radius-control-xs)',
       },
       '&-button-xs .ant-btn-icon': {
@@ -93,15 +93,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
         height: ICON_SIZE_XS,
       },
       '&-button&-button-xs.ant-btn.ant-btn-icon-only': {
-        width: 20,
-        height: 20,
-        lineHeight: '20px',
+        width: 'var(--height-control-xs)',
+        height: 'var(--height-control-xs)',
+        lineHeight: 'var(--height-control-xs)',
         borderRadius: 'var(--radius-control-xs)',
       },
       '&-button&-button-xs.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only': {
-        width: 20,
-        height: 20,
-        lineHeight: '20px',
+        width: 'var(--height-control-xs)',
+        height: 'var(--height-control-xs)',
+        lineHeight: 'var(--height-control-xs)',
         borderRadius: 'var(--radius-control-xs)',
       },
       '&-button&-button-xs.ant-btn.ant-btn-icon-only .ant-btn-icon': {
