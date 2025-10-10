@@ -9,6 +9,8 @@ export interface IconButtonProps {
   tooltip?: string;
   disabled?: boolean;
   active?: boolean;
+  elevated?: boolean;
+  size?: 'base' | 'sm' | 'xs';
   loading?: boolean;
   onClick?: () => void | Promise<void>;
   className?: string;
@@ -22,6 +24,8 @@ export const IconButton: React.FC<IconButtonProps> = ({
   tooltip,
   disabled,
   active,
+  elevated,
+  size = 'base',
   loading,
   onClick,
 }) => {
@@ -44,6 +48,9 @@ export const IconButton: React.FC<IconButtonProps> = ({
             [`${prefixCls}-button-active`]: active,
             [`${prefixCls}-button-loading`]: loading,
             [`${prefixCls}-button-disabled`]: disabled,
+            [`${prefixCls}-button-elevated`]: elevated,
+            [`${prefixCls}-button-sm`]: size === 'sm',
+            [`${prefixCls}-button-xs`]: size === 'xs',
           })}
         />
       </Tooltip>

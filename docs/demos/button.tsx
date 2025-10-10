@@ -1,6 +1,6 @@
 import { IconButton, TogalButton } from '@ant-design/md-editor';
 import { globalThemeToken, useCSSVariables } from '@ant-design/theme-token';
-import { ChevronDown, Plug, Plus } from '@sofa-design/icons';
+import { ChevronDown, EllipsisVertical, Plug, Plus } from '@sofa-design/icons';
 import { Button, Flex } from 'antd';
 import React from 'react';
 
@@ -155,19 +155,77 @@ export const IconButtonDemo = () => {
         padding: '24px',
       }}
     >
-      主按钮
+      Base
       <Flex
+        vertical
         gap={12}
         style={{
           border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
-        <IconButton icon={<Plus />} />
-        <IconButton icon={<Plus />} disabled />
-        <IconButton icon={<Plus />} loading />
+        悬浮按钮
+        <Flex
+          gap={12}
+          style={{
+            border: '2px dashed #8358F6',
+            padding: '24px',
+          }}
+        >
+          <IconButton elevated icon={<EllipsisVertical />} />
+          <IconButton elevated icon={<EllipsisVertical />} disabled />
+          <IconButton elevated icon={<EllipsisVertical />} loading />
+        </Flex>
+        次按钮
+        <Flex
+          gap={12}
+          style={{
+            border: '2px dashed #8358F6',
+            padding: '24px',
+          }}
+        >
+          <Button
+            color="default"
+            variant="filled"
+            icon={<EllipsisVertical />}
+          />
+          <Button
+            color="default"
+            variant="filled"
+            icon={<EllipsisVertical />}
+            disabled
+          />
+          <Button
+            color="default"
+            variant="filled"
+            icon={<EllipsisVertical />}
+            loading
+          />
+        </Flex>
+        无边框按钮
+        <Flex
+          gap={12}
+          style={{
+            border: '2px dashed #8358F6',
+            padding: '24px',
+          }}
+        >
+          <Button color="default" variant="text" icon={<EllipsisVertical />} />
+          <Button
+            color="default"
+            variant="text"
+            icon={<EllipsisVertical />}
+            disabled
+          />
+          <Button
+            color="default"
+            variant="text"
+            icon={<EllipsisVertical />}
+            loading
+          />
+        </Flex>
       </Flex>
-      次按钮
+      SM尺寸
       <Flex
         gap={12}
         style={{
@@ -175,11 +233,11 @@ export const IconButtonDemo = () => {
           padding: '24px',
         }}
       >
-        <Button color="default" variant="filled" icon={<Plus />} />
-        <Button color="default" variant="filled" icon={<Plus />} disabled />
-        <Button color="default" variant="filled" icon={<Plus />} loading />
+        <IconButton size="sm" elevated icon={<EllipsisVertical />} />
+        <IconButton size="sm" elevated icon={<EllipsisVertical />} disabled />
+        <IconButton size="sm" elevated icon={<EllipsisVertical />} loading />
       </Flex>
-      无边框按钮
+      XS尺寸
       <Flex
         gap={12}
         style={{
@@ -187,9 +245,9 @@ export const IconButtonDemo = () => {
           padding: '24px',
         }}
       >
-        <Button color="default" variant="text" icon={<Plus />} />
-        <Button color="default" variant="text" icon={<Plus />} disabled />
-        <Button color="default" variant="text" icon={<Plus />} loading />
+        <IconButton size="xs" elevated icon={<EllipsisVertical />} />
+        <IconButton size="xs" elevated icon={<EllipsisVertical />} disabled />
+        <IconButton size="xs" elevated icon={<EllipsisVertical />} loading />
       </Flex>
     </Flex>
   );
@@ -199,7 +257,8 @@ export const TogalButtonDemo = () => {
   useCSSVariables('ThemeExample', globalThemeToken);
 
   const customIcon = (
-    <div style={{
+    <div
+      style={{
         width: '100%',
         height: 16,
         padding: '4px 6px',
@@ -209,10 +268,11 @@ export const TogalButtonDemo = () => {
         borderRadius: '200px',
         background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-primary-text-secondary)',
-    }}>
-        134
+      }}
+    >
+      134
     </div>
-  )
+  );
 
   return (
     <Flex
@@ -229,9 +289,7 @@ export const TogalButtonDemo = () => {
           padding: '24px',
         }}
       >
-        <TogalButton icon={<Plug />}>
-          开关按钮
-        </TogalButton>
+        <TogalButton icon={<Plug />}>开关按钮</TogalButton>
         <TogalButton icon={<Plug />} triggerIcon={customIcon} active>
           开关按钮
         </TogalButton>

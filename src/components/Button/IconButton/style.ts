@@ -4,6 +4,10 @@ import {
   useEditorStyleRegister,
 } from '../../../hooks/useStyle';
 
+const ICON_SIZE = 16; // base icon size
+const ICON_SIZE_SM = 14;
+const ICON_SIZE_XS = 14;
+
 const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
   return {
     [token.componentCls]: {
@@ -27,19 +31,127 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
       position: 'relative',
       overflow: 'hidden',
 
-      // 尺寸变体
-      '&-small': {
-        height: 'var(--height-control-small, 28px)',
-        padding: '0 var(--padding-control-small, 12px)',
-        fontSize: 'var(--font-size-small, 12px)',
-        minWidth: 'var(--min-width-control-small, 60px)',
+      // 统一 icon 尺寸（适配 antd Button 图标容器）- base
+      '&-button .ant-btn-icon': {
+        fontSize: ICON_SIZE,
+        lineHeight: 1,
+      },
+      '&-button .ant-btn-icon > *': {
+        width: ICON_SIZE,
+        height: ICON_SIZE,
       },
 
-      '&-large': {
-        height: 'var(--height-control-large, 40px)',
-        padding: '0 var(--padding-control-large, 16px)',
-        fontSize: 'var(--font-size-base, 14px)',
-        minWidth: 'var(--min-width-control-large, 80px)',
+      // 尺寸变体
+      '&-button-sm': {
+        width: 28,
+        height: 28,
+        lineHeight: '28px',
+        borderRadius: 'var(--radius-control-sm)',
+      },
+      '&-button-sm .ant-btn-icon': {
+        fontSize: ICON_SIZE_SM,
+      },
+      '&-button-sm .ant-btn-icon > *': {
+        width: ICON_SIZE_SM,
+        height: ICON_SIZE_SM,
+      },
+
+      // 提升优先级以覆盖 antd 的 icon-only 尺寸（包括 outlined 变体）
+      '&-button&-button-sm.ant-btn.ant-btn-icon-only': {
+        width: 28,
+        height: 28,
+        lineHeight: '28px',
+        borderRadius: 'var(--radius-control-sm)',
+      },
+      '&-button&-button-sm.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only': {
+        width: 28,
+        height: 28,
+        lineHeight: '28px',
+        borderRadius: 'var(--radius-control-sm)',
+      },
+      '&-button&-button-sm.ant-btn.ant-btn-icon-only .ant-btn-icon': {
+        fontSize: ICON_SIZE_SM,
+      },
+      '&-button&-button-sm.ant-btn.ant-btn-icon-only .ant-btn-icon > *': {
+        width: ICON_SIZE_SM,
+        height: ICON_SIZE_SM,
+      },
+
+      '&-button-xs': {
+        width: 20,
+        height: 20,
+        lineHeight: '20px',
+        borderRadius: 'var(--radius-control-xs)',
+      },
+      '&-button-xs .ant-btn-icon': {
+        fontSize: ICON_SIZE_XS,
+      },
+      '&-button-xs .ant-btn-icon > *': {
+        width: ICON_SIZE_XS,
+        height: ICON_SIZE_XS,
+      },
+      '&-button&-button-xs.ant-btn.ant-btn-icon-only': {
+        width: 20,
+        height: 20,
+        lineHeight: '20px',
+        borderRadius: 'var(--radius-control-xs)',
+      },
+      '&-button&-button-xs.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only': {
+        width: 20,
+        height: 20,
+        lineHeight: '20px',
+        borderRadius: 'var(--radius-control-xs)',
+      },
+      '&-button&-button-xs.ant-btn.ant-btn-icon-only .ant-btn-icon': {
+        fontSize: ICON_SIZE_XS,
+      },
+      '&-button&-button-xs.ant-btn.ant-btn-icon-only .ant-btn-icon > *': {
+        width: ICON_SIZE_XS,
+        height: ICON_SIZE_XS,
+      },
+
+      // Elevated 悬浮版本 - 默认/hover/active
+      '&-button-elevated': {
+        borderRadius: 'var(--radius-control-base)',
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow: 'var(--shadow-border-base)',
+        color: 'var(--color-gray-text-secondary)',
+
+        '&:hover:not(&-button-disabled):not(&-button-loading):not([disabled])': {
+          background: 'var(--color-gray-bg-card-white)',
+          boxShadow: 'var(--shadow-control-lg)',
+        },
+
+        '&:active:not(&-button-disabled):not(&-button-loading):not([disabled])': {
+          background: 'var(--color-primary-control-fill-secondary)',
+          boxShadow: 'var(--shadow-border-base)',
+          color: 'var(--color-gray-text-secondary)',
+        },
+      },
+
+      // 提升 hover/active 选择器优先级以覆盖 antd 的 icon-only 悬浮样式
+      '&-button&-button-elevated.ant-btn.ant-btn-icon-only:not(.ant-btn-disabled):not([disabled]):hover': {
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow: 'var(--shadow-control-lg)',
+      },
+      '&-button&-button-elevated.ant-btn.ant-btn-icon-only:not(.ant-btn-disabled):not([disabled]):active': {
+        background: 'var(--color-primary-control-fill-secondary)',
+        boxShadow: 'var(--shadow-border-base)',
+        color: 'var(--color-gray-text-secondary)',
+      },
+
+      // Elevated 悬浮版本 - disabled
+      '&-button-elevated&-button-disabled, &-button-elevated[disabled]': {
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow: 'var(--shadow-control-base)',
+        color: 'var(--color-gray-text-disabled)',
+      },
+
+      // Elevated 悬浮版本 - loading
+      '&-button-elevated&-button-loading': {
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow: 'var(--shadow-control-base)',
+        color: 'var(--color-gray-text-disabled)',
       },
 
       // Primary 变体 - 主要按钮
