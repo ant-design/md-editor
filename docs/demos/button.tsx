@@ -1,8 +1,81 @@
 import { IconButton, TogalButton } from '@ant-design/md-editor';
 import { globalThemeToken, useCSSVariables } from '@ant-design/theme-token';
-import { ChevronDown, EllipsisVertical, Plug, Plus } from '@sofa-design/icons';
+import {
+  ChevronDown,
+  EllipsisVertical,
+  ExpandAlt,
+  Plug,
+  Plus,
+} from '@sofa-design/icons';
 import { Button, Flex } from 'antd';
 import React from 'react';
+
+const InlineElevatedButton: React.FC<{
+  disabled?: boolean;
+  loading?: boolean;
+  icon?: React.ReactNode;
+  children?: React.ReactNode;
+}> = ({ disabled, loading, icon, children }) => {
+  const [hovered, setHovered] = React.useState(false);
+  const [active, setActive] = React.useState(false);
+
+  const baseStyle: React.CSSProperties = {
+    borderRadius: '200px',
+    font: 'var(--font-text-h6-base)',
+    letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+    color: 'var(--color-gray-text-default)',
+    background: 'var(--color-gray-bg-card-white)',
+    boxShadow: 'var(--shadow-control-lg)',
+    border: 'none',
+    opacity: disabled ? 0.3 : 1,
+  };
+
+  let stateStyle: React.CSSProperties = {};
+  if (!disabled && !loading) {
+    if (active) {
+      stateStyle = {
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow: 'var(--shadow-control-base)',
+      };
+    } else if (hovered) {
+      stateStyle = {
+        background: 'var(--color-gray-bg-card-white)',
+        boxShadow: 'var(--shadow-popover-base)',
+      };
+    }
+  } else if (disabled) {
+    stateStyle = {
+      background: 'var(--color-gray-bg-card-white)',
+      boxShadow: 'var(--shadow-control-base)',
+    };
+  } else if (loading) {
+    stateStyle = {
+      background: 'var(--color-gray-bg-card-white)',
+      boxShadow: 'var(--shadow-control-lg)',
+      color: 'var(--color-gray-text-disabled)',
+    };
+  }
+
+  const style: React.CSSProperties = { ...baseStyle, ...stateStyle };
+
+  return (
+    <Button
+      icon={icon}
+      disabled={disabled}
+      loading={loading}
+      style={style}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => {
+        setHovered(false);
+        setActive(false);
+      }}
+      onMouseDown={() => setActive(true)}
+      onMouseUp={() => setActive(false)}
+    >
+      {children}
+    </Button>
+  );
+};
 
 export const BaseButtonDemo = () => {
   useCSSVariables('ThemeExample', globalThemeToken);
@@ -108,6 +181,19 @@ export const BaseButtonDemo = () => {
           CTA 按钮
         </Button>
       </Flex>
+      悬浮按钮
+      <Flex
+        gap={12}
+        style={{
+          border: '2px dashed #8358F6',
+          padding: '24px',
+        }}
+      >
+        <InlineElevatedButton icon={<ExpandAlt />}>悬浮按钮</InlineElevatedButton>
+        <InlineElevatedButton icon={<ExpandAlt />} disabled>悬浮按钮</InlineElevatedButton>
+        <InlineElevatedButton icon={<ExpandAlt />} loading>悬浮按钮</InlineElevatedButton>
+      </Flex>
+      
       按钮 - SM尺寸
       <Flex
         gap={12}
@@ -297,14 +383,6 @@ export const TogalButtonDemo = () => {
           开关按钮
         </TogalButton>
       </Flex>
-    </Flex>
-  );
-};
-
-export const CloseButtonDemo = () => {
-  return (
-    <Flex>
-      <Button />
     </Flex>
   );
 };

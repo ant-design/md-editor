@@ -29,10 +29,3 @@ export default () => <IconButtonDemo />;
 import { TogalButtonDemo } from '../demos/button.tsx';
 export default () => <TogalButtonDemo />;
 ```
-
-## CloseButton关闭按钮
-
-```tsx
-import { CloseButtonDemo } from '../demos/button.tsx';
-export default () => <CloseButtonDemo />;
-```
