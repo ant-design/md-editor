@@ -4,7 +4,7 @@ import {
   useEditorStyleRegister,
 } from '../../../hooks/useStyle';
 
-const ICON_SIZE = 16; // base icon size
+const ICON_SIZE = 16;
 const ICON_SIZE_SM = 14;
 const ICON_SIZE_XS = 14;
 
@@ -13,6 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
     [token.componentCls]: {
       // 基础按钮样式
       display: 'inline-flex',
+      height: 'var(--height-control-base)',
       alignItems: 'center',
       justifyContent: 'center',
       gap: 8,
@@ -30,6 +31,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
       outline: 'none',
       position: 'relative',
       overflow: 'hidden',
+      
 
       // 统一 icon 尺寸（适配 antd Button 图标容器）- base
       '&-button .ant-btn-icon': {

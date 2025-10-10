@@ -20,6 +20,7 @@ const InlineElevatedButton: React.FC<{
   const [active, setActive] = React.useState(false);
 
   const baseStyle: React.CSSProperties = {
+    height: 'var(--height-control-base)',
     borderRadius: '200px',
     font: 'var(--font-text-h6-base)',
     letterSpacing: 'var(--letter-spacing-h6-base, normal)',
