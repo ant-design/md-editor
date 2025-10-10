@@ -233,10 +233,3 @@ export const CloseButtonDemo = () => {
     </Flex>
   );
 };
-
-export default {
-  BaseButtonDemo,
-  IconButtonDemo,
-  TogalButtonDemo,
-  CloseButtonDemo,
-};
