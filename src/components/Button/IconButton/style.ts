@@ -26,7 +26,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
       lineHeight: 'var(--line-height-base, 1.5)',
       textAlign: 'center',
       textDecoration: 'none',
-      transition: 'all 0.2s ease',
+      transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       userSelect: 'none',
       outline: 'none',
       position: 'relative',
@@ -164,7 +164,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
         '&:hover:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-hover, #4096ff)',
-          boxShadow: 'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
+          boxShadow:
+            'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
           transform: 'translateY(-1px)',
         },
 
@@ -293,13 +294,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
           left: '-100%',
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
-          transition: 'left 0.5s ease',
+          background:
+            'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+          transition: 'left 0.5s cubic-bezier(0.645, 0.045, 0.355, 1)',
         },
 
         '&:hover:not(&-disabled)': {
           backgroundColor: 'var(--color-green-success-hover, #73d13d)',
-          boxShadow: 'var(--shadow-cta-hover, 0 4px 12px rgba(82, 196, 26, 0.4))',
+          boxShadow:
+            'var(--shadow-cta-hover, 0 4px 12px rgba(82, 196, 26, 0.4))',
           transform: 'translateY(-1px)',
 
           '&::before': {
@@ -309,7 +312,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
         '&:active:not(&-disabled)': {
           backgroundColor: 'var(--color-green-success-active, #389e0d)',
-          boxShadow: 'var(--shadow-cta-active, 0 1px 4px rgba(82, 196, 26, 0.2))',
+          boxShadow:
+            'var(--shadow-cta-active, 0 1px 4px rgba(82, 196, 26, 0.2))',
           transform: 'translateY(0)',
         },
 

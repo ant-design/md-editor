@@ -1,7 +1,7 @@
 import { ConfigProvider, Tooltip, TooltipProps } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { isObject } from 'lodash';
+import { isObject } from 'lodash-es';
 import React, {
   forwardRef,
   isValidElement,

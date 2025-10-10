@@ -391,3 +391,36 @@ describe('MarkdownInputField - voiceInput', () => {
     });
   });
 });
+
+describe('MarkdownInputField - allowEmptySubmit', () => {
+  it('should not call onSend when empty by default', () => {
+    const onSend = vi.fn();
+    render(<MarkdownInputField value="" onSend={onSend} />);
+    const sendButton = screen.getByTestId('send-button');
+    fireEvent.click(sendButton);
+    expect(onSend).not.toHaveBeenCalled();
+  });
+
+  it('should call onSend with empty string when allowEmptySubmit enabled', () => {
+    const onSend = vi.fn();
+    render(<MarkdownInputField value="" allowEmptySubmit onSend={onSend} />);
+    const sendButton = screen.getByTestId('send-button');
+    fireEvent.click(sendButton);
+    expect(onSend).toHaveBeenCalledWith('');
+  });
+
+  it('should treat whitespace-only as empty unless allowEmptySubmit provided', () => {
+    const onSend = vi.fn();
+    const { rerender } = render(
+      <MarkdownInputField value="   " onSend={onSend} />,
+    );
+    fireEvent.click(screen.getByTestId('send-button'));
+    expect(onSend).not.toHaveBeenCalled();
+
+    rerender(
+      <MarkdownInputField value="   " allowEmptySubmit onSend={onSend} />,
+    );
+    fireEvent.click(screen.getByTestId('send-button'));
+    expect(onSend).toHaveBeenCalledWith('');
+  });
+});

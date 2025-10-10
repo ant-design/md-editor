@@ -7,9 +7,11 @@ import {
 import { ConfigProvider as AntdConfigProvider, theme as antdTheme } from 'antd';
 import { useContext } from 'react';
 
+export { CSSInterpolation };
+
 export type GenerateStyle<T = ComponentToken> = (
   token: T,
-) => Record<string, any>;
+) => Record<string, CSSInterpolation>;
 
 export type ChatTokenType = ComponentToken & {
   themeId?: number;

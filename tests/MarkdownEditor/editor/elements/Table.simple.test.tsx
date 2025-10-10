@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { Th, Td } from '../../../../src/MarkdownEditor/editor/elements/Table';
+import { Td, Th } from '../../../../src/MarkdownEditor/editor/elements/Table';
 
 // Mock dependencies
 vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
@@ -65,7 +65,9 @@ describe('Table Components - Simple Tests', () => {
         ...defaultThProps,
         element: { type: 'invalid-type' },
       };
-      expect(() => render(<Th {...invalidProps} />)).toThrow('Element "Th" must be of type "header-cell"');
+      expect(() => render(<Th {...invalidProps} />)).toThrow(
+        'Element "Th" must be of type "header-cell"',
+      );
     });
   });
 
@@ -134,7 +136,9 @@ describe('Table Components - Simple Tests', () => {
         ...defaultTdProps,
         element: { type: 'invalid-type' },
       };
-      expect(() => render(<Td {...invalidProps} />)).toThrow('Element "Td" must be of type "table-cell"');
+      expect(() => render(<Td {...invalidProps} />)).toThrow(
+        'Element "Td" must be of type "table-cell"',
+      );
     });
   });
 
@@ -160,14 +164,11 @@ describe('Table Components - Simple Tests', () => {
           'data-slate-node': 'element' as const,
           ref: { current: null },
         },
-        children: [
-          <div key="1">Complex</div>,
-          <span key="2">Content</span>,
-        ],
+        children: [<div key="1">Complex</div>, <span key="2">Content</span>],
       };
       render(<Td {...props} />);
       expect(screen.getByText('Complex')).toBeInTheDocument();
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
   });
-}); 
+});

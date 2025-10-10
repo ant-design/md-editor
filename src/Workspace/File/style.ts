@@ -20,7 +20,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             height: '40px',
             padding: '8px 0',
             cursor: 'pointer',
-            transition: 'all 0.2s ease',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
             [`&-left, &-right`]: {
               display: 'flex',
@@ -94,7 +94,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: '4px',
       borderRadius: 'var(--radius-control-base)',
       cursor: 'pointer',
-      transition: 'all 0.2s ease',
+      transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       boxSizing: 'border-box',
 
       '&:last-child': {
@@ -245,7 +245,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'none',
         cursor: 'pointer',
         color: '#767e8b',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         borderRadius: '4px',
 
         '&:hover': {

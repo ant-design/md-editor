@@ -106,7 +106,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
         borderRadius: '12px',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         '&:hover': {
           background: 'rgba(20, 22, 28, 0.06)',
           color: '#959DA8',
@@ -266,7 +266,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backdropFilter: 'blur(8px)',
         border: '1px solid rgba(0, 19, 41, 0.1)',
         boxShadow: '0px 2px 8px rgba(0, 19, 41, 0.15)',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         padding: '16px 5px',
         zIndex: 10,
         '&:active': {

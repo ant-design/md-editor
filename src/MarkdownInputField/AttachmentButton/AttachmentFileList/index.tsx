@@ -3,6 +3,7 @@ import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
+import { IconButton } from '../../../components/Button';
 import { AttachmentFile } from '../types';
 import { isImageFile } from '../utils';
 import { AttachmentFileListItem } from './AttachmentFileListItem';
@@ -142,7 +143,7 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
       {Array.from(props.fileMap?.values() || []).every(
         (file) => file.status === 'done',
       ) ? (
-        <div
+        <IconButton
           style={{
             opacity: props.fileMap?.size ? 1 : 0,
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -150,10 +151,9 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
           onClick={() => {
             props.onClearFileMap?.();
           }}
+          icon={<X />}
           className={classNames(`${`${prefix}`}-close-icon`, hashId)}
-        >
-          <X />
-        </div>
+        ></IconButton>
       ) : null}
     </div>,
   );

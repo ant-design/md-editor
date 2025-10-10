@@ -69,7 +69,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         animationIterationCount: 'infinite',
         pointerEvents: 'none',
         overflow: 'hidden',
-        transition: 'background 0.25s',
+        transition: 'background 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)',
       },
 
       '&-background': {

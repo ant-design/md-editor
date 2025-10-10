@@ -393,30 +393,15 @@ export type MarkdownInputFieldProps = {
    * }}
    */
   onSkillModeOpenChange?: (open: boolean) => void;
-};
 
-/**
- * 根据提供的颜色数组生成边缘颜色序列。
- * 对于数组中的每种颜色，该函数会创建一个新的序列，其中颜色按照循环顺序排列，
- * 并在序列末尾再添加当前颜色。
- *
- * @param colors - 要处理的颜色数组
- * @returns 一个二维数组，每个子数组包含从特定位置开始循环的颜色序列，并在末尾重复当前颜色
- * @example
- * // 返回 [['red', 'blue', 'green', 'red'], ['blue', 'green', 'red', 'blue'], ['green', 'red', 'blue', 'green']]
- * generateEdges(['red', 'blue', 'green'])
- */
-export const generateEdges = (colors: string[]): string[][] => {
-  if (!Array.isArray(colors) || colors.length === 0) return [];
-  // 至少保证 3 个颜色，便于后续得到 4 段动画停靠点
-  const base =
-    colors.length >= 3
-      ? colors
-      : [...colors, ...colors.slice(0, 3 - colors.length)];
-  return base.map((current, index) => {
-    const rotated = base.slice(index).concat(base.slice(0, index));
-    return [...rotated, current];
-  });
+  /**
+   * 是否允许在内容为空时也触发发送
+   * @description 默认情况下输入内容为空（且无附件、未录音）时点击发送按钮不会触发 onSend。开启该配置后即使内容为空字符串也会调用 onSend('')。
+   * @default false
+   * @example
+   * <MarkdownInputField allowEmptySubmit onSend={(v) => submit(v)} /> // v 可能为 ''
+   */
+  allowEmptySubmit?: boolean;
 };
 
 /**
@@ -622,10 +607,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       props.onChange?.(mdValue);
     }
 
-    if (props.onSend && mdValue) {
+    // allowEmptySubmit 开启时，即使内容为空也允许触发发送
+    if (props.onSend && (props.allowEmptySubmit || mdValue)) {
       setIsLoading(true);
       try {
-        await props.onSend(mdValue);
+        await props.onSend(mdValue || '');
         markdownEditorRef?.current?.store?.clearContent();
         props.onChange?.('');
         setValue('');
@@ -748,7 +734,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         key="send-button"
         typing={!!props.typing || isLoading}
         isSendable={
-          !!value?.trim() || (fileMap && fileMap.size > 0) || recording
+          props.allowEmptySubmit ||
+          !!value?.trim() ||
+          (fileMap && fileMap.size > 0) ||
+          recording
         }
         disabled={props.disabled}
         onClick={() => {
@@ -776,6 +765,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     props.onSend,
     props.onStop,
     props.voiceRecognizer,
+    props.allowEmptySubmit,
   ]);
 
   const handleFileRemoval = useRefFunction(async (file: AttachmentFile) => {
@@ -929,7 +919,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               zIndex: 9,
               flexDirection: 'column',
               boxSizing: 'border-box',
-              borderRadius: (borderRadius || 16) - 1 || 10,
+              borderRadius: (borderRadius || 16) - 2 || 10,
               cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
               opacity: props.disabled ? 0.5 : 1,
               minHeight: isMultiRowLayout ? 96 : undefined,
@@ -939,7 +929,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                borderRadius: (borderRadius || 16) - 1 || 10,
+                borderRadius: (borderRadius || 16) - 2 || 10,
                 maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
                 flex: 1,
               }}
@@ -1027,14 +1017,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   <div
                     ref={actionsRef}
                     contentEditable={false}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
                     className={classNames(`${baseCls}-send-tools`, hashId)}
                   >
                     {props.toolsRender

@@ -28,7 +28,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: 'none',
           cursor: 'pointer',
           color: '#767e8b',
-          transition: 'all 0.2s ease',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
           borderRadius: 'var(--radius-control-base)',
           backdropFilter: 'blur(20px)',
 
