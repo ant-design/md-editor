@@ -76,7 +76,7 @@ export const SwitchButton: React.FC<SwitchButtonProps> = ({
       onClick={handleClick}
       className={rootCls}
       style={style}
-      role="switch"
+      role="button"
       aria-pressed={effectiveActive}
     >
       {icon && <span className={`${prefixCls}-icon`}>{icon}</span>}
