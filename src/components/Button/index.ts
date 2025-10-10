@@ -1,2 +1,2 @@
 export { IconButton } from './IconButton';
-export { TogalButton } from './TogalButton';
+export { SwitchButton } from './SwitchButton';

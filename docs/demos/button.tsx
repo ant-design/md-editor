@@ -1,4 +1,4 @@
-import { IconButton, TogalButton } from '@ant-design/md-editor';
+import { IconButton, SwitchButton } from '@ant-design/md-editor';
 import { globalThemeToken, useCSSVariables } from '@ant-design/theme-token';
 import {
   ChevronDown,
@@ -340,7 +340,7 @@ export const IconButtonDemo = () => {
   );
 };
 
-export const TogalButtonDemo = () => {
+export const SwitchButtonDemo = () => {
   useCSSVariables('ThemeExample', globalThemeToken);
 
   const customIcon = (
@@ -376,13 +376,13 @@ export const TogalButtonDemo = () => {
           padding: '24px',
         }}
       >
-        <TogalButton icon={<Plug />}>开关按钮</TogalButton>
-        <TogalButton icon={<Plug />} triggerIcon={customIcon} active>
+        <SwitchButton icon={<Plug />}>开关按钮</SwitchButton>
+        <SwitchButton icon={<Plug />} triggerIcon={customIcon} active>
           开关按钮
-        </TogalButton>
-        <TogalButton icon={<Plug />} triggerIcon={<ChevronDown />} disabled>
+        </SwitchButton>
+        <SwitchButton icon={<Plug />} triggerIcon={<ChevronDown />} disabled>
           开关按钮
-        </TogalButton>
+        </SwitchButton>
       </Flex>
     </Flex>
   );

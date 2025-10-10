@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ChevronDown, ChevronUp } from '@sofa-design/icons';
 import { useStyle } from './style';
 
-export interface TogalButtonProps {
+export interface SwitchButtonProps {
   key?: React.Key;
   icon?: React.ReactNode;
   triggerIcon?: React.ReactNode;
@@ -18,7 +18,7 @@ export interface TogalButtonProps {
   children?: React.ReactNode;
 }
 
-export const TogalButton: React.FC<TogalButtonProps> = ({
+export const SwitchButton: React.FC<SwitchButtonProps> = ({
   className,
   style,
   icon,
@@ -31,7 +31,7 @@ export const TogalButton: React.FC<TogalButtonProps> = ({
   children,
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = context?.getPrefixCls('togal-button');
+  const prefixCls = context?.getPrefixCls('switch-button');
 
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
@@ -86,4 +86,4 @@ export const TogalButton: React.FC<TogalButtonProps> = ({
   );
 };
 
-export default TogalButton;
+export default SwitchButton;

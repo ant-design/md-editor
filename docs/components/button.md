@@ -23,9 +23,9 @@ import { IconButtonDemo } from '../demos/button.tsx';
 export default () => <IconButtonDemo />;
 ```
 
-## TogalButton开关按钮
+## SwitchButton开关按钮
 
 ```tsx
-import { TogalButtonDemo } from '../demos/button.tsx';
-export default () => <TogalButtonDemo />;
+import { SwitchButtonDemo } from '../demos/button.tsx';
+export default () => <SwitchButtonDemo />;
 ```

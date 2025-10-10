@@ -139,7 +139,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 };
 
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('togal-button', (token: any) => {
+  return useEditorStyleRegister('switch-button', (token: any) => {
     const buttonToken = {
       ...token,
       componentCls: `.${prefixCls}`,
