@@ -103,7 +103,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'column',
         minHeight: 0,
         overflow: 'hidden',
-        
+
         borderRadius: 'var(--radius-card-base)',
       },
     },

@@ -31,7 +31,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
       outline: 'none',
       position: 'relative',
       overflow: 'hidden',
-      
 
       // 统一 icon 尺寸（适配 antd Button 图标容器）- base
       '&-button .ant-btn-icon': {
@@ -65,12 +64,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
         lineHeight: 'var(--height-control-sm)',
         borderRadius: 'var(--radius-control-sm)',
       },
-      '&-button&-button-sm.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only': {
-        width: 'var(--height-control-sm)',
-        height: 'var(--height-control-sm)',
-        lineHeight: 'var(--height-control-sm)',
-        borderRadius: 'var(--radius-control-sm)',
-      },
+      '&-button&-button-sm.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only':
+        {
+          width: 'var(--height-control-sm)',
+          height: 'var(--height-control-sm)',
+          lineHeight: 'var(--height-control-sm)',
+          borderRadius: 'var(--radius-control-sm)',
+        },
       '&-button&-button-sm.ant-btn.ant-btn-icon-only .ant-btn-icon': {
         fontSize: ICON_SIZE_SM,
       },
@@ -98,12 +98,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
         lineHeight: 'var(--height-control-xs)',
         borderRadius: 'var(--radius-control-xs)',
       },
-      '&-button&-button-xs.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only': {
-        width: 'var(--height-control-xs)',
-        height: 'var(--height-control-xs)',
-        lineHeight: 'var(--height-control-xs)',
-        borderRadius: 'var(--radius-control-xs)',
-      },
+      '&-button&-button-xs.ant-btn.ant-btn-variant-outlined.ant-btn-icon-only':
+        {
+          width: 'var(--height-control-xs)',
+          height: 'var(--height-control-xs)',
+          lineHeight: 'var(--height-control-xs)',
+          borderRadius: 'var(--radius-control-xs)',
+        },
       '&-button&-button-xs.ant-btn.ant-btn-icon-only .ant-btn-icon': {
         fontSize: ICON_SIZE_XS,
       },
@@ -119,28 +120,32 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
         boxShadow: 'var(--shadow-border-base)',
         color: 'var(--color-gray-text-secondary)',
 
-        '&:hover:not(&-button-disabled):not(&-button-loading):not([disabled])': {
+        '&:hover:not(&-button-disabled):not(&-button-loading):not([disabled])':
+          {
+            background: 'var(--color-gray-bg-card-white)',
+            boxShadow: 'var(--shadow-control-lg)',
+          },
+
+        '&:active:not(&-button-disabled):not(&-button-loading):not([disabled])':
+          {
+            background: 'var(--color-primary-control-fill-secondary)',
+            boxShadow: 'var(--shadow-border-base)',
+            color: 'var(--color-gray-text-secondary)',
+          },
+      },
+
+      // 提升 hover/active 选择器优先级以覆盖 antd 的 icon-only 悬浮样式
+      '&-button&-button-elevated.ant-btn.ant-btn-icon-only:not(.ant-btn-disabled):not([disabled]):hover':
+        {
           background: 'var(--color-gray-bg-card-white)',
           boxShadow: 'var(--shadow-control-lg)',
         },
-
-        '&:active:not(&-button-disabled):not(&-button-loading):not([disabled])': {
+      '&-button&-button-elevated.ant-btn.ant-btn-icon-only:not(.ant-btn-disabled):not([disabled]):active':
+        {
           background: 'var(--color-primary-control-fill-secondary)',
           boxShadow: 'var(--shadow-border-base)',
           color: 'var(--color-gray-text-secondary)',
         },
-      },
-
-      // 提升 hover/active 选择器优先级以覆盖 antd 的 icon-only 悬浮样式
-      '&-button&-button-elevated.ant-btn.ant-btn-icon-only:not(.ant-btn-disabled):not([disabled]):hover': {
-        background: 'var(--color-gray-bg-card-white)',
-        boxShadow: 'var(--shadow-control-lg)',
-      },
-      '&-button&-button-elevated.ant-btn.ant-btn-icon-only:not(.ant-btn-disabled):not([disabled]):active': {
-        background: 'var(--color-primary-control-fill-secondary)',
-        boxShadow: 'var(--shadow-border-base)',
-        color: 'var(--color-gray-text-secondary)',
-      },
 
       // Elevated 悬浮版本 - disabled
       '&-button-elevated&-button-disabled, &-button-elevated[disabled]': {
@@ -171,7 +176,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
         '&:active:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-active, #0958d9)',
-          boxShadow: 'var(--shadow-control-active, 0 1px 2px rgba(0, 0, 0, 0.2))',
+          boxShadow:
+            'var(--shadow-control-active, 0 1px 2px rgba(0, 0, 0, 0.2))',
           transform: 'translateY(0)',
         },
 
@@ -191,7 +197,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
           backgroundColor: 'var(--color-gray-bg-card-light, #fbfcfd)',
           borderColor: 'var(--color-blue-primary, #1677ff)',
           color: 'var(--color-blue-primary, #1677ff)',
-          boxShadow: 'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
+          boxShadow:
+            'var(--shadow-control-hover, 0 2px 4px rgba(0, 0, 0, 0.15))',
         },
 
         '&:active:not(&-disabled)': {
@@ -263,13 +270,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
 
         '&:hover:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-hover, #4096ff)',
-          boxShadow: 'var(--shadow-float-hover, 0 6px 16px rgba(22, 119, 255, 0.5))',
+          boxShadow:
+            'var(--shadow-float-hover, 0 6px 16px rgba(22, 119, 255, 0.5))',
           transform: 'translateY(-2px) scale(1.05)',
         },
 
         '&:active:not(&-disabled)': {
           backgroundColor: 'var(--color-blue-primary-active, #0958d9)',
-          boxShadow: 'var(--shadow-float-active, 0 2px 8px rgba(22, 119, 255, 0.3))',
+          boxShadow:
+            'var(--shadow-float-active, 0 2px 8px rgba(22, 119, 255, 0.3))',
           transform: 'translateY(0) scale(1)',
         },
 

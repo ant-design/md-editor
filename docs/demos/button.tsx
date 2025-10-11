@@ -190,11 +190,16 @@ export const BaseButtonDemo = () => {
           padding: '24px',
         }}
       >
-        <InlineElevatedButton icon={<ExpandAlt />}>悬浮按钮</InlineElevatedButton>
-        <InlineElevatedButton icon={<ExpandAlt />} disabled>悬浮按钮</InlineElevatedButton>
-        <InlineElevatedButton icon={<ExpandAlt />} loading>悬浮按钮</InlineElevatedButton>
+        <InlineElevatedButton icon={<ExpandAlt />}>
+          悬浮按钮
+        </InlineElevatedButton>
+        <InlineElevatedButton icon={<ExpandAlt />} disabled>
+          悬浮按钮
+        </InlineElevatedButton>
+        <InlineElevatedButton icon={<ExpandAlt />} loading>
+          悬浮按钮
+        </InlineElevatedButton>
       </Flex>
-      
       按钮 - SM尺寸
       <Flex
         gap={12}

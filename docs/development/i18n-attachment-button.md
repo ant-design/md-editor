@@ -42,9 +42,11 @@ import { useContext } from 'react';
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useContext(I18nContext);
-  
+
   return (
-    <button onClick={() => setLanguage(language === 'zh-CN' ? 'en-US' : 'zh-CN')}>
+    <button
+      onClick={() => setLanguage(language === 'zh-CN' ? 'en-US' : 'zh-CN')}
+    >
       切换语言 / Switch Language
     </button>
   );
@@ -72,11 +74,11 @@ function LanguageSwitcher() {
 
 本次更新为 `AttachmentButton` 组件添加了以下翻译 key：
 
-| Key | 中文 | 英文 | 说明 |
-|-----|------|------|------|
-| `markdownInput.maxFileCountExceeded` | 最多只能上传 ${maxFileCount} 个文件 | Maximum ${maxFileCount} files allowed | 超过最大文件数量限制 |
+| Key                                  | 中文                                | 英文                                    | 说明                   |
+| ------------------------------------ | ----------------------------------- | --------------------------------------- | ---------------------- |
+| `markdownInput.maxFileCountExceeded` | 最多只能上传 ${maxFileCount} 个文件 | Maximum ${maxFileCount} files allowed   | 超过最大文件数量限制   |
 | `markdownInput.minFileCountRequired` | 至少需要上传 ${minFileCount} 个文件 | At least ${minFileCount} files required | 未达到最小文件数量要求 |
-| `uploadFailed` | 上传失败 | Upload failed | 文件上传失败 |
+| `uploadFailed`                       | 上传失败                            | Upload failed                           | 文件上传失败           |
 
 ### 已有的相关翻译
 
@@ -93,10 +95,9 @@ function LanguageSwitcher() {
 ```typescript
 import { compileTemplate } from '@ant-design/md-editor';
 
-const message = compileTemplate(
-  locale['markdownInput.maxFileCountExceeded'],
-  { maxFileCount: '5' }
-);
+const message = compileTemplate(locale['markdownInput.maxFileCountExceeded'], {
+  maxFileCount: '5',
+});
 // 中文: "最多只能上传 5 个文件"
 // 英文: "Maximum 5 files allowed"
 ```
@@ -106,9 +107,7 @@ const message = compileTemplate(
 所有国际化文本都提供了默认值（fallback），确保在没有提供 locale 的情况下仍能正常工作：
 
 ```typescript
-message.error(
-  props.locale?.uploadFailed || 'Upload failed'
-);
+message.error(props.locale?.uploadFailed || 'Upload failed');
 ```
 
 ## 自定义语言包
@@ -126,7 +125,7 @@ const customLocale = {
 
 <I18nProvide locale={customLocale}>
   <App />
-</I18nProvide>
+</I18nProvide>;
 ```
 
 ## 注意事项
@@ -145,4 +144,3 @@ npm test AttachmentButton
 ```
 
 所有 17 个 `AttachmentButtonPopover` 测试应该全部通过。
-
