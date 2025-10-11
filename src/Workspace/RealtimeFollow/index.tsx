@@ -1,9 +1,14 @@
 import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
+import {
+  FileMarkdown,
+  FileXml,
+  ArrowLeft as LeftIcon,
+  SquareTerminal,
+} from '@sofa-design/icons';
 import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import { ArrowLeft as LeftIcon } from '../../icons';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -11,9 +16,6 @@ import {
 } from '../../MarkdownEditor';
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import { HtmlPreview } from '../HtmlPreview';
-import HtmlIcon from '../icons/HtmlIcon';
-import ShellIcon from '../icons/ShellIcon';
-import ThinkIcon from '../icons/ThinkIcon';
 import { useRealtimeFollowStyle } from './style';
 export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
 
@@ -59,23 +61,23 @@ const getTypeConfig = (type: RealtimeFollowMode, locale?: any) => {
   switch (type) {
     case 'shell':
       return {
-        icon: ShellIcon,
+        icon: SquareTerminal,
         title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
     case 'html':
       return {
-        icon: HtmlIcon,
+        icon: FileXml,
         title: locale?.['workspace.createHtmlFile'] || '创建 HTML 文件',
       };
     case 'markdown':
     case 'md':
       return {
-        icon: ThinkIcon,
+        icon: FileMarkdown,
         title: locale?.['workspace.markdownContent'] || 'Markdown 内容',
       };
     default:
       return {
-        icon: ShellIcon,
+        icon: SquareTerminal,
         title: locale?.['workspace.terminalExecution'] || '终端执行',
       };
   }
@@ -97,12 +99,28 @@ const RealtimeHeader: React.FC<{
   const headerTitle = data.title || config.title;
   const headerSubTitle = data.subTitle;
 
+  const iconNode = (
+    <div
+      className={classNames(
+        `${finalPrefixCls}-header-icon`,
+        {
+          [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
+          [`${finalPrefixCls}-header-icon--default`]: data?.type !== 'html',
+        },
+        hashId,
+      )}
+    >
+      <IconComponent />
+    </div>
+  );
+
   return (
     <header
       className={classNames(
         `${finalPrefixCls}-header`,
         {
           [`${finalPrefixCls}-header-with-border`]: hasBorder,
+          [`${finalPrefixCls}-header-with-back`]: data?.onBack,
         },
         hashId,
       )}
@@ -125,34 +143,28 @@ const RealtimeHeader: React.FC<{
             />
           </button>
         )}
-        <div>
+        <div className={classNames(`${finalPrefixCls}-header-content`, hashId)}>
+          {!data?.onBack && iconNode}
           <div
-            className={classNames(`${finalPrefixCls}-header-content`, hashId)}
+            className={classNames(
+              `${finalPrefixCls}-header-title-wrapper`,
+              hashId,
+            )}
           >
-            <div
-              className={classNames(
-                `${finalPrefixCls}-header-icon`,
-                {
-                  [`${finalPrefixCls}-header-icon--html`]:
-                    data?.type === 'html',
-                  [`${finalPrefixCls}-header-icon--default`]:
-                    data?.type !== 'html',
-                },
-                hashId,
-              )}
-            >
-              <IconComponent />
-            </div>
             <div
               className={classNames(`${finalPrefixCls}-header-title`, hashId)}
             >
+              {data?.onBack && iconNode}
               {headerTitle}
             </div>
-          </div>
-          <div
-            className={classNames(`${finalPrefixCls}-header-subtitle`, hashId)}
-          >
-            {headerSubTitle}
+            <div
+              className={classNames(
+                `${finalPrefixCls}-header-subtitle`,
+                hashId,
+              )}
+            >
+              {headerSubTitle}
+            </div>
           </div>
         </div>
       </div>
@@ -166,8 +178,6 @@ const RealtimeHeader: React.FC<{
 // 获取不同type的MarkdownEditor配置
 const getEditorConfig = (
   type: RealtimeFollowMode,
-  prefixCls: string,
-  hashId?: string,
 ): Partial<MarkdownEditorProps> => {
   const baseConfig = {
     readonly: true,
@@ -184,10 +194,10 @@ const getEditorConfig = (
           padding: 0,
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
-        className: classNames(`${prefixCls}--shell`, hashId),
         codeProps: {
           showGutter: true,
           showLineNumbers: true,
+          hideToolBar: true,
         },
       };
     case 'markdown':
@@ -198,7 +208,6 @@ const getEditorConfig = (
           padding: 16,
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
-        className: classNames(`${prefixCls}--markdown`, hashId),
         height: '100%',
       };
     default:
@@ -359,13 +368,18 @@ export const RealtimeFollow: React.FC<{
     return null;
   }
 
-  const defaultProps = getEditorConfig(data.type, finalPrefixCls, hashId);
+  const defaultProps = getEditorConfig(data.type);
   const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
     typewriter: isTestEnv
       ? false
       : (data.typewriter ?? defaultProps.typewriter),
+    style: {
+      maxHeight: 'auto',
+      ...defaultProps.style,
+      ...data.markdownEditorProps?.style,
+    },
   };
 
   const contentStr = String((data as any).content ?? '');
@@ -489,8 +503,18 @@ export const RealtimeFollowList: React.FC<{
       ) : (
         <Segmented
           options={[
-            { label: labels.preview, value: 'preview' },
-            { label: labels.code, value: 'code' },
+            {
+              label: (
+                <div className="ant-segmented-item-title">{labels.preview}</div>
+              ),
+              value: 'preview',
+            },
+            {
+              label: (
+                <div className="ant-segmented-item-title">{labels.code}</div>
+              ),
+              value: 'code',
+            },
           ]}
           value={htmlViewMode}
           onChange={(val) => handleSetMode(val as 'preview' | 'code')}
@@ -504,7 +528,14 @@ export const RealtimeFollowList: React.FC<{
         className={classNames(`${prefixCls}-header-segmented-right`, hashId)}
       >
         {segmentedNode}
-        {data.segmentedExtra}
+        <div
+          className={classNames(
+            `${prefixCls}-header-segmented-right-extra`,
+            hashId,
+          )}
+        >
+          {data.segmentedExtra}
+        </div>
       </div>
     );
   })();
@@ -513,7 +544,12 @@ export const RealtimeFollowList: React.FC<{
 
   return wrapSSR(
     <div
-      className={classNames(`${prefixCls}-container`, data.className, hashId)}
+      className={classNames(
+        `${prefixCls}-container`,
+        `${prefixCls}--${data.type}`,
+        data.className,
+        hashId,
+      )}
       style={data.style}
       data-testid="realtime-follow"
     >

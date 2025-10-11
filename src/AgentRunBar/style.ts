@@ -15,6 +15,15 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
   },
 });
 
+const borderSpin = new Keyframes('borderSpin', {
+  '0%': {
+    backgroundPosition: '200% 50%',
+  },
+  '100%': {
+    backgroundPosition: '0% 50%',
+  },
+});
+
 /**
  * 生成任务运行组件的样式
  *
@@ -46,11 +55,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         right: 0,
         bottom: 0,
         zIndex: -1,
+        // background:
+        //   'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
         background:
-          'conic-gradient(from 180deg at 50% 50%, #D3FEFF -31deg, #D3FEFF 82deg, #FFF16F 110deg, rgba(82, 212, 255, 0.2329) 221deg, #D3FEFF 329deg, #D3FEFF 427deg)',
+          'linear-gradient(90deg, #D3FEFF 0%, #FFF16F 16%, rgba(82, 212, 255, 0.2329) 50%, #D3FEFF 75%, #D3FEFF 100%)',
+        backgroundSize: '200% 50%',
         borderRadius: 'var(--radius-card-lg)',
+        opacity: 1,
         boxShadow: 'var(--shadow-popover-base)',
+        animationName: borderSpin,
+        animationDuration: '8s',
+        animationTimingFunction: 'linear',
+        animationIterationCount: 'infinite',
         pointerEvents: 'none',
+        overflow: 'hidden',
+        transition: 'background 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)',
       },
 
       '&-background': {
@@ -132,26 +151,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
 
-      '&-pause': {
-        width: 32,
-        color: '#343A45',
-        height: 32,
+      // TODO: 抽离为公共图标按钮组件
+      '&-pause, &-play': {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        width: 32,
+        height: 32,
+        color: 'var(--color-gray-text-secondary)',
+        fontSize: 16,
+        background: 'var(--color-gray-control-fill-secondary)',
+        backdropFilter: 'blur(40px)',
+        borderRadius: 200,
         zIndex: 0,
         cursor: 'pointer',
-      },
+        transition: 'all 0.2s ease-in-out',
 
-      '&-play': {
-        width: 32,
-        color: '#343A45',
-        height: 32,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 0,
-        cursor: 'pointer',
+        '&:hover': {
+          background: 'var(--color-gray-control-fill-secondary-hover)',
+        },
+
+        '&:active': {
+          color: 'var(--color-primary-control-fill-primary)',
+          background: 'var(--color-primary-control-fill-secondary)',
+        },
       },
 
       button: {
@@ -175,6 +198,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         textWrap: 'nowrap',
         '-webkit-line-clamp': '1',
         lineClamp: 1,
+      },
+    },
+
+    // Status pause
+    [`${componentCls}-status-pause`]: {
+      [`${componentCls}-border`]: {
+        background: 'var(--color-gray-bg-card-white)',
       },
     },
 
@@ -211,32 +241,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${componentCls}-button-wrapper`]: {
-        gap: 12,
+        gap: 4,
       },
 
-      [`${componentCls}-pause`]: {
-        width: 20,
-        height: 20,
+      [`${componentCls}-play, ${componentCls}-pause`]: {
+        width: 28,
+        height: 28,
         color: 'var(--color-gray-text-default)',
+        fontSize: 14,
         background: 'transparent',
         borderRadius: 'var(--radius-control-sm)',
+        cursor: 'pointer',
 
         '&:hover': {
-          color: 'var(--color-gray-text-secondary)',
           background: 'var(--color-gray-control-fill-active)',
         },
-      },
 
-      [`${componentCls}-play`]: {
-        width: 20,
-        height: 20,
-        color: 'var(--color-gray-text-default)',
-        background: 'transparent',
-        borderRadius: 'var(--radius-control-sm)',
-
-        '&:hover': {
-          color: 'var(--color-gray-text-secondary)',
-          background: 'var(--color-gray-control-fill-active)',
+        '&:active': {
+          color: 'var(--color-primary-control-fill-primary)',
+          background: 'var(--color-primary-control-fill-secondary)',
         },
       },
     },

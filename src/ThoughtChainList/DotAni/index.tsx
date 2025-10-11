@@ -1,4 +1,4 @@
-﻿import classNames from 'classnames';
+import classNames from 'classnames';
 import React from 'react';
 import { useDotAniStyle } from './style';
 

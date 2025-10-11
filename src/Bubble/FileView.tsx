@@ -41,6 +41,7 @@ const defaultHandlers: {
     a.click();
     document.body.removeChild(a);
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onViewAll: (_files: AttachmentFile[]) => {},
 } as const;
 

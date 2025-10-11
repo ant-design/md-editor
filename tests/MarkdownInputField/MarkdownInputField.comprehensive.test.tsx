@@ -319,19 +319,6 @@ describe('MarkdownInputField Comprehensive Tests', () => {
   });
 
   describe('样式和主题', () => {
-    it('应该应用自定义背景色', () => {
-      const bgColorList = ['#f0f0f0', '#e0e0e0', '#d0d0d0', '#c0c0c0'] as [
-        string,
-        string,
-        string,
-        string,
-      ];
-      render(
-        <MarkdownInputField {...defaultProps} bgColorList={bgColorList} />,
-      );
-      expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
-    });
-
     it('应该应用自定义圆角', () => {
       render(<MarkdownInputField {...defaultProps} borderRadius={8} />);
       expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();

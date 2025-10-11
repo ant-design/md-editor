@@ -7,7 +7,7 @@ import {
   VisualList,
   VisualListItem,
 } from '@ant-design/md-editor';
-import { ArrowUpRight } from '@ant-design/md-editor/icons/ArrowUpRight1';
+import { ArrowUpRight } from '@sofa-design/icons';
 import { Popover } from 'antd';
 import React, { useMemo } from 'react';
 
@@ -243,6 +243,7 @@ export default () => {
             padding: 0,
             borderRadius: 'var(--radius-card-base)',
             boxShadow: 'var(--shadow-control-lg)',
+            overflow: 'hidden',
           }}
           arrow={false}
           content={

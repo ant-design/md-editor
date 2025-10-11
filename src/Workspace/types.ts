@@ -326,6 +326,8 @@ export interface GroupNode extends BaseNode {
   collapsed?: boolean;
   children: FileNode[];
   type: FileType;
+  /** 用户自定义是否可以下载分组（默认显示，设置为 false 隐藏） */
+  canDownload?: boolean;
 }
 
 // 文件组件外部可调用方法
@@ -345,6 +347,8 @@ export interface FileProps extends BaseChildProps {
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
+  /** 重置标识，用于重置预览状态（内部使用） */
+  resetKey?: number;
   onPreview?: (
     file: FileNode,
   ) =>
@@ -374,6 +378,11 @@ export interface FileProps extends BaseChildProps {
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
+  /**
+   * 自定义预览页面右侧操作区域
+   * @description 可以是 ReactNode 或者根据文件返回 ReactNode 的函数
+   */
+  customActions?: React.ReactNode | ((file: FileNode) => React.ReactNode);
   /**
    * 对外暴露的操作引用，允许外部主动打开预览或返回列表
    */

@@ -1,4 +1,11 @@
 import { CloseCircleFilled } from '@ant-design/icons';
+import {
+  ChevronsDownUp,
+  ChevronsUpDown,
+  CircleCheckBig,
+  Loader,
+  Sparkles,
+} from '@sofa-design/icons';
 import { ConfigProvider, Descriptions, Drawer, Typography } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -7,17 +14,15 @@ import { motion } from 'framer-motion';
 import { merge } from 'lodash-es';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { MagicIcon } from '../components/icons/MagicIcon';
 import { useAutoScroll } from '../hooks/useAutoScroll';
-import { compileTemplate, I18nContext } from '../i18n';
-import { CircleCheckBig, Loader } from '../icons';
+import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../MarkdownEditor/editor/components/ActionIconBox';
 import { MarkdownEditorProps } from '../MarkdownEditor/types';
-import { CollapseIcon, ExpandIcon } from './Collapse';
 import { DotLoading } from './DotAni';
 import { FlipText } from './FlipText';
 import { useStyle } from './style';
 import { ThoughtChainListItem } from './ThoughtChainListItem';
+import { TitleInfo } from './TitleInfo';
 import {
   DocMeta,
   ThoughtChainListProps,
@@ -65,7 +70,7 @@ const ThoughtChainTitle = React.memo<{
         title={collapse ? locale?.expand || '展开' : locale?.collapse || '收起'}
         onClick={onCollapseToggle}
       >
-        {!collapse ? <ExpandIcon /> : <CollapseIcon />}
+        {!collapse ? <ChevronsDownUp /> : <ChevronsUpDown />}
       </ActionIconBox>
     );
 
@@ -77,10 +82,12 @@ const ThoughtChainTitle = React.memo<{
         })}
       >
         <div className={classNames(`${prefixCls}-title-content`, hashId)}>
-          <MagicIcon
+          <Sparkles
+            data-testid="magic-icon"
             style={{
               width: 15,
               height: 15,
+              color: '#0CE0AD',
             }}
           />
           <span
@@ -438,13 +445,23 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
         return <FlipText word={locale?.taskComplete} />;
       }
 
+      // 正在运行中时，无论是否收起都显示运行状态
       return (
         <div>
           {thoughtChainList.at(-1) && collapse ? (
-            compileTemplate(locale?.inProgressTask, {
-              taskName:
-                locale[thoughtChainList.at(-1)?.category || 'other'] || '',
-            })
+            <>
+              <TitleInfo
+                title={thoughtChainList.at(-1)?.info}
+                costMillis={thoughtChainList.at(-1)?.costMillis}
+                category={thoughtChainList.at(-1)?.category || ''}
+                prefixCls={prefixCls}
+                hashId={hashId}
+                isFinished={false}
+                collapse={true}
+                meta={thoughtChainList.at(-1)?.meta?.data || {}}
+              />
+              {loading && <DotLoading />}
+            </>
           ) : (
             <div>
               {locale?.thinking}
@@ -455,12 +472,12 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
       );
     }, [
       loading,
+      collapse,
       thoughtChainList?.at?.(-1)?.category,
       bubble?.isFinished,
       bubble?.isAborted,
       bubble?.endTime,
       bubble?.createAt,
-      collapse,
       locale,
     ]);
 

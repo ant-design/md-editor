@@ -18,6 +18,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       fontSize: '1.05em',
       color: 'rgb(107 114 128 / 80%)',
       padding: '4px 0',
+      userSelect: 'none',
       '&-item': {
         display: 'flex',
         height: '48px',

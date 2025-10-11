@@ -3,10 +3,10 @@ import {
   Chunk,
   WhiteBoxProcessInterface,
 } from '@ant-design/md-editor/ThoughtChainList';
+import { Loader } from '@sofa-design/icons';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
-import { Loader } from '../../icons';
 import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
@@ -103,13 +103,6 @@ export const BubbleMessageDisplay: React.FC<
       ? props.bubbleRenderConfig.beforeMessageRender(props, null)
       : null;
   }, [props.bubbleRenderConfig?.beforeMessageRender, typing, props.originData]);
-
-  const filesMap = useMemo(() => {
-    if (props.originData?.fileMap && props.originData.fileMap.size > 0) {
-      return props.originData.fileMap;
-    }
-    return undefined;
-  }, [props.originData?.fileMap]);
 
   const afterContent = useMemo(() => {
     const userAfter = props.bubbleRenderConfig?.afterMessageRender
@@ -372,6 +365,7 @@ export const BubbleMessageDisplay: React.FC<
                     />
                     {item?.docId && item.doc_name ? (
                       <Tooltip
+                        mouseEnterDelay={0.3}
                         title={
                           <Typography.Text copyable={{ text: item.docId }}>
                             {item.docId}

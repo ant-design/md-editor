@@ -1,5 +1,10 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import {
+  Download as DownloadIcon,
+  ArrowLeft as LeftIcon,
+  MessageSquareShare as ShareIcon,
+} from '@sofa-design/icons';
+import {
   Alert,
   Button,
   ConfigProvider,
@@ -12,11 +17,6 @@ import {
 import classNames from 'classnames';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
-import {
-  Download as DownloadIcon,
-  ArrowLeft as LeftIcon,
-  MessageSquareShare as ShareIcon,
-} from '../../icons';
 import {
   MarkdownEditor,
   type MarkdownEditorInstance,
@@ -44,6 +44,12 @@ export interface PreviewComponentProps {
    * 自定义头部（当提供时，将完全替换默认头部：返回、图标、标题、时间、下载等均由外部控制）
    */
   customHeader?: React.ReactNode;
+
+  /**
+   * 自定义右侧操作区域（在默认操作按钮之前插入）
+   */
+  customActions?: React.ReactNode;
+
   onBack?: () => void;
   onDownload?: (file: FileNode) => void;
   /** 分享回调 */
@@ -64,7 +70,7 @@ export interface PreviewComponentProps {
   headerFileOverride?: Partial<FileNode>;
 }
 
-// 提取通用的占位符组件
+// 占位符组件
 const PlaceholderContent: FC<{
   children?: React.ReactNode;
   showFileInfo?: boolean;
@@ -124,47 +130,22 @@ const PlaceholderContent: FC<{
 };
 
 /**
- * PreviewComponent 组件 - 文件预览组件
- *
- * 该组件提供文件预览功能，支持多种文件类型的预览，包括图片、文档、代码等。
- * 支持自定义预览内容和头部，提供返回、下载等操作。
- *
- * @component
- * @description 文件预览组件，支持多种文件类型的预览
- * @param {PreviewComponentProps} props - 组件属性
- * @param {FileNode} props.file - 要预览的文件
- * @param {React.ReactNode} [props.customContent] - 自定义预览内容
- * @param {React.ReactNode} [props.customHeader] - 自定义头部内容
- * @param {() => void} props.onBack - 返回按钮的回调
- * @param {(file: FileNode) => void} [props.onDownload] - 下载按钮的回调
- * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ * 文件预览组件
  *
  * @example
  * ```tsx
  * <PreviewComponent
  *   file={fileNode}
  *   onBack={() => setPreviewFile(null)}
- *   onDownload={(file) => downloadFile(file)}
- *   markdownEditorProps={{
- *     theme: 'dark'
- *   }}
+ *   customActions={<Button icon={<EditIcon />}>编辑</Button>}
  * />
  * ```
- *
- * @returns {React.ReactElement} 渲染的文件预览组件
- *
- * @remarks
- * - 支持多种文件类型的预览（图片、文档、代码、PDF等）
- * - 支持自定义预览内容和头部
- * - 提供HTML预览和代码查看模式
- * - 支持Markdown文件的编辑器预览
- * - 处理文件加载状态和错误状态
- * - 提供文件信息显示和下载功能
  */
 export const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   customContent,
   customHeader,
+  customActions,
   onBack,
   onDownload,
   onShare,
@@ -172,7 +153,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   headerFileOverride,
 }) => {
   const { locale } = useContext(I18nContext);
-  // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const filePrefixCls = getPrefixCls('workspace-file');
   const { wrapSSR, hashId } = useFileStyle(filePrefixCls);
@@ -210,7 +190,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     });
   };
 
-  // 处理文件（当未提供 customContent 时）
   useEffect(() => {
     if (customContent) return;
     try {
@@ -224,14 +203,12 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   }, [file, customContent]);
 
-  // 获取并准备 Markdown/HTML 内容（当未提供 customContent 时）
   useEffect(() => {
     if (customContent) return;
     if (!processResult) return;
 
     const { typeInference, dataSource } = processResult;
 
-    // 只处理文本类型和代码类型文件
     if (typeInference.category !== 'text' && typeInference.category !== 'code')
       return;
 
@@ -251,13 +228,11 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       });
     };
 
-    // 直接内容
     if (dataSource.content) {
       setReady(dataSource.content);
       return;
     }
 
-    // 通过 URL 拉取内容
     if (dataSource.previewUrl) {
       setContentState({ status: 'loading', mdContent: '', rawContent: '' });
 
@@ -278,7 +253,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   }, [processResult, file.name, customContent]);
 
-  // 更新编辑器内容
   useEffect(() => {
     if (customContent) return;
     if (
@@ -290,7 +264,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   }, [contentState, customContent]);
 
-  // 清理资源
   useEffect(() => {
     return () => {
       if (processResult) {
@@ -299,7 +272,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     };
   }, [processResult]);
 
-  // 文件变化时重置 HTML 预览模式
   useEffect(() => {
     setHtmlViewMode('preview');
   }, [file.name]);
@@ -361,7 +333,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     const { typeInference, dataSource, canPreview, previewMode } =
       processResult;
 
-    // 如果不支持预览
     if (!canPreview || previewMode === 'none') {
       return (
         <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
@@ -477,7 +448,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       );
     }
 
-    // 根据文件类型渲染预览内容
     switch (typeInference.category) {
       case 'text':
       case 'code': {
@@ -729,8 +699,18 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
                 onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}
               />
             )}
+            {customActions && (
+              <div
+                className={classNames(`${prefixCls}-custom-actions`, hashId)}
+              >
+                {customActions}
+              </div>
+            )}
             {onShare && file.canShare === true && (
-              <Tooltip title={locale?.['workspace.file.share'] || '分享'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.share'] || '分享'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -742,7 +722,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               </Tooltip>
             )}
             {onDownload && (
-              <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
                 <Button
                   size="small"
                   type="text"

@@ -1,3 +1,4 @@
+import { CircleDashed, Copy, Play } from '@sofa-design/icons';
 import { Button, ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -9,7 +10,6 @@ import React, {
   useState,
 } from 'react';
 import { I18nContext } from '../../i18n';
-import { CircleDashed, Copy, Play } from '../../icons';
 import { SchemaRenderer } from '../SchemaRenderer';
 import { LowCodeSchema } from '../types';
 import { mdDataSchemaValidator } from '../validator';

@@ -173,8 +173,15 @@ export type MarkdownEditorProps = {
   onChange?: (value: string, schema: Elements[]) => void;
   /**
    * 选择变更回调
+   * @param selection - Slate 选区对象
+   * @param selectedMarkdown - 选中内容的 markdown 文本
+   * @param selectedNodes - 选中的节点数组
    */
-  onSelectionChange?: (selection: any) => void;
+  onSelectionChange?: (
+    selection: Selection | null,
+    selectedMarkdown: string,
+    selectedNodes: Elements[],
+  ) => void;
   comment?: {
     /**
      * 是否启用评论功能
@@ -288,6 +295,16 @@ export type MarkdownEditorProps = {
           anchorOffset: number;
           focusOffset: number;
           refContent: string;
+          selection?: {
+            anchor: {
+              path: number[];
+              offset: number;
+            };
+            focus: {
+              path: number[];
+              offset: number;
+            };
+          };
         },
         newContent: string,
       ) => void;

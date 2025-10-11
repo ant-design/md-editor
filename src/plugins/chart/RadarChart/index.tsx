@@ -59,6 +59,8 @@ interface RadarChartProps extends ChartContainerProps {
   pointBackgroundColor?: string;
   /** 统计数据组件配置 */
   statistic?: StatisticConfigType;
+  /** 图例文字最大宽度（像素），超出则显示省略号，默认80px */
+  textMaxWidth?: number;
 }
 
 // 默认颜色配置
@@ -87,6 +89,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   backgroundColor,
   pointBackgroundColor,
   statistic,
+  textMaxWidth = 80,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -356,6 +359,50 @@ const RadarChart: React.FC<RadarChartProps> = ({
           padding: isMobile ? 10 : 20,
           usePointStyle: true,
           pointStyle: 'rectRounded',
+          generateLabels: (chart) => {
+            const original =
+              ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
+
+            // 创建一个临时 canvas 来测量文字宽度
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return original;
+
+            // 设置字体样式与图例相同
+            const fontSize = isMobile ? 10 : 12;
+            ctx.font = `${fontSize}px 'PingFang SC', sans-serif`;
+
+            return original.map((label) => {
+              const originalText = label.text;
+              const textWidth = ctx.measureText(originalText).width;
+
+              if (textWidth <= textMaxWidth) {
+                return label;
+              }
+
+              // 文字超过最大宽度，需要截断
+              const ellipsis = '...';
+              const ellipsisWidth = ctx.measureText(ellipsis).width;
+              const maxTextWidth = textMaxWidth - ellipsisWidth;
+
+              let truncatedText = originalText;
+              let truncatedWidth = textWidth;
+
+              // 逐个字符减少直到宽度符合要求
+              while (
+                truncatedWidth > maxTextWidth &&
+                truncatedText.length > 0
+              ) {
+                truncatedText = truncatedText.slice(0, -1);
+                truncatedWidth = ctx.measureText(truncatedText).width;
+              }
+
+              return {
+                ...label,
+                text: truncatedText + ellipsis,
+              };
+            });
+          },
         },
       },
       tooltip: {

@@ -1,7 +1,14 @@
+import { RefreshCcw, SwapRight } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useMemo, useState } from 'react';
-import { RefreshCcw, SwapRight } from '../../icons';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useStyle } from './style';
 
 export interface SuggestionItem {
@@ -25,9 +32,71 @@ export interface SuggestionListProps {
   layout?: 'vertical' | 'horizontal';
   /** 样式类型：基础版、透明版、白色版 */
   type?: 'basic' | 'transparent' | 'white';
-  /** 是否展示左上角“搜索更多”入口 */
-  showMore?: { enable: boolean; onClick?: () => void };
+  /** 是否展示左上角"搜索更多"入口 */
+  showMore?: {
+    enable: boolean;
+    onClick?: () => void;
+    text?: string;
+    icon?: React.ReactNode;
+  };
 }
+
+const OverflowTooltip: React.FC<{
+  children: React.ReactNode;
+  title: string;
+  prefixCls: string;
+  hashId: string;
+  forceShow?: boolean;
+}> = ({ children, title, prefixCls, hashId, forceShow = false }) => {
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  const checkOverflow = useCallback(() => {
+    if (textRef.current) {
+      const { scrollWidth, clientWidth } = textRef.current;
+      const overflowing = scrollWidth > clientWidth;
+      setIsOverflowing(overflowing);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+    return () => window.removeEventListener('resize', checkOverflow);
+  }, [children, checkOverflow]);
+
+  useEffect(() => {
+    if (!textRef.current) return;
+
+    const observer = new MutationObserver(checkOverflow);
+
+    observer.observe(textRef.current, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect();
+  }, [checkOverflow]);
+
+  const shouldShowTooltip = forceShow || isOverflowing;
+
+  if (!shouldShowTooltip) {
+    return (
+      <span ref={textRef} className={classNames(`${prefixCls}-label`, hashId)}>
+        {children}
+      </span>
+    );
+  }
+
+  return (
+    <Tooltip mouseEnterDelay={0.3} title={title} placement="top">
+      <span ref={textRef} className={classNames(`${prefixCls}-label`, hashId)}>
+        {children}
+      </span>
+    </Tooltip>
+  );
+};
 
 export const SuggestionList: React.FC<SuggestionListProps> = ({
   className,
@@ -71,10 +140,10 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
           {showMore?.enable ? (
             <div
               className={classNames(`${prefixCls}-more`, hashId)}
-              aria-label="搜索更多"
+              aria-label={showMore?.text || '搜索更多'}
             >
               <span className={classNames(`${prefixCls}-more-text`, hashId)}>
-                搜索更多
+                {showMore?.text || '搜索更多'}
               </span>
               <span
                 className={classNames(`${prefixCls}-more-icon`, hashId)}
@@ -82,7 +151,7 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
                 onClick={() => showMore?.onClick?.()}
                 aria-hidden
               >
-                <RefreshCcw width={14} height={14} />
+                {showMore?.icon || <RefreshCcw width={14} height={14} />}
               </span>
             </div>
           ) : null}
@@ -118,11 +187,14 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
                     {item?.icon}
                   </span>
                 ) : null}
-                <Tooltip title={item?.tooltip ?? label} placement="top">
-                  <span className={classNames(`${prefixCls}-label`, hashId)}>
-                    {item?.text}
-                  </span>
-                </Tooltip>
+                <OverflowTooltip
+                  title={item?.tooltip ?? label ?? ''}
+                  prefixCls={prefixCls}
+                  hashId={hashId}
+                  forceShow={!!item?.tooltip}
+                >
+                  {item?.text}
+                </OverflowTooltip>
                 <span
                   className={classNames(`${prefixCls}-arrow`, hashId, {
                     [`${prefixCls}-arrow-action`]: item.actionIcon,

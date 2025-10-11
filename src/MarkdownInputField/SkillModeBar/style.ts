@@ -50,7 +50,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       color: 'var(--color-gray-text-light)',
 
       '&:hover': {

@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
@@ -58,7 +58,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 'var(--margin-2x)',
         position: 'relative',
         '&:hover': {
-          backgroundColor: 'var(--color-gray-bg-card-light)',
           [`${token.componentCls}-item-close-icon`]: {
             display: 'flex',
           },
@@ -89,7 +88,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             font: 'var(--font-text-body-emphasized-sm)',
             letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
             color: 'var(--color-gray-text-default)',
-            maxWidth: '92px',
+            maxWidth: '112px',
             whiteSpace: 'nowrap',
             width: 'max-content',
             overflow: 'hidden',
@@ -104,6 +103,23 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           font: 'var(--font-text-body-sm)',
           letterSpacing: 'var(--letter-spacing-body-sm, normal)',
           color: 'var(--color-gray-text-light)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          '&-item:not(:last-child)': {
+            lineHeight: '9px',
+            display: 'flex',
+            gap: 4,
+            alignItems: 'center',
+            height: 12,
+            '&:after': {
+              content: '""',
+              display: 'block',
+              width: '1px',
+              height: '12px',
+              background: 'var(--color-gray-border-light)',
+            },
+          },
         },
         '&-close-icon': {
           width: 'var(--padding-4x)',
@@ -130,12 +146,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           padding: 'var(--padding-2x)',
         },
+        '&-error-icon': {
+          width: '40px',
+          height: '40px',
+          fontSize: '40px',
+          display: 'flex',
+        },
       },
     },
     [`${token.componentCls}-container`]: {
-      background: 'var(--color-gray-bg-page-light)',
-      '&:hover': {
-        backgroundColor: 'var(--color-gray-bg-card-light)',
+      background: 'var(--color-gray-bg-page)',
+      borderBottom: '1px solid rgba(0, 16, 64, 0.0627)',
+      '&-empty': {
+        border: 'none',
       },
     },
   };

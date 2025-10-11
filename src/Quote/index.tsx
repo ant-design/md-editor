@@ -1,7 +1,7 @@
+import { CloseCircleFill, CornerLeftUp, QuoteBefore } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { CloseCircleFill, CornerLeftUp, QuoteBefore } from '../icons';
 import { useStyle } from './style';
 
 /**

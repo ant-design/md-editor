@@ -48,5 +48,6 @@ export interface TdNode {
   type: 'table-cell';
   rowSpan?: number;
   colSpan?: number;
+  select?: boolean; // 标记单元格是否被选中
   children: Array<TableCustomElement | BaseElement['children'] | Text>;
 }

@@ -889,30 +889,200 @@ export const isTargetInsideVoid = (
   return Editor.isVoid(editor, slateNode);
 };
 
+/**
+ * 基于 anchorNode 和 focusNode 创建新的 DOM Selection 对象
+ *
+ * @param anchorNode - 选区起始节点
+ * @param anchorOffset - 起始节点中的偏移量
+ * @param focusNode - 选区结束节点
+ * @param focusOffset - 结束节点中的偏移量
+ * @returns 新创建的 Selection 对象，如果创建失败则返回 null
+ */
+export function createSelectionFromNodes(
+  anchorNode: Node | null,
+  anchorOffset: number,
+  focusNode: Node | null,
+  focusOffset: number,
+): Selection | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  if (!anchorNode || !focusNode) {
+    return null;
+  }
+
+  try {
+    const selection = window.getSelection();
+    if (!selection) {
+      return null;
+    }
+
+    // 清除当前选区
+    selection.removeAllRanges();
+
+    // 使用 setBaseAndExtent 方法创建新的选区
+    selection.setBaseAndExtent(
+      anchorNode,
+      anchorOffset,
+      focusNode,
+      focusOffset,
+    );
+
+    return selection;
+  } catch (error) {
+    console.error('创建 Selection 对象失败:', error);
+    return null;
+  }
+}
+
+/**
+ * 基于 anchorNode 和 focusNode 创建 DOM Range 对象
+ *
+ * @param anchorNode - 选区起始节点
+ * @param anchorOffset - 起始节点中的偏移量
+ * @param focusNode - 选区结束节点
+ * @param focusOffset - 结束节点中的偏移量
+ * @returns 新创建的 DOM Range 对象，如果创建失败则返回 null
+ */
+export function createDomRangeFromNodes(
+  anchorNode: Node | null,
+  anchorOffset: number,
+  focusNode: Node | null,
+  focusOffset: number,
+): globalThis.Range | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  if (!anchorNode || !focusNode) {
+    return null;
+  }
+
+  try {
+    const range = document.createRange();
+    range.setStart(anchorNode, anchorOffset);
+    range.setEnd(focusNode, focusOffset);
+    return range;
+  } catch (error) {
+    console.error('创建 DOM Range 对象失败:', error);
+    return null;
+  }
+}
+
+/**
+ * 处理评论拖拽句柄节点
+ *
+ * @param node - 待处理的节点
+ * @returns 处理后的节点
+ */
+function handleCommentDragHandle(node: Node | null): Node | null {
+  if (
+    node &&
+    (node as HTMLDivElement)?.className?.includes('comment-drag-handle')
+  ) {
+    return node?.parentElement?.parentElement?.querySelector(
+      '[data-slate-string]',
+    ) as Node;
+  }
+  return node;
+}
+
+/**
+ * 检查节点是否可选择
+ *
+ * @param editor - React 编辑器实例
+ * @param node - 待检查的节点
+ * @returns 节点是否可选择
+ */
+function isNodeSelectable(editor: ReactEditor, node: Node | null): boolean {
+  if (!node) return false;
+  return hasTarget(editor, node) || isTargetInsideVoid(editor, node);
+}
+
+/**
+ * 创建并转换 Range 对象
+ *
+ * @param editor - React 编辑器实例
+ * @param anchorNode - 起始节点
+ * @param focusNode - 结束节点
+ * @param originalRange - 原始 Range 对象
+ * @returns 转换后的 Slate Range
+ */
+function createAndConvertRange(
+  editor: ReactEditor,
+  anchorNode: Node,
+  focusNode: Node,
+  originalRange: globalThis.Range,
+): Range | null {
+  try {
+    // 创建新的 DOM Range
+    const domRange = document.createRange();
+
+    // 使用原始 Range 的偏移量，确保精确性
+    domRange.setStart(anchorNode, originalRange.startOffset);
+    domRange.setEnd(focusNode, originalRange.endOffset);
+
+    // 转换为 Slate Range
+    return ReactEditor.toSlateRange(editor, domRange, {
+      exactMatch: true,
+      suppressThrow: false,
+    });
+  } catch (error) {
+    console.error('创建并转换 Range 失败:', error);
+    return null;
+  }
+}
+
+/**
+ * 从 DOM Selection 对象中提取并转换为 Slate Range
+ *
+ * @param editor - React 编辑器实例
+ * @param domSelection - DOM Selection 对象
+ * @returns 转换后的 Slate Range 对象，如果转换失败则返回 null
+ */
 export function getSelectionFromDomSelection(
   editor: ReactEditor,
   domSelection: Selection,
 ): Range | null {
-  const { anchorNode, focusNode } = domSelection;
-  const anchorNodeSelectable =
-    hasTarget(editor, anchorNode) || isTargetInsideVoid(editor, anchorNode);
+  // 检查 Selection 是否有有效的 Range
+  if (!domSelection.rangeCount || domSelection.rangeCount === 0) {
+    return null;
+  }
 
-  const focusNodeSelectable =
-    hasTarget(editor, focusNode) || isTargetInsideVoid(editor, focusNode);
-  const check = checkText(anchorNode) && checkText(focusNode);
-  if (anchorNodeSelectable && focusNodeSelectable && check) {
-    try {
-      const range = ReactEditor.toSlateRange(editor, domSelection, {
-        exactMatch: true,
-        suppressThrow: false,
-      });
-      return range;
-    } catch (error) {
-      console.log('getSelectionFromDomSelection error', error);
+  try {
+    const range = domSelection.getRangeAt(0);
+    if (!range) {
       return null;
     }
+
+    // 获取起始和结束容器节点
+    let anchorNode = range.startContainer;
+    let focusNode = range.endContainer;
+
+    // 处理评论拖拽句柄的特殊情况
+    anchorNode = handleCommentDragHandle(anchorNode);
+    focusNode = handleCommentDragHandle(focusNode);
+
+    // 验证节点是否可选择
+    if (
+      !isNodeSelectable(editor, anchorNode) ||
+      !isNodeSelectable(editor, focusNode)
+    ) {
+      return null;
+    }
+
+    // 验证文本节点
+    if (!checkText(anchorNode) || !checkText(focusNode)) {
+      return null;
+    }
+
+    // 创建新的 Range 并转换
+    return createAndConvertRange(editor, anchorNode, focusNode, range);
+  } catch (error) {
+    console.error('getSelectionFromDomSelection error:', error);
+    return null;
   }
-  return null;
 }
 
 /**

@@ -232,7 +232,7 @@ const safeMarkdownToHtml = async (markdown: string) => {
 
 ```typescript | pure
 // 使用防抖处理频繁操作
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 
 const debouncedValidation = debounce((content: string) => {
   return isMarkdown(content);

@@ -1,4 +1,10 @@
 import { CloseOutlined } from '@ant-design/icons';
+import {
+  FileStack,
+  Language,
+  ListTodo,
+  MousePointerClick,
+} from '@sofa-design/icons';
 import { ConfigProvider, Segmented } from 'antd';
 import classNames from 'classnames';
 import React, {
@@ -12,10 +18,6 @@ import React, {
 import { I18nContext } from '../i18n';
 import { BrowserList } from './Browser';
 import { File } from './File';
-import BrowserIcon from './icons/BrowserIcon';
-import FileIcon from './icons/FileIcon';
-import RealtimeIcon from './icons/RealtimeIcon';
-import TaskIcon from './icons/TaskIcon';
 import { RealtimeFollowList } from './RealtimeFollow';
 import { useWorkspaceStyle } from './style';
 import { TaskList } from './Task';
@@ -43,25 +45,25 @@ enum ComponentType {
 const DEFAULT_CONFIG = (locale: any): Record<ComponentType, TabItem> => ({
   [ComponentType.REALTIME]: {
     key: ComponentType.REALTIME,
-    icon: <RealtimeIcon />,
+    icon: <MousePointerClick />,
     title: locale?.['workspace.realtimeFollow'] || '实时跟随',
     label: locale?.['workspace.realtimeFollow'] || '实时跟随',
   },
   [ComponentType.BROWSER]: {
     key: ComponentType.BROWSER,
-    icon: <BrowserIcon />,
+    icon: <Language />,
     title: locale?.['workspace.browser'] || '浏览器',
     label: locale?.['workspace.browser'] || '浏览器',
   },
   [ComponentType.TASK]: {
     key: ComponentType.TASK,
-    icon: <TaskIcon />,
+    icon: <ListTodo />,
     title: locale?.['workspace.task'] || '任务',
     label: locale?.['workspace.task'] || '任务',
   },
   [ComponentType.FILE]: {
     key: ComponentType.FILE,
-    icon: <FileIcon />,
+    icon: <FileStack />,
     title: locale?.['workspace.file'] || '文件',
     label: locale?.['workspace.file'] || '文件',
   },
@@ -175,6 +177,7 @@ const Workspace: FC<WorkspaceProps> & {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [segmentedKey, setSegmentedKey] = useState(0); // ⭐ 用于强制刷新 Segmented
+  const [resetKey, setResetKey] = useState(0); // 用于重置 FileComponent 状态
 
   const displayTitle = title ?? (locale?.['workspace.title'] || 'Workspace');
   const defaultConfig = DEFAULT_CONFIG(locale);
@@ -197,9 +200,9 @@ const Workspace: FC<WorkspaceProps> & {
       );
       tabs.push({
         key: tabConfig.key,
+        icon: tabConfig.icon,
         label: (
           <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
-            {tabConfig.icon}
             <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
               {tabConfig.title}
             </span>
@@ -210,7 +213,13 @@ const Workspace: FC<WorkspaceProps> & {
             )}
           </div>
         ),
-        content: React.createElement(child.type, child.props),
+        content: React.createElement(child.type, {
+          ...child.props,
+          // 为 FileComponent 传递重置标识，用于重置预览状态
+          ...(componentType === ComponentType.FILE && {
+            resetKey,
+          }),
+        }),
       });
     });
     return tabs;
@@ -261,6 +270,8 @@ const Workspace: FC<WorkspaceProps> & {
   const handleTabChange = (key: string | number) => {
     const tabKey = String(key);
     if (activeTabKey === undefined) setInternalActiveTab(tabKey);
+    // 标签页切换时，增加重置标识以重置所有 FileComponent 的预览状态
+    setResetKey((prev) => prev + 1);
     onTabChange?.(tabKey);
   };
 
@@ -303,9 +314,10 @@ const Workspace: FC<WorkspaceProps> & {
           <Segmented
             key={segmentedKey} // ⭐ 每次宽度从 0 变为 >0，重新挂载
             className={classNames(`${prefixCls}-segmented`, hashId)}
-            options={availableTabs.map(({ label, key }) => ({
+            options={availableTabs.map(({ label, key, icon }) => ({
               label,
               value: key,
+              icon,
             }))}
             value={currentActiveTab}
             onChange={handleTabChange}

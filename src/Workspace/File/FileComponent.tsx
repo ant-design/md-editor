@@ -10,17 +10,17 @@ import {
   message,
 } from 'antd';
 
-import { Empty } from 'antd';
-import classNames from 'classnames';
-import React, { type FC, useContext, useRef, useState } from 'react';
-import { I18nContext } from '../../i18n';
 import {
   ChevronDown as DownIcon,
   Download as DownloadIcon,
   Eye as EyeIcon,
   ChevronRight as RightIcon,
   MessageSquareShare as ShareIcon,
-} from '../../icons';
+} from '@sofa-design/icons';
+import { Empty } from 'antd';
+import classNames from 'classnames';
+import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
+import { I18nContext } from '../../i18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
@@ -339,7 +339,10 @@ const FileItemComponent: FC<{
             onClick={(e) => e.stopPropagation()}
           >
             {showPreviewButton && (
-              <Tooltip title={locale?.['workspace.file.preview'] || '预览'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.preview'] || '预览'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -354,7 +357,10 @@ const FileItemComponent: FC<{
               </Tooltip>
             )}
             {showShareButton && (
-              <Tooltip title={locale?.['workspace.file.share'] || '分享'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.share'] || '分享'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -369,7 +375,10 @@ const FileItemComponent: FC<{
               </Tooltip>
             )}
             {showDownloadButton && (
-              <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
                 <Button
                   size="small"
                   type="text"
@@ -421,6 +430,14 @@ const GroupHeader: FC<{
   // 获取分组图标
   const groupIcon = getGroupIcon(group, groupType, group.icon);
 
+  // 判断是否显示下载按钮：优先使用用户 canDownload；否则当存在 onGroupDownload 时显示
+  const showDownloadButton = (() => {
+    if (group.canDownload !== undefined) {
+      return group.canDownload;
+    }
+    return Boolean(onGroupDownload);
+  })();
+
   return (
     <AccessibleButton
       icon={
@@ -465,19 +482,24 @@ const GroupHeader: FC<{
             >
               {group.children.length}
             </span>
-            <Tooltip title={locale?.['workspace.file.download'] || '下载'}>
-              <Button
-                size="small"
-                type="text"
-                className={classNames(
-                  `${finalPrefixCls}-group-action-btn`,
-                  hashId,
-                )}
-                icon={<DownloadIcon />}
-                onClick={handleDownload}
-                aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
-              />
-            </Tooltip>
+            {showDownloadButton && (
+              <Tooltip
+                mouseEnterDelay={0.3}
+                title={locale?.['workspace.file.download'] || '下载'}
+              >
+                <Button
+                  size="small"
+                  type="text"
+                  className={classNames(
+                    `${finalPrefixCls}-group-action-btn`,
+                    hashId,
+                  )}
+                  icon={<DownloadIcon />}
+                  onClick={handleDownload}
+                  aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
+                />
+              </Tooltip>
+            )}
           </div>
         </>
       }
@@ -603,6 +625,8 @@ export const FileComponent: FC<{
   onToggleGroup?: FileProps['onToggleGroup'];
   onPreview?: FileProps['onPreview'];
   onBack?: FileProps['onBack'];
+  /** 重置标识，用于重置预览状态（内部使用） */
+  resetKey?: FileProps['resetKey'];
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置
@@ -610,6 +634,11 @@ export const FileComponent: FC<{
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
+  /**
+   * 自定义预览页面右侧操作区域
+   * @description 可以是 ReactNode 或者根据文件返回 ReactNode 的函数
+   */
+  customActions?: React.ReactNode | ((file: FileNode) => React.ReactNode);
   actionRef?: FileProps['actionRef'];
   loading?: FileProps['loading'];
   loadingRender?: FileProps['loadingRender'];
@@ -631,7 +660,9 @@ export const FileComponent: FC<{
   onToggleGroup,
   onPreview,
   onBack,
+  resetKey,
   markdownEditorProps,
+  customActions,
   actionRef,
   loading,
   loadingRender,
@@ -667,6 +698,24 @@ export const FileComponent: FC<{
 
   const { wrapSSR, hashId } = useFileStyle(prefixCls);
 
+  // 返回列表（供预览页调用）
+  const handleBackToList = () => {
+    // 使进行中的预览请求失效
+    previewRequestIdRef.current++;
+    setPreviewFile(null);
+    setCustomPreviewContent(null);
+    setCustomPreviewHeader(null);
+    setHeaderFileOverride(null);
+  };
+
+  // 监听 resetKey 变化，重置预览状态
+  useEffect(() => {
+    if (resetKey !== undefined && previewFile) {
+      // 当 resetKey 变化且当前处于预览状态时，重置预览状态
+      handleBackToList();
+    }
+  }, [resetKey]);
+
   // 处理分组折叠/展开
   const handleToggleGroup = (type: FileType, collapsed: boolean) => {
     // 更新内部状态
@@ -676,16 +725,6 @@ export const FileComponent: FC<{
     }));
     // 如果外部提供了回调，也调用它
     onToggleGroup?.(type, collapsed);
-  };
-
-  // 返回列表（供预览页调用）
-  const handleBackToList = () => {
-    // 使进行中的预览请求失效
-    previewRequestIdRef.current++;
-    setPreviewFile(null);
-    setCustomPreviewContent(null);
-    setCustomPreviewHeader(null);
-    setHeaderFileOverride(null);
   };
 
   // 包装后的返回逻辑，允许外部拦截
@@ -890,6 +929,11 @@ export const FileComponent: FC<{
           }}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
+          customActions={
+            typeof customActions === 'function'
+              ? customActions(previewFile)
+              : customActions
+          }
           headerFileOverride={headerFileOverride || undefined}
           markdownEditorProps={markdownEditorProps}
         />

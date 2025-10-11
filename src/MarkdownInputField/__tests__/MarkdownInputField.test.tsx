@@ -201,7 +201,7 @@ describe('MarkdownInputField - voiceInput', () => {
     });
   });
 
-  it('should append partial text from recognizer and trigger onChange', async () => {
+  it('should handle sentence-level callbacks: begin -> partial -> end', async () => {
     let handlersRef: Parameters<CreateRecognizer>[0] | undefined;
     const start = vi.fn().mockResolvedValue(undefined);
     const stop = vi.fn().mockResolvedValue(undefined);
@@ -228,17 +228,43 @@ describe('MarkdownInputField - voiceInput', () => {
       expect(start).toHaveBeenCalled();
     });
 
-    // simulate partial text
+    // sentence begin -> start index recorded
+    handlersRef?.onSentenceBegin();
+    // partial deltas for current sentence
+    handlersRef?.onPartial('hello');
+    await vi.waitFor(() => {
+      expect(handleChange).toHaveBeenLastCalledWith('hello', expect.anything());
+    });
     handlersRef?.onPartial('hello ');
     await vi.waitFor(() => {
-      expect(handleChange).toHaveBeenCalledWith('hello ', expect.anything());
+      expect(handleChange).toHaveBeenLastCalledWith(
+        'hello ',
+        expect.anything(),
+      );
     });
 
-    // another partial should append
-    handlersRef?.onPartial('world');
+    // sentence end -> finalize
+    handlersRef?.onSentenceEnd('hello world');
     await vi.waitFor(() => {
       expect(handleChange).toHaveBeenLastCalledWith(
-        'helloworld',
+        'hello world',
+        expect.anything(),
+      );
+    });
+
+    // next sentence should start after previous content
+    handlersRef?.onSentenceBegin();
+    handlersRef?.onPartial('foo');
+    await vi.waitFor(() => {
+      expect(handleChange).toHaveBeenLastCalledWith(
+        'hello worldfoo',
+        expect.anything(),
+      );
+    });
+    handlersRef?.onSentenceEnd('foo.');
+    await vi.waitFor(() => {
+      expect(handleChange).toHaveBeenLastCalledWith(
+        'hello worldfoo.',
         expect.anything(),
       );
     });
@@ -363,5 +389,38 @@ describe('MarkdownInputField - voiceInput', () => {
       expect(start).toHaveBeenCalledTimes(1);
       expect(voiceBtn).toHaveAttribute('aria-pressed', 'true');
     });
+  });
+});
+
+describe('MarkdownInputField - allowEmptySubmit', () => {
+  it('should not call onSend when empty by default', () => {
+    const onSend = vi.fn();
+    render(<MarkdownInputField value="" onSend={onSend} />);
+    const sendButton = screen.getByTestId('send-button');
+    fireEvent.click(sendButton);
+    expect(onSend).not.toHaveBeenCalled();
+  });
+
+  it('should call onSend with empty string when allowEmptySubmit enabled', () => {
+    const onSend = vi.fn();
+    render(<MarkdownInputField value="" allowEmptySubmit onSend={onSend} />);
+    const sendButton = screen.getByTestId('send-button');
+    fireEvent.click(sendButton);
+    expect(onSend).toHaveBeenCalledWith('');
+  });
+
+  it('should treat whitespace-only as empty unless allowEmptySubmit provided', () => {
+    const onSend = vi.fn();
+    const { rerender } = render(
+      <MarkdownInputField value="   " onSend={onSend} />,
+    );
+    fireEvent.click(screen.getByTestId('send-button'));
+    expect(onSend).not.toHaveBeenCalled();
+
+    rerender(
+      <MarkdownInputField value="   " allowEmptySubmit onSend={onSend} />,
+    );
+    fireEvent.click(screen.getByTestId('send-button'));
+    expect(onSend).toHaveBeenCalledWith('');
   });
 });

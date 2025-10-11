@@ -1,4 +1,5 @@
-﻿import { Popover } from 'antd';
+import { ChevronsDownUp, ChevronsUpDown } from '@sofa-design/icons';
+import { Popover } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
@@ -8,7 +9,6 @@ import { DatabaseIcon } from '../components/icons/DatabaseIcon';
 import { DocumentIcon } from '../components/icons/DocumentIcon';
 import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../index';
-import { CollapseIcon, ExpandIcon } from './Collapse';
 import { CostMillis } from './CostMillis';
 import { FlipText } from './FlipText';
 
@@ -63,14 +63,14 @@ export const TitleInfo = (props: {
   category: string;
   title?: string;
   prefixCls: string;
-  setCollapse: (collapse: boolean) => void;
+  setCollapse?: (collapse: boolean) => void;
   collapse: boolean;
   hashId: string;
   isFinished?: boolean;
   onMetaClick?: (meta: Partial<DocMeta>) => void;
   instanceId?: string;
   titleExtraRender?: (defaultDom: React.ReactNode) => React.ReactNode;
-  meta: Record<
+  meta?: Record<
     string,
     {
       name: string;
@@ -228,9 +228,9 @@ export const TitleInfo = (props: {
       }}
     >
       {!collapse ? (
-        <ExpandIcon data-testid="expand-icon" />
+        <ChevronsDownUp data-testid="expand-icon" />
       ) : (
-        <CollapseIcon data-testid="collapse-icon" />
+        <ChevronsUpDown data-testid="collapse-icon" />
       )}
     </ActionIconBox>
   );

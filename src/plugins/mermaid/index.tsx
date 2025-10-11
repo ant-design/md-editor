@@ -5,10 +5,10 @@ import copy from 'copy-to-clipboard';
 import React, { useContext, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 
+import { Copy } from '@sofa-design/icons';
 import { Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { I18nContext } from '../../i18n';
-import { Copy } from '../../icons';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';

@@ -1,11 +1,10 @@
 import { DownOutlined } from '@ant-design/icons';
 import {
-  generateEdges,
   MarkdownEditorInstance,
   MarkdownInputField,
 } from '@ant-design/md-editor';
-import { ColorPicker, Dropdown, Slider } from 'antd';
-import React, { useEffect, useMemo } from 'react';
+import { Dropdown, Slider } from 'antd';
+import React, { useEffect } from 'react';
 
 import { useState } from 'react';
 
@@ -83,22 +82,6 @@ export default () => {
     });
   };
   const [borderRadius, setBorderRadius] = React.useState(0);
-  const [colorList, setColorList] = React.useState<
-    [string, string, string, string]
-  >(
-    '#CD36FF; #FFD972; #5EBFFF; #6FFFA7'?.split(';') as [
-      string,
-      string,
-      string,
-      string,
-    ],
-  );
-
-  const genColorList = useMemo(() => {
-    return generateEdges(
-      colorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
-    );
-  }, [colorList?.join(',')]);
 
   useEffect(() => {
     markdownRefTwo.current?.store?.setMDContent(
@@ -138,7 +121,6 @@ export default () => {
           '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。'
         }
         inputRef={markdownRefTwo}
-        bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{
           enable: true,
@@ -166,7 +148,6 @@ export default () => {
           '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。'
         }
         inputRef={markdownRefTwo}
-        bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{
           dropdownRender: (defaultDom, props) => {
@@ -253,7 +234,6 @@ export default () => {
       <h2>文件上传</h2>
 
       <MarkdownInputField
-        bgColorList={colorList}
         borderRadius={borderRadius}
         attachment={{
           enable: true,
@@ -308,97 +288,6 @@ export default () => {
         placeholder="请输入内容"
       />
 
-      <div>
-        颜色
-        <ColorPicker
-          value={colorList?.at(0)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[0] = e.toHex();
-              return next;
-            });
-          }}
-        />
-        <ColorPicker
-          value={colorList?.at(1)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[1] = e.toHex();
-              return next;
-            });
-          }}
-        />
-        <ColorPicker
-          value={colorList?.at(2)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[2] = e.toHex();
-              return next;
-            });
-          }}
-        />
-        <ColorPicker
-          value={colorList?.at(3)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[3] = e.toHex();
-              return next;
-            });
-          }}
-        />
-      </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        fill="none"
-        version="1.1"
-        width="100%"
-        height="100%"
-        style={{
-          borderRadius,
-        }}
-      >
-        <defs>
-          <linearGradient
-            x1="2.463307335887066e-16"
-            y1="0.5"
-            x2="0.9838055372238159"
-            y2="0.5"
-            id="master_svg1_55_47405"
-          >
-            {genColorList.map((color, index) => {
-              return (
-                <stop
-                  key={index}
-                  offset={`${(index * 100) / genColorList.length}%`}
-                  stopColor={color[0]}
-                  stopOpacity="0.6300000071525574"
-                >
-                  <animate
-                    attributeName="stop-color"
-                    values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
-                    dur="3s"
-                    repeatCount="indefinite"
-                  />
-                </stop>
-              );
-            })}
-          </linearGradient>
-        </defs>
-        <g>
-          <rect
-            x={0}
-            y={0}
-            width="100%"
-            height="100%"
-            fill="url(#master_svg1_55_47405)"
-          />
-        </g>
-      </svg>
       <div>
         <h4>Props 说明</h4>
         <ul>

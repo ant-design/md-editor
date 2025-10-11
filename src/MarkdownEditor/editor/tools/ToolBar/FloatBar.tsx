@@ -138,6 +138,7 @@ export const FloatBar = (props: { readonly: boolean }) => {
           position: 'fixed',
           opacity: isOpen ? 1 : 0,
           transition: 'all 0.3s ease-out',
+          userSelect: 'none',
         }}
         ref={floatBarRef}
         onMouseDown={(e) => {

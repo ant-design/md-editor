@@ -8,6 +8,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
+
       // 分组展示模式
       [`&--group`]: {
         [`${token.componentCls}-group`]: {
@@ -17,9 +18,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             height: '40px',
-            padding: '8px 12px 8px 0px',
+            padding: '8px 0',
             cursor: 'pointer',
-            transition: 'all 0.2s ease',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
             [`&-left, &-right`]: {
               display: 'flex',
@@ -61,9 +62,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           // 文件数量
           [`&-count`]: {
-            fontSize: 'var(--font-size-sm)',
             color: 'var(--color-gray-text-secondary)',
-            background: 'var(--color-gray-control-fill-active)',
+            font: 'var(--font-text-number-xs)',
+            letterSpacing: 'var(--letter-spacing-number-xs, normal)',
+            backgroundColor: 'var(--color-gray-control-fill-active)',
             padding: '4px 6px',
             borderRadius: '200px',
             minWidth: '20px',
@@ -92,7 +94,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: '4px',
       borderRadius: 'var(--radius-control-base)',
       cursor: 'pointer',
-      transition: 'all 0.2s ease',
+      transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       boxSizing: 'border-box',
 
       '&:last-child': {
@@ -243,7 +245,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'none',
         cursor: 'pointer',
         color: '#767e8b',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         borderRadius: '4px',
 
         '&:hover': {
@@ -318,6 +320,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'column',
         overflow: 'auto',
         minHeight: 0, // 确保 flex 子项可以收缩
+        padding: '16px',
       },
       '&-content-loading': {
         padding: '0 12px',
@@ -391,7 +394,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#fafafa',
+        background: 'var(--color-gray-bg-card-white)',
       },
 
       // 占位符内容

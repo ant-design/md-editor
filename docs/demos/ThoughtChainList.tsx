@@ -1,4 +1,4 @@
-﻿import { ThoughtChainList } from '@ant-design/md-editor';
+import { ThoughtChainList } from '@ant-design/md-editor';
 import React from 'react';
 
 export default function Home() {
@@ -120,6 +120,11 @@ export default function Home() {
       />
 
       <ThoughtChainList
+        loading={true}
+        bubble={{
+          isFinished: false,
+          createAt: Date.now() - 5000,
+        }}
         thoughtChainList={[
           {
             category: 'DeepThink',
@@ -217,17 +222,85 @@ export default function Home() {
             info: '正在推理',
             runId: '11',
             output: {
-              data: '\nError: Tool execution timed out after 30 seconds: fetch\n\n\n\n',
-              type: 'END',
+              type: 'RUNNING',
             },
           },
         ]}
       />
+
+      <h3>正在运行中的思维链（收起状态）</h3>
+      <ThoughtChainList
+        loading={true}
+        bubble={{
+          isFinished: false,
+          createAt: Date.now() - 10000,
+        }}
+        thoughtChainList={[
+          {
+            category: 'TableSql',
+            info: '正在查询 ${tableName} 数据',
+            input: {
+              sql: 'SELECT * FROM users WHERE status = "active"',
+            },
+            meta: {
+              data: {
+                tableName: [
+                  {
+                    name: '用户表',
+                  },
+                ],
+              },
+            },
+            runId: '1',
+            output: {
+              type: 'RUNNING',
+            },
+          },
+          {
+            category: 'RagRetrieval',
+            info: '正在检索 ${query} 相关文档',
+            input: {
+              searchQueries: ['React', 'TypeScript'],
+            },
+            meta: {
+              data: {
+                query: [
+                  {
+                    name: 'React 最佳实践',
+                  },
+                ],
+              },
+            },
+            runId: '2',
+            output: {
+              type: 'RUNNING',
+            },
+          },
+          {
+            category: 'DeepThink',
+            info: '正在分析用户需求',
+            runId: '3',
+            output: {
+              type: 'RUNNING',
+            },
+          },
+        ]}
+      />
+
       <div>
         <h4>Props 说明</h4>
         <ul>
           <li>
-            <code>loading</code> - 加载状态，设置为 false 表示已加载完成
+            <code>loading</code> - 加载状态，设置为 true 表示正在运行中
+          </li>
+          <li>
+            <code>bubble</code> - 气泡数据，包含运行状态信息
+          </li>
+          <li>
+            <code>bubble.isFinished</code> - 是否已完成，false 表示正在运行
+          </li>
+          <li>
+            <code>bubble.createAt</code> - 创建时间，用于计算运行时长
           </li>
           <li>
             <code>thoughtChainList</code> -
@@ -258,7 +331,8 @@ export default function Home() {
             <code>output.data</code> - 输出数据内容
           </li>
           <li>
-            <code>output.type</code> - 输出类型，如 END 表示执行完成
+            <code>output.type</code> - 输出类型，如 END 表示执行完成，RUNNING
+            表示正在运行
           </li>
           <li>
             <code>output.columns</code> - 表格列名数组

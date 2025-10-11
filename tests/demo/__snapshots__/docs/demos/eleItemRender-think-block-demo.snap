@@ -253,14 +253,14 @@
                       </span>
                     </div>
                     <button
-                      style="background: none; color: rgb(102, 126, 234); cursor: pointer; font-size: 12px; font-weight: 500; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s;"
+                      style="background: none; color: rgb(102, 126, 234); cursor: pointer; font-size: 12px; font-weight: 500; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);"
                       type="button"
                     >
                       展开
                     </button>
                   </div>
                   <div
-                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 13px; transition: all 0.3s ease; max-height: 120px; overflow: hidden;"
+                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 13px; transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); max-height: 120px; overflow: hidden;"
                   >
                     这是一个会被自定义渲染的 think 代码块
 通过 eleItemRender 函数，我们可以：
@@ -343,14 +343,14 @@
                       </span>
                     </div>
                     <button
-                      style="background: none; color: rgb(102, 126, 234); cursor: pointer; font-size: 12px; font-weight: 500; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s;"
+                      style="background: none; color: rgb(102, 126, 234); cursor: pointer; font-size: 12px; font-weight: 500; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);"
                       type="button"
                     >
                       展开
                     </button>
                   </div>
                   <div
-                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 13px; transition: all 0.3s ease; max-height: 120px; overflow: hidden;"
+                    style="color: rgb(74, 85, 104); line-height: 1.7; white-space: pre-wrap; font-size: 13px; transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); max-height: 120px; overflow: hidden;"
                   >
                     这是一个较长的 think 代码块，用于演示展开/收起功能。
 
@@ -426,9 +426,9 @@
                   tabindex="-1"
                 >
                   <div
-                    class="ace-container drag-el"
+                    class="ace-container code-editor-container drag-el"
                     data-testid="code-editor-container"
-                    style="box-sizing: border-box; max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border-radius: var(--radius-card-base); background: var(--color-gray-bg-card-white); transition: border-color 0.2s ease-in-out; border-color: var(--color-gray-border-light); box-shadow: var(--shadow-control-base);"
+                    style="background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
@@ -514,7 +514,7 @@
                       </div>
                     </div>
                     <div
-                      style="padding: 12px;"
+                      class="code-editor-content"
                     >
                       <div
                         style="height: 100%; width: 100%; display: block;"

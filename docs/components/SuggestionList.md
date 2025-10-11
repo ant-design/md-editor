@@ -12,34 +12,34 @@ group:
 
 ## 代码演示
 
-<code src="../demos/followup-basic.tsx">基础用法</code>
+<code src="../demos/suggestion-list-basic.tsx">基础用法</code>
 
 ## API
 
 ### SuggestionList
 
-| 参数       | 说明                         | 类型                                  | 默认值      |
-| ---------- | ---------------------------- | ------------------------------------- | ----------- |
-| className  | 自定义类名                   | `string`                              | -           |
-| style      | 自定义样式                   | `React.CSSProperties`                 | -           |
-| items      | 建议项列表                   | `SuggestionItem[]`                    | `[]`        |
-| onItemClick| 点击回调（无 item.onClick 时）| `(value: string) => void \| Promise<void>` | -    |
-| layout     | 布局                         | `'vertical' \| 'horizontal'`         | `'vertical'`|
-| maxItems   | 最大显示数量                 | `number`                              | `6`         |
-| type       | 样式类型                     | `'basic' \| 'transparent' \| 'white'`| `'basic'`   |
-| showMore   | 左上角“搜索更多”入口配置     | `{ enable: boolean; onClick?: () => void }` | - |
+| 参数        | 说明                           | 类型                                                                               | 默认值       |
+| ----------- | ------------------------------ | ---------------------------------------------------------------------------------- | ------------ |
+| className   | 自定义类名                     | `string`                                                                           | -            |
+| style       | 自定义样式                     | `React.CSSProperties`                                                              | -            |
+| items       | 建议项列表                     | `SuggestionItem[]`                                                                 | `[]`         |
+| onItemClick | 点击回调（无 item.onClick 时） | `(value: string) => void \| Promise<void>`                                         | -            |
+| layout      | 布局                           | `'vertical' \| 'horizontal'`                                                       | `'vertical'` |
+| maxItems    | 最大显示数量                   | `number`                                                                           | `6`          |
+| type        | 样式类型                       | `'basic' \| 'transparent' \| 'white'`                                              | `'basic'`    |
+| showMore    | 左上角"搜索更多"入口配置       | `{ enable: boolean; onClick?: () => void; text?: string; icon?: React.ReactNode }` | -            |
 
 ### SuggestionItem
 
-| 参数       | 说明               | 类型                     | 默认值 |
-| ---------- | ------------------ | ------------------------ | ------ |
-| key        | 唯一键             | `React.Key`              | -      |
-| text       | 展示文本           | `string`                 | -      |
-| icon       | 前置图标           | `React.ReactNode`        | -      |
-| tooltip    | 悬浮提示           | `string`                 | `text` |
-| disabled   | 是否禁用           | `boolean`                | `false`|
-| onClick    | 自定义点击回调     | `(text: string) => void \| Promise<void>` | - |
-| actionIcon | 右侧动作图标/箭头  | `React.ReactNode`        | -      |
+| 参数       | 说明              | 类型                                      | 默认值  |
+| ---------- | ----------------- | ----------------------------------------- | ------- |
+| key        | 唯一键            | `React.Key`                               | -       |
+| text       | 展示文本          | `string`                                  | -       |
+| icon       | 前置图标          | `React.ReactNode`                         | -       |
+| tooltip    | 悬浮提示          | `string`                                  | -       |
+| disabled   | 是否禁用          | `boolean`                                 | `false` |
+| onClick    | 自定义点击回调    | `(text: string) => void \| Promise<void>` | -       |
+| actionIcon | 右侧动作图标/箭头 | `React.ReactNode`                         | -       |
 
 ## 样式类型说明
 
@@ -53,5 +53,3 @@ group:
   - background: `var(--color-gray-bg-card-white)`
   - box-shadow: `var(--shadow-control-base)`
   - hover: `background` 保持白色，`box-shadow: var(--shadow-control-lg)`
-
-

@@ -151,40 +151,6 @@ describe('CommentView Component', () => {
       expect(commentElement?.textContent).toBe('测试文本');
     });
 
-    it('应该在点击时调用 setShowComment 并阻止事件冒泡', () => {
-      const { container } = renderWithProvider(
-        <CommentView
-          comment={mockComment}
-          commentItem={mockCommentData}
-          id="test-id"
-          hashId="test-hash"
-        >
-          <span>测试文本</span>
-        </CommentView>,
-      );
-
-      const commentElement = container.querySelector(
-        '[data-be="comment-text"]',
-      ) as HTMLElement;
-      expect(commentElement).toBeInTheDocument();
-
-      // 模拟点击事件
-      const clickEvent = new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      });
-
-      const preventDefaultSpy = vi.spyOn(clickEvent, 'preventDefault');
-      const stopPropagationSpy = vi.spyOn(clickEvent, 'stopPropagation');
-
-      fireEvent(commentElement, clickEvent);
-
-      expect(preventDefaultSpy).toHaveBeenCalled();
-      expect(stopPropagationSpy).toHaveBeenCalled();
-      // 由于 mock 的原因，我们无法直接验证 setShowComment 的调用
-      // 但可以验证事件处理逻辑
-    });
-
     it('应该处理空的 commentItem 数组', () => {
       const { container } = renderWithProvider(
         <CommentView

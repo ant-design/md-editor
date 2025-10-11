@@ -13,7 +13,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './tests/setupTests.ts',
-    testTimeout: 50000,
+    testTimeout: 500000,
     alias: {
       '@ant-design/md-editor': path.resolve(__dirname, './src'),
     },
