@@ -1,8 +1,8 @@
+import { Voice } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Voice } from '../../icons';
 import VoicingLottie from '../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 

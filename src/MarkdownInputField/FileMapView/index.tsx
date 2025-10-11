@@ -1,8 +1,8 @@
-﻿import { ConfigProvider, Image } from 'antd';
+import { FileSearch } from '@sofa-design/icons';
+import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
-import { FileSearch } from '../../icons';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { isImageFile } from '../AttachmentButton/utils';
 import { FileMapViewItem } from './FileMapViewItem';

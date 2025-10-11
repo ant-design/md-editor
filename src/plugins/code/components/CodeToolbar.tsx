@@ -5,11 +5,11 @@
  */
 
 import { CloseCircleOutlined } from '@ant-design/icons';
+import { Copy } from '@sofa-design/icons';
 import { message, Segmented } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../../i18n';
-import { Copy } from '../../../icons';
 import { ActionIconBox } from '../../../MarkdownEditor/editor/components/ActionIconBox';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { langIconMap } from '../langIconMap';

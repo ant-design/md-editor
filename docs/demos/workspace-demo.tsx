@@ -1,7 +1,11 @@
 import { DownloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Workspace } from '@ant-design/md-editor';
-import { Copy, Expand, SwitchToWindow } from '@ant-design/md-editor/icons';
-import RealtimeIcon from '@ant-design/md-editor/Workspace/icons/RealtimeIcon';
+import {
+  Copy,
+  Expand,
+  MousePointerClick,
+  SwitchToWindow,
+} from '@sofa-design/icons';
 import { Button, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { defaultValue } from './shared/defaultValue';
@@ -154,7 +158,7 @@ const Demo = () => {
           tab={{
             key: 'realtimeHtml',
             title: '实时跟随（HTML）',
-            icon: <RealtimeIcon />,
+            icon: <MousePointerClick />,
           }}
           data={{
             type: 'html',

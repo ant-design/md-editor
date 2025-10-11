@@ -1,9 +1,9 @@
 import { DownOutlined } from '@ant-design/icons';
+import { Pause, Play } from '@sofa-design/icons';
 import { ConfigProvider, Dropdown, Flex, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
-import { Pause, Play } from '../../../icons';
 import VoicePlayLottie from '../../../icons/animated/VoicePlayLottie';
 import VoicingLottie from '../../../icons/animated/VoicingLottie';
 import { useStyle } from './style';

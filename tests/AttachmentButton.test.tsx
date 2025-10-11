@@ -115,6 +115,7 @@ describe('AttachmentButton', () => {
           status: 'done',
           url: 'uploaded-url',
         }),
+        0, // index parameter
       );
       expect(mockOnFileMapChange).toHaveBeenCalled();
       expect(message.success).toHaveBeenCalledWith('Upload success');

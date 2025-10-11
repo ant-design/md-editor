@@ -95,6 +95,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | status              | 渲染状态（仅覆盖层处理，html 由 HtmlPreview 内部处理）                          | `'loading' \| 'done' \| 'error'`                   | -           |
 | loadingRender       | 自定义加载渲染，非必传                                                          | `React.ReactNode \| () => React.ReactNode`         | -           |
 | emptyRender         | 自定义空状态渲染（内容为空时优先显示）                                          | `React.ReactNode \| () => React.ReactNode`         | -           |
+| onBack              | 返回回调                                                                        | `() => void`                                       | -           |
 | viewMode            | html 受控视图模式                                                               | `'preview' \| 'code'`                              | -           |
 | defaultViewMode     | html 非受控默认视图模式                                                         | `'preview' \| 'code'`                              | `'preview'` |
 | onViewModeChange    | 视图模式变更回调（html）                                                        | `(mode: 'preview' \| 'code') => void`              | -           |
@@ -121,11 +122,9 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 #### TaskItemInput
 
-| 参数                 | 说明               | 类型                       | 默认值 |
-| -------------------- | ------------------ | -------------------------- | ------ |
-| items                | 任务列表数据       | `TaskItem[]`               | -      |
-| expandedKeys         | 展开的任务键值数组 | `string[]`                 | -      |
-| onExpandedKeysChange | 展开状态变化回调   | `(keys: string[]) => void` | -      |
+| 参数  | 说明         | 类型         | 默认值 |
+| ----- | ------------ | ------------ | ------ |
+| items | 任务列表数据 | `TaskItem[]` | -      |
 
 #### TaskItem
 
@@ -204,7 +203,24 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 
 #### FileType
 
-文件类型键值，内置常见文本/图片/视频/音频/办公文档/压缩包/代码等类型（如 `plainText`、`markdown`、`image`、`video`、`audio`、`pdf`、`word`、`excel`、`archive`、`javascript`、`typescript`、`react`、`python`、`java`、`cpp`、`c`、`csharp`、`go`、`rust`、`php`、`ruby`、`shell`、`powershell`、`sql`、`lua`、`perl`、`scala`、`config`)。
+文件类型键值，内置常见文本/图片/视频/音频/办公文档/压缩包/代码等类型（如 `plainText`、`markdown`、`image`、`video`、`audio`、`pdf`、`word`、`excel`、`csv`、`archive`、`javascript`、`typescript`、`react`、`python`、`java`、`cpp`、`c`、`csharp`、`go`、`rust`、`php`、`ruby`、`shell`、`powershell`、`sql`、`lua`、`perl`、`scala`、`config`)。
+
+#### FileCategory
+
+文件分类枚举，用于对文件类型进行分组：
+
+| 值      | 说明      |
+| ------- | --------- |
+| Text    | 文本文件  |
+| Code    | 代码文件  |
+| Image   | 图片文件  |
+| Video   | 视频文件  |
+| Audio   | 音频文件  |
+| PDF     | PDF文档   |
+| Word    | Word文档  |
+| Excel   | Excel表格 |
+| Archive | 压缩文件  |
+| Other   | 其他类型  |
 
 ### Workspace.Browser
 
@@ -274,3 +290,93 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 7. **错误处理**：为文件预览、下载等操作添加适当的错误处理和用户提示。
 
 8. **无障碍支持**：确保工作空间组件具有良好的键盘导航和屏幕阅读器支持。
+
+## 扩展 API
+
+### HtmlPreviewProps
+
+HTML 预览组件的属性接口，用于 HTML 内容的预览和代码查看。
+
+| 参数                | 说明                     | 类型                                               | 默认值      |
+| ------------------- | ------------------------ | -------------------------------------------------- | ----------- |
+| html                | HTML 内容字符串          | `string`                                           | -           |
+| status              | 内容状态                 | `'generating' \| 'loading' \| 'done' \| 'error'`   | -           |
+| viewMode            | 当前视图模式（受控模式） | `'preview' \| 'code'`                              | -           |
+| defaultViewMode     | 默认视图模式             | `'preview' \| 'code'`                              | `'preview'` |
+| onViewModeChange    | 视图模式变化回调         | `(mode: 'preview' \| 'code') => void`              | -           |
+| markdownEditorProps | Markdown 编辑器配置      | `Partial<MarkdownEditorProps>`                     | -           |
+| iframeProps         | iframe 属性              | `React.IframeHTMLAttributes<HTMLIFrameElement>`    | -           |
+| labels              | 自定义标签文本           | `{ preview?: string; code?: string }`              | -           |
+| loadingRender       | 自定义加载渲染           | `React.ReactNode \| (() => React.ReactNode)`       | -           |
+| errorRender         | 自定义错误渲染           | `React.ReactNode \| (() => React.ReactNode)`       | -           |
+| emptyRender         | 自定义空状态渲染         | `React.ReactNode \| (() => React.ReactNode)`       | -           |
+| className           | 自定义 CSS 类名          | `string`                                           | -           |
+| style               | 自定义样式               | `React.CSSProperties`                              | -           |
+| showSegmented       | 是否显示分段控制器       | `boolean`                                          | `true`      |
+| segmentedItems      | 自定义分段选项           | `Array<{ label: React.ReactNode; value: string }>` | -           |
+
+### PreviewComponentProps
+
+文件预览组件的属性接口，用于文件内容的预览显示。
+
+| 参数                | 说明                                 | 类型                                                                              | 默认值 |
+| ------------------- | ------------------------------------ | --------------------------------------------------------------------------------- | ------ |
+| file                | 文件节点数据                         | `FileNode`                                                                        | -      |
+| customContent       | 提供自定义内容以替换预览区域         | `React.ReactNode`                                                                 | -      |
+| customHeader        | 自定义头部（完全替换默认头部）       | `React.ReactNode`                                                                 | -      |
+| customActions       | 自定义右侧操作区域                   | `React.ReactNode`                                                                 | -      |
+| onBack              | 返回回调                             | `() => void`                                                                      | -      |
+| onDownload          | 下载回调                             | `(file: FileNode) => void`                                                        | -      |
+| onShare             | 分享回调                             | `(file: FileNode, options?: { anchorEl?: HTMLElement; origin?: string }) => void` | -      |
+| markdownEditorProps | Markdown 编辑器配置                  | `Partial<Omit<MarkdownEditorProps, 'editorRef' \| 'initValue' \| 'readonly'>>`    | -      |
+| headerFileOverride  | 仅用于覆盖默认头部区域展示的文件信息 | `Partial<FileNode>`                                                               | -      |
+
+## 工具函数
+
+### getFileType
+
+根据文件名推断文件类型。
+
+```typescript
+getFileType(filename: string): FileType
+```
+
+**参数：**
+
+- `filename` - 文件名（包含扩展名）
+
+**返回值：**
+
+- 推断出的文件类型，如果无法识别则返回 `'plainText'`
+
+### getMimeType
+
+根据文件类型获取对应的 MIME 类型。
+
+```typescript
+getMimeType(fileType: FileType): string
+```
+
+**参数：**
+
+- `fileType` - 文件类型
+
+**返回值：**
+
+- 对应的 MIME 类型字符串
+
+### getFileCategory
+
+根据文件类型获取文件分类。
+
+```typescript
+getFileCategory(fileType: FileType): FileCategory
+```
+
+**参数：**
+
+- `fileType` - 文件类型
+
+**返回值：**
+
+- 对应的文件分类枚举值

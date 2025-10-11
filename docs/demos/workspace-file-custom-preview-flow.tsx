@@ -1,10 +1,16 @@
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  CopyOutlined,
+  EditOutlined,
+  ShareAltOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
 import { Workspace, type FileActionRef } from '@ant-design/md-editor';
 import type {
   FileNode,
   GroupNode,
 } from '@ant-design/md-editor/Workspace/types';
-import { message } from 'antd';
+import { Button, message, Space, Tooltip } from 'antd';
 import React, {
   useEffect,
   useImperativeHandle,
@@ -13,7 +19,7 @@ import React, {
   useState,
 } from 'react';
 
-// 支持“列表 -> 查看详情 -> 返回列表”的自定义预览组件（独立示例）
+// 支持"列表 -> 查看详情 -> 返回列表"的自定义预览组件（独立示例）
 type VariableAnalysisPreviewRef = {
   getMode: () => 'list' | 'detail';
   toList: () => void;
@@ -341,6 +347,30 @@ const WorkspaceFileCustomPreviewFlow: React.FC = () => {
       ],
     },
   ]);
+
+  const [actionsNodes] = useState<(FileNode | GroupNode)[]>([
+    {
+      name: '自定义操作区域',
+      type: 'pdf',
+      collapsed: false,
+      children: [
+        {
+          id: 'customActionsDemo1',
+          name: '数据报告.pdf',
+          size: '5.8MB',
+          lastModified: '08-20 14:20',
+          canPreview: true,
+        },
+        {
+          id: 'customActionsDemo2',
+          name: '分析结果.xlsx',
+          size: '1.2MB',
+          lastModified: '08-20 15:30',
+          canPreview: true,
+        },
+      ],
+    },
+  ]);
   const previewRef = useRef<VariableAnalysisPreviewRef | null>(null);
   const fileActionRef = useRef<FileActionRef | null>(null);
 
@@ -400,12 +430,220 @@ console.log(sum(1, 2));`}
     return undefined;
   };
 
+  // 第二个 Workspace.File 的预览处理函数，展示 customActions 功能
+  const handlePreviewWithActions = async (
+    file: FileNode,
+  ): Promise<FileNode | React.ReactNode> => {
+    if (file.id === 'customActionsDemo1') {
+      return (
+        <div style={{ padding: 16 }} aria-label="PDF 报告预览">
+          <h3 style={{ margin: '8px 0' }}>数据报告预览</h3>
+          <p style={{ color: '#555', lineHeight: '20px' }}>
+            这是一个展示 customActions
+            功能的示例。右侧操作区域包含了自定义的操作按钮。
+          </p>
+          <div
+            style={{
+              background: '#f6f8fa',
+              padding: 16,
+              borderRadius: 8,
+              margin: '16px 0',
+              border: '1px solid #eee',
+            }}
+          >
+            <h4>报告摘要</h4>
+            <ul style={{ paddingLeft: 18, margin: '8px 0' }}>
+              <li>数据处理完成率：98.5%</li>
+              <li>异常数据占比：1.2%</li>
+              <li>模型准确率：94.3%</li>
+              <li>处理时间：2小时15分钟</li>
+            </ul>
+          </div>
+          <blockquote
+            style={{
+              borderLeft: '3px solid #1677ff',
+              paddingLeft: 10,
+              color: '#666',
+              background: '#f0f7ff',
+              padding: '8px 12px',
+              borderRadius: '0 4px 4px 0',
+            }}
+          >
+            💡 提示：点击右侧的自定义操作按钮体验不同功能
+          </blockquote>
+        </div>
+      );
+    }
+
+    if (file.id === 'customActionsDemo2') {
+      return (
+        <div style={{ padding: 16 }} aria-label="Excel 分析结果预览">
+          <h3 style={{ margin: '8px 0' }}>分析结果预览</h3>
+          <table
+            style={{ width: '100%', borderCollapse: 'collapse', marginTop: 16 }}
+          >
+            <thead>
+              <tr style={{ background: '#fafafa' }}>
+                <th
+                  style={{
+                    padding: '8px 12px',
+                    border: '1px solid #eee',
+                    textAlign: 'left',
+                  }}
+                >
+                  指标
+                </th>
+                <th
+                  style={{
+                    padding: '8px 12px',
+                    border: '1px solid #eee',
+                    textAlign: 'left',
+                  }}
+                >
+                  数值
+                </th>
+                <th
+                  style={{
+                    padding: '8px 12px',
+                    border: '1px solid #eee',
+                    textAlign: 'left',
+                  }}
+                >
+                  状态
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  总样本数
+                </td>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  10,000
+                </td>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  ✅ 正常
+                </td>
+              </tr>
+              <tr>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  有效样本
+                </td>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  9,850
+                </td>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  ✅ 正常
+                </td>
+              </tr>
+              <tr>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  异常样本
+                </td>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  150
+                </td>
+                <td style={{ padding: '8px 12px', border: '1px solid #eee' }}>
+                  ⚠️ 需关注
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+
+    return undefined;
+  };
+
   const handleDownload = (file: FileNode) => {
     message.info(`下载文件：${file.name}`);
   };
 
   const handleGroupDownload = (files: FileNode[]) => {
     message.info(`分组下载：${files.map((f) => f.name).join(', ')}`);
+  };
+
+  // 自定义操作按钮的处理函数
+  const handleEdit = (file: FileNode) => {
+    message.success(`编辑文件：${file.name}`);
+  };
+
+  const handleCopy = (file: FileNode) => {
+    message.success(`复制文件：${file.name}`);
+  };
+
+  const handleStar = (file: FileNode) => {
+    message.success(`收藏文件：${file.name}`);
+  };
+
+  const handleShare = (file: FileNode) => {
+    message.success(`分享文件：${file.name}`);
+  };
+
+  // 根据文件类型返回不同的自定义操作按钮
+  const getCustomActions = (file: FileNode) => {
+    if (file.id === 'customActionsDemo1') {
+      // PDF 文件的自定义操作
+      return (
+        <Space size="small">
+          <Tooltip title="编辑报告">
+            <Button
+              size="small"
+              type="text"
+              icon={<EditOutlined />}
+              onClick={() => handleEdit(file)}
+            />
+          </Tooltip>
+          <Tooltip title="复制链接">
+            <Button
+              size="small"
+              type="text"
+              icon={<CopyOutlined />}
+              onClick={() => handleCopy(file)}
+            />
+          </Tooltip>
+          <Tooltip title="收藏">
+            <Button
+              size="small"
+              type="text"
+              icon={<StarOutlined />}
+              onClick={() => handleStar(file)}
+            />
+          </Tooltip>
+        </Space>
+      );
+    }
+
+    if (file.id === 'customActionsDemo2') {
+      // Excel 文件的自定义操作
+      return (
+        <Space size="small">
+          <Tooltip title="在线编辑">
+            <Button
+              size="small"
+              type="text"
+              icon={<EditOutlined />}
+              onClick={() => handleEdit(file)}
+            >
+              编辑
+            </Button>
+          </Tooltip>
+          <Tooltip title="分享给同事">
+            <Button
+              size="small"
+              type="text"
+              icon={<ShareAltOutlined />}
+              onClick={() => handleShare(file)}
+            >
+              分享
+            </Button>
+          </Tooltip>
+        </Space>
+      );
+    }
+
+    return null;
   };
 
   // 自定义返回示例：返回前先执行自定义逻辑，然后继续默认返回
@@ -429,13 +667,29 @@ console.log(sum(1, 2));`}
       >
         <Workspace title="文件管理 - 自定义预览流程">
           <Workspace.File
-            tab={{ count: 1 }}
+            tab={{
+              key: 'cusFilesPreview',
+              title: '自定义预览',
+              count: nodes.length,
+            }}
             nodes={nodes}
             onDownload={handleDownload}
             onGroupDownload={handleGroupDownload}
             onPreview={handlePreview}
             onBack={handleBackFromPreview}
             actionRef={fileActionRef}
+          />
+          <Workspace.File
+            tab={{
+              key: 'cusFilePreviewActions',
+              title: '自定义操作区域',
+              count: actionsNodes.length,
+            }}
+            nodes={actionsNodes}
+            onDownload={handleDownload}
+            onGroupDownload={handleGroupDownload}
+            onPreview={handlePreviewWithActions}
+            customActions={getCustomActions}
           />
         </Workspace>
       </div>

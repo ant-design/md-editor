@@ -236,16 +236,44 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
   const handleSelectionChange = useDebounceFn(
     async (e: React.ReactEventHandler<HTMLDivElement>) => {
+      const currentSelection = markdownEditorRef.current.selection;
+
+      // 获取选中内容的 markdown 和节点
+      const getSelectionContent = (selection: BaseSelection | null) => {
+        if (!selection || Range.isCollapsed(selection)) {
+          return { markdown: '', nodes: [] };
+        }
+
+        try {
+          const fragment = Editor.fragment(
+            markdownEditorRef.current,
+            selection,
+          );
+          const markdown = parserSlateNodeToMarkdown(fragment);
+          return { markdown, nodes: fragment };
+        } catch (error) {
+          console.error('Failed to get selection content:', error);
+          return { markdown: '', nodes: [] };
+        }
+      };
+
       if (!readonly) {
         // 非只读模式下的选区处理
         const event = new CustomEvent<BaseSelection>(
           MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
           {
             ...e,
-            detail: markdownEditorRef.current.selection,
+            detail: currentSelection,
           },
         );
         markdownContainerRef?.current?.dispatchEvent(event);
+
+        // 调用 props.onSelectionChange 回调
+        if (props.onSelectionChange) {
+          const { markdown, nodes } = getSelectionContent(currentSelection);
+          props.onSelectionChange?.(currentSelection, markdown, nodes);
+        }
+
         return;
       }
       if (typeof window === 'undefined') return;
@@ -253,6 +281,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       const domSelection = window.getSelection();
       if (!domSelection) {
         setDomRect?.(null);
+        // 调用 props.onSelectionChange 回调（无选中）
+        if (props.onSelectionChange) {
+          props.onSelectionChange?.(null, '', []);
+        }
         return;
       }
 
@@ -275,6 +307,12 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           );
           markdownContainerRef?.current?.dispatchEvent(event);
 
+          // 调用 props.onSelectionChange 回调
+          if (props.onSelectionChange) {
+            const { markdown, nodes } = getSelectionContent(selection);
+            props.onSelectionChange?.(selection, markdown, nodes);
+          }
+
           // 只有在有实际选中文本时才显示工具栏
           if (!Range.isCollapsed(selection)) {
             const range = ReactEditor.toDOMRange(
@@ -292,6 +330,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           }
         } else {
           setDomRect?.(null);
+          // 调用 props.onSelectionChange 回调（无选中）
+          if (props.onSelectionChange) {
+            props.onSelectionChange?.(null, '', []);
+          }
         }
       } catch (error) {
         console.error('Selection change error:', error);

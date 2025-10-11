@@ -34,12 +34,11 @@ const clearCardAreaText = (editor: Editor, path: Path) => {
           }
         }
       } catch (domError) {
-        console.log('DOM operation failed, falling back to Slate transforms');
+        // DOM operation failed, falling back to Slate transforms
       }
     }
   } catch (error) {
     // 如果操作失败，忽略错误
-    console.log('clearCardAreaText error:', error);
   }
 };
 

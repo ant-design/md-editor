@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
+import { ArrowUpRight } from '@sofa-design/icons';
 import { ReactEditor, RenderLeafProps } from 'slate-react';
-import { ArrowUpRight } from '../../../icons';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';

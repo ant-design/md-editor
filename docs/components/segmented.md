@@ -20,7 +20,7 @@ export default () => {
   return (
     <div style={{ padding: '24px' }}>
       <h1>Segmented</h1>
-      
+
       <div style={{ marginBottom: '24px' }}>
         <h3>基础用法</h3>
         <Segmented

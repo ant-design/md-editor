@@ -83,7 +83,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         userSelect: 'none',
         lineHeight: '20px',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         [`${token.componentCls}-task-icon`]: {
           width: '32px',
           height: '32px',
@@ -121,7 +121,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`${token.componentCls}-extra-actions`]: {
           opacity: 0,
-          transition: 'all 0.2s ease',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         },
 
         '&-selected': {

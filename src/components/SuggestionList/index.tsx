@@ -1,7 +1,14 @@
+import { RefreshCcw, SwapRight } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { RefreshCcw, SwapRight } from '../../icons';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useStyle } from './style';
 
 export interface SuggestionItem {
@@ -26,8 +33,8 @@ export interface SuggestionListProps {
   /** 样式类型：基础版、透明版、白色版 */
   type?: 'basic' | 'transparent' | 'white';
   /** 是否展示左上角"搜索更多"入口 */
-  showMore?: { 
-    enable: boolean; 
+  showMore?: {
+    enable: boolean;
     onClick?: () => void;
     text?: string;
     icon?: React.ReactNode;
@@ -133,10 +140,10 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
           {showMore?.enable ? (
             <div
               className={classNames(`${prefixCls}-more`, hashId)}
-              aria-label={showMore?.text || "搜索更多"}
+              aria-label={showMore?.text || '搜索更多'}
             >
               <span className={classNames(`${prefixCls}-more-text`, hashId)}>
-                {showMore?.text || "搜索更多"}
+                {showMore?.text || '搜索更多'}
               </span>
               <span
                 className={classNames(`${prefixCls}-more-icon`, hashId)}

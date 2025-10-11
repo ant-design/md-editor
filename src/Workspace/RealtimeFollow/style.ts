@@ -16,7 +16,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '8px 12px',
         marginLeft: -16,
         marginRight: -16,
-        marginBottom: 8,
         borderBottom: '1px solid var(--color-gray-border-light)',
 
         // 返回按钮
@@ -30,7 +29,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: 'none',
           cursor: 'pointer',
           color: '#767e8b',
-          transition: 'all 0.2s ease',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
           borderRadius: 'var(--radius-control-base)',
           backdropFilter: 'blur(20px)',
 
@@ -86,7 +85,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           [`&--default`]: {
             width: '40px',
             height: '40px',
-            background: 'linear-gradient(90deg, #EAEEF4, #F4F6F9)',
+            background: 'linear-gradient(180deg, #EAEEF4, #F4F6F9)',
           },
         },
 

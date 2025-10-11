@@ -1,8 +1,8 @@
+import { TextOptimize } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { OptimizeIcon } from '../../icons/OptimizeIcon';
 import { useStyle } from './style';
 
 type RefinePromptButtonProps = {
@@ -58,7 +58,7 @@ export const RefinePromptButton: React.FC<RefinePromptButtonProps> = (
 
   const renderIcon = () => {
     if (status === 'loading') return <LoadingIcon />;
-    return <OptimizeIcon />;
+    return <TextOptimize />;
   };
 
   if (

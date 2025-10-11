@@ -195,10 +195,7 @@ export default () => (
           marginTop: -24,
         }}
       >
-        <SuggestionList
-          items={items}
-          onItemClick={() => alert('ask')}
-        />
+        <SuggestionList items={items} onItemClick={() => alert('ask')} />
       </div>
     </Card>
   </div>

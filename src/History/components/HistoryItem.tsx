@@ -1,10 +1,12 @@
+import {
+  CloseCircleFill,
+  FileCheckFill,
+  WarningFill,
+} from '@sofa-design/icons';
 import { Checkbox, ConfigProvider, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../i18n';
-import { CloseCicleFillIcon } from '../../icons/CloseCicleFillIcon';
-import { FileCheckFillIcon } from '../../icons/FileCheckFillIcon';
-import { WarningFillIcon } from '../../icons/WarningFillIcon';
 import { useStyle } from '../style';
 import {
   HistoryDataType,
@@ -25,17 +27,17 @@ const TaskIconMap: (
   return {
     success: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <FileCheckFillIcon />
+        <FileCheckFill />
       </div>
     ),
     error: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <WarningFillIcon />
+        <WarningFill />
       </div>
     ),
     cancel: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <CloseCicleFillIcon />
+        <CloseCircleFill />
       </div>
     ),
   };
@@ -53,6 +55,23 @@ const getMaskStyle = (isOverflow: boolean) => ({
  * 当文本滚动到末尾时，这个偏移量会让文本多滚动一段距离，使其看起来更自然
  */
 const EXTRA_SCROLL_OFFSET = 100;
+
+/**
+ * 检查自定义操作区域是否有效
+ * @param extra - 自定义操作区域内容
+ * @returns 是否应该渲染自定义操作区域
+ */
+const isValidCustomOperation = (extra: React.ReactNode): boolean => {
+  if (!extra) return false;
+  if (React.isValidElement(extra)) return true;
+  if (typeof extra === 'string' && extra.trim()) return true;
+  if (
+    Array.isArray(extra) &&
+    extra.some((item) => isValidCustomOperation(item))
+  )
+    return true;
+  return false;
+};
 
 /**
  * 自定义 hook，用于检测文本溢出并设置相关样式
@@ -300,11 +319,11 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
-          {customOperationExtra ? (
+          {isValidCustomOperation(customOperationExtra) && (
             <div className={`${prefixCls}-extra-actions ${hashId}`}>
               {customOperationExtra}
             </div>
-          ) : null}
+          )}
         </div>
         {extra?.(item)}
       </div>
@@ -568,10 +587,13 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
           >
             {formatTime(item.gmtCreate)}
           </HistoryActionsBox>
-          <div className={`${prefixCls}-extra-actions ${hashId}`}>
-            {customOperationExtra}
-          </div>
+          {isValidCustomOperation(customOperationExtra) && (
+            <div className={`${prefixCls}-extra-actions ${hashId}`}>
+              {customOperationExtra}
+            </div>
+          )}
         </div>
+
         {extra?.(item)}
       </div>
     );

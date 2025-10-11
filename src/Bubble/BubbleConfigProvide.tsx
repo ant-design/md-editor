@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { cnLabels } from '../i18n/locales';
 import { ThoughtChainListProps } from '../ThoughtChainList/types';
 import { BubbleProps } from './type';

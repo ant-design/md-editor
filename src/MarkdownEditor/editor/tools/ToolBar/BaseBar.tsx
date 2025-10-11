@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-import { PlusCircleFilled } from '@ant-design/icons';
+import { Plus } from '@sofa-design/icons';
 import { Divider, Dropdown } from 'antd';
 import classnames from 'classnames';
 import React, { useContext, useMemo } from 'react';
@@ -393,7 +392,7 @@ export const BaseToolBar = React.memo<{
       <>
         <ToolBarItem
           title="更多操作"
-          icon={<PlusCircleFilled />}
+          icon={<Plus />}
           className={classnames(
             `${baseClassName}-item`,
             `${baseClassName}-item-min-plus-icon`,
@@ -402,7 +401,7 @@ export const BaseToolBar = React.memo<{
           tabIndex={-1}
         >
           <Dropdown menu={{ items: dropdownItems }}>
-            <PlusCircleFilled />
+            <Plus role="img" aria-label="Plus" />
           </Dropdown>
         </ToolBarItem>
 

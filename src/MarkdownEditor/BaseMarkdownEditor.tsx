@@ -40,7 +40,7 @@ import {
   MarkdownEditorProps,
 } from './types';
 import { exportHtml } from './utils/exportHtml';
-import { withTable } from './utils/slate-table/with-table';
+// 原生表格功能已集成到编辑器中
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
@@ -140,25 +140,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   // markdown 编辑器实例
   const markdownEditorRef = useRef(
     composeEditors(
-      withMarkdown(
-        withTable(withReact(withHistory(createEditor())), {
-          blocks: {
-            table: 'table',
-            thead: 'table-head',
-            tfoot: 'table-footer',
-            tr: 'table-row',
-            th: 'header-cell',
-            td: 'table-cell',
-            content: 'paragraph',
-          },
-          withDelete: true,
-          withFragments: true,
-          withInsertText: true,
-          withNormalization: true,
-          withSelection: true,
-          withSelectionAdjustment: true,
-        }),
-      ),
+      withMarkdown(withReact(withHistory(createEditor()))),
       props.plugins || [],
     ),
   );

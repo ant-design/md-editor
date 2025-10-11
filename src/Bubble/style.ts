@@ -1,5 +1,6 @@
 import {
   ChatTokenType,
+  CSSInterpolation,
   resetComponent,
   useEditorStyleRegister,
 } from '../hooks/useStyle';
@@ -211,6 +212,9 @@ export function useStyle(
       componentCls: `.${prefixCls}`,
     };
 
-    return [resetComponent(proChatToken), genStyle(proChatToken, classNames)];
+    return [
+      resetComponent(proChatToken),
+      genStyle(proChatToken, classNames),
+    ] as CSSInterpolation[];
   });
 }

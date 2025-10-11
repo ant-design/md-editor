@@ -1,4 +1,5 @@
 import { FullscreenOutlined } from '@ant-design/icons';
+import { Copy } from '@sofa-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -10,7 +11,6 @@ import React, {
   useState,
 } from 'react';
 import { I18nContext } from '../../../../i18n';
-import { Copy } from '../../../../icons';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 import { TableNode } from '../../types/Table';
@@ -107,9 +107,6 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
       () => (
         <table
           ref={tableTargetRef}
-          style={{
-            userSelect: 'none',
-          }}
           className={classNames(`${baseCls}-editor-table`, hashId)}
         >
           <colgroup>
@@ -124,13 +121,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               />
             ))}
           </colgroup>
-          <tbody
-            style={{
-              userSelect: 'none',
-            }}
-          >
-            {children}
-          </tbody>
+          <tbody>{children}</tbody>
         </table>
       ),
       [colWidths, children, hashId, baseCls],
@@ -170,7 +161,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
     return (
       <>
         <Popover
-          trigger={['click', 'hover']}
+          trigger={['click']}
           arrow={false}
           styles={{
             body: {
@@ -178,7 +169,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
             },
           }}
           align={{
-            offset: [4, 40],
+            offset: [-4, -8],
           }}
           zIndex={999}
           placement="topLeft"
@@ -189,14 +180,6 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
             style={{
               flex: 1,
               minWidth: 0,
-            }}
-            onDragStart={(e) => {
-              // 阻止拖拽开始时的文字选择
-              e.preventDefault();
-            }}
-            onDoubleClick={(e) => {
-              // 阻止双击选择文字
-              e.preventDefault();
             }}
           >
             {tableDom}

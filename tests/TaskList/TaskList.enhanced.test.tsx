@@ -47,7 +47,7 @@ describe('TaskList Component', () => {
     children,
   }) => (
     <ConfigProvider>
-      <I18nContext.Provider value={{ locale: mockLocale as any }}>
+      <I18nContext.Provider value={{ locale: mockLocale as any } as any}>
         {children}
       </I18nContext.Provider>
     </ConfigProvider>
@@ -302,7 +302,7 @@ describe('TaskList Component', () => {
   it('应该处理缺失的国际化文本', () => {
     render(
       <ConfigProvider>
-        <I18nContext.Provider value={{ locale: null }}>
+        <I18nContext.Provider value={{ locale: null } as any}>
           <TaskList items={mockItems} />
         </I18nContext.Provider>
       </ConfigProvider>,
