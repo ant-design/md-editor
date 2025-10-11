@@ -1,5 +1,5 @@
+import { MarkdownEditor } from '@ant-design/md-editor';
 import React from 'react';
-import { MarkdownEditor } from '../../src/MarkdownEditor';
 
 /**
  * 评论功能高亮演示 - 支持多方向拖拽

@@ -1,4 +1,4 @@
-import { Voice } from '@sofa-design/icons';
+import { Mic } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
@@ -65,7 +65,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
         }}
       >
         <ErrorBoundary fallback={<div />}>
-          {recording ? <VoicingLottie size={16} /> : <Voice />}
+          {recording ? <VoicingLottie size={16} /> : <Mic />}
         </ErrorBoundary>
       </div>
     </Tooltip>,

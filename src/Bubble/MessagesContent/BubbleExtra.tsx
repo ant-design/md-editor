@@ -439,10 +439,10 @@ export const BubbleExtra = ({
       }}
     >
       {typing && originalData.content !== '...' ? (
-        <>
+        <div>
           <LoadingLottie size={context?.compact ? 20 : 16} />
           <span>{context?.locale?.['chat.message.generating'] || ''}</span>
-        </>
+        </div>
       ) : null}
       {reSend || null}
       {originalData?.isAborted ? copyDom : rightDom}
