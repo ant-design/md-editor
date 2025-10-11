@@ -520,7 +520,8 @@ export const enLabels: typeof cnLabels = {
   // MarkdownInputField component related
   'markdownInput.fileSizeExceeded': 'File size exceeds ${maxSize} KB',
   'markdownInput.maxFileCountExceeded': 'Maximum ${maxFileCount} files allowed',
-  'markdownInput.minFileCountRequired': 'At least ${minFileCount} files required',
+  'markdownInput.minFileCountRequired':
+    'At least ${minFileCount} files required',
   // Document info related
   'docInfo.name': 'Name',
   'docInfo.updateTime': 'Update Time',
