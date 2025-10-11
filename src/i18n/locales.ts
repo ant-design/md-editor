@@ -29,6 +29,7 @@ export const cnLabels = {
   copySuccess: '复制成功',
   uploadSuccess: '上传成功',
   uploading: '上传中...',
+  uploadFailed: '上传失败',
   pieChart: '饼图',
   donutChart: '环形图',
   radarChart: '雷达图',
@@ -211,6 +212,8 @@ export const cnLabels = {
   'workspace.file.copyFailed': '复制失败',
   // MarkdownInputField 组件相关
   'markdownInput.fileSizeExceeded': '文件大小超过 ${maxSize} KB',
+  'markdownInput.maxFileCountExceeded': '最多只能上传 ${maxFileCount} 个文件',
+  'markdownInput.minFileCountRequired': '至少需要上传 ${minFileCount} 个文件',
   // 文档信息相关
   'docInfo.name': '名称',
   'docInfo.updateTime': '更新时间',
@@ -368,6 +371,7 @@ export const enLabels: typeof cnLabels = {
   copySuccess: 'Copy succeeded',
   uploadSuccess: 'Upload succeeded',
   uploading: 'Uploading...',
+  uploadFailed: 'Upload failed',
   pieChart: 'Pie Chart',
   donutChart: 'Donut Chart',
   radarChart: 'Radar Chart',
@@ -515,6 +519,8 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.copyFailed': 'Copy failed',
   // MarkdownInputField component related
   'markdownInput.fileSizeExceeded': 'File size exceeds ${maxSize} KB',
+  'markdownInput.maxFileCountExceeded': 'Maximum ${maxFileCount} files allowed',
+  'markdownInput.minFileCountRequired': 'At least ${minFileCount} files required',
   // Document info related
   'docInfo.name': 'Name',
   'docInfo.updateTime': 'Update Time',
