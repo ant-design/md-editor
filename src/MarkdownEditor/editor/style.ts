@@ -390,9 +390,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         paddingTop: '0em',
         display: 'block',
         fontSize: '1em',
-        lineHeight: 1.6,
-        marginTop: '0.25em',
-        marginBottom: '0.25em',
+        lineHeight: 1.2,
+        marginTop: '0.2em',
+        marginBottom: '0.2em',
       },
       'h1,h2,h3,h4,h5,h6': {
         position: 'relative',
@@ -614,7 +614,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 列表样式增强
       'ul:not([data-be="list"]), ol:not([data-be="list"])': {
-        paddingLeft: '24px',
+        paddingLeft: '14px',
         marginTop: '8px',
         marginBottom: '8px',
         li: {
