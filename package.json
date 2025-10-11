@@ -51,7 +51,7 @@
     "@better-scroll/observe-dom": "^2.5.1",
     "@better-scroll/scroll-bar": "^2.5.1",
     "@juggle/resize-observer": "^3.4.0",
-    "@sofa-design/icons": "^1.5.0",
+    "@sofa-design/icons": "^1.5.1",
     "ace-builds": "^1.43.3",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",

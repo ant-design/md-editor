@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { Copy, Refresh } from '@sofa-design/icons';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
-import LoadingLottie from '../../TaskList/LoadingLottie';
+import { Loading } from '../../components/Loading';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleExtraProps } from '../types/BubbleExtra';
 import { CopyButton } from './CopyButton';
@@ -440,7 +440,7 @@ export const BubbleExtra = ({
     >
       {typing && originalData.content !== '...' ? (
         <div>
-          <LoadingLottie size={context?.compact ? 20 : 16} />
+          <Loading style={{ fontSize: context?.compact ? 20 : 16 }} />
           <span>{context?.locale?.['chat.message.generating'] || ''}</span>
         </div>
       ) : null}
