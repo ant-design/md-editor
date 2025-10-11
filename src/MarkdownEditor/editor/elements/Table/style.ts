@@ -141,6 +141,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           lineHeight: 1.7,
           textAlign: 'left',
           borderLeft: 'none',
+          minHeight: '40px',
         },
         'th:not(:first-child),td:not(:first-child)': {
           borderLeft: '1px solid var(--table-border-color)',
