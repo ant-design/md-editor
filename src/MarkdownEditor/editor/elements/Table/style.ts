@@ -34,7 +34,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: 'max-content',
         maxWidth: '100%',
         borderWidth: '0',
-        cursor: 'default',
         margin: '0',
         outlineWidth: '0',
         overflow: 'auto',

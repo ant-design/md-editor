@@ -60,7 +60,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&.ol': {
         [`&${token.componentCls}`]: {
           listStyle: 'decimal',
-          paddingLeft: '0',
           [`& ol${token.componentCls}`]: {
             listStyle: 'lower-alpha',
             paddingLeft: '1.5em',
@@ -76,7 +75,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&.ul': {
         [`&${token.componentCls}`]: {
           listStyle: 'disc',
-          paddingLeft: '0',
+
           [`& ul${token.componentCls}`]: {
             listStyle: 'circle',
             paddingLeft: '1.5em',
