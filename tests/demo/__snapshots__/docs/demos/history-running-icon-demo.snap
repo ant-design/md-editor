@@ -347,7 +347,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -526,7 +526,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -705,7 +705,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -835,7 +835,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -978,7 +978,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -1186,7 +1186,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -1341,7 +1341,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -1496,7 +1496,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -1598,7 +1598,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"
@@ -1713,7 +1713,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                                        class="ant-md-editor-action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
                                         tabindex="0"

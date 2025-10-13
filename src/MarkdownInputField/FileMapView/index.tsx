@@ -166,10 +166,12 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         animate={'visible'}
         className={classNames(
           prefix,
-          `${prefix}-vertical`,
           hashId,
           props.className,
           `${prefix}-${placement}`,
+          {
+            [`${prefix}-vertical`]: placement === 'left',
+          },
         )}
         style={props.style}
       >

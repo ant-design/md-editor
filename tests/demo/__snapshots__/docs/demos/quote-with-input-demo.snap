@@ -21,72 +21,7 @@
           <div
             class="ant-md-input-field-background"
             style="min-height: 0; height: calc(100% + 4px); width: calc(100% + 4px);"
-          >
-            <svg
-              fill="none"
-              height="100%"
-              style="border-radius: inherit;"
-              version="1.1"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <defs>
-                <radialgradient
-                  cx="0.5"
-                  cy="1"
-                  id="master_svg1_55_47405"
-                  r="0.5"
-                >
-                  <stop
-                    offset="0%"
-                    stop-color="#CD36FF"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#CD36FF; #FFD972; #eff0f1; #CD36FF;#CD36FF"
-                    />
-                  </stop>
-                  <stop
-                    offset="33.333333333333336%"
-                    stop-color="#FFD972"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#FFD972; #eff0f1; #CD36FF; #FFD972;#FFD972"
-                    />
-                  </stop>
-                  <stop
-                    offset="66.66666666666667%"
-                    stop-color="#eff0f1"
-                    stop-opacity="0.4"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      dur="4s"
-                      repeatCount="indefinite"
-                      values="#eff0f1; #CD36FF; #FFD972; #eff0f1;#eff0f1"
-                    />
-                  </stop>
-                </radialgradient>
-              </defs>
-              <g>
-                <rect
-                  fill="url(#master_svg1_55_47405)"
-                  height="100%"
-                  width="100%"
-                  x="0"
-                  y="0"
-                />
-              </g>
-            </svg>
-          </div>
+          />
           <div
             style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 14px; cursor: auto; opacity: 1;"
           >
@@ -116,115 +51,118 @@
                     class="ant-skill-mode-title"
                   >
                     <div
-                      class="ant-quote-container"
-                      data-testid="quote-container"
+                      style="display: flex; flex-wrap: wrap;"
                     >
                       <div
-                        class="ant-quote-quote-icon"
-                        data-testid="quote-icon"
-                      >
-                        <svg
-                          class="sofa-icons-icon"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          height="1em"
-                          style="vertical-align: -0.125em;"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <defs>
-                            <clippath
-                              id="QuoteBefore-master_svg0_2421_14224"
-                            >
-                              <rect
-                                height="24"
-                                rx="0"
-                                width="24"
-                              />
-                            </clippath>
-                          </defs>
-                          <g
-                            clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
-                          >
-                            <g>
-                              <path
-                                d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
-                              />
-                            </g>
-                          </g>
-                        </svg>
-                      </div>
-                      <span
-                        class="ant-quote-quoteDescription"
-                        data-testid="quote-description"
-                      >
-                        用户资料组件的状态管理逻辑，包含用户信息的加载和更新
-                      </span>
-                      <div
-                        class="ant-quote-popup"
-                        data-testid="quote-popup"
-                        style="left: 0px;"
+                        class="ant-quote-container"
+                        data-testid="quote-container"
                       >
                         <div
-                          class="ant-quote-popup-header"
-                          data-testid="quote-popup-header"
+                          class="ant-quote-quote-icon"
+                          data-testid="quote-icon"
+                        >
+                          <svg
+                            class="sofa-icons-icon"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            height="1em"
+                            style="vertical-align: -0.125em;"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <defs>
+                              <clippath
+                                id="QuoteBefore-master_svg0_2421_14224"
+                              >
+                                <rect
+                                  height="24"
+                                  rx="0"
+                                  width="24"
+                                />
+                              </clippath>
+                            </defs>
+                            <g
+                              clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
+                            >
+                              <g>
+                                <path
+                                  d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
+                                />
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                        <span
+                          class="ant-quote-quoteDescription"
+                          data-testid="quote-description"
+                        >
+                          用户资料组件的状态管理逻辑，包含用户信息的加载和更新
+                        </span>
+                        <div
+                          class="ant-quote-popup"
+                          data-testid="quote-popup"
+                          style="left: 0px;"
                         >
                           <div
-                            data-testid="quote-popup-icon"
-                            style="font-size: 14px; display: flex; align-items: center;"
+                            class="ant-quote-popup-header"
+                            data-testid="quote-popup-header"
                           >
-                            <svg
-                              class="sofa-icons-icon"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                              height="1em"
-                              style="vertical-align: -0.125em;"
-                              viewBox="0 0 24 24"
-                              width="1em"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              data-testid="quote-popup-icon"
+                              style="font-size: 14px; display: flex; align-items: center;"
                             >
-                              <defs>
-                                <clippath
-                                  id="CornerLeftUp-master_svg0_2328_13378"
-                                >
-                                  <rect
-                                    height="24"
-                                    rx="0"
-                                    width="24"
-                                  />
-                                </clippath>
-                              </defs>
-                              <g
-                                clip-path="url(#CornerLeftUp-master_svg0_2328_13378)"
+                              <svg
+                                class="sofa-icons-icon"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                                height="1em"
+                                style="vertical-align: -0.125em;"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <g>
-                                  <path
-                                    d="M8.29289,3.292893L3.292893,8.29289C3.105357,8.48043,3,8.73478,3,9C3,9.55228,3.447715,10,4,10C4.26522,10,4.51957,9.894639999999999,4.70742,9.70679L8,6.414210000000001L8,16Q8,18.0711,9.46447,19.5355Q10.928930000000001,21,13,21L20,21C20.5523,21,21,20.5523,21,20C21,19.4477,20.5523,19,20,19L13,19Q11.75736,19,10.87868,18.121299999999998Q10,17.2426,10,16L10,6.414210000000001L13.2929,9.70711C13.4804,9.894639999999999,13.7348,10,14,10C14.5523,10,15,9.55228,15,9C15,8.73478,14.8946,8.48043,14.7071,8.29289L9.70754,3.293324L9.70711,3.292893C9.7064,3.292186,9.70569,3.29148,9.704979999999999,3.290776C9.50999,3.0969252,9.254999999999999,3,9,3C8.86441,3,8.73512,3.0269855,8.61722,3.0758788C8.49927,3.124679,8.388770000000001,3.1970169999999998,8.29289,3.292893Z"
-                                    style="mix-blend-mode: passthrough;"
-                                  />
+                                <defs>
+                                  <clippath
+                                    id="CornerLeftUp-master_svg0_2328_13378"
+                                  >
+                                    <rect
+                                      height="24"
+                                      rx="0"
+                                      width="24"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#CornerLeftUp-master_svg0_2328_13378)"
+                                >
+                                  <g>
+                                    <path
+                                      d="M8.29289,3.292893L3.292893,8.29289C3.105357,8.48043,3,8.73478,3,9C3,9.55228,3.447715,10,4,10C4.26522,10,4.51957,9.894639999999999,4.70742,9.70679L8,6.414210000000001L8,16Q8,18.0711,9.46447,19.5355Q10.928930000000001,21,13,21L20,21C20.5523,21,21,20.5523,21,20C21,19.4477,20.5523,19,20,19L13,19Q11.75736,19,10.87868,18.121299999999998Q10,17.2426,10,16L10,6.414210000000001L13.2929,9.70711C13.4804,9.894639999999999,13.7348,10,14,10C14.5523,10,15,9.55228,15,9C15,8.73478,14.8946,8.48043,14.7071,8.29289L9.70754,3.293324L9.70711,3.292893C9.7064,3.292186,9.70569,3.29148,9.704979999999999,3.290776C9.50999,3.0969252,9.254999999999999,3,9,3C8.86441,3,8.73512,3.0269855,8.61722,3.0758788C8.49927,3.124679,8.388770000000001,3.1970169999999998,8.29289,3.292893Z"
+                                      style="mix-blend-mode: passthrough;"
+                                    />
+                                  </g>
                                 </g>
-                              </g>
-                            </svg>
+                              </svg>
+                            </div>
+                            <span
+                              class="ant-quote-popup-title"
+                              data-testid="quote-popup-title"
+                            >
+                              src/components/UserProfile.tsx
+                            </span>
+                            <span
+                              class="ant-quote-popup-range"
+                              data-testid="quote-popup-range"
+                            >
+                              (45-60)
+                            </span>
                           </div>
-                          <span
-                            class="ant-quote-popup-title"
-                            data-testid="quote-popup-title"
+                          <div
+                            class="ant-quote-popup-content"
+                            data-testid="quote-popup-content"
                           >
-                            src/components/UserProfile.tsx
-                          </span>
-                          <span
-                            class="ant-quote-popup-range"
-                            data-testid="quote-popup-range"
-                          >
-                            (45-60)
-                          </span>
-                        </div>
-                        <div
-                          class="ant-quote-popup-content"
-                          data-testid="quote-popup-content"
-                        >
-                          const [userProfile, setUserProfile] = useState&lt;UserProfile | null&gt;(null);
+                            const [userProfile, setUserProfile] = useState&lt;UserProfile | null&gt;(null);
 const [loading, setLoading] = useState(false);
 
 useEffect(() =&gt; {
@@ -242,154 +180,154 @@ useEffect(() =&gt; {
   
   loadUserProfile();
 }, [userId]);
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      class="ant-quote-container"
-                      data-testid="quote-container"
-                    >
                       <div
-                        class="ant-quote-quote-icon"
-                        data-testid="quote-icon"
+                        class="ant-quote-container"
+                        data-testid="quote-container"
                       >
-                        <svg
-                          class="sofa-icons-icon"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          height="1em"
-                          style="vertical-align: -0.125em;"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <div
+                          class="ant-quote-quote-icon"
+                          data-testid="quote-icon"
                         >
-                          <defs>
-                            <clippath
-                              id="QuoteBefore-master_svg0_2421_14224"
-                            >
-                              <rect
-                                height="24"
-                                rx="0"
-                                width="24"
-                              />
-                            </clippath>
-                          </defs>
-                          <g
-                            clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
+                          <svg
+                            class="sofa-icons-icon"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            height="1em"
+                            style="vertical-align: -0.125em;"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g>
+                            <defs>
+                              <clippath
+                                id="QuoteBefore-master_svg0_2421_14224"
+                              >
+                                <rect
+                                  height="24"
+                                  rx="0"
+                                  width="24"
+                                />
+                              </clippath>
+                            </defs>
+                            <g
+                              clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
+                            >
+                              <g>
+                                <path
+                                  d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
+                                />
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                        <span
+                          class="ant-quote-quoteDescription"
+                          data-testid="quote-description"
+                        >
+                          API请求工具函数，包含错误处理和重试逻辑
+                        </span>
+                        <div
+                          class="ant-quote-close-button"
+                          data-testid="quote-close-button"
+                        >
+                          <svg
+                            class="sofa-icons-icon"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            height="1em"
+                            style="vertical-align: -0.125em;"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <defs>
+                              <clippath
+                                id="CloseCircleFill-master_svg0_549_14798"
+                              >
+                                <rect
+                                  height="24"
+                                  rx="0"
+                                  width="24"
+                                />
+                              </clippath>
+                            </defs>
+                            <g
+                              clip-path="url(#CloseCircleFill-master_svg0_549_14798)"
+                            >
                               <path
-                                d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
+                                d="M12 23C5.925 23 1 18.075 1 12S5.925 1 12 1s11 4.925 11 11-4.925 11-11 11m0-12.555L8.89 7.333 7.332 8.889 10.445 12l-3.112 3.11 1.556 1.557L12 13.555l3.11 3.112 1.557-1.556L13.555 12l3.112-3.11-1.556-1.557z"
+                                style="mix-blend-mode: passthrough;"
                               />
                             </g>
-                          </g>
-                        </svg>
-                      </div>
-                      <span
-                        class="ant-quote-quoteDescription"
-                        data-testid="quote-description"
-                      >
-                        API请求工具函数，包含错误处理和重试逻辑
-                      </span>
-                      <div
-                        class="ant-quote-close-button"
-                        data-testid="quote-close-button"
-                      >
-                        <svg
-                          class="sofa-icons-icon"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          height="1em"
-                          style="vertical-align: -0.125em;"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <defs>
-                            <clippath
-                              id="CloseCircleFill-master_svg0_549_14798"
-                            >
-                              <rect
-                                height="24"
-                                rx="0"
-                                width="24"
-                              />
-                            </clippath>
-                          </defs>
-                          <g
-                            clip-path="url(#CloseCircleFill-master_svg0_549_14798)"
-                          >
-                            <path
-                              d="M12 23C5.925 23 1 18.075 1 12S5.925 1 12 1s11 4.925 11 11-4.925 11-11 11m0-12.555L8.89 7.333 7.332 8.889 10.445 12l-3.112 3.11 1.556 1.557L12 13.555l3.11 3.112 1.557-1.556L13.555 12l3.112-3.11-1.556-1.557z"
-                              style="mix-blend-mode: passthrough;"
-                            />
-                          </g>
-                        </svg>
-                      </div>
-                      <div
-                        class="ant-quote-popup"
-                        data-testid="quote-popup"
-                        style="left: 0px;"
-                      >
-                        <div
-                          class="ant-quote-popup-header"
-                          data-testid="quote-popup-header"
-                        >
-                          <div
-                            data-testid="quote-popup-icon"
-                            style="font-size: 14px; display: flex; align-items: center;"
-                          >
-                            <svg
-                              class="sofa-icons-icon"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                              height="1em"
-                              style="vertical-align: -0.125em;"
-                              viewBox="0 0 24 24"
-                              width="1em"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <defs>
-                                <clippath
-                                  id="CornerLeftUp-master_svg0_2328_13378"
-                                >
-                                  <rect
-                                    height="24"
-                                    rx="0"
-                                    width="24"
-                                  />
-                                </clippath>
-                              </defs>
-                              <g
-                                clip-path="url(#CornerLeftUp-master_svg0_2328_13378)"
-                              >
-                                <g>
-                                  <path
-                                    d="M8.29289,3.292893L3.292893,8.29289C3.105357,8.48043,3,8.73478,3,9C3,9.55228,3.447715,10,4,10C4.26522,10,4.51957,9.894639999999999,4.70742,9.70679L8,6.414210000000001L8,16Q8,18.0711,9.46447,19.5355Q10.928930000000001,21,13,21L20,21C20.5523,21,21,20.5523,21,20C21,19.4477,20.5523,19,20,19L13,19Q11.75736,19,10.87868,18.121299999999998Q10,17.2426,10,16L10,6.414210000000001L13.2929,9.70711C13.4804,9.894639999999999,13.7348,10,14,10C14.5523,10,15,9.55228,15,9C15,8.73478,14.8946,8.48043,14.7071,8.29289L9.70754,3.293324L9.70711,3.292893C9.7064,3.292186,9.70569,3.29148,9.704979999999999,3.290776C9.50999,3.0969252,9.254999999999999,3,9,3C8.86441,3,8.73512,3.0269855,8.61722,3.0758788C8.49927,3.124679,8.388770000000001,3.1970169999999998,8.29289,3.292893Z"
-                                    style="mix-blend-mode: passthrough;"
-                                  />
-                                </g>
-                              </g>
-                            </svg>
-                          </div>
-                          <span
-                            class="ant-quote-popup-title"
-                            data-testid="quote-popup-title"
-                          >
-                            src/utils/api.ts
-                          </span>
-                          <span
-                            class="ant-quote-popup-range"
-                            data-testid="quote-popup-range"
-                          >
-                            (12-25)
-                          </span>
+                          </svg>
                         </div>
                         <div
-                          class="ant-quote-popup-content"
-                          data-testid="quote-popup-content"
+                          class="ant-quote-popup"
+                          data-testid="quote-popup"
+                          style="left: 0px;"
                         >
-                          export const fetchUserProfile = async (userId: string): Promise&lt;UserProfile&gt; =&gt; {
+                          <div
+                            class="ant-quote-popup-header"
+                            data-testid="quote-popup-header"
+                          >
+                            <div
+                              data-testid="quote-popup-icon"
+                              style="font-size: 14px; display: flex; align-items: center;"
+                            >
+                              <svg
+                                class="sofa-icons-icon"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                                height="1em"
+                                style="vertical-align: -0.125em;"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <defs>
+                                  <clippath
+                                    id="CornerLeftUp-master_svg0_2328_13378"
+                                  >
+                                    <rect
+                                      height="24"
+                                      rx="0"
+                                      width="24"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#CornerLeftUp-master_svg0_2328_13378)"
+                                >
+                                  <g>
+                                    <path
+                                      d="M8.29289,3.292893L3.292893,8.29289C3.105357,8.48043,3,8.73478,3,9C3,9.55228,3.447715,10,4,10C4.26522,10,4.51957,9.894639999999999,4.70742,9.70679L8,6.414210000000001L8,16Q8,18.0711,9.46447,19.5355Q10.928930000000001,21,13,21L20,21C20.5523,21,21,20.5523,21,20C21,19.4477,20.5523,19,20,19L13,19Q11.75736,19,10.87868,18.121299999999998Q10,17.2426,10,16L10,6.414210000000001L13.2929,9.70711C13.4804,9.894639999999999,13.7348,10,14,10C14.5523,10,15,9.55228,15,9C15,8.73478,14.8946,8.48043,14.7071,8.29289L9.70754,3.293324L9.70711,3.292893C9.7064,3.292186,9.70569,3.29148,9.704979999999999,3.290776C9.50999,3.0969252,9.254999999999999,3,9,3C8.86441,3,8.73512,3.0269855,8.61722,3.0758788C8.49927,3.124679,8.388770000000001,3.1970169999999998,8.29289,3.292893Z"
+                                      style="mix-blend-mode: passthrough;"
+                                    />
+                                  </g>
+                                </g>
+                              </svg>
+                            </div>
+                            <span
+                              class="ant-quote-popup-title"
+                              data-testid="quote-popup-title"
+                            >
+                              src/utils/api.ts
+                            </span>
+                            <span
+                              class="ant-quote-popup-range"
+                              data-testid="quote-popup-range"
+                            >
+                              (12-25)
+                            </span>
+                          </div>
+                          <div
+                            class="ant-quote-popup-content"
+                            data-testid="quote-popup-content"
+                          >
+                            export const fetchUserProfile = async (userId: string): Promise&lt;UserProfile&gt; =&gt; {
   const response = await fetch(`/api/users/${userId}`, {
     method: 'GET',
     headers: {
@@ -404,119 +342,119 @@ useEffect(() =&gt; {
   
   return response.json();
 };
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      class="ant-quote-container"
-                      data-testid="quote-container"
-                    >
                       <div
-                        class="ant-quote-quote-icon"
-                        data-testid="quote-icon"
-                      >
-                        <svg
-                          class="sofa-icons-icon"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          height="1em"
-                          style="vertical-align: -0.125em;"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <defs>
-                            <clippath
-                              id="QuoteBefore-master_svg0_2421_14224"
-                            >
-                              <rect
-                                height="24"
-                                rx="0"
-                                width="24"
-                              />
-                            </clippath>
-                          </defs>
-                          <g
-                            clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
-                          >
-                            <g>
-                              <path
-                                d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
-                              />
-                            </g>
-                          </g>
-                        </svg>
-                      </div>
-                      <span
-                        class="ant-quote-quoteDescription"
-                        data-testid="quote-description"
-                      >
-                        用户资料的类型定义
-                      </span>
-                      <div
-                        class="ant-quote-popup"
-                        data-testid="quote-popup"
-                        style="left: 0px;"
+                        class="ant-quote-container"
+                        data-testid="quote-container"
                       >
                         <div
-                          class="ant-quote-popup-header"
-                          data-testid="quote-popup-header"
+                          class="ant-quote-quote-icon"
+                          data-testid="quote-icon"
+                        >
+                          <svg
+                            class="sofa-icons-icon"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            height="1em"
+                            style="vertical-align: -0.125em;"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <defs>
+                              <clippath
+                                id="QuoteBefore-master_svg0_2421_14224"
+                              >
+                                <rect
+                                  height="24"
+                                  rx="0"
+                                  width="24"
+                                />
+                              </clippath>
+                            </defs>
+                            <g
+                              clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
+                            >
+                              <g>
+                                <path
+                                  d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
+                                />
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                        <span
+                          class="ant-quote-quoteDescription"
+                          data-testid="quote-description"
+                        >
+                          用户资料的类型定义
+                        </span>
+                        <div
+                          class="ant-quote-popup"
+                          data-testid="quote-popup"
+                          style="left: 0px;"
                         >
                           <div
-                            data-testid="quote-popup-icon"
-                            style="font-size: 14px; display: flex; align-items: center;"
+                            class="ant-quote-popup-header"
+                            data-testid="quote-popup-header"
                           >
-                            <svg
-                              class="sofa-icons-icon"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                              height="1em"
-                              style="vertical-align: -0.125em;"
-                              viewBox="0 0 24 24"
-                              width="1em"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              data-testid="quote-popup-icon"
+                              style="font-size: 14px; display: flex; align-items: center;"
                             >
-                              <defs>
-                                <clippath
-                                  id="CornerLeftUp-master_svg0_2328_13378"
-                                >
-                                  <rect
-                                    height="24"
-                                    rx="0"
-                                    width="24"
-                                  />
-                                </clippath>
-                              </defs>
-                              <g
-                                clip-path="url(#CornerLeftUp-master_svg0_2328_13378)"
+                              <svg
+                                class="sofa-icons-icon"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                                height="1em"
+                                style="vertical-align: -0.125em;"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <g>
-                                  <path
-                                    d="M8.29289,3.292893L3.292893,8.29289C3.105357,8.48043,3,8.73478,3,9C3,9.55228,3.447715,10,4,10C4.26522,10,4.51957,9.894639999999999,4.70742,9.70679L8,6.414210000000001L8,16Q8,18.0711,9.46447,19.5355Q10.928930000000001,21,13,21L20,21C20.5523,21,21,20.5523,21,20C21,19.4477,20.5523,19,20,19L13,19Q11.75736,19,10.87868,18.121299999999998Q10,17.2426,10,16L10,6.414210000000001L13.2929,9.70711C13.4804,9.894639999999999,13.7348,10,14,10C14.5523,10,15,9.55228,15,9C15,8.73478,14.8946,8.48043,14.7071,8.29289L9.70754,3.293324L9.70711,3.292893C9.7064,3.292186,9.70569,3.29148,9.704979999999999,3.290776C9.50999,3.0969252,9.254999999999999,3,9,3C8.86441,3,8.73512,3.0269855,8.61722,3.0758788C8.49927,3.124679,8.388770000000001,3.1970169999999998,8.29289,3.292893Z"
-                                    style="mix-blend-mode: passthrough;"
-                                  />
+                                <defs>
+                                  <clippath
+                                    id="CornerLeftUp-master_svg0_2328_13378"
+                                  >
+                                    <rect
+                                      height="24"
+                                      rx="0"
+                                      width="24"
+                                    />
+                                  </clippath>
+                                </defs>
+                                <g
+                                  clip-path="url(#CornerLeftUp-master_svg0_2328_13378)"
+                                >
+                                  <g>
+                                    <path
+                                      d="M8.29289,3.292893L3.292893,8.29289C3.105357,8.48043,3,8.73478,3,9C3,9.55228,3.447715,10,4,10C4.26522,10,4.51957,9.894639999999999,4.70742,9.70679L8,6.414210000000001L8,16Q8,18.0711,9.46447,19.5355Q10.928930000000001,21,13,21L20,21C20.5523,21,21,20.5523,21,20C21,19.4477,20.5523,19,20,19L13,19Q11.75736,19,10.87868,18.121299999999998Q10,17.2426,10,16L10,6.414210000000001L13.2929,9.70711C13.4804,9.894639999999999,13.7348,10,14,10C14.5523,10,15,9.55228,15,9C15,8.73478,14.8946,8.48043,14.7071,8.29289L9.70754,3.293324L9.70711,3.292893C9.7064,3.292186,9.70569,3.29148,9.704979999999999,3.290776C9.50999,3.0969252,9.254999999999999,3,9,3C8.86441,3,8.73512,3.0269855,8.61722,3.0758788C8.49927,3.124679,8.388770000000001,3.1970169999999998,8.29289,3.292893Z"
+                                      style="mix-blend-mode: passthrough;"
+                                    />
+                                  </g>
                                 </g>
-                              </g>
-                            </svg>
+                              </svg>
+                            </div>
+                            <span
+                              class="ant-quote-popup-title"
+                              data-testid="quote-popup-title"
+                            >
+                              src/types/user.ts
+                            </span>
+                            <span
+                              class="ant-quote-popup-range"
+                              data-testid="quote-popup-range"
+                            >
+                              (5-15)
+                            </span>
                           </div>
-                          <span
-                            class="ant-quote-popup-title"
-                            data-testid="quote-popup-title"
+                          <div
+                            class="ant-quote-popup-content"
+                            data-testid="quote-popup-content"
                           >
-                            src/types/user.ts
-                          </span>
-                          <span
-                            class="ant-quote-popup-range"
-                            data-testid="quote-popup-range"
-                          >
-                            (5-15)
-                          </span>
-                        </div>
-                        <div
-                          class="ant-quote-popup-content"
-                          data-testid="quote-popup-content"
-                        >
-                          export interface UserProfile {
+                            export interface UserProfile {
   id: string;
   username: string;
   email: string;
@@ -526,65 +464,65 @@ useEffect(() =&gt; {
   updatedAt: Date;
   settings: UserSettings;
 }
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      class="ant-quote-container"
-                      data-testid="quote-container"
-                    >
                       <div
-                        class="ant-quote-quote-icon"
-                        data-testid="quote-icon"
-                      >
-                        <svg
-                          class="sofa-icons-icon"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          height="1em"
-                          style="vertical-align: -0.125em;"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <defs>
-                            <clippath
-                              id="QuoteBefore-master_svg0_2421_14224"
-                            >
-                              <rect
-                                height="24"
-                                rx="0"
-                                width="24"
-                              />
-                            </clippath>
-                          </defs>
-                          <g
-                            clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
-                          >
-                            <g>
-                              <path
-                                d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
-                              />
-                            </g>
-                          </g>
-                        </svg>
-                      </div>
-                      <span
-                        class="ant-quote-quoteDescription"
-                        data-testid="quote-description"
-                      >
-                        这是一个关于用户认证流程的补充说明，没有具体的代码文件引用
-                      </span>
-                      <div
-                        class="ant-quote-popup"
-                        data-testid="quote-popup"
-                        style="left: 0px;"
+                        class="ant-quote-container"
+                        data-testid="quote-container"
                       >
                         <div
-                          class="ant-quote-popup-content"
-                          data-testid="quote-popup-content"
+                          class="ant-quote-quote-icon"
+                          data-testid="quote-icon"
                         >
-                          用户认证流程说明：
+                          <svg
+                            class="sofa-icons-icon"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            height="1em"
+                            style="vertical-align: -0.125em;"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <defs>
+                              <clippath
+                                id="QuoteBefore-master_svg0_2421_14224"
+                              >
+                                <rect
+                                  height="24"
+                                  rx="0"
+                                  width="24"
+                                />
+                              </clippath>
+                            </defs>
+                            <g
+                              clip-path="url(#QuoteBefore-master_svg0_2421_14224)"
+                            >
+                              <g>
+                                <path
+                                  d="M8.73628,11.54564Q8.90781,11.61247,9.07378,11.69476C9.21191,11.76328,9.364,11.79893,9.51819,11.79893C10.07047,11.79893,10.51819,11.35121,10.51819,10.79893C10.51819,10.41902,10.30292,10.07193,9.96173,9.90268Q9.71681,9.781220000000001,9.4623,9.68207Q9.44986,9.67722,9.43746,9.672450000000001L11.7166,2L6.65027,2L6.37976,2.5730589999999998Q1.8492009999999999,12.1686,1.277223,13.7539Q1,14.6714,1,15.6316Q1,18.2622,2.81784,20.1259Q4.64586,22,7.23636,22Q8.50852,22,9.67123,21.4961L9.67243,21.4956C10.03802,21.337,10.27459,20.9766,10.27459,20.5781C10.27459,20.0258,9.82688,19.5781,9.27459,19.5781C9.13773,19.5781,9.00232,19.6062,8.87676,19.6607Q8.09422,20,7.23636,20Q5.48892,20,4.24955,18.7294Q3,17.4483,3,15.6316Q3,14.9669,3.19174,14.3323Q3.32166,13.9023,7.91785,4L9.07373,4L6.94731,11.13146L8.01584,11.33775Q8.38619,11.40925,8.73628,11.54564ZM11.9124,20.1432Q13.8147,22,16.5,22Q19.1853,22,21.0876,20.1432Q23,18.2766,23,15.6316Q23,13.3278,21.4958,11.55726Q20.3622,10.223,18.7682,9.65664L21.1376,2L15.9082,2L15.6332,2.557861Q10.77311,12.4175,10.22655,13.9648Q10,14.7834,10,15.6316Q10,18.2766,11.9124,20.1432ZM19.6906,18.712Q18.371,20,16.5,20Q14.629,20,13.3094,18.712Q12,17.4339,12,15.6316Q12,15.0551,12.1541,14.4983Q12.2523,14.1434,17.1522,4L18.4583,4L16.2427,11.13827L17.337,11.33941Q18.936,11.63331,19.9716,12.8522Q21,14.0627,21,15.6316Q21,17.4339,19.6906,18.712Z"
+                                />
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                        <span
+                          class="ant-quote-quoteDescription"
+                          data-testid="quote-description"
+                        >
+                          这是一个关于用户认证流程的补充说明，没有具体的代码文件引用
+                        </span>
+                        <div
+                          class="ant-quote-popup"
+                          data-testid="quote-popup"
+                          style="left: 0px;"
+                        >
+                          <div
+                            class="ant-quote-popup-content"
+                            data-testid="quote-popup-content"
+                          >
+                            用户认证流程说明：
 
 1. 用户输入邮箱和密码
 2. 前端验证输入格式
@@ -598,6 +536,7 @@ useEffect(() =&gt; {
 - Token 有效期为 24 小时
 - 需要处理 token 过期的情况
 - 实现自动刷新机制
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -637,50 +576,54 @@ useEffect(() =&gt; {
                 </div>
               </div>
               <div
-                class="ant-md-editor markdown-editor ant-md-editor-edit"
-                style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
+                class="ant-md-input-field-editor-content"
               >
                 <div
-                  style="padding: 12px 8px 12px 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
-                  tabindex="-1"
+                  class="ant-md-editor markdown-editor ant-md-editor-edit"
+                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); flex: 1 1 0%; padding: 0px 64px 0px 0px;"
                 >
                   <div
-                    aria-multiline="true"
-                    autocapitalize="false"
-                    autocorrect="false"
-                    class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
-                    contenteditable="true"
-                    data-slate-editor="true"
-                    data-slate-node="value"
-                    role="textbox"
-                    spellcheck="false"
-                    style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                    zindex="-1"
+                    style="padding: 12px 8px 12px 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                    tabindex="-1"
                   >
                     <div
-                      class="ant-md-editor-drag-el empty"
-                      data-be="paragraph"
-                      data-empty="true"
-                      data-slate-node="element"
-                      data-slate-placeholder="在这里输入你的问题..."
+                      aria-multiline="true"
+                      autocapitalize="false"
+                      autocorrect="false"
+                      class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
+                      contenteditable="true"
+                      data-slate-editor="true"
+                      data-slate-node="value"
+                      role="textbox"
+                      spellcheck="false"
+                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                      zindex="-1"
                     >
-                      <span
-                        data-slate-node="text"
+                      <div
+                        class="ant-md-editor-drag-el empty"
+                        data-be="paragraph"
+                        data-empty="true"
+                        data-slate-node="element"
+                        data-slate-placeholder="在这里输入你的问题..."
                       >
                         <span
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-length="0"
-                            data-slate-zero-width="n"
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
-                            ﻿
-                            <br />
+                            <span
+                              data-slate-length="0"
+                              data-slate-zero-width="n"
+                            >
+                              ﻿
+                              <br />
+                            </span>
                           </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
                   </div>
                 </div>

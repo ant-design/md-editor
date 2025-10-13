@@ -233,6 +233,9 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       if (item.type === 'listItem' && item.children.length === 0) {
         return false;
       }
+      if (item.type === 'heading' && item.children.length === 0) {
+        return false;
+      }
       return true;
     });
   }, []);

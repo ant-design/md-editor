@@ -58,11 +58,6 @@ const MoreTaskIcon = (props: React.SVGProps<SVGSVGElement>) => {
       viewBox="0 0 16 16"
       {...props}
     >
-      <defs>
-        <clipPath id="master_svg0_2168_68970/645_11584/440_02432">
-          <rect x="0" y="0" width="16" height="16" rx="0" />
-        </clipPath>
-      </defs>
       <g clipPath="url(#master_svg0_2168_68970/645_11584/440_02432)">
         <g>
           <path

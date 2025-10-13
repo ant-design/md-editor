@@ -17,7 +17,6 @@ export type ActionIconBoxProps = {
   borderLess?: boolean;
   loading?: boolean;
   style?: React.CSSProperties;
-  scale?: boolean;
   active?: boolean;
   onInit?: () => void;
   'data-testid'?: string;
@@ -117,7 +116,6 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
           [`${prefixCls}-danger`]: props.type === 'danger',
           [`${prefixCls}-primary`]: props.type === 'primary',
           [`${prefixCls}-border-less`]: props.borderLess,
-          [`${prefixCls}-only-icon`]: props.scale,
           [`${prefixCls}-active`]: props.active,
           [`${prefixCls}-transform`]: props.transform,
           [`${prefixCls}-noPadding`]: props.noPadding,

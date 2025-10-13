@@ -143,7 +143,6 @@
                     data-slate-leaf="true"
                     data-url="url"
                     draggable="false"
-                    style="font: var(--font-text-body-lg); letter-spacing: var(--letter-spacing-body-lg, normal); color: var(--color-gray-text-default); text-decoration: underline; text-decoration-color: var(--color-gray-text-disabled); text-underline-offset: 4px; cursor: pointer;"
                   >
                     <span
                       data-slate-string="true"
@@ -175,7 +174,6 @@
                     data-slate-leaf="true"
                     data-url="url"
                     draggable="false"
-                    style="font: var(--font-text-body-lg); letter-spacing: var(--letter-spacing-body-lg, normal); color: var(--color-gray-text-default); text-decoration: underline; text-decoration-color: var(--color-gray-text-disabled); text-underline-offset: 4px; cursor: pointer;"
                   >
                     <span
                       data-slate-string="true"

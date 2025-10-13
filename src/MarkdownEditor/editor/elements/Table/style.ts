@@ -26,6 +26,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-editor-table': {
         marginTop: '1em',
       },
+      '&:hover &-readonly-table-actions': {
+        opacity: 1,
+        transform: 'translateX(50%)',
+        top: -24,
+      },
+      '&-readonly-table-actions': {
+        opacity: 0,
+        position: 'absolute',
+        top: -44,
+        right: '50%',
+        zIndex: 1000,
+        backgroundColor: 'var(--color-gray-bg-page-light)',
+        borderRadius: 'var(--radius-control-base)',
+        padding: '4px 8px',
+        boxShadow: 'var(--shadow-control-base)',
+        border: 'none',
+        transform: 'translateX(50%)',
+        transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
+      },
       table: {
         borderCollapse: 'separate',
         borderSpacing: 0,
@@ -62,7 +81,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           padding: '16px 12px',
           textAlign: 'left',
           lineHeight: '24px',
-          fontSize: '15px',
+          fontSize: '1em',
           fontWeight: 600,
           borderTop: 'none',
           minWidth: 'var(--table-cell-min-width)',
@@ -80,7 +99,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textAlign: 'left',
           position: 'relative',
           lineHeight: '24px',
-          fontSize: '15px',
+          fontSize: '1em',
           minWidth: 'var(--table-cell-min-width)',
           width: 'var(--table-cell-min-width)',
           whiteSpace: 'nowrap',
@@ -88,6 +107,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textOverflow: 'ellipsis',
           zIndex: 1,
           background: 'inherit',
+          'div[data-be="paragraph"]': {
+            margin: 0,
+          },
         },
         'tr:not(.config-tr)': {
           background: 'inherit',
@@ -100,7 +122,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             borderLeft: '1px solid var(--table-border-color)',
 
             '&:first-child': {
-              fontSize: '15px',
+              fontSize: '1em',
               lineHeight: '24px',
               fontWeight: 600,
             },
@@ -112,18 +134,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             borderBottom: 'none',
           },
         },
-
-        // 第一列固定（当列数大于4时）
-        'th:first-child:not(.config-td), td:first-child:not(.config-td)': {
-          position: 'sticky',
-          left: 0,
-          zIndex: 100,
-          minWidth: 'var(--table-cell-min-width)',
-          width: 'var(--table-cell-min-width)',
-          background: 'inherit',
-        },
-
-        // 悬停效果
         'tbody tr:not(.config-tr):hover': {
           background:
             'linear-gradient(var(--table-hover-bg), var(--table-hover-bg)), linear-gradient(white, white)',

@@ -41,7 +41,11 @@ const genStyle = (
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--margin-1x)',
-        paddingLeft: '20px',
+        marginBottom: '4px',
+        '&-pure': {
+          paddingLeft: '20px',
+          marginBottom: '0px',
+        },
         [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
           fontSize: '1em',
@@ -143,6 +147,7 @@ const genStyle = (
 
       // 用户消息特定样式
       '&-bubble-user': {
+        maxWidth: 'max(668px,75%)',
         '&-avatar-title-user': {
           flexDirection: 'row-reverse', // 用户消息头像和标题顺序相反
           justifyContent: 'flex-end',

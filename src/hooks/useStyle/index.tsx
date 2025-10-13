@@ -46,6 +46,9 @@ export const resetComponent: GenerateStyle<ChatTokenType> = (
     fontSize: '1em',
     lineHeight: token.lineHeight,
     listStyle: 'none',
+    'svg.sofa-icons-icon > g': {
+      clipPath: 'none!important',
+    },
   },
 });
 /**

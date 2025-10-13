@@ -334,6 +334,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       'div[data-be="paragraph"]': {
         position: 'relative',
+        font: 'var(--font-text-paragraph-lg)',
         paddingTop: '0em',
         display: 'block',
         fontSize: '1em',
@@ -419,10 +420,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       'ol,ul': {
         paddingLeft: '1.4em',
+        marginTop: 'var(--margin-2x)',
+        marginBottom: 'var(--margin-4x)',
       },
-      paddingLeft: '24px',
-      marginTop: 'var(--margin-2x)',
-      marginBottom: 'var(--margin-4x)',
 
       li: {
         position: 'relative',
@@ -497,7 +497,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           marginBottom: '0.8em',
         },
         'ol,ul': {
-          paddingLeft: '0.2em',
+          paddingLeft: '1em',
         },
       },
       '[data-be]:not(p):not(data-be="list")': {
