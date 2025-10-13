@@ -276,6 +276,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               '.ace-tm .ace_marker-layer .ace_active-line': {
                 background: 'var(--color-gray-control-fill-hover)',
               },
+              '.ace_cursor': {
+                display: 'none !important',
+              },
             },
           },
         },
