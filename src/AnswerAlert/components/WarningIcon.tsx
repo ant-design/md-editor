@@ -11,11 +11,6 @@ export const WarningIcon = (props: React.SVGProps<SVGSVGElement>) => {
       viewBox="0 0 14 14"
       {...props}
     >
-      <defs>
-        <clipPath id="master_svg0_64_10153">
-          <rect x="0" y="0" width="1em" height="1em" rx="0" />
-        </clipPath>
-      </defs>
       <g clipPath="url(#master_svg0_64_10153)">
         <g>
           <path

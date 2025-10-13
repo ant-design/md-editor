@@ -18,11 +18,6 @@ const TimeIcon: React.FC<TimeIconProps> = ({ className, style }) => {
       className={className}
       style={style}
     >
-      <defs>
-        <clipPath id="master_svg0_2168_020512">
-          <rect x="0" y="0" width="14" height="14" rx="0" />
-        </clipPath>
-      </defs>
       <g clipPath="url(#master_svg0_2168_020512)">
         <g>
           <path

@@ -54,11 +54,7 @@ export const EarthIcon: React.FC<EarthIconProps> = ({
       viewBox="0 0 24 24"
       {...props}
     >
-      <defs>
-        <clipPath id="master_svg0_663_049136">
-          <rect x="0" y="0" width="24" height="24" rx="0" />
-        </clipPath>
-      </defs>
+     
       <g clipPath="url(#master_svg0_663_049136)">
         <g>
           <path

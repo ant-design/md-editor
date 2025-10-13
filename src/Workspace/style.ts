@@ -9,6 +9,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       background: 'var(--color-gray-bg-card-white)',
       border: '1px solid rgba(140, 171, 255, 0.12)',
       boxShadow: 'var(--shadow-card-base)',
+      'svg > g': {
+        clipPath: 'none!important',
+      },
 
       [`${token.componentCls}-header`]: {
         display: 'flex',
