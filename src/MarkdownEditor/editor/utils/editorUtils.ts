@@ -1351,7 +1351,6 @@ export function findByPathAndText(
     // 遍历文本节点查找匹配
     for (const [node, path] of textNodesGenerator) {
       if (!Text.isText(node) || !node.text) continue;
-
       // 对每个搜索变体进行匹配
       for (const { variant, pattern } of patterns) {
         let match: RegExpExecArray | null;

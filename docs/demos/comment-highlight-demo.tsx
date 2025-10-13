@@ -76,15 +76,38 @@ export default () => {
       commentType: 'highlight',
     },
     {
-      path: [13],
+      path: [14],
       time: 1757562256636,
-      id: 1757562256636,
+      id: 17575622566362,
       content: '',
-      anchorOffset: 0,
-      focusOffset: 6,
-      refContent: '通',
+      refContent: '通过',
       commentType: 'highlight',
     },
+    {
+      path: [14],
+      time: 17575622566381,
+      id: 17575622566381,
+      content: '',
+      refContent: '评论',
+      commentType: 'highlight',
+    },
+    {
+      path: [14],
+      time: 17575622566382,
+      id: 175756225663812,
+      content: '',
+      refContent: '功能可以',
+      commentType: 'highlight',
+    },
+    {
+      path: [14],
+      time: 17575622566382,
+      id: 175756225663812,
+      content: '',
+      refContent: 'https://www.baidu.com',
+      commentType: 'highlight',
+    },
+
     {
       selection: {
         anchor: {
@@ -215,7 +238,7 @@ export default () => {
 - 历史记录查看
 
 ### 💬 协作沟通
-通过评论功能可以：
+通过[评论](https://www.baidu.com)功能可以  https://www.baidu.com
 - @提及相关同事
 - 创建讨论线程
 - 跟踪处理进度

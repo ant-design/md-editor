@@ -453,9 +453,8 @@ const MLeafComponent = (
       }
     } catch (e) {}
   };
-
   if (leaf?.url && readonly) {
-    return (
+    const renderDom = (
       <span
         data-be="link"
         draggable={false}
@@ -489,6 +488,20 @@ const MLeafComponent = (
         {children}
       </span>
     );
+
+    if (!props.leaf.comment) return renderDom;
+    return (
+      <CommentView
+        id={`comment-${props.leaf?.id}`}
+        comment={props.comment}
+        hashId={props.hashId}
+        selection={leaf?.selection}
+        commentItem={props.leaf?.comment ? (props.leaf.data as any) : null}
+        setShowComment={setShowComment}
+      >
+        {renderDom}
+      </CommentView>
+    );
   }
 
   const fncClassName = classNames(prefixClassName?.trim(), props.hashId, {
@@ -496,6 +509,7 @@ const MLeafComponent = (
     [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
     [`${mdEditorBaseClass}-comment`]: leaf.comment,
   });
+
   let dom = (
     <span
       {...props.attributes}

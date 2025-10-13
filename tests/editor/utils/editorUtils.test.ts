@@ -1214,7 +1214,9 @@ describe('Utility functions', () => {
 
       expect(plainResults.length).toBeGreaterThan(0);
 
-      const plainResult = plainResults.find((r) => r.matchedText === 'plain text');
+      const plainResult = plainResults.find(
+        (r) => r.matchedText === 'plain text',
+      );
 
       expect(plainResult).toBeDefined();
       expect(plainResult?.isLink).toBe(false);
