@@ -22,7 +22,7 @@ group:
 ## 基本使用
 
 ```tsx
-import { Space } from 'antd';
+import { Space, message } from 'antd';
 import {
   DownOutlined,
   AimOutlined,
@@ -102,96 +102,18 @@ export default () => {
         beforeToolsRender={() => {
         return (
           <ActionItemContainer>
-            <ActionItemBox
-              onClick={() => message.info('快捷技能1')}
+            {new Array(12).fill(0).map((_, index) => (
+              <ActionItemBox
+              onClick={() => message.info('快捷技能' + index)}
               icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
               iconSize={16}
               size="small"
               title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能1</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>{'快捷技能' + index}</span>
               }
-              key="快捷技能1"
+              key={'快捷技能' + index}
             />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能2')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能2</span>
-              }
-              key="快捷技能2"
-            />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能3')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能3</span>
-              }
-              key="快捷技能3"
-            />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能4')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能4</span>
-              }
-              key="快捷技能4"
-            />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能5')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能5</span>
-              }
-              key="快捷技能5"
-            />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能6')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能6</span>
-              }
-              key="快捷技能6"
-            />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能7')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能7</span>
-              }
-              key="快捷技能7"
-            />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能8')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能8</span>
-              }
-              key="快捷技能8"
-            />
-            <ActionItemBox
-               onClick={() => message.info('快捷技能9')}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>快捷技能9</span>
-              }
-              key="快捷技能9"
-            />
+            ))}
           </ActionItemContainer>
         );
       }}

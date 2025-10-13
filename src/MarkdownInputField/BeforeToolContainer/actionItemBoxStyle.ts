@@ -18,6 +18,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'space-between',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       backgroundColor: '#FFF',
+      boxShadow: 'var(--shadow-border-base)',
       '&-overflow-container': {
         position: 'absolute',
         right: 0,
@@ -27,7 +28,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 60%, #FFFFFF 100%)',
         borderRadius: 12,
         width: 72,
-        height: '80%',
+        height: '100%', // 防止遮挡下部的scrollbar
         zIndex: 2,
         display: 'flex',
         alignItems: 'center',
@@ -54,7 +55,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           position: 'relative',
           maxHeight: 360,
           overflowY: 'auto',
+          overscrollBehaviorX: 'contain',
           overscrollBehaviorY: 'contain',
+          touchAction: 'pan-y',
+          WebkitOverflowScrolling: 'touch',
           background: 'var(--color-gray-bg-card-white)',
           borderRadius: 'var(--radius-card-base)',
           marginBottom: 8,
@@ -224,6 +228,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       ['&-container-hover-bg:hover ' + token.componentCls]: {
         backgroundColor: 'var(--color-gray-control-fill-active)',
         backgroundImage: 'none',
+      },
+      '&-scroll': {
+        // Hide scrollbar visually but keep scrolling enabled
+        scrollbarWidth: 'none', // Firefox
+        msOverflowStyle: 'none', // IE/Edge Legacy
+        ['&::-webkit-scrollbar']: {
+          display: 'none', // WebKit
+          width: 0,
+          height: 0,
+          background: 'transparent',
+        },
       },
     },
   };

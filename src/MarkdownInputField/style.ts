@@ -1,4 +1,4 @@
-import { Keyframes } from '@ant-design/cssinjs';
+﻿import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
@@ -214,8 +214,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       gap: 8,
       width: '100%',
-      padding: '0 8px',
-      paddingRight: '32px',
+      padding: '0 10px 0 0',
       marginBottom: '8px',
       font: 'var(--font-text-body-base)',
       color: 'var(--color-gray-text-default)',

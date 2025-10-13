@@ -222,12 +222,13 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          width: '100%',
+          width: 'calc(100% - 8px)',
           gap: 8,
           backgroundColor: 'transparent',
           overflow: 'visible',
           position: 'relative',
           WebkitOverflowScrolling: 'touch',
+          overscrollBehavior: 'contain',
           ...props.style
         }}
         className={classNames(
@@ -265,7 +266,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           if (isPanningRef.current) {
             const dx = e.clientX - panStartXRef.current;
             el.scrollLeft = panStartScrollLeftRef.current - dx;
-            e.preventDefault();
+            if (e.cancelable) e.preventDefault();
             e.stopPropagation();
           }
         }}
@@ -282,22 +283,18 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           isPanningRef.current = false;
           panIntentRef.current = false;
         }}
-        onWheelCapture={(e) => {
-          // prevent sibling/parent scroll regions from reacting
-          e.stopPropagation();
-        }}
         onWheel={(e) => {
           const el = scrollRef.current;
           if (!el) return;
-          // translate vertical wheel into horizontal scroll
-          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            el.scrollLeft += e.deltaY;
-            e.preventDefault();
-            e.stopPropagation();
-          } else {
-            // consume horizontal wheel as well to avoid bubbling to other scrollers
-            e.stopPropagation();
+          // Map wheel to horizontal scrolling: use the dominant axis
+          const horizontalDelta =
+            Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          if (horizontalDelta !== 0) {
+            el.scrollLeft += horizontalDelta;
           }
+          // Always stop propagation to avoid bubbling to parent scrollers
+          if (e.cancelable) e.preventDefault();
+          e.stopPropagation();
         }}
         onClick={(e) => {
           // prevent accidental click when performing a pan
@@ -310,6 +307,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
       >
         <div
           ref={scrollRef}
+          className={classNames(`${basePrefixCls}-scroll`, hashId)}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -318,6 +316,8 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
             overflowX: 'auto',
             overflowY: 'hidden',
             WebkitOverflowScrolling: 'touch',
+            overscrollBehavior: 'contain',
+            touchAction: 'pan-x',
           }}
         >{ordered.map((entry) => (
           <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
@@ -341,6 +341,10 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
               )}
               ref={popupRef}
               style={{ position: 'fixed', left: popupPos.left, top: popupPos.top, zIndex: 1000 }}
+              onWheel={(e) => {
+                if (e.cancelable) e.preventDefault();
+                e.stopPropagation();
+              }}
             >
               {(() => {
                 return ordered.length > 0
