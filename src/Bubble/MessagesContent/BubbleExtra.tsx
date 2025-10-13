@@ -431,7 +431,7 @@ export const BubbleExtra = ({
         width: '100%',
         paddingLeft: placement === 'right' ? 0 : 'var(--padding-5x)',
         paddingRight: placement === 'right' ? 0 : 'var(--padding-5x)',
-        paddingBottom: placement === 'right' ? 0 : 'var(--padding-5x)',
+        paddingBottom: placement === 'right' ? 0 : 'var(--padding-2x)',
         color: 'var(--color-gray-a9)',
         fontSize: context?.compact ? '11px' : '13px',
         gap: 4,

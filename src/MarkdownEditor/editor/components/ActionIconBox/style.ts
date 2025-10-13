@@ -7,11 +7,12 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      minWidth: 14,
-      minHeight: 14,
+      minWidth: 28,
+      minHeight: 28,
       lineHeight: 1,
       display: 'flex',
       cursor: 'pointer',
+      boxSizing: 'border-box',
       padding: 4,
       alignItems: 'center',
       gap: 4,
