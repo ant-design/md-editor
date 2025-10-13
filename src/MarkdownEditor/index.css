@@ -202,8 +202,6 @@
 }
 
 .code-editor-container {
-  max-height: 400px;
-  overflow: auto;
   position: relative;
   border-radius: var(--radius-card-base);
   background: var(--color-gray-bg-card-white);
@@ -211,11 +209,39 @@
   border-color: var(--color-gray-border-light);
   box-shadow: var(--shadow-control-base);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .code-editor-content {
-  padding: 12px;
+  max-height: 400px;
   background: var(--color-gray-bg-card-white);
+  overflow: auto;
+}
+
+.code-editor-content .ace_gutter {
+  color: var(--color-gray-text-light);
+  font: var(--font-text-code-base);
+  letter-spacing: var(--letter-spacing-code-base, normal);
+  background: var(--color-gray-bg-card-white);
+}
+
+.code-editor-content .ace_gutter .ace-tm .ace_scroller .ace_content {
+  font-family: 'Roboto Mono';
+}
+
+.code-editor-content .ace-tm .ace_gutter-active-line {
+  color: var(--color-gray-text-default);
+  background: transparent;
+}
+
+.code-editor-content .ace-tm .ace_marker-layer .ace_active-line {
+  background: var(--color-gray-control-fill-hover);
+}
+
+.code-editor-content .ace_content {
+  color: #343a45;
+  font: var(--font-text-code-base);
+  letter-spacing: var(--letter-spacing-code-base, normal);
 }
 
 div.composition .ant-md-editor-content-edit > div.empty:first-child::before {

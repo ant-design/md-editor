@@ -118,7 +118,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             display: 'flex',
             alignItems: 'center',
             cursor: 'pointer',
-            gap: 2,
+            gap: 4,
             font: 'var(--font-text-h6-base)',
             color: 'var(--color-gray-text-default)',
             userSelect: 'none',
@@ -132,6 +132,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
                 style={{
                   height: '1em',
                   width: '1em',
+                  fontSize: '16px',
                   display: 'flex',
                 }}
               >

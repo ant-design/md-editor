@@ -191,7 +191,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
 
           '.ace-tm .ace_gutter-active-line': {
-            background: 'var(--color-gray-text-default)',
+            color: '#FFFFFF',
+            background: 'transparent',
           },
 
           '.ace-tm .ace_comment': {
