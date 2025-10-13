@@ -16,11 +16,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: 4,
       alignItems: 'center',
       gap: 4,
-      transition: 'all 0.3s',
       justifyContent: 'center',
       borderRadius: 'var(--radius-control-sm)',
       fontSize: '1em',
       color: 'var(--color-gray-a9)',
+      transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      '&-active': {
+        color: 'var(--color-gray-text-secondary)',
+      },
       '&-noPadding': {
         padding: 0,
       },
@@ -65,9 +68,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           transform: 'translateX(8px) scale(1.1)',
           background: 'none',
         },
-      },
-      '&-active': {
-        color: token.colorPrimary,
       },
     },
   };

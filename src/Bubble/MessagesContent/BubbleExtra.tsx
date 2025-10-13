@@ -1,4 +1,9 @@
-import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
+import {
+  DislikeFilled,
+  DislikeOutlined,
+  LikeFilled,
+  LikeOutlined,
+} from '@ant-design/icons';
 import { ConfigProvider, Divider } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -116,11 +121,7 @@ export const BubbleExtra = ({
       shouldShowLike && !typing ? (
         <ActionIconBox
           data-testid="like-button"
-          scale
-          style={{
-            color: 'var(--color-gray-a9)',
-          }}
-          active={alreadyFeedback}
+          active={originalData?.feedback === 'thumbsUp'}
           title={likeButtonTitle}
           onClick={async (e: any) => {
             e?.preventDefault?.();
@@ -143,7 +144,11 @@ export const BubbleExtra = ({
             }
           }}
         >
-          <LikeOutlined />
+          {originalData?.feedback === 'thumbsUp' ? (
+            <LikeFilled />
+          ) : (
+            <LikeOutlined />
+          )}
         </ActionIconBox>
       ) : null,
     [
@@ -162,12 +167,13 @@ export const BubbleExtra = ({
         <ActionIconBox
           data-testid="dislike-button"
           style={{
-            color: 'var(--color-gray-a9)',
+            color:
+              originalData?.feedback === 'thumbsDown'
+                ? 'var(--color-gray-text-secondary)'
+                : 'var(--color-gray-a9)',
           }}
-          scale
           loading={feedbackLoading}
           onLoadingChange={setFeedbackLoading}
-          active={alreadyFeedback}
           title={getDislikeButtonTitle}
           onClick={async () => {
             try {
@@ -179,7 +185,11 @@ export const BubbleExtra = ({
             } catch (error) {}
           }}
         >
-          <DislikeOutlined />
+          {originalData?.feedback === 'thumbsDown' ? (
+            <DislikeFilled />
+          ) : (
+            <DislikeOutlined />
+          )}
         </ActionIconBox>
       ) : null,
     [
@@ -240,10 +250,6 @@ export const BubbleExtra = ({
         <CopyButton
           data-testid="chat-item-copy-button"
           title={context?.locale?.['chat.message.copy'] || '复制'}
-          scale
-          style={{
-            color: 'var(--color-gray-a9)',
-          }}
           onClick={() => {
             try {
               copy(bubble.originData?.content || '');
