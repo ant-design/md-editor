@@ -110,7 +110,7 @@ const RealtimeHeader: React.FC<{
         hashId,
       )}
     >
-      <IconComponent />
+      <IconComponent fontSize={24} />
     </div>
   );
 

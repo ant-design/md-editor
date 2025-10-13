@@ -944,59 +944,61 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 onSkillModeOpenChange={props.onSkillModeOpenChange}
               />
 
-              {useMemo(() => {
-                return props.attachment?.enable ? (
-                  <AttachmentFileList
-                    fileMap={fileMap}
-                    onDelete={handleFileRemoval}
-                    onClearFileMap={() => {
-                      updateAttachmentFiles(new Map());
-                    }}
-                  />
-                ) : null;
-              }, [fileMap?.values(), props.attachment?.enable])}
+              <div className={classNames(`${baseCls}-editor-content`, hashId)}>
+                {useMemo(() => {
+                  return props.attachment?.enable ? (
+                    <AttachmentFileList
+                      fileMap={fileMap}
+                      onDelete={handleFileRemoval}
+                      onClearFileMap={() => {
+                        updateAttachmentFiles(new Map());
+                      }}
+                    />
+                  ) : null;
+                }, [fileMap?.values(), props.attachment?.enable])}
 
-              <BaseMarkdownEditor
-                editorRef={markdownEditorRef}
-                leafRender={props.leafRender}
-                style={{
-                  width: '100%',
-                  flex: 1,
-                  padding: 0,
-                  paddingRight: computedRightPadding,
-                }}
-                toolBar={{
-                  enable: false,
-                }}
-                floatBar={{
-                  enable: false,
-                }}
-                readonly={isLoading}
-                contentStyle={{
-                  padding: '12px 8px 12px 12px',
-                }}
-                textAreaProps={{
-                  enable: true,
-                  placeholder: props.placeholder,
-                  triggerSendKey: props.triggerSendKey || 'Enter',
-                }}
-                tagInputProps={{
-                  enable: true,
-                  type: 'dropdown',
-                  ...tagInputProps,
-                }}
-                initValue={props.value}
-                onChange={(value) => {
-                  setValue(value);
-                  props.onChange?.(value);
-                }}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                titlePlaceholderContent={props.placeholder}
-                toc={false}
-                pasteConfig={props.pasteConfig}
-                {...markdownProps}
-              />
+                <BaseMarkdownEditor
+                  editorRef={markdownEditorRef}
+                  leafRender={props.leafRender}
+                  style={{
+                    width: '100%',
+                    flex: 1,
+                    padding: 0,
+                    paddingRight: computedRightPadding,
+                  }}
+                  toolBar={{
+                    enable: false,
+                  }}
+                  floatBar={{
+                    enable: false,
+                  }}
+                  readonly={isLoading}
+                  contentStyle={{
+                    padding: '12px 8px 12px 12px',
+                  }}
+                  textAreaProps={{
+                    enable: true,
+                    placeholder: props.placeholder,
+                    triggerSendKey: props.triggerSendKey || 'Enter',
+                  }}
+                  tagInputProps={{
+                    enable: true,
+                    type: 'dropdown',
+                    ...tagInputProps,
+                  }}
+                  initValue={props.value}
+                  onChange={(value) => {
+                    setValue(value);
+                    props.onChange?.(value);
+                  }}
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                  titlePlaceholderContent={props.placeholder}
+                  toc={false}
+                  pasteConfig={props.pasteConfig}
+                  {...markdownProps}
+                />
+              </div>
             </div>
             {props.toolsRender ? (
               <div

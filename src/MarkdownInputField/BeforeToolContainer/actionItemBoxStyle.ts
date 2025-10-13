@@ -24,7 +24,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         top: 0,
         bottom: 0,
         pointerEvents: 'none',
-        background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 60%, #FFFFFF 100%)',
+        background:
+          'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 60%, #FFFFFF 100%)',
         borderRadius: 12,
         width: 72,
         height: '80%',
@@ -42,7 +43,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: 32,
           zIndex: 10,
           // background: 'var(--color-gray-control-fill-active)',
-          background: 'linear-gradient(270deg, #FFFFFF 57%, rgba(255, 255, 255, 0) 100%)',
+          background:
+            'linear-gradient(270deg, #FFFFFF 57%, rgba(255, 255, 255, 0) 100%)',
           border: '1px solid rgba(255, 255, 255, 0.45)',
           boxShadow: 'var(--shadow-border-base)',
           borderRadius: 'var(--radius-control-base)',
@@ -63,8 +65,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           flexDirection: 'column',
           gap: 6,
-          boxShadow:
-            'var(--shadow-popover-base)',
+          boxShadow: 'var(--shadow-popover-base)',
           '> *': {
             width: '100%',
             maxWidth: '100%',
@@ -106,7 +107,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
           [`&-item.${token.componentCls.slice(1)}-drag-over`]: {
             backgroundColor: 'rgba(22, 119, 255, 0.08)',
-            outline: '1px dashed rgba(22, 119, 255, 0.45)'
+            outline: '1px dashed rgba(22, 119, 255, 0.45)',
           },
           // ensure the inner ActionItemBox layout inside popup
           [`${token.componentCls}-container`]: {

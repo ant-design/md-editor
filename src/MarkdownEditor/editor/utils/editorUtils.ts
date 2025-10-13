@@ -971,24 +971,6 @@ export function createDomRangeFromNodes(
 }
 
 /**
- * 处理评论拖拽句柄节点
- *
- * @param node - 待处理的节点
- * @returns 处理后的节点
- */
-function handleCommentDragHandle(node: Node | null): Node | null {
-  if (
-    node &&
-    (node as HTMLDivElement)?.className?.includes('comment-drag-handle')
-  ) {
-    return node?.parentElement?.parentElement?.querySelector(
-      '[data-slate-string]',
-    ) as Node;
-  }
-  return node;
-}
-
-/**
  * 检查节点是否可选择
  *
  * @param editor - React 编辑器实例
@@ -1057,12 +1039,8 @@ export function getSelectionFromDomSelection(
     }
 
     // 获取起始和结束容器节点
-    let anchorNode = range.startContainer;
-    let focusNode = range.endContainer;
-
-    // 处理评论拖拽句柄的特殊情况
-    anchorNode = handleCommentDragHandle(anchorNode);
-    focusNode = handleCommentDragHandle(focusNode);
+    const anchorNode = range.startContainer;
+    const focusNode = range.endContainer;
 
     // 验证节点是否可选择
     if (
@@ -1248,7 +1226,7 @@ export function normalizeMarkdownSearchText(searchText: string): string[] {
  * @param options.wholeWord - 是否全词匹配，默认 false
  * @param options.maxResults - 最大结果数量，默认 2
  * @param options.includeMarkdownVariants - 是否包含 Markdown 语法的清理变体，默认 true
- * @returns 搜索结果数组，包含路径、范围、节点等信息
+ * @returns 搜索结果数组，包含路径、范围、节点、链接信息等
  *
  * @description
  * 该函数支持以下功能：
@@ -1256,11 +1234,17 @@ export function normalizeMarkdownSearchText(searchText: string): string[] {
  * - 生成多个搜索变体以提高匹配率
  * - 避免重复匹配同一位置的文本
  * - 记录匹配的搜索变体信息
+ * - 支持识别链接（a 标签）：返回结果包含 isLink 和 linkUrl 字段
  *
  * @example
  * // 搜索包含 Markdown 语法的文本
  * const results = findByPathAndText(editor, [0], "**粗体文本**");
  * // 将同时匹配 "**粗体文本**" 和 "粗体文本"
+ *
+ * @example
+ * // 搜索链接文本
+ * const results = findByPathAndText(editor, [0], "点击这里");
+ * // 如果匹配到的是链接，results[0].isLink === true 且 results[0].linkUrl 包含 URL
  */
 export function findByPathAndText(
   editor: Editor,
@@ -1291,6 +1275,8 @@ export function findByPathAndText(
     lineContent: string;
     nodeType?: string;
     searchVariant?: string; // 记录匹配的搜索变体
+    isLink?: boolean; // 是否为链接
+    linkUrl?: string; // 链接的 URL
   }> = [];
 
   // 获取所有搜索变体
@@ -1365,7 +1351,6 @@ export function findByPathAndText(
     // 遍历文本节点查找匹配
     for (const [node, path] of textNodesGenerator) {
       if (!Text.isText(node) || !node.text) continue;
-
       // 对每个搜索变体进行匹配
       for (const { variant, pattern } of patterns) {
         let match: RegExpExecArray | null;
@@ -1407,6 +1392,10 @@ export function findByPathAndText(
           );
 
           if (!isDuplicate) {
+            // 检查是否为链接节点（带有 url 属性的文本节点）
+            const isLink = Text.isText(node) && !!(node as any).url;
+            const linkUrl = isLink ? (node as any).url : undefined;
+
             results.push({
               path,
               range,
@@ -1420,6 +1409,8 @@ export function findByPathAndText(
               nodeType,
               searchVariant:
                 variant !== searchText.trim() ? variant : undefined,
+              isLink,
+              linkUrl,
             });
           }
 

@@ -907,83 +907,137 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       const itemMap = commentMap.get(path.join(','));
       if (!itemMap) return decorateList;
       itemMap.forEach((itemList) => {
-        const item = itemList[0];
-        const { anchor, focus } = item.selection || {};
+        itemList?.forEach((item) => {
+          const { anchor, focus } = item.selection || {};
 
-        let newSelection: BaseSelection | undefined = undefined;
-        let fragment = undefined;
-        if (
-          anchor &&
-          focus &&
-          isPath(anchor.path) &&
-          focus.path &&
-          isPath(focus.path) &&
-          Editor.hasPath(markdownEditorRef.current, anchor.path) &&
-          Editor.hasPath(markdownEditorRef.current, focus.path)
-        ) {
-          newSelection = {
-            anchor: {
-              path: findLeafPath(markdownEditorRef.current, anchor.path),
-              offset: anchor.offset,
-            },
-            focus: {
-              path: findLeafPath(markdownEditorRef.current, focus.path),
-              offset: focus.offset,
-            },
-          } as BaseSelection;
-          fragment = Editor.fragment(markdownEditorRef.current, newSelection!);
-        } else if (item.refContent) {
-          const findDom = findByPathAndText(
-            markdownEditorRef.current,
-            item.path,
-            item.refContent,
-          ).at(0);
-
-          if (findDom) {
+          let newSelection: BaseSelection | undefined = undefined;
+          let fragment = undefined;
+          if (
+            anchor &&
+            focus &&
+            isPath(anchor.path) &&
+            focus.path &&
+            isPath(focus.path) &&
+            Editor.hasPath(markdownEditorRef.current, anchor.path) &&
+            Editor.hasPath(markdownEditorRef.current, focus.path)
+          ) {
             newSelection = {
               anchor: {
-                ...anchor,
-                path: findLeafPath(markdownEditorRef.current, findDom.path),
-                offset: findDom.offset.start,
+                path: findLeafPath(markdownEditorRef.current, anchor.path),
+                offset: anchor.offset,
               },
               focus: {
-                ...focus,
-                path: findLeafPath(markdownEditorRef.current, findDom.path),
-                offset: findDom.offset.end,
+                path: findLeafPath(markdownEditorRef.current, focus.path),
+                offset: focus.offset,
               },
-            };
-            fragment = Editor.fragment(markdownEditorRef.current, newSelection);
-          }
-        }
+            } as BaseSelection;
+            fragment = Editor.fragment(
+              markdownEditorRef.current,
+              newSelection!,
+            );
+          } else if (item.refContent) {
+            const findDom = findByPathAndText(
+              markdownEditorRef.current,
+              item.path,
+              item.refContent,
+            ).at(0);
 
-        // 尝试调整路径，处理可能的节点变化
+            if (findDom) {
+              newSelection = {
+                anchor: {
+                  ...anchor,
+                  path: findLeafPath(markdownEditorRef.current, findDom.path),
+                  offset: findDom.offset.start,
+                },
+                focus: {
+                  ...focus,
+                  path: findLeafPath(markdownEditorRef.current, findDom.path),
+                  offset: findDom.offset.end,
+                },
+              };
+              fragment = Editor.fragment(
+                markdownEditorRef.current,
+                newSelection,
+              );
+            } else {
+              // 检查 focus.path 是否存在且有效
+              if (
+                focus &&
+                focus.path &&
+                isPath(focus.path) &&
+                Editor.hasPath(markdownEditorRef.current, focus.path)
+              ) {
+                try {
+                  // 获取 focus.path 对应的节点
+                  const [node] = Editor.node(
+                    markdownEditorRef.current,
+                    item.path,
+                  );
 
-        if (fragment && newSelection) {
-          const newAnchorPath = newSelection.anchor.path;
-          const newFocusPath = newSelection.focus.path;
-          if (
-            isPath(newFocusPath) &&
-            isPath(newAnchorPath) &&
-            Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
-            Editor.hasPath(markdownEditorRef.current, newFocusPath)
-          ) {
-            ranges.push({
-              anchor: {
-                path: newAnchorPath,
-                offset: newSelection.anchor.offset,
-              },
-              focus: { path: newFocusPath, offset: newSelection.focus.offset },
-              data: itemList,
-              comment: true,
-              id: item.id,
-              selection: newSelection,
-              updateTime: itemList
-                .map((i) => i.updateTime)
-                .sort()
-                .join(','),
-            } as Range);
+                  // 检查该节点是否是 table 类型
+                  if (
+                    (node as any)?.type === 'table' ||
+                    (node as any)?.type === 'card'
+                  ) {
+                    // 获取 table 节点的开始和结尾位置
+                    const startPoint = Editor.start(
+                      markdownEditorRef.current,
+                      item.path,
+                    );
+                    const endPoint = Editor.end(
+                      markdownEditorRef.current,
+                      item.path,
+                    );
+
+                    newSelection = {
+                      anchor: startPoint,
+                      focus: endPoint,
+                    } as BaseSelection;
+
+                    fragment = Editor.fragment(
+                      markdownEditorRef.current,
+                      newSelection!,
+                    );
+                  }
+                } catch (error) {
+                  console.error('Error selecting table node:', error);
+                }
+              }
+            }
           }
-        }
+
+          // 尝试调整路径，处理可能的节点变化
+
+          if (fragment && newSelection) {
+            const newAnchorPath = newSelection.anchor.path;
+            const newFocusPath = newSelection.focus.path;
+            if (
+              isPath(newFocusPath) &&
+              isPath(newAnchorPath) &&
+              Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
+              Editor.hasPath(markdownEditorRef.current, newFocusPath)
+            ) {
+              ranges.push({
+                anchor: {
+                  path: newAnchorPath,
+                  offset: newSelection.anchor.offset,
+                },
+                focus: {
+                  path: newFocusPath,
+                  offset: newSelection.focus.offset,
+                },
+                data: itemList,
+                comment: true,
+                id: item.id,
+                selection: newSelection,
+                updateTime: itemList
+                  .map((i) => i.updateTime)
+                  .sort()
+                  .join(','),
+              } as Range);
+            }
+          }
+        });
       });
       return decorateList.concat(ranges as any[]);
     } catch (error) {

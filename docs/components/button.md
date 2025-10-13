@@ -28,6 +28,7 @@ export default () => <IconButtonDemo />;
 ```
 
 ## SwitchButton开关按钮
+
 带有切换状态的按钮，可显示激活/未激活状态。支持图标和触发图标的组合显示。
 
 ```tsx

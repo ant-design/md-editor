@@ -1,7 +1,7 @@
+import { ChevronDown, ChevronUp } from '@sofa-design/icons';
 import { Button, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useState } from 'react';
-import { ChevronDown, ChevronUp } from '@sofa-design/icons';
 import { useStyle } from './style';
 
 export interface SwitchButtonProps {
@@ -36,7 +36,9 @@ export const SwitchButton: React.FC<SwitchButtonProps> = ({
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const isControlled = typeof active === 'boolean';
-  const [innerActive, setInnerActive] = useState<boolean>(active ?? defaultActive ?? false);
+  const [innerActive, setInnerActive] = useState<boolean>(
+    active ?? defaultActive ?? false,
+  );
 
   useEffect(() => {
     if (isControlled) {
