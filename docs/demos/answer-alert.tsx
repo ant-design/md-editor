@@ -40,6 +40,11 @@ const AnsweringIndicatorDemo = () => {
         pure
         avatar={mockMessage.meta}
         placement="left"
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
         originData={mockMessage}
       />
       <AnswerAlert message="LUI chat 已完成当前任务" type="success" showIcon />

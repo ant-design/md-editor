@@ -98,6 +98,11 @@ export default () => {
       {/* Message with multiple files */}
       <Bubble
         avatar={mockMessage.meta!}
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
         placement="left"
         deps={deps}
         bubbleRef={bubbleRef}
@@ -109,6 +114,11 @@ export default () => {
         avatar={mockImageMessage.meta!}
         placement="left"
         deps={deps}
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
         bubbleRef={bubbleRef}
         originData={mockImageMessage}
       />

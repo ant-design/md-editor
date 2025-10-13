@@ -454,6 +454,11 @@ const handleClick = useCallback(() => {
         {mockMessages.map((message) => (
           <Bubble
             key={message.id}
+            markdownRenderConfig={{
+              tableConfig: {
+                pure: true,
+              },
+            }}
             avatar={message.meta!}
             placement={message.role === 'user' ? 'right' : 'left'}
             bubbleRef={bubbleRef}

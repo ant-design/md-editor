@@ -207,6 +207,11 @@ const ChatFlowContainerDemo: React.FC = () => {
               paddingBottom: '60px',
             }}
             pure
+            markdownRenderConfig={{
+              tableConfig: {
+                pure: true,
+              },
+            }}
             bubbleList={bubbleList}
             assistantMeta={assistantMeta}
             userMeta={userMeta}

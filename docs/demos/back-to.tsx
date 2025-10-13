@@ -65,6 +65,11 @@ export default () => {
         bubbleRef={bubbleRef}
         assistantMeta={assistantMeta}
         userMeta={userMeta}
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
       />
       <BackTo.Top
         tooltip="去顶部"

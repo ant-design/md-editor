@@ -142,6 +142,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
           actions: {
             fullScreen: 'modal',
           },
+          ...(props.markdownRenderConfig?.tableConfig || {}),
         }}
         rootContainer={htmlRef as any}
         editorStyle={{

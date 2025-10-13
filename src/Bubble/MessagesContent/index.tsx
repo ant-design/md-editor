@@ -213,7 +213,6 @@ export const BubbleMessageDisplay: React.FC<
           <MarkdownPreview
             beforeContent={beforeContent}
             afterContent={afterContent}
-            {...props.markdownRenderConfig}
             placement={props.placement}
             markdownRenderConfig={props.markdownRenderConfig}
             isFinished={true}

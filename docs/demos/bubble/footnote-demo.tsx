@@ -318,6 +318,9 @@ export default () => {
                   setNodeList(list);
                 },
               },
+              tableConfig: {
+                pure: true,
+              },
             }}
             preMessage={conversation[idx - 1]}
             onLike={() => {}}

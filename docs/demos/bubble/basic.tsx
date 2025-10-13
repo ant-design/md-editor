@@ -221,6 +221,11 @@ export default () => {
         {/* Assistant message */}
         <Bubble
           avatar={mockMessage.meta!}
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           placement="left"
           bubbleRef={bubbleRef}
           originData={mockMessage}
@@ -232,6 +237,11 @@ export default () => {
 
         {/* User message */}
         <Bubble
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           avatar={mockUserMessage.meta!}
           placement="right"
           bubbleRef={bubbleRef}
@@ -242,6 +252,11 @@ export default () => {
 
         {/* Message with files */}
         <Bubble
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           avatar={mockFileMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}

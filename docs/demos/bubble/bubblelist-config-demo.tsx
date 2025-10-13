@@ -121,6 +121,11 @@ export default () => {
         }}
       >
         <BubbleList
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           bubbleList={sampleMessages}
           bubbleListRef={bubbleListRef}
           bubbleRef={bubbleRef}

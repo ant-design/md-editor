@@ -108,6 +108,13 @@ Pure 模式是 Bubble 组件的简洁版本，特点：
 - 平面简洁设计
 - 更好地融入页面布局
 
+
+| 普通模式 | Pure 模式 |
+| -------- | -------- |
+| 有边框和阴影 | 无边框无阴影 |
+| 立体感更强 | 平面简洁设计 |
+| 适合独立聊天窗口 | 更好地融入页面布局 |
+
 试试切换下方的开关，感受两种模式的差异！`,
     createAt: Date.now() - 10000,
     updateAt: Date.now() - 10000,
@@ -209,6 +216,11 @@ export default () => {
                   bubbleRef={bubbleRef}
                   originData={message}
                   pure={false}
+                  markdownRenderConfig={{
+                    tableConfig: {
+                      pure: true,
+                    },
+                  }}
                 />
               ))}
             </div>
@@ -225,6 +237,11 @@ export default () => {
                   bubbleRef={bubbleRef}
                   originData={message}
                   pure={true}
+                  markdownRenderConfig={{
+                    tableConfig: {
+                      pure: true,
+                    },
+                  }}
                 />
               ))}
             </div>
@@ -251,6 +268,11 @@ export default () => {
                 bubbleRef={bubbleRef}
                 originData={message}
                 pure={isPureMode}
+                markdownRenderConfig={{
+                  tableConfig: {
+                    pure: true,
+                  },
+                }}
               />
             ))}
           </div>

@@ -81,6 +81,11 @@ export default () => {
 
       {/* 消息列表 */}
       <BubbleList
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
         bubbleList={bubbleList}
         bubbleListRef={bubbleListRef}
         bubbleRef={bubbleRef}
