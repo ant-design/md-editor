@@ -22,7 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         scrollbarColor: 'hsl(240 5.9% 90%) transparent',
         boxSizing: 'border-box',
       },
-      'div.composition div.empty:first-child::before': {
+      'div.composition div:not(.no-focus).empty:first-child::before': {
         display: 'none',
       },
       '> *': {

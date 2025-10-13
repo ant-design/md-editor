@@ -255,12 +255,12 @@ export const TagPopup = (props: RenderProps) => {
       onMouseEnter={() => {
         const target = domRef.current;
         if (!target) return;
-        target?.classList.add(`${baseCls}-tag-popup-input-focus`);
+        target?.classList.remove(`no-focus`);
       }}
       onMouseLeave={() => {
         const target = domRef.current;
         if (!target) return;
-        target?.classList.remove(`${baseCls}-tag-popup-input-focus`);
+        target?.classList.add(`no-focus`);
       }}
       title={placeholder}
     >
