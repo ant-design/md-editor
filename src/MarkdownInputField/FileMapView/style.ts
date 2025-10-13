@@ -65,7 +65,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       [`${token.antCls}-image-mask`]: {
-        borderRadius: 'var(--radius-control-base)',
+        borderRadius: 'var(--radius-card-base)',
       },
       img: {
         objectFit: 'cover',
@@ -75,7 +75,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'var(--color-gray-bg-card-white)',
         boxSizing: 'border-box',
         boxShadow: 'var(--shadow-control-base)',
-        borderRadius: 'var(--radius-control-base)',
+        borderRadius: 'var(--radius-card-base)',
         border: 'none',
         padding: 6,
       },
