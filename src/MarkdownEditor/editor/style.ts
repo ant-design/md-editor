@@ -541,8 +541,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
       },
       '& &-comment-highlight': {
-        padding: 2,
-        borderRadius: '4px',
         backgroundColor: 'rgba(21, 0, 255, 0.15)',
         borderBottom: 0,
         cursor: 'pointer',

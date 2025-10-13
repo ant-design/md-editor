@@ -1153,5 +1153,108 @@ describe('Utility functions', () => {
         expect(cleanedResult.searchVariant).toBe('bold text');
       }
     });
+
+    it('should identify link nodes and return link URL', () => {
+      // Setup editor with link nodes (text nodes with url property)
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [
+            { text: 'This is a ' },
+            { text: 'link text', url: 'https://example.com' },
+            { text: ' in the content' },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            { text: 'Another ' },
+            { text: 'click here', url: 'https://test.com' },
+            { text: ' link' },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [{ text: 'Plain text without link' }],
+        },
+      ];
+
+      // Search for link text
+      const linkResults = findByPathAndText(editor, [], 'link text', {
+        maxResults: 5,
+      });
+
+      expect(linkResults.length).toBeGreaterThan(0);
+
+      // Find the result that matches the link
+      const linkResult = linkResults.find((r) => r.matchedText === 'link text');
+
+      expect(linkResult).toBeDefined();
+      expect(linkResult?.isLink).toBe(true);
+      expect(linkResult?.linkUrl).toBe('https://example.com');
+    });
+
+    it('should identify non-link nodes correctly', () => {
+      // Setup editor with mixed content
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [
+            { text: 'plain text', url: undefined },
+            { text: ' and ' },
+            { text: 'link text', url: 'https://example.com' },
+          ],
+        },
+      ];
+
+      // Search for plain text
+      const plainResults = findByPathAndText(editor, [], 'plain text', {
+        maxResults: 5,
+      });
+
+      expect(plainResults.length).toBeGreaterThan(0);
+
+      const plainResult = plainResults.find((r) => r.matchedText === 'plain text');
+
+      expect(plainResult).toBeDefined();
+      expect(plainResult?.isLink).toBe(false);
+      expect(plainResult?.linkUrl).toBeUndefined();
+    });
+
+    it('should handle multiple link nodes with same text', () => {
+      // Setup editor with multiple links
+      editor.children = [
+        {
+          type: 'paragraph',
+          children: [
+            { text: 'Visit ', url: undefined },
+            { text: 'example', url: 'https://example1.com' },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            { text: 'Also visit ', url: undefined },
+            { text: 'example', url: 'https://example2.com' },
+          ],
+        },
+      ];
+
+      // Search for link text
+      const results = findByPathAndText(editor, [], 'example', {
+        maxResults: 5,
+      });
+
+      expect(results.length).toBeGreaterThan(0);
+
+      // Both results should be links with different URLs
+      const linkResults = results.filter((r) => r.isLink);
+      expect(linkResults.length).toBeGreaterThan(0);
+
+      // Check that different URLs are captured
+      const urls = linkResults.map((r) => r.linkUrl).filter(Boolean);
+      expect(urls).toContain('https://example1.com');
+      expect(urls).toContain('https://example2.com');
+    });
   });
 });
