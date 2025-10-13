@@ -134,18 +134,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             borderBottom: 'none',
           },
         },
-
-        // 第一列固定（当列数大于4时）
-        'th:first-child:not(.config-td), td:first-child:not(.config-td)': {
-          position: 'sticky',
-          left: 0,
-          zIndex: 100,
-          minWidth: 'var(--table-cell-min-width)',
-          width: 'var(--table-cell-min-width)',
-          background: 'inherit',
-        },
-
-        // 悬停效果
         'tbody tr:not(.config-tr):hover': {
           background:
             'linear-gradient(var(--table-hover-bg), var(--table-hover-bg)), linear-gradient(white, white)',
