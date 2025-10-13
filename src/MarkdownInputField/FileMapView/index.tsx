@@ -143,6 +143,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           {imgList.map((file, index) => {
             return (
               <Image
+                rootClassName={`${prefix}-image-view`}
                 className={classNames(`${prefix}-image`, hashId)}
                 width={124}
                 height={124}

@@ -137,6 +137,15 @@ const message: MessageBubbleData = {
       ),
     ],
     [
+      'image.png',
+      createMockFile(
+        'image.png',
+        'image/png',
+        10485700,
+        'https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*rhTwTY6FkwIAAAAAAAAAAAAADml6AQ/original',
+      ),
+    ],
+    [
       'code-example.js',
       createMockFile(
         'code-example.js',

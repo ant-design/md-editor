@@ -84,6 +84,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'none',
         padding: 6,
       },
+      '&-image-view': {
+        '&:hover': {
+          transform: 'scale(1.02)',
+          transition: 'transform 0.3s',
+        },
+      },
       '&-more-file-container': {
         width: '294px',
         height: '56px',
