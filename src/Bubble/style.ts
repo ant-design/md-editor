@@ -41,7 +41,11 @@ const genStyle = (
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--margin-1x)',
-        paddingLeft: '20px',
+        marginBottom: '4px',
+        '&-pure': {
+          paddingLeft: '20px',
+          marginBottom: '0px',
+        },
         [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
           fontSize: '1em',
