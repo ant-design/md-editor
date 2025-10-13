@@ -1,5 +1,6 @@
 ﻿import {
   ChatTokenType,
+  CSSInterpolation,
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
@@ -234,7 +235,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
     },
-  };
+  } as unknown as Record<string, CSSInterpolation>;
 };
 
 /**
