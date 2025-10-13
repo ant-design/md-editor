@@ -78,7 +78,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: '40px',
             height: '40px',
             color: '#00B5FD',
-            background: 'rgba(219, 248, 255, 1)',
+            background: 'linear-gradient(180deg, rgba(0, 181, 253, 0.15), rgba(0, 181, 253, 0.08))',
+          },
+
+          [`&--md`]: {
+            width: '40px',
+            height: '40px',
+            color: '#FF7A00',
+            background: 'linear-gradient(180deg, rgba(35, 214, 220, 0.15), rgba(35, 214, 220, 0.08))',
           },
 
           [`&--default`]: {
