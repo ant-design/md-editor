@@ -953,6 +953,47 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
               },
             };
             fragment = Editor.fragment(markdownEditorRef.current, newSelection);
+          } else {
+            // 检查 focus.path 是否存在且有效
+            if (
+              focus &&
+              focus.path &&
+              isPath(focus.path) &&
+              Editor.hasPath(markdownEditorRef.current, focus.path)
+            ) {
+              try {
+                // 获取 focus.path 对应的节点
+                const [node] = Editor.node(
+                  markdownEditorRef.current,
+                  focus.path,
+                );
+
+                // 检查该节点是否是 table 类型
+                if ((node as any)?.type === 'table') {
+                  // 获取 table 节点的开始和结尾位置
+                  const startPoint = Editor.start(
+                    markdownEditorRef.current,
+                    focus.path,
+                  );
+                  const endPoint = Editor.end(
+                    markdownEditorRef.current,
+                    focus.path,
+                  );
+
+                  newSelection = {
+                    anchor: startPoint,
+                    focus: endPoint,
+                  } as BaseSelection;
+
+                  fragment = Editor.fragment(
+                    markdownEditorRef.current,
+                    newSelection!,
+                  );
+                }
+              } catch (error) {
+                console.error('Error selecting table node:', error);
+              }
+            }
           }
         }
 
