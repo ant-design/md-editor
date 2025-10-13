@@ -473,16 +473,6 @@ const MLeafComponent = (
         }}
         id={leaf?.url}
         data-slate-inline={true}
-        style={{
-          ...style,
-          font: 'var(--font-text-body-lg)',
-          color: 'var(--color-gray-text-default)',
-          textDecoration: 'underline',
-          textDecorationColor:
-            style?.color || 'var(--color-gray-text-disabled)',
-          textUnderlineOffset: '4px',
-          cursor: 'pointer',
-        }}
         {...props.attributes}
       >
         {children}
