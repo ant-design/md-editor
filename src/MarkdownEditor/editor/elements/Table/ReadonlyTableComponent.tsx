@@ -112,6 +112,9 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
             'readonly',
             hashId,
             `${baseCls}-readonly-table`,
+            {
+              [`${baseCls}-readonly-pure`]: editorProps?.tableConfig?.pure,
+            },
           )}
         >
           <colgroup>

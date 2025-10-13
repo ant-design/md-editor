@@ -57,6 +57,33 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 'var(--table-border-radius)',
         border: '1px solid var(--table-border-color)',
 
+        [`&${token.componentCls}-readonly-pure`]: {
+          border: 'none',
+          borderRadius: 'none',
+          'tr:not(.config-tr) td:not(.config-td)': {
+            borderLeft: 'none',
+          },
+          'tr:not(.config-tr):last-child td:not(.config-td)': {
+            borderBottom: '1px solid var(--table-border-color)',
+          },
+          'tr:not(.config-tr):first-child th:first-child:not(.config-td):not([colspan]):not([rowspan]), tr:not(.config-tr):first-child td:first-child:not(.config-td):not([colspan]):not([rowspan])':
+            {
+              borderTopLeftRadius: 'unset',
+            },
+          'tr:not(.config-tr):first-child th:last-child:not(.config-td):not([colspan]):not([rowspan]), tr:not(.config-tr):first-child td:last-child:not(.config-td):not([colspan]):not([rowspan])':
+            {
+              borderTopRightRadius: 'unset',
+            },
+          'tr:not(.config-tr):last-child td:first-child:not(.config-td):not([colspan]):not([rowspan]), tr:not(.config-tr):last-child th:first-child:not(.config-td):not([colspan]):not([rowspan])':
+            {
+              borderBottomLeftRadius: 'unset',
+            },
+          'tr:not(.config-tr):last-child td:last-child:not(.config-td):not([colspan]):not([rowspan]), tr:not(.config-tr):last-child th:last-child:not(.config-td):not([colspan]):not([rowspan])':
+            {
+              borderBottomRightRadius: 'unset',
+            },
+        },
+
         // 表格主体和表头使用 table 布局
         'tbody, thead': {
           display: 'table',
@@ -93,7 +120,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: 'inherit',
         },
         'td:not(.config-td)': {
-          textWrap: 'nowrap',
           verticalAlign: 'top',
           padding: '16px 12px',
           textAlign: 'left',
@@ -109,6 +135,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: 'inherit',
           'div[data-be="paragraph"]': {
             margin: 0,
+            textWrap: 'auto',
           },
         },
         'tr:not(.config-tr)': {

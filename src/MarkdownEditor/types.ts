@@ -160,7 +160,7 @@ export type MarkdownEditorProps = {
       download?: 'csv';
       copy?: 'md' | 'html' | 'csv';
     };
-    excelMode?: boolean;
+    pure?: boolean;
     previewTitle?: string;
   };
   /**
