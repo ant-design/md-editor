@@ -164,6 +164,8 @@ export const AttachmentButtonPopover: React.FC<AttachmentButtonPopoverProps> = (
           supportedFormat={props.supportedFormat}
         />
       }
+      mouseEnterDelay={0.3}
+      mouseLeaveDelay={0.1}
       trigger="hover"
       placement="topRight"
     >
