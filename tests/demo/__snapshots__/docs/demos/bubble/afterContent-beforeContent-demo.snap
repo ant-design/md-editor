@@ -330,10 +330,10 @@
                                 >
                                   <div
                                     contenteditable="false"
-                                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; font: var(--font-text-h6-base); color: var(--color-gray-text-default); user-select: none;"
+                                    style="display: flex; align-items: center; cursor: pointer; gap: 4px; font: var(--font-text-h6-base); color: var(--color-gray-text-default); user-select: none;"
                                   >
                                     <div
-                                      style="height: 1em; width: 1em; display: flex;"
+                                      style="height: 1em; width: 1em; font-size: 16px; display: flex;"
                                     >
                                       <svg
                                         height="1em"
