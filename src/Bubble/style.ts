@@ -137,9 +137,10 @@ const genStyle = (
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        borderRadius: '16px 2px 16px 16px',
+        borderRadius: '16px 16px 2px 16px',
         background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-gray-text-default)',
+        boxShadow: 'none',
         '&&-pure': {
           background: 'var(--color-primary-control-fill-primary)',
         },
@@ -158,7 +159,7 @@ const genStyle = (
         '&-content-user': {
           background: 'var(--color-primary-bg-card-light)',
           color: 'var(--color-gray-text-default)',
-          borderRadius: '12px 6px 12px 12px',
+          borderRadius: '12px 12px 2px 12px',
           maxWidth: '668px',
           '&&-pure': {
             background: 'var(--color-primary-control-fill-primary)',
