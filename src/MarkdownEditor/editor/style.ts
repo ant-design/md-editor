@@ -334,6 +334,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       'div[data-be="paragraph"]': {
         position: 'relative',
+        font: 'var(--font-text-paragraph-lg)',
         paddingTop: '0em',
         display: 'block',
         fontSize: '1em',
