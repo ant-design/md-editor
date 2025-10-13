@@ -73,7 +73,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @returns 样式相关对象
  */
 export const useStyle = (baseClassName: string) => {
-  return useEditorStyleRegister('ChartContainer', (token) => {
+  return useEditorStyleRegister('Chart-Container' + baseClassName, (token) => {
     const containerToken = {
       ...token,
       componentCls: `.${baseClassName}`,

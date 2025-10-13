@@ -192,8 +192,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   if (safeData.length === 0 || datasetTypes.length === 0) {
     return wrapSSR(
       <ChartContainer
-        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        baseClassName={classNames(`${prefixCls}-container`)}
         theme={'light'}
+        className={classNames(hashId, className)}
         isMobile={isMobile}
         variant={props.variant}
         style={{
@@ -643,8 +644,9 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   try {
     return wrapSSR(
       <ChartContainer
-        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        baseClassName={classNames(`${prefixCls}-container`)}
         theme={currentConfig.theme}
+        className={classNames(hashId, className)}
         isMobile={isMobile}
         variant={props.variant}
         style={{
@@ -698,9 +700,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     console.error('ScatterChart 渲染错误:', error);
     return wrapSSR(
       <ChartContainer
-        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        baseClassName={classNames(`${prefixCls}-container`)}
         theme={'light'}
         isMobile={isMobile}
+        className={classNames(hashId, className)}
         variant={props.variant}
         style={{
           width: responsiveWidth,

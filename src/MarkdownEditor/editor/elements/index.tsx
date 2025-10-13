@@ -477,7 +477,6 @@ const MLeafComponent = (
         style={{
           ...style,
           font: 'var(--font-text-body-lg)',
-          letterSpacing: 'var(--letter-spacing-body-lg, normal)',
           color: 'var(--color-gray-text-default)',
           textDecoration: 'underline',
           textDecorationColor:
@@ -525,19 +524,7 @@ const MLeafComponent = (
       className={fncClassName ? fncClassName : undefined}
       style={{
         fontSize: leaf.fnc ? 10 : undefined,
-        ...(leaf.url
-          ? {
-              ...style,
-              font: 'var(--font-text-body-lg)',
-              letterSpacing: 'var(--letter-spacing-body-lg, normal)',
-              color: 'var(--color-gray-text-default)',
-              textDecoration: 'underline',
-              textDecorationColor:
-                style?.color || 'var(--color-gray-text-disabled)',
-              textUnderlineOffset: '4px',
-              cursor: 'pointer',
-            }
-          : style),
+        ...style,
       }}
     >
       {leaf.fnc || leaf.identifier
