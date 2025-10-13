@@ -16,8 +16,6 @@ nav:
 
 <code src="../demos/empty.tsx" background="var(--main-bg-color)" iframe=540 ></code>
 
-<code src="../demos/pure.tsx" background="var(--main-bg-color)" iframe=540></code>
-
 ## 编辑器模式
 
 ### 嵌入框模式
