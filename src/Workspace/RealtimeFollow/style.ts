@@ -78,14 +78,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: '40px',
             height: '40px',
             color: '#00B5FD',
-            background: 'linear-gradient(180deg, rgba(0, 181, 253, 0.15), rgba(0, 181, 253, 0.08))',
+            background:
+              'linear-gradient(180deg, rgba(0, 181, 253, 0.15), rgba(0, 181, 253, 0.08))',
           },
 
           [`&--md`]: {
             width: '40px',
             height: '40px',
             color: '#FF7A00',
-            background: 'linear-gradient(180deg, rgba(35, 214, 220, 0.15), rgba(35, 214, 220, 0.08))',
+            background:
+              'linear-gradient(180deg, rgba(35, 214, 220, 0.15), rgba(35, 214, 220, 0.08))',
           },
 
           [`&--default`]: {
@@ -285,6 +287,54 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               },
             },
           },
+        },
+
+        '.code-editor-container': {
+          position: 'relative',
+          borderRadius: 'var(--radius-card-base)',
+          background: 'var(--color-gray-bg-card-white)',
+          transition: 'border-color 0.2s ease-in-out',
+          border: '1px solid var(--color-gray-border-light)',
+          boxShadow: 'var(--shadow-control-base)',
+          boxSizing: 'border-box',
+          overflow: 'hidden',
+        },
+
+        '.code-editor-container .ant-segmented .ant-segmented-item .ant-segmented-item-label': {
+          padding: '7px var(--padding-3x)',
+        },
+
+        '.code-editor-content': {
+          maxHeight: '400px',
+          padding: '12px 0',
+          background: 'var(--color-gray-bg-card-white)',
+          overflow: 'auto',
+        },
+
+        '.ace_gutter': {
+          color: 'var(--color-gray-text-light)',
+          font: 'var(--font-text-code-base)',
+          letterSpacing: 'var(--letter-spacing-code-base, normal)',
+          background: 'var(--color-gray-bg-card-white)',
+        },
+
+        '.ace_content': {
+          color: '#343a45',
+          font: 'var(--font-text-code-base)',
+          letterSpacing: 'var(--letter-spacing-code-base, normal)',
+        },
+
+        '.ace-tm .ace_scroller .ace_content': {
+          fontFamily: 'Roboto Mono',
+        },
+
+        '.ace-tm .ace_gutter-active-line': {
+          color: 'var(--color-gray-text-default)',
+          background: 'transparent',
+        },
+
+        '.ace-tm .ace_marker-layer .ace_active-line': {
+          background: 'var(--color-gray-control-fill-hover)',
         },
 
         '.ace-tm .ace_keyword': {
