@@ -69,11 +69,13 @@ export const BubbleFileView: React.FC<BubbleBeforeNodeProps> = (props) => {
   const onViewAllProp = override.onViewAll
     ? () => override.onViewAll?.(allFiles)
     : undefined;
+
   // 配置：仅从 fileViewConfig 读取
   const viewCfg = _.fileViewConfig || {};
   const className = viewCfg.className;
   const style = viewCfg.style;
   const maxDisplayCount = viewCfg.maxDisplayCount;
+
   const renderFileMoreAction = (
     file: AttachmentFile,
   ): React.ReactNode | undefined => {

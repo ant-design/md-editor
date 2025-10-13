@@ -21,6 +21,11 @@ const genStyle = (
         '&&-compact': {
           padding: 'var(--padding-0-5x)',
         },
+        '&:hover': {
+          [`${token.componentCls}-bubble-title-time`]: {
+            visibility: 'visible',
+          },
+        },
       },
 
       '.md-editor-code': {

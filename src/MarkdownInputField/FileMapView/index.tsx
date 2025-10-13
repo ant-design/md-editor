@@ -103,7 +103,14 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   }, [fileList]);
 
   return wrapSSR(
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        alignItems: placement === 'left' ? 'flex-start' : 'flex-end',
+      }}
+    >
       <motion.div
         variants={{
           visible: {
@@ -129,6 +136,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           hashId,
           props.className,
           `${prefix}-${placement}`,
+          `${prefix}-image-list-view`,
         )}
       >
         <Image.PreviewGroup>
