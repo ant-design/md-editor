@@ -95,44 +95,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       pointerEvents: 'all',
     },
 
-    // 溢出阴影容器样式
-    '.markdown-editor .overflow-shadow-container::before, .markdown-editor .overflow-shadow-container::after':
-      {
-        content: "''",
-        position: 'absolute',
-        top: '13px',
-        bottom: '8px',
-        width: '10px',
-        opacity: 0,
-        transition: 'opacity 0.1s',
-        zIndex: 100,
-        pointerEvents: 'none',
-        userSelect: 'none',
-        height: 'calc(100% - 32px)',
-      },
-
-    '.markdown-editor .overflow-shadow-container::after': {
-      right: '-4px',
-      background:
-        'linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
-    },
-
-    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-right)::after':
-      {
-        opacity: 1,
-      },
-
-    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-left)::before':
-      {
-        opacity: 1,
-      },
-
-    '.markdown-editor .overflow-shadow-container::before': {
-      left: '3px',
-      background:
-        'linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
-    },
-
     // 移动标记样式
     '.move-mark': {
       height: '0.125em',
@@ -184,27 +146,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'none !important',
     },
 
-    // 匹配文本样式
-    '.match-text, .match-current': {
-      position: 'absolute',
-      width: 'auto',
-    },
-
-    '.match-text': {
-      borderRadius: '0.125em',
-      backgroundColor: 'var(--color-gray-control-fill-secondary)',
-    },
-
-    '.match-text:is(.dark *)': {
-      backgroundColor: 'var(--color-gray-control-fill-secondary)',
-    },
-
-    '.match-current': {
-      borderRadius: '0.125em',
-      '--tw-bg-opacity': 1,
-      backgroundColor: 'rgb(14 165 233 / 0.2)',
-    },
-
     // KaTeX容器样式
     '.katex-container': {
       '.newline': {
@@ -233,19 +174,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&:after': {
         marginLeft: '2px',
       },
-    },
-
-    // 组合模式样式
-    'div.composition .ant-md-editor-content-edit > div.empty:first-child::before':
-      {
-        display: 'none',
-      },
-
-    // 全局样式
-    '*': {
-      scrollbarWidth: 'thin',
-      scrollbarColor: 'hsl(240 5.9% 90%) transparent',
-      boxSizing: 'border-box',
     },
 
     [token.componentCls]: {
@@ -277,7 +205,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: 'max-content',
             maxWidth: '100%',
             fontSize: '1em',
-            lineHeight: 1.25,
+            lineHeight: '21px',
             wordBreak: 'break-word',
             whiteSpace: 'wrap',
           },

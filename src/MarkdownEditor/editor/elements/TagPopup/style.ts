@@ -30,7 +30,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&:hover::before': {
           opacity: 0.6,
         },
-
         '&.empty::after': {
           content: 'attr(title)',
           opacity: 0,
@@ -45,7 +44,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           color: 'var(--color-primary-text-disabled)',
         },
       },
-      '&-tag-popup-input-has-arrow.empty': {
+      '&-tag-popup-input-has-arrow': {
         paddingRight: '12px',
       },
     },

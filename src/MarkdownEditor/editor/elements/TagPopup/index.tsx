@@ -262,7 +262,6 @@ export const TagPopup = (props: RenderProps) => {
         if (!target) return;
         target?.classList.remove(`${baseCls}-tag-popup-input-focus`);
       }}
-      contentEditable={!(selectedItems?.length > 0)}
       title={placeholder}
     >
       {children}
