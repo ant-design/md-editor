@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { memo, useCallback, useContext, useMemo } from 'react';
 import { ActionIconBox } from '../MarkdownEditor/editor/components';
+import { Loading } from '../components/Loading';
 import { I18nContext } from '../i18n';
-import { LoadingLottie } from './LoadingLottie';
 import { useStyle } from './style';
 
 const DashPendingIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
@@ -175,7 +175,9 @@ const TaskListItem = memo(
             data-testid={`task-list-status-${item.status}`}
           >
             {item.status === 'success' ? <SuccessIcon /> : null}
-            {item.status === 'loading' ? <LoadingLottie size={16} /> : null}
+            {item.status === 'loading' ? (
+              <Loading style={{ fontSize: 24 }} />
+            ) : null}
             {item.status === 'pending' ? (
               <div className={classNames(`${prefixCls}-status-idle`, hashId)}>
                 <DashPendingIcon />

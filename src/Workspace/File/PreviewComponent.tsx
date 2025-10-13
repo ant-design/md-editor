@@ -435,7 +435,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             </div>
             {onDownload && (
               <Button
-                type="primary"
+                color="default"
+                variant="solid"
                 icon={<DownloadIcon />}
                 onClick={handleDownload}
                 aria-label={locale?.['workspace.file.download'] || '下载'}
