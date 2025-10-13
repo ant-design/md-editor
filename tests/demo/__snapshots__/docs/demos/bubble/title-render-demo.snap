@@ -97,6 +97,7 @@
           bubbleref="[object Object]"
           bubblerenderconfig="[object Object]"
           data-testid="bubble"
+          markdownrenderconfig="[object Object]"
           origindata="[object Object]"
           placement="left"
         >
@@ -107,6 +108,7 @@
           bubbleref="[object Object]"
           bubblerenderconfig="[object Object]"
           data-testid="bubble"
+          markdownrenderconfig="[object Object]"
           origindata="[object Object]"
           placement="right"
         >
@@ -117,6 +119,7 @@
           bubbleref="[object Object]"
           bubblerenderconfig="[object Object]"
           data-testid="bubble"
+          markdownrenderconfig="[object Object]"
           origindata="[object Object]"
           placement="left"
         >

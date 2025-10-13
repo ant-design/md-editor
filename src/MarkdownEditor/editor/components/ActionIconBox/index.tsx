@@ -10,7 +10,7 @@ export type ActionIconBoxProps = {
   showTitle?: boolean;
   onClick?: (e: any) => void;
   tooltipProps?: TooltipProps;
-  title?: string;
+  title?: React.ReactNode;
   type?: 'danger' | 'primary';
   transform?: boolean;
   className?: string;
@@ -110,8 +110,8 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
         data-testid={props['data-testid']}
         role="button"
         tabIndex={0}
-        aria-label={props.title}
-        title={props.title}
+        aria-label={props.title?.toString()}
+        title={props.title?.toString()}
         className={cx(prefixCls, hashId, props.className, {
           [`${prefixCls}-danger`]: props.type === 'danger',
           [`${prefixCls}-primary`]: props.type === 'primary',

@@ -89,6 +89,7 @@
           avatar="[object Object]"
           bubbleref="[object Object]"
           data-testid="bubble"
+          markdownrenderconfig="[object Object]"
           origindata="[object Object]"
           placement="left"
         >
@@ -98,6 +99,7 @@
           avatar="[object Object]"
           bubbleref="[object Object]"
           data-testid="bubble"
+          markdownrenderconfig="[object Object]"
           origindata="[object Object]"
           placement="right"
         >
