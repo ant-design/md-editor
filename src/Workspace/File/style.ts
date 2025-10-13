@@ -227,7 +227,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: '4px',
-        padding: '8px 12px 8px 0',
+        padding: '8px 12px 8px 8px',
         borderBottom: '1px solid rgba(20, 22, 28, 0.07)',
         background: '#fff',
         flexShrink: 0,

@@ -1,7 +1,6 @@
 import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
 import { useEditorStyleRegister } from '../../hooks/useStyle';
 
-
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
@@ -120,8 +119,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           lineHeight: '22px',
           letterSpacing: 'normal',
           color: 'var(--color-gray-text-default)',
-          gridColumn: '2', // 与图标同一行，位于第二列
-          alignSelf: 'center',
         },
 
         [`&-subtitle`]: {
@@ -255,7 +252,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             borderRadius: 'unset',
             boxShadow: 'unset',
           },
-          
+
           '.ace_gutter-cell': {
             paddingLeft: 12,
           },
@@ -304,9 +301,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           overflow: 'hidden',
         },
 
-        '.code-editor-container .ant-segmented .ant-segmented-item .ant-segmented-item-label': {
-          padding: '7px var(--padding-3x)',
-        },
+        '.code-editor-container .ant-segmented .ant-segmented-item .ant-segmented-item-label':
+          {
+            padding: '7px var(--padding-3x)',
+          },
 
         '.code-editor-content': {
           maxHeight: '400px',
@@ -347,7 +345,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '.ace_identifier, .ace_paren': {
           color: '#343A45',
-        }
+        },
       },
 
       [`&-overlay`]: {
