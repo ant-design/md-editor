@@ -30,7 +30,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-lg)',
         position: 'absolute',
         top: 'var(--margin-3x)',
-        borderRadius: '50%',
         right: 'var(--margin-3x)',
         color: 'var(--color-gray-text-light)',
         display: 'flex',

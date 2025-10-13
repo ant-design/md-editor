@@ -2,11 +2,11 @@ import { memo, useContext } from 'react';
 
 import { CheckCircleFilled } from '@ant-design/icons';
 import React from 'react';
-import { useCopied } from '../../../hooks/useCopied';
 import {
   ActionIconBox,
   ActionIconBoxProps,
-} from '../../../MarkdownEditor/editor/components/ActionIconBox';
+} from '../../../components/ActionIconBox';
+import { useCopied } from '../../../hooks/useCopied';
 import { BubbleConfigContext } from '../../BubbleConfigProvide';
 
 /**

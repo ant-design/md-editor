@@ -3,7 +3,7 @@ import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
-import { IconButton } from '../../../components/Button';
+import { ActionIconBox } from '../../../components/ActionIconBox';
 import { AttachmentFile } from '../types';
 import { isImageFile } from '../utils';
 import { AttachmentFileListItem } from './AttachmentFileListItem';
@@ -14,13 +14,14 @@ export type AttachmentFileListProps = {
   onDelete: (file: AttachmentFile) => void;
   onPreview?: (file: AttachmentFile) => void;
   onDownload?: (file: AttachmentFile) => void;
+  onRetry?: (file: AttachmentFile) => void;
   onClearFileMap?: () => void;
 };
 
 /**
  * AttachmentFileList 组件 - 附件文件列表组件
  *
- * 该组件用于展示已上传的附件文件列表，支持文件预览、下载、删除等功能。
+ * 该组件用于展示已上传的附件文件列表，支持文件预览、下载、删除、重试等功能。
  * 提供动画效果、图片预览、文件状态显示等特性。
  *
  * @component
@@ -30,6 +31,7 @@ export type AttachmentFileListProps = {
  * @param {(file: AttachmentFile) => void} props.onDelete - 删除文件回调
  * @param {(file: AttachmentFile) => void} [props.onPreview] - 预览文件回调
  * @param {(file: AttachmentFile) => void} [props.onDownload] - 下载文件回调
+ * @param {(file: AttachmentFile) => void} [props.onRetry] - 重试上传文件回调（文件上传失败时调用）
  * @param {() => void} [props.onClearFileMap] - 清空文件映射回调
  *
  * @example
@@ -39,6 +41,7 @@ export type AttachmentFileListProps = {
  *   onDelete={handleDelete}
  *   onPreview={handlePreview}
  *   onDownload={handleDownload}
+ *   onRetry={handleRetry}
  *   onClearFileMap={handleClearAll}
  * />
  * ```
@@ -47,13 +50,14 @@ export type AttachmentFileListProps = {
  *
  * @remarks
  * - 支持文件预览和下载
- * - 提供文件删除功能
+ * - 提供文件删除和重试功能
  * - 集成动画效果
  * - 支持图片预览
- * - 显示文件状态
+ * - 显示文件状态（上传中、完成、错误）
  * - 响应式布局
  * - 支持文件大小格式化
  * - 集成Ant Design组件
+ * - 文件上传失败时可重试上传
  */
 export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   props,
@@ -120,6 +124,7 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
                 window.open(file.previewUrl || file.url, '_blank');
               }}
               onDownload={() => props.onDownload?.(file)}
+              onRetry={() => props.onRetry?.(file)}
             />
           ))}
         </AnimatePresence>
@@ -141,9 +146,9 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
         />
       </motion.div>
       {Array.from(props.fileMap?.values() || []).every(
-        (file) => file.status === 'done',
+        (file) => file.status !== 'uploading',
       ) ? (
-        <IconButton
+        <ActionIconBox
           style={{
             opacity: props.fileMap?.size ? 1 : 0,
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -151,9 +156,10 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
           onClick={() => {
             props.onClearFileMap?.();
           }}
-          icon={<X />}
           className={classNames(`${`${prefix}`}-close-icon`, hashId)}
-        ></IconButton>
+        >
+          <X />
+        </ActionIconBox>
       ) : null}
     </div>,
   );

@@ -1,4 +1,5 @@
 import { FileFailed, FileUploadingSpin, X } from '@sofa-design/icons';
+import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React from 'react';
@@ -19,6 +20,7 @@ import { AttachmentFileIcon } from './AttachmentFileIcon';
  * @param {() => void} props.onDelete - 删除文件回调
  * @param {() => void} props.onPreview - 预览文件回调
  * @param {() => void} props.onDownload - 下载文件回调
+ * @param {() => void} [props.onRetry] - 重试上传文件回调（文件上传失败时调用）
  * @param {string} [props.className] - 自定义CSS类名
  * @param {string} [props.prefixCls] - 前缀类名
  * @param {string} [props.hashId] - 哈希ID
@@ -30,6 +32,7 @@ import { AttachmentFileIcon } from './AttachmentFileIcon';
  *   onDelete={() => handleDelete(fileData)}
  *   onPreview={() => handlePreview(fileData)}
  *   onDownload={() => handleDownload(fileData)}
+ *   onRetry={() => handleRetry(fileData)}
  *   className="custom-file-item"
  * />
  * ```
@@ -38,19 +41,21 @@ import { AttachmentFileIcon } from './AttachmentFileIcon';
  *
  * @remarks
  * - 显示文件图标、名称和大小
- * - 支持文件预览、下载、删除操作
+ * - 支持文件预览、下载、删除、重试操作
  * - 提供动画效果
  * - 显示文件状态（上传中、完成、错误）
  * - 支持自定义样式
  * - 文件名自动分割显示
  * - 文件大小格式化显示
  * - 响应式布局
+ * - 文件上传失败时，点击文件名可重试上传
  */
 export const AttachmentFileListItem: React.FC<{
   file: AttachmentFile;
   onDelete: () => void;
   onPreview: () => void;
   onDownload: () => void;
+  onRetry?: () => void;
   className?: string;
   prefixCls?: string;
   hashId?: string;
@@ -98,18 +103,28 @@ export const AttachmentFileListItem: React.FC<{
         {file.status === 'done' ? <AttachmentFileIcon file={file} /> : null}
       </div>
       <div className={classNames(`${props.prefixCls}-file-info`, props.hashId)}>
-        <div
-          className={classNames(`${props.prefixCls}-file-name`, props.hashId)}
+        <Tooltip
+          title={'点击重试'}
+          open={file.status !== 'error' ? false : undefined}
         >
-          <span
-            className={classNames(
-              `${props.prefixCls}-file-name-text`,
-              props.hashId,
-            )}
+          <div
+            onClick={() => {
+              if (file.status === 'error') {
+                props.onRetry?.();
+              }
+            }}
+            className={classNames(`${props.prefixCls}-file-name`, props.hashId)}
           >
-            {file.name.split('.').slice(0, -1).join('.')}
-          </span>
-        </div>
+            <span
+              className={classNames(
+                `${props.prefixCls}-file-name-text`,
+                props.hashId,
+              )}
+            >
+              {file.name.split('.').slice(0, -1).join('.')}
+            </span>
+          </div>
+        </Tooltip>
         <div
           className={classNames(`${props.prefixCls}-file-size`, props.hashId)}
         >
@@ -130,7 +145,7 @@ export const AttachmentFileListItem: React.FC<{
             })}
         </div>
       </div>
-      {file.status === 'done' ? (
+      {file.status !== 'uploading' ? (
         <div
           onClick={(e) => {
             e.stopPropagation();

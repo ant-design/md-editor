@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
@@ -779,6 +779,36 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     }
   });
 
+  const handleFileRetry = useRefFunction(async (file: AttachmentFile) => {
+    try {
+      file.status = 'uploading';
+      const map = new Map(fileMap);
+      map.set(file.uuid || '', file);
+      updateAttachmentFiles(map);
+
+      const url = await props.attachment?.upload?.(file);
+      if (url) {
+        file.status = 'done';
+        file.url = url;
+        map.set(file.uuid || '', file);
+        updateAttachmentFiles(map);
+        message.success(locale?.uploadSuccess || 'Upload success');
+      } else {
+        file.status = 'error';
+        map.set(file.uuid || '', file);
+        updateAttachmentFiles(map);
+        message.error(locale?.uploadFailed || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('Error retrying file upload:', error);
+      file.status = 'error';
+      const map = new Map(fileMap);
+      map.set(file.uuid || '', file);
+      updateAttachmentFiles(map);
+      message.error(locale?.uploadFailed || 'Upload failed');
+    }
+  });
+
   const beforeTools = useMemo(() => {
     if (props.beforeToolsRender) {
       return props.beforeToolsRender({
@@ -950,6 +980,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     <AttachmentFileList
                       fileMap={fileMap}
                       onDelete={handleFileRemoval}
+                      onRetry={handleFileRetry}
                       onClearFileMap={() => {
                         updateAttachmentFiles(new Map());
                       }}

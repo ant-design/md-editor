@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 
 import { Copy, Refresh } from '@sofa-design/icons';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
+import { ActionIconBox } from '../../components/ActionIconBox';
 import { Loading } from '../../components/Loading';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleExtraProps } from '../types/BubbleExtra';

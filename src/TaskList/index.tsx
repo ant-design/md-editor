@@ -2,7 +2,7 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { memo, useCallback, useContext, useMemo } from 'react';
-import { ActionIconBox } from '../MarkdownEditor/editor/components';
+import { ActionIconBox } from '../components/ActionIconBox';
 import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
 import { useStyle } from './style';

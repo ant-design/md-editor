@@ -7,6 +7,7 @@ export type {
   BubbleProps,
   MessageBubbleData,
 } from './Bubble/type';
+export * from './components/ActionIconBox';
 export * from './components/Button';
 export * from './components/ChatFlowContainer';
 export * from './components/Loading';

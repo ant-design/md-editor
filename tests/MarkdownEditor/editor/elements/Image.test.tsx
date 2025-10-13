@@ -61,16 +61,13 @@ vi.mock('../../../../src/MarkdownEditor/editor/utils/dom', () => ({
   getMediaType: vi.fn(() => 'image'),
 }));
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/components/ActionIconBox',
-  () => ({
-    ActionIconBox: ({ children, ...props }: any) => (
-      <div data-testid="action-icon-box" {...props}>
-        {children}
-      </div>
-    ),
-  }),
-);
+vi.mock('../../../../src/components/ActionIconBox', () => ({
+  ActionIconBox: ({ children, ...props }: any) => (
+    <div data-testid="action-icon-box" {...props}>
+      {children}
+    </div>
+  ),
+}));
 
 vi.mock('@ant-design/pro-components', () => ({
   useDebounceFn: vi.fn((fn) => ({

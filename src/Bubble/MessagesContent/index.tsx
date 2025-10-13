@@ -6,8 +6,9 @@ import {
 import { Loader } from '@sofa-design/icons';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
+import { ActionIconBox } from '../../components/ActionIconBox';
 import { I18nContext } from '../../i18n';
-import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
+import { MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
 import { BubbleExtra } from './BubbleExtra';
