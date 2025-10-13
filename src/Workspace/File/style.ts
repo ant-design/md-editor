@@ -62,6 +62,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           // 文件数量
           [`&-count`]: {
+            boxSizing: 'border-box',
             color: 'var(--color-gray-text-secondary)',
             font: 'var(--font-text-number-xs)',
             letterSpacing: 'var(--letter-spacing-number-xs, normal)',
