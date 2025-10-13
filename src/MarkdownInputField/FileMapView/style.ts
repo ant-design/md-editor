@@ -28,7 +28,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        gap: 2,
+        gap: 4,
       },
       '&::-webkit-scrollbar': {
         width: 6,

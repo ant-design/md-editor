@@ -420,10 +420,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       'ol,ul': {
         paddingLeft: '1.4em',
+        marginTop: 'var(--margin-2x)',
+        marginBottom: 'var(--margin-4x)',
       },
-      paddingLeft: '24px',
-      marginTop: 'var(--margin-2x)',
-      marginBottom: 'var(--margin-4x)',
 
       li: {
         position: 'relative',
