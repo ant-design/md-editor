@@ -497,7 +497,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           marginBottom: '0.8em',
         },
         'ol,ul': {
-          paddingLeft: '0.2em',
+          paddingLeft: '1em',
         },
       },
       '[data-be]:not(p):not(data-be="list")': {

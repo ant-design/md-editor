@@ -39,8 +39,7 @@ const createMockFile = (
 const mockMessage: MessageBubbleData = {
   id: '1',
   role: 'assistant',
-  content: `#
-我是 Ant Design 聊天助手，可以帮你：
+  content: `我是 Ant Design 聊天助手，可以帮你：
 
 - **回答问题** - 解答技术相关疑问
 - **代码示例** - 提供组件使用示例  
