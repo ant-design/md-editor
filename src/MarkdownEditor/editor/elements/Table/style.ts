@@ -26,6 +26,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-editor-table': {
         marginTop: '1em',
       },
+      '&:hover &-readonly-table-actions': {
+        opacity: 1,
+        transform: 'translateX(50%)',
+        top: -24,
+      },
+      '&-readonly-table-actions': {
+        opacity: 0,
+        position: 'absolute',
+        top: -44,
+        right: '50%',
+        zIndex: 1000,
+        backgroundColor: 'var(--color-gray-bg-page-light)',
+        borderRadius: 'var(--radius-control-base)',
+        padding: '4px 8px',
+        boxShadow: 'var(--shadow-control-base)',
+        border: 'none',
+        transform: 'translateX(50%)',
+        transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
+      },
       table: {
         borderCollapse: 'separate',
         borderSpacing: 0,

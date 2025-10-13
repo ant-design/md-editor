@@ -1,6 +1,6 @@
 import { FullscreenOutlined } from '@ant-design/icons';
 import { Copy } from '@sofa-design/icons';
-import { ConfigProvider, Modal, Popover } from 'antd';
+import { ConfigProvider, Modal } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import React, {
@@ -107,7 +107,12 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
       () => (
         <table
           ref={tableTargetRef}
-          className={classNames(`${baseCls}-editor-table`, hashId)}
+          className={classNames(
+            `${baseCls}-editor-table`,
+            'readonly',
+            hashId,
+            `${baseCls}-readonly-table`,
+          )}
         >
           <colgroup>
             {colWidths.map((colWidth: number, index: number) => (
@@ -130,7 +135,10 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
     // 缓存操作按钮内容
     const popoverContent = useMemo(
       () => (
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div
+          style={{ display: 'flex', gap: 8 }}
+          className={classNames(hashId, `${baseCls}-readonly-table-actions`)}
+        >
           {actions?.fullScreen && (
             <ActionIconBox
               title={i18n?.locale?.fullScreen || '全屏'}
@@ -160,31 +168,16 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
 
     return (
       <>
-        <Popover
-          trigger={['click']}
-          arrow={false}
-          styles={{
-            body: {
-              padding: 8,
-            },
+        <div
+          className={classNames(baseCls, hashId)}
+          style={{
+            flex: 1,
+            minWidth: 0,
           }}
-          align={{
-            offset: [-4, -8],
-          }}
-          zIndex={999}
-          placement="topLeft"
-          content={popoverContent}
         >
-          <div
-            className={classNames(baseCls, hashId)}
-            style={{
-              flex: 1,
-              minWidth: 0,
-            }}
-          >
-            {tableDom}
-          </div>
-        </Popover>
+          {tableDom}
+          {popoverContent}
+        </div>
 
         {previewOpen && (
           <Modal

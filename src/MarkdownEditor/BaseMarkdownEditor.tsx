@@ -222,7 +222,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     const schema =
       props.initSchemaValue ||
       (initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])));
-    console.log(initValue, schema);
+
     return schema?.filter((item: any) => {
       if (item.type === 'p' && item.children.length === 0) {
         return false;
@@ -231,6 +231,9 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         return false;
       }
       if (item.type === 'listItem' && item.children.length === 0) {
+        return false;
+      }
+      if (item.type === 'heading' && item.children.length === 0) {
         return false;
       }
       return true;
