@@ -233,7 +233,7 @@ function demoTest() {
   });
 
   files
-    .filter((file) => file.endsWith('.demo.tsx'))
+    .filter((file) => file.endsWith('demo.tsx'))
     .forEach((file) => {
       describe(`Rendering demo: ${file}`, () => {
         it(`renders ${file} correctly`, async () => {

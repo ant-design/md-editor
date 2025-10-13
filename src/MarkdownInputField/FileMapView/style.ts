@@ -71,12 +71,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         objectFit: 'cover',
       },
       '&-image': {
-        borderRadius: 'var(--radius-control-base)',
         opacity: 1,
         background: 'var(--color-gray-bg-card-white)',
         boxSizing: 'border-box',
         boxShadow: 'var(--shadow-control-base)',
-        border: 'var(--color-gray-border-light)',
+        border: 'none',
         padding: 6,
       },
       '&-more-file-container': {
