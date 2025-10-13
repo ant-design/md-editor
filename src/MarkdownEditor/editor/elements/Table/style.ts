@@ -88,6 +88,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textOverflow: 'ellipsis',
           zIndex: 1,
           background: 'inherit',
+          'div[data-be="paragraph"]': {
+            margin: 0,
+          },
         },
         'tr:not(.config-tr)': {
           background: 'inherit',
