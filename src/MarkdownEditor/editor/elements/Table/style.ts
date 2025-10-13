@@ -62,7 +62,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           padding: '16px 12px',
           textAlign: 'left',
           lineHeight: '24px',
-          fontSize: '15px',
+          fontSize: '1em',
           fontWeight: 600,
           borderTop: 'none',
           minWidth: 'var(--table-cell-min-width)',
@@ -80,7 +80,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textAlign: 'left',
           position: 'relative',
           lineHeight: '24px',
-          fontSize: '15px',
+          fontSize: '1em',
           minWidth: 'var(--table-cell-min-width)',
           width: 'var(--table-cell-min-width)',
           whiteSpace: 'nowrap',
@@ -103,7 +103,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             borderLeft: '1px solid var(--table-border-color)',
 
             '&:first-child': {
-              fontSize: '15px',
+              fontSize: '1em',
               lineHeight: '24px',
               fontWeight: 600,
             },
