@@ -24,7 +24,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`${token.componentCls}-file-list`]: {
         '&-item': {
           width: '178px',
-
           height: '56px',
           borderRadius: '12px',
           opacity: 1,

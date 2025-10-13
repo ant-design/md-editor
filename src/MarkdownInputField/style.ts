@@ -145,6 +145,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxHeight: 'inherit',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
+        borderRadius: 'inherit',
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',
