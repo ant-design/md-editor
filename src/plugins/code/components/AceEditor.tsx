@@ -171,7 +171,7 @@ export function AceEditor({
       readOnly: readonly,
       showPrintMargin: false,
       showLineNumbers: true,
-      showGutter: false,
+      showGutter: true,
       ...(editorProps.codeProps || {}),
     } as Ace.EditorOptions);
 

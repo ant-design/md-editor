@@ -217,6 +217,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
+      marginLeft: -16,
+      marginRight: -16,
       background: '#fff',
       position: 'relative',
 
