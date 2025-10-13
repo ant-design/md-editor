@@ -5,6 +5,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
       [`&-container`]: {
+        display: 'flex',
+        flexDirection: 'column',
         height: '100%',
       },
 
@@ -165,7 +167,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`${token.componentCls}-content`]: {
           width: 'unset',
-          margin: '0 -16px',
+          margin: '0 -16px -16px',
           paddingTop: 16,
           paddingBottom: 16,
           background: 'var(--color-gray-text-default)',
