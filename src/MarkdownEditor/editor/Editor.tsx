@@ -965,19 +965,23 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
                 // 获取 focus.path 对应的节点
                 const [node] = Editor.node(
                   markdownEditorRef.current,
-                  focus.path,
+                  item.path,
                 );
+                console.log('node', node, markdownEditorRef.current.children);
 
                 // 检查该节点是否是 table 类型
-                if ((node as any)?.type === 'table') {
+                if (
+                  (node as any)?.type === 'table' ||
+                  (node as any)?.type === 'card'
+                ) {
                   // 获取 table 节点的开始和结尾位置
                   const startPoint = Editor.start(
                     markdownEditorRef.current,
-                    focus.path,
+                    item.path,
                   );
                   const endPoint = Editor.end(
                     markdownEditorRef.current,
-                    focus.path,
+                    item.path,
                   );
 
                   newSelection = {

@@ -146,59 +146,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       transitionDuration: '200ms',
     },
 
-    // 评论拖拽高亮样式
-    '.comment-drag-highlight': {
-      backgroundColor: 'rgba(24, 144, 255, 0.2)',
-      border: '1px solid rgba(24, 144, 255, 0.5)',
-      borderRadius: '2px',
-      opacity: 0.8,
-      pointerEvents: 'none',
-      zIndex: 1000,
-    },
-
-    // 评论拖拽手柄样式
-    '.comment-drag-handle': {
-      position: 'absolute',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      width: '6px',
-      height: '6px',
-      backgroundColor: '#1890ff',
-      borderRadius: '50%',
-      opacity: 0.6,
-      cursor: 'grab',
-      zIndex: 1001,
-      transition: 'opacity 0.2s ease',
-      '&:hover': {
-        opacity: 1,
-      },
-    },
-
-    // 开始拖拽手柄
-    '.comment-drag-handle-start': {
-      left: '-8px',
-    },
-
-    // 结束拖拽手柄
-    '.comment-drag-handle-end': {
-      right: '-8px',
-    },
-
-    // 拖拽高亮样式变体
-    '.comment-drag-highlight-start': {
-      borderLeft: '2px solid #1890ff',
-    },
-
-    '.comment-drag-highlight-end': {
-      borderRight: '2px solid #1890ff',
-    },
-
-    // 评论拖拽状态样式
-    '.ant-md-editor-comment-dragging': {
-      userSelect: 'text',
-      cursor: 'text',
-    },
-
     // 隐藏样式
     '.ant-md-editor-hidden': {
       display: 'none',

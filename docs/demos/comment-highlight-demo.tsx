@@ -10,8 +10,8 @@ import React from 'react';
  * 2. 评论标记显示
  * 3. 只读模式下的评论查看
  * 4. @提及功能支持
- * 5. 多方向拖拽调整评论范围（上下左右）
- * 6. 跨段落选择支持
+ * 5. 跨段落选择支持
+ * 6. 表格整体选中支持
  */
 export default () => {
   const [commentList, setCommentList] = React.useState<any[]>([
@@ -33,6 +33,26 @@ export default () => {
       anchorOffset: 19,
       focusOffset: 28,
       refContent: '',
+      commentType: 'highlight',
+    },
+    {
+      selection: {
+        anchor: {
+          path: [18, 0, 0, 0],
+          offset: 0,
+        },
+        focus: {
+          path: [18],
+          offset: 0,
+        },
+      },
+      path: [18],
+      time: 1757562300000,
+      id: 1757562300000,
+      content: '这个表格数据需要审核',
+      anchorOffset: 0,
+      focusOffset: 0,
+      refContent: 'table',
       commentType: 'highlight',
     },
     {
@@ -121,14 +141,10 @@ export default () => {
               <strong>评论管理</strong>：查看、编辑、删除评论
             </li>
             <li>
-              <strong>浏览器原生选择效果</strong>
-              ：实现类似浏览器原生文本选择的拖拽体验
-            </li>
-            <li>
               <strong>跨段落选择</strong>：支持选择跨越多个段落的文本内容
             </li>
             <li>
-              <strong>智能边界处理</strong>：自动处理选择范围的边界情况
+              <strong>表格整体选中</strong>：支持对表格整体进行评论和高亮标记
             </li>
           </ul>
         </div>
@@ -149,16 +165,12 @@ export default () => {
             <li>实际使用中，用户可以选择文本添加评论</li>
             <li>支持多种评论类型：普通评论、高亮标记等</li>
             <li>
-              <strong>拖拽功能</strong>
-              ：点击评论范围两侧的拖拽手柄，体验类似浏览器原生的文本选择效果
+              <strong>跨段落支持</strong>：支持跨段落的文本选择和评论
             </li>
             <li>
-              <strong>多段落支持</strong>
-              ：拖拽可以跨越多个段落，自动处理跨段落的文本选择
-            </li>
-            <li>
-              <strong>实时反馈</strong>
-              ：拖拽过程中会显示高亮效果，实时预览选择范围
+              <strong>表格选中</strong>
+              ：当评论的 refContent 为 "table" 且 focus.path
+              指向表格节点时，会自动选中整个表格
             </li>
           </ul>
         </div>
@@ -207,7 +219,20 @@ export default () => {
 - @提及相关同事
 - 创建讨论线程
 - 跟踪处理进度
-- 保持沟通记录`}
+- 保持沟通记录
+
+## 📊 数据统计表格
+
+下面是团队协作效率统计数据表格：
+
+| 指标 | Q1 | Q2 | Q3 | Q4 |
+|------|------|------|------|------|
+| 文档评审次数 | 45 | 52 | 58 | 62 |
+| 评论数量 | 328 | 456 | 512 | 598 |
+| 参与人数 | 12 | 15 | 18 | 20 |
+| 问题解决率 | 85% | 88% | 92% | 95% |
+
+> 💡 提示：表格支持评论高亮，可以对整个表格进行标注和讨论。`}
           readonly
           reportMode
           className="chunk-content-editor"
@@ -244,45 +269,6 @@ export default () => {
             },
             onDelete: async (id) => {
               console.log('删除评论:', id);
-            }, // 多方向评论范围拖拽配置
-            dragRange: {
-              enable: true,
-              // 自定义拖拽手柄样式 - 支持多方向拖拽
-              handleStyle: {
-                backgroundColor: '#52c41a',
-                size: '8px',
-                borderRadius: '50%',
-                opacity: 0.8,
-              },
-              // 自定义拖拽高亮样式 - 支持多方向拖拽
-              highlightStyle: {
-                backgroundColor: 'rgba(82, 196, 26, 0.2)',
-                border: '1px solid rgba(82, 196, 26, 0.5)',
-                borderRadius: '3px',
-                opacity: 0.9,
-                className: 'multi-direction-drag-highlight',
-              },
-              // 范围更新回调 - 支持多方向拖拽
-              onRangeChange: (id, data, newContent) => {
-                console.log('多方向范围更新:', id, data, newContent);
-                setCommentList((pre) => {
-                  const newList = pre.map((item) => {
-                    if (item.id === id) {
-                      return {
-                        ...item,
-                        anchorOffset: data.anchorOffset,
-                        focusOffset: data.focusOffset,
-                        refContent: data.refContent,
-                        // 更新 selection 信息
-                        ...(data.selection && { selection: data.selection }),
-                      };
-                    }
-                    return item;
-                  });
-                  console.log('更新后的评论列表:', newList);
-                  return newList;
-                });
-              },
             },
             onSubmit: async (id, data) => {
               setCommentList((prev) => {
@@ -341,34 +327,21 @@ export default () => {
               <li>
                 <code>comment.loadMentions</code>: 加载@提及用户
               </li>
-              <li>
-                <code>comment.dragRange</code>: 多方向拖拽配置
-              </li>
             </ul>
           </div>
           <div>
             <h4 style={{ margin: '0 0 8px 0', color: '#495057' }}>
-              拖拽功能：
+              评论功能：
             </h4>
             <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.6' }}>
               <li>
-                <code>dragRange.enable</code>: 启用拖拽功能
+                <strong>文本高亮</strong>: 支持对选中文本进行高亮标记
               </li>
               <li>
-                <code>handleStyle</code>: 拖拽手柄样式配置
+                <strong>跨段落支持</strong>: 支持跨段落的文本选择
               </li>
               <li>
-                <code>highlightStyle</code>: 拖拽高亮样式配置
-              </li>
-              <li>
-                <code>onRangeChange</code>: 范围更新回调函数
-              </li>
-              <li>
-                <strong>浏览器原生选择效果</strong>:
-                类似浏览器原生文本选择的拖拽体验
-              </li>
-              <li>
-                <strong>跨段落支持</strong>: 支持跨段落的选择调整
+                <strong>表格选中</strong>: 支持对整个表格进行评论
               </li>
             </ul>
           </div>
@@ -390,7 +363,6 @@ export default () => {
         在实际项目中，可以结合后端 API
         实现评论的持久化存储、实时同步、权限控制等高级功能。
         评论数据结构支持扩展，可以添加更多自定义字段满足业务需求。
-        浏览器原生选择效果支持无边界限制，可以根据实际需求调整拖拽的敏感度和计算逻辑。
       </div>
     </div>
   );

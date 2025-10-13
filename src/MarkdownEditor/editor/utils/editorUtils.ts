@@ -971,24 +971,6 @@ export function createDomRangeFromNodes(
 }
 
 /**
- * 处理评论拖拽句柄节点
- *
- * @param node - 待处理的节点
- * @returns 处理后的节点
- */
-function handleCommentDragHandle(node: Node | null): Node | null {
-  if (
-    node &&
-    (node as HTMLDivElement)?.className?.includes('comment-drag-handle')
-  ) {
-    return node?.parentElement?.parentElement?.querySelector(
-      '[data-slate-string]',
-    ) as Node;
-  }
-  return node;
-}
-
-/**
  * 检查节点是否可选择
  *
  * @param editor - React 编辑器实例
@@ -1057,12 +1039,8 @@ export function getSelectionFromDomSelection(
     }
 
     // 获取起始和结束容器节点
-    let anchorNode = range.startContainer;
-    let focusNode = range.endContainer;
-
-    // 处理评论拖拽句柄的特殊情况
-    anchorNode = handleCommentDragHandle(anchorNode);
-    focusNode = handleCommentDragHandle(focusNode);
+    const anchorNode = range.startContainer;
+    const focusNode = range.endContainer;
 
     // 验证节点是否可选择
     if (
