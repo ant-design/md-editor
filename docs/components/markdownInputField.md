@@ -56,7 +56,7 @@ const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
 };
 export default () => {
   const [value, setValue] = React.useState(
-    '`${placeholder:目标场景}` `${placeholder:目标事件}` 今天的拒绝率为什么下降？输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
+    '`${placeholder:目标场景}` 今天的拒绝率为什么下降 `${placeholder:目标事件}` 输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
   );
 
   const markdownRef = React.useRef<MarkdownEditorInstance>(null);
