@@ -48,6 +48,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     handleHideChange,
   } = useCodeEditorState(props.element);
   const [theme, setTheme] = useState('github');
+  const [isExpanded, setIsExpanded] = useState(true);
 
   // 选中状态管理
   const [isSelected, setIsSelected] = React.useState(false);
@@ -127,6 +128,8 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                   <CodeToolbar
                     theme={theme}
                     setTheme={setTheme}
+                    isExpanded={isExpanded}
+                    onExpandToggle={() => setIsExpanded(!isExpanded)}
                     {...toolbarProps}
                   />
                 )}
@@ -136,6 +139,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                 style={{
                   borderBottomLeftRadius: 'inherit',
                   borderBottomRightRadius: 'inherit',
+                  display: isExpanded ? 'block' : 'none',
                 }}
               >
                 {viewMode === 'preview' &&

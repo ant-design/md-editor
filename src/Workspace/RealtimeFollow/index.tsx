@@ -209,6 +209,7 @@ const getEditorConfig = (
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
         codeProps: {
+          theme: 'chaos',
           showGutter: true,
           showLineNumbers: true,
           hideToolBar: true,

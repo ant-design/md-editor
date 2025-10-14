@@ -130,7 +130,7 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
           cursor: 'pointer',
           boxSizing: 'border-box',
           gap: 2,
-          color: 'rgba(0, 0, 0, 0.8)',
+          color: 'inherit',
         }}
         size="small"
         icon={
