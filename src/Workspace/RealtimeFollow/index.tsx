@@ -17,7 +17,12 @@ import {
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import { HtmlPreview } from '../HtmlPreview';
 import { useRealtimeFollowStyle } from './style';
-export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
+export type RealtimeFollowMode =
+  | 'shell'
+  | 'html'
+  | 'markdown'
+  | 'md'
+  | 'default';
 
 export interface DiffContent {
   original: string;
