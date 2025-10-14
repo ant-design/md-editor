@@ -245,7 +245,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`&-content`]: {
         position: 'relative',
         width: 'auto',
-        height: '100%',
+        height: 'calc(100% - 72px)',
         overflow: 'auto',
         margin: '0 -16px',
         '.ant-workspace-html-preview-content': {
