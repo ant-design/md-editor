@@ -22,7 +22,7 @@ group:
 ## 基本使用
 
 ```tsx
-import { Space } from 'antd';
+import { Space, message } from 'antd';
 import {
   DownOutlined,
   AimOutlined,

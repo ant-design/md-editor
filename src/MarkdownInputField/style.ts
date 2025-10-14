@@ -93,10 +93,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '> * ': {
         boxSizing: 'border-box',
       },
-      '&:active, &:hover': {
+      '&:active,&.active': {
         [`${token.componentCls}-background`]: {
           opacity: 1,
           backgroundColor: '#1890ff',
+        },
+      },
+
+      '&:hover': {
+        [`${token.componentCls}-background`]: {
+          opacity: 1,
+          // backgroundColor: 'rgba(0, 9, 50, 0.1)',
         },
       },
 

@@ -247,7 +247,7 @@ export const TagPopup = (props: RenderProps) => {
   const defaultDom = (
     <div
       ref={domRef}
-      className={classNames(`${baseCls}-tag-popup-input`, hashId, {
+      className={classNames(`${baseCls}-tag-popup-input`, 'no-focus', hashId, {
         empty: !props.text?.trim(),
         [`${baseCls}-tag-popup-input-loading`]: loading,
         [`${baseCls}-tag-popup-input-has-arrow`]: selectedItems?.length > 0,

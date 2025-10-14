@@ -219,6 +219,17 @@ export type MarkdownEditorProps = {
     ) => React.ReactNode;
   };
 
+  onFocus?: (
+    value: string,
+    schema: Elements[],
+    e: React.FocusEvent<HTMLDivElement, Element>,
+  ) => void;
+  onBlur?: (
+    value: string,
+    schema: Elements[],
+    e: React.MouseEvent<HTMLDivElement, Element>,
+  ) => void;
+
   /**
    * 其他属性
    */

@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { Editor, Transforms } from 'slate';
@@ -843,6 +844,20 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     }
   });
 
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  const activeInput = useRefFunction((active: boolean) => {
+    if (inputRef.current) {
+      if (active) {
+        inputRef.current.tabIndex = 1;
+        inputRef.current?.classList.add('active');
+      } else {
+        inputRef.current.tabIndex = -1;
+        inputRef.current?.classList.remove('active');
+      }
+    }
+  });
+
   return wrapSSR(
     <>
       {beforeTools ? (
@@ -858,6 +873,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         }}
       >
         <div
+          ref={inputRef}
           className={classNames(baseCls, hashId, props.className, {
             [`${baseCls}-disabled`]: props.disabled,
             [`${baseCls}-typing`]: false,
@@ -868,12 +884,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             ...props.style,
             borderRadius: borderRadius || 16,
           }}
+          tabIndex={1}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onKeyDown={(e) => {
-            if (markdownEditorRef?.current?.store.inputComposition) {
-              return;
-            }
             const { triggerSendKey = 'Enter' } = props;
             if (
               triggerSendKey === 'Enter' &&
@@ -1022,8 +1036,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     setValue(value);
                     props.onChange?.(value);
                   }}
-                  onFocus={onFocus}
-                  onBlur={onBlur}
+                  onFocus={(value, schema, e) => {
+                    onFocus?.(value, schema, e);
+                    activeInput(true);
+                  }}
+                  onBlur={(value, schema, e) => {
+                    onBlur?.(value, schema, e);
+                    activeInput(false);
+                  }}
                   titlePlaceholderContent={props.placeholder}
                   toc={false}
                   pasteConfig={props.pasteConfig}
