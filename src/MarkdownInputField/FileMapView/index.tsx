@@ -137,6 +137,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           props.className,
           `${prefix}-${placement}`,
           `${prefix}-image-list-view`,
+          `${prefix}-image-list-view-${placement}`,
         )}
       >
         <Image.PreviewGroup>

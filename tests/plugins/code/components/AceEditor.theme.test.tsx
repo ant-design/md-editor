@@ -3,6 +3,12 @@
  * 测试代码编辑器的主题设置和动态切换功能
  */
 
+// 设置全局 ace 对象（必须在所有导入之前）
+(globalThis as any).ace = {
+  define: () => {},
+  require: () => {},
+};
+
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import React from 'react';
@@ -35,10 +41,34 @@ vi.mock('ace-builds', () => {
   return {
     default: {
       edit: vi.fn(() => mockEditor),
+      config: {
+        set: vi.fn(),
+        loadModule: vi.fn(),
+      },
     },
     Ace: {},
   };
 });
+
+// Mock ace themes
+vi.mock('ace-builds/src-noconflict/theme-chaos', () => ({}));
+vi.mock('ace-builds/src-noconflict/theme-github', () => ({}));
+
+// Mock ace ext-modelist
+vi.mock('ace-builds/src-noconflict/ext-modelist', () => ({
+  default: {
+    modes: [],
+  },
+}));
+
+// Mock ace utils 以避免加载所有 ace 模块
+vi.mock('../../../../src/MarkdownEditor/editor/utils/ace', () => ({
+  modeMap: new Map([
+    ['ts', 'typescript'],
+    ['js', 'javascript'],
+  ]),
+  aceLangs: new Set(['javascript', 'typescript', 'python', 'java']),
+}));
 
 describe('AceEditor 主题功能', () => {
   it('应该在只读模式下正确渲染', () => {

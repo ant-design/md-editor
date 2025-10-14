@@ -25,9 +25,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'row-reverse',
       },
       '&-image-list-view': {
-        borderRadius: '12px 0px 12px 12px',
         background: 'var(--color-gray-bg-tip)',
         padding: '8px',
+        '&-right': {
+          borderRadius: '12px 0px 12px 12px',
+        },
+        '&-left': {
+          borderRadius: '0px 12px 12px 0px',
+        },
       },
       '&-vertical': {
         display: 'flex',
