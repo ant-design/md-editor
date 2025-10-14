@@ -141,9 +141,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-uploading-icon': {
           width: '40px',
           height: '40px',
-          fontSize: 'var(--font-size-2xl)',
+          fontSize: '40px',
           display: 'flex',
-          padding: 'var(--padding-2x)',
         },
         '&-error-icon': {
           width: '40px',

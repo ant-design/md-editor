@@ -159,13 +159,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         font: 'var(--font-text-body-base)',
         color: 'var(--color-gray-text-default)',
-        '> div:not([role="button"])': {
-          cursor: 'pointer',
-          '&:hover': {
-            background: 'var(--color-gray-control-fill-active)',
-            boxShadow: 'var(--shadow-border-base)',
-          },
-        },
       },
       '&-send-actions': {
         position: 'absolute',
@@ -179,13 +172,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         font: 'var(--font-text-body-base)',
         color: 'var(--color-gray-text-default)',
-        '> div:not([role="button"])': {
-          cursor: 'pointer',
-          '&:hover': {
-            background: 'var(--color-gray-control-fill-active)',
-            boxShadow: 'var(--shadow-border-base)',
-          },
-        },
       },
       '&-quick-actions': {
         position: 'absolute',
