@@ -65,26 +65,34 @@ export const Loading: React.FC<LoadingProps> = ({
   useEffect(() => {
     if (!wrapper1Ref.current || !wrapper2Ref.current) return;
 
-    // 初始化位置
-    gsap.set(wrapper1Ref.current, { rotationY: 0 });
-    gsap.set(wrapper2Ref.current, { rotationY: 90 });
+    // 初始化位置和旋转角度
+    gsap.set(wrapper1Ref.current, { rotationY: 0, rotation: 30 });
+    gsap.set(wrapper2Ref.current, { rotationY: 90, rotation: 300 });
 
     // 创建时间轴动画
     const tl = gsap.timeline({ repeat: -1 });
 
     // 第一个圆环的动画
-    tl.to(wrapper1Ref.current, {
-      rotationY: 360,
-      duration: 2,
-      ease: 'linear',
-    }, 0);
+    tl.to(
+      wrapper1Ref.current,
+      {
+        rotationY: 360,
+        duration: 2,
+        ease: 'linear',
+      },
+      0,
+    );
 
     // 第二个圆环的动画（偏移 90 度）
-    tl.to(wrapper2Ref.current, {
-      rotationY: 450,
-      duration: 2,
-      ease: 'linear',
-    }, 0);
+    tl.to(
+      wrapper2Ref.current,
+      {
+        rotationY: 450,
+        duration: 2,
+        ease: 'linear',
+      },
+      0,
+    );
 
     timelineRef.current = tl;
 
@@ -118,10 +126,14 @@ export const Loading: React.FC<LoadingProps> = ({
             height: '100%',
             borderRadius: '50%',
             background: `conic-gradient(
-              from 0deg,
-              rgba(255, 111, 0, 0) 0%,
-              rgba(255, 111, 0, 0.8) 50%,
-              rgba(255, 111, 0, 0) 100%
+              from 240deg at 55% 55%,
+              transparent 0%,
+              #5EF050 15%,
+              #5EF050 40%,
+              #37ABFF 60%,
+              #37ABFF 65%,
+              #D7B9FF 80%,
+              transparent 90%
             )`,
             mask: `url(#${circle1MaskId})`,
             WebkitMask: `url(#${circle1MaskId})`,
@@ -138,10 +150,11 @@ export const Loading: React.FC<LoadingProps> = ({
             height: '100%',
             borderRadius: '50%',
             background: `conic-gradient(
-              from 0deg,
-              rgba(255, 111, 0, 0) 0%,
-              rgba(255, 111, 0, 0.8) 50%,
-              rgba(255, 111, 0, 0) 100%
+              from 225deg at 20% 80%,
+              transparent 0%,
+              #5EF050 50%,
+              #37ABFF 60%,
+              transparent 100%
             )`,
             mask: `url(#${circle2MaskId})`,
             WebkitMask: `url(#${circle2MaskId})`,
@@ -186,4 +199,3 @@ export const Loading: React.FC<LoadingProps> = ({
 };
 
 export default Loading;
-
