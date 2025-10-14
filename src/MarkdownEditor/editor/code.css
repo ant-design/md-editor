@@ -41,3 +41,7 @@
 .ace-container .ace_gutter {
   background: transparent;
 }
+
+.code-editor-content .ace-chaos {
+  background: transparent;
+}

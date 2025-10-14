@@ -89,7 +89,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
       style={{
         borderTopLeftRadius: 'inherit',
         borderTopRightRadius: 'inherit',
-        backgroundColor: 'inherit',
+        backgroundColor: 'transparent',
         paddingLeft: '0.25em',
         paddingRight: '0.25em',
         width: '100%',
