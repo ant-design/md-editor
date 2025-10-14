@@ -5,7 +5,7 @@
  */
 
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { Copy, Moon } from '@sofa-design/icons';
+import { ChevronsUpDown, Copy, Moon } from '@sofa-design/icons';
 import { message, Segmented } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { useContext } from 'react';
@@ -21,6 +21,7 @@ import { LoadImage } from './LoadImage';
 export interface CodeToolbarProps {
   theme: string;
   setTheme: (theme: string) => void;
+  isExpanded: boolean;
   /** 代码块元素数据 */
   element: CodeNode;
   /** 是否为只读模式 */
@@ -37,6 +38,8 @@ export interface CodeToolbarProps {
   onViewModeToggle?: (value: 'preview' | 'code') => void;
   /** 当前视图模式（'preview' | 'code'） */
   viewMode?: 'preview' | 'code';
+  /** 展开/收起回调 */
+  onExpandToggle?: () => void;
 }
 
 /**
@@ -78,6 +81,8 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
     languageSelectorProps,
     onViewModeToggle,
     theme,
+    isExpanded,
+    onExpandToggle,
     setTheme,
     viewMode = 'code',
   } = props;
@@ -110,10 +115,11 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         boxSizing: 'border-box',
         userSelect: 'none',
         transition: 'all 0.2s ease-in-out',
-        borderBottom:
-          theme === 'chaos'
+        borderBottom: isExpanded
+          ? theme === 'chaos'
             ? '1px solid #161616'
-            : '1px solid var(--color-gray-border-light)',
+            : '1px solid var(--color-gray-border-light)'
+          : 'none',
       }}
     >
       {/* 左侧：语言选择器或语言显示 */}
@@ -244,6 +250,15 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
           }}
         >
           <Copy />
+        </ActionIconBox>
+        <ActionIconBox
+          title="展开/收起"
+          theme={theme === 'chaos' ? 'dark' : 'light'}
+          onClick={() => {
+            onExpandToggle?.();
+          }}
+        >
+          <ChevronsUpDown />
         </ActionIconBox>
       </div>
     </div>

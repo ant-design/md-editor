@@ -297,8 +297,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRadius: 'var(--radius-card-base)',
           background: 'var(--color-gray-bg-card-white)',
           transition: 'border-color 0.2s ease-in-out',
-          border: '1px solid var(--color-gray-border-light)',
-          boxShadow: 'var(--shadow-control-base)',
           boxSizing: 'border-box',
           overflow: 'hidden',
         },
