@@ -15,8 +15,6 @@ const genStyle = (
       '&-bubble': {
         position: 'relative',
         maxWidth: '100vw',
-        paddingTop: 'var(--padding-3x)',
-        marginBottom: 'var(--margin-6x)',
         cursor: 'pointer',
         '&&-compact': {
           padding: 'var(--padding-0-5x)',

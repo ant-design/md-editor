@@ -3,6 +3,8 @@ import {
   BubbleList,
   ChatFlowContainer,
   ChatFlowContainerRef,
+  History,
+  HistoryDataType,
   MessageBubbleData,
   TASK_RUNNING_STATUS,
   TASK_STATUS,
@@ -18,6 +20,95 @@ import {
   userMeta,
 } from './data';
 import './style.css';
+
+const StandaloneHistoryDemo = () => {
+  const [currentSessionId, setCurrentSessionId] = useState('session-2');
+
+  // 模拟请求函数
+  const mockRequest = async ({ agentId }: { agentId: string }) => {
+    // 模拟 API 请求
+    return [
+      {
+        id: '1',
+        sessionId: 'session-1',
+        sessionTitle: '让黄河成为造福人民的幸福河',
+        agentId: agentId,
+        gmtCreate: 1703123456789, // 2023-12-21 10:30:56
+        gmtLastConverse: 1703123456789,
+        isFavorite: true,
+      },
+      {
+        id: '2',
+        sessionId: 'session-2',
+        sessionTitle: '才读昔楚雄，又见今人勇。',
+        agentId: agentId,
+        gmtCreate: 1703037056789, // 2023-12-20 10:30:56
+        gmtLastConverse: 1703037056789,
+        isFavorite: false,
+      },
+      {
+        id: '3',
+        sessionId: 'session-3',
+        sessionTitle:
+          '金山银山不如绿水青山，生态环境保护是一个长期任务，要久久为功。',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
+      {
+        id: '4',
+        sessionId: 'session-4',
+        sessionTitle: '才读昔楚雄，又见今人勇。',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
+      {
+        id: '5',
+        sessionId: 'session-5',
+        sessionTitle: '县县通高速，铺就乡村幸福路',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
+    ] as HistoryDataType[];
+  };
+
+  const handleSelected = (sessionId: string) => {
+    setCurrentSessionId(sessionId);
+    console.log('选择会话:', sessionId);
+  };
+
+  // 处理加载更多
+  const handleLoadMore = async () => {
+    // 模拟加载更多
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
+  };
+
+  return (
+    <History
+      agentId="test-agent"
+      sessionId={currentSessionId}
+      request={mockRequest}
+      onClick={handleSelected}
+      standalone
+      type="chat"
+      agent={{
+        enabled: true,
+        onSearch: () => {},
+        onNewChat: () => {},
+        onLoadMore: handleLoadMore,
+        onFavorite: async () => {
+          await new Promise((resolve) => {
+            setTimeout(resolve, 1000);
+          });
+        },
+      }}
+    />
+  );
+};
 
 /**
  * ChatFlowContainer 对话流容器组件演示
@@ -122,6 +213,9 @@ const ChatFlowContainerDemo: React.FC = () => {
   const handleViewResult = () => {
     console.log('查看任务结果');
   };
+  useEffect(() => {
+    handleRetry();
+  }, []);
   // ***************** Footer Task Running End ***************** //
 
   return (
@@ -129,8 +223,7 @@ const ChatFlowContainerDemo: React.FC = () => {
       {/* 左侧边栏 */}
       <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>
         <div className="sidebar-left-content">
-          <h3>左侧边栏</h3>
-          <p>这里可以放置历史记录、设置等内容</p>
+          <StandaloneHistoryDemo />
         </div>
       </div>
 
@@ -207,6 +300,9 @@ const ChatFlowContainerDemo: React.FC = () => {
               paddingBottom: '60px',
             }}
             pure
+            onLike={() => {}}
+            onDisLike={() => {}}
+            shouldShowVoice={true}
             markdownRenderConfig={{
               tableConfig: {
                 pure: true,

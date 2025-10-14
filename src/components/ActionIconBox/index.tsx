@@ -119,7 +119,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
           [`${prefixCls}-border-less`]: props.borderLess,
           [`${prefixCls}-active`]: props.active,
           [`${prefixCls}-transform`]: props.transform,
-          [`${prefixCls}-${props.theme}`]: props.theme,
+          [`${prefixCls}-${props.theme || 'light'}`]: props.theme || 'light',
           [`${prefixCls}-noPadding`]: props.noPadding,
         })}
         onClick={async (e) => {
