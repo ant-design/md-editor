@@ -379,7 +379,7 @@ export const RealtimeFollow: React.FC<{
     );
   }
 
-  if (!['shell', 'markdown', 'md'].includes(data.type)) {
+  if (!['shell', 'markdown', 'md', 'default'].includes(data.type)) {
     return null;
   }
 
