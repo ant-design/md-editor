@@ -1,9 +1,20 @@
 /**
  * @fileoverview Ace编辑器核心组件
- * 负责Ace编辑器的初始化、配置和事件处理
+ *
+ * 负责Ace编辑器的初始化、配置和事件处理，包括：
+ * - 编辑器生命周期管理
+ * - 语法高亮配置
+ * - 主题动态切换
+ * - 键盘事件处理
+ * - 内容变化监听
+ * - 与 Slate 编辑器的集成
+ *
+ * @see {@link https://ace.c9.io/} Ace Editor 官方文档
  */
 
 import ace, { Ace } from 'ace-builds';
+import 'ace-builds/src-noconflict/theme-chaos';
+import 'ace-builds/src-noconflict/theme-github';
 import isHotkey from 'is-hotkey';
 import { useCallback, useEffect, useRef } from 'react';
 import { Editor, Path, Transforms } from 'slate';
@@ -13,6 +24,18 @@ import { aceLangs, modeMap } from '../../../MarkdownEditor/editor/utils/ace';
 import { EditorUtils } from '../../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode } from '../../../MarkdownEditor/el';
 
+/**
+ * AceEditor 组件属性接口
+ *
+ * @interface AceEditorProps
+ * @property {CodeNode} element - 代码块节点数据
+ * @property {Function} onUpdate - 更新代码块内容的回调
+ * @property {Function} onShowBorderChange - 边框显示状态变化回调
+ * @property {Function} onHideChange - 隐藏状态变化回调
+ * @property {Path} path - 代码块在文档中的路径
+ * @property {boolean} [isSelected] - 是否被选中
+ * @property {Function} [onSelectionChange] - 选中状态变化回调
+ */
 interface AceEditorProps {
   element: CodeNode;
   onUpdate: (data: Partial<CodeNode>) => void;
@@ -21,8 +44,35 @@ interface AceEditorProps {
   path: Path;
   isSelected?: boolean;
   onSelectionChange?: (selected: boolean) => void;
+  theme: string;
 }
 
+/**
+ * AceEditor 组件
+ *
+ * 封装 Ace Editor 的核心功能，提供代码编辑、语法高亮、主题切换等能力。
+ *
+ * @component
+ * @param {AceEditorProps} props - 组件属性
+ * @returns {Object} 返回包含 DOM 引用、编辑器引用、语言设置等方法的对象
+ *
+ * @example
+ * ```tsx
+ * const { dom, setLanguage, focusEditor } = AceEditor({
+ *   element: codeNode,
+ *   onUpdate: (data) => console.log('更新:', data),
+ *   onShowBorderChange: (show) => setBorder(show),
+ *   onHideChange: (hide) => setHide(hide),
+ *   path: [0, 1],
+ * });
+ * ```
+ *
+ * @remarks
+ * - 支持 100+ 种编程语言
+ * - 支持多种主题切换
+ * - 自动处理键盘事件和快捷键
+ * - 与 Slate 编辑器深度集成
+ */
 export function AceEditor({
   element,
   onUpdate,
@@ -31,6 +81,7 @@ export function AceEditor({
   path,
   isSelected = false,
   onSelectionChange,
+  ...props
 }: AceEditorProps) {
   const { store, editorProps, readonly } = useEditorStore();
 
@@ -171,11 +222,15 @@ export function AceEditor({
       readOnly: readonly,
       showPrintMargin: false,
       showLineNumbers: true,
-      showGutter: false,
+      showGutter: true,
       ...(editorProps.codeProps || {}),
     } as Ace.EditorOptions);
 
     editorRef.current = codeEditor;
+
+    // 设置主题
+    const theme = editorProps.codeProps?.theme || props.theme || 'github';
+    codeEditor.setTheme(`ace/theme/${theme}`);
 
     // 设置语法高亮
     setTimeout(() => {
@@ -205,6 +260,13 @@ export function AceEditor({
       editorRef.current?.clearSelection();
     }
   }, [element.value]);
+
+  // 监听主题变化
+  useEffect(() => {
+    if (!editorRef.current) return;
+    const theme = editorProps.codeProps?.theme || props.theme || 'github';
+    editorRef.current.setTheme(`ace/theme/${theme}`);
+  }, [editorProps.codeProps?.theme, props.theme]);
 
   // 暴露设置语言的方法
   const setLanguage = useCallback(

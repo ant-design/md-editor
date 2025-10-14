@@ -308,6 +308,9 @@ export const AIBubble: React.FC<
                 `${prefixClass}-bubble-avatar-title-ai`, // AI消息头像标题特定样式
                 classNames?.bubbleAvatarTitleClassName,
                 hashId,
+                {
+                  [`${prefixClass}-bubble-avatar-title-pure`]: props.pure,
+                },
               )}
             >
               {avatarDom}

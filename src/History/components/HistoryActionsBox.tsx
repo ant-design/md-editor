@@ -93,7 +93,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
         <Space size={4}>
           {props.agent?.enabled && props.item && props?.agent?.onFavorite && (
             <ActionIconBox
-              scale
               loading={favoriteLoading}
               onClick={async (e) => {
                 e.stopPropagation();
@@ -177,7 +176,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
               }}
             >
               <ActionIconBox
-                scale
                 loading={deleteLoading}
                 onClick={(e) => {
                   e.stopPropagation();

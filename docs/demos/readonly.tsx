@@ -110,6 +110,9 @@ export default () => {
               return <Tooltip title={props.children}>{_}</Tooltip>;
             },
           }}
+          tableConfig={{
+            pure: true,
+          }}
           onChange={(e, value) => {
             console.log(value);
           }}

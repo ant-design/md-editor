@@ -103,7 +103,14 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   }, [fileList]);
 
   return wrapSSR(
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        alignItems: placement === 'left' ? 'flex-start' : 'flex-end',
+      }}
+    >
       <motion.div
         variants={{
           visible: {
@@ -129,12 +136,15 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           hashId,
           props.className,
           `${prefix}-${placement}`,
+          `${prefix}-image-list-view`,
+          `${prefix}-image-list-view-${placement}`,
         )}
       >
         <Image.PreviewGroup>
           {imgList.map((file, index) => {
             return (
               <Image
+                rootClassName={`${prefix}-image-view`}
                 className={classNames(`${prefix}-image`, hashId)}
                 width={124}
                 height={124}
@@ -166,10 +176,12 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         animate={'visible'}
         className={classNames(
           prefix,
-          `${prefix}-vertical`,
           hashId,
           props.className,
           `${prefix}-${placement}`,
+          {
+            [`${prefix}-vertical`]: placement === 'left',
+          },
         )}
         style={props.style}
       >

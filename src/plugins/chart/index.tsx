@@ -378,7 +378,7 @@ export const ChartElement = (props: RenderElementProps) => {
                             key={index + subIndex}
                             style={{
                               margin: 'auto',
-                              minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
+                              minWidth: `max(calc(${100 / columnLength}% - 16px), 600px)`,
                               flex: 1,
                               userSelect: 'none',
                             }}
@@ -396,7 +396,7 @@ export const ChartElement = (props: RenderElementProps) => {
                         style={{
                           userSelect: 'none',
                           margin: 'auto',
-                          minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
+                          minWidth: `max(calc(${100 / columnLength}% - 16px), 600px)`,
                           flex: 1,
                         }}
                         onClick={(e) => {

@@ -24,11 +24,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-right': {
         flexDirection: 'row-reverse',
       },
+      '&-image-list-view': {
+        background: 'var(--color-gray-bg-tip)',
+        padding: '8px',
+        '&-right': {
+          borderRadius: '12px 0px 12px 12px',
+        },
+        '&-left': {
+          borderRadius: '0px 12px 12px 0px',
+        },
+      },
       '&-vertical': {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        gap: 2,
+        gap: 4,
       },
       '&::-webkit-scrollbar': {
         width: 6,
@@ -65,19 +75,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       [`${token.antCls}-image-mask`]: {
-        borderRadius: 'var(--radius-control-base)',
+        borderRadius: 'var(--radius-card-base)',
       },
       img: {
         objectFit: 'cover',
       },
       '&-image': {
-        borderRadius: 'var(--radius-control-base)',
         opacity: 1,
         background: 'var(--color-gray-bg-card-white)',
         boxSizing: 'border-box',
         boxShadow: 'var(--shadow-control-base)',
-        border: 'var(--color-gray-border-light)',
+        borderRadius: 'var(--radius-card-base)',
+        border: 'none',
         padding: 6,
+      },
+      '&-image-view': {
+        '&:hover': {
+          transform: 'scale(1.02)',
+          transition: 'transform 0.3s',
+        },
       },
       '&-more-file-container': {
         width: '294px',

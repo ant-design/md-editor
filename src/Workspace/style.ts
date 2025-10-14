@@ -9,6 +9,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       background: 'var(--color-gray-bg-card-white)',
       border: '1px solid rgba(140, 171, 255, 0.12)',
       boxShadow: 'var(--shadow-card-base)',
+      'svg.sofa-icons-icon > g': {
+        clipPath: 'none!important',
+      },
 
       [`${token.componentCls}-header`]: {
         display: 'flex',
@@ -97,8 +100,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-content`]: {
-        height: 'calc(100% - 90px)',
+        height: 'calc(100% - 95px)',
         padding: '0 16px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 0,
+        overflow: 'hidden',
+        borderRadius: 'var(--radius-card-base)',
       },
     },
   };

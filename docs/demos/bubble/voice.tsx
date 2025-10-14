@@ -27,6 +27,11 @@ export default () => {
         avatar={message.meta}
         placement="left"
         shouldShowVoice={true}
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
       />
 
       <div

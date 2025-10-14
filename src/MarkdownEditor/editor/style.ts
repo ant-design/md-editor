@@ -5,6 +5,7 @@ import {
   resetComponent,
   useEditorStyleRegister,
 } from '../../hooks/useStyle';
+import './code.css';
 
 // 导入统一的标签样式配置
 import { TAG_STYLES } from './tagStyles';
@@ -95,44 +96,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       pointerEvents: 'all',
     },
 
-    // 溢出阴影容器样式
-    '.markdown-editor .overflow-shadow-container::before, .markdown-editor .overflow-shadow-container::after':
-      {
-        content: "''",
-        position: 'absolute',
-        top: '13px',
-        bottom: '8px',
-        width: '10px',
-        opacity: 0,
-        transition: 'opacity 0.1s',
-        zIndex: 100,
-        pointerEvents: 'none',
-        userSelect: 'none',
-        height: 'calc(100% - 32px)',
-      },
-
-    '.markdown-editor .overflow-shadow-container::after': {
-      right: '-4px',
-      background:
-        'linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
-    },
-
-    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-right)::after':
-      {
-        opacity: 1,
-      },
-
-    '.markdown-editor .overflow-shadow-container.is-overflowing:not(.is-scrolled-left)::before':
-      {
-        opacity: 1,
-      },
-
-    '.markdown-editor .overflow-shadow-container::before': {
-      left: '3px',
-      background:
-        'linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1))',
-    },
-
     // 移动标记样式
     '.move-mark': {
       height: '0.125em',
@@ -146,116 +109,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       transitionDuration: '200ms',
     },
 
-    // 评论拖拽高亮样式
-    '.comment-drag-highlight': {
-      backgroundColor: 'rgba(24, 144, 255, 0.2)',
-      border: '1px solid rgba(24, 144, 255, 0.5)',
-      borderRadius: '2px',
-      opacity: 0.8,
-      pointerEvents: 'none',
-      zIndex: 1000,
-    },
-
-    // 评论拖拽手柄样式
-    '.comment-drag-handle': {
-      position: 'absolute',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      width: '6px',
-      height: '6px',
-      backgroundColor: '#1890ff',
-      borderRadius: '50%',
-      opacity: 0.6,
-      cursor: 'grab',
-      zIndex: 1001,
-      transition: 'opacity 0.2s ease',
-      '&:hover': {
-        opacity: 1,
-      },
-    },
-
-    // 开始拖拽手柄
-    '.comment-drag-handle-start': {
-      left: '-8px',
-    },
-
-    // 结束拖拽手柄
-    '.comment-drag-handle-end': {
-      right: '-8px',
-    },
-
-    // 拖拽高亮样式变体
-    '.comment-drag-highlight-start': {
-      borderLeft: '2px solid #1890ff',
-    },
-
-    '.comment-drag-highlight-end': {
-      borderRight: '2px solid #1890ff',
-    },
-
-    // 评论拖拽状态样式
-    '.ant-md-editor-comment-dragging': {
-      userSelect: 'text',
-      cursor: 'text',
-    },
-
     // 隐藏样式
     '.ant-md-editor-hidden': {
       display: 'none',
-    },
-
-    // Ace编辑器容器样式
-    '.ace-container': {
-      position: 'relative',
-      borderRadius: '0.25em',
-      border: '1px solid var(--color-gray-border-light)',
-      marginBottom: '0.5em',
-      fontSize: 'var(--font-size-base)',
-      minWidth: 'min(320px, 100%)',
-      marginTop: '8px',
-    },
-
-    '.ace-container.frontmatter:before': {
-      top: '3px',
-      content: "'Front Matter'",
-      width: '100%',
-      height: '22px',
-      lineHeight: '21px',
-      position: 'absolute',
-      zIndex: 10,
-      left: 0,
-      paddingLeft: '10px',
-      fontSize: 'var(--font-size-sm)',
-      color: 'var(--color-gray-text-secondary)',
-    },
-
-    '.ace-container.frontmatter:is(.dark *):before': {
-      color: 'var(--color-gray-text-secondary)',
-    },
-
-    '.ace_hidden-cursors': {
-      display: 'none !important',
-    },
-
-    // 匹配文本样式
-    '.match-text, .match-current': {
-      position: 'absolute',
-      width: 'auto',
-    },
-
-    '.match-text': {
-      borderRadius: '0.125em',
-      backgroundColor: 'var(--color-gray-control-fill-secondary)',
-    },
-
-    '.match-text:is(.dark *)': {
-      backgroundColor: 'var(--color-gray-control-fill-secondary)',
-    },
-
-    '.match-current': {
-      borderRadius: '0.125em',
-      '--tw-bg-opacity': 1,
-      backgroundColor: 'rgb(14 165 233 / 0.2)',
     },
 
     // KaTeX容器样式
@@ -288,19 +144,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
 
-    // 组合模式样式
-    'div.composition .ant-md-editor-content-edit > div.empty:first-child::before':
-      {
-        display: 'none',
-      },
-
-    // 全局样式
-    '*': {
-      scrollbarWidth: 'thin',
-      scrollbarColor: 'hsl(240 5.9% 90%) transparent',
-      boxSizing: 'border-box',
-    },
-
     [token.componentCls]: {
       boxSizing: 'border-box',
       caretColor: 'var(--color-primary-control-fill-primary)',
@@ -330,7 +173,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: 'max-content',
             maxWidth: '100%',
             fontSize: '1em',
-            lineHeight: 1.25,
+            lineHeight: '21px',
             wordBreak: 'break-word',
             whiteSpace: 'wrap',
           },
@@ -387,61 +230,117 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       'div[data-be="paragraph"]': {
         position: 'relative',
+        font: 'var(--font-text-paragraph-lg)',
         paddingTop: '0em',
         display: 'block',
         fontSize: '1em',
-        lineHeight: 1.6,
-        marginTop: '0.25em',
-        marginBottom: '0.25em',
+        lineHeight: '1.5em',
+        margin: 'var(--margin-2x) 0',
       },
       'h1,h2,h3,h4,h5,h6': {
         position: 'relative',
         textWrap: 'balance',
-        marginTop: '1em',
-        marginBottom: '1em',
-        fontWeight: 600,
-        lineHeight: 1.25,
         '.ant-md-editor-drag-handle': {
           top: 'calc(3px + 0.05em) !important',
         },
       },
       h1: {
-        fontWeight: 600,
-        font: 'var(--font-text-h2-base)',
+        fontSize: '30px',
+        lineHeight: '38px',
+        fontWeight: '600',
+        margin: 'var(--margin-8x) 0',
       },
+
       h2: {
-        fontWeight: 600,
-        font: 'var(--font-text-h3-base)',
+        fontSize: '24px',
+        lineHeight: '32px',
+        fontWeight: '600',
+        marginTop: 'var(--margin-8x)',
+        marginBottom: 'var(--margin-4x)',
       },
+
       h3: {
-        fontWeight: 600,
-        fontSize: '1.25em',
-        font: 'var(--font-text-h4-base)',
+        fontSize: '18px',
+        lineHeight: '26px',
+        fontWeight: '600',
+        marginTop: 'var(--margin-4x)',
+        marginBottom: 'var(--margin-2x)',
       },
-      h4: { fontWeight: 600, fontSize: '1em' },
-      h5: { fontWeight: 600, fontSize: '0.875em' },
+
+      h4: {
+        fontSize: '15px',
+        lineHeight: '24px',
+        fontWeight: '600',
+        marginTop: 'var(--margin-2x)',
+      },
+
+      h5: {
+        fontSize: '15px',
+        lineHeight: '24px',
+        fontWeight: '600',
+        marginTop: 'var(--margin-2x)',
+      },
+
       h6: {
-        fontWeight: 600,
-        fontSize: '0.85em',
-        color: 'var(--color-gray-text-secondary)',
+        fontSize: '15px',
+        lineHeight: '24px',
+        fontWeight: '600',
+        marginTop: 'var(--margin-2x)',
       },
-      a: {
+
+      'a,span[data-url="url"]': {
+        lineHeight: '24px',
+        position: 'relative',
         font: 'var(--font-text-body-lg)',
-        letterSpacing: 'var(--letter-spacing-body-lg, normal)',
         color: 'var(--color-gray-text-default)',
-        backgroundColor: 'transparent',
-        textDecoration: 'none',
+        textDecoration: 'underline',
+        textDecorationColor: 'var(--color-gray-border-light);',
+        textUnderlineOffset: '4px',
+        cursor: 'pointer',
+
         '&:hover': {
-          textDecoration: 'underline',
+          textDecorationColor: 'var(--color-gray-text-default)',
+        },
+        '&::after': {
+          content: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4.666667,4L11.33333,4C11.70152,4,12,4.298477,12,4.666667L12,11.33333C12,11.70152,11.70152,12,11.33333,12C10.96514,12,10.66667,11.70152,10.66667,11.33333L10.66667,6.27614L5.13828,11.80453C5.01305,11.92976,4.843478,12,4.666667,12C4.298477,12,4,11.70152,4,11.33333C4,11.15652,4.0702379,10.98695,4.195262,10.861930000000001L9.72386,5.33333L4.666667,5.33333C4.298477,5.33333,4,5.03486,4,4.666667C4,4.298477,4.298477,4,4.666667,4Z' fill-rule='evenodd' fill='rgba(0,1,3,0.45)'/%3E%3C/svg%3E")`,
+          width: '16px',
+          height: '16px',
+          position: 'relative',
+          marginLeft: '2px',
+          top: '3px',
+          pointerEvents: 'none', // 确保 ::after 不阻止点击事件传递到父元素
+        },
+        '&:hover::after': {
+          content: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4.666667,4L11.33333,4C11.70152,4,12,4.298477,12,4.666667L12,11.33333C12,11.70152,11.70152,12,11.33333,12C10.96514,12,10.66667,11.70152,10.66667,11.33333L10.66667,6.27614L5.13828,11.80453C5.01305,11.92976,4.843478,12,4.666667,12C4.298477,12,4,11.70152,4,11.33333C4,11.15652,4.0702379,10.98695,4.195262,10.861930000001L9.72386,5.33333L4.666667,5.33333C4.298477,5.33333,4,5.03486,4,4.666667C4,4.298477,4.298477,4,4.666667,4Z' fill-rule='evenodd' fill='rgba(0,1,3,0.88)'/%3E%3C/svg%3E")`,
         },
       },
       'ol,ul': {
         paddingLeft: '1.4em',
+        marginTop: 'var(--margin-2x)',
+        marginBottom: 'var(--margin-4x)',
       },
-      'ul ul,ul ol,ol ol,ol ul': {
-        marginTop: '0',
-        marginBottom: '0',
+
+      li: {
         position: 'relative',
+        margin: 'var(--margin-2x) 0',
+
+        '&::marker': {
+          color: 'var(--color-gray-a9)',
+          fontWeight: 600,
+        },
+
+        'ul, ol': {
+          margin: 0,
+        },
+      },
+
+      'li:has(ul), li:has(ol), li:has(+ li ul), li:has(+ li ol), li:has(~ li ul), li:has(~ li ol)':
+        {
+          marginTop: 'var(--margin-4x)',
+        },
+
+      'li:has(ul) ~ li, li:has(ol) ~ li': {
+        marginTop: 'var(--margin-4x)',
       },
       'li > p': { marginTop: '1em' },
       'li + li': { marginTop: '0.25em' },
@@ -494,7 +393,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           marginBottom: '0.8em',
         },
         'ol,ul': {
-          paddingLeft: '0.2em',
+          paddingLeft: '1em',
         },
       },
       '[data-be]:not(p):not(data-be="list")': {
@@ -537,8 +436,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
       },
       '& &-comment-highlight': {
-        padding: 2,
-        borderRadius: '4px',
         backgroundColor: 'rgba(21, 0, 255, 0.15)',
         borderBottom: 0,
         cursor: 'pointer',
@@ -567,312 +464,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '[data-align="right"]': {
         textAlign: 'right',
       },
-
-      th: {
-        fontSize: 'var(--font-size-lg)',
-        lineHeight: '24px',
-        fontWeight: 600,
-      },
-
-      'th:first-child, td:first-child': {
-        position: 'sticky',
-        left: 0,
-        zIndex: 100,
-      },
-
-      'tbody tr:not(.config-tr):hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
-      },
-
       // 分割线
       hr: {
         border: 'none',
-        borderTop: '1px solid rgba(0, 30, 75, 0.11)',
-        padding: 0,
-        height: 0,
-        margin: '32px 0',
-      },
-
-      // 链接样式增强
-      'a:not(.link)': {
-        fontSize: 'var(--font-size-lg)',
-        lineHeight: '24px',
-        color: 'rgba(0, 1, 3, 0.88)',
-        textDecoration: 'underline',
-        textDecorationColor: 'rgba(0, 30, 75, 0.11)',
-        textUnderlineOffset: '2px',
-        position: 'relative',
-
-        '&:hover': {
-          fontSize: 'var(--font-size-lg)',
-          lineHeight: '24px',
-          fontWeight: 600,
-          textDecorationColor: 'rgba(0, 1, 3, 0.88)',
-          fontStretch: '83%',
-        },
-      },
-
-      // 列表样式增强
-      'ul:not([data-be="list"]), ol:not([data-be="list"])': {
-        paddingLeft: '24px',
-        marginTop: '8px',
-        marginBottom: '8px',
-        li: {
-          position: 'relative',
-
-          '&::marker': {
-            color: 'rgba(0, 25, 61, 0.3255)',
-            fontWeight: 600,
-          },
-
-          'ul, ol': {
-            margin: 0,
-          },
-        },
-      },
-
-      // 标题样式增强
-      'h1:not([data-be]), h2:not([data-be]), h3:not([data-be]), h4:not([data-be]), h5:not([data-be]), h6:not([data-be])':
-        {
-          fontSize: '30px',
-          lineHeight: '38px',
-          fontWeight: 600,
-          margin: '32px 0',
-        },
-
-      'h2:not([data-be])': {
-        fontSize: '24px',
-        lineHeight: '32px',
-        fontWeight: 600,
-        marginTop: '32px',
-        marginBottom: '16px',
-      },
-
-      'h3:not([data-be])': {
-        fontSize: '18px',
-        lineHeight: '26px',
-        fontWeight: 600,
-        marginTop: '16px',
-        marginBottom: '8px',
-      },
-
-      'h4:not([data-be]), h5:not([data-be]), h6:not([data-be])': {
-        fontSize: 'var(--font-size-lg)',
-        lineHeight: '24px',
-        fontWeight: 600,
-        marginTop: '8px',
-      },
-
-      'p:not([data-be="paragraph"]), li:not([data-be="list"] li)': {
-        margin: '8px 0',
-      },
-
-      // 代码样式增强
-      'code.ant-md-editor-content-code:not(&-inline-code)': {
-        borderRadius: '6px',
-        background: 'rgba(0, 37, 110, 0.07)',
-        padding: '4px 6px',
-      },
-
-      pre: {
-        overflow: 'hidden',
-      },
-
-      // 任务清单样式
-      '.task-list-item': {
-        fontSize: 'var(--font-size-lg)',
-        lineHeight: '1.6',
-        letterSpacing: '0',
-        color: 'rgba(0, 1, 3, 0.88)',
-        listStyle: 'none',
-        padding: 0,
-
-        'input[type="checkbox"]': {
-          marginTop: '-3px',
-          verticalAlign: 'middle',
-          marginRight: '6px',
-          marginLeft: 0,
-          borderRadius: '6px',
-          background: token.colorBgContainer,
-          boxSizing: 'border-box',
-          border: '1px solid rgba(0, 16, 40, 0.20)',
-          width: '16px',
-          height: '16px',
-          appearance: 'none',
-          position: 'relative',
-          cursor: 'pointer',
-
-          '&:checked': {
-            background: 'var(--color-primary-control-fill-primary)',
-            border: '0 solid rgba(0, 16, 40, 0.20)',
-
-            '&::after': {
-              content: '"✓"',
-              color: 'white',
-              fontSize: '10px',
-              fontWeight: 'bold',
-              position: 'absolute',
-              width: '14px',
-              height: '14px',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              lineHeight: 1,
-            },
-          },
-        },
-
-        '&.task-list-item-checked': {
-          textDecoration: 'line-through',
-          color: 'rgba(0, 3, 9, 0.73)',
-        },
-      },
-
-      '.task-list-item-checkbox': {
-        marginRight: '8px',
-        marginLeft: 0,
-      },
-
-      // 引用样式
-      '.admonition': {
-        margin: '16px 0',
-        padding: '8px 12px',
-        position: 'relative',
-
-        p: {
-          margin: 0,
-          fontSize: 'var(--font-size-lg)',
-          lineHeight: '1.6',
-          letterSpacing: '0',
-          color: 'rgba(0, 1, 3, 0.88)',
-        },
-      },
-
-      '.admonition::before': {
-        content: '""',
-        display: 'block',
-        width: '3px',
-        height: 'calc(100% - 16px)',
-        borderRadius: '200px',
-        position: 'absolute',
-        left: 0,
-        top: '8px',
-      },
-
-      '.admonition-default::before': {
-        background: 'rgba(0, 30, 75, 0.11)',
-      },
-
-      '.admonition-note::before': {
-        background: 'var(--color-primary-control-fill-primary)',
-      },
-
-      '.admonition-warning::before': {
-        background: 'var(--color-orange-control-fill-primary)',
-      },
-
-      '.admonition-danger::before': {
-        background: 'var(--color-red-control-fill-primary)',
-      },
-
-      '.admonition-info::before': {
-        background: 'var(--color-blue-bg-tip)',
-      },
-
-      '.admonition-tip::before': {
-        background: 'var(--color-green-control-fill-primary)',
-      },
-
-      '.admonition-success::before': {
-        background: 'var(--color-green-bg-tip)',
-      },
-
-      // Mermaid 样式
-      '.mermaid': {
-        minWidth: '300px',
-
-        svg: {
-          '.node rect, .node circle, .node ellipse, .node polygon': {
-            stroke: 'var(--color-gray-text-default)',
-            strokeWidth: '1px',
-            fill: 'var(--color-gray-bg-card-white)',
-          },
-
-          text: {
-            dominantBaseline: 'middle',
-            textAnchor: 'middle',
-          },
-
-          '.nodeLabel': {
-            fontWeight: 500,
-            fill: 'var(--color-gray-text-default) !important',
-          },
-
-          '.edgeLabel': {
-            fill: 'var(--color-gray-text-secondary) !important',
-          },
-
-          '.flowchart-label': {
-            fill: 'var(--color-gray-text-default) !important',
-          },
-
-          '.label': {
-            fill: 'var(--color-gray-text-default) !important',
-          },
-        },
-      },
-
-      '.mermaid-error': {
-        color: 'var(--color-red-text-default)',
-        background: 'var(--color-red-bg-tip)',
-        border: '1px solid var(--color-red-border-light)',
-        padding: '12px',
-        borderRadius: '4px',
-        textAlign: 'left',
-
-        pre: {
-          margin: '8px 0 0',
-          background: 'var(--color-gray-control-fill-secondary)',
-          padding: '8px',
-          borderRadius: '4px',
-          fontSize: 'var(--font-size-sm)',
-        },
-      },
-
-      '.mermaid-install-hint': {
-        background: 'var(--color-orange-bg-tip)',
-        border: '1px solid var(--color-orange-border-light)',
-        color: 'var(--color-orange-text-default)',
-        padding: '12px',
-        borderRadius: '4px',
-        textAlign: 'left',
-
-        code: {
-          background: 'var(--color-gray-control-fill-secondary)',
-          padding: '2px 6px',
-          borderRadius: '3px',
-        },
-      },
-
-      // 表格滚动阴影
-      '.table-scrolled': {
-        position: 'relative',
-
-        'td:first-child, th:first-child': {
-          overflow: 'visible',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: '100%',
-            width: '10px',
-            height: '100%',
-            boxShadow: 'inset 2px 0 5px -2px rgba(0, 0, 0, 0.1)',
-            pointerEvents: 'none',
-            background: 'inherit',
-            zIndex: 101,
-          },
-        },
+        borderTop: '1px solid var(--color-gray-border-light)',
+        padding: '0',
+        height: '0',
+        margin: 'var(--margin-8x) 0',
       },
 
       // 打字机效果样式

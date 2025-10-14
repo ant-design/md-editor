@@ -16,6 +16,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       position: 'relative',
       lineHeight: 1.7,
       whiteSpace: 'normal',
+      // 全局样式
+      '*': {
+        scrollbarWidth: 'thin',
+        scrollbarColor: 'hsl(240 5.9% 90%) transparent',
+        boxSizing: 'border-box',
+      },
+      'div.composition div:not(.no-focus).empty:first-child::before': {
+        display: 'none',
+      },
       '> *': {
         boxSizing: 'border-box',
         scrollbarWidth: 'thin',

@@ -1,4 +1,3 @@
-import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
 import {
   Button,
   ConfigProvider,
@@ -11,10 +10,12 @@ import {
 } from 'antd';
 
 import {
+  Check,
   ChevronDown as DownIcon,
   Download as DownloadIcon,
   Eye as EyeIcon,
   ChevronRight as RightIcon,
+  Search,
   MessageSquareShare as ShareIcon,
 } from '@sofa-design/icons';
 import { Empty } from 'antd';
@@ -85,8 +86,25 @@ const handleDefaultShare = async (file: FileNode, locale?: any) => {
     const shareUrl = file.url || file.previewUrl || window.location.href;
     await navigator.clipboard.writeText(shareUrl);
     message.success({
-      icon: <CheckOutlined style={{ fontSize: 16 }} />,
-      content: locale?.['workspace.file.linkCopied'] || '已复制链接',
+      icon: (
+        <Check
+          style={{
+            fontSize: 16,
+            marginRight: 8,
+            color: 'var(--color-green-control-fill-primary)',
+          }}
+        />
+      ),
+      content: (
+        <span
+          style={{
+            font: 'var(--font-text-body-emphasized-base)',
+            color: 'var(--color-gray-text-default)',
+          }}
+        >
+          {locale?.['workspace.file.linkCopied'] || '已复制链接'}
+        </span>
+      ),
     });
   } catch (error) {
     // 如果复制失败，显示错误提示
@@ -157,7 +175,14 @@ const SearchInput: FC<SearchInputProps> = React.memo(
             locale?.['workspace.searchPlaceholder'] ||
             '搜索文件名'
           }
-          prefix={<SearchOutlined />}
+          prefix={
+            <Search
+              style={{
+                color: 'var(--color-gray-text-secondary)',
+                fontSize: 16,
+              }}
+            />
+          }
           value={keyword ?? ''}
           onChange={(e) => onChange?.(e.target.value)}
         />

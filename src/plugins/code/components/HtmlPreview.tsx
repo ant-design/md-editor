@@ -15,7 +15,7 @@ export function HtmlPreview({ htmlStr }: HtmlPreviewProps) {
       data-testid="html-preview-iframe"
       style={{
         outline: 0,
-        borderRadius: 12,
+        borderRadius: 'inherit',
         border: 'none',
         height: '100%',
         minHeight: 400,

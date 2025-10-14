@@ -1,4 +1,9 @@
-import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
+import {
+  DislikeFilled,
+  DislikeOutlined,
+  LikeFilled,
+  LikeOutlined,
+} from '@ant-design/icons';
 import { ConfigProvider, Divider } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -6,8 +11,8 @@ import { motion } from 'framer-motion';
 
 import { Copy, Refresh } from '@sofa-design/icons';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
-import LoadingLottie from '../../TaskList/LoadingLottie';
+import { ActionIconBox } from '../../components/ActionIconBox';
+import { Loading } from '../../components/Loading';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleExtraProps } from '../types/BubbleExtra';
 import { CopyButton } from './CopyButton';
@@ -116,11 +121,7 @@ export const BubbleExtra = ({
       shouldShowLike && !typing ? (
         <ActionIconBox
           data-testid="like-button"
-          scale
-          style={{
-            color: 'var(--color-gray-a9)',
-          }}
-          active={alreadyFeedback}
+          active={originalData?.feedback === 'thumbsUp'}
           title={likeButtonTitle}
           onClick={async (e: any) => {
             e?.preventDefault?.();
@@ -143,7 +144,11 @@ export const BubbleExtra = ({
             }
           }}
         >
-          <LikeOutlined />
+          {originalData?.feedback === 'thumbsUp' ? (
+            <LikeFilled />
+          ) : (
+            <LikeOutlined />
+          )}
         </ActionIconBox>
       ) : null,
     [
@@ -162,12 +167,13 @@ export const BubbleExtra = ({
         <ActionIconBox
           data-testid="dislike-button"
           style={{
-            color: 'var(--color-gray-a9)',
+            color:
+              originalData?.feedback === 'thumbsDown'
+                ? 'var(--color-gray-text-secondary)'
+                : 'var(--color-gray-a9)',
           }}
-          scale
           loading={feedbackLoading}
           onLoadingChange={setFeedbackLoading}
-          active={alreadyFeedback}
           title={getDislikeButtonTitle}
           onClick={async () => {
             try {
@@ -179,7 +185,11 @@ export const BubbleExtra = ({
             } catch (error) {}
           }}
         >
-          <DislikeOutlined />
+          {originalData?.feedback === 'thumbsDown' ? (
+            <DislikeFilled />
+          ) : (
+            <DislikeOutlined />
+          )}
         </ActionIconBox>
       ) : null,
     [
@@ -240,10 +250,6 @@ export const BubbleExtra = ({
         <CopyButton
           data-testid="chat-item-copy-button"
           title={context?.locale?.['chat.message.copy'] || '复制'}
-          scale
-          style={{
-            color: 'var(--color-gray-a9)',
-          }}
           onClick={() => {
             try {
               copy(bubble.originData?.content || '');
@@ -431,7 +437,7 @@ export const BubbleExtra = ({
         width: '100%',
         paddingLeft: placement === 'right' ? 0 : 'var(--padding-5x)',
         paddingRight: placement === 'right' ? 0 : 'var(--padding-5x)',
-        paddingBottom: placement === 'right' ? 0 : 'var(--padding-5x)',
+        paddingBottom: placement === 'right' ? 0 : 'var(--padding-2x)',
         color: 'var(--color-gray-a9)',
         fontSize: context?.compact ? '11px' : '13px',
         gap: 4,
@@ -439,10 +445,10 @@ export const BubbleExtra = ({
       }}
     >
       {typing && originalData.content !== '...' ? (
-        <>
-          <LoadingLottie size={context?.compact ? 20 : 16} />
+        <div>
+          <Loading style={{ fontSize: context?.compact ? 20 : 16 }} />
           <span>{context?.locale?.['chat.message.generating'] || ''}</span>
-        </>
+        </div>
       ) : null}
       {reSend || null}
       {originalData?.isAborted ? copyDom : rightDom}

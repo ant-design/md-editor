@@ -31,18 +31,6 @@ const Demo = () => {
     <li>准备数据</li>
     <li>运行分析</li>
     <li>生成结果</li>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
   </ol>
 </body>
 </html>`;

@@ -66,27 +66,21 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Image', () => ({
   ),
 }));
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/components/ActionIconBox',
-  () => ({
-    ActionIconBox: ({ children, ...props }: any) => (
-      <div data-testid="action-icon-box" {...props}>
-        {children}
-      </div>
-    ),
-  }),
-);
+vi.mock('../../../../src/components/ActionIconBox', () => ({
+  ActionIconBox: ({ children, ...props }: any) => (
+    <div data-testid="action-icon-box" {...props}>
+      {children}
+    </div>
+  ),
+}));
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/components/ContributorAvatar',
-  () => ({
-    AvatarList: ({ children, ...props }: any) => (
-      <div data-testid="avatar-list" {...props}>
-        {children}
-      </div>
-    ),
-  }),
-);
+vi.mock('../../../../src/components/ContributorAvatar', () => ({
+  AvatarList: ({ children, ...props }: any) => (
+    <div data-testid="avatar-list" {...props}>
+      {children}
+    </div>
+  ),
+}));
 
 vi.mock('@ant-design/pro-components', () => ({
   useDebounceFn: vi.fn((fn) => ({

@@ -179,9 +179,6 @@ export const SlateTable = ({
     () => (
       <table
         ref={tableTargetRef}
-        style={{
-          userSelect: 'none',
-        }}
         className={classNames(`${baseCls}-editor-table`, hashId)}
         onDragStart={(e) => {
           // 阻止拖拽开始事件
@@ -210,11 +207,7 @@ export const SlateTable = ({
             );
           }) || null}
         </colgroup>
-        <tbody
-          style={{
-            userSelect: 'none',
-          }}
-        >
+        <tbody>
           {readonly ? null : (
             <TableRowIndex colWidths={colWidths} tablePath={tablePath} />
           )}

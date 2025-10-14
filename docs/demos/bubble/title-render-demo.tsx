@@ -343,6 +343,11 @@ const handleClick = useCallback(() => {
             bubbleRenderConfig={{
               titleRender: getTitleRender(),
             }}
+            markdownRenderConfig={{
+              tableConfig: {
+                pure: true,
+              },
+            }}
           />
         ))}
       </div>

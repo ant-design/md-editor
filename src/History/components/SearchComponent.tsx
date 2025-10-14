@@ -1,9 +1,9 @@
 import { Input, Spin } from 'antd';
 import React, { useContext, useRef, useState } from 'react';
+import { ActionIconBox } from '../../components/ActionIconBox';
 import useClickAway from '../../hooks/useClickAway';
 import { useDebounceFn } from '../../hooks/useDebounceFn';
 import { I18nContext } from '../../i18n';
-import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 
 function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -17,11 +17,6 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
       viewBox="0 0 14 14"
       {...props}
     >
-      <defs>
-        <clipPath id="master_svg0_645_36290/645_35767/1_00870">
-          <rect x="0" y="0" width="14" height="14" rx="0" />
-        </clipPath>
-      </defs>
       <g clipPath="url(#master_svg0_645_36290/645_35767/1_00870)">
         <g>
           <path

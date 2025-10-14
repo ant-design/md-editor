@@ -243,8 +243,12 @@ export const UserBubble: React.FC<
                 `${prefixClass}-bubble-avatar-title`,
                 `${prefixClass}-bubble-avatar-title-${placement}`,
                 `${prefixClass}-bubble-avatar-title-ai`, // AI消息头像标题特定样式
+                // 用户消息头像标题特定样式
                 classNames?.bubbleAvatarTitleClassName,
                 hashId,
+                {
+                  [`${prefixClass}-bubble-avatar-title-pure`]: props.pure,
+                },
               )}
             >
               {titleDom}

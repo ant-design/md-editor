@@ -93,10 +93,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '> * ': {
         boxSizing: 'border-box',
       },
-      '&:active, &:hover': {
+      '&:active,&.active': {
         [`${token.componentCls}-background`]: {
           opacity: 1,
           backgroundColor: '#1890ff',
+        },
+      },
+
+      '&:hover': {
+        [`${token.componentCls}-background`]: {
+          opacity: 1,
+          // backgroundColor: 'rgba(0, 9, 50, 0.1)',
         },
       },
 
@@ -128,7 +135,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxHeight: 400,
         height: '100%',
         borderRadius: 'inherit',
-        overflowY: 'auto',
+        overflowY: 'visible',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
         '&&-disabled': {
@@ -139,6 +146,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           margin: '0 !important',
           padding: '0 !important',
         },
+      },
+      '&-editor-content': {
+        overflowY: 'auto',
+        maxHeight: 'inherit',
+        scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
+        scrollbarWidth: 'thin',
+        borderRadius: 'inherit',
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',
@@ -152,13 +166,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         font: 'var(--font-text-body-base)',
         color: 'var(--color-gray-text-default)',
-        '> div:not([role="button"])': {
-          cursor: 'pointer',
-          '&:hover': {
-            background: 'var(--color-gray-control-fill-active)',
-            boxShadow: 'var(--shadow-border-base)',
-          },
-        },
       },
       '&-send-actions': {
         position: 'absolute',
@@ -172,13 +179,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         font: 'var(--font-text-body-base)',
         color: 'var(--color-gray-text-default)',
-        '> div:not([role="button"])': {
-          cursor: 'pointer',
-          '&:hover': {
-            background: 'var(--color-gray-control-fill-active)',
-            boxShadow: 'var(--shadow-border-base)',
-          },
-        },
       },
       '&-quick-actions': {
         position: 'absolute',

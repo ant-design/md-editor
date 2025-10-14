@@ -19,14 +19,22 @@ const StatusIcon: FC<{
 }> = ({ status }) => {
   switch (status) {
     case 'success':
-      return <Check />;
+      return (
+        <Check style={{ color: 'var(--color-green-control-fill-primary)' }} />
+      );
     case 'error':
-      return <OctagonX />;
+      return (
+        <OctagonX style={{ color: 'var(--color-red-control-fill-primary)' }} />
+      );
     case 'loading':
-      return <LoadingLottie />;
+      return (
+        <LoadingLottie style={{ color: 'var(--color-gray-text-disabled)' }} />
+      );
     case 'pending':
     default:
-      return <CircleDashed />;
+      return (
+        <CircleDashed style={{ color: 'var(--color-gray-text-disabled)' }} />
+      );
   }
 };
 

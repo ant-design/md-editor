@@ -17,7 +17,12 @@ import {
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import { HtmlPreview } from '../HtmlPreview';
 import { useRealtimeFollowStyle } from './style';
-export type RealtimeFollowMode = 'shell' | 'html' | 'markdown' | 'md';
+export type RealtimeFollowMode =
+  | 'shell'
+  | 'html'
+  | 'markdown'
+  | 'md'
+  | 'default';
 
 export interface DiffContent {
   original: string;
@@ -83,6 +88,18 @@ const getTypeConfig = (type: RealtimeFollowMode, locale?: any) => {
   }
 };
 
+const getIconTypeClass = (type: RealtimeFollowMode, prefixCls: string) => {
+  switch (type) {
+    case 'html':
+      return `${prefixCls}-header-icon--html`;
+    case 'markdown':
+    case 'md':
+      return `${prefixCls}-header-icon--md`;
+    default:
+      return `${prefixCls}-header-icon--default`;
+  }
+};
+
 // 头部组件
 const RealtimeHeader: React.FC<{
   data: RealtimeFollowData;
@@ -103,14 +120,11 @@ const RealtimeHeader: React.FC<{
     <div
       className={classNames(
         `${finalPrefixCls}-header-icon`,
-        {
-          [`${finalPrefixCls}-header-icon--html`]: data?.type === 'html',
-          [`${finalPrefixCls}-header-icon--default`]: data?.type !== 'html',
-        },
+        getIconTypeClass(data?.type, finalPrefixCls),
         hashId,
       )}
     >
-      <IconComponent />
+      <IconComponent fontSize={24} />
     </div>
   );
 
@@ -195,6 +209,7 @@ const getEditorConfig = (
           overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
         },
         codeProps: {
+          theme: 'chaos',
           showGutter: true,
           showLineNumbers: true,
           hideToolBar: true,

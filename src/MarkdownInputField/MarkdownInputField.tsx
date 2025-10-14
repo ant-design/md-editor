@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { Editor, Transforms } from 'slate';
@@ -779,6 +780,36 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     }
   });
 
+  const handleFileRetry = useRefFunction(async (file: AttachmentFile) => {
+    try {
+      file.status = 'uploading';
+      const map = new Map(fileMap);
+      map.set(file.uuid || '', file);
+      updateAttachmentFiles(map);
+
+      const url = await props.attachment?.upload?.(file);
+      if (url) {
+        file.status = 'done';
+        file.url = url;
+        map.set(file.uuid || '', file);
+        updateAttachmentFiles(map);
+        message.success(locale?.uploadSuccess || 'Upload success');
+      } else {
+        file.status = 'error';
+        map.set(file.uuid || '', file);
+        updateAttachmentFiles(map);
+        message.error(locale?.uploadFailed || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('Error retrying file upload:', error);
+      file.status = 'error';
+      const map = new Map(fileMap);
+      map.set(file.uuid || '', file);
+      updateAttachmentFiles(map);
+      message.error(locale?.uploadFailed || 'Upload failed');
+    }
+  });
+
   const beforeTools = useMemo(() => {
     if (props.beforeToolsRender) {
       return props.beforeToolsRender({
@@ -813,6 +844,20 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     }
   });
 
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  const activeInput = useRefFunction((active: boolean) => {
+    if (inputRef.current) {
+      if (active) {
+        inputRef.current.tabIndex = 1;
+        inputRef.current?.classList.add('active');
+      } else {
+        inputRef.current.tabIndex = -1;
+        inputRef.current?.classList.remove('active');
+      }
+    }
+  });
+
   return wrapSSR(
     <>
       {beforeTools ? (
@@ -828,6 +873,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         }}
       >
         <div
+          ref={inputRef}
           className={classNames(baseCls, hashId, props.className, {
             [`${baseCls}-disabled`]: props.disabled,
             [`${baseCls}-typing`]: false,
@@ -838,12 +884,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             ...props.style,
             borderRadius: borderRadius || 16,
           }}
+          tabIndex={1}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onKeyDown={(e) => {
-            if (markdownEditorRef?.current?.store.inputComposition) {
-              return;
-            }
             const { triggerSendKey = 'Enter' } = props;
             if (
               triggerSendKey === 'Enter' &&
@@ -922,7 +966,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               borderRadius: (borderRadius || 16) - 2 || 10,
               cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
               opacity: props.disabled ? 0.5 : 1,
-              minHeight: isMultiRowLayout ? 96 : undefined,
+              minHeight: isMultiRowLayout ? 114 : undefined,
             }}
           >
             <div
@@ -944,59 +988,68 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 onSkillModeOpenChange={props.onSkillModeOpenChange}
               />
 
-              {useMemo(() => {
-                return props.attachment?.enable ? (
-                  <AttachmentFileList
-                    fileMap={fileMap}
-                    onDelete={handleFileRemoval}
-                    onClearFileMap={() => {
-                      updateAttachmentFiles(new Map());
-                    }}
-                  />
-                ) : null;
-              }, [fileMap?.values(), props.attachment?.enable])}
+              <div className={classNames(`${baseCls}-editor-content`, hashId)}>
+                {useMemo(() => {
+                  return props.attachment?.enable ? (
+                    <AttachmentFileList
+                      fileMap={fileMap}
+                      onDelete={handleFileRemoval}
+                      onRetry={handleFileRetry}
+                      onClearFileMap={() => {
+                        updateAttachmentFiles(new Map());
+                      }}
+                    />
+                  ) : null;
+                }, [fileMap?.values(), props.attachment?.enable])}
 
-              <BaseMarkdownEditor
-                editorRef={markdownEditorRef}
-                leafRender={props.leafRender}
-                style={{
-                  width: '100%',
-                  flex: 1,
-                  padding: 0,
-                  paddingRight: computedRightPadding,
-                }}
-                toolBar={{
-                  enable: false,
-                }}
-                floatBar={{
-                  enable: false,
-                }}
-                readonly={isLoading}
-                contentStyle={{
-                  padding: '12px 8px 12px 12px',
-                }}
-                textAreaProps={{
-                  enable: true,
-                  placeholder: props.placeholder,
-                  triggerSendKey: props.triggerSendKey || 'Enter',
-                }}
-                tagInputProps={{
-                  enable: true,
-                  type: 'dropdown',
-                  ...tagInputProps,
-                }}
-                initValue={props.value}
-                onChange={(value) => {
-                  setValue(value);
-                  props.onChange?.(value);
-                }}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                titlePlaceholderContent={props.placeholder}
-                toc={false}
-                pasteConfig={props.pasteConfig}
-                {...markdownProps}
-              />
+                <BaseMarkdownEditor
+                  editorRef={markdownEditorRef}
+                  leafRender={props.leafRender}
+                  style={{
+                    width: '100%',
+                    flex: 1,
+                    padding: 0,
+                    paddingRight: computedRightPadding,
+                  }}
+                  toolBar={{
+                    enable: false,
+                  }}
+                  floatBar={{
+                    enable: false,
+                  }}
+                  readonly={isLoading}
+                  contentStyle={{
+                    padding: '12px 8px 12px 12px',
+                  }}
+                  textAreaProps={{
+                    enable: true,
+                    placeholder: props.placeholder,
+                    triggerSendKey: props.triggerSendKey || 'Enter',
+                  }}
+                  tagInputProps={{
+                    enable: true,
+                    type: 'dropdown',
+                    ...tagInputProps,
+                  }}
+                  initValue={props.value}
+                  onChange={(value) => {
+                    setValue(value);
+                    props.onChange?.(value);
+                  }}
+                  onFocus={(value, schema, e) => {
+                    onFocus?.(value, schema, e);
+                    activeInput(true);
+                  }}
+                  onBlur={(value, schema, e) => {
+                    onBlur?.(value, schema, e);
+                    activeInput(false);
+                  }}
+                  titlePlaceholderContent={props.placeholder}
+                  toc={false}
+                  pasteConfig={props.pasteConfig}
+                  {...markdownProps}
+                />
+              </div>
             </div>
             {props.toolsRender ? (
               <div

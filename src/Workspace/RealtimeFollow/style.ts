@@ -12,7 +12,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '8px 16px',
+        padding: '8px 12px',
         marginLeft: -16,
         marginRight: -16,
         borderBottom: '1px solid var(--color-gray-border-light)',
@@ -78,7 +78,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: '40px',
             height: '40px',
             color: '#00B5FD',
-            background: 'rgba(219, 248, 255, 1)',
+            background:
+              'linear-gradient(180deg, rgba(0, 181, 253, 0.15), rgba(0, 181, 253, 0.08))',
+          },
+
+          [`&--md`]: {
+            width: '40px',
+            height: '40px',
+            color: '#FF7A00',
+            background:
+              'linear-gradient(180deg, rgba(35, 214, 220, 0.15), rgba(35, 214, 220, 0.08))',
           },
 
           [`&--default`]: {
@@ -110,8 +119,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           lineHeight: '22px',
           letterSpacing: 'normal',
           color: 'var(--color-gray-text-default)',
-          gridColumn: '2', // 与图标同一行，位于第二列
-          alignSelf: 'center',
         },
 
         [`&-subtitle`]: {
@@ -182,9 +189,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           '.ace_gutter-cell': {
             paddingLeft: 12,
           },
-
+          '.ace-tm .ace_gutter': {
+            background: 'transparent',
+          },
           '.ace-tm .ace_gutter-active-line': {
-            background: 'var(--color-gray-text-default)',
+            color: '#FFFFFF',
+            background: 'transparent',
           },
 
           '.ace-tm .ace_comment': {
@@ -237,8 +247,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: 'auto',
         height: '100%',
         overflow: 'auto',
-        margin: '-4px -16px -16px -16px',
-
+        margin: '0 -16px',
         '.ant-workspace-html-preview-content': {
           '.ace-container': {
             border: 'unset',
@@ -251,13 +260,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
 
           '.code-editor-container': {
-            maxHeight: '435px',
+            maxHeight: '100%',
+            borderRadius: 'var(--radius-card-base)',
 
             '.code-editor-content': {
               padding: '0!important',
 
               '.ace_gutter': {
-                color: 'var(--color-gray-text-default)',
+                color: 'var(--color-gray-text-light)',
                 font: 'var(--font-text-code-base)',
                 letterSpacing: 'var(--letter-spacing-code-base, normal)',
                 background: 'var(--color-gray-bg-card-white)',
@@ -268,22 +278,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               },
 
               '.ace-tm .ace_gutter-active-line': {
+                color: 'var(--color-gray-text-default)',
                 background: 'var(--color-gray-control-fill-hover)',
               },
 
               '.ace-tm .ace_marker-layer .ace_active-line': {
                 background: 'var(--color-gray-control-fill-hover)',
               },
+              '.ace_cursor': {
+                display: 'none !important',
+              },
             },
           },
         },
 
-        '.ace-tm .ace_keyword': {
-          color: '#B14089',
-        },
-
-        '.ace_identifier, .ace_paren': {
-          color: '#343A45',
+        '.code-editor-container': {
+          position: 'relative',
+          borderRadius: 'var(--radius-card-base)',
+          background: 'var(--color-gray-bg-card-white)',
+          transition: 'border-color 0.2s ease-in-out',
+          boxSizing: 'border-box',
+          overflow: 'hidden',
         },
       },
 

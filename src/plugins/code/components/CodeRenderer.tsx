@@ -3,6 +3,7 @@
  * 封装代码编辑器的所有渲染逻辑
  */
 
+import { ConfigProvider, theme as antdTheme } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { MarkdownEditor } from '../../../MarkdownEditor';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
@@ -46,6 +47,8 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     handleShowBorderChange,
     handleHideChange,
   } = useCodeEditorState(props.element);
+  const [theme, setTheme] = useState('github');
+  const [isExpanded, setIsExpanded] = useState(true);
 
   // 选中状态管理
   const [isSelected, setIsSelected] = React.useState(false);
@@ -56,6 +59,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
   // 使用Ace编辑器Hook
   const { dom, setLanguage, focusEditor } = AceEditor({
     element: props.element,
+    theme,
     onUpdate: update,
     onShowBorderChange: handleShowBorderChange,
     onHideChange: handleHideChange,
@@ -102,42 +106,68 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     // 主要的代码编辑器渲染
     if (shouldRenderAsCodeEditor) {
       return (
-        <div {...props.attributes}>
-          <CodeContainer
-            element={props.element}
-            showBorder={state.showBorder}
-            hide={state.hide}
-            onEditorClick={focusEditor}
-          >
-            {/* 工具栏 */}
-            {!props.element.frontmatter &&
-              !editorProps.codeProps?.hideToolBar && (
-                <CodeToolbar {...toolbarProps} />
-              )}
-
-            <div className="code-editor-content">
-              {viewMode === 'preview' && props.element.language === 'html' && (
-                <HtmlPreview htmlStr={props.element?.value} />
-              )}
-              {viewMode === 'preview' &&
-                props.element.language &&
-                props.element.language === 'markdown' && (
-                  <MarkdownEditor initValue={props.element?.value} />
+        <ConfigProvider
+          theme={{
+            algorithm:
+              theme === 'chaos'
+                ? antdTheme.darkAlgorithm
+                : antdTheme.defaultAlgorithm,
+          }}
+        >
+          <div {...props.attributes}>
+            <CodeContainer
+              theme={theme}
+              element={props.element}
+              showBorder={state.showBorder}
+              hide={state.hide}
+              onEditorClick={focusEditor}
+            >
+              {/* 工具栏 */}
+              {!props.element.frontmatter &&
+                !editorProps.codeProps?.hideToolBar && (
+                  <CodeToolbar
+                    theme={theme}
+                    setTheme={setTheme}
+                    isExpanded={isExpanded}
+                    onExpandToggle={() => setIsExpanded(!isExpanded)}
+                    {...toolbarProps}
+                  />
                 )}
+
               <div
+                className="code-editor-content"
                 style={{
-                  height: '100%',
-                  width: '100%',
-                  display: viewMode === 'code' ? 'block' : 'none',
+                  borderBottomLeftRadius: 'inherit',
+                  borderBottomRightRadius: 'inherit',
+                  display: isExpanded ? 'block' : 'none',
                 }}
               >
-                <AceEditorContainer dom={dom} element={props.element}>
-                  {props.children}
-                </AceEditorContainer>
+                {viewMode === 'preview' &&
+                  props.element.language === 'html' && (
+                    <HtmlPreview htmlStr={props.element?.value} />
+                  )}
+                {viewMode === 'preview' &&
+                  props.element.language &&
+                  props.element.language === 'markdown' && (
+                    <MarkdownEditor initValue={props.element?.value} />
+                  )}
+                <div
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                    borderRadius: 'inherit',
+                    padding: 12,
+                    display: viewMode === 'code' ? 'block' : 'none',
+                  }}
+                >
+                  <AceEditorContainer dom={dom} element={props.element}>
+                    {props.children}
+                  </AceEditorContainer>
+                </div>
               </div>
-            </div>
-          </CodeContainer>
-        </div>
+            </CodeContainer>
+          </div>
+        </ConfigProvider>
       );
     }
 

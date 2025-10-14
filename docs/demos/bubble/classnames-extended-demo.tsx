@@ -287,6 +287,11 @@ export default function ClassNamesExtendedDemo() {
           bubbleList={sampleMessages}
           classNames={customClassNames}
           styles={customStyles}
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           assistantMeta={{
             avatar: '🤖',
             title: 'AI助手',

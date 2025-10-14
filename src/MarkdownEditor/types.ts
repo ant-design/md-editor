@@ -104,7 +104,33 @@ export type MarkdownEditorProps = {
   };
 
   /**
-   * 代码高亮配置
+   * 代码编辑器配置
+   *
+   * 支持配置代码块的显示和编辑行为，基于 Ace Editor。
+   *
+   * @example
+   * ```tsx
+   * <MarkdownEditor
+   *   codeProps={{
+   *     theme: 'monokai', // 代码编辑器主题
+   *     fontSize: 14,
+   *     hideToolBar: false,
+   *     Languages: ['javascript', 'python', 'typescript'],
+   *     showLineNumbers: true,
+   *     wrap: true,
+   *   }}
+   * />
+   * ```
+   *
+   * @property {string[]} [Languages] - 支持的编程语言列表
+   * @property {boolean} [hideToolBar] - 是否隐藏代码块工具栏
+   * @property {boolean} [alwaysExpandedDeepThink] - 是否始终展开深度思考块
+   * @property {string} [theme] - 代码编辑器主题，如 'chrome', 'monokai', 'github', 'dracula' 等
+   * @property {number} [fontSize] - 代码字体大小，默认 12
+   * @property {number} [tabSize] - Tab 缩进大小，默认 4
+   * @property {boolean} [showLineNumbers] - 是否显示行号，默认 true
+   * @property {boolean} [showGutter] - 是否显示代码栏，默认 true
+   * @property {boolean} [wrap] - 是否自动换行，默认 true
    */
   codeProps?: {
     Languages?: string[];
@@ -160,7 +186,7 @@ export type MarkdownEditorProps = {
       download?: 'csv';
       copy?: 'md' | 'html' | 'csv';
     };
-    excelMode?: boolean;
+    pure?: boolean;
     previewTitle?: string;
   };
   /**
@@ -173,8 +199,15 @@ export type MarkdownEditorProps = {
   onChange?: (value: string, schema: Elements[]) => void;
   /**
    * 选择变更回调
+   * @param selection - Slate 选区对象
+   * @param selectedMarkdown - 选中内容的 markdown 文本
+   * @param selectedNodes - 选中的节点数组
    */
-  onSelectionChange?: (selection: any) => void;
+  onSelectionChange?: (
+    selection: Selection | null,
+    selectedMarkdown: string,
+    selectedNodes: Elements[],
+  ) => void;
   comment?: {
     /**
      * 是否启用评论功能
@@ -210,99 +243,18 @@ export type MarkdownEditorProps = {
         attributes: any;
       },
     ) => React.ReactNode;
-    /**
-     * 评论范围拖拽配置
-     */
-    dragRange?: {
-      /**
-       * 是否启用评论范围拖拽功能
-       */
-      enable?: boolean;
-      /**
-       * 拖拽手柄样式配置
-       */
-      handleStyle?: {
-        /**
-         * 手柄颜色
-         */
-        color?: string;
-        /**
-         * 手柄背景色
-         */
-        backgroundColor?: string;
-        /**
-         * 手柄大小
-         */
-        size?: string;
-        /**
-         * 手柄圆角
-         */
-        borderRadius?: string;
-        /**
-         * 手柄透明度
-         */
-        opacity?: number;
-        /**
-         * 自定义手柄类名
-         */
-        className?: string;
-      };
-      /**
-       * 拖拽过程中的高亮样式
-       */
-      highlightStyle?: {
-        /**
-         * 高亮颜色
-         */
-        color?: string;
-        /**
-         * 高亮背景色
-         */
-        backgroundColor?: string;
-        /**
-         * 高亮边框样式
-         */
-        border?: string;
-        /**
-         * 高亮圆角
-         */
-        borderRadius?: string;
-        /**
-         * 高亮透明度
-         */
-        opacity?: number;
-        /**
-         * 自定义高亮类名
-         */
-        className?: string;
-      };
-      /**
-       * 范围更新回调函数
-       * @param commentId 评论ID
-       * @param newRange 新的选中范围
-       * @param newContent 新的选中内容
-       */
-      onRangeChange?: (
-        commentId: string | number,
-        newRange: {
-          anchorOffset: number;
-          focusOffset: number;
-          refContent: string;
-          selection?: {
-            anchor: {
-              path: number[];
-              offset: number;
-            };
-            focus: {
-              path: number[];
-              offset: number;
-            };
-          };
-        },
-        newContent: string,
-      ) => void;
-    };
   };
+
+  onFocus?: (
+    value: string,
+    schema: Elements[],
+    e: React.FocusEvent<HTMLDivElement, Element>,
+  ) => void;
+  onBlur?: (
+    value: string,
+    schema: Elements[],
+    e: React.MouseEvent<HTMLDivElement, Element>,
+  ) => void;
 
   /**
    * 其他属性

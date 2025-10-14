@@ -213,8 +213,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
   ) {
     return wrapSSR(
       <ChartContainer
-        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        baseClassName={classNames(`${prefixCls}-container`)}
         theme={'light'}
+        className={classNames(hashId, className)}
         isMobile={isMobile}
         variant={props.variant}
         style={{
@@ -615,8 +616,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
   try {
     return wrapSSR(
       <ChartContainer
-        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        baseClassName={classNames(`${prefixCls}-container`)}
         theme={currentConfig.theme}
+        className={classNames(hashId, className)}
         isMobile={isMobile}
         variant={props.variant}
         style={{
@@ -667,8 +669,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
     console.error('RadarChart 渲染错误:', error);
     return wrapSSR(
       <ChartContainer
-        baseClassName={classNames(`${prefixCls}-container`, hashId, className)}
+        baseClassName={classNames(`${prefixCls}-container`)}
         theme={'light'}
+        className={classNames(hashId, className)}
         isMobile={isMobile}
         variant={props.variant}
         style={{

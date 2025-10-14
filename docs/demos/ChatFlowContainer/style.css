@@ -18,7 +18,7 @@
 
 /* 左侧边栏样式 */
 .sidebar-left {
-  width: 250px;
+  width: 348px;
   padding: 0 16px 16px 16px;
   transition:
     width 500ms ease-in-out,

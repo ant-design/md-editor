@@ -53,26 +53,18 @@ vi.mock('../../../../src/plugins/code/components/LanguageSelector', () => ({
   ),
 }));
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/components/ActionIconBox',
-  () => ({
-    ActionIconBox: ({
-      children,
-      title,
-      onClick,
-      'data-testid': testId,
-    }: any) => (
-      <button
-        type="button"
-        data-testid={testId || 'action-icon'}
-        title={title}
-        onClick={onClick}
-      >
-        {children}
-      </button>
-    ),
-  }),
-);
+vi.mock('../../../../src/components/ActionIconBox', () => ({
+  ActionIconBox: ({ children, title, onClick, 'data-testid': testId }: any) => (
+    <button
+      type="button"
+      data-testid={testId || 'action-icon'}
+      title={title}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  ),
+}));
 
 describe('CodeToolbar', () => {
   const defaultElement: CodeNode = {

@@ -29,21 +29,31 @@ vi.mock('chart.js', () => ({
 
 // Mock react-chartjs-2 to prevent DOM operations
 vi.mock('react-chartjs-2', () => ({
-  Doughnut: vi.fn().mockImplementation(() => (
-    <div data-testid="doughnut-chart">Mocked Doughnut Chart</div>
-  )),
-  Bar: vi.fn().mockImplementation(() => (
-    <div data-testid="bar-chart">Mocked Bar Chart</div>
-  )),
-  Line: vi.fn().mockImplementation(() => (
-    <div data-testid="line-chart">Mocked Line Chart</div>
-  )),
-  Scatter: vi.fn().mockImplementation(() => (
-    <div data-testid="scatter-chart">Mocked Scatter Chart</div>
-  )),
-  Radar: vi.fn().mockImplementation(() => (
-    <div data-testid="radar-chart">Mocked Radar Chart</div>
-  )),
+  Doughnut: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="doughnut-chart">Mocked Doughnut Chart</div>
+    )),
+  Bar: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="bar-chart">Mocked Bar Chart</div>
+    )),
+  Line: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="line-chart">Mocked Line Chart</div>
+    )),
+  Scatter: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="scatter-chart">Mocked Scatter Chart</div>
+    )),
+  Radar: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="radar-chart">Mocked Radar Chart</div>
+    )),
 }));
 
 // Mock ChartMark components
@@ -138,13 +148,6 @@ vi.mock('../../../src/MarkdownEditor/hooks/useFullScreenHandle', () => ({
   }),
 }));
 
-// Mock ActionIconBox
-vi.mock('../../../src/MarkdownEditor/editor/components', () => ({
-  ActionIconBox: vi
-    .fn()
-    .mockImplementation(() => <div data-testid="action-icon">Action Icon</div>),
-}));
-
 describe('ChartRender', () => {
   const defaultProps = {
     chartType: 'bar' as const,
@@ -198,7 +201,7 @@ describe('ChartRender', () => {
     if (typeof window === 'undefined') {
       global.window = {} as any;
     }
-    
+
     // Mock DOM methods that Chart.js might use
     Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
       value: vi.fn(() => ({

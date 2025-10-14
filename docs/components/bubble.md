@@ -52,6 +52,11 @@ const createMockFile = (
   slice: () => new Blob(),
 });
 const props = {
+  markdownRenderConfig: {
+    tableConfig: {
+      pure: true,
+    },
+  },
   time: Date.now(),
   onLike: () => {
     message.success('点赞成功');
@@ -90,14 +95,19 @@ const items = [
 
 const message: MessageBubbleData = {
   id: '1',
-  content:
-    '生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。',
+  content: `生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。
+`,
   createAt: Date.now(),
   updateAt: Date.now(),
   preMessage: {
     id: '2',
-    content:
-      '生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。',
+    content: `生成式 AI 可以用于自动化迄今只有人类能够完成的创造性任务，这样可以为个人和公司节省时间和金钱。如果你能向生成式 AI 描述你的任务，它很可能为你完成任务或者为你提供一个良好的起点。| 功能 | 描述 |
+| -------- | -------- |
+| 功能1 | 描述1 |
+| 功能2 | 描述2 |
+| 功能3 | 描述3 |
+| 功能4 | 描述4 |
+| 功能5 | 描述5 |`,
     createAt: Date.now(),
     updateAt: Date.now(),
   },
@@ -124,6 +134,15 @@ const message: MessageBubbleData = {
         'image/png',
         1048576,
         'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*ed7ZTbwtgIQAAAAAQOAAAAgAemuEAQ/original',
+      ),
+    ],
+    [
+      'image.png',
+      createMockFile(
+        'image.png',
+        'image/png',
+        10485700,
+        'https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*rhTwTY6FkwIAAAAAAAAAAAAADml6AQ/original',
       ),
     ],
     [
@@ -155,6 +174,11 @@ export default () => (
         originData={message}
         avatar={message.meta}
         placement="right"
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
         quote={{
           popupDirection: 'right',
           fileName: 'utils/helper.ts',
@@ -483,7 +507,15 @@ const assistantMessages: MessageBubbleData[] = [
   {
     id: '4',
     role: 'assistant',
-    content: '此外，还支持多种高级功能...',
+    content: `此外，还支持多种高级功能...
+| 功能 | 描述 |
+| -------- | -------- |
+| 功能1 | 描述1 |
+| 功能2 | 描述2 |
+| 功能3 | 描述3 |
+| 功能4 | 描述4 |
+| 功能5 | 描述5 |
+`,
     createAt: Date.now() - 10000,
     updateAt: Date.now() - 10000,
   },
@@ -568,7 +600,15 @@ const messages: MessageBubbleData[] = [
   {
     id: '5',
     role: 'user',
-    content: '关于产品定价的问题',
+    content: `关于产品定价的问题
+| 定价 | 描述 |
+| -------- | -------- |
+| 定价1 | 描述1 |
+| 定价2 | 描述2 |
+| 定价3 | 描述3 |
+| 定价4 | 描述4 |
+| 定价5 | 描述5 |
+ `,
     createAt: Date.now() - 20000,
     updateAt: Date.now() - 20000,
   },

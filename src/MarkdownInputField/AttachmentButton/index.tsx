@@ -2,6 +2,7 @@ import { Paperclip } from '@sofa-design/icons';
 import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext, useMemo } from 'react';
+import { compileTemplate } from '../../i18n';
 import AttachmentButtonPopover, {
   AttachmentButtonPopoverProps,
   SupportedFileFormats,
@@ -117,7 +118,9 @@ export const upLoadFileToServer = async (
   },
 ) => {
   const map = props.fileMap || new Map<string, AttachmentFile>();
-  const hideLoading = message.loading('Uploading...');
+  const hideLoading = message.loading(
+    props.locale?.uploading || 'Uploading...',
+  );
   const fileList = (Array.from(files) as AttachmentFile[]) || [];
   fileList?.forEach((file) => {
     file.status = 'uploading';
@@ -130,11 +133,23 @@ export const upLoadFileToServer = async (
     }
   });
   if (props.maxFileCount && fileList.length > props.maxFileCount) {
-    message.error(`最多只能上传 ${props.maxFileCount} 个文件`);
+    message.error(
+      props.locale?.['markdownInput.maxFileCountExceeded']
+        ? compileTemplate(props.locale['markdownInput.maxFileCountExceeded'], {
+            maxFileCount: String(props.maxFileCount),
+          })
+        : `最多只能上传 ${props.maxFileCount} 个文件`,
+    );
     return;
   }
   if (props.minFileCount && fileList.length < props.minFileCount) {
-    message.error(`至少需要上传 ${props.minFileCount} 个文件`);
+    message.error(
+      props.locale?.['markdownInput.minFileCountRequired']
+        ? compileTemplate(props.locale['markdownInput.minFileCountRequired'], {
+            minFileCount: String(props.minFileCount),
+          })
+        : `至少需要上传 ${props.minFileCount} 个文件`,
+    );
     return;
   }
   props.onFileMapChange?.(map);
@@ -161,18 +176,18 @@ export const upLoadFileToServer = async (
           file.url = url;
           map.set(file.uuid || '', file);
           props.onFileMapChange?.(map);
-          message.success('Upload success');
+          message.success(props.locale?.uploadSuccess || 'Upload success');
         } else {
           file.status = 'error';
           map.set(file.uuid || '', file);
           props.onFileMapChange?.(map);
-          message.error('Upload failed');
+          message.error(props.locale?.uploadFailed || 'Upload failed');
         }
       } catch (error) {
         file.status = 'error';
         map.set(file.uuid || '', file);
         props.onFileMapChange?.(map);
-        message.error('Upload failed');
+        message.error(props.locale?.uploadFailed || 'Upload failed');
       }
 
       index++;
@@ -184,7 +199,7 @@ export const upLoadFileToServer = async (
         map.set(file.uuid || '', file);
       }
     });
-    message.error('Upload failed');
+    message.error(props.locale?.uploadFailed || 'Upload failed');
     props.onFileMapChange?.(map);
   } finally {
     hideLoading();

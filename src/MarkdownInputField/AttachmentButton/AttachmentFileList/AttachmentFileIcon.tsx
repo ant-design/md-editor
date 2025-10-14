@@ -1,4 +1,5 @@
-import { FileFailed, FileUploadingSpin } from '@sofa-design/icons';
+import { Eye, FileFailed, FileUploadingSpin } from '@sofa-design/icons';
+import { Image } from 'antd';
 import React from 'react';
 import { getFileTypeIcon } from '../../../Workspace/File/utils';
 import { FileType } from '../../../Workspace/types';
@@ -52,17 +53,22 @@ export const AttachmentFileIcon: React.FC<{
   }
   if (isImageFile(file)) {
     return (
-      <div
+      <Image
+        src={file.url}
         style={{
           width: '40px',
           height: '40px',
           overflow: 'hidden',
-          borderRadius: '6px',
-          backgroundImage: `url(${file.url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
         }}
+        preview={{
+          mask: (
+            <div>
+              <Eye />
+            </div>
+          ),
+          visible: false,
+        }}
+        alt={file.name}
       />
     );
   }

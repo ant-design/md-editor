@@ -6,7 +6,7 @@
       test
     </div>
     <div
-      style="border-radius: 20px; background: rgb(253, 254, 254); box-shadow: 0px 0px 1px 0px rgba(0, 19, 41, 0.2), 0px 1.5px 4px -1px rgba(0, 19, 41, 0.04); width: 830px; display: flex; flex-direction: column; justify-content: space-between; padding: 0px; z-index: 0; margin: 24px auto;"
+      style="border-radius: var(--radius-modal-base); background: var(color-gray-bg-page-light); box-shadow: var(--shadow-control-base); width: min(830px,100%); display: flex; flex-direction: column; justify-content: space-between; padding: 0px; z-index: 0; margin: 24px auto;"
     >
       <div
         style="padding: 16px; display: flex; flex-direction: row; align-items: center; box-sizing: border-box; border-width: 0px 0px 1px 0px; border-style: solid; border-color: rgba(0, 16, 32, 0.063);"
@@ -199,6 +199,7 @@
             bubblelistref="[object Object]"
             bubbleref="[object Object]"
             data-testid="bubble-list"
+            markdownrenderconfig="[object Object]"
             style="height: 400px; overflow: auto;"
             usermeta="[object Object]"
           >

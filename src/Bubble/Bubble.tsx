@@ -86,7 +86,6 @@ export const Bubble: React.FC<
       props.placement ||
       ((isUserMessage ? 'right' : 'left') as 'left' | 'right'),
   };
-
   // 根据角色分发到对应的子组件
   if (isUserMessage) {
     return <UserBubble {...bubbleProps} pure={false} />;

@@ -209,6 +209,11 @@ export default function ExtraRenderDemo() {
           <Bubble
             key={message.id}
             avatar={message.meta!}
+            markdownRenderConfig={{
+              tableConfig: {
+                pure: true,
+              },
+            }}
             originData={message}
             placement={message.role === 'user' ? 'right' : 'left'}
             bubbleRef={bubbleRef}

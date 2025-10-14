@@ -24,6 +24,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       maxWidth: 'min(800px,100%)',
       padding: '2px',
       paddingRight: '4px',
+
       '*': {
         boxSizing: 'border-box',
       },
@@ -31,15 +32,29 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'var(--color-gray-control-fill-active)',
         boxSizing: 'border-box',
         boxShadow: 'var(--shadow-card-base)',
+        [`${token.componentCls}-floating-expand`]: {
+          opacity: 1,
+          transform: 'translateY(0)',
+        },
       },
-      '&-expanded': {
-        borderRadius: '14px',
+      '&-expanded:not(&-light)': {
+        borderRadius: 'var(--radius-card-base)',
         padding: 4,
         gap: 0,
         outline: 'none',
         '&:hover': {
           background: 'var(--color-gray-bg-card-light)',
           boxShadow: 'var(--shadow-border-base)',
+        },
+      },
+      '&-light': {
+        boxShadow: 'none',
+        border: 'none',
+        borderRadius: '14px',
+        padding: 4,
+        '&:hover': {
+          background: 'none',
+          boxShadow: 'none',
         },
       },
       '&-loading': {
@@ -107,10 +122,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
         borderRadius: '12px',
         transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
-        '&:hover': {
-          background: 'rgba(20, 22, 28, 0.06)',
-          color: '#959DA8',
-        },
       },
 
       '&-name': {
@@ -258,7 +269,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         justifyContent: 'center',
         height: '32px',
-        color: '#767E8B',
+        gap: 4,
         fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
         borderRadius: '20px',
@@ -267,10 +278,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: '1px solid rgba(0, 19, 41, 0.1)',
         boxShadow: '0px 2px 8px rgba(0, 19, 41, 0.15)',
         transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        font: 'var(--font-text-h6-base)',
+        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+        color: 'var(--color-gray-text-default)',
         padding: '16px 5px',
         zIndex: 10,
+        transform: 'translateY(100%)',
+        opacity: 0,
         '&:active': {
           transform: 'translateY(0px)',
+        },
+        '&-hover-visible': {
+          opacity: 1,
+          transform: 'translateY(0)',
         },
       },
     },

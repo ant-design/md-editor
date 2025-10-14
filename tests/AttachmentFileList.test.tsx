@@ -199,12 +199,9 @@ describe('AttachmentFileList', () => {
     );
     expect(clearButtonContainer).toBeInTheDocument();
 
-    const clearButton = clearButtonContainer?.querySelector('button');
-    expect(clearButton).toBeInTheDocument();
-
     await act(async () => {
-      if (clearButton) {
-        fireEvent.click(clearButton);
+      if (clearButtonContainer) {
+        fireEvent.click(clearButtonContainer);
       }
     });
 

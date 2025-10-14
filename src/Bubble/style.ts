@@ -15,11 +15,14 @@ const genStyle = (
       '&-bubble': {
         position: 'relative',
         maxWidth: '100vw',
-        paddingTop: 'var(--padding-3x)',
-        marginBottom: 'var(--margin-6x)',
         cursor: 'pointer',
         '&&-compact': {
           padding: 'var(--padding-0-5x)',
+        },
+        '&:hover': {
+          [`${token.componentCls}-bubble-title-time`]: {
+            visibility: 'visible',
+          },
         },
       },
 
@@ -41,7 +44,11 @@ const genStyle = (
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--margin-1x)',
-        paddingLeft: '20px',
+        marginBottom: '4px',
+        '&-pure': {
+          paddingLeft: '20px',
+          marginBottom: '0px',
+        },
         [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
           fontSize: '1em',
@@ -133,9 +140,10 @@ const genStyle = (
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        borderRadius: '16px 2px 16px 16px',
+        borderRadius: '16px 16px 2px 16px',
         background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-gray-text-default)',
+        boxShadow: 'none',
         '&&-pure': {
           background: 'var(--color-primary-control-fill-primary)',
         },
@@ -149,11 +157,12 @@ const genStyle = (
         },
         '&-container-user': {
           alignItems: 'flex-end',
+          maxWidth: 'max(668px,75%)',
         },
         '&-content-user': {
           background: 'var(--color-primary-bg-card-light)',
           color: 'var(--color-gray-text-default)',
-          borderRadius: '12px 6px 12px 12px',
+          borderRadius: '12px 12px 2px 12px',
           maxWidth: '668px',
           '&&-pure': {
             background: 'var(--color-primary-control-fill-primary)',

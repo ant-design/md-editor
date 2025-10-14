@@ -68,15 +68,20 @@ export default () => {
 ```tsx
 import { AnswerAlert } from '@ant-design/md-editor';
 import { Button, Space } from 'antd';
+import { AiAgentManagement } from '@sofa-design/icons';
 
 export default () => {
   return (
     <AnswerAlert
       message="LUI Chat 已停止，你的额度不足，无法继续。"
+      icon={<AiAgentManagement />}
+      showIcon
       description={
-        <Space direction="vertical">
+        <Space direction="vertical" variant="solid">
           每日额度将在每天 08:00 更新
-          <Button type="primary">继续对话</Button>
+          <Button color="default" variant="solid">
+            继续对话
+          </Button>
         </Space>
       }
     />

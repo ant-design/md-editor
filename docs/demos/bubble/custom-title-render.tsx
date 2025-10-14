@@ -302,6 +302,11 @@ const customTitleRender = (props: any) => {
           <Bubble
             key={message.id}
             avatar={message.meta!}
+            markdownRenderConfig={{
+              tableConfig: {
+                pure: true,
+              },
+            }}
             placement={message.role === 'assistant' ? 'left' : 'right'}
             bubbleRef={bubbleRef}
             originData={message}

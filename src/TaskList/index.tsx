@@ -1,8 +1,9 @@
+import { ChevronUp, SuccessFill } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { memo, useCallback, useContext, useMemo } from 'react';
-import { ActionIconBox } from '../MarkdownEditor/editor/components';
+import { ActionIconBox } from '../components/ActionIconBox';
 import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
 import { useStyle } from './style';
@@ -34,62 +35,6 @@ const DashPendingIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
 });
 
 DashPendingIcon.displayName = 'DashPendingIcon';
-
-const SuccessIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={16} height={16} rx={0} />
-        </clipPath>
-      </defs>
-      <g>
-        <path
-          d="M8 15.333A7.333 7.333 0 108 .667a7.333 7.333 0 000 14.666zm-.963-4.1l5.33-5.279-1.033-1.042-4.297 4.256-2.004-1.986L4 8.224l3.036 3.008z"
-          fillRule="evenodd"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
-  );
-});
-
-SuccessIcon.displayName = 'SuccessIcon';
-
-export const ChevronUpIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={16} height={16} rx={0} />
-        </clipPath>
-      </defs>
-      <g>
-        <path
-          d="M3.529 9.529l4-4a.667.667 0 01.942 0l4 4a.667.667 0 01-.942.942l-3.53-3.528-3.528 3.528a.667.667 0 11-.942-.942z"
-          fillRule="evenodd"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
-  );
-});
-
-ChevronUpIcon.displayName = 'ChevronUpIcon';
 
 function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -174,7 +119,7 @@ const TaskListItem = memo(
             )}
             data-testid={`task-list-status-${item.status}`}
           >
-            {item.status === 'success' ? <SuccessIcon /> : null}
+            {item.status === 'success' ? <SuccessFill /> : null}
             {item.status === 'loading' ? <LoadingLottie size={16} /> : null}
             {item.status === 'pending' ? (
               <div className={classNames(`${prefixCls}-status-idle`, hashId)}>
@@ -218,7 +163,7 @@ const TaskListItem = memo(
                   loading={false}
                   onClick={() => onToggle(item.key)}
                 >
-                  <ChevronUpIcon
+                  <ChevronUp
                     className={classNames(`${prefixCls}-arrow`, hashId)}
                     data-testid="task-list-arrow"
                   />

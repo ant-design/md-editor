@@ -12,7 +12,7 @@ import {
   MessageBubbleData,
 } from '@ant-design/md-editor';
 import { message, Popover } from 'antd';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';
 
 // 创建模拟文件的辅助函数
@@ -36,11 +36,10 @@ const createMockFile = (
 });
 
 // Mock data for the demo
-const mockMessage: MessageBubbleData = {
+const defaultMockMessage: MessageBubbleData = {
   id: '1',
   role: 'assistant',
-  content: `#
-我是 Ant Design 聊天助手，可以帮你：
+  content: `我是 Ant Design 聊天助手，可以帮你：
 
 - **回答问题** - 解答技术相关疑问
 - **代码示例** - 提供组件使用示例  
@@ -170,16 +169,27 @@ Bubble 组件是一个功能丰富的聊天气泡组件，支持：
 
 export default () => {
   const bubbleRef = useRef<any>();
+  const [mockMessage, setMockMessage] = useState<MessageBubbleData>(
+    () => defaultMockMessage,
+  );
 
   // 处理点赞/点踩事件
   const handleLike = async (bubble: MessageBubbleData) => {
     message.success(`已点赞消息: ${bubble.id}`);
     console.log('点赞消息:', bubble);
+    setMockMessage({
+      ...mockMessage,
+      feedback: 'thumbsUp',
+    });
   };
 
   const handleDisLike = async (bubble: MessageBubbleData) => {
     message.info(`已点踩消息: ${bubble.id}`);
     console.log('点踩消息:', bubble);
+    setMockMessage({
+      ...mockMessage,
+      feedback: 'thumbsDown',
+    });
   };
 
   // 处理回复事件
@@ -211,6 +221,11 @@ export default () => {
         {/* Assistant message */}
         <Bubble
           avatar={mockMessage.meta!}
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           placement="left"
           bubbleRef={bubbleRef}
           originData={mockMessage}
@@ -222,6 +237,11 @@ export default () => {
 
         {/* User message */}
         <Bubble
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           avatar={mockUserMessage.meta!}
           placement="right"
           bubbleRef={bubbleRef}
@@ -232,6 +252,11 @@ export default () => {
 
         {/* Message with files */}
         <Bubble
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           avatar={mockFileMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}

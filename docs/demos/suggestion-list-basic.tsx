@@ -76,6 +76,11 @@ export default function SuggestionListBasicDemo() {
               bubbleRef={bubbleRef}
               avatar={m.meta!}
               originData={m}
+              markdownRenderConfig={{
+                tableConfig: {
+                  pure: true,
+                },
+              }}
               placement={m.role === 'user' ? 'right' : 'left'}
               style={{ marginBottom: 4 }}
               onLike={async (data) => {

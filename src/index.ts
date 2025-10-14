@@ -7,6 +7,7 @@ export type {
   BubbleProps,
   MessageBubbleData,
 } from './Bubble/type';
+export * from './components/ActionIconBox';
 export * from './components/Button';
 export * from './components/ChatFlowContainer';
 export * from './components/Loading';
@@ -23,6 +24,7 @@ export * from './MarkdownEditor';
 export * from './MarkdownEditor/editor/components/index';
 export { SlateTable as ReadonlyTable } from './MarkdownEditor/editor/elements/Table/Table';
 export { TablePropsContext } from './MarkdownEditor/editor/elements/Table/TableContext';
+export { default as partialParse } from './MarkdownEditor/editor/parser/json-parse';
 export { parserMarkdownToSlateNode } from './MarkdownEditor/editor/parser/parserMarkdownToSlateNode';
 export {
   parserSlateNodeToMarkdown,

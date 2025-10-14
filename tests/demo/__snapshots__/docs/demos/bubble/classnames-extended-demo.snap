@@ -153,6 +153,7 @@
           bubblerenderconfig="[object Object]"
           classnames="[object Object]"
           data-testid="bubble-list"
+          markdownrenderconfig="[object Object]"
           styles="[object Object]"
         >
           bubble-list

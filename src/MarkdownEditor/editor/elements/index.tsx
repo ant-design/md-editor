@@ -453,9 +453,8 @@ const MLeafComponent = (
       }
     } catch (e) {}
   };
-
   if (leaf?.url && readonly) {
-    return (
+    const renderDom = (
       <span
         data-be="link"
         draggable={false}
@@ -474,21 +473,24 @@ const MLeafComponent = (
         }}
         id={leaf?.url}
         data-slate-inline={true}
-        style={{
-          ...style,
-          font: 'var(--font-text-body-lg)',
-          letterSpacing: 'var(--letter-spacing-body-lg, normal)',
-          color: 'var(--color-gray-text-default)',
-          textDecoration: 'underline',
-          textDecorationColor:
-            style?.color || 'var(--color-gray-text-disabled)',
-          textUnderlineOffset: '4px',
-          cursor: 'pointer',
-        }}
         {...props.attributes}
       >
         {children}
       </span>
+    );
+
+    if (!props.leaf.comment) return renderDom;
+    return (
+      <CommentView
+        id={`comment-${props.leaf?.id}`}
+        comment={props.comment}
+        hashId={props.hashId}
+        selection={leaf?.selection}
+        commentItem={props.leaf?.comment ? (props.leaf.data as any) : null}
+        setShowComment={setShowComment}
+      >
+        {renderDom}
+      </CommentView>
     );
   }
 
@@ -497,6 +499,7 @@ const MLeafComponent = (
     [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
     [`${mdEditorBaseClass}-comment`]: leaf.comment,
   });
+
   let dom = (
     <span
       {...props.attributes}
@@ -525,19 +528,7 @@ const MLeafComponent = (
       className={fncClassName ? fncClassName : undefined}
       style={{
         fontSize: leaf.fnc ? 10 : undefined,
-        ...(leaf.url
-          ? {
-              ...style,
-              font: 'var(--font-text-body-lg)',
-              letterSpacing: 'var(--letter-spacing-body-lg, normal)',
-              color: 'var(--color-gray-text-default)',
-              textDecoration: 'underline',
-              textDecorationColor:
-                style?.color || 'var(--color-gray-text-disabled)',
-              textUnderlineOffset: '4px',
-              cursor: 'pointer',
-            }
-          : style),
+        ...style,
       }}
     >
       {leaf.fnc || leaf.identifier

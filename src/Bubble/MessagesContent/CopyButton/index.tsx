@@ -1,11 +1,12 @@
 import { memo, useContext } from 'react';
 
+import { CheckCircleFilled } from '@ant-design/icons';
 import React from 'react';
-import { useCopied } from '../../../hooks/useCopied';
 import {
   ActionIconBox,
   ActionIconBoxProps,
-} from '../../../MarkdownEditor/editor/components/ActionIconBox';
+} from '../../../components/ActionIconBox';
+import { useCopied } from '../../../hooks/useCopied';
 import { BubbleConfigContext } from '../../BubbleConfigProvide';
 
 /**
@@ -125,7 +126,16 @@ export const CopyButton = memo<CopyButtonProps>(
         }}
         {...props}
         data-testid={dataTestId}
-        title={copied ? `✅ ${copySuccessText}` : props.title}
+        title={
+          copied ? (
+            <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <CheckCircleFilled style={{ color: '#52c41a' }} />
+              {copySuccessText}
+            </span>
+          ) : (
+            props.title
+          )
+        }
       >
         {props.children || <CopyIcon className={className} />}
       </ActionIconBox>

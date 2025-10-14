@@ -18,9 +18,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         paddingTop: 'var(--padding-3x)',
         paddingBottom: 'var(--padding-3x)',
       },
-
       '&-loading': {
         padding: '0 var(--padding-6x)',
+      },
+      '.ant-agent-bubble:not(:last-child)': {
+        marginBottom: 'var(--margin-6x)',
       },
     },
   };

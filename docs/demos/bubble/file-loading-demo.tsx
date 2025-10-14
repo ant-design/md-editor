@@ -148,6 +148,11 @@ export default () => {
           avatar={mockFileMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           originData={{
             ...mockFileMessage,
             typing: isFileLoading,
@@ -163,6 +168,11 @@ export default () => {
 
         {/* 用户消息（对比） */}
         <Bubble
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           avatar={{
             avatar:
               'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
