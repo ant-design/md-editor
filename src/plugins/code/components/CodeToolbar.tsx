@@ -114,7 +114,6 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         alignSelf: 'stretch',
         boxSizing: 'border-box',
         userSelect: 'none',
-        transition: 'all 0.2s ease-in-out',
         borderBottom: isExpanded
           ? theme === 'chaos'
             ? '1px solid #161616'
