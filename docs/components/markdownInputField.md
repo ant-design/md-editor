@@ -101,18 +101,19 @@ export default () => {
         }}
         beforeToolsRender={() => {
         return (
-          <ActionItemContainer>
+          <ActionItemContainer showMenu={true}>
             {new Array(12).fill(0).map((_, index) => (
               <ActionItemBox
-              onClick={() => message.info('快捷技能' + index)}
-              icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-              iconSize={16}
-              size="small"
-              title={
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>{'快捷技能' + index}</span>
-              }
-              key={'快捷技能' + index}
-            />
+                onClick={() => message.info('快捷技能' + index)}
+                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                iconSize={16}
+                size="small"
+                title={
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>{'快捷技能' + index}</span>
+                }
+                disabled={index < 2}
+                key={'快捷技能' + index}
+              />
             ))}
           </ActionItemContainer>
         );

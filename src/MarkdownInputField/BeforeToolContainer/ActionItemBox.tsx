@@ -17,6 +17,7 @@ type ActionItemBoxProps = {
   standalone?: boolean;
   compact?: boolean;
   hoverBg?: boolean;
+  disabled?: boolean;
 };
 
 export const ActionItemBox = (props: ActionItemBoxProps) => {
@@ -57,13 +58,14 @@ export const ActionItemBox = (props: ActionItemBoxProps) => {
         )}
       >
         <div
-          onClick={props.onClick}
+          onClick={props.disabled ? undefined : props.onClick}
           className={classNames(basePrefixCls, hashId, {
             [`${basePrefixCls}-${props.size}`]: props.size,
             [`${basePrefixCls}-has-icon`]: !!props.icon && !props.compact,
             [`${basePrefixCls}-standalone`]: props.standalone,
             [`${basePrefixCls}-compact`]: props.compact,
             [`${basePrefixCls}-hover-bg`]: props.hoverBg ?? true,
+            [`${basePrefixCls}-disabled`]: props.disabled,
           })}
         >
           <div

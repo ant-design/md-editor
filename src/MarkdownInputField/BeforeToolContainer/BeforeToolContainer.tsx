@@ -11,6 +11,8 @@ export type ActionItemContainerProps = {
   children: KeyedElement | KeyedElement[];
   size?: 'small' | 'large' | 'default';
   style?: React.CSSProperties;
+  showMenu?: boolean;
+  menuDisabled?: boolean;
 };
 
 export const ActionItemContainer = (props: ActionItemContainerProps) => {
@@ -322,16 +324,20 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         >{ordered.map((entry) => (
           <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
         ))}</div>
-        <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)}>
-        <div
-          className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}
-          ref={indicatorRef}
-          onMouseEnter={() => setIsIndicatorHover(true)}
-          onMouseLeave={() => setIsIndicatorHover(false)}
-          onClick={() => setShowOverflowPopup((v) => !v)}
-        >
-          <Menu />
-        </div>
+        {props.showMenu !== false && (
+          <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)}>
+          <div
+            className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}
+            ref={indicatorRef}
+            onMouseEnter={() => setIsIndicatorHover(true)}
+            onMouseLeave={() => setIsIndicatorHover(false)}
+            onClick={() => setShowOverflowPopup((v) => !v)}
+          >
+            <div className={classNames(`${basePrefixCls}-overflow-container-placeholder`, hashId)}></div>
+            <div className={classNames(`${basePrefixCls}-overflow-container-menu`, hashId)}>
+              <Menu />
+            </div>
+          </div>
         {showOverflowPopup && popupPos && typeof document !== 'undefined'
           ? createPortal(
             <div
@@ -400,6 +406,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           )
           : null}
         </div>
+        )}
       </div>
     </div>
   );

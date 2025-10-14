@@ -33,8 +33,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-
+        '&-placeholder': {
+            width: 40,
+            height: '100%',
+            backgroundColor: 'linear-gradient(270deg, #F7F8F9 57%, rgba(255, 255, 255, 0) 100%)',
+          },
         '&-indicator': {
+          flex: 1,
           pointerEvents: 'auto',
           display: 'flex',
           alignItems: 'center',
@@ -42,13 +47,23 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           width: 32,
           height: 32,
           zIndex: 10,
-          // background: 'var(--color-gray-control-fill-active)',
           background: 'linear-gradient(270deg, #FFFFFF 57%, rgba(255, 255, 255, 0) 100%)',
-          border: '1px solid rgba(255, 255, 255, 0.45)',
-          boxShadow: 'var(--shadow-border-base)',
+          border: 'none',
+          boxShadow: 'none',
+          borderRadius: 0,
+        },
+        '&-menu': {
+          width: 32,
+          height: 32,
           borderRadius: 'var(--radius-control-base)',
-          '&-icon': {
-            color: '#767E8B',
+          background: '#FFFFFF',
+          boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          '& svg': {
+            width: 16,
+            height: 16,
           },
         },
         '&-popup': {
@@ -100,7 +115,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
           // ensure hover background applies regardless of which node captures hover
           [`&-item:hover ${token.componentCls}`]: {
-            backgroundColor: 'var(--color-gray-control-fill-active)',
+            backgroundColor: 'var(--color-gray-control-fill-hover);',
             backgroundImage: 'none',
             boxShadow: 'none',
           },
@@ -135,7 +150,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             borderRadius: 8,
             padding: '3px 8px',
             '&:hover': {
-              backgroundColor: 'var(--color-gray-control-fill-active)',
+              backgroundColor: 'var(--color-gray-control-fill-hover)',
               backgroundImage: 'none',
             },
           },
@@ -220,14 +235,44 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       // hover background for item itself when `-hover-bg` class present
       ['&-hover-bg:hover']: {
+        backgroundColor: 'var(--color-gray-control-fill-hover)',
+        backgroundImage: 'none',
+      },
+      // active (pressed) background for item itself when `-hover-bg` class present
+      ['&-hover-bg:active']: {
         backgroundColor: 'var(--color-gray-control-fill-active)',
         backgroundImage: 'none',
       },
-      // hover background when hovering the container (with `-container-hover-bg`)
-      // apply to the inner item so the whole row highlights
-      ['&-container-hover-bg:hover ' + token.componentCls]: {
+      ['&-container-hover-bg:active ' + token.componentCls]: {
         backgroundColor: 'var(--color-gray-control-fill-active)',
         backgroundImage: 'none',
+      },
+      // disabled state: base + suppress hover/active
+      '&-disabled': {
+        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        color: 'var(--color-gray-text-disabled)',
+        cursor: 'not-allowed',
+        backgroundImage: 'none',
+      },
+      ['&-disabled:hover']: {
+        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        backgroundImage: 'none',
+      },
+      ['&-disabled:active']: {
+        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        backgroundImage: 'none',
+      },
+      // when container is active but inner item is disabled, keep disabled bg
+      ['&-container-hover-bg:active ' + token.componentCls + '-disabled']: {
+        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        backgroundImage: 'none',
+      },
+      // disabled text color for inner content
+      [`&-disabled ${token.componentCls}-content-title`]: {
+        color: 'var(--color-gray-text-disabled)',
+      },
+      [`&-disabled ${token.componentCls}-content-description`]: {
+        color: 'var(--color-gray-text-disabled)',
       },
       '&-scroll': {
         // Hide scrollbar visually but keep scrolling enabled
