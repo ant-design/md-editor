@@ -90,7 +90,6 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
       onChange: onFloatingExpandedChange,
     },
   );
-  const [isHovered, setIsHovered] = React.useState(false);
 
   // Think 模块的默认图标
   const defaultIcon = <Brain />;
@@ -101,14 +100,6 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
 
   const handleToggleFloatingExpand = () => {
     setFloatingExpandedState(!floatingExpandedState);
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
   };
 
   useEffect(() => {
@@ -336,8 +327,6 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
             },
           )}
           data-testid="tool-use-bar-think-container"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
           style={{
             ...(expandedState
               ? {}
@@ -362,7 +351,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
           >
             {thinkContent}
           </div>
-          {status === 'loading' && isHovered && !light ? (
+          {status === 'loading' && !light ? (
             <div
               className={classNamesFn(
                 `${prefixCls}-floating-expand`,
@@ -373,7 +362,21 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
               data-testid="tool-use-bar-think-floating-expand"
               style={styles?.floatingExpand}
             >
-              {!floatingExpandedState ? <ChevronsUpDown /> : <ChevronsDownUp />}
+              {!floatingExpandedState ? (
+                <ChevronsUpDown
+                  style={{
+                    fontSize: 16,
+                    color: 'var(--color-gray-text-light)',
+                  }}
+                />
+              ) : (
+                <ChevronsDownUp
+                  style={{
+                    fontSize: 16,
+                    color: 'var(--color-gray-text-light)',
+                  }}
+                />
+              )}
               {floatingExpandedState ? '收起' : '展开'}
             </div>
           ) : null}
