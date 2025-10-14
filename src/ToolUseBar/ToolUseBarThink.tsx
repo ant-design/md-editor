@@ -1,14 +1,14 @@
 import {
   Brain,
   ChevronDown,
-  ChevronDown as ExpandDownIcon,
-  Expand as ExpandIcon,
+  ChevronsDownUp,
+  ChevronsUpDown,
 } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNamesFn from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useStyle } from './thinkStyle';
 
 export interface ToolUseBarThinkProps {
@@ -110,6 +110,13 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+  useEffect(() => {
+    if (status === 'loading') {
+      setExpandedState(true);
+    }
+  }, [status]);
+
   const [hover, setHover] = React.useState(false);
 
   return wrapSSR(
@@ -309,7 +316,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
             onClick={handleToggleExpand}
             style={styles?.expand}
           >
-            {expandedState ? <ExpandDownIcon /> : <ExpandIcon />}
+            {!expandedState ? <ChevronsUpDown /> : <ChevronsDownUp />}
           </div>
         )}
       </div>
@@ -366,7 +373,7 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
               data-testid="tool-use-bar-think-floating-expand"
               style={styles?.floatingExpand}
             >
-              {floatingExpandedState ? <ExpandDownIcon /> : <ExpandIcon />}
+              {!floatingExpandedState ? <ChevronsUpDown /> : <ChevronsDownUp />}
               {floatingExpandedState ? '收起' : '展开'}
             </div>
           ) : null}

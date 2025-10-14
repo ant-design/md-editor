@@ -1,8 +1,8 @@
+import { ChevronUp } from '@sofa-design/icons';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useMemo } from 'react';
-import { ChevronUpIcon } from '../TaskList';
 
 function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -284,7 +284,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
             className={classNames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}
           >
-            <ChevronUpIcon
+            <ChevronUp
               style={{
                 transition: 'transform 0.3s ease-in-out',
                 transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
