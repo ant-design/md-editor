@@ -127,27 +127,30 @@ export const BubbleTitle: React.FC<TitleProps> = ({
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
   return wrapSSR(
-    <Flex
-      className={cx(hashId, prefixClass, className)}
-      style={{
-        flexDirection: placement === 'left' ? 'row' : 'row-reverse',
-        display: 'flex',
-        alignItems: 'center',
-        ...style,
-      }}
-      gap={8}
-      data-testid="bubble-title"
-    >
-      {title ? <span className={bubbleNameClassName}>{title}</span> : null}
+    <>
+      <Flex
+        className={cx(hashId, prefixClass, className)}
+        style={{
+          flexDirection: placement === 'left' ? 'row' : 'row-reverse',
+          display: 'flex',
+          alignItems: 'center',
+          ...style,
+        }}
+        gap={8}
+        data-testid="bubble-title"
+      >
+        {title ? <span className={bubbleNameClassName}>{title}</span> : null}
+
+        {time && (
+          <time
+            className={cx(`${prefixClass}-time`, hashId)}
+            data-testid="bubble-time"
+          >
+            {formatTime(time)}
+          </time>
+        )}
+      </Flex>
       {quote}
-      {time && (
-        <time
-          className={cx(`${prefixClass}-time`, hashId)}
-          data-testid="bubble-time"
-        >
-          {formatTime(time)}
-        </time>
-      )}
-    </Flex>,
+    </>,
   );
 };

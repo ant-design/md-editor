@@ -42,12 +42,15 @@ const genStyle = (
         color: 'var(--color-gray-text-default)',
         fontSize: '1em',
         display: 'flex',
-        alignItems: 'center',
         gap: 'var(--margin-1x)',
         marginBottom: '4px',
         '&-pure': {
           paddingLeft: '20px',
           marginBottom: '0px',
+        },
+        '&-quote': {
+          marginBottom: '0px',
+          flexDirection: 'column',
         },
         [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
