@@ -83,6 +83,8 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
       data-testid="code-toolbar"
       contentEditable={false}
       style={{
+        borderTopLeftRadius: 'inherit',
+        borderTopRightRadius: 'inherit',
         backgroundColor: 'var(--color-gray-bg-card-white)',
         paddingLeft: '0.25em',
         paddingRight: '0.25em',
@@ -105,9 +107,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         boxSizing: 'border-box',
         userSelect: 'none',
         transition: 'all 0.2s ease-in-out',
-        borderWidth: '0px 0px 1px 0px',
-        borderStyle: 'solid',
-        borderColor: 'var(--color-gray-border-light)',
+        borderBottom: '1px solid var(--color-gray-border-light)',
       }}
     >
       {/* 左侧：语言选择器或语言显示 */}

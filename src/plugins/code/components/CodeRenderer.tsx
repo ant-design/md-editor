@@ -115,7 +115,13 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                 <CodeToolbar {...toolbarProps} />
               )}
 
-            <div className="code-editor-content">
+            <div
+              className="code-editor-content"
+              style={{
+                borderBottomLeftRadius: 'inherit',
+                borderBottomRightRadius: 'inherit',
+              }}
+            >
               {viewMode === 'preview' && props.element.language === 'html' && (
                 <HtmlPreview htmlStr={props.element?.value} />
               )}
@@ -128,6 +134,8 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                 style={{
                   height: '100%',
                   width: '100%',
+                  borderRadius: 'inherit',
+                  padding: 12,
                   display: viewMode === 'code' ? 'block' : 'none',
                 }}
               >

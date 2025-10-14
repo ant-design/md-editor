@@ -50,8 +50,10 @@ export function CodeContainer({
           onEditorClick();
         }}
         style={{
-          padding: hide ? 0 : undefined,
+          padding: hide ? 1 : 1,
           marginBottom: hide ? 0 : undefined,
+          boxShadow: 'var(--shadow-control-base)',
+          borderRadius: 'var(--radius-card-base)',
           backgroundColor: showBorder
             ? 'rgba(59, 130, 246, 0.1)'
             : hide

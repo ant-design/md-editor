@@ -5,6 +5,7 @@ import {
   resetComponent,
   useEditorStyleRegister,
 } from '../../hooks/useStyle';
+import './code.css';
 
 // 导入统一的标签样式配置
 import { TAG_STYLES } from './tagStyles';
@@ -111,39 +112,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     // 隐藏样式
     '.ant-md-editor-hidden': {
       display: 'none',
-    },
-
-    // Ace编辑器容器样式
-    '.ace-container': {
-      position: 'relative',
-      borderRadius: '0.25em',
-      border: '1px solid var(--color-gray-border-light)',
-      marginBottom: '0.5em',
-      fontSize: 'var(--font-size-base)',
-      minWidth: 'min(320px, 100%)',
-      marginTop: '8px',
-    },
-
-    '.ace-container.frontmatter:before': {
-      top: '3px',
-      content: "'Front Matter'",
-      width: '100%',
-      height: '22px',
-      lineHeight: '21px',
-      position: 'absolute',
-      zIndex: 10,
-      left: 0,
-      paddingLeft: '10px',
-      fontSize: 'var(--font-size-sm)',
-      color: 'var(--color-gray-text-secondary)',
-    },
-
-    '.ace-container.frontmatter:is(.dark *):before': {
-      color: 'var(--color-gray-text-secondary)',
-    },
-
-    '.ace_hidden-cursors': {
-      display: 'none !important',
     },
 
     // KaTeX容器样式

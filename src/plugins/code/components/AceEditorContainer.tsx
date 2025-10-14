@@ -22,7 +22,7 @@ export function AceEditorContainer({
       <div
         data-testid="ace-editor-container"
         ref={dom}
-        style={{ height: 200, lineHeight: '22px' }}
+        style={{ height: 200, lineHeight: 1.6 }}
       />
 
       {/* 隐藏的内容副本（用于搜索和 SEO） */}

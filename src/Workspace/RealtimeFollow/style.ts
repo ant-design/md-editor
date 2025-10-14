@@ -189,7 +189,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           '.ace_gutter-cell': {
             paddingLeft: 12,
           },
-
+          '.ace-tm .ace_gutter': {
+            background: 'transparent',
+          },
           '.ace-tm .ace_gutter-active-line': {
             color: '#FFFFFF',
             background: 'transparent',
