@@ -13,6 +13,8 @@
  */
 
 import ace, { Ace } from 'ace-builds';
+import 'ace-builds/src-noconflict/theme-chaos';
+import 'ace-builds/src-noconflict/theme-github';
 import isHotkey from 'is-hotkey';
 import { useCallback, useEffect, useRef } from 'react';
 import { Editor, Path, Transforms } from 'slate';
@@ -42,6 +44,7 @@ interface AceEditorProps {
   path: Path;
   isSelected?: boolean;
   onSelectionChange?: (selected: boolean) => void;
+  theme: string;
 }
 
 /**
@@ -78,6 +81,7 @@ export function AceEditor({
   path,
   isSelected = false,
   onSelectionChange,
+  ...props
 }: AceEditorProps) {
   const { store, editorProps, readonly } = useEditorStore();
 
@@ -225,7 +229,7 @@ export function AceEditor({
     editorRef.current = codeEditor;
 
     // 设置主题
-    const theme = editorProps.codeProps?.theme || 'chrome';
+    const theme = editorProps.codeProps?.theme || props.theme || 'github';
     codeEditor.setTheme(`ace/theme/${theme}`);
 
     // 设置语法高亮
@@ -260,9 +264,9 @@ export function AceEditor({
   // 监听主题变化
   useEffect(() => {
     if (!editorRef.current) return;
-    const theme = editorProps.codeProps?.theme || 'github';
+    const theme = editorProps.codeProps?.theme || props.theme || 'github';
     editorRef.current.setTheme(`ace/theme/${theme}`);
-  }, [editorProps.codeProps?.theme]);
+  }, [editorProps.codeProps?.theme, props.theme]);
 
   // 暴露设置语言的方法
   const setLanguage = useCallback(

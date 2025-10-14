@@ -23,6 +23,7 @@ export type ActionIconBoxProps = {
   noPadding?: boolean;
   iconStyle?: React.CSSProperties;
   onLoadingChange?: (loading: boolean) => void;
+  theme?: 'light' | 'dark';
 };
 /**
  * ActionIconBox 组件 - 操作图标盒子组件
@@ -118,6 +119,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
           [`${prefixCls}-border-less`]: props.borderLess,
           [`${prefixCls}-active`]: props.active,
           [`${prefixCls}-transform`]: props.transform,
+          [`${prefixCls}-${props.theme}`]: props.theme,
           [`${prefixCls}-noPadding`]: props.noPadding,
         })}
         onClick={async (e) => {

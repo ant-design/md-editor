@@ -53,7 +53,7 @@ console.log('test');
         }}
       />,
     );
-    
+
     expect(container).toBeInTheDocument();
   });
 
@@ -141,4 +141,3 @@ console.log('test');
     expect(container).toBeInTheDocument();
   });
 });
-

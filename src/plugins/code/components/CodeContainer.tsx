@@ -14,6 +14,7 @@ interface CodeContainerProps {
   onEditorClick: () => void;
   children: ReactNode;
   readonly?: boolean;
+  theme: string;
 }
 
 export function CodeContainer({
@@ -22,6 +23,7 @@ export function CodeContainer({
   hide,
   onEditorClick,
   children,
+  theme,
 }: CodeContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +60,11 @@ export function CodeContainer({
             ? 'rgba(59, 130, 246, 0.1)'
             : hide
               ? 'transparent'
-              : 'rgb(252, 252, 252)',
+              : theme === 'chaos'
+                ? '#161616'
+                : 'rgb(252, 252, 252)',
+          color:
+            theme === 'chaos' ? '#FFFFFF' : 'var(--color-gray-text-default)',
           height: hide ? 0 : 'auto',
           opacity: hide ? 0 : 1,
         }}

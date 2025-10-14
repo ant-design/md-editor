@@ -5,7 +5,7 @@
  */
 
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { Copy } from '@sofa-design/icons';
+import { Copy, Moon } from '@sofa-design/icons';
 import { message, Segmented } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { useContext } from 'react';
@@ -19,6 +19,8 @@ import { LoadImage } from './LoadImage';
  * 代码工具栏组件的属性接口
  */
 export interface CodeToolbarProps {
+  theme: string;
+  setTheme: (theme: string) => void;
   /** 代码块元素数据 */
   element: CodeNode;
   /** 是否为只读模式 */
@@ -75,6 +77,8 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
     onCloseClick,
     languageSelectorProps,
     onViewModeToggle,
+    theme,
+    setTheme,
     viewMode = 'code',
   } = props;
 
@@ -85,7 +89,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
       style={{
         borderTopLeftRadius: 'inherit',
         borderTopRightRadius: 'inherit',
-        backgroundColor: 'var(--color-gray-bg-card-white)',
+        backgroundColor: 'inherit',
         paddingLeft: '0.25em',
         paddingRight: '0.25em',
         width: '100%',
@@ -94,8 +98,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         top: 0,
         fontSize: '1em',
         font: 'var(--font-text-h6-base)',
-        color: 'var(--color-gray-text-default)',
-        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+        color: 'inherit',
         justifyContent: 'space-between',
         zIndex: 50,
         height: '38px',
@@ -107,7 +110,10 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         boxSizing: 'border-box',
         userSelect: 'none',
         transition: 'all 0.2s ease-in-out',
-        borderBottom: '1px solid var(--color-gray-border-light)',
+        borderBottom:
+          theme === 'chaos'
+            ? '1px solid #161616'
+            : '1px solid var(--color-gray-border-light)',
       }}
     >
       {/* 左侧：语言选择器或语言显示 */}
@@ -119,8 +125,8 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             alignItems: 'center',
             cursor: 'pointer',
             gap: 4,
-            font: 'var(--font-text-h6-base)',
-            color: 'var(--color-gray-text-default)',
+            font: 'inherit',
+            color: 'inherit',
             userSelect: 'none',
           }}
           contentEditable={false}
@@ -178,6 +184,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
           <ActionIconBox
             title={i18n?.locale?.close || '关闭'}
             onClick={onCloseClick}
+            theme={theme === 'chaos' ? 'dark' : 'light'}
           >
             <CloseCircleOutlined />
           </ActionIconBox>
@@ -186,6 +193,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         {/* HTML/Markdown 视图模式切换按钮 */}
         {element?.language === 'html' || element?.language === 'markdown' ? (
           <Segmented
+            className={theme === 'chaos' ? 'chaos-segmented' : ''}
             data-testid="preview"
             options={[
               {
@@ -203,9 +211,19 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             }
           />
         ) : null}
+        <ActionIconBox
+          title="主题"
+          theme={theme === 'chaos' ? 'dark' : 'light'}
+          onClick={() => {
+            setTheme(theme === 'github' ? 'chaos' : 'github');
+          }}
+        >
+          <Moon />
+        </ActionIconBox>
 
         {/* 复制按钮 */}
         <ActionIconBox
+          theme={theme === 'chaos' ? 'dark' : 'light'}
           title={i18n?.locale?.copy || '复制'}
           style={{
             fontSize: '1em',

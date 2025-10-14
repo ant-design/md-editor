@@ -21,16 +21,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       fontSize: '1em',
       color: 'var(--color-gray-a9)',
       transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      '&-light': {
+        color: 'var(--color-gray-a9)',
+        '&:hover': {
+          background: 'var(--color-gray-control-fill-active)',
+          boxSizing: 'border-box',
+        },
+      },
+      '&-dark': {
+        color: '#fff',
+        '&:hover': {
+          background: '#444',
+          boxSizing: 'border-box',
+        },
+      },
       '&-active': {
         color: 'var(--color-gray-text-secondary)',
       },
       '&-noPadding': {
         padding: 0,
       },
-      '&:hover': {
-        background: 'var(--color-gray-control-fill-active)',
-        boxSizing: 'border-box',
-      },
+
       '&-standalone': {
         minWidth: 'inherit',
         minHeight: 'inherit',
