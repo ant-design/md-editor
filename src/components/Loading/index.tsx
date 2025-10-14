@@ -53,7 +53,9 @@ export const Loading: React.FC<LoadingProps> = ({
 }) => {
   const wrapper1Ref = useRef<HTMLDivElement>(null);
   const wrapper2Ref = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const circle1Ref = useRef<SVGEllipseElement>(null);
+  const circle2Ref = useRef<SVGEllipseElement>(null);
+  const masterTimelineRef = useRef<gsap.core.Timeline | null>(null);
 
   // 生成唯一的 mask ID，确保多实例不冲突
   const uniqueId = useId();
@@ -63,42 +65,131 @@ export const Loading: React.FC<LoadingProps> = ({
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   useEffect(() => {
-    if (!wrapper1Ref.current || !wrapper2Ref.current) return;
+    if (
+      !wrapper1Ref.current ||
+      !wrapper2Ref.current ||
+      !circle1Ref.current ||
+      !circle2Ref.current
+    ) {
+      return;
+    }
 
-    // 初始化位置和旋转角度
-    gsap.set(wrapper1Ref.current, { rotationY: 0, rotation: 30 });
-    gsap.set(wrapper2Ref.current, { rotationY: 90, rotation: 300 });
+    const circle1 = circle1Ref.current;
+    const circle2 = circle2Ref.current;
+    const wrapper1 = wrapper1Ref.current;
+    const wrapper2 = wrapper2Ref.current;
 
-    // 创建时间轴动画
-    const tl = gsap.timeline({ repeat: -1 });
+    // 初始化 circle1
+    gsap.set(circle1, {
+      rotation: 30,
+      transformOrigin: 'center center',
+      attr: { rx: 32 },
+    });
 
-    // 第一个圆环的动画
-    tl.to(
-      wrapper1Ref.current,
-      {
-        rotationY: 360,
-        duration: 2,
-        ease: 'linear',
-      },
-      0,
-    );
+    // 旋转第一个圆环
+    const rotateCircle1 = gsap.timeline();
+    rotateCircle1
+      .to(circle1, {
+        rotation: 30 - 30 - 30 - 15 - 90 - 45,
+        duration: 1.58,
+      })
+      .to(circle1, {
+        rotation: 30 - 30 - 30 - 15 - 90 - 45 + 30 + 30 + 30 + 120,
+        duration: 1.42,
+      });
 
-    // 第二个圆环的动画（偏移 90 度）
-    tl.to(
-      wrapper2Ref.current,
-      {
-        rotationY: 450,
-        duration: 2,
-        ease: 'linear',
-      },
-      0,
-    );
+    // 模拟 circle1 的 3D 效果（通过改变 rx）
+    const fake3dCircle1 = gsap.timeline();
+    fake3dCircle1
+      .to(circle1, { attr: { rx: 0 }, duration: 0.77 })
+      .to(circle1, { attr: { rx: 8 }, duration: 0.27 })
+      .to(circle1, { attr: { rx: 0 }, duration: 0.1 })
+      .to(circle1, { attr: { rx: 24 }, duration: 0.32 })
+      .to(circle1, { attr: { rx: 0 }, duration: 0.33 })
+      .to(circle1, { attr: { rx: 16 }, duration: 0.33 })
+      .to(circle1, { attr: { rx: 0 }, duration: 0.33 })
+      .to(circle1, { attr: { rx: 30 }, duration: 0.38 })
+      .to(circle1, { attr: { rx: 32 }, duration: 0.5 });
 
-    timelineRef.current = tl;
+    // 初始化 circle2
+    gsap.set(circle2, {
+      rotation: 300,
+      transformOrigin: 'center center',
+      attr: { rx: 12 },
+    });
+
+    // 旋转第二个圆环
+    const rotateCircle2 = gsap.timeline();
+    rotateCircle2
+      .to(circle2, {
+        rotation: 300 - 25 - 90,
+        duration: 1.25,
+      })
+      .to(circle2, {
+        rotation: 300 - 25 - 90 + 180,
+        duration: 1.05,
+      })
+      .to(circle2, {
+        rotation: 300 - 25 - 90 + 180 - 25 - 40,
+        duration: 0.7,
+      });
+
+    // 模拟 circle2 的 3D 效果（通过改变 rx）
+    const fake3dCircle2 = gsap.timeline();
+    fake3dCircle2
+      .to(circle2, { attr: { rx: 0 }, duration: 0.45 })
+      .to(circle2, { attr: { rx: 16 }, duration: 0.32 })
+      .to(circle2, { attr: { rx: 0 }, duration: 0.48 })
+      .to(circle2, { attr: { rx: 8 }, duration: 0.25 })
+      .to(circle2, { attr: { rx: 0 }, duration: 0.1 })
+      .to(circle2, { attr: { rx: 28 }, duration: 0.4 })
+      .to(circle2, { attr: { rx: 0 }, duration: 0.3 })
+      .to(circle2, {
+        attr: { rx: 12 },
+        duration: 0.7,
+        ease: 'slow(0.7,0.7,true)',
+      });
+
+    // 设置渐变初始状态
+    gsap.set([wrapper1, wrapper2], {
+      rotation: 0,
+      transformOrigin: 'center center',
+    });
+
+    // 旋转 wrapper1 渐变（顺时针）
+    const rotateGradientCircle1 = gsap.timeline();
+    rotateGradientCircle1.to(wrapper1, {
+      rotation: 360,
+      duration: 3,
+    });
+
+    // 旋转 wrapper2 渐变（逆时针）
+    const rotateGradientCircle2 = gsap.timeline();
+    rotateGradientCircle2.to(wrapper2, {
+      rotation: -360,
+      duration: 3,
+    });
+
+    // 创建主时间线，包含所有动画
+    const masterTimeline = gsap.timeline({
+      repeat: -1,
+      ease: 'sine.inOut',
+    });
+
+    // 将所有动画添加到主时间线中（同时开始）
+    masterTimeline
+      .add(rotateCircle1, 0)
+      .add(fake3dCircle1, 0)
+      .add(rotateCircle2, 0)
+      .add(fake3dCircle2, 0)
+      .add(rotateGradientCircle1, 0)
+      .add(rotateGradientCircle2, 0);
+
+    masterTimelineRef.current = masterTimeline;
 
     // 清理动画
     return () => {
-      tl.kill();
+      masterTimeline.kill();
     };
   }, []);
 
@@ -172,6 +263,7 @@ export const Loading: React.FC<LoadingProps> = ({
         <defs>
           <mask id={circle1MaskId}>
             <ellipse
+              ref={circle1Ref}
               rx="32"
               ry="32"
               cx="50"
@@ -183,6 +275,7 @@ export const Loading: React.FC<LoadingProps> = ({
           </mask>
           <mask id={circle2MaskId}>
             <ellipse
+              ref={circle2Ref}
               rx="12"
               ry="32"
               cx="50"
