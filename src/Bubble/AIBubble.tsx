@@ -314,7 +314,6 @@ export const AIBubble: React.FC<
               )}
             >
               {avatarDom}
-              {typing && <Loader style={{ fontSize: 16 }} />}
               {titleDom}
             </div>
           )}

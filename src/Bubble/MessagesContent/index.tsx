@@ -3,7 +3,6 @@ import {
   Chunk,
   WhiteBoxProcessInterface,
 } from '@ant-design/md-editor/ThoughtChainList';
-import { Loader } from '@sofa-design/icons';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { ActionIconBox } from '../../components/ActionIconBox';
@@ -137,7 +136,6 @@ export const BubbleMessageDisplay: React.FC<
             className="agent-item-default-content"
             data-testid="message-content"
           >
-            <Loader />
             {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );
