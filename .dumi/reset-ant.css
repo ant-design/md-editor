@@ -333,7 +333,6 @@
   gap: 8px;
   z-index: 1;
   border-radius: 200px;
-  /* gray/gray-控件填充-按下.激活 */
   background: var(--color-gray-control-fill-active);
   color: var(--color-gray-text-secondary);
   font: var(--font-text-number-xs);
