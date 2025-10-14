@@ -326,7 +326,7 @@
                                 <div
                                   contenteditable="false"
                                   data-testid="code-toolbar"
-                                  style="border-top-left-radius: inherit; border-top-right-radius: inherit; background-color: transparent; width: 100%; position: sticky; left: 0px; top: 0px; font: var(--font-text-h6-base); color: inherit; justify-content: space-between; z-index: 50; height: 38px; display: flex; align-items: center; padding: 9px 12px; gap: 16px; align-self: stretch; box-sizing: border-box; user-select: none; transition: all 0.2s ease-in-out; border-bottom: 1px solid var(--color-gray-border-light);"
+                                  style="border-top-left-radius: inherit; border-top-right-radius: inherit; background-color: transparent; width: 100%; position: sticky; left: 0px; top: 0px; font: var(--font-text-h6-base); color: inherit; justify-content: space-between; z-index: 50; height: 38px; display: flex; align-items: center; padding: 9px 12px; gap: 16px; align-self: stretch; box-sizing: border-box; user-select: none; border-bottom: 1px solid var(--color-gray-border-light);"
                                 >
                                   <div
                                     contenteditable="false"
@@ -575,7 +575,7 @@
                         <span
                           aria-describedby="test-id"
                           aria-label="复制"
-                          class="ant-md-editor-action-icon-box"
+                          class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                           data-testid="chat-item-copy-button"
                           role="button"
                           tabindex="0"

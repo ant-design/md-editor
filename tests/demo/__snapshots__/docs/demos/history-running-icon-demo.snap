@@ -347,7 +347,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -527,7 +527,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -707,7 +707,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -838,7 +838,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -982,7 +982,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -1191,7 +1191,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -1347,7 +1347,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -1503,7 +1503,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -1606,7 +1606,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
@@ -1722,7 +1722,7 @@
                                       <span
                                         aria-describedby="test-id"
                                         aria-label="删除"
-                                        class="ant-md-editor-action-icon-box"
+                                        class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-light"
                                         data-testid="action-icon-box"
                                         role="button"
                                         style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-control-sm);"
