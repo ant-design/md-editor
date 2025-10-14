@@ -17,6 +17,7 @@
         <div
           class="ant-dropdown-trigger ant-md-input-field"
           style="border-radius: 16px;"
+          tabindex="1"
         >
           <div
             class="ant-md-input-field-background"
