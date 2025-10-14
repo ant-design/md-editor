@@ -188,10 +188,30 @@ For it will surely sprout wings and fly off to the sky like an eagle
 
 ### 代码配置 (codeProps)
 
-| 属性        | 类型       | 描述                 |
-| ----------- | ---------- | -------------------- |
-| Languages   | `string[]` | 支持的编程语言列表   |
-| hideToolBar | `boolean`  | 是否隐藏代码块工具栏 |
+| 属性                    | 类型       | 默认值     | 描述                                                                |
+| ----------------------- | ---------- | ---------- | ------------------------------------------------------------------- |
+| Languages               | `string[]` | -          | 支持的编程语言列表                                                  |
+| hideToolBar             | `boolean`  | `false`    | 是否隐藏代码块工具栏                                                |
+| alwaysExpandedDeepThink | `boolean`  | `false`    | 是否始终展开深度思考块                                              |
+| theme                   | `string`   | `'chrome'` | 代码编辑器主题，支持所有 Ace Editor 主题                            |
+| fontSize                | `number`   | `12`       | 代码字体大小                                                        |
+| tabSize                 | `number`   | `4`        | Tab 缩进大小                                                        |
+| showLineNumbers         | `boolean`  | `true`     | 是否显示行号                                                        |
+| showGutter              | `boolean`  | `true`     | 是否显示代码栏                                                      |
+| wrap                    | `boolean`  | `true`     | 是否自动换行                                                        |
+| ...                     | -          | -          | 支持所有 [Ace.EditorOptions](https://ace.c9.io/#nav=api&api=editor) |
+
+**常用 Ace Editor 主题:**
+
+- `chrome` (默认浅色主题)
+- `monokai` (深色主题)
+- `github` (GitHub 风格)
+- `twilight` (暮光主题)
+- `dracula` (德古拉主题)
+- `tomorrow_night` (Tomorrow Night 主题)
+- `solarized_dark` / `solarized_light` (Solarized 主题)
+- `nord_dark` (Nord 主题)
+- 更多主题请参考 [Ace Editor Themes](https://ace.c9.io/build/kitchen-sink.html)
 
 ### 表格配置 (tableConfig)
 
@@ -373,6 +393,81 @@ export default () => {
       }}
       height="400px"
     />
+  );
+};
+```
+
+### 代码编辑器主题配置
+
+```tsx
+import { MarkdownEditor } from '@ant-design/md-editor';
+import { Select } from 'antd';
+import { useState } from 'react';
+
+export default () => {
+  const [theme, setTheme] = useState('chrome');
+
+  const themes = [
+    { label: 'Chrome (浅色)', value: 'chrome' },
+    { label: 'Monokai (深色)', value: 'monokai' },
+    { label: 'GitHub', value: 'github' },
+    { label: 'Twilight', value: 'twilight' },
+    { label: 'Dracula', value: 'dracula' },
+    { label: 'Tomorrow Night', value: 'tomorrow_night' },
+    { label: 'Solarized Dark', value: 'solarized_dark' },
+    { label: 'Solarized Light', value: 'solarized_light' },
+    { label: 'Nord Dark', value: 'nord_dark' },
+  ];
+
+  return (
+    <>
+      <div style={{ marginBottom: 16 }}>
+        <span style={{ marginRight: 8 }}>选择主题：</span>
+        <Select
+          value={theme}
+          onChange={setTheme}
+          options={themes}
+          style={{ width: 200 }}
+        />
+      </div>
+      <MarkdownEditor
+        initValue={`# 代码编辑器主题示例
+
+\`\`\`javascript
+// 这是一个示例代码块
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+const result = fibonacci(10);
+console.log('斐波那契数列第10项:', result);
+\`\`\`
+
+\`\`\`python
+# Python 示例
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+
+print(quick_sort([3, 6, 8, 10, 1, 2, 1]))
+\`\`\`
+`}
+        codeProps={{
+          theme: theme,
+          fontSize: 14,
+          showLineNumbers: true,
+          showGutter: true,
+          wrap: true,
+        }}
+        height="500px"
+      />
+    </>
   );
 };
 ```

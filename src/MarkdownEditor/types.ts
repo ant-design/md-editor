@@ -104,7 +104,33 @@ export type MarkdownEditorProps = {
   };
 
   /**
-   * 代码高亮配置
+   * 代码编辑器配置
+   *
+   * 支持配置代码块的显示和编辑行为，基于 Ace Editor。
+   *
+   * @example
+   * ```tsx
+   * <MarkdownEditor
+   *   codeProps={{
+   *     theme: 'monokai', // 代码编辑器主题
+   *     fontSize: 14,
+   *     hideToolBar: false,
+   *     Languages: ['javascript', 'python', 'typescript'],
+   *     showLineNumbers: true,
+   *     wrap: true,
+   *   }}
+   * />
+   * ```
+   *
+   * @property {string[]} [Languages] - 支持的编程语言列表
+   * @property {boolean} [hideToolBar] - 是否隐藏代码块工具栏
+   * @property {boolean} [alwaysExpandedDeepThink] - 是否始终展开深度思考块
+   * @property {string} [theme] - 代码编辑器主题，如 'chrome', 'monokai', 'github', 'dracula' 等
+   * @property {number} [fontSize] - 代码字体大小，默认 12
+   * @property {number} [tabSize] - Tab 缩进大小，默认 4
+   * @property {boolean} [showLineNumbers] - 是否显示行号，默认 true
+   * @property {boolean} [showGutter] - 是否显示代码栏，默认 true
+   * @property {boolean} [wrap] - 是否自动换行，默认 true
    */
   codeProps?: {
     Languages?: string[];
