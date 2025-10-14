@@ -1,134 +1,189 @@
-import { ConfigProvider } from 'antd';
-import classNames from 'classnames';
-import { motion } from 'framer-motion';
-import React, { useContext } from 'react';
+import gsap from 'gsap';
+import React, { useEffect, useId, useRef } from 'react';
 import { useStyle } from './style';
+
+export interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * 自定义类名前缀
+   */
+  prefixCls?: string;
+}
 
 /**
  * Loading 组件 - 加载动画组件
  *
- * 该组件提供一个简单的加载动画效果，包含两个旋转的椭圆形。
- * 主要用于在数据加载或处理过程中提供视觉反馈。
+ * 使用 GSAP 和 SVG mask 实现复杂的 3D 旋转动画效果
  *
  * @component
- * @description 加载动画组件，显示两个旋转变形的椭圆
+ * @description 加载动画组件，提供流畅的 3D 旋转动画效果
+ * @param {LoadingProps} props - 组件属性
+ * @param {string} [props.prefixCls='ant-loading-container'] - 自定义类名前缀
+ * @param {React.CSSProperties} [props.style] - 自定义样式
+ * @param {string} [props.className] - 自定义类名
+ *
  * @example
  * ```tsx
- * import { Loading } from './components/Loading';
+ * // 基础用法
+ * <Loading />
  *
- * function App() {
- *   return (
- *     <div>
- *       <Loading />
- *     </div>
- *   );
- * }
+ * // 自定义大小
+ * <Loading style={{ fontSize: 64 }} />
+ *
+ * // 在文本中使用
+ * <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+ *   <span>加载中</span>
+ *   <Loading />
+ * </div>
  * ```
  *
  * @returns {React.ReactElement} 渲染的加载动画组件
+ *
+ * @remarks
+ * - 使用 GSAP 动画库实现流畅的动画效果
+ * - 使用 SVG mask 实现椭圆形遮罩
+ * - 使用 conic-gradient 创建渐变背景
+ * - 支持响应式缩放（使用 em 单位）
+ * - 支持多实例（自动生成唯一的 mask ID）
  */
-export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('loading-container');
+export const Loading: React.FC<LoadingProps> = ({
+  prefixCls = 'ant-loading-container',
+  style,
+  className,
+  ...rest
+}) => {
+  const wrapper1Ref = useRef<HTMLDivElement>(null);
+  const wrapper2Ref = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  // 生成唯一的 mask ID，确保多实例不冲突
+  const uniqueId = useId();
+  const circle1MaskId = `circle1-mask-${uniqueId}`;
+  const circle2MaskId = `circle2-mask-${uniqueId}`;
+
   const { wrapSSR, hashId } = useStyle(prefixCls);
+
+  useEffect(() => {
+    if (!wrapper1Ref.current || !wrapper2Ref.current) return;
+
+    // 初始化位置
+    gsap.set(wrapper1Ref.current, { rotationY: 0 });
+    gsap.set(wrapper2Ref.current, { rotationY: 90 });
+
+    // 创建时间轴动画
+    const tl = gsap.timeline({ repeat: -1 });
+
+    // 第一个圆环的动画
+    tl.to(wrapper1Ref.current, {
+      rotationY: 360,
+      duration: 2,
+      ease: 'linear',
+    }, 0);
+
+    // 第二个圆环的动画（偏移 90 度）
+    tl.to(wrapper2Ref.current, {
+      rotationY: 450,
+      duration: 2,
+      ease: 'linear',
+    }, 0);
+
+    timelineRef.current = tl;
+
+    // 清理动画
+    return () => {
+      tl.kill();
+    };
+  }, []);
 
   return wrapSSR(
     <div
-      className={classNames(prefixCls, hashId)}
       data-testid="loading-container"
-      {...props}
+      className={`${prefixCls} ${hashId} ${className || ''}`}
+      style={style}
+      {...rest}
     >
-      {/* 定义渐变 */}
-      <svg width="0" height="0" style={{ position: 'absolute' }}>
-        <defs>
-          <linearGradient id="gradient" x1="60%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#5EF050" stopOpacity="1" />
-            <stop offset="20%" stopColor="#37ABFF" stopOpacity="1" />
-            <stop offset="55%" stopColor="#D7B9FF" stopOpacity="0.95" />
-            <stop offset="75%" stopColor="#D7B9FF" stopOpacity="0.05" />
-          </linearGradient>
-        </defs>
-      </svg>
-
       <div
         style={{
-          ...props.style,
+          position: 'relative',
           width: '1em',
           height: '1em',
         }}
       >
-        {/* 第一个椭圆 */}
-        <motion.svg
-          width="1em"
-          height="1em"
-          viewBox="0 0 100 100"
-          style={{ position: 'absolute' }}
-          animate={{
-            rotate: [60, 420],
+        {/* 第一个 wrapper */}
+        <div
+          ref={wrapper1Ref}
+          className={`${prefixCls}-wrapper1`}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            background: `conic-gradient(
+              from 0deg,
+              rgba(255, 111, 0, 0) 0%,
+              rgba(255, 111, 0, 0.8) 50%,
+              rgba(255, 111, 0, 0) 100%
+            )`,
+            mask: `url(#${circle1MaskId})`,
+            WebkitMask: `url(#${circle1MaskId})`,
           }}
-          transition={{
-            duration: 2,
-            ease: 'linear',
-            repeat: Infinity,
-            repeatType: 'loop',
-          }}
-        >
-          <motion.ellipse
-            cx="50"
-            cy="50"
-            fill="none"
-            stroke="url(#gradient)"
-            strokeWidth="6"
-            animate={{
-              rx: [28, 32, 28],
-              ry: [28, 10, 28],
-            }}
-            transition={{
-              duration: 2,
-              ease: 'easeInOut',
-              times: [0, 0.5, 1],
-              repeat: Infinity,
-              repeatType: 'loop',
-            }}
-          />
-        </motion.svg>
+        />
 
-        {/* 第二个椭圆 */}
-        <motion.svg
-          width="1em"
-          height="1em"
-          viewBox="0 0 100 100"
-          style={{ position: 'absolute' }}
-          animate={{
-            rotate: [0, -360],
+        {/* 第二个 wrapper */}
+        <div
+          ref={wrapper2Ref}
+          className={`${prefixCls}-wrapper2`}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            background: `conic-gradient(
+              from 0deg,
+              rgba(255, 111, 0, 0) 0%,
+              rgba(255, 111, 0, 0.8) 50%,
+              rgba(255, 111, 0, 0) 100%
+            )`,
+            mask: `url(#${circle2MaskId})`,
+            WebkitMask: `url(#${circle2MaskId})`,
           }}
-          transition={{
-            duration: 2,
-            ease: 'linear',
-            repeat: Infinity,
-            repeatType: 'loop',
-          }}
-        >
-          <motion.ellipse
-            cx="50"
-            cy="50"
-            fill="none"
-            stroke="url(#gradient)"
-            strokeWidth="6"
-            animate={{
-              rx: [10, 32, 28],
-              ry: [32, 10, 28],
-            }}
-            transition={{
-              duration: 2,
-              ease: 'easeInOut',
-              times: [0, 0.5, 1],
-              repeat: Infinity,
-              repeatType: 'loop',
-            }}
-          />
-        </motion.svg>
+        />
       </div>
+
+      {/* SVG mask 定义 */}
+      <svg
+        width="0"
+        height="0"
+        style={{ position: 'absolute' }}
+        aria-hidden="true"
+      >
+        <defs>
+          <mask id={circle1MaskId}>
+            <ellipse
+              rx="32"
+              ry="32"
+              cx="50"
+              cy="50"
+              fill="none"
+              stroke="white"
+              strokeWidth="8"
+            />
+          </mask>
+          <mask id={circle2MaskId}>
+            <ellipse
+              rx="12"
+              ry="32"
+              cx="50"
+              cy="50"
+              fill="none"
+              stroke="white"
+              strokeWidth="8"
+            />
+          </mask>
+        </defs>
+      </svg>
     </div>,
   );
 };
+
+export default Loading;
+

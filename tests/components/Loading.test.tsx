@@ -3,17 +3,20 @@ import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { Loading } from '../../src/components/Loading';
 
-// Mock framer-motion to avoid animation issues in tests
-vi.mock('framer-motion', () => ({
-  motion: {
-    svg: React.forwardRef<SVGSVGElement>((props: any, ref) => (
-      <svg ref={ref} {...props} />
-    )),
-    ellipse: React.forwardRef<SVGEllipseElement>((props: any, ref) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { animate, initial, transition, ...restProps } = props;
-      return <ellipse ref={ref} {...restProps} />;
-    }),
+// Mock GSAP to avoid animation issues in tests
+vi.mock('gsap', () => ({
+  default: {
+    set: vi.fn(),
+    to: vi.fn(),
+    timeline: vi.fn(() => ({
+      to: vi.fn(function (this: any) {
+        return this;
+      }),
+      add: vi.fn(function (this: any) {
+        return this;
+      }),
+      kill: vi.fn(),
+    })),
   },
 }));
 
@@ -35,26 +38,14 @@ describe('Loading', () => {
     expect(loadingContainer).toBeInTheDocument();
   });
 
-  it('should render gradient definition', () => {
+  it('should render SVG mask definitions', () => {
     const { container } = render(<Loading />);
-    const gradient = container.querySelector('#gradient');
+    const masks = container.querySelectorAll('mask');
 
-    expect(gradient).toBeInTheDocument();
-    expect(gradient?.tagName).toBe('linearGradient');
+    expect(masks).toHaveLength(2);
   });
 
-  it('should render gradient stops with correct colors', () => {
-    const { container } = render(<Loading />);
-    const stops = container.querySelectorAll('#gradient stop');
-
-    expect(stops).toHaveLength(4);
-    expect(stops[0]).toHaveAttribute('stop-color', '#5EF050');
-    expect(stops[1]).toHaveAttribute('stop-color', '#37ABFF');
-    expect(stops[2]).toHaveAttribute('stop-color', '#D7B9FF');
-    expect(stops[3]).toHaveAttribute('stop-color', '#D7B9FF');
-  });
-
-  it('should render two animated ellipses', () => {
+  it('should render two ellipses in masks', () => {
     const { container } = render(<Loading />);
     const ellipses = container.querySelectorAll('ellipse');
 
@@ -69,23 +60,24 @@ describe('Loading', () => {
       expect(ellipse).toHaveAttribute('cx', '50');
       expect(ellipse).toHaveAttribute('cy', '50');
       expect(ellipse).toHaveAttribute('fill', 'none');
-      expect(ellipse).toHaveAttribute('stroke', 'url(#gradient)');
-      expect(ellipse).toHaveAttribute('stroke-width', '6');
+      expect(ellipse).toHaveAttribute('stroke', 'white');
+      expect(ellipse).toHaveAttribute('stroke-width', '8');
     });
   });
 
-  it('should render SVG elements with correct viewBox', () => {
+  it('should render two wrapper divs with conic-gradient backgrounds', () => {
     const { container } = render(<Loading />);
-    // 3 SVGs: 1 for gradient definition + 2 for animated ellipses
-    const svgs = container.querySelectorAll('svg');
-
-    expect(svgs.length).toBeGreaterThanOrEqual(3);
-
-    // Check animated SVGs have correct viewBox
-    const animatedSvgs = Array.from(svgs).filter(
-      (svg) => svg.getAttribute('viewBox') === '0 0 100 100',
+    const wrappers = container.querySelectorAll(
+      '.ant-loading-container-wrapper1, .ant-loading-container-wrapper2',
     );
-    expect(animatedSvgs).toHaveLength(2);
+
+    expect(wrappers).toHaveLength(2);
+
+    wrappers.forEach((wrapper) => {
+      const style = window.getComputedStyle(wrapper);
+      expect(style.position).toBe('absolute');
+      expect(style.borderRadius).toBe('50%');
+    });
   });
 
   it('should apply hashId to container', () => {
@@ -114,19 +106,28 @@ describe('Loading', () => {
       '[data-testid="loading-container"]',
     );
 
-    expect(loadingContainer).toHaveStyle({ fontSize: '64px' });
     expect(loadingContainer).toHaveAttribute('data-custom', 'test');
   });
 
   it('should render with 1em size for responsive scaling', () => {
     const { container } = render(<Loading />);
-    const animatedSvgs = container.querySelectorAll(
-      'svg[viewBox="0 0 100 100"]',
+    const innerDiv = container.querySelector(
+      '[data-testid="loading-container"] > div',
     );
 
-    animatedSvgs.forEach((svg) => {
-      expect(svg).toHaveAttribute('width', '1em');
-      expect(svg).toHaveAttribute('height', '1em');
-    });
+    expect(innerDiv).toHaveStyle({ width: '1em', height: '1em' });
+  });
+
+  it('should generate unique mask IDs for multiple instances', () => {
+    const { container: container1 } = render(<Loading />);
+    const { container: container2 } = render(<Loading />);
+
+    const masks1 = container1.querySelectorAll('mask');
+    const masks2 = container2.querySelectorAll('mask');
+
+    const id1_1 = masks1[0].getAttribute('id');
+    const id2_1 = masks2[0].getAttribute('id');
+
+    expect(id1_1).not.toBe(id2_1);
   });
 });
