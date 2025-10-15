@@ -59,9 +59,35 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRadius: 'var(--radius-control-base)',
           background: '#FFFFFF',
           boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
+          color: 'var(--color-gray-text-secondary)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          '&:hover': {
+            backgroundColor: 'var(--color-gray-control-fill-hover)',
+            backgroundImage: 'none',
+          },
+          '&:active': {
+            backgroundColor: 'var(--color-gray-control-fill-active)',
+            backgroundImage: 'none',
+          },
+          '&-disabled': {
+            backgroundColor: 'var(--color-gray-bg-card-white)',
+            color: 'var(--color-gray-text-disabled)',
+            cursor: 'not-allowed',
+            backgroundImage: 'none',
+            boxShadow: 'var(--shadow-border-base)',
+          },
+          '&-disabled:hover': {
+            backgroundColor: 'var(--color-gray-bg-card-white)',
+            backgroundImage: 'none',
+          },
+          '&-disabled:active': {
+            backgroundColor: 'var(--color-gray-bg-card-white)',
+            backgroundImage: 'none',
+          },
           '& svg': {
             width: 16,
             height: 16,

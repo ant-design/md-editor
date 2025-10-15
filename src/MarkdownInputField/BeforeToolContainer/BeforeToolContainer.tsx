@@ -218,13 +218,13 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   };
 
   return wrapSSR(
-    <div>
+    <div style={{ width: '100%' }}>
       <div
         ref={containerRef}
         style={{
           display: 'flex',
           alignItems: 'center',
-          width: 'calc(100% - 8px)',
+          width: 'calc(100% - 20px)',
           gap: 8,
           backgroundColor: 'transparent',
           overflow: 'visible',
@@ -329,13 +329,24 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           <div
             className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}
             ref={indicatorRef}
-            onMouseEnter={() => setIsIndicatorHover(true)}
-            onMouseLeave={() => setIsIndicatorHover(false)}
-            onClick={() => setShowOverflowPopup((v) => !v)}
           >
             <div className={classNames(`${basePrefixCls}-overflow-container-placeholder`, hashId)}></div>
-            <div className={classNames(`${basePrefixCls}-overflow-container-menu`, hashId)}>
+            <div
+              className={classNames(
+                `${basePrefixCls}-overflow-container-menu`,
+                hashId,
+                {
+                  [`${basePrefixCls}-overflow-container-menu-disabled`]: props.menuDisabled,
+                }
+              )}
+              onMouseEnter={() => !props.menuDisabled && setIsIndicatorHover(true)}
+              onMouseLeave={() => !props.menuDisabled && setIsIndicatorHover(false)}
+              onClick={() => !props.menuDisabled && setShowOverflowPopup((v) => !v)}
+            >
               <Menu />
+              <div>
+              {props.menuDisabled}
+              </div>
             </div>
           </div>
         {showOverflowPopup && popupPos && typeof document !== 'undefined'

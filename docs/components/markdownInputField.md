@@ -404,7 +404,7 @@ export default () => {
         }}
         beforeToolsRender={() => {
           return (
-            <ActionItemContainer showMenu={true}>
+            <ActionItemContainer showMenu={false}>
               {new Array(12).fill(0).map((_, index) => (
                 <ActionItemBox
                   onClick={() => message.info('快捷技能' + index)}
