@@ -41,6 +41,13 @@ interface HistorySearchProps {
   onSearch?: (value: string) => void;
   /** 历史记录类型 */
   type?: 'chat' | 'task';
+  /** 搜索框配置 */
+  searchOptions?: {
+    /** 搜索输入框 placeholder 文案 */
+    placeholder?: string;
+    /** 未展开时的默认文本 */
+    text?: string;
+  };
 }
 
 /**
@@ -79,6 +86,7 @@ interface HistorySearchProps {
 export const HistorySearch: React.FC<HistorySearchProps> = ({
   onSearch,
   type,
+  searchOptions,
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
@@ -128,9 +136,10 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
       {isExpanded ? (
         <Input
           placeholder={
-            type === 'task'
+            searchOptions?.placeholder ??
+            (type === 'task'
               ? locale?.['chat.task.search.placeholder'] || '搜索任务'
-              : locale?.['chat.history.search.placeholder'] || '搜索话题'
+              : locale?.['chat.history.search.placeholder'] || '搜索话题')
           }
           prefix={loading ? <Spin size="small" /> : <SearchIcon />}
           onChange={(e) => {
@@ -155,9 +164,10 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
               flex: 1,
             }}
           >
-            {type === 'task'
-              ? locale?.['chat.history.historyTasks'] || '历史任务'
-              : locale?.['chat.history.historyChats'] || '历史对话'}
+            {searchOptions?.text ??
+              (type === 'task'
+                ? locale?.['chat.history.historyTasks'] || '历史任务'
+                : locale?.['chat.history.historyChats'] || '历史对话')}
           </div>
           <ActionIconBox
             onClick={handleToggleSearch}

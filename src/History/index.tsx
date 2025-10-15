@@ -119,6 +119,7 @@ export const History: React.FC<HistoryProps> = (props) => {
             searchKeyword={searchKeyword}
             onSearch={handleSearch}
             type={props.type}
+            searchOptions={props.agent?.searchOptions}
           />
         )}
 
