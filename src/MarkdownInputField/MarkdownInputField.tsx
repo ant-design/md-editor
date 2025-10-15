@@ -1,6 +1,5 @@
-import { ConfigProvider, message } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
 import React, {
   useContext,
@@ -13,32 +12,24 @@ import React, {
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { useRefFunction } from '../hooks/useRefFunction';
-import { I18nContext } from '../i18n';
 import {
   BaseMarkdownEditor,
   Elements,
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
-import {
-  AttachmentButton,
-  AttachmentButtonProps,
-  upLoadFileToServer,
-} from './AttachmentButton';
-import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover';
+import type { AttachmentButtonProps } from './AttachmentButton';
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
-import { AttachmentFile } from './AttachmentButton/types';
-import { RefinePromptButton } from './RefinePromptButton';
-import { SendButton } from './SendButton';
+import type { AttachmentFile } from './AttachmentButton/types';
+import { useFileUploadManager } from './FileUploadManager';
+import { QuickActions } from './QuickActions';
+import { SendActions } from './SendActions';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
 import { addGlowBorderOffset, useStyle } from './style';
 import { Suggestion } from './Suggestion';
-import {
-  VoiceInputButton,
-  type CreateRecognizer,
-  type VoiceRecognizer,
-} from './VoiceInput';
+import type { CreateRecognizer } from './VoiceInput';
+import { useVoiceInputManager } from './VoiceInputManager';
 
 /**
  * Markdown 输入字段的属性接口
@@ -217,6 +208,7 @@ export type MarkdownInputFieldProps = {
       MarkdownInputFieldProps['attachment'] & {
         isHover: boolean;
         isLoading: boolean;
+        collapseSendActions?: boolean;
         fileUploadStatus: 'uploading' | 'done' | 'error';
       },
     defaultActions: React.ReactNode[],
@@ -456,15 +448,18 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const { locale } = useContext(I18nContext);
   const baseCls = getPrefixCls('md-input-field');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const [isHover, setHover] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [refineStatus, setRefineStatus] = useState<'idle' | 'loading'>('idle');
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
   const actionsRef = React.useRef<HTMLDivElement>(null);
+  const [collapseSendActions, setCollapseSendActions] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    if (window.innerWidth < 460) return true;
+    return false;
+  });
 
   const [value, setValue] = useMergedState('', {
     value: props.value,
@@ -488,21 +483,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     onChange: props.attachment?.onFileMapChange,
   });
 
-  // 语音输入
-  const [recording, setRecording] = useState(false);
-  const recognizerRef = React.useRef<VoiceRecognizer | null>(null);
-  const pendingRef = React.useRef(false);
-  // 句子开始索引
-  const sentenceStartIndexRef = React.useRef<number>(0);
-
-  const updateCurrentSentence = useRefFunction((text: string) => {
-    const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
-    const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
-    const next = `${prefix}${text}`;
-    markdownEditorRef?.current?.store?.setMDContent(next);
-    setValue(next);
-  });
-
   // 是否需要多行布局
   const isMultiRowLayout = useMemo(() => {
     return !!(
@@ -518,47 +498,25 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     props?.toolsRender,
   ]);
 
-  const startRecording = useRefFunction(async () => {
-    if (!props.voiceRecognizer) return;
-    if (recording || pendingRef.current) return;
-    pendingRef.current = true;
-    try {
-      const recognizer = await props.voiceRecognizer({
-        onSentenceBegin: () => {
-          // 记录当前内容位置，重置本句累积
-          const current =
-            markdownEditorRef?.current?.store?.getMDContent() || '';
-          sentenceStartIndexRef.current = current.length;
-        },
-        onPartial: updateCurrentSentence,
-        onSentenceEnd: updateCurrentSentence,
-        onError: () => {
-          setRecording(false);
-          recognizerRef.current?.stop?.().catch(() => void 0);
-          recognizerRef.current = null;
-          pendingRef.current = false;
-        },
-      });
-      recognizerRef.current = recognizer;
-      await recognizerRef.current.start();
-      setRecording(true);
-    } catch (e) {
-      recognizerRef.current = null;
-    } finally {
-      pendingRef.current = false;
-    }
+  // 文件上传管理
+  const {
+    fileUploadDone,
+    supportedFormat,
+    uploadImage,
+    updateAttachmentFiles,
+    handleFileRemoval,
+    handleFileRetry,
+  } = useFileUploadManager({
+    attachment: props.attachment,
+    fileMap,
+    onFileMapChange: setFileMap,
   });
 
-  const stopRecording = useRefFunction(async () => {
-    if (!recording || pendingRef.current) return;
-    pendingRef.current = true;
-    try {
-      await recognizerRef.current?.stop();
-    } finally {
-      setRecording(false);
-      recognizerRef.current = null;
-      pendingRef.current = false;
-    }
+  // 语音输入管理
+  const { recording, startRecording, stopRecording } = useVoiceInputManager({
+    voiceRecognizer: props.voiceRecognizer,
+    editorRef: markdownEditorRef,
+    onValueChange: setValue,
   });
 
   useEffect(() => {
@@ -566,22 +524,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
 
-  useEffect(() => {
-    return () => {
-      recognizerRef.current?.stop().catch(() => void 0);
-    };
-  }, []);
-
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
-
-  // 判断是否所有文件上传完成
-  const fileUploadDone = useMemo(() => {
-    return fileMap?.size
-      ? Array.from(fileMap?.values() || []).every(
-          (file) => file.status === 'done',
-        )
-      : true;
-  }, [fileMap]);
 
   /**
    * 发送消息的函数
@@ -624,15 +567,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   });
 
   /**
-   * 更新附件文件列表
-   */
-  const updateAttachmentFiles = useRefFunction(
-    (newFileMap?: Map<string, AttachmentFile>) => {
-      setFileMap?.(new Map(newFileMap));
-    },
-  );
-
-  /**
    * 背景容器尺寸计算
    */
   const bgSize = useMemo(() => {
@@ -644,171 +578,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       : addGlowBorderOffset('100%');
     return { height, width };
   }, [props.style?.height, props.style?.width]);
-  // 默认支持的文件格式
-  const supportedFormat = useMemo(() => {
-    if (props.attachment?.supportedFormat) {
-      return props.attachment.supportedFormat;
-    }
-    return SupportedFileFormats.image;
-  }, [props.attachment?.supportedFormat]);
-
-  /**
-   * 上传图片的函数
-   * @description 该函数用于处理图片上传的逻辑，包括创建文件输入框和上传文件到服务器。
-   * @returns {Promise<void>} 上传操作的Promise
-   */
-  const uploadImage = useRefFunction(async () => {
-    const input = document.createElement('input');
-    input.id = 'uploadImage' + '_' + Math.random();
-    input.type = 'file';
-
-    input.accept = supportedFormat?.extensions?.join(',') || 'image/*';
-
-    input.multiple = true;
-    input.style.display = 'none';
-    input.onchange = async (e: any) => {
-      if (input.dataset.readonly) {
-        return;
-      }
-      input.dataset.readonly = 'true';
-      try {
-        await upLoadFileToServer(e.target.files, {
-          ...props.attachment,
-          fileMap,
-          onFileMapChange: (newFileMap) => {
-            updateAttachmentFiles(newFileMap);
-          },
-          locale,
-        });
-      } catch (error) {
-        console.error('Error uploading files:', error);
-      } finally {
-        input.value = '';
-        delete input.dataset.readonly;
-      }
-    };
-    if (input.dataset.readonly) {
-      return;
-    }
-    input.click();
-    input.remove();
-  });
-  /**
-   * 构造消息发送操作按钮数组
-   *
-   * @returns {React.ReactNode[]} 过滤后的操作按钮数组，包括：
-   *   - 附件按钮（如果启用）：用于管理文件上传
-   *   - 发送按钮：用于发送消息或停止当前操作
-   *
-   * 根据当前状态，发送按钮有不同行为：
-   * - 正在输入或加载时：点击会停止当前操作
-   * - 其他情况：点击会发送消息
-   *
-   * 依赖项包括附件配置、文件上传状态、加载状态、悬停状态、禁用状态、
-   * 输入状态、发送消息函数和回调函数等。
-   */
-  const defaultSendActions = useMemo(() => {
-    return [
-      props.attachment?.enable ? (
-        <AttachmentButton
-          uploadImage={uploadImage}
-          key="attachment-button"
-          {...props.attachment}
-          supportedFormat={supportedFormat}
-          fileMap={fileMap}
-          onFileMapChange={(fileMap) => {
-            updateAttachmentFiles(fileMap);
-          }}
-          disabled={!fileUploadDone}
-        />
-      ) : null,
-      props.voiceRecognizer ? (
-        <VoiceInputButton
-          key="voice-input-button"
-          recording={recording}
-          disabled={props.disabled}
-          onStart={startRecording}
-          onStop={stopRecording}
-        />
-      ) : null,
-      <SendButton
-        key="send-button"
-        typing={!!props.typing || isLoading}
-        isSendable={
-          props.allowEmptySubmit ||
-          !!value?.trim() ||
-          (fileMap && fileMap.size > 0) ||
-          recording
-        }
-        disabled={props.disabled}
-        onClick={() => {
-          if (props.typing || isLoading) {
-            setIsLoading(false);
-            props.onStop?.();
-            return;
-          }
-          if (props.onSend) {
-            sendMessage();
-          }
-        }}
-      />,
-    ].filter(Boolean);
-  }, [
-    props.attachment,
-    fileUploadDone,
-    value,
-    isLoading,
-    isHover,
-    props.disabled,
-    props.typing,
-    recording,
-    sendMessage,
-    props.onSend,
-    props.onStop,
-    props.voiceRecognizer,
-    props.allowEmptySubmit,
-  ]);
-
-  const handleFileRemoval = useRefFunction(async (file: AttachmentFile) => {
-    try {
-      await props.attachment?.onDelete?.(file);
-      const map = new Map(fileMap);
-      map.delete(file.uuid!);
-      updateAttachmentFiles(map);
-    } catch (error) {
-      console.error('Error removing file:', error);
-    }
-  });
-
-  const handleFileRetry = useRefFunction(async (file: AttachmentFile) => {
-    try {
-      file.status = 'uploading';
-      const map = new Map(fileMap);
-      map.set(file.uuid || '', file);
-      updateAttachmentFiles(map);
-
-      const url = await props.attachment?.upload?.(file);
-      if (url) {
-        file.status = 'done';
-        file.url = url;
-        map.set(file.uuid || '', file);
-        updateAttachmentFiles(map);
-        message.success(locale?.uploadSuccess || 'Upload success');
-      } else {
-        file.status = 'error';
-        map.set(file.uuid || '', file);
-        updateAttachmentFiles(map);
-        message.error(locale?.uploadFailed || 'Upload failed');
-      }
-    } catch (error) {
-      console.error('Error retrying file upload:', error);
-      file.status = 'error';
-      const map = new Map(fileMap);
-      map.set(file.uuid || '', file);
-      updateAttachmentFiles(map);
-      message.error(locale?.uploadFailed || 'Upload failed');
-    }
-  });
 
   const beforeTools = useMemo(() => {
     if (props.beforeToolsRender) {
@@ -820,29 +589,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     }
     return null;
   }, [props, isHover, isLoading]);
-
-  // 统一应用内容到编辑器与受控值
-  const applyEditorContent = useRefFunction((text: string) => {
-    markdownEditorRef?.current?.store?.setMDContent(text);
-    setValue(text);
-    props.onChange?.(text);
-  });
-
-  const handleRefine = useRefFunction(async () => {
-    if (!props.refinePrompt?.enable) return;
-    if (!props.refinePrompt?.onRefine) return;
-    if (refineStatus === 'loading') return;
-    const current =
-      markdownEditorRef?.current?.store?.getMDContent?.() ?? value ?? '';
-    setRefineStatus('loading');
-    try {
-      const refined = await props.refinePrompt.onRefine(current);
-      applyEditorContent(refined ?? '');
-      setRefineStatus('idle');
-    } catch (e) {
-      setRefineStatus('idle');
-    }
-  });
 
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -857,6 +603,26 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       }
     }
   });
+
+  useEffect(() => {
+    if (!inputRef.current) return;
+    if (process.env.NODE_ENV === 'test') return;
+    const handleResize = () => {
+      if (!inputRef.current) return;
+      if (process.env.NODE_ENV === 'test') return;
+      if (inputRef.current?.clientWidth < 481) {
+        setCollapseSendActions(true);
+      } else {
+        setCollapseSendActions(false);
+      }
+    };
+    handleResize();
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(inputRef.current);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   return wrapSSR(
     <>
@@ -1087,145 +853,93 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                       : []}
                   </div>
                 ) : null}
-                <RcResizeObserver
-                  onResize={(e) => {
-                    setRightPadding(e.offsetWidth);
+                <SendActions
+                  attachment={{
+                    ...props.attachment,
+                    supportedFormat,
+                    fileMap,
+                    onFileMapChange: setFileMap,
                   }}
-                >
-                  <div
-                    ref={actionsRef}
-                    contentEditable={false}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    className={classNames(
-                      `${baseCls}-send-actions`,
-                      {
-                        [`${baseCls}-send-has-tools`]: props.toolsRender,
-                      },
-                      hashId,
-                    )}
-                  >
-                    {props.actionsRender
-                      ? props.actionsRender(
-                          {
-                            value,
-                            ...props,
-                            fileMap,
-                            onFileMapChange: setFileMap,
-                            isHover,
-                            isLoading,
-                            fileUploadStatus: fileUploadDone
-                              ? 'done'
-                              : 'uploading',
-                          },
-                          defaultSendActions,
-                        )
-                      : defaultSendActions}
-                  </div>
-                </RcResizeObserver>
+                  voiceRecognizer={props.voiceRecognizer}
+                  value={value}
+                  disabled={props.disabled}
+                  typing={props.typing}
+                  isLoading={isLoading}
+                  fileUploadDone={fileUploadDone}
+                  recording={recording}
+                  collapseSendActions={collapseSendActions}
+                  allowEmptySubmit={props.allowEmptySubmit}
+                  uploadImage={uploadImage}
+                  onStartRecording={startRecording}
+                  onStopRecording={stopRecording}
+                  onSend={sendMessage}
+                  onStop={() => {
+                    setIsLoading(false);
+                    props.onStop?.();
+                  }}
+                  actionsRender={props.actionsRender}
+                  prefixCls={baseCls}
+                  hashId={hashId}
+                  hasTools={!!props.toolsRender}
+                  onResize={setRightPadding}
+                />
               </div>
             ) : (
-              <RcResizeObserver
-                onResize={(e) => {
-                  setRightPadding(e.offsetWidth);
+              <SendActions
+                attachment={{
+                  ...props.attachment,
+                  supportedFormat,
+                  fileMap,
+                  onFileMapChange: setFileMap,
                 }}
-              >
-                <div
-                  ref={actionsRef}
-                  contentEditable={false}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  onKeyDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  className={classNames(
-                    `${baseCls}-send-actions`,
-                    {
-                      [`${baseCls}-send-has-tools`]: props.toolsRender,
-                    },
-                    hashId,
-                  )}
-                >
-                  {props.actionsRender
-                    ? props.actionsRender(
-                        {
-                          value,
-                          ...props,
-                          fileMap,
-                          onFileMapChange: setFileMap,
-                          isHover,
-                          isLoading,
-                          fileUploadStatus: fileUploadDone
-                            ? 'done'
-                            : 'uploading',
-                        },
-                        defaultSendActions,
-                      )
-                    : defaultSendActions}
-                </div>
-              </RcResizeObserver>
+                voiceRecognizer={props.voiceRecognizer}
+                value={value}
+                disabled={props.disabled}
+                typing={props.typing}
+                isLoading={isLoading}
+                fileUploadDone={fileUploadDone}
+                recording={recording}
+                collapseSendActions={collapseSendActions}
+                allowEmptySubmit={props.allowEmptySubmit}
+                uploadImage={uploadImage}
+                onStartRecording={startRecording}
+                onStopRecording={stopRecording}
+                onSend={sendMessage}
+                onStop={() => {
+                  setIsLoading(false);
+                  props.onStop?.();
+                }}
+                actionsRender={props.actionsRender}
+                prefixCls={baseCls}
+                hashId={hashId}
+                hasTools={!!props.toolsRender}
+                onResize={setRightPadding}
+              />
             )}
             {props?.quickActionRender || props.refinePrompt?.enable ? (
-              <RcResizeObserver
-                onResize={(e) => {
-                  setTopRightPadding(e.offsetWidth);
-                  try {
-                    const styles = window.getComputedStyle(
-                      quickActionsRef.current as Element,
-                    );
-                    const right = parseFloat(styles.right || '0');
-                    if (!Number.isNaN(right)) setQuickRightOffset(right);
-                  } catch {}
+              <QuickActions
+                ref={quickActionsRef}
+                value={value}
+                fileMap={fileMap}
+                onFileMapChange={setFileMap}
+                isHover={isHover}
+                isLoading={isLoading}
+                disabled={props.disabled}
+                fileUploadStatus={fileUploadDone ? 'done' : 'uploading'}
+                refinePrompt={props.refinePrompt}
+                editorRef={markdownEditorRef}
+                onValueChange={(text) => {
+                  setValue(text);
+                  props.onChange?.(text);
                 }}
-              >
-                <div
-                  ref={quickActionsRef}
-                  contentEditable={false}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  onKeyDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  className={classNames(`${baseCls}-quick-actions`, hashId)}
-                >
-                  {(props?.quickActionRender
-                    ? props?.quickActionRender({
-                        value,
-                        fileMap,
-                        onFileMapChange: setFileMap,
-                        ...props,
-                        isHover,
-                        isLoading,
-                        fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
-                      })
-                    : []
-                  )?.concat(
-                    props.refinePrompt?.enable
-                      ? [
-                          <RefinePromptButton
-                            key="refine-prompt"
-                            isHover={isHover}
-                            disabled={props.disabled}
-                            status={refineStatus}
-                            onRefine={handleRefine}
-                          />,
-                        ]
-                      : [],
-                  )}
-                </div>
-              </RcResizeObserver>
+                quickActionRender={props.quickActionRender as any}
+                prefixCls={baseCls}
+                hashId={hashId}
+                onResize={(width, rightOffset) => {
+                  setTopRightPadding(width);
+                  setQuickRightOffset(rightOffset);
+                }}
+              />
             ) : null}
           </div>
         </div>

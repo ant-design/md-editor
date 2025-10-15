@@ -9,7 +9,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       height: '32px',
-      width: '32px',
+      minWidth: '32px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -18,6 +18,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderRadius: '8px',
       backdropFilter: 'blur(20px)',
       fontSize: '16px',
+      gap: '4px',
+      color: 'var(--color-gray-text-secondary)',
       '&:hover': {
         background: 'rgba(0, 28, 57, 0.0353)',
       },

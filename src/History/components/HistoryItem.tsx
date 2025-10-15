@@ -143,6 +143,8 @@ interface HistoryItemProps {
   type?: 'chat' | 'task';
   /** 正在运行的记录ID列表，这些记录将显示运行图标 */
   runningId?: string[];
+  /** 格式化Item右下角日期函数 */
+  itemDateFormatter?: (date: number | string | Date) => string;
 }
 
 /**
@@ -174,6 +176,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
     extra,
     runningId,
     customOperationExtra,
+    itemDateFormatter,
   }) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const prefixCls = getPrefixCls('agent-chat-history-menu');
@@ -317,7 +320,9 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
             item={item}
             onFavorite={onFavorite}
           >
-            {formatTime(item.gmtCreate)}
+            {itemDateFormatter
+              ? itemDateFormatter(item.gmtCreate as number)
+              : formatTime(item.gmtCreate)}
           </HistoryActionsBox>
           {isValidCustomOperation(customOperationExtra) && (
             <div className={`${prefixCls}-extra-actions ${hashId}`}>
@@ -365,6 +370,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
     type,
     runningId,
     customOperationExtra,
+    itemDateFormatter,
   }) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const prefixCls = getPrefixCls('agent-chat-history-menu');
@@ -563,7 +569,9 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                   </div>
                   <Divider type="vertical" />
                   <span style={{ minWidth: 26 }}>
-                    {formatTime(item.gmtCreate)}
+                    {itemDateFormatter
+                      ? itemDateFormatter(item.gmtCreate as number)
+                      : formatTime(item.gmtCreate)}
                   </span>
                 </div>
               </Tooltip>
@@ -585,7 +593,9 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
             item={item}
             onFavorite={onFavorite}
           >
-            {formatTime(item.gmtCreate)}
+            {itemDateFormatter
+              ? itemDateFormatter(item.gmtCreate as number)
+              : formatTime(item.gmtCreate)}
           </HistoryActionsBox>
           {isValidCustomOperation(customOperationExtra) && (
             <div className={`${prefixCls}-extra-actions ${hashId}`}>
@@ -661,6 +671,7 @@ export const HistoryItem = React.memo<HistoryItemProps>(
     type,
     runningId,
     customOperationExtra,
+    itemDateFormatter,
   }) => {
     const isTask = type === 'task';
     const shouldShowIcon =
@@ -684,6 +695,7 @@ export const HistoryItem = React.memo<HistoryItemProps>(
       type,
       runningId,
       customOperationExtra,
+      itemDateFormatter,
     };
 
     /**

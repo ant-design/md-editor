@@ -248,6 +248,8 @@ export const UserBubble: React.FC<
                 hashId,
                 {
                   [`${prefixClass}-bubble-avatar-title-pure`]: props.pure,
+                  [`${prefixClass}-bubble-avatar-title-quote`]:
+                    props.quote?.quoteDescription,
                 },
               )}
             >

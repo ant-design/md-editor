@@ -44,6 +44,8 @@ export interface HistoryListConfig {
   ) => React.ReactNode;
   /** 自定义日期格式化函数 */
   customDateFormatter?: (date: number | string | Date) => string;
+  /** 格式化Item右下角日期函数 */
+  itemDateFormatter?: (date: number | string | Date) => string;
   /** 分组函数 */
   groupBy?: (item: HistoryDataType) => string;
   /** 会话排序函数 */

@@ -15,6 +15,7 @@ export interface HistoryProps {
   onClick?: (sessionId: string, item: HistoryDataType) => void;
   onDeleteItem?: (sessionId: string) => void;
   customDateFormatter?: (date: number | string | Date) => string;
+  itemDateFormatter?: (date: number | string | Date) => string;
   groupBy?: (item: HistoryDataType) => string;
   groupLabelRender?: HistoryListConfig['groupLabelRender'];
   extra?: (item: HistoryDataType) => React.ReactElement;
@@ -44,6 +45,13 @@ export interface HistoryProps {
     onNewChat?: () => void;
     /** 正在运行的记录ID列表，这些记录将显示运行图标 */
     runningId?: string[];
+    /** 搜索框配置 */
+    searchOptions?: {
+      /** 搜索输入框 placeholder 文案 */
+      placeholder?: string;
+      /** 未展开时的默认文本 */
+      text?: string;
+    };
   };
   /** 插槽 */
   slots?: {

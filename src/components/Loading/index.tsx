@@ -45,6 +45,12 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
             <stop offset="0%" stopColor="#5EF050" stopOpacity="1" />
             <stop offset="20%" stopColor="#37ABFF" stopOpacity="1" />
             <stop offset="55%" stopColor="#D7B9FF" stopOpacity="0.95" />
+            <stop offset="75%" stopColor="#D7B9FF" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="gradient1" x1="60%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#5EF050" stopOpacity="1" />
+            <stop offset="20%" stopColor="#37ABFF" stopOpacity="1" />
+            <stop offset="55%" stopColor="#D7B9FF" stopOpacity="0.95" />
             <stop offset="75%" stopColor="#D7B9FF" stopOpacity="0.05" />
           </linearGradient>
         </defs>
@@ -57,17 +63,17 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
           height: '1em',
         }}
       >
-        {/* 第一个椭圆 */}
+        {/* 第一个椭圆 - Circle2 (对应 wrapper2) */}
         <motion.svg
           width="1em"
           height="1em"
           viewBox="0 0 100 100"
           style={{ position: 'absolute' }}
           animate={{
-            rotate: [60, 420],
+            rotate: [-360, 0], // wrapper2 逆时针旋转渐变
           }}
           transition={{
-            duration: 2,
+            duration: 3,
             ease: 'linear',
             repeat: Infinity,
             repeatType: 'loop',
@@ -77,33 +83,48 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
             cx="50"
             cy="50"
             fill="none"
-            stroke="url(#gradient)"
+            stroke="url(#gradient1)"
             strokeWidth="6"
+            style={{ transformOrigin: 'center center' }}
             animate={{
-              rx: [28, 32, 28],
-              ry: [28, 10, 28],
+              // 旋转动画：rotation: 300 → (300-25-90=185) → (185+180=365) → (365-25-40=300)
+              rotate: [300, 185, 365, 300],
+              // rx 动画：12 → 0 → 16 → 0 → 8 → 0 → 28 → 0 → 12
+              rx: [12, 0, 16, 0, 8, 0, 28, 0, 12],
+              ry: 32, // 保持固定
             }}
             transition={{
-              duration: 2,
-              ease: 'easeInOut',
-              times: [0, 0.5, 1],
-              repeat: Infinity,
-              repeatType: 'loop',
+              rotate: {
+                duration: 3,
+                ease: 'linear',
+                times: [0, 0.4167, 0.7667, 1], // 1.25/3, 2.3/3, 1
+                repeat: Infinity,
+                repeatType: 'loop',
+              },
+              rx: {
+                duration: 3,
+                ease: 'linear',
+                times: [
+                  0, 0.15, 0.2567, 0.4167, 0.5, 0.5333, 0.6667, 0.7667, 1,
+                ],
+                repeat: Infinity,
+                repeatType: 'loop',
+              },
             }}
           />
         </motion.svg>
 
-        {/* 第二个椭圆 */}
+        {/* 第二个椭圆 - Circle1 (对应 wrapper1) */}
         <motion.svg
           width="1em"
           height="1em"
           viewBox="0 0 100 100"
           style={{ position: 'absolute' }}
           animate={{
-            rotate: [0, -360],
+            rotate: [0, -360], // wrapper1 顺时针旋转渐变
           }}
           transition={{
-            duration: 2,
+            duration: 3,
             ease: 'linear',
             repeat: Infinity,
             repeatType: 'loop',
@@ -115,16 +136,32 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
             fill="none"
             stroke="url(#gradient)"
             strokeWidth="6"
+            style={{ transformOrigin: 'center center' }}
             animate={{
-              rx: [10, 32, 28],
-              ry: [32, 10, 28],
+              // 旋转动画：rotation: 30 → (30-30-30-15-90-45=-180) → (-180+30+30+30+120=30)
+              rotate: [30, -280, 30],
+              // rx 动画：32 → 0 → 8 → 0 → 24 → 0 → 16 → 0 → 30 → 32
+              rx: [32, 0, 8, 0, 24, 0, 16, 0, 30, 32],
+              ry: 32, // 保持固定
             }}
             transition={{
-              duration: 2,
-              ease: 'easeInOut',
-              times: [0, 0.5, 1],
-              repeat: Infinity,
-              repeatType: 'loop',
+              rotate: {
+                duration: 3,
+                ease: 'linear',
+                times: [0, 0.5267, 1], // 1.58/3, 1
+                repeat: Infinity,
+                repeatType: 'loop',
+              },
+              rx: {
+                duration: 3,
+                ease: 'linear',
+                times: [
+                  0, 0.2567, 0.3467, 0.38, 0.4867, 0.5967, 0.7067, 0.8167,
+                  0.9433, 1,
+                ],
+                repeat: Infinity,
+                repeatType: 'loop',
+              },
             }}
           />
         </motion.svg>

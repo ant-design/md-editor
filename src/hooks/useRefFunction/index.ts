@@ -1,4 +1,4 @@
-﻿import { useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 /**
  * useRefFunction Hook - 函数引用 Hook
