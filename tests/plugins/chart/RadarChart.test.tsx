@@ -135,11 +135,7 @@ describe('RadarChart', () => {
 
     it('应该正确渲染数据时间', () => {
       render(
-        <RadarChart
-          data={sampleData}
-          title="雷达图"
-          dataTime="2025-10-15"
-        />,
+        <RadarChart data={sampleData} title="雷达图" dataTime="2025-10-15" />,
       );
 
       expect(screen.getByTestId('chart-datatime')).toHaveTextContent(
@@ -330,9 +326,7 @@ describe('RadarChart', () => {
         },
       ];
 
-      render(
-        <RadarChart data={dataWithFilterLabel} title="多维度筛选数据" />,
-      );
+      render(<RadarChart data={dataWithFilterLabel} title="多维度筛选数据" />);
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();
     });
@@ -585,4 +579,3 @@ describe('RadarChart', () => {
     });
   });
 });
-
