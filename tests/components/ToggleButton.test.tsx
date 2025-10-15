@@ -58,7 +58,11 @@ describe('ToggleButton 组件', () => {
   it('应该在禁用状态下阻止点击', () => {
     const handleClick = vi.fn();
 
-    render(<ToggleButton disabled onClick={handleClick}>禁用</ToggleButton>);
+    render(
+      <ToggleButton disabled onClick={handleClick}>
+        禁用
+      </ToggleButton>,
+    );
 
     const button = screen.getByRole('button');
     expect(button).toBeDisabled();
@@ -189,4 +193,3 @@ describe('ToggleButton 组件', () => {
     expect(button).toBeDisabled();
   });
 });
-

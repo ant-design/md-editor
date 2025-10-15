@@ -34,9 +34,7 @@ describe('SuggestionList 组件', () => {
 
   it('应该支持项的自定义 onClick', async () => {
     const customClick = vi.fn();
-    const items = [
-      { key: '1', text: '自定义点击', onClick: customClick },
-    ];
+    const items = [{ key: '1', text: '自定义点击', onClick: customClick }];
 
     render(<SuggestionList items={items} />);
 
@@ -122,9 +120,7 @@ describe('SuggestionList 组件', () => {
 
   it('应该显示项图标', () => {
     const ItemIcon = () => <span data-testid="item-icon">🔍</span>;
-    const items = [
-      { key: '1', text: '带图标', icon: <ItemIcon /> },
-    ];
+    const items = [{ key: '1', text: '带图标', icon: <ItemIcon /> }];
 
     render(<SuggestionList items={items} />);
 
@@ -133,9 +129,7 @@ describe('SuggestionList 组件', () => {
 
   it('应该显示项的操作图标', () => {
     const ActionIcon = () => <span data-testid="action-icon">→</span>;
-    const items = [
-      { key: '1', text: '操作图标', actionIcon: <ActionIcon /> },
-    ];
+    const items = [{ key: '1', text: '操作图标', actionIcon: <ActionIcon /> }];
 
     render(<SuggestionList items={items} />);
 
@@ -322,4 +316,3 @@ describe('SuggestionList 组件', () => {
     });
   });
 });
-

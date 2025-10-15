@@ -109,7 +109,9 @@ describe('SwitchButton 组件', () => {
     const { container } = render(<SwitchButton>默认图标</SwitchButton>);
 
     // 初始状态应该显示 ChevronDown
-    expect(container.querySelector('.ant-switch-button-trigger-icon')).toBeInTheDocument();
+    expect(
+      container.querySelector('.ant-switch-button-trigger-icon'),
+    ).toBeInTheDocument();
   });
 
   it('应该在激活时显示不同的图标', () => {
@@ -117,7 +119,9 @@ describe('SwitchButton 组件', () => {
       <SwitchButton active={true}>激活图标</SwitchButton>,
     );
 
-    expect(container.querySelector('.ant-switch-button-trigger-icon')).toBeInTheDocument();
+    expect(
+      container.querySelector('.ant-switch-button-trigger-icon'),
+    ).toBeInTheDocument();
   });
 
   it('应该支持自定义触发图标', () => {
@@ -202,11 +206,7 @@ describe('SwitchButton 组件', () => {
   });
 
   it('应该正确显示图标和文本', () => {
-    render(
-      <SwitchButton icon={<TestIcon />}>
-        图标和文本
-      </SwitchButton>,
-    );
+    render(<SwitchButton icon={<TestIcon />}>图标和文本</SwitchButton>);
 
     expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     expect(screen.getByText('图标和文本')).toBeInTheDocument();
@@ -244,4 +244,3 @@ describe('SwitchButton 组件', () => {
     expect(container.querySelector('.ant-switch-button')).toBeInTheDocument();
   });
 });
-
