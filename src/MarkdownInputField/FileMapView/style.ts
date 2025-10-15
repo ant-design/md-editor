@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
@@ -88,11 +88,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 'var(--radius-card-base)',
         border: 'none',
         padding: 6,
-      },
-      '&-image-view': {
-        '&:hover': {
-          transform: 'scale(1.02)',
+        img: {
+          maxWidth: '100%',
+          maxHeight: '100%',
+          borderRadius: 'inherit',
           transition: 'transform 0.3s',
+        },
+        '&:hover': {
+          img: {
+            transform: 'scale(1.1)',
+            transition: 'transform 0.3s',
+          },
         },
       },
       '&-more-file-container': {
