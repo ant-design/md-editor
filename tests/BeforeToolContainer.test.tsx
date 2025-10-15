@@ -14,7 +14,7 @@ describe('ActionItemContainer Component', () => {
       <button key={`item-${i}`} data-testid={`item-${i}`}>
         Item {i}
       </button>
-    ));
+    )) as React.ReactElement[];
   };
 
   it('应该渲染基本容器', () => {

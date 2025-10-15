@@ -523,7 +523,9 @@ describe('RadarChart', () => {
 
   describe('错误处理测试', () => {
     it('应该捕获并显示渲染错误', () => {
-      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       render(<RadarChart data={sampleData} title="错误处理测试" />);
 
@@ -552,7 +554,7 @@ describe('RadarChart', () => {
   describe('variant 属性测试', () => {
     it('应该支持 variant 属性', () => {
       render(
-        <RadarChart data={sampleData} variant="card" title="卡片样式" />,
+        <RadarChart data={sampleData} variant="outline" title="边框样式" />,
       );
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();

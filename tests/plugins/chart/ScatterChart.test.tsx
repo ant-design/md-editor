@@ -463,7 +463,9 @@ describe('ScatterChart', () => {
 
   describe('错误处理测试', () => {
     it('应该捕获并显示渲染错误', () => {
-      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       // 创建一个会导致错误的数据
       const errorData: any = [{ category: 'A组', type: '产品A', x: 1, y: 10 }];
@@ -522,7 +524,7 @@ describe('ScatterChart', () => {
   describe('variant 属性测试', () => {
     it('应该支持 variant 属性', () => {
       render(
-        <ScatterChart data={sampleData} variant="card" title="卡片样式" />,
+        <ScatterChart data={sampleData} variant="outline" title="边框样式" />,
       );
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();
