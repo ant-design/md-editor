@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
+import { Transforms } from 'slate';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ChartAttrToolBar } from '../../../src/plugins/chart/ChartAttrToolBar';
 
@@ -295,11 +296,9 @@ describe('ChartAttrToolBar', () => {
 
     it('应该处理无效的节点', () => {
       const invalidNode = null as any;
-      const { Transforms } = require('slate');
 
       // Mock Transforms.delete
-      const originalDelete = Transforms.delete;
-      Transforms.delete = vi.fn();
+      const deleteSpy = vi.spyOn(Transforms, 'delete');
 
       render(
         <ConfigProvider>
@@ -310,10 +309,10 @@ describe('ChartAttrToolBar', () => {
       const deleteButton = screen.getByLabelText('delete');
       fireEvent.click(deleteButton);
 
-      expect(Transforms.delete).not.toHaveBeenCalled();
+      expect(deleteSpy).not.toHaveBeenCalled();
 
       // 恢复原始函数
-      Transforms.delete = originalDelete;
+      deleteSpy.mockRestore();
     });
   });
 

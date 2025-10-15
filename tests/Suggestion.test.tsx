@@ -3,7 +3,10 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Suggestion } from '../src/MarkdownInputField/Suggestion';
+import {
+  Suggestion,
+  SuggestionConnext,
+} from '../src/MarkdownInputField/Suggestion';
 
 // Mock antd Dropdown
 vi.mock('antd', async () => {
@@ -13,7 +16,15 @@ vi.mock('antd', async () => {
     Dropdown: ({ children, menu, open }: any) => (
       <div>
         {children}
-        {open && <div data-testid="dropdown-menu">{menu}</div>}
+        {open && (
+          <div data-testid="dropdown-menu">
+            {menu?.items
+              ? menu.items.map((item: any, index: number) => (
+                  <div key={item.key || index}>{item.label}</div>
+                ))
+              : null}
+          </div>
+        )}
       </div>
     ),
     Spin: ({ children }: any) => <div data-testid="spin">{children}</div>,
@@ -39,9 +50,7 @@ describe('Suggestion', () => {
     it('should provide context to children', () => {
       let contextValue;
       const TestComponent = () => {
-        const context = React.useContext(
-          require('../src/MarkdownInputField/Suggestion').SuggestionConnext,
-        );
+        const context = React.useContext(SuggestionConnext);
         contextValue = context;
         return <div>Test</div>;
       };
@@ -244,9 +253,7 @@ describe('Suggestion', () => {
     it('should provide onSelectRef to context', () => {
       let contextValue;
       const TestComponent = () => {
-        const context = React.useContext(
-          require('../src/MarkdownInputField/Suggestion').SuggestionConnext,
-        );
+        const context = React.useContext(SuggestionConnext);
         contextValue = context;
         return null;
       };
@@ -265,9 +272,7 @@ describe('Suggestion', () => {
       const onSelect = vi.fn();
 
       const TestComponent = () => {
-        const context = React.useContext(
-          require('../src/MarkdownInputField/Suggestion').SuggestionConnext,
-        );
+        const context = React.useContext(SuggestionConnext);
 
         React.useEffect(() => {
           if (context.onSelectRef) {
@@ -302,9 +307,7 @@ describe('Suggestion', () => {
     it('should provide triggerNodeContext to context', () => {
       let contextValue;
       const TestComponent = () => {
-        const context = React.useContext(
-          require('../src/MarkdownInputField/Suggestion').SuggestionConnext,
-        );
+        const context = React.useContext(SuggestionConnext);
         contextValue = context;
         return null;
       };
