@@ -92,6 +92,7 @@ export const History: React.FC<HistoryProps> = (props) => {
     agent: props.agent,
     extra: props.extra,
     customDateFormatter: props.customDateFormatter,
+    itemDateFormatter: props.itemDateFormatter,
     groupBy: props.groupBy,
     sessionSort: props.sessionSort,
     type: props.type,

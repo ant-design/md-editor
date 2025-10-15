@@ -15,6 +15,7 @@ export interface HistoryProps {
   onClick?: (sessionId: string, item: HistoryDataType) => void;
   onDeleteItem?: (sessionId: string) => void;
   customDateFormatter?: (date: number | string | Date) => string;
+  itemDateFormatter?: (date: number | string | Date) => string;
   groupBy?: (item: HistoryDataType) => string;
   groupLabelRender?: HistoryListConfig['groupLabelRender'];
   extra?: (item: HistoryDataType) => React.ReactElement;
