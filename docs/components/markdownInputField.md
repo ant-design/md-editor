@@ -19,8 +19,6 @@ group:
 - 🍵 支持插槽输入
 - 🎯 支持技能模式
 
-## 基本使用
-
 ```tsx
 import { Space, message } from 'antd';
 import {
@@ -29,11 +27,13 @@ import {
   GlobalOutlined,
   EditOutlined,
 } from '@ant-design/icons';
+import { Sparkles } from '@sofa-design/icons';
 import {
   ActionItemBox,
   ActionItemContainer,
   MarkdownInputField,
   SuggestionList,
+  ActionIconBox,
   ToggleButton,
   CreateRecognizer,
 } from '@ant-design/md-editor';
@@ -99,25 +99,45 @@ export default () => {
             });
           },
         }}
+        actionsRender={(props, defaultActions) => {
+          return [
+            <ActionIconBox
+              showTitle={props.collapseSendActions}
+              title="智能改写"
+              key="edit"
+              style={{
+                fontSize: 16,
+                color: 'var(--color-gray-text-secondary)',
+              }}
+            >
+              <Sparkles />
+            </ActionIconBox>,
+            ...defaultActions,
+          ];
+        }}
         beforeToolsRender={() => {
-        return (
-          <ActionItemContainer showMenu={true}>
-            {new Array(12).fill(0).map((_, index) => (
-              <ActionItemBox
-                onClick={() => message.info('快捷技能' + index)}
-                icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
-                iconSize={16}
-                size="small"
-                title={
-                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>{'快捷技能' + index}</span>
-                }
-                disabled={index < 2}
-                key={'快捷技能' + index}
-              />
-            ))}
-          </ActionItemContainer>
-        );
-      }}
+          return (
+            <ActionItemContainer showMenu={true}>
+              {new Array(12).fill(0).map((_, index) => (
+                <ActionItemBox
+                  onClick={() => message.info('快捷技能' + index)}
+                  icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                  iconSize={16}
+                  size="small"
+                  title={
+                    <span
+                      style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                    >
+                      {'快捷技能' + index}
+                    </span>
+                  }
+                  disabled={index < 2}
+                  key={'快捷技能' + index}
+                />
+              ))}
+            </ActionItemContainer>
+          );
+        }}
         toolsRender={() => [
           <ToggleButton
             key="bold"
@@ -279,6 +299,203 @@ const App = () => {
   );
 };
 export default App;
+```
+
+### 小屏幕
+
+```tsx
+import { Space, message } from 'antd';
+import {
+  DownOutlined,
+  AimOutlined,
+  GlobalOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
+import { Sparkles } from '@sofa-design/icons';
+import {
+  ActionItemBox,
+  ActionItemContainer,
+  MarkdownInputField,
+  SuggestionList,
+  ActionIconBox,
+  ToggleButton,
+  CreateRecognizer,
+} from '@ant-design/md-editor';
+
+const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+  let timer: ReturnType<typeof setInterval>;
+  return {
+    start: async () => {
+      // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
+      let i = 0;
+      timer = setInterval(() => {
+        onPartial(`语音片段${i} `);
+        i += 1;
+      }, 500);
+    },
+    stop: async () => {
+      clearInterval(timer);
+    },
+  };
+};
+export default () => {
+  const [value, setValue] = React.useState(
+    '`${placeholder:目标场景}` 今天的拒绝率为什么下降 `${placeholder:目标事件}` 输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
+  );
+
+  const markdownRef = React.useRef<MarkdownEditorInstance>(null);
+
+  return (
+    <div
+      style={{
+        maxWidth: 460,
+        border: '1px solid #eee',
+        padding: 16,
+        margin: 'auto',
+      }}
+    >
+      <MarkdownInputField
+        value={value}
+        inputRef={markdownRef}
+        voiceRecognizer={createRecognizer}
+        attachment={{
+          enable: true,
+          accept: '.pdf,.doc,.docx,image/*',
+          maxSize: 10 * 1024 * 1024, // 10MB
+          upload: async (file, index) => {
+            if (index == 3) {
+              throw new Error('上传失败');
+            }
+            // 模拟上传文件
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            return URL.createObjectURL(file);
+          },
+          onDelete: async (file) => {
+            console.log('删除文件:', file);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+          },
+        }}
+        tagInputProps={{
+          type: 'dropdown',
+          enable: true,
+          items: async (props) => {
+            if (props?.placeholder === '目标场景') {
+              return [];
+            }
+            return ['tag1', 'tag2', 'tag3'].map((item) => {
+              return {
+                key: item,
+                label: props?.placeholder + item,
+              };
+            });
+          },
+        }}
+        actionsRender={(props, defaultActions) => {
+          return [
+            <ActionIconBox
+              showTitle={props.collapseSendActions}
+              title="智能改写"
+              key="edit"
+              style={{
+                fontSize: 16,
+                color: 'var(--color-gray-text-secondary)',
+              }}
+            >
+              <Sparkles />
+            </ActionIconBox>,
+            ...defaultActions,
+          ];
+        }}
+        beforeToolsRender={() => {
+          return (
+            <ActionItemContainer showMenu={true}>
+              {new Array(12).fill(0).map((_, index) => (
+                <ActionItemBox
+                  onClick={() => message.info('快捷技能' + index)}
+                  icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                  iconSize={16}
+                  size="small"
+                  title={
+                    <span
+                      style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                    >
+                      {'快捷技能' + index}
+                    </span>
+                  }
+                  disabled={index < 2}
+                  key={'快捷技能' + index}
+                />
+              ))}
+            </ActionItemContainer>
+          );
+        }}
+        toolsRender={() => [
+          <ToggleButton
+            key="bold"
+            triggerIcon={<DownOutlined />}
+            onClick={() => console.log('DeepThink clicked')}
+          >
+            DeepThink
+          </ToggleButton>,
+          <ToggleButton
+            key="italic"
+            icon={<GlobalOutlined />}
+            onClick={() => console.log('深度思考 clicked')}
+          >
+            深度思考
+          </ToggleButton>,
+          <ToggleButton
+            key="link"
+            icon={<AimOutlined />}
+            onClick={() => console.log('联网搜索 clicked')}
+          >
+            联网搜索
+          </ToggleButton>,
+        ]}
+        onChange={(newValue) => {
+          setValue(newValue);
+          console.log('newValue', newValue);
+        }}
+        placeholder="请输入内容..."
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }}
+      />
+      <SuggestionList
+        style={{
+          marginTop: 8,
+        }}
+        items={[
+          {
+            key: 'qwe',
+            icon: '💸',
+            text: '关税对消费类基金的影响',
+            actionIcon: <EditOutlined />,
+          },
+          {
+            key: 'asd',
+            icon: '📝',
+            text: '恒生科技指数基金相关新闻',
+            actionIcon: <EditOutlined />,
+          },
+          {
+            key: 'zxc',
+            icon: '📊',
+            text: '数据分析与可视化',
+            actionIcon: <EditOutlined />,
+          },
+        ]}
+        layout={'horizontal'}
+        onItemClick={() => {
+          markdownRef?.current?.store?.setMDContent(
+            '关税对 `${placeholder:消费类}` 基金的影响',
+          );
+        }}
+      />
+    </div>
+  );
+};
 ```
 
 ### 启用语音输入按钮（支持句级回调）

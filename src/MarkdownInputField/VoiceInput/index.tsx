@@ -27,6 +27,7 @@ type VoiceInputButtonProps = {
   onStart: () => Promise<void>;
   onStop: () => Promise<void>;
   style?: React.CSSProperties;
+  title?: React.ReactNode;
 };
 
 /**
@@ -40,6 +41,31 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const baseCls = getPrefixCls('md-input-field-voice-button');
   const { wrapSSR, hashId } = useStyle(baseCls);
+
+  const dom = props.title ? (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 4,
+      }}
+    >
+      {recording ? <VoicingLottie size={16} /> : <Mic />}
+      <div
+        style={{
+          font: 'var(--font-text-body-base)',
+          letterSpacing: 'var(--letter-spacing-body-base, normal)',
+          color: 'var(--color-gray-text-default)',
+        }}
+      >
+        {props.title}
+      </div>
+    </div>
+  ) : recording ? (
+    <VoicingLottie size={16} />
+  ) : (
+    <Mic />
+  );
 
   return wrapSSR(
     <Tooltip
@@ -64,9 +90,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
           }
         }}
       >
-        <ErrorBoundary fallback={<div />}>
-          {recording ? <VoicingLottie size={16} /> : <Mic />}
-        </ErrorBoundary>
+        <ErrorBoundary fallback={<div />}>{dom}</ErrorBoundary>
       </div>
     </Tooltip>,
   );

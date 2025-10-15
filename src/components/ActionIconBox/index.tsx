@@ -106,7 +106,50 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
   }, [loading, props.loading, props?.iconStyle]);
 
   return wrapSSR(
-    <Tooltip title={props.title} {...props.tooltipProps}>
+    props.title ? (
+      <Tooltip title={props.title} {...props.tooltipProps}>
+        <span
+          data-testid={props['data-testid'] || 'action-icon-box'}
+          role="button"
+          tabIndex={0}
+          aria-label={props.title?.toString()}
+          title={props.title?.toString()}
+          className={cx(prefixCls, hashId, props.className, {
+            [`${prefixCls}-danger`]: props.type === 'danger',
+            [`${prefixCls}-primary`]: props.type === 'primary',
+            [`${prefixCls}-border-less`]: props.borderLess,
+            [`${prefixCls}-active`]: props.active,
+            [`${prefixCls}-transform`]: props.transform,
+            [`${prefixCls}-${props.theme || 'light'}`]: props.theme || 'light',
+            [`${prefixCls}-noPadding`]: props.noPadding,
+          })}
+          onClick={async (e) => {
+            e.preventDefault();
+            if (!props.onClick) return;
+            if (loading) return;
+            setLoading(true);
+            await props.onClick?.(e as any);
+            setLoading(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              if (!props.onClick) return;
+              if (loading) return;
+              props.onClick(e as any);
+            }
+          }}
+          style={props.style}
+        >
+          {icon}
+          {props.showTitle && (
+            <span className={`${prefixCls}-title ${hashId}`}>
+              {props.title}
+            </span>
+          )}
+        </span>
+      </Tooltip>
+    ) : (
       <span
         data-testid={props['data-testid'] || 'action-icon-box'}
         role="button"
@@ -141,8 +184,10 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
         style={props.style}
       >
         {icon}
-        {props.showTitle && <span>{props.title}</span>}
+        {props.showTitle && (
+          <span className={`${prefixCls}-title ${hashId}`}>{props.title}</span>
+        )}
       </span>
-    </Tooltip>,
+    ),
   );
 };

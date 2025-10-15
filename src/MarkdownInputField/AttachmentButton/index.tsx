@@ -254,6 +254,7 @@ export const upLoadFileToServer = async (
 export const AttachmentButton: React.FC<
   AttachmentButtonProps & {
     uploadImage(): Promise<void>;
+    title?: React.ReactNode;
   }
 > = (props) => {
   const context = useContext(ConfigProvider.ConfigContext);
@@ -269,6 +270,29 @@ export const AttachmentButton: React.FC<
     return SupportedFileFormats.image;
   }, [props.supportedFormat]);
 
+  const dom = props.title ? (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 4,
+      }}
+    >
+      <Paperclip />
+      <div
+        style={{
+          font: 'var(--font-text-body-base)',
+          letterSpacing: 'var(--letter-spacing-body-base, normal)',
+          color: 'var(--color-gray-text-default)',
+        }}
+      >
+        {props.title}
+      </div>
+    </div>
+  ) : (
+    <Paperclip />
+  );
+
   return wrapSSR(
     <div
       className={classNames(`${prefix}`, hashId, {
@@ -282,12 +306,12 @@ export const AttachmentButton: React.FC<
     >
       {props.render ? (
         props.render({
-          children: <Paperclip />,
+          children: dom,
           supportedFormat: supportedFormat,
         })
       ) : (
         <AttachmentButtonPopover supportedFormat={supportedFormat}>
-          <Paperclip />
+          {dom}
         </AttachmentButtonPopover>
       )}
     </div>,

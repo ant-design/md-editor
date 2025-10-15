@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
@@ -11,13 +11,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '2em',
+      minWidth: '2em',
       height: '2em',
       fontSize: '16px',
       padding: '0.5em',
       borderRadius: '8px',
       transition: 'background-color 0.3s ease',
       cursor: 'pointer',
+      color: 'var(--color-gray-text-secondary)',
+      gap: 4,
       '&:hover': {
         backgroundColor: 'rgba(0, 28, 57, 0.0353)',
       },

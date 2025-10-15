@@ -1,9 +1,9 @@
-import { CircleStop } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { StopIcon } from '../../AgentRunBar/icons';
 import { useStyle } from './style';
 
 function SendIcon(
@@ -21,7 +21,7 @@ function SendIcon(
   }, []);
 
   if (typing) {
-    return <CircleStop />;
+    return <StopIcon />;
   }
   return (
     <svg

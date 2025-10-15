@@ -15,14 +15,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       boxSizing: 'border-box',
       padding: 4,
       alignItems: 'center',
-      gap: 4,
+      gap: 8,
       justifyContent: 'center',
       borderRadius: 'var(--radius-control-sm)',
       fontSize: '1em',
       color: 'var(--color-gray-a9)',
       transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      '&-title': {
+        font: 'var(--font-text-body-base)',
+        letterSpacing: 'var(--letter-spacing-body-base, normal)',
+        color: 'var(--color-gray-text-default)',
+      },
       '&-light': {
-        color: 'var(--color-gray-a9)',
         '&:hover': {
           background: 'var(--color-gray-control-fill-active)',
           boxSizing: 'border-box',
