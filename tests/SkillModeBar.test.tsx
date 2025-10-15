@@ -42,7 +42,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
+      const bar = container.querySelector('.ant-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
@@ -75,18 +75,18 @@ describe('SkillModeBar', () => {
 
   describe('Close Button', () => {
     it('should render close button by default', () => {
-      const { container } = render(
+      render(
         <SkillModeBar
           skillMode={{ enable: true, open: true, title: 'Test' }}
         />,
       );
 
-      const closeButton = container.querySelector('.anticon-close-outlined');
+      const closeButton = screen.getByTestId('skill-mode-close');
       expect(closeButton).toBeInTheDocument();
     });
 
     it('should hide close button when closable is false', () => {
-      const { container } = render(
+      render(
         <SkillModeBar
           skillMode={{
             enable: true,
@@ -97,21 +97,21 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const closeButton = container.querySelector('.anticon-close-outlined');
+      const closeButton = screen.queryByTestId('skill-mode-close');
       expect(closeButton).not.toBeInTheDocument();
     });
 
     it('should call onSkillModeOpenChange with false when close button is clicked', () => {
       const onSkillModeOpenChange = vi.fn();
-      const { container } = render(
+      render(
         <SkillModeBar
           skillMode={{ enable: true, open: true, title: 'Test' }}
           onSkillModeOpenChange={onSkillModeOpenChange}
         />,
       );
 
-      const closeButton = container.querySelector('.anticon-close-outlined');
-      fireEvent.click(closeButton!.parentElement!);
+      const closeButton = screen.getByTestId('skill-mode-close');
+      fireEvent.click(closeButton);
 
       expect(onSkillModeOpenChange).toHaveBeenCalledWith(false);
     });
@@ -170,7 +170,7 @@ describe('SkillModeBar', () => {
       );
 
       const rightContentEl = screen.getByTestId('right-content');
-      const closeButton = container.querySelector('.anticon-close-outlined');
+      const closeButton = screen.getByTestId('skill-mode-close');
 
       // Right content should appear before close button
       expect(rightContentEl).toBeInTheDocument();
@@ -192,8 +192,9 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
-      expect(bar).toHaveStyle(customStyle);
+      const bar = container.querySelector('.ant-skill-mode') as HTMLElement;
+      expect(bar.style.backgroundColor).toBe('red');
+      expect(bar.style.padding).toBe('20px');
     });
 
     it('should apply custom className', () => {
@@ -208,7 +209,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
+      const bar = container.querySelector('.ant-skill-mode');
       expect(bar).toHaveClass('custom-skill-mode');
     });
   });
@@ -222,7 +223,7 @@ describe('SkillModeBar', () => {
       );
 
       expect(
-        container.querySelector('.ant-md-input-field-skill-mode-bar'),
+        container.querySelector('.ant-skill-mode-container'),
       ).toBeInTheDocument();
 
       rerender(
@@ -232,7 +233,7 @@ describe('SkillModeBar', () => {
       );
 
       expect(
-        container.querySelector('.ant-md-input-field-skill-mode-bar'),
+        container.querySelector('.ant-skill-mode-container'),
       ).not.toBeInTheDocument();
     });
 
@@ -262,7 +263,7 @@ describe('SkillModeBar', () => {
         <SkillModeBar skillMode={{ enable: true, open: true, title: '' }} />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
+      const bar = container.querySelector('.ant-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
@@ -278,7 +279,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
+      const bar = container.querySelector('.ant-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
@@ -294,7 +295,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
+      const bar = container.querySelector('.ant-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
   });
@@ -305,18 +306,18 @@ describe('SkillModeBar', () => {
         <SkillModeBar skillMode={{ open: true, title: 'Test' }} />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
+      const bar = container.querySelector('.ant-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
     it('should have closable default to true', () => {
-      const { container } = render(
+      render(
         <SkillModeBar
           skillMode={{ enable: true, open: true, title: 'Test' }}
         />,
       );
 
-      const closeButton = container.querySelector('.anticon-close-outlined');
+      const closeButton = screen.getByTestId('skill-mode-close');
       expect(closeButton).toBeInTheDocument();
     });
   });
@@ -329,7 +330,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-md-input-field-skill-mode-bar');
+      const bar = container.querySelector('.ant-skill-mode-container');
       expect(bar).toBeInTheDocument();
       expect(screen.getByText('AI Mode')).toBeInTheDocument();
     });
