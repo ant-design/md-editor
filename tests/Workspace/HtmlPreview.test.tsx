@@ -88,7 +88,7 @@ describe('HtmlPreview Component', () => {
   });
 
   it('应该支持视图模式切换', async () => {
-    const { rerender } = render(
+    render(
       <TestWrapper>
         <HtmlPreview
           html="<h1>测试</h1>"
