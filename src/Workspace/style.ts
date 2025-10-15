@@ -48,6 +48,50 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         margin: 'var(--margin-3x) var(--margin-4x)',
       },
 
+      // 分割线样式
+      [`${token.componentCls}-segmented`]: {
+        '.ant-segmented-group': {
+          height: '32px',
+        },
+
+        '&.ant-segmented:not(.chaos-segmented) .ant-segmented-item .ant-segmented-item-label': {
+          height: '100%',
+        },
+
+        '.ant-segmented-item': {
+          '&:has(.ant-segmented-item-label:empty)': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: '0 0 auto !important',
+            height: '100%',
+            width: '8px',
+            padding: '4px 0',
+            margin: '0 2px',
+            cursor: 'default',
+            pointerEvents: 'none',
+            backgroundColor: 'transparent !important',
+
+            '.ant-segmented-item-label': {
+              padding: '0',
+              height: '100%',
+              width: '1px',
+              backgroundColor: 'var(--color-gray-border-light)',
+            },
+
+            '&:hover': {
+              backgroundColor: 'transparent !important',
+            },
+          },
+        },
+
+        '.ant-segmented-item-disabled': {
+          '&:has(.ant-segmented-item-label:empty)': {
+            opacity: '1 !important',
+          },
+        },
+      },
+
       [`${token.componentCls}-tab-item`]: {
         display: 'flex',
         alignItems: 'center',
