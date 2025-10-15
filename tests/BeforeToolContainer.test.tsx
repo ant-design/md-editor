@@ -10,11 +10,14 @@ describe('ActionItemContainer Component', () => {
   }) => <ConfigProvider>{children}</ConfigProvider>;
 
   const createMockItems = (count: number = 3) => {
-    return Array.from({ length: count }, (_, i) => (
-      <button key={`item-${i}`} data-testid={`item-${i}`}>
-        Item {i}
-      </button>
-    )) as React.ReactElement[];
+    return Array.from({ length: count }, (_, i) => {
+      const element = (
+        <button key={`item-${i}`} data-testid={`item-${i}`}>
+          Item {i}
+        </button>
+      );
+      return element as React.ReactElement & { key: React.Key };
+    });
   };
 
   it('应该渲染基本容器', () => {
@@ -271,7 +274,9 @@ describe('ActionItemContainer Component', () => {
   });
 
   it('应该处理单个子元素', () => {
-    const item = <button key="single-item">Single Item</button>;
+    const item = (
+      <button key="single-item">Single Item</button>
+    ) as React.ReactElement & { key: React.Key };
 
     render(
       <TestWrapper>
@@ -380,7 +385,7 @@ describe('ActionItemContainer Component', () => {
       <button key="interactive" data-testid="interactive-button">
         Interactive
       </button>
-    );
+    ) as React.ReactElement & { key: React.Key };
 
     render(
       <TestWrapper>

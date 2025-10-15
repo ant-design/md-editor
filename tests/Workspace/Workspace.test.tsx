@@ -450,9 +450,7 @@ describe('Workspace Component', () => {
   });
 
   it('应该传递正确的 props 给 File 组件', () => {
-    const fileNodes = [
-      { path: 'test.txt', content: 'test content', language: 'text' },
-    ];
+    const fileNodes = [{ name: 'test.txt', content: 'test content' }];
 
     render(
       <TestWrapper>

@@ -84,6 +84,9 @@ describe('CodeToolbar', () => {
     },
     isSelected: false,
     onSelectionChange: vi.fn(),
+    theme: 'github',
+    setTheme: vi.fn(),
+    isExpanded: true,
   };
 
   beforeEach(() => {
