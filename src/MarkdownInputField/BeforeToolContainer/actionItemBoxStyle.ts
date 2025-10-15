@@ -19,6 +19,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       backgroundColor: '#FFF',
       boxShadow: 'var(--shadow-border-base)',
+      height: 32,
       '&-overflow-container': {
         position: 'absolute',
         right: 0,
@@ -68,7 +69,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
         '&-popup': {
           position: 'relative',
-          maxHeight: 360,
+          maxHeight: 327,
           overflowY: 'auto',
           overscrollBehaviorX: 'contain',
           overscrollBehaviorY: 'contain',
@@ -84,6 +85,27 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           gap: 6,
           boxShadow:
             'var(--shadow-popover-base)',
+          // Hide scrollbar by default, show on hover
+          scrollbarWidth: 'thin', // Firefox - thin scrollbar
+          scrollbarColor: 'transparent transparent', // Firefox - hide by default
+          ['&::-webkit-scrollbar']: {
+            width: 6, // WebKit
+            background: 'transparent',
+          },
+          ['&::-webkit-scrollbar-thumb']: {
+            background: 'transparent',
+            borderRadius: 3,
+          },
+          // Show scrollbar on hover
+          ['&:hover']: {
+            scrollbarColor: 'rgba(0, 0, 0, 0.2) transparent', // Firefox - show on hover
+            ['&::-webkit-scrollbar-thumb']: {
+              background: 'rgba(0, 0, 0, 0.2)',
+            },
+            ['&::-webkit-scrollbar-thumb:hover']: {
+              background: 'rgba(0, 0, 0, 0.3)',
+            },
+          },
           '> *': {
             width: '100%',
             maxWidth: '100%',
@@ -249,22 +271,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       // disabled state: base + suppress hover/active
       '&-disabled': {
-        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         color: 'var(--color-gray-text-disabled)',
         cursor: 'not-allowed',
         backgroundImage: 'none',
       },
       ['&-disabled:hover']: {
-        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         backgroundImage: 'none',
       },
       ['&-disabled:active']: {
-        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         backgroundImage: 'none',
       },
       // when container is active but inner item is disabled, keep disabled bg
       ['&-container-hover-bg:active ' + token.componentCls + '-disabled']: {
-        backgroundColor: 'var(--color-gray-control-fill-disabled)',
+        backgroundColor: 'var(--color-gray-bg-card-white)',
         backgroundImage: 'none',
       },
       // disabled text color for inner content
