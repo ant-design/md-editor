@@ -193,9 +193,7 @@ describe('FunnelChart', () => {
         },
       ];
 
-      render(
-        <FunnelChart data={dataWithFilterLabel} title="多维度筛选漏斗" />,
-      );
+      render(<FunnelChart data={dataWithFilterLabel} title="多维度筛选漏斗" />);
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();
     });
@@ -204,7 +202,12 @@ describe('FunnelChart', () => {
   describe('尺寸和样式测试', () => {
     it('应该支持自定义宽度和高度', () => {
       render(
-        <FunnelChart data={sampleData} width={800} height={600} title="自定义尺寸" />,
+        <FunnelChart
+          data={sampleData}
+          width={800}
+          height={600}
+          title="自定义尺寸"
+        />,
       );
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();
@@ -258,11 +261,7 @@ describe('FunnelChart', () => {
 
     it('应该支持隐藏图例', () => {
       render(
-        <FunnelChart
-          data={sampleData}
-          showLegend={false}
-          title="隐藏图例"
-        />,
+        <FunnelChart data={sampleData} showLegend={false} title="隐藏图例" />,
       );
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();
@@ -270,11 +269,7 @@ describe('FunnelChart', () => {
 
     it('应该支持自定义图例位置', () => {
       render(
-        <FunnelChart
-          data={sampleData}
-          legendPosition="top"
-          title="顶部图例"
-        />,
+        <FunnelChart data={sampleData} legendPosition="top" title="顶部图例" />,
       );
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();
@@ -282,11 +277,7 @@ describe('FunnelChart', () => {
 
     it('应该支持自定义图例对齐方式', () => {
       render(
-        <FunnelChart
-          data={sampleData}
-          legendAlign="center"
-          title="居中图例"
-        />,
+        <FunnelChart data={sampleData} legendAlign="center" title="居中图例" />,
       );
 
       expect(screen.getByTestId('chart-container')).toBeInTheDocument();
@@ -464,4 +455,3 @@ describe('FunnelChart', () => {
     });
   });
 });
-

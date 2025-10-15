@@ -41,7 +41,9 @@ describe('ChartStatistic', () => {
     it('应该不渲染标题当未提供时', () => {
       const { container } = render(<ChartStatistic value={100} />);
 
-      expect(container.querySelector('.ant-chart-statistic-header')).not.toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-chart-statistic-header'),
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -240,9 +242,7 @@ describe('ChartStatistic', () => {
     });
 
     it('应该支持 dark 主题', () => {
-      const { container } = render(
-        <ChartStatistic value={100} theme="dark" />,
-      );
+      const { container } = render(<ChartStatistic value={100} theme="dark" />);
 
       const statistic = container.firstChild;
       expect(statistic).toHaveClass('ant-chart-statistic-dark');
@@ -496,4 +496,3 @@ describe('ChartStatistic', () => {
     });
   });
 });
-
