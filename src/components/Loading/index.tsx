@@ -83,7 +83,7 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
             cx="50"
             cy="50"
             fill="none"
-            stroke="url(#gradient)"
+            stroke="url(#gradient1)"
             strokeWidth="6"
             style={{ transformOrigin: 'center center' }}
             animate={{
@@ -134,7 +134,7 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
             cx="50"
             cy="50"
             fill="none"
-            stroke="url(#gradient1)"
+            stroke="url(#gradient)"
             strokeWidth="6"
             style={{ transformOrigin: 'center center' }}
             animate={{
