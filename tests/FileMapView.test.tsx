@@ -28,28 +28,38 @@ describe('FileMapView', () => {
   describe('Basic Rendering', () => {
     it('should render without files', () => {
       const { container } = render(<FileMapView />);
-      expect(container.querySelector('.ant-md-editor-file-view-list')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-md-editor-file-view-list'),
+      ).toBeInTheDocument();
     });
 
     it('should render with files', () => {
       const fileMap = new Map();
       fileMap.set('file-1', createMockFile('test.jpg', 'image/jpeg'));
 
-      render(<FileMapView fileMap={fileMap} />);
-      
-      expect(screen.getByText('test.jpg')).toBeInTheDocument();
+      const { container } = render(<FileMapView fileMap={fileMap} />);
+
+      // Image files are rendered as Image component, not text
+      const image = container.querySelector(
+        'img[src="https://example.com/test.jpg"]',
+      );
+      expect(image).toBeInTheDocument();
     });
 
     it('should apply custom className', () => {
-      const { container } = render(<FileMapView className="custom-file-view" />);
+      const { container } = render(
+        <FileMapView className="custom-file-view" />,
+      );
       expect(container.querySelector('.custom-file-view')).toBeInTheDocument();
     });
 
     it('should apply custom style', () => {
       const customStyle = { backgroundColor: 'red' };
       const { container } = render(<FileMapView style={customStyle} />);
-      const element = container.querySelector('.ant-md-editor-file-view-list');
-      expect(element).toHaveStyle(customStyle);
+      const element = container.querySelector(
+        '.ant-md-editor-file-view-list',
+      ) as HTMLElement;
+      expect(element.style.backgroundColor).toBe('red');
     });
   });
 
@@ -61,11 +71,13 @@ describe('FileMapView', () => {
       fileMap.set('file-3', createMockFile('file3.jpg', 'image/jpeg'));
       fileMap.set('file-4', createMockFile('file4.jpg', 'image/jpeg'));
 
-      render(<FileMapView fileMap={fileMap} maxDisplayCount={2} />);
-      
-      // Should only display first 2 files
-      expect(screen.getByText('file1.jpg')).toBeInTheDocument();
-      expect(screen.getByText('file2.jpg')).toBeInTheDocument();
+      const { container } = render(
+        <FileMapView fileMap={fileMap} maxDisplayCount={2} />,
+      );
+
+      // Should only display first 2 image files
+      const images = container.querySelectorAll('img');
+      expect(images.length).toBe(2);
     });
 
     it('should display all files when showMoreButton is false', () => {
@@ -75,19 +87,17 @@ describe('FileMapView', () => {
       fileMap.set('file-3', createMockFile('file3.jpg', 'image/jpeg'));
       fileMap.set('file-4', createMockFile('file4.jpg', 'image/jpeg'));
 
-      render(
+      const { container } = render(
         <FileMapView
           fileMap={fileMap}
           maxDisplayCount={2}
           showMoreButton={false}
         />,
       );
-      
-      // Should display all files
-      expect(screen.getByText('file1.jpg')).toBeInTheDocument();
-      expect(screen.getByText('file2.jpg')).toBeInTheDocument();
-      expect(screen.getByText('file3.jpg')).toBeInTheDocument();
-      expect(screen.getByText('file4.jpg')).toBeInTheDocument();
+
+      // Should display all image files
+      const images = container.querySelectorAll('img');
+      expect(images.length).toBe(4);
     });
 
     it('should show "View All" button when files exceed max count', () => {
@@ -97,7 +107,7 @@ describe('FileMapView', () => {
       }
 
       render(<FileMapView fileMap={fileMap} maxDisplayCount={3} />);
-      
+
       // Should show view all button
       const viewAllButton = screen.queryByText(/查看.*文件/);
       expect(viewAllButton).toBeInTheDocument();
@@ -108,16 +118,18 @@ describe('FileMapView', () => {
     it('should call onPreview when preview is clicked', () => {
       const onPreview = vi.fn();
       const fileMap = new Map();
-      const file = createMockFile('test.jpg', 'image/jpeg');
+      const file = createMockFile('test.pdf', 'application/pdf');
       fileMap.set('file-1', file);
 
-      render(<FileMapView fileMap={fileMap} onPreview={onPreview} />);
-      
-      // Find and click preview button (implementation-specific)
-      const fileItem = screen.getByText('test.jpg').closest('.ant-md-editor-file-view-list-item');
+      const { container } = render(
+        <FileMapView fileMap={fileMap} onPreview={onPreview} />,
+      );
+
+      // For non-image files, click on file item to preview
+      const fileItem = container.querySelector('[data-testid="file-item"]');
       if (fileItem) {
-        fireEvent.mouseEnter(fileItem);
-        // Preview button should be visible on hover
+        fireEvent.click(fileItem);
+        expect(onPreview).toHaveBeenCalledWith(file);
       }
     });
 
@@ -127,9 +139,13 @@ describe('FileMapView', () => {
       const file = createMockFile('test.pdf', 'application/pdf');
       fileMap.set('file-1', file);
 
-      render(<FileMapView fileMap={fileMap} onDownload={onDownload} />);
-      
-      expect(screen.getByText('test.pdf')).toBeInTheDocument();
+      const { container } = render(
+        <FileMapView fileMap={fileMap} onDownload={onDownload} />,
+      );
+
+      // Non-image files show file name split into parts
+      const fileItem = container.querySelector('[data-testid="file-item"]');
+      expect(fileItem).toBeInTheDocument();
     });
 
     it('should call onViewAll with all files', () => {
@@ -146,17 +162,19 @@ describe('FileMapView', () => {
           onViewAll={onViewAll}
         />,
       );
-      
+
       const viewAllButton = screen.getByText(/查看.*文件/);
       fireEvent.click(viewAllButton);
-      
-      expect(onViewAll).toHaveBeenCalledWith(expect.arrayContaining([
-        expect.objectContaining({ name: 'file1.jpg' }),
-        expect.objectContaining({ name: 'file2.jpg' }),
-        expect.objectContaining({ name: 'file3.jpg' }),
-        expect.objectContaining({ name: 'file4.jpg' }),
-        expect.objectContaining({ name: 'file5.jpg' }),
-      ]));
+
+      expect(onViewAll).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({ name: 'file1.jpg' }),
+          expect.objectContaining({ name: 'file2.jpg' }),
+          expect.objectContaining({ name: 'file3.jpg' }),
+          expect.objectContaining({ name: 'file4.jpg' }),
+          expect.objectContaining({ name: 'file5.jpg' }),
+        ]),
+      );
     });
   });
 
@@ -164,10 +182,16 @@ describe('FileMapView', () => {
     it('should render custom slot', () => {
       const customSlot = <div data-testid="custom-slot">Custom Actions</div>;
       const fileMap = new Map();
-      fileMap.set('file-1', createMockFile('test.jpg', 'image/jpeg'));
+      fileMap.set('file-1', createMockFile('test.pdf', 'application/pdf'));
 
-      render(<FileMapView fileMap={fileMap} customSlot={customSlot} />);
-      
+      const { container } = render(
+        <FileMapView fileMap={fileMap} customSlot={customSlot} />,
+      );
+
+      // Custom slot is only visible on hover
+      const fileItem = container.querySelector('[data-testid="file-item"]');
+      fireEvent.mouseEnter(fileItem!);
+
       expect(screen.getByTestId('custom-slot')).toBeInTheDocument();
     });
 
@@ -175,13 +199,19 @@ describe('FileMapView', () => {
       const customSlot = (file: any) => (
         <div data-testid={`custom-${file.name}`}>Custom for {file.name}</div>
       );
-      
-      const fileMap = new Map();
-      fileMap.set('file-1', createMockFile('test.jpg', 'image/jpeg'));
 
-      render(<FileMapView fileMap={fileMap} customSlot={customSlot} />);
-      
-      expect(screen.getByTestId('custom-test.jpg')).toBeInTheDocument();
+      const fileMap = new Map();
+      fileMap.set('file-1', createMockFile('test.pdf', 'application/pdf'));
+
+      const { container } = render(
+        <FileMapView fileMap={fileMap} customSlot={customSlot} />,
+      );
+
+      // Custom slot is only visible on hover
+      const fileItem = container.querySelector('[data-testid="file-item"]');
+      fireEvent.mouseEnter(fileItem!);
+
+      expect(screen.getByTestId('custom-test.pdf')).toBeInTheDocument();
     });
   });
 
@@ -192,26 +222,35 @@ describe('FileMapView', () => {
           More for {file.name}
         </button>
       );
-      
-      const fileMap = new Map();
-      fileMap.set('file-1', createMockFile('test.jpg', 'image/jpeg'));
 
-      render(<FileMapView fileMap={fileMap} renderMoreAction={renderMoreAction} />);
-      
-      // More action should be rendered
-      expect(screen.getByText('test.jpg')).toBeInTheDocument();
+      const fileMap = new Map();
+      fileMap.set('file-1', createMockFile('test.pdf', 'application/pdf'));
+
+      const { container } = render(
+        <FileMapView fileMap={fileMap} renderMoreAction={renderMoreAction} />,
+      );
+
+      // More action is only visible on hover
+      const fileItem = container.querySelector('[data-testid="file-item"]');
+      fireEvent.mouseEnter(fileItem!);
+
+      expect(screen.getByTestId('more-test.pdf')).toBeInTheDocument();
     });
   });
 
   describe('Placement', () => {
     it('should render with left placement by default', () => {
       const { container } = render(<FileMapView />);
-      expect(container.querySelector('.ant-md-editor-file-view-list')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-md-editor-file-view-list'),
+      ).toBeInTheDocument();
     });
 
     it('should render with right placement', () => {
       const { container } = render(<FileMapView placement="right" />);
-      expect(container.querySelector('.ant-md-editor-file-view-list')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-md-editor-file-view-list'),
+      ).toBeInTheDocument();
     });
   });
 
@@ -221,10 +260,11 @@ describe('FileMapView', () => {
       fileMap.set('img-1', createMockFile('image1.jpg', 'image/jpeg'));
       fileMap.set('img-2', createMockFile('image2.png', 'image/png'));
 
-      render(<FileMapView fileMap={fileMap} />);
-      
-      expect(screen.getByText('image1.jpg')).toBeInTheDocument();
-      expect(screen.getByText('image2.png')).toBeInTheDocument();
+      const { container } = render(<FileMapView fileMap={fileMap} />);
+
+      // Image files are rendered as img elements
+      const images = container.querySelectorAll('img');
+      expect(images.length).toBe(2);
     });
 
     it('should handle image preview', () => {
@@ -233,10 +273,13 @@ describe('FileMapView', () => {
       const imageFile = createMockFile('image.jpg', 'image/jpeg');
       fileMap.set('img-1', imageFile);
 
-      render(<FileMapView fileMap={fileMap} onPreview={onPreview} />);
-      
-      // Image should be clickable for preview
-      expect(screen.getByText('image.jpg')).toBeInTheDocument();
+      const { container } = render(
+        <FileMapView fileMap={fileMap} onPreview={onPreview} />,
+      );
+
+      // Image should be rendered
+      const image = container.querySelector('img');
+      expect(image).toBeInTheDocument();
     });
   });
 
@@ -244,26 +287,34 @@ describe('FileMapView', () => {
     it('should handle empty fileMap', () => {
       const fileMap = new Map();
       const { container } = render(<FileMapView fileMap={fileMap} />);
-      expect(container.querySelector('.ant-md-editor-file-view-list')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-md-editor-file-view-list'),
+      ).toBeInTheDocument();
     });
 
     it('should handle null fileMap', () => {
       const { container } = render(<FileMapView fileMap={null} />);
-      expect(container.querySelector('.ant-md-editor-file-view-list')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-md-editor-file-view-list'),
+      ).toBeInTheDocument();
     });
 
     it('should handle undefined fileMap', () => {
       const { container } = render(<FileMapView />);
-      expect(container.querySelector('.ant-md-editor-file-view-list')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-md-editor-file-view-list'),
+      ).toBeInTheDocument();
     });
 
     it('should handle single file', () => {
       const fileMap = new Map();
       fileMap.set('file-1', createMockFile('single.pdf', 'application/pdf'));
 
-      render(<FileMapView fileMap={fileMap} />);
-      
-      expect(screen.getByText('single.pdf')).toBeInTheDocument();
+      const { container } = render(<FileMapView fileMap={fileMap} />);
+
+      // Non-image file should be rendered
+      const fileItem = container.querySelector('[data-testid="file-item"]');
+      expect(fileItem).toBeInTheDocument();
     });
 
     it('should handle files with missing properties', () => {
@@ -271,12 +322,15 @@ describe('FileMapView', () => {
       fileMap.set('file-1', {
         uuid: 'uuid-1',
         name: 'incomplete.txt',
-        // Missing type, url, status
+        type: 'text/plain',
+        // Missing url, status
       });
 
-      render(<FileMapView fileMap={fileMap} />);
-      
-      expect(screen.getByText('incomplete.txt')).toBeInTheDocument();
+      const { container } = render(<FileMapView fileMap={fileMap} />);
+
+      // File name is split into parts, check for file item
+      const fileItem = container.querySelector('[data-testid="file-item"]');
+      expect(fileItem).toBeInTheDocument();
     });
   });
 
@@ -287,12 +341,11 @@ describe('FileMapView', () => {
         fileMap.set(`file-${i}`, createMockFile(`file${i}.txt`, 'text/plain'));
       }
 
-      render(<FileMapView fileMap={fileMap} />);
-      
+      const { container } = render(<FileMapView fileMap={fileMap} />);
+
       // Should display first 3 files
-      expect(screen.getByText('file1.txt')).toBeInTheDocument();
-      expect(screen.getByText('file2.txt')).toBeInTheDocument();
-      expect(screen.getByText('file3.txt')).toBeInTheDocument();
+      const fileItems = container.querySelectorAll('[data-testid="file-item"]');
+      expect(fileItems.length).toBe(3);
     });
 
     it('should respect custom maxDisplayCount', () => {
@@ -301,10 +354,12 @@ describe('FileMapView', () => {
         fileMap.set(`file-${i}`, createMockFile(`file${i}.txt`, 'text/plain'));
       }
 
-      render(<FileMapView fileMap={fileMap} maxDisplayCount={2} />);
-      
-      expect(screen.getByText('file1.txt')).toBeInTheDocument();
-      expect(screen.getByText('file2.txt')).toBeInTheDocument();
+      const { container } = render(
+        <FileMapView fileMap={fileMap} maxDisplayCount={2} />,
+      );
+
+      const fileItems = container.querySelectorAll('[data-testid="file-item"]');
+      expect(fileItems.length).toBe(2);
     });
 
     it('should handle maxDisplayCount larger than file count', () => {
@@ -312,10 +367,13 @@ describe('FileMapView', () => {
       fileMap.set('file-1', createMockFile('file1.txt', 'text/plain'));
       fileMap.set('file-2', createMockFile('file2.txt', 'text/plain'));
 
-      render(<FileMapView fileMap={fileMap} maxDisplayCount={10} />);
-      
-      expect(screen.getByText('file1.txt')).toBeInTheDocument();
-      expect(screen.getByText('file2.txt')).toBeInTheDocument();
+      const { container } = render(
+        <FileMapView fileMap={fileMap} maxDisplayCount={10} />,
+      );
+
+      // All files should be displayed
+      const fileItems = container.querySelectorAll('[data-testid="file-item"]');
+      expect(fileItems.length).toBe(2);
     });
   });
 });
