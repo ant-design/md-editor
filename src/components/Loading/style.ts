@@ -12,13 +12,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'center',
       position: 'relative',
       zIndex: 0,
-
-      // wrapper 样式
-      [`${token.componentCls}-wrapper1, ${token.componentCls}-wrapper2`]: {
-        position: 'absolute',
-        borderRadius: '50%',
-        transformStyle: 'preserve-3d',
-      },
     },
   };
 };
