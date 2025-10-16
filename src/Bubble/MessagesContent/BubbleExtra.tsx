@@ -131,7 +131,7 @@ export const BubbleExtra = ({
               if (alreadyFeedback) {
                 // 如果已经点赞且支持取消点赞
                 if (originalData?.feedback === 'thumbsUp') {
-                  await props.onCancelLike?.(bubble.originData);
+                  await props.onCancelLike?.(bubble.originData as any);
                 }
                 return;
               }
