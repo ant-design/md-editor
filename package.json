@@ -66,7 +66,6 @@
     "dompurify": "^3.2.7",
     "flubber": "^0.4.2",
     "framer-motion": "^11.18.2",
-    "gsap": "^3.13.0",
     "is-hotkey": "^0.2.0",
     "json5": "^2.2.3",
     "katex": "^0.16.23",
