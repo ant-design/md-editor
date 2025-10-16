@@ -220,235 +220,194 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   };
 
   return wrapSSR(
-    <div>
+    <div
+      ref={containerRef}
+      style={{
+        // width: 'calc(100% - 16px)',
+        ...props.style
+      }}
+      className={classNames(
+        `${basePrefixCls}-container`,
+        {
+          [`${basePrefixCls}-container-${props.size}`]: props.size,
+          [`${basePrefixCls}-container-no-hover`]: isIndicatorHover,
+        },
+        hashId,
+      )}
+      onPointerDown={(e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        if (e.button !== 0) return;
+        // ignore if clicking on the overflow indicator area
+        if (indicatorRef.current && indicatorRef.current.contains(e.target as Node)) return;
+        // if clicking on an interactive child, don't pan
+        if (isInteractiveTarget(e.target)) return;
+        panIntentRef.current = true;
+        hasPanMovedRef.current = false;
+        panStartXRef.current = e.clientX;
+        panStartScrollLeftRef.current = el.scrollLeft;
+      }}
+      onPointerMove={(e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        if (!isPanningRef.current && panIntentRef.current) {
+          const dx = e.clientX - panStartXRef.current;
+          if (Math.abs(dx) > 6) {
+            isPanningRef.current = true;
+            hasPanMovedRef.current = true;
+            try { el.setPointerCapture(e.pointerId); } catch { }
+          }
+        }
+        if (isPanningRef.current) {
+          const dx = e.clientX - panStartXRef.current;
+          el.scrollLeft = panStartScrollLeftRef.current - dx;
+          if (e.cancelable) e.preventDefault();
+          e.stopPropagation();
+        }
+      }}
+      onPointerUp={(e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        panIntentRef.current = false;
+        if (isPanningRef.current) {
+          isPanningRef.current = false;
+          try { el.releasePointerCapture(e.pointerId); } catch { }
+        }
+      }}
+      onPointerCancel={() => {
+        isPanningRef.current = false;
+        panIntentRef.current = false;
+      }}
+      onWheel={(e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        // Map wheel to horizontal scrolling: use the dominant axis
+        const horizontalDelta =
+          Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (horizontalDelta !== 0) {
+          el.scrollLeft += horizontalDelta;
+        }
+        // if (e.cancelable) e.preventDefault();
+        e.stopPropagation();
+      }}
+      onClick={(e) => {
+        // prevent accidental click when performing a pan
+        if (hasPanMovedRef.current) {
+          e.preventDefault();
+          e.stopPropagation();
+          hasPanMovedRef.current = false;
+        }
+      }}
+    >
       <div
-        ref={containerRef}
+        ref={scrollRef}
+        className={classNames(`${basePrefixCls}-scroll`, hashId)}
         style={{
           display: 'flex',
           alignItems: 'center',
-          width: 'calc(100% - 8px)',
+          width: '100%',
           gap: 8,
-          backgroundColor: 'transparent',
-          overflow: 'visible',
-          position: 'relative',
+          overflowX: 'auto',
+          overflowY: 'hidden',
           WebkitOverflowScrolling: 'touch',
           overscrollBehavior: 'contain',
-          ...props.style,
+          touchAction: 'pan-x',
         }}
-        className={classNames(
-          `${basePrefixCls}-container`,
-          {
-            [`${basePrefixCls}-container-${props.size}`]: props.size,
-            [`${basePrefixCls}-container-no-hover`]: isIndicatorHover,
-          },
-          hashId,
-        )}
-        onPointerDown={(e) => {
-          const el = scrollRef.current;
-          if (!el) return;
-          if (e.button !== 0) return;
-          // ignore if clicking on the overflow indicator area
-          if (
-            indicatorRef.current &&
-            indicatorRef.current.contains(e.target as Node)
-          )
-            return;
-          // if clicking on an interactive child, don't pan
-          if (isInteractiveTarget(e.target)) return;
-          panIntentRef.current = true;
-          hasPanMovedRef.current = false;
-          panStartXRef.current = e.clientX;
-          panStartScrollLeftRef.current = el.scrollLeft;
-        }}
-        onPointerMove={(e) => {
-          const el = scrollRef.current;
-          if (!el) return;
-          if (!isPanningRef.current && panIntentRef.current) {
-            const dx = e.clientX - panStartXRef.current;
-            if (Math.abs(dx) > 6) {
-              isPanningRef.current = true;
-              hasPanMovedRef.current = true;
-              try {
-                el.setPointerCapture(e.pointerId);
-              } catch {}
-            }
-          }
-          if (isPanningRef.current) {
-            const dx = e.clientX - panStartXRef.current;
-            el.scrollLeft = panStartScrollLeftRef.current - dx;
-            if (e.cancelable) e.preventDefault();
-            e.stopPropagation();
-          }
-        }}
-        onPointerUp={(e) => {
-          const el = scrollRef.current;
-          if (!el) return;
-          panIntentRef.current = false;
-          if (isPanningRef.current) {
-            isPanningRef.current = false;
-            try {
-              el.releasePointerCapture(e.pointerId);
-            } catch {}
-          }
-        }}
-        onPointerCancel={() => {
-          isPanningRef.current = false;
-          panIntentRef.current = false;
-        }}
-        onWheel={(e) => {
-          const el = scrollRef.current;
-          if (!el) return;
-          // Map wheel to horizontal scrolling: use the dominant axis
-          const horizontalDelta =
-            Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-          if (horizontalDelta !== 0) {
-            el.scrollLeft += horizontalDelta;
-          }
-          // Always stop propagation to avoid bubbling to parent scrollers
-          if (e.cancelable) e.preventDefault();
-          e.stopPropagation();
-        }}
-        onClick={(e) => {
-          // prevent accidental click when performing a pan
-          if (hasPanMovedRef.current) {
-            e.preventDefault();
-            e.stopPropagation();
-            hasPanMovedRef.current = false;
-          }
-        }}
-      >
-        <div
-          ref={scrollRef}
-          className={classNames(`${basePrefixCls}-scroll`, hashId)}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            gap: 8,
-            overflowX: 'auto',
-            overflowY: 'hidden',
-            WebkitOverflowScrolling: 'touch',
-            overscrollBehavior: 'contain',
-            touchAction: 'pan-x',
-          }}
-        >
-          {ordered.map((entry) => (
-            <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
-          ))}
-        </div>
-        {props.showMenu !== false && (
+      >{ordered.map((entry) => (
+        <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
+      ))}</div>
+      {props.showMenu !== false && (
+        <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)}>
           <div
-            className={classNames(
-              `${basePrefixCls}-overflow-container`,
-              hashId,
-            )}
+            className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}
+            ref={indicatorRef}
           >
+            <div className={classNames(`${basePrefixCls}-overflow-container-placeholder`, hashId)}></div>
             <div
               className={classNames(
-                `${basePrefixCls}-overflow-container-indicator`,
+                `${basePrefixCls}-overflow-container-menu`,
                 hashId,
+                {
+                  [`${basePrefixCls}-overflow-container-menu-disabled`]: props.menuDisabled,
+                }
               )}
-              ref={indicatorRef}
-              onMouseEnter={() => setIsIndicatorHover(true)}
-              onMouseLeave={() => setIsIndicatorHover(false)}
-              onClick={() => setShowOverflowPopup((v) => !v)}
+              onMouseEnter={() => !props.menuDisabled && setIsIndicatorHover(true)}
+              onMouseLeave={() => !props.menuDisabled && setIsIndicatorHover(false)}
+              onClick={() => !props.menuDisabled && setShowOverflowPopup((v) => !v)}
             >
-              <div
-                className={classNames(
-                  `${basePrefixCls}-overflow-container-placeholder`,
-                  hashId,
-                )}
-              ></div>
-              <div
-                className={classNames(
-                  `${basePrefixCls}-overflow-container-menu`,
-                  hashId,
-                )}
-              >
-                <Menu />
-              </div>
+              <Menu />
             </div>
-            {showOverflowPopup && popupPos && typeof document !== 'undefined'
-              ? createPortal(
-                  <div
-                    className={classNames(
-                      `${basePrefixCls}-overflow-container-popup`,
-                      hashId,
-                    )}
-                    ref={popupRef}
-                    style={{
-                      position: 'fixed',
-                      left: popupPos.left,
-                      top: popupPos.top,
-                      zIndex: 1000,
-                    }}
-                    onWheel={(e) => {
-                      if (e.cancelable) e.preventDefault();
-                      e.stopPropagation();
-                    }}
-                  >
-                    {(() => {
-                      return ordered.length > 0
-                        ? ordered.map((entry, index) => (
-                            <div
-                              key={entry.key as any}
-                              className={classNames(
-                                `${basePrefixCls}-overflow-container-popup-item`,
-                                hashId,
-                                {
-                                  [`${basePrefixCls}-dragging`]:
-                                    draggingIndex === index,
-                                  [`${basePrefixCls}-drag-over`]:
-                                    overIndex === index,
-                                },
-                              )}
-                              draggable
-                              onMouseDown={(evt) => {
-                                const isHandle = isHandleTarget(evt.target);
-                                isHandlePressRef.current = isHandle;
-                                if (isHandle) {
-                                  setDraggingIndex(index);
-                                } else {
-                                  setDraggingIndex(null);
-                                }
-                              }}
-                              onMouseUp={() => {
-                                if (draggingIndex === null) {
-                                  isHandlePressRef.current = false;
-                                }
-                              }}
-                              onDragStart={(evt) => {
-                                handleDragStart(evt, index);
-                              }}
-                              onDragOver={(evt) => handleDragOver(evt, index)}
-                              onDrop={(evt) => handleDrop(evt, index)}
-                              onDragEnd={handleDragEnd}
-                            >
-                              <GripVertical
-                                className={classNames(
-                                  `${basePrefixCls}-drag-handle`,
-                                  hashId,
-                                )}
-                                onMouseDown={(evt) => {
-                                  // Explicitly flag handle press to allow parent dragstart
-                                  isHandlePressRef.current = true;
-                                  setDraggingIndex(index);
-                                  evt.stopPropagation();
-                                }}
-                              />
-                              <div draggable={false}>{entry.node}</div>
-                            </div>
-                          ))
-                        : null;
-                    })()}
-                  </div>,
-                  document.body,
-                )
-              : null}
           </div>
-        )}
-      </div>
-    </div>,
+          {showOverflowPopup && popupPos && typeof document !== 'undefined'
+            ? createPortal(
+              <div
+                className={classNames(
+                  `${basePrefixCls}-overflow-container-popup`,
+                  hashId,
+                )}
+                ref={popupRef}
+                style={{ position: 'fixed', left: popupPos.left, top: popupPos.top, zIndex: 1000 }}
+                onWheel={(e) => {
+                  // if (e.cancelable) e.preventDefault();
+                  e.stopPropagation();
+                }}
+              >
+                {(() => {
+                  return ordered.length > 0
+                    ? ordered.map((entry, index) => (
+                      <div
+                        key={entry.key as any}
+                        className={classNames(
+                          `${basePrefixCls}-overflow-container-popup-item`,
+                          hashId,
+                          {
+                            [`${basePrefixCls}-dragging`]: draggingIndex === index,
+                            [`${basePrefixCls}-drag-over`]: overIndex === index,
+                          },
+                        )}
+                        draggable
+                        onMouseDown={(evt) => {
+                          const isHandle = isHandleTarget(evt.target);
+                          isHandlePressRef.current = isHandle;
+                          if (isHandle) {
+                            setDraggingIndex(index);
+                          } else {
+                            setDraggingIndex(null);
+                          }
+                        }}
+                        onMouseUp={() => {
+                          if (draggingIndex === null) {
+                            isHandlePressRef.current = false;
+                          }
+                        }}
+                        onDragStart={(evt) => {
+                          handleDragStart(evt, index);
+                        }}
+                        onDragOver={(evt) => handleDragOver(evt, index)}
+                        onDrop={(evt) => handleDrop(evt, index)}
+                        onDragEnd={handleDragEnd}
+                      >
+                        <GripVertical
+                          className={classNames(`${basePrefixCls}-drag-handle`, hashId)}
+                          onMouseDown={(evt) => {
+                            // Explicitly flag handle press to allow parent dragstart
+                            isHandlePressRef.current = true;
+                            setDraggingIndex(index);
+                            evt.stopPropagation();
+                          }}
+                        />
+                        <div draggable={false}>{entry.node}</div>
+                      </div>
+                    ))
+                    : null;
+                })()}
+              </div>,
+              document.body,
+            )
+            : null}
+        </div>
+      )}
+    </div>
   );
 };
 
