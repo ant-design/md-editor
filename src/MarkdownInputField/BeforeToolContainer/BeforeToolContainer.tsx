@@ -29,6 +29,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     left: number;
     top: number;
   } | null>(null);
+  const [isPopupPositioned, setIsPopupPositioned] = useState(false);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [overIndex, setOverIndex] = useState<number | null>(null);
   const isHandlePressRef = useRef(false);
@@ -127,13 +128,26 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   };
 
   useEffect(() => {
-    if (!showOverflowPopup) return;
+    if (!showOverflowPopup) {
+      setIsPopupPositioned(false);
+      return;
+    }
     // position once now, then again after the popup renders to measure actual size
-    computePopupPosition();
-    requestAnimationFrame(() => computePopupPosition());
+    setIsPopupPositioned(false);
+    // Wait for next frame before computing position to ensure indicator is visible
+    requestAnimationFrame(() => {
+      computePopupPosition();
+      // Wait another frame to ensure popup has rendered with correct position
+      requestAnimationFrame(() => {
+        computePopupPosition();
+        setIsPopupPositioned(true);
+      });
+    });
     // in case layout/ fonts settle next frame again
     requestAnimationFrame(() =>
-      requestAnimationFrame(() => computePopupPosition()),
+      requestAnimationFrame(() => 
+        requestAnimationFrame(() => computePopupPosition())
+      ),
     );
     if (typeof window === 'undefined') return;
     const onScroll = () => computePopupPosition();
@@ -346,7 +360,15 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                   hashId,
                 )}
                 ref={popupRef}
-                style={{ position: 'fixed', left: popupPos.left, top: popupPos.top, zIndex: 1000 }}
+                style={{ 
+                  position: 'fixed', 
+                  left: popupPos.left, 
+                  top: popupPos.top, 
+                  zIndex: 1000,
+                  visibility: isPopupPositioned ? 'visible' : 'hidden',
+                  opacity: isPopupPositioned ? 1 : 0,
+                  transition: isPopupPositioned ? 'opacity 0.12s ease-out' : 'none',
+                }}
                 onWheel={(e) => {
                   // if (e.cancelable) e.preventDefault();
                   e.stopPropagation();
