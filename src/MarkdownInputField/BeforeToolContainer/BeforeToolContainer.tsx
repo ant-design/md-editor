@@ -336,9 +336,6 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
               onClick={() => !props.menuDisabled && setShowOverflowPopup((v) => !v)}
             >
               <Menu />
-              <div>
-                {props.menuDisabled}
-              </div>
             </div>
           </div>
           {showOverflowPopup && popupPos && typeof document !== 'undefined'
