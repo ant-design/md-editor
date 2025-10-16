@@ -1,7 +1,7 @@
 ﻿import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { BubbleFileView } from '../../src/Bubble/FileView';
 import { AttachmentFile } from '../../src/MarkdownInputField/AttachmentButton/types';
 
@@ -26,6 +26,7 @@ vi.mock('../../src/MarkdownInputField/FileMapView', () => ({
             const file = new File([], 'test.pdf') as AttachmentFile;
             file.uuid = 'file-1';
             file.url = 'http://example.com/test.pdf';
+            file.previewUrl = 'http://example.com/preview/test.pdf';
             props.onPreview(file);
           }}
         >
@@ -100,6 +101,10 @@ describe('BubbleFileView', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   describe('基本渲染', () => {
@@ -497,17 +502,20 @@ describe('BubbleFileView', () => {
         href: '',
         download: '',
         click: mockClick,
-      };
+        setAttribute: vi.fn(),
+      } as any;
       const mockAppendChild = vi.fn();
       const mockRemoveChild = vi.fn();
 
-      global.document = {
-        createElement: vi.fn(() => mockElement),
-        body: {
-          appendChild: mockAppendChild,
-          removeChild: mockRemoveChild,
-        },
-      } as any;
+      const createSpy = vi
+        .spyOn(document, 'createElement')
+        .mockReturnValue(mockElement);
+      const appendSpy = vi
+        .spyOn(document.body, 'appendChild')
+        .mockImplementation(mockAppendChild);
+      const removeSpy = vi
+        .spyOn(document.body, 'removeChild')
+        .mockImplementation(mockRemoveChild);
 
       const props = {
         ...defaultProps,
@@ -523,23 +531,20 @@ describe('BubbleFileView', () => {
       const downloadButton = screen.getByTestId('download-button');
       fireEvent.click(downloadButton);
 
+      expect(createSpy).toHaveBeenCalledWith('a');
       expect(mockElement.href).toBe('http://example.com/test.pdf');
       expect(mockElement.download).toBe('test.pdf');
       expect(mockClick).toHaveBeenCalled();
       expect(mockAppendChild).toHaveBeenCalledWith(mockElement);
       expect(mockRemoveChild).toHaveBeenCalledWith(mockElement);
+
+      createSpy.mockRestore();
+      appendSpy.mockRestore();
+      removeSpy.mockRestore();
     });
 
     it('默认 onDownload 应该在没有 URL 时不执行', () => {
       const mockClick = vi.fn();
-      const mockElement = { click: mockClick };
-      global.document = {
-        createElement: vi.fn(() => mockElement),
-        body: {
-          appendChild: vi.fn(),
-          removeChild: vi.fn(),
-        },
-      } as any;
 
       const capturedDefaults = vi.fn((defaults) => {
         const file = new File([], 'test.pdf') as AttachmentFile;
