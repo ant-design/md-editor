@@ -162,7 +162,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-footer': {
-        padding: 'var(--padding-6x)',
+        padding: 'var(--padding-4x)',
         background:
           'linear-gradient(to bottom, #fff0 20%, var(--color-gray-bg-card-white) 70%)',
         width: '100%',
