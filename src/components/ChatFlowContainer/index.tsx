@@ -125,14 +125,12 @@ const ChatFlowContainer = forwardRef<
               </button>
             )}
             {showRightCollapse && (
-              <button
-                className={`${COMPONENT_NAME}-header-right-collapse-btn ${hashId}`}
+              <ActionIconBox
                 onClick={handleRightCollapse}
                 aria-label="折叠右侧边栏"
-                type="button"
               >
                 <PanelLeftFill />
-              </button>
+              </ActionIconBox>
             )}
           </div>
         </div>

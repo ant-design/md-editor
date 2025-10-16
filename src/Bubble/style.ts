@@ -43,10 +43,8 @@ const genStyle = (
         fontSize: '1em',
         display: 'flex',
         gap: 'var(--margin-1x)',
-        marginBottom: '4px',
         '&-pure': {
           paddingLeft: '20px',
-          marginBottom: '0px',
         },
         '&-quote': {
           marginBottom: '0px',
