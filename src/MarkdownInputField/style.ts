@@ -213,7 +213,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: 8,
       width: '100%',
       maxWidth: '980px',
-      padding: '0 10px 0 0',
       marginBottom: '8px',
       font: 'var(--font-text-body-base)',
       color: 'var(--color-gray-text-default)',
