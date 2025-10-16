@@ -426,5 +426,490 @@ describe('Image', () => {
       const imageContainer = screen.getByTestId('image-container');
       expect(imageContainer).toBeInTheDocument();
     });
+
+    it('应该处理选中状态', () => {
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const selectedStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: 'https://example.com/image.jpg',
+        selected: true,
+        type: 'image',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => selectedStateData,
+        vi.fn((updates) => Object.assign(selectedStateData, updates)),
+      ]);
+
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理视频类型', () => {
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const videoStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: 'https://example.com/video.mp4',
+        selected: false,
+        type: 'video',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => videoStateData,
+        vi.fn((updates) => Object.assign(videoStateData, updates)),
+      ]);
+
+      const videoElement: MediaNode = {
+        ...mockElement,
+        url: 'https://example.com/video.mp4',
+      };
+
+      renderWithProvider(
+        <EditorImage element={videoElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理音频类型', () => {
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const audioStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: 'https://example.com/audio.mp3',
+        selected: false,
+        type: 'audio',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => audioStateData,
+        vi.fn((updates) => Object.assign(audioStateData, updates)),
+      ]);
+
+      const audioElement: MediaNode = {
+        ...mockElement,
+        url: 'https://example.com/audio.mp3',
+      };
+
+      renderWithProvider(
+        <EditorImage element={audioElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理大尺寸图片', () => {
+      const largeElement: MediaNode = {
+        ...mockElement,
+        width: 2000,
+        height: 1500,
+      };
+
+      renderWithProvider(
+        <EditorImage element={largeElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理小尺寸图片', () => {
+      const smallElement: MediaNode = {
+        ...mockElement,
+        width: 50,
+        height: 50,
+      };
+
+      renderWithProvider(
+        <EditorImage element={smallElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理没有高度的图片', () => {
+      const elementWithoutHeight: MediaNode = {
+        ...mockElement,
+        height: undefined,
+      };
+
+      renderWithProvider(
+        <EditorImage element={elementWithoutHeight} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理没有宽度的图片', () => {
+      const elementWithoutWidth: MediaNode = {
+        ...mockElement,
+        width: undefined,
+      };
+
+      renderWithProvider(
+        <EditorImage element={elementWithoutWidth} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理内联图片', () => {
+      const inlineElement: MediaNode = {
+        ...mockElement,
+        block: false,
+      };
+
+      renderWithProvider(
+        <EditorImage element={inlineElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理完整的 alt 文本', () => {
+      const elementWithLongAlt: MediaNode = {
+        ...mockElement,
+        alt: 'This is a very long alternative text for the image that describes it in detail',
+      };
+
+      renderWithProvider(
+        <EditorImage element={elementWithLongAlt} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+  });
+
+  describe('ImageAndError 扩展测试', () => {
+    it('应该处理图片的 onLoad 事件', () => {
+      const { container } = renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          width={400}
+          height={300}
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      fireEvent.load(imageElement);
+
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理自定义 className', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          className="custom-image-class"
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理自定义 style', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          style={{ border: '1px solid red' }}
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理 preview 为 false', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          preview={false}
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理 preview 配置对象', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          preview={{ visible: false }}
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理百分比宽度', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          width="50%"
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理 rem 单位宽度', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image.jpg"
+          alt="Test Image"
+          width="20rem"
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理特殊字符的 URL', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="https://example.com/image%20with%20spaces.jpg"
+          alt="Test Image"
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+
+    it('应该处理 data URL', () => {
+      renderWithProvider(
+        <ImageAndError
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+          alt="Test Image"
+        />,
+      );
+
+      const imageElement = screen.getByAltText('Test Image');
+      expect(imageElement).toBeInTheDocument();
+    });
+  });
+
+  describe('ResizeImage 扩展测试', () => {
+    const mockResizeProps = {
+      src: 'https://example.com/image.jpg',
+      alt: 'Test Image',
+      onResizeStart: vi.fn(),
+      onResizeStop: vi.fn(),
+    };
+
+    it('应该处理不同的锁定宽高比', () => {
+      renderWithProvider(
+        <ResizeImage {...mockResizeProps} lockAspectRatio={false} />,
+      );
+
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理最小尺寸限制', () => {
+      renderWithProvider(
+        <ResizeImage {...mockResizeProps} minWidth={100} minHeight={100} />,
+      );
+
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理最大尺寸限制', () => {
+      renderWithProvider(
+        <ResizeImage {...mockResizeProps} maxWidth={1000} maxHeight={1000} />,
+      );
+
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理禁用状态', () => {
+      renderWithProvider(
+        <ResizeImage {...mockResizeProps} disableDragging={true} />,
+      );
+
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理自定义句柄样式', () => {
+      renderWithProvider(
+        <ResizeImage
+          {...mockResizeProps}
+          handleStyles={{
+            bottomRight: { backgroundColor: 'red' },
+          }}
+        />,
+      );
+
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理网格对齐', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} grid={[10, 10]} />);
+
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+
+    it('应该处理边界限制', () => {
+      renderWithProvider(<ResizeImage {...mockResizeProps} bounds="parent" />);
+
+      expect(screen.getByAltText('Test Image')).toBeInTheDocument();
+    });
+  });
+
+  describe('EditorImage 扩展测试', () => {
+    it('应该处理双击事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.doubleClick(imageContainer);
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理键盘事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.keyDown(imageContainer, { key: 'Enter' });
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理鼠标进入事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.mouseEnter(imageContainer);
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理鼠标离开事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.mouseLeave(imageContainer);
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理触摸事件', () => {
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      fireEvent.touchStart(imageContainer);
+
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该传递所有 attributes', () => {
+      const customAttributes = {
+        ...mockAttributes,
+        'data-custom': 'value',
+        'aria-label': 'Image element',
+      };
+
+      renderWithProvider(
+        <EditorImage element={mockElement} attributes={customAttributes as any}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理自定义 title', () => {
+      const elementWithTitle: MediaNode = {
+        ...mockElement,
+        title: 'Custom Title',
+      };
+
+      renderWithProvider(
+        <EditorImage element={elementWithTitle} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
+
+    it('应该处理元素的 ID', () => {
+      const elementWithId: MediaNode = {
+        ...mockElement,
+        id: 'image-123',
+      };
+
+      renderWithProvider(
+        <EditorImage element={elementWithId} attributes={mockAttributes}>
+          {null}
+        </EditorImage>,
+      );
+
+      const imageContainer = screen.getByTestId('image-container');
+      expect(imageContainer).toBeInTheDocument();
+    });
   });
 });
