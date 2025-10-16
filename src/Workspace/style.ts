@@ -54,9 +54,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: '32px',
         },
 
-        '&.ant-segmented:not(.chaos-segmented) .ant-segmented-item .ant-segmented-item-label': {
-          height: '100%',
-        },
+        '&.ant-segmented:not(.chaos-segmented) .ant-segmented-item .ant-segmented-item-label':
+          {
+            height: '100%',
+          },
 
         '.ant-segmented-item': {
           '&:has(.ant-segmented-item-label:empty)': {

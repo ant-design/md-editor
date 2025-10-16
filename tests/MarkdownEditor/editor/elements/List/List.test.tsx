@@ -1,8 +1,9 @@
-import { ConfigProvider } from 'antd';
 import { render } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { ConfigProvider } from 'antd';
+import React from 'react';
 import { createEditor } from 'slate';
 import { Slate, withReact } from 'slate-react';
+import { describe, expect, it, vi } from 'vitest';
 import { List } from '../../../../../src/MarkdownEditor/editor/elements/List/List';
 import * as editorStore from '../../../../../src/MarkdownEditor/editor/store';
 
@@ -18,7 +19,7 @@ describe('List Component', () => {
 
   const renderList = (element: any) => {
     const editor = createTestEditor();
-    
+
     vi.mocked(editorStore.useEditorStore).mockReturnValue({
       store: {
         dragStart: vi.fn(),
@@ -42,14 +43,11 @@ describe('List Component', () => {
     const unorderedList = {
       type: 'list',
       order: false,
-      children: [
-        { text: 'Item 1' },
-        { text: 'Item 2' },
-      ],
+      children: [{ text: 'Item 1' }, { text: 'Item 2' }],
     };
 
     const { container } = renderList(unorderedList);
-    
+
     const ul = container.querySelector('ul');
     expect(ul).toBeDefined();
     expect(ul?.tagName).toBe('UL');
@@ -59,14 +57,11 @@ describe('List Component', () => {
     const orderedList = {
       type: 'list',
       order: true,
-      children: [
-        { text: 'Item 1' },
-        { text: 'Item 2' },
-      ],
+      children: [{ text: 'Item 1' }, { text: 'Item 2' }],
     };
 
     const { container } = renderList(orderedList);
-    
+
     const ol = container.querySelector('ol');
     expect(ol).toBeDefined();
     expect(ol?.tagName).toBe('OL');
@@ -77,13 +72,11 @@ describe('List Component', () => {
       type: 'list',
       order: true,
       start: 5,
-      children: [
-        { text: 'Item 5' },
-      ],
+      children: [{ text: 'Item 5' }],
     };
 
     const { container } = renderList(orderedList);
-    
+
     const ol = container.querySelector('ol');
     expect(ol?.getAttribute('start')).toBe('5');
   });
@@ -100,7 +93,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(taskList);
-    
+
     const list = container.querySelector('[data-task="true"]');
     expect(list).toBeDefined();
   });
@@ -113,7 +106,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(list);
-    
+
     const listContainer = container.querySelector('[data-be="list"]');
     expect(listContainer?.className).toContain('ant-md-editor-list-container');
   });
@@ -126,7 +119,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(orderedList);
-    
+
     const ol = container.querySelector('ol');
     expect(ol?.className).toContain('ol');
   });
@@ -139,7 +132,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(unorderedList);
-    
+
     const ul = container.querySelector('ul');
     expect(ul?.className).toContain('ul');
   });
@@ -152,7 +145,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(list);
-    
+
     const listContainer = container.querySelector('[data-be="list"]');
     expect(listContainer?.getAttribute('data-slate-node')).toBe('element');
   });
@@ -165,7 +158,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(list);
-    
+
     const listContainer = container.querySelector('[data-be="list"]');
     expect(listContainer).toHaveProperty('ondragstart');
   });
@@ -178,7 +171,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(list);
-    
+
     // ListContext 应该被提供
     expect(container).toBeDefined();
   });
@@ -191,7 +184,7 @@ describe('List Component', () => {
     };
 
     const { container } = renderList(orderedList);
-    
+
     const ol = container.querySelector('ol');
     expect(ol).toBeDefined();
   });
@@ -200,16 +193,12 @@ describe('List Component', () => {
     const list = {
       type: 'list',
       order: false,
-      children: [
-        { text: 'Item 1' },
-        { text: 'Item 2' },
-      ],
+      children: [{ text: 'Item 1' }, { text: 'Item 2' }],
     };
 
     const { getByText } = renderList(list);
-    
+
     expect(getByText('List Item 1')).toBeDefined();
     expect(getByText('List Item 2')).toBeDefined();
   });
 });
-
