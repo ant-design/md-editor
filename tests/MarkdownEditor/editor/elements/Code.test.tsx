@@ -1,10 +1,11 @@
 import { render } from '@testing-library/react';
+import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { Code } from '../../../../src/MarkdownEditor/editor/elements/Code';
 
 describe('Code Element', () => {
   const mockAttributes = {
-    'data-slate-node': 'element',
+    'data-slate-node': 'element' as const,
     ref: null,
   };
 
@@ -155,7 +156,7 @@ describe('Code Element', () => {
 
   it('应该传递 attributes 到渲染的 div', () => {
     const customAttributes = {
-      'data-slate-node': 'element',
+      'data-slate-node': 'element' as const,
       'data-test-id': 'custom-code',
       ref: null,
     };
@@ -211,4 +212,3 @@ describe('Code Element', () => {
     expect(div.style.display).toBe('block');
   });
 });
-

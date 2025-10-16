@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
+import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { useLanguage } from '../../src/hooks/useLanguage';
 import { I18nProvide } from '../../src/i18n';
@@ -34,7 +35,9 @@ describe('useLanguage Hook', () => {
   it('应该正确识别中文状态', () => {
     const { result } = renderHook(() => useLanguage(), {
       wrapper: ({ children }) => (
-        <I18nProvide language="zh-CN">{children}</I18nProvide>
+        <I18nProvide defaultLanguage="zh-CN" autoDetect={false}>
+          {children}
+        </I18nProvide>
       ),
     });
 
@@ -102,7 +105,9 @@ describe('useLanguage Hook', () => {
   it('应该能够通过 setLanguage 设置语言', () => {
     const { result } = renderHook(() => useLanguage(), {
       wrapper: ({ children }) => (
-        <I18nProvide language="zh-CN">{children}</I18nProvide>
+        <I18nProvide defaultLanguage="zh-CN" autoDetect={false}>
+          {children}
+        </I18nProvide>
       ),
     });
 
@@ -116,7 +121,9 @@ describe('useLanguage Hook', () => {
   it('应该返回正确的 locale 对象', () => {
     const { result } = renderHook(() => useLanguage(), {
       wrapper: ({ children }) => (
-        <I18nProvide language="zh-CN">{children}</I18nProvide>
+        <I18nProvide defaultLanguage="zh-CN" autoDetect={false}>
+          {children}
+        </I18nProvide>
       ),
     });
 

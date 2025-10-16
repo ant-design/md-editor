@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import React from 'react';
 import { createEditor } from 'slate';
 import { Slate, withReact } from 'slate-react';
 import { describe, expect, it, vi } from 'vitest';
@@ -19,7 +20,7 @@ describe('WarpCard Element', () => {
   };
 
   const mockAttributes = {
-    'data-slate-node': 'element',
+    'data-slate-node': 'element' as const,
     ref: null,
   };
 

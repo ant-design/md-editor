@@ -1,5 +1,6 @@
-import { ConfigProvider } from 'antd';
 import { renderHook } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
+import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { useStyle } from '../../../../../src/MarkdownEditor/editor/elements/Description/style';
 
@@ -64,11 +65,10 @@ describe('Description Style', () => {
     const { result: result2 } = renderHook(() => useStyle('prefix'), {
       wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
     });
-    
+
     expect(result1.current).toBeDefined();
     expect(result2.current).toBeDefined();
     expect(result1.current).toHaveProperty('wrapSSR');
     expect(result2.current).toHaveProperty('wrapSSR');
   });
 });
-

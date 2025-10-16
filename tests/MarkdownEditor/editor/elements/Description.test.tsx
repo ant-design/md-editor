@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
+import React from 'react';
 import { createEditor } from 'slate';
 import { Slate, withReact } from 'slate-react';
 import { describe, expect, it, vi } from 'vitest';
@@ -22,7 +23,7 @@ describe('Description Element', () => {
   };
 
   const mockAttributes = {
-    'data-slate-node': 'element',
+    'data-slate-node': 'element' as const,
     ref: null,
   };
 

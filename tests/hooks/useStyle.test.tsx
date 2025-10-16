@@ -1,6 +1,7 @@
-import { ConfigProvider } from 'antd';
-import { describe, expect, it } from 'vitest';
 import { renderHook } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
+import React from 'react';
+import { describe, expect, it } from 'vitest';
 import { useEditorStyleRegister } from '../../src/hooks/useStyle';
 
 describe('useEditorStyleRegister Hook', () => {
@@ -14,9 +15,7 @@ describe('useEditorStyleRegister Hook', () => {
           },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -32,9 +31,7 @@ describe('useEditorStyleRegister Hook', () => {
           '.test-class': { color: token.colorText },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -52,9 +49,7 @@ describe('useEditorStyleRegister Hook', () => {
           },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -66,9 +61,7 @@ describe('useEditorStyleRegister Hook', () => {
     const { result } = renderHook(
       () => useEditorStyleRegister('empty-component', () => ({})),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -86,9 +79,7 @@ describe('useEditorStyleRegister Hook', () => {
           },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -107,9 +98,7 @@ describe('useEditorStyleRegister Hook', () => {
           },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -124,9 +113,7 @@ describe('useEditorStyleRegister Hook', () => {
           '.class-1': { color: token.colorText },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -136,9 +123,7 @@ describe('useEditorStyleRegister Hook', () => {
           '.class-2': { color: token.colorPrimary },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -175,9 +160,7 @@ describe('useEditorStyleRegister Hook', () => {
           },
         })),
       {
-        wrapper: ({ children }) => (
-          <ConfigProvider>{children}</ConfigProvider>
-        ),
+        wrapper: ({ children }) => <ConfigProvider>{children}</ConfigProvider>,
       },
     );
 
@@ -186,4 +169,3 @@ describe('useEditorStyleRegister Hook', () => {
     expect(result.current.hashId).toBeDefined();
   });
 });
-

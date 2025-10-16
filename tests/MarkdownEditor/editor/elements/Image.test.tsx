@@ -741,7 +741,7 @@ describe('Image', () => {
 
     it('应该处理不同的锁定宽高比', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} lockAspectRatio={false} />,
+        <ResizeImage {...mockResizeProps} {...({ lockAspectRatio: false } as any)} />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -749,7 +749,7 @@ describe('Image', () => {
 
     it('应该处理最小尺寸限制', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} minWidth={100} minHeight={100} />,
+        <ResizeImage {...mockResizeProps} {...({ minWidth: 100, minHeight: 100 } as any)} />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -757,7 +757,7 @@ describe('Image', () => {
 
     it('应该处理最大尺寸限制', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} maxWidth={1000} maxHeight={1000} />,
+        <ResizeImage {...mockResizeProps} {...({ maxWidth: 1000, maxHeight: 1000 } as any)} />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -765,7 +765,7 @@ describe('Image', () => {
 
     it('应该处理禁用状态', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} disableDragging={true} />,
+        <ResizeImage {...mockResizeProps} {...({ disableDragging: true } as any)} />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -775,9 +775,11 @@ describe('Image', () => {
       renderWithProvider(
         <ResizeImage
           {...mockResizeProps}
-          handleStyles={{
-            bottomRight: { backgroundColor: 'red' },
-          }}
+          {...({
+            handleStyles: {
+              bottomRight: { backgroundColor: 'red' },
+            },
+          } as any)}
         />,
       );
 

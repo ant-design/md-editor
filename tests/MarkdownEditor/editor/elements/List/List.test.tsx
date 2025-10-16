@@ -13,7 +13,7 @@ describe('List Component', () => {
   const createTestEditor = () => withReact(createEditor());
 
   const mockAttributes = {
-    'data-slate-node': 'element',
+    'data-slate-node': 'element' as const,
     ref: null,
   };
 

@@ -1,5 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import React from 'react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ImageAndError } from '../../../../../src/MarkdownEditor/editor/elements/Image';
 import * as editorStore from '../../../../../src/MarkdownEditor/editor/store';
 
@@ -93,7 +94,7 @@ describe('ImageAndError Component', () => {
 
   it('应该支持自定义 render 函数', () => {
     const customRender = vi.fn((props, defaultNode) => defaultNode);
-    
+
     vi.mocked(editorStore.useEditorStore).mockReturnValue({
       editorProps: {
         image: {
@@ -113,7 +114,7 @@ describe('ImageAndError Component', () => {
       expect(typeof props.onError).toBe('function');
       return defaultNode;
     });
-    
+
     vi.mocked(editorStore.useEditorStore).mockReturnValue({
       editorProps: {
         image: {
@@ -141,22 +142,18 @@ describe('ImageAndError Component', () => {
   });
 
   it('应该处理没有 src 的情况', () => {
-    const { container } = render(
-      <ImageAndError src="" alt="No source" />,
-    );
+    const { container } = render(<ImageAndError src="" alt="No source" />);
 
     expect(container).toBeDefined();
   });
 
   it('失败链接应该在新标签页打开', () => {
-    const { container } = render(
-      <ImageAndError src="invalid-url.jpg" />,
-    );
+    const { container } = render(<ImageAndError src="invalid-url.jpg" />);
 
     const img = container.querySelector('img');
     if (img) {
       fireEvent.error(img);
-      
+
       const link = container.querySelector('a');
       if (link) {
         expect(link.getAttribute('target')).toBe('_blank');
@@ -165,4 +162,3 @@ describe('ImageAndError Component', () => {
     }
   });
 });
-
