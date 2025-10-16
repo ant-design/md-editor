@@ -144,7 +144,7 @@ const Demo = () => {
         <Workspace.Realtime
           tab={{
             key: 'realtime',
-            title: '实时跟随',
+            title: '实时跟额随',
           }}
           data={{
             type: 'md',
@@ -178,11 +178,7 @@ const Demo = () => {
         <Workspace.Task
           tab={{
             key: 'tasks',
-            title: (
-              <div>
-                任务列表<span style={{ color: 'red' }}>123</span>
-              </div>
-            ),
+            title: <div>任务列表</div>,
           }}
           data={{
             items: [
@@ -231,6 +227,7 @@ const Demo = () => {
         <Workspace.File
           tab={{
             key: 'files',
+            count: 6,
           }}
           nodes={[
             {

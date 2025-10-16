@@ -15,7 +15,7 @@ const WorkspaceRealtimeEmptyDemo: React.FC = () => {
       <Workspace title="实时跟随空状态示例">
         {/* 默认空态：使用 AntD Empty */}
         <Workspace.Realtime
-          tab={{ key: 'markdown-empty', title: 'Markdown 空态' }}
+          tab={{ key: 'markdown-empty', title: '实时跟随' }}
           data={{
             type: 'md',
             content: mdContent,

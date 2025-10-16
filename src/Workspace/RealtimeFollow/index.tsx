@@ -31,37 +31,32 @@ export interface DiffContent {
 
 export interface RealtimeFollowData {
   type: RealtimeFollowMode;
-  content: string | DiffContent;
-  // 支持MarkdownEditor的所有配置项
+  content?: string | DiffContent;
   markdownEditorProps?: Partial<MarkdownEditorProps>;
-  title?: string; // 自定义主标题，如"终端执行"
-  subTitle?: string; // 自定义副标题，如"创建文件mkdir"
-  icon?: React.ComponentType; // 自定义图标
-  typewriter?: boolean; // 是否启用打印机效果
-  rightContent?: React.ReactNode; // 自定义右侧内容
+  title?: string;
+  subTitle?: string;
+  icon?: React.ComponentType;
+  typewriter?: boolean;
+  rightContent?: React.ReactNode;
   loadingRender?: React.ReactNode | (() => React.ReactNode);
   className?: string;
   style?: React.CSSProperties;
   errorRender?: React.ReactNode | (() => React.ReactNode);
-  // 新增：内容为空时的渲染
   emptyRender?: React.ReactNode | (() => React.ReactNode);
-  // 通用状态：适用于任意类型（html/shell/markdown）
   status?: 'loading' | 'done' | 'error';
   onBack?: () => void;
-
-  // —— 以下为库化增强配置，主要用于 html 类型 ——
+  /** 自定义渲染内容，传入后将直接渲染该内容，忽略其他渲染逻辑 */
+  customContent?: React.ReactNode | (() => React.ReactNode);
+  // HTML 类型专用配置
   viewMode?: 'preview' | 'code';
   defaultViewMode?: 'preview' | 'code';
   onViewModeChange?: (mode: 'preview' | 'code') => void;
   iframeProps?: React.IframeHTMLAttributes<HTMLIFrameElement>;
   labels?: { preview?: string; code?: string };
-  // 右侧分段器（Segmented）自定义
-  segmentedItems?: Array<{ label: React.ReactNode; value: string }>; // 自定义 items
-  // Segmented 右侧额外内容（当存在 segmentedItems 或默认 Segmented 时附加在其右侧）
+  segmentedItems?: Array<{ label: React.ReactNode; value: string }>;
   segmentedExtra?: React.ReactNode;
 }
 
-// 获取不同type的配置信息
 const getTypeConfig = (type: RealtimeFollowMode, locale?: any) => {
   switch (type) {
     case 'shell':
@@ -100,7 +95,6 @@ const getIconTypeClass = (type: RealtimeFollowMode, prefixCls: string) => {
   }
 };
 
-// 头部组件
 const RealtimeHeader: React.FC<{
   data: RealtimeFollowData;
   hasBorder?: boolean;
@@ -189,7 +183,6 @@ const RealtimeHeader: React.FC<{
   );
 };
 
-// 获取不同type的MarkdownEditor配置
 const getEditorConfig = (
   type: RealtimeFollowMode,
 ): Partial<MarkdownEditorProps> => {
@@ -230,7 +223,6 @@ const getEditorConfig = (
   }
 };
 
-// 通用遮罩（仅供 shell/md 使用；html 由 HtmlPreview 自己处理）
 const Overlay: React.FC<{
   status?: 'loading' | 'done' | 'error';
   loadingRender?: React.ReactNode | (() => React.ReactNode);
@@ -269,38 +261,9 @@ const Overlay: React.FC<{
 };
 
 /**
- * RealtimeFollow 组件 - 实时跟随组件
- *
- * 该组件用于实时显示和跟随不同类型的内容，支持HTML、Markdown、Shell等格式。
- * 提供实时更新、状态管理、错误处理等功能，主要用于显示动态内容。
- *
- * @component
- * @description 实时跟随组件，用于显示和跟随动态内容
- * @param {Object} props - 组件属性
- * @param {RealtimeFollowData} props.data - 实时跟随数据
- * @param {'preview' | 'code'} [props.htmlViewMode='preview'] - HTML查看模式
- *
+ * 实时跟随组件 - 支持 HTML、Markdown、Shell 等类型，或自定义内容
  * @example
- * ```tsx
- * <RealtimeFollow
- *   data={{
- *     type: 'html',
- *     content: '<div>Hello World</div>',
- *     status: 'done'
- *   }}
- *   htmlViewMode="preview"
- * />
- * ```
- *
- * @returns {React.ReactElement|null} 渲染的实时跟随组件
- *
- * @remarks
- * - 支持多种内容类型（HTML、Markdown、Shell）
- * - 提供实时内容更新
- * - 支持状态管理（加载、错误、完成）
- * - 提供HTML预览和代码查看模式
- * - 支持自定义渲染和错误处理
- * - 在测试环境下优化性能
+ * <RealtimeFollow data={{ type: 'shell', customContent: <div>自定义内容</div> }} />
  */
 export const RealtimeFollow: React.FC<{
   data: RealtimeFollowData;
@@ -312,13 +275,12 @@ export const RealtimeFollow: React.FC<{
   const finalPrefixCls = prefixCls || getPrefixCls('workspace-realtime');
   const mdInstance = useRef<MarkdownEditorInstance>();
   const isTestEnv = process.env.NODE_ENV === 'test';
-  // 添加自动滚动功能（测试环境下禁用）
   const { containerRef: autoScrollRef, scrollToBottom } = useAutoScroll({
     SCROLL_TOLERANCE: 30,
-    timeout: 100, // 更快的响应时间，适配打字机效果
-    deps: [isTestEnv], // 当测试环境状态变化时重新初始化
+    timeout: 100,
+    deps: [isTestEnv],
   });
-  // 更新编辑器内容的effect（测试环境下跳过以减少解析与快照负载）
+
   useEffect(() => {
     if (isTestEnv) return;
     if (
@@ -340,12 +302,8 @@ export const RealtimeFollow: React.FC<{
         mdInstance.current.store.plugins,
       );
       mdInstance.current.store.updateNodeList(schema);
-      // 在打字机模式下，内容更新后触发自动滚动
       if (data.typewriter && !isTestEnv) {
-        // 使用 setTimeout 确保 DOM 更新完成后再滚动
-        setTimeout(() => {
-          scrollToBottom();
-        }, 50);
+        setTimeout(() => scrollToBottom(), 50);
       }
     }
   }, [
@@ -356,6 +314,18 @@ export const RealtimeFollow: React.FC<{
     data.typewriter,
     scrollToBottom,
   ]);
+
+  if (data.customContent) {
+    const customNode =
+      typeof data.customContent === 'function'
+        ? data.customContent()
+        : data.customContent;
+    return (
+      <div className={classNames(`${finalPrefixCls}-content`, hashId)}>
+        {customNode || null}
+      </div>
+    );
+  }
 
   if (data.type === 'html') {
     const html = typeof data.content === 'string' ? data.content : '';
@@ -372,7 +342,6 @@ export const RealtimeFollow: React.FC<{
           loadingRender={isTestEnv ? undefined : data.loadingRender}
           errorRender={isTestEnv ? undefined : data.errorRender}
           showSegmented={false}
-          // 透传空状态渲染
           emptyRender={isTestEnv ? undefined : data.emptyRender}
         />
       </div>
@@ -439,36 +408,7 @@ export const RealtimeFollow: React.FC<{
 };
 
 /**
- * RealtimeFollowList 组件 - 实时跟随列表组件
- *
- * 该组件是RealtimeFollow的包装组件，提供视图模式管理和状态控制功能。
- * 支持HTML内容的预览和代码模式切换，提供更好的用户体验。
- *
- * @component
- * @description 实时跟随列表组件，管理实时跟随的视图模式
- * @param {Object} props - 组件属性
- * @param {RealtimeFollowData} props.data - 实时跟随数据
- *
- * @example
- * ```tsx
- * <RealtimeFollowList
- *   data={{
- *     type: 'html',
- *     content: '<div>Hello World</div>',
- *     status: 'done',
- *     defaultViewMode: 'preview'
- *   }}
- * />
- * ```
- *
- * @returns {React.ReactElement} 渲染的实时跟随列表组件
- *
- * @remarks
- * - 管理HTML视图模式状态
- * - 支持受控和非受控模式
- * - 提供默认视图模式设置
- * - 支持视图模式切换
- * - 继承RealtimeFollow的所有功能
+ * 实时跟随列表组件 - RealtimeFollow 的包装组件，管理视图模式状态
  */
 export const RealtimeFollowList: React.FC<{
   data: RealtimeFollowData;
@@ -495,7 +435,6 @@ export const RealtimeFollowList: React.FC<{
     code: data.labels?.code || locale?.['htmlPreview.code'] || '代码',
   };
 
-  // 使用 ConfigProvider 获取前缀类名，并提前计算样式作用域，供右侧区域使用
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('workspace-realtime');
   const styleResult = useRealtimeFollowStyle(prefixCls);
@@ -504,7 +443,6 @@ export const RealtimeFollowList: React.FC<{
     hashId: '',
   };
 
-  // 右侧：优先使用外部自定义 rightContent；否则 html 类型下显示 Segmented（自定义或默认）+ 可选 extra
   const rightContent = (() => {
     if (data.rightContent) return data.rightContent;
     if (data.type !== 'html') return null;
