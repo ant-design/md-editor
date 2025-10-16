@@ -84,7 +84,7 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
             cy="50"
             fill="none"
             stroke="url(#gradient1)"
-            strokeWidth="6"
+            strokeWidth="10"
             style={{ transformOrigin: 'center center' }}
             animate={{
               // 旋转动画：rotation: 300 → (300-25-90=185) → (185+180=365) → (365-25-40=300)
@@ -135,7 +135,7 @@ export const Loading = (props: React.SVGProps<HTMLDivElement>) => {
             cy="50"
             fill="none"
             stroke="url(#gradient)"
-            strokeWidth="6"
+            strokeWidth="10"
             style={{ transformOrigin: 'center center' }}
             animate={{
               // 旋转动画：rotation: 30 → (30-30-30-15-90-45=-180) → (-180+30+30+30+120=30)

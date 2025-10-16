@@ -43,10 +43,8 @@ const genStyle = (
         fontSize: '1em',
         display: 'flex',
         gap: 'var(--margin-1x)',
-        marginBottom: '4px',
         '&-pure': {
           paddingLeft: '20px',
-          marginBottom: '0px',
         },
         '&-quote': {
           marginBottom: '0px',
@@ -143,6 +141,7 @@ const genStyle = (
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
+        maxWidth: '75%',
         borderRadius: '16px 16px 2px 16px',
         background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-gray-text-default)',

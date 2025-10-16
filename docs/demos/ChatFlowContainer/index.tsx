@@ -219,100 +219,109 @@ const ChatFlowContainerDemo: React.FC = () => {
   // ***************** Footer Task Running End ***************** //
 
   return (
-    <div className="custom-chat-container-demo">
-      {/* 左侧边栏 */}
-      <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>
-        <div className="sidebar-left-content">
-          <StandaloneHistoryDemo />
+    <div
+      style={{ padding: 8, backgroundColor: 'var(--color-gray-bg-page-dark)' }}
+    >
+      <div className="custom-chat-container-demo">
+        {/* 左侧边栏 */}
+        <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>
+          <div className="sidebar-left-content">
+            <StandaloneHistoryDemo />
+          </div>
         </div>
-      </div>
 
-      {/* 主对话区域 */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <ChatFlowContainer
-          ref={containerRef}
-          title="AI 助手"
-          onLeftCollapse={handleLeftCollapse}
-          onShare={handleShare}
-          footer={
-            <div
-              style={{
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
+        {/* 主对话区域 */}
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+          }}
+        >
+          <ChatFlowContainer
+            ref={containerRef}
+            title="AI 助手"
+            onLeftCollapse={handleLeftCollapse}
+            onShare={handleShare}
+            footer={
               <div
                 style={{
-                  position: 'absolute',
-                  top: '-16px',
-                  left: '50%',
-                  transform: 'translate(-50%, -100%)',
+                  position: 'relative',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 16,
                 }}
               >
-                <BackTo.Top
-                  tooltip="去顶部"
-                  shouldVisible={200}
-                  target={() =>
-                    containerRef.current?.scrollContainer as HTMLElement
-                  }
+                <div
                   style={{
-                    position: 'relative',
-                    bottom: 0,
-                    insetInlineEnd: 0,
+                    position: 'absolute',
+                    top: '-16px',
+                    left: '50%',
+                    transform: 'translate(-50%, -100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 16,
                   }}
-                />
-                <BackTo.Bottom
-                  tooltip="去底部"
-                  shouldVisible={200}
-                  target={() =>
-                    containerRef.current?.scrollContainer as HTMLElement
-                  }
-                  style={{
-                    position: 'relative',
-                    bottom: 0,
-                    insetInlineEnd: 0,
-                  }}
+                >
+                  <BackTo.Top
+                    tooltip="去顶部"
+                    shouldVisible={200}
+                    target={() =>
+                      containerRef.current?.scrollContainer as HTMLElement
+                    }
+                    style={{
+                      position: 'relative',
+                      bottom: 0,
+                      insetInlineEnd: 0,
+                    }}
+                  />
+                  <BackTo.Bottom
+                    tooltip="去底部"
+                    shouldVisible={200}
+                    target={() =>
+                      containerRef.current?.scrollContainer as HTMLElement
+                    }
+                    style={{
+                      position: 'relative',
+                      bottom: 0,
+                      insetInlineEnd: 0,
+                    }}
+                  />
+                </div>
+                <TaskRunning
+                  title={`任务已完成, 耗时03分00秒`}
+                  taskStatus={TASK_STATUS.SUCCESS}
+                  taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
+                  onPause={noop}
+                  onResume={noop}
+                  onStop={noop}
+                  onCreateNewTask={handleCreateNewTask}
+                  onReplay={handleRetry}
+                  onViewResult={handleViewResult}
                 />
               </div>
-              <TaskRunning
-                title={`任务已完成, 耗时03分00秒`}
-                taskStatus={TASK_STATUS.SUCCESS}
-                taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
-                onPause={noop}
-                onResume={noop}
-                onStop={noop}
-                onCreateNewTask={handleCreateNewTask}
-                onReplay={handleRetry}
-                onViewResult={handleViewResult}
-              />
-            </div>
-          }
-        >
-          <BubbleList
-            style={{
-              paddingBottom: '60px',
-            }}
-            pure
-            onLike={() => {}}
-            onDisLike={() => {}}
-            shouldShowVoice={true}
-            markdownRenderConfig={{
-              tableConfig: {
-                pure: true,
-              },
-            }}
-            bubbleList={bubbleList}
-            assistantMeta={assistantMeta}
-            userMeta={userMeta}
-          />
-        </ChatFlowContainer>
+            }
+          >
+            <BubbleList
+              style={{
+                paddingBottom: '60px',
+              }}
+              pure
+              onLike={() => {}}
+              onDisLike={() => {}}
+              shouldShowVoice={true}
+              markdownRenderConfig={{
+                tableConfig: {
+                  pure: true,
+                },
+              }}
+              bubbleList={bubbleList}
+              assistantMeta={assistantMeta}
+              userMeta={userMeta}
+            />
+          </ChatFlowContainer>
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
-import { MessageSquareShare, PanelLeftFill } from '@sofa-design/icons';
+import { PanelLeftFill, SquareArrowOutUpRight } from '@sofa-design/icons';
+import { Button } from 'antd';
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { useStyle } from './style';
-
 import { ActionIconBox } from '../ActionIconBox';
+import { useStyle } from './style';
 import type { ChatFlowContainerProps, ChatFlowContainerRef } from './types';
 
 const COMPONENT_NAME = 'chat-flow-container';
@@ -114,25 +114,23 @@ const ChatFlowContainer = forwardRef<
           {/* 右侧区域：分享按钮和右侧折叠按钮 */}
           <div className={`${COMPONENT_NAME}-header-right ${hashId}`}>
             {showShare && (
-              <button
+              <Button
                 className={`${COMPONENT_NAME}-header-right-share-btn ${hashId}`}
                 onClick={handleShare}
                 aria-label="分享对话"
-                type="button"
+                icon={<SquareArrowOutUpRight />}
+                color="default"
               >
-                <MessageSquareShare />
-                &nbsp;分享
-              </button>
+                分享
+              </Button>
             )}
             {showRightCollapse && (
-              <button
-                className={`${COMPONENT_NAME}-header-right-collapse-btn ${hashId}`}
+              <ActionIconBox
                 onClick={handleRightCollapse}
                 aria-label="折叠右侧边栏"
-                type="button"
               >
                 <PanelLeftFill />
-              </button>
+              </ActionIconBox>
             )}
           </div>
         </div>

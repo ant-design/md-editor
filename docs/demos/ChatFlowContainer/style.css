@@ -1,36 +1,46 @@
+* {
+  box-sizing: border-box;
+}
 /* ChatFlowContainer Demo 样式定义 */
+
 .custom-chat-container-demo {
   min-height: 600px;
-  height: calc(100vh);
-  padding: 8px;
-  border-radius: 8px;
+  /* 圆角-弹窗-base */
+  border-radius: var(--radius-modal-base);
+  /* gray/gray-背景-页面-浅 */
+  /* 样式描述：1 */
+  background: var(--color-gray-bg-page-light);
+  /* 投影-卡片-base */
+  box-shadow: var(--shadow-card-base);
+  height: calc(100vh - 16px);
   display: flex;
-  background: var(--color-primary-bg-page-light);
   box-sizing: border-box;
-  border: 0px solid;
-  border-image: linear-gradient(
-      270deg,
-      rgba(0, 9, 50, 0.08) 0%,
-      rgba(0, 9, 50, 0.12) 100%
-    )
-    0;
+  overflow: hidden;
+  border: none;
 }
 
 /* 左侧边栏样式 */
 .sidebar-left {
-  width: 348px;
+  width: 256px;
+  min-width: 256px;
+  max-width: 256px;
   padding: 0 16px 16px 16px;
-  transition:
-    width 500ms ease-in-out,
-    padding 500ms ease-in-out,
-    opacity 500ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
   overflow: hidden;
+  box-sizing: border-box;
+  padding: 12px;
+  /* gray/gray-边线-浅 */
+  /* 样式描述：--gray-a3 */
+  border-right: 1px solid var(--color-gray-border-light);
 }
 
 .sidebar-left.collapsed {
   width: 0;
   padding: 0;
   opacity: 0;
+  min-width: 0;
+  max-width: 0;
+  overflow: hidden;
 }
 
 .sidebar-left.collapsed .sidebar-left-content {
@@ -47,7 +57,4 @@
   background: url(https://console.sofa.antdigital.com/playground/static/task-running-bg.118417dc.png)
     no-repeat center center;
   background-size: 100% 100%;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  pointer-events: none;
 }
