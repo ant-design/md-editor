@@ -12,7 +12,6 @@ import { Break } from './Break';
 import { WarpCard } from './Card';
 import { Code } from './Code';
 import { CommentView } from './Comment';
-import { Description } from './Description';
 import { FootnoteDefinition } from './FootnoteDefinition';
 import { FootnoteReference } from './FootnoteReference';
 import { Head } from './Head';
@@ -157,8 +156,6 @@ const MElementComponent = (
       return <Schema {...props} />;
     case 'apaasify':
       return <Schema {...props} />;
-    case 'description':
-      return <Description {...props}>{props.children}</Description>;
     case 'image':
       return <EditorImage {...props} />;
     case 'media':

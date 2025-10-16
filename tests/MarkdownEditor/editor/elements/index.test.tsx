@@ -67,14 +67,6 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Comment', () => ({
   ),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/elements/Description', () => ({
-  Description: ({ children, ...props }: any) => (
-    <div data-testid="description" {...props}>
-      {children}
-    </div>
-  ),
-}));
-
 vi.mock(
   '../../../../src/MarkdownEditor/editor/elements/FootnoteDefinition',
   () => ({
@@ -280,15 +272,6 @@ describe('Elements Index', () => {
         };
         render(<MElement {...props} />);
         expect(screen.getByTestId('editor-image')).toBeInTheDocument();
-      });
-
-      it('应该渲染描述元素', () => {
-        const props = {
-          ...defaultElementProps,
-          element: { type: 'description', children: [] },
-        };
-        render(<MElement {...props} />);
-        expect(screen.getByTestId('description')).toBeInTheDocument();
       });
 
       it('应该渲染脚注定义元素', () => {

@@ -329,7 +329,6 @@ export const shouldInsertTextDirectly = (editor: Editor, selection: any) => {
     'code',
     'schema',
     'apaasify',
-    'description',
   ].includes(rangeNode.type);
 };
 

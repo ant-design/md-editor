@@ -3,7 +3,7 @@ import scrollTo from '../../src/utils/scrollTo';
 
 // Mock rc-util/lib/raf
 vi.mock('rc-util/lib/raf', () => ({
-  default: (fn) => {
+  default: (fn: any) => {
     const timeoutId = setTimeout(fn, 16); // ~60fps
     return timeoutId;
   },
