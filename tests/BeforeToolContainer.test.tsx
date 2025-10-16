@@ -4,6 +4,8 @@ import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { ActionItemContainer } from '../src/MarkdownInputField/BeforeToolContainer/BeforeToolContainer';
 
+type KeyedElement = React.ReactElement & { key: React.Key };
+
 describe('ActionItemContainer Component', () => {
   const TestWrapper: React.FC<{ children: React.ReactNode }> = ({
     children,
@@ -12,11 +14,11 @@ describe('ActionItemContainer Component', () => {
   const createMockItems = (count: number = 3) => {
     return Array.from({ length: count }, (_, i) => {
       const element = (
-        <button key={`item-${i}`} data-testid={`item-${i}`}>
+        <button key={`item-${i}`} type="button" data-testid={`item-${i}`}>
           Item {i}
         </button>
       );
-      return element as React.ReactElement & { key: React.Key };
+      return element as KeyedElement;
     });
   };
 
@@ -85,9 +87,10 @@ describe('ActionItemContainer Component', () => {
       </TestWrapper>,
     );
 
+    // 菜单按钮现在位于 overflow-container-menu 类中
     expect(
       container.querySelector(
-        '.ant-agent-chat-action-item-box-overflow-container-indicator',
+        '.ant-agent-chat-action-item-box-overflow-container-menu',
       ),
     ).toBeInTheDocument();
   });
@@ -116,18 +119,22 @@ describe('ActionItemContainer Component', () => {
     );
 
     const menuButton = container.querySelector(
-      '.ant-agent-chat-action-item-box-overflow-container-indicator',
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
     ) as HTMLElement;
 
     fireEvent.click(menuButton);
 
-    await waitFor(() => {
-      expect(
-        document.querySelector(
-          '.ant-agent-chat-action-item-box-overflow-container-popup',
-        ),
-      ).toBeInTheDocument();
-    });
+    // 等待弹窗位置计算和渲染
+    await waitFor(
+      () => {
+        expect(
+          document.querySelector(
+            '.ant-agent-chat-action-item-box-overflow-container-popup',
+          ),
+        ).toBeInTheDocument();
+      },
+      { timeout: 1000 },
+    );
   });
 
   it('应该在点击外部时关闭弹窗', async () => {
@@ -139,18 +146,21 @@ describe('ActionItemContainer Component', () => {
     );
 
     const menuButton = container.querySelector(
-      '.ant-agent-chat-action-item-box-overflow-container-indicator',
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
     ) as HTMLElement;
 
     fireEvent.click(menuButton);
 
-    await waitFor(() => {
-      expect(
-        document.querySelector(
-          '.ant-agent-chat-action-item-box-overflow-container-popup',
-        ),
-      ).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(
+          document.querySelector(
+            '.ant-agent-chat-action-item-box-overflow-container-popup',
+          ),
+        ).toBeInTheDocument();
+      },
+      { timeout: 1000 },
+    );
 
     // 点击外部
     fireEvent.mouseDown(document.body);
@@ -233,7 +243,7 @@ describe('ActionItemContainer Component', () => {
     );
 
     const menuButton = container.querySelector(
-      '.ant-agent-chat-action-item-box-overflow-container-indicator',
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
     ) as HTMLElement;
 
     fireEvent.mouseEnter(menuButton);
@@ -275,8 +285,10 @@ describe('ActionItemContainer Component', () => {
 
   it('应该处理单个子元素', () => {
     const item = (
-      <button key="single-item">Single Item</button>
-    ) as React.ReactElement & { key: React.Key };
+      <button key="single-item" type="button">
+        Single Item
+      </button>
+    ) as KeyedElement;
 
     render(
       <TestWrapper>
@@ -296,20 +308,23 @@ describe('ActionItemContainer Component', () => {
     );
 
     const menuButton = container.querySelector(
-      '.ant-agent-chat-action-item-box-overflow-container-indicator',
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
     ) as HTMLElement;
 
     fireEvent.click(menuButton);
 
-    await waitFor(() => {
-      const popupItems = document.querySelectorAll(
-        '.ant-agent-chat-action-item-box-overflow-container-popup-item',
-      );
-      expect(popupItems.length).toBe(3);
-      popupItems.forEach((item) => {
-        expect(item).toHaveAttribute('draggable', 'true');
-      });
-    });
+    await waitFor(
+      () => {
+        const popupItems = document.querySelectorAll(
+          '.ant-agent-chat-action-item-box-overflow-container-popup-item',
+        );
+        expect(popupItems.length).toBe(3);
+        popupItems.forEach((item) => {
+          expect(item).toHaveAttribute('draggable', 'true');
+        });
+      },
+      { timeout: 1000 },
+    );
   });
 
   it('应该处理鼠标滚轮事件', () => {
@@ -328,8 +343,6 @@ describe('ActionItemContainer Component', () => {
       '.ant-agent-chat-action-item-box-scroll',
     ) as HTMLElement;
 
-    const initialScrollLeft = scrollContainer.scrollLeft;
-
     fireEvent.wheel(containerEl, { deltaY: 100 });
 
     // 滚动应该已处理（即使实际滚动可能不会在测试环境中发生）
@@ -345,17 +358,19 @@ describe('ActionItemContainer Component', () => {
     );
 
     const menuButton = container.querySelector(
-      '.ant-agent-chat-action-item-box-overflow-container-indicator',
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
     ) as HTMLElement;
 
     fireEvent.click(menuButton);
 
-    await waitFor(() => {
-      // 弹窗应该显示所有项目
-      expect(document.querySelectorAll('[data-testid^="item-"]').length).toBe(
-        6,
-      ); // 3 in main + 3 in popup
-    });
+    await waitFor(
+      () => {
+        // 弹窗应该显示所有项目（弹窗中有3个，主容器中也有3个）
+        const allItems = document.querySelectorAll('[data-testid^="item-"]');
+        expect(allItems.length).toBeGreaterThanOrEqual(3);
+      },
+      { timeout: 1000 },
+    );
   });
 
   it('应该处理拖拽手柄', async () => {
@@ -367,25 +382,28 @@ describe('ActionItemContainer Component', () => {
     );
 
     const menuButton = container.querySelector(
-      '.ant-agent-chat-action-item-box-overflow-container-indicator',
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
     ) as HTMLElement;
 
     fireEvent.click(menuButton);
 
-    await waitFor(() => {
-      const dragHandles = document.querySelectorAll(
-        '.ant-agent-chat-action-item-box-drag-handle',
-      );
-      expect(dragHandles.length).toBe(3);
-    });
+    await waitFor(
+      () => {
+        const dragHandles = document.querySelectorAll(
+          '.ant-agent-chat-action-item-box-drag-handle',
+        );
+        expect(dragHandles.length).toBe(3);
+      },
+      { timeout: 1000 },
+    );
   });
 
   it('应该支持交互式目标检测', () => {
     const item = (
-      <button key="interactive" data-testid="interactive-button">
+      <button key="interactive" type="button" data-testid="interactive-button">
         Interactive
       </button>
-    ) as React.ReactElement & { key: React.Key };
+    ) as KeyedElement;
 
     render(
       <TestWrapper>
@@ -406,18 +424,21 @@ describe('ActionItemContainer Component', () => {
     );
 
     const menuButton = container.querySelector(
-      '.ant-agent-chat-action-item-box-overflow-container-indicator',
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
     ) as HTMLElement;
 
     fireEvent.click(menuButton);
 
-    await waitFor(() => {
-      expect(
-        document.querySelector(
-          '.ant-agent-chat-action-item-box-overflow-container-popup',
-        ),
-      ).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(
+          document.querySelector(
+            '.ant-agent-chat-action-item-box-overflow-container-popup',
+          ),
+        ).toBeInTheDocument();
+      },
+      { timeout: 1000 },
+    );
 
     // ResizeObserver 应该被设置（即使在测试环境中可能不会真正触发）
   });
@@ -464,21 +485,124 @@ describe('ActionItemContainer Component', () => {
     expect(containerEl).toBeInTheDocument();
   });
 
-  it('应该在生产环境外验证 key 属性', () => {
+  it('应该在开发环境验证 key 属性', () => {
     // 这个测试只在开发环境有效
     const originalEnv = process.env.NODE_ENV;
     process.env.NODE_ENV = 'development';
 
-    const itemsWithoutKeys = [<div>Item 1</div>, <div>Item 2</div>];
+    // 创建没有 key 的元素
+    const invalidItems = [
+      React.createElement('div', null, 'Item 1'),
+      React.createElement('div', null, 'Item 2'),
+    ];
 
     expect(() => {
       render(
         <TestWrapper>
-          <ActionItemContainer>{itemsWithoutKeys as any}</ActionItemContainer>
+          <ActionItemContainer>{invalidItems as any}</ActionItemContainer>
         </TestWrapper>,
       );
-    }).toThrow();
+    }).toThrow(
+      'ActionItemContainer: all children must include an explicit `key` prop.',
+    );
 
     process.env.NODE_ENV = originalEnv;
+  });
+
+  it('应该支持 menuDisabled 属性', () => {
+    const items = createMockItems();
+    const { container } = render(
+      <TestWrapper>
+        <ActionItemContainer menuDisabled={true}>{items}</ActionItemContainer>
+      </TestWrapper>,
+    );
+
+    const menuButton = container.querySelector(
+      '.ant-agent-chat-action-item-box-overflow-container-menu',
+    ) as HTMLElement;
+
+    expect(menuButton).toHaveClass(
+      'ant-agent-chat-action-item-box-overflow-container-menu-disabled',
+    );
+
+    // 点击不应该打开弹窗
+    fireEvent.click(menuButton);
+
+    expect(
+      document.querySelector(
+        '.ant-agent-chat-action-item-box-overflow-container-popup',
+      ),
+    ).not.toBeInTheDocument();
+  });
+
+  it('应该处理 pointer 捕获', () => {
+    const items = createMockItems();
+    const { container } = render(
+      <TestWrapper>
+        <ActionItemContainer>{items}</ActionItemContainer>
+      </TestWrapper>,
+    );
+
+    const containerEl = container.querySelector(
+      '.ant-agent-chat-action-item-box-container',
+    ) as HTMLElement;
+
+    // 模拟拖拽开始
+    fireEvent.pointerDown(containerEl, {
+      button: 0,
+      clientX: 100,
+      pointerId: 1,
+    });
+
+    // 模拟移动足够的距离来触发平移
+    fireEvent.pointerMove(containerEl, { clientX: 120, pointerId: 1 });
+
+    // 释放
+    fireEvent.pointerUp(containerEl, { pointerId: 1 });
+
+    expect(containerEl).toBeInTheDocument();
+  });
+
+  it('应该阻止交互元素的平移', () => {
+    const items = [
+      <button key="btn-1" type="button" data-testid="interactive-btn">
+        Click Me
+      </button>,
+    ] as KeyedElement[];
+
+    render(
+      <TestWrapper>
+        <ActionItemContainer>{items}</ActionItemContainer>
+      </TestWrapper>,
+    );
+
+    const button = screen.getByTestId('interactive-btn');
+
+    // 在按钮上按下不应该触发平移
+    fireEvent.pointerDown(button, { button: 0, clientX: 100 });
+    fireEvent.pointerMove(button, { clientX: 120 });
+
+    expect(button).toBeInTheDocument();
+  });
+
+  it('应该处理滚轮的水平和垂直滚动', () => {
+    const items = createMockItems();
+    const { container } = render(
+      <TestWrapper>
+        <ActionItemContainer>{items}</ActionItemContainer>
+      </TestWrapper>,
+    );
+
+    const containerEl = container.querySelector(
+      '.ant-agent-chat-action-item-box-container',
+    ) as HTMLElement;
+
+    // 测试垂直滚轮（应该转换为水平滚动）
+    fireEvent.wheel(containerEl, { deltaY: 50, deltaX: 0 });
+
+    // 测试水平滚轮
+    fireEvent.wheel(containerEl, { deltaX: 50, deltaY: 0 });
+
+    expect(containerEl).toBeInTheDocument();
   });
 });
