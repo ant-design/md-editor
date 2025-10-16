@@ -24,16 +24,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-right': {
         flexDirection: 'row-reverse',
       },
-      '&-image-list-view': {
-        background: 'var(--color-gray-bg-tip)',
-        padding: '8px',
-        '&-right': {
-          borderRadius: '12px 0px 12px 12px',
-        },
-        '&-left': {
-          borderRadius: '0px 12px 12px 0px',
-        },
-      },
+
       '&-vertical': {
         display: 'flex',
         flexDirection: 'column',
@@ -87,7 +78,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'var(--shadow-control-base)',
         borderRadius: 'var(--radius-card-base)',
         border: 'none',
-        padding: 6,
+        overflow: 'hidden',
         img: {
           maxWidth: '100%',
           maxHeight: '100%',
@@ -95,10 +86,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           transition: 'transform 0.3s',
         },
         '&:hover': {
+          overflow: 'hidden',
           img: {
             transform: 'scale(1.1)',
             transition: 'transform 0.3s',
           },
+        },
+      },
+      '&-image-list-view': {
+        background: 'var(--color-gray-bg-tip)',
+        padding: '4px',
+        '&-right': {
+          borderRadius: 'var(--radius-card-base)',
         },
       },
       '&-more-file-container': {

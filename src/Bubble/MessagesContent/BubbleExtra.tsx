@@ -130,10 +130,7 @@ export const BubbleExtra = ({
               // 处理取消点赞
               if (alreadyFeedback) {
                 // 如果已经点赞且支持取消点赞
-                if (
-                  originalData?.feedback === 'thumbsUp' &&
-                  props.onCancelLike
-                ) {
+                if (originalData?.feedback === 'thumbsUp') {
                   await props.onCancelLike?.(bubble.originData);
                 }
                 return;
@@ -356,7 +353,7 @@ export const BubbleExtra = ({
         data-testid="reply-button"
         borderLess
         style={{
-          color: 'var(--color-gray-a9)',
+          color: 'var(--color-gray-text-secondary)',
         }}
         onClick={async () => {
           onReply?.(
@@ -373,7 +370,7 @@ export const BubbleExtra = ({
             display: 'flex',
             cursor: 'pointer',
             alignItems: 'center',
-            color: 'var(--color-gray-a9)',
+            color: 'var(--color-gray-text-secondary)',
           }}
         >
           <RotateCwSquare />

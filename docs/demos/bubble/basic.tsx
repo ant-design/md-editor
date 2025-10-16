@@ -183,6 +183,16 @@ export default () => {
     });
   };
 
+  const handleCancelLike = async (bubble: MessageBubbleData) => {
+    message.success(`已取消点赞消息: ${bubble.id}`);
+    console.log('取消点赞消息:', bubble);
+    setMockMessage({
+      ...mockMessage,
+      feedback: undefined,
+    });
+    console.log('取消点赞消息:', bubble);
+  };
+
   const handleDisLike = async (bubble: MessageBubbleData) => {
     message.info(`已点踩消息: ${bubble.id}`);
     console.log('点踩消息:', bubble);
@@ -230,6 +240,7 @@ export default () => {
           bubbleRef={bubbleRef}
           originData={mockMessage}
           onLike={handleLike}
+          onCancelLike={handleCancelLike}
           onDisLike={handleDisLike}
           onReply={handleReply}
           onAvatarClick={handleAvatarClick}
