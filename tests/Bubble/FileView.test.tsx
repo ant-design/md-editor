@@ -497,6 +497,27 @@ describe('BubbleFileView', () => {
     });
 
     it('默认 onDownload 应该创建下载链接', () => {
+      const mockFile = new File([], 'test.pdf') as AttachmentFile;
+      mockFile.uuid = 'file-download';
+      mockFile.url = 'http://example.com/test.pdf';
+
+      const capturedDefaults = vi.fn((defaults) => {
+        defaults.onDownload(mockFile);
+        return {};
+      });
+
+      const props = {
+        ...defaultProps,
+        bubble: {
+          ...defaultProps.bubble,
+          fileViewEvents: capturedDefaults,
+        },
+      };
+
+      // 先 render 组件,再 spy document 方法
+      render(<BubbleFileView {...props} />);
+
+      // 现在 render 完成了,可以安全地 spy
       const mockClick = vi.fn();
       const mockElement = {
         href: '',
@@ -517,19 +538,8 @@ describe('BubbleFileView', () => {
         .spyOn(document.body, 'removeChild')
         .mockImplementation(mockRemoveChild);
 
-      const props = {
-        ...defaultProps,
-        bubble: {
-          ...defaultProps.bubble,
-          fileViewEvents: (defaults: any) => ({
-            onDownload: defaults.onDownload,
-          }),
-        },
-      };
-
-      render(<BubbleFileView {...props} />);
-      const downloadButton = screen.getByTestId('download-button');
-      fireEvent.click(downloadButton);
+      // 再次调用 onDownload 来触发 spy
+      capturedDefaults.mock.calls[0][0].onDownload(mockFile);
 
       expect(createSpy).toHaveBeenCalledWith('a');
       expect(mockElement.href).toBe('http://example.com/test.pdf');

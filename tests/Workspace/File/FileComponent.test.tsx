@@ -353,7 +353,9 @@ describe('FileComponent', () => {
       );
 
       // 应该显示时间信息
-      const timeElement = container.querySelector('.ant-workspace-file-item-time');
+      const timeElement = container.querySelector(
+        '.ant-workspace-file-item-time',
+      );
       expect(timeElement).toBeTruthy();
       expect(timeElement?.textContent).toBeTruthy();
     });
@@ -658,7 +660,7 @@ describe('FileComponent', () => {
       await waitFor(() => {
         expect(screen.queryByLabelText('返回文件列表')).not.toBeInTheDocument();
       });
-      
+
       expect(screen.getByText('test.txt')).toBeInTheDocument();
     });
 
