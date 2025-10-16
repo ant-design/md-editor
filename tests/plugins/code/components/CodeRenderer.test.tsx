@@ -51,11 +51,6 @@ vi.mock('../../../../src/plugins/code/hooks', () => ({
     handleShowBorderChange: vi.fn(),
     handleHideChange: vi.fn(),
   }),
-  useFullScreenControl: () => ({
-    handle: { node: { current: null } },
-    isFullScreen: false,
-    handleFullScreenToggle: vi.fn(),
-  }),
   useRenderConditions: (element: any, readonly: boolean) => ({
     shouldHideConfigHtml: element.language === 'html' && element?.isConfig,
     shouldRenderAsThinkBlock: element.language === 'think' && readonly,

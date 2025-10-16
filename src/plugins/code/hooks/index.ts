@@ -5,6 +5,5 @@
  */
 
 export { useCodeEditorState } from './useCodeEditorState';
-export { useFullScreenControl } from './useFullScreenControl';
 export { useRenderConditions } from './useRenderConditions';
 export { useToolbarConfig } from './useToolbarConfig';
