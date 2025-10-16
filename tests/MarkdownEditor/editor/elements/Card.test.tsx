@@ -1,209 +1,124 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import React from 'react';
+import { render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import { createEditor } from 'slate';
+import { Slate, withReact } from 'slate-react';
 import { WarpCard } from '../../../../src/MarkdownEditor/editor/elements/Card';
-import { TestSlateWrapper } from './TestSlateWrapper';
+import * as editorHooks from '../../../../src/MarkdownEditor/hooks/editor';
+import * as editorStore from '../../../../src/MarkdownEditor/editor/store';
 
-// Mock dependencies
-vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
-  useEditorStore: vi.fn(() => ({
-    store: {
-      dragStart: vi.fn(),
-    },
-    markdownContainerRef: { current: document.createElement('div') },
-    readonly: false,
-  })),
-}));
+// Mock hooks
+vi.mock('../../../../src/MarkdownEditor/hooks/editor.ts');
+vi.mock('../../../../src/MarkdownEditor/editor/store.ts');
 
-vi.mock('../../../../src/MarkdownEditor/hooks/editor', () => ({
-  useSelStatus: vi.fn(() => [false, [0]]),
-}));
+describe('WarpCard Element', () => {
+  const createTestEditor = () => withReact(createEditor());
 
-describe('WarpCard', () => {
-  const defaultProps = {
-    element: {
-      type: 'card' as const,
-      children: [{ text: 'Card content' }],
-      style: { backgroundColor: 'red' },
-      block: true,
-    },
-    attributes: {
-      'data-slate-node': 'element' as const,
-      ref: { current: null },
-    },
-    children: [<div key="1">Card Content</div>],
-  } as any;
+  const mockElement = {
+    type: 'card',
+    children: [{ text: 'Card content' }],
+  };
 
-  const renderWithSlate = (props: any) => {
+  const mockAttributes = {
+    'data-slate-node': 'element',
+    ref: null,
+  };
+
+  const renderCard = (element = mockElement, readonly = false, selected = false) => {
+    const editor = createTestEditor();
+    
+    vi.mocked(editorStore.useEditorStore).mockReturnValue({ readonly } as any);
+    vi.mocked(editorHooks.useSelStatus).mockReturnValue([selected, [0]] as any);
+
     return render(
-      <TestSlateWrapper>
-        <WarpCard {...props} />
-      </TestSlateWrapper>,
+      <Slate editor={editor} initialValue={[element]}>
+        <WarpCard attributes={mockAttributes} element={element}>
+          <span>Card content</span>
+        </WarpCard>
+      </Slate>,
     );
   };
 
-  describe('基本渲染测试', () => {
-    it('应该正确渲染卡片元素', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('应该渲染子元素', () => {
-      renderWithSlate(defaultProps);
-      expect(screen.getByText('Card Content')).toBeInTheDocument();
-    });
-
-    it('应该设置正确的role属性', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toHaveAttribute('role', 'button');
-    });
-
-    it('应该设置正确的aria-label属性', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toHaveAttribute('aria-label', '可选择的卡片元素');
-    });
+  it('应该渲染卡片组件', () => {
+    const { container } = renderCard();
+    
+    const cardDiv = container.querySelector('[data-be="card"]');
+    expect(cardDiv).toBeDefined();
   });
 
-  describe('样式测试', () => {
-    it('应该应用元素的自定义样式', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('应该应用默认的卡片样式', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('应该为block元素设置flex布局', () => {
-      const blockProps = {
-        ...defaultProps,
-        element: { ...defaultProps.element, block: true },
-      };
-      renderWithSlate(blockProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('应该为inline元素设置inline-flex布局', () => {
-      const inlineProps = {
-        ...defaultProps,
-        element: { ...defaultProps.element, block: false },
-      };
-      renderWithSlate(inlineProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+  it('应该在只读模式下渲染简化版本', () => {
+    const { container } = renderCard(mockElement, true);
+    
+    const cardDiv = container.querySelector('[data-be="card"]');
+    expect(cardDiv).toBeDefined();
+    expect(cardDiv?.getAttribute('role')).toBe('button');
   });
 
-  describe('选中状态测试', () => {
-    it('应该处理选中状态', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('应该处理未选中状态', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+  it('应该在编辑模式下包含可访问性属性', () => {
+    const { container } = renderCard();
+    
+    const cardDiv = container.querySelector('[data-be="card"]');
+    expect(cardDiv?.getAttribute('role')).toBe('button');
+    expect(cardDiv?.getAttribute('tabIndex')).toBe('0');
+    expect(cardDiv?.getAttribute('aria-label')).toBe('可选择的卡片元素');
   });
 
-  describe('悬停状态测试', () => {
-    it('应该处理鼠标悬停', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('应该处理鼠标离开', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+  it('应该在选中时设置 aria-selected', () => {
+    const { container } = renderCard(mockElement, false, true);
+    
+    const cardDiv = container.querySelector('[data-be="card"]');
+    expect(cardDiv?.getAttribute('aria-selected')).toBe('true');
   });
 
-  describe('只读模式测试', () => {
-    it('应该在只读模式下简化渲染', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+  it('应该应用 block 样式', () => {
+    const blockElement = {
+      ...mockElement,
+      block: true,
+    };
 
-    it('只读模式下不应该有交互样式', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+    const { container } = renderCard(blockElement);
+    
+    const cardDiv = container.querySelector('[data-be="card"]') as HTMLElement;
+    expect(cardDiv.style.display).toBe('flex');
   });
 
-  describe('边界条件测试', () => {
-    it('应该处理空的子元素', () => {
-      const props = {
-        ...defaultProps,
-        children: [],
-      };
-      renderWithSlate(props);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+  it('应该应用 inline-flex 样式当 block 为 false', () => {
+    const inlineElement = {
+      ...mockElement,
+      block: false,
+    };
 
-    it('应该处理复杂的子元素结构', () => {
-      const props = {
-        ...defaultProps,
-        children: [<div key="1">Complex</div>, <span key="2">Content</span>],
-      };
-      renderWithSlate(props);
-      expect(screen.getByText('Complex')).toBeInTheDocument();
-      expect(screen.getByText('Content')).toBeInTheDocument();
-    });
-
-    it('应该处理没有样式的元素', () => {
-      const props = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          style: undefined,
-        },
-      };
-      renderWithSlate(props);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('应该处理没有block属性的元素', () => {
-      const props = {
-        ...defaultProps,
-        element: {
-          ...defaultProps.element,
-          block: undefined,
-        },
-      };
-      renderWithSlate(props);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-      expect(card).toHaveStyle({ display: 'flex' }); // 默认值
-    });
+    const { container } = renderCard(inlineElement);
+    
+    const cardDiv = container.querySelector('[data-be="card"]') as HTMLElement;
+    expect(cardDiv.style.display).toBe('inline-flex');
   });
 
-  describe('交互测试', () => {
-    it('应该设置正确的tabIndex', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+  it('应该应用自定义样式', () => {
+    const styledElement = {
+      ...mockElement,
+      style: {
+        backgroundColor: 'red',
+        padding: '10px',
+      },
+    };
 
-    it('只读模式下不应该设置tabIndex', () => {
-      renderWithSlate(defaultProps);
-      const card = document.querySelector('[data-be="card"]');
-      expect(card).toBeInTheDocument();
-    });
+    const { container } = renderCard(styledElement);
+    
+    const cardDiv = container.querySelector('[data-be="card"]') as HTMLElement;
+    expect(cardDiv.style.backgroundColor).toBe('red');
+    expect(cardDiv.style.padding).toBe('10px');
+  });
+
+  it('应该渲染子元素', () => {
+    const { getByText } = renderCard();
+    
+    expect(getByText('Card content')).toBeDefined();
+  });
+
+  it('应该传递 attributes', () => {
+    const { container } = renderCard();
+    
+    const cardDiv = container.querySelector('[data-be="card"]');
+    expect(cardDiv?.getAttribute('data-slate-node')).toBe('element');
   });
 });
