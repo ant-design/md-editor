@@ -137,7 +137,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           flex: 1,
           overflowY: 'auto',
           overflowX: 'hidden',
-          padding: 'var(--padding-6x)',
+          padding: 'var(--padding-2x)',
           '&::-webkit-scrollbar': {
             width: '6px',
           },
