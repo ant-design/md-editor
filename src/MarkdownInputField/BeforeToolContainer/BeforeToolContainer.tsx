@@ -1,8 +1,7 @@
 import { GripVertical, Menu } from '@sofa-design/icons';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { useStyle } from './actionItemBoxStyle';
 
 type KeyedElement = React.ReactElement & { key: React.Key };
@@ -21,15 +20,8 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const { wrapSSR, hashId } = useStyle(basePrefixCls);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const indicatorRef = useRef<HTMLDivElement>(null);
-  const popupRef = useRef<HTMLDivElement>(null);
   const [isIndicatorHover, setIsIndicatorHover] = useState(false);
   const [showOverflowPopup, setShowOverflowPopup] = useState(false);
-  const [popupPos, setPopupPos] = useState<{
-    left: number;
-    top: number;
-  } | null>(null);
-  const [isPopupPositioned, setIsPopupPositioned] = useState(false);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [overIndex, setOverIndex] = useState<number | null>(null);
   const isHandlePressRef = useRef(false);
@@ -107,77 +99,6 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
 
   // No need to compute hidden index; popup renders all children
 
-  const computePopupPosition = () => {
-    if (typeof window === 'undefined') return;
-    const el = indicatorRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const popupWidth = popupRef.current?.offsetWidth || 320;
-    const popupHeight = popupRef.current?.offsetHeight || 220;
-    const gap = 8;
-    let left = rect.right - popupWidth;
-    let top = rect.top - popupHeight - gap;
-    // Keep within viewport horizontally
-    if (left < 8) left = 8;
-    if (left + popupWidth > window.innerWidth - 8)
-      left = window.innerWidth - 8 - popupWidth;
-    // If not enough space above, place below
-    if (top < 8)
-      top = Math.min(rect.bottom + gap, window.innerHeight - popupHeight - 8);
-    setPopupPos({ left, top });
-  };
-
-  useEffect(() => {
-    if (!showOverflowPopup) {
-      setIsPopupPositioned(false);
-      return;
-    }
-    // position once now, then again after the popup renders to measure actual size
-    setIsPopupPositioned(false);
-    // Wait for next frame before computing position to ensure indicator is visible
-    requestAnimationFrame(() => {
-      computePopupPosition();
-      // Wait another frame to ensure popup has rendered with correct position
-      requestAnimationFrame(() => {
-        computePopupPosition();
-        setIsPopupPositioned(true);
-      });
-    });
-    // in case layout/ fonts settle next frame again
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => 
-        requestAnimationFrame(() => computePopupPosition())
-      ),
-    );
-    if (typeof window === 'undefined') return;
-    const onScroll = () => computePopupPosition();
-    const onResize = () => computePopupPosition();
-    window.addEventListener('scroll', onScroll, true);
-    window.addEventListener('resize', onResize);
-    // observe popup size/content changes to keep position in sync (auto width)
-    let ro: ResizeObserver | undefined;
-    const popupEl = popupRef.current;
-    if ('ResizeObserver' in window && popupEl) {
-      ro = new ResizeObserver(() => computePopupPosition());
-      ro.observe(popupEl);
-    }
-    const onDocClick = (e: MouseEvent) => {
-      const target = e.target as Node;
-      // Ignore clicks on the indicator
-      if (indicatorRef.current && indicatorRef.current.contains(target)) return;
-      // Keep popup open when clicking inside the popup so item onClick can run
-      if (popupRef.current && popupRef.current.contains(target)) return;
-      setShowOverflowPopup(false);
-    };
-    document.addEventListener('mousedown', onDocClick);
-    return () => {
-      window.removeEventListener('scroll', onScroll, true);
-      window.removeEventListener('resize', onResize);
-      if (ro && popupEl) ro.disconnect();
-      document.removeEventListener('mousedown', onDocClick);
-    };
-  }, [showOverflowPopup]);
-
   const handleDragStart = (
     e: React.DragEvent<HTMLDivElement>,
     index: number,
@@ -252,8 +173,6 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         const el = scrollRef.current;
         if (!el) return;
         if (e.button !== 0) return;
-        // ignore if clicking on the overflow indicator area
-        if (indicatorRef.current && indicatorRef.current.contains(e.target as Node)) return;
         // if clicking on an interactive child, don't pan
         if (isInteractiveTarget(e.target)) return;
         panIntentRef.current = true;
@@ -331,102 +250,88 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
       ))}</div>
       {props.showMenu !== false && (
-        <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)}>
-          <div
-            className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}
-            ref={indicatorRef}
-          >
+        <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)} data-no-pan>
+          <div className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}>
             <div className={classNames(`${basePrefixCls}-overflow-container-placeholder`, hashId)}></div>
-            <div
-              className={classNames(
-                `${basePrefixCls}-overflow-container-menu`,
-                hashId,
-                {
-                  [`${basePrefixCls}-overflow-container-menu-disabled`]: props.menuDisabled,
-                }
-              )}
-              onMouseEnter={() => !props.menuDisabled && setIsIndicatorHover(true)}
-              onMouseLeave={() => !props.menuDisabled && setIsIndicatorHover(false)}
-              onClick={() => !props.menuDisabled && setShowOverflowPopup((v) => !v)}
+            <Popover
+              open={showOverflowPopup}
+              onOpenChange={(visible) => !props.menuDisabled && setShowOverflowPopup(visible)}
+              trigger="click"
+              placement="topRight"
+              arrow={false}
+              overlayInnerStyle={{ padding: 0 }}
+              overlayClassName={classNames(`${basePrefixCls}-overflow-popover`, hashId)}
+              content={
+                <div
+                  className={classNames(`${basePrefixCls}-overflow-container-popup`, hashId)}
+                  onWheel={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  {ordered.length > 0
+                    ? ordered.map((entry, index) => (
+                        <div
+                          key={entry.key as any}
+                          className={classNames(
+                            `${basePrefixCls}-overflow-container-popup-item`,
+                            hashId,
+                            {
+                              [`${basePrefixCls}-dragging`]: draggingIndex === index,
+                              [`${basePrefixCls}-drag-over`]: overIndex === index,
+                            },
+                          )}
+                          draggable
+                          onMouseDown={(evt) => {
+                            const isHandle = isHandleTarget(evt.target);
+                            isHandlePressRef.current = isHandle;
+                            if (isHandle) {
+                              setDraggingIndex(index);
+                            } else {
+                              setDraggingIndex(null);
+                            }
+                          }}
+                          onMouseUp={() => {
+                            if (draggingIndex === null) {
+                              isHandlePressRef.current = false;
+                            }
+                          }}
+                          onDragStart={(evt) => {
+                            handleDragStart(evt, index);
+                          }}
+                          onDragOver={(evt) => handleDragOver(evt, index)}
+                          onDrop={(evt) => handleDrop(evt, index)}
+                          onDragEnd={handleDragEnd}
+                        >
+                          <GripVertical
+                            className={classNames(`${basePrefixCls}-drag-handle`, hashId)}
+                            onMouseDown={(evt) => {
+                              isHandlePressRef.current = true;
+                              setDraggingIndex(index);
+                              evt.stopPropagation();
+                            }}
+                          />
+                          <div draggable={false}>{entry.node}</div>
+                        </div>
+                      ))
+                    : null}
+                </div>
+              }
             >
-              <Menu />
-            </div>
-          </div>
-          {showOverflowPopup && popupPos && typeof document !== 'undefined'
-            ? createPortal(
               <div
                 className={classNames(
-                  `${basePrefixCls}-overflow-container-popup`,
+                  `${basePrefixCls}-overflow-container-menu`,
                   hashId,
+                  {
+                    [`${basePrefixCls}-overflow-container-menu-disabled`]: props.menuDisabled,
+                  }
                 )}
-                ref={popupRef}
-                style={{ 
-                  position: 'fixed', 
-                  left: popupPos.left, 
-                  top: popupPos.top, 
-                  zIndex: 1000,
-                  visibility: isPopupPositioned ? 'visible' : 'hidden',
-                  opacity: isPopupPositioned ? 1 : 0,
-                  transition: isPopupPositioned ? 'opacity 0.12s ease-out' : 'none',
-                }}
-                onWheel={(e) => {
-                  // if (e.cancelable) e.preventDefault();
-                  e.stopPropagation();
-                }}
+                onMouseEnter={() => !props.menuDisabled && setIsIndicatorHover(true)}
+                onMouseLeave={() => !props.menuDisabled && setIsIndicatorHover(false)}
               >
-                {(() => {
-                  return ordered.length > 0
-                    ? ordered.map((entry, index) => (
-                      <div
-                        key={entry.key as any}
-                        className={classNames(
-                          `${basePrefixCls}-overflow-container-popup-item`,
-                          hashId,
-                          {
-                            [`${basePrefixCls}-dragging`]: draggingIndex === index,
-                            [`${basePrefixCls}-drag-over`]: overIndex === index,
-                          },
-                        )}
-                        draggable
-                        onMouseDown={(evt) => {
-                          const isHandle = isHandleTarget(evt.target);
-                          isHandlePressRef.current = isHandle;
-                          if (isHandle) {
-                            setDraggingIndex(index);
-                          } else {
-                            setDraggingIndex(null);
-                          }
-                        }}
-                        onMouseUp={() => {
-                          if (draggingIndex === null) {
-                            isHandlePressRef.current = false;
-                          }
-                        }}
-                        onDragStart={(evt) => {
-                          handleDragStart(evt, index);
-                        }}
-                        onDragOver={(evt) => handleDragOver(evt, index)}
-                        onDrop={(evt) => handleDrop(evt, index)}
-                        onDragEnd={handleDragEnd}
-                      >
-                        <GripVertical
-                          className={classNames(`${basePrefixCls}-drag-handle`, hashId)}
-                          onMouseDown={(evt) => {
-                            // Explicitly flag handle press to allow parent dragstart
-                            isHandlePressRef.current = true;
-                            setDraggingIndex(index);
-                            evt.stopPropagation();
-                          }}
-                        />
-                        <div draggable={false}>{entry.node}</div>
-                      </div>
-                    ))
-                    : null;
-                })()}
-              </div>,
-              document.body,
-            )
-            : null}
+                <Menu />
+              </div>
+            </Popover>
+          </div>
         </div>
       )}
     </div>
