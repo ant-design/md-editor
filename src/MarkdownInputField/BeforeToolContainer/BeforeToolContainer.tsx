@@ -287,8 +287,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         if (horizontalDelta !== 0) {
           el.scrollLeft += horizontalDelta;
         }
-        // Always stop propagation to avoid bubbling to parent scrollers
-        if (e.cancelable) e.preventDefault();
+        // if (e.cancelable) e.preventDefault();
         e.stopPropagation();
       }}
       onClick={(e) => {
@@ -352,7 +351,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                 ref={popupRef}
                 style={{ position: 'fixed', left: popupPos.left, top: popupPos.top, zIndex: 1000 }}
                 onWheel={(e) => {
-                  if (e.cancelable) e.preventDefault();
+                  // if (e.cancelable) e.preventDefault();
                   e.stopPropagation();
                 }}
               >
