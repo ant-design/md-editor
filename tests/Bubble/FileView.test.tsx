@@ -100,18 +100,6 @@ describe('BubbleFileView', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    // Mock window.open
-    global.window = { open: vi.fn() } as any;
-    // Mock document methods
-    global.document = {
-      createElement: vi.fn(() => ({
-        click: vi.fn(),
-      })),
-      body: {
-        appendChild: vi.fn(),
-        removeChild: vi.fn(),
-      },
-    } as any;
   });
 
   describe('基本渲染', () => {
@@ -450,7 +438,7 @@ describe('BubbleFileView', () => {
   describe('defaultHandlers 默认行为', () => {
     it('默认 onPreview 应该使用 previewUrl 打开新窗口', () => {
       const mockOpen = vi.fn();
-      global.window = { open: mockOpen } as any;
+      const spy = vi.spyOn(window, 'open').mockImplementation(mockOpen);
 
       const props = {
         ...defaultProps,
@@ -470,34 +458,24 @@ describe('BubbleFileView', () => {
         'http://example.com/preview/test.pdf',
         '_blank',
       );
+      spy.mockRestore();
     });
 
     it('默认 onPreview 应该在没有 previewUrl 时使用 url', () => {
       const mockOpen = vi.fn();
-      global.window = { open: mockOpen } as any;
+      const spy = vi.spyOn(window, 'open').mockImplementation(mockOpen);
 
-      const props = {
-        ...defaultProps,
-        bubble: {
-          ...defaultProps.bubble,
-          fileViewEvents: (defaults: any) => ({
-            onPreview: defaults.onPreview,
-          }),
-        },
-      };
-
-      render(<BubbleFileView {...props} />);
-
-      // 触发 preview，但传入没有 previewUrl 的文件
+      // 触发 preview,但传入没有 previewUrl 的文件
       const mockFile = new File([], 'test.pdf') as AttachmentFile;
       mockFile.uuid = 'file-no-preview';
-      mockFile.url = 'http://example.com/test.pdf'; // 直接调用 handler
+      mockFile.url = 'http://example.com/test.pdf';
+
       const capturedDefaults = vi.fn((defaults) => {
         defaults.onPreview(mockFile);
         return {};
       });
 
-      const testProps = {
+      const props = {
         ...defaultProps,
         bubble: {
           ...defaultProps.bubble,
@@ -505,11 +483,12 @@ describe('BubbleFileView', () => {
         },
       };
 
-      render(<BubbleFileView {...testProps} />);
+      render(<BubbleFileView {...props} />);
       expect(mockOpen).toHaveBeenCalledWith(
         'http://example.com/test.pdf',
         '_blank',
       );
+      spy.mockRestore();
     });
 
     it('默认 onDownload 应该创建下载链接', () => {

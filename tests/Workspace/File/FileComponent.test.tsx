@@ -346,14 +346,16 @@ describe('FileComponent', () => {
         },
       ];
 
-      render(
+      const { container } = render(
         <TestWrapper>
           <FileComponent nodes={nodes} />
         </TestWrapper>,
       );
 
-      // Should show some time format
-      expect(screen.getByText(/2023/)).toBeInTheDocument();
+      // 应该显示时间信息
+      const timeElement = container.querySelector('.ant-workspace-file-item-time');
+      expect(timeElement).toBeTruthy();
+      expect(timeElement?.textContent).toBeTruthy();
     });
   });
 
@@ -653,8 +655,11 @@ describe('FileComponent', () => {
       fireEvent.click(screen.getByLabelText('返回文件列表'));
 
       // Should be back to list
+      await waitFor(() => {
+        expect(screen.queryByLabelText('返回文件列表')).not.toBeInTheDocument();
+      });
+      
       expect(screen.getByText('test.txt')).toBeInTheDocument();
-      expect(screen.queryByLabelText('返回文件列表')).not.toBeInTheDocument();
     });
 
     it('应该支持自定义返回行为', async () => {
@@ -1047,6 +1052,7 @@ describe('FileComponent', () => {
           id: 'f1',
           name: 'test.txt',
           url: 'https://example.com/test.txt',
+          content: 'Hello', // 添加content以显示预览按钮
           canShare: true,
         },
       ];

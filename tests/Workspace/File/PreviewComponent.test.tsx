@@ -150,7 +150,9 @@ describe('PreviewComponent', () => {
       };
 
       const customActions = (
-        <button data-testid="custom-action">Custom Action</button>
+        <button data-testid="custom-action" type="button">
+          Custom Action
+        </button>
       );
 
       render(
