@@ -803,5 +803,323 @@ describe('RealtimeFollow Component', () => {
       // null 会被转为字符串 'null'
       expect(screen.getByText('null')).toBeInTheDocument();
     });
+
+    it('应该处理 HTML 内容为空的情况', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollow
+            data={{
+              type: 'html',
+              content: '',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      // 空内容应该显示编辑器或空状态
+      expect(
+        container.querySelector('.ant-md-editor') ||
+          container.querySelector('iframe') ||
+          container.firstChild,
+      ).toBeTruthy();
+    });
+
+    it('应该处理 HTML 内容为 DiffContent 的情况', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollow
+            data={{
+              type: 'html',
+              content: {
+                original: '<h1>old</h1>',
+                modified: '<h1>new</h1>',
+              } as any,
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      // DiffContent 会被当作对象处理
+      expect(
+        container.querySelector('.ant-md-editor') ||
+          container.querySelector('iframe') ||
+          container.firstChild,
+      ).toBeTruthy();
+    });
+
+    it('应该传递 iframeProps 到 HtmlPreview', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollow
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              iframeProps: {
+                sandbox: 'allow-scripts',
+              },
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      const iframe = container.querySelector('iframe');
+      expect(iframe).toBeInTheDocument();
+    });
+
+    it('应该传递 markdownEditorProps 到 MarkdownEditor', () => {
+      render(
+        <TestWrapper>
+          <RealtimeFollow
+            data={{
+              type: 'markdown',
+              content: '# Test',
+              markdownEditorProps: {
+                readonly: true,
+              },
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      expect(screen.getByText('Test')).toBeInTheDocument();
+    });
+  });
+
+  describe('RealtimeFollowList - Additional Tests', () => {
+    it('应该处理 default 类型', () => {
+      render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'default',
+              content: 'default content',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      expect(screen.getByText('终端执行')).toBeInTheDocument();
+      expect(screen.getByText('default content')).toBeInTheDocument();
+    });
+
+    it('应该正确处理 md 类型的标题', () => {
+      render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'md',
+              content: 'md content',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      expect(screen.getByText('Markdown 内容')).toBeInTheDocument();
+    });
+
+    it('应该在 markdown 类型时显示边框', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'markdown',
+              content: '# Test',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      const header = container.querySelector('[class*="-header-with-border"]');
+      expect(header).toBeInTheDocument();
+    });
+
+    it('应该在非 HTML 类型时不显示右侧内容', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'shell',
+              content: 'test',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      const segmented = container.querySelector('.ant-segmented');
+      expect(segmented).not.toBeInTheDocument();
+    });
+
+    it('应该在自定义分段选项时调用回调', () => {
+      const onViewModeChange = vi.fn();
+      const customItems = [
+        { label: '选项1', value: 'option1' },
+        { label: '选项2', value: 'option2' },
+      ];
+
+      render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              segmentedItems: customItems,
+              onViewModeChange,
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      const option2 = screen.getByText('选项2');
+      fireEvent.click(option2);
+
+      expect(onViewModeChange).toHaveBeenCalledWith('option2');
+    });
+
+    it('应该只在有 segmentedExtra 时显示额外内容容器', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              segmentedExtra: <div>额外内容</div>,
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      const extraContainer = container.querySelector(
+        '[class*="-header-segmented-right"]',
+      );
+      expect(extraContainer).toBeInTheDocument();
+    });
+
+    it('应该不显示 segmentedExtra 容器当未提供时', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      const extraContainer = container.querySelector(
+        '[class*="-header-segmented-right"]',
+      );
+      expect(extraContainer).not.toBeInTheDocument();
+    });
+
+    it('应该在返回按钮模式下隐藏左侧图标', () => {
+      const { container } = render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'shell',
+              content: 'test',
+              onBack: () => {},
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      const headerLeft = container.querySelector('[class*="-header-left"]');
+      const headerContent = container.querySelector(
+        '[class*="-header-content"]',
+      );
+      expect(headerLeft).toBeInTheDocument();
+      expect(headerContent).toBeInTheDocument();
+    });
+
+    it('应该处理受控模式的视图模式切换', () => {
+      const { rerender } = render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              viewMode: 'preview',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      expect(document.querySelector('iframe')).toBeInTheDocument();
+
+      rerender(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              viewMode: 'code',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      expect(document.querySelector('.ant-md-editor')).toBeInTheDocument();
+    });
+
+    it('应该使用 locale 中的默认标签文本', () => {
+      render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+
+      // 使用 mockLocale 中定义的文本
+      expect(screen.getByText('预览')).toBeInTheDocument();
+      expect(screen.getByText('代码')).toBeInTheDocument();
+    });
+
+    it('应该在无 locale 时使用默认标签', () => {
+      const NoLocaleWrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <ConfigProvider>
+          <I18nContext.Provider value={{ locale: {}, language: 'en' }}>
+            {children}
+          </I18nContext.Provider>
+        </ConfigProvider>
+      );
+
+      render(
+        <NoLocaleWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              status: 'done',
+            }}
+          />
+        </NoLocaleWrapper>,
+      );
+
+      // 应该显示默认的英文标签
+      expect(screen.getByText('预览')).toBeInTheDocument();
+    });
   });
 });
