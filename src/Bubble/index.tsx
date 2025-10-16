@@ -1,5 +1,5 @@
-export { AIBubble } from './AIBubble';
-export { Bubble, runRender } from './Bubble';
+export { AIBubble, runRender } from './AIBubble';
+export { Bubble } from './Bubble';
 export * from './BubbleConfigProvide';
 
 export * from './MessagesContent/BubbleContext';
