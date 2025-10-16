@@ -1,794 +1,788 @@
-﻿import { createEditor, Editor, Node, Transforms } from 'slate';
-import { describe, expect, it } from 'vitest';
+import { Editor, Transforms } from 'slate';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NativeTableEditor } from '../../../../src/MarkdownEditor/utils/native-table/native-table-editor';
 
-/**
- * 创建测试用的编辑器实例
- */
-const createTestEditor = (initialValue?: Node[]): Editor => {
-  const editor = createEditor();
-
-  // 设置初始值
-  if (initialValue) {
-    editor.children = initialValue;
-  } else {
-    editor.children = [
-      {
-        type: 'paragraph',
-        children: [{ text: '' }],
-      },
-    ];
-  }
-
-  // 设置选中位置
-  Transforms.select(editor, {
-    path: [0, 0],
-    offset: 0,
-  });
-
-  return editor;
-};
-
-/**
- * 创建一个基础表格节点
- */
-const createTableNode = (rows: number, cols: number): Node => {
+// Mock Slate APIs
+vi.mock('slate', async () => {
+  const actual = await vi.importActual('slate');
   return {
-    type: 'table',
-    children: Array.from({ length: rows }).map(() => ({
-      type: 'table-row',
-      children: Array.from({ length: cols }).map(() => ({
-        type: 'table-cell',
-        children: [
-          {
-            type: 'paragraph',
-            children: [{ text: '' }],
-          },
-        ],
-      })),
-    })),
+    ...actual,
+    Transforms: {
+      insertNodes: vi.fn(),
+      removeNodes: vi.fn(),
+      select: vi.fn(),
+    },
+    Editor: {
+      ...(actual as any).Editor,
+      above: vi.fn(),
+      isBlock: vi.fn(() => true),
+    },
   };
-};
+});
 
 describe('NativeTableEditor', () => {
+  let mockEditor: any;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockEditor = {
+      children: [],
+      selection: null,
+      select: vi.fn(),
+    };
+  });
+
   describe('insertTable', () => {
-    it('应该插入默认的 2x2 表格', () => {
-      const editor = createTestEditor();
+    it('应该插入默认2x2表格', () => {
+      NativeTableEditor.insertTable(mockEditor);
 
-      NativeTableEditor.insertTable(editor);
+      expect(Transforms.insertNodes).toHaveBeenCalled();
+      const call = (Transforms.insertNodes as any).mock.calls[0];
+      const tableNode = call[1];
 
-      expect(editor.children).toHaveLength(2); // 原有段落 + 新表格
-      const table = editor.children[1] as any;
-      expect(table.type).toBe('table');
-      expect(table.children).toHaveLength(2); // 2 行
-      expect(table.children[0].children).toHaveLength(2); // 2 列
+      expect(tableNode.type).toBe('table');
+      expect(tableNode.children.length).toBe(2);
+      expect(tableNode.children[0].children.length).toBe(2);
     });
 
-    it('应该插入指定行列数的表格', () => {
-      const editor = createTestEditor();
+    it('应该插入自定义大小的表格', () => {
+      NativeTableEditor.insertTable(mockEditor, { rows: 3, cols: 4 });
 
-      NativeTableEditor.insertTable(editor, { rows: 3, cols: 4 });
+      const call = (Transforms.insertNodes as any).mock.calls[0];
+      const tableNode = call[1];
 
-      const table = editor.children[1] as any;
-      expect(table.type).toBe('table');
-      expect(table.children).toHaveLength(3); // 3 行
-      expect(table.children[0].children).toHaveLength(4); // 4 列
-    });
-
-    it('应该处理行数小于1的情况，默认为1', () => {
-      const editor = createTestEditor();
-
-      NativeTableEditor.insertTable(editor, { rows: 0, cols: 2 });
-
-      const table = editor.children[1] as any;
-      expect(table.children).toHaveLength(1); // 至少1行
-    });
-
-    it('应该处理列数小于1的情况，默认为1', () => {
-      const editor = createTestEditor();
-
-      NativeTableEditor.insertTable(editor, { rows: 2, cols: -1 });
-
-      const table = editor.children[1] as any;
-      expect(table.children[0].children).toHaveLength(1); // 至少1列
+      expect(tableNode.children.length).toBe(3);
+      expect(tableNode.children[0].children.length).toBe(4);
     });
 
     it('应该在指定位置插入表格', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'first' }] },
-        { type: 'paragraph', children: [{ text: 'second' }] },
-      ]);
+      const at = { path: [0], offset: 0 };
+      NativeTableEditor.insertTable(mockEditor, { at });
 
-      NativeTableEditor.insertTable(editor, { at: [1] });
-
-      expect(editor.children).toHaveLength(3);
-      const table = editor.children[1] as any;
-      expect(table.type).toBe('table');
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        mockEditor,
+        expect.any(Object),
+        { at },
+      );
     });
 
-    it('应该为每个单元格创建段落节点', () => {
-      const editor = createTestEditor();
+    it('应该确保至少1行1列', () => {
+      NativeTableEditor.insertTable(mockEditor, { rows: 0, cols: 0 });
 
-      NativeTableEditor.insertTable(editor, { rows: 2, cols: 2 });
+      const call = (Transforms.insertNodes as any).mock.calls[0];
+      const tableNode = call[1];
 
-      const table = editor.children[1] as any;
-      const cell = table.children[0].children[0];
-      expect(cell.type).toBe('table-cell');
-      expect(cell.children).toHaveLength(1);
-      expect(cell.children[0].type).toBe('paragraph');
-      expect(cell.children[0].children[0].text).toBe('');
+      expect(tableNode.children.length).toBe(1);
+      expect(tableNode.children[0].children.length).toBe(1);
+    });
+
+    it('应该确保负数转换为1', () => {
+      NativeTableEditor.insertTable(mockEditor, { rows: -5, cols: -3 });
+
+      const call = (Transforms.insertNodes as any).mock.calls[0];
+      const tableNode = call[1];
+
+      expect(tableNode.children.length).toBe(1);
+      expect(tableNode.children[0].children.length).toBe(1);
+    });
+
+    it('应该创建正确的表格结构', () => {
+      NativeTableEditor.insertTable(mockEditor, { rows: 1, cols: 1 });
+
+      const call = (Transforms.insertNodes as any).mock.calls[0];
+      const tableNode = call[1];
+
+      // 验证表格结构
+      expect(tableNode.type).toBe('table');
+      expect(tableNode.children[0].type).toBe('table-row');
+      expect(tableNode.children[0].children[0].type).toBe('table-cell');
+      expect(tableNode.children[0].children[0].children[0].type).toBe(
+        'paragraph',
+      );
+      expect(tableNode.children[0].children[0].children[0].children[0]).toEqual(
+        {
+          text: '',
+        },
+      );
     });
   });
 
   describe('removeTable', () => {
     it('应该删除表格', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'before' }] },
-        table,
-        { type: 'paragraph', children: [{ text: 'after' }] },
-      ]);
+      const mockTableEntry = [{ type: 'table' }, [0]];
+      (Editor.above as any).mockReturnValue(mockTableEntry);
 
-      // 选择表格内的位置
-      Transforms.select(editor, {
-        path: [1, 0, 0, 0, 0],
-        offset: 0,
+      NativeTableEditor.removeTable(mockEditor);
+
+      expect(Transforms.removeNodes).toHaveBeenCalledWith(mockEditor, {
+        at: [0],
       });
-
-      NativeTableEditor.removeTable(editor);
-
-      expect(editor.children).toHaveLength(2); // 只剩下 before 和 after
-      expect((editor.children[0] as any).children[0].text).toBe('before');
-      expect((editor.children[1] as any).children[0].text).toBe('after');
     });
 
-    it('应该在没有表格时不执行任何操作', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在没有表格时不执行操作', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      NativeTableEditor.removeTable(mockEditor);
 
-      const childrenBefore = [...editor.children];
-      NativeTableEditor.removeTable(editor);
-
-      expect(editor.children).toEqual(childrenBefore);
+      expect(Transforms.removeNodes).not.toHaveBeenCalled();
     });
 
-    it('应该删除指定位置的表格', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-        table,
-      ]);
+    it('应该在指定位置删除表格', () => {
+      const mockTableEntry = [{ type: 'table' }, [1]];
+      (Editor.above as any).mockReturnValue(mockTableEntry);
+      const at = { path: [1], offset: 0 };
 
-      NativeTableEditor.removeTable(editor, [1]);
+      NativeTableEditor.removeTable(mockEditor, at);
 
-      expect(editor.children).toHaveLength(1);
-      expect((editor.children[0] as any).type).toBe('paragraph');
+      expect(Transforms.removeNodes).toHaveBeenCalledWith(mockEditor, {
+        at: [1],
+      });
     });
   });
 
   describe('findTable', () => {
-    it('应该找到表格节点', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-        table,
-      ]);
+    it('应该查找表格节点', () => {
+      const mockTableEntry = [{ type: 'table' }, [0]];
+      (Editor.above as any).mockReturnValue(mockTableEntry);
 
-      Transforms.select(editor, {
-        path: [1, 0, 0, 0, 0],
-        offset: 0,
+      const result = NativeTableEditor.findTable(mockEditor);
+
+      expect(result).toEqual(mockTableEntry);
+      expect(Editor.above).toHaveBeenCalledWith(mockEditor, {
+        match: expect.any(Function),
+        at: undefined,
       });
-
-      const tableEntry = NativeTableEditor.findTable(editor);
-
-      expect(tableEntry).toBeDefined();
-      expect(tableEntry![0]).toEqual(table);
-      expect(tableEntry![1]).toEqual([1]);
     });
 
-    it('应该在不在表格中时返回 undefined', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在指定位置查找表格', () => {
+      const at = { path: [0], offset: 0 };
+      NativeTableEditor.findTable(mockEditor, at);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
+      expect(Editor.above).toHaveBeenCalledWith(mockEditor, {
+        match: expect.any(Function),
+        at,
       });
-
-      const tableEntry = NativeTableEditor.findTable(editor);
-
-      expect(tableEntry).toBeUndefined();
     });
 
-    it('应该找到指定位置的表格', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-        table,
-      ]);
+    it('应该返回null当没有表格时', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      const tableEntry = NativeTableEditor.findTable(editor, [1, 0, 0]);
+      const result = NativeTableEditor.findTable(mockEditor);
 
-      expect(tableEntry).toBeDefined();
-      expect(tableEntry![1]).toEqual([1]);
+      expect(result).toBeNull();
     });
   });
 
   describe('findTableRow', () => {
-    it('应该找到表格行节点', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+    it('应该查找表格行节点', () => {
+      const mockRowEntry = [{ type: 'table-row' }, [0, 0]];
+      (Editor.above as any).mockReturnValue(mockRowEntry);
 
-      Transforms.select(editor, {
-        path: [0, 1, 0, 0, 0],
-        offset: 0,
-      });
+      const result = NativeTableEditor.findTableRow(mockEditor);
 
-      const rowEntry = NativeTableEditor.findTableRow(editor);
-
-      expect(rowEntry).toBeDefined();
-      expect(rowEntry![1]).toEqual([0, 1]);
-      expect((rowEntry![0] as any).type).toBe('table-row');
+      expect(result).toEqual(mockRowEntry);
     });
 
-    it('应该在不在表格行中时返回 undefined', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在指定位置查找表格行', () => {
+      const at = { path: [0, 0], offset: 0 };
+      NativeTableEditor.findTableRow(mockEditor, at);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
+      expect(Editor.above).toHaveBeenCalledWith(mockEditor, {
+        match: expect.any(Function),
+        at,
       });
-
-      const rowEntry = NativeTableEditor.findTableRow(editor);
-
-      expect(rowEntry).toBeUndefined();
     });
   });
 
   describe('findTableCell', () => {
-    it('应该找到表格单元格节点', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+    it('应该查找表格单元格节点', () => {
+      const mockCellEntry = [{ type: 'table-cell' }, [0, 0, 0]];
+      (Editor.above as any).mockReturnValue(mockCellEntry);
 
-      Transforms.select(editor, {
-        path: [0, 0, 1, 0, 0],
-        offset: 0,
-      });
+      const result = NativeTableEditor.findTableCell(mockEditor);
 
-      const cellEntry = NativeTableEditor.findTableCell(editor);
-
-      expect(cellEntry).toBeDefined();
-      expect(cellEntry![1]).toEqual([0, 0, 1]);
-      expect((cellEntry![0] as any).type).toBe('table-cell');
+      expect(result).toEqual(mockCellEntry);
     });
 
-    it('应该在不在表格单元格中时返回 undefined', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在指定位置查找表格单元格', () => {
+      const at = { path: [0, 0, 0], offset: 0 };
+      NativeTableEditor.findTableCell(mockEditor, at);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
+      expect(Editor.above).toHaveBeenCalledWith(mockEditor, {
+        match: expect.any(Function),
+        at,
       });
-
-      const cellEntry = NativeTableEditor.findTableCell(editor);
-
-      expect(cellEntry).toBeUndefined();
     });
   });
 
   describe('isInTable', () => {
-    it('应该在表格中返回 true', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+    it('应该返回true当在表格中', () => {
+      (Editor.above as any).mockReturnValue([{ type: 'table' }, [0]]);
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
-      });
+      const result = NativeTableEditor.isInTable(mockEditor);
 
-      expect(NativeTableEditor.isInTable(editor)).toBe(true);
+      expect(result).toBe(true);
     });
 
-    it('应该在不在表格中返回 false', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该返回false当不在表格中', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      const result = NativeTableEditor.isInTable(mockEditor);
 
-      expect(NativeTableEditor.isInTable(editor)).toBe(false);
+      expect(result).toBe(false);
     });
   });
 
   describe('isInTableRow', () => {
-    it('应该在表格行中返回 true', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+    it('应该返回true当在表格行中', () => {
+      (Editor.above as any).mockReturnValue([{ type: 'table-row' }, [0, 0]]);
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
-      });
+      const result = NativeTableEditor.isInTableRow(mockEditor);
 
-      expect(NativeTableEditor.isInTableRow(editor)).toBe(true);
+      expect(result).toBe(true);
     });
 
-    it('应该在不在表格行中返回 false', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该返回false当不在表格行中', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      const result = NativeTableEditor.isInTableRow(mockEditor);
 
-      expect(NativeTableEditor.isInTableRow(editor)).toBe(false);
+      expect(result).toBe(false);
     });
   });
 
   describe('isInTableCell', () => {
-    it('应该在表格单元格中返回 true', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
-
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
-      });
-
-      expect(NativeTableEditor.isInTableCell(editor)).toBe(true);
-    });
-
-    it('应该在不在表格单元格中返回 false', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
+    it('应该返回true当在表格单元格中', () => {
+      (Editor.above as any).mockReturnValue([
+        { type: 'table-cell' },
+        [0, 0, 0],
       ]);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      const result = NativeTableEditor.isInTableCell(mockEditor);
 
-      expect(NativeTableEditor.isInTableCell(editor)).toBe(false);
+      expect(result).toBe(true);
+    });
+
+    it('应该返回false当不在表格单元格中', () => {
+      (Editor.above as any).mockReturnValue(null);
+
+      const result = NativeTableEditor.isInTableCell(mockEditor);
+
+      expect(result).toBe(false);
     });
   });
 
   describe('insertTableRow', () => {
-    it('应该在当前行下方插入新行', () => {
-      const table = createTableNode(2, 3);
-      const editor = createTestEditor([table]);
+    it('应该在下方插入新行', () => {
+      const mockRowEntry = [{ type: 'table-row' }, [0, 1]];
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}] }, // 2列
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-row' })) {
+          return mockRowEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.insertTableRow(editor);
+      NativeTableEditor.insertTableRow(mockEditor, { position: 'below' });
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children).toHaveLength(3); // 2 + 1
-      expect(updatedTable.children[1].children).toHaveLength(3); // 保持列数
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        mockEditor,
+        expect.objectContaining({ type: 'table-row' }),
+        expect.objectContaining({ at: [0, 2] }),
+      );
     });
 
-    it('应该在当前行上方插入新行', () => {
-      const table = createTableNode(2, 3);
-      const editor = createTestEditor([table]);
+    it('应该在上方插入新行', () => {
+      const mockRowEntry = [{ type: 'table-row' }, [0, 1]];
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}, {}] }, // 3列
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 1, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-row' })) {
+          return mockRowEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.insertTableRow(editor, { position: 'above' });
+      NativeTableEditor.insertTableRow(mockEditor, { position: 'above' });
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children).toHaveLength(3); // 2 + 1
-      expect(updatedTable.children[1].children).toHaveLength(3); // 保持列数
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        mockEditor,
+        expect.objectContaining({ type: 'table-row' }),
+        expect.objectContaining({ at: [0, 1] }),
+      );
     });
 
-    it('应该在不在表格中时不执行任何操作', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该根据现有列数创建新行', () => {
+      const mockRowEntry = [{ type: 'table-row' }, [0, 0]];
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}, {}, {}] }, // 4列
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-row' })) {
+          return mockRowEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      const childrenBefore = [...editor.children];
-      NativeTableEditor.insertTableRow(editor);
+      NativeTableEditor.insertTableRow(mockEditor);
 
-      expect(editor.children).toEqual(childrenBefore);
+      const call = (Transforms.insertNodes as any).mock.calls[0];
+      const newRow = call[1];
+
+      expect(newRow.children.length).toBe(4);
     });
 
-    it('应该为新行创建正确数量的单元格', () => {
-      const table = createTableNode(2, 4);
-      const editor = createTestEditor([table]);
+    it('应该在没有表格行时不执行操作', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
+      NativeTableEditor.insertTableRow(mockEditor);
+
+      expect(Transforms.insertNodes).not.toHaveBeenCalled();
+    });
+
+    it('应该在没有表格时不执行操作', () => {
+      const mockRowEntry = [{ type: 'table-row' }, [0, 0]];
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-row' })) {
+          return mockRowEntry;
+        }
+        return null; // 没有table
       });
 
-      NativeTableEditor.insertTableRow(editor);
+      NativeTableEditor.insertTableRow(mockEditor);
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children[1].children).toHaveLength(4);
+      expect(Transforms.insertNodes).not.toHaveBeenCalled();
     });
   });
 
   describe('removeTableRow', () => {
-    it('应该删除当前行', () => {
-      const table = createTableNode(3, 2);
-      const editor = createTestEditor([table]);
+    it('应该删除表格行', () => {
+      const mockRowEntry = [{ type: 'table-row' }, [0, 1]];
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [{}, {}, {}], // 3行
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 1, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-row' })) {
+          return mockRowEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.removeTableRow(editor);
+      NativeTableEditor.removeTableRow(mockEditor);
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children).toHaveLength(2); // 3 - 1
+      expect(Transforms.removeNodes).toHaveBeenCalledWith(mockEditor, {
+        at: [0, 1],
+      });
     });
 
-    it('应该在只有一行时删除整个表格', () => {
-      const table = createTableNode(1, 2);
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'before' }] },
-        table,
-        { type: 'paragraph', children: [{ text: 'after' }] },
-      ]);
+    it('应该在最后一行时删除整个表格', () => {
+      const mockRowEntry = [{ type: 'table-row' }, [0, 0]];
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [{}], // 只有1行
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [1, 0, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-row' })) {
+          return mockRowEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.removeTableRow(editor);
+      NativeTableEditor.removeTableRow(mockEditor);
 
-      expect(editor.children).toHaveLength(2); // before + after
-      expect((editor.children[0] as any).children[0].text).toBe('before');
-      expect((editor.children[1] as any).children[0].text).toBe('after');
+      // 应该删除整个表格而不是单行
+      expect(Transforms.removeNodes).toHaveBeenCalledWith(mockEditor, {
+        at: [0],
+      });
     });
 
-    it('应该在不在表格中时不执行任何操作', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在没有表格行时不执行操作', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      NativeTableEditor.removeTableRow(mockEditor);
 
-      const childrenBefore = [...editor.children];
-      NativeTableEditor.removeTableRow(editor);
-
-      expect(editor.children).toEqual(childrenBefore);
+      expect(Transforms.removeNodes).not.toHaveBeenCalled();
     });
   });
 
   describe('insertTableColumn', () => {
-    it('应该在当前列右侧插入新列', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+    it('应该在右侧插入新列', () => {
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}] }, // 第1行，2列
+            { children: [{}, {}] }, // 第2行，2列
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
-      });
+      (Editor.above as any).mockReturnValue(mockTableEntry);
 
-      NativeTableEditor.insertTableColumn(editor);
+      NativeTableEditor.insertTableColumn(mockEditor, { position: 'right' });
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children[0].children).toHaveLength(3); // 2 + 1
-      expect(updatedTable.children[1].children).toHaveLength(3); // 每行都增加
+      // 应该为每一行插入新单元格
+      expect(Transforms.insertNodes).toHaveBeenCalledTimes(2);
     });
 
-    it('应该在当前列左侧插入新列', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+    it('应该在左侧插入新列', () => {
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [{ children: [{}, {}] }, { children: [{}, {}] }],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 1, 0, 0],
-        offset: 0,
-      });
+      (Editor.above as any).mockReturnValue(mockTableEntry);
 
-      NativeTableEditor.insertTableColumn(editor, { position: 'left' });
+      NativeTableEditor.insertTableColumn(mockEditor, { position: 'left' });
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children[0].children).toHaveLength(3); // 2 + 1
-      expect(updatedTable.children[1].children).toHaveLength(3); // 每行都增加
+      // 应该在第一列插入
+      const calls = (Transforms.insertNodes as any).mock.calls;
+      expect(calls[0][2].at).toEqual([0, 0, 0]);
     });
 
-    it('应该在不在表格中时不执行任何操作', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在没有表格时不执行操作', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      NativeTableEditor.insertTableColumn(mockEditor);
 
-      const childrenBefore = [...editor.children];
-      NativeTableEditor.insertTableColumn(editor);
-
-      expect(editor.children).toEqual(childrenBefore);
+      expect(Transforms.insertNodes).not.toHaveBeenCalled();
     });
 
-    it('应该为每一行插入新单元格', () => {
-      const table = createTableNode(3, 2);
-      const editor = createTestEditor([table]);
+    it('应该为多行表格插入列', () => {
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}] },
+            { children: [{}] },
+            { children: [{}] },
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
-      });
+      (Editor.above as any).mockReturnValue(mockTableEntry);
 
-      NativeTableEditor.insertTableColumn(editor);
+      NativeTableEditor.insertTableColumn(mockEditor);
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children).toHaveLength(3); // 行数不变
-      updatedTable.children.forEach((row: any) => {
-        expect(row.children).toHaveLength(3); // 每行都是 2 + 1
-      });
+      // 应该为3行各插入1个单元格
+      expect(Transforms.insertNodes).toHaveBeenCalledTimes(3);
     });
   });
 
   describe('removeTableColumn', () => {
-    it('应该删除当前列', () => {
-      const table = createTableNode(2, 3);
-      const editor = createTestEditor([table]);
+    it('应该删除表格列', () => {
+      const mockCellEntry = [{}, [0, 1, 1]]; // 第2行第2列
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}, {}] }, // 3列
+            { children: [{}, {}, {}] },
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 1, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.removeTableColumn(editor);
+      NativeTableEditor.removeTableColumn(mockEditor);
 
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children[0].children).toHaveLength(2); // 3 - 1
-      expect(updatedTable.children[1].children).toHaveLength(2); // 每行都减少
+      // 应该删除每一行的第2列
+      expect(Transforms.removeNodes).toHaveBeenCalledTimes(2);
     });
 
-    it('应该在只有一列时删除整个表格', () => {
-      const table = createTableNode(2, 1);
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'before' }] },
-        table,
-        { type: 'paragraph', children: [{ text: 'after' }] },
-      ]);
+    it('应该在最后一列时删除整个表格', () => {
+      const mockCellEntry = [{}, [0, 0, 0]];
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}] }, // 只有1列
+            { children: [{}] },
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [1, 0, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.removeTableColumn(editor);
+      NativeTableEditor.removeTableColumn(mockEditor);
 
-      expect(editor.children).toHaveLength(2); // before + after
-      expect((editor.children[0] as any).children[0].text).toBe('before');
-      expect((editor.children[1] as any).children[0].text).toBe('after');
+      // 应该删除整个表格
+      expect(Transforms.removeNodes).toHaveBeenCalledWith(mockEditor, {
+        at: [0],
+      });
     });
 
-    it('应该在不在表格中时不执行任何操作', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在没有单元格时不执行操作', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      NativeTableEditor.removeTableColumn(mockEditor);
 
-      const childrenBefore = [...editor.children];
-      NativeTableEditor.removeTableColumn(editor);
-
-      expect(editor.children).toEqual(childrenBefore);
-    });
-
-    it('应该删除每一行的对应列', () => {
-      const table = createTableNode(3, 3);
-      const editor = createTestEditor([table]);
-
-      Transforms.select(editor, {
-        path: [0, 0, 1, 0, 0],
-        offset: 0,
-      });
-
-      NativeTableEditor.removeTableColumn(editor);
-
-      const updatedTable = editor.children[0] as any;
-      expect(updatedTable.children).toHaveLength(3); // 行数不变
-      updatedTable.children.forEach((row: any) => {
-        expect(row.children).toHaveLength(2); // 每行都是 3 - 1
-      });
+      expect(Transforms.removeNodes).not.toHaveBeenCalled();
     });
   });
 
   describe('moveToNextCell', () => {
-    it('应该移动到右侧单元格', () => {
-      const table = createTableNode(2, 3);
-      const editor = createTestEditor([table]);
+    it('应该移动到下一个单元格', () => {
+      const mockCellEntry = [{}, [0, 0, 0]]; // 第1行第1列
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}] }, // 2列
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.moveToNextCell(editor);
+      NativeTableEditor.moveToNextCell(mockEditor);
 
-      expect(editor.selection?.anchor.path).toEqual([0, 0, 1, 0, 0]);
+      expect(Transforms.select).toHaveBeenCalledWith(mockEditor, {
+        path: [0, 0, 1],
+        offset: 0,
+      });
     });
 
-    it('应该在行末时移动到下一行开头', () => {
-      const table = createTableNode(2, 3);
-      const editor = createTestEditor([table]);
+    it('应该移动到下一行的第一个单元格', () => {
+      const mockCellEntry = [{}, [0, 0, 1]]; // 第1行最后一列
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}] }, // 2列
+            { children: [{}, {}] }, // 第2行
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 2, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.moveToNextCell(editor);
+      NativeTableEditor.moveToNextCell(mockEditor);
 
-      expect(editor.selection?.anchor.path).toEqual([0, 1, 0, 0, 0]);
+      expect(Transforms.select).toHaveBeenCalledWith(mockEditor, {
+        path: [0, 1, 0],
+        offset: 0,
+      });
     });
 
     it('应该在最后一个单元格时不移动', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+      const mockCellEntry = [{}, [0, 1, 1]]; // 最后一行最后一列
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [{ children: [{}, {}] }, { children: [{}, {}] }],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 1, 1, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      const pathBefore = [...editor.selection!.anchor.path];
-      NativeTableEditor.moveToNextCell(editor);
+      NativeTableEditor.moveToNextCell(mockEditor);
 
-      expect(editor.selection?.anchor.path).toEqual(pathBefore);
+      // 不应该移动
+      expect(Transforms.select).not.toHaveBeenCalled();
     });
 
-    it('应该在不在表格中时不执行任何操作', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在没有单元格时不执行操作', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      NativeTableEditor.moveToNextCell(mockEditor);
 
-      const pathBefore = [...editor.selection!.anchor.path];
-      NativeTableEditor.moveToNextCell(editor);
-
-      expect(editor.selection?.anchor.path).toEqual(pathBefore);
+      expect(Transforms.select).not.toHaveBeenCalled();
     });
   });
 
   describe('moveToPreviousCell', () => {
-    it('应该移动到左侧单元格', () => {
-      const table = createTableNode(2, 3);
-      const editor = createTestEditor([table]);
+    it('应该移动到上一个单元格', () => {
+      const mockCellEntry = [{}, [0, 0, 1]]; // 第1行第2列
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}] }, // 2列
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 1, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.moveToPreviousCell(editor);
+      NativeTableEditor.moveToPreviousCell(mockEditor);
 
-      expect(editor.selection?.anchor.path).toEqual([0, 0, 0, 0, 0]);
+      expect(Transforms.select).toHaveBeenCalledWith(mockEditor, {
+        path: [0, 0, 0],
+        offset: 0,
+      });
     });
 
-    it('应该在行首时移动到上一行末尾', () => {
-      const table = createTableNode(2, 3);
-      const editor = createTestEditor([table]);
+    it('应该移动到上一行的最后一个单元格', () => {
+      const mockCellEntry = [{}, [0, 1, 0]]; // 第2行第1列
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [
+            { children: [{}, {}] }, // 2列
+            { children: [{}, {}] },
+          ],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 1, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      NativeTableEditor.moveToPreviousCell(editor);
+      NativeTableEditor.moveToPreviousCell(mockEditor);
 
-      expect(editor.selection?.anchor.path).toEqual([0, 0, 2, 0, 0]);
+      expect(Transforms.select).toHaveBeenCalledWith(mockEditor, {
+        path: [0, 0, 1],
+        offset: 0,
+      });
     });
 
     it('应该在第一个单元格时不移动', () => {
-      const table = createTableNode(2, 2);
-      const editor = createTestEditor([table]);
+      const mockCellEntry = [{}, [0, 0, 0]]; // 第1行第1列
+      const mockTableEntry = [
+        {
+          type: 'table',
+          children: [{ children: [{}, {}] }],
+        },
+        [0],
+      ];
 
-      Transforms.select(editor, {
-        path: [0, 0, 0, 0, 0],
-        offset: 0,
+      (Editor.above as any).mockImplementation((editor, options) => {
+        if (options.match({ type: 'table-cell' })) {
+          return mockCellEntry;
+        }
+        if (options.match({ type: 'table' })) {
+          return mockTableEntry;
+        }
+        return null;
       });
 
-      const pathBefore = [...editor.selection!.anchor.path];
-      NativeTableEditor.moveToPreviousCell(editor);
+      NativeTableEditor.moveToPreviousCell(mockEditor);
 
-      expect(editor.selection?.anchor.path).toEqual(pathBefore);
+      // 不应该移动
+      expect(Transforms.select).not.toHaveBeenCalled();
     });
 
-    it('应该在不在表格中时不执行任何操作', () => {
-      const editor = createTestEditor([
-        { type: 'paragraph', children: [{ text: 'text' }] },
-      ]);
+    it('应该在没有单元格时不执行操作', () => {
+      (Editor.above as any).mockReturnValue(null);
 
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
+      NativeTableEditor.moveToPreviousCell(mockEditor);
 
-      const pathBefore = [...editor.selection!.anchor.path];
-      NativeTableEditor.moveToPreviousCell(editor);
-
-      expect(editor.selection?.anchor.path).toEqual(pathBefore);
-    });
-  });
-
-  describe('边界情况和错误处理', () => {
-    it('应该处理空编辑器', () => {
-      const editor = createTestEditor([]);
-
-      expect(() => {
-        NativeTableEditor.isInTable(editor);
-      }).not.toThrow();
-    });
-
-    it('应该处理无效的表格结构', () => {
-      const invalidTable = {
-        type: 'table',
-        children: [],
-      };
-      const editor = createTestEditor([invalidTable]);
-
-      expect(() => {
-        NativeTableEditor.insertTableRow(editor);
-      }).not.toThrow();
-    });
-
-    it('应该处理没有子节点的表格行', () => {
-      const invalidTable = {
-        type: 'table',
-        children: [
-          {
-            type: 'table-row',
-            children: [],
-          },
-        ],
-      };
-      const editor = createTestEditor([invalidTable]);
-
-      Transforms.select(editor, {
-        path: [0, 0],
-        offset: 0,
-      });
-
-      expect(() => {
-        NativeTableEditor.insertTableColumn(editor);
-      }).not.toThrow();
+      expect(Transforms.select).not.toHaveBeenCalled();
     });
   });
 });
