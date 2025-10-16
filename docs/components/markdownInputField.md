@@ -107,7 +107,6 @@ export default () => {
               key="edit"
               style={{
                 fontSize: 16,
-                color: 'var(--color-gray-text-secondary)',
               }}
             >
               <Sparkles />
@@ -399,7 +398,6 @@ export default () => {
               key="edit"
               style={{
                 fontSize: 16,
-                color: 'var(--color-gray-text-secondary)',
               }}
             >
               <Sparkles />

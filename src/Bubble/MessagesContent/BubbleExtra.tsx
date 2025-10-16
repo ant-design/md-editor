@@ -123,9 +123,6 @@ export const BubbleExtra = ({
           data-testid="like-button"
           active={originalData?.feedback === 'thumbsUp'}
           title={likeButtonTitle}
-          style={{
-            color: 'var(--color-gray-text-secondary)',
-          }}
           onClick={async (e: any) => {
             e?.preventDefault?.();
             e?.stopPropagation?.();
@@ -166,9 +163,6 @@ export const BubbleExtra = ({
       shouldShowDisLike && !typing ? (
         <ActionIconBox
           data-testid="dislike-button"
-          style={{
-            color: 'var(--color-gray-text-secondary)',
-          }}
           loading={feedbackLoading}
           onLoadingChange={setFeedbackLoading}
           title={getDislikeButtonTitle}
@@ -352,9 +346,6 @@ export const BubbleExtra = ({
       <ActionIconBox
         data-testid="reply-button"
         borderLess
-        style={{
-          color: 'var(--color-gray-text-secondary)',
-        }}
         onClick={async () => {
           onReply?.(
             bubble.originData?.extra?.preMessage?.content ||
@@ -370,7 +361,6 @@ export const BubbleExtra = ({
             display: 'flex',
             cursor: 'pointer',
             alignItems: 'center',
-            color: 'var(--color-gray-text-secondary)',
           }}
         >
           <RotateCwSquare />
