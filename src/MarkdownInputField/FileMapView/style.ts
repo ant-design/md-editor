@@ -96,9 +96,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-image-list-view': {
         background: 'var(--color-gray-bg-tip)',
         padding: '4px',
-        '&-right': {
-          borderRadius: 'var(--radius-card-base)',
-        },
+        borderRadius: 'var(--radius-card-base)',
       },
       '&-more-file-container': {
         width: '294px',
