@@ -11,27 +11,9 @@ import { BubbleExtra } from './MessagesContent/BubbleExtra';
 import { useStyle } from './style';
 import type { BubbleMetaData, BubbleProps } from './type';
 
+import { runRender } from './AIBubble';
 import { BubbleFileView } from './FileView';
 import { BubbleTitle } from './Title';
-
-export const runRender = (
-  render: any,
-  props: BubbleProps,
-  defaultDom:
-    | string
-    | number
-    | boolean
-    | Iterable<React.ReactNode>
-    | React.JSX.Element
-    | null
-    | undefined,
-  ...rest: undefined[]
-) => {
-  if (render) {
-    return render(props, defaultDom, ...rest);
-  }
-  return defaultDom;
-};
 
 /**
  * UserBubble 组件 - 用户消息气泡组件
