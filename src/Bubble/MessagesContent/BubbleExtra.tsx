@@ -123,6 +123,9 @@ export const BubbleExtra = ({
           data-testid="like-button"
           active={originalData?.feedback === 'thumbsUp'}
           title={likeButtonTitle}
+          style={{
+            color: 'var(--color-gray-text-secondary)',
+          }}
           onClick={async (e: any) => {
             e?.preventDefault?.();
             e?.stopPropagation?.();
@@ -164,10 +167,7 @@ export const BubbleExtra = ({
         <ActionIconBox
           data-testid="dislike-button"
           style={{
-            color:
-              originalData?.feedback === 'thumbsDown'
-                ? 'var(--color-gray-text-secondary)'
-                : 'var(--color-gray-a9)',
+            color: 'var(--color-gray-text-secondary)',
           }}
           loading={feedbackLoading}
           onLoadingChange={setFeedbackLoading}
@@ -435,7 +435,7 @@ export const BubbleExtra = ({
         paddingLeft: placement === 'right' ? 0 : 'var(--padding-5x)',
         paddingRight: placement === 'right' ? 0 : 'var(--padding-5x)',
         paddingBottom: placement === 'right' ? 0 : 'var(--padding-2x)',
-        color: 'var(--color-gray-a9)',
+        color: 'var(--color-gray-text-secondary)',
         fontSize: context?.compact ? '11px' : '13px',
         gap: 4,
         ...props.style,

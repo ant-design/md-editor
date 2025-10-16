@@ -19,7 +19,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'center',
       borderRadius: 'var(--radius-control-sm)',
       fontSize: '1em',
-      color: 'var(--color-gray-a9)',
+      color: 'var(--color-gray-text-secondary)',
       transition: 'color 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       '&-title': {
         font: 'var(--font-text-body-base)',
@@ -40,7 +40,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       '&-active': {
-        color: 'var(--color-gray-text-secondary)',
+        color: 'var(--color-gray-a9)',
       },
       '&-noPadding': {
         padding: 0,
