@@ -14,9 +14,7 @@ vi.mock('../../../../../src/MarkdownEditor/editor/store');
 vi.mock('copy-to-clipboard');
 
 vi.mock('../../../../../src/MarkdownEditor/editor/utils', () => ({
-  parserSlateNodeToMarkdown: vi.fn(
-    (nodes) => '| Header |\n| ------ |\n| Cell |',
-  ),
+  parserSlateNodeToMarkdown: vi.fn(() => '| Header |\n| ------ |\n| Cell |'),
 }));
 
 vi.mock('../../../../../src/MarkdownEditor/i18n', () => ({
@@ -395,10 +393,7 @@ describe('ReadonlyTableComponent', () => {
             const mouseDownEvent = new MouseEvent('mousedown', {
               bubbles: true,
             });
-            const preventDefaultSpy = vi.spyOn(
-              mouseDownEvent,
-              'preventDefault',
-            );
+            vi.spyOn(mouseDownEvent, 'preventDefault');
             modalContent.dispatchEvent(mouseDownEvent);
             expect(modalContent).toBeInTheDocument();
           }

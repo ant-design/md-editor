@@ -23,7 +23,7 @@ vi.mock('slate-react', async () => {
     ...actual,
     useSlateSelection: vi.fn(),
     ReactEditor: {
-      toDOMNode: vi.fn((editor, node) => {
+      toDOMNode: vi.fn(() => {
         const mockElement = document.createElement('td');
         mockElement.setAttribute = vi.fn();
         mockElement.removeAttribute = vi.fn();
@@ -82,12 +82,6 @@ vi.mock(
 
 describe('Table 组件测试', () => {
   const createTestEditor = () => withReact(createEditor());
-
-  const mockTablePropsContext = {
-    deleteIconPosition: null,
-    setDeleteIconPosition: vi.fn(),
-    tablePath: [0],
-  };
 
   beforeEach(() => {
     vi.clearAllMocks();

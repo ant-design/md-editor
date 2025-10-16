@@ -157,7 +157,7 @@ describe('SkillModeBar', () => {
     it('should render right content before close button', () => {
       const rightContent = <span data-testid="right-content">Settings</span>;
 
-      const { container } = render(
+      render(
         <SkillModeBar
           skillMode={{
             enable: true,

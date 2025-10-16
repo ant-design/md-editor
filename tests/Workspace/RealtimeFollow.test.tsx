@@ -1100,7 +1100,9 @@ describe('RealtimeFollow Component', () => {
         children,
       }) => (
         <ConfigProvider>
-          <I18nContext.Provider value={{ locale: {}, language: 'en' }}>
+          <I18nContext.Provider
+            value={{ locale: {} as any, language: 'en-US' }}
+          >
             {children}
           </I18nContext.Provider>
         </ConfigProvider>

@@ -385,7 +385,7 @@ describe('Description Element', () => {
     const { rerender, getAllByTestId } = renderDescription();
 
     const firstRows = getAllByTestId('description-row');
-    const firstRowCount = firstRows.length;
+    expect(firstRows.length).toBeGreaterThan(0);
 
     // 改变子元素
     const newElement = {

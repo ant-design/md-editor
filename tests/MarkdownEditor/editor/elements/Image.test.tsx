@@ -741,7 +741,10 @@ describe('Image', () => {
 
     it('应该处理不同的锁定宽高比', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} {...({ lockAspectRatio: false } as any)} />,
+        <ResizeImage
+          {...mockResizeProps}
+          {...({ lockAspectRatio: false } as any)}
+        />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -749,7 +752,10 @@ describe('Image', () => {
 
     it('应该处理最小尺寸限制', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} {...({ minWidth: 100, minHeight: 100 } as any)} />,
+        <ResizeImage
+          {...mockResizeProps}
+          {...({ minWidth: 100, minHeight: 100 } as any)}
+        />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -757,7 +763,10 @@ describe('Image', () => {
 
     it('应该处理最大尺寸限制', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} {...({ maxWidth: 1000, maxHeight: 1000 } as any)} />,
+        <ResizeImage
+          {...mockResizeProps}
+          {...({ maxWidth: 1000, maxHeight: 1000 } as any)}
+        />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -765,7 +774,10 @@ describe('Image', () => {
 
     it('应该处理禁用状态', () => {
       renderWithProvider(
-        <ResizeImage {...mockResizeProps} {...({ disableDragging: true } as any)} />,
+        <ResizeImage
+          {...mockResizeProps}
+          {...({ disableDragging: true } as any)}
+        />,
       );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
@@ -787,13 +799,17 @@ describe('Image', () => {
     });
 
     it('应该处理网格对齐', () => {
-      renderWithProvider(<ResizeImage {...mockResizeProps} grid={[10, 10]} />);
+      renderWithProvider(
+        <ResizeImage {...mockResizeProps} {...({ grid: [10, 10] } as any)} />,
+      );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
     });
 
     it('应该处理边界限制', () => {
-      renderWithProvider(<ResizeImage {...mockResizeProps} bounds="parent" />);
+      renderWithProvider(
+        <ResizeImage {...mockResizeProps} {...({ bounds: 'parent' } as any)} />,
+      );
 
       expect(screen.getByAltText('Test Image')).toBeInTheDocument();
     });
@@ -883,10 +899,10 @@ describe('Image', () => {
     });
 
     it('应该处理自定义 title', () => {
-      const elementWithTitle: MediaNode = {
+      const elementWithTitle = {
         ...mockElement,
         title: 'Custom Title',
-      };
+      } as any;
 
       renderWithProvider(
         <EditorImage element={elementWithTitle} attributes={mockAttributes}>
@@ -899,10 +915,10 @@ describe('Image', () => {
     });
 
     it('应该处理元素的 ID', () => {
-      const elementWithId: MediaNode = {
+      const elementWithId = {
         ...mockElement,
         id: 'image-123',
-      };
+      } as any;
 
       renderWithProvider(
         <EditorImage element={elementWithId} attributes={mockAttributes}>
