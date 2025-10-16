@@ -11,8 +11,8 @@ export interface ChartStatisticProps {
   value?: number | string | null | undefined;
   precision?: number;
   groupSeparator?: string;
-  prefix?: string;
-  suffix?: string;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
   formatter?: (value: number | string | null | undefined) => React.ReactNode;
   className?: string;
   theme?: 'light' | 'dark';

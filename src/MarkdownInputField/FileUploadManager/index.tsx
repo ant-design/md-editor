@@ -4,9 +4,11 @@ import { useRefFunction } from '../../hooks/useRefFunction';
 import { I18nContext } from '../../i18n';
 import type { AttachmentButtonProps } from '../AttachmentButton';
 import { upLoadFileToServer } from '../AttachmentButton';
-import type { SupportedFileFormats as SupportedFileFormatsType } from '../AttachmentButton/AttachmentButtonPopover';
+import type { AttachmentButtonPopoverProps } from '../AttachmentButton/AttachmentButtonPopover';
 import { SupportedFileFormats } from '../AttachmentButton/AttachmentButtonPopover';
 import type { AttachmentFile } from '../AttachmentButton/types';
+
+type SupportedFileFormatsType = AttachmentButtonPopoverProps['supportedFormat'];
 
 export interface FileUploadManagerProps {
   /** 附件配置 */

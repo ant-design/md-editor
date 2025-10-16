@@ -201,6 +201,7 @@ const Workspace: FC<WorkspaceProps> & {
       tabs.push({
         key: tabConfig.key,
         icon: tabConfig.icon,
+        componentType, // 保存组件类型
         label: (
           <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
             <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
@@ -314,11 +315,26 @@ const Workspace: FC<WorkspaceProps> & {
           <Segmented
             key={segmentedKey} // ⭐ 每次宽度从 0 变为 >0，重新挂载
             className={classNames(`${prefixCls}-segmented`, hashId)}
-            options={availableTabs.map(({ label, key, icon }) => ({
-              label,
-              value: key,
-              icon,
-            }))}
+            options={availableTabs.reduce(
+              (acc, { label, key, icon, componentType }, index) => {
+                acc.push({ label, value: key, icon });
+                // 只在第一个"实时跟随"组件后插入分割线
+                const isFirstRealtime =
+                  componentType === ComponentType.REALTIME &&
+                  availableTabs.findIndex(
+                    (tab) => tab.componentType === ComponentType.REALTIME,
+                  ) === index;
+                if (isFirstRealtime && availableTabs.length > 1) {
+                  acc.push({
+                    label: '',
+                    value: '__divider__',
+                    disabled: true,
+                  });
+                }
+                return acc;
+              },
+              [] as any[],
+            )}
             value={currentActiveTab}
             onChange={handleTabChange}
             block

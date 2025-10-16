@@ -45,7 +45,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     // ignore common interactive elements
     if (
       target.closest(
-        'button, a, input, textarea, select, [role="button"], [contenteditable="true"], [data-no-pan]'
+        'button, a, input, textarea, select, [role="button"], [contenteditable="true"], [data-no-pan]',
       )
     ) {
       return true;
@@ -59,7 +59,9 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     return array.map((node) => ({ key: (node as any)?.key ?? null, node }));
   };
 
-  const [ordered, setOrdered] = useState<ChildEntry[]>(() => toEntries(props.children));
+  const [ordered, setOrdered] = useState<ChildEntry[]>(() =>
+    toEntries(props.children),
+  );
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') return;

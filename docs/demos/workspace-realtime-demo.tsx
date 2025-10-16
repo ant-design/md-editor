@@ -104,7 +104,7 @@ $E = mc^2$
     <div style={{ height: 600, width: '100%' }}>
       <Workspace title="实时监控工作空间">
         <Workspace.Realtime
-          tab={{ key: 'shell', title: 'Shell 终端' }}
+          tab={{ key: 'shell', title: '实时跟随' }}
           data={{
             type: 'shell',
             content: '```bash\n' + shellContent + '\n```',

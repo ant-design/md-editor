@@ -1,6 +1,13 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { BaseEditor, createEditor, Editor, Node, Transforms } from 'slate';
+import {
+  BaseEditor,
+  createEditor,
+  Editor,
+  Node,
+  Path,
+  Transforms,
+} from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -179,7 +186,7 @@ describe('EditorStore', () => {
       ] as any);
 
       // 模拟 Path.next 返回有效路径
-      vi.spyOn(require('slate').Path, 'next').mockReturnValue([1]);
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
 
       // 模拟 Transforms.insertNodes 实际执行插入
       vi.spyOn(Transforms, 'insertNodes').mockImplementation((editor) => {

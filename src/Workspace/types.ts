@@ -19,6 +19,7 @@ export interface TabItem {
   title?: ReactNode;
   icon?: ReactNode;
   content?: ReactNode;
+  componentType?: string; // 组件类型，用于判断是否在特定组件后插入分隔符
 }
 
 // 工作空间主组件属性

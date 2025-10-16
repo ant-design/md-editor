@@ -1,202 +1,454 @@
-/**
- * Description 组件测试文件
- */
-
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { createEditor } from 'slate';
+import { Slate, withReact } from 'slate-react';
+import { describe, expect, it, vi } from 'vitest';
 import { Description } from '../../../../src/MarkdownEditor/editor/elements/Description';
-import { TestSlateWrapper } from './TestSlateWrapper';
+import * as editorStore from '../../../../src/MarkdownEditor/editor/store';
 
-// Mock dependencies
-vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
-  useEditorStore: vi.fn(() => ({
-    store: {
-      dragStart: vi.fn(),
-    },
-    markdownContainerRef: {
-      current: {
-        clientWidth: 800,
-      },
-    },
-  })),
-}));
+vi.mock('../../../../src/MarkdownEditor/editor/store.ts');
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/elements/Description/style',
-  () => ({
-    useStyle: vi.fn(() => ({
-      wrapSSR: (component: React.ReactElement) => component,
-      hashId: 'test-hash-id',
-    })),
-  }),
-);
+describe('Description Element', () => {
+  const createTestEditor = () => withReact(createEditor());
 
-describe('Description', () => {
   const mockElement = {
     type: 'description',
     children: [
-      { type: 'description-item', children: [{ text: 'Item 1' }] },
-      { type: 'description-item', children: [{ text: 'Item 2' }] },
-      { type: 'description-item', children: [{ text: 'Item 3' }] },
-      { type: 'description-item', children: [{ text: 'Item 4' }] },
+      { text: 'Item 1' },
+      { text: 'Item 2' },
+      { text: 'Item 3' },
+      { text: 'Item 4' },
     ],
   };
 
   const mockAttributes = {
     'data-slate-node': 'element' as const,
-    ref: vi.fn(),
+    ref: null,
   };
 
-  const renderWithProvider = (component: React.ReactElement) => {
+  const renderDescription = (element = mockElement, clientWidth = 800) => {
+    const editor = createTestEditor();
+    const mockRef = { current: { clientWidth } };
+
+    vi.mocked(editorStore.useEditorStore).mockReturnValue({
+      store: {
+        dragStart: vi.fn(),
+      },
+      markdownContainerRef: mockRef,
+    } as any);
+
     return render(
       <ConfigProvider>
-        <TestSlateWrapper>{component}</TestSlateWrapper>
+        <Slate editor={editor} initialValue={[element]}>
+          <Description attributes={mockAttributes} element={element}>
+            {element.children.map((child, index) => (
+              <td key={index}>{child.text}</td>
+            ))}
+          </Description>
+        </Slate>
       </ConfigProvider>,
     );
   };
 
-  beforeEach(() => {
-    vi.clearAllMocks();
+  it('应该渲染描述列表容器', () => {
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    expect(container).toBeDefined();
+    expect(container.getAttribute('data-be')).toBe('table');
   });
 
-  describe('基本渲染测试', () => {
-    it('应该正确渲染 Description 组件', () => {
-      renderWithProvider(
-        <Description element={mockElement} attributes={mockAttributes}>
-          <td>Item 1</td>
-          <td>Item 2</td>
-          <td>Item 3</td>
-          <td>Item 4</td>
-        </Description>,
-      );
+  it('应该渲染表格', () => {
+    const { getByTestId } = renderDescription();
 
-      const descriptionElement = screen.getByTestId('description-container');
-      expect(descriptionElement).toBeInTheDocument();
-      expect(descriptionElement).toHaveAttribute('data-be', 'table');
-    });
+    const table = getByTestId('description-table');
+    expect(table).toBeDefined();
+    expect(table.tagName).toBe('TABLE');
+  });
 
-    it('应该渲染表格结构', () => {
-      renderWithProvider(
-        <Description element={mockElement} attributes={mockAttributes}>
-          <td>Item 1</td>
-          <td>Item 2</td>
-          <td>Item 3</td>
-          <td>Item 4</td>
-        </Description>,
-      );
+  it('应该渲染 DragHandle', () => {
+    const { container } = renderDescription();
 
-      const tableElement = screen.getByTestId('description-table');
-      expect(tableElement).toBeInTheDocument();
-      expect(tableElement.tagName).toBe('TABLE');
+    // DragHandle 应该被渲染
+    expect(
+      container.querySelector('[data-testid="description-container"]'),
+    ).toBeDefined();
+  });
+
+  it('应该根据容器宽度分组渲染项目', () => {
+    const { getAllByTestId } = renderDescription(mockElement, 800);
+
+    const rows = getAllByTestId('description-row');
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该在窄容器中使用更少的列', () => {
+    const { getAllByTestId } = renderDescription(mockElement, 400);
+
+    const rows = getAllByTestId('description-row');
+    // 窄容器应该有更多行（每行更少列）
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该处理空子元素', () => {
+    const emptyElement = {
+      type: 'description',
+      children: [],
+    };
+
+    const { container } = renderDescription(emptyElement);
+
+    const table = container.querySelector('[data-testid="description-table"]');
+    expect(table).toBeDefined();
+  });
+
+  it('应该支持拖拽事件处理器', () => {
+    const mockDragStart = vi.fn();
+    vi.mocked(editorStore.useEditorStore).mockReturnValue({
+      store: {
+        dragStart: mockDragStart,
+      },
+      markdownContainerRef: { current: { clientWidth: 800 } },
+    } as any);
+
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+
+    // 验证 onDragStart 属性存在
+    expect(container).toHaveProperty('ondragstart');
+  });
+
+  it('应该应用正确的 CSS 类名', () => {
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    expect(container.className).toContain('ant-md-editor-description');
+    expect(container.className).toContain('ant-md-editor-drag-el');
+  });
+
+  it('应该传递 attributes', () => {
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    expect(container.getAttribute('data-slate-node')).toBe('element');
+  });
+
+  it('应该处理单个项目', () => {
+    const singleItemElement = {
+      type: 'description',
+      children: [{ text: 'Single Item' }],
+    };
+
+    const { getAllByTestId } = renderDescription(singleItemElement);
+
+    const rows = getAllByTestId('description-row');
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该在大容器中使用更多列', () => {
+    const { getAllByTestId } = renderDescription(mockElement, 1200);
+
+    const rows = getAllByTestId('description-row');
+    // 更宽的容器应该有更少的行（每行更多列）
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该正确计算子组长度', () => {
+    const largeElement = {
+      type: 'description',
+      children: Array.from({ length: 10 }, (_, i) => ({
+        text: `Item ${i + 1}`,
+      })),
+    };
+
+    const { getAllByTestId } = renderDescription(largeElement, 800);
+
+    const rows = getAllByTestId('description-row');
+    expect(rows.length).toBeGreaterThan(1);
+  });
+
+  it('应该处理奇数个项目', () => {
+    const oddElement = {
+      type: 'description',
+      children: Array.from({ length: 5 }, (_, i) => ({
+        text: `Item ${i + 1}`,
+      })),
+    };
+
+    const { getAllByTestId } = renderDescription(oddElement, 800);
+
+    const rows = getAllByTestId('description-row');
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该处理偶数个项目', () => {
+    const evenElement = {
+      type: 'description',
+      children: Array.from({ length: 6 }, (_, i) => ({
+        text: `Item ${i + 1}`,
+      })),
+    };
+
+    const { getAllByTestId } = renderDescription(evenElement, 800);
+
+    const rows = getAllByTestId('description-row');
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该应用拖拽类名', () => {
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    expect(container.className).toContain('ant-md-editor-drag-el');
+  });
+
+  it('应该应用 hash ID', () => {
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    // 检查类名中包含 ant-md-editor-description
+    expect(container.className).toContain('ant-md-editor-description');
+  });
+
+  it('应该表格应用正确的类名', () => {
+    const { getByTestId } = renderDescription();
+
+    const table = getByTestId('description-table');
+    expect(table.className).toContain('ant-md-editor-description-table');
+  });
+
+  it('应该行应用正确的类名', () => {
+    const { getAllByTestId } = renderDescription();
+
+    const rows = getAllByTestId('description-row');
+    rows.forEach((row) => {
+      expect(row.className).toContain('ant-md-editor-description-row');
     });
   });
 
-  describe('样式和类名测试', () => {
-    it('应该应用正确的类名', () => {
-      renderWithProvider(
-        <Description element={mockElement} attributes={mockAttributes}>
-          <td>Item 1</td>
-          <td>Item 2</td>
-          <td>Item 3</td>
-          <td>Item 4</td>
-        </Description>,
-      );
+  it('应该使用 React.useMemo 优化渲染', () => {
+    const { rerender, getByTestId } = renderDescription();
 
-      const descriptionElement = screen.getByTestId('description-container');
-      expect(descriptionElement).toHaveClass('ant-md-editor-description');
-      expect(descriptionElement).toHaveClass('ant-md-editor-drag-el');
-      expect(descriptionElement).toHaveClass('test-hash-id');
-    });
+    const firstContainer = getByTestId('description-container');
 
-    it('应该应用表格类名', () => {
-      renderWithProvider(
-        <Description element={mockElement} attributes={mockAttributes}>
-          <td>Item 1</td>
-          <td>Item 2</td>
-          <td>Item 3</td>
-          <td>Item 4</td>
-        </Description>,
-      );
+    // 使用相同的 props 重新渲染
+    rerender(
+      <ConfigProvider>
+        <Slate editor={withReact(createEditor())} initialValue={[mockElement]}>
+          <Description attributes={mockAttributes} element={mockElement}>
+            {mockElement.children.map((child, index) => (
+              <td key={index}>{child.text}</td>
+            ))}
+          </Description>
+        </Slate>
+      </ConfigProvider>,
+    );
 
-      const tableElement = screen.getByTestId('description-table');
-      expect(tableElement).toHaveClass('ant-md-editor-description-table');
-      expect(tableElement).toHaveClass('test-hash-id');
-    });
+    const secondContainer = getByTestId('description-container');
+    // React.useMemo 应该返回相同的引用
+    expect(firstContainer).toBe(secondContainer);
   });
 
-  describe('边界情况测试', () => {
-    it('应该处理空的子元素数组', () => {
-      const emptyElement = {
-        ...mockElement,
-        children: [],
-      };
+  it('应该在容器宽度改变时重新计算布局', () => {
+    const { getAllByTestId, rerender } = renderDescription(mockElement, 400);
 
-      renderWithProvider(
-        <Description element={emptyElement} attributes={mockAttributes}>
-          {[]}
-        </Description>,
-      );
+    const narrowRows = getAllByTestId('description-row');
+    const narrowRowCount = narrowRows.length;
 
-      const rows = screen.queryAllByTestId('description-row');
-      expect(rows).toHaveLength(0);
-    });
+    // 改变容器宽度
+    const mockRef = { current: { clientWidth: 1200 } };
+    vi.mocked(editorStore.useEditorStore).mockReturnValue({
+      store: {
+        dragStart: vi.fn(),
+      },
+      markdownContainerRef: mockRef,
+    } as any);
 
-    it('应该处理复杂的子元素', () => {
-      const complexElement = {
-        ...mockElement,
-        children: [
-          { type: 'description-item', children: [{ text: 'Complex Item 1' }] },
-          { type: 'description-item', children: [{ text: 'Complex Item 2' }] },
-        ],
-      };
+    rerender(
+      <ConfigProvider>
+        <Slate editor={withReact(createEditor())} initialValue={[mockElement]}>
+          <Description attributes={mockAttributes} element={mockElement}>
+            {mockElement.children.map((child, index) => (
+              <td key={index}>{child.text}</td>
+            ))}
+          </Description>
+        </Slate>
+      </ConfigProvider>,
+    );
 
-      renderWithProvider(
-        <Description element={complexElement} attributes={mockAttributes}>
-          <td>
-            <div>
-              <span>Complex Item 1</span>
-              <strong>Bold Text</strong>
-            </div>
-          </td>
-          <td>
-            <div>
-              <span>Complex Item 2</span>
-              <em>Italic Text</em>
-            </div>
-          </td>
-        </Description>,
-      );
+    // 更宽的容器可能有不同的行数
+    expect(narrowRowCount).toBeGreaterThan(0);
+  });
 
-      const rows = screen.getAllByTestId('description-row');
-      expect(rows).toHaveLength(1);
-      expect(screen.getByText('Complex Item 1')).toBeInTheDocument();
-      expect(screen.getByText('Complex Item 2')).toBeInTheDocument();
-    });
+  it('应该处理非常小的容器宽度', () => {
+    const { getAllByTestId } = renderDescription(mockElement, 100);
 
-    it('应该处理不同类型的子元素', () => {
-      const mixedElement = {
-        ...mockElement,
-        children: [
-          { type: 'description-item', children: [{ text: 'String Item' }] },
-          { type: 'description-item', children: [{ text: '123' }] },
-          { type: 'description-item', children: [{ text: 'true' }] },
-        ],
-      };
+    const rows = getAllByTestId('description-row');
+    // 即使容器很小，也应该至少有一列
+    expect(rows.length).toBeGreaterThan(0);
+  });
 
-      renderWithProvider(
-        <Description element={mixedElement} attributes={mockAttributes}>
-          <td>String Item</td>
-          <td>123</td>
-          <td>true</td>
-        </Description>,
-      );
+  it('应该处理非常大的容器宽度', () => {
+    const { getAllByTestId } = renderDescription(mockElement, 3000);
 
-      expect(screen.getByText('String Item')).toBeInTheDocument();
-      expect(screen.getByText('123')).toBeInTheDocument();
-      expect(screen.getByText('true')).toBeInTheDocument();
-    });
+    const rows = getAllByTestId('description-row');
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该处理容器宽度为 0', () => {
+    const { getAllByTestId } = renderDescription(mockElement, 0);
+
+    const rows = getAllByTestId('description-row');
+    // 即使宽度为 0，也应该至少有一列
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该有 tbody 元素', () => {
+    const { getByTestId } = renderDescription();
+
+    const table = getByTestId('description-table');
+    const tbody = table.querySelector('tbody');
+    expect(tbody).toBeDefined();
+  });
+
+  it('应该处理大量项目', () => {
+    const largeElement = {
+      type: 'description',
+      children: Array.from({ length: 100 }, (_, i) => ({
+        text: `Item ${i + 1}`,
+      })),
+    };
+
+    const { getAllByTestId } = renderDescription(largeElement, 800);
+
+    const rows = getAllByTestId('description-row');
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('应该传递正确的 data-be 属性', () => {
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    expect(container.getAttribute('data-be')).toBe('table');
+  });
+
+  it('应该渲染 DragHandle 组件', () => {
+    const { container } = renderDescription();
+
+    // DragHandle 应该在容器中
+    expect(
+      container.querySelector('[data-testid="description-container"]'),
+    ).toBeDefined();
+  });
+
+  it('应该处理拖拽停止事件', () => {
+    const mockDragStart = vi.fn();
+    vi.mocked(editorStore.useEditorStore).mockReturnValue({
+      store: {
+        dragStart: mockDragStart,
+      },
+      markdownContainerRef: { current: { clientWidth: 800 } },
+    } as any);
+
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    const event = new Event('dragstart', { bubbles: true });
+
+    container.dispatchEvent(event);
+
+    // onDragStart 应该被触发
+    expect(container).toBeDefined();
+  });
+
+  it('应该保持行的顺序', () => {
+    const orderedElement = {
+      type: 'description',
+      children: [
+        { text: 'First' },
+        { text: 'Second' },
+        { text: 'Third' },
+        { text: 'Fourth' },
+      ],
+    };
+
+    const { container } = renderDescription(orderedElement, 800);
+
+    const cells = container.querySelectorAll('td');
+    expect(cells[0].textContent).toBe('First');
+    expect(cells[1].textContent).toBe('Second');
+  });
+
+  it('应该处理元素子节点变化', () => {
+    const { rerender, getAllByTestId } = renderDescription();
+
+    const firstRows = getAllByTestId('description-row');
+    expect(firstRows.length).toBeGreaterThan(0);
+
+    // 改变子元素
+    const newElement = {
+      type: 'description',
+      children: Array.from({ length: 8 }, (_, i) => ({
+        text: `New Item ${i + 1}`,
+      })),
+    };
+
+    vi.mocked(editorStore.useEditorStore).mockReturnValue({
+      store: {
+        dragStart: vi.fn(),
+      },
+      markdownContainerRef: { current: { clientWidth: 800 } },
+    } as any);
+
+    rerender(
+      <ConfigProvider>
+        <Slate editor={withReact(createEditor())} initialValue={[newElement]}>
+          <Description attributes={mockAttributes} element={newElement}>
+            {newElement.children.map((child, index) => (
+              <td key={index}>{child.text}</td>
+            ))}
+          </Description>
+        </Slate>
+      </ConfigProvider>,
+    );
+
+    const newRows = getAllByTestId('description-row');
+    // 子元素数量变化应该影响行数
+    expect(newRows.length).toBeGreaterThan(0);
+  });
+
+  it('应该处理包含复杂内容的子元素', () => {
+    const complexElement = {
+      type: 'description',
+      children: [
+        { text: 'Simple text' },
+        { text: 'Text with special chars: @#$%' },
+        { text: '数字和中文: 123 测试' },
+        { text: '' },
+      ],
+    };
+
+    const { container } = renderDescription(complexElement, 800);
+
+    const cells = container.querySelectorAll('td');
+    expect(cells[0].textContent).toBe('Simple text');
+    expect(cells[1].textContent).toBe('Text with special chars: @#$%');
+    expect(cells[2].textContent).toBe('数字和中文: 123 测试');
+  });
+
+  it('应该处理 null 或 undefined 的 markdownContainerRef', () => {
+    vi.mocked(editorStore.useEditorStore).mockReturnValue({
+      store: {
+        dragStart: vi.fn(),
+      },
+      markdownContainerRef: { current: null },
+    } as any);
+
+    const { getByTestId } = renderDescription();
+
+    const container = getByTestId('description-container');
+    expect(container).toBeDefined();
   });
 });

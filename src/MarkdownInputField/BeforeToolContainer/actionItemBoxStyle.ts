@@ -26,7 +26,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         top: 0,
         bottom: 0,
         pointerEvents: 'none',
-        background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 60%, #FFFFFF 100%)',
+        background:
+          'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 60%, #FFFFFF 100%)',
         borderRadius: 12,
         width: 72,
         height: '100%', // 防止遮挡下部的scrollbar
@@ -35,10 +36,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         justifyContent: 'flex-end',
         '&-placeholder': {
-            width: 40,
-            height: '100%',
-            backgroundColor: 'linear-gradient(270deg, #F7F8F9 57%, rgba(255, 255, 255, 0) 100%)',
-          },
+          width: 40,
+          height: '100%',
+          backgroundColor:
+            'linear-gradient(270deg, #F7F8F9 57%, rgba(255, 255, 255, 0) 100%)',
+        },
         '&-indicator': {
           flex: 1,
           pointerEvents: 'auto',
@@ -48,7 +50,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           width: 32,
           height: 32,
           zIndex: 10,
-          background: 'linear-gradient(270deg, #FFFFFF 57%, rgba(255, 255, 255, 0) 100%)',
+          background:
+            'linear-gradient(270deg, #FFFFFF 57%, rgba(255, 255, 255, 0) 100%)',
           border: 'none',
           boxShadow: 'none',
           borderRadius: 0,
@@ -173,7 +176,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
           [`&-item.${token.componentCls.slice(1)}-drag-over`]: {
             backgroundColor: 'rgba(22, 119, 255, 0.08)',
-            outline: '1px dashed rgba(22, 119, 255, 0.45)'
+            outline: '1px dashed rgba(22, 119, 255, 0.45)',
           },
           // ensure the inner ActionItemBox layout inside popup
           [`${token.componentCls}-container`]: {

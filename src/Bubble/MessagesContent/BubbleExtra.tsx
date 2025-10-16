@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
 
-import { Copy, Refresh } from '@sofa-design/icons';
+import { Copy, RotateCwSquare } from '@sofa-design/icons';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { Loading } from '../../components/Loading';
@@ -376,7 +376,7 @@ export const BubbleExtra = ({
             color: 'var(--color-gray-a9)',
           }}
         >
-          <Refresh />
+          <RotateCwSquare />
           <span>
             {context?.locale?.['chat.message.retrySend'] || '重新生成'}
           </span>

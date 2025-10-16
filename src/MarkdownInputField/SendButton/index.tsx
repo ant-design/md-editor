@@ -21,7 +21,7 @@ function SendIcon(
   }, []);
 
   if (typing) {
-    return <StopIcon />;
+    return <StopIcon {...rest} />;
   }
   return (
     <svg

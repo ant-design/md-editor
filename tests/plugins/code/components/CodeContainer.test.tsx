@@ -30,6 +30,7 @@ describe('CodeContainer Component', () => {
     readonly: false,
     fullScreenNode: { current: null },
     isSelected: false,
+    theme: 'github',
   };
 
   beforeEach(() => {

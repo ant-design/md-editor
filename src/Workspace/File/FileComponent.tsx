@@ -430,7 +430,7 @@ const FileItemComponent: FC<{
 // 分组标题栏组件
 const GroupHeader: FC<{
   group: GroupNode;
-  onToggle?: (type: FileType, collapsed: boolean) => void;
+  onToggle?: (groupId: string, type: FileType, collapsed: boolean) => void;
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   prefixCls?: string;
   hashId?: string;
@@ -442,7 +442,7 @@ const GroupHeader: FC<{
   const groupType = group.type || groupTypeInfo.fileType;
 
   const handleToggle = () => {
-    onToggle?.(groupType, !group.collapsed);
+    onToggle?.(group.id!, groupType, !group.collapsed);
   };
 
   const handleDownload = (e: React.MouseEvent) => {
@@ -538,7 +538,7 @@ const GroupHeader: FC<{
 // 文件分组组件
 const FileGroupComponent: FC<{
   group: GroupNode;
-  onToggle?: (type: FileType, collapsed: boolean) => void;
+  onToggle?: (groupId: string, type: FileType, collapsed: boolean) => void;
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
@@ -715,6 +715,10 @@ export const FileComponent: FC<{
   >({});
   // 追踪预览请求的序号，避免异步竞态
   const previewRequestIdRef = useRef(0);
+  // 缓存节点 ID，避免每次渲染重新生成（使用 WeakMap 自动清理不再使用的节点）
+  const nodeIdCacheRef = useRef<WeakMap<FileNode | GroupNode, string>>(
+    new WeakMap(),
+  );
 
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -722,6 +726,26 @@ export const FileComponent: FC<{
   const prefixCls = getPrefixCls('workspace-file');
 
   const { wrapSSR, hashId } = useFileStyle(prefixCls);
+
+  // 确保节点有稳定的唯一 ID（使用缓存）
+  const ensureNodeWithStableId = <T extends FileNode | GroupNode>(
+    node: T,
+  ): T => {
+    if (node.id) return { ...node };
+
+    // 尝试从缓存获取 ID
+    let cachedId = nodeIdCacheRef.current.get(node);
+    if (!cachedId) {
+      // 生成新 ID 并缓存
+      cachedId = generateUniqueId(node);
+      nodeIdCacheRef.current.set(node, cachedId);
+    }
+
+    return {
+      ...node,
+      id: cachedId,
+    };
+  };
 
   // 返回列表（供预览页调用）
   const handleBackToList = () => {
@@ -742,11 +766,15 @@ export const FileComponent: FC<{
   }, [resetKey]);
 
   // 处理分组折叠/展开
-  const handleToggleGroup = (type: FileType, collapsed: boolean) => {
-    // 更新内部状态
+  const handleToggleGroup = (
+    groupId: string,
+    type: FileType,
+    collapsed: boolean,
+  ) => {
+    // 更新内部状态，使用 groupId 作为 key
     setCollapsedGroups((prev) => ({
       ...prev,
-      [type]: collapsed,
+      [groupId]: collapsed,
     }));
     // 如果外部提供了回调，也调用它
     onToggleGroup?.(type, collapsed);
@@ -863,7 +891,7 @@ export const FileComponent: FC<{
     if (!actionRef) return;
     actionRef.current = {
       openPreview: (file: FileNode) => {
-        const fileWithId = ensureNodeWithId(file);
+        const fileWithId = ensureNodeWithStableId(file);
         void handlePreview(fileWithId);
       },
       backToList: () => {
@@ -986,17 +1014,15 @@ export const FileComponent: FC<{
     }
 
     return safeNodes.map((node: FileNode | GroupNode) => {
-      const nodeWithId = ensureNodeWithId(node);
+      const nodeWithId = ensureNodeWithStableId(node);
 
       if ('children' in nodeWithId) {
         // 分组节点，使用内部状态覆盖外部的 collapsed 属性
-        const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
-        const groupType = nodeWithId.type || nodeTypeInfo.fileType;
         const groupNode: GroupNode = {
           ...nodeWithId,
-          collapsed: collapsedGroups[groupType] ?? nodeWithId.collapsed,
+          collapsed: collapsedGroups[nodeWithId.id!] ?? nodeWithId.collapsed,
           // 确保子节点也有唯一ID
-          children: nodeWithId.children.map(ensureNodeWithId),
+          children: nodeWithId.children.map(ensureNodeWithStableId),
         };
         return (
           <FileGroupComponent

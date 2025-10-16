@@ -42,7 +42,7 @@ describe('InlineKatex', () => {
     children: <span>x^2</span>,
     element: mockElement,
     attributes: {
-      'data-slate-node': 'element',
+      'data-slate-node': 'element' as const,
       ref: null,
     },
   };

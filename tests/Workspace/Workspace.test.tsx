@@ -231,4 +231,377 @@ describe('Workspace Component', () => {
     expect(segmentedControl).toBeInTheDocument();
     expect(screen.getByTestId('workspace-tabs')).toBeInTheDocument();
   });
+
+  it('应该渲染自定义组件', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Custom tab={{ title: '自定义标签' }}>
+            <div>自定义内容</div>
+          </Workspace.Custom>
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByText('自定义内容')).toBeInTheDocument();
+  });
+
+  it('应该支持多个自定义组件', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Custom tab={{ title: '自定义1' }}>
+            <div>内容1</div>
+          </Workspace.Custom>
+          <Workspace.Custom tab={{ title: '自定义2' }}>
+            <div>内容2</div>
+          </Workspace.Custom>
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 默认显示第一个标签页
+    expect(screen.getByText('内容1')).toBeInTheDocument();
+    expect(screen.getByText('自定义1')).toBeInTheDocument();
+    expect(screen.getByText('自定义2')).toBeInTheDocument();
+  });
+
+  it('应该显示标签页计数', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime
+            data={{ type: 'shell', content: '' }}
+            tab={{ count: 5 }}
+          />
+          <Workspace.Browser data={{ content: '' }} tab={{ count: 10 }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByText('5')).toBeInTheDocument();
+    expect(screen.getByText('10')).toBeInTheDocument();
+  });
+
+  it('应该支持自定义标签页配置', () => {
+    const { container } = render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime
+            data={{ type: 'shell', content: '' }}
+            tab={{
+              key: 'custom-realtime',
+              title: '自定义实时',
+            }}
+          />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 验证工作空间已渲染
+    expect(container.querySelector('.ant-workspace')).toBeInTheDocument();
+  });
+
+  it('应该在标签页只有一个时隐藏标签栏', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 只有一个标签页时不应该显示标签栏
+    expect(screen.queryByTestId('workspace-tabs')).not.toBeInTheDocument();
+  });
+
+  it('应该在有多个标签页时显示标签栏', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('workspace-tabs')).toBeInTheDocument();
+  });
+
+  it('应该处理 null 或 undefined 的 data 属性', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime data={null as any} />
+          <Workspace.Browser data={undefined as any} />
+          <Workspace.Task data={null as any} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 组件应该正常渲染，即使 data 为 null/undefined
+    expect(screen.getByTestId('workspace')).toBeInTheDocument();
+  });
+
+  it('应该在切换标签页时调用 onTabChange', () => {
+    const onTabChange = vi.fn();
+
+    const { rerender } = render(
+      <TestWrapper>
+        <Workspace onTabChange={onTabChange}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 切换到浏览器标签页
+    rerender(
+      <TestWrapper>
+        <Workspace activeTabKey="browser" onTabChange={onTabChange}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('browser-list')).toBeInTheDocument();
+  });
+
+  it('应该自动选择第一个有效的标签页', () => {
+    render(
+      <TestWrapper>
+        <Workspace activeTabKey="non-existent">
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 如果指定的 activeTabKey 不存在，应该显示第一个标签页
+    expect(screen.getByTestId('realtime-follow')).toBeInTheDocument();
+  });
+
+  it('应该支持受控和非受控模式', () => {
+    const onTabChange = vi.fn();
+
+    // 非受控模式
+    const { unmount } = render(
+      <TestWrapper>
+        <Workspace onTabChange={onTabChange}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('realtime-follow')).toBeInTheDocument();
+
+    unmount();
+
+    // 受控模式
+    render(
+      <TestWrapper>
+        <Workspace activeTabKey="browser" onTabChange={onTabChange}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('browser-list')).toBeInTheDocument();
+  });
+
+  it('应该显示国际化文本', () => {
+    const customLocale = {
+      'workspace.title': '自定义工作空间',
+      'workspace.realtimeFollow': '自定义实时跟随',
+      'workspace.browser': '自定义浏览器',
+    } as any;
+
+    render(
+      <ConfigProvider>
+        <I18nContext.Provider
+          value={{ locale: customLocale, language: 'zh-CN' }}
+        >
+          <Workspace>
+            <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+            <Workspace.Browser data={{ content: '' }} />
+          </Workspace>
+        </I18nContext.Provider>
+      </ConfigProvider>,
+    );
+
+    expect(screen.getByText('自定义工作空间')).toBeInTheDocument();
+  });
+
+  it('应该处理 ResizeObserver 的宽度变化', () => {
+    const { container } = render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    const workspace = container.querySelector('.ant-workspace');
+    expect(workspace).toBeInTheDocument();
+  });
+
+  it('应该传递正确的 props 给 File 组件', () => {
+    const fileNodes = [{ name: 'test.txt', content: 'test content' }];
+
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.File nodes={fileNodes} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('workspace')).toBeInTheDocument();
+  });
+
+  it('应该在标签页切换时重置 File 组件状态', () => {
+    const { rerender } = render(
+      <TestWrapper>
+        <Workspace activeTabKey="file">
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.File nodes={[]} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 切换到其他标签页
+    rerender(
+      <TestWrapper>
+        <Workspace activeTabKey="realtime">
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.File nodes={[]} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('realtime-follow')).toBeInTheDocument();
+  });
+
+  it('应该处理空的 Custom 组件', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Custom />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('workspace')).toBeInTheDocument();
+  });
+
+  it('应该显示所有类型的组件', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime data={{ type: 'shell', content: 'realtime' }} />
+          <Workspace.Browser data={{ content: 'browser' }} />
+          <Workspace.Task data={{ items: [] }} />
+          <Workspace.File nodes={[]} />
+          <Workspace.Custom>
+            <div>custom</div>
+          </Workspace.Custom>
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 检查所有标签页是否存在
+    expect(screen.getByText('终端执行')).toBeInTheDocument();
+    expect(screen.getByText('浏览器')).toBeInTheDocument();
+    expect(screen.getByText('任务')).toBeInTheDocument();
+    expect(screen.getByText('文件')).toBeInTheDocument();
+    expect(screen.getByText('自定义')).toBeInTheDocument();
+  });
+
+  it('应该正确处理 aria-label', () => {
+    const onClose = vi.fn();
+
+    render(
+      <TestWrapper>
+        <Workspace onClose={onClose}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    const closeButton = screen.getByTestId('workspace-close');
+    expect(closeButton).toHaveAttribute('aria-label');
+  });
+
+  it('应该在没有 children 时返回 null', () => {
+    const { container } = render(
+      <TestWrapper>
+        <Workspace />
+      </TestWrapper>,
+    );
+
+    expect(container.querySelector('.ant-workspace')).not.toBeInTheDocument();
+  });
+
+  it('应该支持嵌套的复杂结构', () => {
+    render(
+      <TestWrapper>
+        <Workspace>
+          <Workspace.Realtime data={{ type: 'shell', content: 'content' }} />
+          <Workspace.Custom tab={{ title: '复杂结构' }}>
+            <div>
+              <h1>标题</h1>
+              <p>段落</p>
+              <ul>
+                <li>列表项1</li>
+                <li>列表项2</li>
+              </ul>
+            </div>
+          </Workspace.Custom>
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('workspace')).toBeInTheDocument();
+  });
+
+  it('应该处理快速连续的标签页切换', () => {
+    const onTabChange = vi.fn();
+
+    const { rerender } = render(
+      <TestWrapper>
+        <Workspace activeTabKey="realtime" onTabChange={onTabChange}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+          <Workspace.Task data={{ items: [] }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    // 快速切换
+    rerender(
+      <TestWrapper>
+        <Workspace activeTabKey="browser" onTabChange={onTabChange}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+          <Workspace.Task data={{ items: [] }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    rerender(
+      <TestWrapper>
+        <Workspace activeTabKey="task" onTabChange={onTabChange}>
+          <Workspace.Realtime data={{ type: 'shell', content: '' }} />
+          <Workspace.Browser data={{ content: '' }} />
+          <Workspace.Task data={{ items: [] }} />
+        </Workspace>
+      </TestWrapper>,
+    );
+
+    expect(screen.getByTestId('task-list')).toBeInTheDocument();
+  });
 });
