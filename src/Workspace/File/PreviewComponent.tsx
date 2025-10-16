@@ -11,11 +11,11 @@ import {
   Image,
   Segmented,
   Spin,
-  Tooltip,
   Typography,
 } from 'antd';
 import classNames from 'classnames';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
+import { ActionIconBox } from '../../components/ActionIconBox';
 import { I18nContext } from '../../i18n';
 import {
   MarkdownEditor,
@@ -708,34 +708,24 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               </div>
             )}
             {onShare && file.canShare === true && (
-              <Tooltip
-                mouseEnterDelay={0.3}
+              <ActionIconBox
                 title={locale?.['workspace.file.share'] || '分享'}
+                onClick={handleShare}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(`${prefixCls}-item-action-btn`, hashId)}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(`${prefixCls}-item-action-btn`, hashId)}
-                  icon={<ShareIcon />}
-                  aria-label={locale?.['workspace.file.share'] || '分享'}
-                  onClick={handleShare}
-                />
-              </Tooltip>
+                <ShareIcon />
+              </ActionIconBox>
             )}
             {onDownload && (
-              <Tooltip
-                mouseEnterDelay={0.3}
+              <ActionIconBox
                 title={locale?.['workspace.file.download'] || '下载'}
+                onClick={handleDownload}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(`${prefixCls}-item-action-btn`, hashId)}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(`${prefixCls}-item-action-btn`, hashId)}
-                  icon={<DownloadIcon />}
-                  onClick={handleDownload}
-                  aria-label={locale?.['workspace.file.download'] || '下载'}
-                />
-              </Tooltip>
+                <DownloadIcon />
+              </ActionIconBox>
             )}
           </div>
         </div>
