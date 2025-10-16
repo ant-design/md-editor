@@ -170,6 +170,7 @@ export default () => {
       <SuggestionList
         style={{
           marginTop: 8,
+          maxWidth: '980px',
         }}
         items={[
           {
@@ -461,6 +462,7 @@ export default () => {
       <SuggestionList
         style={{
           marginTop: 8,
+          maxWidth: '980px',
         }}
         items={[
           {

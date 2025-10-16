@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { AttachmentFile } from '../MarkdownInputField/AttachmentButton/types';
 import { FileMapView } from '../MarkdownInputField/FileMapView';
 import { BubbleProps } from './type';

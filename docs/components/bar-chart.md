@@ -16,6 +16,7 @@ group:
 <code src="../demos/charts/bar/bar-stacked.tsx" background="var(--main-bg-color)" title="堆叠柱状图" iframe=540></code>
 <code src="../demos/charts/bar/bar-negative.tsx" background="var(--main-bg-color)" title="正负柱状图" iframe=540></code>
 <code src="../demos/charts/bar/bar-horizontal.tsx" background="var(--main-bg-color)" title="条形图（横向）" iframe=540></code>
+<code src="../demos/charts/bar/bar-horizontal-stacked.tsx" background="var(--main-bg-color)" title="条形堆叠图（横向堆叠）" iframe=540></code>
 
 ## API
 

@@ -608,14 +608,16 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
     });
 
     it('应该处理异步加载失败', async () => {
-      const asyncItems = vi.fn(async () => {
-        throw new Error('加载失败');
-      });
+      const asyncItems = vi.fn().mockRejectedValue(new Error('加载失败'));
 
       // 捕获未处理的 rejection
       const consoleError = vi
         .spyOn(console, 'error')
         .mockImplementation(() => {});
+
+      // 捕获未处理的 promise rejection
+      const unhandledRejectionHandler = vi.fn();
+      process.on('unhandledRejection', unhandledRejectionHandler);
 
       render(
         <MarkdownInputField
@@ -631,7 +633,11 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
         expect(asyncItems).toHaveBeenCalled();
       });
 
+      // 等待异步错误处理完成
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       consoleError.mockRestore();
+      process.removeListener('unhandledRejection', unhandledRejectionHandler);
     });
 
     it('应该处理空字符串值', () => {

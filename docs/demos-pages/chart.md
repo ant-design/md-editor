@@ -45,6 +45,9 @@ nav:
 
 <code src="../demos/charts/bar/bar-horizontal.tsx" background="var(--main-bg-color)" iframe=540></code>
 
+### 条形堆叠图（横向堆叠）
+<code src="../demos/charts/bar/bar-horizontal-stacked.tsx" background="var(--main-bg-color)" iframe=540></code>
+
 ## 漏斗图
 
 <code src="../demos/charts/funnel.tsx" background="var(--main-bg-color)" iframe=540></code>
