@@ -1,4 +1,10 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 /* ChatFlowContainer Demo 样式定义 */
+
 .custom-chat-container-demo {
   min-height: 600px;
   height: calc(100vh);
@@ -18,7 +24,9 @@
 
 /* 左侧边栏样式 */
 .sidebar-left {
-  width: 348px;
+  width: 256px;
+  min-width: 256px;
+  max-width: 256px;
   padding: 0 16px 16px 16px;
   transition:
     width 500ms ease-in-out,
@@ -31,6 +39,9 @@
   width: 0;
   padding: 0;
   opacity: 0;
+  min-width: 0;
+  max-width: 0;
+  overflow: hidden;
 }
 
 .sidebar-left.collapsed .sidebar-left-content {
