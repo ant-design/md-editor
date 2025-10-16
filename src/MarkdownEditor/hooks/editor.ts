@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { BaseElement, Editor, Path, Transforms } from 'slate';
+import { BaseElement, Path, Transforms } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
 import { selChange$ } from '../editor/plugins/useOnchange';
 import { EditorStore, useEditorStore } from '../editor/store';
@@ -43,35 +43,7 @@ export const useMEditor = (el: BaseElement) => {
     [editor, el],
   );
 
-  const remove = useCallback(
-    (current?: BaseElement) => {
-      try {
-        const path = ReactEditor.findPath(editor, current || el);
-        Transforms.delete(editor, { at: path });
-        if (
-          Path.equals([0], path) &&
-          !Editor.hasPath(editor, Path.next(path))
-        ) {
-          const dom = ReactEditor.toDOMNode(editor, editor);
-          dom.focus();
-          Transforms.insertNodes(
-            editor,
-            { type: 'paragraph', children: [{ text: '' }] },
-            { select: true },
-          );
-        }
-      } catch (e) {
-        console.error('remove note', e);
-      }
-    },
-    [editor, el],
-  );
-
-  return [editor, update, remove] as [
-    typeof editor,
-    typeof update,
-    typeof remove,
-  ];
+  return [editor, update] as [typeof editor, typeof update];
 };
 
 /**
