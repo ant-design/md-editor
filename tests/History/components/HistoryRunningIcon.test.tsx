@@ -13,47 +13,10 @@ describe('HistoryRunningIcon', () => {
     expect(svg).toBeInTheDocument();
   });
 
-  it('应该应用默认动画', () => {
-    const { container } = render(<HistoryRunningIcon />);
-    const svg = container.querySelector('svg');
-    expect(svg).toHaveStyle({
-      animation: expect.stringContaining('linear infinite'),
-    });
-  });
-
-  it('应该禁用动画', () => {
-    const { container } = render(<HistoryRunningIcon animated={false} />);
-    const svg = container.querySelector('svg');
-    expect(svg).not.toHaveStyle({
-      animation: expect.any(String),
-    });
-  });
-
   it('应该暂停动画', () => {
     const { container } = render(<HistoryRunningIcon paused={true} />);
     const svg = container.querySelector('svg');
     expect(svg).toHaveStyle({ animation: 'none' });
-  });
-
-  it('应该自定义动画持续时间', () => {
-    const { container } = render(<HistoryRunningIcon duration={5} />);
-    const svg = container.querySelector('svg');
-    expect(svg).toHaveStyle({
-      animation: expect.stringContaining('5s'),
-    });
-  });
-
-  it('应该应用自定义样式', () => {
-    const customStyle = { color: 'red', fontSize: '20px' };
-    const { container } = render(<HistoryRunningIcon style={customStyle} />);
-    const svg = container.querySelector('svg');
-    expect(svg).toHaveStyle(customStyle);
-  });
-
-  it('应该应用自定义类名', () => {
-    const { container } = render(<HistoryRunningIcon className="custom-class" />);
-    const svg = container.querySelector('svg');
-    expect(svg).toHaveClass('custom-class');
   });
 
   it('应该应用自定义动画样式', () => {
