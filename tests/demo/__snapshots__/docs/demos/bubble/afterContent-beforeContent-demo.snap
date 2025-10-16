@@ -68,10 +68,6 @@
                 style="display: flex; gap: 4px; flex-direction: column; align-items: flex-start;"
               >
                 <div
-                  class="ant-agent-bubble-before ant-agent-bubble-before-left ant-agent-bubble-before-ai"
-                  data-testid="message-before"
-                />
-                <div
                   class="ant-agent-bubble-content ant-agent-bubble-content-left ant-agent-bubble-content-ai"
                   data-testid="message-content"
                   style="min-width: 0px;"
