@@ -310,7 +310,7 @@ describe('HistoryActionsBox', () => {
   });
 
   it('应该在 agent 模式下隐藏子元素', () => {
-    render(
+    const { container } = render(
       <TestWrapper>
         <HistoryActionsBox agent={{ enabled: true }}>
           <span>测试时间</span>
@@ -319,8 +319,13 @@ describe('HistoryActionsBox', () => {
     );
 
     // agent 模式下，子元素应该被替换为占位符
-    const placeholder = screen.getByText('测试时间').parentElement;
-    expect(placeholder).toHaveStyle({ opacity: '1' });
+    // 应该找不到原来的文本
+    expect(screen.queryByText('测试时间')).not.toBeInTheDocument();
+
+    // 应该有一个空的占位符 span
+    const placeholder = container.querySelector('span[style*="width: 20px"]');
+    expect(placeholder).toBeInTheDocument();
+    expect(placeholder).toHaveStyle({ width: '20px', height: '20px' });
   });
 
   it('应该正确应用样式过渡效果', () => {

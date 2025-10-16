@@ -1,5 +1,6 @@
 import { EllipsisOutlined, LoadingOutlined } from '@ant-design/icons';
 import React, { useCallback, useContext, useState } from 'react';
+import { useRefFunction } from '../../hooks/useRefFunction';
 import { I18nContext } from '../../i18n';
 /**
  * 历史记录加载更多组件属性接口
@@ -79,18 +80,21 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
+  const loadingRef = React.useRef(false);
 
-  const onClickFn = async () => {
+  const onClickFn = useRefFunction(async () => {
     try {
-      if (loading) return;
+      if (loadingRef.current) return;
+      loadingRef.current = true;
       setLoading(true);
       await onLoadMore();
     } catch (error) {
       console.error(error);
     } finally {
+      loadingRef.current = false;
       setLoading(false);
     }
-  };
+  });
 
   const handleKeyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
