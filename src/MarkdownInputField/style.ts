@@ -82,13 +82,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: INPUT_FIELD_PADDING.NONE,
-      margin: INPUT_FIELD_PADDING.SMALL,
       borderRadius: '16px',
       minHeight: '48px',
       maxWidth: 980,
       backdropFilter: 'blur(5.44px)',
       position: 'relative',
-      tableIndex: 1,
       transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       '> * ': {
         boxSizing: 'border-box',
