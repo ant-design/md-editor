@@ -1,4 +1,4 @@
-﻿import React, { useContext } from 'react';
+﻿import React, { useContext, useMemo } from 'react';
 import {
   ThoughtChainList,
   WhiteBoxProcessInterface,
@@ -71,27 +71,36 @@ type BubbleBeforeNodeProps = {
 export const BubbleBeforeNode: React.FC<BubbleBeforeNodeProps> = (props) => {
   const _ = props.bubble;
   const context = useContext(BubbleConfigContext);
-  if (_.placement !== 'left') return null;
-  if (_.originData?.role === 'bot') return null;
 
-  const taskList = (
-    [_?.originData?.extra?.white_box_process].flat(
-      2,
-    ) as WhiteBoxProcessInterface[]
-  ).filter((item) => item?.info) as WhiteBoxProcessInterface[];
+  const renderResult = useMemo(() => {
+    // 判断位置是否为左侧
+    if (_.placement !== 'left') return null;
 
-  if (taskList.length < 1 && !context?.thoughtChain?.alwaysRender) {
-    return null;
-  }
+    // 判断角色是否为 bot
+    if (_.originData?.role === 'bot') return null;
 
-  if (context?.thoughtChain?.enable === false) return null;
+    // 判断思维链功能是否启用
+    if (context?.thoughtChain?.enable === false) return null;
 
-  if (context?.thoughtChain?.render) {
-    return (context?.thoughtChain.render as any)(_, taskList.join(','));
-  }
+    // 处理任务列表
+    const taskList = (
+      [_?.originData?.extra?.white_box_process].flat(
+        2,
+      ) as WhiteBoxProcessInterface[]
+    ).filter((item) => item?.info) as WhiteBoxProcessInterface[];
 
-  return (
-    <>
+    // 判断是否需要渲染
+    if (taskList.length < 1 && !context?.thoughtChain?.alwaysRender) {
+      return null;
+    }
+
+    // 使用自定义渲染函数
+    if (context?.thoughtChain?.render) {
+      return (context?.thoughtChain.render as any)(_, taskList.join(','));
+    }
+
+    // 渲染默认思维链组件
+    return (
       <ThoughtChainList
         {...context?.thoughtChain}
         className={props.className}
@@ -112,6 +121,14 @@ export const BubbleBeforeNode: React.FC<BubbleBeforeNodeProps> = (props) => {
         }
         loading={_.originData?.content === '...'}
       />
-    </>
-  );
+    );
+  }, [
+    _.placement,
+    _.originData,
+    context?.thoughtChain,
+    props.className,
+    props.style,
+  ]);
+
+  return renderResult;
 };

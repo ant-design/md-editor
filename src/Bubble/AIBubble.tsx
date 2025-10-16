@@ -114,7 +114,8 @@ export const AIBubble: React.FC<
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
-  const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
+  const context = useContext(BubbleConfigContext);
+  const { compact, standalone, locale } = context || {};
 
   const prefixClass = getPrefixCls('agent');
 
@@ -249,10 +250,15 @@ export const AIBubble: React.FC<
       ),
     [
       bubbleRenderConfig?.contentBeforeRender,
+      props.placement,
+      props.originData?.role,
       props.originData?.extra?.white_box_process,
       props.originData?.isAborted,
       props.originData?.isFinished,
       props.originData?.updateAt,
+      context?.thoughtChain?.enable,
+      context?.thoughtChain?.alwaysRender,
+      context?.thoughtChain?.render,
       props.deps,
     ],
   );

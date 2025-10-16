@@ -1,11 +1,4 @@
-import {
-  ConfigProvider,
-  Image,
-  Input,
-  Spin,
-  Typography,
-  message,
-} from 'antd';
+import { ConfigProvider, Image, Input, Spin, Typography, message } from 'antd';
 
 import {
   Check,

@@ -112,8 +112,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           flexDirection: 'column',
           gap: 6,
-          boxShadow:
-            'var(--shadow-popover-base)',
+          boxShadow: 'var(--shadow-popover-base)',
           // Hide scrollbar by default, show on hover
           scrollbarWidth: 'thin', // Firefox - thin scrollbar
           scrollbarColor: 'transparent transparent', // Firefox - hide by default
