@@ -212,7 +212,7 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
 
   describe('自定义渲染测试', () => {
     it('应该使用自定义 tagRender', () => {
-      const tagRender = vi.fn((props, defaultDom) => (
+      const tagRender = vi.fn((props) => (
         <div data-testid="custom-tag-render">自定义标签: {props.text}</div>
       ));
 
@@ -248,7 +248,7 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
     });
 
     it('应该使用自定义 dropdownRender', () => {
-      const dropdownRender = vi.fn((defaultNode, props) => (
+      const dropdownRender = vi.fn((defaultNode) => (
         <div data-testid="custom-dropdown">
           <div>自定义下拉菜单</div>
           {defaultNode}
@@ -547,11 +547,13 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
       render(
         <MarkdownInputField
           value="`${test}`"
-          tagInputProps={{
-            enable: true,
-            items: mockItems,
-            autoOpen: true,
-          }}
+          tagInputProps={
+            {
+              enable: true,
+              items: mockItems,
+              autoOpen: true,
+            } as any
+          }
         />,
       );
 
@@ -562,11 +564,13 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
       render(
         <MarkdownInputField
           value="`${test}`"
-          tagInputProps={{
-            enable: true,
-            items: mockItems,
-            autoOpen: false,
-          }}
+          tagInputProps={
+            {
+              enable: true,
+              items: mockItems,
+              autoOpen: false,
+            } as any
+          }
         />,
       );
 

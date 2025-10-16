@@ -613,7 +613,7 @@ describe('Image', () => {
 
   describe('ImageAndError 扩展测试', () => {
     it('应该处理图片的 onLoad 事件', () => {
-      const { container } = renderWithProvider(
+      renderWithProvider(
         <ImageAndError
           src="https://example.com/image.jpg"
           alt="Test Image"
