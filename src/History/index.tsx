@@ -108,10 +108,7 @@ export const History: React.FC<HistoryProps> = (props) => {
         }}
       >
         {props.agent?.enabled && !!props.agent?.onNewChat && (
-          <HistoryNewChat
-            className={`${menuPrefixCls}-new-chat ${hashId}`}
-            onNewChat={handleNewChat}
-          />
+          <HistoryNewChat onNewChat={handleNewChat} />
         )}
 
         {props.agent?.enabled && !!props.agent?.onSearch && (

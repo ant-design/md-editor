@@ -1,6 +1,8 @@
 import { AiAgentManagement } from '@sofa-design/icons';
+import { ConfigProvider } from 'antd';
 import React, { useCallback, useContext, useState } from 'react';
 import { I18nContext } from '../../i18n';
+import { useNewChatStyle } from './NewChatComponent.style';
 
 /**
  * 新对话组件属性接口
@@ -8,8 +10,6 @@ import { I18nContext } from '../../i18n';
 interface HistoryNewChatProps {
   /** 创建新对话的回调函数 */
   onNewChat: () => void;
-  /** 自定义样式类名 */
-  className?: string;
 }
 
 /**
@@ -43,8 +43,11 @@ interface HistoryNewChatProps {
  */
 export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   onNewChat,
-  className,
 }) => {
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
+  const { wrapSSR, hashId } = useNewChatStyle(menuPrefixCls);
+
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +71,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
     [handleClick],
   );
 
-  return (
+  return wrapSSR(
     <div
       role="button"
       tabIndex={0}
@@ -77,7 +80,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
       aria-busy={loading}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      className={className}
+      className={`${menuPrefixCls}-new-chat ${hashId}`}
     >
       <AiAgentManagement
         style={{
@@ -85,7 +88,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
         }}
       />
       {locale?.['chat.history.newChat'] || '新对话'}
-    </div>
+    </div>,
   );
 };
 
