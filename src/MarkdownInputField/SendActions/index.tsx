@@ -115,6 +115,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
   const defaultActionsLen = [
     attachment?.enable ? '()' : null,
     voiceRecognizer ? '()' : null,
+    '()',
   ].filter(Boolean).length;
   /**
    * 默认发送操作按钮
