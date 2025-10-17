@@ -3,8 +3,8 @@ nav:
   order: 1
 atomId: ThoughtChainList
 group:
-  title: 图文输出
-  order: 12
+  title: 对话流
+  order: 2
 ---
 
 # ThoughtChainList 思维链

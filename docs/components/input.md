@@ -1,7 +1,7 @@
 ---
 title: Input 输入框
 group:
-  title: 意图输入
+  title: 通用
   order: 2
 ---
 

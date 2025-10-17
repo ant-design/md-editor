@@ -4,7 +4,7 @@ nav:
   order: 2
 group:
   title: 通用
-  order: 4
+  order: 3
 ---
 
 # 插件
