@@ -200,7 +200,7 @@
                 style="height: 400px; border: 1px solid rgb(240, 240, 240); border-radius: 6px;"
               >
                 <div
-                  style="display: flex; flex-direction: column;"
+                  style="display: flex; flex-direction: column; gap: 12px;"
                 >
                   <div
                     aria-label="菜单"
@@ -1068,7 +1068,7 @@
                 style="height: 300px; border: 1px solid rgb(240, 240, 240); border-radius: 6px;"
               >
                 <div
-                  style="display: flex; flex-direction: column;"
+                  style="display: flex; flex-direction: column; gap: 12px;"
                 >
                   <div
                     aria-label="菜单"

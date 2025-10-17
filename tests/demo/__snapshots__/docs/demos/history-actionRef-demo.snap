@@ -44,7 +44,7 @@
         style="border: 1px solid rgb(217, 217, 217); border-radius: 6px; padding: 16px;"
       >
         <div
-          style="display: flex; flex-direction: column;"
+          style="display: flex; flex-direction: column; gap: 12px;"
         >
           <div
             aria-label="菜单"
