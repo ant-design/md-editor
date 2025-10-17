@@ -31,8 +31,7 @@
             style="gap: 12px;"
           >
             <div
-              class="ant-agent-bubble-container"
-              style="display: flex; flex-direction: column; gap: 2px; align-items: flex-start;"
+              class="ant-agent-bubble-container ant-agent-bubble-container-left"
             >
               <div
                 class="ant-agent-bubble-avatar-title ant-agent-bubble-avatar-title-left ant-agent-bubble-avatar-title-ai"

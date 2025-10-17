@@ -1,10 +1,10 @@
-import { ConfigProvider } from 'antd';
+﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
-import { useStyle } from './actionItemBoxStyle';
+import { useStyle } from './style';
 
-type ActionItemBoxProps = {
+export type ActionItemBoxProps = {
   onClick: () => void;
   icon?: string;
   title: React.ReactNode;

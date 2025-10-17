@@ -130,7 +130,8 @@ module.exports = {
 
    ```css
    /* 确保编辑器容器可见 */
-   .markdown-editor-container {
+   .markdown-editor
+    {
      min-height: 300px;
      position: relative;
    }

@@ -38,6 +38,7 @@ export { default as Workspace } from './Workspace';
 // HTML to Markdown conversion utilities
 export * from './AnswerAlert';
 export * from './BackTo';
+export { ActionItemBox } from './components/ActionItemBox';
 export * from './History';
 export {
   batchHtmlToMarkdown,
@@ -51,7 +52,6 @@ export * from './MarkdownEditor/el';
 export { useSelStatus } from './MarkdownEditor/hooks/editor';
 export * from './MarkdownEditor/plugin';
 export * from './MarkdownInputField/AttachmentButton';
-export { ActionItemBox } from './MarkdownInputField/BeforeToolContainer/ActionItemBox';
 export { ActionItemContainer } from './MarkdownInputField/BeforeToolContainer/BeforeToolContainer';
 export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';

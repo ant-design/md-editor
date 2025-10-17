@@ -2,7 +2,7 @@ import { GripVertical, Menu } from '@sofa-design/icons';
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useStyle } from './actionItemBoxStyle';
+import { useStyle } from '../../components/ActionItemBox';
 
 type KeyedElement = React.ReactElement & { key: React.Key };
 

@@ -1,4 +1,4 @@
-import {
+﻿import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
