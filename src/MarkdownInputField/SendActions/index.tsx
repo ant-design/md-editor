@@ -112,6 +112,10 @@ export const SendActions: React.FC<SendActionsProps> = ({
 }) => {
   const fileMap = attachment?.fileMap;
 
+  const defaultActionsLen = [
+    attachment?.enable ? '()' : null,
+    voiceRecognizer ? '()' : null,
+  ].filter(Boolean).length;
   /**
    * 默认发送操作按钮
    */
@@ -121,7 +125,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
         <AttachmentButton
           uploadImage={uploadImage || (() => Promise.resolve())}
           key="attachment-button"
-          title={collapseSendActions ? '文件上传' : ''}
+          title={collapseSendActions && defaultActionsLen > 2 ? '文件上传' : ''}
           {...attachment}
           fileMap={fileMap}
           onFileMapChange={(fileMap) => {
@@ -133,7 +137,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
       voiceRecognizer ? (
         <VoiceInputButton
           key="voice-input-button"
-          title={collapseSendActions ? '语音输入' : ''}
+          title={collapseSendActions && defaultActionsLen > 2 ? '语音输入' : ''}
           recording={recording}
           disabled={disabled}
           onStart={onStartRecording || (() => Promise.resolve())}
