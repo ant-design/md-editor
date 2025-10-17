@@ -1,5 +1,5 @@
+import { ChartContainer } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import ChartContainer from '../../src/plugins/chart/components/ChartContainer/ChartContainer';
 
 const ChartContainerDemo: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');

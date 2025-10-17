@@ -525,7 +525,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                     font: isSelected
                       ? 'var(--font-text-h6-base)'
                       : 'var(--font-text-body-base)',
-                    letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
                     color: 'var(--color-gray-text-default)',
                   }}
                 >

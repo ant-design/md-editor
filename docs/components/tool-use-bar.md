@@ -2,7 +2,7 @@
 title: ToolUseBar 工具使用栏
 atomId: ToolUseBar
 group:
-  title: 图文输出
+  title: 对话流
   order: 11
 ---
 

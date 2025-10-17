@@ -1,9 +1,8 @@
+import { EditorStore, withMarkdown } from '@ant-design/md-editor';
 import React, { useRef, useState } from 'react';
 import { BaseEditor, createEditor } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
-import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
-import { EditorStore } from '../../src/MarkdownEditor/editor/store';
 
 /**
  * EditorStore 替换功能演示

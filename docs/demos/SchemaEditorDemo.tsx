@@ -1,6 +1,5 @@
+import { LowCodeSchema, SchemaEditor } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import { SchemaEditor } from '../../src/schema/SchemaEditor';
-import { LowCodeSchema } from '../../src/schema/types';
 
 /**
  * SchemaEditor 演示页面

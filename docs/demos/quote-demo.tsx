@@ -1,7 +1,6 @@
+import { Quote } from '@ant-design/md-editor';
 import { ConfigProvider, message } from 'antd';
 import React from 'react';
-// 开发环境使用相对路径导入
-import Quote from '../../src/Quote/index';
 
 export default function QuoteDemo() {
   // 处理文件名点击

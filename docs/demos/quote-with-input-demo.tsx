@@ -1,7 +1,6 @@
+import { MarkdownInputField, Quote } from '@ant-design/md-editor';
 import { ConfigProvider } from 'antd';
 import React, { useState } from 'react';
-import { MarkdownInputField } from '../../src/MarkdownInputField/MarkdownInputField';
-import Quote from '../../src/Quote/index';
 
 export default function QuoteWithInputDemo() {
   const [skillModeOpen, setSkillModeOpen] = useState(true);
