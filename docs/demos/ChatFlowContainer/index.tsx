@@ -235,6 +235,7 @@ const ChatFlowContainerDemo: React.FC = () => {
           style={{
             flex: 1,
             display: 'flex',
+            minWidth: 0,
           }}
         >
           <ChatFlowContainer
