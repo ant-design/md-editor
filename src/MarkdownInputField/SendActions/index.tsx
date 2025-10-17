@@ -226,7 +226,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
           hashId,
         )}
       >
-        {collapseSendActions ? (
+        {collapseSendActions && actionsList.length > 2 ? (
           <>
             <Popover
               trigger="click"
