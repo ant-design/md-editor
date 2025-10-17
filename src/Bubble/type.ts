@@ -512,6 +512,14 @@ export interface BubbleProps<T = Record<string, any>>
   ) => Promise<void> | void;
 
   /**
+   * 取消点赞的回调函数
+   * @description 当用户点击取消点赞按钮时触发
+   * @callback
+   * @optional
+   */
+  onCancelLike?: (bubble: MessageBubbleData<Record<string, any>>) => void;
+
+  /**
    * 回复回调
    */
   onReply?: (message: string) => void;
@@ -527,14 +535,6 @@ export interface BubbleProps<T = Record<string, any>>
    * 气泡引用
    */
   bubbleRef?: any;
-
-  /**
-   * 取消点赞的回调函数
-   * @description 当用户点击取消点赞按钮时触发
-   * @callback
-   * @optional
-   */
-  onCancelLike?: (e: BubbleProps['originData']) => void;
 
   /**
    * 控制复制按钮的显示

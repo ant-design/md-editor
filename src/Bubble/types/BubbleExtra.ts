@@ -65,7 +65,7 @@ export type BubbleExtraProps = {
    * @callback
    * @optional
    */
-  onCancelLike?: (e: SimpleBubbleProps['originData']) => void;
+  onCancelLike?: (bubble: MessageBubbleData<Record<string, any>>) => void;
 
   /**
    * 控制复制按钮的显示

@@ -130,11 +130,8 @@ export const BubbleExtra = ({
               // 处理取消点赞
               if (alreadyFeedback) {
                 // 如果已经点赞且支持取消点赞
-                if (
-                  originalData?.feedback === 'thumbsUp' &&
-                  props.onCancelLike
-                ) {
-                  await props.onCancelLike?.(bubble.originData);
+                if (originalData?.feedback === 'thumbsUp') {
+                  await props.onCancelLike?.(bubble.originData as any);
                 }
                 return;
               }
@@ -166,12 +163,6 @@ export const BubbleExtra = ({
       shouldShowDisLike && !typing ? (
         <ActionIconBox
           data-testid="dislike-button"
-          style={{
-            color:
-              originalData?.feedback === 'thumbsDown'
-                ? 'var(--color-gray-text-secondary)'
-                : 'var(--color-gray-a9)',
-          }}
           loading={feedbackLoading}
           onLoadingChange={setFeedbackLoading}
           title={getDislikeButtonTitle}
@@ -355,9 +346,6 @@ export const BubbleExtra = ({
       <ActionIconBox
         data-testid="reply-button"
         borderLess
-        style={{
-          color: 'var(--color-gray-a9)',
-        }}
         onClick={async () => {
           onReply?.(
             bubble.originData?.extra?.preMessage?.content ||
@@ -373,7 +361,6 @@ export const BubbleExtra = ({
             display: 'flex',
             cursor: 'pointer',
             alignItems: 'center',
-            color: 'var(--color-gray-a9)',
           }}
         >
           <RotateCwSquare />
@@ -438,7 +425,7 @@ export const BubbleExtra = ({
         paddingLeft: placement === 'right' ? 0 : 'var(--padding-5x)',
         paddingRight: placement === 'right' ? 0 : 'var(--padding-5x)',
         paddingBottom: placement === 'right' ? 0 : 'var(--padding-2x)',
-        color: 'var(--color-gray-a9)',
+        color: 'var(--color-gray-text-secondary)',
         fontSize: context?.compact ? '11px' : '13px',
         gap: 4,
         ...props.style,

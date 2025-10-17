@@ -194,15 +194,7 @@ export default () => (
         }}
       />
     </Card>
-    <Card
-      title="媒体消息"
-      styles={{
-        body: {
-          padding: '0',
-          paddingBottom: 24,
-        },
-      }}
-    >
+    <Card title="媒体消息">
       <Bubble
         style={{
           flex: 1,
@@ -216,7 +208,6 @@ export default () => (
       <div
         style={{
           paddingLeft: 20,
-          marginTop: -24,
         }}
       >
         <SuggestionList items={items} onItemClick={() => alert('ask')} />
