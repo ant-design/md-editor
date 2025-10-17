@@ -67,6 +67,7 @@ const OverflowTooltip: React.FC<{
 
   useEffect(() => {
     if (!textRef.current) return;
+    if (typeof MutationObserver === 'undefined') return;
 
     const observer = new MutationObserver(checkOverflow);
 
