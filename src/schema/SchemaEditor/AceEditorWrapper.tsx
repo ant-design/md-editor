@@ -95,7 +95,7 @@ export const AceEditorWrapper: React.FC<AceEditorWrapperProps> = ({
     }
 
     return () => {
-      codeEditor.destroy();
+      codeEditor?.destroy();
     };
   }, []);
 
