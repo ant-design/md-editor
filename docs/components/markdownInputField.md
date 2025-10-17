@@ -3,7 +3,7 @@ nav:
   order: 1
 atomId: MarkdownInputField
 group:
-  title: 编辑器
+  title: 意图输入
   order: 1
 ---
 

@@ -2,7 +2,7 @@
 title: BackTo 回到顶部/底部
 atomId: BackTo
 group:
-  title: 组件
+  title: 入口
   order: 2
 ---
 

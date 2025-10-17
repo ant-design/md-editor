@@ -2,8 +2,8 @@
 title: SuggestionList 追问建议
 atomId: SuggestionList
 group:
-  title: 基础组件
-  order: 3
+  title: 对话流
+  order: 9
 ---
 
 # SuggestionList 追问建议

@@ -2,7 +2,7 @@
 title: AreaChart 面积图
 atomId: AreaChart
 group:
-  title: 图表
+  title: 图文输出
   order: 1
 ---
 

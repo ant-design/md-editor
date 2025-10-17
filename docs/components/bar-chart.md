@@ -2,7 +2,7 @@
 title: BarChart 柱状图
 atomId: BarChart
 group:
-  title: 图表
+  title: 图文输出
   order: 2
 ---
 

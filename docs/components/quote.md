@@ -2,8 +2,8 @@
 title: Quote 引用组件
 atomId: Quote
 group:
-  title: 组件
-  order: 2
+  title: 对话流
+  order: 6
 ---
 
 # Quote 引用组件

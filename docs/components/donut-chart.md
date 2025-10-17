@@ -2,8 +2,8 @@
 title: DonutChart 环形图
 atomId: DonutChart
 group:
-  title: 图表
-  order: 3
+  title: 图文输出
+  order: 4
 ---
 
 # DonutChart 环形图

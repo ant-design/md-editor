@@ -4,8 +4,8 @@ nav:
   order: 1
 atomId: SchemaEditor
 group:
-  title: 渲染器
-  order: 3
+  title: 图文输出
+  order: 14
 ---
 
 # SchemaEditor - schema 编辑工具

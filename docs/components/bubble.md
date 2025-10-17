@@ -2,7 +2,7 @@
 title: Bubble 气泡组件
 atomId: Bubble
 group:
-  title: 组件
+  title: 对话流
   order: 2
 ---
 

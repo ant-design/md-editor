@@ -2,6 +2,9 @@
 nav:
   title: 插件
   order: 2
+group:
+  title: 通用
+  order: 12
 ---
 
 # Demo

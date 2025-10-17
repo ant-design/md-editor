@@ -2,6 +2,9 @@
 nav:
   title: 常见问题
   order: 6
+group:
+  title: 通用
+  order: 3
 ---
 
 # 常见问题与故障排除

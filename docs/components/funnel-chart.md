@@ -2,8 +2,8 @@
 title: FunnelChart 漏斗图
 atomId: FunnelChart
 group:
-  title: 图表
-  order: 2
+  title: 图文输出
+  order: 5
 ---
 
 # FunnelChart 漏斗图

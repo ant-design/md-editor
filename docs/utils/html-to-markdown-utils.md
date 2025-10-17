@@ -2,6 +2,9 @@
 nav:
   title: 高级功能
   order: 4
+group:
+  title: 工具函数
+  order: 7
 ---
 
 # HTML 到 Markdown 转换工具

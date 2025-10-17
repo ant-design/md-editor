@@ -1,8 +1,8 @@
 ---
 title: Input 输入框
 group:
-  title: 基础组件
-  order: 4
+  title: 意图输入
+  order: 2
 ---
 
 # Input 输入框

@@ -2,6 +2,9 @@
 nav:
   title: 高级功能
   order: 4
+group:
+  title: 工具函数
+  order: 2
 ---
 
 # 图表配置文档

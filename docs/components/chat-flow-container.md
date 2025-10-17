@@ -2,8 +2,8 @@
 title: ChatFlowContainer - 对话流容器组件
 atomId: ChatFlowContainer
 group:
-  title: 组件
-  order: 2
+  title: 对话流
+  order: 3
 ---
 
 # 对话流容器组件

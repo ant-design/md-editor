@@ -2,8 +2,8 @@
 title: LineChart 折线图
 atomId: LineChart
 group:
-  title: 图表
-  order: 4
+  title: 图文输出
+  order: 6
 ---
 
 # LineChart 折线图

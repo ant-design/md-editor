@@ -2,8 +2,8 @@
 title: ScatterChart 散点图
 atomId: ScatterChart
 group:
-  title: 图表
-  order: 6
+  title: 图文输出
+  order: 8
 ---
 
 # ScatterChart 散点图

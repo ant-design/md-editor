@@ -2,6 +2,9 @@
 nav:
   title: Demo
   order: 2
+group:
+  title: 通用
+  order: 7
 ---
 
 # 原子图表
