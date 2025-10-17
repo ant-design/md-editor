@@ -20,7 +20,6 @@ const genNewChatStyle: GenerateStyle<ChatTokenType> = (token) => {
       letterSpacing: 'normal',
       color: 'var(--color-primary-text-secondary)',
       boxShadow: 'var(--shadow-border-base)',
-      marginBottom: '12px',
 
       '&:hover': {
         background: 'var(--color-primary-control-fill-secondary-hover)',
