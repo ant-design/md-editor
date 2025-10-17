@@ -10,6 +10,8 @@ import { useNewChatStyle } from './NewChatComponent.style';
 interface HistoryNewChatProps {
   /** 创建新对话的回调函数 */
   onNewChat: () => void;
+  /** 自定义样式类名 */
+  className?: string;
 }
 
 /**
@@ -43,6 +45,7 @@ interface HistoryNewChatProps {
  */
 export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   onNewChat,
+  className,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
@@ -80,7 +83,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
       aria-busy={loading}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      className={`${menuPrefixCls}-new-chat ${hashId}`}
+      className={`${menuPrefixCls}-new-chat ${hashId} ${className || ''}`.trim()}
     >
       <AiAgentManagement
         style={{
