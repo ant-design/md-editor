@@ -66,6 +66,8 @@ const genStyle = (
       '&-bubble-container': {
         width: '100%',
         display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
         '&-right': {
           alignItems: 'flex-end',
         },

@@ -198,13 +198,7 @@ export const UserBubble: React.FC<
         gap={12}
       >
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-            alignItems: 'flex-end', // 用户消息右对齐
-            ...style,
-          }}
+          style={style}
           className={cx(`${prefixClass}-bubble-container`, hashId)}
         >
           <div

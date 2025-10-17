@@ -176,9 +176,7 @@ export const History: React.FC<HistoryProps> = (props) => {
         ref={containerRef}
         style={{
           display: 'flex',
-          padding: 4,
           alignItems: 'center',
-          fontSize: '0.85em',
           width: 'max-content',
           maxWidth: 'min(860px,100%)',
         }}
@@ -187,18 +185,8 @@ export const History: React.FC<HistoryProps> = (props) => {
         <ActionIconBox
           key="history"
           title={locale?.['chat.history'] || '历史记录'}
-          style={{
-            width: 28,
-            height: 28,
-          }}
         >
-          <HistoryIcon
-            style={{
-              color: 'var(--color-gray-text-secondary)',
-              width: 14,
-              height: 14,
-            }}
-          />
+          <HistoryIcon />
         </ActionIconBox>
       </div>
     </Popover>
