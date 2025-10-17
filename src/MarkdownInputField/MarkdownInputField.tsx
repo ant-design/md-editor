@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, {
+  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -18,9 +19,13 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
-import type { AttachmentButtonProps } from './AttachmentButton';
+import {
+  upLoadFileToServer,
+  type AttachmentButtonProps,
+} from './AttachmentButton';
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
 import type { AttachmentFile } from './AttachmentButton/types';
+import { getFileListFromDataTransferItems } from './FilePaste';
 import { useFileUploadManager } from './FileUploadManager';
 import { QuickActions } from './QuickActions';
 import { SendActions } from './SendActions';
@@ -624,6 +629,21 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     };
   }, []);
 
+  // 图片粘贴上传
+  const handlePaste = useCallback(
+    async (e: React.ClipboardEvent<HTMLDivElement>) => {
+      const imageFiles = (await getFileListFromDataTransferItems(e)).filter(
+        (file) => file.type.startsWith('image/'),
+      );
+      upLoadFileToServer(imageFiles, {
+        ...markdownProps?.attachment,
+        fileMap,
+        onFileMapChange: setFileMap,
+      });
+    },
+    [fileMap, markdownProps?.attachment],
+  );
+
   return wrapSSR(
     <>
       {beforeTools ? (
@@ -809,6 +829,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   onBlur={(value, schema, e) => {
                     onBlur?.(value, schema, e);
                     activeInput(false);
+                  }}
+                  onPaste={(e) => {
+                    handlePaste(e);
                   }}
                   titlePlaceholderContent={props.placeholder}
                   toc={false}
