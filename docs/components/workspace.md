@@ -2,7 +2,7 @@
 title: Workspace 工作空间
 atomId: Workspace
 group:
-  title: 图文输出
+  title: 对话流
   order: 9
 ---
 
