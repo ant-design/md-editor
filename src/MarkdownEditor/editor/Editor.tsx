@@ -635,6 +635,8 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       }
     }
 
+    props.onPaste?.(event);
+
     const types = event.clipboardData?.types || ['text/plain'];
 
     // 默认允许的类型

@@ -190,6 +190,13 @@ export type MarkdownEditorProps = {
     previewTitle?: string;
   };
   /**
+   * 粘贴配置
+   */
+  pasteConfig?: {
+    enabled?: boolean;
+    allowedTypes?: string[];
+  };
+  /**
    * 插件配置
    */
   plugins?: any[];
@@ -255,6 +262,8 @@ export type MarkdownEditorProps = {
     schema: Elements[],
     e: React.MouseEvent<HTMLDivElement, Element>,
   ) => void;
+
+  onPaste?: (e: React.ClipboardEvent<HTMLDivElement>) => void;
 
   /**
    * 其他属性
