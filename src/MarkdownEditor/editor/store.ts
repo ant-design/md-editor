@@ -344,6 +344,10 @@ export class EditorStore {
    * @param options - 可选的配置参数
    *   - chunkSize: 分块大小阈值，默认 5000 字符。超过此大小会启用分批处理
    *   - separator: 分隔符，默认为双换行符 '\n\n'，用于拆分长文本
+   *   - useRAF: 是否使用 requestAnimationFrame 优化，默认 true，避免长文本处理时卡顿
+   *   - batchSize: 每帧处理的节点数量，默认 50，仅在 useRAF=true 时生效
+   *   - onProgress: 进度回调函数，接收当前进度 (0-1) 作为参数
+   * @returns 如果使用 RAF，返回 Promise；否则同步执行
    */
   setMDContent(
     md?: string,
@@ -351,13 +355,18 @@ export class EditorStore {
     options?: {
       chunkSize?: number;
       separator?: string | RegExp;
+      useRAF?: boolean;
+      batchSize?: number;
+      onProgress?: (progress: number) => void;
     },
-  ) {
+  ): void | Promise<void> {
     if (md === undefined) return;
     if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
 
     const chunkSize = options?.chunkSize ?? 5000;
     const separator = options?.separator ?? /\n\n/;
+    const useRAF = options?.useRAF ?? true;
+    const batchSize = options?.batchSize ?? 50;
     const targetPlugins = plugins || this.plugins;
 
     // 如果内容较短，直接处理
@@ -381,13 +390,72 @@ export class EditorStore {
       }
     }
 
-    // 一次性设置所有节点
-    if (allNodes.length > 0) {
-      this.setContent(allNodes);
-      this._editor.current.children = allNodes;
+    if (allNodes.length === 0) {
+      return;
     }
 
+    // 使用 requestAnimationFrame 分批插入节点，避免卡顿
+    if (useRAF && allNodes.length > batchSize) {
+      return this._setContentWithRAF(allNodes, batchSize, options?.onProgress);
+    }
+
+    // 同步一次性设置所有节点
+    this.setContent(allNodes);
+    this._editor.current.children = allNodes;
     ReactEditor.deselect(this._editor.current);
+    options?.onProgress?.(1);
+  }
+
+  /**
+   * 使用 requestAnimationFrame 分批设置内容
+   * 每帧插入一批节点，避免长时间阻塞主线程
+   *
+   * @param allNodes - 所有要插入的节点
+   * @param batchSize - 每帧处理的节点数量
+   * @param onProgress - 进度回调函数
+   * @returns Promise，在所有节点插入完成后 resolve
+   * @private
+   */
+  private _setContentWithRAF(
+    allNodes: Node[],
+    batchSize: number,
+    onProgress?: (progress: number) => void,
+  ): Promise<void> {
+    return new Promise((resolve) => {
+      let currentIndex = 0;
+      const totalNodes = allNodes.length;
+
+      const insertBatch = () => {
+        const endIndex = Math.min(currentIndex + batchSize, totalNodes);
+        const batch = allNodes.slice(currentIndex, endIndex);
+
+        if (currentIndex === 0) {
+          // 第一批：清空并插入
+          this._editor.current.children = batch;
+          this._editor.current.onChange();
+        } else {
+          // 后续批次：追加节点
+          this._editor.current.children.push(...batch);
+          this._editor.current.onChange();
+        }
+
+        currentIndex = endIndex;
+        const progress = currentIndex / totalNodes;
+        onProgress?.(progress);
+
+        if (currentIndex < totalNodes) {
+          // 还有节点未处理，继续下一帧
+          requestAnimationFrame(insertBatch);
+        } else {
+          // 所有节点处理完成
+          ReactEditor.deselect(this._editor.current);
+          resolve();
+        }
+      };
+
+      // 开始第一帧
+      requestAnimationFrame(insertBatch);
+    });
   }
 
   /**
