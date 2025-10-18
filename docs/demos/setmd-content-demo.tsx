@@ -19,7 +19,7 @@ const generateVeryLongContent = async (
   onProgress?: (progress: number) => void,
 ): Promise<string> => {
   const sections: string[] = [];
-  const totalChapters = 1000;
+  const totalChapters = 100000;
   const batchSize = 100; // 每批生成 100 章
   const totalBatches = Math.ceil(totalChapters / batchSize);
 
@@ -254,12 +254,23 @@ export default () => {
               borderRadius: 4,
             }}
           >
-            <strong>💡 提示：</strong>
+            <strong>💡 优化说明：</strong>
             <ul style={{ margin: '8px 0 0', paddingLeft: 20 }}>
-              <li>内容生成使用 RAF 分批生成，避免阻塞（每批 100 章节）</li>
-              <li>使用优化加载会分批处理，避免主线程阻塞</li>
-              <li>不使用优化会一次性加载，可能导致页面卡顿</li>
-              <li>观察两个阶段的加载时间和页面流畅度的差异</li>
+              <li>
+                <strong>内容生成阶段</strong>：使用 RAF 分批生成（每批 100
+                章节）
+              </li>
+              <li>
+                <strong>编辑器加载阶段</strong>（使用优化）：
+                <ul style={{ marginTop: 4, paddingLeft: 16 }}>
+                  <li>RAF 分批解析 markdown（0-50% 进度）</li>
+                  <li>RAF 分批插入节点（50-100% 进度）</li>
+                  <li>全程不阻塞主线程，页面保持流畅</li>
+                </ul>
+              </li>
+              <li>
+                <strong>不使用优化</strong>：一次性同步解析和插入，会卡住页面
+              </li>
             </ul>
           </div>
 
@@ -273,12 +284,18 @@ export default () => {
               borderRadius: 4,
             }}
           >
-            <strong>⚠️ 性能警告：</strong>
+            <strong>⚠️ 性能对比：</strong>
             <ul style={{ margin: '8px 0 0', paddingLeft: 20 }}>
-              <li>生成 100000 章节需要较长时间（约 10-30 秒），请耐心等待</li>
-              <li>建议首次测试使用"优化加载"选项</li>
-              <li>低配置设备可能会遇到性能问题</li>
-              <li>整个过程分为两个阶段：内容生成 + 编辑器加载</li>
+              <li>
+                <strong>使用优化</strong>：生成 + 解析 + 插入 全程使用
+                RAF，页面流畅
+              </li>
+              <li>
+                <strong>不使用优化</strong>
+                ：解析和插入阶段会卡住主线程，页面冻结
+              </li>
+              <li>建议首次测试使用"优化加载"观察效果</li>
+              <li>注意观察浏览器的响应性和进度条的流畅度</li>
             </ul>
           </div>
         </Space>
