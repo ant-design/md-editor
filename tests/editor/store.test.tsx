@@ -1546,4 +1546,163 @@ describe('EditorStore', () => {
       expect(count).toBe(1); // 只有小写的 "test"
     });
   });
+
+  describe('setMDContent 长文本处理', () => {
+    it('应该正常处理短文本（小于 5000 字符）', () => {
+      const shortMd = '# 标题\n\n这是一段内容';
+      store.setMDContent(shortMd);
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该对长文本进行拆分处理（大于 5000 字符）', () => {
+      // 生成一个超过 5000 字符的 markdown 文本
+      const paragraphs = [];
+      for (let i = 0; i < 100; i++) {
+        paragraphs.push(
+          `## 段落标题 ${i}\n\n这是第 ${i} 段的内容，包含一些文本来增加长度。这段话需要足够长才能让整个文档超过5000个字符。我们添加更多的内容来确保测试能够正确验证长文本的拆分处理功能。`,
+        );
+      }
+      const longMd = paragraphs.join('\n\n');
+
+      expect(longMd.length).toBeGreaterThan(5000);
+
+      store.setMDContent(longMd);
+
+      // 验证内容被正确设置
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该处理包含多个双换行符的长文本', () => {
+      const content = Array(80)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落 ${i}：这是第${i}段的内容部分，我们需要增加足够的文本长度来确保整个文档超过5000个字符的阈值，这样才能触发分批处理的逻辑。\n\n这是更多内容来进一步增加长度。`,
+        )
+        .join('\n\n');
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      store.setMDContent(content);
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该跳过空的拆分块', () => {
+      const contentWithEmptyChunks = Array(250)
+        .fill(0)
+        .map((_, i) =>
+          i % 2 === 0
+            ? `这是第${i}段的内容块，我们需要包含足够多的文本内容来增加总体长度，以确保能够触发长文本处理的逻辑分支。`
+            : '',
+        )
+        .join('\n\n');
+
+      expect(contentWithEmptyChunks.length).toBeGreaterThan(5000);
+
+      store.setMDContent(contentWithEmptyChunks);
+
+      // 应该成功处理，不会因为空块而出错
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('当内容与当前内容相同时不应更新', () => {
+      const md = '# 测试\n\n内容';
+      store.setMDContent(md);
+
+      vi.clearAllMocks();
+
+      // 再次设置相同内容
+      store.setMDContent(md);
+
+      // 由于内容相同，不应该调用 deselect
+      expect(ReactEditor.deselect).not.toHaveBeenCalled();
+    });
+
+    it('应该支持自定义 chunkSize', () => {
+      // 生成一个 1000 字符的文本
+      const content = Array(50)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是一些内容文本，需要足够长来超过阈值触发分批处理`,
+        )
+        .join('\n\n');
+
+      expect(content.length).toBeGreaterThan(500);
+      expect(content.length).toBeLessThan(5000);
+
+      // 使用更小的 chunkSize，触发分批处理
+      store.setMDContent(content, undefined, { chunkSize: 500 });
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该支持自定义分隔符（字符串）', () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('---'); // 使用 --- 作为分隔符
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      store.setMDContent(content, undefined, { separator: '---' });
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该支持自定义分隔符（正则表达式）', () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('\n===\n'); // 使用 === 分隔
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      // 使用正则表达式匹配包含 = 的分隔符
+      store.setMDContent(content, undefined, { separator: /\n={2,}\n/ });
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该同时支持自定义 chunkSize 和 separator', () => {
+      const content = Array(60)
+        .fill(0)
+        .map((_, i) => `内容块${i}：这是一些文本内容，需要足够长度`)
+        .join('|||');
+
+      expect(content.length).toBeGreaterThan(800);
+
+      store.setMDContent(content, undefined, {
+        chunkSize: 800,
+        separator: '|||',
+      });
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该在小于 chunkSize 时不进行拆分', () => {
+      const shortContent = '# 标题\n\n简短内容';
+
+      store.setMDContent(shortContent, undefined, { chunkSize: 10000 });
+
+      // 即使有分隔符也不应该拆分，因为内容小于 chunkSize
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+  });
 });

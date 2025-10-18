@@ -341,14 +341,66 @@ export class EditorStore {
    *             如果为 undefined，方法将直接返回不做任何更改
    *             如果 markdown 与当前内容相同，则不做任何更改
    * @param plugins - 可选的自定义 markdown 解析插件
+   * @param options - 可选的配置参数
+   *   - chunkSize: 分块大小阈值，默认 5000 字符。超过此大小会启用分批处理
+   *   - separator: 分隔符，默认为双换行符 '\n\n'，用于拆分长文本
    */
-  setMDContent(md?: string, plugins?: MarkdownEditorPlugin[]) {
+  setMDContent(
+    md?: string,
+    plugins?: MarkdownEditorPlugin[],
+    options?: {
+      chunkSize?: number;
+      separator?: string | RegExp;
+    },
+  ) {
     if (md === undefined) return;
     if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
-    const nodeList = parserMdToSchema(md, plugins || this.plugins).schema;
-    this.setContent(nodeList);
-    this._editor.current.children = nodeList;
+
+    const chunkSize = options?.chunkSize ?? 5000;
+    const separator = options?.separator ?? /\n\n/;
+    const targetPlugins = plugins || this.plugins;
+
+    // 如果内容较短，直接处理
+    if (md.length <= chunkSize) {
+      const nodeList = parserMdToSchema(md, targetPlugins).schema;
+      this.setContent(nodeList);
+      this._editor.current.children = nodeList;
+      ReactEditor.deselect(this._editor.current);
+      return;
+    }
+
+    // 内容较长时，按指定分隔符拆分并分批处理
+    const chunks = this._splitMarkdown(md, separator);
+    const allNodes: Node[] = [];
+
+    // 逐块解析并累积节点
+    for (const chunk of chunks) {
+      if (chunk.trim()) {
+        const { schema } = parserMdToSchema(chunk, targetPlugins);
+        allNodes.push(...schema);
+      }
+    }
+
+    // 一次性设置所有节点
+    if (allNodes.length > 0) {
+      this.setContent(allNodes);
+      this._editor.current.children = allNodes;
+    }
+
     ReactEditor.deselect(this._editor.current);
+  }
+
+  /**
+   * 按指定分隔符拆分 markdown 内容
+   * 保持内容结构的完整性
+   *
+   * @param md - 要拆分的 markdown 字符串
+   * @param separator - 分隔符，可以是字符串或正则表达式
+   * @returns 拆分后的字符串数组
+   * @private
+   */
+  private _splitMarkdown(md: string, separator: string | RegExp): string[] {
+    return md.split(separator).filter(Boolean);
   }
 
   /**
