@@ -24,6 +24,7 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../types';
+import { LazyElement } from './components/LazyElement';
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';
@@ -841,13 +842,41 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       }
 
       // Then allow eleItemRender to process the result
-      if (!props.eleItemRender) return renderedDom;
-      if (eleProps.element.type === 'table-cell') return renderedDom;
-      if (eleProps.element.type === 'table-row') return renderedDom;
+      if (props.eleItemRender) {
+        if (
+          eleProps.element.type !== 'table-cell' &&
+          eleProps.element.type !== 'table-row'
+        ) {
+          renderedDom = props.eleItemRender(
+            eleProps,
+            renderedDom,
+          ) as React.ReactElement;
+        }
+      }
 
-      return props.eleItemRender(eleProps, renderedDom) as React.ReactElement;
+      // Finally, wrap with LazyElement if lazy mode is enabled
+      if (props.lazy?.enable) {
+        // 不对表格单元格和表格行进行懒加载，避免破坏表格结构
+        if (
+          eleProps.element.type === 'table-cell' ||
+          eleProps.element.type === 'table-row'
+        ) {
+          return renderedDom;
+        }
+
+        return (
+          <LazyElement
+            placeholderHeight={props.lazy?.placeholderHeight}
+            rootMargin={props.lazy?.rootMargin}
+          >
+            {renderedDom}
+          </LazyElement>
+        );
+      }
+
+      return renderedDom;
     },
-    [props.eleItemRender, plugins, readonly],
+    [props.eleItemRender, props.lazy, plugins, readonly],
   );
 
   const renderMarkdownLeaf = useRefFunction((leafComponentProps) => {
