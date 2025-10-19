@@ -6,6 +6,7 @@ import {
   BaseMarkdownEditor,
   MarkdownEditorInstance,
 } from '@ant-design/md-editor';
+import { useRefFunction } from '@ant-design/pro-components';
 import { Button, Progress, Space } from 'antd';
 import React, { useRef, useState } from 'react';
 
@@ -19,8 +20,8 @@ const generateVeryLongContent = async (
   onProgress?: (progress: number) => void,
 ): Promise<string> => {
   const sections: string[] = [];
-  const totalChapters = 100000;
-  const batchSize = 100; // 每批生成 100 章
+  const totalChapters = 1000000;
+  const batchSize = 100000; // 每批生成 10000 章
   const totalBatches = Math.ceil(totalChapters / batchSize);
 
   return new Promise((resolve) => {
@@ -47,7 +48,7 @@ const generateVeryLongContent = async (
           `- 列表项 1 - 重要内容\n- 列表项 2 - 关键信息\n- 列表项 3 - 核心概念\n\n`,
         );
         sections.push(`1. 有序列表 1\n2. 有序列表 2\n3. 有序列表 3\n\n`);
-        sections.push(`---\n\n`);
+        sections.push(`-----------------------------------\n\n`);
       }
 
       currentBatch++;
@@ -62,7 +63,7 @@ const generateVeryLongContent = async (
         requestAnimationFrame(generateBatch);
       } else {
         // 所有批次完成，返回结果
-        resolve(sections.join(''));
+        resolve(sections?.join(''));
       }
     };
 
@@ -79,7 +80,29 @@ export default () => {
   const [generateProgress, setGenerateProgress] = useState(0);
   const [loadTime, setLoadTime] = useState(0);
   const [generateTime, setGenerateTime] = useState(0);
-  const [useOptimization, setUseOptimization] = useState(true);
+  const [firstDisplayTime, setFirstDisplayTime] = useState(0);
+  const [hasFirstDisplayed, setHasFirstDisplayed] = useState(false);
+  const [loadStartTime, setLoadStartTime] = useState(0);
+
+  const onProgress = useRefFunction((p: number) => {
+    const currentProgress = Math.round(p * 10000) / 100;
+    setProgress(currentProgress);
+
+    // 当进度大于0且还没有记录首次显示时间时，记录首次显示时间
+    if (currentProgress > 0 && !hasFirstDisplayed && loadStartTime > 0) {
+      const currentTime = performance.now();
+      setFirstDisplayTime(Math.round(currentTime - loadStartTime));
+      setHasFirstDisplayed(true);
+    }
+  });
+
+  const handleCancel = () => {
+    editorRef.current?.store.cancelSetMDContent();
+    setLoading(false);
+    setGenerating(false);
+    setProgress(0);
+    setGenerateProgress(0);
+  };
 
   const handleLoadWithOptimization = async () => {
     setLoading(true);
@@ -87,6 +110,8 @@ export default () => {
     setProgress(0);
     setGenerateProgress(0);
     setGenerateTime(0);
+    setFirstDisplayTime(0);
+    setHasFirstDisplayed(false);
     const startGenerateTime = performance.now();
 
     try {
@@ -101,25 +126,30 @@ export default () => {
 
       // 加载到编辑器
       const startLoadTime = performance.now();
+      setLoadStartTime(startLoadTime);
       await editorRef.current?.store.setMDContent(longContent, undefined, {
-        chunkSize: 5000,
+        chunkSize: 50000,
         separator: '\n\n',
         useRAF: true,
-        batchSize: 50,
-        onProgress: (p) => {
-          setProgress(Math.round(p * 100));
-        },
+        batchSize: 5000,
+        onProgress: onProgress,
       });
 
       const endLoadTime = performance.now();
       setLoadTime(Math.round(endLoadTime - startLoadTime));
+      setProgress(100);
     } catch (error) {
       console.error('加载失败:', error);
+      if (
+        error instanceof Error &&
+        error.message === 'Operation was cancelled'
+      ) {
+        console.log('加载已取消');
+      }
     } finally {
       setLoading(false);
       setGenerating(false);
-      setProgress(100);
-      setGenerateProgress(100);
+      // 移除强制设置进度，让进度回调自然完成
     }
   };
 
@@ -129,6 +159,8 @@ export default () => {
     setProgress(0);
     setGenerateProgress(0);
     setGenerateTime(0);
+    setFirstDisplayTime(0);
+    setHasFirstDisplayed(false);
     const startGenerateTime = performance.now();
 
     try {
@@ -143,11 +175,16 @@ export default () => {
 
       // 不使用 options，直接同步加载
       const startLoadTime = performance.now();
+      setLoadStartTime(startLoadTime);
       editorRef.current?.store.setMDContent(longContent);
 
       const endLoadTime = performance.now();
       setLoadTime(Math.round(endLoadTime - startLoadTime));
+
+      // 同步加载完成后设置进度为 100%
       setProgress(100);
+      // 对于同步加载，首次显示时间就是加载完成时间
+      setFirstDisplayTime(Math.round(endLoadTime - startLoadTime));
     } catch (error) {
       console.error('加载失败:', error);
     } finally {
@@ -175,17 +212,20 @@ export default () => {
             <Button
               type="primary"
               onClick={handleLoadWithOptimization}
-              loading={loading && useOptimization}
               disabled={loading}
+              loading={loading}
             >
               使用优化加载
             </Button>
             <Button
               onClick={handleLoadWithoutOptimization}
-              loading={loading && !useOptimization}
+              loading={loading}
               disabled={loading}
             >
               不使用优化加载
+            </Button>
+            <Button danger onClick={handleCancel} disabled={!loading}>
+              取消加载
             </Button>
           </Space>
 
@@ -231,6 +271,9 @@ export default () => {
                   内容生成时间: <strong>{generateTime}ms</strong>
                 </div>
                 <div style={{ marginTop: 4 }}>
+                  首次显示耗时: <strong>{firstDisplayTime}ms</strong>
+                </div>
+                <div style={{ marginTop: 4 }}>
                   编辑器加载时间: <strong>{loadTime}ms</strong>
                 </div>
                 <div style={{ marginTop: 4 }}>
@@ -238,9 +281,11 @@ export default () => {
                 </div>
               </div>
               <div style={{ marginTop: 8, color: '#666' }}>
-                {loadTime < 1000
-                  ? '✅ 性能优异，用户体验流畅'
-                  : '⚠️ 加载时间较长，建议使用优化选项'}
+                {firstDisplayTime < 500
+                  ? '✅ 首次显示速度很快，用户体验优秀'
+                  : firstDisplayTime < 1000
+                    ? '✅ 首次显示速度良好，用户体验流畅'
+                    : '⚠️ 首次显示时间较长，建议使用优化选项'}
               </div>
             </div>
           )}
@@ -263,9 +308,11 @@ export default () => {
               <li>
                 <strong>编辑器加载阶段</strong>（使用优化）：
                 <ul style={{ marginTop: 4, paddingLeft: 16 }}>
-                  <li>RAF 分批解析 markdown（0-50% 进度）</li>
-                  <li>RAF 分批插入节点（50-100% 进度）</li>
-                  <li>全程不阻塞主线程，页面保持流畅</li>
+                  <li>RAF 边解析边插入，实时显示内容</li>
+                  <li>每帧处理少量 chunks，避免阻塞主线程</li>
+                  <li>用户可以看到内容逐步加载，体验更好</li>
+                  <li>首次显示耗时：从开始加载到用户首次看到内容的时间</li>
+                  <li>支持取消操作：可以中断正在进行的加载过程</li>
                 </ul>
               </li>
               <li>
@@ -287,15 +334,16 @@ export default () => {
             <strong>⚠️ 性能对比：</strong>
             <ul style={{ margin: '8px 0 0', paddingLeft: 20 }}>
               <li>
-                <strong>使用优化</strong>：生成 + 解析 + 插入 全程使用
-                RAF，页面流畅
+                <strong>使用优化</strong>：生成 + 边解析边插入 全程使用
+                RAF，页面流畅，内容实时显示，首次显示耗时更短
               </li>
               <li>
                 <strong>不使用优化</strong>
-                ：解析和插入阶段会卡住主线程，页面冻结
+                ：解析和插入阶段会卡住主线程，页面冻结，首次显示耗时等于总加载时间
               </li>
               <li>建议首次测试使用"优化加载"观察效果</li>
               <li>注意观察浏览器的响应性和进度条的流畅度</li>
+              <li>对比两种方式的首次显示耗时差异</li>
             </ul>
           </div>
         </Space>
@@ -303,13 +351,8 @@ export default () => {
 
       <BaseMarkdownEditor
         editorRef={editorRef}
-        lazy={{
-          enable: true,
-          placeholderHeight: 100,
-          rootMargin: '200px',
-        }}
         readonly={true}
-        height={600}
+        height={480}
         style={{
           border: '1px solid #d9d9d9',
           borderRadius: 8,

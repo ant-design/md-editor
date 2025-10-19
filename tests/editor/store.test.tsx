@@ -1655,7 +1655,7 @@ describe('EditorStore', () => {
       expect(content.length).toBeLessThan(5000);
 
       // 使用更小的 chunkSize，触发分批处理
-      store.setMDContent(content, undefined, { chunkSize: 500 });
+      store.setMDContent(content, undefined, { chunkSize: 500, useRAF: false });
 
       expect(editor.children.length).toBeGreaterThan(0);
       expect(ReactEditor.deselect).toHaveBeenCalled();

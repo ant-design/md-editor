@@ -164,6 +164,9 @@ export class EditorStore {
 
   _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>;
 
+  /** 当前 setMDContent 操作的 AbortController */
+  private _currentAbortController: AbortController | null = null;
+
   /**
    * 获取当前编辑器实例。
    *
@@ -375,35 +378,160 @@ export class EditorStore {
       this.setContent(nodeList);
       this._editor.current.children = nodeList;
       ReactEditor.deselect(this._editor.current);
+      // 调用进度回调
+      if (options?.onProgress) {
+        options.onProgress(1);
+      }
+      return;
+    }
+
+    // 如果禁用 RAF，使用同步模式处理长内容
+    if (!useRAF) {
+      const chunks = this._splitMarkdown(md, separator);
+      const allNodes: Node[] = [];
+      for (const chunk of chunks) {
+        if (chunk.trim()) {
+          const { schema } = parserMdToSchema(chunk, targetPlugins);
+          allNodes.push(...schema);
+        }
+      }
+
+      if (allNodes.length > 0) {
+        this.setContent(allNodes);
+        this._editor.current.children = allNodes;
+        ReactEditor.deselect(this._editor.current);
+      }
+
+      // 调用进度回调
+      if (options?.onProgress) {
+        options.onProgress(1);
+      }
       return;
     }
 
     // 内容较长时，按指定分隔符拆分并分批处理
     const chunks = this._splitMarkdown(md, separator);
-    const allNodes: Node[] = [];
 
-    // 逐块解析并累积节点
-    for (const chunk of chunks) {
-      if (chunk.trim()) {
-        const { schema } = parserMdToSchema(chunk, targetPlugins);
-        allNodes.push(...schema);
-      }
+    // 如果使用 RAF 且分块数量较多，异步解析和插入
+    if (useRAF && chunks.length > 10) {
+      // 创建新的 AbortController
+      this._currentAbortController = new AbortController();
+      return this._parseAndSetContentWithRAF(
+        chunks,
+        targetPlugins || [],
+        batchSize,
+        options?.onProgress,
+        this._currentAbortController.signal,
+      );
     }
+  }
 
-    if (allNodes.length === 0) {
-      return;
+  /**
+   * 取消当前正在进行的 setMDContent 操作
+   */
+  cancelSetMDContent(): void {
+    if (this._currentAbortController) {
+      this._currentAbortController.abort();
+      this._currentAbortController = null;
     }
+  }
 
-    // 使用 requestAnimationFrame 分批插入节点，避免卡顿
-    if (useRAF && allNodes.length > batchSize) {
-      return this._setContentWithRAF(allNodes, batchSize, options?.onProgress);
-    }
+  /**
+   * 使用 requestAnimationFrame 分批解析和设置内容
+   * 边解析边插入，实时显示内容
+   *
+   * @param chunks - markdown 分块数组
+   * @param plugins - 解析插件
+   * @param batchSize - 每帧处理的数量
+   * @param onProgress - 进度回调函数
+   * @returns Promise，在所有内容处理完成后 resolve
+   * @private
+   */
+  private _parseAndSetContentWithRAF(
+    chunks: string[],
+    plugins: MarkdownEditorPlugin[],
+    batchSize: number,
+    onProgress?: (progress: number) => void,
+    signal?: AbortSignal,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let currentChunkIndex = 0;
+      const totalChunks = chunks.length;
+      const parseChunksPerFrame = Math.max(1, Math.floor(batchSize / 10)); // 每帧解析的 chunk 数
+      let isFirstBatch = true;
+      let rafId: number | null = null;
 
-    // 同步一次性设置所有节点
-    this.setContent(allNodes);
-    this._editor.current.children = allNodes;
-    ReactEditor.deselect(this._editor.current);
-    options?.onProgress?.(1);
+      // 边解析边插入
+      const parseAndInsertNextBatch = () => {
+        try {
+          // 检查是否被取消
+          if (signal?.aborted) {
+            if (rafId) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+            this._currentAbortController = null;
+            reject(new Error('Operation was cancelled'));
+            return;
+          }
+          const endIndex = Math.min(
+            currentChunkIndex + parseChunksPerFrame,
+            totalChunks,
+          );
+
+          // 解析当前批次的 chunks 并立即插入
+          for (let i = currentChunkIndex; i < endIndex; i++) {
+            const chunk = chunks[i];
+            if (chunk.trim()) {
+              const { schema } = parserMdToSchema(chunk, plugins);
+
+              if (schema.length > 0) {
+                if (isFirstBatch) {
+                  // 第一批：清空并插入
+                  this._editor.current.children = schema;
+                  this._editor.current.onChange();
+                  isFirstBatch = false;
+                } else {
+                  // 后续批次：追加节点
+                  Transforms.insertNodes(this._editor.current, schema, {
+                    at: [this._editor.current.children.length],
+                  });
+                }
+              }
+            }
+          }
+
+          currentChunkIndex = endIndex;
+          // 更新进度
+          const progress = currentChunkIndex / totalChunks;
+          if (onProgress) {
+            onProgress(progress);
+          }
+
+          if (currentChunkIndex < totalChunks) {
+            // 还有 chunks 未处理，继续下一帧
+            rafId = requestAnimationFrame(parseAndInsertNextBatch);
+          } else {
+            // 所有内容处理完成
+            ReactEditor.deselect(this._editor.current);
+            rafId = null;
+            this._currentAbortController = null;
+            resolve();
+          }
+        } catch (error) {
+          // 清理资源并拒绝 Promise
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          this._currentAbortController = null;
+          reject(error);
+        }
+      };
+
+      // 开始处理
+      rafId = requestAnimationFrame(parseAndInsertNextBatch);
+    });
   }
 
   /**
@@ -421,40 +549,53 @@ export class EditorStore {
     batchSize: number,
     onProgress?: (progress: number) => void,
   ): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       let currentIndex = 0;
       const totalNodes = allNodes.length;
+      let rafId: number | null = null;
 
       const insertBatch = () => {
-        const endIndex = Math.min(currentIndex + batchSize, totalNodes);
-        const batch = allNodes.slice(currentIndex, endIndex);
+        try {
+          const endIndex = Math.min(currentIndex + batchSize, totalNodes);
+          const batch = allNodes.slice(currentIndex, endIndex);
 
-        if (currentIndex === 0) {
-          // 第一批：清空并插入
-          this._editor.current.children = batch;
-          this._editor.current.onChange();
-        } else {
-          // 后续批次：追加节点
-          this._editor.current.children.push(...batch);
-          this._editor.current.onChange();
-        }
+          if (currentIndex === 0) {
+            // 第一批：清空并插入
+            this._editor.current.children = batch;
+            this._editor.current.onChange();
+          } else {
+            // 后续批次：追加节点
+            this._editor.current.children.push(...batch);
+            this._editor.current.onChange();
+          }
 
-        currentIndex = endIndex;
-        const progress = currentIndex / totalNodes;
-        onProgress?.(progress);
+          currentIndex = endIndex;
+          const progress = currentIndex / totalNodes;
 
-        if (currentIndex < totalNodes) {
-          // 还有节点未处理，继续下一帧
-          requestAnimationFrame(insertBatch);
-        } else {
-          // 所有节点处理完成
-          ReactEditor.deselect(this._editor.current);
-          resolve();
+          // 直接调用进度回调，避免嵌套 requestAnimationFrame
+          onProgress?.(progress);
+
+          if (currentIndex < totalNodes) {
+            // 还有节点未处理，继续下一帧
+            rafId = requestAnimationFrame(insertBatch);
+          } else {
+            // 所有节点处理完成
+            ReactEditor.deselect(this._editor.current);
+            rafId = null;
+            resolve();
+          }
+        } catch (error) {
+          // 清理资源并拒绝 Promise
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          reject(error);
         }
       };
 
       // 开始第一帧
-      requestAnimationFrame(insertBatch);
+      rafId = requestAnimationFrame(insertBatch);
     });
   }
 
