@@ -1,5 +1,6 @@
-import React, { useState, ReactNode, useContext } from 'react';
 import { ConfigProvider } from 'antd';
+import { useMergedState } from 'rc-util';
+import React, { ReactNode, useContext } from 'react';
 import { useAgenticLayoutStyle } from './style';
 
 export interface AgenticLayoutProps {
@@ -13,9 +14,13 @@ export interface AgenticLayoutProps {
   leftCollapsible?: boolean;
   /** 右侧是否可折叠 */
   rightCollapsible?: boolean;
-  /** 左侧默认折叠状态 */
+  /** 左侧折叠状态（受控） */
+  leftCollapsed?: boolean;
+  /** 右侧折叠状态（受控） */
+  rightCollapsed?: boolean;
+  /** 左侧默认折叠状态（非受控时使用） */
   leftDefaultCollapsed?: boolean;
-  /** 右侧默认折叠状态 */
+  /** 右侧默认折叠状态（非受控时使用） */
   rightDefaultCollapsed?: boolean;
   /** 左侧折叠状态变化回调 */
   onLeftCollapse?: (collapsed: boolean) => void;
@@ -79,12 +84,14 @@ export interface AgenticLayoutProps {
  * - 支持自定义宽度和高度
  * - 集成 Ant Design 主题系统
  */
-const AgenticLayout: React.FC<AgenticLayoutProps> = ({
+export const AgenticLayout: React.FC<AgenticLayoutProps> = ({
   left,
   center,
   right,
-  leftCollapsible = true,
-  rightCollapsible = true,
+  leftCollapsible: _leftCollapsible = true,
+  rightCollapsible: _rightCollapsible = true,
+  leftCollapsed: controlledLeftCollapsed,
+  rightCollapsed: controlledRightCollapsed,
   leftDefaultCollapsed = false,
   rightDefaultCollapsed = false,
   onLeftCollapse,
@@ -92,41 +99,37 @@ const AgenticLayout: React.FC<AgenticLayoutProps> = ({
   style,
   className,
   leftWidth = 256,
-  rightWidth = 256,
-  minHeight = '600px',
+  rightWidth = 540,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('agentic-layout');
   const { wrapSSR, hashId } = useAgenticLayoutStyle(prefixCls);
 
-  const [leftCollapsed, setLeftCollapsed] = useState(leftDefaultCollapsed);
-  const [rightCollapsed, setRightCollapsed] = useState(rightDefaultCollapsed);
+  // 使用 useMergedState 管理左侧折叠状态
+  const [leftCollapsed, setLeftCollapsed] = useMergedState(
+    leftDefaultCollapsed,
+    {
+      value: controlledLeftCollapsed,
+      onChange: onLeftCollapse,
+    },
+  );
 
-  const handleLeftCollapse = () => {
-    const newCollapsed = !leftCollapsed;
-    setLeftCollapsed(newCollapsed);
-    onLeftCollapse?.(newCollapsed);
-  };
-
-  const handleRightCollapse = () => {
-    const newCollapsed = !rightCollapsed;
-    setRightCollapsed(newCollapsed);
-    onRightCollapse?.(newCollapsed);
-  };
+  // 使用 useMergedState 管理右侧折叠状态
+  const [rightCollapsed, setRightCollapsed] = useMergedState(
+    rightDefaultCollapsed,
+    {
+      value: controlledRightCollapsed,
+      onChange: onRightCollapse,
+    },
+  );
 
   return wrapSSR(
-    <div
-      className={`${prefixCls} ${className || ''} ${hashId}`}
-      style={{
-        minHeight,
-        ...style,
-      }}
-    >
+    <div className={`${prefixCls} ${className || ''} ${hashId}`} style={style}>
       {/* 左侧边栏 */}
       {left && (
         <div
           className={`${prefixCls}-sidebar ${prefixCls}-sidebar-left ${
-            leftCollapsed ? `${prefixCls}-sidebar-collapsed` : ''
+            leftCollapsed ? `${prefixCls}-sidebar-left-collapsed` : ''
           } ${hashId}`}
           style={{
             width: leftCollapsed ? 0 : leftWidth,
@@ -134,9 +137,7 @@ const AgenticLayout: React.FC<AgenticLayoutProps> = ({
             maxWidth: leftCollapsed ? 0 : leftWidth,
           }}
         >
-          <div className={`${prefixCls}-sidebar-content ${hashId}`}>
-            {left}
-          </div>
+          <div className={`${prefixCls}-sidebar-content ${hashId}`}>{left}</div>
         </div>
       )}
 
@@ -156,7 +157,7 @@ const AgenticLayout: React.FC<AgenticLayoutProps> = ({
       {right && (
         <div
           className={`${prefixCls}-sidebar ${prefixCls}-sidebar-right ${
-            rightCollapsed ? `${prefixCls}-sidebar-collapsed` : ''
+            rightCollapsed ? `${prefixCls}-sidebar-right-collapsed` : ''
           } ${hashId}`}
           style={{
             width: rightCollapsed ? 0 : rightWidth,
@@ -172,5 +173,3 @@ const AgenticLayout: React.FC<AgenticLayoutProps> = ({
     </div>,
   );
 };
-
-export default AgenticLayout;
