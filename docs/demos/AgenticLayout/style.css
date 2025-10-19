@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+/* AgenticLayout Demo 样式定义 */
+.agentic-layout-demo {
+  min-height: 600px;
+  /* 圆角-弹窗-base */
+  border-radius: var(--radius-modal-base);
+  /* gray/gray-背景-页面-浅 */
+  /* 样式描述：1 */
+  background: var(--color-gray-bg-page-light);
+  /* 投影-卡片-base */
+  box-shadow: var(--shadow-card-base);
+  height: calc(100vh - 16px);
+  display: flex;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: none;
+}
+
+/* 自定义 ChatFlowContainer 底部样式 */
+.agentic-layout-demo .chat-flow-container-footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(https://console.sofa.antdigital.com/playground/static/task-running-bg.118417dc.png)
+    no-repeat center center;
+  background-size: 100% 100%;
+}

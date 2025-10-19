@@ -1,5 +1,7 @@
 export type { RenderElementProps } from 'slate-react';
 export * from './AgentRunBar';
+export { default as AgenticLayout } from './AgenticLayout';
+export type { AgenticLayoutProps } from './AgenticLayout';
 export * from './Bubble';
 export * from './Bubble/List';
 export type {
