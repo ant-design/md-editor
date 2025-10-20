@@ -301,6 +301,97 @@ const App = () => {
 export default App;
 ```
 
+### 放大功能使用
+
+```tsx
+import React, { useState, useRef } from 'react';
+import { MarkdownInputField, MarkdownEditorInstance } from '@ant-design/md-editor';
+import { message, Button, Space } from 'antd';
+
+const EnlargementExample = () => {
+  const editorRef = useRef<MarkdownEditorInstance>(null);
+  const [value, setValue] = useState( '`${placeholder:目标场景}` 今天的拒绝率为什么下降 `${placeholder:目标事件}` 输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',)
+
+  const addContent = () => {
+    setValue(prev => prev + '\n\n新增段落：' + new Date().toLocaleTimeString() + '\n这是新添加的内容，用于增加编辑器高度。');
+  };
+
+  const clearContent = () => {
+    setValue('输入少量内容时，放大按钮会自动隐藏。');
+  };
+
+  return (
+    <div style={{ padding: '20px', maxWidth: '800px' }}>
+      <div style={{ marginBottom: '16px' }}>
+        <Space>
+          <Button onClick={addContent}>增加内容（触发放大按钮）</Button>
+          <Button onClick={clearContent}>清空内容（隐藏放大按钮）</Button>
+        </Space>
+        <p style={{ marginTop: '8px', color: '#666', fontSize: '14px' }}>
+          💡 提示：当编辑器内容区域高度达到 270px 以上时，右侧会自动显示放大按钮
+        </p>
+      </div>
+
+      <MarkdownInputField
+        inputRef={editorRef}
+        value={value}
+        enlargeable={true} // 启用放大功能（默认为 true）
+        style={{
+          width: '100%',
+          maxHeight: '400px', // 设置最大高度，允许内容超出并显示滚动条
+        }}
+        // 添加 toolsRender 来消除默认的64px右边距
+        toolsRender={() => []}
+        onChange={(newValue) => {
+          setValue(newValue);
+          console.log('内容变化:', newValue.length, '字符');
+        }}
+        placeholder="请输入 Markdown 内容..."
+        onSend={async (text) => {
+          console.log('发送内容:', text);
+          message.loading('发送中...', 1);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          message.success('发送成功！');
+        }}
+      />
+
+      <div style={{ marginTop: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '6px' }}>
+        <h4>当前状态:</h4>
+        <p>内容长度: {value.length} 字符</p>
+        <p>放大功能: {value.length > 500 ? '✅ 已激活（内容足够多）' : '❌ 未激活（内容太少）'}</p>
+      </div>
+    </div>
+  );
+};
+
+export default EnlargementExample;
+```
+
+> **放大功能使用说明：**
+>
+> - `enlargeable={true}` - 启用放大功能（默认为 true）
+> - `显示条件` - 放大按钮需要同时满足：enlargeable=true 且 contentHeight ≥ 270px
+> - `功能组件` - 包含两个按钮：展开按钮（ExpandAlt）和文本优化按钮（TextOptimize）
+> - `自适应布局` - 当显示放大按钮时，编辑器内容宽度会自动调整为 `calc(100% - 46px)`
+> 
+> **右边距优化：**
+> - ⚠️ **问题**：默认情况下组件会预留64px右边距给操作按钮
+> - ✅ **解决**：添加 `toolsRender={() => []}` 可消除多余的右边距，让文字更贴近右边
+>
+> **高度控制重要说明：**
+>
+> - ⚠️ **为什么输入框高度会很大？** - 组件内部使用 `flex: 1`，在flex容器中会尝试占满可用空间
+> - ✅ **解决方案** - 必须设置 `style={{ maxHeight: 200 }}` 限制最大高度
+> - 📐 **默认逻辑** - 组件默认高度为 `(maxHeight || 100) + 附件高度(90px)`
+>
+> **容器Ref传递（最简单方式）：**
+>
+> - 父div：`<div ref={containerRef} style={{ height: 600 }}>`
+> - 传递给组件：通过 `markdownProps={{ containerRef }}` 将容器ref传递给内部
+> - 组件内部可通过 `props.containerRef` 访问外层容器引用
+> - 高度设置：直接在父div上设置 `height: 600px`
+> - **底部定位**：使用 flexbox 布局让组件固定在容器底部，距离底部 10px
+
 ### 小屏幕
 
 ```tsx
