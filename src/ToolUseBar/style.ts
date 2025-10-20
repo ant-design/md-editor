@@ -22,7 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'var(--color-gray-border-light)',
         boxShadow: 'var(--shadow-border-base)',
         minHeight: '20px',
-        width: 'auto',
+        width: 'max-content',
         transition: 'padding 0.2s ease',
         display: 'flex',
         alignItems: 'center',
@@ -76,6 +76,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
           '&-light': {
             boxShadow: 'none',
+            '&:hover': {
+              background: 'var(--color-gray-bg-card-white)',
+              boxShadow: 'none',
+              boxSizing: 'border-box',
+            },
           },
         },
       },

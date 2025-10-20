@@ -8,7 +8,7 @@ export interface ToolCall {
   id: string;
   toolName: React.ReactNode;
   toolTarget: React.ReactNode;
-  time: React.ReactNode;
+  time?: React.ReactNode;
   icon?: React.ReactNode;
   errorMessage?: string;
   type?: 'summary' | 'normal' | string;
@@ -242,7 +242,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           </div>
         )}
 
-        {showContent && !light && (
+        {showContent && (
           <div
             className={classnames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}

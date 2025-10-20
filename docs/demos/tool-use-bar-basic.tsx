@@ -25,8 +25,16 @@ const ToolUseBarBasicDemo = () => {
       id: 'analyze',
       toolName: '代码分析',
       toolTarget: '分析 src/components 目录',
-      time: '3',
       status: 'loading' as const,
+      content: (
+        <ul style={{ paddingLeft: 20, margin: 0 }}>
+          <li>分析插件需求及目标功能</li>
+          <li>设计Chrome扩展插件架构 实现核心截图和检测逻辑</li>
+          <li>Manus 正在工作：开发图片输出和导出功能</li>
+          <li>验证插件功能是否正常</li>
+          <li>报告并将插件发送给用户</li>
+        </ul>
+      ),
     },
     {
       id: 'format',
