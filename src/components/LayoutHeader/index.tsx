@@ -66,7 +66,7 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
   title = 'AI 助手',
   showShare = true,
   leftCollapsible = true,
-  rightCollapsible = true,
+  rightCollapsible = false,
   leftCollapsed: controlledLeftCollapsed,
   rightCollapsed: controlledRightCollapsed,
   leftDefaultCollapsed = false,

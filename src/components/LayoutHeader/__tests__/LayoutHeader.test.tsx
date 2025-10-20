@@ -41,7 +41,12 @@ describe('LayoutHeader', () => {
 
   it('handles right collapse click', () => {
     const onRightCollapse = vi.fn();
-    render(<LayoutHeader onRightCollapse={onRightCollapse} />);
+    render(
+      <LayoutHeader
+        rightCollapsible={true}
+        onRightCollapse={onRightCollapse}
+      />,
+    );
 
     fireEvent.click(screen.getByLabelText('折叠右侧边栏'));
     expect(onRightCollapse).toHaveBeenCalledWith(true, false);
@@ -92,7 +97,11 @@ describe('LayoutHeader', () => {
   it('supports controlled mode for right collapse', () => {
     const onRightCollapse = vi.fn();
     render(
-      <LayoutHeader rightCollapsed={true} onRightCollapse={onRightCollapse} />,
+      <LayoutHeader
+        rightCollapsed={true}
+        rightCollapsible={true}
+        onRightCollapse={onRightCollapse}
+      />,
     );
 
     fireEvent.click(screen.getByLabelText('折叠右侧边栏'));
@@ -108,6 +117,7 @@ describe('LayoutHeader', () => {
         rightDefaultCollapsed={false}
         onLeftCollapse={onLeftCollapse}
         onRightCollapse={onRightCollapse}
+        rightCollapsible={true}
       />,
     );
 
