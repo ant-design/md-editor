@@ -22,7 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'var(--color-gray-border-light)',
         boxShadow: 'var(--shadow-border-base)',
         minHeight: '20px',
-        width: 'max-content',
+        width: 'auto',
         transition: 'padding 0.2s ease',
         display: 'flex',
         alignItems: 'center',
@@ -32,7 +32,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: 'min(800px,100%)',
         padding: '2px',
         paddingRight: '4px',
-
         '&:hover': {
           background: 'var(--color-gray-control-fill-active)',
           boxSizing: 'border-box',
