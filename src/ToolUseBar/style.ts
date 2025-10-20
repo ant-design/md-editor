@@ -57,6 +57,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           border: 'none',
           borderRadius: '14px',
           padding: 4,
+          width: 'fit-content',
           background: 'transparent',
           '&:hover': {
             background: 'none',
@@ -72,6 +73,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             background: 'var(--color-gray-bg-card-white)',
             boxSizing: 'border-box',
             boxShadow: 'var(--shadow-card-base)',
+          },
+          '&-light': {
+            boxShadow: 'none',
           },
         },
       },
@@ -104,6 +108,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         gap: 8,
         flex: 1,
+        '&-light': {
+          flex: 'unset',
+          width: 'max-content',
+        },
       },
 
       '&-tool-expand': {
@@ -220,6 +228,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         letterSpacing: 'var(--letter-spacing-body-sm, normal)',
         color: 'var(--color-gray-text-light)',
         marginRight: 30,
+        '&-light': {
+          marginRight: 0,
+        },
         '&-loading': {
           position: 'relative',
           color: '#000',

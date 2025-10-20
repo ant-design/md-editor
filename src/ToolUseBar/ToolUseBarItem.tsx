@@ -1,5 +1,5 @@
 import { Api, ChevronUp, X } from '@sofa-design/icons';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useMemo } from 'react';
@@ -52,14 +52,14 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
-      <div className={classNames(`${prefixCls}-tool-content-error`, hashId)}>
+      <div className={classnames(`${prefixCls}-tool-content-error`, hashId)}>
         <div
-          className={classNames(`${prefixCls}-tool-content-error-icon`, hashId)}
+          className={classnames(`${prefixCls}-tool-content-error-icon`, hashId)}
         >
           <X />
         </div>
         <div
-          className={classNames(`${prefixCls}-tool-content-error-text`, hashId)}
+          className={classnames(`${prefixCls}-tool-content-error-text`, hashId)}
         >
           {tool.errorMessage}
         </div>
@@ -69,7 +69,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const contentDom = useMemo(() => {
     return tool.content ? (
-      <div className={classNames(`${prefixCls}-tool-content`, hashId)}>
+      <div className={classnames(`${prefixCls}-tool-content`, hashId)}>
         {tool.content}
       </div>
     ) : null;
@@ -107,7 +107,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   if (tool.type === 'summary') {
     return (
       <div
-        className={classNames(`${prefixCls}-tool-container`, hashId)}
+        className={classnames(`${prefixCls}-tool-container`, hashId)}
         data-testid="tool-user-item-tool-container "
       >
         {contentDom}
@@ -119,30 +119,30 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     <div
       key={tool.id}
       data-testid="ToolUserItem"
-      className={classNames(
-        `${prefixCls}-tool ${hashId}`,
-        tool.status === 'success' && `${prefixCls}-tool-success`,
-        tool.status === 'loading' && `${prefixCls}-tool-loading`,
-        tool.status === 'error' && `${prefixCls}-tool-error`,
-        tool.status === 'idle' && `${prefixCls}-tool-idle`,
-        isActive && !expanded && `${prefixCls}-tool-active`,
-        expanded && `${prefixCls}-tool-expanded`,
-        light && `${prefixCls}-tool-light`,
-      )}
+      className={classnames(`${prefixCls}-tool ${hashId}`, {
+        [`${prefixCls}-tool-success`]: tool.status === 'success',
+        [`${prefixCls}-tool-loading`]: tool.status === 'loading',
+        [`${prefixCls}-tool-loading-light`]: tool.status === 'loading' && light,
+        [`${prefixCls}-tool-error`]: tool.status === 'error',
+        [`${prefixCls}-tool-idle`]: tool.status === 'idle',
+        [`${prefixCls}-tool-active`]: isActive && !expanded,
+        [`${prefixCls}-tool-expanded`]: expanded,
+        [`${prefixCls}-tool-light`]: light,
+      })}
     >
       <div
-        className={classNames(`${prefixCls}-tool-bar`, hashId)}
+        className={classnames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
         onClick={(e) => {
           handleClick(e);
         }}
       >
         <div
-          className={classNames(`${prefixCls}-tool-header`, hashId)}
+          className={classnames(`${prefixCls}-tool-header`, hashId)}
           data-testid="tool-user-item-tool-header"
         >
           <motion.div
-            className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
+            className={classnames(`${prefixCls}-tool-image-wrapper`, hashId, {
               [`${prefixCls}-tool-image-wrapper-rotating`]:
                 tool.status === 'loading',
               [`${prefixCls}-tool-image-wrapper-loading`]:
@@ -172,13 +172,19 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
               } as React.CSSProperties
             }
           >
-            <div className={classNames(`${prefixCls}-tool-image`, hashId)}>
+            <div className={classnames(`${prefixCls}-tool-image`, hashId)}>
               {tool.icon ? tool.icon : <Api />}
             </div>
           </motion.div>
         </div>
         <motion.div
-          className={classNames(`${prefixCls}-tool-header-right`, hashId)}
+          className={classnames(
+            `${prefixCls}-tool-header-right`,
+            {
+              [`${prefixCls}-tool-header-right-light`]: light,
+            },
+            hashId,
+          )}
           animate={
             tool.status === 'loading'
               ? {
@@ -211,7 +217,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         >
           {tool.toolName && (
             <div
-              className={classNames(`${prefixCls}-tool-name`, hashId, {
+              className={classnames(`${prefixCls}-tool-name`, hashId, {
                 [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
               })}
             >
@@ -220,8 +226,9 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
           {tool.toolTarget && (
             <div
-              className={classNames(`${prefixCls}-tool-target`, hashId, {
+              className={classnames(`${prefixCls}-tool-target`, hashId, {
                 [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
+                [`${prefixCls}-tool-target-light`]: light,
               })}
               title={tool.toolTarget?.toString() ?? undefined}
             >
@@ -230,14 +237,14 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
         </motion.div>
         {tool.time && (
-          <div className={classNames(`${prefixCls}-tool-time`, hashId)}>
+          <div className={classnames(`${prefixCls}-tool-time`, hashId)}>
             {tool.time}
           </div>
         )}
 
         {showContent && !light && (
           <div
-            className={classNames(`${prefixCls}-tool-expand`, hashId)}
+            className={classnames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}
           >
             <ChevronUp
@@ -251,7 +258,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       </div>
       {showContent && expanded ? (
         <div
-          className={classNames(`${prefixCls}-tool-container`, hashId, {
+          className={classnames(`${prefixCls}-tool-container`, hashId, {
             [`${prefixCls}-tool-container-light`]: light,
           })}
           data-testid="tool-user-item-tool-container "
