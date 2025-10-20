@@ -324,10 +324,7 @@ const WorkspaceDemo = () => {
     }
   }, []);
   return (
-    <Workspace
-      onTabChange={(key: string) => console.log('切换到标签页:', key)}
-      pure
-    >
+    <Workspace onTabChange={(key: string) => console.log('切换到标签页:', key)}>
       {/* 实时监控标签页 - Markdown 内容 */}
       <Workspace.Realtime
         tab={{
@@ -561,106 +558,116 @@ const App = () => {
   }, []);
   // ****
   return (
-    <AgenticLayout
+    <div
       style={{
-        minHeight: 450,
-        maxHeight: '100vh',
         height: '100vh',
+        width: '100vw',
+        backgroundColor: 'var(--color-gray-bg-page)',
+        padding: 12,
       }}
-      header={{
-        title: 'AI 助手',
-        leftCollapsed: leftCollapsed,
-        onLeftCollapse: handleLeftCollapse,
-        onShare: handleShare,
-        rightCollapsed: rightCollapsed,
-        onRightCollapse: setRightCollapsed,
-      }}
-      left={<StandaloneHistoryDemo />}
-      center={
-        <ChatLayout
-          ref={containerRef}
-          footer={
-            <div
-              style={{
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
+    >
+      <AgenticLayout
+        style={{
+          minHeight: 450,
+          maxHeight: 'calc(100vh - 24px)',
+          height: 'calc(100vh - 24px)',
+          width: 'calc(100vw - 24px)',
+        }}
+        header={{
+          title: 'AI 助手',
+          leftCollapsed: leftCollapsed,
+          onLeftCollapse: handleLeftCollapse,
+          onShare: handleShare,
+          rightCollapsed: rightCollapsed,
+          onRightCollapse: setRightCollapsed,
+        }}
+        left={<StandaloneHistoryDemo />}
+        center={
+          <ChatLayout
+            ref={containerRef}
+            footer={
               <div
                 style={{
-                  position: 'absolute',
-                  top: '-16px',
-                  left: '50%',
-                  transform: 'translate(-50%, -100%)',
+                  position: 'relative',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 16,
                 }}
               >
-                <BackTo.Top
-                  tooltip="去顶部"
-                  shouldVisible={200}
-                  target={() =>
-                    containerRef.current?.scrollContainer as HTMLElement
-                  }
+                <div
                   style={{
-                    position: 'relative',
-                    bottom: 0,
-                    insetInlineEnd: 0,
+                    position: 'absolute',
+                    top: '-16px',
+                    left: '50%',
+                    transform: 'translate(-50%, -100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 16,
                   }}
-                />
-                <BackTo.Bottom
-                  tooltip="去底部"
-                  shouldVisible={200}
-                  target={() =>
-                    containerRef.current?.scrollContainer as HTMLElement
-                  }
-                  style={{
-                    position: 'relative',
-                    bottom: 0,
-                    insetInlineEnd: 0,
-                  }}
+                >
+                  <BackTo.Top
+                    tooltip="去顶部"
+                    shouldVisible={200}
+                    target={() =>
+                      containerRef.current?.scrollContainer as HTMLElement
+                    }
+                    style={{
+                      position: 'relative',
+                      bottom: 0,
+                      insetInlineEnd: 0,
+                    }}
+                  />
+                  <BackTo.Bottom
+                    tooltip="去底部"
+                    shouldVisible={200}
+                    target={() =>
+                      containerRef.current?.scrollContainer as HTMLElement
+                    }
+                    style={{
+                      position: 'relative',
+                      bottom: 0,
+                      insetInlineEnd: 0,
+                    }}
+                  />
+                </div>
+                <TaskRunning
+                  title={`任务已完成, 耗时03分00秒`}
+                  taskStatus={TASK_STATUS.SUCCESS}
+                  taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
+                  onPause={noop}
+                  onResume={noop}
+                  onStop={noop}
+                  onCreateNewTask={handleCreateNewTask}
+                  onReplay={handleRetry}
+                  onViewResult={handleViewResult}
                 />
               </div>
-              <TaskRunning
-                title={`任务已完成, 耗时03分00秒`}
-                taskStatus={TASK_STATUS.SUCCESS}
-                taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
-                onPause={noop}
-                onResume={noop}
-                onStop={noop}
-                onCreateNewTask={handleCreateNewTask}
-                onReplay={handleRetry}
-                onViewResult={handleViewResult}
-              />
-            </div>
-          }
-        >
-          <BubbleList
-            style={{
-              paddingBottom: '60px',
-            }}
-            pure
-            onLike={() => {}}
-            onDisLike={() => {}}
-            shouldShowVoice={true}
-            markdownRenderConfig={{
-              tableConfig: {
-                pure: true,
-              },
-            }}
-            bubbleList={bubbleList}
-            assistantMeta={assistantMeta}
-            userMeta={userMeta}
-          />
-        </ChatLayout>
-      }
-      right={<WorkspaceDemo />}
-    />
+            }
+          >
+            <BubbleList
+              style={{
+                paddingBottom: '60px',
+              }}
+              pure
+              onLike={() => {}}
+              onDisLike={() => {}}
+              shouldShowVoice={true}
+              markdownRenderConfig={{
+                tableConfig: {
+                  pure: true,
+                },
+              }}
+              bubbleList={bubbleList}
+              assistantMeta={assistantMeta}
+              userMeta={userMeta}
+            />
+          </ChatLayout>
+        }
+        right={<WorkspaceDemo />}
+      />
+    </div>
   );
 };
 

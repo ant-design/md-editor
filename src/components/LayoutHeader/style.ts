@@ -38,29 +38,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--margin-2x)',
-
-        '&-share-btn': {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '0 8px',
-          height: 'var(--font-size-2xl)',
-          borderRadius: '6px',
-          border: 'none',
-          backgroundColor: 'transparent',
-          color: 'var(--color-gray-text-secondary)',
-          cursor: 'pointer',
-          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
-
-          '&:hover': {
-            backgroundColor: 'var(--color-blue-control-fill-hover)',
-            color: 'var(--color-gray-text-default)',
-          },
-
-          '&:active': {
-            backgroundColor: 'var(--color-gray-bg-active)',
-          },
-        },
       },
     },
   };

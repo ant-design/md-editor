@@ -135,25 +135,24 @@ export const AgenticLayout: React.FC<AgenticLayoutProps> = ({
           )}
           <div className={`${prefixCls}-main-content ${hashId}`}>{center}</div>
         </div>
-
-        {/* 右侧边栏 */}
-        {right && (
-          <div
-            className={`${prefixCls}-sidebar ${prefixCls}-sidebar-right ${
-              rightCollapsed ? `${prefixCls}-sidebar-right-collapsed` : ''
-            } ${hashId}`}
-            style={{
-              width: rightCollapsed ? 0 : rightWidth,
-              minWidth: rightCollapsed ? 0 : rightWidth,
-              maxWidth: rightCollapsed ? 0 : rightWidth,
-            }}
-          >
-            <div className={`${prefixCls}-sidebar-content ${hashId}`}>
-              {right}
-            </div>
-          </div>
-        )}
       </div>
+      {/* 右侧边栏 */}
+      {right && (
+        <div
+          className={`${prefixCls}-sidebar ${prefixCls}-sidebar-right ${
+            rightCollapsed ? `${prefixCls}-sidebar-right-collapsed` : ''
+          } ${hashId}`}
+          style={{
+            width: rightCollapsed ? 0 : rightWidth,
+            minWidth: rightCollapsed ? 0 : rightWidth,
+            maxWidth: rightCollapsed ? 0 : rightWidth,
+          }}
+        >
+          <div className={`${prefixCls}-sidebar-content ${hashId}`}>
+            {right}
+          </div>
+        </div>
+      )}
     </div>,
   );
 };

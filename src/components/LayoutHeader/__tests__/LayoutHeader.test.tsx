@@ -124,6 +124,6 @@ describe('LayoutHeader', () => {
     const { container } = render(<LayoutHeader className="custom-class" />);
 
     expect(container.firstChild).toHaveClass('custom-class');
-    expect(container.firstChild).toHaveClass('layout-header');
+    expect(container.firstChild).toHaveClass('ant-layout-header');
   });
 });

@@ -58,8 +58,8 @@ describe('ChatLayout', () => {
     render(
       <ChatLayout
         header={{
-          showLeftCollapse: false,
-          showRightCollapse: false,
+          leftCollapsible: false,
+          rightCollapsible: false,
           showShare: false,
         }}
       >

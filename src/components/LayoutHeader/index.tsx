@@ -1,6 +1,6 @@
 import {
+  LaptopMinimal,
   PanelLeftFill,
-  PanelRightFill,
   SquareArrowOutUpRight,
 } from '@sofa-design/icons';
 import { Button, ConfigProvider } from 'antd';
@@ -154,7 +154,7 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
             aria-label={locale?.['chatFlow.collapseRight'] || '折叠右侧边栏'}
             title={locale?.['chatFlow.collapseRight'] || '折叠右侧边栏'}
           >
-            <PanelRightFill />
+            <LaptopMinimal />
           </ActionIconBox>
         )}
         {rightExtra}
