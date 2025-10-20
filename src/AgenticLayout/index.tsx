@@ -88,8 +88,6 @@ export const AgenticLayout: React.FC<AgenticLayoutProps> = ({
   left,
   center,
   right,
-  leftCollapsible: _leftCollapsible = true,
-  rightCollapsible: _rightCollapsible = true,
   leftCollapsed: controlledLeftCollapsed,
   rightCollapsed: controlledRightCollapsed,
   leftDefaultCollapsed = false,
@@ -106,22 +104,16 @@ export const AgenticLayout: React.FC<AgenticLayoutProps> = ({
   const { wrapSSR, hashId } = useAgenticLayoutStyle(prefixCls);
 
   // 使用 useMergedState 管理左侧折叠状态
-  const [leftCollapsed, setLeftCollapsed] = useMergedState(
-    leftDefaultCollapsed,
-    {
-      value: controlledLeftCollapsed,
-      onChange: onLeftCollapse,
-    },
-  );
+  const [leftCollapsed] = useMergedState(leftDefaultCollapsed, {
+    value: controlledLeftCollapsed,
+    onChange: onLeftCollapse,
+  });
 
   // 使用 useMergedState 管理右侧折叠状态
-  const [rightCollapsed, setRightCollapsed] = useMergedState(
-    rightDefaultCollapsed,
-    {
-      value: controlledRightCollapsed,
-      onChange: onRightCollapse,
-    },
-  );
+  const [rightCollapsed] = useMergedState(rightDefaultCollapsed, {
+    value: controlledRightCollapsed,
+    onChange: onRightCollapse,
+  });
 
   return wrapSSR(
     <div className={`${prefixCls} ${className || ''} ${hashId}`} style={style}>

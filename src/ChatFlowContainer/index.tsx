@@ -1,12 +1,11 @@
 import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
 import { PanelLeftFill, SquareArrowOutUpRight } from '@sofa-design/icons';
-import { Button } from 'antd';
-import React, { forwardRef, useImperativeHandle } from 'react';
-import { ActionIconBox } from '../ActionIconBox';
+import { Button, ConfigProvider } from 'antd';
+import { useMergedState } from 'rc-util';
+import React, { forwardRef, useContext, useImperativeHandle } from 'react';
+import { ActionIconBox } from '../components/ActionIconBox';
 import { useStyle } from './style';
 import type { ChatFlowContainerProps, ChatFlowContainerRef } from './types';
-
-const COMPONENT_NAME = 'chat-flow-container';
 
 /**
  * ChatFlowContainer 组件 - 对话流容器组件
@@ -22,7 +21,7 @@ const COMPONENT_NAME = 'chat-flow-container';
  *
  * @example
  * ```tsx
- * import { ChatFlowContainer } from './components/ChatFlowContainer';
+ * import { ChatFlowContainer } from './ChatFlowContainer';
  *
  * // 基本用法
  * <ChatFlowContainer
@@ -30,6 +29,28 @@ const COMPONENT_NAME = 'chat-flow-container';
  *   onLeftCollapse={() => console.log('左侧折叠')}
  *   onRightCollapse={() => console.log('右侧折叠')}
  *   onShare={() => console.log('分享')}
+ * >
+ *   <div>对话内容</div>
+ * </ChatFlowContainer>
+ *
+ * // 受控模式 - 折叠状态
+ * <ChatFlowContainer
+ *   title="AI 助手"
+ *   leftCollapsed={leftCollapsed}
+ *   rightCollapsed={rightCollapsed}
+ *   onLeftCollapse={setLeftCollapsed}
+ *   onRightCollapse={setRightCollapsed}
+ * >
+ *   <div>对话内容</div>
+ * </ChatFlowContainer>
+ *
+ * // 非受控模式 - 默认折叠状态
+ * <ChatFlowContainer
+ *   title="AI 助手"
+ *   leftDefaultCollapsed={true}
+ *   rightDefaultCollapsed={false}
+ *   onLeftCollapse={(collapsed) => console.log('左侧折叠状态:', collapsed)}
+ *   onRightCollapse={(collapsed) => console.log('右侧折叠状态:', collapsed)}
  * >
  *   <div>对话内容</div>
  * </ChatFlowContainer>
@@ -55,6 +76,12 @@ const ChatFlowContainer = forwardRef<
       showLeftCollapse = true,
       showRightCollapse = false,
       showShare = true,
+      leftCollapsible = true,
+      rightCollapsible = true,
+      leftCollapsed: controlledLeftCollapsed,
+      rightCollapsed: controlledRightCollapsed,
+      leftDefaultCollapsed = false,
+      rightDefaultCollapsed = false,
       onLeftCollapse,
       onRightCollapse,
       onShare,
@@ -65,19 +92,43 @@ const ChatFlowContainer = forwardRef<
     },
     ref,
   ) => {
-    const { wrapSSR, hashId } = useStyle(COMPONENT_NAME);
+    const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+    const prefixCls = getPrefixCls('chat-flow-container');
+    const { wrapSSR, hashId } = useStyle(prefixCls);
     const { containerRef } = useAutoScroll({
       SCROLL_TOLERANCE: 30,
       onResize: () => {},
       timeout: 200,
     });
 
+    // 使用 useMergedState 管理左侧折叠状态
+    const [leftCollapsed, setLeftCollapsed] = useMergedState(
+      leftDefaultCollapsed,
+      {
+        value: controlledLeftCollapsed,
+        onChange: onLeftCollapse,
+      },
+    );
+
+    // 使用 useMergedState 管理右侧折叠状态
+    const [rightCollapsed, setRightCollapsed] = useMergedState(
+      rightDefaultCollapsed,
+      {
+        value: controlledRightCollapsed,
+        onChange: onRightCollapse,
+      },
+    );
+
     const handleLeftCollapse = () => {
-      onLeftCollapse?.();
+      if (leftCollapsible) {
+        setLeftCollapsed(!leftCollapsed);
+      }
     };
 
     const handleRightCollapse = () => {
-      onRightCollapse?.();
+      if (rightCollapsible) {
+        setRightCollapsed(!rightCollapsed);
+      }
     };
 
     const handleShare = () => {
@@ -90,13 +141,13 @@ const ChatFlowContainer = forwardRef<
 
     return wrapSSR(
       <div
-        className={`${COMPONENT_NAME} ${hashId} ${className || ''}`}
+        className={`${prefixCls} ${className || ''} ${hashId}`}
         style={style}
       >
         {/* 头部区域 */}
-        <div className={`${COMPONENT_NAME}-header ${hashId}`}>
+        <div className={`${prefixCls}-header ${hashId}`}>
           {/* 左侧区域：标题和左侧折叠按钮 */}
-          <div className={`${COMPONENT_NAME}-header-left ${hashId}`}>
+          <div className={`${prefixCls}-header-left ${hashId}`}>
             {showLeftCollapse && (
               <ActionIconBox
                 onClick={handleLeftCollapse}
@@ -106,16 +157,16 @@ const ChatFlowContainer = forwardRef<
                 <PanelLeftFill />
               </ActionIconBox>
             )}
-            <h1 className={`${COMPONENT_NAME}-header-left-title ${hashId}`}>
+            <h1 className={`${prefixCls}-header-left-title ${hashId}`}>
               {title}
             </h1>
           </div>
 
           {/* 右侧区域：分享按钮和右侧折叠按钮 */}
-          <div className={`${COMPONENT_NAME}-header-right ${hashId}`}>
+          <div className={`${prefixCls}-header-right ${hashId}`}>
             {showShare && (
               <Button
-                className={`${COMPONENT_NAME}-header-right-share-btn ${hashId}`}
+                className={`${prefixCls}-header-right-share-btn ${hashId}`}
                 onClick={handleShare}
                 aria-label="分享对话"
                 icon={<SquareArrowOutUpRight />}
@@ -136,9 +187,9 @@ const ChatFlowContainer = forwardRef<
         </div>
 
         {/* 内容区域 */}
-        <div className={`${COMPONENT_NAME}-content ${hashId}`}>
+        <div className={`${prefixCls}-content ${hashId}`}>
           <div
-            className={`${COMPONENT_NAME}-content-scrollable ${hashId}`}
+            className={`${prefixCls}-content-scrollable ${hashId}`}
             ref={containerRef}
           >
             {children}
@@ -147,13 +198,11 @@ const ChatFlowContainer = forwardRef<
 
         {/* 底部区域 */}
         {footer && (
-          <div className={`${COMPONENT_NAME}-footer ${hashId}`}>{footer}</div>
+          <div className={`${prefixCls}-footer ${hashId}`}>{footer}</div>
         )}
       </div>,
     );
   },
 );
-
-export default ChatFlowContainer;
 export type { ChatFlowContainerProps, ChatFlowContainerRef } from './types';
 export { ChatFlowContainer };

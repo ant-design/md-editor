@@ -12,10 +12,22 @@ export interface ChatFlowContainerProps {
   showRightCollapse?: boolean;
   /** 是否显示分享按钮 */
   showShare?: boolean;
+  /** 左侧是否可折叠 */
+  leftCollapsible?: boolean;
+  /** 右侧是否可折叠 */
+  rightCollapsible?: boolean;
+  /** 左侧折叠状态（受控） */
+  leftCollapsed?: boolean;
+  /** 右侧折叠状态（受控） */
+  rightCollapsed?: boolean;
+  /** 左侧默认折叠状态（非受控时使用） */
+  leftDefaultCollapsed?: boolean;
+  /** 右侧默认折叠状态（非受控时使用） */
+  rightDefaultCollapsed?: boolean;
   /** 左侧折叠按钮点击事件 */
-  onLeftCollapse?: () => void;
+  onLeftCollapse?: (collapsed?: boolean) => void;
   /** 右侧折叠按钮点击事件 */
-  onRightCollapse?: () => void;
+  onRightCollapse?: (collapsed?: boolean) => void;
   /** 分享按钮点击事件 */
   onShare?: () => void;
   /** 内容区域的自定义内容 */

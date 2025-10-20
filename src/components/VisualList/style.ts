@@ -17,20 +17,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 容器样式
 
       [`${token.componentCls}-item`]: {
-        marginRight: '-12px',
         marginBottom: '0px',
-        borderRadius: '8px',
+        marginRight: '-8px',
         boxSizing: 'border-box',
-        overflow: 'hidden',
         display: 'flex',
         position: 'relative',
         zIndex: 1,
         cursor: 'pointer',
-        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        'img,[data-type="image"]': {
+          borderRadius: '8px',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        },
         '&:hover': {
-          marginRight: '0px',
-          marginLeft: '12px',
-          boxShadow: '0 2px 8px rgba(0, 122, 204, 0.15)',
+          'img,[data-type="image"]': {
+            boxShadow: '0 2px 8px rgba(0, 122, 204, 0.15)',
+            transform: 'translateY(-16px) scale(1.5)',
+          },
         },
       },
 
@@ -80,14 +82,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 圆形头像样式
       [`${token.componentCls}-item-circle`]: {
         borderRadius: '50%',
-      },
-
-      // 变体样式
-      [`${token.componentCls}-outline`]: {
-        border: '1px solid #d9d9d9',
-        borderRadius: '6px',
-        padding: '12px',
-        backgroundColor: '#fafafa',
       },
 
       [`${token.componentCls}-borderless`]: {

@@ -10,7 +10,7 @@ export type {
 } from './Bubble/type';
 export * from './components/ActionIconBox';
 export * from './components/Button';
-export * from './components/ChatFlowContainer';
+export * from './ChatFlowContainer';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './components/SuggestionList';

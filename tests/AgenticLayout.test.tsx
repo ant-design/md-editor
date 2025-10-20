@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { vi } from 'vitest';
-import AgenticLayout from '../src/AgenticLayout';
+import { AgenticLayout } from '../src/AgenticLayout';
 
 // Mock the style hook
 vi.mock('../src/AgenticLayout/style', () => ({

@@ -89,7 +89,7 @@ describe('ChatFlowContainer', () => {
     );
 
     expect(container.firstChild).toHaveClass('custom-class');
-    expect(container.firstChild).toHaveClass('chat-flow-container');
+    expect(container.firstChild).toHaveClass('ant-chat-flow-container');
   });
 
   it('applies custom style', () => {
