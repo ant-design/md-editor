@@ -4,6 +4,7 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
 import { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
+import { I18nContext } from '../../../i18n';
 import { MarkdownEditorProps } from '../../types';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -311,6 +312,7 @@ const MLeafComponent = (
   const { markdownEditorRef, markdownContainerRef, readonly, setShowComment } =
     useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
+  const { locale } = useContext(I18nContext);
   const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
   const leaf = props.leaf;
   const style: CSSProperties = {};
@@ -397,7 +399,9 @@ const MLeafComponent = (
                 }
               }, 0);
             }}
-            placeholder={placeholder || '请输入'}
+            placeholder={
+              placeholder || locale?.['input.placeholder'] || '请输入'
+            }
           >
             {children}
           </TagPopup>
