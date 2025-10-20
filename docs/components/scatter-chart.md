@@ -3,7 +3,7 @@ title: ScatterChart 散点图
 atomId: ScatterChart
 group:
   title: 图文输出
-  order: 8
+  order: 4
 ---
 
 # ScatterChart 散点图

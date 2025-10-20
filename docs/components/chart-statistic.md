@@ -3,7 +3,7 @@ title: ChartStatistic 指标卡
 atomId: ChartStatistic
 group:
   title: 图文输出
-  order: 3
+  order: 4
 ---
 
 # ChartStatistic 指标卡
