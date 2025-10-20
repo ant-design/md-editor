@@ -1,4 +1,4 @@
-﻿/* eslint-disable no-var */
+/* eslint-disable no-var */
 /* eslint-disable no-param-reassign */
 import { parse } from 'partial-json';
 
@@ -37,7 +37,7 @@ import { parse } from 'partial-json';
  * - 支持编辑过程中的即时反馈和验证
  * - 基于第三方库 partial-json 实现
  */
-const partialParse = function partialParse(input: any) {
+export const partialParse = function partialParse(input: any) {
   return parse(input);
 };
 
