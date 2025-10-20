@@ -127,6 +127,7 @@ const COMPONENT_MAP = new Map<WorkspaceChildComponent, ComponentType>([
  * @param {string} [props.className] - 自定义CSS类名
  * @param {string} [props.title] - 工作空间标题
  * @param {() => void} [props.onClose] - 关闭回调
+ * @param {boolean} [props.pure] - 纯净模式，关闭阴影和边框
  * @param {React.ReactNode} [props.children] - 子组件，支持Workspace.Realtime、Workspace.Browser等
  *
  * @example
@@ -169,6 +170,7 @@ const Workspace: FC<WorkspaceProps> & {
   title,
   onClose,
   children,
+  pure = false,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
@@ -281,7 +283,14 @@ const Workspace: FC<WorkspaceProps> & {
   return wrapSSR(
     <div
       ref={containerRef}
-      className={classNames(prefixCls, className, hashId)}
+      className={classNames(
+        prefixCls,
+        {
+          [`${prefixCls}-pure`]: pure,
+        },
+        className,
+        hashId,
+      )}
       style={style}
       data-testid="workspace"
     >

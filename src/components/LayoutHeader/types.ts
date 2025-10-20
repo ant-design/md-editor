@@ -6,10 +6,6 @@ import type { ReactNode } from 'react';
 export interface LayoutHeaderConfig {
   /** 标题文本 */
   title?: string;
-  /** 是否显示左侧折叠按钮 */
-  showLeftCollapse?: boolean;
-  /** 是否显示右侧折叠按钮 */
-  showRightCollapse?: boolean;
   /** 是否显示分享按钮 */
   showShare?: boolean;
   /** 左侧是否可折叠 */
@@ -25,9 +21,9 @@ export interface LayoutHeaderConfig {
   /** 右侧默认折叠状态（非受控时使用） */
   rightDefaultCollapsed?: boolean;
   /** 左侧折叠按钮点击事件 */
-  onLeftCollapse?: (collapsed?: boolean) => void;
+  onLeftCollapse?: (collapsed: boolean) => void;
   /** 右侧折叠按钮点击事件 */
-  onRightCollapse?: (collapsed?: boolean) => void;
+  onRightCollapse?: (collapsed: boolean) => void;
   /** 分享按钮点击事件 */
   onShare?: () => void;
   /** 自定义左侧内容 */

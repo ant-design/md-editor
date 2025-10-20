@@ -41,9 +41,7 @@ describe('LayoutHeader', () => {
 
   it('handles right collapse click', () => {
     const onRightCollapse = vi.fn();
-    render(
-      <LayoutHeader showRightCollapse onRightCollapse={onRightCollapse} />,
-    );
+    render(<LayoutHeader onRightCollapse={onRightCollapse} />);
 
     fireEvent.click(screen.getByLabelText('折叠右侧边栏'));
     expect(onRightCollapse).toHaveBeenCalledWith(true, false);
@@ -75,18 +73,6 @@ describe('LayoutHeader', () => {
     expect(screen.getByTestId('right-extra')).toBeInTheDocument();
   });
 
-  it('respects showLeftCollapse prop', () => {
-    render(<LayoutHeader showLeftCollapse={false} />);
-
-    expect(screen.queryByLabelText('折叠左侧边栏')).not.toBeInTheDocument();
-  });
-
-  it('respects showRightCollapse prop', () => {
-    render(<LayoutHeader showRightCollapse={false} />);
-
-    expect(screen.queryByLabelText('折叠右侧边栏')).not.toBeInTheDocument();
-  });
-
   it('respects showShare prop', () => {
     render(<LayoutHeader showShare={false} />);
 
@@ -106,11 +92,7 @@ describe('LayoutHeader', () => {
   it('supports controlled mode for right collapse', () => {
     const onRightCollapse = vi.fn();
     render(
-      <LayoutHeader
-        showRightCollapse
-        rightCollapsed={true}
-        onRightCollapse={onRightCollapse}
-      />,
+      <LayoutHeader rightCollapsed={true} onRightCollapse={onRightCollapse} />,
     );
 
     fireEvent.click(screen.getByLabelText('折叠右侧边栏'));
@@ -122,7 +104,6 @@ describe('LayoutHeader', () => {
     const onRightCollapse = vi.fn();
     render(
       <LayoutHeader
-        showRightCollapse
         leftDefaultCollapsed={true}
         rightDefaultCollapsed={false}
         onLeftCollapse={onLeftCollapse}

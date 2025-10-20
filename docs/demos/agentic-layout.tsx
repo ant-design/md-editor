@@ -324,7 +324,10 @@ const WorkspaceDemo = () => {
     }
   }, []);
   return (
-    <Workspace onTabChange={(key: string) => console.log('切换到标签页:', key)}>
+    <Workspace
+      onTabChange={(key: string) => console.log('切换到标签页:', key)}
+      pure
+    >
       {/* 实时监控标签页 - Markdown 内容 */}
       <Workspace.Realtime
         tab={{
@@ -455,6 +458,12 @@ const App = () => {
     }
     return true;
   });
+  const [rightCollapsed, setRightCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1200;
+    }
+    return true;
+  });
   const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
     const messages: MessageBubbleData[] = [];
 
@@ -558,16 +567,18 @@ const App = () => {
         maxHeight: '100vh',
         height: '100vh',
       }}
+      header={{
+        title: 'AI 助手',
+        leftCollapsed: leftCollapsed,
+        onLeftCollapse: handleLeftCollapse,
+        onShare: handleShare,
+        rightCollapsed: rightCollapsed,
+        onRightCollapse: setRightCollapsed,
+      }}
       left={<StandaloneHistoryDemo />}
       center={
         <ChatLayout
           ref={containerRef}
-          header={{
-            title: 'AI 助手',
-            leftCollapsed: leftCollapsed,
-            onLeftCollapse: handleLeftCollapse,
-            onShare: handleShare,
-          }}
           footer={
             <div
               style={{

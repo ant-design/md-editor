@@ -31,6 +31,8 @@ export interface WorkspaceProps {
   title?: ReactNode;
   onClose?: () => void;
   children?: React.ReactNode;
+  /** 纯净模式，关闭阴影和边框 */
+  pure?: boolean;
 }
 
 // 子组件基础属性

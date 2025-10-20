@@ -3,7 +3,8 @@ import {
   PanelRightFill,
   SquareArrowOutUpRight,
 } from '@sofa-design/icons';
-import { Button } from 'antd';
+import { Button, ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { useContext } from 'react';
 import { I18nContext } from '../../i18n';
@@ -63,8 +64,6 @@ import type { LayoutHeaderProps } from './types';
  */
 const LayoutHeader: React.FC<LayoutHeaderProps> = ({
   title = 'AI 助手',
-  showLeftCollapse = true,
-  showRightCollapse = false,
   showShare = true,
   leftCollapsible = true,
   rightCollapsible = true,
@@ -80,7 +79,9 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
   className,
 }) => {
   const { locale } = useContext(I18nContext);
-  const { wrapSSR } = useLayoutHeaderStyle('layout-header');
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('layout-header');
+  const { wrapSSR, hashId } = useLayoutHeaderStyle(prefixCls);
 
   // 使用 useMergedState 管理左侧折叠状态
   const [leftCollapsed, setLeftCollapsed] = useMergedState(
@@ -117,10 +118,10 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
   };
 
   return wrapSSR(
-    <div className={`layout-header ${className || ''}`}>
+    <div className={classNames(prefixCls, hashId, className)}>
       {/* 左侧区域：标题和左侧折叠按钮 */}
-      <div className="layout-header-left">
-        {showLeftCollapse && (
+      <div className={classNames(`${prefixCls}-left`, hashId)}>
+        {leftCollapsible && (
           <ActionIconBox
             onClick={handleLeftCollapse}
             aria-label={locale?.['chatFlow.collapseLeft'] || '折叠左侧边栏'}
@@ -129,15 +130,16 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
             <PanelLeftFill />
           </ActionIconBox>
         )}
-        <h1 className="layout-header-left-title">{title}</h1>
+        <h1 className={classNames(`${prefixCls}-left-title`, hashId)}>
+          {title}
+        </h1>
         {leftExtra}
       </div>
-
       {/* 右侧区域：分享按钮和右侧折叠按钮 */}
-      <div className="layout-header-right">
+      <div className={classNames(`${prefixCls}-right`, hashId)}>
         {showShare && (
           <Button
-            className="layout-header-right-share-btn"
+            className={classNames(`${prefixCls}-right-share-btn`, hashId)}
             onClick={handleShare}
             aria-label={locale?.['chatFlow.shareDialog'] || '分享对话'}
             icon={<SquareArrowOutUpRight />}
@@ -146,7 +148,7 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
             {locale?.['chatFlow.share'] || '分享'}
           </Button>
         )}
-        {showRightCollapse && (
+        {rightCollapsible && (
           <ActionIconBox
             onClick={handleRightCollapse}
             aria-label={locale?.['chatFlow.collapseRight'] || '折叠右侧边栏'}

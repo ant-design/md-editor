@@ -47,6 +47,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 右侧边栏特殊样式
       [`&.${token.componentCls}-sidebar-right`]: {
         borderRight: 'none',
+        height: '100%',
         borderLeft: `1px solid ${token.colorBorder || 'var(--color-gray-border-light)'}`,
       },
 
@@ -71,14 +72,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         flexDirection: 'column',
         overflow: 'hidden',
         width: '100%',
+        height: '100%',
       },
 
       // 主内容区域
       [`${token.componentCls}-main`]: {
         flex: 1,
-        display: 'flex',
         minWidth: 0,
         overflow: 'hidden',
+        '&-content': {
+          flex: 1,
+          height: 'calc(100% - 48px)',
+        },
       },
     },
   };

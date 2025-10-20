@@ -15,9 +15,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minHeight: '48px',
       flexShrink: 0,
       zIndex: 10,
-      borderTopLeftRadius: 'var(--radius-modal-base)',
-      borderTopRightRadius: 'var(--radius-modal-base)',
-      borderBottom: `1px solid ${token.colorBorder || 'var(--color-gray-border-light)'}`,
+      borderTopLeftRadius: 'inherit',
+      borderTopRightRadius: 'inherit',
 
       // 左侧区域样式
       [`${token.componentCls}-left`]: {

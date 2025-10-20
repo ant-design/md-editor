@@ -13,6 +13,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         clipPath: 'none!important',
       },
 
+      // 纯净模式样式
+      [`&${token.componentCls}-pure`]: {
+        borderRadius: '0',
+        background: 'transparent',
+        border: 'none',
+        boxShadow: 'none',
+        height: '100%',
+      },
+
       [`${token.componentCls}-header`]: {
         display: 'flex',
         alignItems: 'center',

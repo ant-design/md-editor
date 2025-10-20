@@ -123,12 +123,17 @@ export const AgenticLayout: React.FC<AgenticLayoutProps> = ({
           className={`${prefixCls}-main ${hashId}`}
           style={{
             flex: 1,
-            display: 'flex',
             minWidth: 0,
           }}
         >
-          {header && <LayoutHeader {...header} />}
-          {center}
+          {header && (
+            <LayoutHeader
+              {...header}
+              leftCollapsible={header.leftCollapsible ?? !!left}
+              rightCollapsible={header.rightCollapsible ?? !!right}
+            />
+          )}
+          <div className={`${prefixCls}-main-content ${hashId}`}>{center}</div>
         </div>
 
         {/* 右侧边栏 */}
