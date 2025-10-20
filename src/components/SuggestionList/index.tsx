@@ -9,6 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { I18nContext } from '../../i18n';
 import { useStyle } from './style';
 
 export interface SuggestionItem {
@@ -110,6 +111,7 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
   showMore,
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
+  const { locale } = useContext(I18nContext);
   const prefixCls = context?.getPrefixCls('follow-up');
 
   const { wrapSSR, hashId } = useStyle(prefixCls);
@@ -130,21 +132,32 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
   );
 
   return wrapSSR(
-    <div className={rootCls} style={style} role="group" aria-label="追问区域">
+    <div
+      className={rootCls}
+      style={style}
+      role="group"
+      aria-label={locale?.['suggestion.area'] || '追问区域'}
+    >
       {derivedItems?.length > 0 ? (
         <div
           className={classNames(`${prefixCls}-suggestions`, hashId, {
             [`${prefixCls}-suggestions-${layout}`]: layout,
           })}
-          aria-label="追问建议"
+          aria-label={locale?.['suggestion.label'] || '追问建议'}
         >
           {showMore?.enable ? (
             <div
               className={classNames(`${prefixCls}-more`, hashId)}
-              aria-label={showMore?.text || '搜索更多'}
+              aria-label={
+                showMore?.text ||
+                locale?.['suggestion.searchMore'] ||
+                '搜索更多'
+              }
             >
               <span className={classNames(`${prefixCls}-more-text`, hashId)}>
-                {showMore?.text || '搜索更多'}
+                {showMore?.text ||
+                  locale?.['suggestion.searchMore'] ||
+                  '搜索更多'}
               </span>
               <span
                 className={classNames(`${prefixCls}-more-icon`, hashId)}
@@ -181,7 +194,7 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
                   [`${prefixCls}-suggestion-disabled`]: isDisabled,
                 })}
                 onClick={handleClick}
-                aria-label={`选择建议：${label || '追问'}`}
+                aria-label={`${locale?.['suggestion.select'] || '选择建议'}：${label || locale?.['suggestion.followUp'] || '追问'}`}
               >
                 {item?.icon ? (
                   <span className={classNames(`${prefixCls}-icon`, hashId)}>

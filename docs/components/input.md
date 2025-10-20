@@ -2,7 +2,7 @@
 title: Input 输入框
 group:
   title: 通用
-  order: 2
+  order: 3
 ---
 
 # Input 输入框

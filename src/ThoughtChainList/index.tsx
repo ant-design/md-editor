@@ -129,25 +129,25 @@ const DocumentDrawer = React.memo<{
         items={
           [
             {
-              label: '名称',
+              label: locale?.['common.name'] || '名称',
               span: 1,
               children: docMeta?.doc_name || docMeta?.answer,
             },
             {
-              label: '更新时间',
+              label: locale?.['common.updateTime'] || '更新时间',
               span: 1,
               children: dayjs(docMeta?.upload_time).format(
                 'YYYY-MM-DD HH:mm:ss',
               ),
             },
             {
-              label: '类型',
+              label: locale?.['common.type'] || '类型',
               span: 1,
               children: docMeta?.type,
             },
             docMeta?.origin_text
               ? {
-                  label: '内容',
+                  label: locale?.['common.content'] || '内容',
                   span: 1,
                   children: docMeta?.origin_text,
                 }

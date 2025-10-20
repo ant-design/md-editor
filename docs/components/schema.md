@@ -5,7 +5,7 @@ nav:
 atomId: Schema
 group:
   title: 图文输出
-  order: 13
+  order: 4
 ---
 
 # Schema - 低代码渲染

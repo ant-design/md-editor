@@ -68,6 +68,17 @@ const ToolUseBarBasicDemo = () => {
         onToolClick={handleToolClick}
       />
 
+      <div style={{ marginBottom: '20px' }}>
+        <h4>Light 模式：</h4>
+        <ToolUseBar
+          tools={tools}
+          activeKeys={activeKeys}
+          onActiveKeysChange={handleActiveKeysChange}
+          onToolClick={handleToolClick}
+          light={true}
+        />
+      </div>
+
       <div style={{ marginTop: '20px' }}>
         <h4>Props 说明：</h4>
         <ul>

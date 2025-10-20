@@ -1,53 +1,8 @@
-import { ChevronUp } from '@sofa-design/icons';
-import classNames from 'classnames';
+import { Api, ChevronUp, X } from '@sofa-design/icons';
+import classnames from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useMemo } from 'react';
-
-function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 12.25330924987793 12.836221694946289"
-      {...props}
-    >
-      <path
-        d="M11.145 4.133q-.461-.953-1.248-1.648-.76-.672-1.72-1.014-.961-.341-1.975-.3-1.049.043-2.008.492-.96.448-1.664 1.226-.682.751-1.036 1.708-.354.956-.325 1.97.03 1.05.465 2.014.437.965 1.205 1.68.743.691 1.695 1.057.951.366 1.966.35 1.049-.015 2.018-.438h.002a.583.583 0 11.467 1.068h-.001q-1.185.518-2.468.537-1.24.02-2.403-.428-1.162-.447-2.07-1.292-.94-.874-1.474-2.053Q.038 7.883.003 6.6-.032 5.36.4 4.192q.432-1.168 1.265-2.087.863-.951 2.035-1.5Q4.87.059 6.154.006q1.24-.05 2.413.367Q9.741.789 10.67 1.61q.962.85 1.525 2.015a.584.584 0 01-1.05.508zM6.42 2.337a.583.583 0 00-.583.583v3.5c0 .221.124.423.322.522L8.492 8.11a.583.583 0 00.522-1.044L7.004 6.06V2.92a.583.583 0 00-.584-.583zm4.083 3.792a.583.583 0 111.167 0v3.5a.583.583 0 11-1.167 0v-3.5zm.584 6.416a.583.583 0 100-1.166.583.583 0 000 1.166z"
-        fillRule="evenodd"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function ToolIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 14 14"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={14} height={14} rx={0} />
-        </clipPath>
-      </defs>
-      <g>
-        <path
-          d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
-          fillRule="evenodd"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
-  );
-}
 
 export interface ToolCall {
   id: string;
@@ -72,6 +27,7 @@ export interface ToolUseBarItemProps {
   isExpanded?: boolean;
   onExpandedChange?: (id: string, expanded: boolean) => void;
   defaultExpanded?: boolean;
+  light?: boolean;
 }
 
 export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
@@ -84,6 +40,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   isExpanded,
   onExpandedChange,
   defaultExpanded,
+  light = false,
 }) => {
   // 使用 useMergedState 来管理展开状态
   const [expanded, setExpanded] = useMergedState(defaultExpanded ?? false, {
@@ -95,14 +52,14 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const errorDom = useMemo(() => {
     return tool.status === 'error' && tool.errorMessage ? (
-      <div className={classNames(`${prefixCls}-tool-content-error`, hashId)}>
+      <div className={classnames(`${prefixCls}-tool-content-error`, hashId)}>
         <div
-          className={classNames(`${prefixCls}-tool-content-error-icon`, hashId)}
+          className={classnames(`${prefixCls}-tool-content-error-icon`, hashId)}
         >
-          <ErrorIcon />
+          <X />
         </div>
         <div
-          className={classNames(`${prefixCls}-tool-content-error-text`, hashId)}
+          className={classnames(`${prefixCls}-tool-content-error-text`, hashId)}
         >
           {tool.errorMessage}
         </div>
@@ -112,7 +69,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
 
   const contentDom = useMemo(() => {
     return tool.content ? (
-      <div className={classNames(`${prefixCls}-tool-content`, hashId)}>
+      <div className={classnames(`${prefixCls}-tool-content`, hashId)}>
         {tool.content}
       </div>
     ) : null;
@@ -150,7 +107,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   if (tool.type === 'summary') {
     return (
       <div
-        className={classNames(`${prefixCls}-tool-container`, hashId)}
+        className={classnames(`${prefixCls}-tool-container`, hashId)}
         data-testid="tool-user-item-tool-container "
       >
         {contentDom}
@@ -162,29 +119,30 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
     <div
       key={tool.id}
       data-testid="ToolUserItem"
-      className={classNames(
-        `${prefixCls}-tool ${hashId}`,
-        tool.status === 'success' && `${prefixCls}-tool-success`,
-        tool.status === 'loading' && `${prefixCls}-tool-loading`,
-        tool.status === 'error' && `${prefixCls}-tool-error`,
-        tool.status === 'idle' && `${prefixCls}-tool-idle`,
-        isActive && !expanded && `${prefixCls}-tool-active`,
-        expanded && `${prefixCls}-tool-expanded`,
-      )}
+      className={classnames(`${prefixCls}-tool ${hashId}`, {
+        [`${prefixCls}-tool-success`]: tool.status === 'success',
+        [`${prefixCls}-tool-loading`]: tool.status === 'loading',
+        [`${prefixCls}-tool-loading-light`]: tool.status === 'loading' && light,
+        [`${prefixCls}-tool-error`]: tool.status === 'error',
+        [`${prefixCls}-tool-idle`]: tool.status === 'idle',
+        [`${prefixCls}-tool-active`]: isActive && !expanded,
+        [`${prefixCls}-tool-expanded`]: expanded,
+        [`${prefixCls}-tool-light`]: light,
+      })}
     >
       <div
-        className={classNames(`${prefixCls}-tool-bar`, hashId)}
+        className={classnames(`${prefixCls}-tool-bar`, hashId)}
         data-testid="tool-user-item-tool-bar"
         onClick={(e) => {
           handleClick(e);
         }}
       >
         <div
-          className={classNames(`${prefixCls}-tool-header`, hashId)}
+          className={classnames(`${prefixCls}-tool-header`, hashId)}
           data-testid="tool-user-item-tool-header"
         >
           <motion.div
-            className={classNames(`${prefixCls}-tool-image-wrapper`, hashId, {
+            className={classnames(`${prefixCls}-tool-image-wrapper`, hashId, {
               [`${prefixCls}-tool-image-wrapper-rotating`]:
                 tool.status === 'loading',
               [`${prefixCls}-tool-image-wrapper-loading`]:
@@ -214,15 +172,19 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
               } as React.CSSProperties
             }
           >
-            {tool.icon || (
-              <div className={classNames(`${prefixCls}-tool-image`, hashId)}>
-                <ToolIcon />
-              </div>
-            )}
+            <div className={classnames(`${prefixCls}-tool-image`, hashId)}>
+              {tool.icon ? tool.icon : <Api />}
+            </div>
           </motion.div>
         </div>
         <motion.div
-          className={classNames(`${prefixCls}-tool-header-right`, hashId)}
+          className={classnames(
+            `${prefixCls}-tool-header-right`,
+            {
+              [`${prefixCls}-tool-header-right-light`]: light,
+            },
+            hashId,
+          )}
           animate={
             tool.status === 'loading'
               ? {
@@ -255,7 +217,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         >
           {tool.toolName && (
             <div
-              className={classNames(`${prefixCls}-tool-name`, hashId, {
+              className={classnames(`${prefixCls}-tool-name`, hashId, {
                 [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
               })}
             >
@@ -264,8 +226,9 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
           {tool.toolTarget && (
             <div
-              className={classNames(`${prefixCls}-tool-target`, hashId, {
+              className={classnames(`${prefixCls}-tool-target`, hashId, {
                 [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
+                [`${prefixCls}-tool-target-light`]: light,
               })}
               title={tool.toolTarget?.toString() ?? undefined}
             >
@@ -274,14 +237,14 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           )}
         </motion.div>
         {tool.time && (
-          <div className={classNames(`${prefixCls}-tool-time`, hashId)}>
+          <div className={classnames(`${prefixCls}-tool-time`, hashId)}>
             {tool.time}
           </div>
         )}
 
-        {showContent && (
+        {showContent && !light && (
           <div
-            className={classNames(`${prefixCls}-tool-expand`, hashId)}
+            className={classnames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}
           >
             <ChevronUp
@@ -295,7 +258,9 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       </div>
       {showContent && expanded ? (
         <div
-          className={classNames(`${prefixCls}-tool-container`, hashId)}
+          className={classnames(`${prefixCls}-tool-container`, hashId, {
+            [`${prefixCls}-tool-container-light`]: light,
+          })}
           data-testid="tool-user-item-tool-container "
         >
           {contentDom}

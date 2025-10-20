@@ -3,6 +3,7 @@ import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { I18nContext } from '../../i18n';
 import VoicingLottie from '../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 
@@ -67,10 +68,16 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
     <Mic />
   );
 
+  const { locale } = useContext(I18nContext);
+
   return wrapSSR(
     <Tooltip
       mouseEnterDelay={0.3}
-      title={recording ? '语音输入中，点击可停止。' : '语音输入'}
+      title={
+        recording
+          ? locale?.['input.voiceInputting'] || '语音输入中，点击可停止。'
+          : locale?.['input.voiceInput'] || '语音输入'
+      }
     >
       <div
         data-testid="voice-input-button"

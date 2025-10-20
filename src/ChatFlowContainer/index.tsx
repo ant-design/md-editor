@@ -4,6 +4,7 @@ import { Button, ConfigProvider } from 'antd';
 import { useMergedState } from 'rc-util';
 import React, { forwardRef, useContext, useImperativeHandle } from 'react';
 import { ActionIconBox } from '../components/ActionIconBox';
+import { I18nContext } from '../i18n';
 import { useStyle } from './style';
 import type { ChatFlowContainerProps, ChatFlowContainerRef } from './types';
 
@@ -93,6 +94,7 @@ const ChatFlowContainer = forwardRef<
     ref,
   ) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+    const { locale } = useContext(I18nContext);
     const prefixCls = getPrefixCls('chat-flow-container');
     const { wrapSSR, hashId } = useStyle(prefixCls);
     const { containerRef } = useAutoScroll({
@@ -151,8 +153,8 @@ const ChatFlowContainer = forwardRef<
             {showLeftCollapse && (
               <ActionIconBox
                 onClick={handleLeftCollapse}
-                aria-label="折叠左侧边栏"
-                title="折叠左侧边栏"
+                aria-label={locale?.['chatFlow.collapseLeft'] || '折叠左侧边栏'}
+                title={locale?.['chatFlow.collapseLeft'] || '折叠左侧边栏'}
               >
                 <PanelLeftFill />
               </ActionIconBox>
@@ -168,17 +170,19 @@ const ChatFlowContainer = forwardRef<
               <Button
                 className={`${prefixCls}-header-right-share-btn ${hashId}`}
                 onClick={handleShare}
-                aria-label="分享对话"
+                aria-label={locale?.['chatFlow.shareDialog'] || '分享对话'}
                 icon={<SquareArrowOutUpRight />}
                 color="default"
               >
-                分享
+                {locale?.['chatFlow.share'] || '分享'}
               </Button>
             )}
             {showRightCollapse && (
               <ActionIconBox
                 onClick={handleRightCollapse}
-                aria-label="折叠右侧边栏"
+                aria-label={
+                  locale?.['chatFlow.collapseRight'] || '折叠右侧边栏'
+                }
               >
                 <PanelLeftFill />
               </ActionIconBox>

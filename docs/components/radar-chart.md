@@ -3,7 +3,7 @@ title: RadarChart 雷达图
 atomId: RadarChart
 group:
   title: 图文输出
-  order: 7
+  order: 4
 ---
 
 # RadarChart 雷达图
