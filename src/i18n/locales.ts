@@ -305,6 +305,12 @@ export const cnLabels = {
   'schemaEditor.checkSchemaFormat': '请检查schema格式是否正确',
   'schemaEditor.inputSchemaToPreview': '右侧输入schema后，在这里展示卡片预览',
   'schemaEditor.untitledSchema': 'Untitled Schema',
+  // WebSearch 相关
+  'webSearch.noResults': '无搜索结果',
+  'webSearch.searchFailed': '搜索失败',
+  'webSearch.networkError': '网络连接错误',
+  'webSearch.timeout': '搜索超时',
+  'webSearch.retry': '重试搜索',
 };
 
 /**
@@ -619,4 +625,10 @@ export const enLabels: typeof cnLabels = {
   'schemaEditor.inputSchemaToPreview':
     'Enter schema on the right to show card preview here',
   'schemaEditor.untitledSchema': 'Untitled Schema',
+  // WebSearch related
+  'webSearch.noResults': 'No search results',
+  'webSearch.searchFailed': 'Search failed',
+  'webSearch.networkError': 'Network connection error',
+  'webSearch.timeout': 'Search timeout',
+  'webSearch.retry': 'Retry search',
 };
