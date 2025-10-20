@@ -1,4 +1,4 @@
-import { ChevronUp, SuccessFill } from '@sofa-design/icons';
+import { ChevronUp, CircleDashed, SuccessFill, X } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
@@ -7,53 +7,6 @@ import { ActionIconBox } from '../components/ActionIconBox';
 import { I18nContext } from '../i18n';
 import { LoadingLottie } from './LoadingLottie';
 import { useStyle } from './style';
-
-const DashPendingIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={16} height={16} rx={0} />
-        </clipPath>
-      </defs>
-      <g>
-        <path
-          d="M9.14 2.11q-1.14-.221-2.28 0A.666.666 0 116.607.8Q8 .53 9.393.8a.667.667 0 01-.253 1.31zm0 11.78q-1.14.221-2.28 0a.667.667 0 10-.254 1.309q1.394.27 2.787.001a.667.667 0 00-.253-1.31zm4.946-9.981q-.794-1.182-1.973-1.98a.667.667 0 00-.748 1.104q.965.653 1.614 1.62a.667.667 0 001.107-.744zM2.12 6.733a.667.667 0 01-.012.127q-.22 1.14 0 2.28A.667.667 0 01.8 9.393Q.53 8 .8 6.607a.667.667 0 011.321.126zm12.065 5.006c0 .134-.04.264-.115.374q-.798 1.179-1.98 1.973a.667.667 0 01-.744-1.107q.967-.65 1.62-1.614a.667.667 0 011.219.374zm-.307-5.006c0 .043.004.085.012.127q.22 1.14 0 2.28a.665.665 0 00.654.793c.32 0 .594-.226.655-.54q.27-1.393 0-2.786a.667.667 0 00-1.321.126zM4.947 2.467c0 .222-.11.43-.295.554q-.966.65-1.62 1.614a.667.667 0 11-1.103-.748q.798-1.179 1.98-1.973a.667.667 0 011.038.553zM1.801 11.72c0 .133.04.262.113.372q.794 1.182 1.972 1.98a.667.667 0 10.749-1.104q-.965-.653-1.614-1.62a.667.667 0 00-1.22.372z"
-          fillRule="evenodd"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
-  );
-});
-
-DashPendingIcon.displayName = 'DashPendingIcon';
-
-function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width={14.666666984558105}
-      height={14.666666984558105}
-      viewBox="0 0 14.666666984558105 14.666666984558105"
-      {...props}
-    >
-      <path
-        d="M.586 10.955l3.125 3.126q.586.585 1.414.586h4.416q.828 0 1.414-.586l3.126-3.125q.585-.586.586-1.415V5.125q0-.828-.586-1.414L10.956.586Q10.37 0 9.54 0H5.125q-.828 0-1.414.586L.586 3.71Q0 4.297 0 5.125v4.416q0 .828.586 1.414zm4.54 2.378q-.277 0-.472-.195L1.53 10.013q-.196-.196-.196-.472V5.125q0-.276.196-.47l3.125-3.126q.196-.196.471-.196h4.416q.276 0 .471.196l3.126 3.125q.195.196.195.471v4.416q0 .276-.195.471l-3.125 3.126q-.196.195-.472.195H5.125zm4.874-8c0 .177-.07.347-.195.472L8.276 7.333l1.528 1.529a.667.667 0 11-.942.942L7.333 8.276 5.805 9.805a.667.667 0 01-.943-.943L6.39 7.333 4.86 5.805a.667.667 0 11.944-.943l1.528 1.529 1.529-1.529A.667.667 0 0110 5.333z"
-        fillRule="evenodd"
-        fill="var(--color-red-control-fill-primary)"
-      />
-    </svg>
-  );
-}
 
 type ThoughtChainProps = {
   items: {
@@ -123,10 +76,10 @@ const TaskListItem = memo(
             {item.status === 'loading' ? <LoadingLottie size={16} /> : null}
             {item.status === 'pending' ? (
               <div className={classNames(`${prefixCls}-status-idle`, hashId)}>
-                <DashPendingIcon />
+                <CircleDashed />
               </div>
             ) : null}
-            {item.status === 'error' ? <ErrorIcon /> : null}
+            {item.status === 'error' ? <X /> : null}
           </div>
           <div className={classNames(`${prefixCls}-content-left`, hashId)}>
             {!isLast && (

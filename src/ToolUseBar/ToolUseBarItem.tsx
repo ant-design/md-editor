@@ -1,27 +1,8 @@
-import { ChevronUp } from '@sofa-design/icons';
+import { ChevronUp, X } from '@sofa-design/icons';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useMemo } from 'react';
-
-function ErrorIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 12.25330924987793 12.836221694946289"
-      {...props}
-    >
-      <path
-        d="M11.145 4.133q-.461-.953-1.248-1.648-.76-.672-1.72-1.014-.961-.341-1.975-.3-1.049.043-2.008.492-.96.448-1.664 1.226-.682.751-1.036 1.708-.354.956-.325 1.97.03 1.05.465 2.014.437.965 1.205 1.68.743.691 1.695 1.057.951.366 1.966.35 1.049-.015 2.018-.438h.002a.583.583 0 11.467 1.068h-.001q-1.185.518-2.468.537-1.24.02-2.403-.428-1.162-.447-2.07-1.292-.94-.874-1.474-2.053Q.038 7.883.003 6.6-.032 5.36.4 4.192q.432-1.168 1.265-2.087.863-.951 2.035-1.5Q4.87.059 6.154.006q1.24-.05 2.413.367Q9.741.789 10.67 1.61q.962.85 1.525 2.015a.584.584 0 01-1.05.508zM6.42 2.337a.583.583 0 00-.583.583v3.5c0 .221.124.423.322.522L8.492 8.11a.583.583 0 00.522-1.044L7.004 6.06V2.92a.583.583 0 00-.584-.583zm4.083 3.792a.583.583 0 111.167 0v3.5a.583.583 0 11-1.167 0v-3.5zm.584 6.416a.583.583 0 100-1.166.583.583 0 000 1.166z"
-        fillRule="evenodd"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
 
 function ToolIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -99,7 +80,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         <div
           className={classNames(`${prefixCls}-tool-content-error-icon`, hashId)}
         >
-          <ErrorIcon />
+          <X />
         </div>
         <div
           className={classNames(`${prefixCls}-tool-content-error-text`, hashId)}
