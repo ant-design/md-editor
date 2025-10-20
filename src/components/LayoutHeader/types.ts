@@ -1,9 +1,9 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 /**
- * ChatFlowContainer 组件的属性接口
+ * 布局头部配置接口
  */
-export interface ChatFlowContainerProps {
+export interface LayoutHeaderConfig {
   /** 标题文本 */
   title?: string;
   /** 是否显示左侧折叠按钮 */
@@ -30,16 +30,18 @@ export interface ChatFlowContainerProps {
   onRightCollapse?: (collapsed?: boolean) => void;
   /** 分享按钮点击事件 */
   onShare?: () => void;
-  /** 内容区域的自定义内容 */
-  children?: ReactNode;
-  /** 底部区域的自定义内容 */
-  footer?: ReactNode;
+  /** 自定义左侧内容 */
+  leftExtra?: ReactNode;
+  /** 自定义右侧内容 */
+  rightExtra?: ReactNode;
   /** 自定义类名 */
   className?: string;
-  /** 自定义样式 */
-  style?: CSSProperties;
 }
 
-export interface ChatFlowContainerRef {
-  scrollContainer: HTMLDivElement | null;
+/**
+ * 布局头部组件属性接口
+ */
+export interface LayoutHeaderProps extends LayoutHeaderConfig {
+  /** 自定义类名 */
+  className?: string;
 }

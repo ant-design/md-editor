@@ -1,6 +1,9 @@
 import { ConfigProvider } from 'antd';
-import { useMergedState } from 'rc-util';
 import React, { ReactNode, useContext } from 'react';
+import {
+  LayoutHeader,
+  type LayoutHeaderConfig,
+} from '../components/LayoutHeader';
 import { useAgenticLayoutStyle } from './style';
 
 export interface AgenticLayoutProps {
@@ -10,22 +13,8 @@ export interface AgenticLayoutProps {
   center: ReactNode;
   /** 右侧内容 */
   right?: ReactNode;
-  /** 左侧是否可折叠 */
-  leftCollapsible?: boolean;
-  /** 右侧是否可折叠 */
-  rightCollapsible?: boolean;
-  /** 左侧折叠状态（受控） */
-  leftCollapsed?: boolean;
-  /** 右侧折叠状态（受控） */
-  rightCollapsed?: boolean;
-  /** 左侧默认折叠状态（非受控时使用） */
-  leftDefaultCollapsed?: boolean;
-  /** 右侧默认折叠状态（非受控时使用） */
-  rightDefaultCollapsed?: boolean;
-  /** 左侧折叠状态变化回调 */
-  onLeftCollapse?: (collapsed: boolean) => void;
-  /** 右侧折叠状态变化回调 */
-  onRightCollapse?: (collapsed: boolean) => void;
+  /** 头部配置 */
+  header?: LayoutHeaderConfig;
   /** 自定义样式 */
   style?: React.CSSProperties;
   /** 自定义类名 */
@@ -50,12 +39,7 @@ export interface AgenticLayoutProps {
  * @param {ReactNode} [props.left] - 左侧内容
  * @param {ReactNode} props.center - 中间内容
  * @param {ReactNode} [props.right] - 右侧内容
- * @param {boolean} [props.leftCollapsible=true] - 左侧是否可折叠
- * @param {boolean} [props.rightCollapsible=true] - 右侧是否可折叠
- * @param {boolean} [props.leftDefaultCollapsed=false] - 左侧默认折叠状态
- * @param {boolean} [props.rightDefaultCollapsed=false] - 右侧默认折叠状态
- * @param {(collapsed: boolean) => void} [props.onLeftCollapse] - 左侧折叠状态变化回调
- * @param {(collapsed: boolean) => void} [props.onRightCollapse] - 右侧折叠状态变化回调
+ * @param {LayoutHeaderConfig} [props.header] - 头部配置
  * @param {React.CSSProperties} [props.style] - 自定义样式
  * @param {string} [props.className] - 自定义CSS类名
  * @param {number} [props.leftWidth=256] - 左侧宽度
@@ -66,12 +50,17 @@ export interface AgenticLayoutProps {
  * ```tsx
  * <AgenticLayout
  *   left={<History />}
- *   center={<ChatFlowContainer />}
+ *   center={<ChatLayout />}
  *   right={<Workspace />}
- *   leftCollapsible={true}
- *   rightCollapsible={true}
- *   onLeftCollapse={(collapsed) => console.log('左侧折叠:', collapsed)}
- *   onRightCollapse={(collapsed) => console.log('右侧折叠:', collapsed)}
+ *   header={{
+ *     title: "智能体助手",
+ *     showShare: true,
+ *     showLeftCollapse: true,
+ *     showRightCollapse: true,
+ *     onLeftCollapse: (collapsed) => console.log('左侧折叠:', collapsed),
+ *     onRightCollapse: (collapsed) => console.log('右侧折叠:', collapsed),
+ *     onShare: () => console.log('分享')
+ *   }}
  * />
  * ```
  *
@@ -88,12 +77,7 @@ export const AgenticLayout: React.FC<AgenticLayoutProps> = ({
   left,
   center,
   right,
-  leftCollapsed: controlledLeftCollapsed,
-  rightCollapsed: controlledRightCollapsed,
-  leftDefaultCollapsed = false,
-  rightDefaultCollapsed = false,
-  onLeftCollapse,
-  onRightCollapse,
+  header,
   style,
   className,
   leftWidth = 256,
@@ -103,65 +87,68 @@ export const AgenticLayout: React.FC<AgenticLayoutProps> = ({
   const prefixCls = getPrefixCls('agentic-layout');
   const { wrapSSR, hashId } = useAgenticLayoutStyle(prefixCls);
 
-  // 使用 useMergedState 管理左侧折叠状态
-  const [leftCollapsed] = useMergedState(leftDefaultCollapsed, {
-    value: controlledLeftCollapsed,
-    onChange: onLeftCollapse,
-  });
-
-  // 使用 useMergedState 管理右侧折叠状态
-  const [rightCollapsed] = useMergedState(rightDefaultCollapsed, {
-    value: controlledRightCollapsed,
-    onChange: onRightCollapse,
-  });
+  // 从 header 配置中获取折叠状态
+  const leftCollapsed =
+    header?.leftCollapsed ?? header?.leftDefaultCollapsed ?? false;
+  const rightCollapsed =
+    header?.rightCollapsed ?? header?.rightDefaultCollapsed ?? false;
 
   return wrapSSR(
     <div className={`${prefixCls} ${className || ''} ${hashId}`} style={style}>
-      {/* 左侧边栏 */}
-      {left && (
-        <div
-          className={`${prefixCls}-sidebar ${prefixCls}-sidebar-left ${
-            leftCollapsed ? `${prefixCls}-sidebar-left-collapsed` : ''
-          } ${hashId}`}
-          style={{
-            width: leftCollapsed ? 0 : leftWidth,
-            minWidth: leftCollapsed ? 0 : leftWidth,
-            maxWidth: leftCollapsed ? 0 : leftWidth,
-          }}
-        >
-          <div className={`${prefixCls}-sidebar-content ${hashId}`}>{left}</div>
-        </div>
-      )}
-
-      {/* 中间内容区域 */}
+      {/* 主体内容区域 */}
       <div
-        className={`${prefixCls}-main ${hashId}`}
-        style={{
-          flex: 1,
-          display: 'flex',
-          minWidth: 0,
-        }}
+        className={`${prefixCls}-body ${hashId}`}
+        style={{ display: 'flex', flex: 1 }}
       >
-        {center}
-      </div>
+        {/* 左侧边栏 */}
+        {left && (
+          <div
+            className={`${prefixCls}-sidebar ${prefixCls}-sidebar-left ${
+              leftCollapsed ? `${prefixCls}-sidebar-left-collapsed` : ''
+            } ${hashId}`}
+            style={{
+              width: leftCollapsed ? 0 : leftWidth,
+              minWidth: leftCollapsed ? 0 : leftWidth,
+              maxWidth: leftCollapsed ? 0 : leftWidth,
+            }}
+          >
+            <div className={`${prefixCls}-sidebar-content ${hashId}`}>
+              {left}
+            </div>
+          </div>
+        )}
 
-      {/* 右侧边栏 */}
-      {right && (
+        {/* 中间内容区域 */}
         <div
-          className={`${prefixCls}-sidebar ${prefixCls}-sidebar-right ${
-            rightCollapsed ? `${prefixCls}-sidebar-right-collapsed` : ''
-          } ${hashId}`}
+          className={`${prefixCls}-main ${hashId}`}
           style={{
-            width: rightCollapsed ? 0 : rightWidth,
-            minWidth: rightCollapsed ? 0 : rightWidth,
-            maxWidth: rightCollapsed ? 0 : rightWidth,
+            flex: 1,
+            display: 'flex',
+            minWidth: 0,
           }}
         >
-          <div className={`${prefixCls}-sidebar-content ${hashId}`}>
-            {right}
-          </div>
+          {header && <LayoutHeader {...header} />}
+          {center}
         </div>
-      )}
+
+        {/* 右侧边栏 */}
+        {right && (
+          <div
+            className={`${prefixCls}-sidebar ${prefixCls}-sidebar-right ${
+              rightCollapsed ? `${prefixCls}-sidebar-right-collapsed` : ''
+            } ${hashId}`}
+            style={{
+              width: rightCollapsed ? 0 : rightWidth,
+              minWidth: rightCollapsed ? 0 : rightWidth,
+              maxWidth: rightCollapsed ? 0 : rightWidth,
+            }}
+          >
+            <div className={`${prefixCls}-sidebar-content ${hashId}`}>
+              {right}
+            </div>
+          </div>
+        )}
+      </div>
     </div>,
   );
 };

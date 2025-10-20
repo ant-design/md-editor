@@ -5,8 +5,8 @@ import {
   BackTo,
   BubbleList,
   BubbleMetaData,
-  ChatFlowContainer,
-  ChatFlowContainerRef,
+  ChatLayout,
+  ChatLayoutRef,
   History,
   HistoryDataType,
   MessageBubbleData,
@@ -15,7 +15,6 @@ import {
   TaskRunning,
   Workspace,
 } from '@ant-design/md-editor';
-import { message } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 
 // 用户和助手的元数据配置
@@ -294,21 +293,15 @@ const WorkspaceDemo = () => {
   </body>
   </html>`;
 
-  const handleBack = () => {
-    console.log('返回');
-    message.success(`返回`);
-    return true;
-  };
-
   useEffect(() => {
     if (process.env.NODE_ENV === 'test') {
       setMdContent(defaultValue);
       setHtmlContent(sampleHtml);
     } else {
-      let md = '';
       const list = defaultValue.split('');
       const run = async () => {
-        for await (const item of list) {
+        let md = '';
+        const processItem = async (item: string) => {
           md += item;
           await new Promise((resolve) => {
             setTimeout(() => {
@@ -316,6 +309,10 @@ const WorkspaceDemo = () => {
               resolve(true);
             }, 10);
           });
+        };
+
+        for (let i = 0; i < list.length; i++) {
+          await processItem(list[i]);
         }
       };
       run();
@@ -471,7 +468,7 @@ const App = () => {
     return messages;
   });
 
-  const containerRef = useRef<ChatFlowContainerRef>(null);
+  const containerRef = useRef<ChatLayoutRef>(null);
 
   // 使用 useRef 管理重试状态，避免全局污染
   const isRetryingRef = useRef(false);
@@ -561,14 +558,16 @@ const App = () => {
         maxHeight: '100vh',
         height: '100vh',
       }}
-      leftCollapsed={leftCollapsed}
       left={<StandaloneHistoryDemo />}
       center={
-        <ChatFlowContainer
+        <ChatLayout
           ref={containerRef}
-          title="AI 助手"
-          onLeftCollapse={handleLeftCollapse}
-          onShare={handleShare}
+          header={{
+            title: 'AI 助手',
+            leftCollapsed: leftCollapsed,
+            onLeftCollapse: handleLeftCollapse,
+            onShare: handleShare,
+          }}
           footer={
             <div
               style={{
@@ -647,7 +646,7 @@ const App = () => {
             assistantMeta={assistantMeta}
             userMeta={userMeta}
           />
-        </ChatFlowContainer>
+        </ChatLayout>
       }
       right={<WorkspaceDemo />}
     />

@@ -311,7 +311,7 @@ export const cnLabels = {
   'webSearch.networkError': '网络连接错误',
   'webSearch.timeout': '搜索超时',
   'webSearch.retry': '重试搜索',
-  // ChatFlowContainer related
+  // LayoutHeader related
   'chatFlow.collapseLeft': '折叠左侧边栏',
   'chatFlow.collapseRight': '折叠右侧边栏',
   'chatFlow.share': '分享',
@@ -675,7 +675,7 @@ export const enLabels: typeof cnLabels = {
   'webSearch.networkError': 'Network connection error',
   'webSearch.timeout': 'Search timeout',
   'webSearch.retry': 'Retry search',
-  // ChatFlowContainer related
+  // LayoutHeader related
   'chatFlow.collapseLeft': 'Collapse left sidebar',
   'chatFlow.collapseRight': 'Collapse right sidebar',
   'chatFlow.share': 'Share',

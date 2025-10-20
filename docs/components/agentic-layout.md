@@ -51,12 +51,14 @@ const [rightCollapsed, setRightCollapsed] = useState(false);
 
 <AgenticLayout
   left={<History />}
-  center={<ChatFlowContainer />}
+  center={<ChatLayout />}
   right={<Workspace />}
-  leftCollapsed={leftCollapsed}
-  rightCollapsed={rightCollapsed}
-  onLeftCollapse={setLeftCollapsed}
-  onRightCollapse={setRightCollapsed}
+  header={{
+    leftCollapsed: leftCollapsed,
+    rightCollapsed: rightCollapsed,
+    onLeftCollapse: setLeftCollapsed,
+    onRightCollapse: setRightCollapsed,
+  }}
 />;
 ```
 
@@ -67,12 +69,14 @@ const [rightCollapsed, setRightCollapsed] = useState(false);
 ```tsx | pure
 <AgenticLayout
   left={<History />}
-  center={<ChatFlowContainer />}
+  center={<ChatLayout />}
   right={<Workspace />}
-  leftDefaultCollapsed={false}
-  rightDefaultCollapsed={false}
-  onLeftCollapse={(collapsed) => console.log('左侧折叠:', collapsed)}
-  onRightCollapse={(collapsed) => console.log('右侧折叠:', collapsed)}
+  header={{
+    leftDefaultCollapsed: false,
+    rightDefaultCollapsed: false,
+    onLeftCollapse: (collapsed) => console.log('左侧折叠:', collapsed),
+    onRightCollapse: (collapsed) => console.log('右侧折叠:', collapsed),
+  }}
 />
 ```
 

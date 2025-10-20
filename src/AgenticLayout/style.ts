@@ -8,6 +8,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       display: 'flex',
+      flexDirection: 'column',
       height: '100%',
       minHeight: '600px',
       backgroundColor: 'transparent',
@@ -16,6 +17,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       overflow: 'hidden',
       border: 'none',
       boxSizing: 'border-box',
+
+      // 主体内容区域
+      [`${token.componentCls}-body`]: {
+        display: 'flex',
+        flex: 1,
+        overflow: 'hidden',
+      },
 
       // 侧边栏基础样式
       [`${token.componentCls}-sidebar-left`]: {
