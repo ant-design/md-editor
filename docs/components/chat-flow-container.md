@@ -2,7 +2,7 @@
 title: ChatFlowContainer - 对话流容器组件
 atomId: ChatFlowContainer
 group:
-  title: 对话流
+  title: 布局
   order: 3
 ---
 

@@ -2,7 +2,7 @@
 title: AgenticLayout 智能体布局组件
 atomId: AgenticLayout
 group:
-  title: 对话流
+  title: 布局
   order: 1
 ---
 

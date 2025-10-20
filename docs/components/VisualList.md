@@ -2,7 +2,7 @@
 title: VisualList 视觉列表
 atomId: VisualList
 group:
-  title: 组件
+  title: 通用
   order: 10
 ---
 
