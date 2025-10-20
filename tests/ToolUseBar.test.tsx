@@ -278,4 +278,36 @@ describe('ToolUseBar', () => {
       ['tool1', 'tool2'],
     );
   });
+
+  it('should render in light mode', () => {
+    render(<ToolUseBar tools={mockTools} light={true} />);
+
+    // 检查 light 模式的样式类是否存在
+    const toolItems = screen.getAllByTestId('ToolUserItem');
+    toolItems.forEach((item) => {
+      expect(item).toHaveClass('ant-tool-use-bar-tool-light');
+    });
+  });
+
+  it('should not show expand button in light mode when content exists', () => {
+    const toolsWithContent = [
+      {
+        id: 'tool1',
+        toolName: 'Tool 1',
+        toolTarget: 'Target 1',
+        time: '3',
+        status: 'success' as const,
+        content: <div>Test content</div>,
+      },
+    ];
+
+    render(<ToolUseBar tools={toolsWithContent} light={true} />);
+
+    // 在 light 模式下，展开按钮应该被隐藏
+    const expandButtons = screen.queryAllByRole('button');
+    const chevronButtons = expandButtons.filter(
+      (button) => button.querySelector('svg'), // 检查是否包含 SVG 图标
+    );
+    expect(chevronButtons).toHaveLength(0);
+  });
 });

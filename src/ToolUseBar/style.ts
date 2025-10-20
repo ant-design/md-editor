@@ -52,6 +52,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             boxShadow: 'var(--shadow-border-base)',
           },
         },
+        '&-light': {
+          boxShadow: 'none',
+          border: 'none',
+          borderRadius: '14px',
+          padding: 4,
+          background: 'transparent',
+          '&:hover': {
+            background: 'none',
+            boxShadow: 'none',
+          },
+        },
         '&-loading': {
           background: 'var(--color-gray-bg-card-white)',
           boxSizing: 'border-box',
@@ -171,6 +182,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-secondary)',
       },
 
+      '&-tool-light': {
+        '&-tool-image-wrapper': {
+          boxShadow: 'none',
+          background: 'transparent',
+        },
+        '&-tool-name': {
+          color: 'var(--color-gray-text-light)',
+        },
+        '&-tool-target': {
+          color: 'var(--color-gray-text-light)',
+        },
+        '&-tool-time': {
+          background: 'transparent',
+          color: 'var(--color-gray-text-light)',
+        },
+        '&-tool-expand': {
+          color: 'var(--color-gray-text-light)',
+          '&:hover': {
+            background: 'rgba(20, 22, 28, 0.06)',
+            color: 'var(--color-gray-text-secondary)',
+          },
+        },
+      },
+
       '&-tool-target': {
         fontWeight: 'normal',
         lineHeight: '20px',
@@ -210,6 +245,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-tool-container': {
         display: 'flex',
         width: '100%',
+        '&-light': {
+          borderLeft: '1px solid var(--color-gray-border-light)',
+          paddingLeft: 12,
+          marginLeft: 16,
+          marginTop: -10,
+        },
       },
       '&-tool-content': {
         flex: 1,

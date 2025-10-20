@@ -1,34 +1,8 @@
-import { ChevronUp, X } from '@sofa-design/icons';
+import { Api, ChevronUp, X } from '@sofa-design/icons';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
 import React, { useMemo } from 'react';
-
-function ToolIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      width="1em"
-      height="1em"
-      viewBox="0 0 14 14"
-      {...props}
-    >
-      <defs>
-        <clipPath id="a">
-          <rect width={14} height={14} rx={0} />
-        </clipPath>
-      </defs>
-      <g>
-        <path
-          d="M1.167 11.083V2.917q0-.725.512-1.238.513-.512 1.238-.512h8.166q.725 0 1.238.512.512.513.512 1.238v8.166q0 .725-.512 1.238-.513.512-1.238.512H2.917q-.725 0-1.238-.512-.512-.513-.512-1.238zm1.166 0q0 .584.584.584h8.166q.584 0 .584-.584V2.917q0-.584-.584-.584H2.917q-.584 0-.584.584v8.166zm3.33-6.245L4.495 3.67a.583.583 0 10-.825.825l.754.754-.754.754a.583.583 0 10.825.825l1.166-1.167a.583.583 0 000-.824zM6.416 7H8.75a.583.583 0 110 1.167H6.417a.583.583 0 110-1.167z"
-          fillRule="evenodd"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
-  );
-}
 
 export interface ToolCall {
   id: string;
@@ -53,6 +27,7 @@ export interface ToolUseBarItemProps {
   isExpanded?: boolean;
   onExpandedChange?: (id: string, expanded: boolean) => void;
   defaultExpanded?: boolean;
+  light?: boolean;
 }
 
 export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
@@ -65,6 +40,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
   isExpanded,
   onExpandedChange,
   defaultExpanded,
+  light = false,
 }) => {
   // 使用 useMergedState 来管理展开状态
   const [expanded, setExpanded] = useMergedState(defaultExpanded ?? false, {
@@ -151,6 +127,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
         tool.status === 'idle' && `${prefixCls}-tool-idle`,
         isActive && !expanded && `${prefixCls}-tool-active`,
         expanded && `${prefixCls}-tool-expanded`,
+        light && `${prefixCls}-tool-light`,
       )}
     >
       <div
@@ -195,11 +172,9 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
               } as React.CSSProperties
             }
           >
-            {tool.icon || (
-              <div className={classNames(`${prefixCls}-tool-image`, hashId)}>
-                <ToolIcon />
-              </div>
-            )}
+            <div className={classNames(`${prefixCls}-tool-image`, hashId)}>
+              {tool.icon ? tool.icon : <Api />}
+            </div>
           </motion.div>
         </div>
         <motion.div
@@ -260,7 +235,7 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
           </div>
         )}
 
-        {showContent && (
+        {showContent && !light && (
           <div
             className={classNames(`${prefixCls}-tool-expand`, hashId)}
             onClick={handleExpandClick}
@@ -276,7 +251,9 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       </div>
       {showContent && expanded ? (
         <div
-          className={classNames(`${prefixCls}-tool-container`, hashId)}
+          className={classNames(`${prefixCls}-tool-container`, hashId, {
+            [`${prefixCls}-tool-container-light`]: light,
+          })}
           data-testid="tool-user-item-tool-container "
         >
           {contentDom}
