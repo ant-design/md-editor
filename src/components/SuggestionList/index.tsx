@@ -149,11 +149,15 @@ export const SuggestionList: React.FC<SuggestionListProps> = ({
             <div
               className={classNames(`${prefixCls}-more`, hashId)}
               aria-label={
-                showMore?.text || locale?.['suggestion.searchMore'] || '搜索更多'
+                showMore?.text ||
+                locale?.['suggestion.searchMore'] ||
+                '搜索更多'
               }
             >
               <span className={classNames(`${prefixCls}-more-text`, hashId)}>
-                {showMore?.text || locale?.['suggestion.searchMore'] || '搜索更多'}
+                {showMore?.text ||
+                  locale?.['suggestion.searchMore'] ||
+                  '搜索更多'}
               </span>
               <span
                 className={classNames(`${prefixCls}-more-icon`, hashId)}

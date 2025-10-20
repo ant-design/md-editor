@@ -180,7 +180,9 @@ const ChatFlowContainer = forwardRef<
             {showRightCollapse && (
               <ActionIconBox
                 onClick={handleRightCollapse}
-                aria-label={locale?.['chatFlow.collapseRight'] || '折叠右侧边栏'}
+                aria-label={
+                  locale?.['chatFlow.collapseRight'] || '折叠右侧边栏'
+                }
               >
                 <PanelLeftFill />
               </ActionIconBox>
