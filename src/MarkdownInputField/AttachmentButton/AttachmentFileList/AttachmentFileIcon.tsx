@@ -41,7 +41,7 @@ import { isImageFile } from '../utils';
  */
 export const AttachmentFileIcon: React.FC<{
   file: AttachmentFile;
-  className?: string;
+  className: string;
   style?: React.CSSProperties;
 }> = (props) => {
   const file = props.file;
@@ -60,6 +60,7 @@ export const AttachmentFileIcon: React.FC<{
           height: '40px',
           overflow: 'hidden',
         }}
+        rootClassName={props.className}
         preview={{
           mask: (
             <div>

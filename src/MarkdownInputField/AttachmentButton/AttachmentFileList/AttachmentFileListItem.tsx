@@ -106,7 +106,15 @@ export const AttachmentFileListItem: React.FC<{
               <FileFailed />
             </div>
           ) : null}
-          {file.status === 'done' ? <AttachmentFileIcon file={file} /> : null}
+          {file.status === 'done' ? (
+            <AttachmentFileIcon
+              file={file}
+              className={classNames(
+                `${props.prefixCls}-file-icon-img`,
+                props.hashId,
+              )}
+            />
+          ) : null}
         </div>
         <div
           className={classNames(`${props.prefixCls}-file-info`, props.hashId)}
