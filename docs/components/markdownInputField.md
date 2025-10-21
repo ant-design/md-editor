@@ -103,7 +103,7 @@ export default () => {
           return [
             <ActionIconBox
               showTitle={props.collapseSendActions}
-              title="智能改写"
+              title="提示词库"
               key="edit"
               style={{
                 fontSize: 16,
@@ -394,7 +394,7 @@ export default () => {
           return [
             <ActionIconBox
               showTitle={props.collapseSendActions}
-              title="智能改写"
+              title="提示词库"
               key="edit"
               style={{
                 fontSize: 16,
