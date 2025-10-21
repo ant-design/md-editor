@@ -95,11 +95,153 @@
         style="border: 1px solid rgb(225, 228, 232); border-radius: 8px; overflow: hidden;"
       >
         <div
-          data-testid="base-markdown-editor"
-          initvalue="[{"type":"paragraph","children":[{"text":"卡片选中效果演示 🎯"}]},{"type":"paragraph","children":[{"text":"点击下面的卡片查看选中效果："}]},{"type":"card","children":[{"type":"card-before","children":[{"text":""}]},{"type":"image","url":"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400","mediaType":"image","alt":"演示图片 1","children":[{"text":""}]},{"type":"card-after","children":[{"text":""}]}]},{"type":"paragraph","children":[{"text":"第二个卡片："}]},{"type":"card","children":[{"type":"card-before","children":[{"text":""}]},{"type":"media","url":"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400","mediaType":"video","children":[{"text":""}]},{"type":"card-after","children":[{"text":""}]}]},{"type":"paragraph","children":[{"text":"内联卡片："}]},{"type":"card","block":false,"children":[{"type":"card-before","children":[{"text":""}]},{"type":"image","url":"https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=200","mediaType":"image","alt":"内联图片","children":[{"text":""}]},{"type":"card-after","children":[{"text":""}]}]},{"type":"paragraph","children":[{"text":" 这是内联卡片的效果展示。"}]}]"
-          style="min-height: 400px; padding: 20px;"
+          class="ant-md-editor markdown-editor ant-md-editor-edit"
+          style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); min-height: 400px; padding: 20px;"
         >
-          base-markdown-editor
+          <div
+            style="padding: 4px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+            tabindex="-1"
+          >
+            <div
+              aria-multiline="true"
+              autocapitalize="false"
+              autocorrect="false"
+              class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
+              contenteditable="true"
+              data-slate-editor="true"
+              data-slate-node="value"
+              role="textbox"
+              spellcheck="false"
+              style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+              zindex="-1"
+            >
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="paragraph"
+                data-slate-node="element"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      [{"type":"paragraph","children":[{"text":"卡片选中效果演示 🎯"}]},{"type":"paragraph","children":[{"text":"点击下面的卡片查看选中效果："}]},{"type":"card","children":[{"type":"card-before","children":[{"text":""}]},{"type":"image","url":"
+                    </span>
+                  </span>
+                </span>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    data-url="url"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400","mediaType":"image","alt":"演示图片
+                    </span>
+                  </span>
+                </span>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                       1","children":[{"text":""}]},{"type":"card-after","children":[{"text":""}]}]},{"type":"paragraph","children":[{"text":"第二个卡片："}]},{"type":"card","children":[{"type":"card-before","children":[{"text":""}]},{"type":"media","url":"
+                    </span>
+                  </span>
+                </span>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    data-url="url"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400","mediaType":"video","children":[{"text":""}]},{"type":"card-after","children":[{"text":""}]}]},{"type":"paragraph","children":[{"text":"内联卡片："}]},{"type":"card","block":false,"children":[{"type":"card-before","children":[{"text":""}]},{"type":"image","url":"https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=200","mediaType":"image","alt":"内联图片","children":[{"text":""}]},{"type":"card-after","children":[{"text":""}]}]},{"type":"paragraph","children":[{"text
+                    </span>
+                  </span>
+                </span>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      ":"
+                    </span>
+                  </span>
+                </span>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                       这是内联卡片的效果展示。"}]}]
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="paragraph"
+                data-slate-node="element"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-focus"
+            style="height: 64px;"
+          />
         </div>
         <div>
           <h4>
