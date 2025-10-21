@@ -17,6 +17,7 @@ group:
 <code src="../demos/charts/bar/bar-negative.tsx" background="var(--main-bg-color)" title="正负柱状图" iframe=540></code>
 <code src="../demos/charts/bar/bar-horizontal.tsx" background="var(--main-bg-color)" title="条形图（横向）" iframe=540></code>
 <code src="../demos/charts/bar/bar-horizontal-stacked.tsx" background="var(--main-bg-color)" title="条形堆叠图（横向堆叠）" iframe=540></code>
+<code src="../demos/charts/bar/bar-with-labels.tsx" background="var(--main-bg-color)" title="带数据标签" iframe=540></code>
 
 ## API
 
@@ -42,6 +43,8 @@ group:
 | indexAxis      | `'x' \| 'y'`                                     | `'x'`      | 轴向：`'x'` 垂直柱状图，`'y'` 水平条形图                      |
 | toolbarExtra   | `React.ReactNode`                                | -          | 头部工具条额外按钮                                            |
 | statistic      | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置 |
+| showDataLabels | `boolean`                                        | `false`    | 是否显示数据标签（在柱子顶部或右侧显示数值）                  |
+| dataLabelFormatter | `(value: number) => string`                  | -          | 数据标签格式化函数，可自定义显示格式（如添加单位、格式化数字）|
 
 ### BarChartDataItem
 
