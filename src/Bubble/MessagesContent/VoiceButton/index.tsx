@@ -172,7 +172,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               <span style={{ fontSize: 12 }}>
                 {rate === 1 ? '倍速' : rateDisplay}
               </span>
-              <ChevronDown style={{ fontSize: 14 }} />
+              <ChevronDown fontSize={14} />
             </div>
           </Dropdown>
         </div>

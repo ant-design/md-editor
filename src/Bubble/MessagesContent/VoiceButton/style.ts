@@ -6,6 +6,8 @@ import {
 } from '../../../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+  const playBoxSize = 28;
+  const innerBoxSize = 24;
   return {
     [token.componentCls]: {
       display: 'flex',
@@ -16,8 +18,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 28,
-        height: 28,
+        width: playBoxSize, // 28
+        height: playBoxSize,
         cursor: 'pointer',
         borderRadius: 6,
         boxSizing: 'border-box',
@@ -44,8 +46,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 24,
-        height: 24,
+        width: innerBoxSize, // 24
+        height: innerBoxSize, // 24
         borderRadius: 6,
         cursor: 'pointer',
       },
@@ -59,7 +61,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         padding: '6px 8px',
         width: 56,
-        height: 24,
+        height: innerBoxSize, // 24
         gap: 2,
         cursor: 'pointer',
         borderRadius: 6,
