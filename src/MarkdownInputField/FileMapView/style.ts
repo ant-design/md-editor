@@ -177,6 +177,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: '40px',
           opacity: 1,
           overflow: 'hidden',
+          '&-img': {
+            width: '40px',
+            height: '40px',
+            opacity: 1,
+            background: 'var(--color-gray-bg-card-white)',
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-control-base)',
+            borderRadius: 'var(--radius-card-base)',
+            border: 'none',
+            overflow: 'hidden',
+            img: {
+              maxWidth: '100%',
+              maxHeight: '100%',
+              borderRadius: 'inherit',
+              transition: 'transform 0.3s',
+            },
+            '&:hover': {
+              overflow: 'hidden',
+              img: {
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s',
+              },
+            },
+          },
           '> svg': {
             width: '40px',
             height: '40px',
