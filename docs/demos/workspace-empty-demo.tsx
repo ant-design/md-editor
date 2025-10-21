@@ -1,14 +1,11 @@
-import { I18nContext, Workspace } from '@ant-design/md-editor';
+import { Workspace } from '@ant-design/md-editor';
 import { Empty } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 const WorkspaceRealtimeEmptyDemo: React.FC = () => {
   const [htmlContent] = useState('');
   const [mdContent] = useState('');
   const [shellContent] = useState('');
-  const { setLanguage } = useContext(I18nContext);
-  // 触发时
-  setLanguage?.('zh-CN');
 
   return (
     <div style={{ height: 520, width: '100%' }}>
