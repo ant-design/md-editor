@@ -31,7 +31,7 @@ import {
   findDataPointByXValue,
 } from '../utils';
 
-ChartJS.register(ChartDataLabels,CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 export type BarChartDataItem = ChartDataItem;
 
@@ -658,7 +658,12 @@ const BarChart: React.FC<BarChartProps> = ({
         className="chart-wrapper"
         style={{ marginTop: '20px', height: responsiveHeight }}
       >
-        <Bar ref={chartRef} data={processedData} options={options} />
+        <Bar 
+          ref={chartRef} 
+          data={processedData} 
+          options={options}
+          plugins={[ChartDataLabels]}
+        />
       </div>
     </ChartContainer>
   );
