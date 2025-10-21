@@ -10,8 +10,8 @@ import {
   ScriptableContext,
   Tooltip,
 } from 'chart.js';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -658,9 +658,9 @@ const BarChart: React.FC<BarChartProps> = ({
         className="chart-wrapper"
         style={{ marginTop: '20px', height: responsiveHeight }}
       >
-        <Bar 
-          ref={chartRef} 
-          data={processedData} 
+        <Bar
+          ref={chartRef}
+          data={processedData}
           options={options}
           plugins={[ChartDataLabels]}
         />

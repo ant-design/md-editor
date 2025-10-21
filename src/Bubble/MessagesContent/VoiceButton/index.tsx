@@ -1,5 +1,4 @@
-
-import { Pause, Play, ChevronDown } from '@sofa-design/icons';
+import { ChevronDown, Pause, Play } from '@sofa-design/icons';
 import { ConfigProvider, Dropdown, Flex, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
@@ -154,7 +153,11 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           >
             <Tooltip title={tooltipText} mouseEnterDelay={0.1}>
               <Flex align="center" justify="center">
-                {isPlayingHovered ? <Pause fontSize={14} /> : <VoicingLottie size={16} />}
+                {isPlayingHovered ? (
+                  <Pause fontSize={14} />
+                ) : (
+                  <VoicingLottie size={16} />
+                )}
               </Flex>
             </Tooltip>
           </div>

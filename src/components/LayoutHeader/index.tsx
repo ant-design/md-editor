@@ -1,6 +1,6 @@
 import {
+  AlignLeft,
   LaptopMinimal,
-  PanelLeftFill,
   SquareArrowOutUpRight,
 } from '@sofa-design/icons';
 import { Button, ConfigProvider } from 'antd';
@@ -127,7 +127,7 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
             aria-label={locale?.['chatFlow.collapseLeft'] || '折叠左侧边栏'}
             title={locale?.['chatFlow.collapseLeft'] || '折叠左侧边栏'}
           >
-            <PanelLeftFill />
+            <AlignLeft />
           </ActionIconBox>
         )}
         <h1 className={classNames(`${prefixCls}-left-title`, hashId)}>
@@ -139,6 +139,7 @@ const LayoutHeader: React.FC<LayoutHeaderProps> = ({
       <div className={classNames(`${prefixCls}-right`, hashId)}>
         {showShare && (
           <Button
+            size="small"
             className={classNames(`${prefixCls}-right-share-btn`, hashId)}
             onClick={handleShare}
             aria-label={locale?.['chatFlow.shareDialog'] || '分享对话'}
