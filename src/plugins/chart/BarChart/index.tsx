@@ -11,6 +11,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Bar } from 'react-chartjs-2';
 import {
   ChartContainer,
@@ -30,7 +31,7 @@ import {
   findDataPointByXValue,
 } from '../utils';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+ChartJS.register(ChartDataLabels,CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 export type BarChartDataItem = ChartDataItem;
 
@@ -93,6 +94,10 @@ export interface BarChartProps extends ChartContainerProps {
   toolbarExtra?: React.ReactNode;
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
+  /** 是否显示数据标签，默认false */
+  showDataLabels?: boolean;
+  /** 数据标签格式化函数 */
+  dataLabelFormatter?: (value: number) => string;
 }
 
 const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
@@ -141,6 +146,8 @@ const BarChart: React.FC<BarChartProps> = ({
   toolbarExtra,
   statistic: statisticConfig,
   variant,
+  showDataLabels = false,
+  dataLabelFormatter,
 }) => {
   const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
@@ -525,6 +532,26 @@ const BarChart: React.FC<BarChartProps> = ({
         cornerRadius: isMobile ? 6 : 8,
         displayColors: true,
       },
+      ...(ChartDataLabels && {
+        datalabels: {
+          display: showDataLabels,
+          anchor: indexAxis === 'y' ? 'end' : 'end',
+          align: indexAxis === 'y' ? 'end' : 'top',
+          offset: 4,
+          color: axisTextColor,
+          font: {
+            size: isMobile ? 10 : 11,
+            weight: 'normal',
+          },
+          formatter: (value: number) => {
+            if (value === null || value === undefined) return '';
+            if (dataLabelFormatter) {
+              return dataLabelFormatter(value);
+            }
+            return value.toLocaleString();
+          },
+        },
+      }),
     },
     scales: {
       x: {
