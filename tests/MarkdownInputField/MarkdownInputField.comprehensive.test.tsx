@@ -50,6 +50,37 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
   ),
 }));
 
+vi.mock('../../src/MarkdownInputField/SendActions', () => ({
+  SendActions: ({ actionsRender, attachment, ...props }: any) => {
+    const defaultActions = [
+      // 根据 attachment.enable 条件渲染附件按钮
+      attachment?.enable ? (
+        <button key="attachment" data-testid="attachment-button" type="button">
+          Attachment
+        </button>
+      ) : null,
+      <button key="send" data-testid="send-button" type="button">
+        Send
+      </button>,
+    ].filter(Boolean);
+    
+    if (actionsRender) {
+      const customActions = actionsRender(props, defaultActions);
+      return (
+        <div data-testid="send-actions">
+          {customActions}
+        </div>
+      );
+    }
+    
+    return (
+      <div data-testid="send-actions">
+        {defaultActions}
+      </div>
+    );
+  },
+}));
+
 vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
   SkillModeBar: ({ skillMode, onSkillModeOpenChange, ...props }: any) => {
     // 使用 useRef 和 useEffect 来模拟状态变化监听

@@ -290,7 +290,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
             })}
           </>
         ) : (
-          actionsList
+          actionsList.filter(Boolean)
         )}
       </div>
     </RcResizeObserver>

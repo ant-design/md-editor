@@ -796,12 +796,21 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           };
           
           // 保存目标容器的原始 position 值
-          const containerStyle = getComputedStyle(targetContainer);
-          originalTargetPositionRef.current = targetContainer.style.position || '';
-          
-          // 确保目标容器有相对定位
-          if (containerStyle.position === 'static') {
-            targetContainer.style.position = 'relative';
+          try {
+            const containerStyle = getComputedStyle(targetContainer);
+            originalTargetPositionRef.current = targetContainer.style.position || '';
+            
+            // 确保目标容器有相对定位
+            if (containerStyle.position === 'static') {
+              targetContainer.style.position = 'relative';
+            }
+          } catch (error) {
+            console.warn('无法获取目标容器样式:', error);
+            originalTargetPositionRef.current = targetContainer.style.position || '';
+            // 在无法获取样式的情况下，默认设置相对定位
+            if (!targetContainer.style.position) {
+              targetContainer.style.position = 'relative';
+            }
           }
           
           // 计算目标高度
