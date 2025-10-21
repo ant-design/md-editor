@@ -39,6 +39,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&:active': {
           transform: 'scale(0.95)',
         },
+
+        '&.enlarged': {
+          color: 'var(--color-primary)',
+          backgroundColor: 'var(--color-primary-bg-hover)',
+        },
       },
     },
   };

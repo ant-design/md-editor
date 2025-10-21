@@ -157,6 +157,19 @@ export type MarkdownInputFieldProps = {
    */
   enlargeable?: boolean;
 
+  /**
+   * 目标容器的 ref，用于放大功能
+   * @description 当点击放大按钮时，输入框将撑满到此容器高度，距离顶部48px
+   * @example
+   * ```tsx
+   * const containerRef = useRef<HTMLDivElement>(null);
+   * <MarkdownInputField
+   *   enlargeTargetRef={containerRef}
+   * />
+   * ```
+   */
+  enlargeTargetRef?: React.RefObject<HTMLElement>;
+
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
   /**
    * 背景颜色列表 - 用于生成渐变背景效果
@@ -474,14 +487,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
   const actionsRef = React.useRef<HTMLDivElement>(null);
-  const { enlargeable = true } = props;
-  const [contentHeight, setContentHeight] = useState(0);
+  const { enlargeable = true, enlargeTargetRef } = props;
+  const [isEnlarged, setIsEnlarged] = useState(false);
+  const [hasScrollbar, setHasScrollbar] = useState(false);
   const [collapseSendActions, setCollapseSendActions] = useState(() => {
     if (typeof window === 'undefined') return false;
     if (window.innerWidth < 460) return true;
     return false;
   });
-  const editorContentRef = useRef<HTMLDivElement>(null);
 
   const [value, setValue] = useMergedState('', {
     value: props.value,
@@ -545,21 +558,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     if (!markdownEditorRef.current) return;
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
-
-  // 监听内容变化来更新高度
-  useEffect(() => {
-    const updateHeight = () => {
-      if (!editorContentRef.current) return;
-      const clientHeight = editorContentRef.current.clientHeight;
-      const scrollHeight = editorContentRef.current.scrollHeight;
-      const actualHeight = Math.max(clientHeight, scrollHeight);
-      setContentHeight(actualHeight);
-    };
-
-    // 延时执行，确保DOM更新完成
-    const timeoutId = setTimeout(updateHeight, 100);
-    return () => clearTimeout(timeoutId);
-  }, [value]);
 
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
@@ -628,6 +626,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   }, [props, isHover, isLoading]);
 
   const inputRef = useRef<HTMLDivElement>(null);
+  const editorContentRef = useRef<HTMLDivElement>(null);
 
   const activeInput = useRefFunction((active: boolean) => {
     if (inputRef.current) {
@@ -668,20 +667,133 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     
     const handleContentResize = () => {
       if (!editorContentRef.current) return;
-      const clientHeight = editorContentRef.current.clientHeight;
-      const scrollHeight = editorContentRef.current.scrollHeight;
-      const actualHeight = Math.max(clientHeight, scrollHeight);
-      setContentHeight(actualHeight);
+      
+      // 找到真正有滚动条的 ant-md-editor-content 元素
+      const editorContentElement = editorContentRef.current.querySelector('.ant-md-editor-content');
+      
+      if (editorContentElement) {
+        const clientHeight = editorContentElement.clientHeight;
+        const scrollHeight = editorContentElement.scrollHeight;
+        
+        // 判断是否有滚动条：scrollHeight > clientHeight
+        setHasScrollbar(scrollHeight > clientHeight);
+      } else {
+        // 如果没找到editor-content元素，回退到检测editorContentRef
+        const clientHeight = editorContentRef.current.clientHeight;
+        const scrollHeight = editorContentRef.current.scrollHeight;
+        
+        setHasScrollbar(scrollHeight > clientHeight);
+      }
     };
     
     handleContentResize();
     const resizeObserver = new ResizeObserver(handleContentResize);
+    
+    // 观察容器变化
     resizeObserver.observe(editorContentRef.current);
+    
+    // 如果找到了ant-md-editor-content元素，也观察它
+    const editorContentElement = editorContentRef.current.querySelector('.ant-md-editor-content');
+    if (editorContentElement) {
+      resizeObserver.observe(editorContentElement);
+    }
     
     return () => {
       resizeObserver.disconnect();
     };
   }, [enlargeable]);
+
+  // 监听内容变化来更新高度和滚动条状态
+  useEffect(() => {
+    const updateHeightAndScrollbar = () => {
+      if (!editorContentRef.current) return;
+
+      // 找到真正有滚动条的 ant-md-editor-content 元素
+      const editorContentElement = editorContentRef.current.querySelector('.ant-md-editor-content');
+
+      if (editorContentElement) {
+        const clientHeight = editorContentElement.clientHeight;
+        const scrollHeight = editorContentElement.scrollHeight;
+
+        // 判断是否有滚动条：scrollHeight > clientHeight
+        setHasScrollbar(scrollHeight > clientHeight);
+      } else {
+        // 如果没找到editor-content元素，回退到检测editorContentRef
+        const clientHeight = editorContentRef.current.clientHeight;
+        const scrollHeight = editorContentRef.current.scrollHeight;
+
+        setHasScrollbar(scrollHeight > clientHeight);
+      }
+    };
+
+    // 延时执行，确保DOM更新完成
+    const timeoutId = setTimeout(updateHeightAndScrollbar, 100);
+    return () => clearTimeout(timeoutId);
+  }, [value]);
+
+  // 处理放大功能 - 使用更优雅的 absolute 定位方案
+  const handleEnlargeClick = useCallback(() => {
+    if (!enlargeTargetRef?.current) {
+      console.warn('enlargeTargetRef 未提供，无法启用放大功能');
+      return;
+    }
+
+    setIsEnlarged(prev => {
+      const newEnlargedState = !prev;
+      
+      if (newEnlargedState) {
+        const targetContainer = enlargeTargetRef.current;
+        if (targetContainer && inputRef.current) {
+          // 确保目标容器有相对定位
+          const containerStyle = getComputedStyle(targetContainer);
+          if (containerStyle.position === 'static') {
+            targetContainer.style.position = 'relative';
+          }
+          
+          const containerHeight = targetContainer.clientHeight;
+          const targetHeight = Math.max(containerHeight - 48, 300);
+          
+          // 使用 absolute 定位，相对于容器定位，自动跟随滚动
+          Object.assign(inputRef.current.style, {
+            position: 'absolute',
+            top: '48px',              // 距离容器顶部48px
+            left: '0',                // 容器左边界
+            right: '0',               // 容器右边界  
+            width: 'auto',            // 自动宽度（由left+right确定）
+            height: `${targetHeight}px`,
+            zIndex: '1000',
+            backgroundColor: 'white',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            transition: 'none'
+          });
+        }
+      } else {
+        // 退出放大状态：恢复原始样式
+        if (inputRef.current) {
+          Object.assign(inputRef.current.style, {
+            height: '',
+            position: '',
+            top: '',
+            left: '',
+            right: '',
+            width: '',
+            zIndex: '',
+            backgroundColor: '',
+            boxShadow: '',
+            transition: ''
+          });
+        }
+      }
+      
+      return newEnlargedState;
+    });
+  }, [enlargeTargetRef]);
+
+  // 处理文本优化功能
+  const handleOptimizeClick = useCallback(() => {
+    // 这里可以添加文本优化的逻辑
+    console.log('文本优化功能待实现');
+  }, []);
 
   // 图片粘贴上传
   const handlePaste = useCallback(
@@ -825,7 +937,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   flex: 1,
                   display: 'flex',
                   flexDirection: 'column',
-                  width: enlargeable && contentHeight >= 270 ? 'calc(100% - 46px)' : '100%',
+                  width: enlargeable && hasScrollbar ? 'calc(100% - 46px)' : '100%',
                 }}
               >
                 <div
@@ -834,7 +946,24 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     display: 'flex',
                     flexDirection: 'column',
                     borderRadius: (borderRadius || 16) - 2 || 10,
-                    maxHeight: `min(${(Number(props.style?.maxHeight) || 270) + (props.attachment?.enable ? 90 : 0)}px)`,
+                    maxHeight: `${(() => {
+                      const inputMaxHeight = props.style?.maxHeight ? Number(props.style.maxHeight) : null;
+                      const hasAttachment = props.attachment?.enable;
+                      
+                      if (inputMaxHeight !== null) {
+                        // 传了maxHeight
+                        if (inputMaxHeight > 316) {
+                          // 大于316px
+                          return hasAttachment ? 226 : 316; // 有附件226px，无附件226+90px=316px
+                        } else {
+                          // 小于等于316px
+                          return hasAttachment ? Math.max(inputMaxHeight - 90, 0) : 316; // 有附件传入高度-90px，无附件316px
+                        }
+                      } else {
+                        // 没有传maxHeight
+                        return hasAttachment ? 226 : 316; // 有附件226px，无附件226+90px=316px
+                      }
+                    })()}px`,
                     flex: 1,
                   }}
                   className={classNames(`${baseCls}-editor`, hashId, {
@@ -928,7 +1057,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     paddingRight: '18px',
                   }}
                 >
-                  {contentHeight >= 270 ? <Enlargement /> : null}
+                  {hasScrollbar ? (
+                    <Enlargement
+                      targetContainerRef={enlargeTargetRef}
+                      isEnlarged={isEnlarged}
+                      onEnlargeClick={handleEnlargeClick}
+                      onOptimizeClick={handleOptimizeClick}
+                    />
+                  ) : null}
                 </div>
               )}
             </div>
