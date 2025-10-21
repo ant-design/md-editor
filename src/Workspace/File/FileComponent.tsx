@@ -7,7 +7,7 @@ import {
   Eye as EyeIcon,
   ChevronRight as RightIcon,
   Search,
-  MessageSquareShare as ShareIcon,
+  SquareArrowOutUpRight as ShareIcon,
 } from '@sofa-design/icons';
 import { Empty } from 'antd';
 import classNames from 'classnames';
