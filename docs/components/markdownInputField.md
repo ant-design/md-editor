@@ -358,7 +358,6 @@ const EnlargementExample = () => {
             enlargeTargetRef={containerRef} // 传递目标容器ref，放大时会撑满此容器
             style={{
               width: '100%',
-              maxHeight: '360', // 增加最大高度，允许向上扩展
             }}
             // 添加 toolsRender 来消除默认的64px右边距
             toolsRender={() => []}
@@ -366,7 +365,7 @@ const EnlargementExample = () => {
               setValue(newValue);
               console.log('内容变化:', newValue.length, '字符');
             }}
-            placeholder="我位于容器底部10px处，输入内容会向上扩展，当高度超过270px时会显示放大按钮..."
+            placeholder="我位于容器底部10px处"
             onSend={async (text) => {
               console.log('发送内容:', text);
               message.loading('发送中...', 1);
@@ -387,15 +386,13 @@ export default EnlargementExample;
 >
 > - `enlargeable={true}` - 启用放大功能（默认为 true）
 > - `enlargeTargetRef={containerRef}` - 传递目标容器ref，放大时会撑满此容器的完整区域
-> - `显示条件` - 放大按钮需要同时满足：enlargeable=true 且 contentHeight ≥ 270px
+
 > - `功能组件` - 包含两个按钮：展开按钮（ExpandAlt）和文本优化按钮（TextOptimize）
 > - `自适应布局` - 当显示放大按钮时，编辑器内容宽度会自动调整为 `calc(100% - 46px)`
 > 
 > **放大功能实现原理：**
-> - ✅ **容器内放大**：放大功能会撑满指定的 `enlargeTargetRef` 容器
-> - 🔍 **放大时**：输入框变为固定定位 `position: fixed`，基于容器位置和尺寸进行定位
-> - 📏 **尺寸计算**：宽度 = 容器宽度，高度 = 容器高度 - 48px（最小300px）
-> - 📍 **位置计算**：left = 容器左边界，top = 容器顶部 + 48px
+> - 📋 **显示条件**：当编辑区域出现垂直滚动条时显示放大按钮（enlargeable=true 且内容可滚动）
+> - 📍 **定位方式**：放大时组件使用 position: absolute 相对 enlargeTargetRef 容器定位，top=48px，left/right=0，高度 max(containerHeight-48, 300)
 > - 🔄 **退出放大**：恢复原始样式，回到正常的文档流布局
 >
 > **容器Ref传递（正确的API使用方式）：**

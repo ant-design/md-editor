@@ -1,12 +1,10 @@
-import { ExpandAlt, TextOptimize } from '@sofa-design/icons';
+import { ExpandAlt, FoldAlt, TextOptimize } from '@sofa-design/icons';
 
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { useStyle } from './style';
 interface EnlargementProps {
-  /** 目标容器的 ref */
-  targetContainerRef?: React.RefObject<HTMLElement>;
   /** 是否处于放大状态 */
   isEnlarged?: boolean;
   /** 点击放大图标的回调 */
@@ -33,7 +31,7 @@ const Enlargement: React.FC<EnlargementProps> = ({
         onClick={onEnlargeClick}
         title={isEnlarged ? '缩小' : '放大'}
       >
-        {isEnlarged ? <ExpandAlt /> : <ExpandAlt />}
+        {isEnlarged ? <FoldAlt />  : <ExpandAlt />}
       </div>
       <div
         className={classNames(`${baseCls}-icon`, hashId)}
