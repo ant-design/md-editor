@@ -71,6 +71,7 @@ export { default as Quote } from './Quote';
 
 // 新增：图表插件对外导出
 export * from './plugins/chart';
+export * from './plugins/mermaid';
 
 // ===== 类型导出 =====
 
