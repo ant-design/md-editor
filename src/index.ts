@@ -5,6 +5,7 @@ export * from './Bubble';
 export * from './Bubble/List';
 export * from './Bubble/type';
 export * from './ChatLayout';
+export * from './ChatBoot';
 export * from './components/ActionIconBox';
 export * from './components/Button';
 export * from './components/LayoutHeader';
