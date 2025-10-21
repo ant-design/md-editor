@@ -154,6 +154,9 @@ export const ToolUseBarThink: React.FC<ToolUseBarThinkProps> = ({
               <div
                 className={classNamesFn(
                   `${prefixCls}-header-left-icon`,
+                  {
+                    [`${prefixCls}-header-left-icon-light`]: light,
+                  },
                   hashId,
                 )}
               >

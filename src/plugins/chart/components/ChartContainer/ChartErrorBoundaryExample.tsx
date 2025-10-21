@@ -1,4 +1,4 @@
-﻿import { Button, Result } from 'antd';
+import { Button, Result } from 'antd';
 import React from 'react';
 import ChartContainer from './ChartContainer';
 

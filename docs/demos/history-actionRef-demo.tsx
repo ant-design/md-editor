@@ -1,6 +1,6 @@
+import { History } from '@ant-design/md-editor';
 import { Button, Space } from 'antd';
 import React, { useRef } from 'react';
-import { History } from '../../src/History';
 
 // 模拟历史记录数据
 const mockHistoryData = [

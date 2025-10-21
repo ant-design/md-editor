@@ -3,7 +3,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -177,17 +177,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 /**
- * ChatFlowContainer 样式 Hook
+ * ChatLayout 样式 Hook
  * @param prefixCls 组件类名前缀
  * @returns 样式对象
  */
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('ChatFlowContainer', (token) => {
-    const chatFlowToken = {
+  return useEditorStyleRegister('ChatLayout', (token) => {
+    const chatLayoutToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [resetComponent(chatFlowToken), genStyle(chatFlowToken)];
+    return [resetComponent(chatLayoutToken), genStyle(chatLayoutToken)];
   });
 }

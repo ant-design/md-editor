@@ -15,13 +15,13 @@ export const useHistory = (props: HistoryProps) => {
 
   const loadHistory = useRefFunction(async () => {
     const msg = (await props
-      .request({
+      ?.request?.({
         agentId: props.agentId,
       })
       .then((msg) => {
         return msg;
       })) as HistoryDataType[];
-    setChatList(msg);
+    setChatList(msg || []);
   });
 
   // 暴露 reload 方法给 actionRef

@@ -1,9 +1,9 @@
 ---
-title: ChatFlowContainer - 对话流容器组件
-atomId: ChatFlowContainer
+title: ChatLayout - 对话流容器组件
+atomId: ChatLayout
 group:
-  title: 对话流
-  order: 3
+  title: 布局
+  order: 2
 ---
 
 # 对话流容器组件
@@ -16,7 +16,7 @@ group:
 
 ## API 参考
 
-### ChatFlowContainerProps
+### ChatLayoutProps
 
 | 属性             | 类型                | 默认值    | 描述                 |
 | ---------------- | ------------------- | --------- | -------------------- |

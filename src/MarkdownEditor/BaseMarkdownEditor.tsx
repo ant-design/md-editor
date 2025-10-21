@@ -116,6 +116,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     editorRef,
     toc = false,
     readonly,
+    lazy,
     style,
     contentStyle = {
       height: '100%',
@@ -376,6 +377,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               <SlateMarkdownEditor
                 prefixCls={baseClassName}
                 {...rest}
+                lazy={lazy}
                 onChange={(value, schema) => {
                   setSchema(schema);
                   rest?.onChange?.(value, schema);

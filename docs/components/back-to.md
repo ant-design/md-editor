@@ -3,7 +3,7 @@ title: BackTo 回到顶部/底部
 atomId: BackTo
 group:
   title: 入口
-  order: 2
+  order: 1
 ---
 
 # BackTo 回到顶部/底部

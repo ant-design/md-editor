@@ -36,7 +36,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 6,
         background: '#FFFFFF',
         boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+          'var(--shadow-control-base)',
         width: 86,
         height: 28,
         padding: '2px',

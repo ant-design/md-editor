@@ -161,15 +161,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`&--shell`]: {
+        height: 'calc(100% + 16px)',
+        paddingTop: 0,
+        paddingBottom: 0,
+        margin: '0 -16px -16px',
+
         [`${token.componentCls}-header`]: {
           marginBottom: 0,
+          marginLeft: 0,
+          marginRight: 0,
         },
 
         [`${token.componentCls}-content`]: {
           width: 'unset',
-          margin: '0 -16px -16px',
-          paddingTop: 16,
-          paddingBottom: 16,
+          margin: 0,
+          flex: 1,
           background: 'var(--color-gray-text-default)',
 
           '.ace-container': {
@@ -301,6 +307,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           transition: 'border-color 0.2s ease-in-out',
           boxSizing: 'border-box',
           overflow: 'hidden',
+
+          '.ace-github': {
+            background: 'transparent',
+          },
         },
       },
 

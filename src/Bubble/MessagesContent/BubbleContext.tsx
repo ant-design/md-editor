@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { MessageBubbleData } from '../type';
 
 export const MessagesContext = React.createContext<{

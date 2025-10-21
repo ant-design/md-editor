@@ -3,7 +3,7 @@ title: FunnelChart 漏斗图
 atomId: FunnelChart
 group:
   title: 图文输出
-  order: 5
+  order: 4
 ---
 
 # FunnelChart 漏斗图

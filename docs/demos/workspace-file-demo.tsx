@@ -349,6 +349,8 @@ graph TD
       <div
         style={{
           maxWidth: '600px',
+          maxHeight: '600px',
+          height: '600px',
         }}
       >
         <Workspace title="文件管理">

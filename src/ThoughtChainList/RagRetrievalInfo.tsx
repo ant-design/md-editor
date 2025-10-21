@@ -1,6 +1,5 @@
 ﻿import React, { useContext, useMemo } from 'react';
 import { DocMeta, WhiteBoxProcessInterface } from '.';
-import { DocIcon } from '../components/icons/DocIcon';
 import { I18nContext } from '../i18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { CostMillis } from './CostMillis';
@@ -143,11 +142,6 @@ export const RagRetrievalInfo = (
                       props.onMetaClick?.(chunk.docMeta);
                     }}
                   >
-                    <DocIcon
-                      style={{
-                        minWidth: 16,
-                      }}
-                    />
                     <span>{query || chunk?.docMeta?.answer}</span>
                   </div>
                 );

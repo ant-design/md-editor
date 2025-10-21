@@ -48,8 +48,7 @@ export const Code = ({ attributes, children, element }: RenderElementProps) => {
               wordWrap: 'break-word',
               borderRadius: '12px',
               background: '#FFFFFF',
-              boxShadow:
-                '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+              boxShadow: 'var(--shadow-control-base)',
             }
       }
     >

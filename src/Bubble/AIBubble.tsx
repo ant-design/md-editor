@@ -316,14 +316,12 @@ export const AIBubble: React.FC<
         gap={12}
       >
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-            alignItems: 'flex-start', // AI消息左对齐
-            ...style,
-          }}
-          className={cx(`${prefixClass}-bubble-container`, hashId)}
+          style={style}
+          className={cx(
+            `${prefixClass}-bubble-container`,
+            `${prefixClass}-bubble-container-${placement}`,
+            hashId,
+          )}
         >
           {preMessageSameRole ? null : (
             <div

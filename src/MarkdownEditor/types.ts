@@ -161,6 +161,35 @@ export type MarkdownEditorProps = {
    */
   readonly?: boolean;
   /**
+   * 懒加载渲染配置
+   * 启用后，每个元素都会被包裹在一个使用 IntersectionObserver 的容器中
+   * 只有当元素进入视口时才会真正渲染，以提升大型文档的性能
+   *
+   * @example
+   * ```tsx
+   * lazy={{
+   *   enable: true,
+   *   placeholderHeight: 100,
+   *   rootMargin: '200px'
+   * }}
+   * ```
+   */
+  lazy?: {
+    /**
+     * 是否启用懒加载，默认 false
+     */
+    enable?: boolean;
+    /**
+     * 占位符高度（单位：px），默认 25
+     */
+    placeholderHeight?: number;
+    /**
+     * 提前加载的距离，默认 '200px'
+     * 支持所有 IntersectionObserver rootMargin 的值
+     */
+    rootMargin?: string;
+  };
+  /**
    * 样式
    */
   style?: React.CSSProperties;
@@ -188,6 +217,13 @@ export type MarkdownEditorProps = {
     };
     pure?: boolean;
     previewTitle?: string;
+  };
+  /**
+   * 粘贴配置
+   */
+  pasteConfig?: {
+    enabled?: boolean;
+    allowedTypes?: string[];
   };
   /**
    * 插件配置
@@ -255,6 +291,8 @@ export type MarkdownEditorProps = {
     schema: Elements[],
     e: React.MouseEvent<HTMLDivElement, Element>,
   ) => void;
+
+  onPaste?: (e: React.ClipboardEvent<HTMLDivElement>) => void;
 
   /**
    * 其他属性

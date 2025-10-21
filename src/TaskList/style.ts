@@ -73,7 +73,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           font: 'var(--font-text-h6-base)',
           marginLeft: 12,
           textAlign: 'justify',
-          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
           color: 'var(--color-gray-text-default)',
         },
 

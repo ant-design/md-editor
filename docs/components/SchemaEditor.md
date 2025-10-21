@@ -5,7 +5,7 @@ nav:
 atomId: SchemaEditor
 group:
   title: 图文输出
-  order: 14
+  order: 4
 ---
 
 # SchemaEditor - schema 编辑工具

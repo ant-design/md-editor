@@ -4,7 +4,7 @@ nav:
 atomId: MarkdownInputField
 group:
   title: 意图输入
-  order: 1
+  order: 3
 ---
 
 # MarkdownInputField - 输入框

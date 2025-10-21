@@ -1,6 +1,5 @@
+import { CodeNode, MarkdownEditor } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import { MarkdownEditor } from '../../src/MarkdownEditor';
-import { CodeNode } from '../../src/MarkdownEditor/el';
 
 /**
  * eleItemRender Think 块自定义渲染 Demo

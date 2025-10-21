@@ -17,20 +17,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 容器样式
 
       [`${token.componentCls}-item`]: {
-        marginRight: '-12px',
         marginBottom: '0px',
-        borderRadius: '8px',
+        marginRight: '-8px',
         boxSizing: 'border-box',
-        overflow: 'hidden',
         display: 'flex',
         position: 'relative',
         zIndex: 1,
         cursor: 'pointer',
-        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        'img,[data-type="image"]': {
+          borderRadius: '8px',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        },
         '&:hover': {
-          marginRight: '0px',
-          marginLeft: '12px',
-          boxShadow: '0 2px 8px rgba(0, 122, 204, 0.15)',
+          'img,[data-type="image"]': {
+            boxShadow: '0 2px 8px rgba(0, 122, 204, 0.15)',
+            transform: 'translateY(-16px) scale(1.5)',
+          },
         },
       },
 
@@ -82,14 +84,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '50%',
       },
 
-      // 变体样式
-      [`${token.componentCls}-outline`]: {
-        border: '1px solid #d9d9d9',
-        borderRadius: '6px',
-        padding: '12px',
-        backgroundColor: '#fafafa',
-      },
-
       [`${token.componentCls}-borderless`]: {
         border: 'none',
         padding: 0,
@@ -110,8 +104,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       width: 'max-content',
       padding: '0 8px',
       background: '#FFFFFF',
-      boxShadow:
-        '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+      boxShadow: 'var(--shadow-control-base)',
     },
 
     // 描述文字样式

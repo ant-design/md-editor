@@ -6,27 +6,6 @@ import {
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
-    [`${token.componentCls}-new-chat`]: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      cursor: 'pointer',
-      padding: '5px 12px',
-      borderRadius: 'var(--radius-control-base)',
-      background: 'var(--color-primary-control-fill-secondary)',
-      fontSize: '14px',
-      fontWeight: 600,
-      lineHeight: '22px',
-      letterSpacing: 'normal',
-      color: 'var(--color-primary-text-secondary)',
-      boxShadow: 'var(--shadow-border-base)',
-      marginBottom: '12px',
-
-      '&:hover': {
-        background: 'var(--color-primary-control-fill-secondary-hover)',
-      },
-    },
-
     [`${token.componentCls}-load-more`]: {
       height: '48px',
       display: 'flex',

@@ -32,7 +32,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: 'min(800px,100%)',
         padding: '2px',
         paddingRight: '4px',
-
         '&:hover': {
           background: 'var(--color-gray-control-fill-active)',
           boxSizing: 'border-box',
@@ -53,6 +52,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             boxShadow: 'var(--shadow-border-base)',
           },
         },
+        '&-light': {
+          boxShadow: 'none',
+          border: 'none',
+          borderRadius: '14px',
+          padding: 4,
+          width: 'fit-content',
+          background: 'transparent',
+          '&:hover': {
+            background: 'none',
+            boxShadow: 'none',
+          },
+        },
         '&-loading': {
           background: 'var(--color-gray-bg-card-white)',
           boxSizing: 'border-box',
@@ -62,6 +73,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             background: 'var(--color-gray-bg-card-white)',
             boxSizing: 'border-box',
             boxShadow: 'var(--shadow-card-base)',
+          },
+          '&-light': {
+            boxShadow: 'none',
+            '&:hover': {
+              background: 'var(--color-gray-bg-card-white)',
+              boxShadow: 'none',
+              boxSizing: 'border-box',
+            },
           },
         },
       },
@@ -94,6 +113,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         gap: 8,
         flex: 1,
+        '&-light': {
+          flex: 'unset',
+          width: 'max-content',
+        },
       },
 
       '&-tool-expand': {
@@ -172,6 +195,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'var(--color-gray-text-secondary)',
       },
 
+      '&-tool-light': {
+        '&-tool-image-wrapper': {
+          boxShadow: 'none',
+          background: 'transparent',
+        },
+        '&-tool-name': {
+          color: 'var(--color-gray-text-light)',
+        },
+        '&-tool-target': {
+          color: 'var(--color-gray-text-light)',
+        },
+        '&-tool-time': {
+          background: 'transparent',
+          color: 'var(--color-gray-text-light)',
+        },
+        '&-tool-expand': {
+          color: 'var(--color-gray-text-light)',
+          '&:hover': {
+            background: 'rgba(20, 22, 28, 0.06)',
+            color: 'var(--color-gray-text-secondary)',
+          },
+        },
+      },
+
       '&-tool-target': {
         fontWeight: 'normal',
         lineHeight: '20px',
@@ -186,6 +233,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         letterSpacing: 'var(--letter-spacing-body-sm, normal)',
         color: 'var(--color-gray-text-light)',
         marginRight: 30,
+        '&-light': {
+          marginRight: 0,
+        },
         '&-loading': {
           position: 'relative',
           color: '#000',
@@ -211,6 +261,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-tool-container': {
         display: 'flex',
         width: '100%',
+        '&-light': {
+          borderLeft: '1px solid var(--color-gray-border-light)',
+          paddingLeft: 12,
+          marginLeft: 16,
+          marginTop: -10,
+        },
       },
       '&-tool-content': {
         flex: 1,

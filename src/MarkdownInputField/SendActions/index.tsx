@@ -2,8 +2,9 @@ import { EllipsisVertical } from '@sofa-design/icons';
 import { Popover } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { ActionIconBox } from '../../components/ActionIconBox';
+import { I18nContext } from '../../i18n';
 import type { AttachmentButtonProps } from '../AttachmentButton';
 import { AttachmentButton } from '../AttachmentButton';
 import type { AttachmentFile } from '../AttachmentButton/types';
@@ -112,6 +113,13 @@ export const SendActions: React.FC<SendActionsProps> = ({
 }) => {
   const fileMap = attachment?.fileMap;
 
+  const defaultActionsLen = [
+    attachment?.enable ? '()' : null,
+    voiceRecognizer ? '()' : null,
+    '()',
+  ].filter(Boolean).length;
+  const { locale } = useContext(I18nContext);
+
   /**
    * 默认发送操作按钮
    */
@@ -121,7 +129,11 @@ export const SendActions: React.FC<SendActionsProps> = ({
         <AttachmentButton
           uploadImage={uploadImage || (() => Promise.resolve())}
           key="attachment-button"
-          title={collapseSendActions ? '文件上传' : ''}
+          title={
+            collapseSendActions && defaultActionsLen > 2
+              ? locale?.['input.fileUpload'] || '文件上传'
+              : ''
+          }
           {...attachment}
           fileMap={fileMap}
           onFileMapChange={(fileMap) => {
@@ -133,7 +145,11 @@ export const SendActions: React.FC<SendActionsProps> = ({
       voiceRecognizer ? (
         <VoiceInputButton
           key="voice-input-button"
-          title={collapseSendActions ? '语音输入' : ''}
+          title={
+            collapseSendActions && defaultActionsLen > 2
+              ? locale?.['input.voiceInput'] || '语音输入'
+              : ''
+          }
           recording={recording}
           disabled={disabled}
           onStart={onStartRecording || (() => Promise.resolve())}

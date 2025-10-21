@@ -1,25 +1,24 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { ChatFlowContainer } from '../index';
+import { ChatLayout } from '../index';
 
-describe('ChatFlowContainer', () => {
+describe('ChatLayout', () => {
   it('renders with default props', () => {
     render(
-      <ChatFlowContainer>
+      <ChatLayout>
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
-    expect(screen.getByText('AI 助手')).toBeInTheDocument();
     expect(screen.getByText('Test content')).toBeInTheDocument();
   });
 
   it('renders with custom title', () => {
     render(
-      <ChatFlowContainer title="Custom Title">
+      <ChatLayout header={{ title: 'Custom Title' }}>
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
     expect(screen.getByText('Custom Title')).toBeInTheDocument();
@@ -29,9 +28,9 @@ describe('ChatFlowContainer', () => {
     const handleLeftCollapse = vi.fn();
 
     render(
-      <ChatFlowContainer onLeftCollapse={handleLeftCollapse}>
+      <ChatLayout header={{ onLeftCollapse: handleLeftCollapse }}>
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
     const leftCollapseButton = screen.getByLabelText('折叠左侧边栏');
@@ -44,9 +43,9 @@ describe('ChatFlowContainer', () => {
     const handleShare = vi.fn();
 
     render(
-      <ChatFlowContainer onShare={handleShare}>
+      <ChatLayout header={{ onShare: handleShare }}>
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
     const shareButton = screen.getByLabelText('分享对话');
@@ -57,25 +56,27 @@ describe('ChatFlowContainer', () => {
 
   it('hides buttons when show props are false', () => {
     render(
-      <ChatFlowContainer
-        showLeftCollapse={false}
-        showRightCollapse={false}
-        showShare={false}
+      <ChatLayout
+        header={{
+          leftCollapsible: false,
+          rightCollapsible: false,
+          showShare: false,
+        }}
       >
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
     expect(screen.queryByLabelText('折叠左侧边栏')).not.toBeInTheDocument();
     expect(screen.queryByLabelText('折叠右侧边栏')).not.toBeInTheDocument();
-    expect(screen.queryByLabelText('分享对话')).not.toBeInTheDocument();
+    expect(screen.queryByText('分享')).not.toBeInTheDocument();
   });
 
   it('renders footer when provided', () => {
     render(
-      <ChatFlowContainer footer={<div>Footer content</div>}>
+      <ChatLayout footer={<div>Footer content</div>}>
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
     expect(screen.getByText('Footer content')).toBeInTheDocument();
@@ -83,22 +84,21 @@ describe('ChatFlowContainer', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <ChatFlowContainer className="custom-class">
+      <ChatLayout className="custom-class">
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
     expect(container.firstChild).toHaveClass('custom-class');
-    expect(container.firstChild).toHaveClass('chat-flow-container');
+    expect(container.firstChild).toHaveClass('ant-chat-layout');
   });
 
   it('applies custom style', () => {
     const customStyle = { backgroundColor: 'red' };
-
     const { container } = render(
-      <ChatFlowContainer style={customStyle}>
+      <ChatLayout style={customStyle}>
         <div>Test content</div>
-      </ChatFlowContainer>,
+      </ChatLayout>,
     );
 
     expect(container.firstChild).toHaveStyle(

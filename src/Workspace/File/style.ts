@@ -336,7 +336,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         '&-tip': {
           font: 'var(--font-text-h6-base)',
-          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
           color: 'var(--color-gray-text-secondary)',
           display: 'flex',
           gap: 8,

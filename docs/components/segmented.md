@@ -2,7 +2,7 @@
 title: Segmented 分段控制器
 group:
   title: 通用
-  order: 2
+  order: 4
 ---
 
 # Segmented 分段控制器

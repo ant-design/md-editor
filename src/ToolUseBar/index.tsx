@@ -22,6 +22,7 @@ interface ToolUseBarProps {
     removedKeys: string[],
   ) => void;
   testId?: string;
+  light?: boolean;
 }
 
 /**
@@ -70,6 +71,7 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   tools,
   onActiveKeysChange,
   onExpandedKeysChange,
+  light = false,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -151,6 +153,7 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
           defaultExpanded={props.defaultExpandedKeys?.includes(tool.id)}
           prefixCls={prefixCls}
           hashId={hashId}
+          light={light}
         />
       ))}
     </div>,

@@ -164,6 +164,9 @@ export class EditorStore {
 
   _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>;
 
+  /** 当前 setMDContent 操作的 AbortController */
+  private _currentAbortController: AbortController | null = null;
+
   /**
    * 获取当前编辑器实例。
    *
@@ -341,14 +344,272 @@ export class EditorStore {
    *             如果为 undefined，方法将直接返回不做任何更改
    *             如果 markdown 与当前内容相同，则不做任何更改
    * @param plugins - 可选的自定义 markdown 解析插件
+   * @param options - 可选的配置参数
+   *   - chunkSize: 分块大小阈值，默认 5000 字符。超过此大小会启用分批处理
+   *   - separator: 分隔符，默认为双换行符 '\n\n'，用于拆分长文本
+   *   - useRAF: 是否使用 requestAnimationFrame 优化，默认 true，避免长文本处理时卡顿
+   *   - batchSize: 每帧处理的节点数量，默认 50，仅在 useRAF=true 时生效
+   *   - onProgress: 进度回调函数，接收当前进度 (0-1) 作为参数
+   * @returns 如果使用 RAF，返回 Promise；否则同步执行
    */
-  setMDContent(md?: string, plugins?: MarkdownEditorPlugin[]) {
+  setMDContent(
+    md?: string,
+    plugins?: MarkdownEditorPlugin[],
+    options?: {
+      chunkSize?: number;
+      separator?: string | RegExp;
+      useRAF?: boolean;
+      batchSize?: number;
+      onProgress?: (progress: number) => void;
+    },
+  ): void | Promise<void> {
     if (md === undefined) return;
     if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
-    const nodeList = parserMdToSchema(md, plugins || this.plugins).schema;
-    this.setContent(nodeList);
-    this._editor.current.children = nodeList;
-    ReactEditor.deselect(this._editor.current);
+
+    const chunkSize = options?.chunkSize ?? 5000;
+    const separator = options?.separator ?? /\n\n/;
+    const useRAF = options?.useRAF ?? true;
+    const batchSize = options?.batchSize ?? 50;
+    const targetPlugins = plugins || this.plugins;
+
+    // 如果内容较短，直接处理
+    if (md.length <= chunkSize) {
+      const nodeList = parserMdToSchema(md, targetPlugins).schema;
+      this.setContent(nodeList);
+      this._editor.current.children = nodeList;
+      ReactEditor.deselect(this._editor.current);
+      // 调用进度回调
+      if (options?.onProgress) {
+        options.onProgress(1);
+      }
+      return;
+    }
+
+    // 如果禁用 RAF，使用同步模式处理长内容
+    if (!useRAF) {
+      const chunks = this._splitMarkdown(md, separator);
+      const allNodes: Node[] = [];
+      for (const chunk of chunks) {
+        if (chunk.trim()) {
+          const { schema } = parserMdToSchema(chunk, targetPlugins);
+          allNodes.push(...schema);
+        }
+      }
+
+      if (allNodes.length > 0) {
+        this.setContent(allNodes);
+        this._editor.current.children = allNodes;
+        ReactEditor.deselect(this._editor.current);
+      }
+
+      // 调用进度回调
+      if (options?.onProgress) {
+        options.onProgress(1);
+      }
+      return;
+    }
+
+    // 内容较长时，按指定分隔符拆分并分批处理
+    const chunks = this._splitMarkdown(md, separator);
+
+    // 如果使用 RAF 且分块数量较多，异步解析和插入
+    if (useRAF && chunks.length > 10) {
+      // 创建新的 AbortController
+      this._currentAbortController = new AbortController();
+      return this._parseAndSetContentWithRAF(
+        chunks,
+        targetPlugins || [],
+        batchSize,
+        options?.onProgress,
+        this._currentAbortController.signal,
+      );
+    }
+  }
+
+  /**
+   * 取消当前正在进行的 setMDContent 操作
+   */
+  cancelSetMDContent(): void {
+    if (this._currentAbortController) {
+      this._currentAbortController.abort();
+      this._currentAbortController = null;
+    }
+  }
+
+  /**
+   * 使用 requestAnimationFrame 分批解析和设置内容
+   * 边解析边插入，实时显示内容
+   *
+   * @param chunks - markdown 分块数组
+   * @param plugins - 解析插件
+   * @param batchSize - 每帧处理的数量
+   * @param onProgress - 进度回调函数
+   * @returns Promise，在所有内容处理完成后 resolve
+   * @private
+   */
+  private _parseAndSetContentWithRAF(
+    chunks: string[],
+    plugins: MarkdownEditorPlugin[],
+    batchSize: number,
+    onProgress?: (progress: number) => void,
+    signal?: AbortSignal,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let currentChunkIndex = 0;
+      const totalChunks = chunks.length;
+      const parseChunksPerFrame = Math.max(1, Math.floor(batchSize / 10)); // 每帧解析的 chunk 数
+      let isFirstBatch = true;
+      let rafId: number | null = null;
+
+      // 边解析边插入
+      const parseAndInsertNextBatch = () => {
+        try {
+          // 检查是否被取消
+          if (signal?.aborted) {
+            if (rafId) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+            this._currentAbortController = null;
+            reject(new Error('Operation was cancelled'));
+            return;
+          }
+          const endIndex = Math.min(
+            currentChunkIndex + parseChunksPerFrame,
+            totalChunks,
+          );
+
+          // 解析当前批次的 chunks 并立即插入
+          for (let i = currentChunkIndex; i < endIndex; i++) {
+            const chunk = chunks[i];
+            if (chunk.trim()) {
+              const { schema } = parserMdToSchema(chunk, plugins);
+
+              if (schema.length > 0) {
+                if (isFirstBatch) {
+                  // 第一批：清空并插入
+                  this._editor.current.children = schema;
+                  this._editor.current.onChange();
+                  isFirstBatch = false;
+                } else {
+                  // 后续批次：追加节点
+                  Transforms.insertNodes(this._editor.current, schema, {
+                    at: [this._editor.current.children.length],
+                  });
+                }
+              }
+            }
+          }
+
+          currentChunkIndex = endIndex;
+          // 更新进度
+          const progress = currentChunkIndex / totalChunks;
+          if (onProgress) {
+            onProgress(progress);
+          }
+
+          if (currentChunkIndex < totalChunks) {
+            // 还有 chunks 未处理，继续下一帧
+            rafId = requestAnimationFrame(parseAndInsertNextBatch);
+          } else {
+            // 所有内容处理完成
+            ReactEditor.deselect(this._editor.current);
+            rafId = null;
+            this._currentAbortController = null;
+            resolve();
+          }
+        } catch (error) {
+          // 清理资源并拒绝 Promise
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          this._currentAbortController = null;
+          reject(error);
+        }
+      };
+
+      // 开始处理
+      rafId = requestAnimationFrame(parseAndInsertNextBatch);
+    });
+  }
+
+  /**
+   * 使用 requestAnimationFrame 分批设置内容
+   * 每帧插入一批节点，避免长时间阻塞主线程
+   *
+   * @param allNodes - 所有要插入的节点
+   * @param batchSize - 每帧处理的节点数量
+   * @param onProgress - 进度回调函数
+   * @returns Promise，在所有节点插入完成后 resolve
+   * @private
+   */
+  private _setContentWithRAF(
+    allNodes: Node[],
+    batchSize: number,
+    onProgress?: (progress: number) => void,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let currentIndex = 0;
+      const totalNodes = allNodes.length;
+      let rafId: number | null = null;
+
+      const insertBatch = () => {
+        try {
+          const endIndex = Math.min(currentIndex + batchSize, totalNodes);
+          const batch = allNodes.slice(currentIndex, endIndex);
+
+          if (currentIndex === 0) {
+            // 第一批：清空并插入
+            this._editor.current.children = batch;
+            this._editor.current.onChange();
+          } else {
+            // 后续批次：追加节点
+            this._editor.current.children.push(...batch);
+            this._editor.current.onChange();
+          }
+
+          currentIndex = endIndex;
+          const progress = currentIndex / totalNodes;
+
+          // 直接调用进度回调，避免嵌套 requestAnimationFrame
+          onProgress?.(progress);
+
+          if (currentIndex < totalNodes) {
+            // 还有节点未处理，继续下一帧
+            rafId = requestAnimationFrame(insertBatch);
+          } else {
+            // 所有节点处理完成
+            ReactEditor.deselect(this._editor.current);
+            rafId = null;
+            resolve();
+          }
+        } catch (error) {
+          // 清理资源并拒绝 Promise
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          reject(error);
+        }
+      };
+
+      // 开始第一帧
+      rafId = requestAnimationFrame(insertBatch);
+    });
+  }
+
+  /**
+   * 按指定分隔符拆分 markdown 内容
+   * 保持内容结构的完整性
+   *
+   * @param md - 要拆分的 markdown 字符串
+   * @param separator - 分隔符，可以是字符串或正则表达式
+   * @returns 拆分后的字符串数组
+   * @private
+   */
+  private _splitMarkdown(md: string, separator: string | RegExp): string[] {
+    return md.split(separator).filter(Boolean);
   }
 
   /**

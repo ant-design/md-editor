@@ -1,6 +1,5 @@
-import { SchemaEditor } from '@ant-design/md-editor';
+import { LowCodeSchema, SchemaEditor } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import { LowCodeSchema } from '../../src/schema/types';
 
 const ComplexSchemaDemo = () => {
   const [schema, setSchema] = useState<LowCodeSchema>({
