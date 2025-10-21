@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, {
@@ -30,6 +30,7 @@ import { useFileUploadManager } from './FileUploadManager';
 import { QuickActions } from './QuickActions';
 import { SendActions } from './SendActions';
 import type { SkillModeConfig } from './SkillModeBar';
+import Enlargement from './Enlargement';
 import { SkillModeBar } from './SkillModeBar';
 import { addGlowBorderOffset, useStyle } from './style';
 import { Suggestion } from './Suggestion';
@@ -142,6 +143,32 @@ export type MarkdownInputFieldProps = {
     schema: Elements[],
     e: React.MouseEvent<HTMLDivElement, Element>,
   ) => void;
+
+  /**
+   * 是否支持编辑器放大功能
+   * @description 启用后在编辑器右上角显示放大/全屏按钮，支持展开编辑器或优化文本显示
+   * @default true
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   enlargeable={true}  // 支持放大功能
+   * />
+   * ```
+   */
+  enlargeable?: boolean;
+
+  /**
+   * 目标容器的 ref，用于放大功能
+   * @description 当点击放大按钮时，输入框将撑满到此容器高度，距离顶部48px
+   * @example
+   * ```tsx
+   * const containerRef = useRef<HTMLDivElement>(null);
+   * <MarkdownInputField
+   *   enlargeTargetRef={containerRef}
+   * />
+   * ```
+   */
+  enlargeTargetRef?: React.RefObject<HTMLElement>;
 
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
   /**
@@ -460,6 +487,23 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
   const actionsRef = React.useRef<HTMLDivElement>(null);
+  // 放大功能配置常量
+  const ENLARGE_CONFIG = {
+    TOP_OFFSET: 48,              // 放大时距离容器顶部的距离
+    MIN_HEIGHT: 300,             // 最小高度
+    SCROLL_CHECK_DELAY: 50,      // 滚动条检查延迟（减少延迟）
+    EDITOR_RESERVE_HEIGHT: 80,   // 为底部操作区预留的高度
+    SCROLLBAR_TOLERANCE: 1       // 滚动条检测的容差值
+  } as const;
+
+  const { enlargeable = true, enlargeTargetRef } = props;
+  const [isEnlarged, setIsEnlarged] = useState(false);
+  const [hasScrollbar, setHasScrollbar] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false); // 防止动画期间的状态冲突
+  
+  // 保存原始样式状态，避免清除原有内联样式
+  const originalContainerStyleRef = useRef<Partial<CSSStyleDeclaration>>({});
+  const originalTargetPositionRef = useRef<string>('');
   const [collapseSendActions, setCollapseSendActions] = useState(() => {
     if (typeof window === 'undefined') return false;
     if (window.innerWidth < 460) return true;
@@ -596,6 +640,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   }, [props, isHover, isLoading]);
 
   const inputRef = useRef<HTMLDivElement>(null);
+  const editorContentRef = useRef<HTMLDivElement>(null);
 
   const activeInput = useRefFunction((active: boolean) => {
     if (inputRef.current) {
@@ -611,10 +656,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   useEffect(() => {
     if (!inputRef.current) return;
-    if (process.env.NODE_ENV === 'test') return;
     const handleResize = () => {
       if (!inputRef.current) return;
-      if (process.env.NODE_ENV === 'test') return;
       if (inputRef.current?.clientWidth < 481) {
         setCollapseSendActions(true);
       } else {
@@ -627,6 +670,245 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     return () => {
       resizeObserver.disconnect();
     };
+  }, []);
+
+  // 滚动条检测的公共逻辑
+  const updateScrollbarStatus = useCallback(() => {
+    if (!editorContentRef.current || isTransitioning) return; // 过渡期间跳过检测
+
+    try {
+      // 找到真正有滚动条的 ant-md-editor-content 元素
+      const editorContentElement = editorContentRef.current.querySelector('.ant-md-editor-content');
+      const targetElement = editorContentElement || editorContentRef.current;
+      
+      const { clientHeight, scrollHeight } = targetElement;
+      // 判断是否有滚动条：scrollHeight > clientHeight，添加容差避免浮点数精度问题
+      setHasScrollbar(scrollHeight > clientHeight + ENLARGE_CONFIG.SCROLLBAR_TOLERANCE);
+    } catch (error) {
+      console.warn('滚动条状态检测失败:', error);
+      setHasScrollbar(false);
+    }
+  }, [isTransitioning]);
+
+  // 监听编辑器内容区域尺寸变化
+  useEffect(() => {
+    if (!editorContentRef.current) return;
+    
+    updateScrollbarStatus();
+    
+    const resizeObserver = new ResizeObserver(updateScrollbarStatus);
+    const currentEditorRef = editorContentRef.current;
+    
+    // 观察主容器
+    resizeObserver.observe(currentEditorRef);
+    
+    // 观察内部编辑器内容元素（如果存在）
+    const editorContentElement = currentEditorRef.querySelector('.ant-md-editor-content');
+    if (editorContentElement) {
+      resizeObserver.observe(editorContentElement);
+    }
+    
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [enlargeable, updateScrollbarStatus]);
+
+  // 监听内容变化来更新滚动条状态
+  useEffect(() => {
+    // 延时执行，确保DOM更新完成
+    const timeoutId = setTimeout(updateScrollbarStatus, ENLARGE_CONFIG.SCROLL_CHECK_DELAY);
+    return () => clearTimeout(timeoutId);
+  }, [value, updateScrollbarStatus]);
+
+  // 编辑器最大高度计算
+  const editorMaxHeight = useMemo(() => {
+    const inputMaxHeight = props.style?.maxHeight ? Number(props.style.maxHeight) : null;
+    const hasAttachment = props.attachment?.enable;
+    const ATTACHMENT_RESERVE = 90; // 附件区域预留高度
+    const DEFAULT_NO_ATTACHMENT = 316; // 无附件时的默认高度
+    const DEFAULT_WITH_ATTACHMENT = 226; // 有附件时的默认高度
+    
+    if (inputMaxHeight !== null) {
+      // 用户传了 maxHeight
+      if (inputMaxHeight > DEFAULT_NO_ATTACHMENT) {
+        // 大于默认高度
+        return hasAttachment ? DEFAULT_WITH_ATTACHMENT : DEFAULT_NO_ATTACHMENT;
+      } else {
+        // 小于等于默认高度
+        return hasAttachment ? Math.max(inputMaxHeight - ATTACHMENT_RESERVE, 0) : DEFAULT_NO_ATTACHMENT;
+      }
+    } else {
+      // 没有传 maxHeight，使用默认值
+      return hasAttachment ? DEFAULT_WITH_ATTACHMENT : DEFAULT_NO_ATTACHMENT;
+    }
+  }, [props.style?.maxHeight, props.attachment?.enable]);
+
+  // 放大功能的样式配置
+  const enlargeStyles = useMemo(() => ({
+    enlarged: {
+      position: 'absolute' as const,
+      top: `${ENLARGE_CONFIG.TOP_OFFSET}px`,
+      left: '0',
+      right: '0',
+      width: 'auto',
+      zIndex: '1000',
+      backgroundColor: 'white',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+      // 只对非布局属性添加过渡，避免 position 切换时的布局闪烁
+      transition: 'opacity 0.15s ease-out, box-shadow 0.15s ease-out, background-color 0.15s ease-out'
+    }
+  }), []);
+
+  // 处理放大功能 - 使用绝对定位撑满目标容器，避免布局闪烁
+  const handleEnlargeClick = useCallback(() => {
+    if (!enlargeTargetRef?.current || isTransitioning) {
+      if (!enlargeTargetRef?.current) {
+        console.warn('enlargeTargetRef 未提供，无法启用放大功能');
+      }
+      return;
+    }
+
+    // 设置过渡状态，防止动画期间的状态冲突
+    setIsTransitioning(true);
+    
+    setIsEnlarged(prev => {
+      const newEnlargedState = !prev;
+      
+      if (newEnlargedState) {
+        const targetContainer = enlargeTargetRef.current;
+        if (targetContainer && inputRef.current) {
+          const containerElement = inputRef.current;
+          
+          // 保存容器的原始内联样式
+          const style = containerElement.style;
+          originalContainerStyleRef.current = {
+            height: style.height,
+            position: style.position,
+            top: style.top,
+            left: style.left,
+            right: style.right,
+            width: style.width,
+            zIndex: style.zIndex,
+            backgroundColor: style.backgroundColor,
+            boxShadow: style.boxShadow,
+            transition: style.transition,
+            opacity: style.opacity
+          };
+          
+          // 保存目标容器的原始 position 值
+          try {
+            const containerStyle = getComputedStyle(targetContainer);
+            originalTargetPositionRef.current = targetContainer.style.position || '';
+            
+            // 确保目标容器有相对定位
+            if (containerStyle.position === 'static') {
+              targetContainer.style.position = 'relative';
+            }
+          } catch (error) {
+            console.warn('无法获取目标容器样式:', error);
+            originalTargetPositionRef.current = targetContainer.style.position || '';
+            // 在无法获取样式的情况下，默认设置相对定位
+            if (!targetContainer.style.position) {
+              targetContainer.style.position = 'relative';
+            }
+          }
+          
+          // 计算目标高度
+          const containerHeight = targetContainer.clientHeight;
+          const targetHeight = Math.max(containerHeight - ENLARGE_CONFIG.TOP_OFFSET, ENLARGE_CONFIG.MIN_HEIGHT);
+          
+          // 使用 requestAnimationFrame 确保样式应用时机正确
+          requestAnimationFrame(() => {
+            if (inputRef.current) {
+              // 先设置透明度为0，避免闪烁
+              inputRef.current.style.opacity = '0';
+              
+              // 应用放大样式
+              Object.assign(inputRef.current.style, {
+                ...enlargeStyles.enlarged,
+                height: `${targetHeight}px`
+              });
+              
+              // 下一帧恢复透明度，实现平滑过渡
+              requestAnimationFrame(() => {
+                if (inputRef.current) {
+                  inputRef.current.style.opacity = '1';
+                  
+                  // 动画完成后解除过渡状态
+                  setTimeout(() => {
+                    setIsTransitioning(false);
+                    updateScrollbarStatus(); // 重新检测滚动条状态
+                  }, 150); // 与CSS过渡时间匹配
+                }
+              });
+            }
+          });
+        }
+      } else {
+        // 退出放大状态：恢复原始样式
+        if (inputRef.current && editorContentRef.current && enlargeTargetRef.current) {
+          const containerElement = inputRef.current;
+          const editorElement = editorContentRef.current;
+          const targetContainer = enlargeTargetRef.current;
+          
+          // 1. 立即禁用CSS过渡动画，避免与React状态更新冲突
+          const originalTransition = containerElement.style.transition;
+          containerElement.style.transition = 'none';
+          
+          // 2. 立即重置编辑器内容区域的高度样式
+          editorElement.style.height = 'auto';
+          editorElement.style.maxHeight = `${editorMaxHeight}px`;
+          
+          // 3. 重置滚动位置
+          const editorContentElement = editorContentRef.current.querySelector('.ant-md-editor-content');
+          const scrollableElement = editorContentElement || editorContentRef.current;
+          if (scrollableElement) {
+            scrollableElement.scrollTop = 0;
+          }
+          
+          // 4. 恢复容器的原始内联样式
+          const originalStyle = originalContainerStyleRef.current;
+          Object.keys(originalStyle).forEach(key => {
+            const styleKey = key as keyof CSSStyleDeclaration;
+            const originalValue = originalStyle[styleKey];
+            if (originalValue !== undefined) {
+              // 恢复原始值，如果原始值为空字符串，则移除该样式属性
+              if (originalValue === '' || originalValue === null) {
+                containerElement.style.removeProperty(styleKey as string);
+              } else {
+                (containerElement.style as any)[styleKey] = originalValue;
+              }
+            }
+          });
+          
+          // 5. 恢复目标容器的原始 position 值
+          if (originalTargetPositionRef.current === '') {
+            targetContainer.style.removeProperty('position');
+          } else {
+            targetContainer.style.position = originalTargetPositionRef.current;
+          }
+          
+          // 6. 强制DOM更新，然后恢复过渡动画
+          requestAnimationFrame(() => {
+            containerElement.style.transition = originalTransition;
+            
+            // 动画完成后更新滚动条状态
+            setTimeout(() => {
+              setIsTransitioning(false);
+              updateScrollbarStatus();
+            }, 50); // 缩短延迟，因为已经禁用了过渡动画
+          });
+        }
+      }
+      
+      return newEnlargedState;
+    });
+  }, [enlargeTargetRef, enlargeStyles, updateScrollbarStatus, isTransitioning, editorMaxHeight]);
+
+  // 处理文本优化功能
+  const handleOptimizeClick = useCallback(() => {
+    // 这里可以添加文本优化的逻辑
+    console.log('文本优化功能待实现');
   }, []);
 
   // 图片粘贴上传
@@ -740,6 +1022,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             }}
           />
 
+          {/* 主容器：上下布局 */}
           <div
             style={{
               flex: 1,
@@ -755,215 +1038,302 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               minHeight: isMultiRowLayout ? 114 : undefined,
             }}
           >
+            {/* 上部分：输入区域和放大按钮的左右布局 */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flex: 1,
+                width: '100%',
+              }}
+            >
+              {/* 输入内容区域 */}
+              <div
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: enlargeable && (hasScrollbar || isEnlarged) ? 'calc(100% - 46px)' : '100%',
+                }}
+              >
+                <div
+                  ref={editorContentRef}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: (borderRadius || 16) - 2 || 10,
+                    // 在放大状态下使用撑满的高度，否则使用计算的最大高度
+                    ...(isEnlarged 
+                      ? { 
+                          flex: 1,
+                          height: '100%',
+                          maxHeight: 'none'
+                        }
+                      : {
+                          maxHeight: `${editorMaxHeight}px`,
+                          flex: 1
+                        }
+                    ),
+                  }}
+                  className={classNames(`${baseCls}-editor`, hashId, {
+                    [`${baseCls}-editor-hover`]: isHover,
+                    [`${baseCls}-editor-disabled`]: props.disabled,
+                  })}
+                >
+                  {/* 技能模式部分 */}
+                  <SkillModeBar
+                    skillMode={props.skillMode}
+                    onSkillModeOpenChange={props.onSkillModeOpenChange}
+                  />
+
+                  <div className={classNames(`${baseCls}-editor-content`, hashId)}>
+                    {useMemo(() => {
+                      return props.attachment?.enable ? (
+                        <AttachmentFileList
+                          fileMap={fileMap}
+                          onDelete={handleFileRemoval}
+                          onRetry={handleFileRetry}
+                          onClearFileMap={() => {
+                            updateAttachmentFiles(new Map());
+                          }}
+                        />
+                      ) : null;
+                    }, [fileMap?.values(), props.attachment?.enable])}
+
+                    <BaseMarkdownEditor
+                      editorRef={markdownEditorRef}
+                      leafRender={props.leafRender}
+                      style={{
+                        width: '100%',
+                        flex: 1,
+                        padding: 0,
+                        paddingRight: computedRightPadding,
+                      }}
+                      toolBar={{
+                        enable: false,
+                      }}
+                      floatBar={{
+                        enable: false,
+                      }}
+                      readonly={isLoading}
+                      contentStyle={{
+                        padding: '12px 8px 12px 12px',
+                      }}
+                      textAreaProps={{
+                        enable: true,
+                        placeholder: props.placeholder,
+                        triggerSendKey: props.triggerSendKey || 'Enter',
+                      }}
+                      tagInputProps={{
+                        enable: true,
+                        type: 'dropdown',
+                        ...tagInputProps,
+                      }}
+                      initValue={props.value}
+                      onChange={(value) => {
+                        setValue(value);
+                        props.onChange?.(value);
+                      }}
+                      onFocus={(value, schema, e) => {
+                        onFocus?.(value, schema, e);
+                        activeInput(true);
+                      }}
+                      onBlur={(value, schema, e) => {
+                        onBlur?.(value, schema, e);
+                        activeInput(false);
+                      }}
+                      onPaste={(e) => {
+                        handlePaste(e);
+                      }}
+                      titlePlaceholderContent={props.placeholder}
+                      toc={false}
+                      pasteConfig={props.pasteConfig}
+                      {...markdownProps}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Enlargement 组件区域 */}
+              {enlargeable && (
+                <div
+                  style={{
+                    width: '46px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingLeft: '8px',
+                    paddingRight: '18px',
+                  }}
+                >
+                  {(hasScrollbar || isEnlarged) ? (
+                    <Enlargement
+                      isEnlarged={isEnlarged}
+                      onEnlargeClick={handleEnlargeClick}
+                      onOptimizeClick={handleOptimizeClick}
+                    />
+                  ) : null}
+                </div>
+              )}
+            </div>
+
+            {/* 下部分：操作按钮区域 */}
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                borderRadius: (borderRadius || 16) - 2 || 10,
-                maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
-                flex: 1,
+                gap: 8,
+                width: '100%',
               }}
-              className={classNames(`${baseCls}-editor`, hashId, {
-                [`${baseCls}-editor-hover`]: isHover,
-                [`${baseCls}-editor-disabled`]: props.disabled,
-              })}
             >
-              {/* 技能模式部分 */}
-              <SkillModeBar
-                skillMode={props.skillMode}
-                onSkillModeOpenChange={props.onSkillModeOpenChange}
-              />
-
-              <div className={classNames(`${baseCls}-editor-content`, hashId)}>
-                {useMemo(() => {
-                  return props.attachment?.enable ? (
-                    <AttachmentFileList
-                      fileMap={fileMap}
-                      onDelete={handleFileRemoval}
-                      onRetry={handleFileRetry}
-                      onClearFileMap={() => {
-                        updateAttachmentFiles(new Map());
-                      }}
-                    />
-                  ) : null;
-                }, [fileMap?.values(), props.attachment?.enable])}
-
-                <BaseMarkdownEditor
-                  editorRef={markdownEditorRef}
-                  leafRender={props.leafRender}
+              {/* 工具栏和发送按钮 */}
+              {props.toolsRender ? (
+                <div
                   style={{
+                    display: 'flex',
+                    boxSizing: 'border-box',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 8,
                     width: '100%',
-                    flex: 1,
-                    padding: 0,
-                    paddingRight: computedRightPadding,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    paddingBottom: 12,
                   }}
-                  toolBar={{
-                    enable: false,
+                >
+                  {props.toolsRender ? (
+                    <div
+                      ref={actionsRef}
+                      contentEditable={false}
+                      className={classNames(`${baseCls}-send-tools`, hashId)}
+                    >
+                      {props.toolsRender
+                        ? props.toolsRender({
+                            value,
+                            fileMap,
+                            onFileMapChange: setFileMap,
+                            ...props,
+                            isHover,
+                            isLoading,
+                            fileUploadStatus: fileUploadDone
+                              ? 'done'
+                              : 'uploading',
+                          })
+                        : []}
+                    </div>
+                  ) : null}
+                  <SendActions
+                    attachment={{
+                      ...props.attachment,
+                      supportedFormat,
+                      fileMap,
+                      onFileMapChange: setFileMap,
+                    }}
+                    voiceRecognizer={props.voiceRecognizer}
+                    value={value}
+                    disabled={props.disabled}
+                    typing={props.typing}
+                    isLoading={isLoading}
+                    fileUploadDone={fileUploadDone}
+                    recording={recording}
+                    collapseSendActions={collapseSendActions}
+                    allowEmptySubmit={props.allowEmptySubmit}
+                    uploadImage={uploadImage}
+                    onStartRecording={startRecording}
+                    onStopRecording={stopRecording}
+                    onSend={sendMessage}
+                    onStop={() => {
+                      setIsLoading(false);
+                      props.onStop?.();
+                    }}
+                    actionsRender={props.actionsRender}
+                    prefixCls={baseCls}
+                    hashId={hashId}
+                    hasTools={!!props.toolsRender}
+                    onResize={setRightPadding}
+                  />
+                </div>
+              ) : (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    paddingBottom: 12,
                   }}
-                  floatBar={{
-                    enable: false,
+                >
+                  <SendActions
+                    attachment={{
+                      ...props.attachment,
+                      supportedFormat,
+                      fileMap,
+                      onFileMapChange: setFileMap,
+                    }}
+                    voiceRecognizer={props.voiceRecognizer}
+                    value={value}
+                    disabled={props.disabled}
+                    typing={props.typing}
+                    isLoading={isLoading}
+                    fileUploadDone={fileUploadDone}
+                    recording={recording}
+                    collapseSendActions={collapseSendActions}
+                    allowEmptySubmit={props.allowEmptySubmit}
+                    uploadImage={uploadImage}
+                    onStartRecording={startRecording}
+                    onStopRecording={stopRecording}
+                    onSend={sendMessage}
+                    onStop={() => {
+                      setIsLoading(false);
+                      props.onStop?.();
+                    }}
+                    actionsRender={props.actionsRender}
+                    prefixCls={baseCls}
+                    hashId={hashId}
+                    hasTools={!!props.toolsRender}
+                    onResize={setRightPadding}
+                  />
+                </div>
+              )}
+
+              {/* QuickActions */}
+              {props?.quickActionRender || props.refinePrompt?.enable ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    paddingBottom: 8,
                   }}
-                  readonly={isLoading}
-                  contentStyle={{
-                    padding: '12px 8px 12px 12px',
-                  }}
-                  textAreaProps={{
-                    enable: true,
-                    placeholder: props.placeholder,
-                    triggerSendKey: props.triggerSendKey || 'Enter',
-                  }}
-                  tagInputProps={{
-                    enable: true,
-                    type: 'dropdown',
-                    ...tagInputProps,
-                  }}
-                  initValue={props.value}
-                  onChange={(value) => {
-                    setValue(value);
-                    props.onChange?.(value);
-                  }}
-                  onFocus={(value, schema, e) => {
-                    onFocus?.(value, schema, e);
-                    activeInput(true);
-                  }}
-                  onBlur={(value, schema, e) => {
-                    onBlur?.(value, schema, e);
-                    activeInput(false);
-                  }}
-                  onPaste={(e) => {
-                    handlePaste(e);
-                  }}
-                  titlePlaceholderContent={props.placeholder}
-                  toc={false}
-                  pasteConfig={props.pasteConfig}
-                  {...markdownProps}
-                />
-              </div>
+                >
+                  <QuickActions
+                    ref={quickActionsRef}
+                    value={value}
+                    fileMap={fileMap}
+                    onFileMapChange={setFileMap}
+                    isHover={isHover}
+                    isLoading={isLoading}
+                    disabled={props.disabled}
+                    fileUploadStatus={fileUploadDone ? 'done' : 'uploading'}
+                    refinePrompt={props.refinePrompt}
+                    editorRef={markdownEditorRef}
+                    onValueChange={(text) => {
+                      setValue(text);
+                      props.onChange?.(text);
+                    }}
+                    quickActionRender={props.quickActionRender as any}
+                    prefixCls={baseCls}
+                    hashId={hashId}
+                    onResize={(width, rightOffset) => {
+                      setTopRightPadding(width);
+                      setQuickRightOffset(rightOffset);
+                    }}
+                  />
+                </div>
+              ) : null}
             </div>
-            {props.toolsRender ? (
-              <div
-                style={{
-                  display: 'flex',
-                  boxSizing: 'border-box',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: 8,
-                  width: '100%',
-                  paddingRight: 8,
-                  paddingLeft: 8,
-                  paddingBottom: 12,
-                }}
-              >
-                {props.toolsRender ? (
-                  <div
-                    ref={actionsRef}
-                    contentEditable={false}
-                    className={classNames(`${baseCls}-send-tools`, hashId)}
-                  >
-                    {props.toolsRender
-                      ? props.toolsRender({
-                          value,
-                          fileMap,
-                          onFileMapChange: setFileMap,
-                          ...props,
-                          isHover,
-                          isLoading,
-                          fileUploadStatus: fileUploadDone
-                            ? 'done'
-                            : 'uploading',
-                        })
-                      : []}
-                  </div>
-                ) : null}
-                <SendActions
-                  attachment={{
-                    ...props.attachment,
-                    supportedFormat,
-                    fileMap,
-                    onFileMapChange: setFileMap,
-                  }}
-                  voiceRecognizer={props.voiceRecognizer}
-                  value={value}
-                  disabled={props.disabled}
-                  typing={props.typing}
-                  isLoading={isLoading}
-                  fileUploadDone={fileUploadDone}
-                  recording={recording}
-                  collapseSendActions={collapseSendActions}
-                  allowEmptySubmit={props.allowEmptySubmit}
-                  uploadImage={uploadImage}
-                  onStartRecording={startRecording}
-                  onStopRecording={stopRecording}
-                  onSend={sendMessage}
-                  onStop={() => {
-                    setIsLoading(false);
-                    props.onStop?.();
-                  }}
-                  actionsRender={props.actionsRender}
-                  prefixCls={baseCls}
-                  hashId={hashId}
-                  hasTools={!!props.toolsRender}
-                  onResize={setRightPadding}
-                />
-              </div>
-            ) : (
-              <SendActions
-                attachment={{
-                  ...props.attachment,
-                  supportedFormat,
-                  fileMap,
-                  onFileMapChange: setFileMap,
-                }}
-                voiceRecognizer={props.voiceRecognizer}
-                value={value}
-                disabled={props.disabled}
-                typing={props.typing}
-                isLoading={isLoading}
-                fileUploadDone={fileUploadDone}
-                recording={recording}
-                collapseSendActions={collapseSendActions}
-                allowEmptySubmit={props.allowEmptySubmit}
-                uploadImage={uploadImage}
-                onStartRecording={startRecording}
-                onStopRecording={stopRecording}
-                onSend={sendMessage}
-                onStop={() => {
-                  setIsLoading(false);
-                  props.onStop?.();
-                }}
-                actionsRender={props.actionsRender}
-                prefixCls={baseCls}
-                hashId={hashId}
-                hasTools={!!props.toolsRender}
-                onResize={setRightPadding}
-              />
-            )}
-            {props?.quickActionRender || props.refinePrompt?.enable ? (
-              <QuickActions
-                ref={quickActionsRef}
-                value={value}
-                fileMap={fileMap}
-                onFileMapChange={setFileMap}
-                isHover={isHover}
-                isLoading={isLoading}
-                disabled={props.disabled}
-                fileUploadStatus={fileUploadDone ? 'done' : 'uploading'}
-                refinePrompt={props.refinePrompt}
-                editorRef={markdownEditorRef}
-                onValueChange={(text) => {
-                  setValue(text);
-                  props.onChange?.(text);
-                }}
-                quickActionRender={props.quickActionRender as any}
-                prefixCls={baseCls}
-                hashId={hashId}
-                onResize={(width, rightOffset) => {
-                  setTopRightPadding(width);
-                  setQuickRightOffset(rightOffset);
-                }}
-              />
-            ) : null}
           </div>
         </div>
       </Suggestion>

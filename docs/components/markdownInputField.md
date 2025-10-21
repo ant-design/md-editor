@@ -301,6 +301,112 @@ const App = () => {
 export default App;
 ```
 
+### 放大功能使用
+
+```tsx
+import React, { useState, useRef } from 'react';
+import { MarkdownInputField, MarkdownEditorInstance } from '@ant-design/md-editor';
+import { message } from 'antd';
+
+const EnlargementExample = () => {
+  const editorRef = useRef<MarkdownEditorInstance>(null);
+  const containerRef = useRef<HTMLDivElement>(null); // 添加容器ref
+  const [value, setValue] = useState('`${placeholder:目标场景}` 今天的拒绝率为什么下降 `${placeholder:目标事件}` 输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果。');
+
+
+  return (
+    // 外层容器：设置整体布局
+    <div style={{ padding: '20px', border: '2px solid #1890ff', borderRadius: '8px', backgroundColor: '#f0f8ff' }}>
+
+      {/* 放大功能的目标容器：使用padding实现底部对齐 */}
+      <div 
+        ref={containerRef}
+        style={{
+          height: '600px', // 容器高度
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start', // 内容从顶部开始
+          padding: '0px', // 移除padding
+          border: '2px dashed #52c41a',
+          borderRadius: '8px',
+          backgroundColor: 'white',
+          position: 'relative',
+        }}
+      >
+        {/* 容器标识 */}
+        <div style={{
+          position: 'absolute',
+          top: '8px',
+          left: '8px',
+          fontSize: '12px',
+          color: '#52c41a',
+          fontWeight: 'bold'
+        }}>
+          📐 放大目标容器 (600px高度) - 点击放大后会撑满此区域
+        </div>
+
+        {/* 占位空间，将输入框推到底部 */}
+        <div style={{ flex: 1 }} />
+        
+        {/* 输入框容器，距离底部10px */}
+        <div style={{ padding: '0 0 10px 0' }}>
+
+          <MarkdownInputField
+            inputRef={editorRef}
+            value={value}
+            enlargeable={true} // 启用放大功能（默认为 true）
+            enlargeTargetRef={containerRef} // 传递目标容器ref，放大时会撑满此容器
+            style={{
+              width: '100%',
+            }}
+            // 添加 toolsRender 来消除默认的64px右边距
+            toolsRender={() => []}
+            onChange={(newValue) => {
+              setValue(newValue);
+              console.log('内容变化:', newValue.length, '字符');
+            }}
+            placeholder="我位于容器底部10px处"
+            onSend={async (text) => {
+              console.log('发送内容:', text);
+              message.loading('发送中...', 1);
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+              message.success('发送成功！');
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EnlargementExample;
+```
+
+> **放大功能使用说明：**
+>
+> - `enlargeable={true}` - 启用放大功能（默认为 true）
+> - `enlargeTargetRef={containerRef}` - 传递目标容器ref，放大时会撑满此容器的完整区域
+
+> - `功能组件` - 包含两个按钮：展开按钮（ExpandAlt）和文本优化按钮（TextOptimize）
+> - `自适应布局` - 当显示放大按钮时，编辑器内容宽度会自动调整为 `calc(100% - 46px)`
+> 
+> **放大功能实现原理：**
+> - 📋 **显示条件**：当编辑区域出现垂直滚动条时显示放大按钮（enlargeable=true 且内容可滚动）
+> - 📍 **定位方式**：放大时组件使用 position: absolute 相对 enlargeTargetRef 容器定位，top=48px，left/right=0，高度 max(containerHeight-48, 300)
+> - 🔄 **退出放大**：恢复原始样式，回到正常的文档流布局
+>
+> **容器Ref传递（正确的API使用方式）：**
+>
+> - 创建容器ref：`const containerRef = useRef<HTMLDivElement>(null);`
+> - 应用到容器：`<div ref={containerRef} style={{ height: '600px' }}>`
+> - 传递给组件：`enlargeTargetRef={containerRef}`
+> - ✅ **重要**：必须为容器设置固定高度，放大功能才能正确计算目标高度
+> - 🎯 **放大效果**：点击放大按钮后，输入框会撑满指定容器的完整区域
+> **功能特性说明：**
+> - ✅ **完全容器适配**：宽度和高度都基于 `enlargeTargetRef` 容器计算
+> - ✅ **精确定位**：使用 `getBoundingClientRect()` 获取容器的准确位置和尺寸
+
+
 ### 小屏幕
 
 ```tsx
