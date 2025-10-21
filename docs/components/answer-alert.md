@@ -2,8 +2,8 @@
 title: AnswerAlert 应答中断提示
 atomId: AnswerAlert
 group:
-  title: 组件
-  order: 2
+  title: 对话流
+  order: 1
 ---
 
 # AnswerAlert 应答中断提示

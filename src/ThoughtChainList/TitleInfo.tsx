@@ -1,12 +1,15 @@
-import { ChevronsDownUp, ChevronsUpDown } from '@sofa-design/icons';
+import {
+  ChevronsDownUp,
+  ChevronsUpDown,
+  Newspaper,
+  TableProperties,
+  Wrench,
+} from '@sofa-design/icons';
 import { Popover } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { DocMeta } from '.';
-import { RagIcon, ToolCallIcon } from '../components/icons';
-import { DatabaseIcon } from '../components/icons/DatabaseIcon';
-import { DocumentIcon } from '../components/icons/DocumentIcon';
 import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../index';
 import { CostMillis } from './CostMillis';
@@ -147,12 +150,6 @@ export const TitleInfo = (props: {
                           });
                         }}
                       >
-                        <DocumentIcon
-                          size={22}
-                          style={{
-                            minWidth: 22,
-                          }}
-                        />
                         <span
                           style={{
                             overflow: 'hidden',
@@ -179,13 +176,17 @@ export const TitleInfo = (props: {
               )}
             >
               {props.category === 'ToolCall' && (
-                <ToolCallIcon width={18} height={18} />
+                <Wrench width={18} height={18} style={{ fontSize: 18 }} />
               )}
               {props.category === 'RagRetrieval' && (
-                <RagIcon width={18} height={18} />
+                <Newspaper width={18} height={18} style={{ fontSize: 18 }} />
               )}
               {props.category === 'TableSql' ? (
-                <DatabaseIcon size={18} />
+                <TableProperties
+                  style={{ fontSize: 18 }}
+                  width={18}
+                  height={18}
+                />
               ) : null}
               <span
                 className={classNames(

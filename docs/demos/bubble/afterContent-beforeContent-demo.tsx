@@ -1,6 +1,5 @@
+import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
 import React from 'react';
-import { Bubble } from '../../../src/Bubble';
-import { MessageBubbleData } from '../../../src/Bubble/type';
 import { BubbleDemoCard } from './BubbleDemoCard';
 
 const AfterContentBeforeContentDemo: React.FC = () => {

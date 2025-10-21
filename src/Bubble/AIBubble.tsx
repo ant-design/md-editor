@@ -4,6 +4,7 @@ import { Loader } from '@sofa-design/icons';
 import { ConfigProvider, Flex } from 'antd';
 import cx from 'classnames';
 import React from 'react';
+import { WhiteBoxProcessInterface } from '../ThoughtChainList/types';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { BubbleConfigContext } from './BubbleConfigProvide';
@@ -114,7 +115,8 @@ export const AIBubble: React.FC<
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
-  const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
+  const context = useContext(BubbleConfigContext);
+  const { compact, standalone, locale } = context || {};
 
   const prefixClass = getPrefixCls('agent');
 
@@ -240,22 +242,45 @@ export const AIBubble: React.FC<
     props.deps,
   ]);
 
-  const contentBeforeDom = useMemo(
-    () =>
-      runRender(
-        bubbleRenderConfig?.contentBeforeRender,
-        props,
-        <BubbleBeforeNode bubble={props as any} />,
-      ),
-    [
-      bubbleRenderConfig?.contentBeforeRender,
-      props.originData?.extra?.white_box_process,
-      props.originData?.isAborted,
-      props.originData?.isFinished,
-      props.originData?.updateAt,
-      props.deps,
-    ],
-  );
+  const contentBeforeDom = useMemo(() => {
+    const _ = props;
+    let render: React.ReactNode | null = (
+      <BubbleBeforeNode bubble={props as any} />
+    );
+    if (_.placement !== 'left') render = null;
+
+    // 判断角色是否为 bot
+    if (_.originData?.role === 'bot') render = null;
+
+    // 判断思维链功能是否启用
+    if (context?.thoughtChain?.enable === false) render = null;
+
+    // 处理任务列表
+    const taskList = (
+      [_?.originData?.extra?.white_box_process].flat(
+        2,
+      ) as WhiteBoxProcessInterface[]
+    ).filter((item) => item?.info) as WhiteBoxProcessInterface[];
+
+    // 判断是否需要渲染
+    if (taskList.length < 1 && !context?.thoughtChain?.alwaysRender) {
+      render = null;
+    }
+
+    return runRender(bubbleRenderConfig?.contentBeforeRender, props, render);
+  }, [
+    bubbleRenderConfig?.contentBeforeRender,
+    props.placement,
+    props.originData?.role,
+    props.originData?.extra?.white_box_process,
+    props.originData?.isAborted,
+    props.originData?.isFinished,
+    props.originData?.updateAt,
+    context?.thoughtChain?.enable,
+    context?.thoughtChain?.alwaysRender,
+    context?.thoughtChain?.render,
+    props.deps,
+  ]);
 
   const contentAfterDom = runRender(
     bubbleRenderConfig?.contentAfterRender,
@@ -291,14 +316,12 @@ export const AIBubble: React.FC<
         gap={12}
       >
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-            alignItems: 'flex-start', // AI消息左对齐
-            ...style,
-          }}
-          className={cx(`${prefixClass}-bubble-container`, hashId)}
+          style={style}
+          className={cx(
+            `${prefixClass}-bubble-container`,
+            `${prefixClass}-bubble-container-${placement}`,
+            hashId,
+          )}
         >
           {preMessageSameRole ? null : (
             <div

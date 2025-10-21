@@ -626,10 +626,18 @@ const HorizontalStackedBarChartExample: React.FC = () => {
       >
         <h4 style={{ marginTop: 0, color: '#333' }}>💡 适用场景：</h4>
         <ul style={{ marginBottom: 0, paddingLeft: 20 }}>
-          <li>部门人员结构对比：展示不同部门的正式员工、实习生、外包人员构成</li>
-          <li>产品销售额构成：对比不同地区各产品线（企业版、专业版、个人版）的销售额</li>
-          <li>项目资源分配：展示各项目在人力、资金、设备等维度的资源分配情况</li>
-          <li>成本结构分析：对比不同部门或产品的成本构成（人力、运营、设备等）</li>
+          <li>
+            部门人员结构对比：展示不同部门的正式员工、实习生、外包人员构成
+          </li>
+          <li>
+            产品销售额构成：对比不同地区各产品线（企业版、专业版、个人版）的销售额
+          </li>
+          <li>
+            项目资源分配：展示各项目在人力、资金、设备等维度的资源分配情况
+          </li>
+          <li>
+            成本结构分析：对比不同部门或产品的成本构成（人力、运营、设备等）
+          </li>
         </ul>
       </div>
     </div>
@@ -637,4 +645,3 @@ const HorizontalStackedBarChartExample: React.FC = () => {
 };
 
 export default HorizontalStackedBarChartExample;
-

@@ -66,6 +66,8 @@ const genStyle = (
       '&-bubble-container': {
         width: '100%',
         display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
         '&-right': {
           alignItems: 'flex-end',
         },
@@ -86,8 +88,7 @@ const genStyle = (
         width: 'max-content',
         borderRadius: '12px',
         background: 'var(--color-gray-bg-card-white)',
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+        boxShadow: 'var(--shadow-control-base)',
         display: 'flex',
         flexDirection: 'column',
         zIndex: 0,

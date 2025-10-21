@@ -156,7 +156,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                     height: '100%',
                     width: '100%',
                     borderRadius: 'inherit',
-                    padding: 12,
+                    padding: '12px 0',
                     display: viewMode === 'code' ? 'block' : 'none',
                   }}
                 >

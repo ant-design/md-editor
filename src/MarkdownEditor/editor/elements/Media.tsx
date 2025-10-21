@@ -12,7 +12,6 @@ import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
 import { Transforms } from 'slate';
 import { ActionIconBox } from '../../../components/ActionIconBox';
-import { EarthIcon } from '../../../components/icons/Earth';
 import { I18nContext } from '../../../i18n';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
@@ -371,12 +370,6 @@ export function Media({
               minWidth: 0,
             }}
           >
-            <EarthIcon
-              style={{
-                width: 56,
-                height: 56,
-              }}
-            />
             <div
               style={{
                 flex: 1,

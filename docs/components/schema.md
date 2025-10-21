@@ -4,8 +4,8 @@ nav:
   order: 1
 atomId: Schema
 group:
-  title: 渲染器
-  order: 3
+  title: 图文输出
+  order: 4
 ---
 
 # Schema - 低代码渲染

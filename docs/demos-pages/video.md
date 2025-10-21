@@ -2,6 +2,9 @@
 nav:
   title: Demo
   order: 5
+group:
+  title: 通用
+  order: 11
 ---
 
 # 视频支持

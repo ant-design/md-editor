@@ -8,6 +8,9 @@ hero:
     - text: 查看 GitHub
       link: https://github.com/ant-design/md-editor
       type: primary
+group:
+  title: 通用
+  order: 0
 
 features:
   - title: 功能完整的 Markdown 编辑器

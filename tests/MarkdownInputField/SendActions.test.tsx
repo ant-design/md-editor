@@ -18,6 +18,7 @@ vi.mock('../../src/MarkdownInputField/AttachmentButton', () => ({
     <button
       data-testid="attachment-button"
       onClick={uploadImage}
+      type="button"
       disabled={disabled}
       title={title}
       {...props}
@@ -32,6 +33,7 @@ vi.mock('../../src/MarkdownInputField/VoiceInput', () => ({
     <button
       data-testid="voice-input-button"
       onClick={recording ? onStop : onStart}
+      type="button"
       disabled={disabled}
       title={title}
     >
@@ -45,6 +47,7 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
     <button
       data-testid="send-button"
       onClick={onClick}
+      type="button"
       disabled={disabled}
       data-typing={typing}
       data-sendable={isSendable}
@@ -282,7 +285,9 @@ describe('SendActions', () => {
     });
 
     it('应该在允许空提交时即使内容为空也能发送', () => {
-      render(<SendActions {...defaultProps} value="" allowEmptySubmit={true} />);
+      render(
+        <SendActions {...defaultProps} value="" allowEmptySubmit={true} />,
+      );
 
       const sendButton = screen.getByTestId('send-button');
       expect(sendButton).toHaveAttribute('data-sendable', 'true');
@@ -336,10 +341,29 @@ describe('SendActions', () => {
           attachment={{
             enable: true,
           }}
+          voiceRecognizer={() =>
+            Promise.resolve({
+              start: () => Promise.resolve(),
+              stop: () => Promise.resolve(),
+            })
+          }
         />,
       );
 
       expect(screen.getByTestId('action-icon-box')).toBeInTheDocument();
+    });
+    it('少于两个按钮时不折叠', () => {
+      render(
+        <SendActions
+          {...defaultProps}
+          collapseSendActions={true}
+          attachment={{
+            enable: true,
+          }}
+        />,
+      );
+
+      expect(screen.getByTestId('attachment-button')).toBeInTheDocument();
     });
 
     it('应该在折叠模式下只显示发送按钮', () => {
@@ -401,4 +425,3 @@ describe('SendActions', () => {
     });
   });
 });
-

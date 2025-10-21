@@ -1,8 +1,8 @@
 import {
   BackTo,
   BubbleList,
-  ChatFlowContainer,
-  ChatFlowContainerRef,
+  ChatLayout,
+  ChatLayoutRef,
   History,
   HistoryDataType,
   MessageBubbleData,
@@ -111,15 +111,15 @@ const StandaloneHistoryDemo = () => {
 };
 
 /**
- * ChatFlowContainer 对话流容器组件演示
+ * ChatLayout 对话布局组件演示
  *
- * 展示 ChatFlowContainer 组件的完整功能，包括：
+ * 展示 ChatLayout 组件的完整功能，包括：
  * - 头部区域的标题、折叠按钮和分享按钮
  * - 内容区域的对话消息展示
  * - 底部区域的输入框和发送按钮
  * - 左右侧边栏的折叠功能
  */
-const ChatFlowContainerDemo: React.FC = () => {
+const ChatLayoutDemo: React.FC = () => {
   const [leftCollapsed, setLeftCollapsed] = useState(false);
   const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
     const messages: MessageBubbleData[] = [];
@@ -134,7 +134,7 @@ const ChatFlowContainerDemo: React.FC = () => {
     return messages;
   });
 
-  const containerRef = useRef<ChatFlowContainerRef>(null);
+  const containerRef = useRef<ChatLayoutRef>(null);
 
   // 使用 useRef 管理重试状态，避免全局污染
   const isRetryingRef = useRef(false);
@@ -235,13 +235,16 @@ const ChatFlowContainerDemo: React.FC = () => {
           style={{
             flex: 1,
             display: 'flex',
+            minWidth: 0,
           }}
         >
-          <ChatFlowContainer
+          <ChatLayout
             ref={containerRef}
-            title="AI 助手"
-            onLeftCollapse={handleLeftCollapse}
-            onShare={handleShare}
+            header={{
+              title: 'AI 助手',
+              onLeftCollapse: handleLeftCollapse,
+              onShare: handleShare,
+            }}
             footer={
               <div
                 style={{
@@ -320,11 +323,11 @@ const ChatFlowContainerDemo: React.FC = () => {
               assistantMeta={assistantMeta}
               userMeta={userMeta}
             />
-          </ChatFlowContainer>
+          </ChatLayout>
         </div>
       </div>
     </div>
   );
 };
 
-export default ChatFlowContainerDemo;
+export default ChatLayoutDemo;

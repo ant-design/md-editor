@@ -1,7 +1,7 @@
 import { InfoCircleFilled } from '@ant-design/icons';
+import { ChartStatistic } from '@ant-design/md-editor';
 import { Card, Divider } from 'antd';
 import React from 'react';
-import ChartStatistic from '../../../src/plugins/chart/ChartStatistic';
 
 const ChartStatisticDemo: React.FC = () => {
   return (

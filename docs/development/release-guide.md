@@ -4,7 +4,7 @@ nav:
   order: 3
 group:
   title: 开发指南
-  order: 3
+  order: 4
 ---
 
 # 发布测试版本指南

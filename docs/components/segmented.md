@@ -1,8 +1,8 @@
 ---
 title: Segmented 分段控制器
 group:
-  title: 基础组件
-  order: 3
+  title: 通用
+  order: 4
 ---
 
 # Segmented 分段控制器

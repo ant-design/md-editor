@@ -2,7 +2,7 @@
 title: LineChart 折线图
 atomId: LineChart
 group:
-  title: 图表
+  title: 图文输出
   order: 4
 ---
 

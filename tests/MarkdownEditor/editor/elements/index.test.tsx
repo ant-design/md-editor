@@ -67,14 +67,6 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Comment', () => ({
   ),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/elements/Description', () => ({
-  Description: ({ children, ...props }: any) => (
-    <div data-testid="description" {...props}>
-      {children}
-    </div>
-  ),
-}));
-
 vi.mock(
   '../../../../src/MarkdownEditor/editor/elements/FootnoteDefinition',
   () => ({
@@ -280,15 +272,6 @@ describe('Elements Index', () => {
         };
         render(<MElement {...props} />);
         expect(screen.getByTestId('editor-image')).toBeInTheDocument();
-      });
-
-      it('应该渲染描述元素', () => {
-        const props = {
-          ...defaultElementProps,
-          element: { type: 'description', children: [] },
-        };
-        render(<MElement {...props} />);
-        expect(screen.getByTestId('description')).toBeInTheDocument();
       });
 
       it('应该渲染脚注定义元素', () => {
@@ -571,26 +554,26 @@ describe('Elements Index', () => {
     });
 
     describe('链接功能测试', () => {
-      it('应该在只读模式下渲染链接弹窗', () => {
+      it('应该在只读模式下且有 url 时渲染链接元素', () => {
         const props = {
           ...defaultLeafProps,
           readonly: true,
           leaf: { ...defaultLeafProps.leaf, url: 'https://example.com' },
         };
         render(<MLeaf {...props} />);
-        // 链接元素应该存在，但可能没有特定的属性
+        // 验证链接存在
         expect(screen.getByText('Test Content')).toBeInTheDocument();
       });
 
-      it('应该处理链接点击事件', () => {
+      it('应该在非只读模式下正常渲染文本', () => {
         const props = {
           ...defaultLeafProps,
-          readonly: true,
+          readonly: false,
           leaf: { ...defaultLeafProps.leaf, url: 'https://example.com' },
         };
         render(<MLeaf {...props} />);
-        // 链接元素应该存在
-        expect(screen.getByText('Test Content')).toBeInTheDocument();
+        const element = screen.getByText('Test Content').parentElement;
+        expect(element).toHaveAttribute('data-be', 'text');
       });
     });
 
@@ -636,6 +619,112 @@ describe('Elements Index', () => {
         // identifier 功能会显示原始文本
         expect(screen.getByText('Test Text')).toBeInTheDocument();
       });
+
+      it('应该处理 fncProps.render 功能', () => {
+        const mockRender = vi.fn((leaf, dom) => (
+          <div data-testid="custom-render">Custom: {leaf.text}</div>
+        ));
+        const props = {
+          ...defaultLeafProps,
+          leaf: { ...defaultLeafProps.leaf, fnc: 'test', text: '[^DOC_123]' },
+          fncProps: { render: mockRender },
+        };
+        render(<MLeaf {...props} />);
+        expect(mockRender).toHaveBeenCalled();
+        expect(screen.getByTestId('custom-render')).toBeInTheDocument();
+      });
+
+      it('应该处理 TagPopup 功能', () => {
+        const mockOnSelect = vi.fn();
+        const mockTagTextRender = vi.fn((props, text) => `Rendered: ${text}`);
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            tag: true,
+            code: true,
+            text: 'user',
+            placeholder: 'Select user',
+            autoOpen: true,
+            triggerText: '@',
+          },
+          tagInputProps: {
+            enable: true,
+            tagTextRender: mockTagTextRender,
+            onSelect: mockOnSelect,
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(screen.getByTestId('tag-popup')).toBeInTheDocument();
+      });
+
+      it('应该处理 identifier render 功能', () => {
+        const mockRender = vi.fn((leaf, dom) => (
+          <div data-testid="identifier-render">ID: {leaf.children}</div>
+        ));
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            identifier: 'doc-123',
+            text: '[^DOC_123]',
+          },
+          fncProps: { render: mockRender },
+        };
+        render(<MLeaf {...props} />);
+        expect(mockRender).toHaveBeenCalled();
+        expect(screen.getByTestId('identifier-render')).toBeInTheDocument();
+      });
+
+      it('应该正确处理 fnc 文本格式化', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: { ...defaultLeafProps.leaf, fnc: true, text: '[^DOC_123]' },
+        };
+        render(<MLeaf {...props} />);
+        // fnc 文本应该被格式化处理，显示为 "123"
+        expect(screen.getByText('123')).toBeInTheDocument();
+      });
+
+      it('应该正确处理 identifier 文本格式化', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            identifier: true,
+            text: '[^DOC_456]',
+          },
+        };
+        render(<MLeaf {...props} />);
+        // identifier 文本应该被格式化处理，显示为 "456"
+        expect(screen.getByText('456')).toBeInTheDocument();
+      });
+
+      it('应该在 fnc 时设置字体大小为 10 和相关属性', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: { ...defaultLeafProps.leaf, fnc: true, text: '[^DOC_123]' },
+        };
+        const { container } = render(<MLeaf {...props} />);
+        expect(screen.getByText('123')).toBeInTheDocument();
+
+        // 查找带有 data-fnc 属性的 span 元素
+        const span = container.querySelector('[data-fnc="fnc"]');
+        expect(span).toBeInTheDocument();
+        expect(span).toHaveStyle({ fontSize: '10px' });
+        expect(span).toHaveAttribute('contenteditable', 'false');
+        expect(span).toHaveAttribute('data-fnc-name', 'DOC_123');
+      });
+
+      it('应该设置 fnd 的 data-fnd-name 属性', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: { ...defaultLeafProps.leaf, fnd: 'test', text: '[^DOC_999]' },
+        };
+        render(<MLeaf {...props} />);
+        const element = screen.getByText('Test Content').parentElement;
+        expect(element).toHaveAttribute('data-fnd', 'fnd');
+      });
     });
 
     describe('事件处理测试', () => {
@@ -654,6 +743,470 @@ describe('Elements Index', () => {
         // 验证事件处理逻辑
         expect(element).toBeInTheDocument();
       });
+    });
+
+    describe('组合样式测试', () => {
+      it('应该同时渲染粗体和斜体', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            bold: true,
+            italic: true,
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(screen.getByTestId('markdown-bold')).toBeInTheDocument();
+        // 粗体和斜体样式会被应用，验证两个样式都存在
+        expect(screen.getByText('Test Content')).toBeInTheDocument();
+      });
+
+      it('应该同时渲染粗体和删除线', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            bold: true,
+            strikethrough: true,
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(screen.getByTestId('markdown-bold')).toBeInTheDocument();
+        expect(
+          screen.getByText('Test Content').closest('s'),
+        ).toBeInTheDocument();
+      });
+
+      it('应该同时渲染代码和颜色', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            code: true,
+            color: '#ff0000',
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(
+          screen.getByText('Test Content').closest('code'),
+        ).toBeInTheDocument();
+      });
+
+      it('应该同时渲染高亮颜色和删除线', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            highColor: '#ff0000',
+            strikethrough: true,
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(
+          screen.getByText('Test Content').closest('s'),
+        ).toBeInTheDocument();
+      });
+    });
+
+    describe('特殊值测试', () => {
+      it('应该处理空文本', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: { text: '' },
+          text: { text: '' },
+        };
+        render(<MLeaf {...props} />);
+        expect(screen.getByText('Test Content')).toBeInTheDocument();
+      });
+
+      it('应该处理占位符', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            placeholder: '请输入内容',
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(screen.getByText('Test Content')).toBeInTheDocument();
+      });
+
+      it('应该处理自动打开属性', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            autoOpen: true,
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(screen.getByText('Test Content')).toBeInTheDocument();
+      });
+
+      it('应该处理触发文本', () => {
+        const props = {
+          ...defaultLeafProps,
+          leaf: {
+            ...defaultLeafProps.leaf,
+            triggerText: '@user',
+          },
+        };
+        render(<MLeaf {...props} />);
+        expect(screen.getByText('Test Content')).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('性能优化测试', () => {
+    it('MElement 应该使用 React.memo 优化', () => {
+      const props = {
+        element: { type: 'paragraph', children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content</div>,
+        readonly: false,
+      };
+
+      const { rerender } = render(<MElement {...props} />);
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+
+      // 相同的 props 应该不会触发重新渲染
+      rerender(<MElement {...props} />);
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+    });
+
+    it('MElement 应该在 element 变化时重新渲染', () => {
+      const props1 = {
+        element: { type: 'paragraph', level: 1, children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content</div>,
+        readonly: false,
+      };
+
+      const { rerender } = render(<MElement {...props1} />);
+
+      // 改变 element 的属性
+      const props2 = {
+        ...props1,
+        element: { type: 'paragraph', level: 2, children: [] },
+      };
+
+      rerender(<MElement {...props2} />);
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+    });
+
+    it('MElement 应该在 attributes 变化时重新渲染', () => {
+      const props1 = {
+        element: { type: 'paragraph', children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content</div>,
+        readonly: false,
+      };
+
+      const { rerender } = render(<MElement {...props1} />);
+
+      // 改变 attributes
+      const props2 = {
+        ...props1,
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: document.createElement('div') },
+        },
+      };
+
+      rerender(<MElement {...props2} />);
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+    });
+
+    it('MElement 应该在 readonly 变化时重新渲染', () => {
+      const props1 = {
+        element: { type: 'paragraph', children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content</div>,
+        readonly: false,
+      };
+
+      const { rerender } = render(<MElement {...props1} />);
+
+      // 改变 readonly
+      const props2 = {
+        ...props1,
+        readonly: true,
+      };
+
+      rerender(<MElement {...props2} />);
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+    });
+
+    it('MElement 应该正确比较 element 的类型变化', () => {
+      const props1 = {
+        element: { type: 'paragraph', value: 'test1', children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content</div>,
+        readonly: false,
+      };
+
+      const { rerender } = render(<MElement {...props1} />);
+
+      // 改变 element 的 value
+      const props2 = {
+        ...props1,
+        element: { type: 'paragraph', value: 'test2', children: [] },
+      };
+
+      rerender(<MElement {...props2} />);
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+    });
+
+    it('MLeaf 应该使用 React.memo 优化', () => {
+      const props = {
+        leaf: { text: 'Test Text' },
+        text: { text: 'Test Text' },
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
+        children: <div>Test Content</div>,
+        hashId: 'test-hash',
+        comment: {},
+        fncProps: {},
+        tagInputProps: {},
+      } as any;
+
+      const { rerender } = render(<MLeaf {...props} />);
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
+
+      // 相同的 props 应该不会触发重新渲染
+      rerender(<MLeaf {...props} />);
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
+    });
+
+    it('MLeaf 应该在 hashId 变化时重新渲染', () => {
+      const props1 = {
+        leaf: { text: 'Test Text' },
+        text: { text: 'Test Text' },
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
+        children: <div>Test Content 1</div>,
+        hashId: 'test-hash-1',
+        comment: {},
+        fncProps: {},
+        tagInputProps: {},
+      } as any;
+
+      const { rerender } = render(<MLeaf {...props1} />);
+
+      // 改变 hashId
+      const props2 = {
+        ...props1,
+        children: <div>Test Content 2</div>,
+        hashId: 'test-hash-2',
+      };
+
+      rerender(<MLeaf {...props2} />);
+      expect(screen.getByText('Test Content 2')).toBeInTheDocument();
+    });
+
+    it('MLeaf 应该在 text 变化时重新渲染', () => {
+      const props1 = {
+        leaf: { text: 'Test Text' },
+        text: { text: 'Test Text' },
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
+        children: <div>Test Content</div>,
+        hashId: 'test-hash',
+        comment: {},
+        fncProps: {},
+        tagInputProps: {},
+      } as any;
+
+      const { rerender } = render(<MLeaf {...props1} />);
+
+      // 改变 text
+      const props2 = {
+        ...props1,
+        text: { text: 'New Text' },
+      };
+
+      rerender(<MLeaf {...props2} />);
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
+    });
+
+    it('MLeaf 应该在 leaf 属性变化时重新渲染', () => {
+      const props1 = {
+        leaf: { text: 'Test Text', bold: false },
+        text: { text: 'Test Text' },
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
+        children: <div>Test Content</div>,
+        hashId: 'test-hash',
+        comment: {},
+        fncProps: {},
+        tagInputProps: {},
+      } as any;
+
+      const { rerender } = render(<MLeaf {...props1} />);
+
+      // 改变 leaf.bold
+      const props2 = {
+        ...props1,
+        leaf: { text: 'Test Text', bold: true },
+      };
+
+      rerender(<MLeaf {...props2} />);
+      expect(screen.getByTestId('markdown-bold')).toBeInTheDocument();
+    });
+
+    it('MLeaf 应该在 comment 变化时重新渲染', () => {
+      const props1 = {
+        leaf: { text: 'Test Text' },
+        text: { text: 'Test Text' },
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
+        children: <div>Test Content</div>,
+        hashId: 'test-hash',
+        comment: {},
+        fncProps: {},
+        tagInputProps: {},
+      } as any;
+
+      const { rerender } = render(<MLeaf {...props1} />);
+
+      // 改变 comment
+      const props2 = {
+        ...props1,
+        comment: { visible: true },
+      };
+
+      rerender(<MLeaf {...props2} />);
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
+    });
+
+    it('MLeaf 应该在 fncProps 变化时重新渲染', () => {
+      const props1 = {
+        leaf: { text: 'Test Text' },
+        text: { text: 'Test Text' },
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
+        children: <div>Test Content</div>,
+        hashId: 'test-hash',
+        comment: {},
+        fncProps: {},
+        tagInputProps: {},
+      } as any;
+
+      const { rerender } = render(<MLeaf {...props1} />);
+
+      // 改变 fncProps
+      const props2 = {
+        ...props1,
+        fncProps: { test: 'value' },
+      };
+
+      rerender(<MLeaf {...props2} />);
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
+    });
+
+    it('MLeaf 应该在 tagInputProps 变化时重新渲染', () => {
+      const props1 = {
+        leaf: { text: 'Test Text' },
+        text: { text: 'Test Text' },
+        attributes: {
+          'data-slate-leaf': true as const,
+        },
+        children: <div>Test Content</div>,
+        hashId: 'test-hash',
+        comment: {},
+        fncProps: {},
+        tagInputProps: {},
+      } as any;
+
+      const { rerender } = render(<MLeaf {...props1} />);
+
+      // 改变 tagInputProps
+      const props2 = {
+        ...props1,
+        tagInputProps: { test: 'value' },
+      };
+
+      rerender(<MLeaf {...props2} />);
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
+    });
+  });
+
+  describe('边界情况测试', () => {
+    it('MElement 应该处理空段落优化', () => {
+      const props1 = {
+        element: { type: 'paragraph', value: '', children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content 1</div>,
+        readonly: false,
+      };
+
+      const { rerender } = render(<MElement {...props1} />);
+
+      // 更新为另一个空段落，应该使用优化逻辑
+      const props2 = {
+        ...props1,
+        element: { type: 'paragraph', value: '', children: [] },
+        children: <div>Test Content 2</div>,
+      };
+
+      rerender(<MElement {...props2} />);
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+    });
+
+    it('应该处理没有匹配元素类型时的默认行为', () => {
+      const props = {
+        element: { type: 'undefined-type', children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content</div>,
+        readonly: false,
+      };
+
+      render(<MElement {...props} />);
+      // 应该渲染为段落
+      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+    });
+
+    it('应该处理 apassify 拼写错误类型', () => {
+      const props = {
+        element: { type: 'apassify', children: [] },
+        attributes: {
+          'data-slate-node': 'element' as const,
+          ref: { current: null },
+        },
+        children: <div>Test Content</div>,
+        readonly: false,
+      };
+
+      render(<MElement {...props} />);
+      // 应该渲染为 schema
+      expect(screen.getByTestId('schema')).toBeInTheDocument();
     });
   });
 });

@@ -2,8 +2,8 @@
 title: VisualList 视觉列表
 atomId: VisualList
 group:
-  title: 基础组件
-  order: 2
+  title: 通用
+  order: 5
 ---
 
 # VisualList 视觉列表

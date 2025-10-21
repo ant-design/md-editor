@@ -2,7 +2,7 @@ import { GripVertical, Menu } from '@sofa-design/icons';
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useStyle } from './actionItemBoxStyle';
+import { useStyle } from '../../components/ActionItemBox';
 
 type KeyedElement = React.ReactElement & { key: React.Key };
 
@@ -159,7 +159,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
       ref={containerRef}
       style={{
         // width: 'calc(100% - 16px)',
-        ...props.style
+        ...props.style,
       }}
       className={classNames(
         `${basePrefixCls}-container`,
@@ -188,7 +188,9 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           if (Math.abs(dx) > 6) {
             isPanningRef.current = true;
             hasPanMovedRef.current = true;
-            try { el.setPointerCapture(e.pointerId); } catch { }
+            try {
+              el.setPointerCapture(e.pointerId);
+            } catch {}
           }
         }
         if (isPanningRef.current) {
@@ -204,7 +206,9 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
         panIntentRef.current = false;
         if (isPanningRef.current) {
           isPanningRef.current = false;
-          try { el.releasePointerCapture(e.pointerId); } catch { }
+          try {
+            el.releasePointerCapture(e.pointerId);
+          } catch {}
         }
       }}
       onPointerCancel={() => {
@@ -246,24 +250,47 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           overscrollBehavior: 'contain',
           touchAction: 'pan-x',
         }}
-      >{ordered.map((entry) => (
-        <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
-      ))}</div>
+      >
+        {ordered.map((entry) => (
+          <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
+        ))}
+      </div>
       {props.showMenu !== false && (
-        <div className={classNames(`${basePrefixCls}-overflow-container`, hashId)} data-no-pan>
-          <div className={classNames(`${basePrefixCls}-overflow-container-indicator`, hashId)}>
-            <div className={classNames(`${basePrefixCls}-overflow-container-placeholder`, hashId)}></div>
+        <div
+          className={classNames(`${basePrefixCls}-overflow-container`, hashId)}
+          data-no-pan
+        >
+          <div
+            className={classNames(
+              `${basePrefixCls}-overflow-container-indicator`,
+              hashId,
+            )}
+          >
+            <div
+              className={classNames(
+                `${basePrefixCls}-overflow-container-placeholder`,
+                hashId,
+              )}
+            ></div>
             <Popover
               open={showOverflowPopup}
-              onOpenChange={(visible) => !props.menuDisabled && setShowOverflowPopup(visible)}
+              onOpenChange={(visible) =>
+                !props.menuDisabled && setShowOverflowPopup(visible)
+              }
               trigger="click"
               placement="topRight"
               arrow={false}
               overlayInnerStyle={{ padding: 0 }}
-              overlayClassName={classNames(`${basePrefixCls}-overflow-popover`, hashId)}
+              overlayClassName={classNames(
+                `${basePrefixCls}-overflow-popover`,
+                hashId,
+              )}
               content={
                 <div
-                  className={classNames(`${basePrefixCls}-overflow-container-popup`, hashId)}
+                  className={classNames(
+                    `${basePrefixCls}-overflow-container-popup`,
+                    hashId,
+                  )}
                   onWheel={(e) => {
                     e.stopPropagation();
                   }}
@@ -276,8 +303,10 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                             `${basePrefixCls}-overflow-container-popup-item`,
                             hashId,
                             {
-                              [`${basePrefixCls}-dragging`]: draggingIndex === index,
-                              [`${basePrefixCls}-drag-over`]: overIndex === index,
+                              [`${basePrefixCls}-dragging`]:
+                                draggingIndex === index,
+                              [`${basePrefixCls}-drag-over`]:
+                                overIndex === index,
                             },
                           )}
                           draggable
@@ -303,7 +332,10 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                           onDragEnd={handleDragEnd}
                         >
                           <GripVertical
-                            className={classNames(`${basePrefixCls}-drag-handle`, hashId)}
+                            className={classNames(
+                              `${basePrefixCls}-drag-handle`,
+                              hashId,
+                            )}
                             onMouseDown={(evt) => {
                               isHandlePressRef.current = true;
                               setDraggingIndex(index);
@@ -322,11 +354,16 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                   `${basePrefixCls}-overflow-container-menu`,
                   hashId,
                   {
-                    [`${basePrefixCls}-overflow-container-menu-disabled`]: props.menuDisabled,
-                  }
+                    [`${basePrefixCls}-overflow-container-menu-disabled`]:
+                      props.menuDisabled,
+                  },
                 )}
-                onMouseEnter={() => !props.menuDisabled && setIsIndicatorHover(true)}
-                onMouseLeave={() => !props.menuDisabled && setIsIndicatorHover(false)}
+                onMouseEnter={() =>
+                  !props.menuDisabled && setIsIndicatorHover(true)
+                }
+                onMouseLeave={() =>
+                  !props.menuDisabled && setIsIndicatorHover(false)
+                }
               >
                 <Menu />
               </div>
@@ -334,7 +371,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
           </div>
         </div>
       )}
-    </div>
+    </div>,
   );
 };
 

@@ -2,8 +2,8 @@
 title: AreaChart 面积图
 atomId: AreaChart
 group:
-  title: 图表
-  order: 1
+  title: 图文输出
+  order: 4
 ---
 
 # AreaChart 面积图

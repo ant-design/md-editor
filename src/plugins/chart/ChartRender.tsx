@@ -5,7 +5,6 @@ import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useContext, useMemo, useState } from 'react';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { I18nContext } from '../../i18n';
-import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
 import AreaChart from './AreaChart';
 import BarChart from './BarChart';
 import DonutChart from './DonutChart';
@@ -155,7 +154,6 @@ export const ChartRender: React.FC<{
   filterBy?: string;
   colorLegend?: string;
 }> = (props) => {
-  const handle = useFullScreenHandle() || {};
   const [chartType, setChartType] = useState<
     | 'pie'
     | 'donut'
@@ -697,23 +695,9 @@ export const ChartRender: React.FC<{
         </div>
       );
     }
-  }, [
-    chartType,
-    JSON.stringify(chartData),
-    handle.active,
-    JSON.stringify(config),
-  ]);
+  }, [chartType, JSON.stringify(chartData), JSON.stringify(config)]);
 
   if (!chartDom) return null;
 
-  return (
-    <ConfigProvider
-      getPopupContainer={(node) => (handle.node.current || node) as HTMLElement}
-      getTargetContainer={() =>
-        (handle.node.current || document?.body) as HTMLElement
-      }
-    >
-      <div ref={handle.node}>{chartDom ?? null}</div>
-    </ConfigProvider>
-  );
+  return chartDom;
 };

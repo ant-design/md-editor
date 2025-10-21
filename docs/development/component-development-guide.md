@@ -2,6 +2,9 @@
 nav:
   title: 项目研发
   order: 1
+group:
+  title: 开发指南
+  order: 1
 ---
 
 # 组件开发规范

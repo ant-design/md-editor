@@ -1,8 +1,8 @@
 ---
 title: Button 按钮
 group:
-  title: 基础组件
-  order: 2
+  title: 通用
+  order: 1
 ---
 
 # Button 按钮

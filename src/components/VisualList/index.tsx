@@ -1,5 +1,6 @@
+import { SquareArrowUpRight } from '@sofa-design/icons';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { useStyle } from './style';
 
 /**
@@ -169,6 +170,46 @@ export const VisualList: React.FC<VisualListProps> = ({
       .filter(Boolean)
       .join(' ');
 
+    // 图片组件，支持错误处理和默认图标
+    const ImageComponent = () => {
+      const [imageError, setImageError] = useState(false);
+
+      const handleImageError = () => {
+        setImageError(true);
+      };
+
+      if (imageError || !item.src) {
+        return (
+          <div
+            data-type="image"
+            className={classNames(`${prefixCls}-default-icon`, hashId)}
+            style={{
+              ...imageStyle,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#f5f5f5',
+              border: '1px solid #d9d9d9',
+              borderRadius: '4px',
+            }}
+          >
+            <SquareArrowUpRight />
+          </div>
+        );
+      }
+
+      return (
+        <img
+          src={item.src}
+          alt={item.alt || item.title || ''}
+          title={item.title}
+          className={classNames(`${prefixCls}-image`, hashId)}
+          style={imageStyle}
+          onError={handleImageError}
+        />
+      );
+    };
+
     return (
       <li key={item.id || index} className={itemClassNames} style={itemStyle}>
         {item.href ? (
@@ -177,22 +218,10 @@ export const VisualList: React.FC<VisualListProps> = ({
             className={classNames(`${prefixCls}-link`, hashId)}
             style={linkStyle}
           >
-            <img
-              src={item.src}
-              alt={item.alt || item.title || ''}
-              title={item.title}
-              className={classNames(`${prefixCls}-image`, hashId)}
-              style={imageStyle}
-            />
+            <ImageComponent />
           </a>
         ) : (
-          <img
-            src={item.src}
-            alt={item.alt || item.title || ''}
-            title={item.title}
-            className={classNames(`${prefixCls}-image`, hashId)}
-            style={imageStyle}
-          />
+          <ImageComponent />
         )}
       </li>
     );

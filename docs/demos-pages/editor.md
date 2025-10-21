@@ -2,6 +2,9 @@
 nav:
   title: Demo
   order: 1
+group:
+  title: 通用
+  order: 8
 ---
 
 # 编辑器基础功能

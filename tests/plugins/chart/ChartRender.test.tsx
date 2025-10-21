@@ -138,16 +138,6 @@ vi.mock('../../../src/plugins/chart/ChartAttrToolBar/index', () => ({
   )),
 }));
 
-// Mock useFullScreenHandle
-vi.mock('../../../src/MarkdownEditor/hooks/useFullScreenHandle', () => ({
-  useFullScreenHandle: vi.fn().mockReturnValue({
-    active: false,
-    enter: vi.fn(),
-    exit: vi.fn(),
-    node: { current: document.body },
-  }),
-}));
-
 describe('ChartRender', () => {
   const defaultProps = {
     chartType: 'bar' as const,

@@ -2,6 +2,9 @@
 nav:
   title: 工具函数
   order: 5
+group:
+  title: 工具函数
+  order: 4
 ---
 
 # EditorUtils 工具类

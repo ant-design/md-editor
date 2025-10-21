@@ -45,9 +45,27 @@ const AnsweringIndicatorDemo = () => {
             pure: true,
           },
         }}
+        bubbleRenderConfig={{
+          extraRender(props, defaultDoms) {
+            return (
+              <>
+                <AnswerAlert
+                  message="LUI chat 已完成当前任务"
+                  type="success"
+                  showIcon
+                  style={{
+                    width: 'fit-content',
+                    marginLeft: 'var(--padding-5x)',
+                    marginBottom: 4,
+                  }}
+                />
+                {defaultDoms}
+              </>
+            );
+          },
+        }}
         originData={mockMessage}
       />
-      <AnswerAlert message="LUI chat 已完成当前任务" type="success" showIcon />
     </div>
   );
 };

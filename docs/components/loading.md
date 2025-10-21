@@ -2,8 +2,8 @@
 title: Loading 加载
 atomId: Loading
 group:
-  title: 基础组件
-  order: 1
+  title: 对话流
+  order: 5
 ---
 
 # Loading 加载

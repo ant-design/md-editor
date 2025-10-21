@@ -115,7 +115,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           color: 'var(--color-gray-text-default)',
           lineHeight: '20px',
           font: 'var(--font-text-h6-base)',
-          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           WebkitBoxOrient: 'vertical',

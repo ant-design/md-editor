@@ -4,7 +4,7 @@ nav:
   order: 3
 group:
   title: 开发指南
-  order: 2
+  order: 3
 ---
 
 # Pull Request 提交指南

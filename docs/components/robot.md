@@ -2,7 +2,7 @@
 title: Robot 机器人形象
 atomId: Robot
 group:
-  title: 基础组件
+  title: 入口
   order: 1
 ---
 

@@ -1,7 +1,5 @@
+import { AreaChart, AreaChartDataItem } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import AreaChart, {
-  AreaChartDataItem,
-} from '../../../src/plugins/chart/AreaChart';
 
 const ChartWithStaticDemo: React.FC = () => {
   const [data, setData] = useState<AreaChartDataItem[]>([

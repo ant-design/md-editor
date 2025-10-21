@@ -23,7 +23,7 @@ const InlineElevatedButton: React.FC<{
     height: 'var(--height-control-base)',
     borderRadius: '200px',
     font: 'var(--font-text-h6-base)',
-    letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
     color: 'var(--color-gray-text-default)',
     background: 'var(--color-gray-bg-card-white)',
     boxShadow: 'var(--shadow-control-lg)',

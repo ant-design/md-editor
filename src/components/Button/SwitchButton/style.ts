@@ -36,7 +36,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
         background: 'var(--color-primary-bg-card-light)',
         border: '1px solid var(--color-primary-border-light)',
         font: 'var(--font-text-h6-base)',
-        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
         color: 'var(--color-blue-text-secondary)',
         // 文本与图标颜色显式同步
         [`${token.componentCls}-text, ${token.componentCls}-icon`]: {
@@ -53,7 +53,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token: ChatTokenType) => {
         background: 'var(--color-primary-bg-card-light)',
         border: '1px solid var(--color-primary-border-light)',
         font: 'var(--font-text-h6-base)',
-        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
         color: 'var(--color-blue-text-secondary)',
         [`${token.componentCls}-text, ${token.componentCls}-icon`]: {
           color: 'var(--color-blue-text-secondary)',

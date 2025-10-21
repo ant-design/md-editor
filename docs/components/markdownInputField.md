@@ -3,8 +3,8 @@ nav:
   order: 1
 atomId: MarkdownInputField
 group:
-  title: 编辑器
-  order: 1
+  title: 意图输入
+  order: 3
 ---
 
 # MarkdownInputField - 输入框

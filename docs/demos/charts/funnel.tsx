@@ -1,8 +1,6 @@
+import { FunnelChart, FunnelChartDataItem } from '@ant-design/md-editor';
 import { Button } from 'antd';
 import React, { useState } from 'react';
-import FunnelChart, {
-  FunnelChartDataItem,
-} from '../../../src/plugins/chart/FunnelChart';
 
 const FunnelDemo: React.FC = () => {
   const [data, setData] = useState<FunnelChartDataItem[]>([

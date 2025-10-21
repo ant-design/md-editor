@@ -2,8 +2,8 @@
 title: ChartStatistic 指标卡
 atomId: ChartStatistic
 group:
-  title: 图表
-  order: 9
+  title: 图文输出
+  order: 4
 ---
 
 # ChartStatistic 指标卡

@@ -285,7 +285,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-row' })) {
           return mockRowEntry;
         }
@@ -316,7 +316,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-row' })) {
           return mockRowEntry;
         }
@@ -347,7 +347,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-row' })) {
           return mockRowEntry;
         }
@@ -375,7 +375,7 @@ describe('NativeTableEditor', () => {
 
     it('应该在没有表格时不执行操作', () => {
       const mockRowEntry = [{ type: 'table-row' }, [0, 0]];
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-row' })) {
           return mockRowEntry;
         }
@@ -399,7 +399,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-row' })) {
           return mockRowEntry;
         }
@@ -426,7 +426,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-row' })) {
           return mockRowEntry;
         }
@@ -536,7 +536,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }
@@ -565,7 +565,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }
@@ -605,7 +605,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }
@@ -636,7 +636,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }
@@ -664,7 +664,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }
@@ -702,7 +702,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }
@@ -733,7 +733,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }
@@ -761,7 +761,7 @@ describe('NativeTableEditor', () => {
         [0],
       ];
 
-      (Editor.above as any).mockImplementation((editor, options) => {
+      (Editor.above as any).mockImplementation((editor: any, options: any) => {
         if (options.match({ type: 'table-cell' })) {
           return mockCellEntry;
         }

@@ -24,13 +24,13 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../types';
+import { LazyElement } from './components/LazyElement';
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { PluginContext } from '../plugin';
-import { useOptimizedPaste } from './hooks/useOptimizedPaste';
 import {
   handleFilesPaste,
   handleHtmlPaste,
@@ -172,19 +172,6 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
   const onKeyDown = useKeyboard(store, markdownEditorRef, props);
   const onChange = useOnchange(markdownEditorRef.current, props.onChange);
   const high = useHighlight(store);
-
-  // 使用优化的粘贴处理
-  const { optimizedInsertText, cleanup } = useOptimizedPaste({
-    onPasteStart: () => {
-      // 可以在这里显示粘贴开始的状态
-    },
-    onPasteEnd: () => {
-      // 可以在这里清理粘贴结束的状态
-    },
-    onPasteError: (error) => {
-      console.error('粘贴处理失败:', error);
-    },
-  });
 
   const childrenIsEmpty = useMemo(() => {
     if (!markdownEditorRef.current?.children) return false;
@@ -364,13 +351,6 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       initialNote();
     }
   }, [props.instance, markdownEditorRef.current]);
-
-  // 清理粘贴处理资源
-  useEffect(() => {
-    return () => {
-      cleanup();
-    };
-  }, [cleanup]);
 
   useEffect(() => {
     const footnoteDefinitionList = markdownEditorRef.current.children
@@ -656,6 +636,8 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       }
     }
 
+    props.onPaste?.(event);
+
     const types = event.clipboardData?.types || ['text/plain'];
 
     // 默认允许的类型
@@ -736,7 +718,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
       // 如果是表格或者代码块，直接插入文本
       if (shouldInsertTextDirectly(markdownEditorRef.current, selection)) {
-        await optimizedInsertText(markdownEditorRef.current, text);
+        Transforms.insertText(markdownEditorRef.current, text);
         return;
       }
 
@@ -860,13 +842,41 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       }
 
       // Then allow eleItemRender to process the result
-      if (!props.eleItemRender) return renderedDom;
-      if (eleProps.element.type === 'table-cell') return renderedDom;
-      if (eleProps.element.type === 'table-row') return renderedDom;
+      if (props.eleItemRender) {
+        if (
+          eleProps.element.type !== 'table-cell' &&
+          eleProps.element.type !== 'table-row'
+        ) {
+          renderedDom = props.eleItemRender(
+            eleProps,
+            renderedDom,
+          ) as React.ReactElement;
+        }
+      }
 
-      return props.eleItemRender(eleProps, renderedDom) as React.ReactElement;
+      // Finally, wrap with LazyElement if lazy mode is enabled
+      if (props.lazy?.enable) {
+        // 不对表格单元格和表格行进行懒加载，避免破坏表格结构
+        if (
+          eleProps.element.type === 'table-cell' ||
+          eleProps.element.type === 'table-row'
+        ) {
+          return renderedDom;
+        }
+
+        return (
+          <LazyElement
+            placeholderHeight={props.lazy?.placeholderHeight}
+            rootMargin={props.lazy?.rootMargin}
+          >
+            {renderedDom}
+          </LazyElement>
+        );
+      }
+
+      return renderedDom;
     },
-    [props.eleItemRender, plugins, readonly],
+    [props.eleItemRender, props.lazy, plugins, readonly],
   );
 
   const renderMarkdownLeaf = useRefFunction((leafComponentProps) => {

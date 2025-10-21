@@ -8,7 +8,7 @@ const mockData: VisualListItem[] = [
   },
   {
     title: 'li-jia-nan',
-    src: 'https://avatars.githubusercontent.com/u/49217418?s=40&v=4',
+    src: '',
   },
   {
     title: 'MadCcc',

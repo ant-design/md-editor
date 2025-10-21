@@ -194,10 +194,6 @@ const parserNode = (
     case 'chart':
       str += table(node, parent, plugins);
       break;
-
-    case 'description':
-      str += handleDescription(node, preString, parent, plugins);
-      break;
     case 'schema':
       str += handleSchema(node);
       break;
@@ -402,7 +398,7 @@ export const parserSlateNodeToMarkdown = (
         ) {
           str += '\n> ';
         }
-      } else if (lastNode.type === 'table' || lastNode.type === 'description') {
+      } else if (lastNode.type === 'table') {
         // Do not add any newlines for tables and description lists
         str = str.replace(/\n+$/, '');
       } else if (lastNode.type === 'code' || lastNode.type === 'media') {
@@ -1044,76 +1040,6 @@ const handleListItem = (
     node.children,
     preString,
     [...parent, node],
-    plugins,
-  );
-};
-
-/**
- * 处理描述列表节点，将其转换为表格格式
- * @param node - 描述列表节点
- * @param preString - 前缀字符串，用于处理缩进
- * @param parent - 父节点数组
- * @param plugins - 可选的插件数组
- * @returns 处理后的 Markdown 表格字符串
- */
-const handleDescription = (
-  node: any,
-  preString: string,
-  parent: any[],
-  plugins?: MarkdownEditorPlugin[],
-) => {
-  if (!node.children || node.children.length === 0) {
-    return '';
-  }
-
-  // 将描述列表分组为标题和描述对
-  const pairs: { title: any[]; description: any[] }[] = [];
-  let currentPair: { title: any[]; description: any[] } | null = null;
-
-  node.children.forEach((n: any) => {
-    if (n.title) {
-      if (currentPair) {
-        pairs.push(currentPair);
-      }
-      currentPair = { title: [n], description: [] };
-    } else if (currentPair) {
-      currentPair.description.push(n);
-    }
-  });
-
-  if (currentPair) {
-    pairs.push(currentPair);
-  }
-
-  if (pairs.length === 0) {
-    return '';
-  }
-
-  // 创建表格行
-  const tableRows = [
-    {
-      type: 'table-row',
-      children: pairs.map((pair) => ({
-        type: 'table-cell',
-        align: 'left',
-        children: pair.title[0].children,
-      })),
-    },
-    {
-      type: 'table-row',
-      children: pairs.map((pair) => ({
-        type: 'table-cell',
-        children: pair.description[0].children,
-      })),
-    },
-  ];
-
-  return table(
-    {
-      ...node,
-      children: tableRows,
-    },
-    parent,
     plugins,
   );
 };
