@@ -107,7 +107,7 @@ describe('LanguageSelector Component', () => {
       expect(screen.getByText('html')).toBeInTheDocument();
     });
 
-    it('应该在没有语言时显示 plain text', () => {
+    it('应该在没有语言时显示空内容', () => {
       const props = {
         ...defaultProps,
         element: {
@@ -117,10 +117,12 @@ describe('LanguageSelector Component', () => {
       };
 
       render(<LanguageSelector {...props} />);
-      expect(screen.getByText('plain text')).toBeInTheDocument();
+      const button = screen.getByRole('button');
+      expect(button).toBeInTheDocument();
+      expect(button.textContent).toBe('');
     });
 
-    it('应该在没有语言时显示 plain text（空字符串）', () => {
+    it('应该在没有语言时显示空内容（空字符串）', () => {
       const props = {
         ...defaultProps,
         element: {
@@ -130,7 +132,9 @@ describe('LanguageSelector Component', () => {
       };
 
       render(<LanguageSelector {...props} />);
-      expect(screen.getByText('plain text')).toBeInTheDocument();
+      const button = screen.getByRole('button');
+      expect(button).toBeInTheDocument();
+      expect(button.textContent).toBe('');
     });
   });
 
