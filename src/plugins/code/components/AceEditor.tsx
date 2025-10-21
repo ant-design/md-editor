@@ -19,6 +19,7 @@ import isHotkey from 'is-hotkey';
 import { useCallback, useEffect, useRef } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
+import partialParse from '../../../MarkdownEditor/editor/parser/json-parse';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { aceLangs, modeMap } from '../../../MarkdownEditor/editor/utils/ace';
 import { EditorUtils } from '../../../MarkdownEditor/editor/utils/editorUtils';
@@ -211,9 +212,16 @@ export function AceEditor({
     if (process.env.NODE_ENV === 'test') return;
     if (!dom.current) return;
 
+    let value = element.value || '';
+    if (element.language === 'json') {
+      try {
+        value = JSON.stringify(partialParse(value), null, 2);
+      } catch (e) {}
+    }
+
     const codeEditor = ace.edit(dom.current!, {
       useWorker: false,
-      value: element.value,
+      value,
       fontSize: 12,
       animatedScroll: true,
       maxLines: Infinity,
@@ -255,8 +263,16 @@ export function AceEditor({
 
   // 监听外部值变化
   useEffect(() => {
-    if (element.value !== codeRef.current) {
-      editorRef.current?.setValue(element.value || 'plain text');
+    let value = element.value || '';
+
+    if (element.language === 'json') {
+      try {
+        value = JSON.stringify(partialParse(value), null, 2);
+      } catch (e) {}
+    }
+
+    if (value !== codeRef.current) {
+      if (element) editorRef.current?.setValue(value || 'plain text');
       editorRef.current?.clearSelection();
     }
   }, [element.value]);
