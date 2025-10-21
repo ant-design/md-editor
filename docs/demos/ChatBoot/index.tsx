@@ -1,5 +1,6 @@
 import {
   BubbleList,
+  CaseReply,
   ChatLayout,
   ChatLayoutRef,
   History,
@@ -249,7 +250,7 @@ const ChatLayoutDemo: React.FC = () => {
                         }}>Agentar </span>
                       </>
                     }
-                    subtitle="您的AI金融分析助理"
+                    subtitle="您的 AI 金融分析助理"
                   />
                 )}
                 <MarkdownInputField
@@ -260,6 +261,36 @@ const ChatLayoutDemo: React.FC = () => {
                     height: '120px',
                   }}
                 />
+                {bubbleList.length === 0 && (
+                  <CaseReply
+                    coverBackground="rgba(132, 220, 24, 0.15)"
+                    quoteIconColor="rgb(132, 220, 24)"
+                    quote="恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。"
+                    title="搜热门资讯"
+                    description="恒生科技指数基金近有什么相关新闻"
+                    buttonBar={
+                      <button
+                        type="button"
+                        style={{
+                          backgroundColor: '#000000',
+                          color: '#ffffff',
+                          borderRadius: '36px',
+                          padding: '8px 16px',
+                          cursor: 'pointer',
+                          border: 'none',
+                          fontSize: '14px',
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          console.log('按钮被点击');
+                        }}
+                      >
+                        查看回放
+                      </button>
+                    }
+                    onClick={() => console.log('卡片被点击')}
+                  />
+                )}
               </div>
             </div>
           </ChatLayout>
