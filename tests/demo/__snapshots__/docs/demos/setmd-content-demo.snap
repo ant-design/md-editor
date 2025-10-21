@@ -158,12 +158,51 @@
         </div>
       </div>
       <div
-        data-testid="base-markdown-editor"
-        editorref="[object Object]"
-        height="480"
-        style="border: 1px solid rgb(217, 217, 217); border-radius: 8px;"
+        class="ant-md-editor markdown-editor ant-md-editor-readonly"
+        style="width: 100%; height: 480px; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); border: 1px solid rgb(217, 217, 217); border-radius: 8px;"
       >
-        base-markdown-editor
+        <div
+          style="padding: 4px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+          tabindex="-1"
+        >
+          <div
+            autocapitalize="false"
+            autocorrect="false"
+            class="ant-md-editor-content ant-md-editor-content-readonly"
+            contenteditable="false"
+            data-slate-editor="true"
+            data-slate-node="value"
+            spellcheck="false"
+            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+            zindex="-1"
+          >
+            <div
+              class="ant-md-editor-drag-el empty"
+              data-be="paragraph"
+              data-empty="true"
+              data-slate-node="element"
+              data-slate-placeholder="请输入"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
