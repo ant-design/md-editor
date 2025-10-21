@@ -500,6 +500,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [isEnlarged, setIsEnlarged] = useState(false);
   const [hasScrollbar, setHasScrollbar] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false); // 防止动画期间的状态冲突
+  
+  // 保存原始样式状态，避免清除原有内联样式
+  const originalContainerStyleRef = useRef<Partial<CSSStyleDeclaration>>({});
+  const originalTargetPositionRef = useRef<string>('');
   const [collapseSendActions, setCollapseSendActions] = useState(() => {
     if (typeof window === 'undefined') return false;
     if (window.innerWidth < 460) return true;
@@ -652,10 +656,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   useEffect(() => {
     if (!inputRef.current) return;
-    if (process.env.NODE_ENV === 'test') return;
     const handleResize = () => {
       if (!inputRef.current) return;
-      if (process.env.NODE_ENV === 'test') return;
       if (inputRef.current?.clientWidth < 481) {
         setCollapseSendActions(true);
       } else {
@@ -690,7 +692,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   // 监听编辑器内容区域尺寸变化
   useEffect(() => {
-    if (!editorContentRef.current || process.env.NODE_ENV === 'test') return;
+    if (!editorContentRef.current) return;
     
     updateScrollbarStatus();
     
@@ -713,8 +715,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   // 监听内容变化来更新滚动条状态
   useEffect(() => {
-    if (process.env.NODE_ENV === 'test') return;
-    
     // 延时执行，确保DOM更新完成
     const timeoutId = setTimeout(updateScrollbarStatus, ENLARGE_CONFIG.SCROLL_CHECK_DELAY);
     return () => clearTimeout(timeoutId);
@@ -756,19 +756,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
       // 只对非布局属性添加过渡，避免 position 切换时的布局闪烁
       transition: 'opacity 0.15s ease-out, box-shadow 0.15s ease-out, background-color 0.15s ease-out'
-    },
-    normal: {
-      height: '',
-      position: '',
-      top: '',
-      left: '',
-      right: '',
-      width: '',
-      zIndex: '',
-      backgroundColor: '',
-      boxShadow: '',
-      transition: '',
-      opacity: ''
     }
   }), []);
 
@@ -790,8 +777,29 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       if (newEnlargedState) {
         const targetContainer = enlargeTargetRef.current;
         if (targetContainer && inputRef.current) {
-          // 确保目标容器有相对定位
+          const containerElement = inputRef.current;
+          
+          // 保存容器的原始内联样式
+          const style = containerElement.style;
+          originalContainerStyleRef.current = {
+            height: style.height,
+            position: style.position,
+            top: style.top,
+            left: style.left,
+            right: style.right,
+            width: style.width,
+            zIndex: style.zIndex,
+            backgroundColor: style.backgroundColor,
+            boxShadow: style.boxShadow,
+            transition: style.transition,
+            opacity: style.opacity
+          };
+          
+          // 保存目标容器的原始 position 值
           const containerStyle = getComputedStyle(targetContainer);
+          originalTargetPositionRef.current = targetContainer.style.position || '';
+          
+          // 确保目标容器有相对定位
           if (containerStyle.position === 'static') {
             targetContainer.style.position = 'relative';
           }
@@ -829,9 +837,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         }
       } else {
         // 退出放大状态：恢复原始样式
-        if (inputRef.current && editorContentRef.current) {
+        if (inputRef.current && editorContentRef.current && enlargeTargetRef.current) {
           const containerElement = inputRef.current;
           const editorElement = editorContentRef.current;
+          const targetContainer = enlargeTargetRef.current;
           
           // 1. 立即禁用CSS过渡动画，避免与React状态更新冲突
           const originalTransition = containerElement.style.transition;
@@ -848,10 +857,29 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             scrollableElement.scrollTop = 0;
           }
           
-          // 4. 立即应用容器样式恢复
-          Object.assign(containerElement.style, enlargeStyles.normal);
+          // 4. 恢复容器的原始内联样式
+          const originalStyle = originalContainerStyleRef.current;
+          Object.keys(originalStyle).forEach(key => {
+            const styleKey = key as keyof CSSStyleDeclaration;
+            const originalValue = originalStyle[styleKey];
+            if (originalValue !== undefined) {
+              // 恢复原始值，如果原始值为空字符串，则移除该样式属性
+              if (originalValue === '' || originalValue === null) {
+                containerElement.style.removeProperty(styleKey as string);
+              } else {
+                (containerElement.style as any)[styleKey] = originalValue;
+              }
+            }
+          });
           
-          // 5. 强制DOM更新，然后恢复过渡动画
+          // 5. 恢复目标容器的原始 position 值
+          if (originalTargetPositionRef.current === '') {
+            targetContainer.style.removeProperty('position');
+          } else {
+            targetContainer.style.position = originalTargetPositionRef.current;
+          }
+          
+          // 6. 强制DOM更新，然后恢复过渡动画
           requestAnimationFrame(() => {
             containerElement.style.transition = originalTransition;
             
