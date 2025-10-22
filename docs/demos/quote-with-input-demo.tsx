@@ -35,7 +35,7 @@ export default function QuoteWithInputDemo() {
             skillMode={{
               open: skillModeOpen,
               title: (
-                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   <Quote
                     fileName="src/components/UserProfile.tsx"
                     lineRange="45-60"

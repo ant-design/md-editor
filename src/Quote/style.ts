@@ -14,11 +14,10 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        padding: '2px 8px',
+        padding: '6px 8px',
         gap: '8px',
         borderRadius: 'var(--radius-control-base)',
         cursor: 'pointer',
-        color: 'var(--color-gray-text-light)',
         font: 'var(--font-text-body-sm)',
       },
 
@@ -41,7 +40,7 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 14,
         display: 'flex',
         alignItems: 'center',
-        color: 'var(--color-gray-text-light)',
+        color: 'var(--color-gray-text-secondary)',
       },
 
       '&-close-button': {
@@ -56,7 +55,7 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         whiteSpace: 'nowrap',
         flex: 1,
 
-        color: 'var(--color-gray-text-light)',
+        color: 'var(--color-gray-text-default)',
         font: 'var(--font-text-body-sm)',
       },
 
