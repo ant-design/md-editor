@@ -1,4 +1,4 @@
-import { Mermaid } from '@ant-design/md-editor';
+import { Mermaid } from '../../../src/plugins/mermaid/Mermaid';
 import React from 'react';
 
 const DynamicAreaChartExample: React.FC = () => {
@@ -15,11 +15,8 @@ const DynamicAreaChartExample: React.FC = () => {
   return (
     <div style={{ padding: '20px' }}>
       <Mermaid
-        element={{ type: 'code', language: 'mermaid', value: data }}
-        attributes={{ 'data-slate-node': 'element', ref: null }}
-      >
-        <></>
-      </Mermaid>
+        el={{ type: 'code', value: data, children: [{ text: data }] }}
+      />
     </div>
   );
 };
