@@ -1,8 +1,8 @@
 import { Mermaid } from '../../../src/plugins/mermaid/Mermaid';
 import React from 'react';
 
-const DynamicAreaChartExample: React.FC = () => {
-  // 扁平化数据结构
+const MermaidFlowchartExample: React.FC = () => {
+  // mermaid流程图
   const data = `
     graph TD
     A[开始] --> B{判断条件}
@@ -20,4 +20,4 @@ const DynamicAreaChartExample: React.FC = () => {
     </div>
   );
 };
-export default DynamicAreaChartExample;
+export default MermaidFlowchartExample;
