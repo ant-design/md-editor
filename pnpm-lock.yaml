@@ -95,6 +95,9 @@ importers:
       katex:
         specifier: ^0.16.23
         version: 0.16.23
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
