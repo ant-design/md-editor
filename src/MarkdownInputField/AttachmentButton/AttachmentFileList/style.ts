@@ -63,7 +63,32 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-file-icon': {
           width: '40px',
           height: '40px',
+          minWidth: '40px',
           opacity: 1,
+          '&-img': {
+            width: '40px',
+            height: '40px',
+            opacity: 1,
+            background: 'var(--color-gray-bg-card-white)',
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-control-base)',
+            borderRadius: 'var(--radius-card-base)',
+            border: 'none',
+            overflow: 'hidden',
+            img: {
+              maxWidth: '100%',
+              maxHeight: '100%',
+              borderRadius: 'inherit',
+              transition: 'transform 0.3s',
+            },
+            '&:hover': {
+              overflow: 'hidden',
+              img: {
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s',
+              },
+            },
+          },
           '>svg': {
             width: '40px',
             height: '40px',
@@ -86,7 +111,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             font: 'var(--font-text-body-emphasized-sm)',
             letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
             color: 'var(--color-gray-text-default)',
-            maxWidth: '112px',
+            maxWidth: '102px',
             whiteSpace: 'nowrap',
             width: 'max-content',
             overflow: 'hidden',

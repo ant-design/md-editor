@@ -1,4 +1,4 @@
-﻿import { Keyframes } from '@ant-design/cssinjs';
+import { Keyframes } from '@ant-design/cssinjs';
 import {
   ChatTokenType,
   GenerateStyle,
@@ -181,13 +181,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-quick-actions': {
         position: 'absolute',
         userSelect: 'none',
-        right: 18,
+        right: 0,
+        width: '40px',
         top: 12,
         boxSizing: 'border-box',
         zIndex: 99,
         display: 'flex',
         gap: '8px',
         alignItems: 'center',
+        justifyContent: 'center',
       },
       '&-send-has-tools': {
         boxSizing: 'border-box',
@@ -213,7 +215,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: 8,
       width: '100%',
       maxWidth: '980px',
-      marginBottom: '8px',
+      marginBottom: '12px',
       font: 'var(--font-text-body-base)',
       color: 'var(--color-gray-text-default)',
       '> div': {

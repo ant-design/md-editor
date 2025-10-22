@@ -428,7 +428,6 @@ const parseTableOrChart = (
       children: r.children.map(
         (c: { children: string | any[] }, i: string | number) => {
           const mergeInfo = mergeMap.get(`${l}-${i}`);
-
           return {
             type: 'table-cell',
             align: aligns?.[i as number] || undefined,

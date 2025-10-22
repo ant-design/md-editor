@@ -219,9 +219,7 @@ const ChatLayoutDemo: React.FC = () => {
   // ***************** Footer Task Running End ***************** //
 
   return (
-    <div
-      style={{ padding: 8, backgroundColor: 'var(--color-gray-bg-page-dark)' }}
-    >
+    <div style={{ padding: 8, backgroundColor: 'var(--color-gray-bg-page)' }}>
       <div className="custom-chat-container-demo">
         {/* 左侧边栏 */}
         <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>

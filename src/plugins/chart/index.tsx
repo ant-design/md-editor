@@ -1,4 +1,4 @@
-﻿import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import React, { useEffect, useMemo } from 'react';
 import { RenderElementProps, useSlate } from 'slate-react';
 import { ErrorBoundary } from '../../MarkdownEditor/editor/elements/ErrorBoundary';

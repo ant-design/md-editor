@@ -9,12 +9,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}-container`]: {
       // overflow: 'hidden', // 会把Quote的弹框遮挡
+      borderTopLeftRadius: 'inherit',
+      borderTopRightRadius: 'inherit',
     },
 
     [`${token.componentCls}`]: {
       borderWidth: '0px 0px 1px 0px',
       width: '100%',
       height: 'fit-content',
+      borderTopLeftRadius: 'inherit',
+      borderTopRightRadius: 'inherit',
       minHeight: '48px',
       alignSelf: 'stretch',
       borderStyle: 'solid',

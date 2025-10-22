@@ -563,14 +563,14 @@ const App = () => {
         height: '100vh',
         width: '100vw',
         backgroundColor: 'var(--color-gray-bg-page)',
-        padding: 12,
+        padding: 6,
       }}
     >
       <AgenticLayout
         style={{
           minHeight: 450,
-          maxHeight: 'calc(100vh - 24px)',
-          height: 'calc(100vh - 24px)',
+          maxHeight: 'calc(100vh - 16px)',
+          height: 'calc(100vh - 16px)',
           width: 'calc(100vw - 24px)',
         }}
         header={{

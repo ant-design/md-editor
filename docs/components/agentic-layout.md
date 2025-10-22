@@ -12,7 +12,7 @@ group:
 
 ## 基本用法
 
-<code src="../demos/agentic-layout.tsx" iframe="450px"></code>
+<code src="../demos/agentic-layout.tsx" iframe=620></code>
 
 ## API
 
