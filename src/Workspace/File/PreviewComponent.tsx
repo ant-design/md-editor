@@ -2,7 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import {
   Download as DownloadIcon,
   ArrowLeft as LeftIcon,
-  MessageSquareShare as ShareIcon,
+  SquareArrowOutUpRight as ShareIcon,
 } from '@sofa-design/icons';
 import {
   Alert,
