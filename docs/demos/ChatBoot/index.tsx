@@ -1,5 +1,7 @@
 import {
   BubbleList,
+  ButtonTabGroup,
+  ButtonTabItem,
   CaseReply,
   ChatLayout,
   ChatLayoutRef,
@@ -16,6 +18,7 @@ import {
   userMeta,
 } from './data';
 import './style.css';
+import { RefreshCcw } from '@sofa-design/icons'
 
 const StandaloneHistoryDemo = () => {
   const [currentSessionId, setCurrentSessionId] = useState('session-2');
@@ -118,9 +121,42 @@ const StandaloneHistoryDemo = () => {
 const ChatLayoutDemo: React.FC = () => {
   const [leftCollapsed, setLeftCollapsed] = useState(false);
   const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>([]);
+  const [activeTab, setActiveTab] = useState('1');
 
   const containerRef = useRef<ChatLayoutRef>(null);
   const inputRef = useRef<MarkdownEditorInstance | undefined>(undefined);
+
+  // ButtonTabGroup 的配置项
+  const tabItems: ButtonTabItem[] = [
+    {
+      key: '1',
+      label: '全部',
+      icon: (
+        <RefreshCcw />
+      ),
+      onIconClick: () => {
+        console.log('刷新最近对话');
+        // 这里可以添加刷新逻辑
+        alert('刷新最近对话！');
+      },
+    },
+    {
+      key: '2',
+      label: '咨询小助手',
+    },
+    {
+      key: '3',
+      label: '证券观察助手',
+    },
+    {
+      key: '4',
+      label: '智能投顾助手',
+    },
+    {
+      key: '5',
+      label: '理财师助手',
+    },
+  ];
 
   // 使用 useRef 管理重试状态，避免全局污染
   const isRetryingRef = useRef(false);
@@ -171,6 +207,41 @@ const ChatLayoutDemo: React.FC = () => {
     inputRef.current?.store?.setMDContent('');
 
     console.log('发送内容:', text);
+  };
+
+  // ***************** CaseReply Click ***************** //
+  const handleCaseReplyClick = (description: string) => {
+    const timestamp = Date.now();
+
+    // 创建用户消息
+    const userMessage: MessageBubbleData = {
+      id: `user-${timestamp}`,
+      role: 'user',
+      content: description,
+      originContent: description,
+      createAt: timestamp,
+      updateAt: timestamp,
+    };
+
+    // 创建 AI 回复消息
+    const assistantMessage: MessageBubbleData = {
+      id: `assistant-${timestamp + 1}`,
+      role: 'assistant',
+      content: `关于"${description}"的分析结果：\n\n根据最新数据显示，恒生科技指数基金近期表现稳定，技术升级进展顺利。建议投资者关注以下几个方面：\n\n1. **技术创新动态**：关注核心科技企业的研发投入和技术突破\n2. **市场估值水平**：当前估值处于合理区间，具有一定投资价值\n3. **政策环境**：持续关注相关政策导向和监管动态\n4. **风险控制**：建议分散投资，控制单一标的比重\n\n*以上内容仅供参考，不构成投资建议*`,
+      originContent: `关于"${description}"的分析结果：\n\n根据最新数据显示，恒生科技指数基金近期表现稳定，技术升级进展顺利。建议投资者关注以下几个方面：\n\n1. **技术创新动态**：关注核心科技企业的研发投入和技术突破\n2. **市场估值水平**：当前估值处于合理区间，具有一定投资价值\n3. **政策环境**：持续关注相关政策导向和监管动态\n4. **风险控制**：建议分散投资，控制单一标的比重\n\n*以上内容仅供参考，不构成投资建议*`,
+      createAt: timestamp + 1000,
+      updateAt: timestamp + 1000,
+    };
+
+    // 先添加用户消息
+    setBubbleList((prev) => [...prev, userMessage]);
+
+    // 延迟添加 AI 回复，模拟真实场景
+    setTimeout(() => {
+      setBubbleList((prev) => [...prev, assistantMessage]);
+    }, 800);
+
+    console.log('CaseReply 被点击:', description);
   };
 
   return (
@@ -272,24 +343,54 @@ const ChatLayoutDemo: React.FC = () => {
                   }}
                 />
                 {bubbleList.length === 0 && (
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: '24px',
-                      marginTop: '128px',
-                      justifyContent: 'center',
-                      flexWrap: 'wrap',
-                      width: '1000px',
-                    }}
-                  >
-                    {new Array(2).fill(0).map((_, index) => (
+                  <>
+                    <div
+                      style={{
+                        marginTop: '128px',
+                      }}
+                    >
+                      <ButtonTabGroup
+                        items={tabItems}
+                        activeKey={activeTab}
+                        onChange={(key) => {
+                          setActiveTab(key);
+                          console.log('切换到:', key);
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '24px',
+                        marginTop: '16px',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
+                        width: '1000px',
+                      }}
+                    >
+                      {[
+                      {
+                        coverBackground: 'rgba(132, 220, 24, 0.15)',
+                        quoteIconColor: 'rgb(132, 220, 24)',
+                        quote: '恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。',
+                        title: '搜热门资讯',
+                        description: '恒生科技指数基金近有什么相关新闻',
+                      },
+                      {
+                        coverBackground: 'rgba(24, 144, 255, 0.15)',
+                        quoteIconColor: 'rgb(24, 144, 255)',
+                        quote: '了解基金投资的基础知识，帮助您更好地进行资产配置和风险管理。',
+                        title: '学投资知识',
+                        description: '基金投资入门指南',
+                      },
+                    ].map((item, index) => (
                       <CaseReply
                         key={index}
-                        coverBackground="rgba(132, 220, 24, 0.15)"
-                        quoteIconColor="rgb(132, 220, 24)"
-                        quote="恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。"
-                        title="搜热门资讯"
-                        description="恒生科技指数基金近有什么相关新闻"
+                        coverBackground={item.coverBackground}
+                        quoteIconColor={item.quoteIconColor}
+                        quote={item.quote}
+                        title={item.title}
+                        description={item.description}
                         buttonBar={
                           <button
                             type="button"
@@ -310,10 +411,11 @@ const ChatLayoutDemo: React.FC = () => {
                             查看回放
                           </button>
                         }
-                        onClick={() => console.log('卡片被点击')}
+                        onClick={() => handleCaseReplyClick(item.description)}
                       />
                     ))}
-                  </div>
+                    </div>
+                  </>
                 )}
               </div>
             </div>
