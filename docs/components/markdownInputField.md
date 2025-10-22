@@ -56,7 +56,7 @@ const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
 };
 export default () => {
   const [value, setValue] = React.useState(
-    '`${placeholder:目标场景}` 今天的拒绝率为什么下降 `${placeholder:目标事件}` 输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
+    '`${placeholder:目标场景}`今天的拒绝率为什么下降`${placeholder:目标事件}`输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
   );
 
   const markdownRef = React.useRef<MarkdownEditorInstance>(null);
@@ -103,7 +103,7 @@ export default () => {
           return [
             <ActionIconBox
               showTitle={props.collapseSendActions}
-              title="智能改写"
+              title="提示词库"
               key="edit"
               style={{
                 fontSize: 16,
@@ -198,7 +198,7 @@ export default () => {
         layout={'horizontal'}
         onItemClick={() => {
           markdownRef?.current?.store?.setMDContent(
-            '关税对 `${placeholder:消费类}` 基金的影响',
+            '关税对`${placeholder:消费类}`基金的影响',
           );
         }}
       />
@@ -340,7 +340,7 @@ const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
 };
 export default () => {
   const [value, setValue] = React.useState(
-    '`${placeholder:目标场景}` 今天的拒绝率为什么下降 `${placeholder:目标事件}` 输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
+    '`${placeholder:目标场景}`今天的拒绝率为什么下降`${placeholder:目标事件}`输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
   );
 
   const markdownRef = React.useRef<MarkdownEditorInstance>(null);
@@ -394,7 +394,7 @@ export default () => {
           return [
             <ActionIconBox
               showTitle={props.collapseSendActions}
-              title="智能改写"
+              title="提示词库"
               key="edit"
               style={{
                 fontSize: 16,
@@ -489,7 +489,7 @@ export default () => {
         layout={'horizontal'}
         onItemClick={() => {
           markdownRef?.current?.store?.setMDContent(
-            '关税对 `${placeholder:消费类}` 基金的影响',
+            '关税对`${placeholder:消费类}`基金的影响',
           );
         }}
       />
@@ -1237,8 +1237,8 @@ export default () => {
 > 交互说明：
 >
 > - **功能开关**: `enable` 参数控制整个技能模式功能的启用状态
->   - 当 `enable={false}` 时，组件完全不渲染，不执行任何逻辑，提供最佳性能
->   - 当 `enable={true}` 时，组件正常工作，可通过 `open` 参数控制显示/隐藏
+>   - 当 `enable={false}`时，组件完全不渲染，不执行任何逻辑，提供最佳性能
+>   - 当 `enable={true}`时，组件正常工作，可通过 `open` 参数控制显示/隐藏
 > - **显示控制**: `open` 参数控制技能模式的显示与隐藏状态
 > - **动画效果**: 支持流畅的上下滑动动画效果（300ms 缓动动画）
 > - **自定义内容**: 支持自定义标题和右侧内容，可以显示版本、设置按钮等

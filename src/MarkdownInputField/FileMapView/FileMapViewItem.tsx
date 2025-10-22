@@ -91,7 +91,13 @@ export const FileMapViewItem: React.FC<{
           <div
             className={classNames(`${props.prefixCls}-file-icon`, props.hashId)}
           >
-            <AttachmentFileIcon file={file} />
+            <AttachmentFileIcon
+              file={file}
+              className={classNames(
+                `${props.prefixCls}-file-icon-img`,
+                props.hashId,
+              )}
+            />
           </div>
           <div
             className={classNames(`${props.prefixCls}-file-info`, props.hashId)}

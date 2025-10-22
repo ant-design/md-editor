@@ -11,4 +11,4 @@ group:
 
 ## 对话流容器
 
-<code src="../demos/ChatFlowContainer/index.tsx" iframe=600></code>
+<code src="../demos/ChatFlowContainer/index.tsx" iframe=620></code>

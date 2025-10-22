@@ -36,6 +36,7 @@ const genStyle = (
         height: 40,
       },
       '&-bubble-avatar-title': {
+        paddingTop: 'var(--padding-3x)',
         lineHeight: '20px',
         textAlign: 'justify',
         letterSpacing: 'normal',

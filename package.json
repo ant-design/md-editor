@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/md-editor",
-  "version": "1.29.39",
+  "version": "1.29.42",
   "description": "类语雀的编辑器，支持 markdown 渲染和编辑",
   "repository": "git@github.com:ant-design/md-editor.git",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "@better-scroll/observe-dom": "^2.5.1",
     "@better-scroll/scroll-bar": "^2.5.1",
     "@juggle/resize-observer": "^3.4.0",
-    "@sofa-design/icons": "^1.5.1",
+    "@sofa-design/icons": "^1.5.3",
     "ace-builds": "^1.43.3",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",

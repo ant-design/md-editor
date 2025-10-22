@@ -805,7 +805,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   }}
                   readonly={isLoading}
                   contentStyle={{
-                    padding: '12px 8px 12px 12px',
+                    padding: '12px 12px 12px 12px',
                   }}
                   textAreaProps={{
                     enable: true,

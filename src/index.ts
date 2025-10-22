@@ -47,6 +47,7 @@ export * from './schema';
 export * from './TaskList';
 export * from './ThoughtChainList';
 export * from './ToolUseBar';
+export * from './Welcome';
 export * from './Workspace';
 // Robot 组件
 export * from './components/Robot';

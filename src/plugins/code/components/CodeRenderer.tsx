@@ -22,6 +22,8 @@ import {
   ThinkBlock,
 } from './index';
 
+// 简单的 CSV -> Markdown table 转换器
+
 /**
  * 代码渲染器组件
  *

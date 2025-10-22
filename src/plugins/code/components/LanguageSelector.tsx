@@ -164,7 +164,7 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
                 {safeElement.katex ? 'Formula' : safeElement.language}
               </span>
             ) : (
-              <span>{'plain text'}</span>
+              <span>{''}</span>
             )}
           </div>
         </>
