@@ -7,10 +7,9 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      width: '330px',
+      maxWidth: '322px',
       background: '#fdfdfd',
-      margin: '4px',
-      borderRadius: '20px',
+      borderRadius: 'var(--radius-card-base)',
       boxShadow: 'inset 0 0 1px 0 rgba(0, 0, 0, 0.15)',
       position: 'relative',
       overflow: 'hidden',
@@ -32,17 +31,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         WebkitMaskImage: '-webkit-linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
         maskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
         width: '100%',
-        height: 'auto',
+        height: '185px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '32px 0',
       },
 
       // coverContent 白色子卡片
       '&-cover-content': {
         width: '80%',
-        marginTop: '32px',
+        marginTop: '24px',
+        marginBottom: '24px',
         borderRadius: '16px',
         boxShadow:
           '0px 0px 1px 0px rgba(71, 98, 234, 0.05), 0px 6px 16px 0px rgba(71, 98, 234, 0.12)',
@@ -61,8 +60,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-quote-icon': {
         width: '24px',
         height: '24px',
-        marginBottom: '12px',
-        transform: 'rotate(180deg)',
+        marginBottom: '8px',
         
         '& svg': {
           width: '24px',
@@ -73,11 +71,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // 引用文字
       '&-quote-text': {
-        fontSize: '15px',
+        fontSize: '14px',
         fontWeight: 400,
-        lineHeight: '22px',
-        color: 'rgba(0, 25, 61, 0.33)',
-        maxHeight: '88px',
+        lineHeight: '20px',
+        color: 'var(--color-gray-text-light)',
+        maxHeight: '80px',
         overflow: 'hidden',
         display: '-webkit-box',
         WebkitLineClamp: 4,
@@ -88,7 +86,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // 底部内容区域
       '&-bottom': {
         position: 'relative',
-        padding: '20px',
+        height: 80,
+        padding: '16px 20px 20px',
       },
 
       // 标题
@@ -96,8 +95,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '16px',
         fontWeight: 600,
         lineHeight: '24px',
-        color: '#343A45',
-        marginBottom: '8px',
+        color: 'var(--color-gray-text-default)',
+        marginTop: 0,
+        marginBottom: '4px',
       },
 
       // 描述
@@ -105,7 +105,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '13px',
         fontWeight: 400,
         lineHeight: '20px',
-        color: '#767E8B',
+        color: 'var(--color-gray-text-secondary)',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',

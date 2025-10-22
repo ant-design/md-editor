@@ -207,6 +207,7 @@ const ChatLayoutDemo: React.FC = () => {
                 flexDirection: 'column',
                 height: '100%',
                 justifyContent: bubbleList.length === 0 ? 'center' : 'flex-start',
+                alignItems: 'center',
               }}
             >
               {bubbleList.length > 0 && (
@@ -214,6 +215,7 @@ const ChatLayoutDemo: React.FC = () => {
                   style={{
                     paddingBottom: '60px',
                     flex: 1,
+                    width: '100%',
                   }}
                   pure
                   onLike={() => { }}
@@ -231,9 +233,10 @@ const ChatLayoutDemo: React.FC = () => {
               )}
               <div
                 style={{
-                  maxWidth: bubbleList.length === 0 ? '600px' : '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
                   width: '100%',
-                  margin: bubbleList.length === 0 ? '0 auto' : '0',
                 }}
               >
                 {bubbleList.length === 0 && (
@@ -241,13 +244,18 @@ const ChatLayoutDemo: React.FC = () => {
                     title={
                       <>
                         <span>欢迎使用 </span>
-                        <span style={{
-                          background: 'linear-gradient(270deg, #D3CEFF 0%, #8D83FF 24%, #1D3052 55%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                          color: 'transparent',
-                        }}>Agentar </span>
+                        <span
+                          style={{
+                            background:
+                              'linear-gradient(270deg, #D3CEFF 0%, #8D83FF 24%, #1D3052 55%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            color: 'transparent',
+                          }}
+                        >
+                          Agentar{' '}
+                        </span>
                       </>
                     }
                     subtitle="您的 AI 金融分析助理"
@@ -259,37 +267,53 @@ const ChatLayoutDemo: React.FC = () => {
                   onSend={handleSend}
                   style={{
                     height: '120px',
+                    width: '100%',
+                    maxWidth: '800px',
                   }}
                 />
                 {bubbleList.length === 0 && (
-                  <CaseReply
-                    coverBackground="rgba(132, 220, 24, 0.15)"
-                    quoteIconColor="rgb(132, 220, 24)"
-                    quote="恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。"
-                    title="搜热门资讯"
-                    description="恒生科技指数基金近有什么相关新闻"
-                    buttonBar={
-                      <button
-                        type="button"
-                        style={{
-                          backgroundColor: '#000000',
-                          color: '#ffffff',
-                          borderRadius: '36px',
-                          padding: '8px 16px',
-                          cursor: 'pointer',
-                          border: 'none',
-                          fontSize: '14px',
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          console.log('按钮被点击');
-                        }}
-                      >
-                        查看回放
-                      </button>
-                    }
-                    onClick={() => console.log('卡片被点击')}
-                  />
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '24px',
+                      marginTop: '128px',
+                      justifyContent: 'center',
+                      flexWrap: 'wrap',
+                      width: '1000px',
+                    }}
+                  >
+                    {new Array(2).fill(0).map((_, index) => (
+                      <CaseReply
+                        key={index}
+                        coverBackground="rgba(132, 220, 24, 0.15)"
+                        quoteIconColor="rgb(132, 220, 24)"
+                        quote="恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。"
+                        title="搜热门资讯"
+                        description="恒生科技指数基金近有什么相关新闻"
+                        buttonBar={
+                          <button
+                            type="button"
+                            style={{
+                              backgroundColor: '#000000',
+                              color: '#ffffff',
+                              borderRadius: '36px',
+                              padding: '8px 16px',
+                              cursor: 'pointer',
+                              border: 'none',
+                              fontSize: '14px',
+                            }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              console.log('按钮被点击');
+                            }}
+                          >
+                            查看回放
+                          </button>
+                        }
+                        onClick={() => console.log('卡片被点击')}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
             </div>

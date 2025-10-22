@@ -12,7 +12,7 @@ group:
 
 ## 基础用法
 
-<code src="../demos/ChatBoot/index.tsx" iframe=540></code>
+<code src="../demos/ChatBoot/index.tsx" iframe=800></code>
 
 ## API 参考
 
