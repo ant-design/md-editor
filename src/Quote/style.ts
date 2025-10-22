@@ -18,7 +18,6 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '8px',
         borderRadius: 'var(--radius-control-base)',
         cursor: 'pointer',
-        color: 'var(--color-gray-text-light)',
         font: 'var(--font-text-body-sm)',
       },
 
@@ -46,7 +45,7 @@ const genQuoteStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-close-button': {
         fontSize: 14,
-        color: '#343A45',
+        color: 'var(--color-gray-text-default)',
         display: 'none',
       },
 
