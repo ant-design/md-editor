@@ -222,6 +222,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
       },
     },
+    
+    [`${token.componentCls}-top-area`]: {
+      display: 'flex',
+      width: '100%',
+      maxWidth: '980px',
+      marginBottom: '8px',
+      font: 'var(--font-text-body-base)',
+      color: 'var(--color-gray-text-default)',
+    },
   };
 };
 

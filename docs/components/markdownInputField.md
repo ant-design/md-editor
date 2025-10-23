@@ -660,6 +660,166 @@ export default () => {
   );
 };
 ```
+### 便捷操作区域
+
+便捷操作区提供了在输入框上方自定义操作按钮的功能。
+
+**Props 说明：**
+
+- `isShowTopOperatingArea` - 是否显示便捷操作区域，默认为false
+- `iShowBackTo` - 是否显示到顶到底
+- `operationBtnRender` - 自定义操作按钮渲染函数，用于在便捷操作区中添加自定义按钮
+
+```tsx
+import { Space, message } from 'antd';
+import {
+  DownOutlined,
+  AimOutlined,
+  GlobalOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
+import { Sparkles } from '@sofa-design/icons';
+import {
+  ActionItemBox,
+  ActionItemContainer,
+  MarkdownInputField,
+  SuggestionList,
+  ActionIconBox,
+  ToggleButton,
+  CreateRecognizer,
+} from '@ant-design/md-editor';
+import { Button } from 'antd';
+
+const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+  let timer: ReturnType<typeof setInterval>;
+  return {
+    start: async () => {
+      // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
+      let i = 0;
+      timer = setInterval(() => {
+        onPartial(`语音片段${i} `);
+        i += 1;
+      }, 500);
+    },
+    stop: async () => {
+      clearInterval(timer);
+    },
+  };
+};
+export default () => {
+  const [value, setValue] = React.useState(
+    '输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
+  );
+
+  const markdownRef = React.useRef<MarkdownEditorInstance>(null);
+  const targetRef = React.useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      style={{
+        height: 450,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          border: '1px solid #e8e8e8',
+          borderRadius: '8px',
+          overflow: 'auto',
+          padding: '16px',
+        }}
+        ref={targetRef}
+      >
+        <h1>长内容页面</h1>
+        <div
+          style={{
+            height: '600px',
+            background: 'linear-gradient(to bottom, #f0f0f0, #ffffff)',
+          }}
+        />
+        <p>内容结束</p>
+      </div>
+
+      <div
+        style={{
+          borderRadius: '8px',
+        }}
+      >
+        <MarkdownInputField
+          value={value}
+          targetRef={targetRef}
+          inputRef={markdownRef}
+          voiceRecognizer={createRecognizer}
+          isShowTopOperatingArea={true}
+          operationBtnRender={() => (
+            <>
+              <Button>次按钮</Button>
+              <Button type="primary">主按钮</Button>
+            </>
+          )}
+          style={{
+            maxHeight: 120,
+          }}
+          tagInputProps={{
+            type: 'dropdown',
+            enable: true,
+            items: async (props) => {
+              if (props?.placeholder === '目标场景') {
+                return [];
+              }
+              return ['tag1', 'tag2', 'tag3'].map((item) => {
+                return {
+                  key: item,
+                  label: props?.placeholder + item,
+                };
+              });
+            },
+          }}
+          beforeToolsRender={() => {
+            return (
+              <ActionItemContainer showMenu={true}>
+                {new Array(12).fill(0).map((_, index) => (
+                  <ActionItemBox
+                    onClick={() => message.info('快捷技能' + index)}
+                    icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                    iconSize={16}
+                    size="small"
+                    title={
+                      <span
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 8,
+                        }}
+                      >
+                        {'快捷技能' + index}
+                      </span>
+                    }
+                    disabled={index < 2}
+                    key={'快捷技能' + index}
+                  />
+                ))}
+              </ActionItemContainer>
+            );
+          }}
+          onChange={(newValue) => {
+            setValue(newValue);
+            console.log('newValue', newValue);
+          }}
+          placeholder="请输入内容..."
+          onSend={async (text) => {
+            console.log('发送内容:', text);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+```
 
 ### 启用附件功能
 
