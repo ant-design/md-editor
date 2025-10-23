@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, {
@@ -33,6 +33,7 @@ import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
 import { addGlowBorderOffset, useStyle } from './style';
 import { Suggestion } from './Suggestion';
+import TopOperatingArea from './TopOperatingArea';
 import type { CreateRecognizer } from './VoiceInput';
 import { useVoiceInputManager } from './VoiceInputManager';
 
@@ -400,6 +401,65 @@ export type MarkdownInputFieldProps = {
    * <MarkdownInputField allowEmptySubmit onSend={(v) => submit(v)} /> // v 可能为 ''
    */
   allowEmptySubmit?: boolean;
+
+  /**
+   * 是否显示顶部操作区域
+   * @description 控制是否渲染顶部操作区域组件
+   * @default true
+   * @example
+   * <MarkdownInputField isShowTopOperatingArea={false} />
+   */
+  isShowTopOperatingArea?: boolean;
+
+  /**
+   * 顶部操作区域回到顶部/底部功能的目标元素引用
+   * @description 传递给 TopOperatingArea 组件中 BackTo 功能的目标滚动容器引用，如果不传则默认为 window
+   * @example
+   * ```tsx
+   * const scrollRef = useRef<HTMLDivElement>(null);
+   *
+   * <div ref={scrollRef} style={{ height: '400px', overflow: 'auto' }}>
+   *   <MarkdownInputField targetRef={scrollRef} />
+   * </div>
+   * ```
+   */
+  targetRef?: React.RefObject<HTMLDivElement>;
+
+  /**
+   * 顶部操作区域自定义操作按钮渲染函数
+   * @description 用于在顶部操作区域中央渲染自定义操作按钮
+   * @returns 要渲染的操作按钮节点
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   operationBtnRender={() => (
+   *     <>
+   *       <Button>按钮1</Button>
+   *       <Button>按钮2</Button>
+   *     </>
+   *   )}
+   * />
+   * ```
+   */
+  operationBtnRender?: () => React.ReactNode;
+
+  /**
+   * 是否在顶部操作区域显示回到顶部/底部按钮
+   * @description 控制顶部操作区域右侧是否显示回到顶部和回到底部的按钮功能
+   * - 当为 `true` 时，显示回到顶部和回到底部按钮
+   * - 当为 `false` 时，隐藏这些按钮
+   * - 按钮会根据滚动位置自动判断是否显示（需要滚动距离大于5px）
+   * @default true
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   isShowTopOperatingArea={true}
+   *   iShowBackTo={false} // 隐藏回到顶部/底部按钮
+   *   targetRef={scrollRef}
+   * />
+   * ```
+   */
+  iShowBackTo?: boolean;
 };
 
 /**
@@ -450,6 +510,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   borderRadius = 16,
   onBlur,
   onFocus,
+  isShowTopOperatingArea = false,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -646,6 +707,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   return wrapSSR(
     <>
+      {isShowTopOperatingArea && (
+        <div className={classNames(`${baseCls}-top-area`, hashId)}>
+          <TopOperatingArea 
+            targetRef={props.targetRef} 
+            operationBtnRender={props.operationBtnRender}
+            iShowBackTo={props.iShowBackTo}
+          />
+        </div>
+      )}
       {beforeTools ? (
         <div className={classNames(`${baseCls}-before-tools`, hashId)}>
           {beforeTools}

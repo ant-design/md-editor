@@ -222,6 +222,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
       },
     },
+    
+    // 为TopOperatingArea添加一致的样式模式
+    [`${token.componentCls}-top-area`]: {
+      display: 'flex',
+      width: '100%',
+      maxWidth: '980px',
+      marginBottom: '8px', // 与beforeTools保持一致的间距系统
+      font: 'var(--font-text-body-base)',
+      color: 'var(--color-gray-text-default)',
+    },
   };
 };
 
