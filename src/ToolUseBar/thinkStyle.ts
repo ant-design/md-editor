@@ -23,6 +23,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       zIndex: 1,
       padding: '2px',
       paddingRight: '4px',
+      marginBottom: '12px',
 
       '*': {
         boxSizing: 'border-box',
