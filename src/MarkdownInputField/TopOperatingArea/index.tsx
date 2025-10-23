@@ -2,54 +2,50 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { BackTo } from '../../BackTo';
-import { prefixCls, useStyle } from './style';
+import { useStyle } from './style';
 
 interface TopOperatingAreaProps {
-  iShowBackTo?: boolean;
+  isShowBackTo?: boolean;
   targetRef?: React.RefObject<HTMLDivElement>;
   operationBtnRender?: () => React.ReactNode;
 }
 const TopOperatingArea: React.FC<TopOperatingAreaProps> = (props) => {
-  const { iShowBackTo = true, targetRef, operationBtnRender } = props;
+  const { isShowBackTo = true, targetRef, operationBtnRender } = props;
 
-  const context = useContext(ConfigProvider.ConfigContext);
-  const baseCls = context?.getPrefixCls(prefixCls);
-  const { wrapSSR, hashId } = useStyle(baseCls);
-
-  const target = targetRef?.current;
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('top-operating-area');
+  const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const renderOperationButtons = () => {
     if (!operationBtnRender) return null;
 
     return (
-      <div className={classNames(`${baseCls}-buttons`, hashId)}>
+      <div className={classNames(`${prefixCls}-buttons`, hashId)}>
         {operationBtnRender()}
       </div>
     );
   };
 
   return wrapSSR(
-    <div className={classNames(baseCls, hashId)}>
-      <div className={classNames(`${baseCls}-left`, hashId)}></div>
-      <div className={classNames(`${baseCls}-center`, hashId)}>
+    <div className={classNames(prefixCls, hashId)}>
+      <div className={classNames(`${prefixCls}-left`, hashId)}></div>
+      <div className={classNames(`${prefixCls}-center`, hashId)}>
         {renderOperationButtons()}
       </div>
-      <div className={classNames(`${baseCls}-right`, hashId)}>
+      <div className={classNames(`${prefixCls}-right`, hashId)}>
         <div
-          className={classNames(`${baseCls}-back-buttons`, hashId)}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            visibility: iShowBackTo ? 'visible' : 'hidden',
-            opacity: iShowBackTo ? 1 : 0,
-            transition: 'opacity 0.3s ease',
-          }}
+          className={classNames(
+            `${prefixCls}-back-buttons`,
+            `${prefixCls}-back-buttons-${isShowBackTo ? 'visible' : 'hidden'}`,
+            hashId,
+          )}
         >
-          {iShowBackTo && (
+          {isShowBackTo && (
             <>
               <BackTo.Top
-                target={target ? () => target : undefined}
+                target={
+                  targetRef ? () => targetRef.current || window : undefined
+                }
                 shouldVisible={5}
                 style={{
                   position: 'relative',
@@ -58,7 +54,9 @@ const TopOperatingArea: React.FC<TopOperatingAreaProps> = (props) => {
                 }}
               />
               <BackTo.Bottom
-                target={target ? () => target : undefined}
+                target={
+                  targetRef ? () => targetRef.current || window : undefined
+                }
                 shouldVisible={5}
                 style={{
                   position: 'relative',

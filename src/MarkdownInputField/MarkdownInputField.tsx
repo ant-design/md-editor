@@ -405,7 +405,7 @@ export type MarkdownInputFieldProps = {
   /**
    * 是否显示顶部操作区域
    * @description 控制是否渲染顶部操作区域组件
-   * @default true
+   * @default false
    * @example
    * <MarkdownInputField isShowTopOperatingArea={false} />
    */
@@ -454,12 +454,12 @@ export type MarkdownInputFieldProps = {
    * ```tsx
    * <MarkdownInputField
    *   isShowTopOperatingArea={true}
-   *   iShowBackTo={false} // 隐藏回到顶部/底部按钮
+   *   isShowBackTo={false} // 隐藏回到顶部/底部按钮
    *   targetRef={scrollRef}
    * />
    * ```
    */
-  iShowBackTo?: boolean;
+  isShowBackTo?: boolean;
 };
 
 /**
@@ -712,7 +712,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           <TopOperatingArea 
             targetRef={props.targetRef} 
             operationBtnRender={props.operationBtnRender}
-            iShowBackTo={props.iShowBackTo}
+            isShowBackTo={props.isShowBackTo}
           />
         </div>
       )}

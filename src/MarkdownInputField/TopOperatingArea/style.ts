@@ -4,7 +4,7 @@ import {
   type ChatTokenType 
 } from '../../hooks/useStyle';
 
-export const prefixCls = 'lui-top-operating-area';
+export const prefixCls = 'top-operating-area';
 
 // 样式生成函数
 const genTopOperatingAreaStyle: GenerateStyle<ChatTokenType> = (token) => {
@@ -49,15 +49,20 @@ const genTopOperatingAreaStyle: GenerateStyle<ChatTokenType> = (token) => {
       ['&-back-buttons']: {
         display: 'flex',
         alignItems: 'center',
-        gap: token.marginXS / 2,
-      },
-      
-      ['&-buttons']: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: token.marginXS,
-        height: '100%',
+        gap: 4,
+        transition: 'opacity 0.3s ease',
+        
+        // 显示状态
+        '&-visible': {
+          visibility: 'visible',
+          opacity: 1,
+        },
+        
+        // 隐藏状态
+        '&-hidden': {
+          visibility: 'hidden',
+          opacity: 0,
+        },
       },
     },
   };

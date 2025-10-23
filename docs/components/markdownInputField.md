@@ -712,7 +712,7 @@ export default () => {
   );
 
   const markdownRef = React.useRef<MarkdownEditorInstance>(null);
-  const targetRef = React.useRef<MarkdownEditorInstance>(null);
+  const targetRef = React.useRef<HTMLDivElement>(null);
 
   return (
     <div
@@ -754,11 +754,10 @@ export default () => {
           inputRef={markdownRef}
           voiceRecognizer={createRecognizer}
           isShowTopOperatingArea={true}
-          is
           operationBtnRender={() => (
             <>
               <Button>次按钮</Button>
-              <Button  color="default" variant="solid">主按钮</Button>
+              <Button type="primary">主按钮</Button>
             </>
           )}
           style={{
