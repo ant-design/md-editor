@@ -13,11 +13,32 @@ interface ScrollToOptions {
 }
 
 export default function scrollTo(y: number, options: ScrollToOptions = {}) {
-  const { container = window, callback, duration = 450 } = options;
+  const {
+    container = typeof window !== 'undefined' ? window : undefined,
+    callback,
+    duration = 450,
+  } = options;
+
+  // Early return if running in Node.js environment without proper DOM setup
+  if (typeof window === 'undefined') {
+    if (typeof callback === 'function') {
+      callback();
+    }
+    return;
+  }
+
   const scrollTop = getScroll(container);
   const startTime = Date.now();
 
   const frameFunc = () => {
+    // Check if we're still in a browser environment
+    if (typeof window === 'undefined') {
+      if (typeof callback === 'function') {
+        callback();
+      }
+      return;
+    }
+
     const timestamp = Date.now();
     const time = timestamp - startTime;
     const nextScrollTop = easeInOutCubic(
