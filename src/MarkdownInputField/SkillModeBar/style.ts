@@ -32,7 +32,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       font: 'var(--font-text-h5-base)',
       letterSpacing: 'var(--letter-spacing-h5-base, normal)',
       color: 'var(--color-primary-control-fill-primary)',
-      lineHeight: '28px',
       minHeight: '28px',
     },
 
