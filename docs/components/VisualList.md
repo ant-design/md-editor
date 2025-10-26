@@ -3,7 +3,7 @@ title: VisualList 视觉列表
 atomId: VisualList
 group:
   title: 通用
-  order: 5
+  order: 1
 ---
 
 # VisualList 视觉列表

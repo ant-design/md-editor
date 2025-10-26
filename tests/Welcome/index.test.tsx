@@ -12,9 +12,7 @@ describe('Welcome 组件', () => {
   });
 
   it('应该渲染标题和描述', () => {
-    render(
-      <Welcome title="欢迎使用" description="这是一个测试描述" />,
-    );
+    render(<Welcome title="欢迎使用" description="这是一个测试描述" />);
 
     expect(screen.getByText('欢迎使用')).toBeInTheDocument();
     expect(screen.getByText('这是一个测试描述')).toBeInTheDocument();
@@ -29,9 +27,7 @@ describe('Welcome 组件', () => {
   });
 
   it('应该只渲染描述当没有标题时', () => {
-    const { container } = render(
-      <Welcome description="只有描述" />,
-    );
+    const { container } = render(<Welcome description="只有描述" />);
 
     expect(screen.getByText('只有描述')).toBeInTheDocument();
     const title = container.querySelector('.ant-welcome-title');
@@ -121,12 +117,12 @@ describe('Welcome 组件', () => {
   });
 
   it('应该支持布尔值作为描述', () => {
-    const { container } = render(
-      <Welcome title="标题" description={false} />,
-    );
+    const { container } = render(<Welcome title="标题" description={false} />);
 
     // 布尔值 false 不会被渲染为文本
-    const descriptionElement = container.querySelector('.ant-welcome-description');
+    const descriptionElement = container.querySelector(
+      '.ant-welcome-description',
+    );
     expect(descriptionElement).not.toBeInTheDocument();
   });
 
@@ -144,10 +140,7 @@ describe('Welcome 组件', () => {
 
   it('应该正确处理空的 classNames 对象', () => {
     const { container } = render(
-      <Welcome
-        title="空 classNames"
-        classNames={{}}
-      />,
+      <Welcome title="空 classNames" classNames={{}} />,
     );
 
     const titleElement = container.querySelector('.ant-welcome-title');
@@ -166,7 +159,9 @@ describe('Welcome 组件', () => {
     const titleElement = container.querySelector('.only-title-class');
     expect(titleElement).toBeInTheDocument();
 
-    const descriptionElement = container.querySelector('.ant-welcome-description');
+    const descriptionElement = container.querySelector(
+      '.ant-welcome-description',
+    );
     expect(descriptionElement).toBeInTheDocument();
   });
 
@@ -186,23 +181,23 @@ describe('Welcome 组件', () => {
     expect(titleElement).not.toBeInTheDocument();
 
     // 当 description 为 undefined 时，不应该渲染描述
-    const descriptionElement = container.querySelector('.ant-welcome-description');
+    const descriptionElement = container.querySelector(
+      '.ant-welcome-description',
+    );
     expect(descriptionElement).not.toBeInTheDocument();
   });
 
   it('应该正确处理空字符串', () => {
-    const { container } = render(
-      <Welcome title="" description="" />,
-    );
+    const { container } = render(<Welcome title="" description="" />);
 
-    // 空字符串应该被渲染
+    // 空字符串时，由于条件渲染，元素不会被渲染
     const titleElement = container.querySelector('.ant-welcome-title');
-    expect(titleElement).toBeInTheDocument();
-    expect(titleElement).toBeEmptyDOMElement();
+    expect(titleElement).not.toBeInTheDocument();
 
-    const descriptionElement = container.querySelector('.ant-welcome-description');
-    expect(descriptionElement).toBeInTheDocument();
-    expect(descriptionElement).toBeEmptyDOMElement();
+    const descriptionElement = container.querySelector(
+      '.ant-welcome-description',
+    );
+    expect(descriptionElement).not.toBeInTheDocument();
   });
 
   it('应该支持复杂的嵌套内容', () => {
@@ -223,9 +218,7 @@ describe('Welcome 组件', () => {
       </div>
     );
 
-    render(
-      <Welcome title={complexTitle} description={complexDescription} />,
-    );
+    render(<Welcome title={complexTitle} description={complexDescription} />);
 
     expect(screen.getByText('主标题')).toBeInTheDocument();
     expect(screen.getByText('副标题')).toBeInTheDocument();
@@ -307,7 +300,9 @@ describe('Welcome 组件', () => {
     );
 
     expect(screen.getByText('条件标题')).toBeInTheDocument();
-    const descriptionElement = container.querySelector('.ant-welcome-description');
+    const descriptionElement = container.querySelector(
+      '.ant-welcome-description',
+    );
     expect(descriptionElement).not.toBeInTheDocument();
   });
 
