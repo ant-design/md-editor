@@ -1548,18 +1548,25 @@ const parseWithPlugins = (
 const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
 
 /**
- * 预处理 <think> 标签，将其转换为 ```think 代码块格式
+ * 预处理特殊标签（think/answer），将其转换为代码块格式
  * @param markdown - 原始 Markdown 字符串
+ * @param tagName - 标签名称（think 或 answer）
  * @returns 处理后的 Markdown 字符串
  */
-function preprocessThinkTags(markdown: string): string {
-  // 匹配 <think>内容</think> 格式，支持多行内容
-  return markdown.replace(/<think>([\s\S]*?)<\/think>/g, (match, content) => {
+function preprocessSpecialTags(
+  markdown: string,
+  tagName: 'think' | 'answer',
+): string {
+  const tagRegex = new RegExp(
+    `<${tagName}>([\\s\\S]*?)<\\/${tagName}>`,
+    'g',
+  );
+
+  return markdown.replace(tagRegex, (match, content) => {
     const trimmedContent = content.trim();
 
     // 如果内容中包含代码块标记（三个反引号），需要进行转义
-    // 策略：将代码块的开头和结尾的反引号用 HTML 实体编码
-    // 这样可以保持代码块的原始格式，在渲染时再恢复
+    // 策略：使用特殊标记替换代码块，保持原始格式
     const processedContent = trimmedContent.replace(
       /```(\w*)\n?([\s\S]*?)```/g,
       (_: string, lang: string, code: string) => {
@@ -1570,9 +1577,27 @@ function preprocessThinkTags(markdown: string): string {
       },
     );
 
-    // 2. 构建 think 代码块
-    return `\`\`\`think\n${processedContent}\n\`\`\``;
+    // 构建对应类型的代码块
+    return `\`\`\`${tagName}\n${processedContent}\n\`\`\``;
   });
+}
+
+/**
+ * 预处理 <think> 标签，将其转换为 ```think 代码块格式
+ * @param markdown - 原始 Markdown 字符串
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessThinkTags(markdown: string): string {
+  return preprocessSpecialTags(markdown, 'think');
+}
+
+/**
+ * 预处理 <answer> 标签，将其转换为 ```answer 代码块格式
+ * @param markdown - 原始 Markdown 字符串
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessAnswerTags(markdown: string): string {
+  return preprocessSpecialTags(markdown, 'answer');
 }
 
 function preprocessMarkdownTableNewlines(markdown: string) {
@@ -1627,10 +1652,11 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  // 先预处理 <think> 标签，再处理表格换行
+  // 先预处理 <think> 和 <answer> 标签，再处理表格换行
   const thinkProcessed = preprocessThinkTags(md || '');
+  const answerProcessed = preprocessAnswerTags(thinkProcessed);
   const processedMarkdown = mdastParser.parse(
-    preprocessMarkdownTableNewlines(thinkProcessed),
+    preprocessMarkdownTableNewlines(answerProcessed),
   ) as any;
 
   const markdownRoot = processedMarkdown.children;

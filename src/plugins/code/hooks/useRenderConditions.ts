@@ -13,9 +13,11 @@ export function useRenderConditions(element: CodeNode, readonly: boolean) {
     [element.language, element?.isConfig],
   );
 
-  // 是否渲染为思考块
+  // 是否渲染为思考块（think 或 answer）
   const shouldRenderAsThinkBlock = useMemo(
-    () => element.language === 'think' && readonly,
+    () =>
+      (element.language === 'think' || element.language === 'answer') &&
+      readonly,
     [element.language, readonly],
   );
 
