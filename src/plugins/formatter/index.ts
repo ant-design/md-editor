@@ -149,6 +149,9 @@ export class MarkdownFormatter {
     // 首先保存代码块内容
     const codeBlocks: { [key: string]: string } = {};
     let counter = 0;
+    if (!text) {
+      return '';
+    }
 
     // 保存代码块内容
     const textWithoutCodeBlocks = text?.replace(/```[\s\S]*?```/g, (match) => {
@@ -171,7 +174,7 @@ export class MarkdownFormatter {
       result = result?.replace(placeholder, original);
     });
 
-    return result;
+    return result || '';
   }
 }
 
