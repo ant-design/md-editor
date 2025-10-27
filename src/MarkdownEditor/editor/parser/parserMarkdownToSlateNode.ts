@@ -1800,16 +1800,37 @@ function preprocessThinkTags(markdown: string): string {
 }
 
 /**
- * 预处理 <answer> 标签，提取其内容（删除标签本身）
+ * 预处理所有非标准 HTML 标签，提取其内容（删除标签本身）
  * @param markdown - 原始 Markdown 字符串
  * @returns 处理后的 Markdown 字符串
  */
-function preprocessAnswerTags(markdown: string): string {
-  // 匹配 <answer>内容</answer> 格式，只保留内容
-  return markdown.replace(/<answer>([\s\S]*?)<\/answer>/g, (match, content) => {
-    // 直接返回内容，去除前后空白
-    return content.trim();
-  });
+function preprocessNonStandardHtmlTags(markdown: string): string {
+  let result = markdown;
+  let hasNonStandardTags = true;
+  
+  // 循环处理，直到没有非标准标签（处理嵌套情况）
+  while (hasNonStandardTags) {
+    const before = result;
+    
+    // 匹配所有 HTML 标签对：<tagname>content</tagname>
+    result = result.replace(
+      /<(\w+)>([\s\S]*?)<\/\1>/g,
+      (match, tagName, content) => {
+        // 检查是否为标准 HTML 元素
+        if (STANDARD_HTML_ELEMENTS.has(tagName.toLowerCase())) {
+          // 标准元素保持不变
+          return match;
+        }
+        // 非标准元素只保留内容（不 trim，保持原始格式）
+        return content;
+      },
+    );
+    
+    // 如果没有变化，说明处理完成
+    hasNonStandardTags = before !== result;
+  }
+  
+  return result;
 }
 
 function preprocessMarkdownTableNewlines(markdown: string) {
@@ -1864,11 +1885,11 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  // 先预处理 <answer> 标签（提取内容），再预处理 <think> 标签，最后处理表格换行
-  const answerProcessed = preprocessAnswerTags(md || '');
-  const thinkProcessed = preprocessThinkTags(answerProcessed);
+  // 先预处理 <think> 标签，再预处理其他非标准 HTML 标签，最后处理表格换行
+  const thinkProcessed = preprocessThinkTags(md || '');
+  const nonStandardProcessed = preprocessNonStandardHtmlTags(thinkProcessed);
   const processedMarkdown = mdastParser.parse(
-    preprocessMarkdownTableNewlines(thinkProcessed),
+    preprocessMarkdownTableNewlines(nonStandardProcessed),
   ) as any;
 
   const markdownRoot = processedMarkdown.children;

@@ -80,13 +80,25 @@ console.log('嵌套的代码');
 可以包含多行
 标签会被自动移除</answer>
 
-### 3.2 其他自定义标签（显示为原始文本）
+### 3.2 其他自定义标签（也只显示内容）
 
-<custom>自定义标签会显示标签和内容</custom>
+原始：\`<custom>自定义内容</custom>\`
 
-<foo>foo 标签内容</foo>
+渲染：<custom>自定义内容</custom>
 
-<mycomponent>自定义组件</mycomponent>
+原始：\`<foo>foo 标签内容</foo>\`
+
+渲染：<foo>foo 标签内容</foo>
+
+原始：\`<mycomponent>组件内容</mycomponent>\`
+
+渲染：<mycomponent>组件内容</mycomponent>
+
+### 3.3 嵌套自定义标签
+
+原始：\`<outer><inner>嵌套内容</inner></outer>\`
+
+渲染：<outer><inner>嵌套内容</inner></outer>
 
 ---
 
@@ -109,8 +121,8 @@ console.log('嵌套的代码');
 |---------|------|---------|
 | \`<think>\` | \`<think>内容</think>\` | 转换为特殊思考块 UI ⭐ |
 | \`<answer>\` | \`<answer>内容</answer>\` | **只显示内容**，隐藏标签 ✨ |
+| 其他非标准标签 | \`<custom>\`, \`<foo>\` 等 | **只显示内容**，隐藏标签 ✨ |
 | 标准 HTML | \`<div>\`, \`<p>\`, \`<img>\` 等 | 正常解析为 HTML |
-| 自定义标签 | \`<custom>\`, \`<foo>\` 等 | 显示标签和内容 |
 | HTML 注释 | \`<!-- {...} -->\` | 提取配置属性 |
 
 ---
@@ -118,8 +130,9 @@ console.log('嵌套的代码');
 ## 提示
 
 - 切换到**只读模式**可以看到 \`<think>\` 标签的特殊 UI 效果
-- \`<answer>\` 标签会自动隐藏，只显示内容
-- 其他自定义标签会原样显示
+- **所有非标准 HTML 标签都会自动隐藏，只显示内容**
+- 包括：\`<answer>\`、\`<custom>\`、\`<foo>\` 等任意自定义标签
+- 嵌套的非标准标签也会被递归处理
 `);
 
   return (

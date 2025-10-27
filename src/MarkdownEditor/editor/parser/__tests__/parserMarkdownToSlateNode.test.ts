@@ -880,35 +880,30 @@ console.log('测试代码');
   });
 
   describe('handleCustomHtmlTags', () => {
-    it('should treat non-standard HTML tags as text', () => {
+    it('should extract content from non-standard HTML tags (hide tags)', () => {
       const markdown = '<custom>自定义内容</custom>';
       const result = parserMarkdownToSlateNode(markdown);
 
       expect(result.schema).toHaveLength(1);
       expect(result.schema[0]).toEqual({
         type: 'paragraph',
-        children: [
-          { text: '<custom>' },
-          { text: '自定义内容' },
-          { text: '</custom>' },
-        ],
+        children: [{ text: '自定义内容' }],
       });
     });
 
-    it('should treat multiple custom tags as text', () => {
+    it('should extract content from multiple custom tags', () => {
       const markdown = '<foo>内容1</foo> 和 <bar>内容2</bar>';
       const result = parserMarkdownToSlateNode(markdown);
 
       expect(result.schema).toHaveLength(1);
       expect(result.schema[0].type).toBe('paragraph');
-      // 验证自定义标签被当作文本
+      // 验证自定义标签内容被提取
       const text = result.schema[0].children
         .map((child: any) => child.text)
         .join('');
-      expect(text).toContain('<foo>');
-      expect(text).toContain('</foo>');
-      expect(text).toContain('<bar>');
-      expect(text).toContain('</bar>');
+      expect(text).toBe('内容1 和 内容2');
+      expect(text).not.toContain('<foo>');
+      expect(text).not.toContain('</foo>');
     });
 
     it('should handle standard HTML tags normally', () => {
@@ -919,6 +914,18 @@ console.log('测试代码');
       expect(result.schema).toHaveLength(1);
       // div 标签会被 htmlToFragmentList 处理
       expect(result.schema[0].type).not.toBe('paragraph');
+    });
+
+    it('should extract content from nested custom tags', () => {
+      const markdown = '<outer><inner>嵌套内容</inner></outer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      // 嵌套标签都会被移除，只保留最内层的内容
+      const text = result.schema[0].children
+        .map((child: any) => child.text)
+        .join('');
+      expect(text).toBe('嵌套内容');
     });
   });
 
