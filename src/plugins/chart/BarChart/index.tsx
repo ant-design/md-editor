@@ -10,7 +10,7 @@ import {
   ScriptableContext,
   Tooltip,
 } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import ChartDataLabels, { Context } from 'chartjs-plugin-datalabels';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -546,7 +546,7 @@ const BarChart: React.FC<BarChartProps> = ({
       },
       ...(ChartDataLabels && {
         datalabels: {
-          display: (context: any) => {
+          display: (context: Context) => {
             if (!showDataLabels) return false;
             
             // 堆叠图：只在可见数据集中最后一个显示标签（显示累计总和）
@@ -592,24 +592,39 @@ const BarChart: React.FC<BarChartProps> = ({
             size: isMobile ? 10 : 11,
             weight: 'normal',
           },
-          formatter: (value: number, context: any) => {
+          formatter: (value: number, context: Context) => {
             if (value === null || value === undefined) return '';
             
             const dataIndex = context.dataIndex;
             const datasetIndex = context.datasetIndex;
-            const label = context.chart.data.labels?.[dataIndex] || '';
-            const datasetLabel = context.dataset.label || '';
+            const labelValue = context.chart.data.labels?.[dataIndex];
+            const label = (typeof labelValue === 'string' || typeof labelValue === 'number') 
+              ? labelValue 
+              : String(labelValue || '');
+            const datasetLabel = String(context.dataset.label || '');
             
-            // 堆叠图：计算并显示该位置的累计总和
+            // 堆叠图：计算并显示该位置的可见数据集累计总和
             if (stacked) {
-              const datasets = context.chart.data.datasets;
-              let total = 0;
+              const chart = context.chart;
+              const datasets = chart.data.datasets;
+              const currentValue = Number(datasets?.[datasetIndex]?.data?.[dataIndex] ?? 0);
+              const currentStack = datasets?.[datasetIndex]?.stack;
               
-              // 累加所有数据集在该位置的值
-              datasets.forEach((dataset: any) => {
+              // 只累加可见的、同一堆叠、同一符号的数据集
+              let total = 0;
+              datasets.forEach((dataset: any, i: number) => {
+                // 检查数据集是否可见
+                if (!chart.isDatasetVisible(i)) return;
+                // 检查是否属于同一堆叠
+                if (currentStack && dataset?.stack !== currentStack) return;
+                
                 const val = dataset.data[dataIndex];
                 if (val !== null && val !== undefined) {
-                  total += Number(val);
+                  const numVal = Number(val);
+                  // 只累加与当前值同号的数据
+                  if ((numVal >= 0 && currentValue >= 0) || (numVal < 0 && currentValue < 0)) {
+                    total += numVal;
+                  }
                 }
               });
               
