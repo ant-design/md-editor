@@ -47,18 +47,13 @@ export function ThinkBlock({ element }: ThinkBlockProps) {
   const content = restoreCodeBlocks(rawContent);
 
   const isLoading = content.endsWith('...');
-
-  // 根据语言类型决定显示文本
-  const isAnswer = element.language === 'answer';
   const toolNameText = isLoading
     ? locale?.['think.deepThinkingInProgress'] || '深度思考...'
-    : isAnswer
-      ? (locale as any)?.['answer.title'] || '答案'
-      : locale?.['think.deepThinking'] || '深度思考';
+    : locale?.['think.deepThinking'] || '深度思考';
 
   return (
     <ToolUseBarThink
-      testId={isAnswer ? 'answer-block' : 'think-block'}
+      testId="think-block"
       styles={{
         root: {
           boxSizing: 'border-box',
