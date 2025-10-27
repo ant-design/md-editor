@@ -145,7 +145,8 @@ export const AttachmentFileListItem: React.FC<{
             >
               上传中...
             </div>
-          ) : (
+          ) : null}
+          {file.status === 'done' ? (
             <>
               <div
                 className={classNames(
@@ -170,7 +171,18 @@ export const AttachmentFileListItem: React.FC<{
                   })}
               </div>
             </>
-          )}
+          ) : null}
+          {file.status === 'error' ? (
+            <div
+              className={classNames(
+                `${props.prefixCls}-file-size`,
+                `${props.prefixCls}-file-size-error`,
+                props.hashId,
+              )}
+            >
+              上传失败
+            </div>
+          ) : null}
         </div>
         {file.status !== 'uploading' ? (
           <div

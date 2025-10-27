@@ -129,6 +129,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           alignItems: 'center',
           gap: 4,
+          '&-error': {
+            color: 'var(--color-red-a10)',
+          },
           '&-item:not(:last-child)': {
             lineHeight: '9px',
             display: 'flex',
