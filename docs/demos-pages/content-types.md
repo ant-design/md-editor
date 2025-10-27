@@ -65,10 +65,19 @@ group:
 
 ### 思考过程展示
 
-支持两种方式展示 AI 的思考过程：
-
-#### 1. 使用 `<think>` 标签格式
+支持两种方式展示 AI 的思考过程：使用 `<think>` 标签格式或代码块格式。
 
 两种格式都会被渲染为相同的思考块组件，在只读模式下显示为美观的思考块 UI。
 
 <code src="../demos/ThinkTagDemo.tsx" background="var(--main-bg-color)" iframe=540></code>
+
+### HTML 标签解析
+
+展示编辑器如何处理各种 HTML 标签：
+
+- **标准 HTML 元素**（div, p, ul, li, img, video 等）→ 正常解析
+- **`<think>` 标签** → 转换为特殊思考块 UI
+- **非标准标签**（answer, custom 等）→ 当作普通文本
+- **HTML 注释** → 提取配置属性
+
+<code src="../demos/HtmlParsingDemo.tsx" background="var(--main-bg-color)" iframe=640></code>
