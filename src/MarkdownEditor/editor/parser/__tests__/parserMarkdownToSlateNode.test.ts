@@ -923,75 +923,55 @@ console.log('测试代码');
   });
 
   describe('handleAnswerTag', () => {
-    it('should parse <answer> tag to answer code block', () => {
+    it('should treat <answer> tag as text (non-standard element)', () => {
       const markdown = '<answer>这是答案内容</answer>';
       const result = parserMarkdownToSlateNode(markdown);
 
       expect(result.schema).toHaveLength(1);
-      expect(result.schema[0]).toMatchObject({
-        type: 'code',
-        language: 'answer',
-        value: '这是答案内容',
-        children: [{ text: '这是答案内容' }],
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [
+          { text: '<answer>' },
+          { text: '这是答案内容' },
+          { text: '</answer>' },
+        ],
       });
     });
 
-    it('should parse <answer> tag with multiline content', () => {
-      const markdown = '<answer>第一行答案\n第二行答案\n第三行答案</answer>';
+    it('should treat <answer> tag with multiline as text', () => {
+      const markdown = '<answer>第一行答案</answer>';
       const result = parserMarkdownToSlateNode(markdown);
 
       expect(result.schema).toHaveLength(1);
-      expect(result.schema[0]).toMatchObject({
-        type: 'code',
-        language: 'answer',
-        value: '第一行答案\n第二行答案\n第三行答案',
-      });
+      expect(result.schema[0].type).toBe('paragraph');
+      // 验证 answer 标签被当作文本
+      const text = result.schema[0].children
+        .map((child: any) => child.text)
+        .join('');
+      expect(text).toContain('<answer>');
+      expect(text).toContain('</answer>');
     });
 
-    it('should handle <answer> tag with nested code block', () => {
-      const markdown = `<answer>
-解决方案：
-
-\`\`\`javascript
-function solution() {
-  return 42;
-}
-\`\`\`
-
-这是解决方案的说明
-</answer>`;
-      const result = parserMarkdownToSlateNode(markdown);
-
-      expect(result.schema).toHaveLength(1);
-      expect(result.schema[0]).toMatchObject({
-        type: 'code',
-        language: 'answer',
-      });
-
-      // 验证内容包含特殊标记
-      const value = result.schema[0].value as string;
-      expect(value).toContain('【CODE_BLOCK:javascript】');
-      expect(value).toContain('【/CODE_BLOCK】');
-      expect(value).toContain('function solution()');
-    });
-
-    it('should handle both <think> and <answer> tags together', () => {
+    it('should handle both <think> and <answer> tags - think converted, answer as text', () => {
       const markdown = `<think>思考过程</think>
 
 <answer>答案内容</answer>`;
       const result = parserMarkdownToSlateNode(markdown);
 
       expect(result.schema).toHaveLength(2);
+      // think 被转换为代码块
       expect(result.schema[0]).toMatchObject({
         type: 'code',
         language: 'think',
         value: '思考过程',
       });
-      expect(result.schema[1]).toMatchObject({
-        type: 'code',
-        language: 'answer',
-        value: '答案内容',
-      });
+      // answer 被当作普通文本
+      expect(result.schema[1].type).toBe('paragraph');
+      const text = result.schema[1].children
+        .map((child: any) => child.text)
+        .join('');
+      expect(text).toContain('<answer>');
+      expect(text).toContain('</answer>');
     });
   });
 });

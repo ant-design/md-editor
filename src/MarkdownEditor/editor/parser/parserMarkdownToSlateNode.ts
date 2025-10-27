@@ -1729,15 +1729,6 @@ function preprocessThinkTags(markdown: string): string {
   return preprocessSpecialTags(markdown, 'think');
 }
 
-/**
- * 预处理 <answer> 标签，将其转换为 ```answer 代码块格式
- * @param markdown - 原始 Markdown 字符串
- * @returns 处理后的 Markdown 字符串
- */
-function preprocessAnswerTags(markdown: string): string {
-  return preprocessSpecialTags(markdown, 'answer');
-}
-
 function preprocessMarkdownTableNewlines(markdown: string) {
   // 检查是否包含表格
   if (!tableRegex.test(markdown)) return markdown; // 如果没有表格，直接返回原始字符串
@@ -1790,11 +1781,10 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  // 先预处理 <think> 和 <answer> 标签，再处理表格换行
+  // 先预处理 <think> 标签，再处理表格换行
   const thinkProcessed = preprocessThinkTags(md || '');
-  const answerProcessed = preprocessAnswerTags(thinkProcessed);
   const processedMarkdown = mdastParser.parse(
-    preprocessMarkdownTableNewlines(answerProcessed),
+    preprocessMarkdownTableNewlines(thinkProcessed),
   ) as any;
 
   const markdownRoot = processedMarkdown.children;
