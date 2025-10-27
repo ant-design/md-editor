@@ -29,11 +29,11 @@ group:
 ```bash
 # 1. 在 GitHub 上点击 Fork 按钮
 # 2. 克隆 Fork 的仓库到本地
-git clone https://github.com/YOUR_USERNAME/md-editor.git
+git clone https://github.com/YOUR_USERNAME/agentic-ui.git
 cd md-editor
 
 # 3. 添加上游仓库
-git remote add upstream https://github.com/ant-design/md-editor.git
+git remote add upstream git@github.com:ant-design/agentic-ui.git
 
 # 4. 验证远程仓库配置
 git remote -v
