@@ -84,9 +84,13 @@ export const useFileUploadManager = ({
    */
   const uploadImage = useRefFunction(async () => {
     // 检查是否有文件正在上传中
-    const isUploading = Array.from(fileMap?.values() || []).some(
-      (file) => file.status === 'uploading',
-    );
+    let isUploading = false;
+    for (const file of fileMap?.values() || []) {
+      if (file.status === 'uploading') {
+        isUploading = true;
+        break;
+      }
+    }
     if (isUploading) {
       return;
     }
