@@ -86,6 +86,10 @@ export interface BarChartProps extends ChartContainerProps {
   xPosition?: 'top' | 'bottom';
   /** Y轴位置 */
   yPosition?: 'left' | 'right';
+  /** 是否隐藏X轴，默认false */
+  hiddenX?: boolean;
+  /** 是否隐藏Y轴，默认false */
+  hiddenY?: boolean;
   /** 是否启用堆叠显示，将多个数据集叠加显示 */
   stacked?: boolean;
   /** 图表轴向，'x'为垂直柱状图，'y'为水平柱状图 */
@@ -147,6 +151,8 @@ const BarChart: React.FC<BarChartProps> = ({
   showGrid = true,
   xPosition = 'bottom',
   yPosition = 'left',
+  hiddenX = false,
+  hiddenY = false,
   stacked = false,
   indexAxis = 'x',
   toolbarExtra,
@@ -611,6 +617,7 @@ const BarChart: React.FC<BarChartProps> = ({
     },
     scales: {
       x: {
+        display: !hiddenX,
         stacked,
         position: xPosition,
         title: {
@@ -637,6 +644,7 @@ const BarChart: React.FC<BarChartProps> = ({
         },
       },
       y: {
+        display: !hiddenY,
         stacked,
         position: yPosition,
         beginAtZero: true,
