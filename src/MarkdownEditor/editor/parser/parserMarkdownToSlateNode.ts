@@ -1770,12 +1770,12 @@ function preprocessSpecialTags(
 ): string {
   const tagRegex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`, 'g');
 
-  return markdown.replace(tagRegex, (match, content) => {
+  return markdown?.replace(tagRegex, (match, content) => {
     const trimmedContent = content.trim();
 
     // 如果内容中包含代码块标记（三个反引号），需要进行转义
     // 策略：使用特殊标记替换代码块，保持原始格式
-    const processedContent = trimmedContent.replace(
+    const processedContent = trimmedContent?.replace(
       /```(\w*)\n?([\s\S]*?)```/g,
       (_: string, lang: string, code: string) => {
         // 使用特殊标记包裹，保留语言和代码内容
