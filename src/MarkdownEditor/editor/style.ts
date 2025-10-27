@@ -315,7 +315,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       'ol,ul': {
-        paddingLeft: '1.4em',
+        paddingLeft: '1.8em',
         marginTop: 'var(--margin-2x)',
         marginBottom: 'var(--margin-4x)',
       },
@@ -325,8 +325,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         margin: 'var(--margin-2x) 0',
 
         '&::marker': {
-          color: 'var(--color-gray-a9)',
+          color: 'var(--color-gray-text-light)',
           fontWeight: 600,
+          fontSize: '0.9rem',
+          lineHeight: 'var(--line-height-base)',
+          letterSpacing: 'var(--letter-spacing-base)',
+          fontFamily: 'var(--font-family-base)',
         },
 
         'ul, ol': {

@@ -80,4 +80,4 @@ group:
 - **非标准标签**（answer, custom 等）→ 当作普通文本
 - **HTML 注释** → 提取配置属性
 
-<code src="../demos/HtmlParsingDemo.tsx" background="var(--main-bg-color)" iframe=640></code>
+<code src="../demos/HtmlParsing-demo.tsx" background="var(--main-bg-color)" iframe=640></code>

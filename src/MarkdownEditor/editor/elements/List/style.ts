@@ -56,13 +56,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
         },
       },
-
       '&.ol': {
+        '&::marker': {
+          color: 'var(--color-gray-text-light)',
+        },
         [`&${token.componentCls}`]: {
           listStyle: 'decimal',
           [`& ol${token.componentCls}`]: {
             listStyle: 'lower-alpha',
-            paddingLeft: '1.5em',
+            paddingLeft: 'var(--padding-4x)',
             [`& ol${token.componentCls}`]: {
               listStyle: 'lower-roman',
               [`& ol${token.componentCls}`]: {
@@ -78,7 +80,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           [`& ul${token.componentCls}`]: {
             listStyle: 'circle',
-            paddingLeft: '1.5em',
+            paddingLeft: 'var(--padding-4x)',
             [`& ul${token.componentCls}`]: {
               listStyle: 'square',
               [`& ul${token.componentCls}`]: {

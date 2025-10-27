@@ -425,9 +425,7 @@ ON Semiconductor 是一家具有良好质量的半导体公司，战略方向清
 `;
 
 exports[`MarkdownFormatter > addPanguSpacing > should format company analysis correctly 2`] = `
-"<TASK_RESULT>
-
-## 1. ON Semiconductor 公司分析
+"## 1. ON Semiconductor 公司分析
 
 ### 1.1 公司基本信息，生意模式，创始人背景和公司发展
 
@@ -843,7 +841,5 @@ ON Semiconductor (onsemi) 是一家质量较好的半导体公司，在电源管
 
 **综合结论**：  
 
-ON Semiconductor 是一家具有良好质量的半导体公司，战略方向清晰，管理执行力强。尽管当前估值不低，但考虑到其在高增长市场的布局和技术优势，中长期投资价值值得关注。投资者应关注行业周期性风险，并以合理价格建立仓位。
-
-</TASK_RESULT>"
+ON Semiconductor 是一家具有良好质量的半导体公司，战略方向清晰，管理执行力强。尽管当前估值不低，但考虑到其在高增长市场的布局和技术优势，中长期投资价值值得关注。投资者应关注行业周期性风险，并以合理价格建立仓位。"
 `;

@@ -1807,11 +1807,11 @@ function preprocessThinkTags(markdown: string): string {
 function preprocessNonStandardHtmlTags(markdown: string): string {
   let result = markdown;
   let hasNonStandardTags = true;
-  
+
   // 循环处理，直到没有非标准标签（处理嵌套情况）
   while (hasNonStandardTags) {
     const before = result;
-    
+
     // 匹配所有 HTML 标签对：<tagname>content</tagname>
     result = result.replace(
       /<(\w+)>([\s\S]*?)<\/\1>/g,
@@ -1825,11 +1825,11 @@ function preprocessNonStandardHtmlTags(markdown: string): string {
         return content;
       },
     );
-    
+
     // 如果没有变化，说明处理完成
     hasNonStandardTags = before !== result;
   }
-  
+
   return result;
 }
 

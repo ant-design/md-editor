@@ -15,7 +15,7 @@ const HtmlParsingDemo: React.FC = () => {
 
 ## 1. 特殊标签：<think>
 
-\`<think>\` 标签会被转换为特殊的思考块（在只读模式下有专门的 UI）：
+think 标签会被转换为特殊的思考块（在只读模式下有专门的 UI）：
 
 <think>这是一个思考过程，会被转换为特殊的思考块组件</think>
 
@@ -119,42 +119,47 @@ console.log('嵌套的代码');
 
 | 标签类型 | 示例 | 处理方式 |
 |---------|------|---------|
-| \`<think>\` | \`<think>内容</think>\` | 转换为特殊思考块 UI ⭐ |
-| \`<answer>\` | \`<answer>内容</answer>\` | **只显示内容**，隐藏标签 ✨ |
-| 其他非标准标签 | \`<custom>\`, \`<foo>\` 等 | **只显示内容**，隐藏标签 ✨ |
-| 标准 HTML | \`<div>\`, \`<p>\`, \`<img>\` 等 | 正常解析为 HTML |
+| think | think内容think | 转换为特殊思考块 UI ⭐ |
+| answer | \`\<answer\>内容\</answer>\` | **只显示内容**，隐藏标签 ✨ |
+| 其他非标准标签 | \`\<custom\>\`, \`\<foo\>\` 等 | **只显示内容**，隐藏标签 ✨ |
+| 标准 HTML | \`\<div\>\`, \`\<p\>\`, \`\<img\>\` 等 | 正常解析为 HTML |
 | HTML 注释 | \`<!-- {...} -->\` | 提取配置属性 |
 
 ---
 
 ## 提示
 
-- 切换到**只读模式**可以看到 \`<think>\` 标签的特殊 UI 效果
+- 切换到**只读模式**可以看到 think 标签的特殊 UI 效果
 - **所有非标准 HTML 标签都会自动隐藏，只显示内容**
-- 包括：\`<answer>\`、\`<custom>\`、\`<foo>\` 等任意自定义标签
+- 包括：answer、\`\<custom\>\`、\`\<foo\>\` 等任意自定义标签
 - 嵌套的非标准标签也会被递归处理
 `);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ marginBottom: '16px', display: 'flex', gap: '16px' }}>
-        <div style={{ flex: 1 }}>
-          <h3>编辑模式</h3>
-          <MarkdownEditor
-            initValue={value}
-            onChange={(val) => setValue(val)}
-            readonly={false}
-            style={{ minHeight: '600px', border: '1px solid #d9d9d9' }}
-          />
-        </div>
-        <div style={{ flex: 1 }}>
-          <h3>只读模式（查看 think 块效果）</h3>
-          <MarkdownEditor
-            initValue={value}
-            readonly={true}
-            style={{ minHeight: '600px', border: '1px solid #d9d9d9' }}
-          />
-        </div>
+    <div
+      style={{
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '16px',
+      }}
+    >
+      <div style={{ flex: 1, maxWidth: '50%', minWidth: '50%' }}>
+        <h3>编辑模式</h3>
+        <MarkdownEditor
+          initValue={value}
+          onChange={(val) => setValue(val)}
+          readonly={false}
+          style={{ minHeight: '600px', border: '1px solid #d9d9d9' }}
+        />
+      </div>
+      <div style={{ flex: 1, maxWidth: '50%', minWidth: '50%' }}>
+        <h3>只读模式（查看 think 块效果）</h3>
+        <MarkdownEditor
+          initValue={value}
+          readonly={true}
+          style={{ minHeight: '600px', border: '1px solid #d9d9d9' }}
+        />
       </div>
     </div>
   );
