@@ -97,7 +97,13 @@ export interface BarChartProps extends ChartContainerProps {
   /** 是否显示数据标签，默认false */
   showDataLabels?: boolean;
   /** 数据标签格式化函数 */
-  dataLabelFormatter?: (value: number) => string;
+  dataLabelFormatter?: (params: {
+    value: number;
+    label: string | number;
+    datasetLabel: string;
+    dataIndex: number;
+    datasetIndex: number;
+  }) => string;
 }
 
 const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
@@ -534,7 +540,19 @@ const BarChart: React.FC<BarChartProps> = ({
       },
       ...(ChartDataLabels && {
         datalabels: {
-          display: showDataLabels,
+          display: (context: any) => {
+            if (!showDataLabels) return false;
+            
+            // 堆叠图：只在最后一个数据集上显示标签（显示累计总和）
+            if (stacked) {
+              const datasetIndex = context.datasetIndex;
+              const totalDatasets = context.chart.data.datasets.length;
+              return datasetIndex === totalDatasets - 1;
+            }
+            
+            // 非堆叠图：显示对应标签
+            return true;
+          },
           anchor: indexAxis === 'y' ? 'end' : 'end',
           align: indexAxis === 'y' ? 'end' : 'top',
           offset: 4,
@@ -543,10 +561,48 @@ const BarChart: React.FC<BarChartProps> = ({
             size: isMobile ? 10 : 11,
             weight: 'normal',
           },
-          formatter: (value: number) => {
+          formatter: (value: number, context: any) => {
             if (value === null || value === undefined) return '';
+            
+            const dataIndex = context.dataIndex;
+            const datasetIndex = context.datasetIndex;
+            const label = context.chart.data.labels?.[dataIndex] || '';
+            const datasetLabel = context.dataset.label || '';
+            
+            // 堆叠图：计算并显示该位置的累计总和
+            if (stacked) {
+              const datasets = context.chart.data.datasets;
+              let total = 0;
+              
+              // 累加所有数据集在该位置的值
+              datasets.forEach((dataset: any) => {
+                const val = dataset.data[dataIndex];
+                if (val !== null && val !== undefined) {
+                  total += Number(val);
+                }
+              });
+              
+              if (dataLabelFormatter) {
+                return dataLabelFormatter({
+                  value: total,
+                  label,
+                  datasetLabel,
+                  dataIndex,
+                  datasetIndex,
+                });
+              }
+              return total.toLocaleString();
+            }
+            
+            // 非堆叠图：显示原始值
             if (dataLabelFormatter) {
-              return dataLabelFormatter(value);
+              return dataLabelFormatter({
+                value,
+                label,
+                datasetLabel,
+                dataIndex,
+                datasetIndex,
+              });
             }
             return value.toLocaleString();
           },

@@ -237,6 +237,10 @@ const HorizontalBarChartExample: React.FC = () => {
         width={700}
         height={500}
         indexAxis="y"
+        dataLabelFormatter={(params) => {
+          return `top${params.dataIndex + 1}助手`
+        }}
+        showDataLabels={true}
       />
 
       {/* 数据格式说明 */}
