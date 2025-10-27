@@ -60,3 +60,27 @@ group:
 ### 目录测试
 
 <code src="../demos/toc-simple-demo.tsx" background="var(--main-bg-color)" iframe=540></code>
+
+## AI 辅助功能
+
+### 思考过程展示
+
+支持两种方式展示 AI 的思考过程：
+
+#### 1. 使用 `<think>` 标签格式
+
+```markdown
+<think>这是我的深度思考过程</think>
+```
+
+#### 2. 使用代码块格式
+
+```markdown
+\`\`\`think
+这也是一个思考块
+\`\`\`
+```
+
+两种格式都会被渲染为相同的思考块组件，在只读模式下显示为美观的思考块 UI。
+
+<code src="../demos/ThinkTagDemo.tsx" background="var(--main-bg-color)" iframe=540></code>

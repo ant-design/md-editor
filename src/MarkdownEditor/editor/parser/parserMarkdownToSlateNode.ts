@@ -1547,6 +1547,34 @@ const parseWithPlugins = (
 
 const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
 
+/**
+ * 预处理 <think> 标签，将其转换为 ```think 代码块格式
+ * @param markdown - 原始 Markdown 字符串
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessThinkTags(markdown: string): string {
+  // 匹配 <think>内容</think> 格式，支持多行内容
+  return markdown.replace(/<think>([\s\S]*?)<\/think>/g, (match, content) => {
+    const trimmedContent = content.trim();
+
+    // 如果内容中包含代码块标记（三个反引号），需要进行转义
+    // 策略：将代码块的开头和结尾的反引号用 HTML 实体编码
+    // 这样可以保持代码块的原始格式，在渲染时再恢复
+    const processedContent = trimmedContent.replace(
+      /```(\w*)\n?([\s\S]*?)```/g,
+      (_: string, lang: string, code: string) => {
+        // 使用特殊标记包裹，保留语言和代码内容
+        // 格式：【CODE_BLOCK:lang】code【/CODE_BLOCK】
+        const marker = '\u200B'; // 零宽空格，用于标记
+        return `${marker}【CODE_BLOCK:${lang || ''}】\n${code}\n【/CODE_BLOCK】${marker}`;
+      },
+    );
+
+    // 2. 构建 think 代码块
+    return `\`\`\`think\n${processedContent}\n\`\`\``;
+  });
+}
+
 function preprocessMarkdownTableNewlines(markdown: string) {
   // 检查是否包含表格
   if (!tableRegex.test(markdown)) return markdown; // 如果没有表格，直接返回原始字符串
@@ -1599,8 +1627,10 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
+  // 先预处理 <think> 标签，再处理表格换行
+  const thinkProcessed = preprocessThinkTags(md || '');
   const processedMarkdown = mdastParser.parse(
-    preprocessMarkdownTableNewlines(md || ''),
+    preprocessMarkdownTableNewlines(thinkProcessed),
   ) as any;
 
   const markdownRoot = processedMarkdown.children;
@@ -1609,7 +1639,6 @@ export const parserMarkdownToSlateNode = (
     (plugins || [])?.length > 0
       ? (parseWithPlugins(markdownRoot, plugins || [], true) as Elements[])
       : (parserBlock(markdownRoot as any[], true, undefined, []) as Elements[]);
-
   return {
     schema: schema?.filter((item) => {
       if (item.type === 'paragraph' && item.children?.length === 1) {

@@ -802,4 +802,80 @@ function hello() {
       });
     });
   });
+
+  describe('handleThinkTag', () => {
+    it('should parse <think> tag to think code block', () => {
+      const markdown = '<think>深度思考内容</think>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+        value: '深度思考内容',
+        children: [{ text: '深度思考内容' }],
+      });
+    });
+
+    it('should parse <think> tag with multiline content', () => {
+      const markdown = '<think>第一行思考\n第二行思考\n第三行思考</think>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+        value: '第一行思考\n第二行思考\n第三行思考',
+      });
+    });
+
+    it('should handle <think> tag with nested code block', () => {
+      const markdown = `<think>
+分析问题：
+
+\`\`\`javascript
+console.log('测试代码');
+\`\`\`
+
+这是嵌套的代码块
+</think>`;
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+      });
+
+      // 验证内容包含特殊标记
+      const value = result.schema[0].value as string;
+      expect(value).toContain('【CODE_BLOCK:javascript】');
+      expect(value).toContain('【/CODE_BLOCK】');
+      expect(value).toContain("console.log('测试代码');");
+    });
+
+    it('should handle <think> tag with nested think code block', () => {
+      const markdown = `<think>
+第一步：理解需求
+
+\`\`\`think
+这是嵌套的 think 代码块
+\`\`\`
+
+第二步：实现方案
+</think>`;
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+      });
+
+      // 验证嵌套的 think 代码块被正确转换
+      const value = result.schema[0].value as string;
+      expect(value).toContain('【CODE_BLOCK:think】');
+      expect(value).toContain('这是嵌套的 think 代码块');
+    });
+  });
 });
