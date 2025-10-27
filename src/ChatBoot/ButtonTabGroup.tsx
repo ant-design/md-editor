@@ -43,7 +43,8 @@ const ButtonTabGroup: React.FC<ButtonTabGroupProps> = ({
     defaultActiveKey || items[0]?.key || '',
   );
 
-  const currentActiveKey = activeKey !== undefined ? activeKey : internalActiveKey;
+  const currentActiveKey =
+    activeKey !== undefined ? activeKey : internalActiveKey;
 
   const handleTabClick = (key: string, disabled?: boolean) => {
     if (disabled) return;
@@ -51,12 +52,16 @@ const ButtonTabGroup: React.FC<ButtonTabGroupProps> = ({
     if (activeKey === undefined) {
       setInternalActiveKey(key);
     }
-    
+
     onChange?.(key);
   };
 
   return wrapSSR(
-    <div className={`${prefixCls} ${className || ''} ${hashId}`} role="group" aria-label="Tab group">
+    <div
+      className={`${prefixCls} ${className || ''} ${hashId}`}
+      role="group"
+      aria-label="Tab group"
+    >
       {items.map((item) => (
         <ButtonTab
           key={item.key}
@@ -69,7 +74,7 @@ const ButtonTabGroup: React.FC<ButtonTabGroupProps> = ({
           {item.label}
         </ButtonTab>
       ))}
-    </div>
+    </div>,
   );
 };
 

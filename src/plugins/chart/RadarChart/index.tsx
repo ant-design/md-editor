@@ -53,6 +53,8 @@ interface RadarChartProps extends ChartContainerProps {
   height?: number | string;
   className?: string;
   toolbarExtra?: React.ReactNode;
+  /** 是否将过滤器渲染到工具栏 */
+  renderFilterInToolbar?: boolean;
   dataTime?: string;
   borderColor?: string;
   backgroundColor?: string;
@@ -84,6 +86,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   height = 400,
   className,
   toolbarExtra,
+  renderFilterInToolbar = false,
   dataTime,
   borderColor,
   backgroundColor,
@@ -631,9 +634,25 @@ const RadarChart: React.FC<RadarChartProps> = ({
           onDownload={handleDownload}
           extra={toolbarExtra}
           dataTime={dataTime}
+          filter={
+            renderFilterInToolbar && filterEnum.length > 0 ? (
+              <ChartFilter
+                filterOptions={filterEnum}
+                selectedFilter={selectedFilter}
+                onFilterChange={setSelectedFilter}
+                {...(filterLabels && {
+                  customOptions: filteredDataByFilterLabel,
+                  selectedCustomSelection: selectedFilterLabel,
+                  onSelectionChange: setSelectedFilterLabel,
+                })}
+                theme={currentConfig.theme}
+                variant="compact"
+              />
+            ) : undefined
+          }
         />
 
-        {filterEnum.length > 0 && (
+        {!renderFilterInToolbar && filterEnum.length > 0 && (
           <ChartFilter
             filterOptions={filterEnum}
             selectedFilter={selectedFilter}

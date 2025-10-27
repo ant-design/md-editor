@@ -23,30 +23,31 @@ group:
 
 ### BarChartProps
 
-| 属性               | 类型                                             | 默认值     | 说明                                                           |
-| ------------------ | ------------------------------------------------ | ---------- | -------------------------------------------------------------- |
-| title              | `string`                                         | -          | 图表标题                                                       |
-| data               | `BarChartDataItem[]`                             | -          | 扁平化数据数组                                                 |
-| width              | `number \| string`                               | `600`      | 图表宽度（px），移动端自适应为 100%                            |
-| height             | `number \| string`                               | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400）              |
-| className          | `string`                                         | -          | 自定义类名                                                     |
-| dataTime           | `string`                                         | -          | 数据时间                                                       |
-| theme              | `'dark' \| 'light'`                              | `'light'`  | 主题风格                                                       |
-| color              | `string \| string[]`                             | -          | 自定义主色；正负图取数组前两位为正/负色，一位则单色            |
-| showLegend         | `boolean`                                        | `true`     | 是否显示图例                                                   |
-| legendPosition     | `'top' \| 'left' \| 'bottom' \| 'right'`         | `'bottom'` | 图例位置                                                       |
-| legendAlign        | `'start' \| 'center' \| 'end'`                   | `'start'`  | 图例水平对齐方式                                               |
-| showGrid           | `boolean`                                        | `true`     | 是否显示网格线                                                 |
-| xPosition          | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                       |
-| yPosition          | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                       |
-| hiddenX            | `boolean`                                        | `false`    | 是否隐藏 X 轴                                                  |
-| hiddenY            | `boolean`                                        | `false`    | 是否隐藏 Y 轴                                                  |
-| stacked            | `boolean`                                        | `false`    | 是否堆叠显示多个数据集                                         |
-| indexAxis          | `'x' \| 'y'`                                     | `'x'`      | 轴向：`'x'` 垂直柱状图，`'y'` 水平条形图                       |
-| toolbarExtra       | `React.ReactNode`                                | -          | 头部工具条额外按钮                                             |
-| statistic          | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置  |
-| showDataLabels     | `boolean`                                        | `false`    | 是否显示数据标签（在柱子顶部或右侧显示数值）                   |
-| dataLabelFormatter | `(params: DataLabelFormatterParams) => string`   | -          | 数据标签格式化函数，可自定义显示格式（如添加单位、格式化数字） |
+| 属性                  | 类型                                             | 默认值     | 说明                                                                     |
+| --------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------ |
+| title                 | `string`                                         | -          | 图表标题                                                                 |
+| data                  | `BarChartDataItem[]`                             | -          | 扁平化数据数组                                                           |
+| width                 | `number \| string`                               | `600`      | 图表宽度（px），移动端自适应为 100%                                      |
+| height                | `number \| string`                               | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400）                        |
+| className             | `string`                                         | -          | 自定义类名                                                               |
+| dataTime              | `string`                                         | -          | 数据时间                                                                 |
+| theme                 | `'dark' \| 'light'`                              | `'light'`  | 主题风格                                                                 |
+| color                 | `string \| string[]`                             | -          | 自定义主色；正负图取数组前两位为正/负色，一位则单色                      |
+| showLegend            | `boolean`                                        | `true`     | 是否显示图例                                                             |
+| legendPosition        | `'top' \| 'left' \| 'bottom' \| 'right'`         | `'bottom'` | 图例位置                                                                 |
+| legendAlign           | `'start' \| 'center' \| 'end'`                   | `'start'`  | 图例水平对齐方式                                                         |
+| showGrid              | `boolean`                                        | `true`     | 是否显示网格线                                                           |
+| xPosition             | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                                 |
+| yPosition             | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                                 |
+| hiddenX               | `boolean`                                        | `false`    | 是否隐藏 X 轴                                                            |
+| hiddenY               | `boolean`                                        | `false`    | 是否隐藏 Y 轴                                                            |
+| stacked               | `boolean`                                        | `false`    | 是否堆叠显示多个数据集                                                   |
+| indexAxis             | `'x' \| 'y'`                                     | `'x'`      | 轴向：`'x'` 垂直柱状图，`'y'` 水平条形图                                 |
+| toolbarExtra          | `React.ReactNode`                                | -          | 头部工具条额外按钮                                                       |
+| renderFilterInToolbar | `boolean`                                        | `false`    | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
+| statistic             | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置            |
+| showDataLabels        | `boolean`                                        | `false`    | 是否显示数据标签（在柱子顶部或右侧显示数值）                             |
+| dataLabelFormatter    | `(params: DataLabelFormatterParams) => string`   | -          | 数据标签格式化函数，可自定义显示格式（如添加单位、格式化数字）           |
 
 ### BarChartDataItem
 
@@ -64,14 +65,13 @@ group:
 
 `dataLabelFormatter` 函数接收的参数对象：
 
-| 字段         | 类型               | 说明                                                      |
-| ------------ | ------------------ | --------------------------------------------------------- |
-| value        | `number`           | 数据值（堆叠图中为累计总和）                              |
-| label        | `string \| number` | 对应坐标轴的标签（如 X 轴标签："Q1"、"1"等）             |
-| datasetLabel | `string`           | 数据集名称（如 "手机"、"电脑"等）                         |
-| dataIndex    | `number`           | 数据点在数组中的索引                                      |
-| datasetIndex | `number`           | 数据集在数组中的索引                                      |
-
+| 字段         | 类型               | 说明                                         |
+| ------------ | ------------------ | -------------------------------------------- |
+| value        | `number`           | 数据值（堆叠图中为累计总和）                 |
+| label        | `string \| number` | 对应坐标轴的标签（如 X 轴标签："Q1"、"1"等） |
+| datasetLabel | `string`           | 数据集名称（如 "手机"、"电脑"等）            |
+| dataIndex    | `number`           | 数据点在数组中的索引                         |
+| datasetIndex | `number`           | 数据集在数组中的索引                         |
 
 ### ChartStatisticConfig
 

@@ -709,8 +709,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     <>
       {isShowTopOperatingArea && (
         <div className={classNames(`${baseCls}-top-area`, hashId)}>
-          <TopOperatingArea 
-            targetRef={props.targetRef} 
+          <TopOperatingArea
+            targetRef={props.targetRef}
             operationBtnRender={props.operationBtnRender}
             isShowBackTo={props.isShowBackTo}
           />

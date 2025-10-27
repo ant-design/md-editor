@@ -96,6 +96,8 @@ export interface AreaChartProps extends ChartContainerProps {
   hiddenY?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** 是否将过滤器渲染到工具栏 */
+  renderFilterInToolbar?: boolean;
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
 }
@@ -151,6 +153,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   hiddenX = false,
   hiddenY = false,
   toolbarExtra,
+  renderFilterInToolbar = false,
   statistic: statisticConfig,
   variant,
 }) => {
@@ -458,6 +461,22 @@ const AreaChart: React.FC<AreaChartProps> = ({
         onDownload={handleDownload}
         extra={toolbarExtra}
         dataTime={dataTime}
+        filter={
+          renderFilterInToolbar && filterOptions && filterOptions.length > 1 ? (
+            <ChartFilter
+              filterOptions={filterOptions}
+              selectedFilter={selectedFilter}
+              onFilterChange={setSelectedFilter}
+              {...(filterLabels && {
+                customOptions: filteredDataByFilterLabel,
+                selectedCustomSelection: selectedFilterLabel,
+                onSelectionChange: setSelectedFilterLabel,
+              })}
+              theme={theme}
+              variant="compact"
+            />
+          ) : undefined
+        }
       />
 
       {statisticComponentConfigs && (
@@ -468,17 +487,19 @@ const AreaChart: React.FC<AreaChartProps> = ({
         </div>
       )}
 
-      <ChartFilter
-        filterOptions={filterOptions}
-        selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
-        {...(filterLabels && {
-          customOptions: filteredDataByFilterLabel,
-          selectedCustomSelection: selectedFilterLabel,
-          onSelectionChange: setSelectedFilterLabel,
-        })}
-        theme={theme}
-      />
+      {!renderFilterInToolbar && filterOptions && filterOptions.length > 1 && (
+        <ChartFilter
+          filterOptions={filterOptions}
+          selectedFilter={selectedFilter}
+          onFilterChange={setSelectedFilter}
+          {...(filterLabels && {
+            customOptions: filteredDataByFilterLabel,
+            selectedCustomSelection: selectedFilterLabel,
+            onSelectionChange: setSelectedFilterLabel,
+          })}
+          theme={theme}
+        />
+      )}
 
       <div
         className="chart-wrapper"

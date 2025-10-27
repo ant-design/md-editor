@@ -28,8 +28,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // cover 区域
       '&-cover': {
-        WebkitMaskImage: '-webkit-linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
-        maskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
+        WebkitMaskImage:
+          '-webkit-linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
+        maskImage:
+          'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
         width: '100%',
         height: '185px',
         display: 'flex',
@@ -61,7 +63,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '24px',
         height: '24px',
         marginBottom: '8px',
-        
+
         '& svg': {
           width: '24px',
           height: '24px',
@@ -119,7 +121,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         left: '16px',
         right: '16px',
         marginBottom: 0,
-        background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 40%)',
+        background:
+          'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 40%)',
         borderRadius: '4px',
         padding: '8px',
         width: 'auto',

@@ -96,6 +96,8 @@ export interface BarChartProps extends ChartContainerProps {
   indexAxis?: 'x' | 'y';
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** 是否将过滤器渲染到工具栏 */
+  renderFilterInToolbar?: boolean;
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
   /** 是否显示数据标签，默认false */
@@ -156,6 +158,7 @@ const BarChart: React.FC<BarChartProps> = ({
   stacked = false,
   indexAxis = 'x',
   toolbarExtra,
+  renderFilterInToolbar = false,
   statistic: statisticConfig,
   variant,
   showDataLabels = false,
@@ -548,17 +551,19 @@ const BarChart: React.FC<BarChartProps> = ({
         datalabels: {
           display: (context: Context) => {
             if (!showDataLabels) return false;
-            
+
             // 堆叠图：只在可见数据集中最后一个显示标签（显示累计总和）
             if (stacked) {
               const chart = context.chart;
               const dsIndex = context.datasetIndex;
               const dIndex = context.dataIndex;
               const currentStack = chart.data.datasets?.[dsIndex]?.stack;
-              
+
               // 获取当前数据点的值，用于判断正负
-              const currentValue = Number(chart.data.datasets?.[dsIndex]?.data?.[dIndex] ?? 0);
-              
+              const currentValue = Number(
+                chart.data.datasets?.[dsIndex]?.data?.[dIndex] ?? 0,
+              );
+
               // 找出所有可见的、同一堆叠、同一符号（正/负）的数据集索引
               const sameStackIndexes = chart.data.datasets
                 .map((_: any, i: number) => i)
@@ -570,17 +575,19 @@ const BarChart: React.FC<BarChartProps> = ({
                   if (currentStack && ds?.stack !== currentStack) return false;
                   // 检查该位置的值是否与当前值同号（正/负）
                   const v = Number(ds?.data?.[dIndex] ?? 0);
-                  return (v >= 0 && currentValue >= 0) || (v < 0 && currentValue < 0);
+                  return (
+                    (v >= 0 && currentValue >= 0) || (v < 0 && currentValue < 0)
+                  );
                 });
-              
+
               // 只在可见数据集中的最后一个显示标签
               const topIndex = sameStackIndexes.length
                 ? Math.max(...sameStackIndexes)
                 : dsIndex;
-              
+
               return dsIndex === topIndex;
             }
-            
+
             // 非堆叠图：显示所有标签
             return true;
           },
@@ -594,22 +601,25 @@ const BarChart: React.FC<BarChartProps> = ({
           },
           formatter: (value: number, context: Context) => {
             if (value === null || value === undefined) return '';
-            
+
             const dataIndex = context.dataIndex;
             const datasetIndex = context.datasetIndex;
             const labelValue = context.chart.data.labels?.[dataIndex];
-            const label = (typeof labelValue === 'string' || typeof labelValue === 'number') 
-              ? labelValue 
-              : String(labelValue || '');
+            const label =
+              typeof labelValue === 'string' || typeof labelValue === 'number'
+                ? labelValue
+                : String(labelValue || '');
             const datasetLabel = String(context.dataset.label || '');
-            
+
             // 堆叠图：计算并显示该位置的可见数据集累计总和
             if (stacked) {
               const chart = context.chart;
               const datasets = chart.data.datasets;
-              const currentValue = Number(datasets?.[datasetIndex]?.data?.[dataIndex] ?? 0);
+              const currentValue = Number(
+                datasets?.[datasetIndex]?.data?.[dataIndex] ?? 0,
+              );
               const currentStack = datasets?.[datasetIndex]?.stack;
-              
+
               // 只累加可见的、同一堆叠、同一符号的数据集
               let total = 0;
               datasets.forEach((dataset: any, i: number) => {
@@ -617,17 +627,20 @@ const BarChart: React.FC<BarChartProps> = ({
                 if (!chart.isDatasetVisible(i)) return;
                 // 检查是否属于同一堆叠
                 if (currentStack && dataset?.stack !== currentStack) return;
-                
+
                 const val = dataset.data[dataIndex];
                 if (val !== null && val !== undefined) {
                   const numVal = Number(val);
                   // 只累加与当前值同号的数据
-                  if ((numVal >= 0 && currentValue >= 0) || (numVal < 0 && currentValue < 0)) {
+                  if (
+                    (numVal >= 0 && currentValue >= 0) ||
+                    (numVal < 0 && currentValue < 0)
+                  ) {
                     total += numVal;
                   }
                 }
               });
-              
+
               if (dataLabelFormatter) {
                 return dataLabelFormatter({
                   value: total,
@@ -639,7 +652,7 @@ const BarChart: React.FC<BarChartProps> = ({
               }
               return total.toLocaleString();
             }
-            
+
             // 非堆叠图：显示原始值
             if (dataLabelFormatter) {
               return dataLabelFormatter({
@@ -736,6 +749,22 @@ const BarChart: React.FC<BarChartProps> = ({
         onDownload={handleDownload}
         extra={toolbarExtra}
         dataTime={dataTime}
+        filter={
+          renderFilterInToolbar && filterOptions && filterOptions.length > 1 ? (
+            <ChartFilter
+              filterOptions={filterOptions}
+              selectedFilter={selectedFilter}
+              onFilterChange={setSelectedFilter}
+              {...(filterLabels && {
+                customOptions: filteredDataByFilterLabel,
+                selectedCustomSelection: selectedFilterLabel,
+                onSelectionChange: setSelectedFilterLabel,
+              })}
+              theme={theme}
+              variant="compact"
+            />
+          ) : undefined
+        }
       />
 
       {statisticComponentConfigs && (
@@ -746,17 +775,19 @@ const BarChart: React.FC<BarChartProps> = ({
         </div>
       )}
 
-      <ChartFilter
-        filterOptions={filterOptions}
-        selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
-        {...(filterLabels && {
-          customOptions: filteredDataByFilterLabel,
-          selectedCustomSelection: selectedFilterLabel,
-          onSelectionChange: setSelectedFilterLabel,
-        })}
-        theme={theme}
-      />
+      {!renderFilterInToolbar && filterOptions && filterOptions.length > 1 && (
+        <ChartFilter
+          filterOptions={filterOptions}
+          selectedFilter={selectedFilter}
+          onFilterChange={setSelectedFilter}
+          {...(filterLabels && {
+            customOptions: filteredDataByFilterLabel,
+            selectedCustomSelection: selectedFilterLabel,
+            onSelectionChange: setSelectedFilterLabel,
+          })}
+          theme={theme}
+        />
+      )}
 
       <div
         className="chart-wrapper"

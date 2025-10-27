@@ -42,4 +42,3 @@ export const useStyle = (prefixCls?: string) => {
     return [genStyle(titleToken)];
   });
 };
-

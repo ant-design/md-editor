@@ -53,7 +53,9 @@ const ButtonTab: React.FC<ButtonTabProps> = ({
       onKeyDown={handleKeyDown}
       tabIndex={0}
     >
-      {children && <span className={`${prefixCls}-text ${hashId}`}>{children}</span>}
+      {children && (
+        <span className={`${prefixCls}-text ${hashId}`}>{children}</span>
+      )}
       {icon && (
         <span
           className={`${prefixCls}-icon ${onIconClick ? `${prefixCls}-icon-clickable` : ''} ${hashId}`}
@@ -62,7 +64,7 @@ const ButtonTab: React.FC<ButtonTabProps> = ({
           {icon}
         </span>
       )}
-    </button>
+    </button>,
   );
 };
 

@@ -24,6 +24,7 @@ export interface ChartFilterProps {
   onSelectionChange?: (region: string) => void;
   className?: string;
   theme?: 'light' | 'dark';
+  variant?: 'default' | 'compact';
 }
 
 const ChartFilter: React.FC<ChartFilterProps> = ({
@@ -35,6 +36,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
   onSelectionChange,
   className = '',
   theme = 'light',
+  variant = 'default',
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const i18n = useContext(I18nContext);
@@ -62,6 +64,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
       className={classNames(
         prefixCls,
         `${prefixCls}-${theme}`,
+        `${prefixCls}-${variant}`,
         hashId,
         className,
       )}

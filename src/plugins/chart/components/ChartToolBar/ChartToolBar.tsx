@@ -13,6 +13,7 @@ export interface ChartToolBarProps {
   theme?: 'light' | 'dark';
   onDownload?: () => void;
   extra?: React.ReactNode;
+  filter?: React.ReactNode;
 }
 
 const ChartToolBar: React.FC<ChartToolBarProps> = ({
@@ -22,6 +23,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
   theme = 'light',
   onDownload,
   extra,
+  filter,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const i18n = useContext(I18nContext);
@@ -64,6 +66,7 @@ const ChartToolBar: React.FC<ChartToolBarProps> = ({
             </span>
           </>
         ) : null}
+        {filter}
         {extra}
         {handleDownload ? (
           <Tooltip

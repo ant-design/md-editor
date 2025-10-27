@@ -1,7 +1,7 @@
-import { 
+import {
   useEditorStyleRegister,
-  type GenerateStyle, 
-  type ChatTokenType 
+  type ChatTokenType,
+  type GenerateStyle,
 } from '../../hooks/useStyle';
 
 export const prefixCls = 'top-operating-area';
@@ -17,17 +17,17 @@ const genTopOperatingAreaStyle: GenerateStyle<ChatTokenType> = (token) => {
       height: 32,
       marginBottom: 8,
       width: '100%',
-      
+
       ['&-left']: {
         // 左侧占位，保持空白
       },
-      
+
       ['&-center']: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         gridColumn: 2, // 固定在中间列
-        
+
         ['&-buttons']: {
           display: 'flex',
           justifyContent: 'center',
@@ -36,7 +36,7 @@ const genTopOperatingAreaStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: '100%',
         },
       },
-      
+
       ['&-right']: {
         display: 'flex',
         alignItems: 'center',
@@ -45,19 +45,19 @@ const genTopOperatingAreaStyle: GenerateStyle<ChatTokenType> = (token) => {
         gridColumn: 3, // 固定在右侧列
         minWidth: 40, // 为BackTo按钮预留最小空间，防止布局抖动
       },
-      
+
       ['&-back-buttons']: {
         display: 'flex',
         alignItems: 'center',
         gap: 4,
         transition: 'opacity 0.3s ease',
-        
+
         // 显示状态
         '&-visible': {
           visibility: 'visible',
           opacity: 1,
         },
-        
+
         // 隐藏状态
         '&-hidden': {
           visibility: 'hidden',

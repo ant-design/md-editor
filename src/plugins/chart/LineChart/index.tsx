@@ -95,6 +95,8 @@ export interface LineChartProps extends ChartContainerProps {
   hiddenY?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** 是否将过滤器渲染到工具栏 */
+  renderFilterInToolbar?: boolean;
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
 }
@@ -130,6 +132,7 @@ const LineChart: React.FC<LineChartProps> = ({
   hiddenX = false,
   hiddenY = false,
   toolbarExtra,
+  renderFilterInToolbar = false,
   statistic: statisticConfig,
   ...props
 }) => {
@@ -425,6 +428,22 @@ const LineChart: React.FC<LineChartProps> = ({
         onDownload={handleDownload}
         extra={toolbarExtra}
         dataTime={dataTime}
+        filter={
+          renderFilterInToolbar && filterOptions && filterOptions.length > 1 ? (
+            <ChartFilter
+              filterOptions={filterOptions}
+              selectedFilter={selectedFilter}
+              onFilterChange={setSelectedFilter}
+              {...(filterLabels && {
+                customOptions: filteredDataByFilterLabel,
+                selectedCustomSelection: selectedFilterLabel,
+                onSelectionChange: setSelectedFilterLabel,
+              })}
+              theme={theme}
+              variant="compact"
+            />
+          ) : undefined
+        }
       />
 
       {statisticComponentConfigs && (
@@ -435,17 +454,19 @@ const LineChart: React.FC<LineChartProps> = ({
         </div>
       )}
 
-      <ChartFilter
-        filterOptions={filterOptions}
-        selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
-        {...(filterLabels && {
-          customOptions: filteredDataByFilterLabel,
-          selectedCustomSelection: selectedFilterLabel,
-          onSelectionChange: setSelectedFilterLabel,
-        })}
-        theme={theme}
-      />
+      {!renderFilterInToolbar && filterOptions && filterOptions.length > 1 && (
+        <ChartFilter
+          filterOptions={filterOptions}
+          selectedFilter={selectedFilter}
+          onFilterChange={setSelectedFilter}
+          {...(filterLabels && {
+            customOptions: filteredDataByFilterLabel,
+            selectedCustomSelection: selectedFilterLabel,
+            onSelectionChange: setSelectedFilterLabel,
+          })}
+          theme={theme}
+        />
+      )}
 
       <div className="chart-wrapper" style={{ height: responsiveHeight }}>
         <Line ref={chartRef} data={processedData} options={options} />

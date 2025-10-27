@@ -72,6 +72,8 @@ export interface FunnelChartProps extends ChartContainerProps {
   showPercent?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** 是否将过滤器渲染到工具栏 */
+  renderFilterInToolbar?: boolean;
 
   typeNames?: {
     rate?: string;
@@ -96,6 +98,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   legendAlign = 'start',
   showPercent = true,
   toolbarExtra,
+  renderFilterInToolbar = false,
   typeNames,
   statistic,
   ...props
@@ -665,19 +668,37 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         onDownload={handleDownload}
         dataTime={dataTime}
         extra={toolbarExtra}
+        filter={
+          renderFilterInToolbar && filterOptions && filterOptions.length > 1 ? (
+            <ChartFilter
+              filterOptions={filterOptions}
+              selectedFilter={selectedFilter}
+              onFilterChange={setSelectedFilter}
+              {...(customOptions && {
+                customOptions,
+                selectedCustomSelection: selectedFilterLabel,
+                onSelectionChange: setSelectedFilterLabel,
+              })}
+              theme={theme}
+              variant="compact"
+            />
+          ) : undefined
+        }
       />
 
-      <ChartFilter
-        filterOptions={filterOptions}
-        selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
-        {...(customOptions && {
-          customOptions,
-          selectedCustomSelection: selectedFilterLabel,
-          onSelectionChange: setSelectedFilterLabel,
-        })}
-        theme={theme}
-      />
+      {!renderFilterInToolbar && filterOptions && filterOptions.length > 1 && (
+        <ChartFilter
+          filterOptions={filterOptions}
+          selectedFilter={selectedFilter}
+          onFilterChange={setSelectedFilter}
+          {...(customOptions && {
+            customOptions,
+            selectedCustomSelection: selectedFilterLabel,
+            onSelectionChange: setSelectedFilterLabel,
+          })}
+          theme={theme}
+        />
+      )}
 
       {/* 统计数据组件 */}
       {statisticComponentConfigs && (

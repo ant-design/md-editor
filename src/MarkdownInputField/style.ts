@@ -222,7 +222,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
       },
     },
-    
+
     [`${token.componentCls}-top-area`]: {
       display: 'flex',
       width: '100%',

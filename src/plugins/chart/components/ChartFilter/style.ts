@@ -142,6 +142,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
       },
+
+      // Compact variant for toolbar integration
+      '&-compact': {
+        padding: '0',
+        flexWrap: 'nowrap',
+      },
     },
   };
 };

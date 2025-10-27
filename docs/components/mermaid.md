@@ -2,7 +2,7 @@
 title: Mermaid 图
 atomId: Mermaid
 group:
-  title: 图文输出 
+  title: 图文输出
   order: 4
 ---
 
@@ -20,12 +20,12 @@ group:
 
 Mermaid 图表渲染组件，支持各种 Mermaid 图表类型。
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| el | 代码节点，包含 Mermaid 图表代码 | `CodeNode` | - |
-| el.value | Mermaid 图表代码字符串 | `string` | - |
-| el.language | 图表语言类型，通常为 'mermaid' | `string` | 'mermaid' |
-| el.type | 节点类型，通常为 'code' | `string` | 'code' |
+| 参数        | 说明                            | 类型       | 默认值    |
+| ----------- | ------------------------------- | ---------- | --------- |
+| el          | 代码节点，包含 Mermaid 图表代码 | `CodeNode` | -         |
+| el.value    | Mermaid 图表代码字符串          | `string`   | -         |
+| el.language | 图表语言类型，通常为 'mermaid'  | `string`   | 'mermaid' |
+| el.type     | 节点类型，通常为 'code'         | `string`   | 'code'    |
 
 ### CodeNode
 
@@ -41,6 +41,7 @@ interface CodeNode {
 ## 支持的图表类型
 
 ### 1. 流程图 (Flowchart)
+
 ```mermaid
 graph TD
     A[开始] --> B{判断条件}
@@ -51,12 +52,13 @@ graph TD
 ```
 
 ### 2. 时序图 (Sequence Diagram)
+
 ```mermaid
 sequenceDiagram
     participant A as 用户
     participant B as 系统
     participant C as 数据库
-    
+
     A->>B: 发送请求
     B->>C: 查询数据
     C-->>B: 返回结果
@@ -64,6 +66,7 @@ sequenceDiagram
 ```
 
 ### 3. 甘特图 (Gantt Chart)
+
 ```mermaid
 gantt
     title 项目计划
@@ -75,6 +78,7 @@ gantt
 ```
 
 ### 4. 类图 (Class Diagram)
+
 ```mermaid
 classDiagram
     class Animal {

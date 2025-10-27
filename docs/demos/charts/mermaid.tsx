@@ -1,5 +1,5 @@
-import { Mermaid } from '../../../src/plugins/mermaid/Mermaid';
 import React from 'react';
+import { Mermaid } from '../../../src/plugins/mermaid/Mermaid';
 
 const MermaidFlowchartExample: React.FC = () => {
   // mermaid流程图
@@ -14,9 +14,7 @@ const MermaidFlowchartExample: React.FC = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Mermaid
-        el={{ type: 'code', value: data, children: [{ text: data }] }}
-      />
+      <Mermaid el={{ type: 'code', value: data, children: [{ text: data }] }} />
     </div>
   );
 };

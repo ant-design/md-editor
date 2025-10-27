@@ -18,24 +18,24 @@ group:
 
 ### ScatterChartProps
 
-| 属性            | 类型                     | 默认值 | 说明                                          |
-| --------------- | ------------------------ | ------ | --------------------------------------------- |
-| data            | `ScatterChartDataItem[]` | -      | 扁平化数据数组                                |
-| title           | `string`                 | -      | 图表标题                                      |
-| width           | `number \| string`       | `800`  | 宽度（px），移动端自适应为 100%               |
-| height          | `number \| string`       | `600`  | 高度（px），移动端最大约 80% 屏宽（上限 400） |
-| className       | `string`                 | -      | 自定义类名                                    |
-| toolbarExtra    | `React.ReactNode`        | -      | 头部工具条额外按钮                            |
-| dataTime        | `string`                 | -      | 数据时间                                      |
-| xUnit           | `string`                 | `'月'` | X轴单位                                       |
-| yUnit           | `string`                 | -      | Y轴单位                                       |
-| xLabel          | `string`                 | -      | X轴标签                                       |
-| yLabel          | `string`                 | -      | Y轴标签                                       |
-| hiddenX         | `boolean`                | `false`| 是否隐藏 X 轴                                 |
-| hiddenY         | `boolean`                | `false`| 是否隐藏 Y 轴                                 |
-| borderColor     | `string`                 | -      | 边框颜色                                      |
-| backgroundColor | `string`                 | -      | 背景颜色                                      |
-| statistic       | `StatisticConfigType`    | -      | 统计数据组件配置                              |
+| 属性            | 类型                     | 默认值  | 说明                                          |
+| --------------- | ------------------------ | ------- | --------------------------------------------- |
+| data            | `ScatterChartDataItem[]` | -       | 扁平化数据数组                                |
+| title           | `string`                 | -       | 图表标题                                      |
+| width           | `number \| string`       | `800`   | 宽度（px），移动端自适应为 100%               |
+| height          | `number \| string`       | `600`   | 高度（px），移动端最大约 80% 屏宽（上限 400） |
+| className       | `string`                 | -       | 自定义类名                                    |
+| toolbarExtra    | `React.ReactNode`        | -       | 头部工具条额外按钮                            |
+| dataTime        | `string`                 | -       | 数据时间                                      |
+| xUnit           | `string`                 | `'月'`  | X轴单位                                       |
+| yUnit           | `string`                 | -       | Y轴单位                                       |
+| xLabel          | `string`                 | -       | X轴标签                                       |
+| yLabel          | `string`                 | -       | Y轴标签                                       |
+| hiddenX         | `boolean`                | `false` | 是否隐藏 X 轴                                 |
+| hiddenY         | `boolean`                | `false` | 是否隐藏 Y 轴                                 |
+| borderColor     | `string`                 | -       | 边框颜色                                      |
+| backgroundColor | `string`                 | -       | 背景颜色                                      |
+| statistic       | `StatisticConfigType`    | -       | 统计数据组件配置                              |
 
 ### ScatterChartDataItem
 
