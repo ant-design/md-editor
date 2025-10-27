@@ -1,4 +1,4 @@
-import { LowCodeSchema, SchemaForm } from '@ant-design/md-editor';
+import { LowCodeSchema, SchemaForm } from '@ant-design/agentic-ui';
 import { Card, Space } from 'antd';
 import React, { useState } from 'react';
 

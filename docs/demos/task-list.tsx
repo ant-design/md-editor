@@ -1,4 +1,4 @@
-import { TaskList, ToolUseBar } from '@ant-design/md-editor';
+import { TaskList, ToolUseBar } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 type TaskStatus = 'success' | 'pending';

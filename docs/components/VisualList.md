@@ -49,7 +49,7 @@ group:
 ### 基础用法
 
 ```tsx | pure
-import { VisualList, VisualListItem } from '@ant-design/md-editor';
+import { VisualList, VisualListItem } from '@ant-design/agentic-ui';
 
 const imageData: VisualListItem[] = [
   {

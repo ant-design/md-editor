@@ -1,5 +1,5 @@
-﻿import { CodeFilled } from '@ant-design/icons';
-import { MarkdownEditor } from '@ant-design/md-editor';
+﻿import { MarkdownEditor } from '@ant-design/agentic-ui';
+import { CodeFilled } from '@ant-design/icons';
 import { Modal } from 'antd';
 import React, { useState } from 'react';
 import { newEnergyFundContent } from './shared/newEnergyFundContent';

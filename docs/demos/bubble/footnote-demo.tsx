@@ -1,4 +1,3 @@
-import { LinkOutlined } from '@ant-design/icons';
 import {
   Bubble,
   BubbleProps,
@@ -6,7 +5,8 @@ import {
   useRefFunction,
   VisualList,
   VisualListItem,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
+import { LinkOutlined } from '@ant-design/icons';
 import { ArrowUpRight } from '@sofa-design/icons';
 import { Popover } from 'antd';
 import React, { useMemo } from 'react';

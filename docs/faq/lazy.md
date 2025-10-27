@@ -30,7 +30,7 @@ group:
 ## 基本使用
 
 ```tsx | pure
-import { BaseMarkdownEditor } from '@ant-design/md-editor';
+import { BaseMarkdownEditor } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
@@ -48,7 +48,7 @@ export default () => {
 通过 `lazy` 对象可以自定义懒加载行为：
 
 ```tsx | pure
-import { BaseMarkdownEditor } from '@ant-design/md-editor';
+import { BaseMarkdownEditor } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
@@ -119,7 +119,7 @@ lazy={{
 import {
   BaseMarkdownEditor,
   MarkdownEditorInstance,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { useRef } from 'react';
 
 export default () => {

@@ -1,4 +1,4 @@
-import { AreaChart, AreaChartDataItem } from '@ant-design/md-editor';
+import { AreaChart, AreaChartDataItem } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 import React, { useState } from 'react';
 

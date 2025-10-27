@@ -2,7 +2,7 @@ import {
   I18nProvide,
   LowCodeSchema,
   SchemaEditor,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { Button, Space } from 'antd';
 import React, { useState } from 'react';
 

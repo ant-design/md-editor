@@ -15,7 +15,7 @@ ToolUseBar 是一个用于显示工具调用列表的组件，支持工具状态
 ### 轻量思考
 
 ```tsx
-import { ToolUseBarThink } from '@ant-design/md-editor';
+import { ToolUseBarThink } from '@ant-design/agentic-ui';
 import { useState, useEffect } from 'react';
 
 const fullThinkContent = `好的，我现在需要帮用户汇总谷歌I/O 2025大会的重要信息。首先，我得仔细看看用户提供的搜索结果，找出相关的信息点。

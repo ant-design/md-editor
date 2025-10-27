@@ -1,5 +1,5 @@
-import { Workspace } from '@ant-design/md-editor';
-import { FileNode } from '@ant-design/md-editor/Workspace/types';
+import { Workspace } from '@ant-design/agentic-ui';
+import { FileNode } from '@ant-design/agentic-ui/Workspace/types';
 import React, { useMemo, useState } from 'react';
 
 const WorkspaceFileSearchDemo: React.FC = () => {

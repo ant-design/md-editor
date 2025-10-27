@@ -1,4 +1,4 @@
-import { Break } from '@ant-design/md-editor/MarkdownEditor/editor/elements/Break';
+import { Break } from '@ant-design/agentic-ui/MarkdownEditor/editor/elements/Break';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 

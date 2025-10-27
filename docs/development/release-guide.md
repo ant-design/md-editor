@@ -171,7 +171,7 @@ npm version prerelease --preid=rc
 
 ```json
 {
-  "name": "@ant-design/md-editor",
+  "name": "@ant-design/agentic-ui",
   "version": "1.27.0-alpha.1"
   // ...
 }
@@ -226,12 +226,12 @@ npm publish --tag=next
 
 #### 发布标签说明
 
-| 版本类型 | npm 标签 | 安装命令                                  | 说明             |
-| -------- | -------- | ----------------------------------------- | ---------------- |
-| Alpha    | `alpha`  | `npm install @ant-design/md-editor@alpha` | 最新开发版本     |
-| Beta     | `beta`   | `npm install @ant-design/md-editor@beta`  | 测试版本         |
-| RC       | `next`   | `npm install @ant-design/md-editor@next`  | 候选发布版本     |
-| 正式版   | `latest` | `npm install @ant-design/md-editor`       | 稳定版本（默认） |
+| 版本类型 | npm 标签 | 安装命令                                   | 说明             |
+| -------- | -------- | ------------------------------------------ | ---------------- |
+| Alpha    | `alpha`  | `npm install @ant-design/agentic-ui@alpha` | 最新开发版本     |
+| Beta     | `beta`   | `npm install @ant-design/agentic-ui@beta`  | 测试版本         |
+| RC       | `next`   | `npm install @ant-design/agentic-ui@next`  | 候选发布版本     |
+| 正式版   | `latest` | `npm install @ant-design/agentic-ui`       | 稳定版本（默认） |
 
 ### 4. 推送代码和标签
 
@@ -261,10 +261,10 @@ cd test-installation
 npm init -y
 
 # 安装测试版本
-npm install @ant-design/md-editor@alpha
+npm install @ant-design/agentic-ui@alpha
 
 # 验证版本
-npm list @ant-design/md-editor
+npm list @ant-design/agentic-ui
 ```
 
 ### 2. 功能测试
@@ -273,7 +273,7 @@ npm list @ant-design/md-editor
 
 ```javascript
 import React from 'react';
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 
 function App() {
   return (
@@ -323,10 +323,10 @@ npm test
 
 ```bash
 # 撤销发布 (仅在发布后 72 小时内有效)
-npm unpublish @ant-design/md-editor@1.27.0-alpha.1
+npm unpublish @ant-design/agentic-ui@1.27.0-alpha.1
 
 # 废弃版本 (推荐方式)
-npm deprecate @ant-design/md-editor@1.27.0-alpha.1 "This version has critical bugs, please upgrade"
+npm deprecate @ant-design/agentic-ui@1.27.0-alpha.1 "This version has critical bugs, please upgrade"
 ```
 
 ### 2. 版本降级
@@ -442,23 +442,23 @@ git push origin main --follow-tags
 
 ```bash
 # 检查发布是否成功
-npm view @ant-design/md-editor dist-tags
+npm view @ant-design/agentic-ui dist-tags
 
 # 安装测试
-npm install @ant-design/md-editor@alpha
+npm install @ant-design/agentic-ui@alpha
 ```
 
 ## 📊 发布监控### 1. npm 下载统计
 
 ```bash
 # 查看下载统计
-npm view @ant-design/md-editor
+npm view @ant-design/agentic-ui
 
 # 查看特定版本信息
-npm view @ant-design/md-editor@1.27.0-alpha.1
+npm view @ant-design/agentic-ui@1.27.0-alpha.1
 
 # 查看所有版本
-npm view @ant-design/md-editor versions --json
+npm view @ant-design/agentic-ui versions --json
 ```
 
 ### 2. 错误监控
@@ -536,7 +536,7 @@ npm access list packages
 
 ```bash
 # 检查远程版本
-npm view @ant-design/md-editor versions
+npm view @ant-design/agentic-ui versions
 
 # 强制更新版本
 npm version patch --force

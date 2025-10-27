@@ -1,13 +1,13 @@
-﻿import { ExportOutlined } from '@ant-design/icons';
-import {
+﻿import {
   MARKDOWN_EDITOR_EVENTS,
   MarkdownEditor,
   MarkdownEditorInstance,
   useRefFunction,
-} from '@ant-design/md-editor';
-import { ChartElement } from '@ant-design/md-editor/plugins/chart';
-import { CodeElement } from '@ant-design/md-editor/plugins/code';
-import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
+} from '@ant-design/agentic-ui';
+import { ChartElement } from '@ant-design/agentic-ui/plugins/chart';
+import { CodeElement } from '@ant-design/agentic-ui/plugins/code';
+import { MermaidElement } from '@ant-design/agentic-ui/plugins/mermaid';
+import { ExportOutlined } from '@ant-design/icons';
 import { Popover } from 'antd';
 import React, { useEffect } from 'react';
 

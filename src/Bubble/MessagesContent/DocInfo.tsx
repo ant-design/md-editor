@@ -1,5 +1,5 @@
-﻿import { ExportOutlined, RightOutlined } from '@ant-design/icons';
-import { DocMeta } from '@ant-design/md-editor/ThoughtChainList';
+﻿import { DocMeta } from '@ant-design/agentic-ui/ThoughtChainList';
+import { ExportOutlined, RightOutlined } from '@ant-design/icons';
 import { ConfigProvider, Descriptions, Drawer, Popover } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';

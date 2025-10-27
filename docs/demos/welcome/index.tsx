@@ -1,4 +1,4 @@
-import { MarkdownInputField, Welcome } from '@ant-design/md-editor';
+import { MarkdownInputField, Welcome } from '@ant-design/agentic-ui';
 import { Space } from 'antd';
 import React from 'react';
 import { ChatContainer } from '../components/chat-container';

@@ -1,4 +1,4 @@
-import { Quote } from '@ant-design/md-editor';
+import { Quote } from '@ant-design/agentic-ui';
 import { ConfigProvider, message } from 'antd';
 import React from 'react';
 

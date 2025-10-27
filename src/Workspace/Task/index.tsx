@@ -1,4 +1,4 @@
-import LoadingLottie from '@ant-design/md-editor/TaskList/LoadingLottie';
+import LoadingLottie from '@ant-design/agentic-ui/TaskList/LoadingLottie';
 import { Check, CircleDashed, OctagonX } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';

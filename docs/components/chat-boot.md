@@ -21,7 +21,7 @@ group:
 用于展示对话界面的欢迎标题和副标题。
 
 ```tsx
-import { Title } from '@ant-design/md-editor';
+import { Title } from '@ant-design/agentic-ui';
 
 export default () => {
   return <Title title="欢迎使用 AI 助手" subtitle="您的智能对话伙伴" />;
@@ -33,7 +33,7 @@ export default () => {
 展示推荐的对话案例，支持点击快速开始对话。
 
 ```tsx
-import { CaseReply } from '@ant-design/md-editor';
+import { CaseReply } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
@@ -54,7 +54,7 @@ export default () => {
 可切换的按钮标签组，支持选中状态和图标点击。
 
 ```tsx
-import { ButtonTabGroup } from '@ant-design/md-editor';
+import { ButtonTabGroup } from '@ant-design/agentic-ui';
 import { RefreshCcw } from '@sofa-design/icons';
 
 export default () => {

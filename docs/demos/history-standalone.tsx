@@ -1,4 +1,4 @@
-import { History, HistoryDataType } from '@ant-design/md-editor';
+import { History, HistoryDataType } from '@ant-design/agentic-ui';
 import { message } from 'antd';
 import React, { useState } from 'react';
 

@@ -2,7 +2,7 @@ import {
   AttachmentFile,
   BubbleMetaData,
   MessageBubbleData,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 
 // 用户和助手的元数据配置
 export const assistantMeta: BubbleMetaData = {

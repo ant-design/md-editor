@@ -1,4 +1,3 @@
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import {
   AgenticLayout,
   AttachmentFile,
@@ -14,7 +13,8 @@ import {
   TASK_STATUS,
   TaskRunning,
   Workspace,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import React, { useEffect, useRef, useState } from 'react';
 
 // 用户和助手的元数据配置

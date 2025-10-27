@@ -1,4 +1,4 @@
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { Tooltip } from 'antd';
 import React, { useState } from 'react';
 

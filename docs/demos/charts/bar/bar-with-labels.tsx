@@ -1,6 +1,6 @@
 import BarChart, {
   BarChartDataItem,
-} from '@ant-design/md-editor/plugins/chart/BarChart';
+} from '@ant-design/agentic-ui/plugins/chart/BarChart';
 import { Switch } from 'antd';
 import React, { useState } from 'react';
 
@@ -344,7 +344,8 @@ const BarChartWithLabelsExample: React.FC = () => {
           </li>
           <li>
             <strong>自定义格式：</strong>
-            支持通过 dataLabelFormatter 自定义显示格式（添加单位、千分位、保留小数等）
+            支持通过 dataLabelFormatter
+            自定义显示格式（添加单位、千分位、保留小数等）
           </li>
           <li>
             <strong>默认格式：</strong>未提供格式化函数时，自动添加千分位分隔符
@@ -356,4 +357,3 @@ const BarChartWithLabelsExample: React.FC = () => {
 };
 
 export default BarChartWithLabelsExample;
-

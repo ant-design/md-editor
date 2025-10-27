@@ -1,4 +1,4 @@
-import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
+import useAutoScroll from '@ant-design/agentic-ui/hooks/useAutoScroll';
 import { ConfigProvider } from 'antd';
 import React, { forwardRef, useContext, useImperativeHandle } from 'react';
 import { LayoutHeader } from '../components/LayoutHeader';

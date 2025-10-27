@@ -1,10 +1,10 @@
-import { CoffeeOutlined } from '@ant-design/icons';
-import { Workspace } from '@ant-design/md-editor';
+import { Workspace } from '@ant-design/agentic-ui';
 import {
   FileNode,
   FileType,
   GroupNode,
-} from '@ant-design/md-editor/Workspace/types';
+} from '@ant-design/agentic-ui/Workspace/types';
+import { CoffeeOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 

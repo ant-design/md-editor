@@ -1,4 +1,4 @@
-import { LineChart, LineChartDataItem } from '@ant-design/md-editor';
+import { LineChart, LineChartDataItem } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 import React, { useState } from 'react';
 

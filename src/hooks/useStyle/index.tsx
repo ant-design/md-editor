@@ -69,7 +69,7 @@ export function useEditorStyleRegister(
   };
   const { getPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
 
-  chatToken.chatCls = `.${getPrefixCls('@ant-design/md-editor')}`;
+  chatToken.chatCls = `.${getPrefixCls('@ant-design/agentic-ui')}`;
   chatToken.antCls = `.${getPrefixCls()}`;
 
   const genStyles = createStyleRegister({

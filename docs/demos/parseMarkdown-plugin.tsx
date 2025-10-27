@@ -1,4 +1,4 @@
-import { MarkdownEditor, MarkdownEditorPlugin } from '@ant-design/md-editor';
+import { MarkdownEditor, MarkdownEditorPlugin } from '@ant-design/agentic-ui';
 import React from 'react';
 
 // 自定义代码块插件

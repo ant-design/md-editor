@@ -1,8 +1,8 @@
-import { ExportOutlined } from '@ant-design/icons';
 import {
   Chunk,
   WhiteBoxProcessInterface,
-} from '@ant-design/md-editor/ThoughtChainList';
+} from '@ant-design/agentic-ui/ThoughtChainList';
+import { ExportOutlined } from '@ant-design/icons';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { ActionIconBox } from '../../components/ActionIconBox';

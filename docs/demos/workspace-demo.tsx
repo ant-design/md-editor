@@ -1,5 +1,5 @@
+import { Workspace } from '@ant-design/agentic-ui';
 import { DownloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Workspace } from '@ant-design/md-editor';
 import {
   Copy,
   Expand,

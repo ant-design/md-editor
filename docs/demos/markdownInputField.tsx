@@ -1,8 +1,8 @@
-import { DownOutlined } from '@ant-design/icons';
 import {
   MarkdownEditorInstance,
   MarkdownInputField,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
+import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Slider } from 'antd';
 import React, { useEffect } from 'react';
 

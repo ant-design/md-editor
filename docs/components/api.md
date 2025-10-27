@@ -40,7 +40,7 @@ MarkdownEditor 是一个功能强大的 Markdown 编辑器组件，基于 React 
 
 ```tsx
 import React from 'react';
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
@@ -74,7 +74,7 @@ For it will surely sprout wings and fly off to the sky like an eagle
 
 ```tsx
 import React, { useRef } from 'react';
-import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/agentic-ui';
 
 export default () => {
   const editorRef = useRef<MarkdownEditorInstance>();
@@ -264,7 +264,7 @@ For it will surely sprout wings and fly off to the sky like an eagle
 ### 只读模式
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
@@ -296,7 +296,7 @@ export default () => {
 ### 监听选区变化
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { message } from 'antd';
 import { useState } from 'react';
 
@@ -368,7 +368,7 @@ console.log(hello);
 ### 自定义工具栏
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 
 export default () => {
@@ -400,7 +400,7 @@ export default () => {
 ### 代码编辑器主题配置
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { Select } from 'antd';
 import { useState } from 'react';
 
@@ -475,7 +475,7 @@ print(quick_sort([3, 6, 8, 10, 1, 2, 1]))
 ### 图片上传功能
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { message } from 'antd';
 
 export default () => {
@@ -516,7 +516,7 @@ export default () => {
 ### 评论功能
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { useState } from 'react';
 
 export default () => {
@@ -588,7 +588,7 @@ export default () => {
 ### 自定义渲染
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 
 export default () => {
   return (

@@ -1,6 +1,6 @@
+import type { BubbleProps, MessageBubbleData } from '@ant-design/agentic-ui';
+import { Bubble } from '@ant-design/agentic-ui';
 import { LoadingOutlined } from '@ant-design/icons';
-import type { BubbleProps, MessageBubbleData } from '@ant-design/md-editor';
-import { Bubble } from '@ant-design/md-editor';
 import { Button, Progress, Space, Spin, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';

@@ -1,6 +1,6 @@
 import DonutChart, {
   DonutChartData,
-} from '@ant-design/md-editor/plugins/chart/DonutChart';
+} from '@ant-design/agentic-ui/plugins/chart/DonutChart';
 import React from 'react';
 
 const DonutSingleDemo: React.FC = () => {

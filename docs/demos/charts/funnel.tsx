@@ -1,4 +1,4 @@
-import { FunnelChart, FunnelChartDataItem } from '@ant-design/md-editor';
+import { FunnelChart, FunnelChartDataItem } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 import React, { useState } from 'react';
 

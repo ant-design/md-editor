@@ -1,4 +1,4 @@
-import { BubbleList } from '@ant-design/md-editor';
+import { BubbleList } from '@ant-design/agentic-ui';
 import React from 'react';
 
 /**

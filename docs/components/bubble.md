@@ -30,7 +30,7 @@ import {
   Bubble,
   SuggestionList,
   MessageBubbleData,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { Card } from 'antd';
 // 创建模拟文件的辅助函数
 const createMockFile = (
@@ -220,7 +220,7 @@ export default () => (
 ### 消息列表
 
 ```tsx | pure
-import { BubbleList, MessageBubbleData } from '@ant-design/md-editor';
+import { BubbleList, MessageBubbleData } from '@ant-design/agentic-ui';
 
 const messages: MessageBubbleData[] = [
   // ... 消息数据
@@ -466,7 +466,7 @@ type CustomRenderFunction = (
 #### 使用示例
 
 ```tsx | pure
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 
 // 连续的用户消息
 const userMessages: MessageBubbleData[] = [
@@ -552,7 +552,7 @@ const App = () => {
 #### 在消息列表中的应用
 
 ```tsx | pure
-import { BubbleList } from '@ant-design/md-editor';
+import { BubbleList } from '@ant-design/agentic-ui';
 
 const messages: MessageBubbleData[] = [
   // 用户消息
@@ -1146,7 +1146,7 @@ const messageWithFiles: MessageBubbleData = {
 ### 组合使用示例
 
 ```tsx | pure
-import { Bubble } from '@ant-design/md-editor';
+import { Bubble } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
 
@@ -1364,4 +1364,4 @@ const groupedMessages = useMemo(() => {
 
 ---
 
-_Bubble 组件是 @ant-design/md-editor 的核心组件之一，持续更新中。如果遇到问题或有改进建议，欢迎提交 [Issue](https://github.com/ant-design/md-editor/issues) 或 [PR](https://github.com/ant-design/md-editor/pulls)。_
+_Bubble 组件是 @ant-design/agentic-ui 的核心组件之一，持续更新中。如果遇到问题或有改进建议，欢迎提交 [Issue](https://github.com/ant-design/md-editor/issues) 或 [PR](https://github.com/ant-design/md-editor/pulls)。_

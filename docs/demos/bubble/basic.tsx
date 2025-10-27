@@ -1,4 +1,9 @@
 import {
+  AttachmentFile,
+  Bubble,
+  MessageBubbleData,
+} from '@ant-design/agentic-ui';
+import {
   CheckOutlined,
   CopyOutlined,
   DeleteOutlined,
@@ -6,11 +11,6 @@ import {
   EditOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import {
-  AttachmentFile,
-  Bubble,
-  MessageBubbleData,
-} from '@ant-design/md-editor';
 import { message, Popover } from 'antd';
 import React, { useRef, useState } from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';

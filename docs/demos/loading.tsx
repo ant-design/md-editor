@@ -1,4 +1,4 @@
-import { Loading } from '@ant-design/md-editor';
+import { Loading } from '@ant-design/agentic-ui';
 import React from 'react';
 
 export default () => {

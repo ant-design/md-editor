@@ -1,4 +1,4 @@
-import { ToolUseBar } from '@ant-design/md-editor';
+import { ToolUseBar } from '@ant-design/agentic-ui';
 import { Button, Space } from 'antd';
 import React, { useState } from 'react';
 

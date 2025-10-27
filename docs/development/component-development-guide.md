@@ -507,7 +507,7 @@ docs/demos/
 - 完整的组件代码
 - 清晰的交互示例
 - 详细的API说明
-- 使用 `@ant-design/md-editor` 组件
+- 使用 `@ant-design/agentic-ui` 组件
 
 ## 开发检查列表
 
@@ -595,7 +595,7 @@ docs/demos/
 - [ ] Demo 文件放在 `docs/demos` 目录
 - [ ] Demo 文件名以 `demo-` 开头
 - [ ] 包含完整的组件使用示例
-- [ ] 使用 `@ant-design/md-editor` 组件
+- [ ] 使用 `@ant-design/agentic-ui` 组件
 - [ ] 提供详细的 API 说明
 
 ### ✅ 文档检查

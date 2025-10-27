@@ -1,7 +1,7 @@
 # Agentic UI - 面向智能体的 UI 组件库
 
-[![NPM version](https://img.shields.io/npm/v/@ant-design/md-editor.svg?style=flat)](https://npmjs.org/package/@ant-design/md-editor)
-[![NPM downloads](http://img.shields.io/npm/dm/@ant-design/md-editor.svg?style=flat)](https://npmjs.org/package/@ant-design/md-editor)
+[![NPM version](https://img.shields.io/npm/v/@ant-design/agentic-ui.svg?style=flat)](https://npmjs.org/package/@ant-design/agentic-ui)
+[![NPM downloads](http://img.shields.io/npm/dm/@ant-design/agentic-ui.svg?style=flat)](https://npmjs.org/package/@ant-design/agentic-ui)
 
 > 从"回答一句话"到"完成一件事"——让智能体真正成为你的协作伙伴
 
@@ -32,15 +32,15 @@
 ### 安装
 
 ```bash
-npm install @ant-design/md-editor
+npm install @ant-design/agentic-ui
 # 或
-pnpm add @ant-design/md-editor
+pnpm add @ant-design/agentic-ui
 ```
 
 ### 基础示例：AI 对话气泡
 
 ```tsx
-import { Bubble } from '@ant-design/md-editor';
+import { Bubble } from '@ant-design/agentic-ui';
 
 <Bubble.AIBubble
   content="我已经完成了数据分析，这是结果："
@@ -55,7 +55,7 @@ import { Bubble } from '@ant-design/md-editor';
 ### 任务列表组件
 
 ```tsx
-import { TaskList } from '@ant-design/md-editor';
+import { TaskList } from '@ant-design/agentic-ui';
 
 <TaskList
   tasks={[
@@ -69,7 +69,7 @@ import { TaskList } from '@ant-design/md-editor';
 ### 工具调用展示
 
 ```tsx
-import { ToolUseBar } from '@ant-design/md-editor';
+import { ToolUseBar } from '@ant-design/agentic-ui';
 
 <ToolUseBar
   toolName="database_query"
@@ -82,7 +82,7 @@ import { ToolUseBar } from '@ant-design/md-editor';
 ### Markdown 编辑器（支持流式输出）
 
 ```tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 
 <MarkdownEditor
   initValue="# AI 生成内容"

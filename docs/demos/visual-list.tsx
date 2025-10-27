@@ -1,4 +1,4 @@
-import { VisualList, VisualListItem } from '@ant-design/md-editor';
+import { VisualList, VisualListItem } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const mockData: VisualListItem[] = [

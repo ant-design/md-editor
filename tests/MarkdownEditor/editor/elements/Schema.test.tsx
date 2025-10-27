@@ -2,8 +2,8 @@
  * Schema 组件测试文件
  */
 
-import { Schema } from '@ant-design/md-editor/MarkdownEditor/editor/elements/Schema';
-import { CodeNode } from '@ant-design/md-editor/MarkdownEditor/el';
+import { Schema } from '@ant-design/agentic-ui/MarkdownEditor/editor/elements/Schema';
+import { CodeNode } from '@ant-design/agentic-ui/MarkdownEditor/el';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
@@ -11,7 +11,7 @@ import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock SchemaRenderer
-vi.mock('@ant-design/md-editor/schema', () => ({
+vi.mock('@ant-design/agentic-ui/schema', () => ({
   SchemaRenderer: ({
     schema,
     values,
@@ -33,7 +33,7 @@ vi.mock('@ant-design/md-editor/schema', () => ({
 }));
 
 // Mock store
-vi.mock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
+vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/store', () => ({
   useEditorStore: () => ({
     editorProps: {
       apaasify: {

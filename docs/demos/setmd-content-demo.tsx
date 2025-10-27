@@ -5,7 +5,7 @@
 import {
   BaseMarkdownEditor,
   MarkdownEditorInstance,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { useRefFunction } from '@ant-design/pro-components';
 import { Button, Progress, Space } from 'antd';
 import React, { useRef, useState } from 'react';

@@ -1,4 +1,4 @@
-import { IconButton, SwitchButton } from '@ant-design/md-editor';
+import { IconButton, SwitchButton } from '@ant-design/agentic-ui';
 import { globalThemeToken, useCSSVariables } from '@ant-design/theme-token';
 import {
   ChevronDown,

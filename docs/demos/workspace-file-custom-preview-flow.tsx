@@ -1,3 +1,8 @@
+import { Workspace, type FileActionRef } from '@ant-design/agentic-ui';
+import type {
+  FileNode,
+  GroupNode,
+} from '@ant-design/agentic-ui/Workspace/types';
 import {
   ArrowLeftOutlined,
   CopyOutlined,
@@ -5,11 +10,6 @@ import {
   ShareAltOutlined,
   StarOutlined,
 } from '@ant-design/icons';
-import { Workspace, type FileActionRef } from '@ant-design/md-editor';
-import type {
-  FileNode,
-  GroupNode,
-} from '@ant-design/md-editor/Workspace/types';
 import { Button, message, Space, Tooltip } from 'antd';
 import React, {
   useEffect,

@@ -1,4 +1,4 @@
-import { AttachmentFile, isImageFile } from '@ant-design/md-editor';
+import { AttachmentFile, isImageFile } from '@ant-design/agentic-ui';
 import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/react';
 import { message } from 'antd';

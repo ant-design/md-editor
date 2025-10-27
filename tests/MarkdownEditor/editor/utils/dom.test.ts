@@ -2,7 +2,7 @@ import {
   getOffsetLeft,
   getOffsetTop,
   slugify,
-} from '@ant-design/md-editor/MarkdownEditor/editor/utils/dom';
+} from '@ant-design/agentic-ui/MarkdownEditor/editor/utils/dom';
 
 describe('DOM Utils', () => {
   describe('getOffsetTop', () => {

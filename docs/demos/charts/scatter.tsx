@@ -1,4 +1,4 @@
-import { ScatterChart, ScatterChartDataItem } from '@ant-design/md-editor';
+import { ScatterChart, ScatterChartDataItem } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const ScatterChartDemo: React.FC = () => {

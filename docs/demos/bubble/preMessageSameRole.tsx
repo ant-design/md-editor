@@ -1,4 +1,4 @@
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import { Card, Divider, Typography } from 'antd';
 import React from 'react';
 

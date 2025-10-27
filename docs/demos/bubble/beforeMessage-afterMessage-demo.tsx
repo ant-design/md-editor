@@ -1,4 +1,4 @@
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import React from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';
 

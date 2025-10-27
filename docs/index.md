@@ -62,12 +62,12 @@ features:
 
 ## 🔗 生态系统
 
-| 项目                                                                         | 状态                                                                                                                  | 描述               |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| [@ant-design/md-editor](https://www.npmjs.com/package/@ant-design/md-editor) | [![npm](https://img.shields.io/npm/v/@ant-design/md-editor.svg)](https://www.npmjs.com/package/@ant-design/md-editor) | 核心编辑器组件     |
-| [dumi](https://d.umijs.org/)                                                 | [![npm](https://img.shields.io/npm/v/dumi.svg)](https://www.npmjs.com/package/dumi)                                   | 文档站点生成工具   |
-| [antd](https://ant.design/)                                                  | [![npm](https://img.shields.io/npm/v/antd.svg)](https://www.npmjs.com/package/antd)                                   | 企业级 UI 设计语言 |
-| [slate](https://docs.slatejs.org/)                                           | [![npm](https://img.shields.io/npm/v/slate.svg)](https://www.npmjs.com/package/slate)                                 | 富文本编辑器框架   |
+| 项目                                                                           | 状态                                                                                                                    | 描述               |
+| ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| [@ant-design/agentic-ui](https://www.npmjs.com/package/@ant-design/agentic-ui) | [![npm](https://img.shields.io/npm/v/@ant-design/agentic-ui.svg)](https://www.npmjs.com/package/@ant-design/agentic-ui) | 核心编辑器组件     |
+| [dumi](https://d.umijs.org/)                                                   | [![npm](https://img.shields.io/npm/v/dumi.svg)](https://www.npmjs.com/package/dumi)                                     | 文档站点生成工具   |
+| [antd](https://ant.design/)                                                    | [![npm](https://img.shields.io/npm/v/antd.svg)](https://www.npmjs.com/package/antd)                                     | 企业级 UI 设计语言 |
+| [slate](https://docs.slatejs.org/)                                             | [![npm](https://img.shields.io/npm/v/slate.svg)](https://www.npmjs.com/package/slate)                                   | 富文本编辑器框架   |
 
 ## 📱 兼容性
 

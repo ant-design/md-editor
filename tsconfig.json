@@ -15,8 +15,8 @@
     "baseUrl": ".",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "@ant-design/md-editor": ["./src"],
-      "@ant-design/md-editor/*": ["src/*", "*"]
+      "@ant-design/agentic-ui": ["./src"],
+      "@ant-design/agentic-ui/*": ["src/*", "*"]
     }
   },
   "include": [

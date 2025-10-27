@@ -24,7 +24,7 @@ import {
   AttachmentFile,
   AttachmentFileList,
   kbToSize,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 
 describe('kbToSize utility function', () => {
   it('should convert KB to readable format', () => {

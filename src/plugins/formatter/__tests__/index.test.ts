@@ -1,7 +1,7 @@
 import {
   parserMdToSchema,
   parserSlateNodeToMarkdown,
-} from '@ant-design/md-editor/MarkdownEditor';
+} from '@ant-design/agentic-ui/MarkdownEditor';
 import { describe, expect, it } from 'vitest';
 import { MarkdownFormatter } from '../index';
 

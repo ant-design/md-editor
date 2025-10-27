@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import { useRefFunction } from '@ant-design/agentic-ui/hooks/useRefFunction';
 import { DeleteOutlined } from '@ant-design/icons';
-import { useRefFunction } from '@ant-design/md-editor/hooks/useRefFunction';
 import { Input, InputRef, Modal, Tooltip } from 'antd';
 import React, { useCallback, useContext, useRef } from 'react';
 import { Selection, Text, Transforms } from 'slate';

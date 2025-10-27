@@ -1,4 +1,4 @@
-import { SchemaForm } from '@ant-design/md-editor';
+import { SchemaForm } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const MyFormComponent: React.FC = () => {

@@ -3,7 +3,7 @@
   MarkdownEditor,
   MarkdownEditorInstance,
   parserMarkdownToSlateNode,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React from 'react';
 
 const defaultValue = `

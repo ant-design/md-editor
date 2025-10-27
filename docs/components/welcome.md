@@ -31,7 +31,7 @@ group:
 ### 基础用法
 
 ```tsx | pure
-import { Welcome } from '@ant-design/md-editor';
+import { Welcome } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
@@ -43,7 +43,7 @@ export default () => {
 ### 自定义类名
 
 ```tsx | pure
-import { Welcome } from '@ant-design/md-editor';
+import { Welcome } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
@@ -63,7 +63,7 @@ export default () => {
 ### 仅标题
 
 ```tsx | pure
-import { Welcome } from '@ant-design/md-editor';
+import { Welcome } from '@ant-design/agentic-ui';
 
 export default () => {
   return <Welcome title="简洁的欢迎标题" />;

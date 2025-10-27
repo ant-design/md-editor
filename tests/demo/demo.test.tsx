@@ -101,7 +101,7 @@ vi.mock('rc-resize-observer', () => ({
 }));
 
 // Mock DonutChart component
-vi.mock('@ant-design/md-editor/plugins/chart/DonutChart', () => ({
+vi.mock('@ant-design/agentic-ui/plugins/chart/DonutChart', () => ({
   default: ({ data, title, width, height }: any) => (
     <div
       data-testid="donut-chart"
@@ -116,7 +116,7 @@ vi.mock('@ant-design/md-editor/plugins/chart/DonutChart', () => ({
 }));
 
 // Mock md-editor exports to avoid heavy rendering while preserving other exports
-vi.mock('@ant-design/md-editor', async (importOriginal) => {
+vi.mock('@ant-design/agentic-ui', async (importOriginal) => {
   const actual: any = await importOriginal();
   const stubDiv = (name: string) => (props: any) => (
     <div data-testid={name} {...props}>

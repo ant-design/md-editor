@@ -1,4 +1,4 @@
-import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const defaultValue = `要使用 HTML 和 CSS 实现一个“跳舞”的效果，我们可以结合 CSS 动画来让某个元素产生“跳舞”的动画。下面是一个简单的例子，展示如何使一个“人”图标形象地“跳舞”。

@@ -221,9 +221,9 @@ function MarkdownEditorWithPlugins({ children }) {
 
 ```typescript | pure
 import React, { useRef } from 'react';
-import { MarkdownEditor } from '@ant-design/md-editor';
-import { MarkdownEditorInstance } from '@ant-design/md-editor';
-import { MarkdownEditorPlugin } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
+import { MarkdownEditorInstance } from '@ant-design/agentic-ui';
+import { MarkdownEditorPlugin } from '@ant-design/agentic-ui';
 
 // 简单的自定义代码块插件
 const customCodePlugin: MarkdownEditorPlugin = {
@@ -375,8 +375,8 @@ console.log("这是普通的 JavaScript 代码");
 
 ```typescript | pure
 import React, { useState } from 'react';
-import { MarkdownEditor } from '@ant-design/md-editor';
-import { MarkdownEditorPlugin } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
+import { MarkdownEditorPlugin } from '@ant-design/agentic-ui';
 
 // 自定义代码块插件 - 将特殊的代码块转换为警告格式
 const customCodeBlockPlugin: MarkdownEditorPlugin = {

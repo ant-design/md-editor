@@ -1,5 +1,5 @@
-import { Workspace } from '@ant-design/md-editor';
-import type { FileNode } from '@ant-design/md-editor/Workspace/types';
+import { Workspace } from '@ant-design/agentic-ui';
+import type { FileNode } from '@ant-design/agentic-ui/Workspace/types';
 import { Input, Popover, message } from 'antd';
 import React, { useMemo, useRef, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { CodeNode, MarkdownEditor } from '@ant-design/md-editor';
+import { CodeNode, MarkdownEditor } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 /**

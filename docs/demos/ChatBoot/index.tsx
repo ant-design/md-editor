@@ -11,14 +11,11 @@ import {
   MarkdownInputField,
   MessageBubbleData,
   Title,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
+import { RefreshCcw } from '@sofa-design/icons';
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  assistantMeta,
-  userMeta,
-} from './data';
+import { assistantMeta, userMeta } from './data';
 import './style.css';
-import { RefreshCcw } from '@sofa-design/icons'
 
 const StandaloneHistoryDemo = () => {
   const [currentSessionId, setCurrentSessionId] = useState('session-2');
@@ -96,8 +93,8 @@ const StandaloneHistoryDemo = () => {
       type="chat"
       agent={{
         enabled: true,
-        onSearch: () => { },
-        onNewChat: () => { },
+        onSearch: () => {},
+        onNewChat: () => {},
         onLoadMore: handleLoadMore,
         onFavorite: async () => {
           await new Promise((resolve) => {
@@ -131,9 +128,7 @@ const ChatLayoutDemo: React.FC = () => {
     {
       key: '1',
       label: '全部',
-      icon: (
-        <RefreshCcw />
-      ),
+      icon: <RefreshCcw />,
       onIconClick: () => {
         console.log('刷新最近对话');
         // 这里可以添加刷新逻辑
@@ -277,7 +272,8 @@ const ChatLayoutDemo: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
-                justifyContent: bubbleList.length === 0 ? 'center' : 'flex-start',
+                justifyContent:
+                  bubbleList.length === 0 ? 'center' : 'flex-start',
                 alignItems: 'center',
               }}
             >
@@ -289,8 +285,8 @@ const ChatLayoutDemo: React.FC = () => {
                     width: '100%',
                   }}
                   pure
-                  onLike={() => { }}
-                  onDisLike={() => { }}
+                  onLike={() => {}}
+                  onDisLike={() => {}}
                   shouldShowVoice={true}
                   markdownRenderConfig={{
                     tableConfig: {
@@ -369,51 +365,53 @@ const ChatLayoutDemo: React.FC = () => {
                       }}
                     >
                       {[
-                      {
-                        coverBackground: 'rgba(132, 220, 24, 0.15)',
-                        quoteIconColor: 'rgb(132, 220, 24)',
-                        quote: '恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。',
-                        title: '搜热门资讯',
-                        description: '恒生科技指数基金近有什么相关新闻',
-                      },
-                      {
-                        coverBackground: 'rgba(24, 144, 255, 0.15)',
-                        quoteIconColor: 'rgb(24, 144, 255)',
-                        quote: '了解基金投资的基础知识，帮助您更好地进行资产配置和风险管理。',
-                        title: '学投资知识',
-                        description: '基金投资入门指南',
-                      },
-                    ].map((item, index) => (
-                      <CaseReply
-                        key={index}
-                        coverBackground={item.coverBackground}
-                        quoteIconColor={item.quoteIconColor}
-                        quote={item.quote}
-                        title={item.title}
-                        description={item.description}
-                        buttonBar={
-                          <button
-                            type="button"
-                            style={{
-                              backgroundColor: '#000000',
-                              color: '#ffffff',
-                              borderRadius: '36px',
-                              padding: '8px 16px',
-                              cursor: 'pointer',
-                              border: 'none',
-                              fontSize: '14px',
-                            }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              console.log('按钮被点击');
-                            }}
-                          >
-                            查看回放
-                          </button>
-                        }
-                        onClick={() => handleCaseReplyClick(item.description)}
-                      />
-                    ))}
+                        {
+                          coverBackground: 'rgba(132, 220, 24, 0.15)',
+                          quoteIconColor: 'rgb(132, 220, 24)',
+                          quote:
+                            '恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。',
+                          title: '搜热门资讯',
+                          description: '恒生科技指数基金近有什么相关新闻',
+                        },
+                        {
+                          coverBackground: 'rgba(24, 144, 255, 0.15)',
+                          quoteIconColor: 'rgb(24, 144, 255)',
+                          quote:
+                            '了解基金投资的基础知识，帮助您更好地进行资产配置和风险管理。',
+                          title: '学投资知识',
+                          description: '基金投资入门指南',
+                        },
+                      ].map((item, index) => (
+                        <CaseReply
+                          key={index}
+                          coverBackground={item.coverBackground}
+                          quoteIconColor={item.quoteIconColor}
+                          quote={item.quote}
+                          title={item.title}
+                          description={item.description}
+                          buttonBar={
+                            <button
+                              type="button"
+                              style={{
+                                backgroundColor: '#000000',
+                                color: '#ffffff',
+                                borderRadius: '36px',
+                                padding: '8px 16px',
+                                cursor: 'pointer',
+                                border: 'none',
+                                fontSize: '14px',
+                              }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                console.log('按钮被点击');
+                              }}
+                            >
+                              查看回放
+                            </button>
+                          }
+                          onClick={() => handleCaseReplyClick(item.description)}
+                        />
+                      ))}
                     </div>
                   </>
                 )}

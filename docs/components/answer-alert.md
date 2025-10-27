@@ -46,7 +46,7 @@ AnswerAlert 是一个用于展示系统状态和用户提示的组件，特别�
 ### 基础用法
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Space } from 'antd';
 
 export default () => {
@@ -66,7 +66,7 @@ export default () => {
 ### 带描述的提示
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Button, Space } from 'antd';
 import { AiAgentManagement } from '@sofa-design/icons';
 
@@ -93,7 +93,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 
 export default () => {
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -115,7 +115,7 @@ export default () => {
 ### 自定义操作按钮
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Button, Space } from 'antd';
 
 export default () => {
@@ -142,7 +142,7 @@ export default () => {
 ### 自定义图标
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { SmileOutlined } from '@ant-design/icons';
 
 export default () => {
@@ -161,7 +161,7 @@ export default () => {
 ### 复杂内容描述
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Button, Space, Typography } from 'antd';
 
 const { Text, Link } = Typography;
