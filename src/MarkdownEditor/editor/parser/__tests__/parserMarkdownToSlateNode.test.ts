@@ -923,36 +923,40 @@ console.log('测试代码');
   });
 
   describe('handleAnswerTag', () => {
-    it('should treat <answer> tag as text (non-standard element)', () => {
+    it('should extract content from <answer> tag (hide tags)', () => {
       const markdown = '<answer>这是答案内容</answer>';
       const result = parserMarkdownToSlateNode(markdown);
 
       expect(result.schema).toHaveLength(1);
       expect(result.schema[0]).toEqual({
         type: 'paragraph',
-        children: [
-          { text: '<answer>' },
-          { text: '这是答案内容' },
-          { text: '</answer>' },
-        ],
+        children: [{ text: '这是答案内容' }],
       });
     });
 
-    it('should treat <answer> tag with multiline as text', () => {
-      const markdown = '<answer>第一行答案</answer>';
+    it('should extract multiline content from <answer> tag', () => {
+      const markdown = '<answer>第一行答案\n第二行答案</answer>';
       const result = parserMarkdownToSlateNode(markdown);
 
       expect(result.schema).toHaveLength(1);
-      expect(result.schema[0].type).toBe('paragraph');
-      // 验证 answer 标签被当作文本
-      const text = result.schema[0].children
-        .map((child: any) => child.text)
-        .join('');
-      expect(text).toContain('<answer>');
-      expect(text).toContain('</answer>');
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '第一行答案\n第二行答案' }],
+      });
     });
 
-    it('should handle both <think> and <answer> tags - think converted, answer as text', () => {
+    it('should handle empty <answer> tag', () => {
+      const markdown = '<answer></answer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '' }],
+      });
+    });
+
+    it('should handle both <think> and <answer> tags correctly', () => {
       const markdown = `<think>思考过程</think>
 
 <answer>答案内容</answer>`;
@@ -965,13 +969,23 @@ console.log('测试代码');
         language: 'think',
         value: '思考过程',
       });
-      // answer 被当作普通文本
-      expect(result.schema[1].type).toBe('paragraph');
-      const text = result.schema[1].children
-        .map((child: any) => child.text)
-        .join('');
-      expect(text).toContain('<answer>');
-      expect(text).toContain('</answer>');
+      // answer 只显示内容
+      expect(result.schema[1]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '答案内容' }],
+      });
+    });
+
+    it('should handle <answer> with special characters', () => {
+      const markdown =
+        '<answer>答案：这是一个包含特殊字符的答案！@#$%</answer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '答案：这是一个包含特殊字符的答案！@#$%' }],
+      });
     });
   });
 });
