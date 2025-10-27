@@ -34,6 +34,8 @@ group:
 | showGrid       | `boolean`                                        | `true`     | 是否显示网格线                                                |
 | xPosition      | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                      |
 | yPosition      | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                      |
+| hiddenX        | `boolean`                                        | `false`    | 是否隐藏 X 轴                                                 |
+| hiddenY        | `boolean`                                        | `false`    | 是否隐藏 Y 轴                                                 |
 | toolbarExtra   | `React.ReactNode`                                | -          | 头部工具条额外按钮                                            |
 | statistic      | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置 |
 
@@ -71,4 +73,5 @@ group:
 ## 说明
 
 - 自动按 `x` 升序生成横轴，按 `type` 组装数据集并分配调色板。
+- `hiddenX` 和 `hiddenY` 可以控制坐标轴的显示/隐藏，适用于只展示图表本身而不需要坐标轴的场景。
 - `static` 属性支持数组形式，可同时渲染多个静态数据组件，如 `[{title: '总访问量', value: 8650}, {title: '今日新增', value: 234}]`。

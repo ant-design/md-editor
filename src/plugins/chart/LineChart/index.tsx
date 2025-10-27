@@ -89,6 +89,10 @@ export interface LineChartProps extends ChartContainerProps {
   xPosition?: 'top' | 'bottom';
   /** Y轴位置 */
   yPosition?: 'left' | 'right';
+  /** 是否隐藏X轴，默认false */
+  hiddenX?: boolean;
+  /** 是否隐藏Y轴，默认false */
+  hiddenY?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
@@ -123,6 +127,8 @@ const LineChart: React.FC<LineChartProps> = ({
   showGrid = true,
   xPosition = 'bottom',
   yPosition = 'left',
+  hiddenX = false,
+  hiddenY = false,
   toolbarExtra,
   statistic: statisticConfig,
   ...props
@@ -332,6 +338,7 @@ const LineChart: React.FC<LineChartProps> = ({
     },
     scales: {
       x: {
+        display: !hiddenX,
         position: xPosition,
         title: {
           display: !!xTitle,
@@ -357,6 +364,7 @@ const LineChart: React.FC<LineChartProps> = ({
         },
       },
       y: {
+        display: !hiddenY,
         position: yPosition,
         beginAtZero: true,
         title: {

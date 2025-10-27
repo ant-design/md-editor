@@ -31,6 +31,8 @@ group:
 | yUnit           | `string`                 | -      | Y轴单位                                       |
 | xLabel          | `string`                 | -      | X轴标签                                       |
 | yLabel          | `string`                 | -      | Y轴标签                                       |
+| hiddenX         | `boolean`                | `false`| 是否隐藏 X 轴                                 |
+| hiddenY         | `boolean`                | `false`| 是否隐藏 Y 轴                                 |
 | borderColor     | `string`                 | -      | 边框颜色                                      |
 | backgroundColor | `string`                 | -      | 背景颜色                                      |
 | statistic       | `StatisticConfigType`    | -      | 统计数据组件配置                              |
@@ -67,3 +69,4 @@ group:
 ## 说明
 
 - 移动端会减小点的半径与 hover 半径以提升观感。
+- `hiddenX` 和 `hiddenY` 可以控制坐标轴的显示/隐藏，适用于只展示图表本身而不需要坐标轴的场景。
