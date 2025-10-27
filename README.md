@@ -130,9 +130,7 @@ import { MarkdownEditor } from '@ant-design/md-editor';
 
 ---
 
-## 🌟 实战案例
-
-已在 **23 个项目**中落地应用：
+## 🌟 推荐使用场景
 
 - 🤖 企业 Copilot（智能办公助手）
 - 💬 智能客服与知识检索
