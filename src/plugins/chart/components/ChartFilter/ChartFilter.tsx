@@ -1,4 +1,4 @@
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 import { Button, ConfigProvider, Dropdown, Segmented } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
@@ -94,7 +94,7 @@ const ChartFilter: React.FC<ChartFilterProps> = ({
                   i18n?.locale?.all ||
                   '全部'}
               </span>
-              <DownOutlined
+              <ChevronDown
                 className={classNames(`${prefixCls}-dropdown-icon`, hashId)}
               />
             </Button>

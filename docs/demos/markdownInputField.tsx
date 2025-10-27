@@ -2,11 +2,9 @@ import {
   MarkdownEditorInstance,
   MarkdownInputField,
 } from '@ant-design/agentic-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 import { Dropdown, Slider } from 'antd';
-import React, { useEffect } from 'react';
-
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const TagRender: React.FC<any> = (props: {
   onSelect: (value: string) => void;
@@ -53,7 +51,7 @@ const TagRender: React.FC<any> = (props: {
         }}
       >
         {defaultDom}
-        <DownOutlined
+        <ChevronDown
           style={{
             color: '#999',
             fontSize: 12,

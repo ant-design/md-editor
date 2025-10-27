@@ -13,7 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'row',
       overflow: 'auto',
       gap: 'var(--margin-2x)',
-      maxHeight: '127px',
+      maxHeight: '128px',
       height: 'max-content',
       marginRight: '40px',
       borderRadius: 'inherit',

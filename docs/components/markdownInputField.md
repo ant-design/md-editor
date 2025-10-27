@@ -27,7 +27,7 @@ import {
   GlobalOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import { Sparkles } from '@sofa-design/icons';
+import { Sparkles, ChevronDown } from '@sofa-design/icons';
 import {
   ActionItemBox,
   ActionItemContainer,
@@ -140,7 +140,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -241,7 +241,7 @@ export default () => {
 ```tsx
 import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 
 const App = () => {
   const [value, setValue] = React.useState('');
@@ -253,7 +253,7 @@ const App = () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -305,13 +305,8 @@ export default App;
 
 ```tsx
 import { Space, message } from 'antd';
-import {
-  DownOutlined,
-  AimOutlined,
-  GlobalOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
-import { Sparkles } from '@sofa-design/icons';
+import { AimOutlined, GlobalOutlined, EditOutlined } from '@ant-design/icons';
+import { Sparkles, ChevronDown } from '@sofa-design/icons';
 import {
   ActionItemBox,
   ActionItemContainer,
@@ -431,7 +426,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -506,7 +501,7 @@ import {
   type CreateRecognizer,
   ToggleButton,
 } from '@ant-design/agentic-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const createRecognizer: CreateRecognizer = async ({
     onSentenceBegin,
@@ -542,7 +537,7 @@ export default () => {
       toolsRender={() => [
         <ToggleButton
           key="bold"
-          triggerIcon={<DownOutlined />}
+          triggerIcon={<ChevronDown />}
           onClick={() => console.log('DeepThink clicked')}
         >
           DeepThink
@@ -580,7 +575,7 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -673,13 +668,8 @@ export default () => {
 
 ```tsx
 import { Space, message } from 'antd';
-import {
-  DownOutlined,
-  AimOutlined,
-  GlobalOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
-import { Sparkles } from '@sofa-design/icons';
+import { AimOutlined, GlobalOutlined, EditOutlined } from '@ant-design/icons';
+import { Sparkles, ChevronDown } from '@sofa-design/icons';
 import {
   ActionItemBox,
   ActionItemContainer,
@@ -826,7 +816,7 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -837,7 +827,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -938,7 +928,7 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -953,7 +943,7 @@ export default () => {
           toolsRender={() => [
             <ToggleButton
               key="bold"
-              triggerIcon={<DownOutlined />}
+              triggerIcon={<ChevronDown />}
               onClick={() => console.log('DeepThink clicked')}
             >
               DeepThink
@@ -1024,7 +1014,8 @@ export default () => {
 
 ```tsx
 import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
+
 const App = () => {
   const editorRef = React.useRef();
   const [value, setValue] = React.useState('');
@@ -1037,7 +1028,7 @@ const App = () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -1077,7 +1068,7 @@ export default App;
 
 ```tsx
 import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   const [isFocused, setIsFocused] = React.useState(false);
@@ -1090,7 +1081,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
