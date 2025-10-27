@@ -39,12 +39,14 @@ group:
 | showGrid           | `boolean`                                        | `true`     | 是否显示网格线                                                 |
 | xPosition          | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                       |
 | yPosition          | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                       |
+| hiddenX            | `boolean`                                        | `false`    | 是否隐藏 X 轴                                                  |
+| hiddenY            | `boolean`                                        | `false`    | 是否隐藏 Y 轴                                                  |
 | stacked            | `boolean`                                        | `false`    | 是否堆叠显示多个数据集                                         |
 | indexAxis          | `'x' \| 'y'`                                     | `'x'`      | 轴向：`'x'` 垂直柱状图，`'y'` 水平条形图                       |
 | toolbarExtra       | `React.ReactNode`                                | -          | 头部工具条额外按钮                                             |
 | statistic          | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置  |
 | showDataLabels     | `boolean`                                        | `false`    | 是否显示数据标签（在柱子顶部或右侧显示数值）                   |
-| dataLabelFormatter | `(value: number) => string`                      | -          | 数据标签格式化函数，可自定义显示格式（如添加单位、格式化数字） |
+| dataLabelFormatter | `(params: DataLabelFormatterParams) => string`   | -          | 数据标签格式化函数，可自定义显示格式（如添加单位、格式化数字） |
 
 ### BarChartDataItem
 
@@ -57,6 +59,19 @@ group:
 | xtitle      | `string` | 否   | X 轴标题（从数据中提取）       |
 | ytitle      | `string` | 否   | Y 轴标题（从数据中提取）       |
 | filterLabel | `string` | 否   | 二级筛选标签（可选）           |
+
+### DataLabelFormatterParams
+
+`dataLabelFormatter` 函数接收的参数对象：
+
+| 字段         | 类型               | 说明                                                      |
+| ------------ | ------------------ | --------------------------------------------------------- |
+| value        | `number`           | 数据值（堆叠图中为累计总和）                              |
+| label        | `string \| number` | 对应坐标轴的标签（如 X 轴标签："Q1"、"1"等）             |
+| datasetLabel | `string`           | 数据集名称（如 "手机"、"电脑"等）                         |
+| dataIndex    | `number`           | 数据点在数组中的索引                                      |
+| datasetIndex | `number`           | 数据集在数组中的索引                                      |
+
 
 ### ChartStatisticConfig
 
@@ -81,4 +96,7 @@ group:
 
 - `stacked` 为 `true` 时，将按 `type` 将数据叠加显示。
 - `indexAxis='y'` 时为横向条形图。
-- `static` 属性支持数组形式，可同时渲染多个静态数据组件，如 `[{title: '总销量', value: 1200}, {title: '增长率', value: '15%'}]`。
+- `hiddenX` 和 `hiddenY` 可以控制坐标轴的显示/隐藏，适用于只展示图表本身而不需要坐标轴的场景。
+- `showDataLabels` 开启时，在柱子顶部（垂直图）或右侧（横向图）显示数值标签；堆叠图中只显示累计总和。
+- `dataLabelFormatter` 提供完整的上下文信息（数值、轴标签、数据集名称等），可灵活自定义标签显示格式。
+- `statistic` 属性支持数组形式，可同时渲染多个静态数据组件，如 `[{title: '总销量', value: 1200}, {title: '增长率', value: '15%'}]`。

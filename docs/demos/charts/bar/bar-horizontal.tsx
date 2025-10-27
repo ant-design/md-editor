@@ -53,7 +53,7 @@ const HorizontalBarChartExample: React.FC = () => {
       ytitle: '产品',
       filterLabel: '全球',
     },
-
+   
     // 地区销售额数据 - 全球
     {
       category: '地区销售额',
@@ -237,6 +237,10 @@ const HorizontalBarChartExample: React.FC = () => {
         width={700}
         height={500}
         indexAxis="y"
+        dataLabelFormatter={(params) => {
+          return `top${params.dataIndex + 1}助手`
+        }}
+        showDataLabels={true}
       />
 
       {/* 数据格式说明 */}

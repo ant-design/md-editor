@@ -34,6 +34,8 @@ group:
 | showGrid       | `boolean`                                        | `true`     | 是否显示网格线                                                |
 | xPosition      | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                      |
 | yPosition      | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                      |
+| hiddenX        | `boolean`                                        | `false`    | 是否隐藏 X 轴                                                 |
+| hiddenY        | `boolean`                                        | `false`    | 是否隐藏 Y 轴                                                 |
 | toolbarExtra   | `React.ReactNode`                                | -          | 头部工具条额外按钮                                            |
 | statistic      | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置 |
 
@@ -73,4 +75,5 @@ group:
 - 移动端自动启用响应式：宽度 100%，高度不超过 400px。
 - 当 `filterLabel` 存在时，组件会在分类基础上增加二级筛选。
 - 不同 `type` 自动分配调色板并以填充形式展示面积。
+- `hiddenX` 和 `hiddenY` 可以控制坐标轴的显示/隐藏，适用于只展示图表本身而不需要坐标轴的场景。
 - `statistic` 属性支持数组形式，可同时渲染多个统计数据组件，如 `[{title: '点赞数', value: 380}, {title: '点踩数', value: 126}]`。

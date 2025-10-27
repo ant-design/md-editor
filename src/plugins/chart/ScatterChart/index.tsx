@@ -50,6 +50,10 @@ export interface ScatterChartProps extends ChartContainerProps {
   yUnit?: string;
   xLabel?: string;
   yLabel?: string;
+  /** 是否隐藏X轴，默认false */
+  hiddenX?: boolean;
+  /** 是否隐藏Y轴，默认false */
+  hiddenY?: boolean;
   borderColor?: string;
   backgroundColor?: string;
   /** 统计数据组件配置 */
@@ -79,6 +83,8 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   yUnit,
   xLabel,
   yLabel,
+  hiddenX = false,
+  hiddenY = false,
   borderColor,
   backgroundColor,
   statistic,
@@ -549,6 +555,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
     },
     scales: {
       x: {
+        display: !hiddenX,
         type: 'linear',
         position: 'bottom',
         title: {
@@ -584,6 +591,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
         },
       },
       y: {
+        display: !hiddenY,
         type: 'linear',
         position: 'right',
         title: {

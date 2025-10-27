@@ -277,13 +277,6 @@ const BarChartWithLabelsExample: React.FC = () => {
         width={700}
         height={500}
         showDataLabels={showLabels}
-        dataLabelFormatter={(value) => {
-          // 根据数值大小选择不同的格式化方式
-          if (value >= 10000) {
-            return `${(value / 10000).toFixed(1)}万`;
-          }
-          return value.toLocaleString();
-        }}
       />
 
       {/* 数据格式说明 */}
@@ -310,13 +303,6 @@ const BarChartWithLabelsExample: React.FC = () => {
           {`<BarChart
   data={data}
   showDataLabels={true}  // 开启数据标签
-  dataLabelFormatter={(value) => {
-    // 自定义格式化：大于1万显示"万"为单位
-    if (value >= 10000) {
-      return \`\${(value / 10000).toFixed(1)}万\`;
-    }
-    return value.toLocaleString();
-  }}
 />`}
         </pre>
       </div>
