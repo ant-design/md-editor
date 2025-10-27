@@ -20,11 +20,14 @@ interface ThinkBlockProps {
  */
 const restoreCodeBlocks = (content: string): string => {
   const marker = '\u200B'; // 零宽空格
-  
+
   // 将格式：【CODE_BLOCK:lang】code【/CODE_BLOCK】
   // 恢复为：```lang\ncode\n```
   return content.replace(
-    new RegExp(`${marker}【CODE_BLOCK:([\\w]*)】\\n?([\\s\\S]*?)\\n?【/CODE_BLOCK】${marker}`, 'g'),
+    new RegExp(
+      `${marker}【CODE_BLOCK:([\\w]*)】\\n?([\\s\\S]*?)\\n?【/CODE_BLOCK】${marker}`,
+      'g',
+    ),
     (_: string, lang: string, code: string) => {
       return `\`\`\`${lang}\n${code}\n\`\`\``;
     },
