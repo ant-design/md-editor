@@ -52,6 +52,11 @@ const ThinkTagDemo: React.FC = () => {
 ### 结构化思考
 
 <think>
+这是一个思考过程
+<answer>
+这是一个答案
+</answer>
+
 **问题分析：** 如何实现思考过程的展示？
 
 **解决方案：**
