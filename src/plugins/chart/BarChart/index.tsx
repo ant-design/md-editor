@@ -549,14 +549,39 @@ const BarChart: React.FC<BarChartProps> = ({
           display: (context: any) => {
             if (!showDataLabels) return false;
             
-            // 堆叠图：只在最后一个数据集上显示标签（显示累计总和）
+            // 堆叠图：只在可见数据集中最后一个显示标签（显示累计总和）
             if (stacked) {
-              const datasetIndex = context.datasetIndex;
-              const totalDatasets = context.chart.data.datasets.length;
-              return datasetIndex === totalDatasets - 1;
+              const chart = context.chart;
+              const dsIndex = context.datasetIndex;
+              const dIndex = context.dataIndex;
+              const currentStack = chart.data.datasets?.[dsIndex]?.stack;
+              
+              // 获取当前数据点的值，用于判断正负
+              const currentValue = Number(chart.data.datasets?.[dsIndex]?.data?.[dIndex] ?? 0);
+              
+              // 找出所有可见的、同一堆叠、同一符号（正/负）的数据集索引
+              const sameStackIndexes = chart.data.datasets
+                .map((_: any, i: number) => i)
+                .filter((i: number) => {
+                  const ds: any = chart.data.datasets?.[i];
+                  // 检查数据集是否可见
+                  if (!chart.isDatasetVisible(i)) return false;
+                  // 检查是否属于同一堆叠
+                  if (currentStack && ds?.stack !== currentStack) return false;
+                  // 检查该位置的值是否与当前值同号（正/负）
+                  const v = Number(ds?.data?.[dIndex] ?? 0);
+                  return (v >= 0 && currentValue >= 0) || (v < 0 && currentValue < 0);
+                });
+              
+              // 只在可见数据集中的最后一个显示标签
+              const topIndex = sameStackIndexes.length
+                ? Math.max(...sameStackIndexes)
+                : dsIndex;
+              
+              return dsIndex === topIndex;
             }
             
-            // 非堆叠图：显示对应标签
+            // 非堆叠图：显示所有标签
             return true;
           },
           anchor: indexAxis === 'y' ? 'end' : 'end',
