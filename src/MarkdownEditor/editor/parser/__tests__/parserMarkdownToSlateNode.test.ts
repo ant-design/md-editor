@@ -879,6 +879,49 @@ console.log('测试代码');
     });
   });
 
+  describe('handleCustomHtmlTags', () => {
+    it('should treat non-standard HTML tags as text', () => {
+      const markdown = '<custom>自定义内容</custom>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [
+          { text: '<custom>' },
+          { text: '自定义内容' },
+          { text: '</custom>' },
+        ],
+      });
+    });
+
+    it('should treat multiple custom tags as text', () => {
+      const markdown = '<foo>内容1</foo> 和 <bar>内容2</bar>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0].type).toBe('paragraph');
+      // 验证自定义标签被当作文本
+      const text = result.schema[0].children
+        .map((child: any) => child.text)
+        .join('');
+      expect(text).toContain('<foo>');
+      expect(text).toContain('</foo>');
+      expect(text).toContain('<bar>');
+      expect(text).toContain('</bar>');
+    });
+
+    it('should handle standard HTML tags normally', () => {
+      const markdown = '<div>标准 HTML</div>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      // 标准 HTML 标签应该被解析为 HTML 代码块或片段
+      expect(result.schema).toHaveLength(1);
+      // div 标签会被 htmlToFragmentList 处理
+      expect(result.schema[0].type).not.toBe('paragraph');
+    });
+  });
+
   describe('handleAnswerTag', () => {
     it('should parse <answer> tag to answer code block', () => {
       const markdown = '<answer>这是答案内容</answer>';

@@ -577,29 +577,44 @@ const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
       // 如果是媒体标签的结束标签，跳过处理
       el = null;
     } else {
-      el = currentElement.value.match(
-        /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
-      )
-        ? htmlToFragmentList(currentElement.value, '')
-        : {
-            type: 'code',
-            language: 'html',
-            render: true,
-            value: currentElement.value,
-            children: [
-              {
-                text: currentElement.value,
-              },
-            ],
-          };
+      // 检查是否为注释（注释需要特殊处理以提取配置）
+      const isComment =
+        currentElement.value.trim().startsWith('<!--') &&
+        currentElement.value.trim().endsWith('-->');
+
+      // 检查是否为标准 HTML 元素或注释
+      if (isComment || isStandardHtmlElement(currentElement.value)) {
+        // 标准 HTML 元素或注释：按原逻辑处理
+        el = currentElement.value.match(
+          /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
+        )
+          ? htmlToFragmentList(currentElement.value, '')
+          : {
+              type: 'code',
+              language: 'html',
+              render: true,
+              value: currentElement.value,
+              children: [
+                {
+                  text: currentElement.value,
+                },
+              ],
+            };
+      } else {
+        // 非标准元素（如自定义标签）：当作普通文本处理
+        el = { text: currentElement.value };
+      }
     }
   } else {
     el = processInlineHtml(currentElement, htmlTag);
   }
 
   if (el && !Array.isArray(el)) {
-    el.isConfig = currentElement?.value?.trim()?.startsWith('<!--');
-    el.otherProps = contextProps;
+    // 只有非文本节点才设置 isConfig 和 otherProps
+    if (!('text' in el && Object.keys(el).length === 1)) {
+      el.isConfig = currentElement?.value?.trim()?.startsWith('<!--');
+      el.otherProps = contextProps;
+    }
   }
 
   return { el, contextProps };
@@ -615,6 +630,11 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
   const breakMatch = currentElement.value.match(/<br\/?>/);
   if (breakMatch) {
     return { type: 'break', children: [{ text: '\n' }] };
+  }
+
+  // 检查是否为非标准 HTML 元素，如果是则直接当作文本
+  if (!isStandardHtmlElement(currentElement.value)) {
+    return { text: currentElement.value };
   }
 
   const htmlMatch = currentElement.value.match(
@@ -1548,6 +1568,127 @@ const parseWithPlugins = (
 const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
 
 /**
+ * 标准 HTML 元素列表
+ * 这些标签会被正常解析为 HTML，其他标签会被当作普通文本处理
+ */
+const STANDARD_HTML_ELEMENTS = new Set([
+  // 文档结构
+  'html',
+  'head',
+  'body',
+  'title',
+  'meta',
+  'link',
+  'style',
+  'script',
+  // 内容分区
+  'header',
+  'nav',
+  'main',
+  'section',
+  'article',
+  'aside',
+  'footer',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  // 文本内容
+  'div',
+  'p',
+  'hr',
+  'pre',
+  'blockquote',
+  // 列表
+  'ul',
+  'ol',
+  'li',
+  'dl',
+  'dt',
+  'dd',
+  // 表格
+  'table',
+  'thead',
+  'tbody',
+  'tfoot',
+  'tr',
+  'th',
+  'td',
+  'caption',
+  'colgroup',
+  'col',
+  // 表单
+  'form',
+  'input',
+  'textarea',
+  'button',
+  'select',
+  'option',
+  'label',
+  'fieldset',
+  'legend',
+  // 内联文本语义
+  'a',
+  'em',
+  'strong',
+  'small',
+  'mark',
+  'del',
+  'ins',
+  'sub',
+  'sup',
+  'i',
+  'b',
+  'u',
+  's',
+  'code',
+  'kbd',
+  'samp',
+  'var',
+  'span',
+  'br',
+  'wbr',
+  // 图片和多媒体
+  'img',
+  'video',
+  'audio',
+  'source',
+  'track',
+  'iframe',
+  'embed',
+  'object',
+  'param',
+  'picture',
+  // 其他
+  'canvas',
+  'svg',
+  'math',
+  'details',
+  'summary',
+  'dialog',
+  'menu',
+  'menuitem',
+  // 字体
+  'font',
+]);
+
+/**
+ * 检查 HTML 标签是否为标准元素
+ * @param htmlString - HTML 字符串
+ * @returns 是否为标准 HTML 元素
+ */
+function isStandardHtmlElement(htmlString: string): boolean {
+  // 提取标签名（支持开始标签和结束标签）
+  const tagMatch = htmlString.match(/<\/?(\w+)/);
+  if (!tagMatch) return false;
+
+  const tagName = tagMatch[1].toLowerCase();
+  return STANDARD_HTML_ELEMENTS.has(tagName);
+}
+
+/**
  * 预处理特殊标签（think/answer），将其转换为代码块格式
  * @param markdown - 原始 Markdown 字符串
  * @param tagName - 标签名称（think 或 answer）
@@ -1557,10 +1698,7 @@ function preprocessSpecialTags(
   markdown: string,
   tagName: 'think' | 'answer',
 ): string {
-  const tagRegex = new RegExp(
-    `<${tagName}>([\\s\\S]*?)<\\/${tagName}>`,
-    'g',
-  );
+  const tagRegex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`, 'g');
 
   return markdown.replace(tagRegex, (match, content) => {
     const trimmedContent = content.trim();
