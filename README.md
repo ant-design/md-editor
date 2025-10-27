@@ -91,7 +91,7 @@ import { Bubble } from '@ant-design/agentic-ui';
 
 ### 任务列表组件
 
-```tsx
+```tsx | pure
 import { TaskList } from '@ant-design/agentic-ui';
 
 <TaskList
@@ -105,7 +105,7 @@ import { TaskList } from '@ant-design/agentic-ui';
 
 ### 工具调用展示
 
-```tsx
+```tsx | pure
 import { ToolUseBar } from '@ant-design/agentic-ui';
 
 <ToolUseBar
@@ -118,7 +118,7 @@ import { ToolUseBar } from '@ant-design/agentic-ui';
 
 ### Markdown 编辑器（支持流式输出）
 
-```tsx
+```tsx | pure
 import { MarkdownEditor } from '@ant-design/agentic-ui';
 
 <MarkdownEditor
