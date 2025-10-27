@@ -83,6 +83,14 @@ export const useFileUploadManager = ({
    * 上传图片
    */
   const uploadImage = useRefFunction(async () => {
+    // 检查是否有文件正在上传中
+    const isUploading = Array.from(fileMap?.values() || []).some(
+      (file) => file.status === 'uploading',
+    );
+    if (isUploading) {
+      return;
+    }
+
     const input = document.createElement('input');
     input.id = 'uploadImage' + '_' + Math.random();
     input.type = 'file';
