@@ -1,8 +1,13 @@
-import { Api, ChevronUp, X } from '@sofa-design/icons';
 import classnames from 'classnames';
-import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
-import React, { useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
+import {
+  ToolContent,
+  ToolExpand,
+  ToolHeaderRight,
+  ToolImage,
+  ToolTime,
+} from './ToolUseBarItemComponents';
 
 export interface ToolCall {
   id: string;
@@ -30,7 +35,7 @@ export interface ToolUseBarItemProps {
   light?: boolean;
 }
 
-export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
+const ToolUseBarItemComponent: React.FC<ToolUseBarItemProps> = ({
   tool,
   prefixCls,
   hashId,
@@ -50,223 +55,117 @@ export const ToolUseBarItem: React.FC<ToolUseBarItemProps> = ({
       : undefined,
   });
 
-  const errorDom = useMemo(() => {
-    return tool.status === 'error' && tool.errorMessage ? (
-      <div className={classnames(`${prefixCls}-tool-content-error`, hashId)}>
-        <div
-          className={classnames(`${prefixCls}-tool-content-error-icon`, hashId)}
-        >
-          <X />
-        </div>
-        <div
-          className={classnames(`${prefixCls}-tool-content-error-text`, hashId)}
-        >
-          {tool.errorMessage}
-        </div>
-      </div>
-    ) : null;
-  }, [tool.status, tool.errorMessage, prefixCls, hashId]);
-
-  const contentDom = useMemo(() => {
-    return tool.content ? (
-      <div className={classnames(`${prefixCls}-tool-content`, hashId)}>
-        {tool.content}
-      </div>
-    ) : null;
-  }, [tool.content, prefixCls, hashId]);
-
   const showContent = useMemo(() => {
-    return !!errorDom || !!contentDom;
-  }, [errorDom, contentDom]);
+    return !!(tool.status === 'error' && tool.errorMessage) || !!tool.content;
+  }, [tool.status, tool.errorMessage, tool.content]);
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    onClick?.(tool.id);
-    if (onActiveChange && !showContent) {
-      onActiveChange(tool.id, !isActive);
-    }
+  // 使用 useMemo 优化样式类名
+  const toolClassName = useMemo(() => {
+    return classnames(`${prefixCls}-tool ${hashId}`, {
+      [`${prefixCls}-tool-success`]: tool.status === 'success',
+      [`${prefixCls}-tool-loading`]: tool.status === 'loading',
+      [`${prefixCls}-tool-loading-light`]: tool.status === 'loading' && light,
+      [`${prefixCls}-tool-error`]: tool.status === 'error',
+      [`${prefixCls}-tool-idle`]: tool.status === 'idle',
+      [`${prefixCls}-tool-active`]: isActive && !expanded,
+      [`${prefixCls}-tool-expanded`]: expanded,
+      [`${prefixCls}-tool-light`]: light,
+    });
+  }, [prefixCls, hashId, tool.status, light, isActive, expanded]);
 
-    // 如果没有内容需要展示，则早返回
-    if (!showContent) return;
+  const toolBarClassName = useMemo(() => {
+    return classnames(`${prefixCls}-tool-bar`, hashId);
+  }, [prefixCls, hashId]);
 
-    // 避免在交互性子元素上误触发折叠
-    if (e.target instanceof Element) {
-      const tag = e.target.tagName.toLowerCase();
-      if (['a', 'button', 'input', 'textarea', 'select', 'label'].includes(tag))
-        return;
-    }
+  const toolHeaderClassName = useMemo(() => {
+    return classnames(`${prefixCls}-tool-header`, hashId);
+  }, [prefixCls, hashId]);
 
-    // 使用函数式更新避免闭包陈旧值问题
-    setExpanded((prev) => !prev);
-  };
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      onClick?.(tool.id);
+      if (onActiveChange && !showContent) {
+        onActiveChange(tool.id, !isActive);
+      }
 
-  const handleExpandClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation(); // 阻止事件冒泡到父元素
-    setExpanded((prev) => !prev);
-  };
+      // 如果没有内容需要展示，则早返回
+      if (!showContent) return;
+
+      // 避免在交互性子元素上误触发折叠
+      if (e.target instanceof Element) {
+        const tag = e.target.tagName.toLowerCase();
+        if (
+          ['a', 'button', 'input', 'textarea', 'select', 'label'].includes(tag)
+        )
+          return;
+      }
+
+      // 使用函数式更新避免闭包陈旧值问题
+      setExpanded((prev) => !prev);
+    },
+    [onClick, tool.id, onActiveChange, showContent, isActive, setExpanded],
+  );
+
+  const handleExpandClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation(); // 阻止事件冒泡到父元素
+      setExpanded((prev) => !prev);
+    },
+    [setExpanded],
+  );
 
   if (tool.type === 'summary') {
     return (
-      <div
-        className={classnames(`${prefixCls}-tool-container`, hashId)}
-        data-testid="tool-user-item-tool-container "
-      >
-        {contentDom}
-      </div>
+      <ToolContent
+        tool={tool}
+        prefixCls={prefixCls}
+        hashId={hashId}
+        light={light}
+        showContent={true}
+        expanded={true}
+      />
     );
   }
 
   return (
-    <div
-      key={tool.id}
-      data-testid="ToolUserItem"
-      className={classnames(`${prefixCls}-tool ${hashId}`, {
-        [`${prefixCls}-tool-success`]: tool.status === 'success',
-        [`${prefixCls}-tool-loading`]: tool.status === 'loading',
-        [`${prefixCls}-tool-loading-light`]: tool.status === 'loading' && light,
-        [`${prefixCls}-tool-error`]: tool.status === 'error',
-        [`${prefixCls}-tool-idle`]: tool.status === 'idle',
-        [`${prefixCls}-tool-active`]: isActive && !expanded,
-        [`${prefixCls}-tool-expanded`]: expanded,
-        [`${prefixCls}-tool-light`]: light,
-      })}
-    >
+    <div key={tool.id} data-testid="ToolUserItem" className={toolClassName}>
       <div
-        className={classnames(`${prefixCls}-tool-bar`, hashId)}
+        className={toolBarClassName}
         data-testid="tool-user-item-tool-bar"
-        onClick={(e) => {
-          handleClick(e);
-        }}
+        onClick={handleClick}
       >
         <div
-          className={classnames(`${prefixCls}-tool-header`, hashId)}
+          className={toolHeaderClassName}
           data-testid="tool-user-item-tool-header"
         >
-          <motion.div
-            className={classnames(`${prefixCls}-tool-image-wrapper`, hashId, {
-              [`${prefixCls}-tool-image-wrapper-rotating`]:
-                tool.status === 'loading',
-              [`${prefixCls}-tool-image-wrapper-loading`]:
-                tool.status === 'loading',
-            })}
-            animate={
-              tool.status === 'loading'
-                ? {
-                    '--rotate': ['0deg', '360deg'],
-                  }
-                : {}
-            }
-            transition={
-              tool.status === 'loading'
-                ? {
-                    '--rotate': {
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    },
-                  }
-                : {}
-            }
-            style={
-              {
-                '--rotation': tool.status === 'loading' ? '360deg' : '0deg',
-              } as React.CSSProperties
-            }
-          >
-            <div className={classnames(`${prefixCls}-tool-image`, hashId)}>
-              {tool.icon ? tool.icon : <Api />}
-            </div>
-          </motion.div>
+          <ToolImage tool={tool} prefixCls={prefixCls} hashId={hashId} />
         </div>
-        <motion.div
-          className={classnames(
-            `${prefixCls}-tool-header-right`,
-            {
-              [`${prefixCls}-tool-header-right-light`]: light,
-            },
-            hashId,
-          )}
-          animate={
-            tool.status === 'loading'
-              ? {
-                  maskImage: [
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
-                    'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
-                  ],
-                }
-              : {}
-          }
-          transition={
-            tool.status === 'loading'
-              ? {
-                  maskImage: {
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  },
-                }
-              : {}
-          }
-          style={
-            {
-              maskImage:
-                tool.status === 'loading'
-                  ? 'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)'
-                  : undefined,
-            } as React.CSSProperties
-          }
-        >
-          {tool.toolName && (
-            <div
-              className={classnames(`${prefixCls}-tool-name`, hashId, {
-                [`${prefixCls}-tool-name-loading`]: tool.status === 'loading',
-              })}
-            >
-              {tool.toolName}
-            </div>
-          )}
-          {tool.toolTarget && (
-            <div
-              className={classnames(`${prefixCls}-tool-target`, hashId, {
-                [`${prefixCls}-tool-target-loading`]: tool.status === 'loading',
-                [`${prefixCls}-tool-target-light`]: light,
-              })}
-              title={tool.toolTarget?.toString() ?? undefined}
-            >
-              {tool.toolTarget}
-            </div>
-          )}
-        </motion.div>
-        {tool.time && (
-          <div className={classnames(`${prefixCls}-tool-time`, hashId)}>
-            {tool.time}
-          </div>
-        )}
-
-        {showContent && (
-          <div
-            className={classnames(`${prefixCls}-tool-expand`, hashId)}
-            onClick={handleExpandClick}
-          >
-            <ChevronUp
-              style={{
-                transition: 'transform 0.3s ease-in-out',
-                transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            />
-          </div>
-        )}
+        <ToolHeaderRight
+          tool={tool}
+          prefixCls={prefixCls}
+          hashId={hashId}
+          light={light}
+        />
+        <ToolTime tool={tool} prefixCls={prefixCls} hashId={hashId} />
+        <ToolExpand
+          showContent={showContent}
+          expanded={expanded}
+          prefixCls={prefixCls}
+          hashId={hashId}
+          onExpandClick={handleExpandClick}
+        />
       </div>
-      {showContent && expanded ? (
-        <div
-          className={classnames(`${prefixCls}-tool-container`, hashId, {
-            [`${prefixCls}-tool-container-light`]: light,
-          })}
-          data-testid="tool-user-item-tool-container "
-        >
-          {contentDom}
-          {errorDom}
-        </div>
-      ) : null}
+      <ToolContent
+        tool={tool}
+        prefixCls={prefixCls}
+        hashId={hashId}
+        light={light}
+        showContent={showContent}
+        expanded={expanded}
+      />
     </div>
   );
 };
+
+// 使用 memo 优化组件，避免不必要的重新渲染
+export const ToolUseBarItem = memo(ToolUseBarItemComponent);

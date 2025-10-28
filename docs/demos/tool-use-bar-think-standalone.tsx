@@ -43,7 +43,7 @@ const ToolUseBarThinkDemo = () => {
         }}
       >
         {/* Loading 状态 */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, maxWidth: '500px' }}>
           <h4>Loading 状态 </h4>
           <ToolUseBarThink
             toolName="思考中..."
@@ -59,7 +59,7 @@ const ToolUseBarThinkDemo = () => {
         </div>
 
         {/* Success 状态 */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, maxWidth: '500px' }}>
           <h4>Success 状态 </h4>
 
           <ToolUseBarThink
@@ -72,7 +72,7 @@ const ToolUseBarThinkDemo = () => {
         </div>
 
         {/* Error 状态 */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, maxWidth: '500px' }}>
           <h4>轻量思考 状态 </h4>
 
           <ToolUseBarThink
