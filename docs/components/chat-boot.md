@@ -3,7 +3,7 @@ title: ChatBoot - 对话启动
 atomId: ChatBoot
 group:
   title: 入口
-  order: 3
+  order: 1
 ---
 
 # 对话启动组件

@@ -3,7 +3,7 @@ title: ToolUseBar 工具使用栏
 atomId: ToolUseBar
 group:
   title: 对话流
-  order: 11
+  order: 3
 ---
 
 # ToolUseBar 组件

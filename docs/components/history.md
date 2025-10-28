@@ -3,7 +3,7 @@ title: History 历史记录
 atomId: History
 group:
   title: 对话流
-  order: 4
+  order: 3
 ---
 
 # History 历史记录

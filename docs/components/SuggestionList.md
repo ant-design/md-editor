@@ -3,7 +3,7 @@ title: SuggestionList 追问建议
 atomId: SuggestionList
 group:
   title: 对话流
-  order: 12
+  order: 3
 ---
 
 # SuggestionList 追问建议

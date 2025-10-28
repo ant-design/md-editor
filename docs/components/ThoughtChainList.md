@@ -4,7 +4,7 @@ nav:
 atomId: ThoughtChainList
 group:
   title: 对话流
-  order: 2
+  order: 3
 ---
 
 # ThoughtChainList 思维链
