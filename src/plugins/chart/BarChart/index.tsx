@@ -548,13 +548,6 @@ const BarChart: React.FC<BarChartProps> = ({
         let labelText = '';
 
         if (dataLabelFormatter) {
-          // 使用自定义格式化函数
-          const mockContext = {
-            dataIndex: 0,
-            datasetIndex: 0,
-            chart: { data: { labels: [item.x] } },
-            dataset: { label: item.type || '默认' },
-          } as any;
           labelText = dataLabelFormatter({
             value,
             label: String(item.x),
