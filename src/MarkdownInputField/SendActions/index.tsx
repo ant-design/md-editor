@@ -139,7 +139,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
           onFileMapChange={(fileMap) => {
             attachment?.onFileMapChange?.(fileMap);
           }}
-          disabled={!fileUploadDone}
+          disabled={!fileUploadDone || attachment?.disabled}
         />
       ) : null,
       voiceRecognizer ? (
