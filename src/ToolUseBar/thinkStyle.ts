@@ -213,6 +213,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: 8,
         display: 'flex',
         maxHeight: 700,
+        overflow: 'hidden',
+        overflowY: 'auto',
         position: 'relative',
         '&-light': {
           borderLeft: '1px solid var(--color-gray-border-light)',
