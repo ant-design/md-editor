@@ -1,6 +1,7 @@
 import { SquareArrowUpRight } from '@sofa-design/icons';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
+import { useRefFunction } from '../../hooks/useRefFunction';
 import { useStyle } from './style';
 
 /**
@@ -99,11 +100,11 @@ export interface VisualListProps {
  * @param props - 组件属性
  * @returns 渲染的视觉列表组件
  */
-export const VisualList: React.FC<VisualListProps> = ({
+const VisualListComponent: React.FC<VisualListProps> = ({
   className,
   style,
-  data = [],
-  filter = () => true,
+  data,
+  filter,
   emptyRender,
   renderItem,
   loading = false,
@@ -117,6 +118,130 @@ export const VisualList: React.FC<VisualListProps> = ({
   description,
 }) => {
   const { wrapSSR, hashId } = useStyle(prefixCls);
+
+  // 使用 useMemo 优化过滤后的数据计算
+  const displayList = useMemo(() => {
+    if (!filter) {
+      return data || ([] as VisualListItem[]);
+    }
+    return data?.filter(filter) || [];
+  }, [data, filter]);
+
+  // 使用 useMemo 优化容器类名计算
+  const containerClassName = useMemo(() => {
+    return classNames(
+      `${prefixCls}-container`,
+      hashId,
+      {
+        [`${prefixCls}-outline`]: variant === 'outline',
+        [`${prefixCls}-borderless`]: variant === 'borderless',
+        [`${prefixCls}-default`]: variant === 'default',
+      },
+      className,
+    );
+  }, [prefixCls, hashId, variant, className]);
+
+  /**
+   * 图片组件 - 独立的 memo 组件，避免不必要的重渲染
+   */
+  const ImageComponent = memo<{
+    item: VisualListItem;
+    prefixCls: string;
+    hashId: string;
+    imageStyle?: React.CSSProperties;
+    onImageError: () => void;
+  }>(({ item, prefixCls, hashId, imageStyle, onImageError }) => {
+    const [imageError, setImageError] = useState(false);
+
+    const handleImageError = useRefFunction(() => {
+      setImageError(true);
+      onImageError();
+    });
+
+    if (imageError || !item.src) {
+      return (
+        <div
+          data-type="image"
+          className={classNames(`${prefixCls}-default-icon`, hashId)}
+          style={{
+            ...imageStyle,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#f5f5f5',
+            border: '1px solid #d9d9d9',
+            borderRadius: '4px',
+          }}
+        >
+          <SquareArrowUpRight />
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={item.src}
+        alt={item.alt || item.title || ''}
+        title={item.title}
+        className={classNames(`${prefixCls}-image`, hashId)}
+        style={imageStyle}
+        onError={handleImageError}
+      />
+    );
+  });
+
+  /**
+   * 默认列表项渲染函数 - 使用 useRefFunction 优化
+   */
+  const defaultRenderItem = useRefFunction(
+    (item: VisualListItem, index: number) => {
+      const itemClassNames = [
+        `${prefixCls}-item`,
+        shape === 'circle' ? `${prefixCls}-item-circle` : '',
+        hashId,
+      ]
+        .filter(Boolean)
+        .join(' ');
+
+      return (
+        <li key={item.id || index} className={itemClassNames} style={itemStyle}>
+          {item.href ? (
+            <a
+              href={item.href}
+              className={classNames(`${prefixCls}-link`, hashId)}
+              style={linkStyle}
+            >
+              <ImageComponent
+                item={item}
+                prefixCls={prefixCls}
+                hashId={hashId}
+                imageStyle={imageStyle}
+                onImageError={() => {}} // 空函数，因为错误处理在 ImageComponent 内部
+              />
+            </a>
+          ) : (
+            <ImageComponent
+              item={item}
+              prefixCls={prefixCls}
+              hashId={hashId}
+              imageStyle={imageStyle}
+              onImageError={() => {}} // 空函数，因为错误处理在 ImageComponent 内部
+            />
+          )}
+        </li>
+      );
+    },
+  );
+
+  // 使用 useMemo 优化列表渲染
+  const listItems = useMemo(() => {
+    return displayList.map((item, index) => {
+      if (renderItem) {
+        return renderItem(item, index);
+      }
+      return defaultRenderItem(item, index);
+    });
+  }, [displayList, renderItem, defaultRenderItem]);
 
   // 加载状态渲染
   if (loading) {
@@ -135,9 +260,6 @@ export const VisualList: React.FC<VisualListProps> = ({
     );
   }
 
-  // 过滤数据
-  const displayList = data.filter(filter);
-
   // 空状态渲染
   if (displayList.length === 0) {
     return wrapSSR(
@@ -155,100 +277,9 @@ export const VisualList: React.FC<VisualListProps> = ({
     );
   }
 
-  /**
-   * 默认列表项渲染函数
-   * @param item - 列表项数据
-   * @param index - 列表项索引
-   * @returns 渲染的列表项元素
-   */
-  const defaultRenderItem = (item: VisualListItem, index: number) => {
-    const itemClassNames = [
-      `${prefixCls}-item`,
-      shape === 'circle' ? `${prefixCls}-item-circle` : '',
-      hashId,
-    ]
-      .filter(Boolean)
-      .join(' ');
-
-    // 图片组件，支持错误处理和默认图标
-    const ImageComponent = () => {
-      const [imageError, setImageError] = useState(false);
-
-      const handleImageError = () => {
-        setImageError(true);
-      };
-
-      if (imageError || !item.src) {
-        return (
-          <div
-            data-type="image"
-            className={classNames(`${prefixCls}-default-icon`, hashId)}
-            style={{
-              ...imageStyle,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#f5f5f5',
-              border: '1px solid #d9d9d9',
-              borderRadius: '4px',
-            }}
-          >
-            <SquareArrowUpRight />
-          </div>
-        );
-      }
-
-      return (
-        <img
-          src={item.src}
-          alt={item.alt || item.title || ''}
-          title={item.title}
-          className={classNames(`${prefixCls}-image`, hashId)}
-          style={imageStyle}
-          onError={handleImageError}
-        />
-      );
-    };
-
-    return (
-      <li key={item.id || index} className={itemClassNames} style={itemStyle}>
-        {item.href ? (
-          <a
-            href={item.href}
-            className={classNames(`${prefixCls}-link`, hashId)}
-            style={linkStyle}
-          >
-            <ImageComponent />
-          </a>
-        ) : (
-          <ImageComponent />
-        )}
-      </li>
-    );
-  };
-
-  // 构建容器类名
-  const containerClassName = classNames(
-    `${prefixCls}-container`,
-    hashId,
-    {
-      [`${prefixCls}-outline`]: variant === 'outline',
-      [`${prefixCls}-borderless`]: variant === 'borderless',
-      [`${prefixCls}-default`]: variant === 'default',
-    },
-    className,
-  );
-
   return wrapSSR(
     <div className={containerClassName} style={style}>
-      <ul className={classNames(prefixCls, hashId)}>
-        {displayList.map((item, index) => {
-          if (renderItem) {
-            return renderItem(item, index);
-          }
-          return defaultRenderItem(item, index);
-        })}
-      </ul>
+      <ul className={classNames(prefixCls, hashId)}>{listItems}</ul>
       {/* 用来处理margin-8*/}
       <div style={{ width: 4 }} />
       {description && (
@@ -259,3 +290,6 @@ export const VisualList: React.FC<VisualListProps> = ({
     </div>,
   );
 };
+
+// 使用 React.memo 优化组件重渲染
+export const VisualList = memo(VisualListComponent);
