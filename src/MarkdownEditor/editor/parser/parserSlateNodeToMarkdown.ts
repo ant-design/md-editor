@@ -270,7 +270,8 @@ export const parserSlateNodeToMarkdown = (
 
       // 只有当 configProps 不为空对象时才生成注释
       if (Object.keys(configProps).length > 0) {
-        str += `<!--${JSON.stringify((node.type === 'chart' && configProps.config) ? configProps.config : configProps)}-->\n`;
+        const propsToSerialize = (node.type === 'chart' && configProps.config) ? configProps.config : configProps;
+        str += `<!--${JSON.stringify(propsToSerialize)}-->\n`;
       }
     }
     const p = parent.at(-1) || ({} as any);
