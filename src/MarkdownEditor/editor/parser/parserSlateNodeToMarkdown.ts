@@ -269,8 +269,8 @@ export const parserSlateNodeToMarkdown = (
       });
 
       // 只有当 configProps 不为空对象时才生成注释
-      if (Object.keys(configProps).length > 0) {
-        str += `<!--${JSON.stringify(configProps)}-->\n`;
+      if (Object.keys(configProps).length > 0 && configProps.config) {
+        str += `<!--${JSON.stringify(configProps.config)}-->\n`;
       }
     }
     const p = parent.at(-1) || ({} as any);
