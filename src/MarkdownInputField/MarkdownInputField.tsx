@@ -745,6 +745,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           onMouseLeave={() => setHover(false)}
           onKeyDown={(e) => {
             const { triggerSendKey = 'Enter' } = props;
+
+            // 如果正在使用输入法，不处理回车键发送
+            if (markdownEditorRef?.current?.store.inputComposition) {
+              return;
+            }
+
             if (
               triggerSendKey === 'Enter' &&
               e.key === 'Enter' &&
