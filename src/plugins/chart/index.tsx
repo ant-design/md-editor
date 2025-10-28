@@ -7,11 +7,31 @@ import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
 import { ChartRender } from './ChartRender';
 
+/**
+ * @fileoverview 图表插件主入口文件
+ * 
+ * 该文件提供了完整的图表功能，包括：
+ * - 多种图表类型的组件（饼图、柱状图、折线图、面积图等）
+ * - 图表渲染和配置功能
+ * - 数据处理和格式化工具
+ * - 图表属性工具栏
+ * - 图表标记和容器组件
+ * 
+ * @author md-editor
+ * @version 1.0.0
+ * @since 2024
+ */
+
+// 图表属性工具栏
 export { ChartAttrToolBar } from './ChartAttrToolBar';
+
+// 图表标记组件
 export * from './ChartMark';
+
+// 图表渲染组件
 export { ChartRender } from './ChartRender';
 
-// 图表组件
+// 图表组件导出
 export { default as AreaChart } from './AreaChart';
 export { default as BarChart } from './BarChart';
 export { default as ChartStatistic } from './ChartStatistic';
@@ -21,7 +41,7 @@ export { default as LineChart } from './LineChart';
 export { default as RadarChart } from './RadarChart';
 export { default as ScatterChart } from './ScatterChart';
 
-// 类型导出
+// 图表类型导出
 export type {
   AreaChartConfigItem,
   AreaChartDataItem,
@@ -47,11 +67,11 @@ export type {
 export type { RadarChartDataItem } from './RadarChart';
 export type { ScatterChartDataItem, ScatterChartProps } from './ScatterChart';
 
-// 工具与常量
+// 工具与常量导出
 export { defaultColorList } from './const';
 export { debounce as chartDebounce, stringFormatNumber } from './utils';
 
-// 复用组件与类型
+// 复用组件与类型导出
 export { ChartFilter, ChartToolBar, downloadChart } from './components';
 export type {
   ChartFilterProps,

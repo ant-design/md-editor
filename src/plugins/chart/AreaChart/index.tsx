@@ -32,6 +32,18 @@ import {
   findDataPointByXValue,
 } from '../utils';
 
+/**
+ * @fileoverview 面积图组件文件
+ *
+ * 该文件提供了面积图组件的实现，基于 Chart.js 和 react-chartjs-2。
+ * 支持数据可视化、交互、配置、统计等功能。
+ *
+ * @author md-editor
+ * @version 1.0.0
+ * @since 2024
+ */
+
+// 注册 Chart.js 组件
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -42,25 +54,93 @@ ChartJS.register(
   Legend,
 );
 
+/**
+ * 面积图数据项类型
+ *
+ * 继承自 ChartDataItem，用于面积图的数据表示。
+ *
+ * @typedef {ChartDataItem} AreaChartDataItem
+ * @since 1.0.0
+ */
 export type AreaChartDataItem = ChartDataItem;
 
+/**
+ * 面积图配置项接口
+ *
+ * 定义了面积图的配置选项，包括数据集、主题、图例、网格等设置。
+ *
+ * @interface AreaChartConfigItem
+ * @since 1.0.0
+ *
+ * @example
+ * ```typescript
+ * const config: AreaChartConfigItem = {
+ *   datasets: [data1, data2],
+ *   theme: 'light',
+ *   showLegend: true,
+ *   legendPosition: 'top',
+ *   showGrid: true,
+ *   xAxisLabel: '时间',
+ *   yAxisLabel: '数值'
+ * };
+ * ```
+ */
 export interface AreaChartConfigItem {
+  /** 数据集数组 */
   datasets: Array<(string | { x: number; y: number })[]>;
+  /** 图表主题 */
   theme?: 'light' | 'dark';
+  /** 是否显示图例 */
   showLegend?: boolean;
+  /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
+  /** 图例水平对齐方式 */
   legendAlign?: 'start' | 'center' | 'end';
+  /** 是否显示网格线 */
   showGrid?: boolean;
+  /** X轴标签 */
   xAxisLabel?: string;
+  /** Y轴标签 */
   yAxisLabel?: string;
+  /** X轴最小值 */
   xAxisMin?: number;
+  /** X轴最大值 */
   xAxisMax?: number;
+  /** Y轴最小值 */
   yAxisMin?: number;
+  /** Y轴最大值 */
   yAxisMax?: number;
+  /** X轴步长 */
   xAxisStep?: number;
+  /** Y轴步长 */
   yAxisStep?: number;
 }
 
+/**
+ * 面积图组件属性接口
+ *
+ * 定义了面积图组件的所有属性，继承自 ChartContainerProps。
+ * 支持数据配置、样式设置、交互功能等。
+ *
+ * @interface AreaChartProps
+ * @extends ChartContainerProps
+ * @since 1.0.0
+ *
+ * @example
+ * ```typescript
+ * const props: AreaChartProps = {
+ *   title: '销售趋势',
+ *   data: [
+ *     { x: '2024-01', y: 100, type: '产品A' },
+ *     { x: '2024-02', y: 150, type: '产品A' }
+ *   ],
+ *   width: 800,
+ *   height: 400,
+ *   showLegend: true,
+ *   showGrid: true
+ * };
+ * ```
+ */
 export interface AreaChartProps extends ChartContainerProps {
   /** 图表标题 */
   title?: string;
@@ -102,20 +182,45 @@ export interface AreaChartProps extends ChartContainerProps {
   statistic?: StatisticConfigType;
 }
 
+/**
+ * 默认颜色列表
+ *
+ * 用于面积图数据系列的颜色配置，提供10种预定义的颜色。
+ *
+ * @constant
+ * @type {string[]}
+ * @since 1.0.0
+ */
 const defaultColors = [
-  '#1677ff',
-  '#8954FC',
-  '#15e7e4',
-  '#F45BB5',
-  '#00A6FF',
-  '#33E59B',
-  '#D666E4',
-  '#6151FF',
-  '#BF3C93',
-  '#005EE0',
+  '#1677ff', // 蓝色
+  '#8954FC', // 紫色
+  '#15e7e4', // 青色
+  '#F45BB5', // 粉色
+  '#00A6FF', // 天蓝色
+  '#33E59B', // 绿色
+  '#D666E4', // 紫红色
+  '#6151FF', // 靛蓝色
+  '#BF3C93', // 深粉色
+  '#005EE0', // 深蓝色
 ];
 
-// 将十六进制颜色转换为带透明度的 rgba 字符串
+/**
+ * 将十六进制颜色转换为带透明度的 RGBA 字符串
+ *
+ * 支持3位和6位十六进制颜色格式，并添加透明度。
+ *
+ * @param {string} hex - 十六进制颜色值（如 '#ff0000' 或 '#f00'）
+ * @param {number} alpha - 透明度值（0-1之间）
+ * @returns {string} RGBA 颜色字符串
+ *
+ * @example
+ * ```typescript
+ * hexToRgba('#ff0000', 0.5); // 'rgba(255, 0, 0, 0.5)'
+ * hexToRgba('#f00', 0.8); // 'rgba(255, 0, 0, 0.8)'
+ * ```
+ *
+ * @since 1.0.0
+ */
 const hexToRgba = (hex: string, alpha: number): string => {
   const sanitized = hex.replace('#', '');
   const isShort = sanitized.length === 3;
@@ -135,6 +240,33 @@ const hexToRgba = (hex: string, alpha: number): string => {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 };
 
+/**
+ * 面积图组件
+ * 
+ * 基于 Chart.js 和 react-chartjs-2 实现的面积图组件。
+ * 支持数据可视化、交互、配置、统计等功能。
+ * 
+ * @component
+ * @param {AreaChartProps} props - 组件属性
+ * @returns {React.ReactElement} 面积图组件
+ * 
+ * @example
+ * ```tsx
+ * <AreaChart
+ *   title="销售趋势"
+ *   data={[
+ *     { x: '2024-01', y: 100, type: '产品A' },
+ *     { x: '2024-02', y: 150, type: '产品A' }
+ *   ]}
+ *   width={800}
+ *   height={400}
+ *   showLegend={true}
+ *   showGrid={true}
+ * />
+ * ```
+ * 
+ * @since 1.0.0
+ */
 const AreaChart: React.FC<AreaChartProps> = ({
   title,
   data,

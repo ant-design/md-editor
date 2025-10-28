@@ -31,6 +31,18 @@ import {
   findDataPointByXValue,
 } from '../utils';
 
+/**
+ * @fileoverview 柱状图组件文件
+ * 
+ * 该文件提供了柱状图组件的实现，基于 Chart.js 和 react-chartjs-2。
+ * 支持数据可视化、交互、配置、统计等功能。
+ * 
+ * @author md-editor
+ * @version 1.0.0
+ * @since 2024
+ */
+
+// 注册 Chart.js 组件
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 export type BarChartDataItem = ChartDataItem;
