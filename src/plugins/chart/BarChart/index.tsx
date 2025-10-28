@@ -574,7 +574,7 @@ const BarChart: React.FC<BarChartProps> = ({
       return { top: 0, right: 0, bottom: 0, left: 0 };
 
     const basePadding = 8; // 基础padding
-    const labelPadding = Math.ceil(calculateMaxLabelWidth); // 标签宽度 + 额外间距
+    const labelPadding = Math.ceil(calculateMaxLabelWidth) + 12; // 标签宽度 + 额外间距
 
     if (indexAxis === 'y') {
       // 水平柱状图：标签在右侧，需要增加右侧padding
