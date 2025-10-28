@@ -242,14 +242,14 @@ const hexToRgba = (hex: string, alpha: number): string => {
 
 /**
  * 面积图组件
- * 
+ *
  * 基于 Chart.js 和 react-chartjs-2 实现的面积图组件。
  * 支持数据可视化、交互、配置、统计等功能。
- * 
+ *
  * @component
  * @param {AreaChartProps} props - 组件属性
  * @returns {React.ReactElement} 面积图组件
- * 
+ *
  * @example
  * ```tsx
  * <AreaChart
@@ -264,7 +264,7 @@ const hexToRgba = (hex: string, alpha: number): string => {
  *   showGrid={true}
  * />
  * ```
- * 
+ *
  * @since 1.0.0
  */
 const AreaChart: React.FC<AreaChartProps> = ({

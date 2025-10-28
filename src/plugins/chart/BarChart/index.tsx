@@ -45,24 +45,71 @@ import {
 // 注册 Chart.js 组件
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
+/**
+ * 柱状图数据项类型
+ * 
+ * 继承自 ChartDataItem，用于柱状图的数据表示。
+ * 
+ * @typedef {ChartDataItem} BarChartDataItem
+ * @since 1.0.0
+ */
 export type BarChartDataItem = ChartDataItem;
 
+/**
+ * 柱状图配置项接口
+ * 
+ * 定义了柱状图的配置选项，包括数据集、主题、图例、网格等设置。
+ * 
+ * @interface BarChartConfigItem
+ * @since 1.0.0
+ * 
+ * @example
+ * ```typescript
+ * const config: BarChartConfigItem = {
+ *   datasets: [data1, data2],
+ *   theme: 'light',
+ *   showLegend: true,
+ *   legendPosition: 'top',
+ *   showGrid: true,
+ *   xAxisLabel: '类别',
+ *   yAxisLabel: '数值',
+ *   stacked: false,
+ *   indexAxis: 'x'
+ * };
+ * ```
+ */
 export interface BarChartConfigItem {
+  /** 数据集数组 */
   datasets: Array<(string | { x: number; y: number })[]>;
+  /** 图表主题 */
   theme?: 'light' | 'dark';
+  /** 是否显示图例 */
   showLegend?: boolean;
+  /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
+  /** 图例水平对齐方式 */
   legendAlign?: 'start' | 'center' | 'end';
+  /** 是否显示网格线 */
   showGrid?: boolean;
+  /** X轴标签 */
   xAxisLabel?: string;
+  /** Y轴标签 */
   yAxisLabel?: string;
+  /** X轴最小值 */
   xAxisMin?: number;
+  /** X轴最大值 */
   xAxisMax?: number;
+  /** Y轴最小值 */
   yAxisMin?: number;
+  /** Y轴最大值 */
   yAxisMax?: number;
+  /** X轴步长 */
   xAxisStep?: number;
+  /** Y轴步长 */
   yAxisStep?: number;
+  /** 是否堆叠显示 */
   stacked?: boolean;
+  /** 索引轴方向 */
   indexAxis?: 'x' | 'y';
 }
 

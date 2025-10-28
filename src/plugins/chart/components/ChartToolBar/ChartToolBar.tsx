@@ -6,16 +6,75 @@ import { I18nContext } from '../../../../i18n';
 import TimeIcon from '../icons/TimeIcon';
 import { useStyle } from './style';
 
+/**
+ * @fileoverview 图表工具栏组件文件
+ * 
+ * 该文件提供了图表工具栏组件的实现，用于显示图表标题、数据时间、下载按钮等。
+ * 
+ * @author md-editor
+ * @version 1.0.0
+ * @since 2024
+ */
+
+/**
+ * 图表工具栏属性接口
+ * 
+ * 定义了图表工具栏组件的所有属性。
+ * 
+ * @interface ChartToolBarProps
+ * @since 1.0.0
+ * 
+ * @example
+ * ```typescript
+ * const props: ChartToolBarProps = {
+ *   title: '销售数据',
+ *   dataTime: '2024-01-01 00:00:00',
+ *   theme: 'light',
+ *   onDownload: () => console.log('下载图表'),
+ *   extra: <Button>自定义按钮</Button>
+ * };
+ * ```
+ */
 export interface ChartToolBarProps {
+  /** 图表标题 */
   title?: string;
+  /** 数据时间 */
   dataTime?: string;
+  /** 自定义CSS类名 */
   className?: string;
+  /** 图表主题 */
   theme?: 'light' | 'dark';
+  /** 下载回调函数 */
   onDownload?: () => void;
+  /** 额外内容 */
   extra?: React.ReactNode;
+  /** 过滤器内容 */
   filter?: React.ReactNode;
 }
 
+/**
+ * 图表工具栏组件
+ * 
+ * 用于显示图表标题、数据时间、下载按钮等工具栏内容。
+ * 支持主题切换、自定义内容、下载功能等。
+ * 
+ * @component
+ * @param {ChartToolBarProps} props - 组件属性
+ * @returns {React.ReactElement | null} 图表工具栏组件，当没有标题和额外内容时返回 null
+ * 
+ * @example
+ * ```tsx
+ * <ChartToolBar
+ *   title="销售数据"
+ *   dataTime="2024-01-01 00:00:00"
+ *   theme="light"
+ *   onDownload={() => console.log('下载图表')}
+ *   extra={<Button>自定义按钮</Button>}
+ * />
+ * ```
+ * 
+ * @since 1.0.0
+ */
 const ChartToolBar: React.FC<ChartToolBarProps> = ({
   title,
   dataTime,
