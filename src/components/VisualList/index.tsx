@@ -148,9 +148,10 @@ const VisualListComponent: React.FC<VisualListProps> = ({
     item: VisualListItem;
     prefixCls: string;
     hashId: string;
+    shape: 'default' | 'circle';
     imageStyle?: React.CSSProperties;
     onImageError: () => void;
-  }>(({ item, prefixCls, hashId, imageStyle, onImageError }) => {
+  }>(({ item, prefixCls, hashId, shape, imageStyle, onImageError }) => {
     const [imageError, setImageError] = useState(false);
 
     const handleImageError = useRefFunction(() => {
@@ -170,7 +171,7 @@ const VisualListComponent: React.FC<VisualListProps> = ({
             justifyContent: 'center',
             backgroundColor: '#f5f5f5',
             border: '1px solid #d9d9d9',
-            borderRadius: '4px',
+            borderRadius: shape === 'circle' ? '50%' : '4px',
           }}
         >
           <SquareArrowUpRight />
@@ -215,6 +216,7 @@ const VisualListComponent: React.FC<VisualListProps> = ({
                 item={item}
                 prefixCls={prefixCls}
                 hashId={hashId}
+                shape={shape}
                 imageStyle={imageStyle}
                 onImageError={() => {}} // 空函数，因为错误处理在 ImageComponent 内部
               />
@@ -224,6 +226,7 @@ const VisualListComponent: React.FC<VisualListProps> = ({
               item={item}
               prefixCls={prefixCls}
               hashId={hashId}
+              shape={shape}
               imageStyle={imageStyle}
               onImageError={() => {}} // 空函数，因为错误处理在 ImageComponent 内部
             />
