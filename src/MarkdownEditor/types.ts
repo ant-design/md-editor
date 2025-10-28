@@ -167,10 +167,23 @@ export type MarkdownEditorProps = {
    *
    * @example
    * ```tsx
+   * // 基本懒加载配置
    * lazy={{
    *   enable: true,
    *   placeholderHeight: 100,
    *   rootMargin: '200px'
+   * }}
+   *
+   * // 自定义占位符渲染
+   * lazy={{
+   *   enable: true,
+   *   placeholderHeight: 120,
+   *   rootMargin: '300px',
+   *   renderPlaceholder: ({ height, style, isIntersecting }) => (
+   *     <div style={style}>
+   *       <div>加载中... {isIntersecting ? '(即将显示)' : ''}</div>
+   *     </div>
+   *   )
    * }}
    * ```
    */
@@ -188,6 +201,27 @@ export type MarkdownEditorProps = {
      * 支持所有 IntersectionObserver rootMargin 的值
      */
     rootMargin?: string;
+    /**
+     * 自定义占位符渲染函数
+     * 允许开发者自定义懒加载时的占位符显示内容
+     */
+    renderPlaceholder?: (props: {
+      /** 占位符高度 */
+      height: number;
+      /** 占位符样式 */
+      style: React.CSSProperties;
+      /** 元素是否即将进入视口 */
+      isIntersecting: boolean;
+      /** 元素在文档中的位置信息 */
+      elementInfo?: {
+        /** 元素类型 */
+        type: string;
+        /** 元素在文档中的索引 */
+        index: number;
+        /** 元素总数量 */
+        total: number;
+      };
+    }) => React.ReactNode;
   };
   /**
    * 样式

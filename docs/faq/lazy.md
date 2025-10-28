@@ -67,11 +67,104 @@ export default () => {
 
 ### 配置说明
 
-| 参数                   | 说明                   | 类型    | 默认值  |
-| ---------------------- | ---------------------- | ------- | ------- |
-| lazy.enable            | 是否启用懒加载         | boolean | false   |
-| lazy.placeholderHeight | 占位符高度（单位：px） | number  | 25      |
-| lazy.rootMargin        | 提前加载距离           | string  | '200px' |
+| 参数                   | 说明                   | 类型     | 默认值  |
+| ---------------------- | ---------------------- | -------- | ------- |
+| lazy.enable            | 是否启用懒加载         | boolean  | false   |
+| lazy.placeholderHeight | 占位符高度（单位：px） | number   | 25      |
+| lazy.rootMargin        | 提前加载距离           | string   | '200px' |
+| lazy.renderPlaceholder | 自定义占位符渲染函数   | function | -       |
+
+## 自定义占位符渲染
+
+通过 `renderPlaceholder` 函数，你可以完全自定义懒加载时的占位符显示内容：
+
+```tsx | pure
+<BaseMarkdownEditor
+  lazy={{
+    enable: true,
+    placeholderHeight: 120,
+    rootMargin: '300px',
+    renderPlaceholder: ({ height, style, isIntersecting, elementInfo }) => (
+      <div style={style}>
+        <div>加载中... {isIntersecting ? '(即将显示)' : ''}</div>
+        {elementInfo && (
+          <div>
+            {elementInfo.type} - {elementInfo.index + 1}/{elementInfo.total}
+          </div>
+        )}
+      </div>
+    ),
+  }}
+  initValue={content}
+  height={600}
+/>
+```
+
+### renderPlaceholder 参数说明
+
+| 参数              | 类型          | 说明                 |
+| ----------------- | ------------- | -------------------- |
+| height            | number        | 占位符高度（px）     |
+| style             | CSSProperties | 计算后的占位符样式   |
+| isIntersecting    | boolean       | 元素是否即将进入视口 |
+| elementInfo       | object        | 元素信息（可选）     |
+| elementInfo.type  | string        | 元素类型             |
+| elementInfo.index | number        | 元素在文档中的索引   |
+| elementInfo.total | number        | 元素总数量           |
+
+### 占位符样式示例
+
+```tsx | pure
+// 渐变背景占位符
+renderPlaceholder: ({ height, style, isIntersecting }) => (
+  <div
+    style={{
+      ...style,
+      background: isIntersecting
+        ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      borderRadius: '8px',
+      color: 'white',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    {isIntersecting ? '即将显示...' : '加载中...'}
+  </div>
+);
+
+// 骨架屏占位符
+renderPlaceholder: ({ height, style }) => (
+  <div style={{ ...style, padding: '16px', background: '#fafafa' }}>
+    <div
+      style={{
+        height: '20px',
+        background: '#e0e0e0',
+        borderRadius: '4px',
+        marginBottom: '12px',
+      }}
+    />
+    <div
+      style={{
+        height: '16px',
+        background: '#e0e0e0',
+        borderRadius: '4px',
+        marginBottom: '8px',
+        width: '80%',
+      }}
+    />
+    <div
+      style={{
+        height: '16px',
+        background: '#e0e0e0',
+        borderRadius: '4px',
+        width: '60%',
+      }}
+    />
+  </div>
+);
+```
 
 ## 性能优化建议
 

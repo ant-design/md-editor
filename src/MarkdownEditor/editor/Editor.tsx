@@ -868,6 +868,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           <LazyElement
             placeholderHeight={props.lazy?.placeholderHeight}
             rootMargin={props.lazy?.rootMargin}
+            renderPlaceholder={props.lazy?.renderPlaceholder}
           >
             {renderedDom}
           </LazyElement>
