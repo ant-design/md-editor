@@ -269,8 +269,12 @@ export const parserSlateNodeToMarkdown = (
       });
 
       // 只有当 configProps 不为空对象时才生成注释
-      if (Object.keys(configProps).length > 0 && configProps.config) {
-        str += `<!--${JSON.stringify(configProps.config)}-->\n`;
+      if (Object.keys(configProps).length > 0) {
+        if(node.type === 'chart' && configProps.config) {
+          str += `<!--${JSON.stringify(configProps.config)}-->\n`;
+        }else{
+          str += `<!--${JSON.stringify(configProps)}-->\n`;
+        }
       }
     }
     const p = parent.at(-1) || ({} as any);
