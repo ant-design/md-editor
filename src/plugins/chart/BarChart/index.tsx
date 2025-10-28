@@ -110,6 +110,8 @@ export interface BarChartProps extends ChartContainerProps {
     dataIndex: number;
     datasetIndex: number;
   }) => string;
+  /** 外部传入的 Chart.js 选项，会与默认选项合并 */
+  chartOptions?: Partial<ChartOptions<'bar'>>;
 }
 
 const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
@@ -163,6 +165,7 @@ const BarChart: React.FC<BarChartProps> = ({
   variant,
   showDataLabels = false,
   dataLabelFormatter,
+  chartOptions,
 }) => {
   const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
@@ -519,10 +522,133 @@ const BarChart: React.FC<BarChartProps> = ({
     : 'rgba(255, 255, 255, 0.8)';
   const gridColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)';
 
-  const options: ChartOptions<'bar'> = {
+  // 标签宽度计算函数
+  const calculateLabelWidth = (text: string, fontSize: number = 11): number => {
+    // 创建临时canvas来测量文本宽度
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    if (!context) return text.length * fontSize * 0.6; // 备用估算
+
+    context.font = `${fontSize}px Arial, sans-serif`;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  };
+
+  // 计算所需的最大标签宽度
+  const calculateMaxLabelWidth = useMemo(() => {
+    if (!showDataLabels || !filteredData.length) return 0;
+
+    const fontSize = isMobile ? 10 : 11;
+    let maxWidth = 0;
+
+    // 遍历所有数据点，计算标签文本的最大宽度
+    filteredData.forEach((item) => {
+      const value = typeof item.y === 'number' ? item.y : Number(item.y);
+      if (Number.isFinite(value)) {
+        let labelText = '';
+
+        if (dataLabelFormatter) {
+          // 使用自定义格式化函数
+          const mockContext = {
+            dataIndex: 0,
+            datasetIndex: 0,
+            chart: { data: { labels: [item.x] } },
+            dataset: { label: item.type || '默认' },
+          } as any;
+          labelText = dataLabelFormatter({
+            value,
+            label: String(item.x),
+            datasetLabel: String(item.type || '默认'),
+            dataIndex: 0,
+            datasetIndex: 0,
+          });
+        } else {
+          // 使用默认格式化
+          labelText = value.toLocaleString();
+        }
+
+        const width = calculateLabelWidth(labelText, fontSize);
+        maxWidth = Math.max(maxWidth, width);
+      }
+    });
+
+    return maxWidth;
+  }, [filteredData, showDataLabels, dataLabelFormatter, isMobile]);
+
+  // 计算动态padding
+  const calculateDynamicPadding = useMemo(() => {
+    if (!showDataLabels || calculateMaxLabelWidth === 0)
+      return { top: 0, right: 0, bottom: 0, left: 0 };
+
+    const basePadding = 20; // 基础padding
+    const labelPadding = Math.ceil(calculateMaxLabelWidth); // 标签宽度 + 额外间距
+
+    if (indexAxis === 'y') {
+      // 水平柱状图：标签在右侧，需要增加右侧padding
+      return {
+        top: basePadding,
+        right: Math.max(basePadding, labelPadding),
+        bottom: basePadding,
+        left: basePadding,
+      };
+    } else {
+      // 垂直柱状图：标签在上方，需要增加上方padding
+      return {
+        top: Math.max(basePadding, labelPadding),
+        right: basePadding,
+        bottom: basePadding,
+        left: basePadding,
+      };
+    }
+  }, [showDataLabels, calculateMaxLabelWidth, indexAxis]);
+
+  // 深度合并函数
+  const deepMerge = (target: any, source: any): any => {
+    if (!source || typeof source !== 'object') return source;
+    if (!target || typeof target !== 'object') return source;
+
+    const result = { ...target };
+
+    for (const key in source) {
+      if (source.hasOwnProperty(key)) {
+        if (
+          typeof source[key] === 'object' &&
+          source[key] !== null &&
+          !Array.isArray(source[key])
+        ) {
+          // 特殊处理layout.padding，确保动态计算的padding不被覆盖
+          if (
+            key === 'layout' &&
+            source[key].padding &&
+            target.layout?.padding
+          ) {
+            result[key] = {
+              ...target[key],
+              ...source[key],
+              padding: {
+                ...target[key].padding,
+                ...source[key].padding,
+              },
+            };
+          } else {
+            result[key] = deepMerge(target[key] || {}, source[key]);
+          }
+        } else {
+          result[key] = source[key];
+        }
+      }
+    }
+
+    return result;
+  };
+
+  const defaultOptions: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
     indexAxis,
+    layout: {
+      padding: calculateDynamicPadding,
+    },
     plugins: {
       legend: {
         display: showLegend,
@@ -547,6 +673,7 @@ const BarChart: React.FC<BarChartProps> = ({
         cornerRadius: isMobile ? 6 : 8,
         displayColors: true,
       },
+
       ...(ChartDataLabels && {
         datalabels: {
           display: (context: Context) => {
@@ -726,6 +853,11 @@ const BarChart: React.FC<BarChartProps> = ({
       },
     },
   };
+
+  // 合并外部传入的选项与默认选项
+  const options: ChartOptions<'bar'> = chartOptions
+    ? deepMerge(defaultOptions, chartOptions)
+    : defaultOptions;
 
   const handleDownload = () => {
     downloadChart(chartRef.current, 'bar-chart');

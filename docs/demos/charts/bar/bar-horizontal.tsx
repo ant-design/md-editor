@@ -227,7 +227,9 @@ const HorizontalBarChartExample: React.FC = () => {
             color: '#666',
           }}
         >
-          💡 使用扁平化数据结构，包含 xtitle 和 ytitle 字段，支持二级筛选。
+          💡 使用扁平化数据结构，包含 xtitle 和 ytitle
+          字段，支持二级筛选。支持通过 chartOptions 属性自定义 Chart.js
+          选项。自动计算标签宽度并调整图表padding。
         </div>
       </div>
 
@@ -238,7 +240,7 @@ const HorizontalBarChartExample: React.FC = () => {
         height={500}
         indexAxis="y"
         dataLabelFormatter={(params) => {
-          return `top${params.dataIndex + 1}助手`;
+          return `top${params.dataIndex + 1}条形图（横向柱状图）助手`;
         }}
         showDataLabels={true}
       />
@@ -285,6 +287,50 @@ const HorizontalBarChartExample: React.FC = () => {
   // ... 更多数据
 ]`}
         </pre>
+      </div>
+
+      {/* 自动标签宽度计算说明 */}
+      <div
+        style={{
+          marginTop: '20px',
+          backgroundColor: '#f6ffed',
+          padding: '15px',
+          borderRadius: '8px',
+          border: '1px solid #b7eb8f',
+        }}
+      >
+        <h4 style={{ marginTop: 0, color: '#333' }}>自动标签宽度计算功能：</h4>
+        <ul
+          style={{
+            margin: '10px 0',
+            paddingLeft: '20px',
+            fontSize: '12px',
+            color: '#666',
+          }}
+        >
+          <li>
+            📏 <strong>自动测量</strong>：使用Canvas API精确测量标签文本宽度
+          </li>
+          <li>
+            📐 <strong>动态调整</strong>
+            ：根据最大标签宽度自动调整图表layout.padding
+          </li>
+          <li>
+            🎯 <strong>智能适配</strong>
+            ：水平柱状图增加右侧padding，垂直柱状图增加上方padding
+          </li>
+          <li>
+            🔄 <strong>实时更新</strong>：数据变化时自动重新计算并调整布局
+          </li>
+          <li>
+            ⚙️ <strong>可配置</strong>
+            ：支持通过chartOptions.layout.padding手动覆盖
+          </li>
+        </ul>
+        <p style={{ margin: '10px 0 0', fontSize: '12px', color: '#666' }}>
+          💡
+          当showDataLabels为true时，组件会自动计算所有数据标签的最大宽度，并相应调整图表的内边距，确保标签不会被截断。
+        </p>
       </div>
     </div>
   );
