@@ -580,7 +580,7 @@ const BarChart: React.FC<BarChartProps> = ({
     if (!showDataLabels || calculateMaxLabelWidth === 0)
       return { top: 0, right: 0, bottom: 0, left: 0 };
 
-    const basePadding = 20; // 基础padding
+    const basePadding = 8; // 基础padding
     const labelPadding = Math.ceil(calculateMaxLabelWidth); // 标签宽度 + 额外间距
 
     if (indexAxis === 'y') {
