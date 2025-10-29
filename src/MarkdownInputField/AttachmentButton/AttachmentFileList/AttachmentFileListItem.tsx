@@ -154,7 +154,10 @@ export const AttachmentFileListItem: React.FC<{
                   props.hashId,
                 )}
               >
-                {[file.name.split('.').slice(-1), kbToSize(file.size / 1024)]
+                {[
+                  file.name.split('.').slice(-1),
+                  file.size ? kbToSize(file.size / 1024) : '',
+                ]
                   .filter(Boolean)
                   .map((item) => {
                     return (
