@@ -101,7 +101,7 @@ const FileSizeInfo: React.FC<{
   };
 
   const content = statusContentMap[status];
-  
+
   return typeof content === 'string' ? (
     <div className={baseClassName}>{content}</div>
   ) : (
