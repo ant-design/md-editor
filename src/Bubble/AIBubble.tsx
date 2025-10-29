@@ -6,7 +6,7 @@ import cx from 'classnames';
 import React from 'react';
 import { WhiteBoxProcessInterface } from '../ThoughtChainList/types';
 import { BubbleAvatar } from './Avatar';
-import { BubbleBeforeNode } from './before';
+import { BubbleBeforeNode } from './BubbleBeforeNode';
 import { BubbleConfigContext } from './BubbleConfigProvide';
 import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';

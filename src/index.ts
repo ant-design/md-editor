@@ -73,7 +73,7 @@ export type {
 } from './Bubble/type';
 
 // Bubble 额外类型
-export type { CustomConfig as BubbleCustomConfig } from './Bubble/MessagesContent/types';
+export type { CustomConfig as BubbleCustomConfig } from './Bubble/type';
 export * from './Bubble/types/DocInfo';
 
 export * from './ThoughtChainList/types';
