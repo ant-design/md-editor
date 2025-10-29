@@ -99,7 +99,7 @@ export const useFileUploadManager = ({
     input.id = 'uploadImage' + '_' + Math.random();
     input.type = 'file';
     input.accept = supportedFormat?.extensions?.join(',') || 'image/*';
-    input.multiple = true;
+    input.multiple = false;
     input.style.display = 'none';
 
     input.onchange = async (e: any) => {
