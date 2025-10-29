@@ -60,7 +60,118 @@ export const AttachmentFileListItem: React.FC<{
   prefixCls?: string;
   hashId?: string;
 }> = (props) => {
-  const file = props.file;
+  const { file, prefixCls, hashId, onPreview, onRetry, onDelete } = props;
+
+  // 处理文件点击
+  const handleFileClick = () => {
+    if (file.status !== 'done') return;
+    onPreview?.();
+  };
+
+  // 处理重试点击
+  const handleRetryClick = () => {
+    if (file.status !== 'error') return;
+    onRetry?.();
+  };
+
+  // 处理删除点击
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete?.();
+  };
+
+  // 渲染文件图标
+  const renderFileIcon = () => {
+    const iconClassName = classNames(`${prefixCls}-file-icon`, hashId);
+
+    if (file.status === 'uploading') {
+      return (
+        <div className={iconClassName}>
+          <div className={classNames(`${prefixCls}-uploading-icon`, hashId)}>
+            <FileUploadingSpin />
+          </div>
+        </div>
+      );
+    }
+
+    if (file.status === 'error') {
+      return (
+        <div className={iconClassName}>
+          <div className={classNames(`${prefixCls}-error-icon`, hashId)}>
+            <FileFailed />
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className={iconClassName}>
+        <AttachmentFileIcon
+          file={file}
+          className={classNames(`${prefixCls}-file-icon-img`, hashId)}
+        />
+      </div>
+    );
+  };
+
+  // 获取文件名（不含扩展名）
+  const getFileName = () => {
+    return file.name.split('.').slice(0, -1).join('.');
+  };
+
+  // 渲染文件状态信息
+  const renderFileStatus = () => {
+    const statusClassName = classNames(`${prefixCls}-file-size`, hashId);
+
+    if (file.status === 'uploading') {
+      return <div className={statusClassName}>上传中...</div>;
+    }
+
+    if (file.status === 'error') {
+      return (
+        <div
+          className={classNames(
+            statusClassName,
+            `${prefixCls}-file-size-error`,
+          )}
+        >
+          上传失败
+        </div>
+      );
+    }
+
+    // 状态为 'done'
+    const fileExtension = file.name.split('.').slice(-1)[0];
+    const fileSize = file.size ? kbToSize(file.size / 1024) : '';
+    const sizeItems = [fileExtension, fileSize].filter(Boolean);
+
+    return (
+      <div className={statusClassName}>
+        {sizeItems.map((item) => (
+          <span
+            key={item}
+            className={classNames(`${prefixCls}-file-size-item`, hashId)}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // 渲染删除按钮
+  const renderDeleteButton = () => {
+    if (file.status === 'uploading') return null;
+
+    return (
+      <div
+        onClick={handleDeleteClick}
+        className={classNames(`${prefixCls}-close-icon`, hashId)}
+      >
+        <X role="img" aria-label="X" />
+      </div>
+    );
+  };
 
   return (
     <Tooltip
@@ -70,138 +181,25 @@ export const AttachmentFileListItem: React.FC<{
       <motion.div
         variants={{
           hidden: { y: 20, opacity: 0 },
-          visible: {
-            y: 0,
-            opacity: 1,
-          },
+          visible: { y: 0, opacity: 1 },
         }}
-        onClick={() => {
-          if (file.status === 'done') {
-            props.onPreview?.();
-          }
-        }}
+        onClick={handleFileClick}
         className={props.className}
         exit={{ opacity: 0, y: -20 }}
       >
-        <div
-          className={classNames(`${props.prefixCls}-file-icon`, props.hashId)}
-        >
-          {file.status === 'uploading' ? (
-            <div
-              className={classNames(
-                `${props.prefixCls}-uploading-icon`,
-                props.hashId,
-              )}
-            >
-              <FileUploadingSpin />
-            </div>
-          ) : null}
-          {file.status === 'error' ? (
-            <div
-              className={classNames(
-                `${props.prefixCls}-error-icon`,
-                props.hashId,
-              )}
-            >
-              <FileFailed />
-            </div>
-          ) : null}
-          {file.status === 'done' ? (
-            <AttachmentFileIcon
-              file={file}
-              className={classNames(
-                `${props.prefixCls}-file-icon-img`,
-                props.hashId,
-              )}
-            />
-          ) : null}
-        </div>
-        <div
-          className={classNames(`${props.prefixCls}-file-info`, props.hashId)}
-        >
+        {renderFileIcon()}
+        <div className={classNames(`${prefixCls}-file-info`, hashId)}>
           <div
-            onClick={() => {
-              if (file.status === 'error') {
-                props.onRetry?.();
-              }
-            }}
-            className={classNames(`${props.prefixCls}-file-name`, props.hashId)}
+            onClick={handleRetryClick}
+            className={classNames(`${prefixCls}-file-name`, hashId)}
           >
-            <span
-              className={classNames(
-                `${props.prefixCls}-file-name-text`,
-                props.hashId,
-              )}
-            >
-              {file.name.split('.').slice(0, -1).join('.')}
+            <span className={classNames(`${prefixCls}-file-name-text`, hashId)}>
+              {getFileName()}
             </span>
           </div>
-          {file.status === 'uploading' ? (
-            <div
-              className={classNames(
-                `${props.prefixCls}-file-size`,
-                props.hashId,
-              )}
-            >
-              上传中...
-            </div>
-          ) : null}
-          {file.status === 'done' ? (
-            <>
-              <div
-                className={classNames(
-                  `${props.prefixCls}-file-size`,
-                  props.hashId,
-                )}
-              >
-                {[
-                  file.name.split('.').slice(-1),
-                  file.size ? kbToSize(file.size / 1024) : '',
-                ]
-                  .filter(Boolean)
-                  .map((item) => {
-                    return (
-                      <span
-                        key={item?.toString() + ''}
-                        className={classNames(
-                          `${props.prefixCls}-file-size-item`,
-                          props.hashId,
-                        )}
-                      >
-                        {item}
-                      </span>
-                    );
-                  })}
-              </div>
-            </>
-          ) : null}
-          {file.status === 'error' ? (
-            <div
-              className={classNames(
-                `${props.prefixCls}-file-size`,
-                `${props.prefixCls}-file-size-error`,
-                props.hashId,
-              )}
-            >
-              上传失败
-            </div>
-          ) : null}
+          {renderFileStatus()}
         </div>
-        {file.status !== 'uploading' ? (
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              e.stopPropagation();
-              props.onDelete?.();
-            }}
-            className={classNames(
-              `${props.prefixCls}-close-icon`,
-              props.hashId,
-            )}
-          >
-            <X role="img" aria-label="X" />
-          </div>
-        ) : null}
+        {renderDeleteButton()}
       </motion.div>
     </Tooltip>
   );
