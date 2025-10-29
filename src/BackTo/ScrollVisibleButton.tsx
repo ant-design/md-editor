@@ -142,7 +142,9 @@ export const ScrollVisibleButton = forwardRef<
 
     return wrapSSR(
       <AnimatePresence>
-        {visible && <motion.div exit={EXIT_ANIMATION}>{buttonWithTooltip}</motion.div>}
+        {visible && (
+          <motion.div exit={EXIT_ANIMATION}>{buttonWithTooltip}</motion.div>
+        )}
       </AnimatePresence>,
     );
   },
