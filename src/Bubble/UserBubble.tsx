@@ -1,4 +1,4 @@
-import { memo, MutableRefObject, useContext, useMemo } from 'react';
+import { memo, MutableRefObject, useContext } from 'react';
 
 import { ConfigProvider, Flex } from 'antd';
 import cx from 'classnames';
@@ -15,43 +15,48 @@ import { runRender } from './AIBubble';
 import { BubbleFileView } from './FileView';
 import { BubbleTitle } from './Title';
 
+const USER_PLACEMENT = 'right' as const;
+const BUBBLE_GAP = 12;
+const FILE_VIEW_PADDING_LEFT = 12;
+
+const getContentContainerStyle = (): React.CSSProperties => ({
+  display: 'flex',
+  gap: 4,
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+});
+
+const getFileViewStyle = (
+  standalone: boolean | undefined,
+  customStyle?: React.CSSProperties,
+): React.CSSProperties => ({
+  minWidth: standalone ? 'min(296px,100%)' : '0px',
+  paddingLeft: FILE_VIEW_PADDING_LEFT,
+  ...customStyle,
+});
+
+const getContentStyle = (
+  standalone: boolean | undefined,
+  customStyle?: React.CSSProperties,
+): React.CSSProperties => ({
+  minWidth: standalone ? 'min(16px,100%)' : '0px',
+  ...customStyle,
+});
+
 /**
- * UserBubble 组件 - 用户消息气泡组件
+ * UserBubble 组件
  *
- * 该组件专门用于显示用户发送的消息，采用右侧布局，简化了交互功能。
- * 用户消息通常不需要显示复杂的操作按钮，主要展示消息内容。
- *
- * @component
- * @description 用户消息气泡组件，专门处理用户发送的消息
- * @param {BubbleProps & {deps?: any[], bubbleRef?: MutableRefObject<any>}} props - 组件属性
- * @param {string} [props.placement='right'] - 气泡位置，固定为 'right'
- * @param {BubbleAvatarProps} [props.avatar] - 头像配置
- * @param {string | number | Date} [props.time] - 消息时间
- * @param {React.ReactNode} [props.children] - 消息内容
- * @param {string} [props.className] - 自定义CSS类名
- * @param {React.CSSProperties} [props.style] - 自定义样式
- * @param {BubbleRenderConfig} [props.bubbleRenderConfig] - 气泡渲染配置
- * @param {BubbleClassNames} [props.classNames] - 自定义类名配置
- * @param {BubbleStyles} [props.styles] - 自定义样式配置
- * @param {Function} [props.onAvatarClick] - 头像点击回调
- * @param {any[]} [props.deps] - 依赖数组
- * @param {MutableRefObject} [props.bubbleRef] - 气泡引用
+ * 显示用户发送的消息，采用右侧布局
  *
  * @example
  * ```tsx
  * <UserBubble
- *   avatar={{
- *     avatar: "https://example.com/user.jpg",
- *     title: "用户"
- *   }}
+ *   avatar={{ avatar: "url", title: "用户" }}
  *   time={new Date()}
- *   style={itemStyle}
  * >
- *   这是用户发送的消息
+ *   用户消息内容
  * </UserBubble>
  * ```
- *
- * @returns {React.ReactElement} 渲染的用户消息气泡组件
  */
 export const UserBubble: React.FC<
   BubbleProps & {
@@ -60,50 +65,45 @@ export const UserBubble: React.FC<
     quote?: QuoteProps;
   }
 > = memo((props) => {
-  const { className, style, bubbleRenderConfig, classNames, styles } = props;
-
-  const time = props?.originData?.createAt || props.time;
-  const avatar = props?.originData?.meta || props.avatar;
+  const {
+    className,
+    style,
+    bubbleRenderConfig,
+    classNames,
+    styles,
+    originData,
+    quote,
+  } = props;
 
   const [hidePadding, setHidePadding] = React.useState(false);
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-
   const context = useContext(BubbleConfigContext);
   const { compact, standalone, locale } = context || {};
 
   const prefixClass = getPrefixCls('agent');
-
   const { wrapSSR, hashId } = useStyle(prefixClass, classNames);
 
-  // 用户消息的 placement 固定为 'right'
-  const placement = 'right';
+  const time = originData?.createAt || props.time;
+  const placement = USER_PLACEMENT;
+  const hasFileMap = (originData?.fileMap?.size || 0) > 0;
 
-  const titleDom = useMemo(() => {
-    return runRender(
-      bubbleRenderConfig?.titleRender,
-      props,
-      <BubbleTitle
-        quote={
-          props.quote?.quoteDescription ? <Quote {...props.quote} /> : null
-        }
-        bubbleNameClassName={classNames?.bubbleNameClassName}
-        className={classNames?.bubbleListItemTitleClassName}
-        style={styles?.bubbleListItemTitleStyle}
-        prefixClass={cx(`${prefixClass}-bubble-title`)}
-        title={''}
-        placement={placement}
-        time={time}
-      />,
-    );
-  }, [
+  const quoteElement = quote?.quoteDescription ? <Quote {...quote} /> : null;
+
+  const titleDom = runRender(
     bubbleRenderConfig?.titleRender,
-    classNames?.bubbleListItemTitleClassName,
-    props.originData?.updateAt,
-    time,
-    styles?.bubbleListItemTitleStyle,
-    avatar?.title,
-  ]);
+    props,
+    <BubbleTitle
+      quote={quoteElement}
+      bubbleNameClassName={classNames?.bubbleNameClassName}
+      className={classNames?.bubbleListItemTitleClassName}
+      style={styles?.bubbleListItemTitleStyle}
+      prefixClass={cx(`${prefixClass}-bubble-title`)}
+      title={''}
+      placement={placement}
+      time={time}
+    />,
+  );
 
   const messageContent = (
     <BubbleMessageDisplay
@@ -112,62 +112,52 @@ export const UserBubble: React.FC<
       bubbleListRef={props.bubbleListRef}
       bubbleListItemExtraStyle={styles?.bubbleListItemExtraStyle}
       bubbleRef={props.bubbleRef}
-      content={props?.originData?.content}
-      key={props?.originData?.id}
-      data-id={props?.originData?.id}
-      avatar={props?.originData?.meta as BubbleMetaData}
+      content={originData?.content}
+      key={originData?.id}
+      data-id={originData?.id}
+      avatar={originData?.meta as BubbleMetaData}
       readonly={props.readonly ?? false}
       onReply={props.onReply}
       id={props.id}
-      originData={props.originData}
+      originData={originData}
       placement={placement}
-      time={props.originData?.updateAt || props.originData?.createAt}
-      customConfig={props?.bubbleRenderConfig?.customConfig}
+      time={originData?.updateAt || originData?.createAt}
+      customConfig={bubbleRenderConfig?.customConfig}
       pure={props.pure}
       shouldShowCopy={props.shouldShowCopy}
       fileViewEvents={props.fileViewEvents}
       fileViewConfig={props.fileViewConfig}
       renderFileMoreAction={props.renderFileMoreAction}
-      bubbleRenderConfig={props.bubbleRenderConfig}
+      bubbleRenderConfig={bubbleRenderConfig}
     />
   );
 
-  const childrenDom = useMemo(() => {
-    return runRender(bubbleRenderConfig?.contentRender, props, messageContent);
-  }, [
-    props.originData?.content,
-    props.originData?.feedback,
-    props.originData?.isAborted,
-    props.originData?.isFinished,
-    props.deps,
-  ]);
+  const childrenDom = runRender(
+    bubbleRenderConfig?.contentRender,
+    props,
+    messageContent,
+  );
 
-  const contentBeforeDom = useMemo(
-    () =>
-      runRender(
-        bubbleRenderConfig?.contentBeforeRender,
-        props,
-        null, // 用户消息通常不需要 before 内容
-      ),
-    [
-      bubbleRenderConfig?.contentBeforeRender,
-      props.placement,
-      props.originData?.role,
-      props.originData?.extra?.white_box_process,
-      props.originData?.isAborted,
-      props.originData?.isFinished,
-      props.originData?.updateAt,
-      context?.thoughtChain?.enable,
-      context?.thoughtChain?.alwaysRender,
-      context?.thoughtChain?.render,
-      props.deps,
-    ],
+  const contentBeforeDom = runRender(
+    bubbleRenderConfig?.contentBeforeRender,
+    props,
+    null,
   );
 
   const contentAfterDom = runRender(
     bubbleRenderConfig?.contentAfterRender,
     props,
     null,
+  );
+
+  const contentContainerStyle = getContentContainerStyle();
+  const fileViewStyle = getFileViewStyle(
+    standalone,
+    styles?.bubbleListItemExtraStyle,
+  );
+  const contentStyle = getContentStyle(
+    standalone,
+    styles?.bubbleListItemContentStyle,
   );
 
   const itemDom = wrapSSR(
@@ -185,36 +175,27 @@ export const UserBubble: React.FC<
           className,
           `${prefixClass}-bubble`,
           `${prefixClass}-bubble-${placement}`,
-          `${prefixClass}-bubble-user`, // 添加用户消息特定的类名
-          {
-            [`${prefixClass}-bubble-compact`]: compact,
-          },
+          `${prefixClass}-bubble-user`,
+          { [`${prefixClass}-bubble-compact`]: compact },
           classNames?.bubbleClassName,
         )}
         style={style}
         vertical
         id={props.id}
         data-id={props.id}
-        gap={12}
+        gap={BUBBLE_GAP}
       >
         <div
           style={style}
           className={cx(`${prefixClass}-bubble-container`, hashId)}
         >
           <div
-            style={{
-              display: 'flex',
-              gap: 4,
-              flexDirection: 'column',
-              alignItems: 'flex-end', // 用户消息内容右对齐
-            }}
+            style={contentContainerStyle}
             className={cx(
               `${prefixClass}-bubble-container`,
               `${prefixClass}-bubble-container-${placement}`,
-              `${prefixClass}-bubble-container-user`, // 用户消息容器特定样式
-              {
-                [`${prefixClass}-bubble-container-pure`]: props.pure,
-              },
+              `${prefixClass}-bubble-container-user`,
+              { [`${prefixClass}-bubble-container-pure`]: props.pure },
               classNames?.bubbleContainerClassName,
               hashId,
             )}
@@ -224,44 +205,39 @@ export const UserBubble: React.FC<
               className={cx(
                 `${prefixClass}-bubble-avatar-title`,
                 `${prefixClass}-bubble-avatar-title-${placement}`,
-                `${prefixClass}-bubble-avatar-title-ai`, // AI消息头像标题特定样式
-                // 用户消息头像标题特定样式
+                `${prefixClass}-bubble-avatar-title-ai`,
                 classNames?.bubbleAvatarTitleClassName,
                 hashId,
                 {
                   [`${prefixClass}-bubble-avatar-title-pure`]: props.pure,
                   [`${prefixClass}-bubble-avatar-title-quote`]:
-                    props.quote?.quoteDescription,
+                    quote?.quoteDescription,
                 },
               )}
             >
               {titleDom}
             </div>
-            {contentBeforeDom ? (
+            {contentBeforeDom && (
               <div
                 style={styles?.bubbleListItemExtraStyle}
                 className={cx(
                   `${prefixClass}-bubble-before`,
                   `${prefixClass}-bubble-before-${placement}`,
-                  `${prefixClass}-bubble-before-user`, // 用户消息 before 特定样式
+                  `${prefixClass}-bubble-before-user`,
                   hashId,
                 )}
                 data-testid="message-before"
               >
                 {contentBeforeDom}
               </div>
-            ) : null}
-            {(props?.originData?.fileMap?.size || 0) > 0 ? (
+            )}
+            {hasFileMap && (
               <div
-                style={{
-                  minWidth: standalone ? 'min(296px,100%)' : '0px',
-                  paddingLeft: 12,
-                  ...styles?.bubbleListItemExtraStyle,
-                }}
+                style={fileViewStyle}
                 className={cx(
                   `${prefixClass}-bubble-after`,
                   `${prefixClass}-bubble-after-${placement}`,
-                  `${prefixClass}-bubble-after-ai`, // AI消息 after 特定样式
+                  `${prefixClass}-bubble-after-ai`,
                   hashId,
                 )}
                 data-testid="message-after"
@@ -272,19 +248,14 @@ export const UserBubble: React.FC<
                   placement={placement}
                 />
               </div>
-            ) : null}
+            )}
             <div
-              style={{
-                minWidth: standalone ? 'min(16px,100%)' : '0px',
-                ...styles?.bubbleListItemContentStyle,
-              }}
+              style={contentStyle}
               className={cx(
                 `${prefixClass}-bubble-content`,
                 `${prefixClass}-bubble-content-${placement}`,
-                `${prefixClass}-bubble-content-user`, // 用户消息内容特定样式
-                {
-                  [`${prefixClass}-bubble-content-pure`]: props.pure,
-                },
+                `${prefixClass}-bubble-content-user`,
+                { [`${prefixClass}-bubble-content-pure`]: props.pure },
                 classNames?.bubbleListItemContentClassName,
                 hashId,
               )}
