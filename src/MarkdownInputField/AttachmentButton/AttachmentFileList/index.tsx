@@ -18,6 +18,40 @@ export type AttachmentFileListProps = {
   onClearFileMap?: () => void;
 };
 
+// 动画配置
+const ANIMATION_VARIANTS = {
+  visible: {
+    opacity: 1,
+    transition: {
+      when: 'beforeChildren',
+      staggerChildren: 0.1,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: 'afterChildren',
+    },
+  },
+};
+
+// 隐藏样式
+const HIDDEN_STYLE: React.CSSProperties = {
+  height: 0,
+  overflow: 'hidden',
+  padding: 0,
+};
+
+// 清空按钮样式
+const CLEAR_BUTTON_STYLE: React.CSSProperties = {
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+};
+
+// 图片预览隐藏样式
+const IMAGE_PREVIEW_STYLE: React.CSSProperties = {
+  display: 'none',
+};
+
 /**
  * AttachmentFileList 组件 - 附件文件列表组件
  *
@@ -62,69 +96,99 @@ export type AttachmentFileListProps = {
 export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   props,
 ) => {
+  const { fileMap, onDelete, onPreview, onDownload, onRetry, onClearFileMap } =
+    props;
+
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context?.getPrefixCls('md-editor-attachment-list');
   const { wrapSSR, hashId } = useStyle(prefix);
   const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
 
+  // 获取文件列表
+  const fileList = Array.from(fileMap?.values() || []);
+  const hasFiles = fileList.length > 0;
+  const isAnyUploading = fileList.some((file) => file.status === 'uploading');
+
+  // 处理文件预览
+  const handlePreview = (file: AttachmentFile) => {
+    // 如果有自定义预览函数，使用它
+    if (onPreview) {
+      onPreview(file);
+      return;
+    }
+
+    // 图片文件使用内置预览
+    if (isImageFile(file)) {
+      setImgSrc(file.previewUrl || file.url);
+      return;
+    }
+
+    // 其他文件在新窗口打开
+    if (typeof window === 'undefined') return;
+    window.open(file.previewUrl || file.url, '_blank');
+  };
+
+  // 处理预览关闭
+  const handlePreviewClose = (visible: boolean) => {
+    if (!visible) {
+      setImgSrc(undefined);
+    }
+  };
+
+  // 获取容器样式
+  const getContainerStyle = () => {
+    return fileMap?.size ? {} : HIDDEN_STYLE;
+  };
+
+  // 获取清空按钮样式
+  const getClearButtonStyle = (): React.CSSProperties => {
+    return {
+      ...CLEAR_BUTTON_STYLE,
+      opacity: fileMap?.size ? 1 : 0,
+    };
+  };
+
+  // 渲染清空按钮
+  const renderClearButton = () => {
+    if (isAnyUploading) return null;
+
+    return (
+      <ActionIconBox
+        style={getClearButtonStyle()}
+        onClick={onClearFileMap}
+        className={classNames(`${prefix}-close-icon`, hashId)}
+      >
+        <X />
+      </ActionIconBox>
+    );
+  };
+
   return wrapSSR(
     <div
       className={classNames(`${prefix}-container`, hashId, {
-        [`${prefix}-container-empty`]:
-          Array.from(props.fileMap?.values() || []).length === 0,
+        [`${prefix}-container-empty`]: !hasFiles,
       })}
     >
       <motion.div
-        variants={{
-          visible: {
-            opacity: 1,
-            transition: {
-              when: 'beforeChildren',
-              staggerChildren: 0.1,
-            },
-          },
-          hidden: {
-            opacity: 0,
-            transition: {
-              when: 'afterChildren',
-            },
-          },
-        }}
+        variants={ANIMATION_VARIANTS}
         whileInView="visible"
         initial="hidden"
         animate="visible"
-        style={
-          props.fileMap?.size
-            ? {}
-            : { height: 0, overflow: 'hidden', padding: 0 }
-        }
+        style={getContainerStyle()}
         className={classNames(prefix, hashId)}
       >
         <AnimatePresence initial={false}>
-          {Array.from(props.fileMap?.values() || []).map((file, index) => (
+          {fileList.map((file, index) => (
             <AttachmentFileListItem
               prefixCls={`${prefix}-item`}
               hashId={hashId}
               className={classNames(hashId, `${prefix}-item`)}
               key={file?.uuid || file?.name || index}
               file={file}
-              onDelete={() => {
-                props.onDelete(file);
-              }}
-              onPreview={() => {
-                if (props.onPreview) {
-                  props.onPreview?.(file);
-                  return;
-                }
-                if (isImageFile(file)) {
-                  setImgSrc(file.previewUrl || file.url);
-                  return;
-                }
-                if (typeof window === 'undefined') return;
-                window.open(file.previewUrl || file.url, '_blank');
-              }}
-              onDownload={() => props.onDownload?.(file)}
-              onRetry={() => props.onRetry?.(file)}
+              onDelete={() => onDelete(file)}
+              onPreview={() => handlePreview(file)}
+              onDownload={() => onDownload?.(file)}
+              onRetry={() => onRetry?.(file)}
             />
           ))}
         </AnimatePresence>
@@ -132,35 +196,16 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
           key="preview"
           src={imgSrc}
           alt="Preview"
-          style={{ display: 'none' }}
+          style={IMAGE_PREVIEW_STYLE}
           preview={{
             visible: !!imgSrc,
             scaleStep: 1,
             src: imgSrc,
-            onVisibleChange: (value) => {
-              if (!value) {
-                setImgSrc(undefined);
-              }
-            },
+            onVisibleChange: handlePreviewClose,
           }}
         />
       </motion.div>
-      {Array.from(props.fileMap?.values() || []).every(
-        (file) => file.status !== 'uploading',
-      ) ? (
-        <ActionIconBox
-          style={{
-            opacity: props.fileMap?.size ? 1 : 0,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-          onClick={() => {
-            props.onClearFileMap?.();
-          }}
-          className={classNames(`${`${prefix}`}-close-icon`, hashId)}
-        >
-          <X />
-        </ActionIconBox>
-      ) : null}
+      {renderClearButton()}
     </div>,
   );
 };
