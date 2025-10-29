@@ -63,7 +63,13 @@ export const BubbleBeforeNode: React.FC<BubbleBeforeNodeProps> = ({
   const context = useContext(BubbleConfigContext);
   const { placement, originData } = bubble;
 
-  if (!canRenderThoughtChain(placement, originData?.role, context?.thoughtChain?.enable)) {
+  if (
+    !canRenderThoughtChain(
+      placement,
+      originData?.role,
+      context?.thoughtChain?.enable,
+    )
+  ) {
     return null;
   }
 
