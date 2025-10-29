@@ -5,6 +5,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Enlargement from '../../src/MarkdownInputField/Enlargement';
+import { useStyle } from '../../src/MarkdownInputField/Enlargement/style';
 
 // Mock icons
 vi.mock('@sofa-design/icons', () => ({
@@ -28,11 +29,18 @@ vi.mock('../../src/MarkdownInputField/Enlargement/style', () => ({
   })),
 }));
 
+const mockUseStyle = vi.mocked(useStyle);
+
 describe('Enlargement', () => {
   const mockOnEnlargeClick = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
+    // Reset mock to default behavior
+    mockUseStyle.mockReturnValue({
+      wrapSSR: (component: React.ReactNode) => component,
+      hashId: 'test-hash-id',
+    });
   });
 
   const renderEnlargement = (props: any = {}) => {
@@ -368,6 +376,264 @@ describe('Enlargement', () => {
         const unmountedEvent = new Event('click');
         document.dispatchEvent(unmountedEvent);
       }).not.toThrow();
+    });
+  });
+
+  describe('样式和CSS类名', () => {
+    it('应该正确调用useStyle hook', () => {
+      renderEnlargement();
+
+      expect(mockUseStyle).toHaveBeenCalledWith('ant-md-enlargement');
+    });
+
+    it('应该处理不同的hashId值', () => {
+      mockUseStyle.mockReturnValue({
+        wrapSSR: (component: React.ReactNode) => component,
+        hashId: 'custom-hash-123',
+      });
+
+      renderEnlargement();
+
+      const container = screen.getByRole('button').parentElement;
+      expect(container).toHaveClass('ant-md-enlargement');
+      expect(container).toHaveClass('custom-hash-123');
+    });
+
+    it('应该处理空的hashId', () => {
+      mockUseStyle.mockReturnValue({
+        wrapSSR: (component: React.ReactNode) => component,
+        hashId: '',
+      });
+
+      renderEnlargement();
+
+      const container = screen.getByRole('button').parentElement;
+      expect(container).toHaveClass('ant-md-enlargement');
+    });
+
+    it('应该正确应用图标元素的类名', () => {
+      renderEnlargement({ isEnlarged: false });
+
+      const button = screen.getByRole('button');
+      expect(button).toHaveClass('ant-md-enlargement-icon');
+      expect(button).toHaveClass('test-hash-id');
+      expect(button).not.toHaveClass('enlarged');
+    });
+
+    it('应该在放大状态时应用enlarged类名到图标', () => {
+      renderEnlargement({ isEnlarged: true });
+
+      const button = screen.getByRole('button');
+      expect(button).toHaveClass('ant-md-enlargement-icon');
+      expect(button).toHaveClass('enlarged');
+    });
+  });
+
+  describe('wrapSSR功能', () => {
+    it('应该调用wrapSSR函数包装组件', () => {
+      const mockWrapSSR = vi.fn((component) => component);
+      mockUseStyle.mockReturnValue({
+        wrapSSR: mockWrapSSR,
+        hashId: 'test-hash-id',
+      });
+
+      renderEnlargement();
+
+      expect(mockWrapSSR).toHaveBeenCalledTimes(1);
+      expect(mockWrapSSR).toHaveBeenCalledWith(
+        expect.any(Object), // React element
+      );
+    });
+
+    it('应该处理wrapSSR返回修改后的组件', () => {
+      const mockWrapSSR = vi.fn((component) => (
+        <div data-testid="wrapped-component">{component}</div>
+      ));
+      mockUseStyle.mockReturnValue({
+        wrapSSR: mockWrapSSR,
+        hashId: 'test-hash-id',
+      });
+
+      renderEnlargement();
+
+      expect(screen.getByTestId('wrapped-component')).toBeInTheDocument();
+      expect(mockWrapSSR).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('ConfigProvider集成', () => {
+    it('应该使用ConfigProvider提供的前缀', () => {
+      const customGetPrefixCls = vi.fn(() => 'custom-prefix');
+
+      render(
+        <ConfigProvider.ConfigContext.Provider 
+          value={{ 
+            getPrefixCls: customGetPrefixCls,
+            iconPrefixCls: 'custom-icon'
+          }}
+        >
+          <Enlargement isEnlarged={false} onEnlargeClick={mockOnEnlargeClick} />
+        </ConfigProvider.ConfigContext.Provider>,
+      );
+
+      expect(customGetPrefixCls).toHaveBeenCalledWith('md-enlargement');
+      expect(mockUseStyle).toHaveBeenCalledWith('custom-prefix');
+    });
+
+    it('应该在没有ConfigProvider时使用默认前缀', () => {
+      // 渲染时不包装ConfigProvider
+      render(
+        <Enlargement isEnlarged={false} onEnlargeClick={mockOnEnlargeClick} />,
+      );
+
+      // 默认情况下应该使用 'ant-md-enlargement'
+      expect(mockUseStyle).toHaveBeenCalledWith('ant-md-enlargement');
+    });
+  });
+
+  describe('条件渲染和值处理', () => {
+    it('应该处理isEnlarged为真值的不同情况', () => {
+      const truthyValues = [true, 1, 'true', {}, []];
+
+      truthyValues.forEach((value) => {
+        const { unmount } = render(
+          <ConfigProvider>
+            <Enlargement isEnlarged={value as boolean} onEnlargeClick={mockOnEnlargeClick} />
+          </ConfigProvider>,
+        );
+
+        const button = screen.getByRole('button');
+        expect(button).toHaveAttribute('aria-pressed', 'true');
+        expect(button).toHaveAttribute('aria-label', '缩小');
+        expect(screen.getByTestId('fold-alt-icon')).toBeInTheDocument();
+
+        unmount();
+      });
+    });
+
+    it('应该处理isEnlarged为假值的不同情况', () => {
+      const falsyValues = [false, 0, '', null, undefined];
+
+      falsyValues.forEach((value) => {
+        const { unmount } = render(
+          <ConfigProvider>
+            <Enlargement isEnlarged={value as boolean} onEnlargeClick={mockOnEnlargeClick} />
+          </ConfigProvider>,
+        );
+
+        const button = screen.getByRole('button');
+        expect(button).toHaveAttribute('aria-pressed', 'false');
+        expect(button).toHaveAttribute('aria-label', '放大');
+        expect(screen.getByTestId('expand-alt-icon')).toBeInTheDocument();
+
+        unmount();
+      });
+    });
+  });
+
+  describe('完整的用户交互流程', () => {
+    it('应该支持完整的放大缩小切换流程', () => {
+      let isEnlarged = false;
+      const mockToggle = vi.fn(() => {
+        isEnlarged = !isEnlarged;
+      });
+
+      const { rerender } = render(
+        <ConfigProvider>
+          <Enlargement isEnlarged={isEnlarged} onEnlargeClick={mockToggle} />
+        </ConfigProvider>,
+      );
+
+      // 初始状态 - 未放大
+      let button = screen.getByRole('button');
+      expect(button).toHaveAttribute('aria-label', '放大');
+      expect(screen.getByTestId('expand-alt-icon')).toBeInTheDocument();
+
+      // 点击放大
+      fireEvent.click(button);
+      expect(mockToggle).toHaveBeenCalledTimes(1);
+
+      // 重新渲染为放大状态
+      rerender(
+        <ConfigProvider>
+          <Enlargement isEnlarged={true} onEnlargeClick={mockToggle} />
+        </ConfigProvider>,
+      );
+
+      button = screen.getByRole('button');
+      expect(button).toHaveAttribute('aria-label', '缩小');
+      expect(screen.getByTestId('fold-alt-icon')).toBeInTheDocument();
+    });
+
+    it('应该支持使用键盘进行完整操作', () => {
+      const mockToggle = vi.fn();
+
+      renderEnlargement({ onEnlargeClick: mockToggle });
+
+      const button = screen.getByRole('button');
+
+      // 使用Tab键聚焦
+      button.focus();
+      expect(button).toHaveFocus();
+
+      // 使用Enter键激活
+      fireEvent.keyDown(button, { key: 'Enter' });
+      expect(mockToggle).toHaveBeenCalledTimes(1);
+
+      // 使用空格键激活
+      fireEvent.keyDown(button, { key: ' ' });
+      expect(mockToggle).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('性能和优化', () => {
+    it('应该在props不变时保持渲染稳定', () => {
+      const { rerender } = renderEnlargement({
+        isEnlarged: false,
+        onEnlargeClick: mockOnEnlargeClick,
+      });
+
+      // 验证初始渲染
+      expect(screen.getByRole('button')).toBeInTheDocument();
+      expect(screen.getByTestId('expand-alt-icon')).toBeInTheDocument();
+
+      // 使用相同props重新渲染
+      rerender(
+        <ConfigProvider>
+          <Enlargement
+            isEnlarged={false}
+            onEnlargeClick={mockOnEnlargeClick}
+          />
+        </ConfigProvider>,
+      );
+
+      const newButton = screen.getByRole('button');
+      const newIcon = screen.getByTestId('expand-alt-icon');
+
+      // 元素应该保持一致
+      expect(newButton).toHaveAttribute('aria-label', '放大');
+      expect(newIcon).toBeInTheDocument();
+    });
+
+    it('应该正确处理快速状态变化', () => {
+      const { rerender } = renderEnlargement({ isEnlarged: false });
+
+      // 快速切换多次
+      for (let i = 0; i < 10; i++) {
+        rerender(
+          <ConfigProvider>
+            <Enlargement
+              isEnlarged={i % 2 === 0}
+              onEnlargeClick={mockOnEnlargeClick}
+            />
+          </ConfigProvider>,
+        );
+      }
+
+      // 最终状态应该正确 (i=9, 9%2===0 为false)
+      const button = screen.getByRole('button');
+      expect(button).toHaveAttribute('aria-label', '放大');
+      expect(screen.getByTestId('expand-alt-icon')).toBeInTheDocument();
     });
   });
 });
