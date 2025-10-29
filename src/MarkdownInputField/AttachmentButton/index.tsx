@@ -258,7 +258,7 @@ const processFile = async (
 
 /**
  * 上传文件到服务器
- * 
+ *
  * @param files - 要上传的文件列表
  * @param props - 上传配置项
  * @param props.upload - 上传函数，返回文件 URL
@@ -334,9 +334,9 @@ const ButtonContent: React.FC<{ title?: React.ReactNode }> = ({ title }) => {
 
 /**
  * 附件上传按钮组件
- * 
+ *
  * 提供文件附件上传功能，支持图片、文档、音频、视频等多种格式
- * 
+ *
  * @example
  * ```tsx
  * <AttachmentButton
