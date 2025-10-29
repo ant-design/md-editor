@@ -25,10 +25,20 @@ const Enlargement: React.FC<EnlargementProps> = ({
         className={classNames(`${baseCls}-icon`, hashId, {
           enlarged: isEnlarged,
         })}
+        role="button"
+        tabIndex={0}
+        aria-label={isEnlarged ? '缩小' : '放大'}
+        aria-pressed={!!isEnlarged}
         onClick={onEnlargeClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onEnlargeClick?.();
+          }
+        }}
         title={isEnlarged ? '缩小' : '放大'}
       >
-        {isEnlarged ? <FoldAlt />  : <ExpandAlt />}
+        {isEnlarged ? <FoldAlt /> : <ExpandAlt />}
       </div>
     </div>,
   );

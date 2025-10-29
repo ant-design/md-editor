@@ -285,7 +285,7 @@ export type MarkdownInputFieldProps = {
   /**
    * 是否支持编辑器放大功能
    * @description 启用后在编辑器右上角显示放大/全屏按钮，支持展开编辑器或优化文本显示
-   * @default true
+   * @default false
    * @example
    * ```tsx
    * <MarkdownInputField
@@ -920,7 +920,17 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 borderRadius: (borderRadius || 16) - 2 || 10,
                 maxHeight: isEnlarged
                   ? 'none'
-                  : `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
+                  : (() => {
+                      const mh = props.style?.maxHeight;
+                      const base =
+                        typeof mh === 'number'
+                          ? mh
+                          : mh
+                            ? parseFloat(String(mh)) || 400
+                            : 400;
+                      const extra = props.attachment?.enable ? 90 : 0;
+                      return `min(${base + extra}px)`;
+                    })(),
                 height: isEnlarged ? '100%' : 'auto',
                 flex: 1,
                 transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
