@@ -7,6 +7,8 @@ import { AttachmentFile } from '../types';
 import { kbToSize } from '../utils';
 import { AttachmentFileIcon } from './AttachmentFileIcon';
 
+type FileStatus = 'uploading' | 'error' | 'done';
+
 interface FileListItemProps {
   file: AttachmentFile;
   onDelete: () => void;
@@ -26,90 +28,109 @@ const getFileExtension = (fileName: string) => {
   return fileName.split('.').slice(-1)[0];
 };
 
+const buildClassName = (...classes: (string | undefined)[]) => {
+  return classNames(...classes);
+};
+
 const FileIcon: React.FC<{
   file: AttachmentFile;
   prefixCls?: string;
   hashId?: string;
 }> = ({ file, prefixCls, hashId }) => {
-  const iconClassName = classNames(`${prefixCls}-file-icon`, hashId);
   const status = file.status || 'done';
-  const iconMap: Record<'uploading' | 'error' | 'done', React.ReactNode> = {
+  const iconMap: Record<FileStatus, React.ReactNode> = {
     uploading: (
-      <div className={classNames(`${prefixCls}-uploading-icon`, hashId)}>
+      <div className={buildClassName(`${prefixCls}-uploading-icon`, hashId)}>
         <FileUploadingSpin />
       </div>
     ),
     error: (
-      <div className={classNames(`${prefixCls}-error-icon`, hashId)}>
+      <div className={buildClassName(`${prefixCls}-error-icon`, hashId)}>
         <FileFailed />
       </div>
     ),
     done: (
       <AttachmentFileIcon
         file={file}
-        className={classNames(`${prefixCls}-file-icon-img`, hashId)}
+        className={buildClassName(`${prefixCls}-file-icon-img`, hashId)}
       />
     ),
   };
 
-  return <div className={iconClassName}>{iconMap[status]}</div>;
+  return (
+    <div className={buildClassName(`${prefixCls}-file-icon`, hashId)}>
+      {iconMap[status]}
+    </div>
+  );
 };
 
-const FileStatus: React.FC<{
+const FileSizeInfo: React.FC<{
   file: AttachmentFile;
   prefixCls?: string;
   hashId?: string;
 }> = ({ file, prefixCls, hashId }) => {
-  const statusClassName = classNames(`${prefixCls}-file-size`, hashId);
+  const status = file.status || 'done';
+  const baseClassName = buildClassName(`${prefixCls}-file-size`, hashId);
 
-  if (file.status === 'uploading') {
-    return <div className={statusClassName}>上传中...</div>;
-  }
-
-  if (file.status === 'error') {
-    return (
+  const statusContentMap: Record<FileStatus, React.ReactNode> = {
+    uploading: '上传中...',
+    error: (
       <div
-        className={classNames(statusClassName, `${prefixCls}-file-size-error`)}
+        className={buildClassName(
+          baseClassName,
+          `${prefixCls}-file-size-error`,
+        )}
       >
         上传失败
       </div>
-    );
-  }
+    ),
+    done: (() => {
+      const fileExtension = getFileExtension(file.name);
+      const fileSize = file.size ? kbToSize(file.size / 1024) : '';
+      const sizeItems = [fileExtension, fileSize].filter(Boolean);
 
-  const fileExtension = getFileExtension(file.name);
-  const fileSize = file.size ? kbToSize(file.size / 1024) : '';
-  const sizeItems = [fileExtension, fileSize].filter(Boolean);
-
-  return (
-    <div className={statusClassName}>
-      {sizeItems.map((item) => (
+      return sizeItems.map((item) => (
         <span
           key={item}
-          className={classNames(`${prefixCls}-file-size-item`, hashId)}
+          className={buildClassName(`${prefixCls}-file-size-item`, hashId)}
         >
           {item}
         </span>
-      ))}
-    </div>
+      ));
+    })(),
+  };
+
+  const content = statusContentMap[status];
+  
+  return typeof content === 'string' ? (
+    <div className={baseClassName}>{content}</div>
+  ) : (
+    <div className={baseClassName}>{content}</div>
   );
 };
 
 const DeleteButton: React.FC<{
-  file: AttachmentFile;
+  isVisible: boolean;
   onClick: (e: React.MouseEvent) => void;
   prefixCls?: string;
   hashId?: string;
-}> = ({ file, onClick, prefixCls, hashId }) => {
-  if (file.status === 'uploading') return null;
+}> = ({ isVisible, onClick, prefixCls, hashId }) => {
+  if (!isVisible) return null;
 
   return (
     <div
       onClick={onClick}
-      className={classNames(`${prefixCls}-close-icon`, hashId)}
+      className={buildClassName(`${prefixCls}-close-icon`, hashId)}
     >
       <X role="img" aria-label="X" />
     </div>
   );
+};
+
+const ANIMATION_VARIANTS = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+  exit: { opacity: 0, y: -20 },
 };
 
 export const AttachmentFileListItem: React.FC<FileListItemProps> = ({
@@ -121,13 +142,17 @@ export const AttachmentFileListItem: React.FC<FileListItemProps> = ({
   onDelete,
   className,
 }) => {
+  const isErrorStatus = file.status === 'error';
+  const isDoneStatus = file.status === 'done';
+  const canDelete = file.status !== 'uploading';
+
   const handleFileClick = () => {
-    if (file.status !== 'done') return;
+    if (!isDoneStatus) return;
     onPreview?.();
   };
 
   const handleRetryClick = () => {
-    if (file.status !== 'error') return;
+    if (!isErrorStatus) return;
     onRetry?.();
   };
 
@@ -137,30 +162,29 @@ export const AttachmentFileListItem: React.FC<FileListItemProps> = ({
   };
 
   return (
-    <Tooltip title={'点击重试'} open={file.status === 'error' || undefined}>
+    <Tooltip title="点击重试" open={isErrorStatus || undefined}>
       <motion.div
-        variants={{
-          hidden: { y: 20, opacity: 0 },
-          visible: { y: 0, opacity: 1 },
-        }}
+        variants={ANIMATION_VARIANTS}
         onClick={handleFileClick}
         className={className}
-        exit={{ opacity: 0, y: -20 }}
+        exit={ANIMATION_VARIANTS.exit}
       >
         <FileIcon file={file} prefixCls={prefixCls} hashId={hashId} />
-        <div className={classNames(`${prefixCls}-file-info`, hashId)}>
+        <div className={buildClassName(`${prefixCls}-file-info`, hashId)}>
           <div
             onClick={handleRetryClick}
-            className={classNames(`${prefixCls}-file-name`, hashId)}
+            className={buildClassName(`${prefixCls}-file-name`, hashId)}
           >
-            <span className={classNames(`${prefixCls}-file-name-text`, hashId)}>
+            <span
+              className={buildClassName(`${prefixCls}-file-name-text`, hashId)}
+            >
               {getFileNameWithoutExtension(file.name)}
             </span>
           </div>
-          <FileStatus file={file} prefixCls={prefixCls} hashId={hashId} />
+          <FileSizeInfo file={file} prefixCls={prefixCls} hashId={hashId} />
         </div>
         <DeleteButton
-          file={file}
+          isVisible={canDelete}
           onClick={handleDeleteClick}
           prefixCls={prefixCls}
           hashId={hashId}
