@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Low Code Component Schema",
+  "description": "Schema definition for low code component configuration",
+  "type": "object",
+  "required": ["version", "name", "description", "component"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Version number of the component"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the component"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the component"
+    },
+    "author": {
+      "type": "string",
+      "description": "Author of the component"
+    },
+    "createTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation time of the component"
+    },
+    "updateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update time of the component"
+    },
+    "pageConfig": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": ["flex"],
+          "description": "Layout type of the page"
+        },
+        "router": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": ["hash"],
+              "description": "Router mode"
+            },
+            "basePath": {
+              "type": "string",
+              "description": "Base path for routing"
+            }
+          }
+        },
+        "globalVariables": {
+          "type": "object",
+          "properties": {
+            "colors": {
+              "type": "object",
+              "properties": {
+                "sunny": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                },
+                "rainy": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                },
+                "cloudy": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                }
+              }
+            },
+            "constants": {
+              "type": "object",
+              "properties": {
+                "refreshInterval": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "dataSources": {
+      "type": "object",
+      "properties": {
+        "restAPI": {
+          "type": "object",
+          "properties": {
+            "baseURL": {
+              "type": "string",
+              "format": "uri"
+            },
+            "defaultHeaders": {
+              "type": "object"
+            },
+            "timeout": {
+              "type": "number"
+            },
+            "interceptors": {
+              "type": "object",
+              "properties": {
+                "request": {
+                  "type": "boolean"
+                },
+                "response": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "mock": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean"
+            },
+            "responseDelay": {
+              "type": "number"
+            },
+            "dataPath": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "required": ["properties", "type", "schema"],
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {}
+        },
+        "type": {
+          "type": "string",
+          "enum": ["html", "mustache"]
+        },
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "colorPalette": {
+          "type": "object",
+          "properties": {
+            "primary": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "secondary": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "success": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "warning": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "error": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "text": {
+              "type": "object",
+              "properties": {
+                "primary": {
+                  "type": "string"
+                },
+                "secondary": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "number"
+            },
+            "multiplier": {
+              "type": "number"
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "properties": {
+            "fontFamily": {
+              "type": "string"
+            },
+            "fontSizes": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "lineHeights": {
+              "type": "object",
+              "properties": {
+                "normal": {
+                  "type": "number"
+                },
+                "heading": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "breakpoints": {
+          "type": "object",
+          "properties": {
+            "xs": {
+              "type": "number"
+            },
+            "sm": {
+              "type": "number"
+            },
+            "md": {
+              "type": "number"
+            },
+            "lg": {
+              "type": "number"
+            },
+            "xl": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "previewSettings": {
+      "type": "object",
+      "properties": {
+        "viewport": {
+          "type": "object",
+          "properties": {
+            "defaultDevice": {
+              "type": "string"
+            },
+            "responsive": {
+              "type": "boolean"
+            },
+            "customSizes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "width": {
+                    "type": "number"
+                  },
+                  "height": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "environment": {
+          "type": "object",
+          "properties": {
+            "mockData": {
+              "type": "boolean"
+            },
+            "networkThrottle": {
+              "type": "string"
+            },
+            "debugMode": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "initialValues": {}
+}

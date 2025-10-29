@@ -3,8 +3,8 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { memo, useCallback, useContext } from 'react';
-import { ActionIconBox } from '../components/ActionIconBox';
-import { I18nContext } from '../i18n';
+import { ActionIconBox } from '../Components/ActionIconBox';
+import { I18nContext } from '../I18n';
 import { LoadingLottie } from './LoadingLottie';
 import { useStyle } from './style';
 

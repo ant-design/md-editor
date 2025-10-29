@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "name": "Dynamic Weather Card",
+  "description": "自适应天气卡片组件，含微动效",
+  "author": "Weather Team",
+  "createTime": "2024-03-21T09:00:00Z",
+  "updateTime": "2024-03-21T09:00:00Z",
+  "dataSources": {
+    "restAPI": {
+      "baseURL": "https://api.weather.com/v2",
+      "defaultHeaders": {
+        "Content-Type": "application/json"
+      },
+      "timeout": 2500,
+      "interceptors": {
+        "request": true,
+        "response": true
+      }
+    },
+    "mock": {
+      "enable": true,
+      "responseDelay": 150,
+      "dataPath": "/mock/dynamic-weather"
+    }
+  },
+  "component": {
+    "properties": {
+      "weather": {
+        "title": "天气",
+        "type": "string",
+        "required": true,
+        "enum": ["☀️ 晴", "☁️ 多云", "☁️ 阴", "🌧️ 雨", "❄️ 雪"],
+        "default": "☁️ 多云"
+      },
+      "temperature": {
+        "title": "温度",
+        "type": "number",
+        "required": true,
+        "minimum": -50,
+        "maximum": 50,
+        "step": 0.1,
+        "default": 22
+      },
+      "humidity": {
+        "title": "湿度",
+        "type": "number",
+        "required": true,
+        "minimum": 0,
+        "maximum": 100,
+        "step": 1,
+        "default": 70
+      },
+      "windSpeed": {
+        "title": "风速",
+        "type": "number",
+        "required": true,
+        "minimum": 0,
+        "maximum": 200,
+        "step": 0.1,
+        "default": 8.5
+      },
+      "pa": {
+        "title": "气压",
+        "type": "number",
+        "required": true,
+        "minimum": 0,
+        "maximum": 10,
+        "step": 0.1,
+        "default": 1.013
+      }
+    },
+    "type": "html",
+    "schema": "<div style=\"min-height: 220px; width: 100%; max-width: 420px; margin: 1rem auto; perspective: 1000px; transition: transform 0.3s ease;\"><div style=\"background: linear-gradient(145deg, rgba(18,18,18,0.95) 0%, rgba(0,0,0,0.9) 100%); backdrop-filter: blur(12px); border-radius: 24px; padding: 1.5rem; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2); color: white; transform-style: preserve-3d; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer;\"><div style=\"font-size: 4.5rem; text-align: center; margin: 1rem 0; animation: bounce 2s ease-in-out infinite;\">{{weather}}</div><div style=\"font-size: 2.8rem; font-weight: 700; text-align: center; margin: 1rem 0; background: linear-gradient(45deg, #fff, #eee); -webkit-background-clip: text; color: transparent;\">{{temperature}}°C</div><div style=\"display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem;\"><div style=\"background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; text-align: center; transition: transform 0.2s;\"><div style=\"font-size: 1.8rem; animation: drip 3s infinite\">💧</div><div style=\"opacity: 0.8; font-size: 0.9rem\">湿度</div><div style=\"font-weight: 600\">{{humidity}}%</div></div><div style=\"background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; text-align: center; animation: float 4s ease-in-out infinite;\"><div style=\"font-size: 1.8rem\">🌬️</div><div style=\"opacity: 0.8; font-size: 0.9rem\">风速</div><div style=\"font-weight: 600\">{{windSpeed}}m/s</div></div><div style=\"background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; text-align: center; animation: scale 3s ease-in-out infinite;\"><div style=\"font-size: 1.8rem\">📉</div><div style=\"opacity: 0.8; font-size: 0.9rem\">气压</div><div style=\"font-weight: 600\">{{pa}}hPa</div></div></div></div></div><style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(2deg)}}@keyframes drip{0%{opacity:0.8}50%{transform:translateY(5px);opacity:1}100%{opacity:0.8}}@keyframes scale{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}</style>"
+  },
+  "theme": {
+    "spacing": {
+      "base": 8,
+      "multiplier": 2,
+      "breakpoints": {
+        "sm": 576,
+        "md": 768,
+        "lg": 992
+      }
+    }
+  },
+  "previewSettings": {
+    "viewport": {
+      "defaultDevice": "responsive",
+      "responsive": true,
+      "customSizes": [
+        {
+          "name": "Mobile",
+          "width": 375,
+          "height": 812
+        },
+        {
+          "name": "Tablet",
+          "width": 768,
+          "height": 1024
+        }
+      ]
+    },
+    "environment": {
+      "mockData": true,
+      "networkThrottle": "4g",
+      "debugMode": false
+    }
+  }
+}

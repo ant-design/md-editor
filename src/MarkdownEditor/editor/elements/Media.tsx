@@ -11,11 +11,11 @@ import React, {
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
 import { Transforms } from 'slate';
-import { ActionIconBox } from '../../../components/ActionIconBox';
-import { I18nContext } from '../../../i18n';
+import { ActionIconBox } from '../../../Components/ActionIconBox';
+import { I18nContext } from '../../../I18n';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
-import { AvatarList } from '../components/ContributorAvatar';
+import { AvatarList } from '../Components/ContributorAvatar';
 import { useEditorStore } from '../store';
 import { useGetSetState } from '../utils';
 import { getMediaType } from '../utils/dom';

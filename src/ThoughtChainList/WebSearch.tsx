@@ -2,8 +2,8 @@
 import { Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
-import { LoadingSpinnerIcon } from '../components/icons/LoadingSpinnerIcon';
-import { I18nContext } from '../i18n';
+import { LoadingSpinnerIcon } from '../Components/icons/LoadingSpinnerIcon';
+import { I18nContext } from '../I18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';

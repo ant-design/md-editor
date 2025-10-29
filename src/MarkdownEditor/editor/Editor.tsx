@@ -24,12 +24,12 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../types';
-import { LazyElement } from './components/LazyElement';
+import { LazyElement } from './Components/LazyElement';
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
-import { useRefFunction } from '../../hooks/useRefFunction';
+import { useRefFunction } from '../../Hooks/useRefFunction';
 import { PluginContext } from '../plugin';
 import {
   handleFilesPaste,

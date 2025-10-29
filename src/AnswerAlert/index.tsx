@@ -1,12 +1,12 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { isValidElement, useContext, useState } from 'react';
-import { CloseIcon } from './components/CloseIcon';
-import { ErrorIcon } from './components/ErrorIcon';
-import { InfoIcon } from './components/InfoIcon';
-import { LoaderIcon } from './components/LoaderIcon';
-import { SuccessIcon } from './components/SuccessIcon';
-import { WarningIcon } from './components/WarningIcon';
+import { CloseIcon } from './Components/CloseIcon';
+import { ErrorIcon } from './Components/ErrorIcon';
+import { InfoIcon } from './Components/InfoIcon';
+import { LoaderIcon } from './Components/LoaderIcon';
+import { SuccessIcon } from './Components/SuccessIcon';
+import { WarningIcon } from './Components/WarningIcon';
 import { useStyle } from './style';
 
 /**

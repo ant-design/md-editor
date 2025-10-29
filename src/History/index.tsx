@@ -1,20 +1,20 @@
 import { History as HistoryIcon } from '@sofa-design/icons';
 import { ConfigProvider, Popover } from 'antd';
 import React, { useContext, useRef } from 'react';
-import useClickAway from '../hooks/useClickAway';
+import useClickAway from '../Hooks/useClickAway';
 import { ActionIconBox, BubbleConfigContext } from '../index';
 import {
   HistoryLoadMore,
   HistoryNewChat,
   HistorySearch,
   generateHistoryItems,
-} from './components';
+} from './Components';
 import { useHistory } from './hooks/useHistory';
 import GroupMenu from './menu';
 import { useStyle } from './style';
 import { HistoryProps } from './types';
 
-export * from './components';
+export * from './Components';
 export * from './hooks/useHistory';
 export * from './types';
 export * from './types/HistoryData';
