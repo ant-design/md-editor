@@ -282,7 +282,7 @@ export type MarkdownInputFieldProps = {
     enable: boolean;
     onRefine: (input: string) => Promise<string>;
   };
-    /**
+  /**
    * 是否支持编辑器放大功能
    * @description 启用后在编辑器右上角显示放大/全屏按钮，支持展开编辑器或优化文本显示
    * @default true
@@ -293,20 +293,20 @@ export type MarkdownInputFieldProps = {
    * />
    * ```
    */
-    enlargeable?: boolean;
+  enlargeable?: boolean;
 
-    /**
-     * 目标容器的 ref，用于放大功能
-     * @description 当点击放大按钮时，输入框将撑满到此容器高度，距离顶部48px
-     * @example
-     * ```tsx
-     * const containerRef = useRef<HTMLDivElement>(null);
-     * <MarkdownInputField
-     *   enlargeTargetRef={containerRef}
-     * />
-     * ```
-     */
-    enlargeTargetRef?: React.RefObject<HTMLElement>;
+  /**
+   * 目标容器的 ref，用于放大功能
+   * @description 当点击放大按钮时，输入框将撑满到此容器高度，距离顶部48px
+   * @example
+   * ```tsx
+   * const containerRef = useRef<HTMLDivElement>(null);
+   * <MarkdownInputField
+   *   enlargeTargetRef={containerRef}
+   * />
+   * ```
+   */
+  enlargeTargetRef?: React.RefObject<HTMLElement>;
 
   /**
    * Markdown 编辑器实例的引用
@@ -618,18 +618,19 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
-  // 确保目标容器有正确的定位设置
+  // 检查目标容器的定位设置
   useEffect(() => {
     const targetElement = props.enlargeTargetRef?.current;
     if (targetElement && isEnlarged) {
       const computedStyle = window.getComputedStyle(targetElement);
       if (computedStyle.position === 'static') {
-        // 如果容器没有设置定位，则临时设置为 relative
-        targetElement.style.position = 'relative';
+        console.warn(
+          'MarkdownInputField: enlargeTargetRef 容器的 position 为 static，这可能导致放大功能无法正常工作。' +
+            '请为目标容器设置 position: relative、absolute 或 fixed。',
+        );
       }
     }
   }, [isEnlarged, props.enlargeTargetRef]);
-
 
   /**
    * 处理放大缩小按钮点击
@@ -700,7 +701,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
     if (props.enlargeTargetRef?.current) {
       const topOffset = 48; // 距离顶部48px
-      
+
       return {
         position: 'absolute' as const,
         top: `${topOffset}px`,
@@ -904,7 +905,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               borderRadius: (borderRadius || 16) - 2 || 10,
               cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
               opacity: props.disabled ? 0.5 : 1,
-              minHeight: isEnlarged ? 'auto' : (isMultiRowLayout ? 114 : undefined),
+              minHeight: isEnlarged
+                ? 'auto'
+                : isMultiRowLayout
+                  ? 114
+                  : undefined,
               transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
             }}
           >
@@ -913,8 +918,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: (borderRadius || 16) - 2 || 10,
-                maxHeight: isEnlarged 
-                  ? 'none' 
+                maxHeight: isEnlarged
+                  ? 'none'
                   : `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
                 height: isEnlarged ? '100%' : 'auto',
                 flex: 1,

@@ -125,7 +125,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: '100%',
           minHeight: '100%',
           width: '100%',
-          transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
         },
         
         [`${token.componentCls}-editor`]: {
