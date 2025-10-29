@@ -16,6 +16,7 @@ const genStyle = (
         position: 'relative',
         maxWidth: '100vw',
         cursor: 'pointer',
+
         '&&-compact': {
           padding: 'var(--padding-0-5x)',
         },
@@ -132,9 +133,11 @@ const genStyle = (
         maxWidth: 'min(860px,100%)',
         '&-left': {
           justifyContent: 'flex-start',
+          maxWidth: 'min(860px,100%)',
         },
         '&-right': {
           justifyContent: 'flex-end',
+          maxWidth: 'min(860px,100%)',
         },
       },
       '&-bubble-before': {
