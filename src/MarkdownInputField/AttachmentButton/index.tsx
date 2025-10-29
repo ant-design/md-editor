@@ -8,9 +8,10 @@ import AttachmentButtonPopover, {
   SupportedFileFormats,
 } from './AttachmentButtonPopover';
 import { useStyle } from './style';
-import { AttachmentFile } from './types';
+import { AttachmentFile, UploadResponse } from './types';
 import { isImageFile } from './utils';
 export * from './AttachmentButtonPopover';
+export type { AttachmentFile, UploadResponse } from './types';
 
 /**
  * AttachmentButton 组件的属性
@@ -27,6 +28,32 @@ export type AttachmentButtonProps = {
    * }
    */
   upload?: (file: AttachmentFile) => Promise<string>;
+
+  /**
+   * 处理文件上传的函数（返回完整响应对象）。返回一个 Promise，解析为 UploadResponse 对象。
+   * 优先级高于 upload 接口，返回的完整响应对象会存储在 file.uploadResponse 中。
+   * @param file - 要上传的附件文件
+   * @param index - 文件在上传队列中的索引
+   * @returns 解析为 UploadResponse 对象的 Promise
+   * @example
+   * const uploadWithResponse = async (file: AttachmentFile, index: number) => {
+   *   const response = await api.uploadFile(file);
+   *   return {
+   *     contentId: null,
+   *     errorMessage: null,
+   *     fileId: response.fileId,
+   *     fileName: response.fileName,
+   *     fileSize: file.size,
+   *     fileType: response.fileType,
+   *     fileUrl: response.fileUrl,
+   *     uploadStatus: 'SUCCESS'
+   *   };
+   * }
+   */
+  uploadWithResponse?: (
+    file: AttachmentFile,
+    index: number,
+  ) => Promise<UploadResponse>;
 
   /**
    * 存储当前附件文件的 Map，以文件 ID 为键，文件对象为值
@@ -111,6 +138,10 @@ export const upLoadFileToServer = async (
     fileMap?: Map<string, AttachmentFile>;
     onFileMapChange?: (files?: Map<string, AttachmentFile>) => void;
     upload?: (file: AttachmentFile, index: number) => Promise<string>;
+    uploadWithResponse?: (
+      file: AttachmentFile,
+      index: number,
+    ) => Promise<UploadResponse>;
     maxFileSize?: number;
     maxFileCount?: number;
     minFileCount?: number;
@@ -170,10 +201,30 @@ export const upLoadFileToServer = async (
         continue;
       }
       try {
-        const url = (await props?.upload?.(file, index)) || file.previewUrl;
-        if (url) {
+        let url: string | undefined;
+        let isSuccess = false;
+        let errorMsg: string | null = null;
+
+        // 优先使用 uploadWithResponse，然后使用 upload，最后使用 previewUrl
+        if (props.uploadWithResponse) {
+          const uploadResult = await props.uploadWithResponse(file, index);
+          url = uploadResult.fileUrl;
+          isSuccess = uploadResult.uploadStatus === 'SUCCESS';
+          errorMsg = uploadResult.errorMessage || null;
+          // 将完整的响应数据存储到 file 对象中
+          file.uploadResponse = uploadResult;
+        } else if (props.upload) {
+          url = await props.upload(file, index);
+          isSuccess = !!url;
+        } else {
+          url = file.previewUrl;
+          isSuccess = !!url;
+        }
+
+        if (isSuccess && url) {
           file.status = 'done';
           file.url = url;
+
           map.set(file.uuid || '', file);
           props.onFileMapChange?.(map);
           message.success(props.locale?.uploadSuccess || 'Upload success');
@@ -181,13 +232,19 @@ export const upLoadFileToServer = async (
           file.status = 'error';
           map.set(file.uuid || '', file);
           props.onFileMapChange?.(map);
-          message.error(props.locale?.uploadFailed || 'Upload failed');
+          const failedMsg =
+            errorMsg || props.locale?.uploadFailed || 'Upload failed';
+          message.error(failedMsg);
         }
       } catch (error) {
         file.status = 'error';
         map.set(file.uuid || '', file);
         props.onFileMapChange?.(map);
-        message.error(props.locale?.uploadFailed || 'Upload failed');
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : props.locale?.uploadFailed || 'Upload failed';
+        message.error(errorMessage);
       }
 
       index++;
