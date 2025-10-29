@@ -1,8 +1,9 @@
 import { GripVertical, Menu } from '@sofa-design/icons';
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useStyle } from '../../components/ActionItemBox';
+import { useRefFunction } from '../../hooks/useRefFunction';
 
 type KeyedElement = React.ReactElement & { key: React.Key };
 
@@ -13,6 +14,107 @@ export type ActionItemContainerProps = {
   showMenu?: boolean;
   menuDisabled?: boolean;
 };
+
+type ChildEntry = { key: React.Key | null; node: React.ReactNode };
+
+// 常量提取
+const INTERACTIVE_SELECTOR =
+  'button, a, input, textarea, select, [role="button"], [contenteditable="true"], [data-no-pan]';
+const PAN_THRESHOLD = 6;
+
+const SCROLL_STYLE: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  gap: 8,
+  overflowX: 'auto',
+  overflowY: 'hidden',
+  WebkitOverflowScrolling: 'touch',
+  overscrollBehavior: 'contain',
+  touchAction: 'pan-x',
+};
+
+const POPOVER_OVERLAY_STYLE: React.CSSProperties = { padding: 0 };
+
+// 可拖拽的 Popup Item 子组件
+const DraggablePopupItem: React.FC<{
+  entry: ChildEntry;
+  index: number;
+  basePrefixCls: string;
+  hashId: string;
+  draggingIndex: number | null;
+  overIndex: number | null;
+  isHandlePressRef: React.MutableRefObject<boolean>;
+  onDragStart: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
+  onDragOver: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
+  onDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
+  onDragEnd: () => void;
+  isHandleTarget: (target: EventTarget | null) => boolean;
+  setDraggingIndex: (index: number | null) => void;
+}> = React.memo((props) => {
+  const {
+    entry,
+    index,
+    basePrefixCls,
+    hashId,
+    draggingIndex,
+    overIndex,
+    isHandlePressRef,
+    onDragStart,
+    onDragOver,
+    onDrop,
+    onDragEnd,
+    isHandleTarget,
+    setDraggingIndex,
+  } = props;
+
+  const handleMouseDown = useRefFunction((evt: React.MouseEvent) => {
+    const isHandle = isHandleTarget(evt.target);
+    isHandlePressRef.current = isHandle;
+    setDraggingIndex(isHandle ? index : null);
+  });
+
+  const handleMouseUp = useRefFunction(() => {
+    if (draggingIndex === null) {
+      isHandlePressRef.current = false;
+    }
+  });
+
+  const handleGripMouseDown = useRefFunction((evt: React.MouseEvent) => {
+    isHandlePressRef.current = true;
+    setDraggingIndex(index);
+    evt.stopPropagation();
+  });
+
+  return (
+    <div
+      key={entry.key as any}
+      className={classNames(
+        `${basePrefixCls}-overflow-container-popup-item`,
+        hashId,
+        {
+          [`${basePrefixCls}-dragging`]: draggingIndex === index,
+          [`${basePrefixCls}-drag-over`]: overIndex === index,
+        },
+      )}
+      draggable
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onDragStart={(evt) => onDragStart(evt, index)}
+      onDragOver={(evt) => onDragOver(evt, index)}
+      onDrop={(evt) => onDrop(evt, index)}
+      onDragEnd={onDragEnd}
+    >
+      <GripVertical
+        className={classNames(`${basePrefixCls}-drag-handle`, hashId)}
+        onMouseDown={handleGripMouseDown}
+      />
+      <div draggable={false}>{entry.node}</div>
+    </div>
+  );
+});
+
+DraggablePopupItem.displayName = 'DraggablePopupItem';
 
 export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -33,24 +135,24 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const hasPanMovedRef = useRef(false);
   const panIntentRef = useRef(false);
 
-  const isInteractiveTarget = (target: EventTarget | null) => {
+  // 辅助函数：检查是否是交互元素
+  const isInteractiveTarget = useRefFunction((target: EventTarget | null) => {
     if (!(target instanceof HTMLElement)) return false;
-    // ignore common interactive elements
-    if (
-      target.closest(
-        'button, a, input, textarea, select, [role="button"], [contenteditable="true"], [data-no-pan]',
-      )
-    ) {
-      return true;
-    }
-    return false;
-  };
+    return !!target.closest(INTERACTIVE_SELECTOR);
+  });
 
-  type ChildEntry = { key: React.Key | null; node: React.ReactNode };
-  const toEntries = (nodes: React.ReactNode): ChildEntry[] => {
+  // 辅助函数：检查是否是拖拽手柄
+  const isHandleTarget = useRefFunction((target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false;
+    const handle = target.closest(`.${basePrefixCls}-drag-handle`);
+    return !!handle;
+  });
+
+  // 辅助函数：将子节点转换为条目数组
+  const toEntries = useRefFunction((nodes: React.ReactNode): ChildEntry[] => {
     const array = React.Children.toArray(nodes);
     return array.map((node) => ({ key: (node as any)?.key ?? null, node }));
-  };
+  });
 
   const [ordered, setOrdered] = useState<ChildEntry[]>(() =>
     toEntries(props.children),
@@ -97,159 +199,195 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.children]);
 
-  // No need to compute hidden index; popup renders all children
+  // 辅助函数：重新排序数组
+  const reorder = useRefFunction(
+    (list: ChildEntry[], from: number, to: number) => {
+      const next = list.slice();
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved);
+      return next;
+    },
+  );
 
-  const handleDragStart = (
-    e: React.DragEvent<HTMLDivElement>,
-    index: number,
-  ) => {
-    e.stopPropagation();
-    e.dataTransfer.effectAllowed = 'move';
-    try {
-      e.dataTransfer.setData('text/plain', String(index));
-    } catch {
-      console.error(e);
+  // 拖拽事件处理
+  const handleDragStart = useRefFunction(
+    (e: React.DragEvent<HTMLDivElement>, index: number) => {
+      e.stopPropagation();
+      e.dataTransfer.effectAllowed = 'move';
+      try {
+        e.dataTransfer.setData('text/plain', String(index));
+      } catch {
+        console.error(e);
+      }
+      setDraggingIndex(index);
+    },
+  );
+
+  const handleDragOver = useRefFunction(
+    (e: React.DragEvent<HTMLDivElement>, index: number) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      if (overIndex !== index) setOverIndex(index);
+    },
+  );
+
+  const handleDrop = useRefFunction(
+    (e: React.DragEvent<HTMLDivElement>, index: number) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (draggingIndex === null) return;
+      if (draggingIndex === index) return;
+
+      setOrdered((prev) => reorder(prev, draggingIndex, index));
+      setDraggingIndex(null);
+      setOverIndex(null);
+      isHandlePressRef.current = false;
+    },
+  );
+
+  const handleDragEnd = useRefFunction(() => {
+    setDraggingIndex(null);
+    setOverIndex(null);
+    isHandlePressRef.current = false;
+  });
+
+  // Pointer 事件处理 - 拖拽滚动
+  const handlePointerDown = useRefFunction(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      const el = scrollRef.current;
+      if (!el || e.button !== 0 || isInteractiveTarget(e.target)) return;
+
+      panIntentRef.current = true;
+      hasPanMovedRef.current = false;
+      panStartXRef.current = e.clientX;
+      panStartScrollLeftRef.current = el.scrollLeft;
+    },
+  );
+
+  const handlePointerMove = useRefFunction(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      const el = scrollRef.current;
+      if (!el) return;
+
+      // 检测是否开始拖拽
+      if (!isPanningRef.current && panIntentRef.current) {
+        const dx = e.clientX - panStartXRef.current;
+        if (Math.abs(dx) > PAN_THRESHOLD) {
+          isPanningRef.current = true;
+          hasPanMovedRef.current = true;
+          try {
+            el.setPointerCapture(e.pointerId);
+          } catch {}
+        }
+      }
+
+      // 执行拖拽滚动
+      if (isPanningRef.current) {
+        const dx = e.clientX - panStartXRef.current;
+        el.scrollLeft = panStartScrollLeftRef.current - dx;
+        if (e.cancelable) e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+  );
+
+  const handlePointerUp = useRefFunction(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      const el = scrollRef.current;
+      if (!el) return;
+
+      panIntentRef.current = false;
+      if (isPanningRef.current) {
+        isPanningRef.current = false;
+        try {
+          el.releasePointerCapture(e.pointerId);
+        } catch {}
+      }
+    },
+  );
+
+  const handlePointerCancel = useRefFunction(() => {
+    isPanningRef.current = false;
+    panIntentRef.current = false;
+  });
+
+  const handleWheel = useRefFunction((e: React.WheelEvent<HTMLDivElement>) => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    // 将滚轮事件映射到水平滚动
+    const horizontalDelta =
+      Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (horizontalDelta !== 0) {
+      el.scrollLeft += horizontalDelta;
     }
-    setDraggingIndex(index);
-  };
-
-  const handleDragOver = (
-    e: React.DragEvent<HTMLDivElement>,
-    index: number,
-  ) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    if (overIndex !== index) setOverIndex(index);
-  };
-
-  const reorder = (list: ChildEntry[], from: number, to: number) => {
-    const next = list.slice();
-    const [moved] = next.splice(from, 1);
-    next.splice(to, 0, moved);
-    return next;
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    e.preventDefault();
     e.stopPropagation();
-    const from = draggingIndex;
-    if (from === null) return;
-    const to = index;
-    if (from === to) return;
-    setOrdered((prev) => reorder(prev, from, to));
-    setDraggingIndex(null);
-    setOverIndex(null);
-    isHandlePressRef.current = false;
-  };
+  });
 
-  const handleDragEnd = () => {
-    setDraggingIndex(null);
-    setOverIndex(null);
-    isHandlePressRef.current = false;
-  };
+  const handleClick = useRefFunction((e: React.MouseEvent<HTMLDivElement>) => {
+    // 防止拖拽时误触点击
+    if (hasPanMovedRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      hasPanMovedRef.current = false;
+    }
+  });
 
-  const isHandleTarget = (target: EventTarget | null) => {
-    if (!(target instanceof HTMLElement)) return false;
-    const handle = target.closest(`.${basePrefixCls}-drag-handle`);
-    return !!handle;
-  };
+  // Popover 事件处理
+  const handlePopoverChange = useRefFunction((visible: boolean) => {
+    if (!props.menuDisabled) {
+      setShowOverflowPopup(visible);
+    }
+  });
 
-  return wrapSSR(
-    <div
-      ref={containerRef}
-      style={{
-        // width: 'calc(100% - 16px)',
-        ...props.style,
-      }}
-      className={classNames(
+  const handleMenuMouseEnter = useRefFunction(() => {
+    if (!props.menuDisabled) {
+      setIsIndicatorHover(true);
+    }
+  });
+
+  const handleMenuMouseLeave = useRefFunction(() => {
+    if (!props.menuDisabled) {
+      setIsIndicatorHover(false);
+    }
+  });
+
+  const handlePopupWheel = useRefFunction((e: React.WheelEvent) => {
+    e.stopPropagation();
+  });
+
+  // 容器样式
+  const containerStyle = useMemo(() => ({ ...props.style }), [props.style]);
+
+  const containerClassName = useMemo(
+    () =>
+      classNames(
         `${basePrefixCls}-container`,
         {
           [`${basePrefixCls}-container-${props.size}`]: props.size,
           [`${basePrefixCls}-container-no-hover`]: isIndicatorHover,
         },
         hashId,
-      )}
-      onPointerDown={(e) => {
-        const el = scrollRef.current;
-        if (!el) return;
-        if (e.button !== 0) return;
-        // if clicking on an interactive child, don't pan
-        if (isInteractiveTarget(e.target)) return;
-        panIntentRef.current = true;
-        hasPanMovedRef.current = false;
-        panStartXRef.current = e.clientX;
-        panStartScrollLeftRef.current = el.scrollLeft;
-      }}
-      onPointerMove={(e) => {
-        const el = scrollRef.current;
-        if (!el) return;
-        if (!isPanningRef.current && panIntentRef.current) {
-          const dx = e.clientX - panStartXRef.current;
-          if (Math.abs(dx) > 6) {
-            isPanningRef.current = true;
-            hasPanMovedRef.current = true;
-            try {
-              el.setPointerCapture(e.pointerId);
-            } catch {}
-          }
-        }
-        if (isPanningRef.current) {
-          const dx = e.clientX - panStartXRef.current;
-          el.scrollLeft = panStartScrollLeftRef.current - dx;
-          if (e.cancelable) e.preventDefault();
-          e.stopPropagation();
-        }
-      }}
-      onPointerUp={(e) => {
-        const el = scrollRef.current;
-        if (!el) return;
-        panIntentRef.current = false;
-        if (isPanningRef.current) {
-          isPanningRef.current = false;
-          try {
-            el.releasePointerCapture(e.pointerId);
-          } catch {}
-        }
-      }}
-      onPointerCancel={() => {
-        isPanningRef.current = false;
-        panIntentRef.current = false;
-      }}
-      onWheel={(e) => {
-        const el = scrollRef.current;
-        if (!el) return;
-        // Map wheel to horizontal scrolling: use the dominant axis
-        const horizontalDelta =
-          Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        if (horizontalDelta !== 0) {
-          el.scrollLeft += horizontalDelta;
-        }
-        // if (e.cancelable) e.preventDefault();
-        e.stopPropagation();
-      }}
-      onClick={(e) => {
-        // prevent accidental click when performing a pan
-        if (hasPanMovedRef.current) {
-          e.preventDefault();
-          e.stopPropagation();
-          hasPanMovedRef.current = false;
-        }
-      }}
+      ),
+    [basePrefixCls, props.size, isIndicatorHover, hashId],
+  );
+
+  return wrapSSR(
+    <div
+      ref={containerRef}
+      style={containerStyle}
+      className={containerClassName}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
+      onWheel={handleWheel}
+      onClick={handleClick}
     >
       <div
         ref={scrollRef}
         className={classNames(`${basePrefixCls}-scroll`, hashId)}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          width: '100%',
-          gap: 8,
-          overflowX: 'auto',
-          overflowY: 'hidden',
-          WebkitOverflowScrolling: 'touch',
-          overscrollBehavior: 'contain',
-          touchAction: 'pan-x',
-        }}
+        style={SCROLL_STYLE}
       >
         {ordered.map((entry) => (
           <React.Fragment key={entry.key as any}>{entry.node}</React.Fragment>
@@ -274,13 +412,11 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
             ></div>
             <Popover
               open={showOverflowPopup}
-              onOpenChange={(visible) =>
-                !props.menuDisabled && setShowOverflowPopup(visible)
-              }
+              onOpenChange={handlePopoverChange}
               trigger="click"
               placement="topRight"
               arrow={false}
-              overlayInnerStyle={{ padding: 0 }}
+              overlayInnerStyle={POPOVER_OVERLAY_STYLE}
               overlayClassName={classNames(
                 `${basePrefixCls}-overflow-popover`,
                 hashId,
@@ -291,61 +427,26 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                     `${basePrefixCls}-overflow-container-popup`,
                     hashId,
                   )}
-                  onWheel={(e) => {
-                    e.stopPropagation();
-                  }}
+                  onWheel={handlePopupWheel}
                 >
-                  {ordered.length > 0
-                    ? ordered.map((entry, index) => (
-                        <div
-                          key={entry.key as any}
-                          className={classNames(
-                            `${basePrefixCls}-overflow-container-popup-item`,
-                            hashId,
-                            {
-                              [`${basePrefixCls}-dragging`]:
-                                draggingIndex === index,
-                              [`${basePrefixCls}-drag-over`]:
-                                overIndex === index,
-                            },
-                          )}
-                          draggable
-                          onMouseDown={(evt) => {
-                            const isHandle = isHandleTarget(evt.target);
-                            isHandlePressRef.current = isHandle;
-                            if (isHandle) {
-                              setDraggingIndex(index);
-                            } else {
-                              setDraggingIndex(null);
-                            }
-                          }}
-                          onMouseUp={() => {
-                            if (draggingIndex === null) {
-                              isHandlePressRef.current = false;
-                            }
-                          }}
-                          onDragStart={(evt) => {
-                            handleDragStart(evt, index);
-                          }}
-                          onDragOver={(evt) => handleDragOver(evt, index)}
-                          onDrop={(evt) => handleDrop(evt, index)}
-                          onDragEnd={handleDragEnd}
-                        >
-                          <GripVertical
-                            className={classNames(
-                              `${basePrefixCls}-drag-handle`,
-                              hashId,
-                            )}
-                            onMouseDown={(evt) => {
-                              isHandlePressRef.current = true;
-                              setDraggingIndex(index);
-                              evt.stopPropagation();
-                            }}
-                          />
-                          <div draggable={false}>{entry.node}</div>
-                        </div>
-                      ))
-                    : null}
+                  {ordered.map((entry, index) => (
+                    <DraggablePopupItem
+                      key={entry.key as any}
+                      entry={entry}
+                      index={index}
+                      basePrefixCls={basePrefixCls}
+                      hashId={hashId}
+                      draggingIndex={draggingIndex}
+                      overIndex={overIndex}
+                      isHandlePressRef={isHandlePressRef}
+                      onDragStart={handleDragStart}
+                      onDragOver={handleDragOver}
+                      onDrop={handleDrop}
+                      onDragEnd={handleDragEnd}
+                      isHandleTarget={isHandleTarget}
+                      setDraggingIndex={setDraggingIndex}
+                    />
+                  ))}
                 </div>
               }
             >
@@ -358,12 +459,8 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
                       props.menuDisabled,
                   },
                 )}
-                onMouseEnter={() =>
-                  !props.menuDisabled && setIsIndicatorHover(true)
-                }
-                onMouseLeave={() =>
-                  !props.menuDisabled && setIsIndicatorHover(false)
-                }
+                onMouseEnter={handleMenuMouseEnter}
+                onMouseLeave={handleMenuMouseLeave}
               >
                 <Menu />
               </div>
