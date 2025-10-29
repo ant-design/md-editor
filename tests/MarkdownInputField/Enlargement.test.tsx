@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Enlargement from '../../src/MarkdownInputField/Enlargement';
 import { useStyle } from '../../src/MarkdownInputField/Enlargement/style';
 
@@ -38,9 +38,13 @@ describe('Enlargement', () => {
     vi.clearAllMocks();
     // Reset mock to default behavior
     mockUseStyle.mockReturnValue({
-      wrapSSR: (component: React.ReactNode) => component,
+      wrapSSR: (component: any) => component,
       hashId: 'test-hash-id',
     });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   const renderEnlargement = (props: any = {}) => {
@@ -178,32 +182,38 @@ describe('Enlargement', () => {
       renderEnlargement();
 
       const button = screen.getByRole('button');
+      const preventDefaultSpy = vi.spyOn(Event.prototype, 'preventDefault');
+
       const enterEvent = new KeyboardEvent('keydown', {
         key: 'Enter',
         bubbles: true,
       });
 
-      const preventDefaultSpy = vi.spyOn(enterEvent, 'preventDefault');
       fireEvent(button, enterEvent);
 
       expect(preventDefaultSpy).toHaveBeenCalled();
       expect(mockOnEnlargeClick).toHaveBeenCalledTimes(1);
+      
+      preventDefaultSpy.mockRestore();
     });
 
     it('应该在按下空格键时阻止默认行为', () => {
       renderEnlargement();
 
       const button = screen.getByRole('button');
+      const preventDefaultSpy = vi.spyOn(Event.prototype, 'preventDefault');
+
       const spaceEvent = new KeyboardEvent('keydown', {
         key: ' ',
         bubbles: true,
       });
 
-      const preventDefaultSpy = vi.spyOn(spaceEvent, 'preventDefault');
       fireEvent(button, spaceEvent);
 
       expect(preventDefaultSpy).toHaveBeenCalled();
       expect(mockOnEnlargeClick).toHaveBeenCalledTimes(1);
+      
+      preventDefaultSpy.mockRestore();
     });
 
     it('应该忽略其他键盘按键', () => {
@@ -388,7 +398,7 @@ describe('Enlargement', () => {
 
     it('应该处理不同的hashId值', () => {
       mockUseStyle.mockReturnValue({
-        wrapSSR: (component: React.ReactNode) => component,
+        wrapSSR: (component: any) => component,
         hashId: 'custom-hash-123',
       });
 
@@ -401,7 +411,7 @@ describe('Enlargement', () => {
 
     it('应该处理空的hashId', () => {
       mockUseStyle.mockReturnValue({
-        wrapSSR: (component: React.ReactNode) => component,
+        wrapSSR: (component: any) => component,
         hashId: '',
       });
 
