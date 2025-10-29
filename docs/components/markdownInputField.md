@@ -656,6 +656,66 @@ export default () => {
 };
 ```
 
+### 放大
+
+`MarkdownInputField` 支持放大功能，用户可以通过点击放大图标将输入框扩展到指定的容器内，提供更大的编辑空间。此功能特别适用于需要编写长文本或复杂内容的场景。
+
+#### 相关属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `enlargeable` | `boolean` | `false` | 是否启用放大功能 |
+| `enlargeTargetRef` | `React.RefObject<HTMLElement>` | - | 放大时的目标容器引用，必须是一个具有定位属性的元素 |
+
+#### 使用注意事项
+
+1. **容器定位**：目标容器必须具有相对定位（`position: relative`）或其他非静态定位
+2. **容器尺寸**：确保目标容器有足够的空间容纳放大后的输入框
+3. **z-index**：放大后的输入框具有较高的 z-index 值，确保不被其他元素遮盖
+4. **响应式设计**：在移动端或小屏幕设备上使用时，建议调整目标容器尺寸
+
+#### 基本示例
+
+```tsx
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+
+export default () => {
+  const [value, setValue] = React.useState(
+    '输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果',
+  );
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  return (
+    <>
+      <div
+        style={{
+          height: 400,
+          position: 'relative',
+        }}
+        ref={containerRef}
+      >
+        <div style={{ height: 200 }} />
+        <MarkdownInputField
+          value={value}
+          onChange={setValue}
+          enlargeable
+          enlargeTargetRef={containerRef}
+          style={{ maxHeight: 200 }}
+          refinePrompt={{
+            enable: true,
+            onRefine: async (input) => {
+              // 模拟异步优化（真实项目可调用后端/模型服务）
+              await new Promise((r) => setTimeout(r, 2000));
+              return `你好呀，哈哈哈哈 ${input}`;
+            },
+          }}
+        />
+      </div>
+    </>
+  );
+};
+```
+
 ### 便捷操作区域
 
 便捷操作区提供了在输入框上方自定义操作按钮的功能。
