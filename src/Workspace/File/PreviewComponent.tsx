@@ -33,40 +33,70 @@ import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
 import { useFileStyle } from './style';
 import { getFileTypeIcon } from './utils';
 
+const HTML_MIME_TYPE = 'text/html';
+const HTML_EXTENSIONS = ['.html', '.htm'];
+const EDITOR_PADDING = '0 12px';
+
+const isHtmlFile = (fileName: string, mimeType?: string): boolean => {
+  const name = fileName?.toLowerCase() || '';
+  const byExtension = HTML_EXTENSIONS.some((ext) => name.endsWith(ext));
+  const byMimeType = mimeType === HTML_MIME_TYPE;
+  return byExtension || byMimeType;
+};
+
+const getContentStatus = (
+  state: ContentState,
+): 'loading' | 'error' | 'done' => {
+  if ('error' in state) return 'error';
+  return state.status === 'loading' ? 'loading' : 'done';
+};
+
+const buildMarkdownContent = (
+  raw: string,
+  category: string,
+  fileName: string,
+): string => {
+  if (category === 'code') {
+    const language = getLanguageFromFilename(fileName);
+    return wrapContentInCodeBlock(raw, language);
+  }
+  return raw;
+};
+
+type ContentState =
+  | {
+      status: 'idle' | 'loading' | 'ready';
+      mdContent: string;
+      rawContent?: string;
+    }
+  | { status: 'error'; error: string };
+
+/**
+ * PreviewComponent 组件属性
+ */
 export interface PreviewComponentProps {
+  /** 文件数据 */
   file: FileNode;
-  /**
-   * 提供自定义内容以替换预览区域
-   */
+  /** 自定义预览内容 */
   customContent?: React.ReactNode;
-
-  /**
-   * 自定义头部（当提供时，将完全替换默认头部：返回、图标、标题、时间、下载等均由外部控制）
-   */
+  /** 自定义头部 */
   customHeader?: React.ReactNode;
-
-  /**
-   * 自定义右侧操作区域（在默认操作按钮之前插入）
-   */
+  /** 自定义操作按钮 */
   customActions?: React.ReactNode;
-
+  /** 返回回调 */
   onBack?: () => void;
+  /** 下载回调 */
   onDownload?: (file: FileNode) => void;
   /** 分享回调 */
   onShare?: (
     file: FileNode,
     options?: { anchorEl?: HTMLElement; origin?: string },
   ) => void;
-  /**
-   * MarkdownEditor 的配置项，用于自定义预览效果
-   * @description 这里的配置会覆盖默认的预览配置
-   */
+  /** Markdown 编辑器配置 */
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
-  /**
-   * 仅用于覆盖默认头部区域展示的文件信息（不影响实际预览内容）
-   */
+  /** 头部文件信息覆盖 */
   headerFileOverride?: Partial<FileNode>;
 }
 
@@ -204,32 +234,24 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   }, [file, customContent]);
 
   useEffect(() => {
-    if (customContent) return;
-    if (!processResult) return;
+    if (customContent || !processResult) return;
 
     const { typeInference, dataSource } = processResult;
+    const isTextOrCode =
+      typeInference.category === 'text' || typeInference.category === 'code';
 
-    if (typeInference.category !== 'text' && typeInference.category !== 'code')
-      return;
+    if (!isTextOrCode) return;
 
-    const buildMd = (raw: string): string => {
-      if (typeInference.category === 'code') {
-        const language = getLanguageFromFilename(file.name);
-        return wrapContentInCodeBlock(raw, language);
-      }
-      return raw;
-    };
-
-    const setReady = (raw: string) => {
+    const setReadyContent = (raw: string) => {
       setContentState({
         status: 'ready',
-        mdContent: buildMd(raw),
+        mdContent: buildMarkdownContent(raw, typeInference.category, file.name),
         rawContent: raw,
       });
     };
 
     if (dataSource.content) {
-      setReady(dataSource.content);
+      setReadyContent(dataSource.content);
       return;
     }
 
@@ -243,7 +265,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           }
           return response.text();
         })
-        .then((raw) => setReady(raw))
+        .then(setReadyContent)
         .catch((err) => {
           const errorMessage =
             err instanceof Error ? err.message : '加载文本内容失败';
@@ -276,12 +298,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     setHtmlViewMode('preview');
   }, [file.name]);
 
-  const isHtmlFile = (): boolean => {
-    const name = file.name?.toLowerCase() || '';
-    const byExt = name.endsWith('.html') || name.endsWith('.htm');
-    const byMime = processResult?.dataSource.mimeType === 'text/html';
-    return Boolean(byExt || byMime);
-  };
+  const isCurrentFileHtml = isHtmlFile(
+    file.name,
+    processResult?.dataSource.mimeType,
+  );
 
   const renderPreviewContent = () => {
     if (file.loading) {
@@ -449,93 +469,83 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       );
     }
 
-    switch (typeInference.category) {
-      case 'text':
-      case 'code': {
-        if (isHtmlFile()) {
-          const toHtmlStatus = (
-            s: ContentState,
-          ): 'loading' | 'error' | 'done' => {
-            if ('error' in s) return 'error';
-            return s.status === 'loading' ? 'loading' : 'done';
-          };
-          const htmlStatus = toHtmlStatus(contentState);
-          return (
-            <div className={classNames(`${prefixCls}-text`, hashId)}>
-              <HtmlPreview
-                html={contentState.rawContent || ''}
-                status={htmlStatus as any}
-                viewMode={htmlViewMode}
-                onViewModeChange={setHtmlViewMode}
-                iframeProps={{ sandbox: 'allow-scripts' }}
-                showSegmented={false}
-              />
-            </div>
-          );
-        }
-
-        if (contentState.status === 'loading') {
-          return (
-            <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
-              <Spin size="large" tip="正在加载文件内容..." />
-            </PlaceholderContent>
-          );
-        }
-
+    const renderTextOrCode = () => {
+      if (isCurrentFileHtml) {
+        const htmlStatus = getContentStatus(contentState);
         return (
           <div className={classNames(`${prefixCls}-text`, hashId)}>
-            <MarkdownEditor
-              editorRef={editorRef}
-              {...{
-                initValue: '',
-                readonly: true,
-                contentStyle: { padding: '0 12px' },
-              }}
-              {...markdownEditorProps}
+            <HtmlPreview
+              html={contentState.rawContent || ''}
+              status={htmlStatus as any}
+              viewMode={htmlViewMode}
+              onViewModeChange={setHtmlViewMode}
+              iframeProps={{ sandbox: 'allow-scripts' }}
+              showSegmented={false}
             />
           </div>
         );
       }
 
-      case 'image':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetImagePreview'] ||
-                  '无法获取图片预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
+      if (contentState.status === 'loading') {
         return (
+          <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
+            <Spin size="large" tip="正在加载文件内容..." />
+          </PlaceholderContent>
+        );
+      }
+
+      return (
+        <div className={classNames(`${prefixCls}-text`, hashId)}>
+          <MarkdownEditor
+            editorRef={editorRef}
+            initValue=""
+            readonly={true}
+            contentStyle={{ padding: EDITOR_PADDING }}
+            {...markdownEditorProps}
+          />
+        </div>
+      );
+    };
+
+    const getPreviewErrorMessage = (category: string): string => {
+      const messages: Record<string, string> = {
+        image:
+          locale?.['workspace.file.cannotGetImagePreview'] ||
+          '无法获取图片预览',
+        video:
+          locale?.['workspace.file.cannotGetVideoPreview'] ||
+          '无法获取视频预览',
+        audio:
+          locale?.['workspace.file.cannotGetAudioPreview'] ||
+          '无法获取音频预览',
+        pdf:
+          locale?.['workspace.file.cannotGetPdfPreview'] || '无法获取PDF预览',
+      };
+      return messages[category] || `无法获取${category}预览`;
+    };
+
+    const renderMediaPreview = (
+      category: 'image' | 'video' | 'audio' | 'pdf',
+    ) => {
+      if (!dataSource.previewUrl) {
+        return (
+          <PlaceholderContent
+            locale={locale}
+            prefixCls={prefixCls}
+            hashId={hashId}
+          >
+            <p>{getPreviewErrorMessage(category)}</p>
+          </PlaceholderContent>
+        );
+      }
+
+      const mediaElements: Record<string, React.ReactNode> = {
+        image: (
           <div className={classNames(`${prefixCls}-image`, hashId)}>
             <Image src={dataSource.previewUrl} alt={file.name} />
           </div>
-        );
-
-      case 'video':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetVideoPreview'] ||
-                  '无法获取视频预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
-        return (
+        ),
+        video: (
           <video
             className={classNames(`${prefixCls}-video`, hashId)}
             src={dataSource.previewUrl}
@@ -546,25 +556,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             <track kind="captions" />
             您的浏览器不支持视频播放
           </video>
-        );
-
-      case 'audio':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetAudioPreview'] ||
-                  '无法获取音频预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
-        return (
+        ),
+        audio: (
           <audio
             className={classNames(`${prefixCls}-audio`, hashId)}
             src={dataSource.previewUrl}
@@ -574,25 +567,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           >
             您的浏览器不支持音频播放
           </audio>
-        );
-
-      case 'pdf':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetPdfPreview'] ||
-                  '无法获取PDF预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
-        return (
+        ),
+        pdf: (
           <embed
             className={classNames(`${prefixCls}-pdf`, hashId)}
             src={dataSource.previewUrl}
@@ -600,7 +576,22 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             width="100%"
             height="100%"
           />
-        );
+        ),
+      };
+
+      return mediaElements[category];
+    };
+
+    switch (typeInference.category) {
+      case 'text':
+      case 'code':
+        return renderTextOrCode();
+
+      case 'image':
+      case 'video':
+      case 'audio':
+      case 'pdf':
+        return renderMediaPreview(typeInference.category);
 
       default:
         return (
@@ -683,7 +674,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           </div>
 
           <div className={classNames(`${prefixCls}-actions`, hashId)}>
-            {!customContent && isHtmlFile() && (
+            {!customContent && isCurrentFileHtml && (
               <Segmented
                 size="small"
                 options={[
