@@ -890,6 +890,71 @@ export default () => {
 };
 ```
 
+### uploadWithResponse - 获取完整上传响应
+
+使用 `uploadWithResponse` 接口可以返回完整的上传响应对象，包含文件ID、URL、状态等详细信息。响应数据会自动存储在 `file.uploadResponse` 中。
+
+<code src="../demos/markdownInputField/upload-with-response.tsx" background="var(--main-bg-color)" iframe=800></code>
+
+#### uploadWithResponse 接口定义
+
+```typescript
+uploadWithResponse?: (
+  file: AttachmentFile,
+  index: number
+) => Promise<UploadResponse>;
+```
+
+#### UploadResponse 类型
+
+| 参数         | 说明             | 类型                            | 必填 |
+| ------------ | ---------------- | ------------------------------- | ---- |
+| fileId       | 文件ID           | `string`                        | 是   |
+| fileName     | 文件名           | `string`                        | 是   |
+| fileType     | 文件类型         | `string`                        | 是   |
+| fileUrl      | 文件URL          | `string`                        | 是   |
+| uploadStatus | 上传状态         | `'SUCCESS' \| 'FAIL' \| string` | 是   |
+| contentId    | 内容ID           | `string \| null`                | 否   |
+| errorMessage | 错误消息         | `string \| null`                | 否   |
+| fileSize     | 文件大小（字节） | `number \| null`                | 否   |
+
+#### 特性
+
+- ✅ 返回完整的响应对象，包含更多元信息
+- ✅ 响应数据自动存储在 `file.uploadResponse` 中
+- ✅ 支持自定义错误消息（errorMessage）
+- ✅ 优先级高于旧的 `upload` 接口
+- ✅ 向后兼容，可与 `upload` 接口共存
+
+#### 使用示例
+
+```typescript
+<MarkdownInputField
+  attachment={{
+    enable: true,
+    uploadWithResponse: async (file, index) => {
+      const response = await api.uploadFile(file);
+      return {
+        contentId: response.contentId,
+        errorMessage: null,
+        fileId: response.fileId,
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type,
+        fileUrl: response.fileUrl,
+        uploadStatus: 'SUCCESS'
+      };
+    },
+    onFileMapChange: (fileMap) => {
+      // 访问完整的上传响应数据
+      fileMap?.forEach(file => {
+        console.log('文件响应:', file);
+      });
+    }
+  }}
+/>
+```
+
 ### 自定义附件按钮渲染
 
 通过 `attachment.render` 属性，您可以完全替换默认的 `AttachmentButtonPopover` 组件，实现自定义的附件按钮交互体验。
