@@ -2,7 +2,7 @@ import { ChevronDown } from '@sofa-design/icons';
 import { Button, ConfigProvider, Dropdown, Segmented } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
-import { I18nContext } from '../../../../i18n';
+import { I18nContext } from '../../../../I18n';
 import { useStyle } from './style';
 
 export interface FilterOption {

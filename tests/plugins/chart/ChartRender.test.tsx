@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { I18nContext } from '../../../src/i18n';
+import { I18nContext } from '../../../src/I18n';
 import { ChartRender } from '../../../src/Plugins/chart/ChartRender';
 
 // Mock Chart.js（补齐 CategoryScale 等导出）

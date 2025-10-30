@@ -42,7 +42,7 @@ vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
   ],
 }));
 
-vi.mock('@ant-design/agentic-ui/i18n', () => ({
+vi.mock('@ant-design/agentic-ui/I18n', () => ({
   I18nContext: {
     Provider: ({ children }: { children: React.ReactNode }) => children,
     Consumer: ({ children }: { children: (value: any) => React.ReactNode }) =>

@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { I18nContext } from '../../src/i18n';
+import { I18nContext } from '../../src/I18n';
 import { HtmlPreview } from '../../src/Workspace/HtmlPreview';
 
 describe('HtmlPreview Component', () => {

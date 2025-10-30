@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { cnLabels, enLabels, I18nContext } from '../../../../src/i18n';
+import { cnLabels, enLabels, I18nContext } from '../../../../src/I18n';
 import { ThinkBlock } from '../../../../src/Plugins/code/components/ThinkBlock';
 
 // Mock CodeNode for testing

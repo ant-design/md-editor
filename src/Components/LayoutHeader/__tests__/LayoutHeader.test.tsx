@@ -3,7 +3,7 @@ import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 // Mock I18nContext
-vi.mock('../../../i18n', () => ({
+vi.mock('../../../I18n', () => ({
   I18nContext: React.createContext({
     locale: {
       'chatFlow.collapseLeft': '折叠左侧边栏',

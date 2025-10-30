@@ -2,7 +2,7 @@ import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../../../hooks/useStyle';
+} from '../../../Hooks/useStyle';
 
 const ICON_SIZE = 16;
 const ICON_SIZE_SM = 14;

@@ -7,7 +7,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 import { formatTime } from '../utils/formatTime';
 import { BubbleProps, MessageBubbleData } from './type';
 

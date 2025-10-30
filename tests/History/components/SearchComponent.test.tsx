@@ -3,7 +3,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { HistorySearch } from '../../../src/History/components/SearchComponent';
-import { I18nContext } from '../../../src/i18n';
+import { I18nContext } from '../../../src/I18n';
 
 const mockI18nLocale = {
   'chat.history.search': '搜索',

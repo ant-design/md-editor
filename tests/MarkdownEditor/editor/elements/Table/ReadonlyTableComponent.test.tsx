@@ -17,7 +17,7 @@ vi.mock('../../../../../src/MarkdownEditor/editor/utils', () => ({
   parserSlateNodeToMarkdown: vi.fn(() => '| Header |\n| ------ |\n| Cell |'),
 }));
 
-vi.mock('../../../../../src/MarkdownEditor/i18n', () => ({
+vi.mock('../../../../../src/MarkdownEditor/I18n', () => ({
   I18nContext: {
     Provider: ({ children }: any) => <div>{children}</div>,
   },

@@ -1,9 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { message } from 'antd';
 import copy from 'copy-to-clipboard';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { I18nProvide } from '../../../src/i18n';
+import { I18nProvide } from '../../../src/I18n';
 import { SchemaEditor } from '../../../src/schema/SchemaEditor';
 import { LowCodeSchema } from '../../../src/schema/types';
 
@@ -316,7 +315,7 @@ describe('SchemaEditor', () => {
       // 应该有复制按钮（HTML和JSON各一个）
       const copyButtons = container.querySelectorAll('[aria-label*="复制"]');
       const allButtons = screen.getAllByRole('button');
-      
+
       // 应该至少有运行按钮和复制按钮
       expect(allButtons.length).toBeGreaterThanOrEqual(2);
     });
@@ -668,4 +667,3 @@ describe('SchemaEditor', () => {
     });
   });
 });
-

@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { I18nProvide } from '../../../src/i18n';
+import { I18nProvide } from '../../../src/I18n';
 import { PreviewComponent } from '../../../src/Workspace/File/PreviewComponent';
 import type { FileNode } from '../../../src/Workspace/types';
 

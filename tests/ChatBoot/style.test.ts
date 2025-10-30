@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 
 // Mock useEditorStyleRegister
-vi.mock('../../src/hooks/useStyle', () => ({
+vi.mock('../../src/Hooks/useStyle', () => ({
   useEditorStyleRegister: vi.fn(),
 }));
 
 import { useStyle } from '../../src/ChatBoot/style';
-import { useEditorStyleRegister } from '../../src/hooks/useStyle';
+import { useEditorStyleRegister } from '../../src/Hooks/useStyle';
 
 const mockUseEditorStyleRegister = vi.mocked(useEditorStyleRegister);
 

@@ -2,7 +2,7 @@ import { Plus } from '@sofa-design/icons';
 import { Divider, Dropdown } from 'antd';
 import classnames from 'classnames';
 import React, { useContext, useMemo } from 'react';
-import { I18nContext } from '../../../../i18n';
+import { I18nContext } from '../../../../I18n';
 import { useEditorStore } from '../../store';
 import { getInsertOptions } from '../InsertAutocomplete';
 import type { ToolsKeyType as ConfigToolsKeyType } from './config/toolsConfig';

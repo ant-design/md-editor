@@ -4,7 +4,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 
 // MarkdownInputField 样式常量
 // Glow border effect constants - 辉光边框效果常量

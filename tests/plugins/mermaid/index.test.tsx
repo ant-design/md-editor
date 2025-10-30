@@ -22,7 +22,7 @@ vi.mock('slate-react', () => ({
   },
 }));
 
-vi.mock('../../../src/MarkdownEditor/i18n', () => ({
+vi.mock('../../../src/MarkdownEditor/I18n', () => ({
   I18nContext: React.createContext({
     locale: 'zh-CN',
     t: (key: string) => key,
