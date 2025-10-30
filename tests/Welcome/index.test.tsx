@@ -6,22 +6,20 @@ import { WelcomeMessage } from '../../src/WelcomeMessage';
 
 describe('WelcomeMessage 组件', () => {
   it('应该渲染基本的欢迎组件', () => {
-    render(<WelcomeMessageMessage title="欢迎使用" />);
+    render(<WelcomeMessage title="欢迎使用" />);
 
     expect(screen.getByText('欢迎使用')).toBeInTheDocument();
   });
 
   it('应该渲染标题和描述', () => {
-    render(
-      <WelcomeMessageMessage title="欢迎使用" description="这是一个测试描述" />,
-    );
+    render(<WelcomeMessage title="欢迎使用" description="这是一个测试描述" />);
 
     expect(screen.getByText('欢迎使用')).toBeInTheDocument();
     expect(screen.getByText('这是一个测试描述')).toBeInTheDocument();
   });
 
   it('应该只渲染标题当没有描述时', () => {
-    const { container } = render(<WelcomeMessageMessage title="只有标题" />);
+    const { container } = render(<WelcomeMessage title="只有标题" />);
 
     expect(screen.getByText('只有标题')).toBeInTheDocument();
     const description = container.querySelector('.ant-welcome-description');
