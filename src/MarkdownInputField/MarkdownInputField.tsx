@@ -539,7 +539,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-input-field');
+  const baseCls = getPrefixCls('agentic-md-input-field');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const [isHover, setHover] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);

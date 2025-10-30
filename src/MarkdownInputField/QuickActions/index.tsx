@@ -82,7 +82,7 @@ export const QuickActions = React.forwardRef<HTMLDivElement, QuickActionsProps>(
       editorRef,
       onValueChange,
       quickActionRender,
-      prefixCls = 'ant-md-input-field',
+      prefixCls = 'ant-agentic-md-input-field',
       hashId = '',
       onResize,
       isEnlarged = false,
@@ -145,22 +145,18 @@ export const QuickActions = React.forwardRef<HTMLDivElement, QuickActionsProps>(
             e.stopPropagation();
             e.preventDefault();
           }}
-          className={classNames(
-            `${prefixCls}-quick-actions`, 
-            hashId,
-            {
-              [`${prefixCls}-quick-actions-vertical`]: enlargeable,
-            }
-          )}
+          className={classNames(`${prefixCls}-quick-actions`, hashId, {
+            [`${prefixCls}-quick-actions-vertical`]: enlargeable,
+          })}
         >
           {[
             // Enlargement组件 - 显示在最上方
             enlargeable && (
               <Enlargement
-              key="enlargement"
-              isEnlarged={isEnlarged}
-              onEnlargeClick={onEnlargeClick}
-            />
+                key="enlargement"
+                isEnlarged={isEnlarged}
+                onEnlargeClick={onEnlargeClick}
+              />
             ),
             // 自定义快速操作按钮
             ...(quickActionRender

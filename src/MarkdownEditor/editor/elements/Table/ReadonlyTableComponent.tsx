@@ -196,7 +196,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               className={classNames(
                 baseCls,
                 hashId,
-                getPrefixCls('md-editor-content'),
+                getPrefixCls('agentic-md-editor-content'),
               )}
               style={{
                 flex: 1,

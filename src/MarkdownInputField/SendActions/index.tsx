@@ -106,7 +106,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
   onSend,
   onStop,
   actionsRender,
-  prefixCls = 'ant-md-input-field',
+  prefixCls = 'ant-agentic-md-input-field',
   hashId = '',
   hasTools = false,
   onResize,

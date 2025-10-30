@@ -313,7 +313,7 @@ const MLeafComponent = (
     useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
-  const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
+  const mdEditorBaseClass = context?.getPrefixCls('agentic-md-editor-content');
   const leaf = props.leaf;
   const style: CSSProperties = {};
   let prefixClassName = classNames(props.hashId);

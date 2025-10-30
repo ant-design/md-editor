@@ -177,7 +177,7 @@
             zindex="-1"
           >
             <div
-              class="ant-md-editor-drag-el empty"
+              class="ant-agentic-md-editor-drag-el empty"
               data-be="paragraph"
               data-empty="true"
               data-slate-node="element"

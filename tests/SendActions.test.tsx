@@ -40,7 +40,7 @@ describe('SendActions', () => {
       );
       // Check if attachment UI is rendered
       expect(
-        container.querySelector('.ant-md-input-field-send-actions'),
+        container.querySelector('.ant-agentic-md-input-field-send-actions'),
       ).toBeInTheDocument();
     });
 
@@ -76,7 +76,7 @@ describe('SendActions', () => {
         <SendActions voiceRecognizer={mockRecognizer} onSend={vi.fn()} />,
       );
       expect(
-        container.querySelector('.ant-md-input-field-send-actions'),
+        container.querySelector('.ant-agentic-md-input-field-send-actions'),
       ).toBeInTheDocument();
     });
 
@@ -194,7 +194,7 @@ describe('SendActions', () => {
 
       // Should render with collapsed state
       expect(
-        container.querySelector('.ant-md-input-field-send-actions'),
+        container.querySelector('.ant-agentic-md-input-field-send-actions'),
       ).toBeInTheDocument();
     });
 
@@ -205,7 +205,7 @@ describe('SendActions', () => {
 
       // Should render in expanded state
       expect(
-        container.querySelector('.ant-md-input-field-send-actions'),
+        container.querySelector('.ant-agentic-md-input-field-send-actions'),
       ).toBeInTheDocument();
     });
 
@@ -298,7 +298,7 @@ describe('SendActions', () => {
       );
 
       expect(
-        container.querySelector('.ant-md-input-field-send-actions'),
+        container.querySelector('.ant-agentic-md-input-field-send-actions'),
       ).toBeInTheDocument();
     });
 
@@ -339,7 +339,7 @@ describe('SendActions', () => {
         <SendActions hasTools={true} onSend={vi.fn()} />,
       );
       expect(
-        container.querySelector('.ant-md-input-field-send-actions'),
+        container.querySelector('.ant-agentic-md-input-field-send-actions'),
       ).toBeInTheDocument();
     });
   });

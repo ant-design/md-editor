@@ -16,7 +16,7 @@ const Enlargement: React.FC<EnlargementProps> = ({
   onEnlargeClick,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-enlargement');
+  const baseCls = getPrefixCls('agentic-md-enlargement');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   return wrapSSR(

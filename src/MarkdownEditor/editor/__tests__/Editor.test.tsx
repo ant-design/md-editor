@@ -85,7 +85,7 @@ describe('SlateMarkdownEditor', () => {
     elements: {
       paragraph: (props: ElementProps<ParagraphNode>) => {
         const defaultDom = (
-          <div className="ant-md-editor-drag-el" data-be="paragraph">
+          <div className="ant-agentic-md-editor-drag-el" data-be="paragraph">
             {props.children}
           </div>
         );
@@ -149,7 +149,7 @@ describe('SlateMarkdownEditor', () => {
         >
           <PluginContext.Provider value={props.plugins || []}>
             <SlateMarkdownEditor
-              prefixCls="ant-md-editor"
+              prefixCls="ant-agentic-md-editor"
               instance={mockInstance}
               initSchemaValue={props.initValue}
               plugins={props.plugins}

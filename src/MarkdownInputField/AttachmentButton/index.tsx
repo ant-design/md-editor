@@ -357,7 +357,7 @@ export const AttachmentButton: React.FC<
   }
 > = ({ disabled, uploadImage, title, supportedFormat, render }) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context?.getPrefixCls('md-editor-attachment-button');
+  const prefix = context?.getPrefixCls('agentic-md-editor-attachment-button');
   const { wrapSSR, hashId } = useStyle(prefix);
 
   const format = supportedFormat || SupportedFileFormats.image;

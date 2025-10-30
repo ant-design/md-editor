@@ -135,7 +135,10 @@ describe('FootnoteReference', () => {
       );
 
       const footnoteReference = screen.getByTestId('footnote-reference');
-      expect(footnoteReference).toHaveClass('ant-agentic-md-editor-drag-el', 'empty');
+      expect(footnoteReference).toHaveClass(
+        'ant-agentic-md-editor-drag-el',
+        'empty',
+      );
     });
 
     it('应该处理没有文本内容的脚注引用', () => {
@@ -154,7 +157,10 @@ describe('FootnoteReference', () => {
       );
 
       const footnoteReference = screen.getByTestId('footnote-reference');
-      expect(footnoteReference).toHaveClass('ant-agentic-md-editor-drag-el', 'empty');
+      expect(footnoteReference).toHaveClass(
+        'ant-agentic-md-editor-drag-el',
+        'empty',
+      );
     });
   });
 

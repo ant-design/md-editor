@@ -88,7 +88,7 @@ describe('Enlargement', () => {
       renderEnlargement();
 
       const container = screen.getByRole('button').parentElement;
-      expect(container).toHaveClass('ant-md-enlargement');
+      expect(container).toHaveClass('ant-agentic-md-enlargement');
       expect(container).toHaveClass('test-hash-id');
     });
 
@@ -193,7 +193,7 @@ describe('Enlargement', () => {
 
       expect(preventDefaultSpy).toHaveBeenCalled();
       expect(mockOnEnlargeClick).toHaveBeenCalledTimes(1);
-      
+
       preventDefaultSpy.mockRestore();
     });
 
@@ -212,7 +212,7 @@ describe('Enlargement', () => {
 
       expect(preventDefaultSpy).toHaveBeenCalled();
       expect(mockOnEnlargeClick).toHaveBeenCalledTimes(1);
-      
+
       preventDefaultSpy.mockRestore();
     });
 
@@ -360,7 +360,7 @@ describe('Enlargement', () => {
       // 组件应该仍然能正常渲染
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
-      expect(container.firstChild).toHaveClass('ant-md-enlargement');
+      expect(container.firstChild).toHaveClass('ant-agentic-md-enlargement');
     });
   });
 
@@ -393,7 +393,7 @@ describe('Enlargement', () => {
     it('应该正确调用useStyle hook', () => {
       renderEnlargement();
 
-      expect(mockUseStyle).toHaveBeenCalledWith('ant-md-enlargement');
+      expect(mockUseStyle).toHaveBeenCalledWith('ant-agentic-md-enlargement');
     });
 
     it('应该处理不同的hashId值', () => {
@@ -405,7 +405,7 @@ describe('Enlargement', () => {
       renderEnlargement();
 
       const container = screen.getByRole('button').parentElement;
-      expect(container).toHaveClass('ant-md-enlargement');
+      expect(container).toHaveClass('ant-agentic-md-enlargement');
       expect(container).toHaveClass('custom-hash-123');
     });
 
@@ -418,14 +418,14 @@ describe('Enlargement', () => {
       renderEnlargement();
 
       const container = screen.getByRole('button').parentElement;
-      expect(container).toHaveClass('ant-md-enlargement');
+      expect(container).toHaveClass('ant-agentic-md-enlargement');
     });
 
     it('应该正确应用图标元素的类名', () => {
       renderEnlargement({ isEnlarged: false });
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('ant-md-enlargement-icon');
+      expect(button).toHaveClass('ant-agentic-md-enlargement-icon');
       expect(button).toHaveClass('test-hash-id');
       expect(button).not.toHaveClass('enlarged');
     });
@@ -434,7 +434,7 @@ describe('Enlargement', () => {
       renderEnlargement({ isEnlarged: true });
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('ant-md-enlargement-icon');
+      expect(button).toHaveClass('ant-agentic-md-enlargement-icon');
       expect(button).toHaveClass('enlarged');
     });
   });
@@ -476,17 +476,17 @@ describe('Enlargement', () => {
       const customGetPrefixCls = vi.fn(() => 'custom-prefix');
 
       render(
-        <ConfigProvider.ConfigContext.Provider 
-          value={{ 
+        <ConfigProvider.ConfigContext.Provider
+          value={{
             getPrefixCls: customGetPrefixCls,
-            iconPrefixCls: 'custom-icon'
+            iconPrefixCls: 'custom-icon',
           }}
         >
           <Enlargement isEnlarged={false} onEnlargeClick={mockOnEnlargeClick} />
         </ConfigProvider.ConfigContext.Provider>,
       );
 
-      expect(customGetPrefixCls).toHaveBeenCalledWith('md-enlargement');
+      expect(customGetPrefixCls).toHaveBeenCalledWith('agentic-md-enlargement');
       expect(mockUseStyle).toHaveBeenCalledWith('custom-prefix');
     });
 
@@ -496,8 +496,8 @@ describe('Enlargement', () => {
         <Enlargement isEnlarged={false} onEnlargeClick={mockOnEnlargeClick} />,
       );
 
-      // 默认情况下应该使用 'ant-md-enlargement'
-      expect(mockUseStyle).toHaveBeenCalledWith('ant-md-enlargement');
+      // 默认情况下应该使用 'ant-agentic-md-enlargement'
+      expect(mockUseStyle).toHaveBeenCalledWith('ant-agentic-md-enlargement');
     });
   });
 
@@ -508,7 +508,10 @@ describe('Enlargement', () => {
       truthyValues.forEach((value) => {
         const { unmount } = render(
           <ConfigProvider>
-            <Enlargement isEnlarged={value as boolean} onEnlargeClick={mockOnEnlargeClick} />
+            <Enlargement
+              isEnlarged={value as boolean}
+              onEnlargeClick={mockOnEnlargeClick}
+            />
           </ConfigProvider>,
         );
 
@@ -527,7 +530,10 @@ describe('Enlargement', () => {
       falsyValues.forEach((value) => {
         const { unmount } = render(
           <ConfigProvider>
-            <Enlargement isEnlarged={value as boolean} onEnlargeClick={mockOnEnlargeClick} />
+            <Enlargement
+              isEnlarged={value as boolean}
+              onEnlargeClick={mockOnEnlargeClick}
+            />
           </ConfigProvider>,
         );
 
@@ -610,10 +616,7 @@ describe('Enlargement', () => {
       // 使用相同props重新渲染
       rerender(
         <ConfigProvider>
-          <Enlargement
-            isEnlarged={false}
-            onEnlargeClick={mockOnEnlargeClick}
-          />
+          <Enlargement isEnlarged={false} onEnlargeClick={mockOnEnlargeClick} />
         </ConfigProvider>,
       );
 
