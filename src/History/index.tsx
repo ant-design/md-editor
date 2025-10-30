@@ -167,7 +167,7 @@ export const History: React.FC<HistoryProps> = (props) => {
       getPopupContainer={(p) => p.parentElement || document.body}
       content={
         <>
-          {items.length === 0 && props.emptyRender ? (
+          {items?.length === 0 && !props?.loading && props?.emptyRender ? (
             props.emptyRender()
           ) : (
             <GroupMenu
