@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import getScroll, {
   getScrollRailHeight,
   isWindow,
-} from '../../src/utils/getScroll';
+} from '../../src/Utils/getScroll';
 
 describe('getScroll 工具函数 - 简化测试', () => {
   describe('isWindow', () => {

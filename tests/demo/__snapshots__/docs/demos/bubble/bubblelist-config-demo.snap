@@ -35,8 +35,8 @@
               >
                 加载状态:
               </label>
-              <button
-                aria-checked="false"
+               <button
+          type="button"      aria-checked="false"
                 class="ant-switch"
                 role="switch"
                 type="button"
@@ -66,8 +66,8 @@
               >
                 只读模式:
               </label>
-              <button
-                aria-checked="false"
+               <button
+          type="button"      aria-checked="false"
                 class="ant-switch"
                 role="switch"
                 type="button"

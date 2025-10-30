@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { IconButton } from '../../src/components/Button/IconButton';
+import { IconButton } from '../../src/Components/Button/IconButton';
 
 describe('IconButton 组件', () => {
   const TestIcon = () => <span data-testid="test-icon">📌</span>;

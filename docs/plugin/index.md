@@ -324,8 +324,8 @@ console.log("这是普通的 JavaScript 代码");
       <h1>简单的 toMarkdown 插件示例</h1>
 
       <div style={{ marginBottom: '20px' }}>
-        <button
-          onClick={handleExportMarkdown}
+         <button
+          type="button"onClick={handleExportMarkdown}
           style={{
             padding: '8px 16px',
             backgroundColor: '#1890ff',

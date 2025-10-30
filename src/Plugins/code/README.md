@@ -5,7 +5,7 @@
 ## 文件结构
 
 ```
-src/plugins/code/
+src/Plugins/code/
 ├── index.tsx                    # 主文件，包含 CodeElement 组件
 ├── components/                  # 组件目录
 │   ├── index.ts                # 组件统一导出

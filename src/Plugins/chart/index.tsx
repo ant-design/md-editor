@@ -72,13 +72,13 @@ export { defaultColorList } from './const';
 export { debounce as chartDebounce, stringFormatNumber } from './utils';
 
 // 复用组件与类型导出
-export { ChartFilter, ChartToolBar, downloadChart } from './Components';
+export { ChartFilter, ChartToolBar, downloadChart } from './components';
 export type {
   ChartFilterProps,
   ChartToolBarProps,
   FilterOption,
   RegionOption,
-} from './Components';
+} from './components';
 
 /**
  * 转化数字，将字符串转化为数字，即使非标准数字也可以转化

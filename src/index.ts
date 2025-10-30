@@ -84,7 +84,7 @@ export * from './History/types/HistoryData';
 export * from './History/types/HistoryList';
 
 // Schema 相关类型
-export * from './schema/types';
+export * from './Schema/types';
 
 // Workspace 相关类型
 export * from './Workspace/types';
@@ -93,11 +93,11 @@ export * from './Workspace/types';
 export * from './MarkdownInputField/AttachmentButton/types';
 
 // ProxySandbox 相关类型
-export * from './utils/proxySandbox/ProxySandbox';
-export * from './utils/proxySandbox/SecurityContextManager';
+export * from './Utils/proxySandbox/ProxySandbox';
+export * from './Utils/proxySandbox/SecurityContextManager';
 
 // 代理沙箱相关类型别名
-export * from './utils/proxySandbox';
+export * from './Utils/proxySandbox';
 
 // 代码插件相关类型
 export * from './Plugins/code/components';
@@ -115,13 +115,13 @@ export * from './Bubble/MessagesContent/VoiceButton/types';
 export * from './MarkdownInputField/VoiceInput';
 
 // 模板引擎类
-export * from './schema/SchemaRenderer/templateEngine';
+export * from './Schema/SchemaRenderer/templateEngine';
 
 // Schema 验证器类
-export * from './schema/validator';
+export * from './Schema/validator';
 
 // 沙箱健康检查器
-export * from './utils/proxySandbox';
+export * from './Utils/proxySandbox';
 
 export * from './MarkdownInputField/AttachmentButton/AttachmentFileList/AttachmentFileListItem';
 

@@ -21,11 +21,11 @@ import {
   ChartStatistic,
   ChartToolBar,
   downloadChart,
-} from '../Components';
+} from '../components';
 import {
   StatisticConfigType,
   useChartStatistic,
-} from '../Hooks/useChartStatistic';
+} from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,

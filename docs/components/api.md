@@ -107,6 +107,7 @@ For it will surely sprout wings and fly off to the sky like an eagle
         enable: true,
         extra: [
           <button
+            type="button"
             key="save"
             onClick={() => console.log(editorRef.current?.getValue())}
           >

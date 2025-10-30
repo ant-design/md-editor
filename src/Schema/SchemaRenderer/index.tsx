@@ -9,12 +9,12 @@ import React, {
   useState,
 } from 'react';
 import partialParse from '../../MarkdownEditor/editor/parser/json-parse';
-import { LowCodeSchema } from '../../schema/types';
-import { mdDataSchemaValidator } from '../../schema/validator';
+import { LowCodeSchema } from '../types';
+import { mdDataSchemaValidator } from '../validator';
 import {
   createSandbox,
   DEFAULT_SANDBOX_CONFIG,
-} from '../../utils/proxySandbox';
+} from '../../Utils/proxySandbox';
 import { TemplateEngine } from './templateEngine';
 export * from './templateEngine';
 

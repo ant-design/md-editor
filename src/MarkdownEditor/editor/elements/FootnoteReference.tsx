@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { Node } from 'slate';
 import { ElementProps, FootnoteDefinitionNode } from '../../el';
-import { useSelStatus } from '../../Hooks/editor';
+import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 

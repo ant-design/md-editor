@@ -14,7 +14,7 @@ import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
 import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
-import { Mermaid } from '../mermaid/Mermaid';
+import { Mermaid } from './Mermaid';
 
 /**
  * MermaidElement 组件 - Mermaid图表元素组件

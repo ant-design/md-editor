@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useSpeechSynthesis } from '../../src/hooks/useSpeechSynthesis';
+import { useSpeechSynthesis } from '../../src/Hooks/useSpeechSynthesis';
 
 // Mock SpeechSynthesis API
 const mockSpeak = vi.fn();

@@ -8,7 +8,7 @@ import {
   resetComponent,
   useEditorStyleRegister,
 } from '../Hooks/useStyle';
-import { formatTime } from '../utils/formatTime';
+import { formatTime } from '../Utils/formatTime';
 import { BubbleProps, MessageBubbleData } from './type';
 
 const TITLE_GAP = 8;

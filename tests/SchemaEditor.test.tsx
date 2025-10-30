@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { I18nProvide } from '../src/I18n';
-import { SchemaEditor } from '../src/schema/SchemaEditor';
-import { LowCodeSchema } from '../src/schema/types';
+import { SchemaEditor } from '../src/Schema/SchemaEditor';
+import { LowCodeSchema } from '../src/Schema/types';
 
 // Mock AceEditorWrapper to avoid DOM manipulation issues in tests
-vi.mock('../src/schema/SchemaEditor/AceEditorWrapper', () => ({
+vi.mock('../src/Schema/SchemaEditor/AceEditorWrapper', () => ({
   AceEditorWrapper: vi.fn(({ value, language, readonly }) => (
     <div
       data-testid="ace-editor"
@@ -20,7 +20,7 @@ vi.mock('../src/schema/SchemaEditor/AceEditorWrapper', () => ({
 }));
 
 // Mock SchemaRenderer
-vi.mock('../src/schema/SchemaRenderer', () => ({
+vi.mock('../src/Schema/SchemaRenderer', () => ({
   SchemaRenderer: ({
     schema,
     values,

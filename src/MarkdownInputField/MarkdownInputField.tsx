@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { useRefFunction } from '../hooks/useRefFunction';
+import { useRefFunction } from '../Hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
   Elements,

@@ -18,8 +18,8 @@
         <div
           class="ant-space-item"
         >
-          <button
-            class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+           <button
+          type="button"  class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
             type="button"
           >
             <span>
@@ -30,8 +30,8 @@
         <div
           class="ant-space-item"
         >
-          <button
-            class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+           <button
+          type="button"  class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
             type="button"
           >
             <span>

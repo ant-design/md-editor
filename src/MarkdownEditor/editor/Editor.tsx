@@ -24,7 +24,7 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../types';
-import { LazyElement } from './Components/LazyElement';
+import { LazyElement } from './components/LazyElement';
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';

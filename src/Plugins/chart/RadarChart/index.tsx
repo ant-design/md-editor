@@ -20,11 +20,11 @@ import {
   ChartFilter,
   ChartToolBar,
   downloadChart,
-} from '../Components';
+} from '../components';
 import {
   StatisticConfigType,
   useChartStatistic,
-} from '../Hooks/useChartStatistic';
+} from '../hooks/useChartStatistic';
 import { useStyle } from './style';
 
 // 注册 Chart.js 组件

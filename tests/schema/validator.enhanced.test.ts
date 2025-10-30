@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import {
   SchemaValidator,
   mdDataSchemaValidator,
-} from '../../src/schema/validator';
+} from '../../src/Schema/validator';
 
 describe('SchemaValidator - 增强测试', () => {
   let validator: SchemaValidator;

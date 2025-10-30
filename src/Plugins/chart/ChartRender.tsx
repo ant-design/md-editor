@@ -16,10 +16,10 @@ import { isNotEmpty, toNumber } from './utils';
 
 /**
  * @fileoverview 图表渲染组件文件
- * 
+ *
  * 该文件提供了统一的图表渲染组件，支持多种图表类型的渲染和配置。
  * 包括图表类型切换、配置管理、数据处理等功能。
- * 
+ *
  * @author md-editor
  * @version 1.0.0
  * @since 2024
@@ -27,20 +27,20 @@ import { isNotEmpty, toNumber } from './utils';
 
 /**
  * 获取图表类型映射配置
- * 
+ *
  * 根据国际化上下文返回图表类型的配置映射，包括图表标题和可切换的图表类型。
  * 支持多种图表类型：饼图、环形图、条形图、折线图、柱状图、面积图、雷达图、散点图、漏斗图、表格、定义列表。
- * 
+ *
  * @param {object} i18n - 国际化上下文对象
  * @returns {Object} 图表类型映射对象，包含每种图表类型的配置信息
- * 
+ *
  * @example
  * ```typescript
  * const chartMap = getChartMap(i18n);
  * console.log(chartMap.pie.title); // '饼图'
  * console.log(chartMap.pie.changeData); // ['donut']
  * ```
- * 
+ *
  * @since 1.0.0
  */
 const getChartMap = (i18n: any) => ({

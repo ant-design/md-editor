@@ -10,7 +10,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LanguageSelector } from '../../../../src/Plugins/code/components/LanguageSelector';
 
 // Mock I18nContext
-vi.mock('../../../../src/i18n/index.tsx', () => ({
+vi.mock('../../../../src/I18n/index.tsx', () => ({
   I18nContext: React.createContext({
     locale: {
       switchLanguage: '切换语言',

@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { ActionIconBox } from '../../src/components/ActionIconBox';
+import { ActionIconBox } from '../../src/Components/ActionIconBox';
 
 describe('ActionIconBox 组件', () => {
   const TestIcon = () => <span data-testid="test-icon">Icon</span>;

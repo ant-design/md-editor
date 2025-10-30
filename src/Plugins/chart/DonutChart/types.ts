@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChartContainerProps } from '../Components';
-import { StatisticConfigType } from '../Hooks/useChartStatistic';
+import { ChartContainerProps } from '../components';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 
 export interface DonutChartData {
   category?: string; // 分类

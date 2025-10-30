@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -540,11 +540,13 @@ describe('Formatter Plugin Extended Tests', () => {
 
       // 等待处理完成
       await act(async () => {
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
       });
 
       // 验证结果
-      expect(screen.getByTestId('long-text-result')).toHaveTextContent('处理了 10000 个字符');
+      expect(screen.getByTestId('long-text-result')).toHaveTextContent(
+        '处理了 10000 个字符',
+      );
     });
   });
 });

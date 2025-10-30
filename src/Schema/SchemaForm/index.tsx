@@ -7,7 +7,7 @@ import type { Rule } from 'antd/es/form';
 import { merge } from 'lodash-es';
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { I18nContext, cnLabels } from '../../I18n';
-import { LowCodeSchema, SchemaProperty } from '../../schema/types';
+import { LowCodeSchema, SchemaProperty } from '../types';
 
 interface SchemaFormProps {
   schema: LowCodeSchema;

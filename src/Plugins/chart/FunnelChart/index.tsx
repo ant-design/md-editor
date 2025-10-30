@@ -19,11 +19,11 @@ import {
   ChartFilter,
   ChartToolBar,
   downloadChart,
-} from '../Components';
+} from '../components';
 import {
   StatisticConfigType,
   useChartStatistic,
-} from '../Hooks/useChartStatistic';
+} from '../hooks/useChartStatistic';
 import { findDataPointByXValue, isXValueEqual, toNumber } from '../utils';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);

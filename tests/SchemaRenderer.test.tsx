@@ -1,8 +1,8 @@
 import { cleanup, render } from '@testing-library/react';
 import React from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { SchemaRenderer } from '../src/schema/SchemaRenderer';
-import type { LowCodeSchema } from '../src/schema/types';
+import { SchemaRenderer } from '../src/Schema/SchemaRenderer';
+import type { LowCodeSchema } from '../src/Schema/types';
 
 // Mock schema for testing fallback values
 const mockSchemaWithFallbacks: LowCodeSchema = {

@@ -1,7 +1,7 @@
-import useAutoScroll from '@ant-design/agentic-ui/hooks/useAutoScroll';
 import { ConfigProvider } from 'antd';
 import React, { forwardRef, useContext, useImperativeHandle } from 'react';
 import { LayoutHeader } from '../Components/LayoutHeader';
+import useAutoScroll from '../Hooks/useAutoScroll';
 import { useStyle } from './style';
 import type { ChatLayoutProps, ChatLayoutRef } from './types';
 

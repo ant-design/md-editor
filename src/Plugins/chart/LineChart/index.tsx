@@ -24,7 +24,7 @@ import {
 import {
   StatisticConfigType,
   useChartStatistic,
-} from '../Hooks/useChartStatistic';
+} from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,

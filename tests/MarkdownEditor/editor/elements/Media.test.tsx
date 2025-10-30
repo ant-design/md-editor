@@ -66,7 +66,7 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Image', () => ({
   ),
 }));
 
-vi.mock('../../../../src/components/ActionIconBox', () => ({
+vi.mock('../../../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ children, ...props }: any) => (
     <div data-testid="action-icon-box" {...props}>
       {children}
@@ -74,7 +74,7 @@ vi.mock('../../../../src/components/ActionIconBox', () => ({
   ),
 }));
 
-vi.mock('../../../../src/components/ContributorAvatar', () => ({
+vi.mock('../../../../src/Components/ContributorAvatar', () => ({
   AvatarList: ({ children, ...props }: any) => (
     <div data-testid="avatar-list" {...props}>
       {children}

@@ -387,7 +387,7 @@ src/Workspace/
 -->
 
 ```
-src/plugins/
+src/Plugins/
 ├── chart/                  # 图表插件
 │   ├── ChartAttrToolBar/   # 图表工具栏
 │   ├── ChartMark/          # 图表标记

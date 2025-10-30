@@ -561,9 +561,9 @@ describe('toolsConfig', () => {
           <div data-testid="toolbar">
             {tools.map((tool, index) => (
               <button
+                type="button"
                 key={index}
                 data-testid={`tool-button-${tool.key}`}
-                type="button"
               >
                 {tool.title}
               </button>

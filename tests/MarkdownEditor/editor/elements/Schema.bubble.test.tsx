@@ -14,7 +14,7 @@ import { EditorStoreContext } from '../../../../src/MarkdownEditor/editor/store'
 import { CodeNode } from '../../../../src/MarkdownEditor/el';
 
 // Mock SchemaRenderer
-vi.mock('../../../src/schema', () => ({
+vi.mock('../../../src/Schema', () => ({
   SchemaRenderer: ({
     schema,
     values,

@@ -20,11 +20,11 @@ import {
   ChartStatistic,
   ChartToolBar,
   downloadChart,
-} from '../Components';
+} from '../components';
 import {
   StatisticConfigType,
   useChartStatistic,
-} from '../Hooks/useChartStatistic';
+} from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -33,10 +33,10 @@ import {
 
 /**
  * @fileoverview 柱状图组件文件
- * 
+ *
  * 该文件提供了柱状图组件的实现，基于 Chart.js 和 react-chartjs-2。
  * 支持数据可视化、交互、配置、统计等功能。
- * 
+ *
  * @author md-editor
  * @version 1.0.0
  * @since 2024
@@ -47,9 +47,9 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 /**
  * 柱状图数据项类型
- * 
+ *
  * 继承自 ChartDataItem，用于柱状图的数据表示。
- * 
+ *
  * @typedef {ChartDataItem} BarChartDataItem
  * @since 1.0.0
  */
@@ -57,12 +57,12 @@ export type BarChartDataItem = ChartDataItem;
 
 /**
  * 柱状图配置项接口
- * 
+ *
  * 定义了柱状图的配置选项，包括数据集、主题、图例、网格等设置。
- * 
+ *
  * @interface BarChartConfigItem
  * @since 1.0.0
- * 
+ *
  * @example
  * ```typescript
  * const config: BarChartConfigItem = {

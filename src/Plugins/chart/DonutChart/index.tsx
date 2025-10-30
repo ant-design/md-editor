@@ -14,30 +14,30 @@ import {
   ChartStatistic,
   ChartToolBar,
   downloadChart,
-} from '../Components';
-import { useChartStatistic } from '../Hooks/useChartStatistic';
-import LegendView from './Legend';
+} from '../components';
+import { useChartStatistic } from '../hooks/useChartStatistic';
 import {
   DEFAULT_COLORS,
   SINGLE_MODE_DESKTOP_CUTOUT,
   SINGLE_MODE_MOBILE_CUTOUT,
-} from './Constants';
+} from './constants';
 import {
   useAutoCategory,
   useFilterLabels,
   useMobile,
   useResponsiveDimensions,
-} from './Hooks';
+} from './hooks';
+import LegendView from './Legend';
 import { createBackgroundArcPlugin, createCenterTextPlugin } from './plugins';
 import { useStyle } from './style';
 import type { DonutChartConfig, DonutChartProps } from './types';
 
 /**
  * @fileoverview 环形图组件文件
- * 
+ *
  * 该文件提供了环形图（甜甜圈图）组件的实现，基于 Chart.js 和 react-chartjs-2。
  * 支持饼图和环形图两种样式，提供数据可视化、交互、配置、统计等功能。
- * 
+ *
  * @author md-editor
  * @version 1.0.0
  * @since 2024
@@ -54,14 +54,14 @@ export type {
 
 /**
  * 环形图组件
- * 
+ *
  * 基于 Chart.js 和 react-chartjs-2 实现的环形图（甜甜圈图）组件。
  * 支持饼图和环形图两种样式，提供数据可视化、交互、配置、统计等功能。
- * 
+ *
  * @component
  * @param {DonutChartProps} props - 组件属性
  * @returns {React.ReactElement} 环形图组件
- * 
+ *
  * @example
  * ```tsx
  * <DonutChart
@@ -77,7 +77,7 @@ export type {
  *   showToolbar={true}
  * />
  * ```
- * 
+ *
  * @since 1.0.0
  */
 const DonutChart: React.FC<DonutChartProps> = ({

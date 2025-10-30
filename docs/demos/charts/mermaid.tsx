@@ -1,5 +1,5 @@
+import { Mermaid } from '@ant-design/agentic-ui/Plugins/mermaid/Mermaid';
 import React from 'react';
-import { Mermaid } from '../../../src/plugins/mermaid/Mermaid';
 
 const MermaidFlowchartExample: React.FC = () => {
   // mermaid流程图

@@ -23,7 +23,7 @@ vi.mock('../../../../../src/MarkdownEditor/I18n', () => ({
   },
 }));
 
-vi.mock('../../../../../src/components/ActionIconBox', () => ({
+vi.mock('../../../../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ children, onClick, title }: any) => (
     <div data-testid="action-icon" onClick={onClick} title={title}>
       {children}

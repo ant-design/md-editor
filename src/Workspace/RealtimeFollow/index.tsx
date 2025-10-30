@@ -1,4 +1,3 @@
-import useAutoScroll from '@ant-design/agentic-ui/hooks/useAutoScroll';
 import {
   FileMarkdown,
   FileXml,
@@ -8,6 +7,7 @@ import {
 import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import useAutoScroll from '../../Hooks/useAutoScroll';
 import { I18nContext } from '../../I18n';
 import {
   MarkdownEditor,

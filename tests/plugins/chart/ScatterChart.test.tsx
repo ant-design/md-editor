@@ -47,6 +47,7 @@ vi.mock('../../../src/Plugins/chart/components', () => ({
     <div data-testid="chart-filter">
       {filterOptions?.map((option: any) => (
         <button
+          type="button"
           key={option.value}
           onClick={() => onFilterChange(option.value)}
           data-testid={`filter-${option.value}`}

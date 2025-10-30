@@ -391,6 +391,7 @@ describe('Mermaid Plugin', () => {
                 <div>图表渲染失败，请检查语法</div>
                 <button
                   type="button"
+                  type="button"
                   data-testid="use-template"
                   onClick={useTemplate}
                 >

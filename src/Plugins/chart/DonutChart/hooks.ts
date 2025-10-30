@@ -1,10 +1,12 @@
 import React from 'react';
-import { MOBILE_MAX_CHART_SIZE } from './Constants';
+import { MOBILE_MAX_CHART_SIZE } from './constants';
 import { DonutChartData } from './types';
 
 export const useMobile = () => {
   const [isMobile, setIsMobile] = React.useState(false);
-  const [windowWidth, setWindowWidth] = React.useState(0);
+  const [windowWidth, setWindowWidth] = React.useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0,
+  );
 
   React.useEffect(() => {
     const handleResize = () => {

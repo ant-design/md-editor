@@ -92,6 +92,7 @@ vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
         })()}
         {skillMode.closable !== false && (
           <button
+            type="button"
             data-testid="skill-mode-close"
             onClick={() => onSkillModeOpenChange?.(false)}
             type="button"

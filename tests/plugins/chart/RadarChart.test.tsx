@@ -44,10 +44,11 @@ vi.mock('../../../src/Plugins/chart/components', () => ({
       {children}
     </div>
   ),
-  ChartFilter: ({ filterOptions, onFilterChange, ...props }: any) => (
+  ChartFilter: ({ filterOptions, onFilterChange }: any) => (
     <div data-testid="chart-filter">
       {filterOptions?.map((option: any) => (
         <button
+          type="button"
           key={option.value}
           onClick={() => onFilterChange(option.value)}
           data-testid={`filter-${option.value}`}
@@ -61,7 +62,7 @@ vi.mock('../../../src/Plugins/chart/components', () => ({
     <div data-testid="chart-toolbar">
       {title && <span data-testid="chart-title">{title}</span>}
       {dataTime && <span data-testid="chart-datatime">{dataTime}</span>}
-      <button onClick={onDownload} data-testid="download-button">
+      <button type="button" onClick={onDownload} data-testid="download-button">
         下载
       </button>
     </div>
@@ -427,7 +428,11 @@ describe('RadarChart', () => {
     });
 
     it('应该支持额外的工具栏按钮', () => {
-      const extraButton = <button data-testid="extra-button">额外按钮</button>;
+      const extraButton = (
+        <button type="button" data-testid="extra-button">
+          额外按钮
+        </button>
+      );
 
       render(
         <RadarChart

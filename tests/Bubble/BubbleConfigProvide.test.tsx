@@ -12,7 +12,7 @@ import {
   ChatConfigType,
 } from '../../src/Bubble/BubbleConfigProvide';
 import { BubbleProps } from '../../src/Bubble/type';
-import { cnLabels, enLabels } from '../../src/i18n/locales';
+import { cnLabels, enLabels } from '../../src/I18n/locales';
 
 // 测试组件，用于获取 context 值
 const TestComponent = () => {

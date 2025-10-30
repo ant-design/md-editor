@@ -1,7 +1,7 @@
-import { InsertLink } from '@ant-design/agentic-ui/MarkdownEditor/editor/tools/InsertLink';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { InsertLink } from '../../../../../../src/MarkdownEditor/editor/tools/InsertLink';
 
 // Mock dependencies
 vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/store', () => ({
@@ -70,7 +70,7 @@ vi.mock('react', async () => {
           },
         };
       }
-      return actual.useContext(context);
+      return (actual as any).useContext(context as any);
     }),
   };
 });

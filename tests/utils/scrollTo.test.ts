@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import scrollTo from '../../src/utils/scrollTo';
+import scrollTo from '../../src/Utils/scrollTo';
 
 // Mock rc-util/lib/raf
 vi.mock('rc-util/lib/raf', () => ({

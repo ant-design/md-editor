@@ -393,6 +393,7 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
       const onActionClick = vi.fn();
       const rightContent = [
         <button
+          type="button"
           key="interactive"
           data-testid="interactive-element"
           onClick={onActionClick}

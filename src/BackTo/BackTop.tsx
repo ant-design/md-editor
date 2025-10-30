@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import scrollTo from '../utils/scrollTo';
+import scrollTo from '../Utils/scrollTo';
 import {
   ScrollVisibleButton,
   ScrollVisibleButtonProps,

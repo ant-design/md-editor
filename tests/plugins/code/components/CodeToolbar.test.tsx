@@ -20,6 +20,7 @@ vi.mock('antd', () => ({
     <div data-testid="segmented">
       {options?.map((option: any, index: number) => (
         <button
+          type="button"
           key={index}
           type="button"
           data-testid={`segmented-option-${index}`}
@@ -53,7 +54,7 @@ vi.mock('../../../../src/Plugins/code/components/LanguageSelector', () => ({
   ),
 }));
 
-vi.mock('../../../../src/components/ActionIconBox', () => ({
+vi.mock('../../../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ children, title, onClick, 'data-testid': testId }: any) => (
     <button
       type="button"

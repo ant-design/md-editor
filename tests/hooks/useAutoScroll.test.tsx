@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import useAutoScroll from '../../src/hooks/useAutoScroll';
+import useAutoScroll from '../../src/Hooks/useAutoScroll';
 
 // Mock ResizeObserver
 global.ResizeObserver = vi.fn().mockImplementation(() => ({

@@ -8,13 +8,13 @@ import {
   HistoryNewChat,
   HistorySearch,
   generateHistoryItems,
-} from './Components';
+} from './components';
 import { useHistory } from './hooks/useHistory';
 import GroupMenu from './menu';
 import { useStyle } from './style';
 import { HistoryProps } from './types';
 
-export * from './Components';
+export * from './components';
 export * from './hooks/useHistory';
 export * from './types';
 export * from './types/HistoryData';

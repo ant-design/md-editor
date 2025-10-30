@@ -61,7 +61,7 @@ vi.mock('../../../../src/MarkdownEditor/editor/utils/dom', () => ({
   getMediaType: vi.fn(() => 'image'),
 }));
 
-vi.mock('../../../../src/components/ActionIconBox', () => ({
+vi.mock('../../../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ children, ...props }: any) => (
     <div data-testid="action-icon-box" {...props}>
       {children}

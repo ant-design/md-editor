@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { useLanguage } from '../../src/hooks/useLanguage';
+import { useLanguage } from '../../src/Hooks/useLanguage';
 import { I18nProvide } from '../../src/I18n';
 
 describe('useLanguage Hook', () => {

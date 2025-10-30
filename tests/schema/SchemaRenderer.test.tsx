@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { SchemaRenderer } from '../../src/schema/SchemaRenderer';
+import { SchemaRenderer } from '../../src/Schema/SchemaRenderer';
 
 describe('SchemaRenderer', () => {
   const defaultProps = {

@@ -15,7 +15,7 @@ vi.mock('../../src/TaskList/LoadingLottie', () => ({
 }));
 
 // Mock ActionIconBox
-vi.mock('../../src/components/ActionIconBox', () => ({
+vi.mock('../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ title, iconStyle, onClick, children, ...props }: any) => (
     <div
       data-testid="action-icon-box"

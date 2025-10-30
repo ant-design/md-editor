@@ -33,8 +33,8 @@
               class="ant-space-item"
             >
               <div>
-                <button
-                  aria-checked="true"
+                 <button
+          type="button"        aria-checked="true"
                   class="ant-switch ant-switch-checked"
                   role="switch"
                   style="margin-right: 8px;"
@@ -79,8 +79,8 @@
                   <div
                     class="ant-space-item"
                   >
-                    <button
-                      style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: white; color: rgb(51, 51, 51); cursor: pointer;"
+                     <button
+          type="button"            style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: white; color: rgb(51, 51, 51); cursor: pointer;"
                     >
                       默认
                     </button>
@@ -88,8 +88,8 @@
                   <div
                     class="ant-space-item"
                   >
-                    <button
-                      style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: rgb(24, 144, 255); color: white; cursor: pointer;"
+                     <button
+          type="button"            style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: rgb(24, 144, 255); color: white; cursor: pointer;"
                     >
                       自定义渐变
                     </button>
@@ -97,8 +97,8 @@
                   <div
                     class="ant-space-item"
                   >
-                    <button
-                      style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: white; color: rgb(51, 51, 51); cursor: pointer;"
+                     <button
+          type="button"            style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: white; color: rgb(51, 51, 51); cursor: pointer;"
                     >
                       简单样式
                     </button>
@@ -106,8 +106,8 @@
                   <div
                     class="ant-space-item"
                   >
-                    <button
-                      style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: white; color: rgb(51, 51, 51); cursor: pointer;"
+                     <button
+          type="button"            style="padding: 4px 12px; border: 1px solid rgb(217, 217, 217); border-radius: 4px; background: white; color: rgb(51, 51, 51); cursor: pointer;"
                     >
                       骨架屏
                     </button>

@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ScrollVisibleButton } from '../../src/BackTo/ScrollVisibleButton';
 
 // Mock getScroll
-vi.mock('../../src/utils/getScroll', () => ({
+vi.mock('../../src/Utils/getScroll', () => ({
   default: vi.fn((target) => {
     if (target === window || !target) {
       return window.pageYOffset || 0;

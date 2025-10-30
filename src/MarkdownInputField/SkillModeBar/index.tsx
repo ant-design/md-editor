@@ -200,6 +200,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
               {isClosable && (
                 <button
                   type="button"
+                  type="button"
                   aria-label="关闭技能模式"
                   className={classNames(`${prefixCls}-close`, hashId)}
                   onClick={handleCloseClick}
