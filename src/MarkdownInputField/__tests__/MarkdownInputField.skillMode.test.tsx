@@ -397,7 +397,6 @@ describe('MarkdownInputField - skillMode Unit Tests', () => {
           key="interactive"
           data-testid="interactive-element"
           onClick={onActionClick}
-          type="button"
         >
           Click Me
         </button>,
