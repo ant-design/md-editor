@@ -229,4 +229,132 @@ describe('History 组件', () => {
       });
     });
   });
+
+  describe('emptyRender 空状态渲染', () => {
+    it('应该在历史记录为空时显示自定义空状态', async () => {
+      const emptyRequest = vi.fn().mockResolvedValue([]);
+      const { generateHistoryItems } = await import('../../src/History/components');
+      (generateHistoryItems as any).mockReturnValue([]);
+
+      const emptyRender = vi.fn(() => (
+        <div data-testid="empty-state">暂无历史记录</div>
+      ));
+
+      render(
+        <TestWrapper>
+          <History
+            {...defaultProps}
+            request={emptyRequest}
+            emptyRender={emptyRender}
+            standalone
+          />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        expect(screen.getByTestId('empty-state')).toBeInTheDocument();
+        expect(screen.getByText('暂无历史记录')).toBeInTheDocument();
+      });
+
+      expect(emptyRender).toHaveBeenCalled();
+    });
+
+    it('应该在有数据时不显示空状态', async () => {
+      const { generateHistoryItems } = await import('../../src/History/components');
+      (generateHistoryItems as any).mockReturnValue([
+        {
+          key: 'group1',
+          label: '今日',
+          type: 'group',
+          children: [{ key: 'session1', label: '测试会话1' }],
+        },
+      ]);
+
+      const emptyRender = vi.fn(() => (
+        <div data-testid="empty-state">暂无历史记录</div>
+      ));
+
+      render(
+        <TestWrapper>
+          <History
+            {...defaultProps}
+            emptyRender={emptyRender}
+            standalone
+          />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('empty-state')).not.toBeInTheDocument();
+      });
+
+      expect(emptyRender).not.toHaveBeenCalled();
+    });
+
+    it('应该在下拉菜单模式下也支持空状态渲染', async () => {
+      const emptyRequest = vi.fn().mockResolvedValue([]);
+      const { generateHistoryItems } = await import('../../src/History/components');
+      (generateHistoryItems as any).mockReturnValue([]);
+
+      const emptyRender = vi.fn(() => (
+        <div data-testid="empty-state-popover">没有历史记录</div>
+      ));
+
+      render(
+        <TestWrapper>
+          <History
+            {...defaultProps}
+            request={emptyRequest}
+            emptyRender={emptyRender}
+          />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        expect(emptyRequest).toHaveBeenCalled();
+      });
+
+      // 点击打开下拉菜单
+      const historyButton = screen.getByTestId('history-button');
+      fireEvent.click(historyButton);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('empty-state-popover')).toBeInTheDocument();
+        expect(screen.getByText('没有历史记录')).toBeInTheDocument();
+      });
+    });
+
+    it('应该支持复杂的自定义空状态组件', async () => {
+      const emptyRequest = vi.fn().mockResolvedValue([]);
+      const { generateHistoryItems } = await import('../../src/History/components');
+      (generateHistoryItems as any).mockReturnValue([]);
+
+      const emptyRender = () => (
+        <div data-testid="complex-empty-state" style={{ padding: 20 }}>
+          <h3>暂无历史记录</h3>
+          <p>开始一段新的对话吧</p>
+          <button type="button">创建新对话</button>
+        </div>
+      );
+
+      render(
+        <TestWrapper>
+          <History
+            {...defaultProps}
+            request={emptyRequest}
+            emptyRender={emptyRender}
+            standalone
+          />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        const emptyState = screen.getByTestId('complex-empty-state');
+        expect(emptyState).toBeInTheDocument();
+        expect(screen.getByText('暂无历史记录')).toBeInTheDocument();
+        expect(screen.getByText('开始一段新的对话吧')).toBeInTheDocument();
+        expect(screen.getByText('创建新对话')).toBeInTheDocument();
+      });
+    });
+  });
 });

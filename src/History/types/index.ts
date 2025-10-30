@@ -59,6 +59,8 @@ export interface HistoryProps {
   slots?: {
     beforeHistoryList?: (list: HistoryDataType[]) => React.ReactNode;
   };
+  /** 空状态渲染函数，当历史记录为空时显示 */
+  emptyRender?: () => React.ReactNode;
 }
 
 export interface HistoryActionsBoxProps {
