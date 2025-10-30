@@ -9,6 +9,19 @@ const HistoryEmptyRenderDemo = () => {
   const [currentSessionId, setCurrentSessionId] = useState('session-1');
   const [hasData, setHasData] = useState(false);
 
+  const mockDataRequest = async () => {
+    return [
+      {
+        id: '1',
+        sessionId: 'session-1',
+        sessionTitle: '这是一个有数据的示例',
+        agentId: 'demo-agent',
+        gmtCreate: Date.now(),
+        gmtLastConverse: Date.now(),
+      },
+    ];
+  };
+
   // 模拟空数据请求
   const mockEmptyRequest = async () => {
     return [];
@@ -28,7 +41,9 @@ const HistoryEmptyRenderDemo = () => {
             <p style={{ color: 'var(--color-gray-text-secondary)' }}>
               暂无历史记录
             </p>
-            <p style={{ color: 'var(--color-gray-text-tertiary)', fontSize: 12 }}>
+            <p
+              style={{ color: 'var(--color-gray-text-tertiary)', fontSize: 12 }}
+            >
               开始一段新的对话吧
             </p>
           </div>
@@ -73,7 +88,7 @@ const HistoryEmptyRenderDemo = () => {
         <History
           agentId="demo-agent"
           sessionId={currentSessionId}
-          request={mockEmptyRequest}
+          request={hasData ? mockDataRequest : mockEmptyRequest}
           standalone
           emptyRender={renderEmpty}
           agent={{
@@ -117,4 +132,3 @@ const HistoryEmptyRenderDemo = () => {
 };
 
 export default HistoryEmptyRenderDemo;
-
