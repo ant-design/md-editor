@@ -51,6 +51,8 @@ export interface HistoryProps {
       placeholder?: string;
       /** 未展开时的默认文本 */
       text?: string;
+      /** 搜索触发方式: 'change' - 实时搜索(默认), 'enter' - 回车触发 */
+      trigger?: 'change' | 'enter';
     };
   };
   /** 插槽 */
