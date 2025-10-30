@@ -92,8 +92,8 @@
           <div
             class="ant-tabs-nav-operations ant-tabs-nav-operations-hidden"
           >
-             <button
-          type="button"    aria-controls="rc-tabs-test-more-popup"
+            <button
+              aria-controls="rc-tabs-test-more-popup"
               aria-expanded="false"
               aria-haspopup="listbox"
               class="ant-tabs-nav-more"
@@ -149,8 +149,8 @@
                     <div
                       class="ant-space-item"
                     >
-                       <button
-          type="button"              class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                      <button
+                        class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                         type="button"
                       >
                         <span>
@@ -161,8 +161,8 @@
                     <div
                       class="ant-space-item"
                     >
-                       <button
-          type="button"              class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                      <button
+                        class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                         type="button"
                       >
                         <span>

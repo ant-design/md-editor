@@ -12,8 +12,8 @@
         <div
           style="margin-bottom: 8px;"
         >
-           <button
-          type="button"  aria-checked="true"
+          <button
+            aria-checked="true"
             class="ant-switch ant-switch-checked"
             role="switch"
             type="button"

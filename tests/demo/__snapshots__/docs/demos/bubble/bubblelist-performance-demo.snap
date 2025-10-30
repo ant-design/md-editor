@@ -93,16 +93,16 @@
               </div>
             </div>
           </div>
-           <button
-          type="button"  class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+          <button
+            class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
             type="button"
           >
             <span>
               生成消息
             </span>
           </button>
-           <button
-          type="button"  class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+          <button
+            class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
             type="button"
           >
             <span>

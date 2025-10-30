@@ -31,8 +31,8 @@
               <div
                 class="ant-space-item"
               >
-                 <button
-          type="button"        class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+                <button
+                  class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                   type="button"
                 >
                   <span>
@@ -43,8 +43,8 @@
               <div
                 class="ant-space-item"
               >
-                 <button
-          type="button"        class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
+                <button
+                  class="ant-btn ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                   type="button"
                 >
                   <span>
@@ -55,8 +55,8 @@
               <div
                 class="ant-space-item"
               >
-                 <button
-          type="button"        class="ant-btn ant-btn-default ant-btn-dangerous ant-btn-color-dangerous ant-btn-variant-outlined"
+                <button
+                  class="ant-btn ant-btn-default ant-btn-dangerous ant-btn-color-dangerous ant-btn-variant-outlined"
                   disabled=""
                   type="button"
                 >

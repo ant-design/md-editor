@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { InsertLink } from '../../../../../../src/MarkdownEditor/editor/tools/InsertLink';
+import { InsertLink } from '../../../../src/MarkdownEditor/editor/tools/InsertLink';
 
 // Mock dependencies
 vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/store', () => ({

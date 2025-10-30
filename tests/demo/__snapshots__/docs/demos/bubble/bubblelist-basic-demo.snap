@@ -26,8 +26,8 @@
         <div
           style="padding: 24px 24px 16px 24px;"
         >
-           <button
-          type="button"  class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
+          <button
+            class="ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
             type="button"
           >
             <span
