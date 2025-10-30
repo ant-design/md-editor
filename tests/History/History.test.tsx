@@ -357,4 +357,98 @@ describe('History 组件', () => {
       });
     });
   });
+
+  describe('loading 加载状态', () => {
+    it('应该在 loading 为 true 时显示加载动画', async () => {
+      render(
+        <TestWrapper>
+          <History {...defaultProps} loading={true} standalone />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        const spinElement = document.querySelector('.ant-spin');
+        expect(spinElement).toBeInTheDocument();
+      });
+    });
+
+    it('应该在 loading 为 false 时显示正常内容', async () => {
+      const { generateHistoryItems } = await import('../../src/History/components');
+      (generateHistoryItems as any).mockReturnValue([
+        {
+          key: 'group1',
+          label: '今日',
+          type: 'group',
+          children: [{ key: 'session1', label: '测试会话1' }],
+        },
+      ]);
+
+      render(
+        <TestWrapper>
+          <History {...defaultProps} loading={false} standalone />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText('今日')).toBeInTheDocument();
+        const spinElement = document.querySelector('.ant-spin');
+        expect(spinElement).not.toBeInTheDocument();
+      });
+    });
+
+    it('应该在下拉菜单模式下也支持 loading', async () => {
+      render(
+        <TestWrapper>
+          <History {...defaultProps} loading={true} />
+        </TestWrapper>,
+      );
+
+      // 点击打开下拉菜单
+      const historyButton = screen.getByTestId('history-button');
+      fireEvent.click(historyButton);
+
+      await waitFor(() => {
+        const spinElement = document.querySelector('.ant-spin');
+        expect(spinElement).toBeInTheDocument();
+      });
+    });
+
+    it('应该在 loading 状态切换时正确更新显示', async () => {
+      const { rerender } = render(
+        <TestWrapper>
+          <History {...defaultProps} loading={true} standalone />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        const spinElement = document.querySelector('.ant-spin');
+        expect(spinElement).toBeInTheDocument();
+      });
+
+      // 切换到非加载状态
+      rerender(
+        <TestWrapper>
+          <History {...defaultProps} loading={false} standalone />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        const spinElement = document.querySelector('.ant-spin');
+        expect(spinElement).not.toBeInTheDocument();
+      });
+    });
+
+    it('应该默认不显示 loading', async () => {
+      render(
+        <TestWrapper>
+          <History {...defaultProps} standalone />
+        </TestWrapper>,
+      );
+
+      await waitFor(() => {
+        const spinElement = document.querySelector('.ant-spin');
+        expect(spinElement).not.toBeInTheDocument();
+      });
+    });
+  });
 });

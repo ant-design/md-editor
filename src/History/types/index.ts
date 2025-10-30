@@ -61,6 +61,8 @@ export interface HistoryProps {
   };
   /** 空状态渲染函数，当历史记录为空时显示 */
   emptyRender?: () => React.ReactNode;
+  /** 加载状态，显示在 GroupMenu 区域 */
+  loading?: boolean;
 }
 
 export interface HistoryActionsBoxProps {

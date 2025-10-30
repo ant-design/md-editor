@@ -78,6 +78,7 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 | emptyRender         | 空状态渲染函数，当历史记录为空时显示 | `() => React.ReactNode`                                                            | -       |
 | agent               | Agent 模式配置，详见 Agent 配置说明  | `AgentConfig`                                                                      | -       |
 | slots               | 插槽配置                             | `{ beforeHistoryList?: (list: HistoryDataType[]) => React.ReactNode }`            | -       |
+| loading             | 加载状态，显示在 GroupMenu 区域      | `boolean`                                                                          | `false` |
 
 ### HistoryDataType
 
@@ -195,3 +196,4 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 7. **Loading 状态**：搜索、加载更多、新对话、收藏和删除功能都有内置的 loading 状态管理，无需外部配置
 8. **空状态渲染**：通过 `emptyRender` 可以自定义历史记录为空时的显示内容，适用于独立模式和下拉菜单模式
 9. **搜索触发方式**：默认为实时搜索（`change`），输入时带 360ms 防抖；也可设置为回车触发（`enter`），减少搜索请求次数
+10. **全局加载状态**：通过 `loading` 属性可以在 GroupMenu 区域显示加载动画，适用于初始化加载或刷新数据时的状态展示
