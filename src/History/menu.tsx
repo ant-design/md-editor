@@ -1,4 +1,4 @@
-﻿import { ConfigProvider } from 'antd';
+﻿import { ConfigProvider, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useCallback, useContext } from 'react';
 import { useStyle } from './style';
@@ -46,6 +46,8 @@ export interface GroupMenuProps {
   inlineIndent?: number;
   /** 菜单模式 - 兼容 Antd Menu */
   mode?: 'vertical' | 'horizontal' | 'inline';
+  /** 加载状态 */
+  loading?: boolean;
 }
 
 // 菜单项组件
@@ -193,6 +195,7 @@ export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
     className,
     classNames: propsClassNames = {},
     style,
+    loading = false,
     ...restProps
   } = props;
 
@@ -226,19 +229,32 @@ export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
       tabIndex={0}
       {...restProps}
     >
-      {dataSource.map((item) => (
-        <MenuItem
-          key={item.key}
-          item={item}
-          isSelected={currentSelectedKey === item.key}
-          inlineIndent={inlineIndent}
-          onSelect={handleSelect}
-          classNames={propsClassNames}
-          prefixCls={prefixCls}
-          hashId={hashId}
-          currentSelectedKey={currentSelectedKey}
-        />
-      ))}
+      {loading ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          <Spin />
+        </div>
+      ) : (
+        dataSource.map((item) => (
+          <MenuItem
+            key={item.key}
+            item={item}
+            isSelected={currentSelectedKey === item.key}
+            inlineIndent={inlineIndent}
+            onSelect={handleSelect}
+            classNames={propsClassNames}
+            prefixCls={prefixCls}
+            hashId={hashId}
+            currentSelectedKey={currentSelectedKey}
+          />
+        ))
+      )}
     </div>,
   );
 };

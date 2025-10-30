@@ -34,6 +34,8 @@ export * from './utils';
  * @param {Function} [props.onDeleteItem] - 删除历史记录项时的回调函数
  * @param {Function} [props.customDateFormatter] - 日期格式化函数
  * @param {boolean} [props.standalone] - 是否以独立模式显示，为true时直接显示菜单，否则显示为下拉菜单
+ * @param {Function} [props.emptyRender] - 空状态渲染函数，当历史记录为空时显示自定义内容
+ * @param {boolean} [props.loading] - 加载状态，显示在 GroupMenu 区域
  *
  * @returns {React.ReactElement|null} 返回历史记录组件或null（当没有历史记录时）
  *
@@ -44,6 +46,8 @@ export * from './utils';
  *
  * 历史记录按日期分组显示，每组内按时间倒序排列。
  * 支持查看历史会话和删除历史记录。
+ * 当历史记录为空时，可通过 emptyRender 自定义空状态显示。
+ * 通过 loading 属性可以在 GroupMenu 区域显示加载动画。
  */
 export const History: React.FC<HistoryProps> = (props) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -123,18 +127,25 @@ export const History: React.FC<HistoryProps> = (props) => {
 
         {props.slots?.beforeHistoryList?.(filteredList)}
 
-        <GroupMenu
-          selectedKeys={[props.sessionId]}
-          inlineIndent={20}
-          items={items}
-          className={menuPrefixCls}
-        />
-        {props.agent?.enabled && !!props.agent?.onLoadMore && (
-          <HistoryLoadMore
-            onLoadMore={handleLoadMore}
-            type={props.type}
-            className={`${menuPrefixCls}-load-more  ${props.type === 'task' ? '' : 'chat'} ${hashId}`}
-          />
+        {items?.length === 0 && !props.loading && props?.emptyRender ? (
+          props.emptyRender()
+        ) : (
+          <>
+            <GroupMenu
+              selectedKeys={[props.sessionId]}
+              inlineIndent={20}
+              items={items}
+              className={menuPrefixCls}
+              loading={props.loading}
+            />
+            {props.agent?.enabled && !!props.agent?.onLoadMore && (
+              <HistoryLoadMore
+                onLoadMore={handleLoadMore}
+                type={props.type}
+                className={`${menuPrefixCls}-load-more  ${props.type === 'task' ? '' : 'chat'} ${hashId}`}
+              />
+            )}
+          </>
         )}
       </div>,
     );
@@ -156,12 +167,17 @@ export const History: React.FC<HistoryProps> = (props) => {
       getPopupContainer={(p) => p.parentElement || document.body}
       content={
         <>
-          <GroupMenu
-            selectedKeys={[props.sessionId]}
-            inlineIndent={20}
-            items={items}
-            className={menuPrefixCls}
-          />
+          {items?.length === 0 && !props?.loading && props?.emptyRender ? (
+            props.emptyRender()
+          ) : (
+            <GroupMenu
+              selectedKeys={[props.sessionId]}
+              inlineIndent={20}
+              items={items}
+              className={menuPrefixCls}
+              loading={props.loading}
+            />
+          )}
           {props.agent?.enabled && !!props.agent?.onLoadMore && (
             <HistoryLoadMore
               onLoadMore={handleLoadMore}

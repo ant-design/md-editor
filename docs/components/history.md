@@ -50,6 +50,12 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 
 <code src="../demos/history-actionRef-demo.tsx">ActionRef 外部控制</code>
 
+### 空状态渲染与搜索触发方式
+
+使用 `emptyRender` 自定义空状态显示，使用 `searchOptions.trigger` 配置搜索触发方式。
+
+<code src="../demos/history-empty-render.tsx">空状态渲染与搜索触发</code>
+
 ## API
 
 ### History
@@ -69,6 +75,10 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 | extra               | 自定义额外内容渲染函数               | `(item: HistoryDataType) => React.ReactElement`                                    | -       |
 | sessionSort         | 自定义排序函数或禁用排序             | `((pre: HistoryDataType, current: HistoryDataType) => number \| boolean) \| false` | -       |
 | actionRef           | 外部操作引用，用于触发 reload 等功能 | `React.MutableRefObject<{ reload: () => void } \| null>`                           | -       |
+| emptyRender         | 空状态渲染函数，当历史记录为空时显示 | `() => React.ReactNode`                                                            | -       |
+| agent               | Agent 模式配置，详见 Agent 配置说明  | `AgentConfig`                                                                      | -       |
+| slots               | 插槽配置                             | `{ beforeHistoryList?: (list: HistoryDataType[]) => React.ReactNode }`            | -       |
+| loading             | 加载状态，显示在 GroupMenu 区域      | `boolean`                                                                          | `false` |
 
 ### HistoryDataType
 
@@ -153,14 +163,27 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 
 通过 `agent` 属性启用并配置 Agent 模式。组件会根据提供的回调函数自动显示对应的功能按钮：
 
-| 属性              | 类型                                               | 默认值  | 说明                |
-| ----------------- | -------------------------------------------------- | ------- | ------------------- |
-| enabled           | `boolean`                                          | `false` | 是否启用 agent 模式 |
-| onSearch          | `(keyword: string) => void`                        | -       | 搜索回调函数        |
-| onFavorite        | `(sessionId: string, isFavorite: boolean) => void` | -       | 收藏/取消收藏回调   |
-| onSelectionChange | `(selectedIds: string[]) => void`                  | -       | 多选变更回调        |
-| onLoadMore        | `() => void`                                       | -       | 加载更多回调        |
-| onNewChat         | `() => void`                                       | -       | 新对话回调函数      |
+| 属性              | 类型                                               | 默认值  | 说明                                  |
+| ----------------- | -------------------------------------------------- | ------- | ------------------------------------- |
+| enabled           | `boolean`                                          | `false` | 是否启用 agent 模式                   |
+| onSearch          | `(keyword: string) => void`                        | -       | 搜索回调函数                          |
+| onFavorite        | `(sessionId: string, isFavorite: boolean) => void` | -       | 收藏/取消收藏回调                     |
+| onSelectionChange | `(selectedIds: string[]) => void`                  | -       | 多选变更回调                          |
+| onLoadMore        | `() => void`                                       | -       | 加载更多回调                          |
+| onNewChat         | `() => void`                                       | -       | 新对话回调函数                        |
+| loadingMore       | `boolean`                                          | `false` | 是否正在加载更多                      |
+| runningId         | `string[]`                                         | -       | 正在运行的记录 ID 列表                |
+| searchOptions     | `SearchOptions`                                    | -       | 搜索框配置，详见 SearchOptions 说明   |
+
+### SearchOptions 配置
+
+搜索框相关配置选项：
+
+| 属性        | 类型                  | 默认值     | 说明                                                          |
+| ----------- | --------------------- | ---------- | ------------------------------------------------------------- |
+| placeholder | `string`              | -          | 搜索输入框 placeholder 文案                                   |
+| text        | `string`              | -          | 未展开时的默认文本                                            |
+| trigger     | `'change' \| 'enter'` | `'change'` | 搜索触发方式：'change' 为实时搜索（防抖 360ms），'enter' 为回车触发 |
 
 ## 注意事项
 
@@ -171,3 +194,6 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 5. **性能优化**：大量历史记录时建议实现虚拟滚动或分页加载
 6. **功能按钮**：新对话和加载更多按钮会根据是否提供对应的回调函数自动显示
 7. **Loading 状态**：搜索、加载更多、新对话、收藏和删除功能都有内置的 loading 状态管理，无需外部配置
+8. **空状态渲染**：通过 `emptyRender` 可以自定义历史记录为空时的显示内容，适用于独立模式和下拉菜单模式
+9. **搜索触发方式**：默认为实时搜索（`change`），输入时带 360ms 防抖；也可设置为回车触发（`enter`），减少搜索请求次数
+10. **全局加载状态**：通过 `loading` 属性可以在 GroupMenu 区域显示加载动画，适用于初始化加载或刷新数据时的状态展示

@@ -278,4 +278,147 @@ describe('HistorySearch', () => {
     expect(screen.queryByText('历史对话')).not.toBeInTheDocument();
     expect(screen.getByPlaceholderText('搜索话题')).toBeInTheDocument();
   });
+
+  describe('trigger 配置测试', () => {
+    it('应该在 trigger=change 时实时触发搜索(默认行为)', async () => {
+      const onSearch = vi.fn().mockResolvedValue(undefined);
+      render(
+        <TestWrapper>
+          <HistorySearch
+            onSearch={onSearch}
+            searchOptions={{ trigger: 'change' }}
+          />
+        </TestWrapper>,
+      );
+
+      const searchButton = screen.getByTitle('搜索');
+      fireEvent.click(searchButton);
+
+      const input = screen.getByPlaceholderText('搜索话题');
+      fireEvent.change(input, { target: { value: '测试搜索' } });
+
+      await waitTime(360);
+
+      await waitFor(() => {
+        expect(onSearch).toHaveBeenCalledWith('测试搜索');
+      });
+    });
+
+    it('应该在 trigger=enter 时只在按回车时触发搜索', async () => {
+      const onSearch = vi.fn().mockResolvedValue(undefined);
+      render(
+        <TestWrapper>
+          <HistorySearch
+            onSearch={onSearch}
+            searchOptions={{ trigger: 'enter' }}
+          />
+        </TestWrapper>,
+      );
+
+      const searchButton = screen.getByTitle('搜索');
+      fireEvent.click(searchButton);
+
+      const input = screen.getByPlaceholderText('搜索话题');
+
+      // 输入文字,不应该触发搜索
+      fireEvent.change(input, { target: { value: '测试搜索' } });
+
+      await waitTime(360);
+
+      // 验证没有调用搜索
+      expect(onSearch).not.toHaveBeenCalled();
+
+      // 按下回车键
+      fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+
+      await waitFor(() => {
+        expect(onSearch).toHaveBeenCalledWith('测试搜索');
+        expect(onSearch).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('应该在 trigger=enter 时支持多次回车搜索', async () => {
+      const onSearch = vi.fn().mockResolvedValue(undefined);
+      render(
+        <TestWrapper>
+          <HistorySearch
+            onSearch={onSearch}
+            searchOptions={{ trigger: 'enter' }}
+          />
+        </TestWrapper>,
+      );
+
+      const searchButton = screen.getByTitle('搜索');
+      fireEvent.click(searchButton);
+
+      const input = screen.getByPlaceholderText('搜索话题');
+
+      // 第一次搜索
+      fireEvent.change(input, { target: { value: '第一次搜索' } });
+      fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+
+      await waitFor(() => {
+        expect(onSearch).toHaveBeenCalledWith('第一次搜索');
+      });
+
+      // 第二次搜索
+      fireEvent.change(input, { target: { value: '第二次搜索' } });
+      fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+
+      await waitFor(() => {
+        expect(onSearch).toHaveBeenCalledWith('第二次搜索');
+        expect(onSearch).toHaveBeenCalledTimes(2);
+      });
+    });
+
+    it('应该在 trigger=enter 时按其他键不触发搜索', async () => {
+      const onSearch = vi.fn().mockResolvedValue(undefined);
+      render(
+        <TestWrapper>
+          <HistorySearch
+            onSearch={onSearch}
+            searchOptions={{ trigger: 'enter' }}
+          />
+        </TestWrapper>,
+      );
+
+      const searchButton = screen.getByTitle('搜索');
+      fireEvent.click(searchButton);
+
+      const input = screen.getByPlaceholderText('搜索话题');
+
+      fireEvent.change(input, { target: { value: '测试搜索' } });
+
+      // 按下其他键
+      fireEvent.keyDown(input, { key: 'a', code: 'KeyA' });
+      fireEvent.keyDown(input, { key: 'Escape', code: 'Escape' });
+      fireEvent.keyDown(input, { key: 'Tab', code: 'Tab' });
+
+      await waitTime(360);
+
+      // 验证没有调用搜索
+      expect(onSearch).not.toHaveBeenCalled();
+    });
+
+    it('默认应该使用 change 触发方式', async () => {
+      const onSearch = vi.fn().mockResolvedValue(undefined);
+      render(
+        <TestWrapper>
+          <HistorySearch onSearch={onSearch} searchOptions={{}} />
+        </TestWrapper>,
+      );
+
+      const searchButton = screen.getByTitle('搜索');
+      fireEvent.click(searchButton);
+
+      const input = screen.getByPlaceholderText('搜索话题');
+      fireEvent.change(input, { target: { value: '测试' } });
+
+      await waitTime(360);
+
+      await waitFor(() => {
+        expect(onSearch).toHaveBeenCalledWith('测试');
+      });
+    });
+  });
 });

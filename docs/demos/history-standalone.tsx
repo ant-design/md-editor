@@ -92,6 +92,7 @@ const StandaloneHistoryDemo = () => {
           onClick={handleSelected}
           standalone
           type="chat"
+          emptyRender={() => <div>暂无历史记录</div>}
           agent={{
             enabled: true,
             onSearch: () => {},
