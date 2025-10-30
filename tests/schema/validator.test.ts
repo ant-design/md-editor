@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   SchemaValidator,
   mdDataSchemaValidator,
-} from '../../src/schema/validator';
+} from '../../src/Schema/validator';
 
 // Mock Ajv
 vi.mock('ajv', () => {

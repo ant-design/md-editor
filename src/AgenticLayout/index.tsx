@@ -3,7 +3,7 @@ import React, { ReactNode, useContext } from 'react';
 import {
   LayoutHeader,
   type LayoutHeaderConfig,
-} from '../components/LayoutHeader';
+} from '../Components/LayoutHeader';
 import { useAgenticLayoutStyle } from './style';
 
 export interface AgenticLayoutProps {

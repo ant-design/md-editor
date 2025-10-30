@@ -3,7 +3,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { HistoryNewChat } from '../../../src/History/components/NewChatComponent';
-import { I18nContext } from '../../../src/i18n';
+import { I18nContext } from '../../../src/I18n';
 
 const mockI18nLocale = {
   'chat.history.newChat': '新对话',

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRefFunction } from '../../hooks/useRefFunction';
+import { useRefFunction } from '../../Hooks/useRefFunction';
 import type { MarkdownEditorInstance } from '../../MarkdownEditor';
 import type { CreateRecognizer, VoiceRecognizer } from '../VoiceInput';
 

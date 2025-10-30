@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { VisualList } from '../../src/components/ImageList';
+import { VisualList } from '../../src/Components/ImageList';
 
 describe('VisualList 组件', () => {
   const mockData = [

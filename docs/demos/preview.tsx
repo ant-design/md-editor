@@ -3,9 +3,9 @@ import {
   MarkdownEditor,
   MarkdownEditorInstance,
 } from '@ant-design/agentic-ui';
-import { ChartElement } from '@ant-design/agentic-ui/plugins/chart';
-import { CodeElement } from '@ant-design/agentic-ui/plugins/code';
-import { MermaidElement } from '@ant-design/agentic-ui/plugins/mermaid';
+import { ChartElement } from '@ant-design/agentic-ui/Plugins/chart';
+import { CodeElement } from '@ant-design/agentic-ui/Plugins/code';
+import { MermaidElement } from '@ant-design/agentic-ui/Plugins/mermaid';
 import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { newEnergyFundContent } from './shared/newEnergyFundContent';

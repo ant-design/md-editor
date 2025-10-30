@@ -1,5 +1,5 @@
 import React from 'react';
-import { standardPlugins } from '../plugins/defaultPlugins';
+import { standardPlugins } from '../Plugins/defaultPlugins';
 import { BaseMarkdownEditor, MarkdownEditorProps } from './BaseMarkdownEditor';
 export * from './BaseMarkdownEditor';
 

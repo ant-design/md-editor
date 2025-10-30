@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BackTo } from '../../src/BackTo';
 
 // Mock scrollTo 和 getScrollRailHeight
-vi.mock('../../src/utils/scrollTo', () => ({
+vi.mock('../../src/Utils/scrollTo', () => ({
   default: vi.fn((y, options) => {
     if (options?.callback) {
       options.callback();
@@ -13,7 +13,7 @@ vi.mock('../../src/utils/scrollTo', () => ({
   }),
 }));
 
-vi.mock('../../src/utils/getScroll', () => ({
+vi.mock('../../src/Utils/getScroll', () => ({
   default: vi.fn((target) => {
     if (target === window || !target) {
       return window.pageYOffset || 0;
@@ -88,7 +88,7 @@ describe('BackBottom 组件', () => {
   });
 
   it('应该在点击时滚动到底部', async () => {
-    const scrollToMock = await import('../../src/utils/scrollTo');
+    const scrollToMock = await import('../../src/Utils/scrollTo');
 
     const { container } = render(<BackTo.Bottom />);
 
@@ -114,7 +114,7 @@ describe('BackBottom 组件', () => {
   });
 
   it('应该支持自定义滚动持续时间', async () => {
-    const scrollToMock = await import('../../src/utils/scrollTo');
+    const scrollToMock = await import('../../src/Utils/scrollTo');
 
     const { container } = render(<BackTo.Bottom duration={1000} />);
 

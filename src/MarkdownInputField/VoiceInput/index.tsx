@@ -3,8 +3,8 @@ import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { I18nContext } from '../../i18n';
-import VoicingLottie from '../../icons/animated/VoicingLottie';
+import { I18nContext } from '../../I18n';
+import VoicingLottie from '../../Icons/animated/VoicingLottie';
 import { useStyle } from './style';
 
 export type VoiceRecognizer = {
@@ -40,7 +40,7 @@ type VoiceInputButtonProps = {
 export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
   const { recording, disabled, onStart, onStop, style } = props;
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-input-field-voice-button');
+  const baseCls = getPrefixCls('agentic-md-input-field-voice-button');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   const dom = props.title ? (

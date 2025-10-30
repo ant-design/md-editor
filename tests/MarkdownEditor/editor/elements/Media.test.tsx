@@ -66,7 +66,7 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Image', () => ({
   ),
 }));
 
-vi.mock('../../../../src/components/ActionIconBox', () => ({
+vi.mock('../../../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ children, ...props }: any) => (
     <div data-testid="action-icon-box" {...props}>
       {children}
@@ -74,7 +74,7 @@ vi.mock('../../../../src/components/ActionIconBox', () => ({
   ),
 }));
 
-vi.mock('../../../../src/components/ContributorAvatar', () => ({
+vi.mock('../../../../src/Components/ContributorAvatar', () => ({
   AvatarList: ({ children, ...props }: any) => (
     <div data-testid="avatar-list" {...props}>
       {children}
@@ -373,7 +373,7 @@ describe('Media', () => {
       expect(screen.getByText('2024-10-16')).toBeInTheDocument();
       // AvatarList 会渲染，检查是否存在 avatar 元素
       expect(
-        document.querySelector('.ant-md-editor-contributor-avatar-list'),
+        document.querySelector('.ant-agentic-md-editor-contributor-avatar-list'),
       ).toBeInTheDocument();
     });
 

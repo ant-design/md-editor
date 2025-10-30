@@ -10,7 +10,7 @@ vi.mock('copy-to-clipboard', () => ({
   default: vi.fn(),
 }));
 
-vi.mock('../i18n', () => ({
+vi.mock('../I18n', () => ({
   I18nContext: React.createContext({
     locale: 'zh-CN',
     executionParameters: '执行入参',

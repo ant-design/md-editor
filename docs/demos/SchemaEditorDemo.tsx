@@ -177,6 +177,7 @@ export default function SchemaEditorDemo() {
             {examples.map((example, index) => (
               <button
                 type="button"
+                type="button"
                 key={index}
                 onClick={() => loadExample(example)}
                 style={{

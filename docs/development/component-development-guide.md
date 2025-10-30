@@ -112,7 +112,7 @@ export const useStyles = createStyles(({ token }) => ({
 ### 使用项目自定义样式
 
 ```tsx | pure
-import { useEditorStyleRegister, ChatTokenType } from '../hooks/useStyle';
+import { useEditorStyleRegister, ChatTokenType } from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => ({
   [token.componentCls]: {
@@ -147,7 +147,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {

@@ -125,7 +125,7 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
         disabled={disabled}
         data-typing={typing}
         className={classNames({
-          'ant-md-input-field-send-button-typing': typing,
+          'ant-agentic-md-input-field-send-button-typing': typing,
         })}
         {...props}
       >

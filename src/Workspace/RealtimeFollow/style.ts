@@ -1,5 +1,5 @@
-import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
-import { useEditorStyleRegister } from '../../hooks/useStyle';
+import type { ChatTokenType, GenerateStyle } from '../../Hooks/useStyle';
+import { useEditorStyleRegister } from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -242,7 +242,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`&--markdown`]: {
-        '.ant-md-editor-content div[data-be="paragraph"]:last-child': {
+        '.ant-agentic-md-editor-content div[data-be="paragraph"]:last-child': {
           paddingBottom: '16px',
           color: 'var(--color-gray-text-light)',
           font: 'var(--font-text-code-base)',

@@ -628,7 +628,7 @@ describe('Table Components', () => {
       };
       const { container } = render(<Td {...hiddenProps} />);
       const td = container.querySelector('td');
-      expect(td).toHaveClass('ant-md-editor-table-td');
+      expect(td).toHaveClass('ant-agentic-md-editor-table-td');
     });
 
     it('应该应用 hashId', () => {

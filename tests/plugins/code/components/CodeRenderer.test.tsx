@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { CodeRenderer } from '../../../../src/plugins/code/components/CodeRenderer';
+import { CodeRenderer } from '../../../../src/Plugins/code/components/CodeRenderer';
 
 // 最小化的 mock
 const mockEditorStore = {
@@ -35,7 +35,7 @@ vi.mock('../../../../src/MarkdownEditor/editor/store', () => ({
 }));
 
 // Mock hooks
-vi.mock('../../../../src/plugins/code/hooks', () => ({
+vi.mock('../../../../src/Plugins/code/hooks', () => ({
   useCodeEditorState: () => ({
     state: {
       showBorder: false,
@@ -72,7 +72,7 @@ vi.mock('../../../../src/plugins/code/hooks', () => ({
 }));
 
 // Mock AceEditor hook
-vi.mock('../../../../src/plugins/code/components/AceEditor', () => ({
+vi.mock('../../../../src/Plugins/code/components/AceEditor', () => ({
   AceEditor: () => ({
     dom: { current: document.createElement('div') },
     setLanguage: vi.fn(),
@@ -81,7 +81,7 @@ vi.mock('../../../../src/plugins/code/components/AceEditor', () => ({
 }));
 
 // Mock CodeToolbar 组件
-vi.mock('../../../../src/plugins/code/components/CodeToolbar', () => ({
+vi.mock('../../../../src/Plugins/code/components/CodeToolbar', () => ({
   CodeToolbar: ({ element, readonly, isSelected }: any) => (
     <div data-testid="code-toolbar">
       <span>Code Toolbar</span>
@@ -99,7 +99,7 @@ vi.mock('../../../../src/plugins/code/components/CodeToolbar', () => ({
 }));
 
 // Mock HtmlPreview 组件
-vi.mock('../../../../src/plugins/code/components/HtmlPreview', () => ({
+vi.mock('../../../../src/Plugins/code/components/HtmlPreview', () => ({
   HtmlPreview: ({ htmlStr }: any) => (
     <div data-testid="html-preview">
       <span>HTML Preview</span>

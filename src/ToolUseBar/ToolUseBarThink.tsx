@@ -5,60 +5,94 @@ import {
   ChevronsUpDown,
 } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
-import classNamesFn from 'classnames';
+import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useMergedState } from 'rc-util';
-import React, {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-} from 'react';
+import React, { memo, useCallback, useContext, useEffect } from 'react';
 import { useStyle } from './thinkStyle';
 
-// Light 模式图标组件
+const getChevronStyle = (expanded: boolean): React.CSSProperties => ({
+  transform: expanded ? 'rotate(0deg)' : 'rotate(-90deg)',
+  transition: 'transform 0.2s',
+});
+
+const FLOATING_ICON_STYLE: React.CSSProperties = {
+  fontSize: 16,
+  color: 'var(--color-gray-text-light)',
+};
+
+const LOADING_ANIMATION = {
+  animate: {
+    '--rotate': ['0deg', '360deg'],
+  },
+  transition: {
+    '--rotate': {
+      duration: 1,
+      repeat: Infinity,
+      ease: 'linear',
+    },
+  },
+  style: {
+    '--rotation': '360deg',
+  } as React.CSSProperties,
+};
+
+const IDLE_ANIMATION = {
+  animate: {},
+  transition: {},
+  style: {
+    '--rotation': '0deg',
+  } as React.CSSProperties,
+};
+
+const HEADER_RIGHT_LOADING_ANIMATION = {
+  animate: {
+    maskImage: [
+      'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
+      'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
+    ],
+  },
+  transition: {
+    maskImage: {
+      duration: 1,
+      repeat: Infinity,
+      ease: 'linear',
+    },
+  },
+  style: {
+    maskImage:
+      'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)',
+  } as React.CSSProperties,
+};
+
+const buildClassName = (...args: Parameters<typeof classNames>) =>
+  classNames(...args);
+
 interface LightModeIconProps {
   prefixCls: string;
   hashId: string;
   hover: boolean;
   expandedState: boolean;
-  classNames?: ToolUseBarThinkProps['classNames'];
 }
 
-const LightModeIconComponent: React.FC<LightModeIconProps> = ({
+const LightModeIcon: React.FC<LightModeIconProps> = ({
   prefixCls,
   hashId,
   hover,
   expandedState,
 }) => {
-  const iconClassName = useMemo(() => {
-    return classNamesFn(
-      `${prefixCls}-header-left-icon`,
-      {
-        [`${prefixCls}-header-left-icon-light`]: true,
-      },
-      hashId,
-    );
-  }, [prefixCls, hashId]);
+  const iconClassName = buildClassName(
+    `${prefixCls}-header-left-icon`,
+    `${prefixCls}-header-left-icon-light`,
+    hashId,
+  );
 
-  const chevronStyle = useMemo(() => {
-    return {
-      transform: expandedState ? 'rotate(0deg)' : 'rotate(-90deg)',
-      transition: 'transform 0.2s',
-    };
-  }, [expandedState]);
+  const chevronStyle = getChevronStyle(expandedState);
+  const icon = hover ? <ChevronDown style={chevronStyle} /> : <Brain />;
 
-  const iconElement = useMemo(() => {
-    return hover ? <ChevronDown style={chevronStyle} /> : <Brain />;
-  }, [hover, chevronStyle]);
-
-  return <div className={iconClassName}>{iconElement}</div>;
+  return <div className={iconClassName}>{icon}</div>;
 };
 
-const LightModeIcon = memo(LightModeIconComponent);
-
-// 头部内容组件
 interface HeaderContentProps {
   toolName: React.ReactNode;
   toolTarget?: React.ReactNode;
@@ -69,59 +103,46 @@ interface HeaderContentProps {
   styles?: ToolUseBarThinkProps['styles'];
 }
 
-const HeaderContentComponent: React.FC<HeaderContentProps> = ({
+const HeaderContent: React.FC<HeaderContentProps> = ({
   toolName,
   toolTarget,
   prefixCls,
   hashId,
   light,
-  classNames,
+  classNames: customClassNames,
   styles,
 }) => {
-  const nameClassName = useMemo(() => {
-    return classNamesFn(
-      `${prefixCls}-name`,
-      {
-        [`${prefixCls}-name-light`]: light,
-      },
-      hashId,
-      classNames?.name,
-    );
-  }, [prefixCls, hashId, light, classNames?.name]);
+  const nameClassName = buildClassName(
+    `${prefixCls}-name`,
+    { [`${prefixCls}-name-light`]: light },
+    hashId,
+    customClassNames?.name,
+  );
 
-  const targetClassName = useMemo(() => {
-    return classNamesFn(`${prefixCls}-target`, hashId, classNames?.target);
-  }, [prefixCls, hashId, classNames?.target]);
-
-  const nameElement = useMemo(() => {
-    return toolName ? (
-      <div className={nameClassName} style={styles?.name}>
-        {toolName}
-      </div>
-    ) : null;
-  }, [toolName, nameClassName, styles?.name]);
-
-  const targetElement = useMemo(() => {
-    return toolTarget ? (
-      <div className={targetClassName} style={styles?.target}>
-        {toolTarget}
-      </div>
-    ) : (
-      <div />
-    );
-  }, [toolTarget, targetClassName, styles?.target]);
+  const targetClassName = buildClassName(
+    `${prefixCls}-target`,
+    hashId,
+    customClassNames?.target,
+  );
 
   return (
     <>
-      {nameElement}
-      {targetElement}
+      {toolName && (
+        <div className={nameClassName} style={styles?.name}>
+          {toolName}
+        </div>
+      )}
+      {toolTarget ? (
+        <div className={targetClassName} style={styles?.target}>
+          {toolTarget}
+        </div>
+      ) : (
+        <div />
+      )}
     </>
   );
 };
 
-const HeaderContent = memo(HeaderContentComponent);
-
-// 时间元素组件
 interface TimeElementProps {
   time?: React.ReactNode;
   prefixCls: string;
@@ -130,31 +151,28 @@ interface TimeElementProps {
   styles?: ToolUseBarThinkProps['styles'];
 }
 
-const TimeElementComponent: React.FC<TimeElementProps> = ({
+const TimeElement: React.FC<TimeElementProps> = ({
   time,
   prefixCls,
   hashId,
-  classNames,
+  classNames: customClassNames,
   styles,
 }) => {
-  const timeClassName = useMemo(() => {
-    return classNamesFn(`${prefixCls}-time`, hashId, classNames?.time);
-  }, [prefixCls, hashId, classNames?.time]);
+  if (!time) return null;
 
-  const timeElement = useMemo(() => {
-    return time ? (
-      <div className={timeClassName} style={styles?.time}>
-        {time}
-      </div>
-    ) : null;
-  }, [time, timeClassName, styles?.time]);
+  const timeClassName = buildClassName(
+    `${prefixCls}-time`,
+    hashId,
+    customClassNames?.time,
+  );
 
-  return timeElement;
+  return (
+    <div className={timeClassName} style={styles?.time}>
+      {time}
+    </div>
+  );
 };
 
-const TimeElement = memo(TimeElementComponent);
-
-// 展开按钮组件
 interface ExpandButtonProps {
   thinkContent?: React.ReactNode;
   light: boolean;
@@ -166,49 +184,54 @@ interface ExpandButtonProps {
   onToggleExpand: () => void;
 }
 
-const ExpandButtonComponent: React.FC<ExpandButtonProps> = ({
+const ExpandButton: React.FC<ExpandButtonProps> = ({
   thinkContent,
   light,
   expandedState,
   prefixCls,
   hashId,
-  classNames,
+  classNames: customClassNames,
   styles,
   onToggleExpand,
 }) => {
-  const expandClassName = useMemo(() => {
-    return classNamesFn(`${prefixCls}-expand`, hashId, classNames?.expand);
-  }, [prefixCls, hashId, classNames?.expand]);
+  if (!thinkContent || light) return null;
 
-  const expandIcon = useMemo(() => {
-    return !expandedState ? <ChevronsUpDown /> : <ChevronsDownUp />;
-  }, [expandedState]);
+  const expandClassName = buildClassName(
+    `${prefixCls}-expand`,
+    hashId,
+    customClassNames?.expand,
+  );
 
-  const expandElement = useMemo(() => {
-    return thinkContent && !light ? (
-      <div
-        className={expandClassName}
-        onClick={onToggleExpand}
-        style={styles?.expand}
-      >
-        {expandIcon}
-      </div>
-    ) : null;
-  }, [
-    thinkContent,
-    light,
-    expandClassName,
-    onToggleExpand,
-    styles?.expand,
-    expandIcon,
-  ]);
+  const expandIcon = expandedState ? <ChevronsDownUp /> : <ChevronsUpDown />;
 
-  return expandElement;
+  return (
+    <div
+      className={expandClassName}
+      onClick={onToggleExpand}
+      style={styles?.expand}
+    >
+      {expandIcon}
+    </div>
+  );
 };
 
-const ExpandButton = memo(ExpandButtonComponent);
+const getContainerStyle = (
+  expanded: boolean,
+  customStyle?: React.CSSProperties,
+): React.CSSProperties => ({
+  ...(expanded
+    ? {}
+    : {
+        height: 1,
+        padding: '0 8px',
+        margin: 0,
+        overflow: 'hidden',
+        minHeight: 0,
+        visibility: 'hidden' as const,
+      }),
+  ...customStyle,
+});
 
-// 思考容器组件
 interface ThinkContainerProps {
   thinkContent?: React.ReactNode;
   expandedState: boolean;
@@ -222,7 +245,7 @@ interface ThinkContainerProps {
   onToggleFloatingExpand: () => void;
 }
 
-const ThinkContainerComponent: React.FC<ThinkContainerProps> = ({
+const ThinkContainer: React.FC<ThinkContainerProps> = ({
   thinkContent,
   expandedState,
   floatingExpandedState,
@@ -230,144 +253,106 @@ const ThinkContainerComponent: React.FC<ThinkContainerProps> = ({
   light,
   prefixCls,
   hashId,
-  classNames,
+  classNames: customClassNames,
   styles,
   onToggleFloatingExpand,
 }) => {
-  const containerClassName = useMemo(() => {
-    return classNamesFn(
-      `${prefixCls}-container`,
-      hashId,
-      classNames?.container,
-      {
-        [`${prefixCls}-container-expanded`]: expandedState,
-        [`${prefixCls}-container-loading`]:
-          status === 'loading' && !floatingExpandedState,
-        [`${prefixCls}-container-light`]: light,
-        [`${prefixCls}-container-floating-expanded`]: floatingExpandedState,
-      },
-    );
-  }, [
-    prefixCls,
+  if (!thinkContent) return null;
+
+  const containerClassName = buildClassName(
+    `${prefixCls}-container`,
     hashId,
-    classNames?.container,
-    expandedState,
-    status,
-    floatingExpandedState,
-    light,
-  ]);
+    customClassNames?.container,
+    {
+      [`${prefixCls}-container-expanded`]: expandedState,
+      [`${prefixCls}-container-loading`]:
+        status === 'loading' && !floatingExpandedState,
+      [`${prefixCls}-container-light`]: light,
+      [`${prefixCls}-container-floating-expanded`]: floatingExpandedState,
+    },
+  );
 
-  const containerStyle = useMemo(() => {
-    return {
-      ...(expandedState
-        ? {}
-        : {
-            height: 1,
-            padding: '0 8px',
-            margin: 0,
-            overflow: 'hidden',
-            minHeight: 0,
-            visibility: 'hidden' as const,
-          }),
-      ...styles?.container,
-    };
-  }, [expandedState, styles?.container]);
+  const containerStyle = getContainerStyle(expandedState, styles?.container);
 
-  const contentClassName = useMemo(() => {
-    return classNamesFn(`${prefixCls}-content`, hashId, classNames?.content);
-  }, [prefixCls, hashId, classNames?.content]);
+  const contentClassName = buildClassName(
+    `${prefixCls}-content`,
+    hashId,
+    customClassNames?.content,
+  );
 
-  const floatingExpandClassName = useMemo(() => {
-    return classNamesFn(
-      `${prefixCls}-floating-expand`,
-      hashId,
-      classNames?.floatingExpand,
-    );
-  }, [prefixCls, hashId, classNames?.floatingExpand]);
+  const floatingExpandClassName = buildClassName(
+    `${prefixCls}-floating-expand`,
+    hashId,
+    customClassNames?.floatingExpand,
+  );
 
-  const floatingIconStyle = useMemo(() => {
-    return {
-      fontSize: 16,
-      color: 'var(--color-gray-text-light)',
-    };
-  }, []);
+  const floatingIcon = floatingExpandedState ? (
+    <ChevronsDownUp style={FLOATING_ICON_STYLE} />
+  ) : (
+    <ChevronsUpDown style={FLOATING_ICON_STYLE} />
+  );
 
-  const floatingIcon = useMemo(() => {
-    return !floatingExpandedState ? (
-      <ChevronsUpDown style={floatingIconStyle} />
-    ) : (
-      <ChevronsDownUp style={floatingIconStyle} />
-    );
-  }, [floatingExpandedState, floatingIconStyle]);
+  const floatingText = floatingExpandedState ? '收起' : '展开';
 
-  const floatingText = useMemo(() => {
-    return floatingExpandedState ? '收起' : '展开';
-  }, [floatingExpandedState]);
+  const showFloatingExpand = status === 'loading' && !light;
 
-  const floatingExpandElement = useMemo(() => {
-    return status === 'loading' && !light ? (
-      <div
-        className={floatingExpandClassName}
-        onClick={onToggleFloatingExpand}
-        data-testid="tool-use-bar-think-floating-expand"
-        style={styles?.floatingExpand}
-      >
-        {floatingIcon}
-        {floatingText}
+  return (
+    <div
+      className={containerClassName}
+      data-testid="tool-use-bar-think-container"
+      style={containerStyle}
+    >
+      <div className={contentClassName} style={styles?.content}>
+        {thinkContent}
       </div>
-    ) : null;
-  }, [
-    status,
-    light,
-    floatingExpandClassName,
-    onToggleFloatingExpand,
-    styles?.floatingExpand,
-    floatingIcon,
-    floatingText,
-  ]);
-
-  const containerElement = useMemo(() => {
-    return thinkContent ? (
-      <div
-        className={containerClassName}
-        data-testid="tool-use-bar-think-container"
-        style={containerStyle}
-      >
-        <div className={contentClassName} style={styles?.content}>
-          {thinkContent}
+      {showFloatingExpand && (
+        <div
+          className={floatingExpandClassName}
+          onClick={onToggleFloatingExpand}
+          data-testid="tool-use-bar-think-floating-expand"
+          style={styles?.floatingExpand}
+        >
+          {floatingIcon}
+          {floatingText}
         </div>
-        {floatingExpandElement}
-      </div>
-    ) : null;
-  }, [
-    thinkContent,
-    containerClassName,
-    containerStyle,
-    contentClassName,
-    styles?.content,
-    floatingExpandElement,
-  ]);
-
-  return containerElement;
+      )}
+    </div>
+  );
 };
 
-const ThinkContainer = memo(ThinkContainerComponent);
-
+/**
+ * ToolUseBarThink 组件属性
+ */
 export interface ToolUseBarThinkProps {
+  /** 工具名称 */
   toolName: React.ReactNode;
+  /** 工具目标 */
   toolTarget?: React.ReactNode;
+  /** 时间显示 */
   time?: React.ReactNode;
+  /** 自定义图标 */
   icon?: React.ReactNode;
+  /** 思考内容 */
   thinkContent?: React.ReactNode;
+  /** 测试ID */
   testId?: string;
+  /** 状态 */
   status?: 'loading' | 'success' | 'error';
+  /** 是否展开 */
   expanded?: boolean;
+  /** 轻量模式 */
   light?: boolean;
+  /** 默认展开状态 */
   defaultExpanded?: boolean;
+  /** 展开状态变更回调 */
   onExpandedChange?: (expanded: boolean) => void;
+  /** 浮动展开状态 */
   floatingExpanded?: boolean;
+  /** 默认浮动展开状态 */
   defaultFloatingExpanded?: boolean;
+  /** 浮动展开状态变更回调 */
   onFloatingExpandedChange?: (floatingExpanded: boolean) => void;
+  /** 自定义类名 */
   classNames?: {
     root?: string;
     bar?: string;
@@ -383,6 +368,7 @@ export interface ToolUseBarThinkProps {
     content?: string;
     floatingExpand?: string;
   };
+  /** 自定义样式 */
   styles?: {
     root?: React.CSSProperties;
     bar?: React.CSSProperties;
@@ -400,6 +386,21 @@ export interface ToolUseBarThinkProps {
   };
 }
 
+/**
+ * ToolUseBarThink 组件
+ *
+ * 用于显示工具使用过程中的思考内容和状态
+ *
+ * @example
+ * ```tsx
+ * <ToolUseBarThink
+ *   toolName="思考"
+ *   toolTarget="分析问题"
+ *   status="loading"
+ *   thinkContent={<div>思考内容...</div>}
+ * />
+ * ```
+ */
 const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
   toolName,
   toolTarget,
@@ -414,17 +415,19 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
   floatingExpanded,
   defaultFloatingExpanded = false,
   onFloatingExpandedChange,
-  classNames,
+  classNames: customClassNames,
   styles,
   light = false,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('tool-use-bar-think');
+  const prefixCls = getPrefixCls('agentic-tool-use-bar-think');
   const { wrapSSR, hashId } = useStyle(prefixCls);
+
   const [expandedState, setExpandedState] = useMergedState(defaultExpanded, {
     value: expanded,
     onChange: onExpandedChange,
   });
+
   const [floatingExpandedState, setFloatingExpandedState] = useMergedState(
     defaultFloatingExpanded,
     {
@@ -433,8 +436,7 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
     },
   );
 
-  // Think 模块的默认图标
-  const defaultIcon = useMemo(() => <Brain />, []);
+  const [hover, setHover] = React.useState(false);
 
   const handleToggleExpand = useCallback(() => {
     setExpandedState(!expandedState);
@@ -450,97 +452,63 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
     }
   }, [status, setExpandedState]);
 
-  const [hover, setHover] = React.useState(false);
-
-  // 缓存样式类名
-  const rootClassName = useMemo(() => {
-    return classNamesFn(prefixCls, hashId, classNames?.root, {
+  const rootClassName = buildClassName(
+    prefixCls,
+    hashId,
+    customClassNames?.root,
+    {
       [`${prefixCls}-expanded`]: !expandedState,
       [`${prefixCls}-loading`]: status === 'loading',
       [`${prefixCls}-active`]: expandedState,
       [`${prefixCls}-success`]: status === 'success',
       [`${prefixCls}-light`]: light,
-    });
-  }, [prefixCls, hashId, classNames?.root, expandedState, status, light]);
-
-  const barClassName = useMemo(() => {
-    return classNamesFn(`${prefixCls}-bar`, hashId, classNames?.bar);
-  }, [prefixCls, hashId, classNames?.bar]);
-
-  const headerClassName = useMemo(() => {
-    return classNamesFn(`${prefixCls}-header`, hashId, classNames?.header, {
-      [`${prefixCls}-header-light`]: light,
-    });
-  }, [prefixCls, hashId, classNames?.header, light]);
-
-  const headerLeftClassName = useMemo(() => {
-    return classNamesFn(
-      `${prefixCls}-header-left`,
-      hashId,
-      classNames?.headerLeft,
-    );
-  }, [prefixCls, hashId, classNames?.headerLeft]);
-
-  // 缓存动画配置
-  const loadingAnimationConfig = useMemo(
-    () => ({
-      animate: {
-        '--rotate': ['0deg', '360deg'],
-      },
-      transition: {
-        '--rotate': {
-          duration: 1,
-          repeat: Infinity,
-          ease: 'linear',
-        },
-      },
-      style: {
-        '--rotation': '360deg',
-      } as React.CSSProperties,
-    }),
-    [],
+    },
   );
 
-  const idleAnimationConfig = useMemo(
-    () => ({
-      animate: {},
-      transition: {},
-      style: {
-        '--rotation': '0deg',
-      } as React.CSSProperties,
-    }),
-    [],
+  const barClassName = buildClassName(
+    `${prefixCls}-bar`,
+    hashId,
+    customClassNames?.bar,
   );
 
-  const imageAnimationProps = useMemo(() => {
-    return status === 'loading' ? loadingAnimationConfig : idleAnimationConfig;
-  }, [status, loadingAnimationConfig, idleAnimationConfig]);
+  const headerClassName = buildClassName(
+    `${prefixCls}-header`,
+    hashId,
+    customClassNames?.header,
+    { [`${prefixCls}-header-light`]: light },
+  );
 
-  // 缓存右侧动画配置
-  const headerRightAnimationConfig = useMemo(() => {
-    if (status === 'loading') {
-      return {
-        animate: {
-          maskImage: [
-            'linear-gradient(to right, rgba(0,0,0,0.99)  -50%, rgba(0,0,0,0.15)   -50%,rgba(0,0,0,0.99)  150%)',
-            'linear-gradient(to right, rgba(0,0,0,0.99)  -50%,  rgba(0,0,0,0.15)  150%,rgba(0,0,0,0.99)  150%)',
-          ],
-        },
-        transition: {
-          maskImage: {
-            duration: 1,
-            repeat: Infinity,
-            ease: 'linear',
-          },
-        },
-        style: {
-          maskImage:
-            'linear-gradient(to right, rgba(0,0,0,0.99) -30%, rgba(0,0,0,0.15) -50%, rgba(0,0,0,0.99) 120%)',
-        } as React.CSSProperties,
-      };
-    }
-    return {};
-  }, [status]);
+  const headerLeftClassName = buildClassName(
+    `${prefixCls}-header-left`,
+    hashId,
+    customClassNames?.headerLeft,
+  );
+
+  const imageAnimationProps =
+    status === 'loading' ? LOADING_ANIMATION : IDLE_ANIMATION;
+  const headerRightAnimation =
+    status === 'loading' ? HEADER_RIGHT_LOADING_ANIMATION : {};
+
+  const imageWrapperClassName = buildClassName(
+    `${prefixCls}-image-wrapper`,
+    hashId,
+    customClassNames?.imageWrapper,
+    {
+      [`${prefixCls}-image-wrapper-rotating`]: status === 'loading',
+      [`${prefixCls}-image-wrapper-loading`]: status === 'loading',
+    },
+  );
+
+  const imageClassName = buildClassName(
+    `${prefixCls}-image`,
+    hashId,
+    customClassNames?.image,
+  );
+
+  const headerRightClassName = buildClassName(
+    `${prefixCls}-header-right`,
+    hashId,
+  );
 
   return wrapSSR(
     <div
@@ -568,41 +536,23 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
                 hashId={hashId}
                 hover={hover}
                 expandedState={expandedState}
-                classNames={classNames}
               />
             ) : (
               <motion.div
-                className={classNamesFn(
-                  `${prefixCls}-image-wrapper`,
-                  hashId,
-                  classNames?.imageWrapper,
-                  {
-                    [`${prefixCls}-image-wrapper-rotating`]:
-                      status === 'loading',
-                    [`${prefixCls}-image-wrapper-loading`]:
-                      status === 'loading',
-                  },
-                )}
+                className={imageWrapperClassName}
                 {...imageAnimationProps}
               >
                 {icon || (
-                  <div
-                    className={classNamesFn(
-                      `${prefixCls}-image`,
-                      hashId,
-                      classNames?.image,
-                    )}
-                    style={styles?.image}
-                  >
-                    {defaultIcon}
+                  <div className={imageClassName} style={styles?.image}>
+                    <Brain />
                   </div>
                 )}
               </motion.div>
             )}
           </div>
           <motion.div
-            className={classNamesFn(`${prefixCls}-header-right`, hashId)}
-            {...headerRightAnimationConfig}
+            className={headerRightClassName}
+            {...headerRightAnimation}
           >
             <HeaderContent
               toolName={toolName}
@@ -610,7 +560,7 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
               prefixCls={prefixCls}
               hashId={hashId}
               light={light}
-              classNames={classNames}
+              classNames={customClassNames}
               styles={styles}
             />
           </motion.div>
@@ -619,7 +569,7 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
           time={time}
           prefixCls={prefixCls}
           hashId={hashId}
-          classNames={classNames}
+          classNames={customClassNames}
           styles={styles}
         />
         <ExpandButton
@@ -628,7 +578,7 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
           expandedState={expandedState}
           prefixCls={prefixCls}
           hashId={hashId}
-          classNames={classNames}
+          classNames={customClassNames}
           styles={styles}
           onToggleExpand={handleToggleExpand}
         />
@@ -641,7 +591,7 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
         light={light}
         prefixCls={prefixCls}
         hashId={hashId}
-        classNames={classNames}
+        classNames={customClassNames}
         styles={styles}
         onToggleFloatingExpand={handleToggleFloatingExpand}
       />
@@ -649,5 +599,4 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
   );
 };
 
-// 使用 memo 优化组件，避免不必要的重新渲染
 export const ToolUseBarThink = memo(ToolUseBarThinkComponent);

@@ -7,10 +7,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { LanguageSelector } from '../../../../src/plugins/code/components/LanguageSelector';
+import { LanguageSelector } from '../../../../src/Plugins/code/components/LanguageSelector';
 
 // Mock I18nContext
-vi.mock('../../../../src/i18n/index.tsx', () => ({
+vi.mock('../../../../src/I18n/index.tsx', () => ({
   I18nContext: React.createContext({
     locale: {
       switchLanguage: '切换语言',
@@ -19,7 +19,7 @@ vi.mock('../../../../src/i18n/index.tsx', () => ({
 }));
 
 // Mock langIconMap
-vi.mock('../../../../src/plugins/code/langIconMap', () => ({
+vi.mock('../../../../src/Plugins/code/langIconMap', () => ({
   langIconMap: new Map([
     ['javascript', '/icons/javascript.png'],
     ['python', '/icons/python.png'],
@@ -28,7 +28,7 @@ vi.mock('../../../../src/plugins/code/langIconMap', () => ({
 }));
 
 // Mock langOptions
-vi.mock('../../../../src/plugins/code/utils/langOptions', () => ({
+vi.mock('../../../../src/Plugins/code/utils/langOptions', () => ({
   langOptions: [
     { value: 'javascript', label: 'JavaScript' },
     { value: 'python', label: 'Python' },
@@ -38,7 +38,7 @@ vi.mock('../../../../src/plugins/code/utils/langOptions', () => ({
 }));
 
 // Mock LoadImage component
-vi.mock('../../../../src/plugins/code/components/LoadImage', () => ({
+vi.mock('../../../../src/Plugins/code/components/LoadImage', () => ({
   LoadImage: ({ src }: any) => <img src={src} alt="language-icon" />,
 }));
 

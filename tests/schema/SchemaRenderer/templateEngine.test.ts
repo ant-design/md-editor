@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TemplateEngine } from '../../../src/schema/SchemaRenderer/templateEngine';
+import { TemplateEngine } from '../../../src/Schema/SchemaRenderer/templateEngine';
 
 describe('TemplateEngine', () => {
   describe('基本渲染功能', () => {

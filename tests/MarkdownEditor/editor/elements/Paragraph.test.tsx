@@ -27,7 +27,7 @@ vi.mock('@ant-design/agentic-ui/MarkdownEditor/hooks/editor', () => ({
   useSelStatus: () => [false, [0]],
 }));
 
-vi.mock('@ant-design/agentic-ui/i18n', () => ({
+vi.mock('@ant-design/agentic-ui/I18n', () => ({
   I18nContext: {
     Provider: ({ children }: { children: React.ReactNode }) => children,
     Consumer: ({ children }: { children: (value: any) => React.ReactNode }) =>
@@ -104,7 +104,7 @@ describe('Paragraph Component', () => {
     );
 
     const paragraphElement = screen.getByText('Test children').parentElement;
-    expect(paragraphElement).toHaveClass('ant-md-editor-drag-el');
+    expect(paragraphElement).toHaveClass('ant-agentic-md-editor-drag-el');
   });
 
   it('应该处理空段落', () => {

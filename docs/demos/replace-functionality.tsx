@@ -1,9 +1,9 @@
-import { EditorStore, withMarkdown } from '@ant-design/agentic-ui';
+import { EditorStore } from '@ant-design/agentic-ui';
 import React, { useRef, useState } from 'react';
 import { BaseEditor, createEditor } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
-
+import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
 /**
  * EditorStore 替换功能演示
  *

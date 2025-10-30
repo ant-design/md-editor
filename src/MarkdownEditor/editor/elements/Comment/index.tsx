@@ -37,7 +37,7 @@ interface CommentViewProps {
 export const CommentView = (props: CommentViewProps) => {
   const { setShowComment } = props;
   const context = useContext(ConfigProvider.ConfigContext);
-  const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
+  const mdEditorBaseClass = context?.getPrefixCls('agentic-md-editor-content');
 
   /**
    * 查找当前评论数据

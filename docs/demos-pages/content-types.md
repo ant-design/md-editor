@@ -9,6 +9,8 @@ group:
 
 # 内容类型
 
+<code src="../demos/markdown-editor-readonly-compare.tsx"></code>
+
 ## 基础内容类型
 
 ### 表格

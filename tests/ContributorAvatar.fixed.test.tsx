@@ -168,7 +168,7 @@ describe('ContributorAvatar Component', () => {
     it('should render empty list when no items provided', () => {
       renderWithProvider(<AvatarList displayList={[]} />);
       const avatarList = document.querySelector(
-        '.ant-md-editor-contributor-avatar-list',
+        '.ant-agentic-md-editor-contributor-avatar-list',
       );
       expect(avatarList?.children).toHaveLength(0);
     });
@@ -182,7 +182,7 @@ describe('ContributorAvatar Component', () => {
       );
 
       const avatarList = document.querySelector(
-        '.ant-md-editor-contributor-avatar-list',
+        '.ant-agentic-md-editor-contributor-avatar-list',
       );
       expect(avatarList).toHaveStyle('background: red');
     });
@@ -226,12 +226,12 @@ describe('ContributorAvatar Component', () => {
       renderWithProvider(<AvatarList displayList={mockDisplayList} />);
 
       const avatarList = document.querySelector(
-        '.ant-md-editor-contributor-avatar-list',
+        '.ant-agentic-md-editor-contributor-avatar-list',
       );
       expect(avatarList).toBeInTheDocument();
 
       const avatarItems = document.querySelectorAll(
-        '.ant-md-editor-contributor-avatar-list-item',
+        '.ant-agentic-md-editor-contributor-avatar-list-item',
       );
       expect(avatarItems).toHaveLength(3);
     });

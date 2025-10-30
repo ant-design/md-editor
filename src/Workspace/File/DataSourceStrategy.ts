@@ -1,12 +1,54 @@
 import { FILE_TYPES, FileCategory, FileNode } from '../types';
 
+const DEFAULT_MIME_TYPE = 'application/octet-stream';
+const TEXT_MIME_TYPE = 'text/plain';
+
+const CODE_MIME_TYPES: string[] = [
+  'text/javascript',
+  'application/javascript',
+  'text/typescript',
+  'application/typescript',
+  'text/jsx',
+  'text/tsx',
+  'text/x-python',
+  'application/x-python-code',
+  'text/x-java-source',
+  'text/x-c++src',
+  'text/x-c++hdr',
+  'text/x-csrc',
+  'text/x-chdr',
+  'text/x-csharp',
+  'text/x-go',
+  'text/x-rust',
+  'text/x-php',
+  'application/x-httpd-php',
+  'text/x-ruby',
+  'text/x-shellscript',
+  'application/x-sh',
+  'text/x-powershell',
+  'text/x-sql',
+  'application/sql',
+  'text/x-kotlin',
+  'text/x-swift',
+  'text/x-dart',
+  'text/x-lua',
+  'text/x-perl',
+  'text/x-r',
+  'text/x-matlab',
+  'text/x-scala',
+  'application/json',
+  'application/yaml',
+  'text/yaml',
+  'application/toml',
+];
+
 /**
  * 文件数据源枚举
  */
 export enum DataSourceType {
-  URL = 'url', // 远程URL
-  CONTENT = 'content', // 文本内容
-  FILE = 'file', // 原生File/Blob对象
+  URL = 'url',
+  CONTENT = 'content',
+  FILE = 'file',
 }
 
 /**
@@ -94,18 +136,16 @@ export class UrlDataSourceStrategy implements DataSourceStrategy {
   }
 
   private inferMimeType(file: FileNode): string {
-    // 基于URL后缀推断MIME类型
     const extension = file.url?.split('.').pop()?.toLowerCase();
-    if (!extension) return 'application/octet-stream';
+    if (!extension) return DEFAULT_MIME_TYPE;
 
-    // 使用文件类型定义中的MIME类型
     for (const [, definition] of Object.entries(FILE_TYPES)) {
       if (definition.extensions.includes(extension)) {
         return definition.mimeTypes[0];
       }
     }
 
-    return 'application/octet-stream';
+    return DEFAULT_MIME_TYPE;
   }
 }
 
@@ -122,10 +162,9 @@ export class ContentDataSourceStrategy implements DataSourceStrategy {
       throw new Error('Content not provided');
     }
 
-    // 为文本内容创建Blob URL（仅在浏览器环境中）
     let previewUrl: string | undefined;
     if (typeof URL !== 'undefined' && URL.createObjectURL) {
-      const blob = new Blob([file.content], { type: 'text/plain' });
+      const blob = new Blob([file.content], { type: TEXT_MIME_TYPE });
       previewUrl = URL.createObjectURL(blob);
     }
 
@@ -134,7 +173,7 @@ export class ContentDataSourceStrategy implements DataSourceStrategy {
       previewCapability: PreviewCapability.FULL,
       previewUrl,
       content: file.content,
-      mimeType: 'text/plain',
+      mimeType: TEXT_MIME_TYPE,
       needsCleanup: Boolean(previewUrl),
     };
   }
@@ -181,45 +220,7 @@ export class FileDataSourceStrategy implements DataSourceStrategy {
   }
 
   private isCodeMimeType(mimeType: string): boolean {
-    const codeMimeTypes = [
-      'text/javascript',
-      'application/javascript',
-      'text/typescript',
-      'application/typescript',
-      'text/jsx',
-      'text/tsx',
-      'text/x-python',
-      'application/x-python-code',
-      'text/x-java-source',
-      'text/x-c++src',
-      'text/x-c++hdr',
-      'text/x-csrc',
-      'text/x-chdr',
-      'text/x-csharp',
-      'text/x-go',
-      'text/x-rust',
-      'text/x-php',
-      'application/x-httpd-php',
-      'text/x-ruby',
-      'text/x-shellscript',
-      'application/x-sh',
-      'text/x-powershell',
-      'text/x-sql',
-      'application/sql',
-      'text/x-kotlin',
-      'text/x-swift',
-      'text/x-dart',
-      'text/x-lua',
-      'text/x-perl',
-      'text/x-r',
-      'text/x-matlab',
-      'text/x-scala',
-      'application/json',
-      'application/yaml',
-      'text/yaml',
-      'application/toml',
-    ];
-    return codeMimeTypes.includes(mimeType);
+    return CODE_MIME_TYPES.includes(mimeType);
   }
 
   private getPreviewCapability(category: FileCategory): PreviewCapability {

@@ -17,6 +17,7 @@ const ThinkBlockI18nDemo = () => {
         <div style={{ marginBottom: '20px' }}>
           <button
             type="button"
+            type="button"
             onClick={() =>
               setLanguage(language === 'zh-CN' ? 'en-US' : 'zh-CN')
             }

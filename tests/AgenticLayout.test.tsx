@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { AgenticLayout } from '../src/AgenticLayout';
 
 // Mock the style hook
@@ -55,10 +55,12 @@ describe('AgenticLayout', () => {
           left={<div data-testid="left">Left Content</div>}
           center={<div data-testid="center">Center Content</div>}
           right={<div data-testid="right">Right Content</div>}
-          leftDefaultCollapsed={false}
-          rightDefaultCollapsed={false}
-          onLeftCollapse={onLeftCollapse}
-          onRightCollapse={onRightCollapse}
+          header={{
+            leftDefaultCollapsed: false,
+            rightDefaultCollapsed: false,
+            onLeftCollapse: onLeftCollapse,
+            onRightCollapse: onRightCollapse,
+          }}
         />
       </TestWrapper>,
     );
@@ -79,10 +81,12 @@ describe('AgenticLayout', () => {
           left={<div data-testid="left">Left Content</div>}
           center={<div data-testid="center">Center Content</div>}
           right={<div data-testid="right">Right Content</div>}
-          leftCollapsed={false}
-          rightCollapsed={false}
-          onLeftCollapse={onLeftCollapse}
-          onRightCollapse={onRightCollapse}
+          header={{
+            leftDefaultCollapsed: false,
+            rightDefaultCollapsed: false,
+            onLeftCollapse: onLeftCollapse,
+            onRightCollapse: onRightCollapse,
+          }}
         />
       </TestWrapper>,
     );

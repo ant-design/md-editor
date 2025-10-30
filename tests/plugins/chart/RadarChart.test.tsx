@@ -4,7 +4,7 @@ import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import RadarChart, {
   RadarChartDataItem,
-} from '../../../src/plugins/chart/RadarChart';
+} from '../../../src/Plugins/chart/RadarChart';
 
 // Mock Chart.js
 vi.mock('chart.js', () => ({
@@ -38,16 +38,17 @@ vi.mock('react-chartjs-2', () => ({
 }));
 
 // Mock components
-vi.mock('../../../src/plugins/chart/components', () => ({
+vi.mock('../../../src/Plugins/chart/components', () => ({
   ChartContainer: ({ children, ...props }: any) => (
     <div data-testid="chart-container" {...props}>
       {children}
     </div>
   ),
-  ChartFilter: ({ filterOptions, onFilterChange, ...props }: any) => (
+  ChartFilter: ({ filterOptions, onFilterChange }: any) => (
     <div data-testid="chart-filter">
       {filterOptions?.map((option: any) => (
         <button
+          type="button"
           key={option.value}
           onClick={() => onFilterChange(option.value)}
           data-testid={`filter-${option.value}`}
@@ -61,7 +62,7 @@ vi.mock('../../../src/plugins/chart/components', () => ({
     <div data-testid="chart-toolbar">
       {title && <span data-testid="chart-title">{title}</span>}
       {dataTime && <span data-testid="chart-datatime">{dataTime}</span>}
-      <button onClick={onDownload} data-testid="download-button">
+      <button type="button" onClick={onDownload} data-testid="download-button">
         下载
       </button>
     </div>
@@ -70,7 +71,7 @@ vi.mock('../../../src/plugins/chart/components', () => ({
 }));
 
 // Mock ChartStatistic
-vi.mock('../../../src/plugins/chart/ChartStatistic', () => ({
+vi.mock('../../../src/Plugins/chart/ChartStatistic', () => ({
   default: ({ title, value }: any) => (
     <div data-testid="chart-statistic">
       {title}: {value}
@@ -79,12 +80,12 @@ vi.mock('../../../src/plugins/chart/ChartStatistic', () => ({
 }));
 
 // Mock useChartStatistic hook
-vi.mock('../../../src/plugins/chart/hooks/useChartStatistic', () => ({
+vi.mock('../../../src/Plugins/chart/hooks/useChartStatistic', () => ({
   useChartStatistic: vi.fn(() => null),
 }));
 
 // Mock style hook
-vi.mock('../../../src/plugins/chart/RadarChart/style', () => ({
+vi.mock('../../../src/Plugins/chart/RadarChart/style', () => ({
   useStyle: vi.fn(() => ({
     wrapSSR: (node: any) => node,
     hashId: 'test-hash-id',
@@ -413,7 +414,7 @@ describe('RadarChart', () => {
   describe('交互功能测试', () => {
     it('应该支持下载功能', async () => {
       const { downloadChart } = await import(
-        '../../../src/plugins/chart/components'
+        '../../../src/Plugins/chart/components'
       );
 
       render(<RadarChart data={sampleData} title="可下载雷达图" />);
@@ -427,7 +428,11 @@ describe('RadarChart', () => {
     });
 
     it('应该支持额外的工具栏按钮', () => {
-      const extraButton = <button data-testid="extra-button">额外按钮</button>;
+      const extraButton = (
+        <button type="button" data-testid="extra-button">
+          额外按钮
+        </button>
+      );
 
       render(
         <RadarChart
@@ -491,7 +496,7 @@ describe('RadarChart', () => {
   describe('ChartStatistic 集成测试', () => {
     it('应该支持 statistic 配置', async () => {
       const { useChartStatistic } = await import(
-        '../../../src/plugins/chart/hooks/useChartStatistic'
+        '../../../src/Plugins/chart/hooks/useChartStatistic'
       );
       vi.mocked(useChartStatistic).mockReturnValue([
         {

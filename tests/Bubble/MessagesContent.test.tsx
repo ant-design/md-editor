@@ -91,6 +91,7 @@ vi.mock('../../src/Bubble/MessagesContent/DocInfo', () => ({
           <div data-testid={`doc-content-${index}`}>{item.content}</div>
           <div data-testid={`doc-url-${index}`}>{item.originUrl}</div>
           <button
+            type="button"
             data-testid={`doc-click-${index}`}
             onClick={() => onOriginUrlClick?.(item.originUrl)}
           >

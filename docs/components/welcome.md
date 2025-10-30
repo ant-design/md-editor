@@ -1,12 +1,12 @@
 ---
-title: Welcome 欢迎语
-atomId: Welcome
+title: WelcomeMessage 欢迎语
+atomId: WelcomeMessage
 group:
   title: 入口
   order: 1
 ---
 
-# Welcome 欢迎语
+# WelcomeMessage 欢迎语
 
 通过简短友好的欢迎语引入使用场景。
 
@@ -16,7 +16,7 @@ group:
 
 ## API
 
-### WelcomeProps
+### WelcomeMessageProps
 
 | 参数          | 说明                 | 类型                                       | 默认值 |
 | ------------- | -------------------- | ------------------------------------------ | ------ |
@@ -31,11 +31,11 @@ group:
 ### 基础用法
 
 ```tsx | pure
-import { Welcome } from '@ant-design/agentic-ui';
+import { WelcomeMessage } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
-    <Welcome title="欢迎使用 LUI Chat" description="开始你的智能对话之旅" />
+    <WelcomeMessageMessage title="欢迎使用 LUI Chat" description="开始你的智能对话之旅" />
   );
 };
 ```
@@ -43,11 +43,11 @@ export default () => {
 ### 自定义类名
 
 ```tsx | pure
-import { Welcome } from '@ant-design/agentic-ui';
+import { WelcomeMessage } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
-    <Welcome
+    <WelcomeMessage
       title="带自定义类名的欢迎组件"
       description="通过 classNames 属性自定义各个部分的样式"
       classNames={{
@@ -63,9 +63,9 @@ export default () => {
 ### 仅标题
 
 ```tsx | pure
-import { Welcome } from '@ant-design/agentic-ui';
+import { WelcomeMessage } from '@ant-design/agentic-ui';
 
 export default () => {
-  return <Welcome title="简洁的欢迎标题" />;
+  return <WelcomeMessage title="简洁的欢迎标题" />;
 };
 ```

@@ -236,39 +236,34 @@ export class FileTypeProcessor {
  */
 export const fileTypeProcessor = new FileTypeProcessor(dataSourceManager);
 
-/**
- * 判断文件类型的便捷函数
- */
-export const isImageFile = (file: FileNode): boolean => {
-  return fileTypeProcessor.inferFileType(file).category === FileCategory.Image;
-};
+const DEFAULT_MIME_TYPE = 'application/octet-stream';
 
-export const isVideoFile = (file: FileNode): boolean => {
-  return fileTypeProcessor.inferFileType(file).category === FileCategory.Video;
-};
-
-export const isPdfFile = (file: FileNode): boolean => {
-  return fileTypeProcessor.inferFileType(file).category === FileCategory.PDF;
-};
-
-export const isTextFile = (file: FileNode): boolean => {
-  return fileTypeProcessor.inferFileType(file).category === FileCategory.Text;
-};
-
-export const isArchiveFile = (file: FileNode): boolean => {
-  return (
-    fileTypeProcessor.inferFileType(file).category === FileCategory.Archive
-  );
-};
-
-export const isAudioFile = (file: FileNode): boolean => {
-  return fileTypeProcessor.inferFileType(file).category === FileCategory.Audio;
+const isFileCategory = (file: FileNode, category: FileCategory): boolean => {
+  return fileTypeProcessor.inferFileType(file).category === category;
 };
 
 /**
- * 获取文件的MIME类型
+ * 文件类型判断便捷函数
  */
+export const isImageFile = (file: FileNode): boolean =>
+  isFileCategory(file, FileCategory.Image);
+
+export const isVideoFile = (file: FileNode): boolean =>
+  isFileCategory(file, FileCategory.Video);
+
+export const isPdfFile = (file: FileNode): boolean =>
+  isFileCategory(file, FileCategory.PDF);
+
+export const isTextFile = (file: FileNode): boolean =>
+  isFileCategory(file, FileCategory.Text);
+
+export const isArchiveFile = (file: FileNode): boolean =>
+  isFileCategory(file, FileCategory.Archive);
+
+export const isAudioFile = (file: FileNode): boolean =>
+  isFileCategory(file, FileCategory.Audio);
+
 export const getMimeType = (file: FileNode): string => {
   const result = fileTypeProcessor.processFile(file);
-  return result.dataSource.mimeType || 'application/octet-stream';
+  return result.dataSource.mimeType || DEFAULT_MIME_TYPE;
 };

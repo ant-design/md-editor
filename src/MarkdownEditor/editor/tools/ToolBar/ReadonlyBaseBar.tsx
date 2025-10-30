@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import copy from 'copy-to-clipboard';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { Editor, Element, Node, Point, Transforms } from 'slate';
-import { I18nContext } from '../../../../i18n';
+import { I18nContext } from '../../../../I18n';
 import { CommentDataType } from '../../../BaseMarkdownEditor';
 import { useEditorStore } from '../../store';
 import {

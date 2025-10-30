@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import React, { useState } from 'react';
-import { useRefFunction } from '../../hooks/useRefFunction';
+import { useRefFunction } from '../../Hooks/useRefFunction';
 import type { MarkdownEditorInstance } from '../../MarkdownEditor';
 import type { AttachmentFile } from '../AttachmentButton/types';
+import Enlargement from '../Enlargement';
 import { RefinePromptButton } from '../RefinePromptButton';
 
 export interface QuickActionsProps {
@@ -51,6 +52,15 @@ export interface QuickActionsProps {
 
   /** resize 回调 */
   onResize?: (width: number, rightOffset: number) => void;
+
+  /** 是否支持编辑器放大功能 */
+  enlargeable?: boolean;
+
+  /** 是否处于放大状态 */
+  isEnlarged?: boolean;
+
+  /** 放大按钮点击回调 */
+  onEnlargeClick?: () => void;
 }
 
 /**
@@ -72,9 +82,12 @@ export const QuickActions = React.forwardRef<HTMLDivElement, QuickActionsProps>(
       editorRef,
       onValueChange,
       quickActionRender,
-      prefixCls = 'ant-md-input-field',
+      prefixCls = 'ant-agentic-md-input-field',
       hashId = '',
       onResize,
+      isEnlarged = false,
+      onEnlargeClick,
+      enlargeable = false,
     },
     ref,
   ) => {
@@ -132,20 +145,32 @@ export const QuickActions = React.forwardRef<HTMLDivElement, QuickActionsProps>(
             e.stopPropagation();
             e.preventDefault();
           }}
-          className={classNames(`${prefixCls}-quick-actions`, hashId)}
+          className={classNames(`${prefixCls}-quick-actions`, hashId, {
+            [`${prefixCls}-quick-actions-vertical`]: enlargeable,
+          })}
         >
-          {(quickActionRender
-            ? quickActionRender({
-                value,
-                fileMap,
-                onFileMapChange,
-                isHover,
-                isLoading,
-                fileUploadStatus,
-              })
-            : []
-          )?.concat(
-            refinePrompt?.enable
+          {[
+            // Enlargement组件 - 显示在最上方
+            enlargeable && (
+              <Enlargement
+                key="enlargement"
+                isEnlarged={isEnlarged}
+                onEnlargeClick={onEnlargeClick}
+              />
+            ),
+            // 自定义快速操作按钮
+            ...(quickActionRender
+              ? quickActionRender({
+                  value,
+                  fileMap,
+                  onFileMapChange,
+                  isHover,
+                  isLoading,
+                  fileUploadStatus,
+                })
+              : []),
+            // 提示词优化按钮
+            ...(refinePrompt?.enable
               ? [
                   <RefinePromptButton
                     key="refine-prompt"
@@ -155,8 +180,8 @@ export const QuickActions = React.forwardRef<HTMLDivElement, QuickActionsProps>(
                     onRefine={handleRefine}
                   />,
                 ]
-              : [],
-          )}
+              : []),
+          ]}
         </div>
       </RcResizeObserver>
     );

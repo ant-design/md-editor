@@ -95,7 +95,7 @@
         style="border: 1px solid rgb(225, 228, 232); border-radius: 8px; overflow: hidden;"
       >
         <div
-          class="ant-md-editor markdown-editor ant-md-editor-edit"
+          class="ant-agentic-md-editor markdown-editor ant-agentic-md-editor-edit"
           style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); min-height: 400px; padding: 20px;"
         >
           <div
@@ -106,7 +106,7 @@
               aria-multiline="true"
               autocapitalize="false"
               autocorrect="false"
-              class="ant-md-editor-content ant-md-editor-content-focus ant-md-editor-content-edit"
+              class="ant-agentic-md-editor-content ant-agentic-md-editor-content-focus ant-agentic-md-editor-content-edit"
               contenteditable="true"
               data-slate-editor="true"
               data-slate-node="value"
@@ -116,7 +116,7 @@
               zindex="-1"
             >
               <div
-                class="ant-md-editor-drag-el"
+                class="ant-agentic-md-editor-drag-el"
                 data-be="paragraph"
                 data-slate-node="element"
               >
@@ -214,7 +214,7 @@
                 </span>
               </div>
               <div
-                class="ant-md-editor-drag-el"
+                class="ant-agentic-md-editor-drag-el"
                 data-be="paragraph"
                 data-slate-node="element"
               >
@@ -239,7 +239,7 @@
             </div>
           </div>
           <div
-            class="ant-md-editor-focus"
+            class="ant-agentic-md-editor-focus"
             style="height: 64px;"
           />
         </div>

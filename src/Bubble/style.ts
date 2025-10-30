@@ -3,7 +3,7 @@ import {
   CSSInterpolation,
   resetComponent,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 import { BubbleProps } from './type';
 
 const genStyle = (
@@ -16,6 +16,7 @@ const genStyle = (
         position: 'relative',
         maxWidth: '100vw',
         cursor: 'pointer',
+
         '&&-compact': {
           padding: 'var(--padding-0-5x)',
         },
@@ -26,7 +27,7 @@ const genStyle = (
         },
       },
 
-      '.md-editor-code': {
+      '.agentic-md-editor-code': {
         borderRadius: '12px !important',
         overflow: 'auto',
         padding: 'var(--padding-3x)',
@@ -132,9 +133,11 @@ const genStyle = (
         maxWidth: 'min(860px,100%)',
         '&-left': {
           justifyContent: 'flex-start',
+          maxWidth: 'min(860px,100%)',
         },
         '&-right': {
           justifyContent: 'flex-end',
+          maxWidth: 'min(860px,100%)',
         },
       },
       '&-bubble-before': {

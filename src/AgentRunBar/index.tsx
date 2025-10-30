@@ -3,7 +3,7 @@ import { Button, ConfigProvider, Tooltip, Typography } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
-import { I18nContext } from '../i18n';
+import { I18nContext } from '../I18n';
 import {
   PauseIcon,
   PlayIcon,

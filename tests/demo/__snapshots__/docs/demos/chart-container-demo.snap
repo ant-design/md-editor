@@ -14,13 +14,13 @@
       <div
         style="margin-bottom: 20px; display: flex; gap: 10px;"
       >
-        <button
-          type="button"
+         <button
+          type="button"type="button"
         >
           切换主题: 浅色
         </button>
-        <button
-          type="button"
+         <button
+          type="button"type="button"
         >
           切换设备: 桌面端
         </button>

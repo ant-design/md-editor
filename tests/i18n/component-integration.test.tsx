@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { HistoryLoadMore } from '../../src/History/components/LoadMoreComponent';
 import { HistoryNewChat } from '../../src/History/components/NewChatComponent';
 import { HistorySearch } from '../../src/History/components/SearchComponent';
-import { cnLabels, enLabels, I18nContext } from '../../src/i18n';
+import { cnLabels, enLabels, I18nContext } from '../../src/I18n';
 import { TaskList } from '../../src/TaskList';
 
 // Mock components that might not be available in test environment

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatTime } from '../../src/utils/formatTime';
+import { formatTime } from '../../src/Utils/formatTime';
 
 describe('formatTime', () => {
   it('should return fixed time in test environment', () => {

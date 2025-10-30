@@ -167,6 +167,7 @@ export default function ToMarkdownPluginDemo() {
       <div style={{ marginBottom: '20px' }}>
         <button
           type="button"
+          type="button"
           onClick={handleExportMarkdown}
           style={{
             padding: '8px 16px',

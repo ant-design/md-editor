@@ -3,6 +3,7 @@ import {
   getOffsetTop,
   slugify,
 } from '@ant-design/agentic-ui/MarkdownEditor/editor/utils/dom';
+import { describe, expect, it } from 'vitest';
 
 describe('DOM Utils', () => {
   describe('getOffsetTop', () => {

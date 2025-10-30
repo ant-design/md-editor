@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 import { createEditor, Editor, Selection } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
-import { I18nProvide } from '../i18n';
+import { I18nProvide } from '../I18n';
 import { CommentList } from './editor/components/CommentList';
 import { SlateMarkdownEditor } from './editor/Editor';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
@@ -269,7 +269,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   const context = useContext(ConfigProvider.ConfigContext);
   // ---- css style ----
-  const baseClassName = context?.getPrefixCls(`md-editor`);
+  const baseClassName = context?.getPrefixCls(`agentic-md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
   // --- css style end ---
 

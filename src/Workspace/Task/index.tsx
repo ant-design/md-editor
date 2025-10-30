@@ -40,7 +40,7 @@ const StatusIcon: FC<{
 
 export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('workspace-task');
+  const prefixCls = getPrefixCls('agentic-workspace-task');
   const { wrapSSR, hashId } = useTaskStyle(prefixCls);
 
   return wrapSSR(

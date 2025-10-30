@@ -59,7 +59,7 @@ vi.mock('../../src/MarkdownEditor/editor/components/CommentList', () => ({
   CommentList: () => <div data-testid="comment-list">Comment List</div>,
 }));
 
-vi.mock('../../src/i18n', () => ({
+vi.mock('../../src/I18n', () => ({
   I18nProvide: ({ children }: any) => <div>{children}</div>,
 }));
 

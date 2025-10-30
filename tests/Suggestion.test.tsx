@@ -283,6 +283,7 @@ describe('Suggestion', () => {
         return (
           <button
             type="button"
+            type="button"
             onClick={() => context.onSelectRef?.current?.('selected value')}
           >
             Select

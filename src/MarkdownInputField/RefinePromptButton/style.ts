@@ -4,7 +4,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../../Hooks/useStyle';
 
 const spinnerRotate = new Keyframes('refineSpinnerRotate', {
   '0%': {

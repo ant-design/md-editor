@@ -198,7 +198,7 @@ export const GroupMenu: React.FC<GroupMenuProps> = (props) => {
 
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('agent-chat-history-menu');
+  const prefixCls = getPrefixCls('agentic-chat-history-menu');
 
   // 注册样式
   const { wrapSSR, hashId } = useStyle(prefixCls);

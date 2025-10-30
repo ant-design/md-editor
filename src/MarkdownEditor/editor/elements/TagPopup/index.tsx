@@ -3,12 +3,14 @@ import { ChevronDown } from '@sofa-design/icons';
 import { ConfigProvider, Dropdown, MenuProps } from 'antd';
 import classNames from 'classnames';
 import React, {
+  MouseEvent,
   ReactNode,
   useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import { BaseEditor } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
 import { SuggestionConnext } from '../../../../MarkdownInputField/Suggestion';
 import { useStyle } from './style';
@@ -18,6 +20,8 @@ type TagPopupItem = Array<{
   key: string | number;
   onClick?: (v: string) => void;
 }>;
+
+type SuggestionContextValue = React.ContextType<typeof SuggestionConnext>;
 
 type RenderProps = TagPopupProps & {
   text?: string;
@@ -151,78 +155,242 @@ export type TagPopupProps = {
  *
  * @returns 一个带有下拉菜单的标签弹出组件
  */
+const getNodePath = (
+  editor: BaseEditor & ReactEditor,
+  domRef: React.RefObject<HTMLDivElement>,
+) => {
+  if (!domRef.current) return null;
+  const slateNode = ReactEditor.toSlateNode(editor, domRef.current);
+  return ReactEditor.findPath(editor, slateNode);
+};
+
+const updateNodeContext = (
+  editor: BaseEditor & ReactEditor,
+  domRef: React.RefObject<HTMLDivElement>,
+  suggestionConnext: SuggestionContextValue,
+  props: RenderProps,
+  onSelect: RenderProps['onSelect'],
+  pathRef: React.MutableRefObject<number[] | undefined>,
+) => {
+  const path = getNodePath(editor, domRef);
+  if (!path) return;
+
+  pathRef.current = path;
+
+  if (suggestionConnext?.triggerNodeContext) {
+    suggestionConnext.triggerNodeContext.current = {
+      ...props,
+      text: props.text,
+    };
+  }
+
+  if (suggestionConnext?.onSelectRef) {
+    suggestionConnext.onSelectRef.current = (newValue: string) => {
+      const currentPath = getNodePath(editor, domRef);
+      onSelect?.(newValue, currentPath || path || []);
+      suggestionConnext?.setOpen?.(false);
+    };
+  }
+};
+
+const loadItemsData = async (
+  items:
+    | TagPopupItem
+    | ((props: RenderProps) => Promise<TagPopupItem>)
+    | undefined,
+  props: RenderProps,
+  setLoading: (loading: boolean) => void,
+  setSelectedItems: (items: TagPopupItem) => void,
+) => {
+  if (typeof items !== 'function') return;
+
+  setLoading(true);
+  const result = await items(props);
+  if (Array.isArray(result)) {
+    setSelectedItems(result || []);
+  }
+  setLoading(false);
+};
+
+const initializeAutoOpen = (
+  autoOpen: boolean | undefined,
+  type: string | undefined,
+  setOpen: (open: boolean) => void,
+  suggestionConnext: SuggestionContextValue,
+) => {
+  if (!autoOpen) return;
+
+  if (type === 'dropdown') {
+    setOpen(true);
+    return;
+  }
+
+  suggestionConnext?.setOpen?.(true);
+};
+
+const handleMouseEnter = (domRef: React.RefObject<HTMLDivElement>) => {
+  const target = domRef.current;
+  if (!target) return;
+  target.classList.remove('no-focus');
+};
+
+const handleMouseLeave = (domRef: React.RefObject<HTMLDivElement>) => {
+  const target = domRef.current;
+  if (!target) return;
+  target.classList.add('no-focus');
+};
+
+const createDefaultDom = (
+  domRef: React.RefObject<HTMLDivElement>,
+  baseCls: string,
+  hashId: string,
+  loading: boolean,
+  selectedItems: TagPopupItem,
+  children: React.ReactNode,
+  text: string | undefined,
+  placeholder: string | undefined,
+) => {
+  const isEmpty = !text?.trim();
+  const hasItems = selectedItems?.length > 0;
+
+  return (
+    <div
+      ref={domRef}
+      className={classNames(`${baseCls}-tag-popup-input`, 'no-focus', hashId, {
+        empty: isEmpty,
+        [`${baseCls}-tag-popup-input-loading`]: loading,
+        [`${baseCls}-tag-popup-input-has-arrow`]: hasItems,
+      })}
+      onMouseEnter={() => handleMouseEnter(domRef)}
+      onMouseLeave={() => handleMouseLeave(domRef)}
+      title={placeholder}
+    >
+      {children}
+      {hasItems && (
+        <ChevronDown
+          className={classNames(`${baseCls}-tag-popup-input-arrow `, hashId, {
+            empty: isEmpty,
+          })}
+        />
+      )}
+    </div>
+  );
+};
+
+const getRenderDom = (
+  tagRender: TagPopupProps['tagRender'],
+  props: RenderProps,
+  defaultDom: ReactNode,
+  onSelect: RenderProps['onSelect'],
+  currentNodePath: React.MutableRefObject<number[] | undefined>,
+) => {
+  if (!tagRender) return defaultDom;
+
+  return tagRender(
+    {
+      ...props,
+      text: props.text,
+      onSelect: (value: string, tagNode?: Record<string, any>) => {
+        onSelect?.(value, currentNodePath.current || [], tagNode);
+      },
+    },
+    defaultDom,
+  );
+};
+
+const handlePanelClick = (
+  suggestionConnext: SuggestionContextValue,
+  props: RenderProps,
+  onSelect: RenderProps['onSelect'],
+  currentNodePath: React.MutableRefObject<number[] | undefined>,
+) => {
+  if (suggestionConnext?.triggerNodeContext) {
+    suggestionConnext.triggerNodeContext.current = {
+      ...props,
+      text: props.text,
+    };
+  }
+
+  if (suggestionConnext?.onSelectRef) {
+    suggestionConnext.onSelectRef.current = (newValue: string) => {
+      onSelect?.(newValue, currentNodePath.current || []);
+      suggestionConnext?.setOpen?.(false);
+    };
+  }
+
+  suggestionConnext?.setOpen?.(true);
+};
+
+const canOpen = (
+  props: RenderProps,
+  placeholder: string | undefined,
+): boolean => {
+  if (!props.beforeOpenChange) return true;
+
+  return props.beforeOpenChange(true, {
+    ...props,
+    text: props.text,
+    placeholder,
+  });
+};
+
+const handleClick = (
+  e: MouseEvent,
+  props: RenderProps,
+  placeholder: string | undefined,
+  type: string | undefined,
+  suggestionConnext: SuggestionContextValue,
+  onSelect: RenderProps['onSelect'],
+  currentNodePath: React.MutableRefObject<number[] | undefined>,
+) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (!canOpen(props, placeholder)) return;
+  if (type === 'dropdown') return;
+
+  handlePanelClick(suggestionConnext, props, onSelect, currentNodePath);
+};
+
 export const TagPopup = (props: RenderProps) => {
   const { onSelect, items, children, type } = props || {};
   const editor = useSlate();
   const [open, setOpen] = useState(false);
-
   const [loading, setLoading] = React.useState(false);
-
   const domRef = useRef<HTMLDivElement>(null);
-
   const suggestionConnext = useContext(SuggestionConnext);
   const antdContext = useContext(ConfigProvider.ConfigContext);
-  const baseCls = antdContext?.getPrefixCls('md-editor-tag-popup-input');
+  const baseCls = antdContext?.getPrefixCls('agentic-md-editor-tag-popup-input');
   const { wrapSSR, hashId } = useStyle(baseCls);
-
   const currentNodePath = useRef<number[]>();
 
   useEffect(() => {
-    if (!domRef.current) return;
-    const slateNode = ReactEditor.toSlateNode(editor, domRef.current);
-    // 获取路径
-    const path = ReactEditor.findPath(editor, slateNode);
+    const path = getNodePath(editor, domRef);
     if (path) {
       currentNodePath.current = path;
     }
-  }, [editor.children, props.text]); // 添加依赖项
+  }, [editor.children, props.text]);
 
   useEffect(() => {
-    if (!domRef.current) return;
-    const slateNode = ReactEditor.toSlateNode(editor, domRef.current);
-    const path = ReactEditor.findPath(editor, slateNode);
-    if (path) {
-      currentNodePath.current = path;
-      if (suggestionConnext?.triggerNodeContext) {
-        suggestionConnext.triggerNodeContext.current = {
-          ...props,
-          text: props.text,
-        };
-      }
-      if (suggestionConnext?.onSelectRef) {
-        suggestionConnext.onSelectRef.current = (newValue) => {
-          // 获取最新路径
-          const currentPath = ReactEditor.findPath(editor, slateNode);
-          onSelect?.(newValue, currentPath || path || []);
-          suggestionConnext?.setOpen?.(false);
-        };
-      }
-    }
+    updateNodeContext(
+      editor,
+      domRef,
+      suggestionConnext,
+      props,
+      onSelect,
+      currentNodePath,
+    );
   }, [props.text]);
 
   const [selectedItems, setSelectedItems] = useState(() => {
-    if (typeof items === 'function') {
-      return [];
-    }
-    return items || [];
+    return typeof items === 'function' ? [] : items || [];
   });
 
   useEffect(() => {
-    const loadingData = async () => {
-      if (typeof items === 'function') {
-        setLoading(true);
-        const result = await items(props);
-        if (Array.isArray(result)) {
-          setSelectedItems(result || []);
-        }
-        setLoading(false);
-      }
-    };
-    loadingData();
+    loadItemsData(items, props, setLoading, setSelectedItems);
   }, [open, items]);
 
   useEffect(() => {
-    // 默认选中一下
     props.onChange?.(props.text || '', {
       ...props,
       text: props.text,
@@ -233,60 +401,27 @@ export const TagPopup = (props: RenderProps) => {
   }, [props.text, suggestionConnext.open]);
 
   useEffect(() => {
-    if (props.autoOpen) {
-      if (type === 'dropdown') {
-        setOpen(true);
-      } else if (suggestionConnext?.setOpen) {
-        suggestionConnext.setOpen(true);
-      }
-    }
+    initializeAutoOpen(props.autoOpen, type, setOpen, suggestionConnext);
   }, []);
 
   const placeholder = props.placeholder;
-
-  const defaultDom = (
-    <div
-      ref={domRef}
-      className={classNames(`${baseCls}-tag-popup-input`, 'no-focus', hashId, {
-        empty: !props.text?.trim(),
-        [`${baseCls}-tag-popup-input-loading`]: loading,
-        [`${baseCls}-tag-popup-input-has-arrow`]: selectedItems?.length > 0,
-      })}
-      onMouseEnter={() => {
-        const target = domRef.current;
-        if (!target) return;
-        target?.classList.remove(`no-focus`);
-      }}
-      onMouseLeave={() => {
-        const target = domRef.current;
-        if (!target) return;
-        target?.classList.add(`no-focus`);
-      }}
-      title={placeholder}
-    >
-      {children}
-      {selectedItems?.length > 0 ? (
-        <ChevronDown
-          className={classNames(`${baseCls}-tag-popup-input-arrow `, hashId, {
-            empty: !props.text?.trim(),
-          })}
-        />
-      ) : null}
-    </div>
+  const defaultDom = createDefaultDom(
+    domRef,
+    baseCls,
+    hashId,
+    loading,
+    selectedItems,
+    children,
+    props.text,
+    placeholder,
   );
-
-  let renderDom = props.tagRender
-    ? props.tagRender(
-        {
-          ...props,
-          text: props.text,
-          onSelect: (value: string, tagNode?: Record<string, any>) => {
-            onSelect?.(value, currentNodePath.current || [], tagNode);
-          },
-        },
-        defaultDom,
-      )
-    : defaultDom;
+  const renderDom = getRenderDom(
+    props.tagRender,
+    props,
+    defaultDom,
+    onSelect,
+    currentNodePath,
+  );
 
   return wrapSSR(
     <div
@@ -305,38 +440,17 @@ export const TagPopup = (props: RenderProps) => {
           placeholder,
         }),
       }}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (props.beforeOpenChange) {
-          const canOpen = props.beforeOpenChange(true, {
-            ...props,
-            text: props.text,
-            placeholder,
-          });
-          if (!canOpen) {
-            return;
-          }
-        }
-        if (type === 'dropdown') {
-          return;
-        }
-
-        if (suggestionConnext?.triggerNodeContext) {
-          suggestionConnext.triggerNodeContext.current = {
-            ...props,
-            text: props.text,
-          };
-        }
-
-        if (suggestionConnext?.onSelectRef) {
-          suggestionConnext.onSelectRef.current = (newValue) => {
-            onSelect?.(newValue, currentNodePath.current || []);
-            suggestionConnext?.setOpen?.(false);
-          };
-        }
-        suggestionConnext?.setOpen?.(true);
-      }}
+      onClick={(e) =>
+        handleClick(
+          e,
+          props,
+          placeholder,
+          type,
+          suggestionConnext,
+          onSelect,
+          currentNodePath,
+        )
+      }
     >
       {type === 'dropdown' ? (
         <Dropdown

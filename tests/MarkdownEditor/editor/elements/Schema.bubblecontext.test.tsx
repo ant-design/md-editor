@@ -13,7 +13,7 @@ import { Schema } from '../../../../src/MarkdownEditor/editor/elements/Schema';
 import { EditorStoreContext } from '../../../../src/MarkdownEditor/editor/store';
 
 // Mock SchemaRenderer
-vi.mock('../../../../src/schema', () => ({
+vi.mock('../../../../src/Schema', () => ({
   SchemaRenderer: ({
     schema,
     values,

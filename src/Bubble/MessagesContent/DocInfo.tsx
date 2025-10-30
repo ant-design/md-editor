@@ -1,13 +1,14 @@
-﻿import { DocMeta } from '@ant-design/agentic-ui/ThoughtChainList';
-import { ExportOutlined, RightOutlined } from '@ant-design/icons';
+﻿import { ExportOutlined, RightOutlined } from '@ant-design/icons';
+
 import { ConfigProvider, Descriptions, Drawer, Popover } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
-import { ActionIconBox } from '../../components/ActionIconBox';
-import { I18nContext } from '../../i18n';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { I18nContext } from '../../I18n';
 import { BaseMarkdownEditor } from '../../MarkdownEditor/BaseMarkdownEditor';
+import { DocMeta } from '../../ThoughtChainList/types';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { DocInfoListProps } from '../types/DocInfo';
 import { useStyle } from './docInfoStyle';

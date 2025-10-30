@@ -38,7 +38,7 @@ describe('RefinePromptButton', () => {
 
       const button = screen.getByTestId('refine-prompt-button');
       expect(button).not.toHaveClass(
-        'ant-md-input-field-refine-button-loading',
+        'ant-agentic-md-input-field-refine-button-loading',
       );
     });
 
@@ -52,7 +52,9 @@ describe('RefinePromptButton', () => {
       );
 
       const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass('ant-md-input-field-refine-button-loading');
+      expect(button).toHaveClass(
+        'ant-agentic-md-input-field-refine-button-loading',
+      );
     });
 
     it('should apply hover class when isHover is true', () => {
@@ -61,7 +63,9 @@ describe('RefinePromptButton', () => {
       );
 
       const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass('ant-md-input-field-refine-button-hover');
+      expect(button).toHaveClass(
+        'ant-agentic-md-input-field-refine-button-hover',
+      );
     });
 
     it('should apply disabled class when disabled', () => {
@@ -75,7 +79,9 @@ describe('RefinePromptButton', () => {
       );
 
       const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass('ant-md-input-field-refine-button-disabled');
+      expect(button).toHaveClass(
+        'ant-agentic-md-input-field-refine-button-disabled',
+      );
     });
 
     it('should apply compact class when compact prop is true', () => {
@@ -89,7 +95,9 @@ describe('RefinePromptButton', () => {
       );
 
       const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass('ant-md-input-field-refine-button-compact');
+      expect(button).toHaveClass(
+        'ant-agentic-md-input-field-refine-button-compact',
+      );
     });
   });
 

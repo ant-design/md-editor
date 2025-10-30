@@ -39,43 +39,52 @@ import { isImageFile } from '../utils';
  * - 图片自适应显示
  * - 图标居中显示
  */
+const IMAGE_STYLE: React.CSSProperties = {
+  width: '40px',
+  height: '40px',
+  overflow: 'hidden',
+};
+
+const IMAGE_PREVIEW_CONFIG = {
+  mask: (
+    <div>
+      <Eye />
+    </div>
+  ),
+  visible: false,
+};
+
 export const AttachmentFileIcon: React.FC<{
   file: AttachmentFile;
   className: string;
   style?: React.CSSProperties;
 }> = (props) => {
-  const file = props.file;
+  const { file, className } = props;
+
+  // 上传中状态
   if (file.status === 'uploading') {
     return <FileUploadingSpin />;
   }
+
+  // 错误状态
   if (file.status === 'error') {
     return <FileFailed />;
   }
+
+  // 图片文件预览
   if (isImageFile(file)) {
     return (
       <Image
         src={file.url}
-        style={{
-          width: '40px',
-          height: '40px',
-          overflow: 'hidden',
-        }}
-        rootClassName={props.className}
-        preview={{
-          mask: (
-            <div>
-              <Eye />
-            </div>
-          ),
-          visible: false,
-        }}
+        style={IMAGE_STYLE}
+        rootClassName={className}
+        preview={IMAGE_PREVIEW_CONFIG}
         alt={file.name}
       />
     );
   }
-  return getFileTypeIcon(
-    file.type?.split('/').at(-1) as FileType,
-    '',
-    file.name,
-  );
+
+  // 其他类型文件图标
+  const fileType = file.type?.split('/').at(-1) as FileType;
+  return getFileTypeIcon(fileType, '', file.name);
 };

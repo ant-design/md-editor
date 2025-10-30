@@ -16,7 +16,7 @@
 import { act, cleanup, render } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { AceEditorWrapper } from '../../../src/schema/SchemaEditor/AceEditorWrapper';
+import { AceEditorWrapper } from '../../../src/Schema/SchemaEditor/AceEditorWrapper';
 
 // Mock ace-builds
 vi.mock('ace-builds', () => {

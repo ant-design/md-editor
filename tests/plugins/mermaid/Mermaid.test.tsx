@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Mermaid } from '../../../src/plugins/mermaid/Mermaid';
+import { Mermaid } from '../../../src/Plugins/mermaid/Mermaid';
 
 // Mock mermaid
 vi.mock('mermaid', () => ({

@@ -6,7 +6,7 @@ import { Editor, Element } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import type { ReactEditor } from 'slate-react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { I18nContext, cnLabels } from '../../../../../i18n';
+import { I18nContext, cnLabels } from '../../../../../I18n';
 import type { CommentDataType } from '../../../../BaseMarkdownEditor';
 import { EditorStore, useEditorStore } from '../../../store';
 import type { Methods } from '../../../utils';

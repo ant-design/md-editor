@@ -42,7 +42,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode-container');
+      const bar = container.querySelector('.ant-agentic-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
@@ -192,7 +192,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode') as HTMLElement;
+      const bar = container.querySelector('.ant-agentic-skill-mode') as HTMLElement;
       expect(bar.style.backgroundColor).toBe('red');
       expect(bar.style.padding).toBe('20px');
     });
@@ -209,7 +209,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode');
+      const bar = container.querySelector('.ant-agentic-skill-mode');
       expect(bar).toHaveClass('custom-skill-mode');
     });
   });
@@ -223,7 +223,7 @@ describe('SkillModeBar', () => {
       );
 
       expect(
-        container.querySelector('.ant-skill-mode-container'),
+        container.querySelector('.ant-agentic-skill-mode-container'),
       ).toBeInTheDocument();
 
       rerender(
@@ -233,7 +233,7 @@ describe('SkillModeBar', () => {
       );
 
       expect(
-        container.querySelector('.ant-skill-mode-container'),
+        container.querySelector('.ant-agentic-skill-mode-container'),
       ).not.toBeInTheDocument();
     });
 
@@ -263,7 +263,7 @@ describe('SkillModeBar', () => {
         <SkillModeBar skillMode={{ enable: true, open: true, title: '' }} />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode-container');
+      const bar = container.querySelector('.ant-agentic-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
@@ -279,7 +279,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode-container');
+      const bar = container.querySelector('.ant-agentic-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
@@ -295,7 +295,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode-container');
+      const bar = container.querySelector('.ant-agentic-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
   });
@@ -306,7 +306,7 @@ describe('SkillModeBar', () => {
         <SkillModeBar skillMode={{ open: true, title: 'Test' }} />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode-container');
+      const bar = container.querySelector('.ant-agentic-skill-mode-container');
       expect(bar).toBeInTheDocument();
     });
 
@@ -330,7 +330,7 @@ describe('SkillModeBar', () => {
         />,
       );
 
-      const bar = container.querySelector('.ant-skill-mode-container');
+      const bar = container.querySelector('.ant-agentic-skill-mode-container');
       expect(bar).toBeInTheDocument();
       expect(screen.getByText('AI Mode')).toBeInTheDocument();
     });

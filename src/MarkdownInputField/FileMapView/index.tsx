@@ -74,7 +74,7 @@ export type FileMapViewProps = {
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   const { placement = 'left' } = props;
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context?.getPrefixCls('md-editor-file-view-list');
+  const prefix = context?.getPrefixCls('agentic-md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
 
   const maxCount = props.maxDisplayCount ?? 3;

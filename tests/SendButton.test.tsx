@@ -26,7 +26,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={false} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
     });
 
@@ -56,7 +56,7 @@ describe('SendButton', () => {
       );
 
       const button = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       ) as HTMLElement;
       expect(button.style.backgroundColor).toBe('red');
     });
@@ -68,7 +68,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={false} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
     });
 
@@ -77,7 +77,7 @@ describe('SendButton', () => {
         <SendButton isSendable={false} typing={false} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
     });
 
@@ -87,7 +87,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={false} onClick={onClick} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       fireEvent.click(button!);
 
       expect(onClick).toHaveBeenCalledTimes(1);
@@ -99,7 +99,7 @@ describe('SendButton', () => {
         <SendButton isSendable={false} typing={false} onClick={onClick} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       fireEvent.click(button!);
 
       // Button still fires onClick, business logic handles sendable state
@@ -113,7 +113,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={true} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
       // The typing state changes the icon displayed
     });
@@ -123,7 +123,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={false} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
     });
 
@@ -133,7 +133,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={true} onClick={onClick} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       fireEvent.click(button!);
 
       expect(onClick).toHaveBeenCalledTimes(1);
@@ -146,7 +146,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={false} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       fireEvent.mouseEnter(button!);
 
       // Component uses internal animation state, not CSS classes for hover
@@ -158,7 +158,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={false} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       fireEvent.mouseEnter(button!);
       fireEvent.mouseLeave(button!);
 
@@ -173,7 +173,7 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={false} onClick={onClick} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
       fireEvent.click(button!);
       fireEvent.click(button!);
       fireEvent.click(button!);
@@ -186,14 +186,14 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={true} onClick={vi.fn()} />,
       );
 
-      let button = container.querySelector('.ant-md-input-field-send-button');
+      let button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
 
       rerender(
         <SendButton isSendable={true} typing={false} onClick={vi.fn()} />,
       );
 
-      button = container.querySelector('.ant-md-input-field-send-button');
+      button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
     });
 
@@ -202,14 +202,14 @@ describe('SendButton', () => {
         <SendButton isSendable={false} typing={false} onClick={vi.fn()} />,
       );
 
-      let button = container.querySelector('.ant-md-input-field-send-button');
+      let button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
 
       rerender(
         <SendButton isSendable={true} typing={false} onClick={vi.fn()} />,
       );
 
-      button = container.querySelector('.ant-md-input-field-send-button');
+      button = container.querySelector('.ant-agentic-md-input-field-send-button');
       expect(button).toBeInTheDocument();
     });
   });
@@ -220,8 +220,8 @@ describe('SendButton', () => {
         <SendButton isSendable={true} typing={true} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
-      expect(button).toHaveClass('ant-md-input-field-send-button-typing');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
+      expect(button).toHaveClass('ant-agentic-md-input-field-send-button-typing');
     });
 
     it('should handle not sendable + typing', () => {
@@ -229,8 +229,8 @@ describe('SendButton', () => {
         <SendButton isSendable={false} typing={true} onClick={vi.fn()} />,
       );
 
-      const button = container.querySelector('.ant-md-input-field-send-button');
-      expect(button).not.toHaveClass('ant-md-input-field-send-button-sendable');
+      const button = container.querySelector('.ant-agentic-md-input-field-send-button');
+      expect(button).not.toHaveClass('ant-agentic-md-input-field-send-button-sendable');
     });
   });
 });

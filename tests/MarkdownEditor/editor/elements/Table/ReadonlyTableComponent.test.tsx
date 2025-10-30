@@ -17,13 +17,13 @@ vi.mock('../../../../../src/MarkdownEditor/editor/utils', () => ({
   parserSlateNodeToMarkdown: vi.fn(() => '| Header |\n| ------ |\n| Cell |'),
 }));
 
-vi.mock('../../../../../src/MarkdownEditor/i18n', () => ({
+vi.mock('../../../../../src/MarkdownEditor/I18n', () => ({
   I18nContext: {
     Provider: ({ children }: any) => <div>{children}</div>,
   },
 }));
 
-vi.mock('../../../../../src/components/ActionIconBox', () => ({
+vi.mock('../../../../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ children, onClick, title }: any) => (
     <div data-testid="action-icon" onClick={onClick} title={title}>
       {children}
@@ -80,7 +80,7 @@ describe('ReadonlyTableComponent', () => {
           <ReadonlyTableComponent
             hashId="test-hash"
             element={element as any}
-            baseCls="ant-md-editor-content-table"
+            baseCls="ant-agentic-md-editor-content-table"
             {...props}
           >
             <tr>
@@ -103,7 +103,7 @@ describe('ReadonlyTableComponent', () => {
     it('应该应用正确的类名', () => {
       renderComponent();
       const table = document.querySelector('table');
-      expect(table).toHaveClass('ant-md-editor-content-table-editor-table');
+      expect(table).toHaveClass('ant-agentic-md-editor-content-table-editor-table');
       expect(table).toHaveClass('readonly');
       expect(table).toHaveClass('test-hash');
     });
@@ -131,7 +131,7 @@ describe('ReadonlyTableComponent', () => {
 
       renderComponent();
       const table = document.querySelector('table');
-      expect(table).toHaveClass('ant-md-editor-content-table-readonly-pure');
+      expect(table).toHaveClass('ant-agentic-md-editor-content-table-readonly-pure');
     });
   });
 
@@ -388,7 +388,7 @@ describe('ReadonlyTableComponent', () => {
         fireEvent.click(fullscreenButton);
 
         await waitFor(() => {
-          const modalContent = document.querySelector('.ant-md-editor-content');
+          const modalContent = document.querySelector('.ant-agentic-md-editor-content');
           if (modalContent) {
             const mouseDownEvent = new MouseEvent('mousedown', {
               bubbles: true,
@@ -405,7 +405,7 @@ describe('ReadonlyTableComponent', () => {
   describe('样式和容器测试', () => {
     it('应该应用正确的容器样式', () => {
       const { container } = renderComponent();
-      const wrapper = container.querySelector('.ant-md-editor-content-table');
+      const wrapper = container.querySelector('.ant-agentic-md-editor-content-table');
       expect(wrapper).toHaveStyle({ flex: '1', minWidth: '0' });
     });
 
@@ -417,7 +417,7 @@ describe('ReadonlyTableComponent', () => {
 
     it('应该应用 baseCls', () => {
       renderComponent();
-      const wrapper = document.querySelector('.ant-md-editor-content-table');
+      const wrapper = document.querySelector('.ant-agentic-md-editor-content-table');
       expect(wrapper).toBeInTheDocument();
     });
   });
@@ -512,7 +512,7 @@ describe('ReadonlyTableComponent', () => {
             <ReadonlyTableComponent
               hashId="test-hash"
               element={mockTableElement as any}
-              baseCls="ant-md-editor-content-table"
+              baseCls="ant-agentic-md-editor-content-table"
             >
               {null}
             </ReadonlyTableComponent>
@@ -570,7 +570,7 @@ describe('ReadonlyTableComponent', () => {
             <ReadonlyTableComponent
               hashId="test-hash"
               element={mockTableElement as any}
-              baseCls="ant-md-editor-content-table"
+              baseCls="ant-agentic-md-editor-content-table"
             >
               <tr>
                 <td>Cell 1</td>

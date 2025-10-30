@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { Loading } from '../../src/components/Loading';
+import { Loading } from '../../src/Components/Loading';
 
 describe('Loading 组件', () => {
   it('应该渲染加载组件', () => {

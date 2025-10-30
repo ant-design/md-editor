@@ -1,5 +1,5 @@
 import React from 'react';
-import { VisualList, VisualListItem } from '../../src/components/VisualList';
+import { VisualList, VisualListItem } from '../../src/Components/VisualList';
 
 const DefaultIconDemo: React.FC = () => {
   const data: VisualListItem[] = [

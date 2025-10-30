@@ -4,6 +4,15 @@ import React, { useEffect, useRef, useState } from 'react';
  * LazyElement 组件属性
  */
 export interface LazyElementProps {
+  /** 元素在文档中的位置信息 */
+  elementInfo: {
+    /** 元素类型 */
+    type: string;
+    /** 元素在文档中的索引 */
+    index: number;
+    /** 元素总数量 */
+    total: number;
+  };
   /** 子元素 */
   children: React.ReactNode;
   /** 占位符高度，默认 100px */
@@ -12,6 +21,24 @@ export interface LazyElementProps {
   rootMargin?: string;
   /** 占位符样式 */
   placeholderStyle?: React.CSSProperties;
+  /** 自定义占位符渲染函数 */
+  renderPlaceholder?: (props: {
+    /** 占位符高度 */
+    height: number;
+    /** 占位符样式 */
+    style: React.CSSProperties;
+    /** 元素是否即将进入视口 */
+    isIntersecting: boolean;
+    /** 元素在文档中的位置信息 */
+    elementInfo: {
+      /** 元素类型 */
+      type: string;
+      /** 元素在文档中的索引 */
+      index: number;
+      /** 元素总数量 */
+      total: number;
+    };
+  }) => React.ReactNode;
 }
 
 /**
@@ -28,10 +55,24 @@ export interface LazyElementProps {
  * @param {number} [props.placeholderHeight=100] - 占位符高度
  * @param {string} [props.rootMargin='200px'] - 提前加载的距离
  * @param {React.CSSProperties} [props.placeholderStyle] - 自定义占位符样式
+ * @param {Function} [props.renderPlaceholder] - 自定义占位符渲染函数
  *
  * @example
  * ```tsx
+ * // 基本使用
  * <LazyElement placeholderHeight={150} rootMargin="300px">
+ *   <div>这是需要懒加载的内容</div>
+ * </LazyElement>
+ *
+ * // 自定义占位符渲染
+ * <LazyElement
+ *   placeholderHeight={150}
+ *   renderPlaceholder={({ height, style, isIntersecting }) => (
+ *     <div style={style}>
+ *       <div>加载中... {isIntersecting ? '(即将显示)' : ''}</div>
+ *     </div>
+ *   )}
+ * >
  *   <div>这是需要懒加载的内容</div>
  * </LazyElement>
  * ```
@@ -49,10 +90,13 @@ export const LazyElement: React.FC<LazyElementProps> = ({
   placeholderHeight = 25,
   rootMargin = '200px',
   placeholderStyle,
+  renderPlaceholder,
+  elementInfo,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hasRendered, setHasRendered] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -62,6 +106,7 @@ export const LazyElement: React.FC<LazyElementProps> = ({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          setIsIntersecting(entry.isIntersecting);
           if (entry.isIntersecting) {
             setIsVisible(true);
             setHasRendered(true);
@@ -89,13 +134,30 @@ export const LazyElement: React.FC<LazyElementProps> = ({
   }
 
   // 渲染占位符
+  const computedPlaceholderStyle: React.CSSProperties = {
+    minHeight: placeholderHeight,
+    ...placeholderStyle,
+  };
+
+  // 如果提供了自定义渲染函数，使用它来渲染占位符
+  if (renderPlaceholder) {
+    return (
+      <div ref={containerRef} aria-hidden="true">
+        {renderPlaceholder({
+          height: placeholderHeight,
+          style: computedPlaceholderStyle,
+          isIntersecting,
+          elementInfo,
+        })}
+      </div>
+    );
+  }
+
+  // 默认占位符渲染
   return (
     <div
       ref={containerRef}
-      style={{
-        minHeight: placeholderHeight,
-        ...placeholderStyle,
-      }}
+      style={computedPlaceholderStyle}
       aria-hidden="true"
     />
   );

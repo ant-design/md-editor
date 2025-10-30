@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { I18nContext } from '../../src/i18n';
+import { I18nContext } from '../../src/I18n';
 import { TaskList } from '../../src/TaskList';
 
 // Mock LoadingLottie
@@ -15,7 +15,7 @@ vi.mock('../../src/TaskList/LoadingLottie', () => ({
 }));
 
 // Mock ActionIconBox
-vi.mock('../../src/components/ActionIconBox', () => ({
+vi.mock('../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ title, iconStyle, onClick, children, ...props }: any) => (
     <div
       data-testid="action-icon-box"
