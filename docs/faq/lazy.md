@@ -381,3 +381,7 @@ await editorRef.current?.store.setMDContent(longMarkdown, undefined, {
 ### setMDContent 动态加载示例
 
 <code src="../demos/setmd-content-demo.tsx" background="var(--main-bg-color)" iframe=680></code>
+
+### 懒加载 PDF 跳转示例
+
+<code src="../demos/lazy-render-pdf-jump-demo.tsx" background="var(--main-bg-color)" iframe=540></code>

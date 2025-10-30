@@ -4,6 +4,15 @@ import React, { useEffect, useRef, useState } from 'react';
  * LazyElement 组件属性
  */
 export interface LazyElementProps {
+  /** 元素在文档中的位置信息 */
+  elementInfo: {
+    /** 元素类型 */
+    type: string;
+    /** 元素在文档中的索引 */
+    index: number;
+    /** 元素总数量 */
+    total: number;
+  };
   /** 子元素 */
   children: React.ReactNode;
   /** 占位符高度，默认 100px */
@@ -21,7 +30,7 @@ export interface LazyElementProps {
     /** 元素是否即将进入视口 */
     isIntersecting: boolean;
     /** 元素在文档中的位置信息 */
-    elementInfo?: {
+    elementInfo: {
       /** 元素类型 */
       type: string;
       /** 元素在文档中的索引 */
@@ -82,6 +91,7 @@ export const LazyElement: React.FC<LazyElementProps> = ({
   rootMargin = '200px',
   placeholderStyle,
   renderPlaceholder,
+  elementInfo,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -137,6 +147,7 @@ export const LazyElement: React.FC<LazyElementProps> = ({
           height: placeholderHeight,
           style: computedPlaceholderStyle,
           isIntersecting,
+          elementInfo,
         })}
       </div>
     );

@@ -162,6 +162,30 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     setDomRect,
   } = useEditorStore();
 
+  // 懒加载元素索引计数器
+  const lazyElementIndexRef = useRef(0);
+  // 用于标记是否已在当前渲染周期重置过索引
+  const hasResetIndexRef = useRef(false);
+
+  // 计算懒加载元素总数的函数
+  const countLazyElements = useCallback((nodes: any[]): number => {
+    let count = 0;
+    const traverse = (nodeList: any[]) => {
+      nodeList.forEach((node) => {
+        // 跳过表格单元格和表格行
+        if (node.type !== 'table-cell' && node.type !== 'table-row') {
+          count++;
+        }
+        // 继续遍历子节点（例如表格内的元素）
+        if (node.children && Array.isArray(node.children)) {
+          traverse(node.children);
+        }
+      });
+    };
+    traverse(nodes);
+    return count;
+  }, []);
+
   const changedMark = useRef(false);
   const value = useRef<any[]>([EditorUtils.p]);
   const nodeRef = useRef<MarkdownEditorInstance>();
@@ -816,6 +840,16 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
   const elementRenderElement = useCallback(
     (eleProps: RenderElementProps) => {
+      // 在每个渲染周期的第一次调用时重置索引
+      if (!hasResetIndexRef.current) {
+        lazyElementIndexRef.current = 0;
+        hasResetIndexRef.current = true;
+        // 使用 Promise 在下一个事件循环重置标记
+        Promise.resolve().then(() => {
+          hasResetIndexRef.current = false;
+        });
+      }
+
       const defaultDom = (
         <ErrorBoundary
           fallbackRender={() => {
@@ -864,11 +898,22 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           return renderedDom;
         }
 
+        // 获取当前索引并递增
+        const currentIndex = lazyElementIndexRef.current;
+        lazyElementIndexRef.current += 1;
+
+        // 计算总元素数
+        const totalElements = countLazyElements(value.current);
         return (
           <LazyElement
             placeholderHeight={props.lazy?.placeholderHeight}
             rootMargin={props.lazy?.rootMargin}
             renderPlaceholder={props.lazy?.renderPlaceholder}
+            elementInfo={{
+              type: eleProps.element.type,
+              index: currentIndex,
+              total: totalElements,
+            }}
           >
             {renderedDom}
           </LazyElement>
@@ -877,7 +922,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
       return renderedDom;
     },
-    [props.eleItemRender, props.lazy, plugins, readonly],
+    [props.eleItemRender, props.lazy, plugins, readonly, countLazyElements],
   );
 
   const renderMarkdownLeaf = useRefFunction((leafComponentProps) => {

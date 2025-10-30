@@ -213,7 +213,7 @@ export type MarkdownEditorProps = {
       /** 元素是否即将进入视口 */
       isIntersecting: boolean;
       /** 元素在文档中的位置信息 */
-      elementInfo?: {
+      elementInfo: {
         /** 元素类型 */
         type: string;
         /** 元素在文档中的索引 */
