@@ -168,7 +168,7 @@ export const useFileUploadManager = ({
         // 将完整的响应数据存储到 file 对象中
         file.uploadResponse = uploadResult;
       } else if (attachment?.upload) {
-        url = await attachment.upload(file);
+        url = await attachment.upload(file, 0);
         isSuccess = !!url;
       }
 

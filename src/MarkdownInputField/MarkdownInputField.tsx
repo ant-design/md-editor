@@ -1054,6 +1054,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     supportedFormat,
                     fileMap,
                     onFileMapChange: setFileMap,
+                    upload: props.attachment?.upload
+                      ? (file: any) => props.attachment!.upload!(file, 0)
+                      : undefined,
                   }}
                   voiceRecognizer={props.voiceRecognizer}
                   value={value}
@@ -1086,6 +1089,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   supportedFormat,
                   fileMap,
                   onFileMapChange: setFileMap,
+                  upload: props.attachment?.upload
+                    ? (file: any) => props.attachment!.upload!(file, 0)
+                    : undefined,
                 }}
                 voiceRecognizer={props.voiceRecognizer}
                 value={value}

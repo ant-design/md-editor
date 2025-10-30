@@ -142,7 +142,6 @@ const PlaceholderContent: FC<{
             {onDownload && (
               <button
                 type="button"
-                type="button"
                 className={classNames(
                   `${finalPrefixCls}-download-button`,
                   hashId,
