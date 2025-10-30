@@ -1,6 +1,6 @@
 ---
-title: ChatBoot - 对话启动
-atomId: ChatBoot
+title: ChatBootPage - 对话启动页
+atomId: ChatBootPage
 group:
   title: 入口
   order: 1
@@ -12,7 +12,7 @@ group:
 
 ## 基础用法
 
-<code src="../demos/ChatBoot/index.tsx" iframe=800></code>
+<code src="../demos/ChatBootPage/index.tsx" iframe=800></code>
 
 ## 组件概览
 

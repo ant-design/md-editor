@@ -4,7 +4,7 @@ export * from './AgentRunBar';
 export * from './Bubble';
 export * from './Bubble/List';
 export * from './Bubble/type';
-export * from './ChatBoot';
+export * from './ChatBootPage';
 export * from './ChatLayout';
 export * from './Components/ActionIconBox';
 export * from './Components/Button';
@@ -48,7 +48,7 @@ export * from './Schema';
 export * from './TaskList';
 export * from './ThoughtChainList';
 export * from './ToolUseBar';
-export * from './Welcome';
+export * from './WelcomeMessage';
 export * from './Workspace';
 // Robot 组件
 export * from './Components/Robot';
