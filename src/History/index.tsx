@@ -168,7 +168,9 @@ export const History: React.FC<HistoryProps> = (props) => {
       content={
         <>
           {items?.length === 0 && !props?.loading && props?.emptyRender ? (
-            props.emptyRender()
+            <div data-testid="empty-state-popover">
+              {props.emptyRender()}
+            </div>
           ) : (
             <GroupMenu
               selectedKeys={[props.sessionId]}
@@ -178,7 +180,7 @@ export const History: React.FC<HistoryProps> = (props) => {
               loading={props.loading}
             />
           )}
-          {props.agent?.enabled && !!props.agent?.onLoadMore && (
+          {props.agent?.enabled && !!props.agent?.onLoadMore && !props.loading && (
             <HistoryLoadMore
               onLoadMore={handleLoadMore}
               type={props.type}

@@ -45,7 +45,7 @@ describe('BrowserList Component', () => {
 
     const { container } = renderWithProvider(<BrowserList data={data} />);
 
-    const header = container.querySelector('.ant-agentic-workspace-browser-header');
+    const header = container.querySelector('.ant-workspace-browser-header');
     expect(header).toBeInTheDocument();
     expect(screen.getByText('浏览器标题')).toBeInTheDocument();
   });
@@ -114,13 +114,13 @@ const hello = 'world';
     const { container } = renderWithProvider(<BrowserList data={data} />);
 
     expect(
-      container.querySelector('.ant-agentic-workspace-browser'),
+      container.querySelector('.ant-workspace-browser'),
     ).toBeInTheDocument();
     expect(
-      container.querySelector('.ant-agentic-workspace-browser-header'),
+      container.querySelector('.ant-workspace-browser-header'),
     ).toBeInTheDocument();
     expect(
-      container.querySelector('.ant-agentic-workspace-browser-title'),
+      container.querySelector('.ant-workspace-browser-title'),
     ).toBeInTheDocument();
   });
 

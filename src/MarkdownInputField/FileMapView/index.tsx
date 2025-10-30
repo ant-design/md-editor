@@ -108,8 +108,10 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         display: 'flex',
         flexDirection: 'column',
         gap: 4,
+        maxWidth: '100%',
+        minWidth: 0,
         alignItems: placement === 'left' ? 'flex-start' : 'flex-end',
-        width: placement === 'left' ? undefined : '100%',
+        width: 'max-content',
       }}
     >
       <motion.div

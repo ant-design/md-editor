@@ -53,7 +53,7 @@ export interface BrowserItemInput {
  */
 export const BrowserList: FC<{ data: BrowserItemInput }> = ({ data }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('agentic-workspace-browser');
+  const prefixCls = getPrefixCls('workspace-browser');
   const { wrapSSR, hashId } = useBrowserStyle(prefixCls);
 
   const editorProps = mergeEditorProps(data.markdownEditorProps);
