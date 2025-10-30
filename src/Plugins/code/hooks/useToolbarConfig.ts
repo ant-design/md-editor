@@ -5,7 +5,7 @@
 
 import { useCallback } from 'react';
 import { CodeNode } from '../../../MarkdownEditor/el';
-import { LanguageSelectorProps } from '../Components';
+import { LanguageSelectorProps } from '../components';
 
 interface UseToolbarConfigProps {
   element: CodeNode;

@@ -7,7 +7,7 @@ import { Button, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { useContext } from 'react';
-import { I18nContext } from '../../i18n';
+import { I18nContext } from '../../I18n';
 import { ActionIconBox } from '../ActionIconBox';
 import { useLayoutHeaderStyle } from './style';
 import type { LayoutHeaderProps } from './types';

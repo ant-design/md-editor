@@ -1,7 +1,7 @@
 import { AiAgentManagement } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import React, { useCallback, useContext, useState } from 'react';
-import { I18nContext } from '../../i18n';
+import { I18nContext } from '../../I18n';
 import { useNewChatStyle } from './NewChatComponent.style';
 
 /**

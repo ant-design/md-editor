@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React, { useContext, useMemo } from 'react';
 import { Node } from 'slate';
-import { I18nContext } from '../../../i18n';
+import { I18nContext } from '../../../I18n';
 import { ElementProps, ParagraphNode } from '../../el';
-import { useSelStatus } from '../../hooks/editor';
+import { useSelStatus } from '../../Hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 

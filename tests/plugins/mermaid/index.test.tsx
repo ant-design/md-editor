@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { MermaidElement } from '../../../src/plugins/mermaid/index';
+import { MermaidElement } from '../../../src/Plugins/mermaid/index';
 
 // Mock 依赖
 vi.mock('../../../src/MarkdownEditor/editor/store', () => ({

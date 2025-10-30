@@ -21,10 +21,10 @@ import React, {
 import ReactDOM from 'react-dom';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { I18nContext, LocalKeys } from '../../../i18n';
+import { I18nContext, LocalKeys } from '../../../I18n';
 import { CardNode } from '../../el';
-import { useSubject } from '../../hooks/subscribe';
-import { selChange$ } from '../plugins/useOnchange';
+import { useSubject } from '../../Hooks/subscribe';
+import { selChange$ } from '../Plugins/useOnchange';
 import { useEditorStore } from '../store';
 import { getOffsetLeft } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';

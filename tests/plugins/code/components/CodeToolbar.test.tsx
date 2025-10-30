@@ -8,7 +8,7 @@ import { CodeNode } from '../../../../src/MarkdownEditor/el';
 import {
   CodeToolbar,
   CodeToolbarProps,
-} from '../../../../src/plugins/code/components/CodeToolbar';
+} from '../../../../src/Plugins/code/components/CodeToolbar';
 
 // Mock 依赖
 vi.mock('copy-to-clipboard');

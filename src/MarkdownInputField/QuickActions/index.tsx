@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import React, { useState } from 'react';
-import { useRefFunction } from '../../hooks/useRefFunction';
+import { useRefFunction } from '../../Hooks/useRefFunction';
 import type { MarkdownEditorInstance } from '../../MarkdownEditor';
 import type { AttachmentFile } from '../AttachmentButton/types';
 import Enlargement from '../Enlargement';

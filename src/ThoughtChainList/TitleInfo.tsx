@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { DocMeta } from '.';
-import { I18nContext } from '../i18n';
+import { I18nContext } from '../I18n';
 import { ActionIconBox } from '../index';
 import { CostMillis } from './CostMillis';
 import { FlipText } from './FlipText';

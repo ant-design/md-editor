@@ -14,7 +14,7 @@ import { Transforms } from 'slate';
 import { ActionIconBox } from '../../../Components/ActionIconBox';
 import { I18nContext } from '../../../I18n';
 import { ElementProps, MediaNode } from '../../el';
-import { useSelStatus } from '../../hooks/editor';
+import { useSelStatus } from '../../Hooks/editor';
 import { AvatarList } from '../Components/ContributorAvatar';
 import { useEditorStore } from '../store';
 import { useGetSetState } from '../utils';

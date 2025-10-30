@@ -4,7 +4,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../../Hooks/useStyle';
 import './code.css';
 
 // 导入统一的标签样式配置

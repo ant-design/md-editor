@@ -3,7 +3,7 @@ import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { I18nContext } from '../../i18n';
+import { I18nContext } from '../../I18n';
 import VoicingLottie from '../../icons/animated/VoicingLottie';
 import { useStyle } from './style';
 

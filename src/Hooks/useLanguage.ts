@@ -1,5 +1,5 @@
 import { useCallback, useContext } from 'react';
-import { I18nContext } from '../i18n';
+import { I18nContext } from '../I18n';
 
 /**
  * useLanguage Hook - 语言切换 Hook

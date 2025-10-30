@@ -12,8 +12,8 @@ import {
 import { Empty } from 'antd';
 import classNames from 'classnames';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
-import { ActionIconBox } from '../../components/ActionIconBox';
-import { I18nContext } from '../../i18n';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { I18nContext } from '../../I18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';

@@ -4,7 +4,7 @@
  */
 
 import React, { useContext } from 'react';
-import { I18nContext } from '../../../i18n';
+import { I18nContext } from '../../../I18n';
 import { EditorStoreContext } from '../../../MarkdownEditor/editor/store';
 import { CodeNode } from '../../../MarkdownEditor/el';
 import { ToolUseBarThink } from '../../../ToolUseBar';

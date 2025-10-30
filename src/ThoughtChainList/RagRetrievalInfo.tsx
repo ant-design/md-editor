@@ -1,6 +1,6 @@
 ﻿import React, { useContext, useMemo } from 'react';
 import { DocMeta, WhiteBoxProcessInterface } from '.';
-import { I18nContext } from '../i18n';
+import { I18nContext } from '../I18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { CostMillis } from './CostMillis';
 

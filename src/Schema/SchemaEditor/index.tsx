@@ -9,7 +9,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { I18nContext } from '../../i18n';
+import { I18nContext } from '../../I18n';
 import { SchemaRenderer } from '../SchemaRenderer';
 import { LowCodeSchema } from '../types';
 import { mdDataSchemaValidator } from '../validator';

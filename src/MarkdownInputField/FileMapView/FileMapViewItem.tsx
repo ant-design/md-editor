@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
-import { I18nContext } from '../../i18n';
+import { I18nContext } from '../../I18n';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { kbToSize } from '../AttachmentButton/utils';

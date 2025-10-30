@@ -11,8 +11,8 @@ import { motion } from 'framer-motion';
 
 import { Copy, RotateCwSquare } from '@sofa-design/icons';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { ActionIconBox } from '../../components/ActionIconBox';
-import { Loading } from '../../components/Loading';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { Loading } from '../../Components/Loading';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleExtraProps } from '../types/BubbleExtra';
 import { CopyButton } from './CopyButton';

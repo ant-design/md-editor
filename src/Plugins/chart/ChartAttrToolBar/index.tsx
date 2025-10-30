@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { I18nContext } from '../../../i18n';
+import { I18nContext } from '../../../I18n';
 import { ChartNode, EditorUtils } from '../../../MarkdownEditor';
 import { useEditorStore } from '../../../MarkdownEditor/editor/store';
 import { useStyle } from './ChartAttrToolBarStyle';

@@ -8,7 +8,7 @@ import React from 'react';
 import { BaseMarkdownEditor } from '../../MarkdownEditor';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
-import { CodeRenderer } from './Components';
+import { CodeRenderer } from './components';
 
 function csvToMarkdownTable(csv: string | undefined) {
   if (!csv) return '';

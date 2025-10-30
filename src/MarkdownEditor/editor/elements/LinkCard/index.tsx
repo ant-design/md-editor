@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ElementProps, LinkCardNode } from '../../../el';
-import { AvatarList } from '../../components/ContributorAvatar';
+import { AvatarList } from '../../Components/ContributorAvatar';
 import { DragHandle } from '../../tools/DragHandle';
 import { useStyle } from './style';
 

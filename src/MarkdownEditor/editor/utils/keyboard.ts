@@ -7,7 +7,7 @@ import { Editor, Element, Node, Path, Range, Text, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { AttachNode, ListItemNode, MediaNode } from '../../el';
-import { useSubject } from '../../hooks/subscribe';
+import { useSubject } from '../../Hooks/subscribe';
 import { NativeTableEditor } from '../../utils/native-table';
 import { EditorStore } from '../store';
 import { EditorUtils } from './editorUtils';

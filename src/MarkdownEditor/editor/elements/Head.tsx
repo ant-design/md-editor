@@ -3,7 +3,7 @@ import React, { createElement, useMemo } from 'react';
 import { Node } from 'slate';
 import { useSlate } from 'slate-react';
 import { ElementProps, HeadNode } from '../../el';
-import { useSelStatus } from '../../hooks/editor';
+import { useSelStatus } from '../../Hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { slugify } from '../utils/dom';

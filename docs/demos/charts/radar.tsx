@@ -1,6 +1,6 @@
 import RadarChart, {
   RadarChartDataItem,
-} from '@ant-design/agentic-ui/plugins/chart/RadarChart';
+} from '@ant-design/agentic-ui/Plugins/chart/RadarChart';
 import React from 'react';
 
 // 实际使用示例：动态数据雷达图

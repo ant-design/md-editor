@@ -7,7 +7,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { AutoComplete, Button, Input, Popover } from 'antd';
 import React, { useContext, useState } from 'react';
-import { I18nContext } from '../../../i18n';
+import { I18nContext } from '../../../I18n';
 import { langIconMap } from '../langIconMap';
 import { langOptions } from '../utils/langOptions';
 import { LoadImage } from './LoadImage';

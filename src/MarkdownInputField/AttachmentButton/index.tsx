@@ -2,7 +2,7 @@ import { Paperclip } from '@sofa-design/icons';
 import { ConfigProvider, message } from 'antd';
 import classNames from 'classnames';
 import { default as React, useContext } from 'react';
-import { compileTemplate } from '../../i18n';
+import { compileTemplate } from '../../I18n';
 import AttachmentButtonPopover, {
   AttachmentButtonPopoverProps,
   SupportedFileFormats,

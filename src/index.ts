@@ -58,8 +58,8 @@ export { default as Robot } from './Components/Robot';
 export { default as Quote } from './Quote';
 
 // 新增：图表插件对外导出
-export * from './plugins/chart';
-export * from './plugins/mermaid';
+export * from './Plugins/chart';
+export * from './Plugins/mermaid';
 
 export * from './MarkdownEditor/types';
 
@@ -100,7 +100,7 @@ export * from './utils/proxySandbox/SecurityContextManager';
 export * from './utils/proxySandbox';
 
 // 代码插件相关类型
-export * from './plugins/code/components';
+export * from './Plugins/code/components';
 
 // Slate Table 相关类型
 export * from './MarkdownEditor/utils/native-table/native-table-editor';

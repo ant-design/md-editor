@@ -6,7 +6,7 @@ import {
 import { Checkbox, ConfigProvider, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useContext } from 'react';
-import { I18nContext } from '../../i18n';
+import { I18nContext } from '../../I18n';
 import { useStyle } from '../style';
 import {
   HistoryDataType,

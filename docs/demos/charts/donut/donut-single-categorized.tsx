@@ -1,4 +1,4 @@
-import DonutChart from '@ant-design/agentic-ui/plugins/chart/DonutChart';
+import DonutChart from '@ant-design/agentic-ui/Plugins/chart/DonutChart';
 import React from 'react';
 
 // 展示单值指标（完成率、进度等）
