@@ -263,7 +263,7 @@ describe('CommentList Component', () => {
       />,
     );
 
-    const commentView = document.querySelector('.ant-md-editor-comment-view');
+    const commentView = document.querySelector('.ant-agentic-md-editor-comment-view');
     expect(commentView).toHaveStyle('background-color: rgb(255, 0, 0)');
     expect(commentView).toHaveStyle('width: 400px');
   });
@@ -300,16 +300,16 @@ describe('CommentList Component', () => {
     );
 
     expect(
-      document.querySelector('.ant-md-editor-comment-view'),
+      document.querySelector('.ant-agentic-md-editor-comment-view'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-md-editor-comment-view-item'),
+      document.querySelector('.ant-agentic-md-editor-comment-view-item'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-md-editor-comment-view-item-header'),
+      document.querySelector('.ant-agentic-md-editor-comment-view-item-header'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-md-editor-comment-view-item-content'),
+      document.querySelector('.ant-agentic-md-editor-comment-view-item-content'),
     ).toBeInTheDocument();
   });
 

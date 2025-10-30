@@ -48,7 +48,7 @@ export const SlateTable = ({
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { tablePath } = useContext(TablePropsContext);
 
-  const baseCls = getPrefixCls('md-editor-content-table');
+  const baseCls = getPrefixCls('agentic-md-editor-content-table');
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
   // 总是调用 hooks，避免条件调用

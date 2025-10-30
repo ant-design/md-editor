@@ -81,7 +81,7 @@ export const UserBubble: React.FC<
   const context = useContext(BubbleConfigContext);
   const { compact, standalone, locale } = context || {};
 
-  const prefixClass = getPrefixCls('agent');
+  const prefixClass = getPrefixCls('agentic');
   const { wrapSSR, hashId } = useStyle(prefixClass, classNames);
 
   const time = originData?.createAt || props.time;

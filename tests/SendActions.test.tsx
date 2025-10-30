@@ -19,7 +19,7 @@ describe('SendActions', () => {
     it('should render send button', () => {
       const { container } = render(<SendActions onSend={vi.fn()} />);
       const sendButton = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       );
       expect(sendButton).toBeInTheDocument();
     });
@@ -122,7 +122,7 @@ describe('SendActions', () => {
       );
 
       const sendButton = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       );
       fireEvent.click(sendButton!);
 
@@ -141,7 +141,7 @@ describe('SendActions', () => {
       );
 
       const sendButton = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       );
       fireEvent.click(sendButton!);
 
@@ -155,7 +155,7 @@ describe('SendActions', () => {
       );
 
       const sendButton = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       );
       expect(sendButton).toBeInTheDocument();
     });
@@ -166,7 +166,7 @@ describe('SendActions', () => {
       );
 
       const sendButton = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       );
       expect(sendButton).toBeInTheDocument();
     });
@@ -178,7 +178,7 @@ describe('SendActions', () => {
       );
 
       const sendButton = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       );
       fireEvent.click(sendButton!);
 
@@ -322,7 +322,7 @@ describe('SendActions', () => {
       const { container } = render(<SendActions />);
 
       const sendButton = container.querySelector(
-        '.ant-md-input-field-send-button',
+        '.ant-agentic-md-input-field-send-button',
       );
       expect(sendButton).toBeInTheDocument();
     });
@@ -330,7 +330,7 @@ describe('SendActions', () => {
     it('should handle empty value', () => {
       const { container } = render(<SendActions value="" onSend={vi.fn()} />);
       expect(
-        container.querySelector('.ant-md-input-field-send-button'),
+        container.querySelector('.ant-agentic-md-input-field-send-button'),
       ).toBeInTheDocument();
     });
 

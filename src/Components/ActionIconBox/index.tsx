@@ -82,7 +82,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
     onChange: props.onLoadingChange,
   });
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('md-editor-action-icon-box');
+  const prefixCls = getPrefixCls('agentic-md-editor-action-icon-box');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   useEffect(() => {

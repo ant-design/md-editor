@@ -13,7 +13,7 @@ const TopOperatingArea: React.FC<TopOperatingAreaProps> = (props) => {
   const { isShowBackTo = true, targetRef, operationBtnRender } = props;
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('top-operating-area');
+  const prefixCls = getPrefixCls('agentic-top-operating-area');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const renderOperationButtons = () => {

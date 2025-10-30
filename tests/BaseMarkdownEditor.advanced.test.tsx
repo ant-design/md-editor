@@ -288,7 +288,7 @@ describe('BaseMarkdownEditor - 高级功能测试', () => {
       );
 
       // 检查焦点区域是否存在，如果不存在则跳过此测试
-      const focusArea = container.querySelector('.ant-md-editor-focus');
+      const focusArea = container.querySelector('.ant-agentic-md-editor-focus');
       if (focusArea) {
         expect(focusArea).toBeInTheDocument();
       } else {

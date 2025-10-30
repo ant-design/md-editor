@@ -236,7 +236,7 @@ describe('ContributorAvatar Component', () => {
 
       const listContainer = container.firstChild;
       expect(listContainer).toHaveClass(
-        'ant-md-editor-contributor-avatar-list',
+        'ant-agentic-md-editor-contributor-avatar-list',
       );
     });
 

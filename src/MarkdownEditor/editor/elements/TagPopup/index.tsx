@@ -360,7 +360,7 @@ export const TagPopup = (props: RenderProps) => {
   const domRef = useRef<HTMLDivElement>(null);
   const suggestionConnext = useContext(SuggestionConnext);
   const antdContext = useContext(ConfigProvider.ConfigContext);
-  const baseCls = antdContext?.getPrefixCls('md-editor-tag-popup-input');
+  const baseCls = antdContext?.getPrefixCls('agentic-md-editor-tag-popup-input');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const currentNodePath = useRef<number[]>();
 

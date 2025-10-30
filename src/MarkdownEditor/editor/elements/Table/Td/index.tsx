@@ -68,7 +68,7 @@ export const Td: React.FC<TdProps> = ({
   useSlateSelection();
   // 根据节点的 select 属性判断是否被选中
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefix = getPrefixCls('md-editor-table-td');
+  const prefix = getPrefixCls('agentic-md-editor-table-td');
   const tdRef = useRef<HTMLTableDataCellElement | null>(null);
 
   const { wrapSSR, hashId } = useStyle(prefix);

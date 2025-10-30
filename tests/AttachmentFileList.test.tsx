@@ -97,7 +97,7 @@ describe('AttachmentFileList', () => {
     );
 
     expect(
-      container.querySelector('.ant-md-editor-attachment-list'),
+      container.querySelector('.ant-agentic-md-editor-attachment-list'),
     ).toHaveStyle({ height: '0px' });
   });
 
@@ -112,7 +112,7 @@ describe('AttachmentFileList', () => {
     );
 
     expect(
-      container.querySelector('.ant-md-editor-attachment-list'),
+      container.querySelector('.ant-agentic-md-editor-attachment-list'),
     ).toHaveStyle({ height: '0px' });
   });
 
@@ -154,7 +154,7 @@ describe('AttachmentFileList', () => {
 
     // 通过类名查找清除按钮
     const clearButton = document.querySelector(
-      '.ant-md-editor-attachment-list-close-icon',
+      '.ant-agentic-md-editor-attachment-list-close-icon',
     );
     expect(clearButton).toBeInTheDocument();
   });
@@ -195,7 +195,7 @@ describe('AttachmentFileList', () => {
 
     // IconButton 渲染为 div 包裹 button，查找 div 内的 button
     const clearButtonContainer = container.querySelector(
-      '.ant-md-editor-attachment-list-close-icon',
+      '.ant-agentic-md-editor-attachment-list-close-icon',
     );
     expect(clearButtonContainer).toBeInTheDocument();
 
@@ -230,7 +230,7 @@ describe('AttachmentFileList', () => {
     expect(screen.getByText('uploading')).toBeInTheDocument();
     // 验证上传状态图标的容器存在
     const uploadingIcon = container.querySelector(
-      '.ant-md-editor-attachment-list-item-uploading-icon',
+      '.ant-agentic-md-editor-attachment-list-item-uploading-icon',
     );
     expect(uploadingIcon).toBeInTheDocument();
   });
@@ -257,7 +257,7 @@ describe('AttachmentFileList', () => {
     expect(screen.getByText('error')).toBeInTheDocument();
     // 验证错误状态图标的容器存在
     const errorIcon = container.querySelector(
-      '.ant-md-editor-attachment-list-item-error-icon',
+      '.ant-agentic-md-editor-attachment-list-item-error-icon',
     );
     expect(errorIcon).toBeInTheDocument();
   });
@@ -283,7 +283,7 @@ describe('AttachmentFileList', () => {
     expect(screen.getByText('txt')).toBeInTheDocument();
     // 验证组件正常渲染
     expect(
-      container.querySelector('.ant-md-editor-attachment-list-item'),
+      container.querySelector('.ant-agentic-md-editor-attachment-list-item'),
     ).toBeInTheDocument();
   });
 
@@ -308,7 +308,7 @@ describe('AttachmentFileList', () => {
     expect(container.firstChild).toBeInTheDocument();
     // Verify the list container exists
     expect(
-      container.querySelector('.ant-md-editor-attachment-list'),
+      container.querySelector('.ant-agentic-md-editor-attachment-list'),
     ).toBeInTheDocument();
   });
 
@@ -332,7 +332,7 @@ describe('AttachmentFileList', () => {
     expect(imagePreview).toHaveStyle({ display: 'none' });
     // Verify file list is rendered
     expect(
-      container.querySelector('.ant-md-editor-attachment-list'),
+      container.querySelector('.ant-agentic-md-editor-attachment-list'),
     ).toBeInTheDocument();
   });
 
@@ -354,7 +354,7 @@ describe('AttachmentFileList', () => {
     expect(container.firstChild).toBeInTheDocument();
     // Verify the attachment list container exists
     const listContainer = container.querySelector(
-      '.ant-md-editor-attachment-list',
+      '.ant-agentic-md-editor-attachment-list',
     );
     expect(listContainer).toBeInTheDocument();
     // Verify file item is rendered

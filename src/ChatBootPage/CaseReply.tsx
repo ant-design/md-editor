@@ -59,7 +59,7 @@ const CaseReply: React.FC<CaseReplyProps> = ({
   prefixCls: customPrefixCls,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('chatboot-case-reply', customPrefixCls);
+  const prefixCls = getPrefixCls('agentic-chatboot-case-reply', customPrefixCls);
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const [isHovered, setIsHovered] = useState(false);

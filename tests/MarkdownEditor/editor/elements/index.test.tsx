@@ -549,7 +549,7 @@ describe('Elements Index', () => {
         };
         render(<MLeaf {...props} />);
         const element = screen.getByText('Test Content').parentElement;
-        expect(element).toHaveClass('ant-md-editor-content-m-html');
+        expect(element).toHaveClass('ant-agentic-md-editor-content-m-html');
       });
     });
 

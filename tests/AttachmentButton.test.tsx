@@ -244,7 +244,7 @@ describe('AttachmentButton', () => {
 
       // Look for the attachment button by class
       const attachmentButton = document.querySelector(
-        '.ant-md-editor-attachment-button',
+        '.ant-agentic-md-editor-attachment-button',
       );
       expect(attachmentButton).toBeInTheDocument();
     });
@@ -278,7 +278,7 @@ describe('AttachmentButton', () => {
 
       const attachmentButton = container.firstChild;
       expect(attachmentButton).toHaveClass(
-        'ant-md-editor-attachment-button-disabled',
+        'ant-agentic-md-editor-attachment-button-disabled',
       );
     });
 

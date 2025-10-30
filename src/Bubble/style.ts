@@ -27,7 +27,7 @@ const genStyle = (
         },
       },
 
-      '.md-editor-code': {
+      '.agentic-md-editor-code': {
         borderRadius: '12px !important',
         overflow: 'auto',
         padding: 'var(--padding-3x)',

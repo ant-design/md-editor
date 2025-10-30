@@ -29,7 +29,7 @@ describe('FileMapView', () => {
     it('should render without files', () => {
       const { container } = render(<FileMapView />);
       expect(
-        container.querySelector('.ant-md-editor-file-view-list'),
+        container.querySelector('.ant-agentic-md-editor-file-view-list'),
       ).toBeInTheDocument();
     });
 
@@ -57,7 +57,7 @@ describe('FileMapView', () => {
       const customStyle = { backgroundColor: 'red' };
       const { container } = render(<FileMapView style={customStyle} />);
       const element = container.querySelector(
-        '.ant-md-editor-file-view-list',
+        '.ant-agentic-md-editor-file-view-list',
       ) as HTMLElement;
       expect(element.style.backgroundColor).toBe('red');
     });
@@ -242,14 +242,14 @@ describe('FileMapView', () => {
     it('should render with left placement by default', () => {
       const { container } = render(<FileMapView />);
       expect(
-        container.querySelector('.ant-md-editor-file-view-list'),
+        container.querySelector('.ant-agentic-md-editor-file-view-list'),
       ).toBeInTheDocument();
     });
 
     it('should render with right placement', () => {
       const { container } = render(<FileMapView placement="right" />);
       expect(
-        container.querySelector('.ant-md-editor-file-view-list'),
+        container.querySelector('.ant-agentic-md-editor-file-view-list'),
       ).toBeInTheDocument();
     });
   });
@@ -288,21 +288,21 @@ describe('FileMapView', () => {
       const fileMap = new Map();
       const { container } = render(<FileMapView fileMap={fileMap} />);
       expect(
-        container.querySelector('.ant-md-editor-file-view-list'),
+        container.querySelector('.ant-agentic-md-editor-file-view-list'),
       ).toBeInTheDocument();
     });
 
     it('should handle null fileMap', () => {
       const { container } = render(<FileMapView fileMap={null} />);
       expect(
-        container.querySelector('.ant-md-editor-file-view-list'),
+        container.querySelector('.ant-agentic-md-editor-file-view-list'),
       ).toBeInTheDocument();
     });
 
     it('should handle undefined fileMap', () => {
       const { container } = render(<FileMapView />);
       expect(
-        container.querySelector('.ant-md-editor-file-view-list'),
+        container.querySelector('.ant-agentic-md-editor-file-view-list'),
       ).toBeInTheDocument();
     });
 

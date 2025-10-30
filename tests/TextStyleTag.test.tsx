@@ -30,7 +30,7 @@ describe('TextStyleTag Component', () => {
     const { container } = renderWithProvider(<TextStyleTag>Test</TextStyleTag>);
 
     const span = container.querySelector('span');
-    expect(span).toHaveClass('ant-md-editor-text-style-tag');
+    expect(span).toHaveClass('ant-agentic-md-editor-text-style-tag');
   });
 
   it('should render with React elements as children', () => {

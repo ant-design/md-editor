@@ -152,7 +152,7 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
     props.onInit?.();
   }, []);
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-input-field-send-button');
+  const baseCls = getPrefixCls('agentic-md-input-field-send-button');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   if (
