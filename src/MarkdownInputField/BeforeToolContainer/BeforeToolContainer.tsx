@@ -118,7 +118,7 @@ DraggablePopupItem.displayName = 'DraggablePopupItem';
 
 export const ActionItemContainer = (props: ActionItemContainerProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const basePrefixCls = getPrefixCls('agent-chat-action-item-box');
+  const basePrefixCls = getPrefixCls('agentic-chat-action-item-box');
   const { wrapSSR, hashId } = useStyle(basePrefixCls);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);

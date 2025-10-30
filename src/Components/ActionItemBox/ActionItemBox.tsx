@@ -22,7 +22,7 @@ export type ActionItemBoxProps = {
 
 export const ActionItemBox = (props: ActionItemBoxProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const basePrefixCls = getPrefixCls('agent-chat-action-item-box');
+  const basePrefixCls = getPrefixCls('agentic-chat-action-item-box');
   const { wrapSSR, hashId } = useStyle(basePrefixCls);
 
   useEffect(() => {

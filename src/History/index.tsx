@@ -51,7 +51,7 @@ export * from './utils';
  */
 export const History: React.FC<HistoryProps> = (props) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
+  const menuPrefixCls = getPrefixCls('agentic-chat-history-menu');
   const { locale } = useContext(BubbleConfigContext) || {};
   const containerRef = useRef<HTMLDivElement>(null);
   // 注册样式
@@ -168,9 +168,7 @@ export const History: React.FC<HistoryProps> = (props) => {
       content={
         <>
           {items?.length === 0 && !props?.loading && props?.emptyRender ? (
-            <div data-testid="empty-state-popover">
-              {props.emptyRender()}
-            </div>
+            <div data-testid="empty-state-popover">{props.emptyRender()}</div>
           ) : (
             <GroupMenu
               selectedKeys={[props.sessionId]}
@@ -180,13 +178,15 @@ export const History: React.FC<HistoryProps> = (props) => {
               loading={props.loading}
             />
           )}
-          {props.agent?.enabled && !!props.agent?.onLoadMore && !props.loading && (
-            <HistoryLoadMore
-              onLoadMore={handleLoadMore}
-              type={props.type}
-              className={`${menuPrefixCls}-load-more ${hashId} ${props.type === 'task' ? '' : 'chat'}`}
-            />
-          )}
+          {props.agent?.enabled &&
+            !!props.agent?.onLoadMore &&
+            !props.loading && (
+              <HistoryLoadMore
+                onLoadMore={handleLoadMore}
+                type={props.type}
+                className={`${menuPrefixCls}-load-more ${hashId} ${props.type === 'task' ? '' : 'chat'}`}
+              />
+            )}
         </>
       }
     >

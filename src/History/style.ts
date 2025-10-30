@@ -277,7 +277,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('GroupMenu', (token) => {
+  return useEditorStyleRegister('history-group-menu', (token) => {
     const groupMenuToken = {
       ...token,
       componentCls: `.${prefixCls}`,
