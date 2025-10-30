@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import ChartStatistic from '../../../src/plugins/chart/ChartStatistic';
+import ChartStatistic from '../../../src/Plugins/chart/ChartStatistic';
 
 // Mock useStyle hook
-vi.mock('../../../src/plugins/chart/ChartStatistic/style', () => ({
+vi.mock('../../../src/Plugins/chart/ChartStatistic/style', () => ({
   useStyle: vi.fn(() => ({
     wrapSSR: (node: any) => node,
     hashId: 'test-hash-id',

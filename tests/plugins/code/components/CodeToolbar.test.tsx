@@ -36,7 +36,7 @@ vi.mock('antd', () => ({
   ),
 }));
 
-vi.mock('../../../../src/plugins/code/components/LanguageSelector', () => ({
+vi.mock('../../../../src/Plugins/code/components/LanguageSelector', () => ({
   LanguageSelector: ({ element, setLanguage }: any) => (
     <div data-testid="language-selector">
       <span data-testid="current-language">

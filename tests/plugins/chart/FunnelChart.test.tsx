@@ -4,7 +4,7 @@ import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import FunnelChart, {
   FunnelChartDataItem,
-} from '../../../src/plugins/chart/FunnelChart';
+} from '../../../src/Plugins/chart/FunnelChart';
 
 // Mock Chart.js
 vi.mock('chart.js', () => ({
@@ -38,7 +38,7 @@ vi.mock('react-chartjs-2', () => ({
 }));
 
 // Mock downloadChart
-vi.mock('../../../src/plugins/chart/components', () => ({
+vi.mock('../../../src/Plugins/chart/components', () => ({
   ChartContainer: ({ children, ...props }: any) => (
     <div data-testid="chart-container" {...props}>
       {children}
@@ -70,7 +70,7 @@ vi.mock('../../../src/plugins/chart/components', () => ({
 }));
 
 // Mock ChartStatistic
-vi.mock('../../../src/plugins/chart/ChartStatistic', () => ({
+vi.mock('../../../src/Plugins/chart/ChartStatistic', () => ({
   default: ({ title, value }: any) => (
     <div data-testid="chart-statistic">
       {title}: {value}
@@ -79,7 +79,7 @@ vi.mock('../../../src/plugins/chart/ChartStatistic', () => ({
 }));
 
 // Mock useChartStatistic hook
-vi.mock('../../../src/plugins/chart/hooks/useChartStatistic', () => ({
+vi.mock('../../../src/Plugins/chart/hooks/useChartStatistic', () => ({
   useChartStatistic: vi.fn(() => null),
 }));
 
@@ -299,7 +299,7 @@ describe('FunnelChart', () => {
   describe('交互功能测试', () => {
     it('应该支持下载功能', async () => {
       const { downloadChart } = await import(
-        '../../../src/plugins/chart/components'
+        '../../../src/Plugins/chart/components'
       );
 
       render(<FunnelChart data={sampleData} title="可下载漏斗" />);
@@ -431,7 +431,7 @@ describe('FunnelChart', () => {
   describe('ChartStatistic 集成测试', () => {
     it('应该支持 statistic 配置', async () => {
       const { useChartStatistic } = await import(
-        '../../../src/plugins/chart/hooks/useChartStatistic'
+        '../../../src/Plugins/chart/hooks/useChartStatistic'
       );
       vi.mocked(useChartStatistic).mockReturnValue([
         {

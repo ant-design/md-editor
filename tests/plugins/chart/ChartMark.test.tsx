@@ -66,13 +66,13 @@ vi.mock('rc-resize-observer', () => ({
 }));
 
 // Import components after mocking
-import { Area } from '../../../src/plugins/chart/ChartMark/Area';
-import { Bar } from '../../../src/plugins/chart/ChartMark/Bar';
-import { Column } from '../../../src/plugins/chart/ChartMark/Column';
-import { Container } from '../../../src/plugins/chart/ChartMark/Container';
-import { Line } from '../../../src/plugins/chart/ChartMark/Line';
-import { Pie } from '../../../src/plugins/chart/ChartMark/Pie';
-import { debounce, stringFormatNumber } from '../../../src/plugins/chart/utils';
+import { Area } from '../../../src/Plugins/chart/ChartMark/Area';
+import { Bar } from '../../../src/Plugins/chart/ChartMark/Bar';
+import { Column } from '../../../src/Plugins/chart/ChartMark/Column';
+import { Container } from '../../../src/Plugins/chart/ChartMark/Container';
+import { Line } from '../../../src/Plugins/chart/ChartMark/Line';
+import { Pie } from '../../../src/Plugins/chart/ChartMark/Pie';
+import { debounce, stringFormatNumber } from '../../../src/Plugins/chart/utils';
 
 describe('ChartMark Components', () => {
   afterEach(() => {

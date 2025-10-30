@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { I18nContext } from '../../../src/i18n';
-import { ChartRender } from '../../../src/plugins/chart/ChartRender';
+import { ChartRender } from '../../../src/Plugins/chart/ChartRender';
 
 // Mock Chart.js（补齐 CategoryScale 等导出）
 vi.mock('chart.js', () => ({
@@ -57,7 +57,7 @@ vi.mock('react-chartjs-2', () => ({
 }));
 
 // Mock ChartMark components
-vi.mock('../../../src/plugins/chart/ChartMark', () => ({
+vi.mock('../../../src/Plugins/chart/ChartMark', () => ({
   Pie: vi.fn().mockImplementation((props) => (
     <div data-testid="pie-chart">
       Pie Chart - {props.xField} vs {props.yField}
@@ -86,7 +86,7 @@ vi.mock('../../../src/plugins/chart/ChartMark', () => ({
 }));
 
 // Mock the actual ChartMark components
-vi.mock('../../../src/plugins/chart/ChartMark/index', () => ({
+vi.mock('../../../src/Plugins/chart/ChartMark/index', () => ({
   Pie: vi.fn().mockImplementation((props) => (
     <div data-testid="pie-chart">
       Pie Chart - {props.xField} vs {props.yField}
@@ -115,7 +115,7 @@ vi.mock('../../../src/plugins/chart/ChartMark/index', () => ({
 }));
 
 // Mock ChartAttrToolBar
-vi.mock('../../../src/plugins/chart/ChartAttrToolBar', () => ({
+vi.mock('../../../src/Plugins/chart/ChartAttrToolBar', () => ({
   ChartAttrToolBar: vi.fn().mockImplementation((props) => (
     <div data-testid="chart-attr-toolbar">
       {props.title}
@@ -127,7 +127,7 @@ vi.mock('../../../src/plugins/chart/ChartAttrToolBar', () => ({
 }));
 
 // Mock the actual ChartAttrToolBar component
-vi.mock('../../../src/plugins/chart/ChartAttrToolBar/index', () => ({
+vi.mock('../../../src/Plugins/chart/ChartAttrToolBar/index', () => ({
   ChartAttrToolBar: vi.fn().mockImplementation((props) => (
     <div data-testid="chart-attr-toolbar">
       {props.title}
