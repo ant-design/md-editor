@@ -137,7 +137,7 @@ export const upLoadFileToServer = async (
   props: {
     fileMap?: Map<string, AttachmentFile>;
     onFileMapChange?: (files?: Map<string, AttachmentFile>) => void;
-    upload?: (file: AttachmentFile, index: number) => Promise<string>;
+    upload?: (file: AttachmentFile, index?: number) => Promise<string>;
     uploadWithResponse?: (
       file: AttachmentFile,
       index: number,
