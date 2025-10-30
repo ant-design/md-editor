@@ -169,6 +169,8 @@ export const AIBubble: React.FC<
             style={{
               minWidth: standalone ? 'min(296px,100%)' : '0px',
               paddingLeft: 12,
+              maxWidth: '100%',
+              width: '100%',
               ...styles?.bubbleListItemExtraStyle,
             }}
             className={cx(
