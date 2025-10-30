@@ -121,7 +121,7 @@
               zindex="-1"
             >
               <h1
-                class="ant-agentic-md-editor-drag-el"
+                class="ant-md-editor-drag-el"
                 data-be="head"
                 data-head="中文输入法测试演示"
                 data-slate-node="element"
@@ -145,7 +145,7 @@
                 </span>
               </h1>
               <div
-                class="ant-agentic-md-editor-drag-el"
+                class="ant-md-editor-drag-el"
                 data-be="paragraph"
                 data-slate-node="element"
               >
@@ -166,7 +166,7 @@
                 </span>
               </div>
               <div
-                class="ant-agentic-md-editor-drag-el"
+                class="ant-md-editor-drag-el"
                 data-be="paragraph"
                 data-slate-node="element"
               >
@@ -201,7 +201,7 @@
                     data-slate-node="element"
                   >
                     <div
-                      class="ant-agentic-md-editor-drag-el"
+                      class="ant-md-editor-drag-el"
                       data-be="paragraph"
                       data-slate-node="element"
                     >
@@ -229,7 +229,7 @@
                           draggable="false"
                         >
                           <code
-                            class="ant-agentic-md-editor-content-inline-code"
+                            class="ant-md-editor-content-inline-code"
                           >
                             <span
                               data-slate-string="true"
@@ -262,7 +262,7 @@
                     data-slate-node="element"
                   >
                     <div
-                      class="ant-agentic-md-editor-drag-el"
+                      class="ant-md-editor-drag-el"
                       data-be="paragraph"
                       data-slate-node="element"
                     >
@@ -289,7 +289,7 @@
                     data-slate-node="element"
                   >
                     <div
-                      class="ant-agentic-md-editor-drag-el"
+                      class="ant-md-editor-drag-el"
                       data-be="paragraph"
                       data-slate-node="element"
                     >
@@ -313,7 +313,7 @@
                 </ol>
               </div>
               <div
-                class="ant-agentic-md-editor-drag-el"
+                class="ant-md-editor-drag-el"
                 data-be="paragraph"
                 data-slate-node="element"
               >
