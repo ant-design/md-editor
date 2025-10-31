@@ -50,6 +50,8 @@ export type AttachmentButtonProps = {
   maxFileCount?: number;
   /** 最小文件数量 */
   minFileCount?: number;
+  /** 是否允许一次选择多个文件（默认：true） */
+  allowMultiple?: boolean;
 };
 
 /**
