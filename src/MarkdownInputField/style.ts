@@ -77,7 +77,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       width: '100%',
       height: '100%',
       display: 'flex',
-      boxShadow: `0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)`,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
@@ -86,40 +85,26 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minHeight: '48px',
       maxWidth: 980,
       backdropFilter: 'blur(5.44px)',
+      boxShadow: 'var(--shadow-control-lg)',
       position: 'relative',
-      transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       '> * ': {
         boxSizing: 'border-box',
       },
       '&:active,&.active': {
         [`${token.componentCls}-background`]: {
           opacity: 1,
-          backgroundColor: '#1890ff',
+          backgroundImage:
+            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%) 1',
         },
       },
 
       '&:hover': {
         [`${token.componentCls}-background`]: {
           opacity: 1,
-          // backgroundColor: 'rgba(0, 9, 50, 0.1)',
         },
       },
 
       '&-enlarged': {
-        // 覆盖基础样式的限制
-        minHeight: '100%',
-        height: '100%',
-        width: '100%',
-        maxWidth: 'none', // 覆盖原来的 maxWidth: 980
-        alignItems: 'stretch', // 覆盖原来的 center
-        justifyContent: 'flex-start', // 覆盖原来的 center
-        display: 'flex',
-        flexDirection: 'column',
-        // 保持和普通状态相同的阴影效果
-        boxShadow: `0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)`,
-        transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-
-        // 内部白色容器
         '> div:last-child': {
           flex: 1,
           height: '100%',
@@ -134,7 +119,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           maxHeight: 'none',
           overflow: 'hidden',
           width: '100%',
-          transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
         },
         [`${token.componentCls}-editor-content`]: {
           flex: 1,
@@ -143,12 +127,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           maxHeight: 'none',
           overflow: 'auto',
           width: '100%',
-          transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
         },
         [`${token.componentCls}-background`]: {
           // 放大时保持和普通状态相同的背景效果
           opacity: 1,
-          backgroundColor: 'rgba(0, 9, 50, 0.1)',
         },
       },
 
@@ -161,7 +143,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: addGlowBorderOffset('100%'),
         height: addGlowBorderOffset('100%'),
         zIndex: 2,
-        backgroundColor: 'rgba(0, 9, 50, 0.1)',
+        backgroundColor: 'transparent',
         pointerEvents: 'none',
         borderRadius: 'inherit',
       },
@@ -169,7 +151,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'none',
         [`${token.componentCls}-background`]: {
           opacity: 1,
-          backgroundColor: '#1890ff',
         },
       },
       '&-editor': {
@@ -183,7 +164,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         overflowY: 'visible',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
-        transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
         '&&-disabled': {
           backgroundColor: 'rgba(0,0,0,0.04)',
           cursor: 'not-allowed',
@@ -199,7 +179,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
         borderRadius: 'inherit',
-        transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',
