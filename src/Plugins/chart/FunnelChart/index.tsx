@@ -252,7 +252,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     const adjustedValues = (() => {
       // 非法值（≤0 或 >1）都视为不限制
       if (
-        !bottomLayerMinWidth ||
         bottomLayerMinWidth <= 0 ||
         bottomLayerMinWidth > 1 ||
         values.length === 0
