@@ -162,7 +162,7 @@ export const AttachmentFileListItem: React.FC<FileListItemProps> = ({
   };
 
   return (
-    <Tooltip title="点击重试" open={isErrorStatus || undefined}>
+    <Tooltip title="点击重试" open={isErrorStatus ? undefined : false}>
       <motion.div
         variants={ANIMATION_VARIANTS}
         onClick={handleFileClick}
