@@ -77,7 +77,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       width: '100%',
       height: '100%',
       display: 'flex',
-      boxShadow: `0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)`,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
@@ -86,6 +85,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minHeight: '48px',
       maxWidth: 980,
       backdropFilter: 'blur(5.44px)',
+      boxShadow: 'var(--shadow-control-lg)',
       position: 'relative',
       transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       '> * ': {
@@ -94,14 +94,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&:active,&.active': {
         [`${token.componentCls}-background`]: {
           opacity: 1,
-          backgroundColor: '#1890ff',
+          backgroundImage:
+            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%) 1',
         },
       },
 
       '&:hover': {
         [`${token.componentCls}-background`]: {
           opacity: 1,
-          // backgroundColor: 'rgba(0, 9, 50, 0.1)',
         },
       },
 
@@ -148,7 +148,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         [`${token.componentCls}-background`]: {
           // 放大时保持和普通状态相同的背景效果
           opacity: 1,
-          backgroundColor: 'rgba(0, 9, 50, 0.1)',
         },
       },
 
@@ -161,7 +160,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: addGlowBorderOffset('100%'),
         height: addGlowBorderOffset('100%'),
         zIndex: 2,
-        backgroundColor: 'rgba(0, 9, 50, 0.1)',
+        backgroundColor: 'transparent',
         pointerEvents: 'none',
         borderRadius: 'inherit',
       },
@@ -169,7 +168,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'none',
         [`${token.componentCls}-background`]: {
           opacity: 1,
-          backgroundColor: '#1890ff',
         },
       },
       '&-editor': {
