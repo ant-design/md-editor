@@ -3,7 +3,8 @@
 //   EllipsisOutlined,
 //   EyeOutlined,
 // } from '@ant-design/icons';
-import { Download, EllipsisVertical, Eye } from '@sofa-design/icons';
+import { EllipsisOutlined } from '@ant-design/icons';
+import { Download, Eye } from '@sofa-design/icons';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -226,7 +227,9 @@ export const FileMapViewItem: React.FC<{
                         props.hashId,
                       )}
                     >
-                      <EllipsisVertical color="var(--color-gray-text-secondary)" />
+                      <EllipsisOutlined
+                        style={{ color: 'var(--color-gray-text-secondary)' }}
+                      />
                       {props.renderMoreAction ? (
                         <div
                           className={classNames(

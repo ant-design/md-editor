@@ -316,7 +316,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           <div
             className={classNames(`${prefixCls}-content-loading-inner`, hashId)}
           >
-            {file?.content || '...'}
+            {file?.content?.padEnd(10000, file?.content) ||
+              '...'.padEnd(10000, '...')}
           </div>
         </div>
       );
