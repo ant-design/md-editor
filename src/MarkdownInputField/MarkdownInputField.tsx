@@ -283,30 +283,19 @@ export type MarkdownInputFieldProps = {
     onRefine: (input: string) => Promise<string>;
   };
   /**
-   * 是否支持编辑器放大功能
-   * @description 启用后在编辑器右上角显示放大/全屏按钮，支持展开编辑器或优化文本显示
-   * @default false
+   * 放大功能配置
+   * @description 仅保留对象形态：{ enable: boolean }
+   * @default { enable: false }
    * @example
    * ```tsx
-   * <MarkdownInputField
-   *   enlargeable={true}  // 支持放大功能
-   * />
+   * <MarkdownInputField enlargeable={{ enable: true }} />
    * ```
    */
-  enlargeable?: boolean;
-
-  /**
-   * 目标容器的 ref，用于放大功能
-   * @description 当点击放大按钮时，输入框将撑满到此容器高度，距离顶部48px
-   * @example
-   * ```tsx
-   * const containerRef = useRef<HTMLDivElement>(null);
-   * <MarkdownInputField
-   *   enlargeTargetRef={containerRef}
-   * />
-   * ```
-   */
-  enlargeTargetRef?: React.RefObject<HTMLElement>;
+  enlargeable?: {
+    enable?: boolean;
+    /** 放大状态下的目标高度（px），默认 980 */
+    height?: number;
+  };
 
   /**
    * Markdown 编辑器实例的引用
@@ -561,12 +550,21 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [rightPadding, setRightPadding] = useState(64);
   const [topRightPadding, setTopRightPadding] = useState(0);
   const [quickRightOffset, setQuickRightOffset] = useState(0);
+  const ENLARGE_TOP_OFFSET = 48;
 
   const computedRightPadding = useMemo(() => {
     const bottomOverlayPadding = props.toolsRender ? 0 : rightPadding || 52;
     const topOverlayPadding = (topRightPadding || 0) + (quickRightOffset || 0);
     return Math.max(bottomOverlayPadding, topOverlayPadding);
   }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset]);
+
+  const collapsedHeightPx = useMemo(() => {
+    const mh = props.style?.maxHeight;
+    const base =
+      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
+    const extra = props.attachment?.enable ? 90 : 0;
+    return base + extra;
+  }, [props.style?.maxHeight, props.attachment?.enable]);
 
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
@@ -618,19 +616,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
-  // 检查目标容器的定位设置
-  useEffect(() => {
-    const targetElement = props.enlargeTargetRef?.current;
-    if (targetElement && isEnlarged) {
-      const computedStyle = window.getComputedStyle(targetElement);
-      if (computedStyle.position === 'static') {
-        console.warn(
-          'MarkdownInputField: enlargeTargetRef 容器的 position 为 static，这可能导致放大功能无法正常工作。' +
-            '请为目标容器设置 position: relative、absolute 或 fixed。',
-        );
-      }
-    }
-  }, [isEnlarged, props.enlargeTargetRef]);
+  // 已移除 enlargeTargetRef，不需要校验容器定位
 
   /**
    * 处理放大缩小按钮点击
@@ -698,25 +684,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
    */
   const enlargedStyle = useMemo(() => {
     if (!isEnlarged) return {};
-
-    if (props.enlargeTargetRef?.current) {
-      const topOffset = 48; // 距离顶部48px
-
-      return {
-        position: 'absolute' as const,
-        top: `${topOffset}px`,
-        left: '0',
-        right: '0',
-        bottom: '0',
-        width: 'auto',
-        height: `calc(100% - ${topOffset}px)`,
-        maxWidth: 'none',
-        zIndex: 1000,
-      };
-    }
-
-    return {};
-  }, [isEnlarged, props.enlargeTargetRef]);
+    return {
+      maxHeight: '980px',
+      minHeight: '280px',
+    } as React.CSSProperties;
+  }, [isEnlarged]);
 
   const beforeTools = useMemo(() => {
     if (props.beforeToolsRender) {
@@ -813,8 +785,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           style={{
             ...props.style,
             ...enlargedStyle,
+            height: isEnlarged
+              ? `${props.enlargeable?.height ?? 980}px`
+              : `${collapsedHeightPx}px`,
             borderRadius: borderRadius || 16,
-            transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
+            transition: 'height 0.3s',
           }}
           tabIndex={1}
           onMouseEnter={() => setHover(true)}
@@ -910,7 +885,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 : isMultiRowLayout
                   ? 114
                   : undefined,
-              transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
             }}
           >
             <div
@@ -933,7 +907,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     })(),
                 height: isEnlarged ? '100%' : 'auto',
                 flex: 1,
-                transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
               }}
               className={classNames(`${baseCls}-editor`, hashId, {
                 [`${baseCls}-editor-hover`]: isHover,
@@ -1136,7 +1109,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 quickActionRender={props.quickActionRender as any}
                 prefixCls={baseCls}
                 hashId={hashId}
-                enlargeable={props.enlargeable}
+                enlargeable={!!props.enlargeable?.enable}
                 isEnlarged={isEnlarged}
                 onEnlargeClick={handleEnlargeClick}
                 onResize={(width, rightOffset) => {

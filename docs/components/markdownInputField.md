@@ -662,10 +662,10 @@ export default () => {
 
 #### 相关属性
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `enlargeable` | `boolean` | `false` | 是否启用放大功能 |
-| `enlargeTargetRef` | `React.RefObject<HTMLElement>` | - | 放大时的目标容器引用，必须是一个具有定位属性的元素 |
+| 属性               | 类型                           | 默认值  | 说明                                               |
+| ------------------ | ------------------------------ | ------- | -------------------------------------------------- |
+| `enlargeable`      | `boolean`                      | `false` | 是否启用放大功能                                   |
+| `enlargeTargetRef` | `React.RefObject<HTMLElement>` | -       | 放大时的目标容器引用，必须是一个具有定位属性的元素 |
 
 #### 使用注意事项
 
@@ -689,18 +689,17 @@ export default () => {
     <>
       <div
         style={{
-          height: 400,
+          height: 500,
+          padding: 32,
           position: 'relative',
         }}
         ref={containerRef}
       >
-        <div style={{ height: 200 }} />
         <MarkdownInputField
           value={value}
           onChange={setValue}
-          enlargeable
-          enlargeTargetRef={containerRef}
-          style={{ maxHeight: 200 }}
+          enlargeable={{ enable: true, height: 600 }}
+          style={{ marginTop: 128, height: 190 }}
           refinePrompt={{
             enable: true,
             onRefine: async (input) => {
