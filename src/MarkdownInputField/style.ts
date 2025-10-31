@@ -93,8 +93,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&:active,&.active': {
         [`${token.componentCls}-background`]: {
           opacity: 1,
+          height: '100%',
           backgroundImage:
-            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%) 1',
+            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%),linear-gradient(42deg, #D7B9FF 14%, #9BA0FF 57%, #09B1FF 98%)',
         },
       },
 
@@ -138,10 +139,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
         transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
         position: 'absolute',
-        top: getGlowBorderOffset(),
-        left: getGlowBorderOffset(),
-        width: addGlowBorderOffset('100%'),
-        height: addGlowBorderOffset('100%'),
+        width: 'calc(100% - 4px)',
+        height: 'calc(100% - 4px)',
         zIndex: 2,
         backgroundColor: 'transparent',
         pointerEvents: 'none',

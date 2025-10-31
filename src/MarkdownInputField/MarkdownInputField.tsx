@@ -31,7 +31,7 @@ import { QuickActions } from './QuickActions';
 import { SendActions } from './SendActions';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
-import { addGlowBorderOffset, useStyle } from './style';
+import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import TopOperatingArea from './TopOperatingArea';
 import type { CreateRecognizer } from './VoiceInput';
@@ -560,7 +560,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const collapsedHeightPx = useMemo(() => {
     const mh = props.style?.maxHeight;
     const base =
-      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
+      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 140 : 140;
     const extra = props.attachment?.enable ? 90 : 0;
     return base + extra;
   }, [props.style?.maxHeight, props.attachment?.enable]);
@@ -664,19 +664,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       }
     }
   });
-
-  /**
-   * 背景容器尺寸计算
-   */
-  const bgSize = useMemo(() => {
-    const height = props.style?.height
-      ? addGlowBorderOffset(props.style.height)
-      : addGlowBorderOffset('100%');
-    const width = props.style?.width
-      ? addGlowBorderOffset(props.style.width)
-      : addGlowBorderOffset('100%');
-    return { height, width };
-  }, [props.style?.height, props.style?.width]);
 
   /**
    * 放大状态样式计算
@@ -893,7 +880,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               ? `${props.enlargeable?.height ?? 980}px`
               : `${collapsedHeightPx}px`,
             borderRadius: borderRadius || 16,
-            transition: 'height 0.3s',
+            transition:
+              'height, max-height 0.3s,border-radius 0.3s,box-shadow 0.3s,transform 0.3s,opacity 0.3s,background 0.3s',
           }}
           tabIndex={1}
           onMouseEnter={() => setHover(true)}
@@ -907,17 +895,17 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             })}
             style={{
               minHeight: props.style?.minHeight || 0,
-              height: bgSize.height,
-              width: bgSize.width,
+              height: '100%',
+              width: '100%',
             }}
           />
 
           <div
             style={{
-              flex: 1,
               backgroundColor: '#fff',
-              width: '100%',
-              height: isEnlarged ? '100%' : 'auto',
+              width: 'calc(100% - 4px)',
+              height: isEnlarged ? 'calc(100% - 4px)' : 'calc(100% - 4px)',
+              maxHeight: isEnlarged ? 'calc(100% - 4px)' : 'calc(100% - 4px)',
               display: 'flex',
               zIndex: 9,
               flexDirection: 'column',
@@ -928,7 +916,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               minHeight: isEnlarged
                 ? 'auto'
                 : isMultiRowLayout
-                  ? 114
+                  ? 106
                   : undefined,
             }}
           >
