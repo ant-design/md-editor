@@ -550,7 +550,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [rightPadding, setRightPadding] = useState(64);
   const [topRightPadding, setTopRightPadding] = useState(0);
   const [quickRightOffset, setQuickRightOffset] = useState(0);
-  const ENLARGE_TOP_OFFSET = 48;
 
   const computedRightPadding = useMemo(() => {
     const bottomOverlayPadding = props.toolsRender ? 0 : rightPadding || 52;
@@ -750,6 +749,111 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     [fileMap, markdownProps?.attachment],
   );
 
+  // 预计算：附件列表节点，减少 JSX 嵌套
+  const attachmentList = useMemo(() => {
+    if (!props.attachment?.enable) return null;
+    return (
+      <AttachmentFileList
+        fileMap={fileMap}
+        onDelete={handleFileRemoval}
+        onRetry={handleFileRetry}
+        onClearFileMap={() => {
+          updateAttachmentFiles(new Map());
+        }}
+      />
+    );
+  }, [
+    fileMap,
+    props.attachment?.enable,
+    handleFileRemoval,
+    handleFileRetry,
+    updateAttachmentFiles,
+  ]);
+
+  // 键盘事件：早返回减少嵌套
+  const handleKeyDown = useRefFunction(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const triggerSendKey = props.triggerSendKey || 'Enter';
+      if (markdownEditorRef?.current?.store.inputComposition) return;
+
+      const isEnter = e.key === 'Enter';
+      const isMod = e.ctrlKey || e.metaKey;
+
+      if (triggerSendKey === 'Enter') {
+        if (!(isEnter && !isMod)) return;
+        e.stopPropagation();
+        e.preventDefault();
+        if (props.onSend) sendMessage();
+        return;
+      }
+
+      if (triggerSendKey === 'Mod+Enter') {
+        if (!(isEnter && isMod)) return;
+        e.stopPropagation();
+        e.preventDefault();
+        if (props.onSend) sendMessage();
+      }
+    },
+  );
+
+  // 容器点击：早返回减少嵌套
+  const handleContainerClick = useRefFunction(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (markdownEditorRef?.current?.store.inputComposition) return;
+      if (props.disabled) return;
+      if (actionsRef.current?.contains(e.target as Node)) return;
+      if (quickActionsRef.current?.contains(e.target as Node)) return;
+
+      const editor = markdownEditorRef.current?.markdownEditorRef.current;
+      if (!editor) return;
+      if (ReactEditor.isFocused(editor)) return;
+
+      ReactEditor.focus(editor);
+      Transforms.move(editor, { distance: 1, unit: 'offset' });
+      Transforms.select(editor, {
+        anchor: Editor.end(editor, []),
+        focus: Editor.end(editor, []),
+      });
+    },
+  );
+
+  // 预计算：SendActions 节点，统一渲染，避免重复 JSX
+  const sendActionsNode = (
+    <SendActions
+      attachment={{
+        ...props.attachment,
+        supportedFormat,
+        fileMap,
+        onFileMapChange: setFileMap,
+        upload: props.attachment?.upload
+          ? (file: any) => props.attachment!.upload!(file, 0)
+          : undefined,
+      }}
+      voiceRecognizer={props.voiceRecognizer}
+      value={value}
+      disabled={props.disabled}
+      typing={props.typing}
+      isLoading={isLoading}
+      fileUploadDone={fileUploadDone}
+      recording={recording}
+      collapseSendActions={collapseSendActions}
+      allowEmptySubmit={props.allowEmptySubmit}
+      uploadImage={uploadImage}
+      onStartRecording={startRecording}
+      onStopRecording={stopRecording}
+      onSend={sendMessage}
+      onStop={() => {
+        setIsLoading(false);
+        props.onStop?.();
+      }}
+      actionsRender={props.actionsRender}
+      prefixCls={baseCls}
+      hashId={hashId}
+      hasTools={!!props.toolsRender}
+      onResize={setRightPadding}
+    />
+  );
+
   return wrapSSR(
     <>
       {isShowTopOperatingArea && (
@@ -794,67 +898,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           tabIndex={1}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          onKeyDown={(e) => {
-            const { triggerSendKey = 'Enter' } = props;
-
-            // 如果正在使用输入法，不处理回车键发送
-            if (markdownEditorRef?.current?.store.inputComposition) {
-              return;
-            }
-
-            if (
-              triggerSendKey === 'Enter' &&
-              e.key === 'Enter' &&
-              !(e.ctrlKey || e.metaKey)
-            ) {
-              e.stopPropagation();
-              e.preventDefault();
-              if (props.onSend) {
-                sendMessage();
-              }
-              return;
-            }
-            if (
-              triggerSendKey === 'Mod+Enter' &&
-              (e.ctrlKey || e.metaKey) &&
-              e.key === 'Enter'
-            ) {
-              e.stopPropagation();
-              e.preventDefault();
-              if (props.onSend) {
-                sendMessage();
-              }
-            }
-          }}
-          onClick={(e) => {
-            if (markdownEditorRef?.current?.store.inputComposition) {
-              return;
-            }
-            if (props.disabled) {
-              return;
-            }
-            if (actionsRef.current?.contains(e.target as Node)) {
-              return;
-            }
-            if (quickActionsRef.current?.contains(e.target as Node)) {
-              return;
-            }
-            if (
-              markdownEditorRef.current?.store?.editor &&
-              !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
-            ) {
-              const editor =
-                markdownEditorRef.current?.markdownEditorRef.current;
-              if (editor) {
-                ReactEditor.focus(editor);
-                Transforms.move(editor, { distance: 1, unit: 'offset' });
-                Transforms.select(editor, {
-                  anchor: Editor.end(editor, []),
-                  focus: Editor.end(editor, []),
-                });
-              }
-            }
-          }}
+          onKeyDown={handleKeyDown}
+          onClick={handleContainerClick}
         >
           <div
             className={classNames(`${baseCls}-background`, hashId, {
@@ -920,18 +965,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               />
 
               <div className={classNames(`${baseCls}-editor-content`, hashId)}>
-                {useMemo(() => {
-                  return props.attachment?.enable ? (
-                    <AttachmentFileList
-                      fileMap={fileMap}
-                      onDelete={handleFileRemoval}
-                      onRetry={handleFileRetry}
-                      onClearFileMap={() => {
-                        updateAttachmentFiles(new Map());
-                      }}
-                    />
-                  ) : null;
-                }, [fileMap?.values(), props.attachment?.enable])}
+                {attachmentList}
 
                 <BaseMarkdownEditor
                   editorRef={markdownEditorRef}
@@ -1000,95 +1034,25 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   paddingBottom: 'var(--padding-card-base)',
                 }}
               >
-                {props.toolsRender ? (
-                  <div
-                    ref={actionsRef}
-                    contentEditable={false}
-                    className={classNames(`${baseCls}-send-tools`, hashId)}
-                  >
-                    {props.toolsRender
-                      ? props.toolsRender({
-                          value,
-                          fileMap,
-                          onFileMapChange: setFileMap,
-                          ...props,
-                          isHover,
-                          isLoading,
-                          fileUploadStatus: fileUploadDone
-                            ? 'done'
-                            : 'uploading',
-                        })
-                      : []}
-                  </div>
-                ) : null}
-                <SendActions
-                  attachment={{
-                    ...props.attachment,
-                    supportedFormat,
+                <div
+                  ref={actionsRef}
+                  contentEditable={false}
+                  className={classNames(`${baseCls}-send-tools`, hashId)}
+                >
+                  {props.toolsRender({
+                    value,
                     fileMap,
                     onFileMapChange: setFileMap,
-                    upload: props.attachment?.upload
-                      ? (file: any) => props.attachment!.upload!(file, 0)
-                      : undefined,
-                  }}
-                  voiceRecognizer={props.voiceRecognizer}
-                  value={value}
-                  disabled={props.disabled}
-                  typing={props.typing}
-                  isLoading={isLoading}
-                  fileUploadDone={fileUploadDone}
-                  recording={recording}
-                  collapseSendActions={collapseSendActions}
-                  allowEmptySubmit={props.allowEmptySubmit}
-                  uploadImage={uploadImage}
-                  onStartRecording={startRecording}
-                  onStopRecording={stopRecording}
-                  onSend={sendMessage}
-                  onStop={() => {
-                    setIsLoading(false);
-                    props.onStop?.();
-                  }}
-                  actionsRender={props.actionsRender}
-                  prefixCls={baseCls}
-                  hashId={hashId}
-                  hasTools={!!props.toolsRender}
-                  onResize={setRightPadding}
-                />
+                    ...props,
+                    isHover,
+                    isLoading,
+                    fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                  })}
+                </div>
+                {sendActionsNode}
               </div>
             ) : (
-              <SendActions
-                attachment={{
-                  ...props.attachment,
-                  supportedFormat,
-                  fileMap,
-                  onFileMapChange: setFileMap,
-                  upload: props.attachment?.upload
-                    ? (file: any) => props.attachment!.upload!(file, 0)
-                    : undefined,
-                }}
-                voiceRecognizer={props.voiceRecognizer}
-                value={value}
-                disabled={props.disabled}
-                typing={props.typing}
-                isLoading={isLoading}
-                fileUploadDone={fileUploadDone}
-                recording={recording}
-                collapseSendActions={collapseSendActions}
-                allowEmptySubmit={props.allowEmptySubmit}
-                uploadImage={uploadImage}
-                onStartRecording={startRecording}
-                onStopRecording={stopRecording}
-                onSend={sendMessage}
-                onStop={() => {
-                  setIsLoading(false);
-                  props.onStop?.();
-                }}
-                actionsRender={props.actionsRender}
-                prefixCls={baseCls}
-                hashId={hashId}
-                hasTools={!!props.toolsRender}
-                onResize={setRightPadding}
-              />
+              sendActionsNode
             )}
             {props?.quickActionRender || props.refinePrompt?.enable ? (
               <QuickActions
