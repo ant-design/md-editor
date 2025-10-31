@@ -254,6 +254,9 @@ export const AIBubble: React.FC<
           className={cx(
             `${prefixClass}-bubble-container`,
             `${prefixClass}-bubble-container-${placement}`,
+            {
+              [`${prefixClass}-bubble-container-pure`]: props.pure,
+            },
             hashId,
           )}
         >
