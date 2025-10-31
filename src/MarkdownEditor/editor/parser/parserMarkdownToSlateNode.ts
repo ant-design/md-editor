@@ -223,7 +223,7 @@ const findImageElement = (str: string) => {
       const poster = str.match(/poster="([^"\n]+)"/);
 
       return {
-        url: decodeURIComponent(videoWithSourceMatch[1]),
+        url: videoWithSourceMatch[1],
         height: height ? +height[1] : undefined,
         width: width ? +width[1] : undefined,
         align: align?.[1],
@@ -735,7 +735,10 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
         mediaType = 'iframe';
       }
 
-      return EditorUtils.createMediaNode(mediaElement?.url, mediaType, {
+      return EditorUtils.createMediaNode(
+        decodeURIComponentUrl(mediaElement?.url || ''),
+        mediaType,
+        {
         align: mediaElement.align,
         alt: mediaElement.alt,
         height: mediaElement?.height,
@@ -745,7 +748,8 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
         loop: mediaElement?.loop,
         muted: mediaElement?.muted,
         poster: mediaElement?.poster,
-      });
+        },
+      );
     } else {
       return { text: currentElement.value };
     }

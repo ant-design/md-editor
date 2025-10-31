@@ -118,7 +118,35 @@ Markdown Editor 支持在 Markdown 中嵌入视频元素，支持多种视频格
 这是一个带source标签的视频：
 
 <video controls width="600">
-<source src="https://aicomm-dev.oss-cn-shanghai.aliyuncs.com/aico/boss/transfer/wrong_question/Fa892bfbe407045efa56813498df8e508.video/mp4?Expires=1755941235&OSSAccessKeyId=LTAI5tKiBhsKfhwgbsFbC3CL&Signature=0tSi7oBjEXZHjpkSjLCRbkUpmIg%3D" type="video/mp4">
+<source src="https://www.w3schools.com/html/mov_bbb.mp4 type="video/mp4" />
 movie.mp4
 </video>
+```
+
+```tsx
+import { MarkdownEditor } from '@ant-design/agentic-ui';
+
+const VideoDemo = () => {
+  return (
+    <MarkdownEditor
+      readonly
+      initValue={`
+# 视频演示
+
+这是一个简单的视频：
+
+<video src="https://www.w3schools.com/html/mov_bbb.mp4" controls width="400"></video>
+
+这是一个带source标签的视频：
+
+<video controls width="600">
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+movie.mp4
+</video>
+`}
+    />
+  );
+};
+
+export default VideoDemo;
 ```
