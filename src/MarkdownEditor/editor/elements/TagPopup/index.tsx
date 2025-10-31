@@ -264,6 +264,7 @@ const createDefaultDom = (
       onMouseEnter={() => handleMouseEnter(domRef)}
       onMouseLeave={() => handleMouseLeave(domRef)}
       title={placeholder}
+      contentEditable={!hasItems}
     >
       {children}
       {hasItems && (
@@ -291,7 +292,7 @@ const getRenderDom = (
       ...props,
       text: props.text,
       onSelect: (value: string, tagNode?: Record<string, any>) => {
-        onSelect?.(value, currentNodePath.current || [], tagNode);
+        onSelect?.(value?.trim() || '', currentNodePath.current || [], tagNode);
       },
     },
     defaultDom,
@@ -313,7 +314,7 @@ const handlePanelClick = (
 
   if (suggestionConnext?.onSelectRef) {
     suggestionConnext.onSelectRef.current = (newValue: string) => {
-      onSelect?.(newValue, currentNodePath.current || []);
+      onSelect?.(newValue?.trim() || '', currentNodePath.current || []);
       suggestionConnext?.setOpen?.(false);
     };
   }
@@ -360,7 +361,9 @@ export const TagPopup = (props: RenderProps) => {
   const domRef = useRef<HTMLDivElement>(null);
   const suggestionConnext = useContext(SuggestionConnext);
   const antdContext = useContext(ConfigProvider.ConfigContext);
-  const baseCls = antdContext?.getPrefixCls('agentic-md-editor-tag-popup-input');
+  const baseCls = antdContext?.getPrefixCls(
+    'agentic-md-editor-tag-popup-input',
+  );
   const { wrapSSR, hashId } = useStyle(baseCls);
   const currentNodePath = useRef<number[]>();
 
@@ -395,7 +398,7 @@ export const TagPopup = (props: RenderProps) => {
       ...props,
       text: props.text,
       onSelect: (value: string) => {
-        onSelect?.(value, currentNodePath.current || []);
+        onSelect?.(value?.trim() || '', currentNodePath.current || []);
       },
     });
   }, [props.text, suggestionConnext.open]);
@@ -460,7 +463,7 @@ export const TagPopup = (props: RenderProps) => {
           menu={{
             items: selectedItems as MenuProps['items'],
             onClick: (e) => {
-              onSelect?.(e.key, currentNodePath.current || []);
+              onSelect?.(e.key?.trim() || '', currentNodePath.current || []);
               suggestionConnext?.setOpen?.(false);
             },
           }}
