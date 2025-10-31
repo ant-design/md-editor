@@ -51,7 +51,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               display: 'flex',
               width: '112px',
               '&-text': {
-                maxWidth: '92px',
+                maxWidth: '98px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 WebkitLineClamp: 1,
