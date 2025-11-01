@@ -560,7 +560,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const collapsedHeightPx = useMemo(() => {
     const mh = props.style?.maxHeight;
     const base =
-      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 140 : 140;
+      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
     const extra = props.attachment?.enable ? 90 : 0;
     return base + extra;
   }, [props.style?.maxHeight, props.attachment?.enable]);
