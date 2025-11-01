@@ -306,7 +306,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   const renderPreviewContent = () => {
     if (file.loading) {
       return (
-        <div className={classNames(`${prefixCls}-content-loading `, hashId)}>
+        <div className={classNames(`${prefixCls}-content-loading`, hashId)}>
           <span
             className={classNames(`${prefixCls}-content-loading-tip`, hashId)}
           >

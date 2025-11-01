@@ -1,5 +1,6 @@
 import { History as HistoryIcon } from '@sofa-design/icons';
 import { ConfigProvider, Popover } from 'antd';
+import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
 import useClickAway from '../Hooks/useClickAway';
 import { ActionIconBox, BubbleConfigContext } from '../index';
@@ -142,7 +143,9 @@ export const History: React.FC<HistoryProps> = (props) => {
               <HistoryLoadMore
                 onLoadMore={handleLoadMore}
                 type={props.type}
-                className={`${menuPrefixCls}-load-more  ${props.type === 'task' ? '' : 'chat'} ${hashId}`}
+                className={classNames(`${menuPrefixCls}-load-more`, hashId, {
+                  chat: props.type !== 'task',
+                })}
               />
             )}
           </>
@@ -184,7 +187,9 @@ export const History: React.FC<HistoryProps> = (props) => {
               <HistoryLoadMore
                 onLoadMore={handleLoadMore}
                 type={props.type}
-                className={`${menuPrefixCls}-load-more ${hashId} ${props.type === 'task' ? '' : 'chat'}`}
+                className={classNames(`${menuPrefixCls}-load-more`, hashId, {
+                  chat: props.type !== 'task',
+                })}
               />
             )}
         </>
