@@ -79,11 +79,6 @@ vi.mock('../../../src/Plugins/chart/ChartStatistic', () => ({
   ),
 }));
 
-// Mock useChartStatistic hook
-vi.mock('../../../src/Plugins/chart/hooks/useChartStatistic', () => ({
-  useChartStatistic: vi.fn(() => null),
-}));
-
 // Mock style hook
 vi.mock('../../../src/Plugins/chart/RadarChart/style', () => ({
   useStyle: vi.fn(() => ({

@@ -22,10 +22,7 @@ import {
   downloadChart,
 } from '../components';
 import { defaultColorList } from '../const';
-import {
-  StatisticConfigType,
-  useChartStatistic,
-} from '../hooks/useChartStatistic';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 import { findDataPointByXValue, isXValueEqual, toNumber } from '../utils';
 import { useStyle } from './style';
 
@@ -101,13 +98,16 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   toolbarExtra,
   renderFilterInToolbar = false,
   typeNames,
-  statistic,
+  statistic: statisticConfig,
   ...props
 }) => {
   const safeData = Array.isArray(data) ? data : [];
 
   // 处理 ChartStatistic 组件配置
-  const statisticComponentConfigs = useChartStatistic(statistic);
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   // 响应式尺寸
   const [windowWidth, setWindowWidth] = useState(
@@ -703,11 +703,11 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       )}
 
       {/* 统计数据组件 */}
-      {statisticComponentConfigs && (
+      {statistics && (
         <div
           className={classNames(`${baseClassName}-statistic-container`, hashId)}
         >
-          {statisticComponentConfigs.map((config, index) => (
+          {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>

@@ -80,11 +80,6 @@ vi.mock('../../../src/Plugins/chart/ChartStatistic', () => ({
   ),
 }));
 
-// Mock useChartStatistic hook
-vi.mock('../../../src/Plugins/chart/hooks/useChartStatistic', () => ({
-  useChartStatistic: vi.fn(() => null),
-}));
-
 describe('FunnelChart', () => {
   const sampleData: FunnelChartDataItem[] = [
     { category: '默认', x: '访问', y: 1000, ratio: 100 },
