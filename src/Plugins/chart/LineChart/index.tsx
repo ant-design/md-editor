@@ -21,11 +21,11 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { defaultColorList } from '../const';
 import {
   StatisticConfigType,
   useChartStatistic,
 } from '../hooks/useChartStatistic';
-import { defaultColorList } from '../const';
 import {
   ChartDataItem,
   extractAndSortXValues,

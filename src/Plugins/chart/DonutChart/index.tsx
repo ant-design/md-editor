@@ -15,9 +15,9 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { defaultColorList } from '../const';
 import { useChartStatistic } from '../hooks/useChartStatistic';
 import {
-  DEFAULT_COLORS,
   SINGLE_MODE_DESKTOP_CUTOUT,
   SINGLE_MODE_MOBILE_CUTOUT,
 } from './constants';
@@ -269,7 +269,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
           showLegend: false,
           showTooltip: false,
           backgroundColor: [
-            DEFAULT_COLORS[i % DEFAULT_COLORS.length],
+            defaultColorList[i % defaultColorList.length],
             '#F7F8F9',
           ],
         }))
@@ -372,11 +372,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
             (sum, v) => sum + (Number.isFinite(v) ? v : 0),
             0,
           );
-          const backgroundColors = cfg.backgroundColor || DEFAULT_COLORS;
+          const backgroundColors = cfg.backgroundColor || defaultColorList;
 
           const mainColor =
             cfg.backgroundColor?.[0] ??
-            DEFAULT_COLORS[idx % DEFAULT_COLORS.length];
+            defaultColorList[idx % defaultColorList.length];
 
           const chartJsData = {
             labels,
