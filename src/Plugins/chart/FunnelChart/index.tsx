@@ -20,6 +20,7 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { defaultColorList } from '../const';
 import {
   StatisticConfigType,
   useChartStatistic,
@@ -44,12 +45,10 @@ export interface FunnelChartDataItem {
 }
 
 export interface FunnelChartProps extends ChartContainerProps {
-  /** 图表标题 */
-  title?: string;
   /** 扁平化数据数组（x 为阶段名，y 为数值） */
   data: FunnelChartDataItem[];
-  /** 自定义主色 */
-  color?: string;
+  /** 图表标题 */
+  title?: string;
   /** 图表宽度，默认600px */
   width?: number | string;
   /** 图表高度，默认400px */
@@ -58,12 +57,12 @@ export interface FunnelChartProps extends ChartContainerProps {
   className?: string;
   /** 数据时间 */
   dataTime?: string;
-  /** 主题 */
+  /** 图表主题 */
   theme?: 'dark' | 'light';
-  /** 是否显示图例 */
+  /** 自定义主色 */
+  color?: string;
+  /** 是否显示图例，默认true */
   showLegend?: boolean;
-  /** 统计数据组件配置 */
-  statistic?: StatisticConfigType;
   /** 图例位置 */
   legendPosition?: 'top' | 'left' | 'bottom' | 'right';
   /** 图例水平对齐方式 */
@@ -74,6 +73,8 @@ export interface FunnelChartProps extends ChartContainerProps {
   toolbarExtra?: React.ReactNode;
   /** 是否将过滤器渲染到工具栏 */
   renderFilterInToolbar?: boolean;
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
+  statistic?: StatisticConfigType;
 
   typeNames?: {
     rate?: string;
@@ -81,8 +82,6 @@ export interface FunnelChartProps extends ChartContainerProps {
     name: string;
   };
 }
-
-const defaultColors = '#1890ff';
 
 const FunnelChart: React.FC<FunnelChartProps> = ({
   title,
@@ -225,7 +224,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     (number | [number, number] | null)[],
     string
   > = useMemo(() => {
-    const baseColor = color || defaultColors;
+    const baseColor = color || defaultColorList[0];
     const labels = stages.map((x) => x.toString());
 
     const values = stages.map((x) => {

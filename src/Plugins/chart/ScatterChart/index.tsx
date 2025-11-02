@@ -20,6 +20,7 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { defaultColorList } from '../const';
 import {
   StatisticConfigType,
   useChartStatistic,
@@ -39,44 +40,52 @@ export interface ScatterChartDataItem {
 }
 
 export interface ScatterChartProps extends ChartContainerProps {
+  /** 扁平化数据数组 */
   data: ScatterChartDataItem[];
+  /** 图表标题 */
   title?: string;
+  /** 图表宽度，默认600px */
   width?: number | string;
+  /** 图表高度，默认400px */
   height?: number | string;
+  /** 自定义CSS类名 */
   className?: string;
+  /** 数据时间 */
+  dataTime?: string;
+  /** 自定义主色（可选），支持 string 或 string[]；数组按序对应各数据序列 */
+  color?: string | string[];
+  /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
   /** 是否将过滤器渲染到工具栏 */
   renderFilterInToolbar?: boolean;
-  dataTime?: string;
+  /** X轴单位 */
   xUnit?: string;
+  /** Y轴单位 */
   yUnit?: string;
-  xLabel?: string;
-  yLabel?: string;
+  /** X轴标签 */
+  xAxisLabel?: string;
+  /** Y轴标签 */
+  yAxisLabel?: string;
+  /** X轴位置 */
+  xPosition?: 'top' | 'bottom';
+  /** Y轴位置 */
+  yPosition?: 'left' | 'right';
   /** 是否隐藏X轴，默认false */
   hiddenX?: boolean;
   /** 是否隐藏Y轴，默认false */
   hiddenY?: boolean;
-  borderColor?: string;
-  backgroundColor?: string;
-  /** 统计数据组件配置 */
+  /** 是否显示网格线，默认true */
+  showGrid?: boolean;
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
   /** 图例文字最大宽度（像素），超出则显示省略号，默认80px */
   textMaxWidth?: number;
 }
 
-// 默认颜色配置
-const defaultColors = [
-  { backgroundColor: '#917EF7', borderColor: '#917EF7' }, // 第一个颜色：紫色
-  { backgroundColor: '#2AD8FC', borderColor: '#2AD8FC' }, // 第二个颜色：蓝色
-  { backgroundColor: 'rgba(42, 216, 252, 0.6)', borderColor: '#2AD8FC' }, // 第三个颜色：青色
-  { backgroundColor: 'rgba(244, 91, 181, 0.6)', borderColor: '#F45BB5' }, // 粉色
-  { backgroundColor: 'rgba(0, 166, 255, 0.6)', borderColor: '#00A6FF' }, // 天蓝色
-];
-
 const ScatterChart: React.FC<ScatterChartProps> = ({
   data,
-  width = 800,
-  height = 600,
+  width = 600,
+  height = 400,
   className,
   title,
   toolbarExtra,
@@ -84,12 +93,14 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   dataTime,
   xUnit = '月',
   yUnit,
-  xLabel,
-  yLabel,
+  xAxisLabel,
+  yAxisLabel,
+  xPosition = 'bottom',
+  yPosition = 'left',
   hiddenX = false,
   hiddenY = false,
-  borderColor,
-  backgroundColor,
+  showGrid = true,
+  color,
   statistic,
   textMaxWidth = 80,
   ...props
@@ -273,19 +284,23 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       return { x, y };
     });
 
+    // 根据 color prop 选择颜色
+    const providedColor = color;
+    const baseColor = Array.isArray(providedColor)
+      ? providedColor[index % providedColor.length]
+      : providedColor;
+
     // 确保颜色数组安全访问
-    const safeIndex = Math.max(0, index % defaultColors.length);
-    const safeDefaultColors = defaultColors[safeIndex] ||
-      defaultColors[0] || {
-        backgroundColor: '#917EF7',
-        borderColor: '#917EF7',
-      };
+    const safeIndex = Math.max(0, index % defaultColorList.length);
+    const safeDefaultColor = defaultColorList[safeIndex] || '#1677ff';
+
+    const finalColor = baseColor || safeDefaultColor;
 
     return {
       label: type || '默认',
       data: coordinates,
-      backgroundColor: backgroundColor || safeDefaultColors.backgroundColor,
-      borderColor: borderColor || safeDefaultColors.borderColor,
+      backgroundColor: `${finalColor}99`,
+      borderColor: finalColor,
       pointRadius: isMobile ? 4 : 6,
       pointHoverRadius: isMobile ? 6 : 8,
     };
@@ -324,8 +339,8 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
             {
               label: '默认',
               data: [{ x: 0, y: 0 }],
-              backgroundColor: defaultColors[0]?.backgroundColor || '#917EF7',
-              borderColor: defaultColors[0]?.borderColor || '#917EF7',
+              backgroundColor: `${defaultColorList[0] || '#1677ff'}99`,
+              borderColor: defaultColorList[0] || '#1677ff',
               pointRadius: isMobile ? 4 : 6,
               pointHoverRadius: isMobile ? 6 : 8,
             },
@@ -560,10 +575,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       x: {
         display: !hiddenX,
         type: 'linear',
-        position: 'bottom',
+        position: xPosition,
         title: {
-          display: true,
-          text: xLabel || '月份', // 使用默认标签
+          display: !!xAxisLabel,
+          text: xAxisLabel || '',
           color:
             currentConfig.theme === 'light'
               ? 'rgba(0, 25, 61, 0.3255)'
@@ -589,6 +604,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
           },
         },
         grid: {
+          display: showGrid,
           color: 'rgba(0, 16, 32, 0.0627)',
           lineWidth: 1,
         },
@@ -596,10 +612,10 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
       y: {
         display: !hiddenY,
         type: 'linear',
-        position: 'right',
+        position: yPosition,
         title: {
-          display: true,
-          text: yLabel || '数值', // 使用默认标签
+          display: !!yAxisLabel,
+          text: yAxisLabel || '',
           color:
             currentConfig.theme === 'light'
               ? 'rgba(0, 25, 61, 0.3255)'
@@ -629,6 +645,7 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
           },
         },
         grid: {
+          display: showGrid,
           color: 'rgba(0, 16, 32, 0.0627)',
           lineWidth: 1,
         },

@@ -25,6 +25,7 @@ import {
   StatisticConfigType,
   useChartStatistic,
 } from '../hooks/useChartStatistic';
+import { defaultColorList } from '../const';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -61,10 +62,10 @@ export interface LineChartConfigItem {
 }
 
 export interface LineChartProps extends ChartContainerProps {
-  /** 图表标题 */
-  title?: string;
   /** 扁平化数据数组 */
   data: LineChartDataItem[];
+  /** 图表标题 */
+  title?: string;
   /** 图表宽度，默认600px */
   width?: number | string;
   /** 图表高度，默认400px */
@@ -100,19 +101,6 @@ export interface LineChartProps extends ChartContainerProps {
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
 }
-
-const defaultColors = [
-  '#1677ff',
-  '#8954FC',
-  '#15e7e4',
-  '#F45BB5',
-  '#00A6FF',
-  '#33E59B',
-  '#D666E4',
-  '#6151FF',
-  '#BF3C93',
-  '#005EE0',
-];
 
 const LineChart: React.FC<LineChartProps> = ({
   title,
@@ -254,8 +242,8 @@ const LineChart: React.FC<LineChartProps> = ({
       const provided = color;
       const baseColor = Array.isArray(provided)
         ? provided[index % provided.length] ||
-          defaultColors[index % defaultColors.length]
-        : provided || defaultColors[index % defaultColors.length];
+          defaultColorList[index % defaultColorList.length]
+        : provided || defaultColorList[index % defaultColorList.length];
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {

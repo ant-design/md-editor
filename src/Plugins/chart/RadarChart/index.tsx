@@ -21,6 +21,7 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { defaultColorList } from '../const';
 import {
   StatisticConfigType,
   useChartStatistic,
@@ -47,37 +48,29 @@ export interface RadarChartDataItem {
 }
 
 interface RadarChartProps extends ChartContainerProps {
+  /** 扁平化数据数组 */
   data: RadarChartDataItem[];
+  /** 图表标题 */
   title?: string;
+  /** 图表宽度，默认600px */
   width?: number | string;
+  /** 图表高度，默认400px */
   height?: number | string;
+  /** 自定义CSS类名 */
   className?: string;
+  /** 数据时间 */
+  dataTime?: string;
+  /** 自定义主色（可选），支持 string 或 string[]；数组按序对应各数据序列 */
+  color?: string | string[];
+  /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
   /** 是否将过滤器渲染到工具栏 */
   renderFilterInToolbar?: boolean;
-  dataTime?: string;
-  borderColor?: string;
-  backgroundColor?: string;
-  pointBackgroundColor?: string;
-  /** 统计数据组件配置 */
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
   /** 图例文字最大宽度（像素），超出则显示省略号，默认80px */
   textMaxWidth?: number;
 }
-
-// 默认颜色配置
-const defaultColors = [
-  '#388BFF', // 第一个颜色：蓝色
-  '#917EF7', // 第二个颜色：紫色
-  '#2AD8FC', // 第三个颜色：青色
-  '#F45BB5', // 粉色
-  '#00A6FF', // 天蓝色
-  '#33E59B', // 绿色
-  '#D666E4', // 紫红色
-  '#6151FF', // 靛蓝色
-  '#BF3C93', // 玫红色
-  '#005EE0', // 深蓝色
-];
 
 const RadarChart: React.FC<RadarChartProps> = ({
   data,
@@ -88,9 +81,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   toolbarExtra,
   renderFilterInToolbar = false,
   dataTime,
-  borderColor,
-  backgroundColor,
-  pointBackgroundColor,
+  color,
   statistic,
   textMaxWidth = 80,
   ...props
@@ -274,17 +265,25 @@ const RadarChart: React.FC<RadarChartProps> = ({
       return 0;
     });
 
+    // 根据 color prop 选择颜色
+    const providedColor = color;
+    const baseColor = Array.isArray(providedColor)
+      ? providedColor[index % providedColor.length]
+      : providedColor;
+
     // 确保颜色数组安全访问
-    const safeIndex = Math.max(0, index % defaultColors.length);
-    const safeDefaultColor = defaultColors[safeIndex] || '#388BFF';
+    const safeIndex = Math.max(0, index % defaultColorList.length);
+    const safeDefaultColor = defaultColorList[safeIndex] || '#1677ff';
+
+    const finalColor = baseColor || safeDefaultColor;
 
     return {
       label: type || '默认',
       data: scores,
-      borderColor: borderColor || safeDefaultColor,
-      backgroundColor: backgroundColor || `${safeDefaultColor}20`,
+      borderColor: finalColor,
+      backgroundColor: `${finalColor}20`,
       borderWidth: isMobile ? 1.5 : 2,
-      pointBackgroundColor: pointBackgroundColor || safeDefaultColor,
+      pointBackgroundColor: finalColor,
       pointBorderColor: '#fff',
       pointBorderWidth: isMobile ? 1 : 2,
       pointRadius: isMobile ? 3 : 4,
@@ -327,10 +326,10 @@ const RadarChart: React.FC<RadarChartProps> = ({
             {
               label: '默认',
               data: [0],
-              borderColor: defaultColors[0] || '#388BFF',
-              backgroundColor: `${defaultColors[0] || '#388BFF'}20`,
+              borderColor: defaultColorList[0] || '#1677ff',
+              backgroundColor: `${defaultColorList[0] || '#1677ff'}20`,
               borderWidth: isMobile ? 1.5 : 2,
-              pointBackgroundColor: defaultColors[0] || '#388BFF',
+              pointBackgroundColor: defaultColorList[0] || '#1677ff',
               pointBorderColor: '#fff',
               pointBorderWidth: isMobile ? 1 : 2,
               pointRadius: isMobile ? 3 : 4,
