@@ -10,6 +10,7 @@ import {
   LinearScale,
   Tooltip,
 } from 'chart.js';
+import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import ChartStatistic from '../ChartStatistic';
@@ -26,6 +27,7 @@ import {
   useChartStatistic,
 } from '../hooks/useChartStatistic';
 import { findDataPointByXValue, isXValueEqual, toNumber } from '../utils';
+import { useStyle } from './style';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -125,6 +127,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   // 样式注册
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls('funnel-chart-container');
+  const { hashId, wrapSSR } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
   const [showTrapezoid, setShowTrapezoid] = useState(true);
@@ -650,7 +653,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
   }, [isMobile, axisTextColor]);
 
-  return (
+  return wrapSSR(
     <ChartContainer
       baseClassName={baseClassName}
       className={className}
@@ -701,7 +704,9 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
       {/* 统计数据组件 */}
       {statisticComponentConfigs && (
-        <div className={`${baseClassName}-statistic-container`}>
+        <div
+          className={classNames(`${baseClassName}-statistic-container`, hashId)}
+        >
           {statisticComponentConfigs.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
@@ -709,7 +714,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
       )}
 
       <div
-        className={`${baseClassName}-wrapper`}
+        className={classNames(`${baseClassName}-wrapper`, hashId)}
         style={{ height: finalHeight }}
       >
         <Bar
@@ -720,7 +725,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           plugins={[trapezoidPlugin, rightLabelPlugin]}
         />
       </div>
-    </ChartContainer>
+    </ChartContainer>,
   );
 };
 

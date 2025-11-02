@@ -16,6 +16,8 @@ group:
 <code src="../demos/charts/donut/donut-single-categorized.tsx" background="var(--main-bg-color)" title="单值-带分类" iframe=540></code>
 <code src="../demos/charts/donut/donut-multi.tsx" background="var(--main-bg-color)" title="多值" iframe=540></code>
 <code src="../demos/charts/donut/donut-multi-categorized.tsx" background="var(--main-bg-color)" title="多值-带分类" iframe=540></code>
+<code src="../demos/charts/donut/donut-toolbar-filter.tsx" background="var(--main-bg-color)" title="工具栏过滤器" iframe=540></code>
+<code src="../demos/charts/donut/donut-statistic.tsx" background="var(--main-bg-color)" title="统计指标" iframe=540></code>
 
 ## API
 
@@ -37,8 +39,9 @@ group:
 | onFilterChange     | `(value: string) => void`                        | -                        | 筛选变化回调                                                  |
 | enableAutoCategory | `boolean`                                        | `true`                   | 是否启用自动分类（依据 `category`）                           |
 | singleMode         | `boolean`                                        | `false`                  | 是否启用单值模式：每条数据一个独立环形图并自动着色            |
-| toolbarExtra       | `React.ReactNode`                                | -                        | 头部工具条额外按钮                                            |
-| statistic          | `ChartStatisticConfig \| ChartStatisticConfig[]` | -                        | ChartStatistic组件配置：object表示单个配置，array表示多个配置 |
+| toolbarExtra          | `React.ReactNode`                                | -                        | 头部工具条额外按钮                                                       |
+| renderFilterInToolbar | `boolean`                                        | `false`                  | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
+| statistic             | `ChartStatisticConfig \| ChartStatisticConfig[]` | -                        | ChartStatistic组件配置：object表示单个配置，array表示多个配置            |
 
 ### DonutChartData
 

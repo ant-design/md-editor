@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import {
   ArcElement,
   Chart as ChartJS,
@@ -320,7 +321,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
             />
           )}
           {statisticComponentConfigs && (
-            <div className={`${baseClassName}-statistic-container`}>
+            <div className={classNames(`${baseClassName}-statistic-container`, hashId)}>
               {statisticComponentConfigs.map((config, index) => (
                 <ChartStatistic
                   key={index}
