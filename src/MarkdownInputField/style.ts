@@ -11,9 +11,6 @@ import {
 const GLOW_BORDER_OFFSET = 2; // px - 辉光边框偏移量
 const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 2px - 总偏移量（上下左右）
 
-// CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
-const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
-
 // 不需要 calc() 包裹的所有关键字
 const DIRECT_RETURN_KEYWORDS: ReadonlySet<string> = new Set([
   'auto',
@@ -71,8 +68,47 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
   },
 });
 
+// 背景渐变旋转动画（用于 radial/linear 渐变整体旋转）
+// 使用 CSS 自定义属性驱动角度变化，避免元素本身的 transform 引起的位移
+const rotateGradientAngle = new Keyframes('rotateGradientAngle', {
+  '0%': {
+    '--mif-angle': '42deg',
+  },
+  '100%': {
+    '--mif-angle': 'calc(42deg + 1turn)',
+  },
+});
+
+// 背景淡出（只执行一次并保持最终状态）
+const fadeOutOnce = new Keyframes('fadeOutOnce', {
+  '0%': {
+    opacity: 1,
+  },
+  '100%': {
+    opacity: 0,
+  },
+});
+
+// 合并旋转与淡出为单一动画：一次性旋转一圈并淡出到 0
+const rotateFadeOnce = new Keyframes('rotateFadeOnce', {
+  '0%': {
+    '--mif-angle': '42deg',
+    opacity: 1,
+  },
+  '100%': {
+    '--mif-angle': 'calc(42deg + 1turn)',
+    opacity: 0,
+  },
+});
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
+    // 声明 CSS 自定义属性 --mif-angle，使其可动画（需浏览器支持 @property）
+    '@property --mif-angle': {
+      syntax: '"<angle>"',
+      'initial-value': '0deg',
+      inherits: false,
+    },
     [token.componentCls]: {
       width: '100%',
       height: '100%',
@@ -92,16 +128,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&:active,&.active': {
         [`${token.componentCls}-background`]: {
-          opacity: 1,
+          opacity: 0,
           height: '100%',
           backgroundImage:
-            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%),linear-gradient(42deg, #D7B9FF 14%, #9BA0FF 57%, #09B1FF 98%)',
-        },
-      },
-
-      '&:hover': {
-        [`${token.componentCls}-background`]: {
-          opacity: 1,
+            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%),linear-gradient(var(--mif-angle), #D7B9FF 14%, #9BA0FF 57%, #09B1FF 98%)',
+          // 单一动画：一次性旋转并淡出
+          animationName: rotateFadeOnce,
+          animationDuration: '2.5s',
+          animationTimingFunction: 'ease-in-out',
+          animationIterationCount: '1',
         },
       },
 
@@ -137,7 +172,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-background': {
         boxSizing: 'border-box',
-        transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
         position: 'absolute',
         width: 'calc(100% - 4px)',
         height: 'calc(100% - 4px)',
@@ -145,6 +179,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backgroundColor: 'transparent',
         pointerEvents: 'none',
         borderRadius: 'inherit',
+        // 自定义属性控制线性渐变角度，默认与原始设计保持一致 42deg
+        '--mif-angle': '42deg',
+        // 提示浏览器该节点将频繁重绘背景图像
+        willChange: 'background-image',
+        // 限定绘制范围，降低重绘影响
+        contain: 'paint',
       },
       '&:focus': {
         boxShadow: 'none',
