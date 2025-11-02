@@ -557,12 +557,16 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     return Math.max(bottomOverlayPadding, topOverlayPadding);
   }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset]);
 
-  const collapsedHeightPx = useMemo(() => {
+  const collapsedHeight = useMemo(() => {
     const mh = props.style?.maxHeight;
     const base =
-      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 140 : 140;
+      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
+    return base;
+  }, [props.style?.maxHeight, props.attachment?.enable]);
+
+  const collapsedHeightPx = useMemo(() => {
     const extra = props.attachment?.enable ? 90 : 0;
-    return base + extra;
+    return collapsedHeight + extra;
   }, [props.style?.maxHeight, props.attachment?.enable]);
 
   const [fileMap, setFileMap] = useMergedState<
@@ -878,8 +882,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             ...enlargedStyle,
             height: isEnlarged
               ? `${props.enlargeable?.height ?? 980}px`
-              : `${collapsedHeightPx}px`,
+              : `${collapsedHeight}px`,
             borderRadius: borderRadius || 16,
+            maxHeight: isEnlarged ? 'none' : `${collapsedHeightPx}px`,
             transition:
               'height, max-height 0.3s,border-radius 0.3s,box-shadow 0.3s,transform 0.3s,opacity 0.3s,background 0.3s',
           }}

@@ -260,7 +260,7 @@ graph TD
           size: '156B',
           lastModified: '2025-08-01 09:00:00',
           content:
-            '<!doctype html>\n<html lang="zh-CN">\n<head>\n  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n  <title>Hello HTML</title>\n  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";padding:24px} .btn{padding:8px 12px;border:1px solid #d9d9d9;border-radius:6px;cursor:pointer} .btn:active{transform:scale(0.98)}</style>\n</head>\n<body>\n  <h1>你好，HTML！</h1>\n  <p>这是一个用于 Workspace 预览的 HTML 示例。</p>\n  <button class="btn" onclick="alert(\'Hello from HTML!\')">点我</button>\n</body>\n</html>',
+            ' <!doctype html>\n<html lang="zh-CN">\n<head>\n  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n  <title>Hello HTML</title>\n  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";padding:24px} .btn{padding:8px 12px;border:1px solid #d9d9d9;border-radius:6px;cursor:pointer} .btn:active{transform:scale(0.98)}</style>\n</head>\n<body>\n  <h1>你好，HTML！</h1>\n  <p>这是一个用于 Workspace 预览的 HTML 示例。</p>\n  <button class="btn" onclick="alert(\'Hello from HTML!\')">点我</button>\n</body>\n</html>',
         },
         {
           name: 'App.tsx',
@@ -348,37 +348,64 @@ graph TD
 
       <div
         style={{
-          maxWidth: '600px',
+          display: 'flex',
+          gap: '16px',
           maxHeight: '600px',
           height: '600px',
         }}
       >
-        <Workspace title="文件管理">
-          <Workspace.File
-            tab={{
-              count: 123,
-            }}
-            nodes={nodes}
-            loading={loading}
-            onDownload={handleDownload}
-            onGroupDownload={handleGroupDownload}
-            onToggleGroup={handleToggleGroup}
-            markdownEditorProps={customMarkdownEditorProps}
-          />
-          <Workspace.Custom
-            tab={{
-              key: 'custom',
-              title: '自定义',
-              icon: <CoffeeOutlined />,
-              count: 123,
-            }}
-          >
-            <div>
-              <div>文件组件演示</div>
-              <p>自定义内容</p>
-            </div>
-          </Workspace.Custom>
-        </Workspace>
+        <div style={{ flex: 1 }}>
+          <Workspace title="文件管理">
+            <Workspace.File
+              tab={{
+                count: 123,
+              }}
+              nodes={nodes}
+              loading={loading}
+              onDownload={handleDownload}
+              onGroupDownload={handleGroupDownload}
+              onToggleGroup={handleToggleGroup}
+              markdownEditorProps={customMarkdownEditorProps}
+            />
+            <Workspace.Custom
+              tab={{
+                key: 'custom',
+                title: '自定义',
+                icon: <CoffeeOutlined />,
+                count: 123,
+              }}
+            >
+              <div>
+                <div>文件组件演示</div>
+                <p>自定义内容</p>
+              </div>
+            </Workspace.Custom>
+          </Workspace>
+        </div>
+        <div style={{ flex: 1 }}>
+          <Workspace title="文件管理">
+            <Workspace.File
+              tab={{
+                count: 2,
+              }}
+              nodes={[
+                {
+                  id: 'customPreviewDomID2',
+                  name: 'md正在加载的文件.docx',
+                  size: '1.8MB',
+                  lastModified: '2025-08-01 09:15:00',
+                  content: '# Generating ...'.padEnd(10000, 'Generating ...'),
+                  loading: true,
+                },
+              ]}
+              loading={loading}
+              onDownload={handleDownload}
+              onGroupDownload={handleGroupDownload}
+              onToggleGroup={handleToggleGroup}
+              markdownEditorProps={customMarkdownEditorProps}
+            />
+          </Workspace>
+        </div>
       </div>
     </div>
   );

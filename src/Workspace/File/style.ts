@@ -76,7 +76,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             justifyContent: 'center',
           },
           [`&-action-btn`]: {
-            color: 'rgba(80, 92, 113, 0.42)',
+            cursor: 'pointer',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
           },
           // 分组内容区域
           [`&-content`]: {

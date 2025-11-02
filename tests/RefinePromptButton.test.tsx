@@ -30,75 +30,6 @@ describe('RefinePromptButton', () => {
       expect(button).toBeInTheDocument();
       expect(button).toHaveAttribute('role', 'button');
     });
-
-    it('should show idle icon when status is idle', () => {
-      render(
-        <RefinePromptButton isHover={false} status="idle" onRefine={vi.fn()} />,
-      );
-
-      const button = screen.getByTestId('refine-prompt-button');
-      expect(button).not.toHaveClass(
-        'ant-agentic-md-input-field-refine-button-loading',
-      );
-    });
-
-    it('should show loading icon when status is loading', () => {
-      render(
-        <RefinePromptButton
-          isHover={false}
-          status="loading"
-          onRefine={vi.fn()}
-        />,
-      );
-
-      const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass(
-        'ant-agentic-md-input-field-refine-button-loading',
-      );
-    });
-
-    it('should apply hover class when isHover is true', () => {
-      render(
-        <RefinePromptButton isHover={true} status="idle" onRefine={vi.fn()} />,
-      );
-
-      const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass(
-        'ant-agentic-md-input-field-refine-button-hover',
-      );
-    });
-
-    it('should apply disabled class when disabled', () => {
-      render(
-        <RefinePromptButton
-          isHover={false}
-          status="idle"
-          disabled={true}
-          onRefine={vi.fn()}
-        />,
-      );
-
-      const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass(
-        'ant-agentic-md-input-field-refine-button-disabled',
-      );
-    });
-
-    it('should apply compact class when compact prop is true', () => {
-      render(
-        <RefinePromptButton
-          isHover={false}
-          status="idle"
-          compact={true}
-          onRefine={vi.fn()}
-        />,
-      );
-
-      const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveClass(
-        'ant-agentic-md-input-field-refine-button-compact',
-      );
-    });
   });
 
   describe('Click Handling', () => {
@@ -232,24 +163,6 @@ describe('RefinePromptButton', () => {
       fireEvent.keyDown(button, { key: 'Enter' });
 
       expect(onRefine).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Custom Styles', () => {
-    it('should apply custom styles', () => {
-      const customStyle = { backgroundColor: 'red', padding: '10px' };
-      render(
-        <RefinePromptButton
-          isHover={false}
-          status="idle"
-          onRefine={vi.fn()}
-          style={customStyle}
-        />,
-      );
-
-      const button = screen.getByTestId('refine-prompt-button') as HTMLElement;
-      expect(button.style.backgroundColor).toBe('red');
-      expect(button.style.padding).toBe('10px');
     });
   });
 

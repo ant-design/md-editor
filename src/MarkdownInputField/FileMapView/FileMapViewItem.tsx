@@ -3,12 +3,14 @@
 //   EllipsisOutlined,
 //   EyeOutlined,
 // } from '@ant-design/icons';
-import { Download, EllipsisVertical, Eye } from '@sofa-design/icons';
+import { EllipsisOutlined } from '@ant-design/icons';
+import { Download, Eye } from '@sofa-design/icons';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
+import { ActionIconBox } from '../../Components/ActionIconBox';
 import { I18nContext } from '../../I18n';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
 import { AttachmentFile } from '../AttachmentButton/types';
@@ -172,20 +174,24 @@ export const FileMapViewItem: React.FC<{
               )}
             >
               {props.customSlot ? (
-                <div
-                  onClick={(e) => e.stopPropagation()}
+                <ActionIconBox
+                  title={'更多'}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                   className={classNames(
                     `${props.prefixCls}-action-btn`,
                     props.hashId,
                   )}
                 >
                   {typeof props.customSlot === 'function'
-                    ? props.customSlot(file)
-                    : props.customSlot}
-                </div>
+                    ? (props.customSlot(file) as any)
+                    : (props.customSlot as any)}
+                </ActionIconBox>
               ) : (
                 <>
-                  <div
+                  <ActionIconBox
+                    title={locale?.preview || '预览'}
                     onClick={(e) => {
                       e.stopPropagation();
                       props.onPreview?.();
@@ -196,8 +202,9 @@ export const FileMapViewItem: React.FC<{
                     )}
                   >
                     <Eye color="var(--color-gray-text-secondary)" />
-                  </div>
-                  <div
+                  </ActionIconBox>
+                  <ActionIconBox
+                    title={locale?.download || '下载'}
                     onClick={(e) => {
                       e.stopPropagation();
                       props.onDownload?.();
@@ -208,27 +215,21 @@ export const FileMapViewItem: React.FC<{
                     )}
                   >
                     <Download color="var(--color-gray-text-secondary)" />
-                  </div>
+                  </ActionIconBox>
                   {props.renderMoreAction ? (
-                    <div
+                    <ActionIconBox
+                      title={'更多操作'}
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          e.stopPropagation();
-                        }
-                      }}
-                      role="button"
-                      tabIndex={0}
-                      aria-label="更多操作"
                       className={classNames(
                         `${props.prefixCls}-action-btn`,
                         props.hashId,
                       )}
                     >
-                      <EllipsisVertical color="var(--color-gray-text-secondary)" />
+                      <EllipsisOutlined
+                        style={{ color: 'var(--color-gray-text-secondary)' }}
+                      />
                       {props.renderMoreAction ? (
                         <div
                           className={classNames(
@@ -239,7 +240,7 @@ export const FileMapViewItem: React.FC<{
                           {props.renderMoreAction(file)}
                         </div>
                       ) : null}
-                    </div>
+                    </ActionIconBox>
                   ) : null}
                 </>
               )}

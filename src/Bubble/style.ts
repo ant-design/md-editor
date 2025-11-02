@@ -69,7 +69,10 @@ const genStyle = (
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 4,
+        gap: 8,
+        '&-pure': {
+          gap: 4,
+        },
         '&-right': {
           alignItems: 'flex-end',
         },

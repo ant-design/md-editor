@@ -43,7 +43,11 @@ export const RefinePromptButton: React.FC<RefinePromptButtonProps> = (
 
   return wrapSSR(
     <Tooltip title={status === 'loading' ? '优化中' : '一键优化提示词'}>
-      <ActionIconBox title={'优化提示词'} onClick={handleClick}>
+      <ActionIconBox
+        title={'优化提示词'}
+        onClick={handleClick}
+        data-testid="refine-prompt-button"
+      >
         <ErrorBoundary fallback={<div />}>{renderIcon()}</ErrorBoundary>
       </ActionIconBox>
     </Tooltip>,

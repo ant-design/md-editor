@@ -151,12 +151,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
-
-          [`&-extra`]: {
-            '*': {
-              color: 'rgba(80, 92, 113, 0.42)',
-            },
-          },
         },
       },
 
