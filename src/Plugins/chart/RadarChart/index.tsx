@@ -667,7 +667,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
         {/* 统计数据组件 */}
         {statisticComponentConfigs && (
-          <div style={{ marginBottom: 16 }}>
+          <div className={`${prefixCls}-statistic-container`}>
             {statisticComponentConfigs.map((config, index) => (
               <ChartStatistic
                 key={index}

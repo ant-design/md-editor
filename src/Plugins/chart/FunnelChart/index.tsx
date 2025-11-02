@@ -701,14 +701,17 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
       {/* 统计数据组件 */}
       {statisticComponentConfigs && (
-        <div style={{ marginBottom: 16 }}>
+        <div className={`${baseClassName}-statistic-container`}>
           {statisticComponentConfigs.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>
       )}
 
-      <div className="chart-wrapper" style={{ height: finalHeight }}>
+      <div
+        className={`${baseClassName}-wrapper`}
+        style={{ height: finalHeight }}
+      >
         <Bar
           key={`funnel-${pluginToggleKey}`}
           ref={chartRef}

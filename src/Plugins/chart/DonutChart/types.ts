@@ -45,6 +45,8 @@ export interface DonutChartProps extends ChartContainerProps {
   singleMode?: boolean;
   /** 头部工具条额外按钮 */
   toolbarExtra?: React.ReactNode;
+  /** 是否将过滤器渲染到工具栏 */
+  renderFilterInToolbar?: boolean;
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
 }

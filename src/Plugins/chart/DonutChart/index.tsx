@@ -96,6 +96,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   enableAutoCategory = true,
   singleMode = false,
   toolbarExtra,
+  renderFilterInToolbar = false,
   statistic: statisticConfig,
   ...props
 }) => {
@@ -295,10 +296,31 @@ const DonutChart: React.FC<DonutChartProps> = ({
               onDownload={handleDownload}
               extra={toolbarExtra}
               dataTime={dataTime}
+              filter={
+                renderFilterInToolbar && shouldShowFilter ? (
+                  <ChartFilter
+                    filterOptions={finalFilterList.map((item) => {
+                      return {
+                        label: item || '',
+                        value: item || '',
+                      };
+                    })}
+                    selectedFilter={finalSelectedFilter || ''}
+                    onFilterChange={finalOnFilterChange}
+                    {...(filterLabels && {
+                      customOptions: filteredDataByFilterLabel,
+                      selectedCustomSelection: selectedFilterLabel,
+                      onSelectionChange: setSelectedFilterLabel,
+                    })}
+                    theme={chartFilterTheme}
+                    variant="compact"
+                  />
+                ) : undefined
+              }
             />
           )}
           {statisticComponentConfigs && (
-            <div className="chart-statistic-container">
+            <div className={`${baseClassName}-statistic-container`}>
               {statisticComponentConfigs.map((config, index) => (
                 <ChartStatistic
                   key={index}
@@ -308,7 +330,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
               ))}
             </div>
           )}
-          {shouldShowFilter && (
+          {!renderFilterInToolbar && shouldShowFilter && (
             <ChartFilter
               filterOptions={finalFilterList.map((item) => {
                 return {

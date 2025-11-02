@@ -21,11 +21,11 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
+import { defaultColorList } from '../const';
 import {
   StatisticConfigType,
   useChartStatistic,
 } from '../hooks/useChartStatistic';
-import { defaultColorList } from '../const';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -951,7 +951,7 @@ const BarChart: React.FC<BarChartProps> = ({
       />
 
       {statisticComponentConfigs && (
-        <div className="chart-statistic-container">
+        <div className={`${baseClassName}-statistic-container`}>
           {statisticComponentConfigs.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
@@ -973,7 +973,7 @@ const BarChart: React.FC<BarChartProps> = ({
       )}
 
       <div
-        className="chart-wrapper"
+        className={`${baseClassName}-wrapper`}
         style={{ marginTop: '20px', height: responsiveHeight }}
       >
         <Bar

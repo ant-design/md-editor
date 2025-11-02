@@ -19,6 +19,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         overflow: 'hidden', // 防止内容溢出
       },
 
+      // 统计数据容器样式
+      [`${token.componentCls}-statistic-container`]: {
+        display: 'flex',
+        gap: '16px',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+      },
+
       // 确保图表不会超出容器边界
       canvas: {
         maxWidth: '100% !important',

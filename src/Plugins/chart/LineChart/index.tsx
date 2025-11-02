@@ -435,7 +435,7 @@ const LineChart: React.FC<LineChartProps> = ({
       />
 
       {statisticComponentConfigs && (
-        <div className="chart-statistic-container">
+        <div className={`${baseClassName}-statistic-container`}>
           {statisticComponentConfigs.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
@@ -456,7 +456,10 @@ const LineChart: React.FC<LineChartProps> = ({
         />
       )}
 
-      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
+      <div
+        className={`${baseClassName}-wrapper`}
+        style={{ height: responsiveHeight }}
+      >
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
     </ChartContainer>
