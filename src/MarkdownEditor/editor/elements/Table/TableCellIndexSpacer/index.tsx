@@ -73,7 +73,7 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls(
-    'md-editor-table-cell-index-spacer',
+    'agentic-md-editor-table-cell-index-spacer',
   );
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const editor = useSlate();

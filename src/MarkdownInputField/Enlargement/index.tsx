@@ -1,9 +1,7 @@
 import { ExpandAlt, FoldAlt } from '@sofa-design/icons';
+import React from 'react';
+import { ActionIconBox } from '../../Components/ActionIconBox';
 
-import { ConfigProvider } from 'antd';
-import classNames from 'classnames';
-import React, { useContext } from 'react';
-import { useStyle } from './style';
 interface EnlargementProps {
   /** 是否处于放大状态 */
   isEnlarged?: boolean;
@@ -15,32 +13,13 @@ const Enlargement: React.FC<EnlargementProps> = ({
   isEnlarged = false,
   onEnlargeClick,
 }) => {
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-enlargement');
-  const { wrapSSR, hashId } = useStyle(baseCls);
-
-  return wrapSSR(
-    <div className={classNames(baseCls, hashId)}>
-      <div
-        className={classNames(`${baseCls}-icon`, hashId, {
-          enlarged: isEnlarged,
-        })}
-        role="button"
-        tabIndex={0}
-        aria-label={isEnlarged ? '缩小' : '放大'}
-        aria-pressed={!!isEnlarged}
-        onClick={onEnlargeClick}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onEnlargeClick?.();
-          }
-        }}
-        title={isEnlarged ? '缩小' : '放大'}
-      >
-        {isEnlarged ? <FoldAlt /> : <ExpandAlt />}
-      </div>
-    </div>,
+  return (
+    <ActionIconBox
+      title={isEnlarged ? '缩小' : '放大'}
+      onClick={onEnlargeClick}
+    >
+      {isEnlarged ? <FoldAlt /> : <ExpandAlt />}
+    </ActionIconBox>
   );
 };
 

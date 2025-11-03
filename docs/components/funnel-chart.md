@@ -15,6 +15,8 @@ group:
 ### 基础用法
 
 <code src="../demos/charts/funnel.tsx" background="var(--main-bg-color)" iframe=540></code>
+<code src="../demos/charts/funnel-toolbar-filter.tsx" background="var(--main-bg-color)" title="工具栏过滤器" iframe=540></code>
+<code src="../demos/charts/funnel-statistic.tsx" background="var(--main-bg-color)" title="统计指标" iframe=540></code>
 
 ### 最小宽度控制
 
@@ -40,9 +42,9 @@ group:
 | showPercent          | `boolean`                                | `true`     | 是否显示百分比（相对第一层）                                                                |
 | bottomLayerMinWidth  | `number`                                 | `0`        | 最底层的最小宽度占比（0-1），相对于最大层的宽度。用于避免数据跨度过大时底层过窄难以交互。非法值（≤0 或 >1）视为不限制 |
 | toolbarExtra         | `React.ReactNode`                        | -          | 头部工具条额外按钮                                                                          |
-| renderFilterInToolbar| `boolean`                                | `false`    | 是否将过滤器渲染到工具栏                                                                    |
 | typeNames            | `{ rate?: string; name: string }`        | -          | 类型名称配置，用于图例和数据集标签                                                          |
 | statistic            | `StatisticConfigType`                    | -          | 统计数据组件配置                                                                            |
+| renderFilterInToolbar | `boolean`                                | `false`    | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
 
 ### FunnelChartDataItem
 

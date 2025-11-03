@@ -458,7 +458,7 @@ export function Media({
   return (
     <div {...attributes}>
       <div
-        className={'ant-md-editor-drag-el'}
+        className={'ant-agentic-md-editor-drag-el'}
         data-be="media"
         data-testid="media-container"
         style={{

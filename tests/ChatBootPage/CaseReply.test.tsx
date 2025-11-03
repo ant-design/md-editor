@@ -54,16 +54,16 @@ describe('CaseReply 组件', () => {
     // 初始状态按钮应该不可见
     const button = screen.getByTestId('test-button');
     const buttonBar = button.closest('div');
-    expect(buttonBar).toHaveClass('ant-chatboot-case-reply-button-bar');
+    expect(buttonBar).toHaveClass('ant-agentic-chatboot-case-reply-button-bar');
 
     // 悬停后按钮应该可见
     fireEvent.mouseEnter(container!);
-    expect(buttonBar).toHaveClass('ant-chatboot-case-reply-button-bar-visible');
+    expect(buttonBar).toHaveClass('ant-agentic-chatboot-case-reply-button-bar-visible');
 
     // 离开悬停后按钮应该不可见
     fireEvent.mouseLeave(container!);
     expect(buttonBar).not.toHaveClass(
-      'ant-chatboot-case-reply-button-bar-visible',
+      'ant-agentic-chatboot-case-reply-button-bar-visible',
     );
   });
 
@@ -73,7 +73,7 @@ describe('CaseReply 组件', () => {
     );
 
     const coverElement = container.querySelector(
-      '.ant-chatboot-case-reply-cover',
+      '.ant-agentic-chatboot-case-reply-cover',
     );
     expect(coverElement).toHaveStyle('background: rgba(255, 0, 0, 0.5)');
   });
@@ -94,7 +94,7 @@ describe('CaseReply 组件', () => {
       <CaseReply quote="样式测试" style={customStyle} />,
     );
 
-    const mainElement = container.querySelector('.ant-chatboot-case-reply');
+    const mainElement = container.querySelector('.ant-agentic-chatboot-case-reply');
     expect(mainElement).toHaveStyle('background-color: rgb(255, 0, 0)');
   });
 
@@ -103,7 +103,7 @@ describe('CaseReply 组件', () => {
       <CaseReply quote="类名测试" className="custom-class" />,
     );
 
-    const mainElement = container.querySelector('.ant-chatboot-case-reply');
+    const mainElement = container.querySelector('.ant-agentic-chatboot-case-reply');
     expect(mainElement).toHaveClass('custom-class');
   });
 
@@ -122,7 +122,7 @@ describe('CaseReply 组件', () => {
     );
 
     const quoteText = container.querySelector(
-      '.ant-chatboot-case-reply-quote-text',
+      '.ant-agentic-chatboot-case-reply-quote-text',
     );
     expect(quoteText).not.toBeInTheDocument();
   });
@@ -133,7 +133,7 @@ describe('CaseReply 组件', () => {
     );
 
     const titleElement = container.querySelector(
-      '.ant-chatboot-case-reply-title',
+      '.ant-agentic-chatboot-case-reply-title',
     );
     expect(titleElement).not.toBeInTheDocument();
   });
@@ -144,7 +144,7 @@ describe('CaseReply 组件', () => {
     );
 
     const descriptionElement = container.querySelector(
-      '.ant-chatboot-case-reply-description',
+      '.ant-agentic-chatboot-case-reply-description',
     );
     expect(descriptionElement).not.toBeInTheDocument();
   });
@@ -155,7 +155,7 @@ describe('CaseReply 组件', () => {
     );
 
     const buttonBarElement = container.querySelector(
-      '.ant-chatboot-case-reply-button-bar',
+      '.ant-agentic-chatboot-case-reply-button-bar',
     );
     expect(buttonBarElement).not.toBeInTheDocument();
   });
@@ -164,7 +164,7 @@ describe('CaseReply 组件', () => {
     const { container } = render(<CaseReply quote="默认背景色" />);
 
     const coverElement = container.querySelector(
-      '.ant-chatboot-case-reply-cover',
+      '.ant-agentic-chatboot-case-reply-cover',
     );
     expect(coverElement).toHaveStyle('background: rgba(132, 220, 24, 0.15)');
   });
@@ -298,7 +298,7 @@ describe('CaseReply 组件', () => {
   it('应该正确处理默认值', () => {
     const { container } = render(<CaseReply />);
 
-    const mainElement = container.querySelector('.ant-chatboot-case-reply');
+    const mainElement = container.querySelector('.ant-agentic-chatboot-case-reply');
     expect(mainElement).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { Workspace } from '@ant-design/agentic-ui';
+import { ActionIconBox, Workspace } from '@ant-design/agentic-ui';
 import { DownloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import {
   Copy,
@@ -6,7 +6,7 @@ import {
   MousePointerClick,
   SwitchToWindow,
 } from '@sofa-design/icons';
-import { Button, message, Space } from 'antd';
+import { message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { defaultValue } from './shared/defaultValue';
 
@@ -59,42 +59,42 @@ const Demo = () => {
           {sampleHtml.split('\n').length}
         </div>
       </div>
-      <Button
-        size="small"
-        type="text"
-        icon={<Copy />}
+      <ActionIconBox
+        title="复制"
         onClick={() => {
           console.log('复制');
           message.success('复制');
         }}
-      />
-      <Button
-        size="small"
-        type="text"
-        icon={<DownloadOutlined />}
+      >
+        <Copy />
+      </ActionIconBox>
+      <ActionIconBox
+        title="下载"
         onClick={() => {
           console.log('下载');
           message.success('下载');
         }}
-      />
-      <Button
-        size="small"
-        type="text"
-        icon={<SwitchToWindow />}
+      >
+        <DownloadOutlined />
+      </ActionIconBox>
+      <ActionIconBox
+        title="切换"
         onClick={() => {
           console.log('切换');
           message.success('切换');
         }}
-      />
-      <Button
-        size="small"
-        type="text"
-        icon={<Expand />}
+      >
+        <SwitchToWindow />
+      </ActionIconBox>
+      <ActionIconBox
+        title="全屏"
         onClick={() => {
           console.log('全屏');
           message.success('全屏');
         }}
-      />
+      >
+        <Expand />
+      </ActionIconBox>
     </Space>
   );
 

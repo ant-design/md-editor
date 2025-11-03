@@ -179,7 +179,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
     itemDateFormatter,
   }) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-    const prefixCls = getPrefixCls('agent-chat-history-menu');
+    const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
     const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
     const isRunning = React.useMemo(
@@ -373,7 +373,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
     itemDateFormatter,
   }) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-    const prefixCls = getPrefixCls('agent-chat-history-menu');
+    const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
     const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
     const isTask = React.useMemo(() => type === 'task', [type]);

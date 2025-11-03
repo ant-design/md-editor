@@ -127,10 +127,10 @@ describe('BaseMarkdownEditor', () => {
         <BaseMarkdownEditor {...defaultProps} readonly={true} />,
       );
       expect(
-        container.querySelector('.ant-md-editor-readonly'),
+        container.querySelector('.ant-agentic-md-editor-readonly'),
       ).toBeInTheDocument();
       expect(
-        container.querySelector('.ant-md-editor-edit'),
+        container.querySelector('.ant-agentic-md-editor-edit'),
       ).not.toBeInTheDocument();
     });
 
@@ -185,7 +185,7 @@ describe('BaseMarkdownEditor', () => {
         />,
       );
       expect(
-        container.querySelector('.ant-md-editor-min-toolbar'),
+        container.querySelector('.ant-agentic-md-editor-min-toolbar'),
       ).toBeInTheDocument();
     });
 
@@ -347,7 +347,7 @@ describe('BaseMarkdownEditor', () => {
         <BaseMarkdownEditor {...defaultProps} reportMode={true} />,
       );
       expect(
-        container.querySelector('.ant-md-editor-report'),
+        container.querySelector('.ant-agentic-md-editor-report'),
       ).toBeInTheDocument();
     });
   });
@@ -379,7 +379,7 @@ describe('BaseMarkdownEditor', () => {
         />,
       );
       // 检查焦点区域是否存在，如果不存在则跳过此测试
-      const focusArea = container.querySelector('.ant-md-editor-focus');
+      const focusArea = container.querySelector('.ant-agentic-md-editor-focus');
       if (focusArea) {
         expect(focusArea).toBeInTheDocument();
       } else {

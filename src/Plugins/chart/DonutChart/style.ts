@@ -149,6 +149,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
 
+      '&-statistic-container': {
+        display: 'flex',
+        gap: '16px',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+      },
+
       // 响应式网格调整
       [`@media (max-width: 768px)`]: {
         gap: 12,

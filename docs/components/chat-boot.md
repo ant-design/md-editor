@@ -56,8 +56,11 @@ export default () => {
 ```tsx
 import { ButtonTabGroup } from '@ant-design/agentic-ui';
 import { RefreshCcw } from '@sofa-design/icons';
+import { useState } from 'react';
 
 export default () => {
+  const [activeKey, setActiveKey] = useState('all');
+
   return (
     <ButtonTabGroup
       items={[
@@ -69,8 +72,8 @@ export default () => {
           onIconClick: () => console.log('刷新'),
         },
       ]}
-      activeKey="all"
-      onChange={(key) => console.log(key)}
+      activeKey={activeKey}
+      onChange={(key) => setActiveKey(key)}
     />
   );
 };

@@ -25,13 +25,27 @@
         </button>
       </div>
       <div
-        style="max-width: 600px; max-height: 600px; height: 600px;"
+        style="display: flex; gap: 16px; max-height: 600px; height: 600px;"
       >
         <div
-          data-testid="workspace"
-          title="文件管理"
+          style="flex: 1 1 0%;"
         >
-          workspace
+          <div
+            data-testid="workspace"
+            title="文件管理"
+          >
+            workspace
+          </div>
+        </div>
+        <div
+          style="flex: 1 1 0%;"
+        >
+          <div
+            data-testid="workspace"
+            title="文件管理"
+          >
+            workspace
+          </div>
         </div>
       </div>
     </div>

@@ -114,8 +114,10 @@ describe('MarkdownInputField - actionsRender', () => {
 
     const actionsContainer = screen
       .getByTestId('custom-action')
-      .closest('.ant-md-input-field-send-actions');
-    expect(actionsContainer).toHaveClass('ant-md-input-field-send-actions');
+      .closest('.ant-agentic-md-input-field-send-actions');
+    expect(actionsContainer).toHaveClass(
+      'ant-agentic-md-input-field-send-actions',
+    );
   });
 
   it('should handle file upload status correctly', () => {
@@ -201,8 +203,8 @@ describe('MarkdownInputField - actionsRender', () => {
 
     const wrapper = screen
       .getByTestId('custom-action')
-      .closest('.ant-md-input-field');
-    expect(wrapper).toHaveClass('ant-md-input-field-disabled');
+      .closest('.ant-agentic-md-input-field');
+    expect(wrapper).toHaveClass('ant-agentic-md-input-field-disabled');
   });
 
   it('should maintain action order', () => {
@@ -220,7 +222,7 @@ describe('MarkdownInputField - actionsRender', () => {
 
     const container = screen
       .getByTestId('first')
-      .closest('.ant-md-input-field-send-actions');
+      .closest('.ant-agentic-md-input-field-send-actions');
     const firstButton = screen.getByTestId('first');
     const lastButton = screen.getByTestId('last');
     const sendButton = screen.getByTestId('send-button');

@@ -306,16 +306,16 @@ describe('CommentList Component', () => {
     );
 
     expect(
-      document.querySelector('.ant-md-editor-comment-view'),
+      document.querySelector('.ant-agentic-md-editor-comment-view'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-md-editor-comment-view-item'),
+      document.querySelector('.ant-agentic-md-editor-comment-view-item'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-md-editor-comment-view-item-header'),
+      document.querySelector('.ant-agentic-md-editor-comment-view-item-header'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-md-editor-comment-view-item-content'),
+      document.querySelector('.ant-agentic-md-editor-comment-view-item-content'),
     ).toBeInTheDocument();
   });
 

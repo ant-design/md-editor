@@ -48,7 +48,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   className,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
+  const menuPrefixCls = getPrefixCls('agentic-chat-history-menu');
   const { wrapSSR, hashId } = useNewChatStyle(menuPrefixCls);
 
   const { locale } = useContext(I18nContext);

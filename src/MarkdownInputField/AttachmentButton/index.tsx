@@ -50,6 +50,8 @@ export type AttachmentButtonProps = {
   maxFileCount?: number;
   /** 最小文件数量 */
   minFileCount?: number;
+  /** 是否允许一次选择多个文件（默认：true） */
+  allowMultiple?: boolean;
 };
 
 /**
@@ -322,7 +324,12 @@ const BUTTON_TITLE_STYLE: React.CSSProperties = {
 };
 
 const ButtonContent: React.FC<{ title?: React.ReactNode }> = ({ title }) => {
-  if (!title) return <Paperclip />;
+  if (!title)
+    return (
+      <div style={BUTTON_WITH_TITLE_STYLE}>
+        <Paperclip />
+      </div>
+    );
 
   return (
     <div style={BUTTON_WITH_TITLE_STYLE}>
@@ -357,11 +364,10 @@ export const AttachmentButton: React.FC<
   }
 > = ({ disabled, uploadImage, title, supportedFormat, render }) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context?.getPrefixCls('md-editor-attachment-button');
+  const prefix = context?.getPrefixCls('agentic-md-editor-attachment-button');
   const { wrapSSR, hashId } = useStyle(prefix);
 
   const format = supportedFormat || SupportedFileFormats.image;
-  const content = <ButtonContent title={title} />;
 
   const handleClick = () => {
     if (disabled) return;
@@ -369,10 +375,13 @@ export const AttachmentButton: React.FC<
   };
 
   const wrapper = render ? (
-    render({ children: content, supportedFormat: format })
+    render({
+      children: <ButtonContent title={title} />,
+      supportedFormat: format,
+    })
   ) : (
     <AttachmentButtonPopover supportedFormat={format}>
-      {content}
+      <ButtonContent title={title} />
     </AttachmentButtonPopover>
   );
 

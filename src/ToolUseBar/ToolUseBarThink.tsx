@@ -420,7 +420,7 @@ const ToolUseBarThinkComponent: React.FC<ToolUseBarThinkProps> = ({
   light = false,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('tool-use-bar-think');
+  const prefixCls = getPrefixCls('agentic-tool-use-bar-think');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const [expandedState, setExpandedState] = useMergedState(defaultExpanded, {

@@ -12,8 +12,7 @@ const GLOW_BORDER_OFFSET = 2; // px - 辉光边框偏移量
 const GLOW_BORDER_TOTAL_OFFSET = GLOW_BORDER_OFFSET * 2; // 2px - 总偏移量（上下左右）
 
 // CSS helpers for glow border effect - 辉光边框效果的 CSS 助手函数
-const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
-
+// const getGlowBorderOffset = () => `-${GLOW_BORDER_OFFSET}px`;
 // 不需要 calc() 包裹的所有关键字
 const DIRECT_RETURN_KEYWORDS: ReadonlySet<string> = new Set([
   'auto',
@@ -71,13 +70,51 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
   },
 });
 
+// 背景渐变旋转动画（用于 radial/linear 渐变整体旋转）
+// 使用 CSS 自定义属性驱动角度变化，避免元素本身的 transform 引起的位移
+// const rotateGradientAngle = new Keyframes('rotateGradientAngle', {
+//   '0%': {
+//     '--mif-angle': '42deg',
+//   },
+//   '100%': {
+//     '--mif-angle': 'calc(42deg + 1turn)',
+//   },
+// });
+
+// 背景淡出（只执行一次并保持最终状态）
+// const fadeOutOnce = new Keyframes('fadeOutOnce', {
+//   '0%': {
+//     opacity: 1,
+//   },
+//   '100%': {
+//     opacity: 0,
+//   },
+// });
+
+// 合并旋转与淡出为单一动画：一次性旋转一圈并淡出到 0
+const rotateFadeOnce = new Keyframes('rotateFadeOnce', {
+  '0%': {
+    '--mif-angle': '42deg',
+    opacity: 1,
+  },
+  '100%': {
+    '--mif-angle': 'calc(42deg + 1turn)',
+    opacity: 0,
+  },
+});
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
+    // 声明 CSS 自定义属性 --mif-angle，使其可动画（需浏览器支持 @property）
+    '@property --mif-angle': {
+      syntax: '"<angle>"',
+      'initial-value': '0deg',
+      inherits: false,
+    },
     [token.componentCls]: {
       width: '100%',
       height: '100%',
       display: 'flex',
-      boxShadow: `0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)`,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
@@ -86,40 +123,26 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minHeight: '48px',
       maxWidth: 980,
       backdropFilter: 'blur(5.44px)',
+      boxShadow: 'var(--shadow-control-lg)',
       position: 'relative',
-      transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       '> * ': {
         boxSizing: 'border-box',
       },
       '&:active,&.active': {
         [`${token.componentCls}-background`]: {
-          opacity: 1,
-          backgroundColor: '#1890ff',
-        },
-      },
-
-      '&:hover': {
-        [`${token.componentCls}-background`]: {
-          opacity: 1,
-          // backgroundColor: 'rgba(0, 9, 50, 0.1)',
+          opacity: 0,
+          height: '100%',
+          backgroundImage:
+            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%),linear-gradient(var(--mif-angle), #D7B9FF 14%, #9BA0FF 57%, #09B1FF 98%)',
+          // 单一动画：一次性旋转并淡出
+          animationName: rotateFadeOnce,
+          animationDuration: '2.5s',
+          animationTimingFunction: 'ease-in-out',
+          animationIterationCount: '1',
         },
       },
 
       '&-enlarged': {
-        // 覆盖基础样式的限制
-        minHeight: '100%',
-        height: '100%',
-        width: '100%',
-        maxWidth: 'none', // 覆盖原来的 maxWidth: 980
-        alignItems: 'stretch', // 覆盖原来的 center
-        justifyContent: 'flex-start', // 覆盖原来的 center
-        display: 'flex',
-        flexDirection: 'column',
-        // 保持和普通状态相同的阴影效果
-        boxShadow: `0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)`,
-        transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-
-        // 内部白色容器
         '> div:last-child': {
           flex: 1,
           height: '100%',
@@ -134,7 +157,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           maxHeight: 'none',
           overflow: 'hidden',
           width: '100%',
-          transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
         },
         [`${token.componentCls}-editor-content`]: {
           flex: 1,
@@ -143,47 +165,54 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           maxHeight: 'none',
           overflow: 'auto',
           width: '100%',
-          transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
         },
         [`${token.componentCls}-background`]: {
           // 放大时保持和普通状态相同的背景效果
           opacity: 1,
-          backgroundColor: 'rgba(0, 9, 50, 0.1)',
         },
       },
 
       '&-background': {
         boxSizing: 'border-box',
-        transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
         position: 'absolute',
-        top: getGlowBorderOffset(),
-        left: getGlowBorderOffset(),
-        width: addGlowBorderOffset('100%'),
-        height: addGlowBorderOffset('100%'),
+        width: 'calc(100% - 4px)',
+        height: 'calc(100% - 4px)',
         zIndex: 2,
-        backgroundColor: 'rgba(0, 9, 50, 0.1)',
+        backgroundColor: 'transparent',
         pointerEvents: 'none',
         borderRadius: 'inherit',
+        // 自定义属性控制线性渐变角度，默认与原始设计保持一致 42deg
+        '--mif-angle': '42deg',
+        // 提示浏览器该节点将频繁重绘背景图像
+        willChange: 'background-image',
+        // 限定绘制范围，降低重绘影响
+        contain: 'paint',
       },
-      '&:focus': {
-        boxShadow: 'none',
-        [`${token.componentCls}-background`]: {
-          opacity: 1,
-          backgroundColor: '#1890ff',
-        },
+      '&-border-wrapper': {
+        width: '100%',
+        zIndex: 9,
+        height: '100%',
+        boxSizing: 'border-box',
+      },
+      '&-content-wrapper': {
+        backgroundColor: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        borderRadius: 'inherit',
       },
       '&-editor': {
         boxSizing: 'border-box',
+        borderRadius: 'inherit',
         backgroundColor: 'var(--color-gray-bg-card-white)',
         width: '100%',
         zIndex: 9,
         maxHeight: 400,
         height: '100%',
-        borderRadius: 'inherit',
         overflowY: 'visible',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
-        transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
         '&&-disabled': {
           backgroundColor: 'rgba(0,0,0,0.04)',
           cursor: 'not-allowed',
@@ -196,10 +225,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-editor-content': {
         overflowY: 'auto',
         maxHeight: 'inherit',
+        borderRadius: 'inherit',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
-        borderRadius: 'inherit',
-        transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',
@@ -217,10 +245,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-send-actions': {
         position: 'absolute',
         userSelect: 'none',
-        right: 4,
+        right: 12,
         boxSizing: 'border-box',
         zIndex: 99,
-        bottom: 8,
+        bottom: 12,
         display: 'flex',
         gap: '8px',
         alignItems: 'center',

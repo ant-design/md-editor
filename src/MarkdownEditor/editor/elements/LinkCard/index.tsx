@@ -18,13 +18,13 @@ export function LinkCard({
   }>
 >) {
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseCls = context?.getPrefixCls('md-editor-link-card');
+  const baseCls = context?.getPrefixCls('agentic-md-editor-link-card');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const htmlRef = React.useRef<HTMLDivElement>(null);
   return wrapSSR(
     <div {...attributes}>
       <div
-        className={classNames(baseCls, 'ant-md-editor-drag-el', hashId)}
+        className={classNames(baseCls, 'ant-agentic-md-editor-drag-el', hashId)}
         data-be="link-card"
         draggable={false}
         onContextMenu={(e) => {

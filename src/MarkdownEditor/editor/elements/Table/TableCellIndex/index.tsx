@@ -72,7 +72,9 @@ export const TableCellIndex: React.FC<TableCellIndexProps> = ({
   tablePath,
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context?.getPrefixCls('md-editor-table-cell-index');
+  const baseClassName = context?.getPrefixCls(
+    'agentic-md-editor-table-cell-index',
+  );
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const editor = useSlate();
   const tableContext = useContext(TablePropsContext);

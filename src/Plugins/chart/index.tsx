@@ -9,14 +9,14 @@ import { ChartRender } from './ChartRender';
 
 /**
  * @fileoverview 图表插件主入口文件
- * 
+ *
  * 该文件提供了完整的图表功能，包括：
  * - 多种图表类型的组件（饼图、柱状图、折线图、面积图等）
  * - 图表渲染和配置功能
  * - 数据处理和格式化工具
  * - 图表属性工具栏
  * - 图表标记和容器组件
- * 
+ *
  * @author md-editor
  * @version 1.0.0
  * @since 2024
@@ -228,7 +228,7 @@ export const ChartElement = (props: RenderElementProps) => {
   return useMemo(
     () => (
       <div
-        className={'ant-md-editor-drag-el'}
+        className={'ant-agentic-md-editor-drag-el'}
         {...attributes}
         data-be={'chart'}
         style={{
@@ -242,7 +242,7 @@ export const ChartElement = (props: RenderElementProps) => {
       >
         <DragHandle />
         <div
-          className="ant-md-editor-chart-box"
+          className="ant-agentic-md-editor-chart-box"
           style={{
             display: 'flex',
             flexDirection: 'column',

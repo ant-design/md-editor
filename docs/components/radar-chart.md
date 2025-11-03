@@ -13,6 +13,8 @@ group:
 ## 代码演示
 
 <code src="../demos/charts/radar.tsx" background="var(--main-bg-color)" iframe=540></code>
+<code src="../demos/charts/radar-toolbar-filter.tsx" background="var(--main-bg-color)" title="工具栏过滤器" iframe=540></code>
+<code src="../demos/charts/radar-statistic.tsx" background="var(--main-bg-color)" title="统计指标" iframe=540></code>
 
 ## API
 
@@ -25,12 +27,11 @@ group:
 | width                | `number \| string`     | `600`  | 宽度（px），移动端自适应为 100%            |
 | height               | `number \| string`     | `400`  | 高度（px），移动端按正方形比例，最大约 400 |
 | className            | `string`               | -      | 自定义类名                                 |
-| toolbarExtra         | `React.ReactNode`      | -      | 头部工具条额外按钮                         |
-| dataTime             | `string`               | -      | 数据时间                                   |
-| borderColor          | `string`               | -      | 边框颜色                                   |
-| backgroundColor      | `string`               | -      | 背景颜色                                   |
-| pointBackgroundColor | `string`               | -      | 点背景颜色                                 |
-| statistic            | `StatisticConfigType`  | -      | 统计数据组件配置                           |
+| toolbarExtra          | `React.ReactNode`      | -      | 头部工具条额外按钮                                                       |
+| renderFilterInToolbar | `boolean`              | `false` | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
+| dataTime              | `string`               | -      | 数据时间                                                                 |
+| color                 | `string \| string[]`   | -      | 自定义主色；数组按序对应各数据序列                                       |
+| statistic             | `StatisticConfigType`  | -      | 统计数据组件配置                                                         |
 
 ### RadarChartDataItem
 

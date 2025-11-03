@@ -27,7 +27,7 @@ const genStyle = (
         },
       },
 
-      '.md-editor-code': {
+      '.agentic-md-editor-code': {
         borderRadius: '12px !important',
         overflow: 'auto',
         padding: 'var(--padding-3x)',
@@ -69,7 +69,10 @@ const genStyle = (
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 4,
+        gap: 8,
+        '&-pure': {
+          gap: 4,
+        },
         '&-right': {
           alignItems: 'flex-end',
         },

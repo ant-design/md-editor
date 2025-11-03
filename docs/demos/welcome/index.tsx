@@ -1,4 +1,8 @@
-import { MarkdownInputField, WelcomeMessage } from '@ant-design/agentic-ui';
+import {
+  GradientText,
+  MarkdownInputField,
+  WelcomeMessage,
+} from '@ant-design/agentic-ui';
 import { Space } from 'antd';
 import React from 'react';
 import { ChatContainer } from '../components/chat-container';
@@ -62,18 +66,19 @@ export default () => {
               title={
                 <>
                   你想
-                  <div
-                    style={{
-                      background:
-                        'linear-gradient(128deg, #101413 64%, #8154F1 74%, #7290F7 83%, #44BCF7 93%), linear-gradient(122deg, #101413 66%, #672BFF 77%, #898BFF 84%, #71D2FF 96%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                      textDecorationColor: 'transparent',
-                    }}
+                  <GradientText
+                    colors={[
+                      '#1D3052',
+                      '#1D3052',
+                      '#D3CEFF',
+                      '#8D83FF',
+                      '#1D3052',
+                    ]}
+                    animationSpeed={10}
+                    showBorder={false}
                   >
                     LUI Designer
-                  </div>
+                  </GradientText>
                   为你设计什么卡片？
                 </>
               }

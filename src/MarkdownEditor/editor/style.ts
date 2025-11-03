@@ -25,7 +25,7 @@ const blinkCaret = new Keyframes('blink-caret', {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     // 拖拽手柄样式
-    '.ant-md-editor-drag-handle': {
+    '.ant-agentic-md-editor-drag-handle': {
       position: 'absolute',
       display: 'flex',
       userSelect: 'none',
@@ -39,7 +39,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     // 拖拽图标样式
-    '.ant-md-editor-drag-icon': {
+    '.ant-agentic-md-editor-drag-icon': {
       display: 'flex',
       alignItems: 'center',
       borderRadius: '18px',
@@ -54,9 +54,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     // 拖拽元素悬浮效果
-    '.ant-md-editor-drag-el:hover > .ant-md-editor-drag-handle': {
-      opacity: 1,
-    },
+    '.ant-agentic-md-editor-drag-el:hover > .ant-agentic-md-editor-drag-handle':
+      {
+        opacity: 1,
+      },
 
     // 可调整大小组件样式
     '.react-resizable': {
@@ -110,7 +111,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     },
 
     // 隐藏样式
-    '.ant-md-editor-hidden': {
+    '.ant-agentic-md-editor-hidden': {
       display: 'none',
     },
 
@@ -240,7 +241,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       'h1,h2,h3,h4,h5,h6': {
         position: 'relative',
         textWrap: 'balance',
-        '.ant-md-editor-drag-handle': {
+        '.ant-agentic-md-editor-drag-handle': {
           top: 'calc(3px + 0.05em) !important',
         },
       },
@@ -478,7 +479,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       // 打字机效果样式
-      '.ant-md-editor-content .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type span[data-slate-string]':
+      '.ant-agentic-md-editor-content .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type span[data-slate-string]':
         {
           borderRight: '0.15em solid var(--color-primary-control-fill-primary)',
           animationName: `${typing.getName()}, ${blinkCaret.getName()}`,

@@ -34,7 +34,7 @@ const Title: React.FC<TitleProps> = ({
   prefixCls: customPrefixCls,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('chatboot-title', customPrefixCls);
+  const prefixCls = getPrefixCls('agentic-chatboot-title', customPrefixCls);
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   if (!title && !subtitle) {

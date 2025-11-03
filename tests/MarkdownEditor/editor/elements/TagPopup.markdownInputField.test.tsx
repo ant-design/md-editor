@@ -76,8 +76,8 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
 
       const container = screen
         .getByRole('textbox', { hidden: true })
-        .closest('.ant-md-input-field');
-      expect(container).toHaveClass('ant-md-input-field-disabled');
+        .closest('.ant-agentic-md-input-field');
+      expect(container).toHaveClass('ant-agentic-md-input-field-disabled');
     });
   });
 
@@ -927,8 +927,8 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
 
       const container = screen
         .getByRole('textbox', { hidden: true })
-        .closest('.ant-md-input-field');
-      expect(container).toHaveClass('ant-md-input-field-disabled');
+        .closest('.ant-agentic-md-input-field');
+      expect(container).toHaveClass('ant-agentic-md-input-field-disabled');
     });
   });
 });

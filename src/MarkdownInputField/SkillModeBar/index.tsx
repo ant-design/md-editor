@@ -101,7 +101,7 @@ const SkillModeBarInner: React.FC<SkillModeBarProps> = ({
 }) => {
   // 获取样式前缀和配置
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('skill-mode');
+  const prefixCls = getPrefixCls('agentic-skill-mode');
 
   // 注册样式
   const { wrapSSR, hashId } = useStyle(prefixCls);

@@ -38,18 +38,18 @@ describe('TopOperatingArea - 基本渲染', () => {
 
     // 验证主容器存在
     expect(
-      document.querySelector('.ant-top-operating-area'),
+      document.querySelector('.ant-agentic-top-operating-area'),
     ).toBeInTheDocument();
 
     // 验证三栏布局存在
     expect(
-      document.querySelector('.ant-top-operating-area-left'),
+      document.querySelector('.ant-agentic-top-operating-area-left'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-top-operating-area-center'),
+      document.querySelector('.ant-agentic-top-operating-area-center'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('.ant-top-operating-area-right'),
+      document.querySelector('.ant-agentic-top-operating-area-right'),
     ).toBeInTheDocument();
   });
 
@@ -63,15 +63,15 @@ describe('TopOperatingArea - 基本渲染', () => {
     );
 
     expect(
-      document.querySelector('.custom-prefix-top-operating-area'),
+      document.querySelector('.custom-prefix-agentic-top-operating-area'),
     ).toBeInTheDocument();
   });
 
   it('应该正确应用基础样式类名', () => {
     render(<TopOperatingArea />);
 
-    const container = document.querySelector('.ant-top-operating-area');
-    expect(container).toHaveClass('ant-top-operating-area');
+    const container = document.querySelector('.ant-agentic-top-operating-area');
+    expect(container).toHaveClass('ant-agentic-top-operating-area');
     expect(container).toBeInTheDocument();
   });
 });
@@ -85,7 +85,7 @@ describe('TopOperatingArea - BackTo按钮功能', () => {
 
     // 验证按钮容器有visible类名
     const backButtonsContainer = document.querySelector(
-      '.ant-top-operating-area-back-buttons-visible',
+      '.ant-agentic-top-operating-area-back-buttons-visible',
     );
     expect(backButtonsContainer).toBeInTheDocument();
   });
@@ -98,7 +98,7 @@ describe('TopOperatingArea - BackTo按钮功能', () => {
 
     // 验证按钮容器有hidden类名
     const backButtonsContainer = document.querySelector(
-      '.ant-top-operating-area-back-buttons-hidden',
+      '.ant-agentic-top-operating-area-back-buttons-hidden',
     );
     expect(backButtonsContainer).toBeInTheDocument();
   });
@@ -147,7 +147,7 @@ describe('TopOperatingArea - 自定义操作按钮', () => {
     render(<TopOperatingArea />);
 
     expect(
-      document.querySelector('.ant-top-operating-area-buttons'),
+      document.querySelector('.ant-agentic-top-operating-area-buttons'),
     ).not.toBeInTheDocument();
   });
 
@@ -162,7 +162,7 @@ describe('TopOperatingArea - 自定义操作按钮', () => {
 
     // 验证按钮容器存在
     expect(
-      document.querySelector('.ant-top-operating-area-buttons'),
+      document.querySelector('.ant-agentic-top-operating-area-buttons'),
     ).toBeInTheDocument();
 
     // 验证自定义按钮存在
@@ -218,9 +218,9 @@ describe('TopOperatingArea - 自定义操作按钮', () => {
     render(<TopOperatingArea operationBtnRender={operationBtnRender} />);
 
     const buttonsContainer = document.querySelector(
-      '.ant-top-operating-area-buttons',
+      '.ant-agentic-top-operating-area-buttons',
     );
-    expect(buttonsContainer).toHaveClass('ant-top-operating-area-buttons');
+    expect(buttonsContainer).toHaveClass('ant-agentic-top-operating-area-buttons');
     expect(buttonsContainer).toBeInTheDocument();
   });
 });
@@ -275,7 +275,7 @@ describe('TopOperatingArea - 组合功能测试', () => {
       'custom',
     );
     expect(
-      document.querySelector('.ant-top-operating-area-back-buttons-visible'),
+      document.querySelector('.ant-agentic-top-operating-area-back-buttons-visible'),
     ).toBeInTheDocument();
   });
 
@@ -315,7 +315,7 @@ describe('TopOperatingArea - 组合功能测试', () => {
     expect(screen.getByTestId('btn-2')).toBeInTheDocument();
     expect(screen.queryByTestId('back-to-top')).not.toBeInTheDocument();
     expect(
-      document.querySelector('.ant-top-operating-area-back-buttons-hidden'),
+      document.querySelector('.ant-agentic-top-operating-area-back-buttons-hidden'),
     ).toBeInTheDocument();
   });
 });
@@ -324,10 +324,10 @@ describe('TopOperatingArea - 布局和样式', () => {
   it('应该有正确的网格布局结构', () => {
     render(<TopOperatingArea />);
 
-    const container = document.querySelector('.ant-top-operating-area');
-    const leftArea = document.querySelector('.ant-top-operating-area-left');
-    const centerArea = document.querySelector('.ant-top-operating-area-center');
-    const rightArea = document.querySelector('.ant-top-operating-area-right');
+    const container = document.querySelector('.ant-agentic-top-operating-area');
+    const leftArea = document.querySelector('.ant-agentic-top-operating-area-left');
+    const centerArea = document.querySelector('.ant-agentic-top-operating-area-center');
+    const rightArea = document.querySelector('.ant-agentic-top-operating-area-right');
 
     expect(container).toBeInTheDocument();
     expect(leftArea).toBeInTheDocument();

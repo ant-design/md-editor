@@ -6,6 +6,7 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
+import classNames from 'classnames';
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import {
@@ -15,9 +16,8 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
-import { useChartStatistic } from '../hooks/useChartStatistic';
+import { defaultColorList } from '../const';
 import {
-  DEFAULT_COLORS,
   SINGLE_MODE_DESKTOP_CUTOUT,
   SINGLE_MODE_MOBILE_CUTOUT,
 } from './constants';
@@ -96,6 +96,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
   enableAutoCategory = true,
   singleMode = false,
   toolbarExtra,
+  renderFilterInToolbar = false,
   statistic: statisticConfig,
   ...props
 }) => {
@@ -181,8 +182,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
     }
   }
 
-  // 使用ChartStatistic hook处理配置
-  const statisticComponentConfigs = useChartStatistic(statisticConfig);
+  // 处理 ChartStatistic 组件配置
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   const handleDownload = () => {
     if (onDownload) {
@@ -269,7 +273,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
           showLegend: false,
           showTooltip: false,
           backgroundColor: [
-            DEFAULT_COLORS[i % DEFAULT_COLORS.length],
+            defaultColorList[i % defaultColorList.length],
             '#F7F8F9',
           ],
         }))
@@ -295,11 +299,37 @@ const DonutChart: React.FC<DonutChartProps> = ({
               onDownload={handleDownload}
               extra={toolbarExtra}
               dataTime={dataTime}
+              filter={
+                renderFilterInToolbar && shouldShowFilter ? (
+                  <ChartFilter
+                    filterOptions={finalFilterList.map((item) => {
+                      return {
+                        label: item || '',
+                        value: item || '',
+                      };
+                    })}
+                    selectedFilter={finalSelectedFilter || ''}
+                    onFilterChange={finalOnFilterChange}
+                    {...(filterLabels && {
+                      customOptions: filteredDataByFilterLabel,
+                      selectedCustomSelection: selectedFilterLabel,
+                      onSelectionChange: setSelectedFilterLabel,
+                    })}
+                    theme={chartFilterTheme}
+                    variant="compact"
+                  />
+                ) : undefined
+              }
             />
           )}
-          {statisticComponentConfigs && (
-            <div className="chart-statistic-container">
-              {statisticComponentConfigs.map((config, index) => (
+          {statistics && (
+            <div
+              className={classNames(
+                `${baseClassName}-statistic-container`,
+                hashId,
+              )}
+            >
+              {statistics.map((config, index) => (
                 <ChartStatistic
                   key={index}
                   {...config}
@@ -308,7 +338,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
               ))}
             </div>
           )}
-          {shouldShowFilter && (
+          {!renderFilterInToolbar && shouldShowFilter && (
             <ChartFilter
               filterOptions={finalFilterList.map((item) => {
                 return {
@@ -372,11 +402,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
             (sum, v) => sum + (Number.isFinite(v) ? v : 0),
             0,
           );
-          const backgroundColors = cfg.backgroundColor || DEFAULT_COLORS;
+          const backgroundColors = cfg.backgroundColor || defaultColorList;
 
           const mainColor =
             cfg.backgroundColor?.[0] ??
-            DEFAULT_COLORS[idx % DEFAULT_COLORS.length];
+            defaultColorList[idx % defaultColorList.length];
 
           const chartJsData = {
             labels,

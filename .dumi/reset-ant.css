@@ -54,7 +54,6 @@
   color: var(--color-gray-text-default);
   border: 1px solid transparent;
 }
-
 .ant-btn-color-default.ant-btn-variant-filled:disabled,
 .ant-btn-color-default.ant-btn-variant-filled.ant-btn-disabled {
   cursor: not-allowed;
@@ -438,4 +437,10 @@
   border-color: transparent;
   border: 1px solid transparent;
   box-shadow: none;
+}
+
+#root > div:not(.site-app) {
+  padding: var(--padding-5x);
+  margin: var(--margin-5x);
+  background: var(--color-gray-bg-card-white);
 }

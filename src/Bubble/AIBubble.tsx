@@ -98,7 +98,7 @@ export const AIBubble: React.FC<
   const context = useContext(BubbleConfigContext);
   const { compact, standalone, locale } = context || {};
 
-  const prefixClass = getPrefixCls('agent');
+  const prefixClass = getPrefixCls('agentic');
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
   const typing = isTyping(originData);
@@ -254,6 +254,9 @@ export const AIBubble: React.FC<
           className={cx(
             `${prefixClass}-bubble-container`,
             `${prefixClass}-bubble-container-${placement}`,
+            {
+              [`${prefixClass}-bubble-container-pure`]: props.pure,
+            },
             hashId,
           )}
         >

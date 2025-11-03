@@ -22,7 +22,7 @@ describe('WelcomeMessage 组件', () => {
     const { container } = render(<WelcomeMessage title="只有标题" />);
 
     expect(screen.getByText('只有标题')).toBeInTheDocument();
-    const description = container.querySelector('.ant-welcome-description');
+    const description = container.querySelector('.ant-agentic-welcome-description');
     expect(description).not.toBeInTheDocument();
   });
 
@@ -30,7 +30,7 @@ describe('WelcomeMessage 组件', () => {
     const { container } = render(<WelcomeMessage description="只有描述" />);
 
     expect(screen.getByText('只有描述')).toBeInTheDocument();
-    const title = container.querySelector('.ant-welcome-title');
+    const title = container.querySelector('.ant-agentic-welcome-title');
     expect(title).not.toBeInTheDocument();
   });
 
@@ -64,7 +64,7 @@ describe('WelcomeMessage 组件', () => {
       <WelcomeMessage title="自定义样式" style={customStyle} />,
     );
 
-    const rootElement = container.querySelector('.ant-welcome');
+    const rootElement = container.querySelector('.ant-agentic-welcome');
     expect(rootElement).toHaveStyle('background-color: rgb(255, 0, 0)');
     expect(rootElement).toHaveStyle('color: rgb(255, 255, 255)');
   });
@@ -111,7 +111,7 @@ describe('WelcomeMessage 组件', () => {
     const { container } = render(<WelcomeMessage title={true} />);
 
     // 布尔值 true 不会被渲染为文本
-    const titleElement = container.querySelector('.ant-welcome-title');
+    const titleElement = container.querySelector('.ant-agentic-welcome-title');
     expect(titleElement).toBeInTheDocument();
     expect(titleElement).toBeEmptyDOMElement();
   });
@@ -123,7 +123,7 @@ describe('WelcomeMessage 组件', () => {
 
     // 布尔值 false 不会被渲染为文本
     const descriptionElement = container.querySelector(
-      '.ant-welcome-description',
+      '.ant-agentic-welcome-description',
     );
     expect(descriptionElement).not.toBeInTheDocument();
   });
@@ -145,7 +145,7 @@ describe('WelcomeMessage 组件', () => {
       <WelcomeMessage title="空 classNames" classNames={{}} />,
     );
 
-    const titleElement = container.querySelector('.ant-welcome-title');
+    const titleElement = container.querySelector('.ant-agentic-welcome-title');
     expect(titleElement).toBeInTheDocument();
   });
 
@@ -162,7 +162,7 @@ describe('WelcomeMessage 组件', () => {
     expect(titleElement).toBeInTheDocument();
 
     const descriptionElement = container.querySelector(
-      '.ant-welcome-description',
+      '.ant-agentic-welcome-description',
     );
     expect(descriptionElement).toBeInTheDocument();
   });
@@ -179,12 +179,12 @@ describe('WelcomeMessage 组件', () => {
     );
 
     // 当 title 为 null 时，不应该渲染标题
-    const titleElement = container.querySelector('.ant-welcome-title');
+    const titleElement = container.querySelector('.ant-agentic-welcome-title');
     expect(titleElement).not.toBeInTheDocument();
 
     // 当 description 为 undefined 时，不应该渲染描述
     const descriptionElement = container.querySelector(
-      '.ant-welcome-description',
+      '.ant-agentic-welcome-description',
     );
     expect(descriptionElement).not.toBeInTheDocument();
   });
@@ -193,11 +193,11 @@ describe('WelcomeMessage 组件', () => {
     const { container } = render(<WelcomeMessage title="" description="" />);
 
     // 空字符串时，由于条件渲染，元素不会被渲染
-    const titleElement = container.querySelector('.ant-welcome-title');
+    const titleElement = container.querySelector('.ant-agentic-welcome-title');
     expect(titleElement).not.toBeInTheDocument();
 
     const descriptionElement = container.querySelector(
-      '.ant-welcome-description',
+      '.ant-agentic-welcome-description',
     );
     expect(descriptionElement).not.toBeInTheDocument();
   });
@@ -266,7 +266,7 @@ describe('WelcomeMessage 组件', () => {
       </ConfigProvider>,
     );
 
-    const rootElement = container.querySelector('.custom-welcome');
+    const rootElement = container.querySelector('.custom-agentic-welcome');
     expect(rootElement).toBeInTheDocument();
   });
 
@@ -305,7 +305,7 @@ describe('WelcomeMessage 组件', () => {
 
     expect(screen.getByText('条件标题')).toBeInTheDocument();
     const descriptionElement = container.querySelector(
-      '.ant-welcome-description',
+      '.ant-agentic-welcome-description',
     );
     expect(descriptionElement).not.toBeInTheDocument();
   });

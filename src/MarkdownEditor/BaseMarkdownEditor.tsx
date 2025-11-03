@@ -269,7 +269,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   const context = useContext(ConfigProvider.ConfigContext);
   // ---- css style ----
-  const baseClassName = context?.getPrefixCls(`md-editor`);
+  const baseClassName = context?.getPrefixCls(`agentic-md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
   // --- css style end ---
 

@@ -305,7 +305,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
 
   const { compact } = useContext(BubbleConfigContext) || {};
 
-  const prefixClass = getPrefixCls('agent-bubble-list');
+  const prefixClass = getPrefixCls('agentic-bubble-list');
   const { wrapSSR, hashId } = useStyle(prefixClass);
   const deps = useMemo(() => [props.style], [JSON.stringify(props.style)]);
 

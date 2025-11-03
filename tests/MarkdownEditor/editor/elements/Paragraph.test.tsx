@@ -104,7 +104,7 @@ describe('Paragraph Component', () => {
     );
 
     const paragraphElement = screen.getByText('Test children').parentElement;
-    expect(paragraphElement).toHaveClass('ant-md-editor-drag-el');
+    expect(paragraphElement).toHaveClass('ant-agentic-md-editor-drag-el');
   });
 
   it('应该处理空段落', () => {

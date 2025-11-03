@@ -176,7 +176,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
             </div>
           </div>
         )}
-        <div className={'ant-md-editor-hidden'}>{props.children}</div>
+        <div className={'ant-agentic-md-editor-hidden'}>{props.children}</div>
       </div>
       <Mermaid el={props.element} />
     </div>

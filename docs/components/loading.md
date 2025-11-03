@@ -2,7 +2,7 @@
 title: Loading 加载
 atomId: Loading
 group:
-  title: 对话流
+  title: 通用
   order: 5
 ---
 

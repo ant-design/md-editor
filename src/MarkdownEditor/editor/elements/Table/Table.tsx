@@ -48,7 +48,7 @@ export const SlateTable = ({
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { tablePath } = useContext(TablePropsContext);
 
-  const baseCls = getPrefixCls('md-editor-content-table');
+  const baseCls = getPrefixCls('agentic-md-editor-content-table');
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
   // 总是调用 hooks，避免条件调用
@@ -80,8 +80,9 @@ export const SlateTable = ({
 
     // 只获取一次容器宽度
     const containerWidth =
-      (markdownContainerRef?.current?.querySelector('.ant-md-editor-content')
-        ?.clientWidth || 400) -
+      (markdownContainerRef?.current?.querySelector(
+        '.ant-agentic-md-editor-content',
+      )?.clientWidth || 400) -
       32 -
       12;
     const maxColumnWidth = containerWidth / 4;
@@ -146,7 +147,7 @@ export const SlateTable = ({
         : 0;
 
       const minWidth = markdownContainerRef?.current?.querySelector(
-        '.ant-md-editor-content',
+        '.ant-agentic-md-editor-content',
       )?.clientWidth;
 
       const dom = tableRef.current as HTMLDivElement;

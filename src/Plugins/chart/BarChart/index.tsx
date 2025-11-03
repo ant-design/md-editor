@@ -21,10 +21,8 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
-import {
-  StatisticConfigType,
-  useChartStatistic,
-} from '../hooks/useChartStatistic';
+import { defaultColorList } from '../const';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -114,10 +112,10 @@ export interface BarChartConfigItem {
 }
 
 export interface BarChartProps extends ChartContainerProps {
-  /** 图表标题 */
-  title?: string;
   /** 扁平化数据数组 */
   data: BarChartDataItem[];
+  /** 图表标题 */
+  title?: string;
   /** 图表宽度，默认600px */
   width?: number | string;
   /** 图表高度，默认400px */
@@ -153,12 +151,6 @@ export interface BarChartProps extends ChartContainerProps {
   stacked?: boolean;
   /** 图表轴向，'x'为垂直柱状图，'y'为水平柱状图 */
   indexAxis?: 'x' | 'y';
-  /** 头部工具条额外按钮 */
-  toolbarExtra?: React.ReactNode;
-  /** 是否将过滤器渲染到工具栏 */
-  renderFilterInToolbar?: boolean;
-  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
-  statistic?: StatisticConfigType;
   /** 是否显示数据标签，默认false */
   showDataLabels?: boolean;
   /** 数据标签格式化函数 */
@@ -171,9 +163,13 @@ export interface BarChartProps extends ChartContainerProps {
   }) => string;
   /** 外部传入的 Chart.js 选项，会与默认选项合并 */
   chartOptions?: Partial<ChartOptions<'bar'>>;
+  /** 头部工具条额外按钮 */
+  toolbarExtra?: React.ReactNode;
+  /** 是否将过滤器渲染到工具栏 */
+  renderFilterInToolbar?: boolean;
+  /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
+  statistic?: StatisticConfigType;
 }
-
-const defaultColors = ['#917EF7', '#2AD8FC', '#388BFF', '#718AB6', '#84DC18'];
 
 // 将十六进制颜色转换为带透明度的 rgba 字符串
 const hexToRgba = (hex: string, alpha: number): string => {
@@ -253,8 +249,11 @@ const BarChart: React.FC<BarChartProps> = ({
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
-  // ChartStatistic 组件配置
-  const statisticComponentConfigs = useChartStatistic(statisticConfig);
+  // 处理 ChartStatistic 组件配置
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -373,8 +372,8 @@ const BarChart: React.FC<BarChartProps> = ({
         Array.isArray(provided)
           ? provided[i] ||
             provided[0] ||
-            defaultColors[i % defaultColors.length]
-          : provided || defaultColors[i % defaultColors.length];
+            defaultColorList[i % defaultColorList.length]
+          : provided || defaultColorList[i % defaultColorList.length];
       const baseColor = pickByIndex(index);
 
       // 为每个类型收集数据点
@@ -951,9 +950,9 @@ const BarChart: React.FC<BarChartProps> = ({
         }
       />
 
-      {statisticComponentConfigs && (
-        <div className="chart-statistic-container">
-          {statisticComponentConfigs.map((config, index) => (
+      {statistics && (
+        <div className={`${baseClassName}-statistic-container`}>
+          {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>
@@ -974,7 +973,7 @@ const BarChart: React.FC<BarChartProps> = ({
       )}
 
       <div
-        className="chart-wrapper"
+        className={`${baseClassName}-wrapper`}
         style={{ marginTop: '20px', height: responsiveHeight }}
       >
         <Bar

@@ -56,12 +56,19 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       // 统计数据容器样式
-      '.chart-statistic-container': {
+      '&-statistic-container': {
         display: 'flex',
         gap: '16px',
         marginBottom: '16px',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
+      },
+
+      // 图表包装器样式
+      '&-wrapper': {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
       },
     },
   };

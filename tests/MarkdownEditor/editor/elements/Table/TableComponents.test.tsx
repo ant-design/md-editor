@@ -140,7 +140,7 @@ describe('Table 组件测试', () => {
     it('应该应用正确的类名', () => {
       renderTableCellIndex();
       const td = document.querySelector('td');
-      expect(td).toHaveClass('ant-md-editor-table-cell-index');
+      expect(td).toHaveClass('ant-agentic-md-editor-table-cell-index');
     });
 
     it('应该设置 contentEditable 为 false', () => {
@@ -192,7 +192,7 @@ describe('Table 组件测试', () => {
     it('应该包含删除图标', () => {
       renderTableCellIndex();
       const deleteIcon = document.querySelector(
-        '.ant-md-editor-table-cell-index-delete-icon',
+        '.ant-agentic-md-editor-table-cell-index-delete-icon',
       );
       expect(deleteIcon).toBeInTheDocument();
     });
@@ -200,7 +200,7 @@ describe('Table 组件测试', () => {
     it('应该处理删除按钮点击', () => {
       renderTableCellIndex();
       const deleteButton = document.querySelector(
-        '.ant-md-editor-table-cell-index-delete-icon',
+        '.ant-agentic-md-editor-table-cell-index-delete-icon',
       );
       if (deleteButton) {
         fireEvent.click(deleteButton);
@@ -211,7 +211,7 @@ describe('Table 组件测试', () => {
     it('应该在 shouldShowDeleteIcon 为 true 时显示操作按钮', () => {
       const { container } = renderTableCellIndex({ rowIndex: 0 });
       const actionButtons = container.querySelector(
-        '.ant-md-editor-table-cell-index-action-buttons',
+        '.ant-agentic-md-editor-table-cell-index-action-buttons',
       );
       expect(actionButtons).toBeInTheDocument();
     });
@@ -219,7 +219,7 @@ describe('Table 组件测试', () => {
     it('应该处理在上面插入行按钮点击', () => {
       renderTableCellIndex({ rowIndex: 0 });
       const insertBefore = document.querySelector(
-        '.ant-md-editor-table-cell-index-insert-row-before',
+        '.ant-agentic-md-editor-table-cell-index-insert-row-before',
       );
       expect(insertBefore).toBeDefined();
     });
@@ -227,7 +227,7 @@ describe('Table 组件测试', () => {
     it('应该处理在下面插入行按钮点击', () => {
       renderTableCellIndex({ rowIndex: 0 });
       const insertAfter = document.querySelector(
-        '.ant-md-editor-table-cell-index-insert-row-after',
+        '.ant-agentic-md-editor-table-cell-index-insert-row-after',
       );
       expect(insertAfter).toBeDefined();
     });
@@ -297,7 +297,7 @@ describe('Table 组件测试', () => {
     it('应该应用正确的类名', () => {
       renderTableCellIndexSpacer();
       const td = document.querySelector('td');
-      expect(td).toHaveClass('ant-md-editor-table-cell-index-spacer');
+      expect(td).toHaveClass('ant-agentic-md-editor-table-cell-index-spacer');
     });
 
     it('应该设置 contentEditable 为 false', () => {
@@ -349,7 +349,7 @@ describe('Table 组件测试', () => {
     it('应该包含删除图标', () => {
       renderTableCellIndexSpacer();
       const deleteIcon = document.querySelector(
-        '.ant-md-editor-table-cell-index-spacer-delete-icon',
+        '.ant-agentic-md-editor-table-cell-index-spacer-delete-icon',
       );
       expect(deleteIcon).toBeInTheDocument();
     });
@@ -357,7 +357,7 @@ describe('Table 组件测试', () => {
     it('应该处理删除按钮点击', () => {
       renderTableCellIndexSpacer();
       const deleteButton = document.querySelector(
-        '.ant-md-editor-table-cell-index-spacer-delete-icon',
+        '.ant-agentic-md-editor-table-cell-index-spacer-delete-icon',
       );
       if (deleteButton) {
         fireEvent.click(deleteButton);
@@ -386,7 +386,7 @@ describe('Table 组件测试', () => {
     it('应该处理在前面插入列按钮', () => {
       renderTableCellIndexSpacer({ columnIndex: 0 });
       const insertBefore = document.querySelector(
-        '.ant-md-editor-table-cell-index-spacer-insert-column-before',
+        '.ant-agentic-md-editor-table-cell-index-spacer-insert-column-before',
       );
       expect(insertBefore).toBeDefined();
     });
@@ -394,7 +394,7 @@ describe('Table 组件测试', () => {
     it('应该处理在后面插入列按钮', () => {
       renderTableCellIndexSpacer({ columnIndex: 0 });
       const insertAfter = document.querySelector(
-        '.ant-md-editor-table-cell-index-spacer-insert-column-after',
+        '.ant-agentic-md-editor-table-cell-index-spacer-insert-column-after',
       );
       expect(insertAfter).toBeDefined();
     });
@@ -434,7 +434,7 @@ describe('Table 组件测试', () => {
     it('应该应用正确的类名', () => {
       renderTableRowIndex();
       const tr = document.querySelector('tr');
-      expect(tr).toHaveClass('ant-md-editor-table-row-index');
+      expect(tr).toHaveClass('ant-agentic-md-editor-table-row-index');
     });
 
     it('应该渲染第一个 TableCellIndexSpacer（columnIndex=-1）', () => {
@@ -540,7 +540,7 @@ describe('Table 组件测试', () => {
     it('应该应用正确的类名', () => {
       renderTd();
       const td = document.querySelector('td');
-      expect(td).toHaveClass('ant-md-editor-table-td');
+      expect(td).toHaveClass('ant-agentic-md-editor-table-td');
     });
 
     it('应该处理错误的元素类型', () => {

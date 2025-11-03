@@ -79,11 +79,6 @@ vi.mock('../../../src/Plugins/chart/ChartStatistic', () => ({
   ),
 }));
 
-// Mock useChartStatistic hook
-vi.mock('../../../src/Plugins/chart/hooks/useChartStatistic', () => ({
-  useChartStatistic: vi.fn(() => null),
-}));
-
 // Mock style hook
 vi.mock('../../../src/Plugins/chart/RadarChart/style', () => ({
   useStyle: vi.fn(() => ({
@@ -494,17 +489,7 @@ describe('RadarChart', () => {
   });
 
   describe('ChartStatistic 集成测试', () => {
-    it('应该支持 statistic 配置', async () => {
-      const { useChartStatistic } = await import(
-        '../../../src/Plugins/chart/hooks/useChartStatistic'
-      );
-      vi.mocked(useChartStatistic).mockReturnValue([
-        {
-          title: '平均分',
-          value: 75.5,
-        },
-      ] as any);
-
+    it('应该支持 statistic 配置', () => {
       render(
         <RadarChart
           data={sampleData}

@@ -96,7 +96,7 @@ describe('MermaidElement Component', () => {
     it('应该处理关闭按钮点击', () => {
       render(<MermaidElement {...defaultProps} />);
       const closeButton = document.querySelector(
-        '.ant-md-editor-action-icon-box',
+        '.ant-agentic-md-editor-action-icon-box',
       );
       if (closeButton) {
         fireEvent.click(closeButton);
@@ -107,7 +107,7 @@ describe('MermaidElement Component', () => {
     it('应该处理复制按钮点击', async () => {
       render(<MermaidElement {...defaultProps} />);
       const copyButton = document.querySelectorAll(
-        '.ant-md-editor-action-icon-box',
+        '.ant-agentic-md-editor-action-icon-box',
       )[1];
       if (copyButton) {
         fireEvent.click(copyButton);
