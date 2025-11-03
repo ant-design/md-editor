@@ -177,6 +177,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '100%',
         border: '2px solid transparent',
         zIndex: 9,
+        height: '100%',
         boxSizing: 'border-box',
       },
       '&-content-wrapper': {
@@ -189,6 +190,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-editor': {
         boxSizing: 'border-box',
+        borderRadius: 'inherit',
         backgroundColor: 'var(--color-gray-bg-card-white)',
         width: '100%',
         zIndex: 9,

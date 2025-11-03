@@ -880,12 +880,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           style={{
             ...props.style,
             ...enlargedStyle,
-            minHeight: `${collapsedHeight}px`,
             height: isEnlarged
               ? `${props.enlargeable?.height ?? 980}px`
-              : `max(${collapsedHeight}px,100%)`,
+              : `min(${collapsedHeightPx}px,100%)`,
             borderRadius: borderRadius || 16,
-            maxHeight: isEnlarged ? 'none' : `max(${collapsedHeightPx}px,100%)`,
+            maxHeight: isEnlarged ? 'none' : `min(${collapsedHeightPx}px,100%)`,
             transition:
               'height, max-height 0.3s,border-radius 0.3s,box-shadow 0.3s,transform 0.3s,opacity 0.3s,background 0.3s',
           }}
@@ -900,7 +899,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               [`${baseCls}-hover`]: isHover,
             })}
             style={{
-              minHeight: props.style?.minHeight || 0,
+              minHeight: isEnlarged
+                ? 'auto'
+                : isMultiRowLayout
+                  ? 106
+                  : props.style?.minHeight || 0,
               height: '100%',
               width: '100%',
             }}
@@ -909,8 +912,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           <div
             className={classNames(`${baseCls}-border-wrapper`, hashId)}
             style={{
-              height: isEnlarged ? '100%' : 'auto',
-              maxHeight: isEnlarged ? '100%' : 'auto',
+              height: isEnlarged ? '100%' : '100%',
+              maxHeight: isEnlarged ? '100%' : '100%',
               borderRadius: (borderRadius || 16) - 2 || 10,
               cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
               opacity: props.disabled ? 0.5 : 1,
@@ -918,10 +921,19 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 ? 'auto'
                 : isMultiRowLayout
                   ? 106
-                  : undefined,
+                  : props.style?.minHeight || 0,
             }}
           >
-            <div className={classNames(`${baseCls}-content-wrapper`, hashId)}>
+            <div
+              className={classNames(`${baseCls}-content-wrapper`, hashId)}
+              style={{
+                minHeight: isEnlarged
+                  ? 'auto'
+                  : isMultiRowLayout
+                    ? 106
+                    : props.style?.minHeight || 0,
+              }}
+            >
               <div
                 style={{
                   display: 'flex',
@@ -1018,8 +1030,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     backgroundColor: '#fff',
                     display: 'flex',
                     boxSizing: 'border-box',
-                    borderBottomLeftRadius: (borderRadius || 16) - 2 || 10,
-                    borderBottomRightRadius: (borderRadius || 16) - 2 || 10,
+                    borderRadius: 'inherit',
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
