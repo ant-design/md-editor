@@ -861,6 +861,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               ? `${props.enlargeable?.height ?? 980}px`
               : `min(${collapsedHeightPx}px,100%)`,
             borderRadius: borderRadius || 16,
+            minHeight: isEnlarged
+              ? 'auto'
+              : isMultiRowLayout
+                ? 106
+                : props.style?.minHeight || 0,
+            cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
+            opacity: props.disabled ? 0.5 : 1,
             maxHeight: isEnlarged ? 'none' : `min(${collapsedHeightPx}px,100%)`,
             transition:
               'height, max-height 0.3s,border-radius 0.3s,box-shadow 0.3s,transform 0.3s,opacity 0.3s,background 0.3s',
@@ -871,202 +878,158 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           onKeyDown={handleKeyDown}
         >
           <div
-            className={classNames(`${baseCls}-background`, hashId, {
-              [`${baseCls}-hover`]: isHover,
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              borderTopLeftRadius: 'inherit',
+              borderTopRightRadius: 'inherit',
+              maxHeight: isEnlarged
+                ? 'none'
+                : (() => {
+                    const mh = props.style?.maxHeight;
+                    const base =
+                      typeof mh === 'number'
+                        ? mh
+                        : mh
+                          ? parseFloat(String(mh)) || 400
+                          : 400;
+                    const extra = props.attachment?.enable ? 90 : 0;
+                    return `min(${base + extra}px)`;
+                  })(),
+              height: isEnlarged ? '100%' : 'auto',
+              flex: 1,
+            }}
+            className={classNames(`${baseCls}-editor`, hashId, {
+              [`${baseCls}-editor-hover`]: isHover,
+              [`${baseCls}-editor-disabled`]: props.disabled,
             })}
-            style={{
-              minHeight: isEnlarged
-                ? 'auto'
-                : isMultiRowLayout
-                  ? 106
-                  : props.style?.minHeight || 0,
-              height: '100%',
-              width: '100%',
-            }}
-          />
-
-          <div
-            className={classNames(`${baseCls}-border-wrapper`, hashId)}
-            style={{
-              height: isEnlarged ? '100%' : '100%',
-              maxHeight: isEnlarged ? '100%' : '100%',
-              borderRadius: (borderRadius || 16) - 2 || 10,
-              cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-              opacity: props.disabled ? 0.5 : 1,
-              minHeight: isEnlarged
-                ? 'auto'
-                : isMultiRowLayout
-                  ? 106
-                  : props.style?.minHeight || 0,
-            }}
           >
+            {/* 技能模式部分 */}
+            <SkillModeBar
+              skillMode={props.skillMode}
+              onSkillModeOpenChange={props.onSkillModeOpenChange}
+            />
+
+            <div className={classNames(`${baseCls}-editor-content`, hashId)}>
+              {attachmentList}
+
+              <BaseMarkdownEditor
+                editorRef={markdownEditorRef}
+                leafRender={props.leafRender}
+                style={{
+                  width: '100%',
+                  flex: 1,
+                  padding: 0,
+                  paddingRight: computedRightPadding,
+                }}
+                toolBar={{
+                  enable: false,
+                }}
+                floatBar={{
+                  enable: false,
+                }}
+                readonly={isLoading}
+                contentStyle={{
+                  padding: 'var(--padding-3x)',
+                }}
+                textAreaProps={{
+                  enable: true,
+                  placeholder: props.placeholder,
+                  triggerSendKey: props.triggerSendKey || 'Enter',
+                }}
+                tagInputProps={{
+                  enable: true,
+                  type: 'dropdown',
+                  ...tagInputProps,
+                }}
+                initValue={props.value}
+                onChange={(value) => {
+                  setValue(value);
+                  props.onChange?.(value);
+                }}
+                onFocus={(value, schema, e) => {
+                  onFocus?.(value, schema, e);
+                  activeInput(true);
+                }}
+                onBlur={(value, schema, e) => {
+                  onBlur?.(value, schema, e);
+                  activeInput(false);
+                }}
+                onPaste={(e) => {
+                  handlePaste(e);
+                }}
+                titlePlaceholderContent={props.placeholder}
+                toc={false}
+                pasteConfig={props.pasteConfig}
+                {...markdownProps}
+              />
+            </div>
+          </div>
+          {props.toolsRender ? (
             <div
-              className={classNames(`${baseCls}-content-wrapper`, hashId)}
               style={{
-                minHeight: isEnlarged
-                  ? 'auto'
-                  : isMultiRowLayout
-                    ? 106
-                    : props.style?.minHeight || 0,
+                backgroundColor: '#fff',
+                display: 'flex',
+                boxSizing: 'border-box',
+                borderRadius: 'inherit',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 8,
+                width: '100%',
+                paddingRight: 'var(--padding-3x)',
+                paddingLeft: 'var(--padding-3x)',
+                paddingBottom: 'var(--padding-3x)',
               }}
             >
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  borderTopLeftRadius: (borderRadius || 16) - 2 || 10,
-                  borderTopRightRadius: (borderRadius || 16) - 2 || 10,
-                  maxHeight: isEnlarged
-                    ? 'none'
-                    : (() => {
-                        const mh = props.style?.maxHeight;
-                        const base =
-                          typeof mh === 'number'
-                            ? mh
-                            : mh
-                              ? parseFloat(String(mh)) || 400
-                              : 400;
-                        const extra = props.attachment?.enable ? 90 : 0;
-                        return `min(${base + extra}px)`;
-                      })(),
-                  height: isEnlarged ? '100%' : 'auto',
-                  flex: 1,
-                }}
-                className={classNames(`${baseCls}-editor`, hashId, {
-                  [`${baseCls}-editor-hover`]: isHover,
-                  [`${baseCls}-editor-disabled`]: props.disabled,
-                })}
+                ref={actionsRef}
+                contentEditable={false}
+                className={classNames(`${baseCls}-send-tools`, hashId)}
               >
-                {/* 技能模式部分 */}
-                <SkillModeBar
-                  skillMode={props.skillMode}
-                  onSkillModeOpenChange={props.onSkillModeOpenChange}
-                />
-
-                <div
-                  className={classNames(`${baseCls}-editor-content`, hashId)}
-                >
-                  {attachmentList}
-
-                  <BaseMarkdownEditor
-                    editorRef={markdownEditorRef}
-                    leafRender={props.leafRender}
-                    style={{
-                      width: '100%',
-                      flex: 1,
-                      padding: 0,
-                      paddingRight: computedRightPadding,
-                    }}
-                    toolBar={{
-                      enable: false,
-                    }}
-                    floatBar={{
-                      enable: false,
-                    }}
-                    readonly={isLoading}
-                    contentStyle={{
-                      padding: 'var(--padding-3x)',
-                    }}
-                    textAreaProps={{
-                      enable: true,
-                      placeholder: props.placeholder,
-                      triggerSendKey: props.triggerSendKey || 'Enter',
-                    }}
-                    tagInputProps={{
-                      enable: true,
-                      type: 'dropdown',
-                      ...tagInputProps,
-                    }}
-                    initValue={props.value}
-                    onChange={(value) => {
-                      setValue(value);
-                      props.onChange?.(value);
-                    }}
-                    onFocus={(value, schema, e) => {
-                      onFocus?.(value, schema, e);
-                      activeInput(true);
-                    }}
-                    onBlur={(value, schema, e) => {
-                      onBlur?.(value, schema, e);
-                      activeInput(false);
-                    }}
-                    onPaste={(e) => {
-                      handlePaste(e);
-                    }}
-                    titlePlaceholderContent={props.placeholder}
-                    toc={false}
-                    pasteConfig={props.pasteConfig}
-                    {...markdownProps}
-                  />
-                </div>
+                {props.toolsRender({
+                  value,
+                  fileMap,
+                  onFileMapChange: setFileMap,
+                  ...props,
+                  isHover,
+                  isLoading,
+                  fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                })}
               </div>
-              {props.toolsRender ? (
-                <div
-                  style={{
-                    backgroundColor: '#fff',
-                    display: 'flex',
-                    boxSizing: 'border-box',
-                    borderRadius: 'inherit',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: 8,
-                    width: '100%',
-                    paddingRight: 'var(--padding-3x)',
-                    paddingLeft: 'var(--padding-3x)',
-                    paddingBottom: 'var(--padding-3x)',
-                  }}
-                >
-                  <div
-                    ref={actionsRef}
-                    contentEditable={false}
-                    className={classNames(`${baseCls}-send-tools`, hashId)}
-                  >
-                    {props.toolsRender({
-                      value,
-                      fileMap,
-                      onFileMapChange: setFileMap,
-                      ...props,
-                      isHover,
-                      isLoading,
-                      fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
-                    })}
-                  </div>
-                  {sendActionsNode}
-                </div>
-              ) : (
-                sendActionsNode
-              )}
-              {props?.quickActionRender || props.refinePrompt?.enable ? (
-                <QuickActions
-                  ref={quickActionsRef}
-                  value={value}
-                  fileMap={fileMap}
-                  onFileMapChange={setFileMap}
-                  isHover={isHover}
-                  isLoading={isLoading}
-                  disabled={props.disabled}
-                  fileUploadStatus={fileUploadDone ? 'done' : 'uploading'}
-                  refinePrompt={props.refinePrompt}
-                  editorRef={markdownEditorRef}
-                  onValueChange={(text) => {
-                    setValue(text);
-                    props.onChange?.(text);
-                  }}
-                  quickActionRender={props.quickActionRender as any}
-                  prefixCls={baseCls}
-                  hashId={hashId}
-                  enlargeable={!!props.enlargeable?.enable}
-                  isEnlarged={isEnlarged}
-                  onEnlargeClick={handleEnlargeClick}
-                  onResize={(width, rightOffset) => {
-                    setTopRightPadding(width);
-                    setQuickRightOffset(rightOffset);
-                  }}
-                />
-              ) : null}
+              {sendActionsNode}
             </div>
-          </div>
+          ) : (
+            sendActionsNode
+          )}
+          {props?.quickActionRender || props.refinePrompt?.enable ? (
+            <QuickActions
+              ref={quickActionsRef}
+              value={value}
+              fileMap={fileMap}
+              onFileMapChange={setFileMap}
+              isHover={isHover}
+              isLoading={isLoading}
+              disabled={props.disabled}
+              fileUploadStatus={fileUploadDone ? 'done' : 'uploading'}
+              refinePrompt={props.refinePrompt}
+              editorRef={markdownEditorRef}
+              onValueChange={(text) => {
+                setValue(text);
+                props.onChange?.(text);
+              }}
+              quickActionRender={props.quickActionRender as any}
+              prefixCls={baseCls}
+              hashId={hashId}
+              enlargeable={!!props.enlargeable?.enable}
+              isEnlarged={isEnlarged}
+              onEnlargeClick={handleEnlargeClick}
+              onResize={(width, rightOffset) => {
+                setTopRightPadding(width);
+                setQuickRightOffset(rightOffset);
+              }}
+            />
+          ) : null}
         </div>
       </Suggestion>
     </>,
