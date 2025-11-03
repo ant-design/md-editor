@@ -273,7 +273,7 @@ export default () => {
           bubbleRef={bubbleRef}
           originData={mockFileMessage}
           fileViewConfig={{
-            maxDisplayCount: 2,
+            // maxDisplayCount: 2,
             // className: 'custom-file-view',
             // customSlot: <>123</>,
             renderFileMoreAction: () => (file: any) => (

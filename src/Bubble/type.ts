@@ -589,8 +589,6 @@ export interface BubbleProps<T = Record<string, any>>
    * @description 与示例中的 fileViewConfig 对齐：控制样式与更多按钮、数量等
    */
   fileViewConfig?: {
-    /** 是否展示每个文件项的“更多”按钮 */
-    showMoreButton?: boolean;
     /** 自定义根容器 className */
     className?: string;
     /** 自定义根容器样式 */

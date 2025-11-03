@@ -191,17 +191,20 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           return (
             <FileMapViewItem
               style={{ width: props.style?.width }}
-              onPreview={() => {
-                if (props.onPreview) {
-                  props.onPreview?.(file);
-                  return;
-                }
-                if (typeof window === 'undefined') return;
-                window.open(file.previewUrl || file.url, '_blank');
-              }}
-              onDownload={() => {
-                props.onDownload?.(file);
-              }}
+              onPreview={
+                props.onPreview
+                  ? () => {
+                      props.onPreview?.(file);
+                    }
+                  : undefined
+              }
+              onDownload={
+                props.onDownload
+                  ? () => {
+                      props.onDownload?.(file);
+                    }
+                  : undefined
+              }
               renderMoreAction={props.renderMoreAction}
               customSlot={props.customSlot}
               key={file?.uuid || file?.name || index}
