@@ -10,9 +10,9 @@ export * from './Components/ActionIconBox';
 export * from './Components/Button';
 export * from './Components/LayoutHeader';
 export * from './Components/Loading';
+export * from './Components/lotties';
 export * from './Components/SuggestionList';
 export * from './Components/VisualList';
-export * from './Components/lotties';
 export * from './Hooks/useAutoScroll';
 export { useLanguage } from './Hooks/useLanguage';
 export * from './Hooks/useRefFunction';
@@ -123,6 +123,11 @@ export * from './Schema/validator';
 
 // 沙箱健康检查器
 export * from './Utils/proxySandbox';
+
+// 文字动画组件导出
+export * from './Components/GradientText';
+export * from './Components/TextAnimate';
+export * from './Components/TypingAnimation';
 
 export * from './MarkdownInputField/AttachmentButton/AttachmentFileList/AttachmentFileListItem';
 
