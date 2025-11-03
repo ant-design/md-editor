@@ -107,7 +107,12 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
 
   return wrapSSR(
     props.title ? (
-      <Tooltip title={props.title} mouseEnterDelay={2} {...props.tooltipProps}>
+      <Tooltip
+        title={props.title}
+        arrow={false}
+        mouseEnterDelay={2}
+        {...props.tooltipProps}
+      >
         <span
           data-testid={props['data-testid'] || 'action-icon-box'}
           role="button"
