@@ -1,5 +1,4 @@
 import { ConfigProvider } from 'antd';
-import classNames from 'classnames';
 import {
   ArcElement,
   Chart as ChartJS,
@@ -7,6 +6,7 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
+import classNames from 'classnames';
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import {
@@ -17,7 +17,6 @@ import {
   downloadChart,
 } from '../components';
 import { defaultColorList } from '../const';
-import { StatisticConfigType } from '../hooks/useChartStatistic';
 import {
   SINGLE_MODE_DESKTOP_CUTOUT,
   SINGLE_MODE_MOBILE_CUTOUT,
@@ -324,7 +323,12 @@ const DonutChart: React.FC<DonutChartProps> = ({
             />
           )}
           {statistics && (
-            <div className={classNames(`${baseClassName}-statistic-container`, hashId)}>
+            <div
+              className={classNames(
+                `${baseClassName}-statistic-container`,
+                hashId,
+              )}
+            >
               {statistics.map((config, index) => (
                 <ChartStatistic
                   key={index}

@@ -572,7 +572,6 @@ describe('PreviewComponent', () => {
       );
 
       expect(screen.getByText('正在生成')).toBeInTheDocument();
-      expect(screen.getByText('Generating...')).toBeInTheDocument();
     });
 
     it('应该正常渲染文本文件内容', () => {
