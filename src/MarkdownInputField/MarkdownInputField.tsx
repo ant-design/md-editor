@@ -907,7 +907,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           />
 
           <div
-            className={`${baseCls}-border-wrapper`}
+            className={classNames(`${baseCls}-border-wrapper`, hashId)}
             style={{
               height: isEnlarged ? '100%' : 'auto',
               maxHeight: isEnlarged ? '100%' : 'auto',
@@ -921,7 +921,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   : undefined,
             }}
           >
-            <div className={`${baseCls}-content-wrapper`}>
+            <div className={classNames(`${baseCls}-content-wrapper`, hashId)}>
               <div
                 style={{
                   display: 'flex',
