@@ -2,7 +2,7 @@ import { FileSearch } from '@sofa-design/icons';
 import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { AttachmentFile } from '../AttachmentButton/types';
 import { isImageFile } from '../AttachmentButton/utils';
 import { FileMapViewItem } from './FileMapViewItem';
@@ -15,8 +15,8 @@ export type FileMapViewProps = {
   onPreview?: (file: AttachmentFile) => void;
   /** 下载文件回调 */
   onDownload?: (file: AttachmentFile) => void;
-  /** 点击"查看所有文件"回调，携带当前所有文件列表 */
-  onViewAll?: (files: AttachmentFile[]) => void;
+  /** 点击"查看所有文件"回调，携带当前所有文件列表。返回 true 时组件内部展开所有文件，返回 false 时由外部处理 */
+  onViewAll?: (files: AttachmentFile[]) => boolean | Promise<boolean>;
   /** 自定义更多操作 DOM（优先于 onMore，传入则展示该 DOM，不传则不展示更多按钮） */
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
   /** 自定义悬浮动作区 slot（传入则覆盖默认『预览/下载/更多』动作区） */
@@ -70,10 +70,11 @@ export type FileMapViewProps = {
  * - 支持自定义样式和交互
  */
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
-  const { placement = 'left', showMoreButton = true } = props;
+  const { placement = 'left' } = props;
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context?.getPrefixCls('agentic-md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
+  const [showAllFiles, setShowAllFiles] = useState(false);
 
   const fileList = useMemo(() => {
     if (!props.fileMap) {
@@ -94,11 +95,24 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
 
   // 根据 maxDisplayCount 限制显示的非图片文件列表
   const noImageFileList = useMemo(() => {
-    if (props.maxDisplayCount === undefined) {
+    // 如果已展开所有文件，或者未设置最大显示数量，则显示所有文件
+    if (showAllFiles || props.maxDisplayCount === undefined) {
       return allNoImageFiles;
     }
     return allNoImageFiles.slice(0, Math.max(0, props.maxDisplayCount));
-  }, [allNoImageFiles, props.maxDisplayCount]);
+  }, [allNoImageFiles, props.maxDisplayCount, showAllFiles]);
+
+  const handleViewAllClick = async () => {
+    if (props.onViewAll) {
+      const shouldExpand = await props.onViewAll(fileList);
+      if (shouldExpand) {
+        setShowAllFiles(true);
+      }
+    } else {
+      // 如果没有提供 onViewAll 回调，默认展开所有文件
+      setShowAllFiles(true);
+    }
+  };
 
   return wrapSSR(
     <div
@@ -181,9 +195,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           hashId,
           props.className,
           `${prefix}-${placement}`,
-          {
-            [`${prefix}-vertical`]: placement === 'left',
-          },
+          `${prefix}-vertical`,
         )}
         style={props.style}
       >
@@ -216,11 +228,12 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           );
         })}
         {props.maxDisplayCount !== undefined &&
-        allNoImageFiles.length > props.maxDisplayCount ? (
+        allNoImageFiles.length > props.maxDisplayCount &&
+        !showAllFiles ? (
           <div
             style={{ width: props.style?.width }}
             className={classNames(hashId, `${prefix}-more-file-container`)}
-            onClick={() => props.onViewAll?.(fileList)}
+            onClick={handleViewAllClick}
           >
             <FileSearch color="var(--color-gray-text-secondary)" />
             <div className={classNames(hashId, `${prefix}-more-file-name`)}>
