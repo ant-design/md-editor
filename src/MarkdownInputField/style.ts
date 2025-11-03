@@ -211,6 +211,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-editor-content': {
         overflowY: 'auto',
         maxHeight: 'inherit',
+        borderRadius: 'inherit',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
       },
@@ -230,10 +231,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-send-actions': {
         position: 'absolute',
         userSelect: 'none',
-        right: 4,
+        right: 12,
         boxSizing: 'border-box',
         zIndex: 99,
-        bottom: 8,
+        bottom: 12,
         display: 'flex',
         gap: '8px',
         alignItems: 'center',
