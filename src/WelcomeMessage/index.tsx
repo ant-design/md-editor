@@ -1,9 +1,37 @@
 import { ConfigProvider } from 'antd';
 import classnames from 'classnames';
 import React, { useContext } from 'react';
-import { TextAnimate } from '../Components/TextAnimate';
-import { TypingAnimation } from '../Components/TypingAnimation';
+import { TextAnimate, TextAnimateProps } from '../Components/TextAnimate';
+import {
+  TypingAnimation,
+  TypingAnimationProps,
+} from '../Components/TypingAnimation';
 import { useStyle } from './style';
+
+export type WelcomeMessageTitleAnimateProps = Pick<
+  TextAnimateProps,
+  | 'delay'
+  | 'duration'
+  | 'variants'
+  | 'by'
+  | 'startOnView'
+  | 'once'
+  | 'animation'
+>;
+
+export type WelcomeMessageDescriptionAnimateProps = Pick<
+  TypingAnimationProps,
+  | 'duration'
+  | 'typeSpeed'
+  | 'deleteSpeed'
+  | 'delay'
+  | 'pauseDelay'
+  | 'loop'
+  | 'startOnView'
+  | 'showCursor'
+  | 'blinkCursor'
+  | 'cursorStyle'
+>;
 
 /**
  * WelcomeMessage 组件的属性接口
@@ -19,6 +47,10 @@ export interface WelcomeMessageProps {
     title?: string;
     description?: string;
   };
+  /** 标题动画属性 */
+  titleAnimateProps?: WelcomeMessageTitleAnimateProps;
+  /** 描述动画属性 */
+  descriptionAnimateProps?: WelcomeMessageDescriptionAnimateProps;
   /** 自定义样式 */
   style?: React.CSSProperties;
   /** 自定义根节点样式类名 */
@@ -67,6 +99,8 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
   title,
   description,
   classNames,
+  titleAnimateProps,
+  descriptionAnimateProps,
   style,
   rootClassName,
 }) => {
@@ -79,6 +113,7 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
       {/* Title */}
       {title && (
         <TextAnimate
+          {...titleAnimateProps}
           as="div"
           className={classnames(`${prefixCls}-title`, classNames?.title)}
         >
@@ -89,6 +124,7 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
       {/* Description */}
       {description && (
         <TypingAnimation
+          {...descriptionAnimateProps}
           as="div"
           className={classnames(
             `${prefixCls}-description`,
