@@ -70,6 +70,39 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
   },
 });
 
+// 背景渐变旋转动画（用于 radial/linear 渐变整体旋转）
+// 使用 CSS 自定义属性驱动角度变化，避免元素本身的 transform 引起的位移
+// const rotateGradientAngle = new Keyframes('rotateGradientAngle', {
+//   '0%': {
+//     '--mif-angle': '42deg',
+//   },
+//   '100%': {
+//     '--mif-angle': 'calc(42deg + 1turn)',
+//   },
+// });
+
+// 背景淡出（只执行一次并保持最终状态）
+// const fadeOutOnce = new Keyframes('fadeOutOnce', {
+//   '0%': {
+//     opacity: 1,
+//   },
+//   '100%': {
+//     opacity: 0,
+//   },
+// });
+
+// 合并旋转与淡出为单一动画：一次性旋转一圈并淡出到 0
+// const rotateFadeOnce = new Keyframes('rotateFadeOnce', {
+//   '0%': {
+//     '--mif-angle': '42deg',
+//     opacity: 1,
+//   },
+//   '100%': {
+//     '--mif-angle': 'calc(42deg + 1turn)',
+//     opacity: 0,
+//   },
+// });
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
