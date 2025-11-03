@@ -416,7 +416,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
               trigger="click"
               placement="topRight"
               arrow={false}
-              overlayInnerStyle={POPOVER_OVERLAY_STYLE}
+              styles={{ body: POPOVER_OVERLAY_STYLE }}
               overlayClassName={classNames(
                 `${basePrefixCls}-overflow-popover`,
                 hashId,

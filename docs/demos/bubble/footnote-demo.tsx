@@ -239,11 +239,13 @@ export default () => {
       const titleText = (node?.origin_text as string) || hostText;
       return (
         <Popover
-          overlayInnerStyle={{
-            padding: 0,
-            borderRadius: 'var(--radius-card-base)',
-            boxShadow: 'var(--shadow-control-lg)',
-            overflow: 'hidden',
+          styles={{
+            body: {
+              padding: 0,
+              borderRadius: 'var(--radius-card-base)',
+              boxShadow: 'var(--shadow-control-lg)',
+              overflow: 'hidden',
+            },
           }}
           arrow={false}
           content={

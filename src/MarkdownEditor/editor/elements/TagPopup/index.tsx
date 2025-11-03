@@ -264,7 +264,7 @@ const createDefaultDom = (
       onMouseEnter={() => handleMouseEnter(domRef)}
       onMouseLeave={() => handleMouseLeave(domRef)}
       title={placeholder}
-      contentEditable={!hasItems}
+      contentEditable={!hasItems ? undefined : false}
     >
       {children}
       {hasItems && (
