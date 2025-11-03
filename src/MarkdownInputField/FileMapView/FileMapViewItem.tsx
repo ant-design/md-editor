@@ -196,22 +196,25 @@ export const FileMapViewItem: React.FC<{
               </ActionIconBox>
             ) : (
               <>
-                {props.onPreview && (
-                  <ActionIconBox
-                    title={locale?.preview || '预览'}
-                    onClick={(e) => {
-                      e.stopPropagation();
+                <ActionIconBox
+                  title={locale?.preview || '预览'}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (props.onPreview) {
                       props.onPreview?.();
-                    }}
-                    className={classNames(
-                      `${props.prefixCls}-action-btn`,
-                      props.hashId,
-                    )}
-                  >
-                    <Eye color="var(--color-gray-text-secondary)" />
-                  </ActionIconBox>
-                )}
-
+                    } else {
+                      // 默认行为：在新窗口打开文件
+                      if (typeof window === 'undefined') return;
+                      window.open(file.previewUrl || file.url, '_blank');
+                    }
+                  }}
+                  className={classNames(
+                    `${props.prefixCls}-action-btn`,
+                    props.hashId,
+                  )}
+                >
+                  <Eye color="var(--color-gray-text-secondary)" />
+                </ActionIconBox>
                 {props.onDownload && (
                   <ActionIconBox
                     title={locale?.download || '下载'}
