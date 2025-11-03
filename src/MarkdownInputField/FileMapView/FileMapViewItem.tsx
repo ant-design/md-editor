@@ -63,7 +63,14 @@ export const FileMapViewItem: React.FC<{
 
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
-
+  const fileName = file?.name ?? '';
+  const lastDotIndex = fileName.lastIndexOf('.');
+  const displayName =
+    lastDotIndex > 0 ? fileName.slice(0, lastDotIndex) : fileName;
+  const displayExtension =
+    lastDotIndex > 0 && lastDotIndex < fileName.length - 1
+      ? fileName.slice(lastDotIndex + 1)
+      : '';
   return (
     <Tooltip
       title={<div>{locale?.clickToPreview}</div>}
@@ -116,7 +123,7 @@ export const FileMapViewItem: React.FC<{
               )}
               title={file?.name}
             >
-              {file?.name.split('.').slice(0, -1).join('.')}
+              {displayName}
             </span>
           </div>
           <div
@@ -131,7 +138,7 @@ export const FileMapViewItem: React.FC<{
                 props.hashId,
               )}
             >
-              {file?.name.split('.').slice(-1)}
+              {displayExtension}
             </span>
             <span
               className={classNames(
