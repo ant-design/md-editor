@@ -9,6 +9,8 @@ import { FileMapViewItem } from './FileMapViewItem';
 import { useStyle } from './style';
 
 export type FileMapViewProps = {
+  /** 是否显示"查看更多"按钮 */
+  showMoreButton?: boolean;
   /** 文件映射表 */
   fileMap?: Map<string, AttachmentFile>;
   /** 预览文件回调 */

@@ -438,13 +438,6 @@ export default () => {
           >
             深度思考
           </ToggleButton>,
-          <ToggleButton
-            key="link"
-            icon={<AimOutlined />}
-            onClick={() => console.log('联网搜索 clicked')}
-          >
-            联网搜索
-          </ToggleButton>,
         ]}
         onChange={(newValue) => {
           setValue(newValue);

@@ -184,7 +184,7 @@ describe('RefinePromptButton', () => {
       );
 
       const button = screen.getByTestId('refine-prompt-button');
-      expect(button).toHaveAttribute('title', '优化提示词');
+      expect(button).toHaveAttribute('data-title', '优化提示词');
     });
   });
 

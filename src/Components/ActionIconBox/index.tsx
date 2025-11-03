@@ -136,13 +136,18 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
 
   return wrapSSR(
     props.title ? (
-      <Tooltip title={props.title} mouseEnterDelay={1} {...props.tooltipProps}>
+      <Tooltip
+        title={props.title}
+        arrow={false}
+        mouseEnterDelay={2}
+        {...props.tooltipProps}
+      >
         <span
+          data-title={props.title?.toString()}
           data-testid={props['data-testid'] || 'action-icon-box'}
           role="button"
           tabIndex={0}
           aria-label={props.title?.toString()}
-          title={props.title?.toString()}
           className={cx(prefixCls, hashId, props.className, {
             [`${prefixCls}-danger`]: props.type === 'danger',
             [`${prefixCls}-primary`]: props.type === 'primary',

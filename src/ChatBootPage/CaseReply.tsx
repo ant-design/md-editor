@@ -1,3 +1,4 @@
+import { ArrowRight } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useState } from 'react';
@@ -25,11 +26,19 @@ export interface CaseReplyProps {
    */
   description?: React.ReactNode;
   /**
-   * buttonBar 内容（悬停时显示的按钮区域）
+   * 按钮文本（悬停时显示的按钮文字）
+   */
+  buttonText?: string;
+  /**
+   * 自定义按钮栏内容（优先于 buttonText）
    */
   buttonBar?: React.ReactNode;
   /**
-   * 点击事件
+   * 按钮点击事件
+   */
+  onButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * 点击卡片事件
    */
   onClick?: () => void;
   /**
@@ -52,14 +61,19 @@ const CaseReply: React.FC<CaseReplyProps> = ({
   quote,
   title,
   description,
+  buttonText = '查看回放',
   buttonBar,
+  onButtonClick,
   onClick,
   style,
   className,
   prefixCls: customPrefixCls,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('agentic-chatboot-case-reply', customPrefixCls);
+  const prefixCls = getPrefixCls(
+    'agentic-chatboot-case-reply',
+    customPrefixCls,
+  );
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -81,6 +95,7 @@ const CaseReply: React.FC<CaseReplyProps> = ({
     hashId,
     isHovered && `${prefixCls}-button-bar-visible`,
   );
+  const arrowIconCls = classNames(`${prefixCls}-arrow-icon`, hashId);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -149,7 +164,24 @@ const CaseReply: React.FC<CaseReplyProps> = ({
         {title && <h3 className={titleCls}>{title}</h3>}
         {description && <p className={descriptionCls}>{description}</p>}
         {/* buttonBar */}
-        {buttonBar && <div className={buttonBarCls}>{buttonBar}</div>}
+        {(buttonBar || buttonText) && (
+          <div className={buttonBarCls}>
+            {buttonBar || (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onButtonClick?.(e);
+                }}
+              >
+                {buttonText}
+                <span className={arrowIconCls}>
+                  <ArrowRight />
+                </span>
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>,
   );
