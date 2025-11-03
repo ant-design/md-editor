@@ -28,12 +28,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       // cover 区域
       '&-cover': {
-        WebkitMaskImage:
-          '-webkit-linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
-        maskImage:
-          'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
+        WebkitMaskImage: '-webkit-linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
+        maskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
         width: '100%',
-        height: '185px',
+        height: 166,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -42,9 +40,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       // coverContent 白色子卡片
       '&-cover-content': {
         width: '80%',
-        marginTop: '24px',
-        marginBottom: '24px',
-        borderRadius: '16px',
+        marginTop: '32px',
+        height: 124,
+        borderRadius: 'var(--radius-modal-base)',
         boxShadow:
           '0px 0px 1px 0px rgba(71, 98, 234, 0.05), 0px 6px 16px 0px rgba(71, 98, 234, 0.12)',
         background: '#ffffff',
@@ -63,17 +61,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '24px',
         height: '24px',
         marginBottom: '8px',
-
+        
         '& svg': {
           width: '24px',
           height: '24px',
-          transform: 'rotate(180deg)',
         },
       },
 
       // 引用文字
       '&-quote-text': {
-        fontSize: '14px',
+        fontSize: '15px',
         fontWeight: 400,
         lineHeight: '20px',
         color: 'var(--color-gray-text-light)',
@@ -121,8 +118,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         left: '16px',
         right: '16px',
         marginBottom: 0,
-        background:
-          'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 40%)',
+        background: 'linear-gradient(to right, #ffffff00 0%, #ffffff 40%)',
         borderRadius: '4px',
         padding: '8px',
         width: 'auto',
@@ -130,6 +126,55 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         transform: 'translateY(10px)',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         pointerEvents: 'none',
+
+        // buttonBar 内的按钮样式
+        '& button': {
+          backgroundColor: '#000000',
+          color: '#ffffff',
+          borderRadius: '36px',
+          padding: '8px 16px',
+          cursor: 'pointer',
+          border: 'none',
+          fontSize: '14px',
+          transition: 'all 0.2s ease-in-out',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+
+          '&:hover': {
+            backgroundColor: '#333333',
+            transform: 'translateY(-2px)',
+          },
+
+          '&:active': {
+            transform: 'translateY(0)',
+          },
+        },
+      },
+
+      // 箭头图标
+      '&-arrow-icon': {
+        width: '18px',
+        height: '18px',
+        borderRadius: '200px',
+        background: '#FFFFFF',
+        color: 'var(--color-primary-text-secondary)',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+        transform: 'translateX(0)',
+
+        '& svg': {
+          width: '12px',
+          height: '12px',
+        },
+      },
+
+      // 按钮悬停时箭头动画
+      '&-button-bar button:hover &-arrow-icon': {
+        transform: 'translateX(4px)',
       },
 
       // buttonBar 显示状态
