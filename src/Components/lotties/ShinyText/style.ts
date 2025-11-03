@@ -20,7 +20,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       display: 'inline-block',
       animationName: shine,
-      animationDuration: '3s',
+      animationDuration: '1.2s',
       animationTimingFunction: 'linear',
       animationIterationCount: 'infinite',
 
