@@ -338,10 +338,11 @@ const TextAnimateBase = ({
   const prefixCls = getPrefixCls('text-animate');
   const { wrapSSR, hashId } = useTextAnimateStyle(prefixCls);
 
-  const MotionComponent = motion.create(Component);
+  const MotionComponent = motion(Component);
 
   const segments = resolveSegments(children, by);
 
+  const staggerChildren = segments.length > 0 ? duration / segments.length : 0;
   const finalVariants = variants
     ? {
         container: {
@@ -351,13 +352,13 @@ const TextAnimateBase = ({
             transition: {
               opacity: { duration: 0.01, delay },
               delayChildren: delay,
-              staggerChildren: duration / segments.length,
+              staggerChildren,
             },
           },
           exit: {
             opacity: 0,
             transition: {
-              staggerChildren: duration / segments.length,
+              staggerChildren,
               staggerDirection: -1,
             },
           },
@@ -372,13 +373,13 @@ const TextAnimateBase = ({
               ...defaultItemAnimationVariants[animation].container.show,
               transition: {
                 delayChildren: delay,
-                staggerChildren: duration / segments.length,
+                staggerChildren,
               },
             },
             exit: {
               ...defaultItemAnimationVariants[animation].container.exit,
               transition: {
-                staggerChildren: duration / segments.length,
+                staggerChildren,
                 staggerDirection: -1,
               },
             },
@@ -397,7 +398,7 @@ const TextAnimateBase = ({
         exit="exit"
         className={classNames(prefixCls, hashId, className)}
         viewport={{ once }}
-        aria-label={accessible ? children : undefined}
+        aria-label={accessible && isString(children) ? children : undefined}
         {...props}
       >
         {segments.map((segment, i) => (

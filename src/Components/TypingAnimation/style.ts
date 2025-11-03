@@ -17,9 +17,6 @@ const animation = new Keyframes('animation', {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      lineHeight: '5rem',
-      tracking: '-0.02em',
-
       ['&-cursor']: {
         display: 'inline-block',
       },

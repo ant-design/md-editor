@@ -8,7 +8,6 @@ export interface GradientTextProps {
   className?: string;
   colors?: string[];
   animationSpeed?: number;
-  showBorder?: boolean;
 }
 
 export function GradientText({
@@ -16,7 +15,6 @@ export function GradientText({
   className = '',
   colors = ['#40ffaa', '#4079ff', '#40ffaa', '#4079ff', '#40ffaa'],
   animationSpeed = 8,
-  showBorder = false,
 }: GradientTextProps) {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('gradient-text');
@@ -29,12 +27,6 @@ export function GradientText({
 
   return wrapSSR(
     <div className={classNames(prefixCls, hashId, className)}>
-      {showBorder && (
-        <div
-          className={classNames(`${prefixCls}-gradient-overlay`, hashId)}
-          style={gradientStyle}
-        ></div>
-      )}
       <div
         className={classNames(`${prefixCls}-text-content`, hashId)}
         style={gradientStyle}

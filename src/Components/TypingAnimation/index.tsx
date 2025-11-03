@@ -38,7 +38,7 @@ export function TypingAnimation({
   cursorStyle = 'line',
   ...props
 }: TypingAnimationProps) {
-  const MotionComponent = motion.create(Component, {
+  const MotionComponent = motion(Component, {
     forwardMotionProps: true,
   });
 
@@ -51,7 +51,7 @@ export function TypingAnimation({
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [phase, setPhase] = useState<'typing' | 'pause' | 'deleting'>('typing');
   const elementRef = useRef<HTMLElement | null>(null);
-  const isInView = useInView(elementRef as React.RefObject<Element>, {
+  const isInView = useInView(elementRef, {
     amount: 0.3,
     once: true,
   });

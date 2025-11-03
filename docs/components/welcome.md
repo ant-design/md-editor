@@ -37,7 +37,7 @@ import { WelcomeMessage } from '@ant-design/agentic-ui';
 
 export default () => {
   return (
-    <WelcomeMessageMessage
+    <WelcomeMessage
       title="欢迎使用 LUI Chat"
       description="开始你的智能对话之旅"
     />
