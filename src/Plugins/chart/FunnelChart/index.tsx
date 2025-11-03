@@ -116,7 +116,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     typeof window !== 'undefined' ? window.innerWidth : 768,
   );
   const isMobile = windowWidth <= 768;
-  const responsiveWidth = isMobile ? '100%' : width;
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -687,16 +686,28 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     };
   }, [isMobile, axisTextColor, originalValues]);
 
+  const containerClassName = useMemo(() => {
+    if (isMobile) return 'w-full';
+    if (typeof width === 'number') return '';
+    if (typeof width === 'string' && width === '100%') return 'w-full';
+    return '';
+  }, [isMobile, width]);
+
+  const containerStyle = useMemo(() => {
+    if (isMobile) return undefined;
+    if (typeof width === 'number') return { width };
+    if (typeof width === 'string' && width !== '100%') return { width };
+    return undefined;
+  }, [isMobile, width]);
+
   return (
     <ChartContainer
       baseClassName={baseClassName}
-      className={className}
+      className={`${className || ''} ${containerClassName}`.trim()}
       theme={theme}
       isMobile={isMobile}
       variant={props.variant}
-      style={{
-        width: responsiveWidth,
-      }}
+      style={containerStyle}
     >
       <ChartToolBar
         title={title}
@@ -738,14 +749,17 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
 
       {/* 统计数据组件 */}
       {statisticComponentConfigs && (
-        <div style={{ marginBottom: 16 }}>
+        <div className="mb-4">
           {statisticComponentConfigs.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>
       )}
 
-      <div className="chart-wrapper" style={{ height: finalHeight }}>
+      <div 
+        className="chart-wrapper" 
+        style={typeof finalHeight === 'number' ? { height: `${finalHeight}px` } : { height: finalHeight }}
+      >
         <Bar
           key={`funnel-${pluginToggleKey}`}
           ref={chartRef}
