@@ -22,10 +22,7 @@ import {
   downloadChart,
 } from '../components';
 import { defaultColorList } from '../const';
-import {
-  StatisticConfigType,
-  useChartStatistic,
-} from '../hooks/useChartStatistic';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -151,8 +148,11 @@ const LineChart: React.FC<LineChartProps> = ({
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
-  // ChartStatistic 组件配置
-  const statisticComponentConfigs = useChartStatistic(statisticConfig);
+  // 处理 ChartStatistic 组件配置
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -434,9 +434,9 @@ const LineChart: React.FC<LineChartProps> = ({
         }
       />
 
-      {statisticComponentConfigs && (
+      {statistics && (
         <div className={`${baseClassName}-statistic-container`}>
-          {statisticComponentConfigs.map((config, index) => (
+          {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>

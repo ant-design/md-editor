@@ -217,19 +217,21 @@ export const FileMapViewItem: React.FC<{
                     <Download color="var(--color-gray-text-secondary)" />
                   </ActionIconBox>
                   {props.renderMoreAction ? (
-                    <ActionIconBox
-                      title={'更多操作'}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      className={classNames(
-                        `${props.prefixCls}-action-btn`,
-                        props.hashId,
-                      )}
-                    >
-                      <EllipsisOutlined
-                        style={{ color: 'var(--color-gray-text-secondary)' }}
-                      />
+                    <>
+                      <ActionIconBox
+                        title={'更多操作'}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        className={classNames(
+                          `${props.prefixCls}-action-btn`,
+                          props.hashId,
+                        )}
+                      >
+                        <EllipsisOutlined
+                          style={{ color: 'var(--color-gray-text-secondary)' }}
+                        />
+                      </ActionIconBox>
                       {props.renderMoreAction ? (
                         <div
                           className={classNames(
@@ -240,7 +242,7 @@ export const FileMapViewItem: React.FC<{
                           {props.renderMoreAction(file)}
                         </div>
                       ) : null}
-                    </ActionIconBox>
+                    </>
                   ) : null}
                 </>
               )}

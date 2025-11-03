@@ -78,11 +78,6 @@ vi.mock('../../../src/Plugins/chart/ChartStatistic', () => ({
   ),
 }));
 
-// Mock useChartStatistic hook
-vi.mock('../../../src/Plugins/chart/hooks/useChartStatistic', () => ({
-  useChartStatistic: vi.fn(() => null),
-}));
-
 // Mock style hook
 vi.mock('../../../src/Plugins/chart/ScatterChart/style', () => ({
   useStyle: vi.fn(() => ({
@@ -305,12 +300,7 @@ describe('ScatterChart', () => {
 
     it('应该支持自定义颜色', () => {
       render(
-        <ScatterChart
-          data={sampleData}
-          borderColor="#ff0000"
-          backgroundColor="#0000ff"
-          title="自定义颜色"
-        />,
+        <ScatterChart data={sampleData} color="#ff0000" title="自定义颜色" />,
       );
 
       expect(screen.getByTestId('scatter-chart')).toBeInTheDocument();
@@ -351,8 +341,8 @@ describe('ScatterChart', () => {
       render(
         <ScatterChart
           data={sampleData}
-          xLabel="时间"
-          yLabel="销量"
+          xAxisLabel="时间"
+          yAxisLabel="销量"
           title="自定义坐标轴标签"
         />,
       );
@@ -478,17 +468,7 @@ describe('ScatterChart', () => {
   });
 
   describe('ChartStatistic 集成测试', () => {
-    it('应该支持 statistic 配置', async () => {
-      const { useChartStatistic } = await import(
-        '../../../src/Plugins/chart/hooks/useChartStatistic'
-      );
-      vi.mocked(useChartStatistic).mockReturnValue([
-        {
-          title: '总数据量',
-          value: 100,
-        },
-      ] as any);
-
+    it('应该支持 statistic 配置', () => {
       render(
         <ScatterChart
           data={sampleData}

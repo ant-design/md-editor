@@ -1,5 +1,4 @@
 import { ConfigProvider } from 'antd';
-import classNames from 'classnames';
 import {
   ArcElement,
   Chart as ChartJS,
@@ -7,6 +6,7 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
+import classNames from 'classnames';
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import {
@@ -17,7 +17,6 @@ import {
   downloadChart,
 } from '../components';
 import { defaultColorList } from '../const';
-import { useChartStatistic } from '../hooks/useChartStatistic';
 import {
   SINGLE_MODE_DESKTOP_CUTOUT,
   SINGLE_MODE_MOBILE_CUTOUT,
@@ -183,8 +182,11 @@ const DonutChart: React.FC<DonutChartProps> = ({
     }
   }
 
-  // 使用ChartStatistic hook处理配置
-  const statisticComponentConfigs = useChartStatistic(statisticConfig);
+  // 处理 ChartStatistic 组件配置
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   const handleDownload = () => {
     if (onDownload) {
@@ -320,9 +322,14 @@ const DonutChart: React.FC<DonutChartProps> = ({
               }
             />
           )}
-          {statisticComponentConfigs && (
-            <div className={classNames(`${baseClassName}-statistic-container`, hashId)}>
-              {statisticComponentConfigs.map((config, index) => (
+          {statistics && (
+            <div
+              className={classNames(
+                `${baseClassName}-statistic-container`,
+                hashId,
+              )}
+            >
+              {statistics.map((config, index) => (
                 <ChartStatistic
                   key={index}
                   {...config}

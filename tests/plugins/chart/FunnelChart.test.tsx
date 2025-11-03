@@ -5,7 +5,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import FunnelChart, {
   FunnelChartDataItem,
 } from '../../../src/Plugins/chart/FunnelChart';
-import { useChartStatistic } from '../../../src/Plugins/chart/hooks/useChartStatistic';
 
 // Mock Chart.js
 vi.mock('chart.js', () => ({
@@ -78,11 +77,6 @@ vi.mock('../../../src/Plugins/chart/ChartStatistic', () => ({
       {title}: {value}
     </div>
   ),
-}));
-
-// Mock useChartStatistic hook
-vi.mock('../../../src/Plugins/chart/hooks/useChartStatistic', () => ({
-  useChartStatistic: vi.fn(() => null),
 }));
 
 describe('FunnelChart', () => {
@@ -435,14 +429,7 @@ describe('FunnelChart', () => {
   });
 
   describe('ChartStatistic 集成测试', () => {
-    it('应该支持 statistic 配置', async () => {
-      vi.mocked(useChartStatistic).mockReturnValue([
-        {
-          title: '总访问量',
-          value: 1000,
-        },
-      ] as any);
-
+    it('应该支持 statistic 配置', () => {
       render(
         <FunnelChart
           data={sampleData}

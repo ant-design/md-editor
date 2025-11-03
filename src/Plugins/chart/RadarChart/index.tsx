@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
 import ChartStatistic from '../ChartStatistic';
 import {
@@ -22,10 +22,7 @@ import {
   downloadChart,
 } from '../components';
 import { defaultColorList } from '../const';
-import {
-  StatisticConfigType,
-  useChartStatistic,
-} from '../hooks/useChartStatistic';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 import { useStyle } from './style';
 
 // 注册 Chart.js 组件
@@ -82,7 +79,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   renderFilterInToolbar = false,
   dataTime,
   color,
-  statistic,
+  statistic: statisticConfig,
   textMaxWidth = 80,
   ...props
 }) => {
@@ -91,7 +88,10 @@ const RadarChart: React.FC<RadarChartProps> = ({
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 处理 ChartStatistic 组件配置
-  const statisticComponentConfigs = useChartStatistic(statistic);
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -666,9 +666,11 @@ const RadarChart: React.FC<RadarChartProps> = ({
         )}
 
         {/* 统计数据组件 */}
-        {statisticComponentConfigs && (
-          <div className={classNames(`${prefixCls}-statistic-container`, hashId)}>
-            {statisticComponentConfigs.map((config, index) => (
+        {statistics && (
+          <div
+            className={classNames(`${prefixCls}-statistic-container`, hashId)}
+          >
+            {statistics.map((config, index) => (
               <ChartStatistic
                 key={index}
                 {...config}
