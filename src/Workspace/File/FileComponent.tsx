@@ -737,6 +737,40 @@ export const FileComponent: FC<{
     }
   }, [resetKey]);
 
+  // 监听 nodes 变化，同步更新 previewFile
+  useEffect(() => {
+    if (!previewFile) return;
+
+    // 在所有节点中查找与当前预览文件匹配的文件
+    const findUpdatedFile = (
+      nodesList: (FileNode | GroupNode)[],
+    ): FileNode | null => {
+      for (const node of nodesList) {
+        if ('children' in node) {
+          // 分组节点，递归查找子节点
+          const found = findUpdatedFile(node.children);
+          if (found) return found;
+        } else {
+          // 文件节点，比较 ID 或文件引用
+          if (
+            (node.id && node.id === previewFile.id) ||
+            (node.name === previewFile.name && node.type === previewFile.type)
+          ) {
+            return node;
+          }
+        }
+      }
+      return null;
+    };
+
+    const updatedFile = findUpdatedFile(safeNodes);
+
+    // 如果找到了更新的文件，更新 previewFile
+    if (updatedFile) {
+      setPreviewFile(updatedFile);
+    }
+  }, [nodes]);
+
   // 处理分组折叠/展开
   const handleToggleGroup = (
     groupId: string,
