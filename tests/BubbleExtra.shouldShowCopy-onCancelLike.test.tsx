@@ -318,7 +318,7 @@ describe('BubbleExtra - shouldShowCopy and onCancelLike Tests', () => {
 
       const likeButton = screen.queryByTestId('like-button');
       expect(likeButton).toBeInTheDocument();
-      expect(likeButton).toHaveAttribute('title', '取消点赞');
+      expect(likeButton).toHaveAttribute('data-title', '取消点赞');
     });
 
     it('should show "already feedback" title when onCancelLike is not provided and already liked', () => {
@@ -345,7 +345,7 @@ describe('BubbleExtra - shouldShowCopy and onCancelLike Tests', () => {
 
       const likeButton = screen.queryByTestId('like-button');
       expect(likeButton).toBeInTheDocument();
-      expect(likeButton).toHaveAttribute('title', '已经反馈过了哦');
+      expect(likeButton).toHaveAttribute('data-title', '已经反馈过了哦');
     });
 
     it('should handle onCancelLike error gracefully', async () => {
@@ -489,7 +489,7 @@ describe('BubbleExtra - shouldShowCopy and onCancelLike Tests', () => {
       // 验证点赞按钮存在并可以取消点赞
       const likeButton = screen.queryByTestId('like-button');
       expect(likeButton).toBeInTheDocument();
-      expect(likeButton).toHaveAttribute('title', '取消点赞');
+      expect(likeButton).toHaveAttribute('data-title', '取消点赞');
 
       // 测试取消点赞功能
       if (likeButton) {
@@ -532,7 +532,7 @@ describe('BubbleExtra - shouldShowCopy and onCancelLike Tests', () => {
       // 验证点赞按钮存在
       const likeButton = screen.queryByTestId('like-button');
       expect(likeButton).toBeInTheDocument();
-      expect(likeButton).toHaveAttribute('title', '取消点赞');
+      expect(likeButton).toHaveAttribute('data-title', '取消点赞');
     });
   });
 });

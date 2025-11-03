@@ -105,7 +105,11 @@ describe('HistoryActionsBox', () => {
       </TestWrapper>,
     );
 
-    const favoriteButton = screen.getByTitle('收藏');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const favoriteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '收藏',
+    )!;
+    expect(favoriteButton).toBeInTheDocument();
     fireEvent.click(favoriteButton);
 
     await waitFor(() => {
@@ -114,7 +118,11 @@ describe('HistoryActionsBox', () => {
 
     // 点击后应该变成已收藏状态
     await waitFor(() => {
-      expect(screen.getByTitle('已收藏')).toBeInTheDocument();
+      const updatedButtons = screen.getAllByTestId('action-icon-box');
+      const favoritedButton = updatedButtons.find(
+        (btn) => btn.getAttribute('data-title') === '已收藏',
+      );
+      expect(favoritedButton).toBeInTheDocument();
     });
   });
 
@@ -134,7 +142,11 @@ describe('HistoryActionsBox', () => {
       </TestWrapper>,
     );
 
-    const favoriteButton = screen.getByTitle('已收藏');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const favoriteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '已收藏',
+    )!;
+    expect(favoriteButton).toBeInTheDocument();
     fireEvent.click(favoriteButton);
 
     await waitFor(() => {
@@ -156,7 +168,11 @@ describe('HistoryActionsBox', () => {
     const wrapper = screen.getByText('测试时间').parentElement!;
     fireEvent.mouseEnter(wrapper);
 
-    const deleteButton = screen.getByTitle('删除');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const deleteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '删除',
+    )!;
+    expect(deleteButton).toBeInTheDocument();
     fireEvent.click(deleteButton);
 
     // 应该显示确认对话框
@@ -178,7 +194,11 @@ describe('HistoryActionsBox', () => {
     const wrapper = screen.getByText('测试时间').parentElement!;
     fireEvent.mouseEnter(wrapper);
 
-    const deleteButton = screen.getByTitle('删除');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const deleteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '删除',
+    )!;
+    expect(deleteButton).toBeInTheDocument();
     fireEvent.click(deleteButton);
 
     // 点击确认按钮
@@ -205,7 +225,11 @@ describe('HistoryActionsBox', () => {
     const wrapper = screen.getByText('测试时间').parentElement!;
     fireEvent.mouseEnter(wrapper);
 
-    const deleteButton = screen.getByTitle('删除');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const deleteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '删除',
+    )!;
+    expect(deleteButton).toBeInTheDocument();
     fireEvent.click(deleteButton);
 
     // 点击取消按钮
@@ -230,7 +254,11 @@ describe('HistoryActionsBox', () => {
     const wrapper = container.firstChild as HTMLElement;
     fireEvent.mouseEnter(wrapper);
 
-    const deleteButton = screen.getByTitle('删除');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const deleteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '删除',
+    )!;
+    expect(deleteButton).toBeInTheDocument();
     fireEvent.click(deleteButton);
 
     // 鼠标离开，但因为弹窗打开，操作按钮应该保持可见
@@ -262,7 +290,11 @@ describe('HistoryActionsBox', () => {
       </TestWrapper>,
     );
 
-    const favoriteButton = screen.getByTitle('收藏');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const favoriteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '收藏',
+    )!;
+    expect(favoriteButton).toBeInTheDocument();
     fireEvent.click(favoriteButton);
 
     await waitFor(() => {
@@ -294,7 +326,11 @@ describe('HistoryActionsBox', () => {
     const wrapper = screen.getByText('测试时间').parentElement!;
     fireEvent.mouseEnter(wrapper);
 
-    const deleteButton = screen.getByTitle('删除');
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const deleteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '删除',
+    )!;
+    expect(deleteButton).toBeInTheDocument();
     fireEvent.click(deleteButton);
 
     const confirmButton = await screen.findByRole('button', {
