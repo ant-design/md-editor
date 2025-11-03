@@ -72,7 +72,8 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
 
   return wrapSSR(
     <Tooltip
-      mouseEnterDelay={0.3}
+      mouseEnterDelay={2}
+      arrow={false}
       title={
         recording
           ? locale?.['input.voiceInputting'] || '语音输入中，点击可停止。'
