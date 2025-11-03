@@ -27,9 +27,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-vertical': {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         alignItems: 'flex-start',
         gap: 4,
+        maxWidth: 'calc(285px * 3 + 4px * 2)', // 3列：每列285px，间距4px
       },
       '&::-webkit-scrollbar': {
         width: 6,
@@ -99,7 +101,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 'var(--radius-card-base)',
       },
       '&-more-file-container': {
-        width: '294px',
+        width: '285px',
         height: '56px',
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
@@ -120,11 +122,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-more-file-name': {
         font: 'var(--font-size-h6)',
-
         color: 'var(--color-gray-text-secondary)',
       },
       '&-item': {
-        width: '294px',
+        width: '285px',
         height: '56px',
         borderRadius: 'var(--radius-card-base)',
         opacity: 1,
@@ -215,7 +216,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-file-name': {
           color: 'var(--color-gray-text-default)',
           fontSize: 'var(--font-text-h6-base)',
-          width: '160px',
+          width: '150px',
           alignItems: 'center',
           lineHeight: '18px',
           fontFamily: token.fontFamily,
@@ -223,7 +224,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           overflow: 'hidden',
           '&-text': {
-            maxWidth: '160px',
+            maxWidth: '150px',
             whiteSpace: 'nowrap !important',
             wordWrap: 'normal',
             wordBreak: 'keep-all',

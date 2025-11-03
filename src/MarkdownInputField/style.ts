@@ -92,16 +92,16 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
 // });
 
 // 合并旋转与淡出为单一动画：一次性旋转一圈并淡出到 0
-const rotateFadeOnce = new Keyframes('rotateFadeOnce', {
-  '0%': {
-    '--mif-angle': '42deg',
-    opacity: 1,
-  },
-  '100%': {
-    '--mif-angle': 'calc(42deg + 1turn)',
-    opacity: 0,
-  },
-});
+// const rotateFadeOnce = new Keyframes('rotateFadeOnce', {
+//   '0%': {
+//     '--mif-angle': '42deg',
+//     opacity: 1,
+//   },
+//   '100%': {
+//     '--mif-angle': 'calc(42deg + 1turn)',
+//     opacity: 0,
+//   },
+// });
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
