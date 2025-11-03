@@ -22,10 +22,8 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
-import {
-  StatisticConfigType,
-  useChartStatistic,
-} from '../hooks/useChartStatistic';
+import { defaultColorList } from '../const';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -142,10 +140,10 @@ export interface AreaChartConfigItem {
  * ```
  */
 export interface AreaChartProps extends ChartContainerProps {
-  /** 图表标题 */
-  title?: string;
   /** 扁平化数据数组 */
   data: AreaChartDataItem[];
+  /** 图表标题 */
+  title?: string;
   /** 图表宽度，默认600px */
   width?: number | string;
   /** 图表高度，默认400px */
@@ -181,28 +179,6 @@ export interface AreaChartProps extends ChartContainerProps {
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
 }
-
-/**
- * 默认颜色列表
- *
- * 用于面积图数据系列的颜色配置，提供10种预定义的颜色。
- *
- * @constant
- * @type {string[]}
- * @since 1.0.0
- */
-const defaultColors = [
-  '#1677ff', // 蓝色
-  '#8954FC', // 紫色
-  '#15e7e4', // 青色
-  '#F45BB5', // 粉色
-  '#00A6FF', // 天蓝色
-  '#33E59B', // 绿色
-  '#D666E4', // 紫红色
-  '#6151FF', // 靛蓝色
-  '#BF3C93', // 深粉色
-  '#005EE0', // 深蓝色
-];
 
 /**
  * 将十六进制颜色转换为带透明度的 RGBA 字符串
@@ -316,8 +292,11 @@ const AreaChart: React.FC<AreaChartProps> = ({
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
-  // ChartStatistic 组件配置
-  const statisticComponentConfigs = useChartStatistic(statisticConfig);
+  // 处理 ChartStatistic 组件配置
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -407,8 +386,8 @@ const AreaChart: React.FC<AreaChartProps> = ({
       const provided = color;
       const baseColor = Array.isArray(provided)
         ? provided[index % provided.length] ||
-          defaultColors[index % defaultColors.length]
-        : provided || defaultColors[index % defaultColors.length];
+          defaultColorList[index % defaultColorList.length]
+        : provided || defaultColorList[index % defaultColorList.length];
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
@@ -611,9 +590,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
         }
       />
 
-      {statisticComponentConfigs && (
-        <div className="chart-statistic-container">
-          {statisticComponentConfigs.map((config, index) => (
+      {statistics && (
+        <div className={`${baseClassName}-statistic-container`}>
+          {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>
@@ -634,7 +613,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
       )}
 
       <div
-        className="chart-wrapper"
+        className={`${baseClassName}-wrapper`}
         style={{ marginTop: '20px', height: responsiveHeight }}
       >
         <Line ref={chartRef} data={processedData} options={options} />

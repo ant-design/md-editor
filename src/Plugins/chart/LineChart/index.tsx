@@ -21,10 +21,8 @@ import {
   ChartToolBar,
   downloadChart,
 } from '../components';
-import {
-  StatisticConfigType,
-  useChartStatistic,
-} from '../hooks/useChartStatistic';
+import { defaultColorList } from '../const';
+import { StatisticConfigType } from '../hooks/useChartStatistic';
 import {
   ChartDataItem,
   extractAndSortXValues,
@@ -61,10 +59,10 @@ export interface LineChartConfigItem {
 }
 
 export interface LineChartProps extends ChartContainerProps {
-  /** 图表标题 */
-  title?: string;
   /** 扁平化数据数组 */
   data: LineChartDataItem[];
+  /** 图表标题 */
+  title?: string;
   /** 图表宽度，默认600px */
   width?: number | string;
   /** 图表高度，默认400px */
@@ -100,19 +98,6 @@ export interface LineChartProps extends ChartContainerProps {
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
 }
-
-const defaultColors = [
-  '#1677ff',
-  '#8954FC',
-  '#15e7e4',
-  '#F45BB5',
-  '#00A6FF',
-  '#33E59B',
-  '#D666E4',
-  '#6151FF',
-  '#BF3C93',
-  '#005EE0',
-];
 
 const LineChart: React.FC<LineChartProps> = ({
   title,
@@ -163,8 +148,11 @@ const LineChart: React.FC<LineChartProps> = ({
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
-  // ChartStatistic 组件配置
-  const statisticComponentConfigs = useChartStatistic(statisticConfig);
+  // 处理 ChartStatistic 组件配置
+  const statistics = useMemo(() => {
+    if (!statisticConfig) return null;
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
+  }, [statisticConfig]);
 
   // 从数据中提取唯一的类别作为筛选选项
   const categories = useMemo(() => {
@@ -254,8 +242,8 @@ const LineChart: React.FC<LineChartProps> = ({
       const provided = color;
       const baseColor = Array.isArray(provided)
         ? provided[index % provided.length] ||
-          defaultColors[index % defaultColors.length]
-        : provided || defaultColors[index % defaultColors.length];
+          defaultColorList[index % defaultColorList.length]
+        : provided || defaultColorList[index % defaultColorList.length];
 
       // 为每个类型收集数据点
       const typeData = xValues.map((x) => {
@@ -446,9 +434,9 @@ const LineChart: React.FC<LineChartProps> = ({
         }
       />
 
-      {statisticComponentConfigs && (
-        <div className="chart-statistic-container">
-          {statisticComponentConfigs.map((config, index) => (
+      {statistics && (
+        <div className={`${baseClassName}-statistic-container`}>
+          {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
         </div>
@@ -468,7 +456,10 @@ const LineChart: React.FC<LineChartProps> = ({
         />
       )}
 
-      <div className="chart-wrapper" style={{ height: responsiveHeight }}>
+      <div
+        className={`${baseClassName}-wrapper`}
+        style={{ height: responsiveHeight }}
+      >
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
     </ChartContainer>

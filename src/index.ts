@@ -12,6 +12,7 @@ export * from './Components/LayoutHeader';
 export * from './Components/Loading';
 export * from './Components/SuggestionList';
 export * from './Components/VisualList';
+export * from './Components/lotties';
 export * from './Hooks/useAutoScroll';
 export { useLanguage } from './Hooks/useLanguage';
 export * from './Hooks/useRefFunction';

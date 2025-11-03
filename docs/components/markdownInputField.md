@@ -62,7 +62,7 @@ export default () => {
   const markdownRef = React.useRef<MarkdownEditorInstance>(null);
 
   return (
-    <>
+    <div>
       <MarkdownInputField
         value={value}
         inputRef={markdownRef}
@@ -202,7 +202,7 @@ export default () => {
           );
         }}
       />
-    </>
+    </div>
   );
 };
 ```
@@ -247,7 +247,7 @@ const App = () => {
   const [value, setValue] = React.useState('');
 
   return (
-    <>
+    <div>
       <MarkdownInputField
         value={value}
         toolsRender={() => [
@@ -295,7 +295,7 @@ const App = () => {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 export default App;
@@ -579,7 +579,7 @@ import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
-    <>
+    <div>
       <MarkdownInputField
         value={value}
         onChange={setValue}
@@ -602,7 +602,7 @@ export default () => {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 ```
@@ -618,7 +618,7 @@ export default () => {
   );
 
   return (
-    <>
+    <div>
       <div
         style={{
           padding: 20,
@@ -651,7 +651,7 @@ export default () => {
           <li>优化完成后按钮恢复为“优化提示词”；</li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 ```
@@ -686,7 +686,7 @@ export default () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   return (
-    <>
+    <div>
       <div
         style={{
           height: 500,
@@ -710,7 +710,7 @@ export default () => {
           }}
         />
       </div>
-    </>
+    </div>
   );
 };
 ```

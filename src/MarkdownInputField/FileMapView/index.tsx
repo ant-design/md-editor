@@ -70,7 +70,7 @@ export type FileMapViewProps = {
  * - 支持自定义样式和交互
  */
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
-  const { placement = 'left' } = props;
+  const { placement = 'left', showMoreButton = true } = props;
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context?.getPrefixCls('agentic-md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);

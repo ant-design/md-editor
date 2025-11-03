@@ -20,6 +20,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: '100% !important',
         maxHeight: '100% !important',
       },
+      '&-statistic-container': {
+        display: 'flex',
+        gap: '16px',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+      },
+      '&-wrapper': {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+      },
       '@media (max-width: 768px)': {
         '.chart-wrapper': {
           height: 'calc(100% - 100px)',

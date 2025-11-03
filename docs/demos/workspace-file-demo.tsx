@@ -20,6 +20,9 @@ const customMarkdownEditorProps = {
 
 const WorkspaceFileDemo: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [generatingContent, setGeneratingContent] = useState(
+    '# Generating ...\n\n',
+  );
   const [nodes] = useState<(FileNode | GroupNode)[]>([
     {
       name: 'Word',
@@ -288,9 +291,46 @@ graph TD
     },
   ]);
 
+  // 模拟内容不断随机组合的效果
   useEffect(() => {
-    console.log(nodes);
-  }, [nodes]);
+    const texts = [
+      '正在分析您的需求...\n',
+      '开始生成内容...\n\n',
+      '## 第一部分：简介\n',
+      '这是一个演示流式内容生成的示例。\n\n',
+      '## 第二部分：功能特性\n',
+      '1. 实时内容追加\n',
+      '2. 流畅的用户体验\n',
+      '3. 支持 Markdown 格式\n\n',
+      '## 第三部分：代码示例\n',
+      '```typescript\n',
+      'const demo = () => {\n',
+      '  console.log("Hello World");\n',
+      '};\n',
+      '```\n\n',
+      '## 第四部分：总结\n',
+      '内容生成完成！\n',
+    ];
+
+    const interval = setInterval(() => {
+      // 随机选择3-8个片段进行组合
+      const randomCount = Math.floor(Math.random() * 6) + 3;
+      const selectedTexts: string[] = [];
+
+      for (let i = 0; i < randomCount; i++) {
+        const randomIndex = Math.floor(Math.random() * texts.length);
+        selectedTexts.push(texts[randomIndex]);
+      }
+
+      const newContent =
+        '# Generating ...\n\n' +
+        selectedTexts.join('') +
+        '\n\n' +
+        Math.random().toString(36).substring(2, 8);
+      setGeneratingContent(newContent);
+    }, 16);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleDownload = (file: FileNode) => {
     console.log('下载单个文件:', file);
@@ -394,7 +434,7 @@ graph TD
                   name: 'md正在加载的文件.docx',
                   size: '1.8MB',
                   lastModified: '2025-08-01 09:15:00',
-                  content: '# Generating ...'.padEnd(10000, 'Generating ...'),
+                  content: generatingContent,
                   loading: true,
                 },
               ]}

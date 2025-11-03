@@ -79,9 +79,13 @@ const BasicHistoryDemo = () => {
 
       <div
         style={{
-          padding: '20px',
-          width: 348,
+          width: 48,
+          height: 48,
           margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '16px',
           border: '1px solid var(--color-gray-border-light)',
         }}
       >
