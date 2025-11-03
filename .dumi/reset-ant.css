@@ -439,3 +439,9 @@
   border: 1px solid transparent;
   box-shadow: none;
 }
+
+#root > div:not(.site-app) {
+  padding: var(--padding-5x);
+  margin: var(--margin-5x);
+  background: var(--color-gray-bg-card-white);
+}
