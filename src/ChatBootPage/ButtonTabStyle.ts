@@ -60,8 +60,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '16px',
         lineHeight: 1,
         marginLeft: '6px',
-        paddingLeft: '6px',
-        borderLeft: '1px solid var(--color-gray-contrast)',
+        paddingLeft: '8px',
+        borderLeft: '1px solid var(--color-gray-border-light)',
 
         '&-clickable': {
           cursor: 'pointer',
