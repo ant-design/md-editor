@@ -21,7 +21,7 @@ group:
 | 参数          | 说明                 | 类型                                       | 默认值 |
 | ------------- | -------------------- | ------------------------------------------ | ------ |
 | title         | 标题内容             | `React.ReactNode`                          | -      |
-| description   | 描述内容             | `React.ReactNode`                          | -      |
+| description   | 描述内容             | `string`                          | -      |
 | classNames    | 自定义样式类名       | `Record<'title' \| 'description', string>` | -      |
 | style         | 自定义样式           | `React.CSSProperties`                      | -      |
 | rootClassName | 自定义根节点样式类名 | `string`                                   | -      |

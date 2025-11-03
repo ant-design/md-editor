@@ -402,7 +402,7 @@ const TextAnimateBase = ({
       >
         {segments.map((segment, i) => (
           <motion.span
-            key={`${by}-${isString(segment) ? segment : segment.key}-${i}`}
+            key={`${by}-${isString(segment) ? segment : segment?.key}-${i}`}
             variants={finalVariants.item}
             custom={i * staggerTimings[by]}
             className={classNames(

@@ -1,6 +1,8 @@
 import { ConfigProvider } from 'antd';
 import classnames from 'classnames';
 import React, { useContext } from 'react';
+import { TextAnimate } from '../Components/TextAnimate';
+import { TypingAnimation } from '../Components/TypingAnimation';
 import { useStyle } from './style';
 
 /**
@@ -11,7 +13,7 @@ export interface WelcomeMessageProps {
   /** 标题 */
   title?: React.ReactNode;
   /** 描述 */
-  description?: React.ReactNode;
+  description?: string;
   /** 自定义样式类名，用于各个提示项的不同部分 */
   classNames?: {
     title?: string;
@@ -76,21 +78,25 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
     <div className={classnames(prefixCls, hashId, rootClassName)} style={style}>
       {/* Title */}
       {title && (
-        <div className={classnames(`${prefixCls}-title`, classNames?.title)}>
+        <TextAnimate
+          as="div"
+          className={classnames(`${prefixCls}-title`, classNames?.title)}
+        >
           {title}
-        </div>
+        </TextAnimate>
       )}
 
       {/* Description */}
       {description && (
-        <div
+        <TypingAnimation
+          as="div"
           className={classnames(
             `${prefixCls}-description`,
             classNames?.description,
           )}
         >
           {description}
-        </div>
+        </TypingAnimation>
       )}
     </div>,
   );
