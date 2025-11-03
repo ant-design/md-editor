@@ -19,6 +19,7 @@ import {
 } from './data';
 import './style.css';
 import { RefreshCcw } from '@sofa-design/icons'
+import { message } from 'antd';
 
 const StandaloneHistoryDemo = () => {
   const [currentSessionId, setCurrentSessionId] = useState('session-2');
@@ -307,11 +308,17 @@ const ChatLayoutDemo: React.FC = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  width: '100%',
+                  position: 'absolute',
+                  width: '1300px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
                 }}
               >
                 {bubbleList.length === 0 && (
                   <Title
+                    style={{
+                      marginBottom: 40,
+                    }}
                     title={
                       <>
                         <span>欢迎使用 </span>
@@ -365,7 +372,6 @@ const ChatLayoutDemo: React.FC = () => {
                         marginTop: '16px',
                         justifyContent: 'center',
                         flexWrap: 'wrap',
-                        width: '1000px',
                       }}
                     >
                       {[
@@ -383,6 +389,13 @@ const ChatLayoutDemo: React.FC = () => {
                         title: '学投资知识',
                         description: '基金投资入门指南',
                       },
+                      {
+                        coverBackground: 'rgba(132, 220, 24, 0.15)',
+                        quoteIconColor: 'rgb(132, 220, 24)',
+                        quote: '恒生科技指数基金正处于技术升级与估值重塑的关键阶段。短期波动不改长期新经济代表性地位，但投资者需关注创新驱动能否持续转化。',
+                        title: '搜热门资讯',
+                        description: '恒生科技指数基金近有什么相关新闻',
+                      },
                     ].map((item, index) => (
                       <CaseReply
                         key={index}
@@ -391,26 +404,10 @@ const ChatLayoutDemo: React.FC = () => {
                         quote={item.quote}
                         title={item.title}
                         description={item.description}
-                        buttonBar={
-                          <button
-                            type="button"
-                            style={{
-                              backgroundColor: '#000000',
-                              color: '#ffffff',
-                              borderRadius: '36px',
-                              padding: '8px 16px',
-                              cursor: 'pointer',
-                              border: 'none',
-                              fontSize: '14px',
-                            }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              console.log('按钮被点击');
-                            }}
-                          >
-                            查看回放
-                          </button>
-                        }
+                        buttonText="查看回放"
+                        onButtonClick={() => {
+                          message.info('按钮被点击');
+                        }}
                         onClick={() => handleCaseReplyClick(item.description)}
                       />
                     ))}

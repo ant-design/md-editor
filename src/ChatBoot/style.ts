@@ -8,8 +8,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       textAlign: 'center',
-      marginBottom: 24,
-
       '&-main': {
         fontSize: 30,
         fontWeight: 600,
