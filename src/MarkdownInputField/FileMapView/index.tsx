@@ -25,10 +25,8 @@ export type FileMapViewProps = {
   style?: React.CSSProperties;
   /** 自定义根容器类名 */
   className?: string;
-  /** 最多展示的非图片文件数量，传入则开启溢出控制并在超出时显示"查看所有文件"按钮，不传则使用默认值3 */
+  /** 最多展示的非图片文件数量，传入则开启溢出控制并在超出时显示"查看所有文件"按钮，不传则展示所有文件且不显示按钮 */
   maxDisplayCount?: number;
-  /** 是否显示"查看全部"按钮，当为 false 时忽略 maxDisplayCount 限制，显示所有文件 */
-  showMoreButton?: boolean;
   placement?: 'left' | 'right';
 };
 
@@ -77,9 +75,6 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   const prefix = context?.getPrefixCls('agentic-md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
 
-  // 默认 maxDisplayCount 为 3
-  const maxDisplayCount = props.maxDisplayCount ?? 3;
-
   const fileList = useMemo(() => {
     if (!props.fileMap) {
       return [];
@@ -87,8 +82,8 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
     return Array.from(props.fileMap?.values() || []);
   }, [props.fileMap]);
 
-  // 所有图片文件列表
-  const allImgFiles = useMemo(() => {
+  // 图片列表不受 maxDisplayCount 限制，显示所有图片
+  const imgList = useMemo(() => {
     return fileList.filter((file) => isImageFile(file));
   }, [fileList]);
 
@@ -97,25 +92,13 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
     return fileList.filter((file) => !isImageFile(file));
   }, [fileList]);
 
-  // 根据 maxDisplayCount 限制显示的图片列表
-  // 如果 showMoreButton 为 false，则显示所有图片
-  const imgList = useMemo(() => {
-    if (!showMoreButton) {
-      return allImgFiles;
-    }
-    return allImgFiles.slice(0, Math.max(0, maxDisplayCount));
-  }, [allImgFiles, maxDisplayCount, showMoreButton]);
-
   // 根据 maxDisplayCount 限制显示的非图片文件列表
-  // 如果已经显示了图片，需要计算剩余的非图片文件数量
-  // 如果 showMoreButton 为 false，则显示所有非图片文件
   const noImageFileList = useMemo(() => {
-    if (!showMoreButton) {
+    if (props.maxDisplayCount === undefined) {
       return allNoImageFiles;
     }
-    const remainingCount = Math.max(0, maxDisplayCount - imgList.length);
-    return allNoImageFiles.slice(0, remainingCount);
-  }, [allNoImageFiles, maxDisplayCount, imgList.length, showMoreButton]);
+    return allNoImageFiles.slice(0, Math.max(0, props.maxDisplayCount));
+  }, [allNoImageFiles, props.maxDisplayCount]);
 
   return wrapSSR(
     <div
@@ -208,17 +191,20 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           return (
             <FileMapViewItem
               style={{ width: props.style?.width }}
-              onPreview={() => {
-                if (props.onPreview) {
-                  props.onPreview?.(file);
-                  return;
-                }
-                if (typeof window === 'undefined') return;
-                window.open(file.previewUrl || file.url, '_blank');
-              }}
-              onDownload={() => {
-                props.onDownload?.(file);
-              }}
+              onPreview={
+                props.onPreview
+                  ? () => {
+                      props.onPreview?.(file);
+                    }
+                  : undefined
+              }
+              onDownload={
+                props.onDownload
+                  ? () => {
+                      props.onDownload?.(file);
+                    }
+                  : undefined
+              }
               renderMoreAction={props.renderMoreAction}
               customSlot={props.customSlot}
               key={file?.uuid || file?.name || index}
@@ -229,9 +215,8 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             />
           );
         })}
-        {showMoreButton &&
-        maxDisplayCount !== undefined &&
-        fileList.length > maxDisplayCount ? (
+        {props.maxDisplayCount !== undefined &&
+        allNoImageFiles.length > props.maxDisplayCount ? (
           <div
             style={{ width: props.style?.width }}
             className={classNames(hashId, `${prefix}-more-file-container`)}

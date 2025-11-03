@@ -1,15 +1,9 @@
-// import {
-//   DownloadOutlined,
-//   EllipsisOutlined,
-//   EyeOutlined,
-// } from '@ant-design/icons';
-import { EllipsisOutlined } from '@ant-design/icons';
-import { Download, Eye } from '@sofa-design/icons';
+import { Download, EllipsisVertical, Eye } from '@sofa-design/icons';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { ActionIconBox } from '../../Components/ActionIconBox';
 import { I18nContext } from '../../I18n';
 import { AttachmentFileIcon } from '../AttachmentButton/AttachmentFileList/AttachmentFileIcon';
@@ -54,8 +48,8 @@ import { kbToSize } from '../AttachmentButton/utils';
  */
 export const FileMapViewItem: React.FC<{
   file: AttachmentFile;
-  onPreview: () => void;
-  onDownload: () => void;
+  onPreview?: () => void;
+  onDownload?: () => void;
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
   customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
   className?: string;
@@ -67,142 +61,161 @@ export const FileMapViewItem: React.FC<{
   const { locale } = useContext(I18nContext);
   const [hovered, setHovered] = React.useState(false);
 
-  return useMemo(() => {
-    return (
-      <Tooltip
-        title={<div>{locale?.clickToPreview}</div>}
-        placement="topLeft"
-        arrow={false}
-      >
-        <motion.div
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          onClick={() => {
-            if (file.status === 'error') return;
+  const handleMouseEnter = () => setHovered(true);
+  const handleMouseLeave = () => setHovered(false);
+  const fileName = file?.name ?? '';
+  const lastDotIndex = fileName.lastIndexOf('.');
+  const displayName =
+    lastDotIndex > 0 ? fileName.slice(0, lastDotIndex) : fileName;
+  const displayExtension =
+    lastDotIndex > 0 && lastDotIndex < fileName.length - 1
+      ? fileName.slice(lastDotIndex + 1)
+      : '';
+  return (
+    <Tooltip
+      title={<div>{locale?.clickToPreview}</div>}
+      placement="topLeft"
+      arrow={false}
+    >
+      <motion.div
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={() => {
+          if (file.status === 'error') return;
+          if (props.onPreview) {
             props.onPreview?.();
-          }}
-          variants={{
-            hidden: { x: 20, opacity: 0 },
-            visible: { x: 0, opacity: 1 },
-            exit: { x: -20, opacity: 0 },
-          }}
-          exit={{ opacity: 0, x: -20 }}
-          className={props.className}
-          data-testid="file-item"
+          } else {
+            // 默认行为：在新窗口打开文件
+            if (typeof window === 'undefined') return;
+            window.open(file.previewUrl || file.url, '_blank');
+          }
+        }}
+        variants={{
+          hidden: { x: 20, opacity: 0 },
+          visible: { x: 0, opacity: 1 },
+          exit: { x: -20, opacity: 0 },
+        }}
+        exit={{ opacity: 0, x: -20 }}
+        className={props.className}
+        data-testid="file-item"
+      >
+        <div
+          className={classNames(`${props.prefixCls}-file-icon`, props.hashId)}
+        >
+          <AttachmentFileIcon
+            file={file}
+            className={classNames(
+              `${props.prefixCls}-file-icon-img`,
+              props.hashId,
+            )}
+          />
+        </div>
+        <div
+          className={classNames(`${props.prefixCls}-file-info`, props.hashId)}
         >
           <div
-            className={classNames(`${props.prefixCls}-file-icon`, props.hashId)}
+            className={classNames(`${props.prefixCls}-file-name`, props.hashId)}
           >
-            <AttachmentFileIcon
-              file={file}
+            <span
               className={classNames(
-                `${props.prefixCls}-file-icon-img`,
+                `${props.prefixCls}-file-name-text`,
                 props.hashId,
               )}
-            />
+              title={file?.name}
+            >
+              {displayName}
+            </span>
           </div>
           <div
-            className={classNames(`${props.prefixCls}-file-info`, props.hashId)}
+            className={classNames(
+              `${props.prefixCls}-file-name-extension-container`,
+              props.hashId,
+            )}
           >
-            <div
+            <span
               className={classNames(
-                `${props.prefixCls}-file-name`,
+                `${props.prefixCls}-file-name-extension`,
                 props.hashId,
               )}
             >
-              <span
-                className={classNames(
-                  `${props.prefixCls}-file-name-text`,
-                  props.hashId,
-                )}
-                title={file?.name}
-              >
-                {file?.name.split('.').slice(0, -1).join('.')}
-              </span>
+              {displayExtension}
+            </span>
+            <span
+              className={classNames(
+                `${props.prefixCls}-separator`,
+                props.hashId,
+              )}
+            >
+              |
+            </span>
+            <div
+              className={classNames(
+                `${props.prefixCls}-file-size`,
+                props.hashId,
+              )}
+            >
+              {kbToSize(file.size / 1024)}
             </div>
-            <div
+            <span
               className={classNames(
-                `${props.prefixCls}-file-name-extension-container`,
+                `${props.prefixCls}-separator`,
                 props.hashId,
               )}
             >
-              <span
-                className={classNames(
-                  `${props.prefixCls}-file-name-extension`,
-                  props.hashId,
-                )}
-              >
-                {file?.name.split('.').slice(-1)}
-              </span>
-              <span
-                className={classNames(
-                  `${props.prefixCls}-separator`,
-                  props.hashId,
-                )}
-              >
-                |
-              </span>
-              <div
-                className={classNames(
-                  `${props.prefixCls}-file-size`,
-                  props.hashId,
-                )}
-              >
-                {kbToSize(file.size / 1024)}
-              </div>
-              <span
-                className={classNames(
-                  `${props.prefixCls}-separator`,
-                  props.hashId,
-                )}
-              >
-                |
-              </span>
-              <div>
-                {file?.lastModified
-                  ? dayjs(file?.lastModified).format('HH:mm')
-                  : ''}
-              </div>
+              |
+            </span>
+            <div>
+              {file?.lastModified
+                ? dayjs(file?.lastModified).format('HH:mm')
+                : ''}
             </div>
           </div>
+        </div>
 
-          {hovered ? (
-            <div
-              className={classNames(
-                `${props.prefixCls}-action-bar`,
-                props.hashId,
-              )}
-            >
-              {props.customSlot ? (
+        {hovered ? (
+          <div
+            className={classNames(
+              `${props.prefixCls}-action-bar`,
+              props.hashId,
+            )}
+          >
+            {props.customSlot ? (
+              <ActionIconBox
+                title={'更多'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                className={classNames(
+                  `${props.prefixCls}-action-btn`,
+                  props.hashId,
+                )}
+              >
+                {typeof props.customSlot === 'function'
+                  ? (props.customSlot(file) as any)
+                  : (props.customSlot as any)}
+              </ActionIconBox>
+            ) : (
+              <>
                 <ActionIconBox
-                  title={'更多'}
+                  title={locale?.preview || '预览'}
                   onClick={(e) => {
                     e.stopPropagation();
+                    if (props.onPreview) {
+                      props.onPreview?.();
+                    } else {
+                      // 默认行为：在新窗口打开文件
+                      if (typeof window === 'undefined') return;
+                      window.open(file.previewUrl || file.url, '_blank');
+                    }
                   }}
                   className={classNames(
                     `${props.prefixCls}-action-btn`,
                     props.hashId,
                   )}
                 >
-                  {typeof props.customSlot === 'function'
-                    ? (props.customSlot(file) as any)
-                    : (props.customSlot as any)}
+                  <Eye color="var(--color-gray-text-secondary)" />
                 </ActionIconBox>
-              ) : (
-                <>
-                  <ActionIconBox
-                    title={locale?.preview || '预览'}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      props.onPreview?.();
-                    }}
-                    className={classNames(
-                      `${props.prefixCls}-action-btn`,
-                      props.hashId,
-                    )}
-                  >
-                    <Eye color="var(--color-gray-text-secondary)" />
-                  </ActionIconBox>
+                {props.onDownload && (
                   <ActionIconBox
                     title={locale?.download || '下载'}
                     onClick={(e) => {
@@ -216,40 +229,36 @@ export const FileMapViewItem: React.FC<{
                   >
                     <Download color="var(--color-gray-text-secondary)" />
                   </ActionIconBox>
-                  {props.renderMoreAction ? (
-                    <>
-                      <ActionIconBox
-                        title={'更多操作'}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                        className={classNames(
-                          `${props.prefixCls}-action-btn`,
-                          props.hashId,
-                        )}
-                      >
-                        <EllipsisOutlined
-                          style={{ color: 'var(--color-gray-text-secondary)' }}
-                        />
-                      </ActionIconBox>
-                      {props.renderMoreAction ? (
-                        <div
-                          className={classNames(
-                            `${props.prefixCls}-more-custom`,
-                            props.hashId,
-                          )}
-                        >
-                          {props.renderMoreAction(file)}
-                        </div>
-                      ) : null}
-                    </>
-                  ) : null}
-                </>
-              )}
-            </div>
-          ) : null}
-        </motion.div>
-      </Tooltip>
-    );
-  }, [file, file.status, hovered, props.onPreview, props.onDownload]);
+                )}
+                {props.renderMoreAction && (
+                  <ActionIconBox
+                    title="更多操作"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className={classNames(
+                      `${props.prefixCls}-action-btn`,
+                      props.hashId,
+                    )}
+                  >
+                    <EllipsisVertical
+                      style={{ color: 'var(--color-gray-text-secondary)' }}
+                    />
+                    <div
+                      className={classNames(
+                        `${props.prefixCls}-more-custom`,
+                        props.hashId,
+                      )}
+                    >
+                      {props.renderMoreAction(file)}
+                    </div>
+                  </ActionIconBox>
+                )}
+              </>
+            )}
+          </div>
+        ) : null}
+      </motion.div>
+    </Tooltip>
+  );
 };
