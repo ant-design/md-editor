@@ -589,6 +589,25 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     props?.toolsRender,
   ]);
 
+  // 计算最小高度
+  const computedMinHeight = useMemo(() => {
+    if (isEnlarged) return 'auto';
+    // 如果同时有放大按钮和提示词优化按钮，最小高度为 140px
+    if (props?.enlargeable?.enable && props?.refinePrompt?.enable) {
+      return 160;
+    }
+    // 其他多行布局情况，最小高度为 106px
+    if (isMultiRowLayout) return 106;
+    // 默认使用传入的 minHeight 或 0
+    return props.style?.minHeight || 0;
+  }, [
+    isEnlarged,
+    props?.enlargeable?.enable,
+    props?.refinePrompt?.enable,
+    isMultiRowLayout,
+    props.style?.minHeight,
+  ]);
+
   // 文件上传管理
   const {
     fileUploadDone,
@@ -861,11 +880,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               ? `${props.enlargeable?.height ?? 980}px`
               : `min(${collapsedHeightPx}px,100%)`,
             borderRadius: borderRadius || 16,
-            minHeight: isEnlarged
-              ? 'auto'
-              : isMultiRowLayout
-                ? 106
-                : props.style?.minHeight || 0,
+            minHeight: computedMinHeight,
             cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
             opacity: props.disabled ? 0.5 : 1,
             maxHeight: isEnlarged ? 'none' : `min(${collapsedHeightPx}px,100%)`,
