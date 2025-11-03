@@ -173,6 +173,20 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           opacity: 1,
         },
       },
+      '&-border-wrapper': {
+        width: '100%',
+        border: '2px solid transparent',
+        zIndex: 9,
+        boxSizing: 'border-box',
+      },
+      '&-content-wrapper': {
+        backgroundColor: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        borderRadius: 'inherit',
+      },
       '&-editor': {
         boxSizing: 'border-box',
         backgroundColor: 'var(--color-gray-bg-card-white)',
@@ -180,7 +194,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         zIndex: 9,
         maxHeight: 400,
         height: '100%',
-        borderRadius: 'inherit',
         overflowY: 'visible',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
@@ -198,7 +211,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxHeight: 'inherit',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
-        borderRadius: 'inherit',
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',
