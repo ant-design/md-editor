@@ -989,7 +989,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     }}
                     readonly={isLoading}
                     contentStyle={{
-                      padding: 'var(--padding-card-base)',
+                      padding: 'var(--padding-3x)',
                     }}
                     textAreaProps={{
                       enable: true,
@@ -1036,9 +1036,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                     justifyContent: 'space-between',
                     gap: 8,
                     width: '100%',
-                    paddingRight: 'var(--padding-card-base)',
-                    paddingLeft: 'var(--padding-card-base)',
-                    paddingBottom: 'var(--padding-card-base)',
+                    paddingRight: 'var(--padding-3x)',
+                    paddingLeft: 'var(--padding-3x)',
+                    paddingBottom: 'var(--padding-3x)',
                   }}
                 >
                   <div
