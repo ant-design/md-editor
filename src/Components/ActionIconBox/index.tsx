@@ -143,6 +143,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
         {...props.tooltipProps}
       >
         <span
+          data-title={props.title?.toString()}
           data-testid={props['data-testid'] || 'action-icon-box'}
           role="button"
           tabIndex={0}
