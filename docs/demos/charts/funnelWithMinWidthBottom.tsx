@@ -2,47 +2,47 @@ import { FunnelChart, FunnelChartDataItem } from '@ant-design/agentic-ui';
 import { Slider } from 'antd';
 import React, { useState } from 'react';
 
+// 模拟数据跨度很大的场景
+const data: FunnelChartDataItem[] = [
+  {
+    category: '用户转化',
+    type: '转化',
+    x: '曝光',
+    y: 100000,
+    ratio: 20,
+  },
+  {
+    category: '用户转化',
+    type: '转化',
+    x: '点击',
+    y: 20000,
+    ratio: 30,
+  },
+  {
+    category: '用户转化',
+    type: '转化',
+    x: '注册',
+    y: 6000,
+    ratio: 50,
+  },
+  {
+    category: '用户转化',
+    type: '转化',
+    x: '激活',
+    y: 3000,
+    ratio: 33,
+  },
+  {
+    category: '用户转化',
+    type: '转化',
+    x: '付费',
+    y: 1000,
+    ratio: 0,
+  },
+];
+
 const FunnelMinWidthDemo: React.FC = () => {
   const [minWidth, setMinWidth] = useState<number>(0.1);
-
-  // 模拟数据跨度很大的场景
-  const data: FunnelChartDataItem[] = [
-    {
-      category: '用户转化',
-      type: '转化',
-      x: '曝光',
-      y: 100000,
-      ratio: 20,
-    },
-    {
-      category: '用户转化',
-      type: '转化',
-      x: '点击',
-      y: 20000,
-      ratio: 30,
-    },
-    {
-      category: '用户转化',
-      type: '转化',
-      x: '注册',
-      y: 6000,
-      ratio: 50,
-    },
-    {
-      category: '用户转化',
-      type: '转化',
-      x: '激活',
-      y: 3000,
-      ratio: 33,
-    },
-    {
-      category: '用户转化',
-      type: '转化',
-      x: '付费',
-      y: 1000,
-      ratio: 0,
-    },
-  ];
 
   return (
     <div style={{ padding: 20 }}>
