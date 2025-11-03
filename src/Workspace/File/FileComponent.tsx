@@ -692,6 +692,8 @@ export const FileComponent: FC<{
     new WeakMap(),
   );
 
+  const safeNodes = nodes || [];
+
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
@@ -912,7 +914,6 @@ export const FileComponent: FC<{
     };
   }, [actionRef, handlePreview, handleBackToList]);
 
-  const safeNodes = nodes || [];
   const hasKeyword = Boolean((keyword ?? '').trim());
 
   // 渲染搜索框组件 - 确保在所有情况下都保持一致
