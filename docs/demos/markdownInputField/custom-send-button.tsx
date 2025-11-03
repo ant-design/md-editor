@@ -1,5 +1,5 @@
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import { SendOutlined, SettingOutlined } from '@ant-design/icons';
-import { MarkdownInputField } from '@ant-design/md-editor';
 import { Button, Space, Tooltip } from 'antd';
 import React, { useState } from 'react';
 

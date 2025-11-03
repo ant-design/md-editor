@@ -1,3 +1,5 @@
+import type { BubbleProps, MessageBubbleData } from '@ant-design/agentic-ui';
+import { Bubble } from '@ant-design/agentic-ui';
 import {
   CheckCircleOutlined,
   ClockCircleOutlined,
@@ -5,8 +7,6 @@ import {
   RobotOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import type { BubbleProps, MessageBubbleData } from '@ant-design/md-editor';
-import { Bubble } from '@ant-design/md-editor';
 import { Avatar, Badge, Button, Space, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 

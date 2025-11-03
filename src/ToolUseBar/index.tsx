@@ -1,8 +1,7 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
-import React, { useContext } from 'react';
-import { useRefFunction } from '../hooks/useRefFunction';
+import React, { memo, useCallback, useContext, useMemo } from 'react';
 import { ToolCall, ToolUseBarItem } from './ToolUseBarItem';
 import { useStyle } from './style';
 export * from './ToolUseBarItem';
@@ -67,7 +66,7 @@ interface ToolUseBarProps {
  * - 提供加载状态显示
  * - 支持错误状态处理
  */
-export const ToolUseBar: React.FC<ToolUseBarProps> = ({
+const ToolUseBarComponent: React.FC<ToolUseBarProps> = ({
   tools,
   onActiveKeysChange,
   onExpandedKeysChange,
@@ -75,7 +74,7 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('tool-use-bar');
+  const prefixCls = getPrefixCls('agentic-tool-use-bar');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const [activeKeys, setActiveKeys] = useMergedState(
@@ -95,16 +94,19 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
     },
   );
 
-  const handleActiveChange = useRefFunction((id: string, active: boolean) => {
-    if (onActiveKeysChange) {
-      const newActiveKeys = active
-        ? [...activeKeys, id]
-        : activeKeys.filter((key) => key !== id);
-      setActiveKeys(newActiveKeys);
-    }
-  });
+  const handleActiveChange = useCallback(
+    (id: string, active: boolean) => {
+      if (onActiveKeysChange) {
+        const newActiveKeys = active
+          ? [...activeKeys, id]
+          : activeKeys.filter((key) => key !== id);
+        setActiveKeys(newActiveKeys);
+      }
+    },
+    [onActiveKeysChange, activeKeys, setActiveKeys],
+  );
 
-  const handleExpandedChange = useRefFunction(
+  const handleExpandedChange = useCallback(
     (id: string, expanded: boolean) => {
       const newExpandedKeys = expanded
         ? [...expandedKeys, id]
@@ -122,40 +124,60 @@ export const ToolUseBar: React.FC<ToolUseBarProps> = ({
         onExpandedKeysChange(newExpandedKeys, removedKeys);
       }
     },
+    [onExpandedKeysChange, expandedKeys, setExpandedKeys],
   );
 
-  if (!tools?.length)
-    return (
-      <div
-        className={classNames(prefixCls, hashId, props.className)}
-        data-testid="ToolUse"
+  // 使用 useMemo 优化工具列表的渲染
+  const toolItems = useMemo(() => {
+    if (!tools?.length) return null;
+
+    return tools.map((tool) => (
+      <ToolUseBarItem
+        key={tool.id}
+        tool={tool}
+        onClick={props.onToolClick}
+        isActive={activeKeys.includes(tool.id)}
+        onActiveChange={handleActiveChange}
+        isExpanded={
+          onExpandedKeysChange ? expandedKeys.includes(tool.id) : undefined
+        }
+        onExpandedChange={
+          onExpandedKeysChange ? handleExpandedChange : undefined
+        }
+        defaultExpanded={props.defaultExpandedKeys?.includes(tool.id)}
+        prefixCls={prefixCls}
+        hashId={hashId}
+        light={light}
       />
-    );
+    ));
+  }, [
+    tools,
+    props.onToolClick,
+    activeKeys,
+    handleActiveChange,
+    onExpandedKeysChange,
+    expandedKeys,
+    handleExpandedChange,
+    props.defaultExpandedKeys,
+    prefixCls,
+    hashId,
+    light,
+  ]);
+
+  // 使用 useMemo 优化样式类名
+  const containerClassName = useMemo(() => {
+    return classNames(prefixCls, hashId, props.className);
+  }, [prefixCls, hashId, props.className]);
+
+  if (!tools?.length)
+    return <div className={containerClassName} data-testid="ToolUse" />;
 
   return wrapSSR(
-    <div
-      className={classNames(prefixCls, hashId, props.className)}
-      data-testid="ToolUse"
-    >
-      {tools.map((tool) => (
-        <ToolUseBarItem
-          key={tool.id}
-          tool={tool}
-          onClick={props.onToolClick}
-          isActive={activeKeys.includes(tool.id)}
-          onActiveChange={handleActiveChange}
-          isExpanded={
-            onExpandedKeysChange ? expandedKeys.includes(tool.id) : undefined
-          }
-          onExpandedChange={
-            onExpandedKeysChange ? handleExpandedChange : undefined
-          }
-          defaultExpanded={props.defaultExpandedKeys?.includes(tool.id)}
-          prefixCls={prefixCls}
-          hashId={hashId}
-          light={light}
-        />
-      ))}
+    <div className={containerClassName} data-testid="ToolUse">
+      {toolItems}
     </div>,
   );
 };
+
+// 使用 memo 优化组件，避免不必要的重新渲染
+export const ToolUseBar = memo(ToolUseBarComponent);

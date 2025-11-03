@@ -98,8 +98,8 @@ describe('MarkdownInputField - toolsRender', () => {
 
     const toolsContainer = screen
       .getByTestId('custom-tool')
-      .closest('.ant-md-input-field-send-tools');
-    expect(toolsContainer).toHaveClass('ant-md-input-field-send-tools');
+      .closest('.ant-agentic-md-input-field-send-tools');
+    expect(toolsContainer).toHaveClass('ant-agentic-md-input-field-send-tools');
   });
 
   it('should not interfere with send button functionality', () => {
@@ -136,8 +136,8 @@ describe('MarkdownInputField - toolsRender', () => {
 
     const wrapper = screen
       .getByTestId('custom-tool')
-      .closest('.ant-md-input-field');
-    expect(wrapper).toHaveClass('ant-md-input-field-disabled');
+      .closest('.ant-agentic-md-input-field');
+    expect(wrapper).toHaveClass('ant-agentic-md-input-field-disabled');
   });
 });
 
@@ -191,7 +191,7 @@ describe('MarkdownInputField - voiceInput', () => {
     const voiceBtn = screen.getByTestId('voice-input-button');
     // disabled class applied
     expect(
-      voiceBtn.className.includes('ant-md-input-field-voice-button-disabled'),
+      voiceBtn.className.includes('ant-agentic-md-input-field-voice-button-disabled'),
     ).toBeTruthy();
 
     fireEvent.click(voiceBtn);

@@ -3,7 +3,7 @@ title: Workspace 工作空间
 atomId: Workspace
 group:
   title: 对话流
-  order: 10
+  order: 3
 ---
 
 # Workspace 工作空间

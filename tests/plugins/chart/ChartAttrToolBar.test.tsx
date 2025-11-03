@@ -4,7 +4,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { Transforms } from 'slate';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { ChartAttrToolBar } from '../../../src/plugins/chart/ChartAttrToolBar';
+import { ChartAttrToolBar } from '../../../src/Plugins/chart/ChartAttrToolBar';
 
 // Mock dependencies
 vi.mock('../../../src/MarkdownEditor/editor/store', () => ({

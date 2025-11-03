@@ -1,4 +1,4 @@
-import { AreaChart, AreaChartDataItem } from '@ant-design/md-editor';
+import { AreaChart, AreaChartDataItem } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 const ChartWithStaticDemo: React.FC = () => {

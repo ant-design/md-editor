@@ -1,6 +1,6 @@
 import BarChart, {
   BarChartDataItem,
-} from '@ant-design/md-editor/plugins/chart/BarChart';
+} from '@ant-design/agentic-ui/Plugins/chart/BarChart';
 import { Button } from 'antd';
 import React, { useState } from 'react';
 

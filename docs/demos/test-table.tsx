@@ -2,7 +2,7 @@ import {
   MarkdownEditor,
   MarkdownEditorInstance,
   parserMdToSchema,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { ConfigProvider, Divider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import React from 'react';

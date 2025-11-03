@@ -8,7 +8,7 @@ import {
 } from '../../src/Bubble/MessagesContent/CopyButton';
 
 // Mock useCopied hook
-vi.mock('../../src/hooks/useCopied', () => ({
+vi.mock('../../src/Hooks/useCopied', () => ({
   useCopied: vi.fn(() => ({
     copied: false,
     setCopied: vi.fn(),

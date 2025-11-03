@@ -1,4 +1,4 @@
-import { MarkdownInputField, Welcome } from '@ant-design/md-editor';
+import { MarkdownInputField, WelcomeMessage } from '@ant-design/agentic-ui';
 import { Space } from 'antd';
 import React from 'react';
 import { ChatContainer } from '../components/chat-container';
@@ -28,7 +28,7 @@ export default () => {
               paddingInline: 40,
             }}
           >
-            <Welcome
+            <WelcomeMessage
               title={
                 <>
                   欢迎使用
@@ -58,7 +58,7 @@ export default () => {
               paddingInline: 40,
             }}
           >
-            <Welcome
+            <WelcomeMessage
               title={
                 <>
                   你想

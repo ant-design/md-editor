@@ -5,7 +5,7 @@
  * 更接近真实的使用场景
  */
 
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -76,8 +76,8 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
 
       const container = screen
         .getByRole('textbox', { hidden: true })
-        .closest('.ant-md-input-field');
-      expect(container).toHaveClass('ant-md-input-field-disabled');
+        .closest('.ant-agentic-md-input-field');
+      expect(container).toHaveClass('ant-agentic-md-input-field-disabled');
     });
   });
 
@@ -927,8 +927,8 @@ describe('TagPopup - MarkdownInputField 集成测试', () => {
 
       const container = screen
         .getByRole('textbox', { hidden: true })
-        .closest('.ant-md-input-field');
-      expect(container).toHaveClass('ant-md-input-field-disabled');
+        .closest('.ant-agentic-md-input-field');
+      expect(container).toHaveClass('ant-agentic-md-input-field-disabled');
     });
   });
 });

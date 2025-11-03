@@ -2,7 +2,7 @@ import {
   MarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorPlugin,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { Button, Card, Space, Tabs, message } from 'antd';
 import React, { useRef, useState } from 'react';
 

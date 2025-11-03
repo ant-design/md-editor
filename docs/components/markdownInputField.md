@@ -27,7 +27,7 @@ import {
   GlobalOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import { Sparkles } from '@sofa-design/icons';
+import { Sparkles, ChevronDown } from '@sofa-design/icons';
 import {
   ActionItemBox,
   ActionItemContainer,
@@ -36,7 +36,7 @@ import {
   ActionIconBox,
   ToggleButton,
   CreateRecognizer,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 
 const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
   let timer: ReturnType<typeof setInterval>;
@@ -140,7 +140,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -239,9 +239,9 @@ export default () => {
 ### 基础使用
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown } from '@sofa-design/icons';
 
 const App = () => {
   const [value, setValue] = React.useState('');
@@ -253,7 +253,7 @@ const App = () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -305,13 +305,8 @@ export default App;
 
 ```tsx
 import { Space, message } from 'antd';
-import {
-  DownOutlined,
-  AimOutlined,
-  GlobalOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
-import { Sparkles } from '@sofa-design/icons';
+import { AimOutlined, GlobalOutlined, EditOutlined } from '@ant-design/icons';
+import { Sparkles, ChevronDown } from '@sofa-design/icons';
 import {
   ActionItemBox,
   ActionItemContainer,
@@ -320,7 +315,7 @@ import {
   ActionIconBox,
   ToggleButton,
   CreateRecognizer,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 
 const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
   let timer: ReturnType<typeof setInterval>;
@@ -431,7 +426,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -505,8 +500,8 @@ import {
   MarkdownInputField,
   type CreateRecognizer,
   ToggleButton,
-} from '@ant-design/md-editor';
-import { DownOutlined } from '@ant-design/icons';
+} from '@ant-design/agentic-ui';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const createRecognizer: CreateRecognizer = async ({
     onSentenceBegin,
@@ -542,7 +537,7 @@ export default () => {
       toolsRender={() => [
         <ToggleButton
           key="bold"
-          triggerIcon={<DownOutlined />}
+          triggerIcon={<ChevronDown />}
           onClick={() => console.log('DeepThink clicked')}
         >
           DeepThink
@@ -579,8 +574,8 @@ export default () => {
 ### 自定义触发键和样式
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
-import { DownOutlined } from '@ant-design/icons';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -615,7 +610,7 @@ export default () => {
 ### 启用提示词优化
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
 
 export default () => {
   const [value, setValue] = React.useState(
@@ -661,11 +656,226 @@ export default () => {
 };
 ```
 
+### 放大
+
+`MarkdownInputField` 支持放大功能，用户可以通过点击放大图标将输入框扩展到指定的容器内，提供更大的编辑空间。此功能特别适用于需要编写长文本或复杂内容的场景。
+
+#### 相关属性
+
+| 属性               | 类型                           | 默认值  | 说明                                               |
+| ------------------ | ------------------------------ | ------- | -------------------------------------------------- |
+| `enlargeable`      | `boolean`                      | `false` | 是否启用放大功能                                   |
+| `enlargeTargetRef` | `React.RefObject<HTMLElement>` | -       | 放大时的目标容器引用，必须是一个具有定位属性的元素 |
+
+#### 使用注意事项
+
+1. **容器定位**：目标容器必须具有相对定位（`position: relative`）或其他非静态定位
+2. **容器尺寸**：确保目标容器有足够的空间容纳放大后的输入框
+3. **z-index**：放大后的输入框具有较高的 z-index 值，确保不被其他元素遮盖
+4. **响应式设计**：在移动端或小屏幕设备上使用时，建议调整目标容器尺寸
+
+#### 基本示例
+
+```tsx
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+
+export default () => {
+  const [value, setValue] = React.useState(
+    '输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果，输入文本效果',
+  );
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  return (
+    <>
+      <div
+        style={{
+          height: 500,
+          padding: 32,
+          position: 'relative',
+        }}
+        ref={containerRef}
+      >
+        <MarkdownInputField
+          value={value}
+          onChange={setValue}
+          enlargeable={{ enable: true, height: 600 }}
+          style={{ marginTop: 128, height: 190 }}
+          refinePrompt={{
+            enable: true,
+            onRefine: async (input) => {
+              // 模拟异步优化（真实项目可调用后端/模型服务）
+              await new Promise((r) => setTimeout(r, 2000));
+              return `你好呀，哈哈哈哈 ${input}`;
+            },
+          }}
+        />
+      </div>
+    </>
+  );
+};
+```
+
+### 便捷操作区域
+
+便捷操作区提供了在输入框上方自定义操作按钮的功能。
+
+**Props 说明：**
+
+- `isShowTopOperatingArea` - 是否显示便捷操作区域，默认为false
+- `iShowBackTo` - 是否显示到顶到底
+- `operationBtnRender` - 自定义操作按钮渲染函数，用于在便捷操作区中添加自定义按钮
+
+```tsx
+import { Space, message } from 'antd';
+import { AimOutlined, GlobalOutlined, EditOutlined } from '@ant-design/icons';
+import { Sparkles, ChevronDown } from '@sofa-design/icons';
+import {
+  ActionItemBox,
+  ActionItemContainer,
+  MarkdownInputField,
+  SuggestionList,
+  ActionIconBox,
+  ToggleButton,
+  CreateRecognizer,
+} from '@ant-design/agentic-ui';
+import { Button } from 'antd';
+
+const createRecognizer: CreateRecognizer = async ({ onPartial, onError }) => {
+  let timer: ReturnType<typeof setInterval>;
+  return {
+    start: async () => {
+      // 真实场景应启动麦克风与ASR服务，这里仅用计时器模拟持续的转写片段
+      let i = 0;
+      timer = setInterval(() => {
+        onPartial(`语音片段${i} `);
+        i += 1;
+      }, 500);
+    },
+    stop: async () => {
+      clearInterval(timer);
+    },
+  };
+};
+export default () => {
+  const [value, setValue] = React.useState(
+    '输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本效果，输入多行文本',
+  );
+
+  const markdownRef = React.useRef<MarkdownEditorInstance>(null);
+  const targetRef = React.useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      style={{
+        height: 450,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          border: '1px solid #e8e8e8',
+          borderRadius: '8px',
+          overflow: 'auto',
+          padding: '16px',
+        }}
+        ref={targetRef}
+      >
+        <h1>长内容页面</h1>
+        <div
+          style={{
+            height: '600px',
+            background: 'linear-gradient(to bottom, #f0f0f0, #ffffff)',
+          }}
+        />
+        <p>内容结束</p>
+      </div>
+
+      <div
+        style={{
+          borderRadius: '8px',
+        }}
+      >
+        <MarkdownInputField
+          value={value}
+          targetRef={targetRef}
+          inputRef={markdownRef}
+          voiceRecognizer={createRecognizer}
+          isShowTopOperatingArea={true}
+          operationBtnRender={() => (
+            <>
+              <Button>次按钮</Button>
+              <Button type="primary">主按钮</Button>
+            </>
+          )}
+          style={{
+            maxHeight: 120,
+          }}
+          tagInputProps={{
+            type: 'dropdown',
+            enable: true,
+            items: async (props) => {
+              if (props?.placeholder === '目标场景') {
+                return [];
+              }
+              return ['tag1', 'tag2', 'tag3'].map((item) => {
+                return {
+                  key: item,
+                  label: props?.placeholder + item,
+                };
+              });
+            },
+          }}
+          beforeToolsRender={() => {
+            return (
+              <ActionItemContainer showMenu={true}>
+                {new Array(12).fill(0).map((_, index) => (
+                  <ActionItemBox
+                    onClick={() => message.info('快捷技能' + index)}
+                    icon="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Bgr8QrMHLvoAAAAAF1AAAAgAekN6AQ/original"
+                    iconSize={16}
+                    size="small"
+                    title={
+                      <span
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 8,
+                        }}
+                      >
+                        {'快捷技能' + index}
+                      </span>
+                    }
+                    disabled={index < 2}
+                    key={'快捷技能' + index}
+                  />
+                ))}
+              </ActionItemContainer>
+            );
+          }}
+          onChange={(newValue) => {
+            setValue(newValue);
+            console.log('newValue', newValue);
+          }}
+          placeholder="请输入内容..."
+          onSend={async (text) => {
+            console.log('发送内容:', text);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+```
+
 ### 启用附件功能
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
-import { DownOutlined } from '@ant-design/icons';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -676,7 +886,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -739,6 +949,71 @@ export default () => {
 };
 ```
 
+### uploadWithResponse - 获取完整上传响应
+
+使用 `uploadWithResponse` 接口可以返回完整的上传响应对象，包含文件ID、URL、状态等详细信息。响应数据会自动存储在 `file.uploadResponse` 中。
+
+<code src="../demos/markdownInputField/upload-with-response.tsx" background="var(--main-bg-color)" iframe=800></code>
+
+#### uploadWithResponse 接口定义
+
+```typescript
+uploadWithResponse?: (
+  file: AttachmentFile,
+  index: number
+) => Promise<UploadResponse>;
+```
+
+#### UploadResponse 类型
+
+| 参数         | 说明             | 类型                            | 必填 |
+| ------------ | ---------------- | ------------------------------- | ---- |
+| fileId       | 文件ID           | `string`                        | 是   |
+| fileName     | 文件名           | `string`                        | 是   |
+| fileType     | 文件类型         | `string`                        | 是   |
+| fileUrl      | 文件URL          | `string`                        | 是   |
+| uploadStatus | 上传状态         | `'SUCCESS' \| 'FAIL' \| string` | 是   |
+| contentId    | 内容ID           | `string \| null`                | 否   |
+| errorMessage | 错误消息         | `string \| null`                | 否   |
+| fileSize     | 文件大小（字节） | `number \| null`                | 否   |
+
+#### 特性
+
+- ✅ 返回完整的响应对象，包含更多元信息
+- ✅ 响应数据自动存储在 `file.uploadResponse` 中
+- ✅ 支持自定义错误消息（errorMessage）
+- ✅ 优先级高于旧的 `upload` 接口
+- ✅ 向后兼容，可与 `upload` 接口共存
+
+#### 使用示例
+
+```typescript
+<MarkdownInputField
+  attachment={{
+    enable: true,
+    uploadWithResponse: async (file, index) => {
+      const response = await api.uploadFile(file);
+      return {
+        contentId: response.contentId,
+        errorMessage: null,
+        fileId: response.fileId,
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type,
+        fileUrl: response.fileUrl,
+        uploadStatus: 'SUCCESS'
+      };
+    },
+    onFileMapChange: (fileMap) => {
+      // 访问完整的上传响应数据
+      fileMap?.forEach(file => {
+        console.log('文件响应:', file);
+      });
+    }
+  }}
+/>
+```
+
 ### 自定义附件按钮渲染
 
 通过 `attachment.render` 属性，您可以完全替换默认的 `AttachmentButtonPopover` 组件，实现自定义的附件按钮交互体验。
@@ -776,8 +1051,8 @@ export default () => {
 ### 自定义操作按钮
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
-import { DownOutlined } from '@ant-design/icons';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -792,7 +1067,7 @@ export default () => {
           toolsRender={() => [
             <ToggleButton
               key="bold"
-              triggerIcon={<DownOutlined />}
+              triggerIcon={<ChevronDown />}
               onClick={() => console.log('DeepThink clicked')}
             >
               DeepThink
@@ -862,8 +1137,9 @@ export default () => {
 ### 获取编辑器实例
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
-import { DownOutlined } from '@ant-design/icons';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { ChevronDown } from '@sofa-design/icons';
+
 const App = () => {
   const editorRef = React.useRef();
   const [value, setValue] = React.useState('');
@@ -876,7 +1152,7 @@ const App = () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -915,8 +1191,8 @@ export default App;
 ### 焦点事件处理
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
-import { DownOutlined } from '@ant-design/icons';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
   const [isFocused, setIsFocused] = React.useState(false);
@@ -929,7 +1205,7 @@ export default () => {
         toolsRender={() => [
           <ToggleButton
             key="bold"
-            triggerIcon={<DownOutlined />}
+            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
@@ -984,7 +1260,7 @@ export default () => {
 ### 自定义叶子节点渲染
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
 export default () => {
   const [value, setValue] = React.useState('**粗体文本** *斜体文本* `代码`');
 
@@ -1063,7 +1339,7 @@ export default () => {
 ```tsx
 import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
 
 export default () => {
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
@@ -1248,7 +1524,7 @@ export default () => {
 ### 粘贴配置
 
 ```tsx | pure
-import { MarkdownInputField, ToggleButton } from '@ant-design/md-editor';
+import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
 
 export default () => {
   const [value, setValue] = React.useState('');

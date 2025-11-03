@@ -1,5 +1,5 @@
-import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
-import { useEditorStyleRegister } from '../../hooks/useStyle';
+import type { ChatTokenType, GenerateStyle } from '../../Hooks/useStyle';
+import { useEditorStyleRegister } from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -76,7 +76,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             justifyContent: 'center',
           },
           [`&-action-btn`]: {
-            color: 'rgba(80, 92, 113, 0.42)',
+            cursor: 'pointer',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
           },
           // 分组内容区域
           [`&-content`]: {

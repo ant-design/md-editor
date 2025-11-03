@@ -1,4 +1,4 @@
-import { History, HistoryDataType } from '@ant-design/md-editor';
+import { History, HistoryDataType } from '@ant-design/agentic-ui';
 import { message } from 'antd';
 import React, { useState } from 'react';
 
@@ -92,6 +92,7 @@ const StandaloneHistoryDemo = () => {
           onClick={handleSelected}
           standalone
           type="chat"
+          emptyRender={() => <div>暂无历史记录</div>}
           agent={{
             enabled: true,
             onSearch: () => {},

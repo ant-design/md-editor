@@ -1,4 +1,4 @@
-import { AnswerAlert, Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { AnswerAlert, Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import React from 'react';
 
 // Mock data for the demo

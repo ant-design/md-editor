@@ -84,6 +84,28 @@ Object.defineProperty(globalThis, 'cancelAnimationFrame', {
   writable: true,
 });
 
+// Mock requestAnimationFrame to prevent unhandled errors in tests
+Object.defineProperty(globalThis, 'requestAnimationFrame', {
+  value: vi.fn((callback) => {
+    return setTimeout(callback, 16); // ~60fps
+  }),
+  writable: true,
+});
+
+Object.defineProperty(globalThis.window, 'requestAnimationFrame', {
+  value: vi.fn((callback) => {
+    return setTimeout(callback, 16); // ~60fps
+  }),
+  writable: true,
+});
+
+Object.defineProperty(globalThis.window, 'cancelAnimationFrame', {
+  value: vi.fn((id) => {
+    clearTimeout(id);
+  }),
+  writable: true,
+});
+
 Object.defineProperty(globalThis, 'IntersectionObserver', {
   writable: true,
   configurable: true,

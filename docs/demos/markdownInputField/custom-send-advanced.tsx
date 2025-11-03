@@ -1,10 +1,10 @@
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import {
   CloudUploadOutlined,
   HeartOutlined,
   SendOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import { MarkdownInputField } from '@ant-design/md-editor';
 import { Button, Divider, Space, Tooltip } from 'antd';
 import React, { useState } from 'react';
 

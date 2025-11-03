@@ -4,7 +4,7 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
 import { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
-import { I18nContext } from '../../../i18n';
+import { I18nContext } from '../../../I18n';
 import { MarkdownEditorProps } from '../../types';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -313,7 +313,7 @@ const MLeafComponent = (
     useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
-  const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
+  const mdEditorBaseClass = context?.getPrefixCls('agentic-md-editor-content');
   const leaf = props.leaf;
   const style: CSSProperties = {};
   let prefixClassName = classNames(props.hashId);

@@ -3,7 +3,7 @@ import {
   extractTextFromHtml,
   htmlToMarkdown,
   isHtml,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 const HtmlToMarkdownDemo: React.FC = () => {

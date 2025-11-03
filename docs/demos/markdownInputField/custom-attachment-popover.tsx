@@ -1,10 +1,10 @@
+import type { AttachmentFile } from '@ant-design/agentic-ui';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import {
   FileImageOutlined,
   InfoCircleOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import type { AttachmentFile } from '@ant-design/md-editor';
-import { MarkdownInputField } from '@ant-design/md-editor';
 import {
   Button,
   Card,

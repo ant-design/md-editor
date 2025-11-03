@@ -3,13 +3,14 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
       maxWidth: '100%',
       display: 'flex',
+      minWidth: '0px',
       flexDirection: 'column',
       flexWrap: 'nowrap',
       overflow: 'auto',

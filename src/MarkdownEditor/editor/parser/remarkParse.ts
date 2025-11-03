@@ -2,6 +2,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
+import remarkHtml from 'remark-html';
 import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -159,6 +160,7 @@ export function fixStrongWithSpecialChars() {
 // 完整的 HTML 渲染解析器
 const markdownParser = unified()
   .use(remarkParse)
+  .use(remarkHtml)
   .use(remarkGfm) // GFM 插件
   .use(fixStrongWithSpecialChars) // 修复包含特殊字符的加粗文本
   .use(remarkMath as any, {

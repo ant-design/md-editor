@@ -13,29 +13,34 @@ group:
 ## 代码演示
 
 <code src="../demos/charts/area.tsx" background="var(--main-bg-color)" iframe=540></code>
+<code src="../demos/charts/area-toolbar-filter.tsx" background="var(--main-bg-color)" title="工具栏过滤器" iframe=540></code>
+<code src="../demos/charts/area-statistic.tsx" background="var(--main-bg-color)" title="统计指标" iframe=540></code>
 
 ## API
 
 ### AreaChartProps
 
-| 属性           | 类型                                             | 默认值     | 说明                                                          |
-| -------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------- |
-| title          | `string`                                         | -          | 图表标题                                                      |
-| data           | `AreaChartDataItem[]`                            | -          | 扁平化数据数组                                                |
-| width          | `number \| string`                               | `600`      | 图表宽度（px），移动端自适应为 100%                           |
-| height         | `number \| string`                               | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400）             |
-| className      | `string`                                         | -          | 自定义类名                                                    |
-| dataTime       | `string`                                         | -          | 数据时间                                                      |
-| theme          | `'dark' \| 'light'`                              | `'light'`  | 主题风格                                                      |
-| color          | `string \| string[]`                             | -          | 自定义主色；数组按序对应各数据序列                            |
-| showLegend     | `boolean`                                        | `true`     | 是否显示图例                                                  |
-| legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'`         | `'bottom'` | 图例位置                                                      |
-| legendAlign    | `'start' \| 'center' \| 'end'`                   | `'start'`  | 图例水平对齐方式                                              |
-| showGrid       | `boolean`                                        | `true`     | 是否显示网格线                                                |
-| xPosition      | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                      |
-| yPosition      | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                      |
-| toolbarExtra   | `React.ReactNode`                                | -          | 头部工具条额外按钮                                            |
-| statistic      | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置 |
+| 属性                  | 类型                                             | 默认值     | 说明                                                                     |
+| --------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------ |
+| title                 | `string`                                         | -          | 图表标题                                                                 |
+| data                  | `AreaChartDataItem[]`                            | -          | 扁平化数据数组                                                           |
+| width                 | `number \| string`                               | `600`      | 图表宽度（px），移动端自适应为 100%                                      |
+| height                | `number \| string`                               | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400）                        |
+| className             | `string`                                         | -          | 自定义类名                                                               |
+| dataTime              | `string`                                         | -          | 数据时间                                                                 |
+| theme                 | `'dark' \| 'light'`                              | `'light'`  | 主题风格                                                                 |
+| color                 | `string \| string[]`                             | -          | 自定义主色；数组按序对应各数据序列                                       |
+| showLegend            | `boolean`                                        | `true`     | 是否显示图例                                                             |
+| legendPosition        | `'top' \| 'left' \| 'bottom' \| 'right'`         | `'bottom'` | 图例位置                                                                 |
+| legendAlign           | `'start' \| 'center' \| 'end'`                   | `'start'`  | 图例水平对齐方式                                                         |
+| showGrid              | `boolean`                                        | `true`     | 是否显示网格线                                                           |
+| xPosition             | `'top' \| 'bottom'`                              | `'bottom'` | X 轴位置                                                                 |
+| yPosition             | `'left' \| 'right'`                              | `'left'`   | Y 轴位置                                                                 |
+| hiddenX               | `boolean`                                        | `false`    | 是否隐藏 X 轴                                                            |
+| hiddenY               | `boolean`                                        | `false`    | 是否隐藏 Y 轴                                                            |
+| toolbarExtra          | `React.ReactNode`                                | -          | 头部工具条额外按钮                                                       |
+| renderFilterInToolbar | `boolean`                                        | `false`    | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
+| statistic             | `ChartStatisticConfig \| ChartStatisticConfig[]` | -          | ChartStatistic组件配置：object表示单个配置，array表示多个配置            |
 
 ### AreaChartDataItem
 
@@ -73,4 +78,5 @@ group:
 - 移动端自动启用响应式：宽度 100%，高度不超过 400px。
 - 当 `filterLabel` 存在时，组件会在分类基础上增加二级筛选。
 - 不同 `type` 自动分配调色板并以填充形式展示面积。
+- `hiddenX` 和 `hiddenY` 可以控制坐标轴的显示/隐藏，适用于只展示图表本身而不需要坐标轴的场景。
 - `statistic` 属性支持数组形式，可同时渲染多个统计数据组件，如 `[{title: '点赞数', value: 380}, {title: '点踩数', value: 126}]`。

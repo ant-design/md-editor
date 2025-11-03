@@ -2,7 +2,7 @@
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../../../../hooks/useStyle';
+} from '../../../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {

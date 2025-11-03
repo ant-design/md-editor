@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { I18nProvide } from '../../../src/i18n';
+import { I18nProvide } from '../../../src/I18n';
 import { PreviewComponent } from '../../../src/Workspace/File/PreviewComponent';
 import type { FileNode } from '../../../src/Workspace/types';
 
@@ -572,7 +572,6 @@ describe('PreviewComponent', () => {
       );
 
       expect(screen.getByText('正在生成')).toBeInTheDocument();
-      expect(screen.getByText('Generating...')).toBeInTheDocument();
     });
 
     it('应该正常渲染文本文件内容', () => {

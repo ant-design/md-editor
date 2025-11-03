@@ -3,7 +3,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -51,7 +51,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               display: 'flex',
               width: '112px',
               '&-text': {
-                maxWidth: '92px',
+                maxWidth: '98px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 WebkitLineClamp: 1,
@@ -74,9 +74,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             background: '#353E5C',
             fontSize: 12,
             position: 'absolute',
-            top: -6,
+            top: 2,
             borderRadius: '50%',
-            right: -6,
+            right: 2,
             color: '#FFFFFF',
             display: 'flex',
             justifyContent: 'center',

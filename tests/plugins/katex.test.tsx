@@ -256,6 +256,7 @@ describe('Katex Plugin', () => {
             <div data-testid="template-buttons">
               {templates.map((template, index) => (
                 <button
+                  type="button"
                   key={index}
                   type="button"
                   data-testid={`template-${index}`}
@@ -345,6 +346,7 @@ describe('Katex Plugin', () => {
               <div data-testid="fallback-content">
                 <div>公式渲染失败</div>
                 <button
+                  type="button"
                   type="button"
                   data-testid="retry-button"
                   onClick={retry}

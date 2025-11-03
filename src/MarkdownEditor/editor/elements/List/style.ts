@@ -2,7 +2,7 @@
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../../../../hooks/useStyle';
+} from '../../../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -21,13 +21,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         paddingTop: '0 !important',
         paddingBottom: '0 !important',
       },
-      [`li:not(${token.componentCls}-task) > :first-child .ant-md-editor-drag-handle`]:
+      [`li:not(${token.componentCls}-task) > :first-child .ant-agentic-md-editor-drag-handle`]:
         {
           paddingLeft: '2px',
           paddingRight: '12px',
           left: '-44px !important',
         },
-      [`li${token.componentCls}-task > :nth-child(2) .ant-md-editor-drag-handle`]:
+      [`li${token.componentCls}-task > :nth-child(2) .ant-agentic-md-editor-drag-handle`]:
         {
           paddingLeft: '2px',
           paddingRight: '10px',
@@ -56,13 +56,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
         },
       },
-
       '&.ol': {
+        '&::marker': {
+          color: 'var(--color-gray-text-light)',
+        },
         [`&${token.componentCls}`]: {
           listStyle: 'decimal',
           [`& ol${token.componentCls}`]: {
             listStyle: 'lower-alpha',
-            paddingLeft: '1.5em',
+            paddingLeft: 'var(--padding-4x)',
             [`& ol${token.componentCls}`]: {
               listStyle: 'lower-roman',
               [`& ol${token.componentCls}`]: {
@@ -78,7 +80,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           [`& ul${token.componentCls}`]: {
             listStyle: 'circle',
-            paddingLeft: '1.5em',
+            paddingLeft: 'var(--padding-4x)',
             [`& ul${token.componentCls}`]: {
               listStyle: 'square',
               [`& ul${token.componentCls}`]: {

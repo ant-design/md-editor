@@ -1,4 +1,4 @@
-import LoadingLottie from '@ant-design/md-editor/TaskList/LoadingLottie';
+import LoadingLottie from '@ant-design/agentic-ui/TaskList/LoadingLottie';
 import { Check, CircleDashed, OctagonX } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
@@ -40,7 +40,7 @@ const StatusIcon: FC<{
 
 export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('workspace-task');
+  const prefixCls = getPrefixCls('agentic-workspace-task');
   const { wrapSSR, hashId } = useTaskStyle(prefixCls);
 
   return wrapSSR(

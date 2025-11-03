@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
-import type { LayoutHeaderConfig } from '../components/LayoutHeader';
+import type { LayoutHeaderConfig } from '../Components/LayoutHeader';
 
 /**
  * ChatLayout 组件的属性接口

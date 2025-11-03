@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { debounce, stringFormatNumber } from '../../../src/plugins/chart/utils';
+import { debounce, stringFormatNumber } from '../../../src/Plugins/chart/utils';
 
 describe('Chart Utils', () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { EditorStore } from '@ant-design/md-editor/MarkdownEditor/editor/store';
+import { EditorStore } from '@ant-design/agentic-ui/MarkdownEditor/editor/store';
 import { createEditor } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';

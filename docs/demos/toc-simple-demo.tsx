@@ -1,4 +1,4 @@
-import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/agentic-ui';
 import { Button, Card, Space, Typography } from 'antd';
 import React, { useEffect, useRef } from 'react';
 

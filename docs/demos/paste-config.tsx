@@ -1,4 +1,4 @@
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 /**

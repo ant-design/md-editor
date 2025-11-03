@@ -3,7 +3,7 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../../hooks/useStyle';
+} from '../../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -13,7 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'row',
       overflow: 'auto',
       gap: 'var(--margin-2x)',
-      maxHeight: '127px',
+      maxHeight: '128px',
       height: 'max-content',
       marginRight: '40px',
       borderRadius: 'inherit',
@@ -48,7 +48,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'var(--color-gray-bg-card-white)',
         boxShadow: 'var(--shadow-control-base)',
         boxSizing: 'border-box',
-        padding: 'var(--padding-2x)',
+        padding: 'var(--padding-1x)',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -99,21 +99,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 'var(--margin-0-5x)',
+          flex: 1,
+          minWidth: 0,
         },
         '&-file-name': {
           display: 'flex',
-          width: '112px',
+          width: '100%',
           alignItems: 'center',
           lineHeight: 'var(--line-height-xs)',
           fontFamily: token.fontFamily,
-          gap: -1,
           '&-text': {
             font: 'var(--font-text-body-emphasized-sm)',
             letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
             color: 'var(--color-gray-text-default)',
-            maxWidth: '102px',
+            maxWidth: '112px',
+            width: '100%',
             whiteSpace: 'nowrap',
-            width: 'max-content',
             overflow: 'hidden',
             display: '-webkit-box',
             '-webkit-line-clamp': '1',
@@ -129,6 +130,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           alignItems: 'center',
           gap: 4,
+          '&-error': {
+            color: 'var(--color-red-a10)',
+          },
           '&-item:not(:last-child)': {
             lineHeight: '9px',
             display: 'flex',
@@ -150,9 +154,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           backgroundColor: 'var(--color-gray-text-default)',
           fontSize: 'var(--font-size-sm)',
           position: 'absolute',
-          top: -6,
+          top: 2,
           borderRadius: '50%',
-          right: -6,
+          right: 2,
           color: 'var(--color-gray-contrast)',
           display: 'none',
           justifyContent: 'center',

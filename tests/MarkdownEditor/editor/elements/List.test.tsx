@@ -509,7 +509,7 @@ describe('List Components', () => {
       };
       render(<ListItem {...taskItemProps} />);
       const li = document.querySelector('[data-be="list-item"]');
-      expect(li).toHaveClass('ant-md-editor-list-task');
+      expect(li).toHaveClass('ant-agentic-md-editor-list-task');
     });
 
     it('应该渲染多个提及用户', () => {
@@ -554,7 +554,7 @@ describe('List Components', () => {
       };
       render(<ListItem {...taskItemProps} />);
       const checkboxContainer = document.querySelector(
-        '.ant-md-editor-list-check-item',
+        '.ant-agentic-md-editor-list-check-item',
       );
       expect(checkboxContainer).toHaveAttribute('contentEditable', 'false');
     });
@@ -614,7 +614,7 @@ describe('List Components', () => {
       render(<ListItem {...defaultListItemProps} />);
       const li = document.querySelector('[data-be="list-item"]');
       // 检查类名中包含组件相关的类
-      expect(li?.className).toContain('ant-md-editor-list-item');
+      expect(li?.className).toContain('ant-agentic-md-editor-list-item');
     });
 
     it('应该处理非常长的列表项内容', () => {

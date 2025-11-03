@@ -1,4 +1,4 @@
-import { SchemaRenderer } from '@ant-design/md-editor';
+import { SchemaRenderer } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const sampleSchema = {

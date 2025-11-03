@@ -4,7 +4,7 @@ nav:
 atomId: ThoughtChainList
 group:
   title: 对话流
-  order: 2
+  order: 3
 ---
 
 # ThoughtChainList 思维链
@@ -24,7 +24,7 @@ group:
 ## 使用方法
 
 ```tsx
-import { ThoughtChainList } from '@ant-design/md-editor'; // 从你的包中导入
+import { ThoughtChainList } from '@ant-design/agentic-ui'; // 从你的包中导入
 
 // 示例思维链数据
 const thoughtChainData = [
@@ -106,7 +106,7 @@ export default App;
 ### 基础示例
 
 ```tsx
-import { ThoughtChainList } from '@ant-design/md-editor';
+import { ThoughtChainList } from '@ant-design/agentic-ui';
 
 const basicThoughtChain = [
   {
@@ -145,7 +145,7 @@ export default function BasicDemo() {
 ### 多步骤示例
 
 ```tsx
-import { ThoughtChainList } from '@ant-design/md-editor';
+import { ThoughtChainList } from '@ant-design/agentic-ui';
 import { useState, useEffect } from 'react';
 
 export default function ProgressDemo() {
@@ -239,7 +239,7 @@ export default function ProgressDemo() {
 ### 错误状态示例
 
 ```tsx
-import { ThoughtChainList } from '@ant-design/md-editor';
+import { ThoughtChainList } from '@ant-design/agentic-ui';
 
 const errorThoughtChain = [
   {
@@ -698,7 +698,7 @@ info: '查询数据';
 ### 使用自定义本地化
 
 ````tsx
-import { ThoughtChainList } from '@ant-design/md-editor';
+import { ThoughtChainList } from '@ant-design/agentic-ui';
 const myThoughtChainData = [
   {
     category: 'DeepThink',
@@ -818,7 +818,7 @@ export default function LocalizedDemo() {
 ### 紧凑模式
 
 ````tsx
-import { ThoughtChainList } from '@ant-design/md-editor';
+import { ThoughtChainList } from '@ant-design/agentic-ui';
 const myThoughtChainData = [
   {
     category: 'DeepThink',

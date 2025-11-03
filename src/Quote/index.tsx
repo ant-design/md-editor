@@ -88,7 +88,7 @@ export const Quote: React.FC<QuoteProps> = ({
   onFileClick,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('quote');
+  const prefixCls = getPrefixCls('agentic-quote');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 处理文件名点击

@@ -8,8 +8,8 @@ import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
-import { useClickAway } from '../../../../../hooks/useClickAway';
-import { useRefFunction } from '../../../../../hooks/useRefFunction';
+import { useClickAway } from '../../../../../Hooks/useClickAway';
+import { useRefFunction } from '../../../../../Hooks/useRefFunction';
 import { NativeTableEditor } from '../../../../utils/native-table';
 import { TablePropsContext } from '../TableContext';
 import { useStyle } from './style';
@@ -73,7 +73,7 @@ export const TableCellIndexSpacer: React.FC<TableCellIndexSpacerProps> = ({
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls(
-    'md-editor-table-cell-index-spacer',
+    'agentic-md-editor-table-cell-index-spacer',
   );
   const { wrapSSR, hashId } = useStyle(baseClassName);
   const editor = useSlate();

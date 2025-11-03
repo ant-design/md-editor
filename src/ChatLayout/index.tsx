@@ -1,7 +1,7 @@
-import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
 import { ConfigProvider } from 'antd';
 import React, { forwardRef, useContext, useImperativeHandle } from 'react';
-import { LayoutHeader } from '../components/LayoutHeader';
+import { LayoutHeader } from '../Components/LayoutHeader';
+import useAutoScroll from '../Hooks/useAutoScroll';
 import { useStyle } from './style';
 import type { ChatLayoutProps, ChatLayoutRef } from './types';
 
@@ -112,7 +112,7 @@ const ChatLayout = forwardRef<ChatLayoutRef, ChatLayoutProps>(
   },
 );
 // 保持向后兼容，导出 ChatFlowHeader 作为 LayoutHeader 的别名
-export { LayoutHeader as ChatFlowHeader } from '../components/LayoutHeader';
-export type { LayoutHeaderProps as ChatFlowHeaderProps } from '../components/LayoutHeader';
+export { LayoutHeader as ChatFlowHeader } from '../Components/LayoutHeader';
+export type { LayoutHeaderProps as ChatFlowHeaderProps } from '../Components/LayoutHeader';
 export type { ChatLayoutProps, ChatLayoutRef } from './types';
 export { ChatLayout };

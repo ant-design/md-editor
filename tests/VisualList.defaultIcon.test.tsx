@@ -1,12 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { VisualList, VisualListItem } from '../src/components/VisualList';
+import { describe, expect, it } from 'vitest';
+import { VisualList, VisualListItem } from '../src/Components/VisualList';
 
 describe('VisualList 默认图标测试', () => {
   const mockData: VisualListItem[] = [
     {
       id: '1',
-      src: 'invalid-url.jpg', // 故意使用无效URL来触发错误处理
+      src: '', // 空字符串，直接触发默认图标
       alt: '测试图片',
       title: '测试标题',
     },
@@ -18,14 +19,13 @@ describe('VisualList 默认图标测试', () => {
     },
   ];
 
-  it('应该显示默认浏览器图标当图片加载失败时', () => {
+  it('应该显示默认图标当图片src为空时', () => {
     render(<VisualList data={mockData} />);
 
-    // 等待图片加载失败并显示默认图标
-    setTimeout(() => {
-      const defaultIcon = screen.getByTestId('browser-icon');
-      expect(defaultIcon).toBeInTheDocument();
-    }, 100);
+    const defaultIconContainer = document.querySelector(
+      '.visual-list-default-icon',
+    );
+    expect(defaultIconContainer).toBeInTheDocument();
   });
 
   it('应该正确渲染有效图片', () => {
@@ -39,11 +39,10 @@ describe('VisualList 默认图标测试', () => {
   it('默认图标应该适应圆形形状', () => {
     render(<VisualList data={[mockData[0]]} shape="circle" />);
 
-    setTimeout(() => {
-      const defaultIconContainer = document.querySelector(
-        '.visual-list-default-icon',
-      );
-      expect(defaultIconContainer).toHaveStyle('border-radius: 50%');
-    }, 100);
+    const defaultIconContainer = document.querySelector(
+      '.visual-list-default-icon',
+    );
+    expect(defaultIconContainer).toBeInTheDocument();
+    expect(defaultIconContainer).toHaveStyle('border-radius: 50%'); // 圆形模式下应该是50%
   });
 });

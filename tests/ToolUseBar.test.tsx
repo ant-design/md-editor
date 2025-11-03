@@ -63,7 +63,7 @@ describe('ToolUseBar', () => {
 
   it('should render empty state when no tools provided', () => {
     const { container } = render(<ToolUseBar tools={[]} />);
-    expect(container.firstChild).toHaveClass('ant-tool-use-bar');
+    expect(container.firstChild).toHaveClass('ant-agentic-tool-use-bar');
   });
 
   it('should support activeKeys prop', () => {
@@ -157,10 +157,10 @@ describe('ToolUseBar', () => {
     const toolItems = container.querySelectorAll(
       '[data-testid="ToolUserItem"]',
     );
-    expect(toolItems[0]).toHaveClass('ant-tool-use-bar-tool-active'); // tool1 应该激活
-    expect(toolItems[1]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool2 不应该激活
-    expect(toolItems[2]).toHaveClass('ant-tool-use-bar-tool-active'); // tool3 应该激活
-    expect(toolItems[3]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool4 不应该激活
+      expect(toolItems[0]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool1 应该激活
+      expect(toolItems[1]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool2 不应该激活
+      expect(toolItems[2]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool3 应该激活
+    expect(toolItems[3]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool4 不应该激活
 
     // 重新渲染，改变 activeKeys 属性
     rerender(
@@ -175,10 +175,10 @@ describe('ToolUseBar', () => {
     const updatedToolItems = container.querySelectorAll(
       '[data-testid="ToolUserItem"]',
     );
-    expect(updatedToolItems[0]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool1 不再激活
-    expect(updatedToolItems[1]).toHaveClass('ant-tool-use-bar-tool-active'); // tool2 现在激活
-    expect(updatedToolItems[2]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool3 不再激活
-    expect(updatedToolItems[3]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool4 不激活
+    expect(updatedToolItems[0]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool1 不再激活
+    expect(updatedToolItems[1]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool2 现在激活
+    expect(updatedToolItems[2]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool3 不再激活
+    expect(updatedToolItems[3]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool4 不激活
   });
 
   it('should use defaultActiveKeys in uncontrolled mode', () => {
@@ -191,10 +191,10 @@ describe('ToolUseBar', () => {
     const toolItems = container.querySelectorAll(
       '[data-testid="ToolUserItem"]',
     );
-    expect(toolItems[0]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool1 不激活
-    expect(toolItems[1]).toHaveClass('ant-tool-use-bar-tool-active'); // tool2 默认激活
-    expect(toolItems[2]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool3 不激活
-    expect(toolItems[3]).toHaveClass('ant-tool-use-bar-tool-active'); // tool4 默认激活
+    expect(toolItems[0]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool1 不激活
+    expect(toolItems[1]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool2 默认激活
+    expect(toolItems[2]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool3 不激活
+    expect(toolItems[3]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool4 默认激活
   });
 
   it('should prioritize activeKeys over defaultActiveKeys when both are provided', () => {
@@ -214,10 +214,10 @@ describe('ToolUseBar', () => {
     const toolItems = container.querySelectorAll(
       '[data-testid="ToolUserItem"]',
     );
-    expect(toolItems[0]).toHaveClass('ant-tool-use-bar-tool-active'); // tool1 激活（来自activeKeys）
-    expect(toolItems[1]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool2 不激活（忽略defaultActiveKeys）
-    expect(toolItems[2]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool3 不激活（忽略defaultActiveKeys）
-    expect(toolItems[3]).not.toHaveClass('ant-tool-use-bar-tool-active'); // tool4 不激活
+    expect(toolItems[0]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool1 激活（来自activeKeys）
+    expect(toolItems[1]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool2 不激活（忽略defaultActiveKeys）
+    expect(toolItems[2]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool3 不激活（忽略defaultActiveKeys）
+    expect(toolItems[3]).not.toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool4 不激活
   });
 
   it('should handle activeKeys change when tool items are clicked', () => {
@@ -260,8 +260,8 @@ describe('ToolUseBar', () => {
     const updatedToolItems = container.querySelectorAll(
       '[data-testid="ToolUserItem"]',
     );
-    expect(updatedToolItems[0]).toHaveClass('ant-tool-use-bar-tool-active'); // tool1 仍然激活
-    expect(updatedToolItems[1]).toHaveClass('ant-tool-use-bar-tool-active'); // tool2 现在也激活
+    expect(updatedToolItems[0]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool1 仍然激活
+    expect(updatedToolItems[1]).toHaveClass('ant-agentic-tool-use-bar-tool-active'); // tool2 现在也激活
 
     // 清除之前的调用记录
     mockOnActiveKeysChange.mockClear();
@@ -285,7 +285,7 @@ describe('ToolUseBar', () => {
     // 检查 light 模式的样式类是否存在
     const toolItems = screen.getAllByTestId('ToolUserItem');
     toolItems.forEach((item) => {
-      expect(item).toHaveClass('ant-tool-use-bar-tool-light');
+      expect(item).toHaveClass('ant-agentic-tool-use-bar-tool-light');
     });
   });
 

@@ -23,7 +23,9 @@ describe('MarkdownInputField - leafRender', () => {
 
     // 验证 leafRender 被调用（可能需要特定的内容才能触发）
     // 由于 Slate 编辑器的复杂性，我们主要验证组件能正常渲染
-    expect(document.querySelector('.ant-md-input-field')).toBeInTheDocument();
+    expect(
+      document.querySelector('.ant-agentic-md-input-field'),
+    ).toBeInTheDocument();
   });
 
   it('should pass correct props to leafRender function', async () => {
@@ -39,7 +41,9 @@ describe('MarkdownInputField - leafRender', () => {
     });
 
     // 验证组件正常渲染，leafRender 函数被正确传递
-    expect(document.querySelector('.ant-md-input-field')).toBeInTheDocument();
+    expect(
+      document.querySelector('.ant-agentic-md-input-field'),
+    ).toBeInTheDocument();
     // 由于 Slate 编辑器的复杂性，我们主要验证组件能正常渲染
     // leafRender 的具体调用可能需要特定的内容或交互才能触发
   });
@@ -76,7 +80,7 @@ describe('MarkdownInputField - leafRender', () => {
 
     // 由于 Slate 编辑器的复杂性，我们主要验证 leafRender 函数被正确调用
     // 实际的文本渲染可能需要更复杂的设置
-    const container = document.querySelector('.ant-md-input-field');
+    const container = document.querySelector('.ant-agentic-md-input-field');
     expect(container).toBeInTheDocument();
   });
 
@@ -108,7 +112,9 @@ describe('MarkdownInputField - leafRender', () => {
     });
 
     // 验证组件正常渲染，leafRender 函数被正确传递
-    expect(document.querySelector('.ant-md-input-field')).toBeInTheDocument();
+    expect(
+      document.querySelector('.ant-agentic-md-input-field'),
+    ).toBeInTheDocument();
     // 由于 Slate 编辑器的复杂性，我们主要验证组件能正常渲染
     // leafRender 的具体调用可能需要特定的内容或交互才能触发
   });
@@ -155,6 +161,8 @@ describe('MarkdownInputField - leafRender', () => {
     );
 
     // 验证没有 leafRender 时组件正常工作
-    expect(container.querySelector('.ant-md-input-field')).toBeInTheDocument();
+    expect(
+      container.querySelector('.ant-agentic-md-input-field'),
+    ).toBeInTheDocument();
   });
 });

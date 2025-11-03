@@ -8,7 +8,7 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { CodeNode } from '../../../../src/MarkdownEditor/el';
-import { ThinkBlock } from '../../../../src/plugins/code/components/ThinkBlock';
+import { ThinkBlock } from '../../../../src/Plugins/code/components/ThinkBlock';
 
 describe('ThinkBlock alwaysExpandedDeepThink 集成测试', () => {
   const mockCodeNode: CodeNode = {

@@ -1,0 +1,39 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 20px; display: flex; flex-direction: row; gap: 16px;"
+    >
+      <div
+        style="flex: 1 1 0%; max-width: 50%; min-width: 50%;"
+      >
+        <h3>
+          编辑模式
+        </h3>
+        <div
+          data-length="1729"
+          data-testid="md-editor"
+        >
+          MarkdownEditor(Mock)
+        </div>
+      </div>
+      <div
+        style="flex: 1 1 0%; max-width: 50%; min-width: 50%;"
+      >
+        <h3>
+          只读模式（查看 think 块效果）
+        </h3>
+        <div
+          data-length="1729"
+          data-testid="md-editor"
+        >
+          MarkdownEditor(Mock)
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { MermaidElement } from '../../../src/plugins/mermaid/index';
+import { MermaidElement } from '../../../src/Plugins/mermaid/index';
 
 // Mock 依赖
 vi.mock('../../../src/MarkdownEditor/editor/store', () => ({
@@ -22,7 +22,7 @@ vi.mock('slate-react', () => ({
   },
 }));
 
-vi.mock('../../../src/MarkdownEditor/i18n', () => ({
+vi.mock('../../../src/MarkdownEditor/I18n', () => ({
   I18nContext: React.createContext({
     locale: 'zh-CN',
     t: (key: string) => key,
@@ -96,7 +96,7 @@ describe('MermaidElement Component', () => {
     it('应该处理关闭按钮点击', () => {
       render(<MermaidElement {...defaultProps} />);
       const closeButton = document.querySelector(
-        '.ant-md-editor-action-icon-box',
+        '.ant-agentic-md-editor-action-icon-box',
       );
       if (closeButton) {
         fireEvent.click(closeButton);
@@ -107,7 +107,7 @@ describe('MermaidElement Component', () => {
     it('应该处理复制按钮点击', async () => {
       render(<MermaidElement {...defaultProps} />);
       const copyButton = document.querySelectorAll(
-        '.ant-md-editor-action-icon-box',
+        '.ant-agentic-md-editor-action-icon-box',
       )[1];
       if (copyButton) {
         fireEvent.click(copyButton);

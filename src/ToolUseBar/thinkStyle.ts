@@ -2,7 +2,7 @@ import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -23,6 +23,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       zIndex: 1,
       padding: '2px',
       paddingRight: '4px',
+      marginBottom: '12px',
 
       '*': {
         boxSizing: 'border-box',
@@ -212,6 +213,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: 8,
         display: 'flex',
         maxHeight: 700,
+        overflow: 'hidden',
+        overflowY: 'auto',
         position: 'relative',
         '&-light': {
           borderLeft: '1px solid var(--color-gray-border-light)',

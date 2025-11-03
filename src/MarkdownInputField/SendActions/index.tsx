@@ -3,8 +3,8 @@ import { Popover } from 'antd';
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import React, { useContext, useMemo } from 'react';
-import { ActionIconBox } from '../../components/ActionIconBox';
-import { I18nContext } from '../../i18n';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { I18nContext } from '../../I18n';
 import type { AttachmentButtonProps } from '../AttachmentButton';
 import { AttachmentButton } from '../AttachmentButton';
 import type { AttachmentFile } from '../AttachmentButton/types';
@@ -106,7 +106,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
   onSend,
   onStop,
   actionsRender,
-  prefixCls = 'ant-md-input-field',
+  prefixCls = 'ant-agentic-md-input-field',
   hashId = '',
   hasTools = false,
   onResize,
@@ -139,7 +139,7 @@ export const SendActions: React.FC<SendActionsProps> = ({
           onFileMapChange={(fileMap) => {
             attachment?.onFileMapChange?.(fileMap);
           }}
-          disabled={!fileUploadDone}
+          disabled={!fileUploadDone || attachment?.disabled}
         />
       ) : null,
       voiceRecognizer ? (

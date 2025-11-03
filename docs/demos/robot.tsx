@@ -5,7 +5,7 @@ import {
   TASK_STATUS,
   TaskRunning,
   ThinkingLottie,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 export default () => {
@@ -52,6 +52,7 @@ export default () => {
           <div style={{ display: 'flex', gap: 8 }}>
             {statusOptions.map((option) => (
               <button
+                type="button"
                 key={option.value}
                 type="button"
                 onClick={() => setRobotStatus(option.value)}

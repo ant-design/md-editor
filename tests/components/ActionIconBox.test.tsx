@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { ActionIconBox } from '../../src/components/ActionIconBox';
+import { ActionIconBox } from '../../src/Components/ActionIconBox';
 
 describe('ActionIconBox 组件', () => {
   const TestIcon = () => <span data-testid="test-icon">Icon</span>;
@@ -127,8 +127,8 @@ describe('ActionIconBox 组件', () => {
       </ActionIconBox>,
     );
 
-    const button = container.querySelector('.ant-md-editor-action-icon-box');
-    expect(button).toHaveClass('ant-md-editor-action-icon-box-danger');
+    const button = container.querySelector('.ant-agentic-md-editor-action-icon-box');
+    expect(button).toHaveClass('ant-agentic-md-editor-action-icon-box-danger');
   });
 
   it('应该支持 primary 类型', () => {
@@ -138,8 +138,8 @@ describe('ActionIconBox 组件', () => {
       </ActionIconBox>,
     );
 
-    const button = container.querySelector('.ant-md-editor-action-icon-box');
-    expect(button).toHaveClass('ant-md-editor-action-icon-box-primary');
+    const button = container.querySelector('.ant-agentic-md-editor-action-icon-box');
+    expect(button).toHaveClass('ant-agentic-md-editor-action-icon-box-primary');
   });
 
   it('应该支持无边框样式', () => {
@@ -149,8 +149,8 @@ describe('ActionIconBox 组件', () => {
       </ActionIconBox>,
     );
 
-    const button = container.querySelector('.ant-md-editor-action-icon-box');
-    expect(button).toHaveClass('ant-md-editor-action-icon-box-border-less');
+    const button = container.querySelector('.ant-agentic-md-editor-action-icon-box');
+    expect(button).toHaveClass('ant-agentic-md-editor-action-icon-box-border-less');
   });
 
   it('应该支持激活状态', () => {
@@ -160,8 +160,8 @@ describe('ActionIconBox 组件', () => {
       </ActionIconBox>,
     );
 
-    const button = container.querySelector('.ant-md-editor-action-icon-box');
-    expect(button).toHaveClass('ant-md-editor-action-icon-box-active');
+    const button = container.querySelector('.ant-agentic-md-editor-action-icon-box');
+    expect(button).toHaveClass('ant-agentic-md-editor-action-icon-box-active');
   });
 
   it('应该支持变换效果', () => {
@@ -171,8 +171,8 @@ describe('ActionIconBox 组件', () => {
       </ActionIconBox>,
     );
 
-    const button = container.querySelector('.ant-md-editor-action-icon-box');
-    expect(button).toHaveClass('ant-md-editor-action-icon-box-transform');
+    const button = container.querySelector('.ant-agentic-md-editor-action-icon-box');
+    expect(button).toHaveClass('ant-agentic-md-editor-action-icon-box-transform');
   });
 
   it('应该支持主题设置', () => {
@@ -183,9 +183,9 @@ describe('ActionIconBox 组件', () => {
     );
 
     const lightButton = lightContainer.querySelector(
-      '.ant-md-editor-action-icon-box',
+      '.ant-agentic-md-editor-action-icon-box',
     );
-    expect(lightButton).toHaveClass('ant-md-editor-action-icon-box-light');
+    expect(lightButton).toHaveClass('ant-agentic-md-editor-action-icon-box-light');
 
     const { container: darkContainer } = render(
       <ActionIconBox title="深色主题" theme="dark">
@@ -194,9 +194,9 @@ describe('ActionIconBox 组件', () => {
     );
 
     const darkButton = darkContainer.querySelector(
-      '.ant-md-editor-action-icon-box',
+      '.ant-agentic-md-editor-action-icon-box',
     );
-    expect(darkButton).toHaveClass('ant-md-editor-action-icon-box-dark');
+    expect(darkButton).toHaveClass('ant-agentic-md-editor-action-icon-box-dark');
   });
 
   it('应该支持无内边距', () => {
@@ -206,8 +206,8 @@ describe('ActionIconBox 组件', () => {
       </ActionIconBox>,
     );
 
-    const button = container.querySelector('.ant-md-editor-action-icon-box');
-    expect(button).toHaveClass('ant-md-editor-action-icon-box-noPadding');
+    const button = container.querySelector('.ant-agentic-md-editor-action-icon-box');
+    expect(button).toHaveClass('ant-agentic-md-editor-action-icon-box-noPadding');
   });
 
   it('应该支持键盘导航（Enter 键）', async () => {

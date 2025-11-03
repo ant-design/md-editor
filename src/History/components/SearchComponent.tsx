@@ -1,9 +1,9 @@
 import { Input, Spin } from 'antd';
 import React, { useContext, useRef, useState } from 'react';
-import { ActionIconBox } from '../../components/ActionIconBox';
-import useClickAway from '../../hooks/useClickAway';
-import { useDebounceFn } from '../../hooks/useDebounceFn';
-import { I18nContext } from '../../i18n';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import useClickAway from '../../Hooks/useClickAway';
+import { useDebounceFn } from '../../Hooks/useDebounceFn';
+import { I18nContext } from '../../I18n';
 
 function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -47,6 +47,8 @@ interface HistorySearchProps {
     placeholder?: string;
     /** 未展开时的默认文本 */
     text?: string;
+    /** 搜索触发方式: 'change' - 实时搜索(默认), 'enter' - 回车触发 */
+    trigger?: 'change' | 'enter';
   };
 }
 
@@ -91,7 +93,10 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const ref = useRef<HTMLDivElement>(null);
+
+  const trigger = searchOptions?.trigger || 'change';
 
   useClickAway(() => {
     setIsExpanded(false);
@@ -120,6 +125,21 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
     360,
   );
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    if (trigger === 'change') {
+      handleSearchChange.run(e);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (trigger === 'enter' && e.key === 'Enter') {
+      handleSearchWithLoading(inputValue);
+    }
+  };
+
   // 展开后显示搜索框
   return (
     <div
@@ -142,9 +162,9 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
               : locale?.['chat.history.search.placeholder'] || '搜索话题')
           }
           prefix={loading ? <Spin size="small" /> : <SearchIcon />}
-          onChange={(e) => {
-            handleSearchChange.run(e);
-          }}
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           style={{
             width: '100%',
             height: 32,

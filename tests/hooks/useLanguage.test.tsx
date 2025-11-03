@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { useLanguage } from '../../src/hooks/useLanguage';
-import { I18nProvide } from '../../src/i18n';
+import { useLanguage } from '../../src/Hooks/useLanguage';
+import { I18nProvide } from '../../src/I18n';
 
 describe('useLanguage Hook', () => {
   it('应该在没有 I18nProvide 时抛出错误', () => {

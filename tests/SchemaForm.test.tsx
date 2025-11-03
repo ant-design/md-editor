@@ -2,8 +2,8 @@ import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { SchemaForm } from '../src/schema/SchemaForm';
-import type { LowCodeSchema } from '../src/schema/types';
+import { SchemaForm } from '../src/Schema/SchemaForm';
+import type { LowCodeSchema } from '../src/Schema/types';
 
 // Mock schema for testing
 const mockSchema: LowCodeSchema = {

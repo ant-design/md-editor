@@ -23,16 +23,16 @@ group:
 
 ## 🔧 安装和配置问题
 
-### Q: 安装后出现 "Cannot resolve module '@ant-design/md-editor'" 错误
+### Q: 安装后出现 "Cannot resolve module '@ant-design/agentic-ui'" 错误
 
 **A:** 检查以下几个方面：
 
 1. **确认安装状态**
 
    ```bash
-   npm list @ant-design/md-editor
+   npm list @ant-design/agentic-ui
    # 或
-   pnpm list @ant-design/md-editor
+   pnpm list @ant-design/agentic-ui
    ```
 
 2. **重新安装依赖**
@@ -80,10 +80,10 @@ group:
 
    ```tsx | pure
    // ✅ 正确
-   import { MarkdownEditor } from '@ant-design/md-editor';
+   import { MarkdownEditor } from '@ant-design/agentic-ui';
 
    // ❌ 错误
-   import MarkdownEditor from '@ant-design/md-editor';
+   import MarkdownEditor from '@ant-design/agentic-ui';
    ```
 
 ### Q: Webpack 构建时出现错误
@@ -223,7 +223,7 @@ const customPastePlugin = {
 2. **检查 KaTeX 插件**
 
    ```tsx | pure
-   import { MarkdownEditor } from '@ant-design/md-editor';
+   import { MarkdownEditor } from '@ant-design/agentic-ui';
 
    // 确保启用 KaTeX 插件
    <MarkdownEditor
@@ -316,7 +316,7 @@ const customPastePlugin = {
 
 ```tsx | pure
 import { ConfigProvider } from 'antd';
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 
 const customTheme = {
   token: {
@@ -446,7 +446,7 @@ import { ConfigProvider, theme } from 'antd';
      MarkdownEditorProps,
      MarkdownEditorInstance,
      Elements,
-   } from '@ant-design/md-editor';
+   } from '@ant-design/agentic-ui';
    ```
 
 2. **扩展类型定义**

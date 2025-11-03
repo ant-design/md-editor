@@ -1,4 +1,4 @@
-import { MarkdownEditor } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it } from 'vitest';

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { useContext, useMemo } from 'react';
 import { Node } from 'slate';
-import { I18nContext } from '../../../i18n';
+import { I18nContext } from '../../../I18n';
 import { ElementProps, ParagraphNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
@@ -43,7 +43,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
       <div
         {...props.attributes}
         data-be={'paragraph'}
-        className={classNames('ant-md-editor-drag-el', {
+        className={classNames('ant-agentic-md-editor-drag-el', {
           empty: isEmpty,
           typewriter: isLast && typewriter,
         })}

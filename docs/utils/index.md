@@ -20,7 +20,7 @@ md-editor 提供了丰富的工具函数，用于支持编辑器的各种功能�
 检测字符串是否包含 Markdown 格式。
 
 ```typescript | pure
-import { isMarkdown } from '@ant-design/md-editor';
+import { isMarkdown } from '@ant-design/agentic-ui';
 
 console.log(isMarkdown('# 标题')); // true
 console.log(isMarkdown('普通文本')); // false
@@ -31,7 +31,7 @@ console.log(isMarkdown('普通文本')); // false
 将 Markdown 内容转换为 HTML。
 
 ```typescript | pure
-import { markdownToHtml, markdownToHtmlSync } from '@ant-design/md-editor';
+import { markdownToHtml, markdownToHtmlSync } from '@ant-design/agentic-ui';
 
 // 异步转换
 const html = await markdownToHtml('# 标题\n\n这是内容');
@@ -45,7 +45,7 @@ const htmlSync = markdownToHtmlSync('# 标题\n\n这是内容');
 将 HTML 内容转换为 Markdown。
 
 ```typescript | pure
-import { htmlToMarkdown } from '@ant-design/md-editor';
+import { htmlToMarkdown } from '@ant-design/agentic-ui';
 
 const markdown = htmlToMarkdown('<h1>标题</h1><p>内容</p>');
 ```
@@ -57,7 +57,7 @@ const markdown = htmlToMarkdown('<h1>标题</h1><p>内容</p>');
 编辑器操作工具类，提供丰富的编辑器操作方法。
 
 ```typescript | pure
-import { EditorUtils } from '@ant-design/md-editor';
+import { EditorUtils } from '@ant-design/agentic-ui';
 
 // 聚焦编辑器
 EditorUtils.focus(editor);
@@ -76,7 +76,7 @@ const imageNode = EditorUtils.createMediaNode('image.jpg', 'image');
 提供 DOM 元素位置计算、字符串处理和媒体类型检测。
 
 ```typescript | pure
-import { getOffsetTop, slugify, getMediaType } from '@ant-design/md-editor';
+import { getOffsetTop, slugify, getMediaType } from '@ant-design/agentic-ui';
 
 // 计算元素位置
 const top = getOffsetTop(element);
@@ -93,7 +93,7 @@ const type = getMediaType('image.jpg'); // 'image'
 路径处理和链接检测工具。
 
 ```typescript | pure
-import { isLink, parsePath, toUnixPath } from '@ant-design/md-editor';
+import { isLink, parsePath, toUnixPath } from '@ant-design/agentic-ui';
 
 // 检测链接
 console.log(isLink('https://example.com')); // true
@@ -112,7 +112,10 @@ const unixPath = toUnixPath('C:\\path\\to\\file'); // 'C:/path/to/file'
 远程媒体类型检测和图片处理。
 
 ```typescript | pure
-import { getRemoteMediaType, convertRemoteImages } from '@ant-design/md-editor';
+import {
+  getRemoteMediaType,
+  convertRemoteImages,
+} from '@ant-design/agentic-ui';
 
 // 检测远程媒体类型
 const type = await getRemoteMediaType('https://example.com/image.jpg');
@@ -149,7 +152,7 @@ import {
   // 媒体工具
   getRemoteMediaType,
   convertRemoteImages,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 ```
 
 ### 组合使用示例
@@ -246,7 +249,7 @@ const debouncedValidation = debounce((content: string) => {
 
 ```typescript | pure
 // 使用 TypeScript 类型
-import type { HtmlToMarkdownOptions } from '@ant-design/md-editor';
+import type { HtmlToMarkdownOptions } from '@ant-design/agentic-ui';
 
 const options: HtmlToMarkdownOptions = {
   preserveLineBreaks: true,

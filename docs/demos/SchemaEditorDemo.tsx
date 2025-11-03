@@ -1,4 +1,4 @@
-import { LowCodeSchema, SchemaEditor } from '@ant-design/md-editor';
+import { LowCodeSchema, SchemaEditor } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 /**
@@ -176,6 +176,7 @@ export default function SchemaEditorDemo() {
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             {examples.map((example, index) => (
               <button
+                type="button"
                 type="button"
                 key={index}
                 onClick={() => loadExample(example)}

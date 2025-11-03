@@ -10,8 +10,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { ActionIconBox } from '../../../../components/ActionIconBox';
-import { I18nContext } from '../../../../i18n';
+import { ActionIconBox } from '../../../../Components/ActionIconBox';
+import { I18nContext } from '../../../../I18n';
 import { useEditorStore } from '../../store';
 import { TableNode } from '../../types/Table';
 import { parserSlateNodeToMarkdown } from '../../utils';
@@ -196,7 +196,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               className={classNames(
                 baseCls,
                 hashId,
-                getPrefixCls('md-editor-content'),
+                getPrefixCls('agentic-md-editor-content'),
               )}
               style={{
                 flex: 1,

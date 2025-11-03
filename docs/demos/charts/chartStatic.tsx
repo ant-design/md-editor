@@ -1,5 +1,5 @@
+import { ChartStatistic } from '@ant-design/agentic-ui';
 import { InfoCircleFilled } from '@ant-design/icons';
-import { ChartStatistic } from '@ant-design/md-editor';
 import { Card, Divider } from 'antd';
 import React from 'react';
 

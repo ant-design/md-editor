@@ -1,10 +1,10 @@
-import { InsertLink } from '@ant-design/md-editor/MarkdownEditor/editor/tools/InsertLink';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { InsertLink } from '../../../../src/MarkdownEditor/editor/tools/InsertLink';
 
 // Mock dependencies
-vi.mock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
+vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/store', () => ({
   useEditorStore: () => ({
     store: {
       insertLink: () => {},
@@ -19,14 +19,14 @@ vi.mock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
   }),
 }));
 
-vi.mock('@ant-design/md-editor/MarkdownEditor/hooks/subscribe', () => ({
+vi.mock('@ant-design/agentic-ui/MarkdownEditor/hooks/subscribe', () => ({
   useSubject: () => ({
     subscribe: () => {},
     next: () => {},
   }),
 }));
 
-vi.mock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
   useGetSetState: () => [
     () => ({
       open: false,
@@ -42,7 +42,7 @@ vi.mock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
   ],
 }));
 
-vi.mock('@ant-design/md-editor/i18n', () => ({
+vi.mock('@ant-design/agentic-ui/I18n', () => ({
   I18nContext: {
     Provider: ({ children }: { children: React.ReactNode }) => children,
     Consumer: ({ children }: { children: (value: any) => React.ReactNode }) =>
@@ -70,7 +70,7 @@ vi.mock('react', async () => {
           },
         };
       }
-      return actual.useContext(context);
+      return (actual as any).useContext(context as any);
     }),
   };
 });
@@ -89,7 +89,7 @@ describe('InsertLink Component', () => {
 
   it('应该处理链接URL输入', async () => {
     const mockSetState = vi.fn();
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,
@@ -117,7 +117,7 @@ describe('InsertLink Component', () => {
 
   it('应该处理链接文本输入', async () => {
     const mockSetState = vi.fn();
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,
@@ -145,7 +145,7 @@ describe('InsertLink Component', () => {
 
   it('应该处理确认按钮点击', async () => {
     const mockInsertLink = vi.fn();
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/store', () => ({
       useEditorStore: () => ({
         store: {
           insertLink: mockInsertLink,
@@ -160,7 +160,7 @@ describe('InsertLink Component', () => {
       }),
     }));
 
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,
@@ -188,7 +188,7 @@ describe('InsertLink Component', () => {
 
   it('应该处理取消按钮点击', async () => {
     const mockSetState = vi.fn();
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,
@@ -216,7 +216,7 @@ describe('InsertLink Component', () => {
 
   it('应该处理删除链接功能', async () => {
     const mockRemoveLink = vi.fn();
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/store', () => ({
       useEditorStore: () => ({
         store: {
           insertLink: vi.fn(),
@@ -231,7 +231,7 @@ describe('InsertLink Component', () => {
       }),
     }));
 
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,
@@ -264,7 +264,7 @@ describe('InsertLink Component', () => {
       { path: '/doc2', title: '文档2' },
     ];
 
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,
@@ -292,7 +292,7 @@ describe('InsertLink Component', () => {
 
   it('应该处理键盘事件', async () => {
     const mockSetState = vi.fn();
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,
@@ -317,7 +317,7 @@ describe('InsertLink Component', () => {
 
   it('应该验证URL格式', async () => {
     const mockSetState = vi.fn();
-    vi.doMock('@ant-design/md-editor/MarkdownEditor/editor/utils', () => ({
+    vi.doMock('@ant-design/agentic-ui/MarkdownEditor/editor/utils', () => ({
       useGetSetState: () => [
         () => ({
           open: true,

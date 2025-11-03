@@ -1,5 +1,5 @@
-import { parserSlateNodeToMarkdown } from '@ant-design/md-editor';
-import { expect, it, describe } from 'vitest';
+import { parserSlateNodeToMarkdown } from '@ant-design/agentic-ui';
+import { describe, expect, it } from 'vitest';
 
 describe('textStyle function - tag and value handling', () => {
   it('should handle text node with tag and value properties', () => {
@@ -29,10 +29,10 @@ describe('textStyle function - tag and value handling', () => {
           {
             text: '默认文本',
             tag: true,
-            placeholder: '请输入姓名'
-          }
-        ]
-      }
+            placeholder: '请输入姓名',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -47,10 +47,10 @@ describe('textStyle function - tag and value handling', () => {
           {
             text: '',
             tag: true,
-            placeholder: '请输入姓名'
-          }
-        ]
-      }
+            placeholder: '请输入姓名',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -66,16 +66,15 @@ describe('textStyle function - tag and value handling', () => {
             text: '显示文本',
             tag: true,
             placeholder: '请输入姓名',
-            value: '李四'
-          }
-        ]
-      }
+            value: '李四',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
     expect(markdown).toBe('`${placeholder:请输入姓名,value:李四}`');
   });
-
 
   it('should handle text node with tag and null value', () => {
     const schema = [
@@ -86,10 +85,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请输入姓名',
-            value: null
-          }
-        ]
-      }
+            value: null,
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -105,10 +104,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请输入姓名',
-            value: undefined
-          }
-        ]
-      }
+            value: undefined,
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -124,10 +123,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请选择选项',
-            value: 'option1,option2,option3'
-          }
-        ]
-      }
+            value: 'option1,option2,option3',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -145,10 +144,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请输入内容',
-            value: '包含特殊字符: @#$%^&*()'
-          }
-        ]
-      }
+            value: '包含特殊字符: @#$%^&*()',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -166,10 +165,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请输入中文姓名',
-            value: '王五'
-          }
-        ]
-      }
+            value: '王五',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -185,10 +184,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '',
-            value: '测试值'
-          }
-        ]
-      }
+            value: '测试值',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -204,10 +203,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: undefined,
-            value: '测试值'
-          }
-        ]
-      }
+            value: '测试值',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -223,10 +222,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: null,
-            value: '测试值'
-          }
-        ]
-      }
+            value: '测试值',
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -242,10 +241,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请输入数字',
-            value: 123
-          }
-        ]
-      }
+            value: 123,
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -261,10 +260,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请选择',
-            value: true
-          }
-        ]
-      }
+            value: true,
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -280,17 +279,15 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请选择数组',
-            value: [1, 2, 3]
-          }
-        ]
-      }
+            value: [1, 2, 3],
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
     expect(markdown).toBe('`${placeholder:请选择数组,value:1,2,3}`');
   });
-
- 
 
   it('should handle text node with tag and zero value', () => {
     const schema = [
@@ -301,10 +298,10 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请输入数字',
-            value: 0
-          }
-        ]
-      }
+            value: 0,
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
@@ -320,14 +317,13 @@ describe('textStyle function - tag and value handling', () => {
             text: '',
             tag: true,
             placeholder: '请选择',
-            value: false
-          }
-        ]
-      }
+            value: false,
+          },
+        ],
+      },
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
     expect(markdown).toBe('`${placeholder:请选择}`');
   });
-  
-}); 
+});

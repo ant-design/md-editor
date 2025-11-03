@@ -1,9 +1,9 @@
 ---
-title: ChatBoot - 对话启动
-atomId: ChatBoot
+title: ChatBootPage - 对话启动页
+atomId: ChatBootPage
 group:
-  title: 布局
-  order: 3
+  title: 入口
+  order: 1
 ---
 
 # 对话启动组件
@@ -12,7 +12,7 @@ group:
 
 ## 基础用法
 
-<code src="../demos/ChatBoot/index.tsx" iframe=800></code>
+<code src="../demos/ChatBootPage/index.tsx" iframe=800></code>
 
 ## 组件概览
 
@@ -21,14 +21,11 @@ group:
 用于展示对话界面的欢迎标题和副标题。
 
 ```tsx
-import { Title } from '@ant-design/md-editor';
+import { Title } from '@ant-design/agentic-ui';
 
 export default () => {
-  return <Title 
-    title="欢迎使用 AI 助手" 
-    subtitle="您的智能对话伙伴" 
-  />
-}
+  return <Title title="欢迎使用 AI 助手" subtitle="您的智能对话伙伴" />;
+};
 ```
 
 ### CaseReply - 推荐卡片
@@ -36,18 +33,20 @@ export default () => {
 展示推荐的对话案例，支持点击快速开始对话。
 
 ```tsx
-import { CaseReply } from '@ant-design/md-editor';
+import { CaseReply } from '@ant-design/agentic-ui';
 
 export default () => {
-  return <CaseReply
-    coverBackground="rgba(132, 220, 24, 0.15)"
-    quoteIconColor="rgb(132, 220, 24)"
-    quote="这是一段引用文字"
-    title="搜热门资讯"
-    description="了解最新动态"
-    onClick={() => console.log('卡片被点击')}
-  />
-}
+  return (
+    <CaseReply
+      coverBackground="rgba(132, 220, 24, 0.15)"
+      quoteIconColor="rgb(132, 220, 24)"
+      quote="这是一段引用文字"
+      title="搜热门资讯"
+      description="了解最新动态"
+      onClick={() => console.log('卡片被点击')}
+    />
+  );
+};
 ```
 
 ### ButtonTabGroup - 按钮标签组
@@ -55,90 +54,87 @@ export default () => {
 可切换的按钮标签组，支持选中状态和图标点击。
 
 ```tsx
-import { ButtonTabGroup } from '@ant-design/md-editor';
+import { ButtonTabGroup } from '@ant-design/agentic-ui';
 import { RefreshCcw } from '@sofa-design/icons';
-import { useState } from 'react';
 
 export default () => {
-  const [activeKey, setActiveKey] = useState('all');
-
   return (
     <ButtonTabGroup
       items={[
         { key: 'all', label: '全部' },
-        { 
-          key: 'recent', 
+        {
+          key: 'recent',
           label: '最近',
           icon: <RefreshCcw />,
-          onIconClick: () => console.log('刷新')
+          onIconClick: () => console.log('刷新'),
         },
       ]}
-      activeKey={activeKey}
-      onChange={(key) => setActiveKey(key)}
+      activeKey="all"
+      onChange={(key) => console.log(key)}
     />
-  )
-}
+  );
+};
 ```
 
 ## API 参考
 
 ### TitleProps
 
-| 属性       | 类型                | 默认值 | 描述           |
-| ---------- | ------------------- | ------ | -------------- |
-| title      | ReactNode           | -      | 主标题内容     |
-| subtitle   | ReactNode           | -      | 副标题内容     |
-| style      | React.CSSProperties | -      | 自定义样式     |
-| className  | string              | -      | 自定义类名     |
-| prefixCls  | string              | -      | 自定义前缀类名 |
+| 属性      | 类型                | 默认值 | 描述           |
+| --------- | ------------------- | ------ | -------------- |
+| title     | ReactNode           | -      | 主标题内容     |
+| subtitle  | ReactNode           | -      | 副标题内容     |
+| style     | React.CSSProperties | -      | 自定义样式     |
+| className | string              | -      | 自定义类名     |
+| prefixCls | string              | -      | 自定义前缀类名 |
 
 ### CaseReplyProps
 
-| 属性             | 类型                | 默认值                       | 描述                                           |
-| ---------------- | ------------------- | ---------------------------- | ---------------------------------------------- |
-| coverBackground  | string              | 'rgba(132, 220, 24, 0.15)'   | cover 区域背景色（rgba 格式）                  |
-| quoteIconColor   | string              | 'rgb(132, 220, 24)'          | 引号图标的颜色（rgb 格式）                     |
-| quote            | ReactNode           | -                            | 引用文字内容                                   |
-| title            | ReactNode           | -                            | 卡片标题                                       |
-| description      | ReactNode           | -                            | 描述文字（单行显示）                           |
-| buttonBar        | ReactNode           | -                            | 按钮区域内容（悬停时显示）                     |
-| onClick          | () => void          | -                            | 卡片点击事件                                   |
-| style            | React.CSSProperties | -                            | 自定义样式                                     |
-| className        | string              | -                            | 自定义类名                                     |
-| prefixCls        | string              | -                            | 自定义前缀类名                                 |
+| 属性            | 类型                | 默认值                     | 描述                          |
+| --------------- | ------------------- | -------------------------- | ----------------------------- |
+| coverBackground | string              | 'rgba(132, 220, 24, 0.15)' | cover 区域背景色（rgba 格式） |
+| quoteIconColor  | string              | 'rgb(132, 220, 24)'        | 引号图标的颜色（rgb 格式）    |
+| quote           | ReactNode           | -                          | 引用文字内容                  |
+| title           | ReactNode           | -                          | 卡片标题                      |
+| description     | ReactNode           | -                          | 描述文字（单行显示）          |
+| buttonBar       | ReactNode           | -                          | 按钮区域内容（悬停时显示）    |
+| onClick         | () => void          | -                          | 卡片点击事件                  |
+| style           | React.CSSProperties | -                          | 自定义样式                    |
+| className       | string              | -                          | 自定义类名                    |
+| prefixCls       | string              | -                          | 自定义前缀类名                |
 
 ### ButtonTabProps
 
-| 属性        | 类型           | 默认值 | 描述               |
-| ----------- | -------------- | ------ | ------------------ |
-| children    | ReactNode      | -      | 按钮文本内容       |
-| selected    | boolean        | false  | 是否选中           |
-| onClick     | () => void     | -      | 按钮点击回调       |
-| onIconClick | () => void     | -      | 图标点击回调       |
-| icon        | ReactNode      | -      | 按钮图标           |
-| className   | string         | -      | 自定义类名         |
-| prefixCls   | string         | -      | 自定义前缀类名     |
+| 属性        | 类型       | 默认值 | 描述           |
+| ----------- | ---------- | ------ | -------------- |
+| children    | ReactNode  | -      | 按钮文本内容   |
+| selected    | boolean    | false  | 是否选中       |
+| onClick     | () => void | -      | 按钮点击回调   |
+| onIconClick | () => void | -      | 图标点击回调   |
+| icon        | ReactNode  | -      | 按钮图标       |
+| className   | string     | -      | 自定义类名     |
+| prefixCls   | string     | -      | 自定义前缀类名 |
 
 ### ButtonTabGroupProps
 
-| 属性             | 类型                  | 默认值 | 描述                               |
-| ---------------- | --------------------- | ------ | ---------------------------------- |
-| items            | ButtonTabItem[]       | []     | Tab 配置项数组                     |
-| activeKey        | string                | -      | 当前选中的 Tab key（受控模式）     |
-| defaultActiveKey | string                | -      | 默认选中的 Tab key（非受控模式）   |
-| onChange         | (key: string) => void | -      | Tab 切换时的回调函数               |
-| className        | string                | -      | 自定义类名                         |
-| prefixCls        | string                | -      | 自定义前缀类名                     |
+| 属性             | 类型                  | 默认值 | 描述                             |
+| ---------------- | --------------------- | ------ | -------------------------------- |
+| items            | ButtonTabItem[]       | []     | Tab 配置项数组                   |
+| activeKey        | string                | -      | 当前选中的 Tab key（受控模式）   |
+| defaultActiveKey | string                | -      | 默认选中的 Tab key（非受控模式） |
+| onChange         | (key: string) => void | -      | Tab 切换时的回调函数             |
+| className        | string                | -      | 自定义类名                       |
+| prefixCls        | string                | -      | 自定义前缀类名                   |
 
 ### ButtonTabItem
 
-| 属性        | 类型       | 默认值 | 描述                                         |
-| ----------- | ---------- | ------ | -------------------------------------------- |
-| key         | string     | -      | Tab 的唯一标识                               |
-| label       | ReactNode  | -      | Tab 显示的文本                               |
-| icon        | ReactNode  | -      | Tab 的图标（显示在右侧，带分隔线）           |
+| 属性        | 类型       | 默认值 | 描述                                              |
+| ----------- | ---------- | ------ | ------------------------------------------------- |
+| key         | string     | -      | Tab 的唯一标识                                    |
+| label       | ReactNode  | -      | Tab 显示的文本                                    |
+| icon        | ReactNode  | -      | Tab 的图标（显示在右侧，带分隔线）                |
 | onIconClick | () => void | -      | 图标点击回调（独立于 Tab 点击，支持如刷新等操作） |
-| disabled    | boolean    | false  | 是否禁用该选项                               |
+| disabled    | boolean    | false  | 是否禁用该选项                                    |
 
 ## 使用场景
 

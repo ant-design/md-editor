@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { CodeContainer } from '../../../../src/plugins/code/components/CodeContainer';
+import { CodeContainer } from '../../../../src/Plugins/code/components/CodeContainer';
 
 // Mock DragHandle
 vi.mock('../../../../src/MarkdownEditor/editor/tools/DragHandle', () => ({

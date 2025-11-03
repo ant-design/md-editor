@@ -1,4 +1,4 @@
-import { MarkdownEditor, MarkdownEditorPlugin } from '@ant-design/md-editor';
+import { MarkdownEditor, MarkdownEditorPlugin } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 // 自定义代码块插件 - 将特殊的代码块转换为警告格式
@@ -166,6 +166,7 @@ export default function ToMarkdownPluginDemo() {
 
       <div style={{ marginBottom: '20px' }}>
         <button
+          type="button"
           type="button"
           onClick={handleExportMarkdown}
           style={{

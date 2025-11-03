@@ -2,7 +2,7 @@
  * title: 懒加载渲染示例
  * description: 展示 BaseMarkdownEditor 的懒加载功能，适用于长文档场景
  */
-import { BaseMarkdownEditor } from '@ant-design/md-editor';
+import { BaseMarkdownEditor } from '@ant-design/agentic-ui';
 import { Switch } from 'antd';
 import React, { useState } from 'react';
 

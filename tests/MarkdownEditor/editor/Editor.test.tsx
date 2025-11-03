@@ -1,9 +1,9 @@
-import { SlateMarkdownEditor as Editor } from '@ant-design/md-editor/MarkdownEditor/editor/Editor';
+import { SlateMarkdownEditor as Editor } from '@ant-design/agentic-ui/MarkdownEditor/editor/Editor';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock dependencies
-vi.mock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
+vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/store', () => ({
   useEditorStore: () => ({
     store: {
       dragStart: vi.fn(),
@@ -31,7 +31,7 @@ vi.mock('@ant-design/md-editor/MarkdownEditor/editor/store', () => ({
 }));
 
 vi.mock(
-  '@ant-design/md-editor/MarkdownEditor/editor/plugins/useHighlight',
+  '@ant-design/agentic-ui/MarkdownEditor/editor/plugins/useHighlight',
   () => ({
     useHighlight: () => ({
       decorate: vi.fn(),
@@ -40,7 +40,7 @@ vi.mock(
 );
 
 vi.mock(
-  '@ant-design/md-editor/MarkdownEditor/editor/plugins/useKeyboard',
+  '@ant-design/agentic-ui/MarkdownEditor/editor/plugins/useKeyboard',
   () => ({
     useKeyboard: () => ({
       onKeyDown: vi.fn(),
@@ -49,7 +49,7 @@ vi.mock(
 );
 
 vi.mock(
-  '@ant-design/md-editor/MarkdownEditor/editor/plugins/useOnchange',
+  '@ant-design/agentic-ui/MarkdownEditor/editor/plugins/useOnchange',
   () => ({
     useOnchange: () => ({
       onChange: vi.fn(),
@@ -57,7 +57,7 @@ vi.mock(
   }),
 );
 
-vi.mock('@ant-design/md-editor/MarkdownEditor/editor/elements', () => ({
+vi.mock('@ant-design/agentic-ui/MarkdownEditor/editor/elements', () => ({
   MElement: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="m-element">{children}</div>
   ),
@@ -67,7 +67,7 @@ vi.mock('@ant-design/md-editor/MarkdownEditor/editor/elements', () => ({
 }));
 
 vi.mock(
-  '@ant-design/md-editor/MarkdownEditor/editor/components/LazyElement',
+  '@ant-design/agentic-ui/MarkdownEditor/editor/components/LazyElement',
   () => ({
     LazyElement: ({ children }: { children: React.ReactNode }) => (
       <div data-testid="lazy-element">{children}</div>

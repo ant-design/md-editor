@@ -15,7 +15,7 @@ export type FileMapViewProps = {
   onPreview?: (file: AttachmentFile) => void;
   /** 下载文件回调 */
   onDownload?: (file: AttachmentFile) => void;
-  /** 点击“查看所有文件”回调，携带当前所有文件列表 */
+  /** 点击"查看所有文件"回调，携带当前所有文件列表 */
   onViewAll?: (files: AttachmentFile[]) => void;
   /** 自定义更多操作 DOM（优先于 onMore，传入则展示该 DOM，不传则不展示更多按钮） */
   renderMoreAction?: (file: AttachmentFile) => React.ReactNode;
@@ -25,11 +25,11 @@ export type FileMapViewProps = {
   style?: React.CSSProperties;
   /** 自定义根容器类名 */
   className?: string;
-  /** 最多展示的文件数量，默认展示 3 个 */
+  /** 最多展示的非图片文件数量，传入则开启溢出控制并在超出时显示"查看所有文件"按钮，不传则使用默认值3 */
   maxDisplayCount?: number;
-  placement?: 'left' | 'right';
-  /** 是否展示“查看此任务中的所有文件”按钮（默认展示） */
+  /** 是否显示"查看全部"按钮，当为 false 时忽略 maxDisplayCount 限制，显示所有文件 */
   showMoreButton?: boolean;
+  placement?: 'left' | 'right';
 };
 
 /**
@@ -72,12 +72,13 @@ export type FileMapViewProps = {
  * - 支持自定义样式和交互
  */
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
-  const { placement = 'left' } = props;
+  const { placement = 'left', showMoreButton = true } = props;
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context?.getPrefixCls('md-editor-file-view-list');
+  const prefix = context?.getPrefixCls('agentic-md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
 
-  const maxCount = props.maxDisplayCount ?? 3;
+  // 默认 maxDisplayCount 为 3
+  const maxDisplayCount = props.maxDisplayCount ?? 3;
 
   const fileList = useMemo(() => {
     if (!props.fileMap) {
@@ -86,21 +87,35 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
     return Array.from(props.fileMap?.values() || []);
   }, [props.fileMap]);
 
-  const limitedFiles = useMemo(() => {
-    // 需求：当 showMoreButton === false 时，展示全部文件；否则仅展示前 maxCount 个
-    if (props.showMoreButton === false) {
-      return fileList;
-    }
-    return fileList.slice(0, Math.max(0, maxCount));
-  }, [fileList, maxCount, props.showMoreButton]);
+  // 所有图片文件列表
+  const allImgFiles = useMemo(() => {
+    return fileList.filter((file) => isImageFile(file));
+  }, [fileList]);
 
+  // 所有非图片文件列表
+  const allNoImageFiles = useMemo(() => {
+    return fileList.filter((file) => !isImageFile(file));
+  }, [fileList]);
+
+  // 根据 maxDisplayCount 限制显示的图片列表
+  // 如果 showMoreButton 为 false，则显示所有图片
   const imgList = useMemo(() => {
-    return limitedFiles.filter((file) => isImageFile(file));
-  }, [fileList]);
+    if (!showMoreButton) {
+      return allImgFiles;
+    }
+    return allImgFiles.slice(0, Math.max(0, maxDisplayCount));
+  }, [allImgFiles, maxDisplayCount, showMoreButton]);
 
+  // 根据 maxDisplayCount 限制显示的非图片文件列表
+  // 如果已经显示了图片，需要计算剩余的非图片文件数量
+  // 如果 showMoreButton 为 false，则显示所有非图片文件
   const noImageFileList = useMemo(() => {
-    return limitedFiles.filter((file) => !isImageFile(file));
-  }, [fileList]);
+    if (!showMoreButton) {
+      return allNoImageFiles;
+    }
+    const remainingCount = Math.max(0, maxDisplayCount - imgList.length);
+    return allNoImageFiles.slice(0, remainingCount);
+  }, [allNoImageFiles, maxDisplayCount, imgList.length, showMoreButton]);
 
   return wrapSSR(
     <div
@@ -108,7 +123,10 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         display: 'flex',
         flexDirection: 'column',
         gap: 4,
+        maxWidth: '100%',
+        minWidth: 0,
         alignItems: placement === 'left' ? 'flex-start' : 'flex-end',
+        width: 'max-content',
       }}
     >
       <motion.div
@@ -211,7 +229,9 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
             />
           );
         })}
-        {props.showMoreButton !== false && fileList.length > maxCount ? (
+        {showMoreButton &&
+        maxDisplayCount !== undefined &&
+        fileList.length > maxDisplayCount ? (
           <div
             style={{ width: props.style?.width }}
             className={classNames(hashId, `${prefix}-more-file-container`)}

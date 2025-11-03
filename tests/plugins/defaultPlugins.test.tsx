@@ -1,17 +1,17 @@
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { standardPlugins } from '../../src/plugins/defaultPlugins';
+import { standardPlugins } from '../../src/Plugins/defaultPlugins';
 
 // Mock plugins
-vi.mock('../../src/plugins/code', () => ({
+vi.mock('../../src/Plugins/code', () => ({
   CodeElement: vi.fn(() => <div>Code Element</div>),
 }));
 
-vi.mock('../../src/plugins/chart', () => ({
+vi.mock('../../src/Plugins/chart', () => ({
   ChartElement: vi.fn(() => <div>Chart Element</div>),
 }));
 
-vi.mock('../../src/plugins/katex', () => ({
+vi.mock('../../src/Plugins/katex', () => ({
   KatexElement: vi.fn(() => <div>Katex Element</div>),
   InlineKatex: vi.fn(() => <span>Inline Katex</span>),
 }));

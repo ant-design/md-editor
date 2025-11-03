@@ -1,6 +1,6 @@
 import BarChart, {
   BarChartDataItem,
-} from '@ant-design/md-editor/plugins/chart/BarChart';
+} from '@ant-design/agentic-ui/Plugins/chart/BarChart';
 import { Switch } from 'antd';
 import React, { useState } from 'react';
 
@@ -277,13 +277,6 @@ const BarChartWithLabelsExample: React.FC = () => {
         width={700}
         height={500}
         showDataLabels={showLabels}
-        dataLabelFormatter={(value) => {
-          // 根据数值大小选择不同的格式化方式
-          if (value >= 10000) {
-            return `${(value / 10000).toFixed(1)}万`;
-          }
-          return value.toLocaleString();
-        }}
       />
 
       {/* 数据格式说明 */}
@@ -310,13 +303,6 @@ const BarChartWithLabelsExample: React.FC = () => {
           {`<BarChart
   data={data}
   showDataLabels={true}  // 开启数据标签
-  dataLabelFormatter={(value) => {
-    // 自定义格式化：大于1万显示"万"为单位
-    if (value >= 10000) {
-      return \`\${(value / 10000).toFixed(1)}万\`;
-    }
-    return value.toLocaleString();
-  }}
 />`}
         </pre>
       </div>
@@ -344,7 +330,8 @@ const BarChartWithLabelsExample: React.FC = () => {
           </li>
           <li>
             <strong>自定义格式：</strong>
-            支持通过 dataLabelFormatter 自定义显示格式（添加单位、千分位、保留小数等）
+            支持通过 dataLabelFormatter
+            自定义显示格式（添加单位、千分位、保留小数等）
           </li>
           <li>
             <strong>默认格式：</strong>未提供格式化函数时，自动添加千分位分隔符
@@ -356,4 +343,3 @@ const BarChartWithLabelsExample: React.FC = () => {
 };
 
 export default BarChartWithLabelsExample;
-

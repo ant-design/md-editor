@@ -1,5 +1,5 @@
-import type { ChatTokenType, GenerateStyle } from '../hooks/useStyle';
-import { useEditorStyleRegister } from '../hooks/useStyle';
+import type { ChatTokenType, GenerateStyle } from '../Hooks/useStyle';
+import { useEditorStyleRegister } from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -66,6 +66,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&.ant-segmented:not(.chaos-segmented) .ant-segmented-item .ant-segmented-item-label':
           {
             height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           },
 
         '.ant-segmented-item': {

@@ -1,4 +1,4 @@
-import { ToolUseBarThink } from '@ant-design/md-editor';
+import { ToolUseBarThink } from '@ant-design/agentic-ui';
 import React, { useEffect, useState } from 'react';
 
 const fullThinkContent = `好的，我现在需要帮用户汇总谷歌I/O 2025大会的重要信息。首先，我得仔细看看用户提供的搜索结果，找出相关的信息点。
@@ -43,7 +43,7 @@ const ToolUseBarThinkDemo = () => {
         }}
       >
         {/* Loading 状态 */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, maxWidth: '500px' }}>
           <h4>Loading 状态 </h4>
           <ToolUseBarThink
             toolName="思考中..."
@@ -59,7 +59,7 @@ const ToolUseBarThinkDemo = () => {
         </div>
 
         {/* Success 状态 */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, maxWidth: '500px' }}>
           <h4>Success 状态 </h4>
 
           <ToolUseBarThink
@@ -72,7 +72,7 @@ const ToolUseBarThinkDemo = () => {
         </div>
 
         {/* Error 状态 */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, maxWidth: '500px' }}>
           <h4>轻量思考 状态 </h4>
 
           <ToolUseBarThink

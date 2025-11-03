@@ -1,8 +1,8 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { cnLabels, enLabels, I18nContext } from '../../src/i18n';
-import { SchemaForm } from '../../src/schema/SchemaForm/index';
+import { cnLabels, enLabels, I18nContext } from '../../src/I18n';
+import { SchemaForm } from '../../src/Schema/SchemaForm/index';
 
 describe('SchemaForm i18n tests', () => {
   afterEach(() => {

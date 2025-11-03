@@ -1,4 +1,4 @@
-import { HistoryDataType } from '@ant-design/md-editor';
+import { HistoryDataType } from '@ant-design/agentic-ui';
 import { render } from '@testing-library/react';
 import dayjs from 'dayjs';
 import React from 'react';

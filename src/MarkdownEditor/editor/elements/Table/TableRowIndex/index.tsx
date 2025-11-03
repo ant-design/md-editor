@@ -57,7 +57,7 @@ export const TableRowIndex: React.FC<TableRowIndexProps> = ({
   tablePath,
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context?.getPrefixCls('md-editor-table-row-index');
+  const baseClassName = context?.getPrefixCls('agentic-md-editor-table-row-index');
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
   return wrapSSR(

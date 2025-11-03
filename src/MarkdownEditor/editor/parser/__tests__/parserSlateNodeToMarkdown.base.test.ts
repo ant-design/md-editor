@@ -368,3 +368,25 @@ describe('handleApaasify', () => {
     expect(result).toBe(expected);
   });
 });
+
+describe('parserSlateNodeToMarkdown - answer blocks', () => {
+  it('should convert answer code block as normal code block', () => {
+    const node = {
+      type: 'code',
+      language: 'answer',
+      value: '这是答案内容',
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    expect(result).toBe('```answer\n这是答案内容\n```');
+  });
+
+  it('should convert answer code block with multiline content as normal code block', () => {
+    const node = {
+      type: 'code',
+      language: 'answer',
+      value: '第一行答案\n第二行答案\n第三行答案',
+    };
+    const result = parserSlateNodeToMarkdown([node]);
+    expect(result).toBe('```answer\n第一行答案\n第二行答案\n第三行答案\n```');
+  });
+});

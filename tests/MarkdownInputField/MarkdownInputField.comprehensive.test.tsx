@@ -2,7 +2,7 @@
  * MarkdownInputField 组件全面测试文件
  */
 
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -92,9 +92,9 @@ vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
         })()}
         {skillMode.closable !== false && (
           <button
+            type="button"
             data-testid="skill-mode-close"
             onClick={() => onSkillModeOpenChange?.(false)}
-            type="button"
           >
             关闭
           </button>

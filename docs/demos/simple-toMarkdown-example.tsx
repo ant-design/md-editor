@@ -2,7 +2,7 @@ import {
   MarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorPlugin,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useRef } from 'react';
 
 // 简单的自定义代码块插件
@@ -117,6 +117,7 @@ export default function SimpleToMarkdownExample() {
 
       <div style={{ marginBottom: '20px' }}>
         <button
+          type="button"
           type="button"
           onClick={handleExportMarkdown}
           style={{

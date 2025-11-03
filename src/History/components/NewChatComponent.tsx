@@ -1,7 +1,7 @@
 import { AiAgentManagement } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import React, { useCallback, useContext, useState } from 'react';
-import { I18nContext } from '../../i18n';
+import { I18nContext } from '../../I18n';
 import { useNewChatStyle } from './NewChatComponent.style';
 
 /**
@@ -48,7 +48,7 @@ export const HistoryNewChat: React.FC<HistoryNewChatProps> = ({
   className,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const menuPrefixCls = getPrefixCls('agent-chat-history-menu');
+  const menuPrefixCls = getPrefixCls('agentic-chat-history-menu');
   const { wrapSSR, hashId } = useNewChatStyle(menuPrefixCls);
 
   const { locale } = useContext(I18nContext);

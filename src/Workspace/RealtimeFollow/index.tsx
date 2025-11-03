@@ -1,4 +1,3 @@
-import useAutoScroll from '@ant-design/md-editor/hooks/useAutoScroll';
 import {
   FileMarkdown,
   FileXml,
@@ -8,7 +7,8 @@ import {
 import { ConfigProvider, Empty, Segmented, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { I18nContext } from '../../i18n';
+import useAutoScroll from '../../Hooks/useAutoScroll';
+import { I18nContext } from '../../I18n';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
@@ -17,6 +17,11 @@ import {
 import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import { HtmlPreview } from '../HtmlPreview';
 import { useRealtimeFollowStyle } from './style';
+
+const SCROLL_TOLERANCE = 30;
+const SCROLL_TIMEOUT = 100;
+const SCROLL_DELAY = 50;
+
 export type RealtimeFollowMode =
   | 'shell'
   | 'html'
@@ -45,9 +50,7 @@ export interface RealtimeFollowData {
   emptyRender?: React.ReactNode | (() => React.ReactNode);
   status?: 'loading' | 'done' | 'error';
   onBack?: () => void;
-  /** 自定义渲染内容，传入后将直接渲染该内容，忽略其他渲染逻辑 */
   customContent?: React.ReactNode | (() => React.ReactNode);
-  // HTML 类型专用配置
   viewMode?: 'preview' | 'code';
   defaultViewMode?: 'preview' | 'code';
   onViewModeChange?: (mode: 'preview' | 'code') => void;
@@ -57,42 +60,60 @@ export interface RealtimeFollowData {
   segmentedExtra?: React.ReactNode;
 }
 
+const TYPE_CONFIGS: Record<
+  RealtimeFollowMode,
+  { icon: React.ComponentType; titleKey: string; defaultTitle: string }
+> = {
+  shell: {
+    icon: SquareTerminal,
+    titleKey: 'workspace.terminalExecution',
+    defaultTitle: '终端执行',
+  },
+  html: {
+    icon: FileXml,
+    titleKey: 'workspace.createHtmlFile',
+    defaultTitle: '创建 HTML 文件',
+  },
+  markdown: {
+    icon: FileMarkdown,
+    titleKey: 'workspace.markdownContent',
+    defaultTitle: 'Markdown 内容',
+  },
+  md: {
+    icon: FileMarkdown,
+    titleKey: 'workspace.markdownContent',
+    defaultTitle: 'Markdown 内容',
+  },
+  default: {
+    icon: SquareTerminal,
+    titleKey: 'workspace.terminalExecution',
+    defaultTitle: '终端执行',
+  },
+};
+
+const ICON_TYPE_CLASSES: Record<string, string> = {
+  html: 'html',
+  markdown: 'md',
+  md: 'md',
+};
+
 const getTypeConfig = (type: RealtimeFollowMode, locale?: any) => {
-  switch (type) {
-    case 'shell':
-      return {
-        icon: SquareTerminal,
-        title: locale?.['workspace.terminalExecution'] || '终端执行',
-      };
-    case 'html':
-      return {
-        icon: FileXml,
-        title: locale?.['workspace.createHtmlFile'] || '创建 HTML 文件',
-      };
-    case 'markdown':
-    case 'md':
-      return {
-        icon: FileMarkdown,
-        title: locale?.['workspace.markdownContent'] || 'Markdown 内容',
-      };
-    default:
-      return {
-        icon: SquareTerminal,
-        title: locale?.['workspace.terminalExecution'] || '终端执行',
-      };
-  }
+  const config = TYPE_CONFIGS[type];
+  return {
+    icon: config.icon,
+    title: locale?.[config.titleKey] || config.defaultTitle,
+  };
 };
 
 const getIconTypeClass = (type: RealtimeFollowMode, prefixCls: string) => {
-  switch (type) {
-    case 'html':
-      return `${prefixCls}-header-icon--html`;
-    case 'markdown':
-    case 'md':
-      return `${prefixCls}-header-icon--md`;
-    default:
-      return `${prefixCls}-header-icon--default`;
-  }
+  const suffix = ICON_TYPE_CLASSES[type] || 'default';
+  return `${prefixCls}-header-icon--${suffix}`;
+};
+
+const isTestEnvironment = () => process.env.NODE_ENV === 'test';
+
+const renderNode = (node: React.ReactNode | (() => React.ReactNode)) => {
+  return typeof node === 'function' ? node() : node;
 };
 
 const RealtimeHeader: React.FC<{
@@ -109,16 +130,17 @@ const RealtimeHeader: React.FC<{
   const IconComponent = data.icon || config.icon;
   const headerTitle = data.title || config.title;
   const headerSubTitle = data.subTitle;
+  const hasBackButton = Boolean(data.onBack);
 
   const iconNode = (
     <div
       className={classNames(
         `${finalPrefixCls}-header-icon`,
-        getIconTypeClass(data?.type, finalPrefixCls),
+        getIconTypeClass(data.type, finalPrefixCls),
         hashId,
       )}
     >
-      <IconComponent fontSize={24} />
+      <IconComponent />
     </div>
   );
 
@@ -128,13 +150,13 @@ const RealtimeHeader: React.FC<{
         `${finalPrefixCls}-header`,
         {
           [`${finalPrefixCls}-header-with-border`]: hasBorder,
-          [`${finalPrefixCls}-header-with-back`]: data?.onBack,
+          [`${finalPrefixCls}-header-with-back`]: hasBackButton,
         },
         hashId,
       )}
     >
       <div className={classNames(`${finalPrefixCls}-header-left`, hashId)}>
-        {data?.onBack && (
+        {hasBackButton && (
           <button
             type="button"
             className={classNames(
@@ -152,7 +174,7 @@ const RealtimeHeader: React.FC<{
           </button>
         )}
         <div className={classNames(`${finalPrefixCls}-header-content`, hashId)}>
-          {!data?.onBack && iconNode}
+          {!hasBackButton && iconNode}
           <div
             className={classNames(
               `${finalPrefixCls}-header-title-wrapper`,
@@ -162,17 +184,19 @@ const RealtimeHeader: React.FC<{
             <div
               className={classNames(`${finalPrefixCls}-header-title`, hashId)}
             >
-              {data?.onBack && iconNode}
+              {hasBackButton && iconNode}
               {headerTitle}
             </div>
-            <div
-              className={classNames(
-                `${finalPrefixCls}-header-subtitle`,
-                hashId,
-              )}
-            >
-              {headerSubTitle}
-            </div>
+            {headerSubTitle && (
+              <div
+                className={classNames(
+                  `${finalPrefixCls}-header-subtitle`,
+                  hashId,
+                )}
+              >
+                {headerSubTitle}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -183,44 +207,40 @@ const RealtimeHeader: React.FC<{
   );
 };
 
+const BASE_EDITOR_CONFIG: Partial<MarkdownEditorProps> = {
+  readonly: true,
+  toc: false,
+  style: { width: '100%' },
+  typewriter: true,
+};
+
+const SHELL_CODE_PROPS = {
+  theme: 'chaos',
+  showGutter: true,
+  showLineNumbers: true,
+  hideToolBar: true,
+};
+
+const VISIBLE_OVERFLOW_STYLE = { overflow: 'visible' };
+
+const EDITOR_CONFIGS: Record<string, Partial<MarkdownEditorProps>> = {
+  shell: {
+    ...BASE_EDITOR_CONFIG,
+    contentStyle: { padding: 0, ...VISIBLE_OVERFLOW_STYLE },
+    codeProps: SHELL_CODE_PROPS,
+  },
+  markdown: {
+    ...BASE_EDITOR_CONFIG,
+    contentStyle: { padding: 16, ...VISIBLE_OVERFLOW_STYLE },
+    height: '100%',
+  },
+};
+
 const getEditorConfig = (
   type: RealtimeFollowMode,
 ): Partial<MarkdownEditorProps> => {
-  const baseConfig = {
-    readonly: true,
-    toc: false,
-    style: { width: '100%' },
-    typewriter: true,
-  };
-
-  switch (type) {
-    case 'shell':
-      return {
-        ...baseConfig,
-        contentStyle: {
-          padding: 0,
-          overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
-        },
-        codeProps: {
-          theme: 'chaos',
-          showGutter: true,
-          showLineNumbers: true,
-          hideToolBar: true,
-        },
-      };
-    case 'markdown':
-    case 'md':
-      return {
-        ...baseConfig,
-        contentStyle: {
-          padding: 16,
-          overflow: 'visible', // 禁用内部滚动，使用外层容器滚动
-        },
-        height: '100%',
-      };
-    default:
-      return baseConfig;
-  }
+  if (type === 'md') return EDITOR_CONFIGS.markdown;
+  return EDITOR_CONFIGS[type] || BASE_EDITOR_CONFIG;
 };
 
 const Overlay: React.FC<{
@@ -233,11 +253,19 @@ const Overlay: React.FC<{
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
   const finalPrefixCls = prefixCls || getPrefixCls('workspace-realtime');
+
   if (status !== 'loading' && status !== 'error') return null;
-  const loadingNode =
-    typeof loadingRender === 'function' ? loadingRender() : loadingRender;
-  const errorNode =
-    typeof errorRender === 'function' ? errorRender() : errorRender;
+
+  const loadingNode = renderNode(loadingRender);
+  const errorNode = renderNode(errorRender);
+
+  const content =
+    status === 'loading'
+      ? loadingNode || <Spin />
+      : errorNode || (
+          <span>{locale?.['htmlPreview.renderFailed'] || '页面渲染失败'}</span>
+        );
+
   return (
     <div
       className={classNames(
@@ -249,21 +277,41 @@ const Overlay: React.FC<{
         hashId,
       )}
     >
-      {status === 'loading'
-        ? loadingNode || <Spin />
-        : errorNode || (
-            <span>
-              {locale?.['htmlPreview.renderFailed'] || '页面渲染失败'}
-            </span>
-          )}
+      {content}
     </div>
   );
 };
 
+const getContentForEditor = (
+  type: RealtimeFollowMode,
+  content: string | DiffContent | undefined,
+): string => {
+  if (type === 'html') {
+    const html = typeof content === 'string' ? content : '';
+    return `\`\`\`html\n${html}\n\`\`\``;
+  }
+  return String(content);
+};
+
+const shouldUpdateEditor = (
+  type: RealtimeFollowMode,
+  htmlViewMode: 'preview' | 'code',
+): boolean => {
+  if (type === 'shell') return true;
+  if (type === 'markdown' || type === 'md') return true;
+  if (type === 'html' && htmlViewMode === 'code') return true;
+  return false;
+};
+
 /**
- * 实时跟随组件 - 支持 HTML、Markdown、Shell 等类型，或自定义内容
+ * RealtimeFollow 组件
+ *
+ * 实时跟随显示，支持 HTML、Markdown、Shell 等类型
+ *
  * @example
- * <RealtimeFollow data={{ type: 'shell', customContent: <div>自定义内容</div> }} />
+ * ```tsx
+ * <RealtimeFollow data={{ type: 'shell', content: '$ ls' }} />
+ * ```
  */
 export const RealtimeFollow: React.FC<{
   data: RealtimeFollowData;
@@ -274,37 +322,26 @@ export const RealtimeFollow: React.FC<{
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const finalPrefixCls = prefixCls || getPrefixCls('workspace-realtime');
   const mdInstance = useRef<MarkdownEditorInstance>();
-  const isTestEnv = process.env.NODE_ENV === 'test';
+  const isTestEnv = isTestEnvironment();
   const { containerRef: autoScrollRef, scrollToBottom } = useAutoScroll({
-    SCROLL_TOLERANCE: 30,
-    timeout: 100,
+    SCROLL_TOLERANCE,
+    timeout: SCROLL_TIMEOUT,
     deps: [isTestEnv],
   });
 
   useEffect(() => {
-    if (isTestEnv) return;
-    if (
-      mdInstance.current?.store &&
-      (data.type === 'shell' ||
-        ['markdown', 'md'].includes(data.type) ||
-        (data.type === 'html' && htmlViewMode === 'code'))
-    ) {
-      const content = (() => {
-        if (data.type === 'html') {
-          const html = typeof data.content === 'string' ? data.content : '';
-          return '```html\n' + html + '\n```';
-        }
-        return String(data.content);
-      })();
+    if (isTestEnv || !mdInstance.current?.store) return;
+    if (!shouldUpdateEditor(data.type, htmlViewMode)) return;
 
-      const { schema } = parserMdToSchema(
-        content,
-        mdInstance.current.store.plugins,
-      );
-      mdInstance.current.store.updateNodeList(schema);
-      if (data.typewriter && !isTestEnv) {
-        setTimeout(() => scrollToBottom(), 50);
-      }
+    const content = getContentForEditor(data.type, data.content);
+    const { schema } = parserMdToSchema(
+      content,
+      mdInstance.current.store.plugins,
+    );
+    mdInstance.current.store.updateNodeList(schema);
+
+    if (data.typewriter && !isTestEnv) {
+      setTimeout(() => scrollToBottom(), SCROLL_DELAY);
     }
   }, [
     data.content,
@@ -316,10 +353,7 @@ export const RealtimeFollow: React.FC<{
   ]);
 
   if (data.customContent) {
-    const customNode =
-      typeof data.customContent === 'function'
-        ? data.customContent()
-        : data.customContent;
+    const customNode = renderNode(data.customContent);
     return (
       <div className={classNames(`${finalPrefixCls}-content`, hashId)}>
         {customNode || null}
@@ -366,17 +400,14 @@ export const RealtimeFollow: React.FC<{
     },
   };
 
-  const contentStr = String((data as any).content ?? '');
+  const contentStr = String(data.content ?? '');
   const isEmpty = contentStr.trim() === '';
   const shouldShowEmpty =
     !isTestEnv &&
     isEmpty &&
     data.status !== 'loading' &&
     data.status !== 'error';
-  const emptyNode =
-    typeof data.emptyRender === 'function'
-      ? data.emptyRender()
-      : data.emptyRender;
+  const emptyNode = renderNode(data.emptyRender);
 
   return (
     <div
@@ -407,8 +438,63 @@ export const RealtimeFollow: React.FC<{
   );
 };
 
+const getSegmentedOptions = (labels: { preview: string; code: string }) => [
+  {
+    label: <div className="ant-segmented-item-title">{labels.preview}</div>,
+    value: 'preview',
+  },
+  {
+    label: <div className="ant-segmented-item-title">{labels.code}</div>,
+    value: 'code',
+  },
+];
+
+const getRightContent = (
+  data: RealtimeFollowData,
+  labels: { preview: string; code: string },
+  htmlViewMode: 'preview' | 'code',
+  handleSetMode: (mode: 'preview' | 'code') => void,
+  prefixCls: string,
+  hashId: string,
+): React.ReactNode => {
+  if (data.rightContent) return data.rightContent;
+  if (data.type !== 'html') return null;
+
+  const segmentedNode =
+    data.segmentedItems && data.segmentedItems.length > 0 ? (
+      <Segmented
+        options={data.segmentedItems}
+        onChange={(val) => data.onViewModeChange?.(String(val) as any)}
+      />
+    ) : (
+      <Segmented
+        options={getSegmentedOptions(labels)}
+        value={htmlViewMode}
+        onChange={(val) => handleSetMode(val as 'preview' | 'code')}
+      />
+    );
+
+  if (!data.segmentedExtra) return segmentedNode;
+
+  return (
+    <div className={classNames(`${prefixCls}-header-segmented-right`, hashId)}>
+      {segmentedNode}
+      <div
+        className={classNames(
+          `${prefixCls}-header-segmented-right-extra`,
+          hashId,
+        )}
+      >
+        {data.segmentedExtra}
+      </div>
+    </div>
+  );
+};
+
 /**
- * 实时跟随列表组件 - RealtimeFollow 的包装组件，管理视图模式状态
+ * RealtimeFollowList 组件
+ *
+ * RealtimeFollow 的包装组件，管理视图模式状态
  */
 export const RealtimeFollowList: React.FC<{
   data: RealtimeFollowData;
@@ -417,6 +503,7 @@ export const RealtimeFollowList: React.FC<{
   const [innerViewMode, setInnerViewMode] = useState<'preview' | 'code'>(
     data.defaultViewMode || 'preview',
   );
+
   const htmlViewMode: 'preview' | 'code' =
     data.type === 'html'
       ? isControlled
@@ -443,57 +530,17 @@ export const RealtimeFollowList: React.FC<{
     hashId: '',
   };
 
-  const rightContent = (() => {
-    if (data.rightContent) return data.rightContent;
-    if (data.type !== 'html') return null;
-
-    const segmentedNode =
-      data.segmentedItems && data.segmentedItems.length > 0 ? (
-        <Segmented
-          options={data.segmentedItems}
-          onChange={(val) => data.onViewModeChange?.(String(val) as any)}
-        />
-      ) : (
-        <Segmented
-          options={[
-            {
-              label: (
-                <div className="ant-segmented-item-title">{labels.preview}</div>
-              ),
-              value: 'preview',
-            },
-            {
-              label: (
-                <div className="ant-segmented-item-title">{labels.code}</div>
-              ),
-              value: 'code',
-            },
-          ]}
-          value={htmlViewMode}
-          onChange={(val) => handleSetMode(val as 'preview' | 'code')}
-        />
-      );
-
-    if (!data.segmentedExtra) return segmentedNode;
-
-    return (
-      <div
-        className={classNames(`${prefixCls}-header-segmented-right`, hashId)}
-      >
-        {segmentedNode}
-        <div
-          className={classNames(
-            `${prefixCls}-header-segmented-right-extra`,
-            hashId,
-          )}
-        >
-          {data.segmentedExtra}
-        </div>
-      </div>
-    );
-  })();
+  const rightContent = getRightContent(
+    data,
+    labels,
+    htmlViewMode,
+    handleSetMode,
+    prefixCls,
+    hashId,
+  );
 
   const headerData: RealtimeFollowData = { ...data, rightContent };
+  const hasBorder = data.type === 'html' || data.type === 'markdown';
 
   return wrapSSR(
     <div
@@ -508,7 +555,7 @@ export const RealtimeFollowList: React.FC<{
     >
       <RealtimeHeader
         data={headerData}
-        hasBorder={['html', 'markdown'].includes(data.type)}
+        hasBorder={hasBorder}
         prefixCls={prefixCls}
         hashId={hashId}
       />

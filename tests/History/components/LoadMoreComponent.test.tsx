@@ -3,7 +3,7 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { HistoryLoadMore } from '../../../src/History/components/LoadMoreComponent';
-import { I18nContext } from '../../../src/i18n';
+import { I18nContext } from '../../../src/I18n';
 
 const mockI18nLocale = {
   'task.history.loadMore': '查看更多历史',

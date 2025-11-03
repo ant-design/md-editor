@@ -51,12 +51,18 @@ export interface HistoryProps {
       placeholder?: string;
       /** 未展开时的默认文本 */
       text?: string;
+      /** 搜索触发方式: 'change' - 实时搜索(默认), 'enter' - 回车触发 */
+      trigger?: 'change' | 'enter';
     };
   };
   /** 插槽 */
   slots?: {
     beforeHistoryList?: (list: HistoryDataType[]) => React.ReactNode;
   };
+  /** 空状态渲染函数，当历史记录为空时显示 */
+  emptyRender?: () => React.ReactNode;
+  /** 加载状态，显示在 GroupMenu 区域 */
+  loading?: boolean;
 }
 
 export interface HistoryActionsBoxProps {

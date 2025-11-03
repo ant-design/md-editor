@@ -1,4 +1,4 @@
-import { AttachmentFile, AttachmentFileListItem } from '@ant-design/md-editor';
+import { AttachmentFile, AttachmentFileListItem } from '@ant-design/agentic-ui';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';

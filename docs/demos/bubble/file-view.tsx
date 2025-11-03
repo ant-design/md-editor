@@ -1,5 +1,5 @@
-import type { AttachmentFile, MessageBubbleData } from '@ant-design/md-editor';
-import { Bubble } from '@ant-design/md-editor';
+import type { AttachmentFile, MessageBubbleData } from '@ant-design/agentic-ui';
+import { Bubble } from '@ant-design/agentic-ui';
 import React, { useRef } from 'react';
 
 const createMockFile = (

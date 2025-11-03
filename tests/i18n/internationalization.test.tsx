@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { cnLabels, enLabels, I18nContext } from '../../src/i18n';
+import { cnLabels, enLabels, I18nContext } from '../../src/I18n';
 
 // 测试组件 - 用于测试国际化文本
 const TestI18nComponent: React.FC<{ locale: any }> = ({ locale }) => {

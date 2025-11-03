@@ -2,7 +2,7 @@ import {
   Bubble,
   MessageBubbleData,
   SuggestionList,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { BubbleDemoCard } from './bubble/BubbleDemoCard';

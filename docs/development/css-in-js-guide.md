@@ -740,6 +740,7 @@ const ThemeToggle: React.FC = () => {
         <header className={styles.header}>
           <h1>主题切换示例</h1>
           <button
+            type="button"
             className={styles.toggleButton}
             onClick={() => setIsDark(!isDark)}
           >

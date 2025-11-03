@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, {
@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { useRefFunction } from '../hooks/useRefFunction';
+import { useRefFunction } from '../Hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
   Elements,
@@ -31,8 +31,9 @@ import { QuickActions } from './QuickActions';
 import { SendActions } from './SendActions';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
-import { addGlowBorderOffset, useStyle } from './style';
+import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
+import TopOperatingArea from './TopOperatingArea';
 import type { CreateRecognizer } from './VoiceInput';
 import { useVoiceInputManager } from './VoiceInputManager';
 
@@ -281,6 +282,20 @@ export type MarkdownInputFieldProps = {
     enable: boolean;
     onRefine: (input: string) => Promise<string>;
   };
+  /**
+   * 放大功能配置
+   * @description 仅保留对象形态：{ enable: boolean }
+   * @default { enable: false }
+   * @example
+   * ```tsx
+   * <MarkdownInputField enlargeable={{ enable: true }} />
+   * ```
+   */
+  enlargeable?: {
+    enable?: boolean;
+    /** 放大状态下的目标高度（px），默认 980 */
+    height?: number;
+  };
 
   /**
    * Markdown 编辑器实例的引用
@@ -400,6 +415,65 @@ export type MarkdownInputFieldProps = {
    * <MarkdownInputField allowEmptySubmit onSend={(v) => submit(v)} /> // v 可能为 ''
    */
   allowEmptySubmit?: boolean;
+
+  /**
+   * 是否显示顶部操作区域
+   * @description 控制是否渲染顶部操作区域组件
+   * @default false
+   * @example
+   * <MarkdownInputField isShowTopOperatingArea={false} />
+   */
+  isShowTopOperatingArea?: boolean;
+
+  /**
+   * 顶部操作区域回到顶部/底部功能的目标元素引用
+   * @description 传递给 TopOperatingArea 组件中 BackTo 功能的目标滚动容器引用，如果不传则默认为 window
+   * @example
+   * ```tsx
+   * const scrollRef = useRef<HTMLDivElement>(null);
+   *
+   * <div ref={scrollRef} style={{ height: '400px', overflow: 'auto' }}>
+   *   <MarkdownInputField targetRef={scrollRef} />
+   * </div>
+   * ```
+   */
+  targetRef?: React.RefObject<HTMLDivElement>;
+
+  /**
+   * 顶部操作区域自定义操作按钮渲染函数
+   * @description 用于在顶部操作区域中央渲染自定义操作按钮
+   * @returns 要渲染的操作按钮节点
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   operationBtnRender={() => (
+   *     <>
+   *       <Button>按钮1</Button>
+   *       <Button>按钮2</Button>
+   *     </>
+   *   )}
+   * />
+   * ```
+   */
+  operationBtnRender?: () => React.ReactNode;
+
+  /**
+   * 是否在顶部操作区域显示回到顶部/底部按钮
+   * @description 控制顶部操作区域右侧是否显示回到顶部和回到底部的按钮功能
+   * - 当为 `true` 时，显示回到顶部和回到底部按钮
+   * - 当为 `false` 时，隐藏这些按钮
+   * - 按钮会根据滚动位置自动判断是否显示（需要滚动距离大于5px）
+   * @default true
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   isShowTopOperatingArea={true}
+   *   isShowBackTo={false} // 隐藏回到顶部/底部按钮
+   *   targetRef={scrollRef}
+   * />
+   * ```
+   */
+  isShowBackTo?: boolean;
 };
 
 /**
@@ -450,13 +524,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   borderRadius = 16,
   onBlur,
   onFocus,
+  isShowTopOperatingArea = false,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-input-field');
+  const baseCls = getPrefixCls('agentic-md-input-field');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const [isHover, setHover] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isEnlarged, setIsEnlarged] = React.useState(false);
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
   const actionsRef = React.useRef<HTMLDivElement>(null);
@@ -480,6 +556,18 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     const topOverlayPadding = (topRightPadding || 0) + (quickRightOffset || 0);
     return Math.max(bottomOverlayPadding, topOverlayPadding);
   }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset]);
+
+  const collapsedHeight = useMemo(() => {
+    const mh = props.style?.maxHeight;
+    const base =
+      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
+    return base;
+  }, [props.style?.maxHeight, props.attachment?.enable]);
+
+  const collapsedHeightPx = useMemo(() => {
+    const extra = props.attachment?.enable ? 90 : 0;
+    return collapsedHeight + extra;
+  }, [props.style?.maxHeight, props.attachment?.enable]);
 
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
@@ -531,6 +619,16 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
+  // 已移除 enlargeTargetRef，不需要校验容器定位
+
+  /**
+   * 处理放大缩小按钮点击
+   * @description 切换编辑器的放大/缩小状态
+   */
+  const handleEnlargeClick = useRefFunction(() => {
+    setIsEnlarged(!isEnlarged);
+  });
+
   /**
    * 发送消息的函数
    * @description 该函数用于处理发送消息的逻辑，包括调用回调函数和清空输入框。
@@ -572,17 +670,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   });
 
   /**
-   * 背景容器尺寸计算
+   * 放大状态样式计算
    */
-  const bgSize = useMemo(() => {
-    const height = props.style?.height
-      ? addGlowBorderOffset(props.style.height)
-      : addGlowBorderOffset('100%');
-    const width = props.style?.width
-      ? addGlowBorderOffset(props.style.width)
-      : addGlowBorderOffset('100%');
-    return { height, width };
-  }, [props.style?.height, props.style?.width]);
+  const enlargedStyle = useMemo(() => {
+    if (!isEnlarged) return {};
+    return {
+      maxHeight: '980px',
+      minHeight: '280px',
+    } as React.CSSProperties;
+  }, [isEnlarged]);
 
   const beforeTools = useMemo(() => {
     if (props.beforeToolsRender) {
@@ -644,8 +740,122 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     [fileMap, markdownProps?.attachment],
   );
 
+  // 预计算：附件列表节点，减少 JSX 嵌套
+  const attachmentList = useMemo(() => {
+    if (!props.attachment?.enable) return null;
+    return (
+      <AttachmentFileList
+        fileMap={fileMap}
+        onDelete={handleFileRemoval}
+        onRetry={handleFileRetry}
+        onClearFileMap={() => {
+          updateAttachmentFiles(new Map());
+        }}
+      />
+    );
+  }, [
+    fileMap,
+    props.attachment?.enable,
+    handleFileRemoval,
+    handleFileRetry,
+    updateAttachmentFiles,
+  ]);
+
+  // 键盘事件：早返回减少嵌套
+  const handleKeyDown = useRefFunction(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const triggerSendKey = props.triggerSendKey || 'Enter';
+      if (markdownEditorRef?.current?.store.inputComposition) return;
+
+      const isEnter = e.key === 'Enter';
+      const isMod = e.ctrlKey || e.metaKey;
+
+      if (triggerSendKey === 'Enter') {
+        if (!(isEnter && !isMod)) return;
+        e.stopPropagation();
+        e.preventDefault();
+        if (props.onSend) sendMessage();
+        return;
+      }
+
+      if (triggerSendKey === 'Mod+Enter') {
+        if (!(isEnter && isMod)) return;
+        e.stopPropagation();
+        e.preventDefault();
+        if (props.onSend) sendMessage();
+      }
+    },
+  );
+
+  // 容器点击：早返回减少嵌套
+  const handleContainerClick = useRefFunction(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (markdownEditorRef?.current?.store.inputComposition) return;
+      if (props.disabled) return;
+      if (actionsRef.current?.contains(e.target as Node)) return;
+      if (quickActionsRef.current?.contains(e.target as Node)) return;
+
+      const editor = markdownEditorRef.current?.markdownEditorRef.current;
+      if (!editor) return;
+      if (ReactEditor.isFocused(editor)) return;
+
+      ReactEditor.focus(editor);
+      Transforms.move(editor, { distance: 1, unit: 'offset' });
+      Transforms.select(editor, {
+        anchor: Editor.end(editor, []),
+        focus: Editor.end(editor, []),
+      });
+    },
+  );
+
+  // 预计算：SendActions 节点，统一渲染，避免重复 JSX
+  const sendActionsNode = (
+    <SendActions
+      attachment={{
+        ...props.attachment,
+        supportedFormat,
+        fileMap,
+        onFileMapChange: setFileMap,
+        upload: props.attachment?.upload
+          ? (file: any) => props.attachment!.upload!(file, 0)
+          : undefined,
+      }}
+      voiceRecognizer={props.voiceRecognizer}
+      value={value}
+      disabled={props.disabled}
+      typing={props.typing}
+      isLoading={isLoading}
+      fileUploadDone={fileUploadDone}
+      recording={recording}
+      collapseSendActions={collapseSendActions}
+      allowEmptySubmit={props.allowEmptySubmit}
+      uploadImage={uploadImage}
+      onStartRecording={startRecording}
+      onStopRecording={stopRecording}
+      onSend={sendMessage}
+      onStop={() => {
+        setIsLoading(false);
+        props.onStop?.();
+      }}
+      actionsRender={props.actionsRender}
+      prefixCls={baseCls}
+      hashId={hashId}
+      hasTools={!!props.toolsRender}
+      onResize={setRightPadding}
+    />
+  );
+
   return wrapSSR(
     <>
+      {isShowTopOperatingArea && (
+        <div className={classNames(`${baseCls}-top-area`, hashId)}>
+          <TopOperatingArea
+            targetRef={props.targetRef}
+            operationBtnRender={props.operationBtnRender}
+            isShowBackTo={props.isShowBackTo}
+          />
+        </div>
+      )}
       {beforeTools ? (
         <div className={classNames(`${baseCls}-before-tools`, hashId)}>
           {beforeTools}
@@ -665,69 +875,24 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             [`${baseCls}-typing`]: false,
             [`${baseCls}-loading`]: isLoading,
             [`${baseCls}-is-multi-row`]: isMultiRowLayout,
+            [`${baseCls}-enlarged`]: isEnlarged,
           })}
           style={{
             ...props.style,
+            ...enlargedStyle,
+            height: isEnlarged
+              ? `${props.enlargeable?.height ?? 980}px`
+              : `${collapsedHeight}px`,
             borderRadius: borderRadius || 16,
+            maxHeight: isEnlarged ? 'none' : `${collapsedHeightPx}px`,
+            transition:
+              'height, max-height 0.3s,border-radius 0.3s,box-shadow 0.3s,transform 0.3s,opacity 0.3s,background 0.3s',
           }}
           tabIndex={1}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          onKeyDown={(e) => {
-            const { triggerSendKey = 'Enter' } = props;
-            if (
-              triggerSendKey === 'Enter' &&
-              e.key === 'Enter' &&
-              !(e.ctrlKey || e.metaKey)
-            ) {
-              e.stopPropagation();
-              e.preventDefault();
-              if (props.onSend) {
-                sendMessage();
-              }
-              return;
-            }
-            if (
-              triggerSendKey === 'Mod+Enter' &&
-              (e.ctrlKey || e.metaKey) &&
-              e.key === 'Enter'
-            ) {
-              e.stopPropagation();
-              e.preventDefault();
-              if (props.onSend) {
-                sendMessage();
-              }
-            }
-          }}
-          onClick={(e) => {
-            if (markdownEditorRef?.current?.store.inputComposition) {
-              return;
-            }
-            if (props.disabled) {
-              return;
-            }
-            if (actionsRef.current?.contains(e.target as Node)) {
-              return;
-            }
-            if (quickActionsRef.current?.contains(e.target as Node)) {
-              return;
-            }
-            if (
-              markdownEditorRef.current?.store?.editor &&
-              !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
-            ) {
-              const editor =
-                markdownEditorRef.current?.markdownEditorRef.current;
-              if (editor) {
-                ReactEditor.focus(editor);
-                Transforms.move(editor, { distance: 1, unit: 'offset' });
-                Transforms.select(editor, {
-                  anchor: Editor.end(editor, []),
-                  focus: Editor.end(editor, []),
-                });
-              }
-            }
-          }}
+          onKeyDown={handleKeyDown}
+          onClick={handleContainerClick}
         >
           <div
             className={classNames(`${baseCls}-background`, hashId, {
@@ -735,16 +900,17 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             })}
             style={{
               minHeight: props.style?.minHeight || 0,
-              height: bgSize.height,
-              width: bgSize.width,
+              height: '100%',
+              width: '100%',
             }}
           />
 
           <div
             style={{
-              flex: 1,
               backgroundColor: '#fff',
-              width: '100%',
+              width: 'calc(100% - 4px)',
+              height: isEnlarged ? 'calc(100% - 4px)' : 'calc(100% - 4px)',
+              maxHeight: isEnlarged ? 'calc(100% - 4px)' : 'calc(100% - 4px)',
               display: 'flex',
               zIndex: 9,
               flexDirection: 'column',
@@ -752,7 +918,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               borderRadius: (borderRadius || 16) - 2 || 10,
               cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
               opacity: props.disabled ? 0.5 : 1,
-              minHeight: isMultiRowLayout ? 114 : undefined,
+              minHeight: isEnlarged
+                ? 'auto'
+                : isMultiRowLayout
+                  ? 106
+                  : undefined,
             }}
           >
             <div
@@ -760,7 +930,20 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: (borderRadius || 16) - 2 || 10,
-                maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
+                maxHeight: isEnlarged
+                  ? 'none'
+                  : (() => {
+                      const mh = props.style?.maxHeight;
+                      const base =
+                        typeof mh === 'number'
+                          ? mh
+                          : mh
+                            ? parseFloat(String(mh)) || 400
+                            : 400;
+                      const extra = props.attachment?.enable ? 90 : 0;
+                      return `min(${base + extra}px)`;
+                    })(),
+                height: isEnlarged ? '100%' : 'auto',
                 flex: 1,
               }}
               className={classNames(`${baseCls}-editor`, hashId, {
@@ -775,18 +958,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               />
 
               <div className={classNames(`${baseCls}-editor-content`, hashId)}>
-                {useMemo(() => {
-                  return props.attachment?.enable ? (
-                    <AttachmentFileList
-                      fileMap={fileMap}
-                      onDelete={handleFileRemoval}
-                      onRetry={handleFileRetry}
-                      onClearFileMap={() => {
-                        updateAttachmentFiles(new Map());
-                      }}
-                    />
-                  ) : null;
-                }, [fileMap?.values(), props.attachment?.enable])}
+                {attachmentList}
 
                 <BaseMarkdownEditor
                   editorRef={markdownEditorRef}
@@ -805,7 +977,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   }}
                   readonly={isLoading}
                   contentStyle={{
-                    padding: '12px 12px 12px 12px',
+                    padding: 'var(--padding-card-base)',
                   }}
                   textAreaProps={{
                     enable: true,
@@ -850,94 +1022,30 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   justifyContent: 'space-between',
                   gap: 8,
                   width: '100%',
-                  paddingRight: 8,
-                  paddingLeft: 8,
-                  paddingBottom: 12,
+                  paddingRight: 'var(--padding-card-base)',
+                  paddingLeft: 'var(--padding-card-base)',
+                  paddingBottom: 'var(--padding-card-base)',
                 }}
               >
-                {props.toolsRender ? (
-                  <div
-                    ref={actionsRef}
-                    contentEditable={false}
-                    className={classNames(`${baseCls}-send-tools`, hashId)}
-                  >
-                    {props.toolsRender
-                      ? props.toolsRender({
-                          value,
-                          fileMap,
-                          onFileMapChange: setFileMap,
-                          ...props,
-                          isHover,
-                          isLoading,
-                          fileUploadStatus: fileUploadDone
-                            ? 'done'
-                            : 'uploading',
-                        })
-                      : []}
-                  </div>
-                ) : null}
-                <SendActions
-                  attachment={{
-                    ...props.attachment,
-                    supportedFormat,
+                <div
+                  ref={actionsRef}
+                  contentEditable={false}
+                  className={classNames(`${baseCls}-send-tools`, hashId)}
+                >
+                  {props.toolsRender({
+                    value,
                     fileMap,
                     onFileMapChange: setFileMap,
-                  }}
-                  voiceRecognizer={props.voiceRecognizer}
-                  value={value}
-                  disabled={props.disabled}
-                  typing={props.typing}
-                  isLoading={isLoading}
-                  fileUploadDone={fileUploadDone}
-                  recording={recording}
-                  collapseSendActions={collapseSendActions}
-                  allowEmptySubmit={props.allowEmptySubmit}
-                  uploadImage={uploadImage}
-                  onStartRecording={startRecording}
-                  onStopRecording={stopRecording}
-                  onSend={sendMessage}
-                  onStop={() => {
-                    setIsLoading(false);
-                    props.onStop?.();
-                  }}
-                  actionsRender={props.actionsRender}
-                  prefixCls={baseCls}
-                  hashId={hashId}
-                  hasTools={!!props.toolsRender}
-                  onResize={setRightPadding}
-                />
+                    ...props,
+                    isHover,
+                    isLoading,
+                    fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                  })}
+                </div>
+                {sendActionsNode}
               </div>
             ) : (
-              <SendActions
-                attachment={{
-                  ...props.attachment,
-                  supportedFormat,
-                  fileMap,
-                  onFileMapChange: setFileMap,
-                }}
-                voiceRecognizer={props.voiceRecognizer}
-                value={value}
-                disabled={props.disabled}
-                typing={props.typing}
-                isLoading={isLoading}
-                fileUploadDone={fileUploadDone}
-                recording={recording}
-                collapseSendActions={collapseSendActions}
-                allowEmptySubmit={props.allowEmptySubmit}
-                uploadImage={uploadImage}
-                onStartRecording={startRecording}
-                onStopRecording={stopRecording}
-                onSend={sendMessage}
-                onStop={() => {
-                  setIsLoading(false);
-                  props.onStop?.();
-                }}
-                actionsRender={props.actionsRender}
-                prefixCls={baseCls}
-                hashId={hashId}
-                hasTools={!!props.toolsRender}
-                onResize={setRightPadding}
-              />
+              sendActionsNode
             )}
             {props?.quickActionRender || props.refinePrompt?.enable ? (
               <QuickActions
@@ -958,6 +1066,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 quickActionRender={props.quickActionRender as any}
                 prefixCls={baseCls}
                 hashId={hashId}
+                enlargeable={!!props.enlargeable?.enable}
+                isEnlarged={isEnlarged}
+                onEnlargeClick={handleEnlargeClick}
                 onResize={(width, rightOffset) => {
                   setTopRightPadding(width);
                   setQuickRightOffset(rightOffset);

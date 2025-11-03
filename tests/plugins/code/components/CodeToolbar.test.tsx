@@ -8,7 +8,7 @@ import { CodeNode } from '../../../../src/MarkdownEditor/el';
 import {
   CodeToolbar,
   CodeToolbarProps,
-} from '../../../../src/plugins/code/components/CodeToolbar';
+} from '../../../../src/Plugins/code/components/CodeToolbar';
 
 // Mock 依赖
 vi.mock('copy-to-clipboard');
@@ -20,6 +20,7 @@ vi.mock('antd', () => ({
     <div data-testid="segmented">
       {options?.map((option: any, index: number) => (
         <button
+          type="button"
           key={index}
           type="button"
           data-testid={`segmented-option-${index}`}
@@ -36,7 +37,7 @@ vi.mock('antd', () => ({
   ),
 }));
 
-vi.mock('../../../../src/plugins/code/components/LanguageSelector', () => ({
+vi.mock('../../../../src/Plugins/code/components/LanguageSelector', () => ({
   LanguageSelector: ({ element, setLanguage }: any) => (
     <div data-testid="language-selector">
       <span data-testid="current-language">
@@ -53,7 +54,7 @@ vi.mock('../../../../src/plugins/code/components/LanguageSelector', () => ({
   ),
 }));
 
-vi.mock('../../../../src/components/ActionIconBox', () => ({
+vi.mock('../../../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ children, title, onClick, 'data-testid': testId }: any) => (
     <button
       type="button"

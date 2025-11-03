@@ -15,7 +15,7 @@ export default defineConfig({
     setupFiles: './tests/setupTests.ts',
     testTimeout: 500000,
     alias: {
-      '@ant-design/md-editor': path.resolve(__dirname, './src'),
+      '@ant-design/agentic-ui': path.resolve(__dirname, './src'),
     },
     coverage: {
       provider: 'istanbul',

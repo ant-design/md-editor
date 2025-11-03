@@ -1,7 +1,7 @@
 ﻿import { FieldTimeOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 import React, { useContext, useMemo } from 'react';
-import { I18nContext, LocalKeys } from '../i18n';
+import { I18nContext, LocalKeys } from '../I18n';
 
 /**
  * 将毫秒转换为可读的时间格式

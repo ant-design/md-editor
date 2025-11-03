@@ -148,7 +148,7 @@ describe('Head Component', () => {
     it('应该应用默认的 CSS 类', () => {
       render(<Head {...defaultProps} />);
       const heading = document.querySelector('h1');
-      expect(heading).toHaveClass('ant-md-editor-drag-el');
+      expect(heading).toHaveClass('ant-agentic-md-editor-drag-el');
     });
 
     it('应该为空标题添加 empty 类', () => {

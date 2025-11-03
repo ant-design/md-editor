@@ -1,4 +1,4 @@
-import { ToolUseBarThink } from '@ant-design/md-editor';
+import { ToolUseBarThink } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 const SimpleThinkDemo = () => {

@@ -158,7 +158,7 @@
         </div>
       </div>
       <div
-        class="ant-md-editor markdown-editor ant-md-editor-readonly"
+        class="ant-agentic-md-editor markdown-editor ant-agentic-md-editor-readonly"
         style="width: 100%; height: 480px; display: flex; flex-direction: column; max-height: 100%; font: var(--font-text-paragraph-lg); letter-spacing: var(--letter-spacing-paragraph-lg, normal); color: var(--color-gray-text-default); border: 1px solid rgb(217, 217, 217); border-radius: 8px;"
       >
         <div
@@ -168,7 +168,7 @@
           <div
             autocapitalize="false"
             autocorrect="false"
-            class="ant-md-editor-content ant-md-editor-content-readonly"
+            class="ant-agentic-md-editor-content ant-agentic-md-editor-content-readonly"
             contenteditable="false"
             data-slate-editor="true"
             data-slate-node="value"
@@ -177,7 +177,7 @@
             zindex="-1"
           >
             <div
-              class="ant-md-editor-drag-el empty"
+              class="ant-agentic-md-editor-drag-el empty"
               data-be="paragraph"
               data-empty="true"
               data-slate-node="element"

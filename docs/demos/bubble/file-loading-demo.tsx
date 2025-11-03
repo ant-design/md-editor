@@ -2,7 +2,7 @@ import {
   AttachmentFile,
   Bubble,
   MessageBubbleData,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { Button, message, Space, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 

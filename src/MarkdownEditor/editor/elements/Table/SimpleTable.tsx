@@ -13,7 +13,7 @@ import { TablePropsProvider } from './TableContext';
  */
 export const SimpleTable = (props: RenderElementProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-editor-content-table');
+  const baseCls = getPrefixCls('agentic-md-editor-content-table');
   const editor = useSlate();
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 

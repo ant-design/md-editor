@@ -1,4 +1,4 @@
-import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/agentic-ui';
 import { Tooltip } from 'antd';
 import React from 'react';
 const defaultValue = `以下是使用HTML、CSS和JavaScript实现的七色旋转背景，并带有速度控制滑块的代码：

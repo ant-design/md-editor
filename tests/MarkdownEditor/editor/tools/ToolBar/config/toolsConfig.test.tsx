@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { I18nContext } from '../../../../../../src/i18n';
+import { I18nContext } from '../../../../../../src/I18n';
 import {
   isCodeNode,
   ToolsKeyType,
@@ -561,9 +561,9 @@ describe('toolsConfig', () => {
           <div data-testid="toolbar">
             {tools.map((tool, index) => (
               <button
+                type="button"
                 key={index}
                 data-testid={`tool-button-${tool.key}`}
-                type="button"
               >
                 {tool.title}
               </button>

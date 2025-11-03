@@ -49,7 +49,7 @@ BackTo 是一个用于快速滚动到页面顶部或底部的浮动按钮组件�
 ### 基础用法
 
 ```tsx
-import { BackTo } from '@ant-design/md-editor';
+import { BackTo } from '@ant-design/agentic-ui';
 import { useRef } from 'react';
 
 export default () => {
@@ -78,7 +78,7 @@ export default () => {
 ### 自定义显示条件
 
 ```tsx
-import { BackTo } from '@ant-design/md-editor';
+import { BackTo } from '@ant-design/agentic-ui';
 import { useRef } from 'react';
 
 export default () => {

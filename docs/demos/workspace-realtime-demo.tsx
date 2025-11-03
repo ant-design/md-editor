@@ -1,4 +1,4 @@
-import { Workspace } from '@ant-design/md-editor';
+import { Workspace } from '@ant-design/agentic-ui';
 import React, { useEffect, useState } from 'react';
 
 const WorkspaceRealtimeDemo: React.FC = () => {
@@ -12,7 +12,7 @@ const WorkspaceRealtimeDemo: React.FC = () => {
   useEffect(() => {
     // Shell 命令执行模拟
     const shellCommands = [
-      '$ npm install @ant-design/md-editor',
+      '$ npm install @ant-design/agentic-ui',
       'added 156 packages in 2.3s',
       '$ npm run build',
       'webpack compiled successfully',

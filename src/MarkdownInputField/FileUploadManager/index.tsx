@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import { useContext } from 'react';
-import { useRefFunction } from '../../hooks/useRefFunction';
-import { I18nContext } from '../../i18n';
+import { useRefFunction } from '../../Hooks/useRefFunction';
+import { I18nContext } from '../../I18n';
 import type { AttachmentButtonProps } from '../AttachmentButton';
 import { upLoadFileToServer } from '../AttachmentButton';
 import type { AttachmentButtonPopoverProps } from '../AttachmentButton/AttachmentButtonPopover';
@@ -83,11 +83,23 @@ export const useFileUploadManager = ({
    * 上传图片
    */
   const uploadImage = useRefFunction(async () => {
+    // 检查是否有文件正在上传中
+    let isUploading = false;
+    for (const file of fileMap?.values() || []) {
+      if (file.status === 'uploading') {
+        isUploading = true;
+        break;
+      }
+    }
+    if (isUploading) {
+      return;
+    }
+
     const input = document.createElement('input');
     input.id = 'uploadImage' + '_' + Math.random();
     input.type = 'file';
     input.accept = supportedFormat?.extensions?.join(',') || 'image/*';
-    input.multiple = true;
+    input.multiple = attachment?.allowMultiple ?? true;
     input.style.display = 'none';
 
     input.onchange = async (e: any) => {
@@ -143,8 +155,24 @@ export const useFileUploadManager = ({
       map.set(file.uuid || '', file);
       updateAttachmentFiles(map);
 
-      const url = await attachment?.upload?.(file);
-      if (url) {
+      let url: string | undefined;
+      let isSuccess = false;
+      let errorMsg: string | null = null;
+
+      // 优先使用 uploadWithResponse，然后使用 upload
+      if (attachment?.uploadWithResponse) {
+        const uploadResult = await attachment.uploadWithResponse(file, 0);
+        url = uploadResult.fileUrl;
+        isSuccess = uploadResult.uploadStatus === 'SUCCESS';
+        errorMsg = uploadResult.errorMessage || null;
+        // 将完整的响应数据存储到 file 对象中
+        file.uploadResponse = uploadResult;
+      } else if (attachment?.upload) {
+        url = await attachment.upload(file, 0);
+        isSuccess = !!url;
+      }
+
+      if (isSuccess && url) {
         file.status = 'done';
         file.url = url;
         map.set(file.uuid || '', file);
@@ -154,7 +182,8 @@ export const useFileUploadManager = ({
         file.status = 'error';
         map.set(file.uuid || '', file);
         updateAttachmentFiles(map);
-        message.error(locale?.uploadFailed || 'Upload failed');
+        const failedMsg = errorMsg || locale?.uploadFailed || 'Upload failed';
+        message.error(failedMsg);
       }
     } catch (error) {
       console.error('Error retrying file upload:', error);
@@ -162,7 +191,11 @@ export const useFileUploadManager = ({
       const map = new Map(fileMap);
       map.set(file.uuid || '', file);
       updateAttachmentFiles(map);
-      message.error(locale?.uploadFailed || 'Upload failed');
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : locale?.uploadFailed || 'Upload failed';
+      message.error(errorMessage);
     }
   });
 

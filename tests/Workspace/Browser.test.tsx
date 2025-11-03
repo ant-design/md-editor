@@ -32,7 +32,7 @@ describe('BrowserList Component', () => {
 
     expect(screen.getByTestId('browser-list')).toBeInTheDocument();
     expect(
-      container.querySelector('.ant-workspace-browser-header'),
+      container.querySelector('.ant-agentic-workspace-browser-header'),
     ).not.toBeInTheDocument();
     expect(screen.getByText('只有内容')).toBeInTheDocument();
   });

@@ -1,9 +1,9 @@
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import {
   HeartOutlined,
   ShareAltOutlined,
   StarOutlined,
 } from '@ant-design/icons';
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
 import { Button, Space, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 

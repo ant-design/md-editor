@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { easeInOutCubic } from '../../src/utils/easings';
+import { easeInOutCubic } from '../../src/Utils/easings';
 
 describe('easings 工具函数', () => {
   describe('easeInOutCubic', () => {

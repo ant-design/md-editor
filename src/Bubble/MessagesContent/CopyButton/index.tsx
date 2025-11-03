@@ -5,8 +5,8 @@ import React from 'react';
 import {
   ActionIconBox,
   ActionIconBoxProps,
-} from '../../../components/ActionIconBox';
-import { useCopied } from '../../../hooks/useCopied';
+} from '../../../Components/ActionIconBox';
+import { useCopied } from '../../../Hooks/useCopied';
 import { BubbleConfigContext } from '../../BubbleConfigProvide';
 
 /**

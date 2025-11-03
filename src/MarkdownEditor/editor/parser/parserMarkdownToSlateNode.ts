@@ -164,6 +164,46 @@ const myRemark = {
   },
 };
 
+/**
+ * 检测和解析 think 标签
+ * @param str - 要检测的字符串
+ * @returns think 标签的内容，如果不是 think 标签则返回 null
+ */
+const findThinkElement = (str: string) => {
+  try {
+    // 匹配 <think>内容</think> 格式
+    const thinkMatch = str.match(/^\s*<think>([\s\S]*?)<\/think>\s*$/);
+    if (thinkMatch) {
+      return {
+        content: thinkMatch[1].trim(),
+      };
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+};
+
+/**
+ * 检测和解析 answer 标签
+ * @param str - 要检测的字符串
+ * @returns answer 标签的内容，如果不是 answer 标签则返回 null
+ */
+const findAnswerElement = (str: string) => {
+  try {
+    // 匹配 <answer>内容</answer> 格式
+    const answerMatch = str.match(/^\s*<answer>([\s\S]*?)<\/answer>\s*$/);
+    if (answerMatch) {
+      return {
+        content: answerMatch[1].trim(),
+      };
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+};
+
 const findImageElement = (str: string) => {
   try {
     // 首先尝试匹配包含source标签的video格式
@@ -183,7 +223,7 @@ const findImageElement = (str: string) => {
       const poster = str.match(/poster="([^"\n]+)"/);
 
       return {
-        url: decodeURIComponent(videoWithSourceMatch[1]),
+        url: videoWithSourceMatch[1],
         height: height ? +height[1] : undefined,
         width: width ? +width[1] : undefined,
         align: align?.[1],
@@ -546,60 +586,98 @@ const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
 
   let el: any;
   if (!parent || ['listItem', 'blockquote'].includes(parent.type)) {
-    const mediaElement = findImageElement(currentElement.value);
-    if (mediaElement) {
-      // 根据标签类型确定媒体类型
-      let mediaType = 'image';
-      if (mediaElement.tagName === 'video') {
-        mediaType = 'video';
-      } else if (mediaElement.tagName === 'iframe') {
-        mediaType = 'iframe';
-      }
-
-      el = EditorUtils.createMediaNode(
-        decodeURIComponentUrl(mediaElement?.url || '')!,
-        mediaType,
-        {
-          align: mediaElement.align,
-          alt: mediaElement.alt,
-          height: mediaElement?.height,
-          width: mediaElement?.width,
-          controls: mediaElement?.controls,
-          autoplay: mediaElement?.autoplay,
-          loop: mediaElement?.loop,
-          muted: mediaElement?.muted,
-          poster: mediaElement?.poster,
-        },
-      );
-    } else if (currentElement.value === '<br/>') {
-      el = { type: 'paragraph', children: [{ text: '' }] };
-    } else if (currentElement.value.match(/^<\/(img|video|iframe)>/)) {
-      // 如果是媒体标签的结束标签，跳过处理
-      el = null;
+    // 检查是否为 <think> 标签
+    const thinkElement = findThinkElement(currentElement.value);
+    if (thinkElement) {
+      // 将 <think> 标签转换为 think 类型的代码块
+      el = {
+        type: 'code',
+        language: 'think',
+        value: thinkElement.content,
+        children: [
+          {
+            text: thinkElement.content,
+          },
+        ],
+      };
     } else {
-      el = currentElement.value.match(
-        /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
-      )
-        ? htmlToFragmentList(currentElement.value, '')
-        : {
-            type: 'code',
-            language: 'html',
-            render: true,
-            value: currentElement.value,
-            children: [
-              {
-                text: currentElement.value,
-              },
-            ],
-          };
+      // 检查是否为 <answer> 标签
+      const answerElement = findAnswerElement(currentElement.value);
+      if (answerElement) {
+        // 将 <answer> 标签的内容作为普通文本
+        el = { text: answerElement.content };
+      } else {
+        const mediaElement = findImageElement(currentElement.value);
+        if (mediaElement) {
+          // 根据标签类型确定媒体类型
+          let mediaType = 'image';
+          if (mediaElement.tagName === 'video') {
+            mediaType = 'video';
+          } else if (mediaElement.tagName === 'iframe') {
+            mediaType = 'iframe';
+          }
+
+          el = EditorUtils.createMediaNode(
+            decodeURIComponentUrl(mediaElement?.url || '')!,
+            mediaType,
+            {
+              align: mediaElement.align,
+              alt: mediaElement.alt,
+              height: mediaElement?.height,
+              width: mediaElement?.width,
+              controls: mediaElement?.controls,
+              autoplay: mediaElement?.autoplay,
+              loop: mediaElement?.loop,
+              muted: mediaElement?.muted,
+              poster: mediaElement?.poster,
+            },
+          );
+        } else if (currentElement.value === '<br/>') {
+          el = { type: 'paragraph', children: [{ text: '' }] };
+        } else if (currentElement.value.match(/^<\/(img|video|iframe)>/)) {
+          // 如果是媒体标签的结束标签，跳过处理
+          el = null;
+        } else {
+          // 检查是否为注释（注释需要特殊处理以提取配置）
+          const isComment =
+            currentElement.value.trim().startsWith('<!--') &&
+            currentElement.value.trim().endsWith('-->');
+
+          // 检查是否为标准 HTML 元素或注释
+          if (isComment || isStandardHtmlElement(currentElement.value)) {
+            // 标准 HTML 元素或注释：按原逻辑处理
+            el = currentElement.value.match(
+              /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
+            )
+              ? htmlToFragmentList(currentElement.value, '')
+              : {
+                  type: 'code',
+                  language: 'html',
+                  render: true,
+                  value: currentElement.value,
+                  children: [
+                    {
+                      text: currentElement.value,
+                    },
+                  ],
+                };
+          } else {
+            // 非标准元素（如自定义标签）：当作普通文本处理
+            el = { text: currentElement.value };
+          }
+        }
+      }
     }
   } else {
     el = processInlineHtml(currentElement, htmlTag);
   }
 
   if (el && !Array.isArray(el)) {
-    el.isConfig = currentElement?.value?.trim()?.startsWith('<!--');
-    el.otherProps = contextProps;
+    // 只有非文本节点才设置 isConfig 和 otherProps
+    if (!('text' in el && Object.keys(el).length === 1)) {
+      el.isConfig = currentElement?.value?.trim()?.startsWith('<!--');
+      el.otherProps = contextProps;
+    }
   }
 
   return { el, contextProps };
@@ -615,6 +693,18 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
   const breakMatch = currentElement.value.match(/<br\/?>/);
   if (breakMatch) {
     return { type: 'break', children: [{ text: '\n' }] };
+  }
+
+  // 检查是否为 <answer> 标签（内联场景）
+  const answerElement = findAnswerElement(currentElement.value);
+  if (answerElement) {
+    // 将 <answer> 标签的内容作为普通文本
+    return { text: answerElement.content };
+  }
+
+  // 检查是否为非标准 HTML 元素，如果是则直接当作文本
+  if (!isStandardHtmlElement(currentElement.value)) {
+    return { text: currentElement.value };
   }
 
   const htmlMatch = currentElement.value.match(
@@ -645,7 +735,10 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
         mediaType = 'iframe';
       }
 
-      return EditorUtils.createMediaNode(mediaElement?.url, mediaType, {
+      return EditorUtils.createMediaNode(
+        decodeURIComponentUrl(mediaElement?.url || ''),
+        mediaType,
+        {
         align: mediaElement.align,
         alt: mediaElement.alt,
         height: mediaElement?.height,
@@ -655,7 +748,8 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
         loop: mediaElement?.loop,
         muted: mediaElement?.muted,
         poster: mediaElement?.poster,
-      });
+        },
+      );
     } else {
       return { text: currentElement.value };
     }
@@ -1547,6 +1641,202 @@ const parseWithPlugins = (
 
 const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
 
+/**
+ * 标准 HTML 元素列表
+ * 这些标签会被正常解析为 HTML，其他标签会被当作普通文本处理
+ */
+const STANDARD_HTML_ELEMENTS = new Set([
+  // 文档结构
+  'html',
+  'head',
+  'body',
+  'title',
+  'meta',
+  'link',
+  'style',
+  'script',
+  // 内容分区
+  'header',
+  'nav',
+  'main',
+  'section',
+  'article',
+  'aside',
+  'footer',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  // 文本内容
+  'div',
+  'p',
+  'hr',
+  'pre',
+  'blockquote',
+  // 列表
+  'ul',
+  'ol',
+  'li',
+  'dl',
+  'dt',
+  'dd',
+  // 表格
+  'table',
+  'thead',
+  'tbody',
+  'tfoot',
+  'tr',
+  'th',
+  'td',
+  'caption',
+  'colgroup',
+  'col',
+  // 表单
+  'form',
+  'input',
+  'textarea',
+  'button',
+  'select',
+  'option',
+  'label',
+  'fieldset',
+  'legend',
+  // 内联文本语义
+  'a',
+  'em',
+  'strong',
+  'small',
+  'mark',
+  'del',
+  'ins',
+  'sub',
+  'sup',
+  'i',
+  'b',
+  'u',
+  's',
+  'code',
+  'kbd',
+  'samp',
+  'var',
+  'span',
+  'br',
+  'wbr',
+  // 图片和多媒体
+  'img',
+  'video',
+  'audio',
+  'source',
+  'track',
+  'iframe',
+  'embed',
+  'object',
+  'param',
+  'picture',
+  // 其他
+  'canvas',
+  'svg',
+  'math',
+  'details',
+  'summary',
+  'dialog',
+  'menu',
+  'menuitem',
+  // 字体
+  'font',
+]);
+
+/**
+ * 检查 HTML 标签是否为标准元素
+ * @param htmlString - HTML 字符串
+ * @returns 是否为标准 HTML 元素
+ */
+function isStandardHtmlElement(htmlString: string): boolean {
+  // 提取标签名（支持开始标签和结束标签）
+  const tagMatch = htmlString.match(/<\/?(\w+)/);
+  if (!tagMatch) return false;
+
+  const tagName = tagMatch[1].toLowerCase();
+  return STANDARD_HTML_ELEMENTS.has(tagName);
+}
+
+/**
+ * 预处理特殊标签（think/answer），将其转换为代码块格式
+ * @param markdown - 原始 Markdown 字符串
+ * @param tagName - 标签名称（think 或 answer）
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessSpecialTags(
+  markdown: string,
+  tagName: 'think' | 'answer',
+): string {
+  const tagRegex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`, 'g');
+
+  return markdown?.replace(tagRegex, (match, content) => {
+    const trimmedContent = content.trim();
+
+    // 如果内容中包含代码块标记（三个反引号），需要进行转义
+    // 策略：使用特殊标记替换代码块，保持原始格式
+    const processedContent = trimmedContent?.replace(
+      /```(\w*)\n?([\s\S]*?)```/g,
+      (_: string, lang: string, code: string) => {
+        // 使用特殊标记包裹，保留语言和代码内容
+        // 格式：【CODE_BLOCK:lang】code【/CODE_BLOCK】
+        const marker = '\u200B'; // 零宽空格，用于标记
+        return `${marker}【CODE_BLOCK:${lang || ''}】\n${code}\n【/CODE_BLOCK】${marker}`;
+      },
+    );
+
+    // 构建对应类型的代码块
+    return `\`\`\`${tagName}\n${processedContent}\n\`\`\``;
+  });
+}
+
+/**
+ * 预处理 <think> 标签，将其转换为 ```think 代码块格式
+ * @param markdown - 原始 Markdown 字符串
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessThinkTags(markdown: string): string {
+  return preprocessSpecialTags(markdown, 'think');
+}
+
+/**
+ * 预处理所有非标准 HTML 标签，提取其内容（删除标签本身）
+ * @param markdown - 原始 Markdown 字符串
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessNonStandardHtmlTags(markdown: string): string {
+  let result = markdown;
+  let hasNonStandardTags = true;
+
+  // 循环处理，直到没有非标准标签（处理嵌套情况）
+  while (hasNonStandardTags) {
+    const before = result;
+
+    // 匹配所有 HTML 标签对：<tagname>content</tagname>
+    result = result.replace(
+      /<(\w+)>([\s\S]*?)<\/\1>/g,
+      (match, tagName, content) => {
+        // 检查是否为标准 HTML 元素
+        if (STANDARD_HTML_ELEMENTS.has(tagName.toLowerCase())) {
+          // 标准元素保持不变
+          return match;
+        }
+        // 非标准元素只保留内容（不 trim，保持原始格式）
+        return content;
+      },
+    );
+
+    // 如果没有变化，说明处理完成
+    hasNonStandardTags = before !== result;
+  }
+
+  return result;
+}
+
 function preprocessMarkdownTableNewlines(markdown: string) {
   // 检查是否包含表格
   if (!tableRegex.test(markdown)) return markdown; // 如果没有表格，直接返回原始字符串
@@ -1599,8 +1889,11 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
+  // 先预处理 <think> 标签，再预处理其他非标准 HTML 标签，最后处理表格换行
+  const thinkProcessed = preprocessThinkTags(md || '');
+  const nonStandardProcessed = preprocessNonStandardHtmlTags(thinkProcessed);
   const processedMarkdown = mdastParser.parse(
-    preprocessMarkdownTableNewlines(md || ''),
+    preprocessMarkdownTableNewlines(nonStandardProcessed),
   ) as any;
 
   const markdownRoot = processedMarkdown.children;
@@ -1609,7 +1902,6 @@ export const parserMarkdownToSlateNode = (
     (plugins || [])?.length > 0
       ? (parseWithPlugins(markdownRoot, plugins || [], true) as Elements[])
       : (parserBlock(markdownRoot as any[], true, undefined, []) as Elements[]);
-
   return {
     schema: schema?.filter((item) => {
       if (item.type === 'paragraph' && item.children?.length === 1) {

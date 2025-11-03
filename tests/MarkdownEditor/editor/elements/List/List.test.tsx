@@ -108,7 +108,7 @@ describe('List Component', () => {
     const { container } = renderList(list);
 
     const listContainer = container.querySelector('[data-be="list"]');
-    expect(listContainer?.className).toContain('ant-md-editor-list-container');
+    expect(listContainer?.className).toContain('ant-agentic-md-editor-list-container');
   });
 
   it('应该为有序列表应用 ol 类名', () => {

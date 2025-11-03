@@ -270,7 +270,8 @@ export const parserSlateNodeToMarkdown = (
 
       // 只有当 configProps 不为空对象时才生成注释
       if (Object.keys(configProps).length > 0) {
-        str += `<!--${JSON.stringify(configProps)}-->\n`;
+        const propsToSerialize = (node.type === 'chart' && configProps.config) ? configProps.config : configProps;
+        str += `<!--${JSON.stringify(propsToSerialize)}-->\n`;
       }
     }
     const p = parent.at(-1) || ({} as any);
@@ -861,6 +862,22 @@ const handleCode = (node: any, preString: string) => {
     } catch (e) {
       console.warn('Invalid code object', e);
     }
+  }
+
+  // 如果语言是 think，转换为 <think> 标签
+  if (node.language === 'think') {
+    // 恢复内容中的代码块特殊标记为 Markdown 格式
+    const marker = '\u200B'; // 零宽空格
+    const restoredCode = code.replace(
+      new RegExp(
+        `${marker}【CODE_BLOCK:([\\w]*)】\\n?([\\s\\S]*?)\\n?【/CODE_BLOCK】${marker}`,
+        'g',
+      ),
+      (_: string, lang: string, codeContent: string) => {
+        return `\`\`\`${lang}\n${codeContent}\n\`\`\``;
+      },
+    );
+    return `<think>${restoredCode}</think>`;
   }
 
   if (node.language === 'html' && node.render) {

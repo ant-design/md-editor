@@ -1,4 +1,4 @@
-import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
+import { SchemaForm, SchemaRenderer, validator } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 const WeatherCardComplete: React.FC = () => {

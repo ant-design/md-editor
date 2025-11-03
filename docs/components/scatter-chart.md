@@ -13,27 +13,34 @@ group:
 ## 代码演示
 
 <code src="../demos/charts/scatter.tsx" background="var(--main-bg-color)" iframe=540></code>
+<code src="../demos/charts/scatter-toolbar-filter.tsx" background="var(--main-bg-color)" title="工具栏过滤器" iframe=540></code>
+<code src="../demos/charts/scatter-statistic.tsx" background="var(--main-bg-color)" title="统计指标" iframe=540></code>
 
 ## API
 
 ### ScatterChartProps
 
-| 属性            | 类型                     | 默认值 | 说明                                          |
-| --------------- | ------------------------ | ------ | --------------------------------------------- |
-| data            | `ScatterChartDataItem[]` | -      | 扁平化数据数组                                |
-| title           | `string`                 | -      | 图表标题                                      |
-| width           | `number \| string`       | `800`  | 宽度（px），移动端自适应为 100%               |
-| height          | `number \| string`       | `600`  | 高度（px），移动端最大约 80% 屏宽（上限 400） |
-| className       | `string`                 | -      | 自定义类名                                    |
-| toolbarExtra    | `React.ReactNode`        | -      | 头部工具条额外按钮                            |
-| dataTime        | `string`                 | -      | 数据时间                                      |
-| xUnit           | `string`                 | `'月'` | X轴单位                                       |
-| yUnit           | `string`                 | -      | Y轴单位                                       |
-| xLabel          | `string`                 | -      | X轴标签                                       |
-| yLabel          | `string`                 | -      | Y轴标签                                       |
-| borderColor     | `string`                 | -      | 边框颜色                                      |
-| backgroundColor | `string`                 | -      | 背景颜色                                      |
-| statistic       | `StatisticConfigType`    | -      | 统计数据组件配置                              |
+| 属性                  | 类型                     | 默认值     | 说明                                                                     |
+| --------------------- | ------------------------ | ---------- | ------------------------------------------------------------------------ |
+| data                  | `ScatterChartDataItem[]` | -          | 扁平化数据数组                                                           |
+| title                 | `string`                 | -          | 图表标题                                                                 |
+| width                 | `number \| string`       | `800`      | 宽度（px），移动端自适应为 100%                                          |
+| height                | `number \| string`       | `600`      | 高度（px），移动端最大约 80% 屏宽（上限 400）                            |
+| className             | `string`                 | -          | 自定义类名                                                               |
+| toolbarExtra          | `React.ReactNode`        | -          | 头部工具条额外按钮                                                       |
+| renderFilterInToolbar | `boolean`                | `false`    | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
+| dataTime              | `string`                 | -          | 数据时间                                                                 |
+| xUnit                 | `string`                 | `'月'`     | X轴单位                                                                  |
+| yUnit                 | `string`                 | -          | Y轴单位                                                                  |
+| xAxisLabel            | `string`                 | -          | X轴标签                                                                  |
+| yAxisLabel            | `string`                 | -          | Y轴标签                                                                  |
+| xPosition             | `'top' \| 'bottom'`      | `'bottom'` | X轴位置                                                                  |
+| yPosition             | `'left' \| 'right'`      | `'left'`   | Y轴位置                                                                  |
+| hiddenX               | `boolean`                | `false`    | 是否隐藏 X 轴                                                            |
+| hiddenY               | `boolean`                | `false`    | 是否隐藏 Y 轴                                                            |
+| showGrid              | `boolean`                | `true`     | 是否显示网格线                                                           |
+| color                 | `string \| string[]`     | -          | 自定义主色；数组按序对应各数据序列                                       |
+| statistic             | `StatisticConfigType`    | -          | 统计数据组件配置                                                         |
 
 ### ScatterChartDataItem
 
@@ -67,3 +74,4 @@ group:
 ## 说明
 
 - 移动端会减小点的半径与 hover 半径以提升观感。
+- `hiddenX` 和 `hiddenY` 可以控制坐标轴的显示/隐藏，适用于只展示图表本身而不需要坐标轴的场景。

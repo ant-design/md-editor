@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { defaultColorList } from '../../../src/plugins/chart/const';
+import { defaultColorList } from '../../../src/Plugins/chart/const';
 
 describe('Chart Constants', () => {
   describe('defaultColorList', () => {

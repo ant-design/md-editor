@@ -1,6 +1,7 @@
-import { Break } from '@ant-design/md-editor/MarkdownEditor/editor/elements/Break';
+import { Break } from '@ant-design/agentic-ui/MarkdownEditor/editor/elements/Break';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { describe, expect, it } from 'vitest';
 
 describe('Break Component', () => {
   const mockAttributes = {
@@ -8,9 +9,9 @@ describe('Break Component', () => {
     'data-slate-inline': true,
     'data-slate-void': true,
     ref: null,
-  };
+  } as any;
 
-  const mockChildren = <span>Test content</span>;
+  const mockChildren = (<span>Test content</span>) as any;
 
   it('应该正确渲染Break组件', () => {
     render(<Break attributes={mockAttributes} children={mockChildren} />);

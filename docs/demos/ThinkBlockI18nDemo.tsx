@@ -2,11 +2,11 @@
  * ThinkBlock 国际化使用示例
  */
 
-import { I18nProvide } from '@ant-design/md-editor';
+import { I18nProvide } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 // 这里用注释来展示如何使用 ThinkBlock
-// import { ThinkBlock } from '@ant-design/md-editor';
+// import { ThinkBlock } from '@ant-design/agentic-ui';
 
 const ThinkBlockI18nDemo = () => {
   const [language, setLanguage] = useState<'zh-CN' | 'en-US'>('zh-CN');
@@ -16,6 +16,7 @@ const ThinkBlockI18nDemo = () => {
       <div style={{ padding: '20px' }}>
         <div style={{ marginBottom: '20px' }}>
           <button
+            type="button"
             type="button"
             onClick={() =>
               setLanguage(language === 'zh-CN' ? 'en-US' : 'zh-CN')
@@ -61,7 +62,7 @@ const ThinkBlockI18nDemo = () => {
               overflow: 'auto',
             }}
           >
-            {`import { ThinkBlock, I18nProvide } from '@ant-design/md-editor';
+            {`import { ThinkBlock, I18nProvide } from '@ant-design/agentic-ui';
 
 // 在 I18nProvide 包裹下使用
 <I18nProvide defaultLanguage="zh-CN">
