@@ -168,14 +168,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         contain: 'paint',
       },
       '&:focus': {
-        boxShadow: 'none',
         [`${token.componentCls}-background`]: {
           opacity: 1,
         },
       },
       '&-border-wrapper': {
         width: '100%',
-        border: '2px solid transparent',
+        border: '1px solid transparent',
         zIndex: 9,
         height: '100%',
         boxSizing: 'border-box',

@@ -1026,6 +1026,16 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
               </div>
               {props.toolsRender ? (
                 <div
+                  onBlur={(e) => {
+                    e.stopPropagation();
+                  }}
+                  onFocus={(e) => {
+                    e.stopPropagation();
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
                   style={{
                     backgroundColor: '#fff',
                     display: 'flex',
