@@ -595,6 +595,8 @@ export interface BubbleProps<T = Record<string, any>>
     style?: React.CSSProperties;
     /** 最大展示条目数（默认 3） */
     maxDisplayCount?: number;
+    /** 是否显示"查看更多"按钮 */
+    showMoreButton?: boolean;
     /** 自定义悬浮动作区 */
     customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
     /**

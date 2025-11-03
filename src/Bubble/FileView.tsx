@@ -95,6 +95,7 @@ export const BubbleFileView: React.FC<BubbleFileViewProps> = ({
       className={config.className}
       style={config.style}
       maxDisplayCount={config.maxDisplayCount}
+      showMoreButton={config.showMoreButton}
       onPreview={createEventHandler(eventOverrides.onPreview)}
       onDownload={createEventHandler(eventOverrides.onDownload)}
       onViewAll={
