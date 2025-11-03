@@ -10,8 +10,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
 import { useRefFunction } from '../Hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
@@ -787,27 +785,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     },
   );
 
-  // 容器点击：早返回减少嵌套
-  const handleContainerClick = useRefFunction(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (markdownEditorRef?.current?.store.inputComposition) return;
-      if (props.disabled) return;
-      if (actionsRef.current?.contains(e.target as Node)) return;
-      if (quickActionsRef.current?.contains(e.target as Node)) return;
-
-      const editor = markdownEditorRef.current?.markdownEditorRef.current;
-      if (!editor) return;
-      if (ReactEditor.isFocused(editor)) return;
-
-      ReactEditor.focus(editor);
-      Transforms.move(editor, { distance: 1, unit: 'offset' });
-      Transforms.select(editor, {
-        anchor: Editor.end(editor, []),
-        focus: Editor.end(editor, []),
-      });
-    },
-  );
-
   // 预计算：SendActions 节点，统一渲染，避免重复 JSX
   const sendActionsNode = (
     <SendActions
@@ -892,7 +869,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onKeyDown={handleKeyDown}
-          onClick={handleContainerClick}
         >
           <div
             className={classNames(`${baseCls}-background`, hashId, {

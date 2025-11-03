@@ -167,11 +167,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         // 限定绘制范围，降低重绘影响
         contain: 'paint',
       },
-      '&:focus': {
-        [`${token.componentCls}-background`]: {
-          opacity: 1,
-        },
-      },
       '&-border-wrapper': {
         width: '100%',
         border: '1px solid transparent',
