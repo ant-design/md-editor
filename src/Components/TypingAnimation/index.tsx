@@ -1,11 +1,13 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { motion, MotionProps, useInView } from 'framer-motion';
+import { isString } from 'lodash';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { resolveSegments } from '../TextAnimate';
 import { useTypingAnimationStyle } from './style';
 
 export interface TypingAnimationProps extends MotionProps {
-  children?: string;
+  children?: React.ReactNode;
   words?: string[];
   className?: string;
   duration?: number;
@@ -46,7 +48,7 @@ export function TypingAnimation({
   const prefixCls = getPrefixCls('typing-animation');
   const { wrapSSR, hashId } = useTypingAnimationStyle(prefixCls);
 
-  const [displayedText, setDisplayedText] = useState<string>('');
+  const [displayedText, setDisplayedText] = useState<React.ReactNode[]>([]);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [phase, setPhase] = useState<'typing' | 'pause' | 'deleting'>('typing');
@@ -57,7 +59,7 @@ export function TypingAnimation({
   });
 
   const wordsToAnimate = useMemo(
-    () => words || (children ? [children] : []),
+    () => words || [resolveSegments(children, 'character')],
     [words, children],
   );
   const hasMultipleWords = wordsToAnimate.length > 1;
@@ -71,7 +73,7 @@ export function TypingAnimation({
     if (!shouldStart || wordsToAnimate.length === 0) return;
 
     const timeoutDelay =
-      delay > 0 && displayedText === ''
+      delay > 0 && displayedText.length === 0
         ? delay
         : phase === 'typing'
           ? typingSpeed
@@ -81,12 +83,14 @@ export function TypingAnimation({
 
     const timeout = setTimeout(() => {
       const currentWord = wordsToAnimate[currentWordIndex] || '';
-      const graphemes = Array.from(currentWord);
+      const graphemes = isString(currentWord)
+        ? Array.from(currentWord)
+        : currentWord;
 
       switch (phase) {
         case 'typing':
           if (currentCharIndex < graphemes.length) {
-            setDisplayedText(graphemes.slice(0, currentCharIndex + 1).join(''));
+            setDisplayedText(graphemes.slice(0, currentCharIndex + 1));
             setCurrentCharIndex(currentCharIndex + 1);
           } else {
             if (hasMultipleWords || loop) {
@@ -104,7 +108,7 @@ export function TypingAnimation({
 
         case 'deleting':
           if (currentCharIndex > 0) {
-            setDisplayedText(graphemes.slice(0, currentCharIndex - 1).join(''));
+            setDisplayedText(graphemes.slice(0, currentCharIndex - 1));
             setCurrentCharIndex(currentCharIndex - 1);
           } else {
             const nextIndex = (currentWordIndex + 1) % wordsToAnimate.length;
@@ -131,9 +135,9 @@ export function TypingAnimation({
     delay,
   ]);
 
-  const currentWordGraphemes = Array.from(
-    wordsToAnimate[currentWordIndex] || '',
-  );
+  const currentWordGraphemes = isString(wordsToAnimate[currentWordIndex])
+    ? Array.from(wordsToAnimate[currentWordIndex])
+    : [wordsToAnimate[currentWordIndex]];
   const isComplete =
     !loop &&
     currentWordIndex === wordsToAnimate.length - 1 &&
