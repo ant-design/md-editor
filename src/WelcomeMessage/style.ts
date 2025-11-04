@@ -17,7 +17,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        gap: 12,
         color: 'var(--color-gray-text-default)',
         font: 'var(--font-text-h2-base)',
         letterSpacing: 'var(--letter-spacing-h2-base, normal)',

@@ -36,7 +36,9 @@ export default () => {
               title={
                 <>
                   欢迎使用
-                  <AgentarIcon />
+                  <div style={{ marginInline: 12 }}>
+                    <AgentarIcon />
+                  </div>
                 </>
               }
               description="从简单提示开始，瞬间创建精美卡片设计，随时切换到高级编辑模式，精确调整每一个细节。"
@@ -75,7 +77,7 @@ export default () => {
                       '#1D3052',
                     ]}
                     animationSpeed={10}
-                    showBorder={false}
+                    style={{ marginInline: 12 }}
                   >
                     LUI Designer
                   </GradientText>
