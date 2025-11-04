@@ -594,7 +594,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     if (isEnlarged) return 'auto';
     // 如果同时有放大按钮和提示词优化按钮，最小高度为 140px
     if (props?.enlargeable?.enable && props?.refinePrompt?.enable) {
-      return 160;
+      return 140;
     }
     // 其他多行布局情况，最小高度为 106px
     if (isMultiRowLayout) return 106;
