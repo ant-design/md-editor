@@ -1,8 +1,8 @@
-import { ArrowRight } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useState } from 'react';
 import { useStyle } from './CaseReplyStyle';
+import { ArrowRight } from '@sofa-design/icons';
 
 export interface CaseReplyProps {
   /**
@@ -29,9 +29,7 @@ export interface CaseReplyProps {
    * 按钮文本（悬停时显示的按钮文字）
    */
   buttonText?: string;
-  /**
-   * 自定义按钮栏内容（优先于 buttonText）
-   */
+
   buttonBar?: React.ReactNode;
   /**
    * 按钮点击事件
