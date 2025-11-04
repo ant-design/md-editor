@@ -20,18 +20,18 @@ group:
 
 ### RadarChartProps
 
-| 属性                 | 类型                   | 默认值 | 说明                                       |
-| -------------------- | ---------------------- | ------ | ------------------------------------------ |
-| data                 | `RadarChartDataItem[]` | -      | 扁平化数据数组                             |
-| title                | `string`               | -      | 图表标题                                   |
-| width                | `number \| string`     | `600`  | 宽度（px），移动端自适应为 100%            |
-| height               | `number \| string`     | `400`  | 高度（px），移动端按正方形比例，最大约 400 |
-| className            | `string`               | -      | 自定义类名                                 |
-| toolbarExtra          | `React.ReactNode`      | -      | 头部工具条额外按钮                                                       |
+| 属性                  | 类型                   | 默认值  | 说明                                                                     |
+| --------------------- | ---------------------- | ------- | ------------------------------------------------------------------------ |
+| data                  | `RadarChartDataItem[]` | -       | 扁平化数据数组                                                           |
+| title                 | `string`               | -       | 图表标题                                                                 |
+| width                 | `number \| string`     | `600`   | 宽度（px），移动端自适应为 100%                                          |
+| height                | `number \| string`     | `400`   | 高度（px），移动端按正方形比例，最大约 400                               |
+| className             | `string`               | -       | 自定义类名                                                               |
+| toolbarExtra          | `React.ReactNode`      | -       | 头部工具条额外按钮                                                       |
 | renderFilterInToolbar | `boolean`              | `false` | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
-| dataTime              | `string`               | -      | 数据时间                                                                 |
-| color                 | `string \| string[]`   | -      | 自定义主色；数组按序对应各数据序列                                       |
-| statistic             | `StatisticConfigType`  | -      | 统计数据组件配置                                                         |
+| dataTime              | `string`               | -       | 数据时间                                                                 |
+| color                 | `string \| string[]`   | -       | 自定义主色；数组按序对应各数据序列                                       |
+| statistic             | `StatisticConfigType`  | -       | 统计数据组件配置                                                         |
 
 ### RadarChartDataItem
 

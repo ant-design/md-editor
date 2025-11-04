@@ -1,8 +1,8 @@
+import { ArrowRight } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useState } from 'react';
 import { useStyle } from './CaseReplyStyle';
-import { ArrowRight } from '@sofa-design/icons';
 
 export interface CaseReplyProps {
   /**

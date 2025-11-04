@@ -29,4 +29,3 @@ const DonutChartStatisticExample: React.FC = () => {
 };
 
 export default DonutChartStatisticExample;
-

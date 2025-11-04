@@ -86,4 +86,3 @@ const LineChartToolbarFilterExample: React.FC = () => {
 };
 
 export default LineChartToolbarFilterExample;
-

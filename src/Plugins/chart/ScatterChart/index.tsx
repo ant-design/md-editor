@@ -109,7 +109,8 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   // 处理 ChartStatistic 组件配置
   const statistics = useMemo(() => {
     if (!statisticConfig) return null;
-    if (Array.isArray(statisticConfig) && statisticConfig.length === 0) return null;
+    if (Array.isArray(statisticConfig) && statisticConfig.length === 0)
+      return null;
     return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
   }, [statisticConfig]);
 
