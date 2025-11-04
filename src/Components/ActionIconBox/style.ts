@@ -28,7 +28,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-light': {
         '&:hover': {
+          borderRadius: 'var(--radius-control-base)',
           background: 'var(--color-gray-control-fill-hover)',
+          backdropFilter: 'blur(20px)',
           boxSizing: 'border-box',
         },
       },

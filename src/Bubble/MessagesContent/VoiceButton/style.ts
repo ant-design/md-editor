@@ -26,7 +26,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-playBox:hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
+        background: 'var(--color-gray-control-fill-hover)',
+        borderRadius: 'var(--radius-control-base)',
+        backdropFilter: 'blur(20px)',
+        boxSizing: 'border-box',
       },
 
       '&-playingWrap': {
@@ -51,7 +54,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
       },
       '&-playingBox:hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
+        background: 'var(--color-gray-control-fill-hover)',
       },
 
       '&-rateBox': {
@@ -66,7 +69,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 6,
       },
       '&-rateBox:hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
+        background: 'var(--color-gray-control-fill-hover)',
       },
 
       '&-rateItem': {
