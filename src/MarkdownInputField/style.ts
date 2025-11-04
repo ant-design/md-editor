@@ -127,13 +127,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-enlarged': {
-        '> div:last-child': {
-          flex: 1,
-          height: '100%',
-          minHeight: '100%',
-          width: '100%',
-        },
-
         [`${token.componentCls}-editor`]: {
           flex: 1,
           height: '100%',
