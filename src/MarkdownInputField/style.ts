@@ -222,7 +222,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-quick-actions': {
         position: 'absolute',
         userSelect: 'none',
-        width: '28px',
+        width: '32px',
         top: 12,
         right: 12,
         boxSizing: 'border-box',
