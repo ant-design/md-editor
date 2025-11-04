@@ -33,7 +33,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '100%',
         height: 166,
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'center',
       },
 
@@ -41,7 +40,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-cover-content': {
         width: '80%',
         marginTop: '32px',
-        height: 124,
+        height: 144,
         borderRadius: 'var(--radius-modal-base)',
         boxShadow:
           '0px 0px 1px 0px rgba(71, 98, 234, 0.05), 0px 6px 16px 0px rgba(71, 98, 234, 0.12)',
@@ -93,7 +92,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-title': {
         fontSize: '16px',
         fontWeight: 600,
-        lineHeight: '24px',
+        lineHeight: '26px',
         color: 'var(--color-gray-text-default)',
         marginTop: 0,
         marginBottom: '4px',
@@ -103,7 +102,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-description': {
         fontSize: '13px',
         fontWeight: 400,
-        lineHeight: '20px',
+        lineHeight: '22px',
         color: 'var(--color-gray-text-secondary)',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
