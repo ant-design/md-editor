@@ -332,7 +332,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         },
       ],
     };
-  }, [filteredData, stages, bottomLayerMinWidth]);
+  }, [filteredData, stages, bottomLayerMinWidth, color, typeNames]);
 
   const ratioDisplay = useMemo(() => {
     const formatRaw = (v: any): string | undefined => {
