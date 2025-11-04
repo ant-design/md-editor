@@ -181,7 +181,10 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
-    const displayText = item.displayTitle || item.sessionTitle;
+    const displayText = React.useMemo(
+      () => item.displayTitle || item.sessionTitle,
+      [item.displayTitle, item.sessionTitle],
+    );
     const { textRef, isTextOverflow } = useTextOverflow(displayText);
     const isRunning = React.useMemo(
       () => runningId?.includes(String(item.id || '')),
@@ -376,7 +379,10 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
-    const displayText = item.displayTitle || item.sessionTitle;
+    const displayText = React.useMemo(
+      () => item.displayTitle || item.sessionTitle,
+      [item.displayTitle, item.sessionTitle],
+    );
     const { textRef, isTextOverflow } = useTextOverflow(displayText);
     const isTask = React.useMemo(() => type === 'task', [type]);
     const { locale } = React.useContext(I18nContext);
