@@ -42,6 +42,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           top: '50%',
           transform: 'translateY(-50%)',
           color: 'var(--color-primary-text-disabled)',
+          transition: 'transform 0.2s ease',
+          '&.open': {
+            transform: 'translateY(-50%) rotate(180deg)',
+          },
         },
       },
       '&-tag-popup-input-has-arrow': {

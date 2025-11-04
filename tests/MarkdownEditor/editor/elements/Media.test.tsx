@@ -373,7 +373,7 @@ describe('Media', () => {
       expect(screen.getByText('2024-10-16')).toBeInTheDocument();
       // AvatarList 会渲染，检查是否存在 avatar 元素
       expect(
-        document.querySelector('.ant-agentic-md-editor-contributor-avatar-list'),
+        document.querySelector('.ant-agentic-contributor-avatar-list'),
       ).toBeInTheDocument();
     });
 

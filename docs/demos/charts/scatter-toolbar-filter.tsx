@@ -32,4 +32,3 @@ const ScatterChartToolbarFilterExample: React.FC = () => {
 };
 
 export default ScatterChartToolbarFilterExample;
-

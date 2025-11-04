@@ -127,13 +127,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-enlarged': {
-        '> div:last-child': {
-          flex: 1,
-          height: '100%',
-          minHeight: '100%',
-          width: '100%',
-        },
-
         [`${token.componentCls}-editor`]: {
           flex: 1,
           height: '100%',
@@ -222,16 +215,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-quick-actions': {
         position: 'absolute',
         userSelect: 'none',
-        right: 0,
-        width: '40px',
+        width: '32px',
         top: 12,
+        right: 12,
         boxSizing: 'border-box',
         zIndex: 99,
         display: 'flex',
         gap: '8px',
         alignItems: 'center',
         justifyContent: 'center',
-
         '&-vertical': {
           flexDirection: 'column',
           alignItems: 'center',

@@ -1,30 +1,30 @@
 ---
-title: ShinyText 闪光文字
-atomId: ShinyText
+title: TextLoading 文字加载
+atomId: TextLoading
 group:
   title: 通用
   order: 5
 ---
 
-# ShinyText 闪光文字
+# TextLoading 文字加载
 
-一个轻量级的闪光文字加载组件，通过纯CSS动画展示优雅的光泽流动效果。
+一个轻量级的文字加载组件，通过纯CSS动画展示优雅的光泽流动效果。
 
 ## 代码演示
 
-<code src="../demos/shinyText-basic.tsx">基础用法</code>
+<code src="../demos/textLoading-basic.tsx">基础用法</code>
 
-<code src="../demos/shinyText-custom.tsx">自定义文本和样式</code>
+<code src="../demos/textLoading-custom.tsx">自定义文本和样式</code>
 
-<code src="../demos/shinyText-theme.tsx">主题切换</code>
+<code src="../demos/textLoading-theme.tsx">主题切换</code>
 
-<code src="../demos/shinyText-dark.tsx">暗色主题</code>
+<code src="../demos/textLoading-dark.tsx">暗色主题</code>
 
-<code src="../demos/shinyText-disabled.tsx">禁用动画</code>
+<code src="../demos/textLoading-disabled.tsx">禁用动画</code>
 
 ## API
 
-### ShinyText
+### TextLoading
 
 | 参数      | 说明                                                    | 类型                  | 默认值         |
 | --------- | ------------------------------------------------------- | --------------------- | -------------- |
@@ -74,3 +74,4 @@ group:
 - **状态指示**: 表示某个操作正在进行中
 - **占位内容**: 作为内容加载前的占位提示
 - **品牌展示**: 为品牌文字添加动态效果
+

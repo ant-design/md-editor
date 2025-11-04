@@ -20,24 +20,24 @@ group:
 
 ### FunnelChartProps
 
-| 属性           | 类型                                     | 默认值     | 说明                                              |
-| -------------- | ---------------------------------------- | ---------- | ------------------------------------------------- |
-| title          | `string`                                 | -          | 图表标题                                          |
-| data           | `FunnelChartDataItem[]`                  | -          | 扁平化数据数组（x 为阶段，y 为数值）              |
-| color          | `string`                                 | -          | 自定义主色                                        |
-| width          | `number \| string`                       | `600`      | 图表宽度（px），移动端自适应为 100%               |
-| height         | `number \| string`                       | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400） |
-| className      | `string`                                 | -          | 自定义类名                                        |
-| dataTime       | `string`                                 | -          | 数据时间                                          |
-| theme          | `'dark' \| 'light'`                      | `'light'`  | 主题风格                                          |
-| showLegend     | `boolean`                                | `true`     | 是否显示图例                                      |
-| legendPosition | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置                                          |
-| legendAlign    | `'start' \| 'center' \| 'end'`           | `'start'`  | 图例水平对齐方式                                  |
-| showPercent    | `boolean`                                | `true`     | 是否显示百分比（相对第一层）                      |
+| 属性                  | 类型                                     | 默认值     | 说明                                                                     |
+| --------------------- | ---------------------------------------- | ---------- | ------------------------------------------------------------------------ |
+| title                 | `string`                                 | -          | 图表标题                                                                 |
+| data                  | `FunnelChartDataItem[]`                  | -          | 扁平化数据数组（x 为阶段，y 为数值）                                     |
+| color                 | `string`                                 | -          | 自定义主色                                                               |
+| width                 | `number \| string`                       | `600`      | 图表宽度（px），移动端自适应为 100%                                      |
+| height                | `number \| string`                       | `400`      | 图表高度（px），移动端最大约 80% 屏宽（上限 400）                        |
+| className             | `string`                                 | -          | 自定义类名                                                               |
+| dataTime              | `string`                                 | -          | 数据时间                                                                 |
+| theme                 | `'dark' \| 'light'`                      | `'light'`  | 主题风格                                                                 |
+| showLegend            | `boolean`                                | `true`     | 是否显示图例                                                             |
+| legendPosition        | `'top' \| 'left' \| 'bottom' \| 'right'` | `'bottom'` | 图例位置                                                                 |
+| legendAlign           | `'start' \| 'center' \| 'end'`           | `'start'`  | 图例水平对齐方式                                                         |
+| showPercent           | `boolean`                                | `true`     | 是否显示百分比（相对第一层）                                             |
 | toolbarExtra          | `React.ReactNode`                        | -          | 头部工具条额外按钮                                                       |
 | renderFilterInToolbar | `boolean`                                | `false`    | 是否将过滤器渲染到工具栏（当为 true 时，ChartFilter 会显示在工具栏右侧） |
-| typeNames             | `{ rate?: string; name: string }`        | -          | 类型名称配置，用于图例和数据集标签                                   |
-| statistic             | `StatisticConfigType`                    | -          | 统计数据组件配置                                                 |
+| typeNames             | `{ rate?: string; name: string }`        | -          | 类型名称配置，用于图例和数据集标签                                       |
+| statistic             | `StatisticConfigType`                    | -          | 统计数据组件配置                                                         |
 
 ### FunnelChartDataItem
 

@@ -50,8 +50,8 @@ export interface BackBottomProps extends ScrollVisibleButtonProps {
  * // 自定义显示条件
  * <BackBottom
  *   shouldVisible={(scrollTop, container) => {
- *     const scrollHeight = container instanceof Window 
- *       ? document.documentElement.scrollHeight 
+ *     const scrollHeight = container instanceof Window
+ *       ? document.documentElement.scrollHeight
  *       : container.scrollHeight;
  *     return scrollHeight - scrollTop >= 800;
  *   }}

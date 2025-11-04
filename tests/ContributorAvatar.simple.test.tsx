@@ -235,9 +235,7 @@ describe('ContributorAvatar Component', () => {
       );
 
       const listContainer = container.firstChild;
-      expect(listContainer).toHaveClass(
-        'ant-agentic-md-editor-contributor-avatar-list',
-      );
+      expect(listContainer).toHaveClass('ant-agentic-contributor-avatar-list');
     });
 
     it('should handle names with special characters', () => {

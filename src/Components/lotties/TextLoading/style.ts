@@ -60,12 +60,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useStyle(prefixCls: string) {
-  return useEditorStyleRegister('ShinyText', (token) => {
-    const shinyTextToken = {
+  return useEditorStyleRegister('TextLoading', (token) => {
+    const textLoadingToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(shinyTextToken)];
+    return [genStyle(textLoadingToken)];
   });
 }
+

@@ -8,6 +8,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       // 折线图容器样式
+
+      // 统计数据容器样式
+      '&-statistic-container': {
+        display: 'flex',
+        gap: '16px',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+      },
+
       '.chart-wrapper': {
         width: '100%',
         height: 'calc(100% - 120px)',

@@ -191,7 +191,9 @@ describe('MarkdownInputField - voiceInput', () => {
     const voiceBtn = screen.getByTestId('voice-input-button');
     // disabled class applied
     expect(
-      voiceBtn.className.includes('ant-agentic-md-input-field-voice-button-disabled'),
+      voiceBtn.className.includes(
+        'ant-agentic-md-input-field-voice-button-disabled',
+      ),
     ).toBeTruthy();
 
     fireEvent.click(voiceBtn);

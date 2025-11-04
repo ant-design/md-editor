@@ -25,6 +25,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       color: 'var(--color-gray-text-secondary)',
       outline: 'none',
       userSelect: 'none',
+      whiteSpace: 'nowrap',
+      flexShrink: 0,
 
       '&:hover': {
         // borderColor: 'rgba(0, 0, 0, 0.3)',

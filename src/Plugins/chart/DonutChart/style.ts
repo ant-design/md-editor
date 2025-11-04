@@ -47,6 +47,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-row': {
         display: 'flex',
         alignItems: 'center',
+        flexDirection: 'row',
         [`@media (max-width: 768px)`]: {
           flexDirection: 'column',
           alignItems: 'stretch',

@@ -90,4 +90,3 @@ const LineChartStatisticExample: React.FC = () => {
 };
 
 export default LineChartStatisticExample;
-
