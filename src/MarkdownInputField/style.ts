@@ -70,26 +70,41 @@ const stopIconRotate = new Keyframes('stopIconRotate', {
   },
 });
 
+// 背景渐变旋转动画（用于 radial/linear 渐变整体旋转）
+// 使用 CSS 自定义属性驱动角度变化，避免元素本身的 transform 引起的位移
+// const rotateGradientAngle = new Keyframes('rotateGradientAngle', {
+//   '0%': {
+//     '--mif-angle': '42deg',
+//   },
+//   '100%': {
+//     '--mif-angle': 'calc(42deg + 1turn)',
+//   },
+// });
+
+// 背景淡出（只执行一次并保持最终状态）
+// const fadeOutOnce = new Keyframes('fadeOutOnce', {
+//   '0%': {
+//     opacity: 1,
+//   },
+//   '100%': {
+//     opacity: 0,
+//   },
+// });
+
 // 合并旋转与淡出为单一动画：一次性旋转一圈并淡出到 0
-const rotateFadeOnce = new Keyframes('rotateFadeOnce', {
-  '0%': {
-    '--mif-angle': '42deg',
-    opacity: 1,
-  },
-  '100%': {
-    '--mif-angle': 'calc(42deg + 1turn)',
-    opacity: 0,
-  },
-});
+// const rotateFadeOnce = new Keyframes('rotateFadeOnce', {
+//   '0%': {
+//     '--mif-angle': '42deg',
+//     opacity: 1,
+//   },
+//   '100%': {
+//     '--mif-angle': 'calc(42deg + 1turn)',
+//     opacity: 0,
+//   },
+// });
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
-    // 声明 CSS 自定义属性 --mif-angle，使其可动画（需浏览器支持 @property）
-    '@property --mif-angle': {
-      syntax: '"<angle>"',
-      'initial-value': '0deg',
-      inherits: false,
-    },
     [token.componentCls]: {
       width: '100%',
       height: '100%',
@@ -108,17 +123,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxSizing: 'border-box',
       },
       '&:active,&.active': {
-        [`${token.componentCls}-background`]: {
-          opacity: 0,
-          height: '100%',
-          backgroundImage:
-            'radial-gradient(127% 127% at 0% 0%, rgba(255, 255, 255, 0) 57%, #EEF0F5 84%),linear-gradient(var(--mif-angle), #D7B9FF 14%, #9BA0FF 57%, #09B1FF 98%)',
-          // 单一动画：一次性旋转并淡出
-          animationName: rotateFadeOnce,
-          animationDuration: '2.5s',
-          animationTimingFunction: 'ease-in-out',
-          animationIterationCount: '1',
-        },
+        outline: '1px solid transparent',
       },
 
       '&-enlarged': {
@@ -145,42 +150,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           overflow: 'auto',
           width: '100%',
         },
-        [`${token.componentCls}-background`]: {
-          // 放大时保持和普通状态相同的背景效果
-          opacity: 1,
-        },
       },
 
-      '&-background': {
+      '&-border-wrapper': {
+        width: '100%',
+        zIndex: 9,
+        height: '100%',
         boxSizing: 'border-box',
-        position: 'absolute',
-        width: 'calc(100% - 4px)',
-        height: 'calc(100% - 4px)',
-        zIndex: 2,
-        backgroundColor: 'transparent',
-        pointerEvents: 'none',
-        borderRadius: 'inherit',
-        // 自定义属性控制线性渐变角度，默认与原始设计保持一致 42deg
-        '--mif-angle': '42deg',
-        // 提示浏览器该节点将频繁重绘背景图像
-        willChange: 'background-image',
-        // 限定绘制范围，降低重绘影响
-        contain: 'paint',
       },
-      '&:focus': {
-        boxShadow: 'none',
-        [`${token.componentCls}-background`]: {
-          opacity: 1,
-        },
+      '&-content-wrapper': {
+        backgroundColor: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        borderRadius: 'inherit',
       },
       '&-editor': {
         boxSizing: 'border-box',
+        borderRadius: 'inherit',
         backgroundColor: 'var(--color-gray-bg-card-white)',
         width: '100%',
         zIndex: 9,
         maxHeight: 400,
         height: '100%',
-        borderRadius: 'inherit',
         overflowY: 'visible',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
@@ -196,9 +189,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-editor-content': {
         overflowY: 'auto',
         maxHeight: 'inherit',
+        borderRadius: 'inherit',
         scrollbarColor: 'var(--color-gray-text-tertiary) transparent',
         scrollbarWidth: 'thin',
-        borderRadius: 'inherit',
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',
@@ -216,10 +209,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-send-actions': {
         position: 'absolute',
         userSelect: 'none',
-        right: 4,
+        right: 12,
         boxSizing: 'border-box',
         zIndex: 99,
-        bottom: 8,
+        bottom: 12,
         display: 'flex',
         gap: '8px',
         alignItems: 'center',

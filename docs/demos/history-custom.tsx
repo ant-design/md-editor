@@ -93,6 +93,7 @@ const CustomHistoryDemo = () => {
           padding: '20px',
           width: 348,
           margin: '0 auto',
+          borderRadius: '16px',
           border: '1px solid var(--color-gray-border-light)',
         }}
       >

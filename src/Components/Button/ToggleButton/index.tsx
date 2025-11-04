@@ -59,10 +59,20 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
             boxShadow: 'none',
           }}
         >
-          {icon && <span className={`${prefixCls}-icon`}>{icon}</span>}
-          {children && <span className={`${prefixCls}-text`}>{children}</span>}
+          {icon && (
+            <span className={classNames(`${prefixCls}-icon`, hashId)}>
+              {icon}
+            </span>
+          )}
+          {children && (
+            <span className={classNames(`${prefixCls}-text`, hashId)}>
+              {children}
+            </span>
+          )}
           {triggerIcon && (
-            <span className={`${prefixCls}-trigger-icon`}>{triggerIcon}</span>
+            <span className={classNames(`${prefixCls}-trigger-icon`, hashId)}>
+              {triggerIcon}
+            </span>
           )}
         </Button>
       </ConfigProvider>

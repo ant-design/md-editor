@@ -54,7 +54,6 @@
   color: var(--color-gray-text-default);
   border: 1px solid transparent;
 }
-
 .ant-btn-color-default.ant-btn-variant-filled:disabled,
 .ant-btn-color-default.ant-btn-variant-filled.ant-btn-disabled {
   cursor: not-allowed;

@@ -29,6 +29,8 @@ export interface CaseReplyProps {
    * 按钮文本（悬停时显示的按钮文字）
    */
   buttonText?: string;
+
+  buttonBar?: React.ReactNode;
   /**
    * 按钮点击事件
    */
@@ -58,6 +60,7 @@ const CaseReply: React.FC<CaseReplyProps> = ({
   title,
   description,
   buttonText = '查看回放',
+  buttonBar,
   onButtonClick,
   onClick,
   style,
@@ -65,7 +68,10 @@ const CaseReply: React.FC<CaseReplyProps> = ({
   prefixCls: customPrefixCls,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('agentic-chatboot-case-reply', customPrefixCls);
+  const prefixCls = getPrefixCls(
+    'agentic-chatboot-case-reply',
+    customPrefixCls,
+  );
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -156,20 +162,22 @@ const CaseReply: React.FC<CaseReplyProps> = ({
         {title && <h3 className={titleCls}>{title}</h3>}
         {description && <p className={descriptionCls}>{description}</p>}
         {/* buttonBar */}
-        {buttonText && (
+        {(buttonBar || buttonText) && (
           <div className={buttonBarCls}>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onButtonClick?.(e);
-              }}
-            >
-              {buttonText}
-              <span className={arrowIconCls}>
-                <ArrowRight />
-              </span>
-            </button>
+            {buttonBar || (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onButtonClick?.(e);
+                }}
+              >
+                {buttonText}
+                <span className={arrowIconCls}>
+                  <ArrowRight />
+                </span>
+              </button>
+            )}
           </div>
         )}
       </div>

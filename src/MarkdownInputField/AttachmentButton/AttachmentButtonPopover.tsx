@@ -34,14 +34,6 @@ const CONTENT_STYLE: React.CSSProperties = {
   maxWidth: 275,
 };
 
-const TOOLTIP_CONFIG = {
-  arrow: false,
-  mouseEnterDelay: 0.3,
-  mouseLeaveDelay: 0.1,
-  trigger: 'hover' as const,
-  placement: 'topRight' as const,
-};
-
 export const SupportedFileFormats = {
   image: {
     icon: <FileImageOutlined />,
@@ -102,16 +94,16 @@ export const AttachmentSupportedFormatsContent: React.FC<
 export const AttachmentButtonPopover: React.FC<
   AttachmentButtonPopoverProps
 > = ({ children, supportedFormat }) => {
-  if (!supportedFormat) return null;
-
   return (
     <Tooltip
-      {...TOOLTIP_CONFIG}
+      arrow={false}
+      mouseEnterDelay={2}
+      trigger={['hover', 'click']}
       title={
         <AttachmentSupportedFormatsContent supportedFormat={supportedFormat} />
       }
     >
-      {children}
+      <span>{children}</span>
     </Tooltip>
   );
 };

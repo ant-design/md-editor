@@ -589,14 +589,14 @@ export interface BubbleProps<T = Record<string, any>>
    * @description 与示例中的 fileViewConfig 对齐：控制样式与更多按钮、数量等
    */
   fileViewConfig?: {
-    /** 是否展示每个文件项的“更多”按钮 */
-    showMoreButton?: boolean;
     /** 自定义根容器 className */
     className?: string;
     /** 自定义根容器样式 */
     style?: React.CSSProperties;
     /** 最大展示条目数（默认 3） */
     maxDisplayCount?: number;
+    /** 是否显示"查看更多"按钮 */
+    showMoreButton?: boolean;
     /** 自定义悬浮动作区 */
     customSlot?: React.ReactNode | ((file: AttachmentFile) => React.ReactNode);
     /**

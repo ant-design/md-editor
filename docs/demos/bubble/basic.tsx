@@ -381,11 +381,11 @@ export default () => {
               console.log('下载文件:', file);
               message.success('下载文件:');
             },
-            onViewAll: (files) => {
-              onViewAll(files);
-              console.log('查看所有文件:', files);
-              message.success('查看所有文件:');
-            },
+            // onViewAll: (files) => {
+            //   onViewAll(files);
+            //   console.log('查看所有文件:', files);
+            //   message.success('查看所有文件:');
+            // },
           })}
           onLike={handleLike}
           onDisLike={handleDisLike}

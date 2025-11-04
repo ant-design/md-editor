@@ -1,2 +1,1 @@
-export * from './DazingLottie';
-export * from './ThinkingLottie';
+export * from './ShinyText';

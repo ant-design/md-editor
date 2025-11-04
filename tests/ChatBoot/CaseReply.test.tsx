@@ -151,7 +151,12 @@ describe('CaseReply 组件', () => {
 
   it('应该只渲染有内容的按钮栏', () => {
     const { container } = render(
-      <CaseReply quote="只有引用" title="只有标题" description="只有描述" />,
+      <CaseReply
+        quote="只有引用"
+        title="只有标题"
+        description="只有描述"
+        buttonText=""
+      />,
     );
 
     const buttonBarElement = container.querySelector(

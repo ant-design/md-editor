@@ -90,30 +90,64 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
   }, []);
 
   const icon = useMemo(() => {
-    return loading ? (
-      <LoadingOutlined />
-    ) : (
-      React.cloneElement(props.children as any, {
-        // @ts-ignore
-        ...props?.children?.props,
-        style: {
+    if (loading) {
+      return <LoadingOutlined style={props.iconStyle} />;
+    }
+
+    // 处理单个子元素的情况
+    if (React.isValidElement(props.children)) {
+      try {
+        return React.cloneElement(props.children as any, {
           // @ts-ignore
-          ...props?.children?.props?.style,
-          ...props.iconStyle,
-        },
-      })
-    );
-  }, [loading, props.loading, props?.iconStyle]);
+          ...props?.children?.props,
+          style: {
+            // @ts-ignore
+            ...props?.children?.props?.style,
+            ...props.iconStyle,
+          },
+        });
+      } catch (error) {
+        console.error('ActionIconBox: 克隆元素时出错', error);
+        return props.children;
+      }
+    }
+
+    // 处理多个子元素的情况
+    try {
+      return React.Children.map(props.children, (child) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child as any, {
+            // @ts-ignore
+            ...child?.props,
+            style: {
+              // @ts-ignore
+              ...child?.props?.style,
+              ...props.iconStyle,
+            },
+          });
+        }
+        return child;
+      });
+    } catch (error) {
+      console.error('ActionIconBox: 处理子元素时出错', error);
+      return props.children;
+    }
+  }, [loading, props.loading, props.iconStyle, props.children]);
 
   return wrapSSR(
     props.title ? (
-      <Tooltip title={props.title} mouseEnterDelay={1} {...props.tooltipProps}>
+      <Tooltip
+        title={props.title}
+        arrow={false}
+        mouseEnterDelay={2}
+        {...props.tooltipProps}
+      >
         <span
+          data-title={props.title?.toString()}
           data-testid={props['data-testid'] || 'action-icon-box'}
           role="button"
           tabIndex={0}
           aria-label={props.title?.toString()}
-          title={props.title?.toString()}
           className={cx(prefixCls, hashId, props.className, {
             [`${prefixCls}-danger`]: props.type === 'danger',
             [`${prefixCls}-primary`]: props.type === 'primary',
@@ -128,15 +162,27 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
             if (!props.onClick) return;
             if (loading) return;
             setLoading(true);
-            await props.onClick?.(e as any);
-            setLoading(false);
+            try {
+              await props.onClick?.(e as any);
+            } catch (error) {
+              console.error('ActionIconBox onClick 错误:', error);
+            } finally {
+              setLoading(false);
+            }
           }}
-          onKeyDown={(e) => {
+          onKeyDown={async (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               if (!props.onClick) return;
               if (loading) return;
-              props.onClick(e as any);
+              setLoading(true);
+              try {
+                await props.onClick(e as any);
+              } catch (error) {
+                console.error('ActionIconBox onKeyDown 错误:', error);
+              } finally {
+                setLoading(false);
+              }
             }
           }}
           style={props.style}
@@ -170,15 +216,27 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
           if (!props.onClick) return;
           if (loading) return;
           setLoading(true);
-          await props.onClick?.(e as any);
-          setLoading(false);
+          try {
+            await props.onClick?.(e as any);
+          } catch (error) {
+            console.error('ActionIconBox onClick 错误:', error);
+          } finally {
+            setLoading(false);
+          }
         }}
-        onKeyDown={(e) => {
+        onKeyDown={async (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             if (!props.onClick) return;
             if (loading) return;
-            props.onClick(e as any);
+            setLoading(true);
+            try {
+              await props.onClick(e as any);
+            } catch (error) {
+              console.error('ActionIconBox onKeyDown 错误:', error);
+            } finally {
+              setLoading(false);
+            }
           }
         }}
         style={props.style}
