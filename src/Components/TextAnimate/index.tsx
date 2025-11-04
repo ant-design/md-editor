@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion, MotionProps, Variants } from 'framer-motion';
-import { isNumber, isString } from 'lodash';
+import { isNumber, isObject, isString } from 'lodash';
 import toArray from 'rc-util/lib/Children/toArray';
 import React, { ElementType, memo, useContext } from 'react';
 import { useTextAnimateStyle } from './style';
@@ -417,7 +417,7 @@ const TextAnimateBase = ({
       >
         {segments.map((segment, i) => (
           <motion.span
-            key={`${by}-${isString(segment) ? segment : 'segment'}-${i}`}
+            key={`${by}-${isObject(segment) ? (segment as React.ReactElement).key : segment}-${i}`}
             variants={finalVariants.item}
             custom={i * staggerTimings[by]}
             className={classNames(
