@@ -278,14 +278,14 @@ export default () => {
                   // 使用当前段落ID（会在 eleItemRender 中更新）
                   const paragraphId =
                     currentPlaceholderParagraphIdRef.current ||
-                    `element-${elementInfo.index}`;
+                    `element-${elementInfo?.index || 0}`;
                   const realHeight = heightMap.get(paragraphId) || height;
 
                   return (
                     <CustomPlaceholder
-                      key={`placeholder-${elementInfo.index}`}
+                      key={`placeholder-${elementInfo?.index || 0}`}
                       paragraphId={paragraphId}
-                      paragraphIndex={elementInfo.index}
+                      paragraphIndex={elementInfo?.index || 0}
                       height={realHeight}
                       isIntersecting={isIntersecting}
                       style={style}

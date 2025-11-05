@@ -212,8 +212,8 @@ export type MarkdownEditorProps = {
       style: React.CSSProperties;
       /** 元素是否即将进入视口 */
       isIntersecting: boolean;
-      /** 元素在文档中的位置信息 */
-      elementInfo: {
+      /** 元素在文档中的位置信息（可选） */
+      elementInfo?: {
         /** 元素类型 */
         type: string;
         /** 元素在文档中的索引 */
