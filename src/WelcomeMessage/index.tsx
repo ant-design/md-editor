@@ -41,7 +41,7 @@ export interface WelcomeMessageProps {
   /** 标题 */
   title?: React.ReactNode;
   /** 描述 */
-  description?: string;
+  description?: React.ReactNode;
   /** 自定义样式类名，用于各个提示项的不同部分 */
   classNames?: {
     title?: string;

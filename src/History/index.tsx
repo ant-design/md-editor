@@ -31,7 +31,8 @@ export * from './utils';
  * @param {Function} props.request - 请求函数，用于获取历史数据
  * @param {Function} [props.onInit] - 组件初始化时的回调函数
  * @param {Function} [props.onShow] - 组件显示时的回调函数
- * @param {Function} [props.onSelected] - 选择历史记录项时的回调函数 (已弃用，请使用 onClick)
+ * @param {Function} [props.onSelected] - (已废弃，请使用 onClick) 选择历史记录项时的回调函数
+ * @param {Function} [props.onClick] - 点击历史记录项时的回调函数
  * @param {Function} [props.onDeleteItem] - 删除历史记录项时的回调函数
  * @param {Function} [props.customDateFormatter] - 日期格式化函数
  * @param {boolean} [props.standalone] - 是否以独立模式显示，为true时直接显示菜单，否则显示为下拉菜单

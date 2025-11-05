@@ -1,4 +1,5 @@
 import { MarkdownEditorProps } from '../MarkdownEditor';
+import { BaseStyleProps } from '../Types';
 
 export interface WhiteBoxProcessInterface {
   /** 分类类型
@@ -135,21 +136,25 @@ export interface DocMeta {
   answer?: string;
 }
 
-export interface ThoughtChainListProps {
+export interface ThoughtChainListProps extends BaseStyleProps {
   titleRender?: (
     props: ThoughtChainListProps,
     defaultDom: React.ReactNode,
   ) => React.ReactNode;
   thoughtChainList: WhiteBoxProcessInterface[];
+  /** 
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
+   */
   loading?: boolean;
+  /** 加载状态 */
+  isLoading?: boolean;
   bubble?: {
     isFinished?: boolean;
     endTime?: number;
     createAt?: number;
     isAborted?: boolean;
   };
-  className?: string;
-  style?: React.CSSProperties;
   compact?: boolean;
   markdownRenderProps?: MarkdownEditorProps;
   finishAutoCollapse?: boolean;

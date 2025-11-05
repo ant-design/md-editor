@@ -37,7 +37,4 @@ export interface LayoutHeaderConfig {
 /**
  * 布局头部组件属性接口
  */
-export interface LayoutHeaderProps extends LayoutHeaderConfig {
-  /** 自定义类名 */
-  className?: string;
-}
+export type LayoutHeaderProps = LayoutHeaderConfig;

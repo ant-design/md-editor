@@ -25,6 +25,8 @@ export interface AgenticLayoutProps {
   rightWidth?: number;
   /** 最小高度 */
   minHeight?: string | number;
+  /** 子元素（用于兼容性，实际内容应使用 center 属性） */
+  children?: ReactNode;
 }
 
 /**

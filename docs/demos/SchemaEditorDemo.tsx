@@ -176,9 +176,8 @@ export default function SchemaEditorDemo() {
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             {examples.map((example, index) => (
               <button
-                type="button"
-                type="button"
                 key={index}
+                type="button"
                 onClick={() => loadExample(example)}
                 style={{
                   padding: '8px 16px',
