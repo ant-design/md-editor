@@ -15,7 +15,7 @@ export type ActionIconBoxProps = {
   transform?: boolean;
   className?: string;
   borderLess?: boolean;
-  /** 
+  /**
    * @deprecated 请使用 isLoading 代替
    * @description 已废弃，将在未来版本移除
    */
