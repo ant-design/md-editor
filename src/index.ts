@@ -68,8 +68,10 @@ export * from './MarkdownEditor/types';
 
 // Bubble 相关类型
 export type {
+  BubbleClassNames,
   BubbleItemStyleProps,
   BubbleRenderConfig,
+  BubbleStyles,
   BubbleStyleProps,
   CustomConfig,
   WithFalse,

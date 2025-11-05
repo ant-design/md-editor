@@ -77,8 +77,10 @@ export type ActionIconBoxProps = {
  * - 响应式交互设计
  */
 export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
+  // 兼容旧属性
+  const propLoading = props.isLoading ?? props.loading;
   const [loading, setLoading] = useMergedState(false, {
-    value: props.loading,
+    value: propLoading,
     onChange: props.onLoadingChange,
   });
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);

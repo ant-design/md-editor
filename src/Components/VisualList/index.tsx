@@ -107,7 +107,8 @@ const VisualListComponent: React.FC<VisualListProps> = ({
   filter,
   emptyRender,
   renderItem,
-  loading = false,
+  loading: legacyLoading = false,
+  isLoading,
   loadingRender,
   itemStyle,
   imageStyle,
@@ -117,6 +118,8 @@ const VisualListComponent: React.FC<VisualListProps> = ({
   variant = 'default',
   description,
 }) => {
+  // 兼容旧属性
+  const loading = isLoading ?? legacyLoading;
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 使用 useMemo 优化过滤后的数据计算

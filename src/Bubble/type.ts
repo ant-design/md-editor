@@ -5,7 +5,14 @@ import { AttachmentFile } from '../MarkdownInputField/AttachmentButton/types';
 import type { UseSpeechAdapter } from './MessagesContent/VoiceButton';
 import { BubbleExtraProps } from './types/BubbleExtra';
 import { DocInfoListProps } from './types/DocInfo';
-import { BaseStyleProps, WithFalse, MessageBubbleData, BubbleMetaData } from '../Types';
+import {
+  BaseStyleProps,
+  WithFalse,
+  MessageBubbleData,
+  BubbleMetaData,
+  MultiStyleProps,
+  MultiClassNameProps,
+} from '../Types';
 
 /**
  * 基础样式属性
@@ -14,120 +21,135 @@ import { BaseStyleProps, WithFalse, MessageBubbleData, BubbleMetaData } from '..
 export type BubbleStyleProps = BaseStyleProps;
 
 /**
- * 气泡项样式属性
+ * 气泡样式配置
+ * @description 气泡组件各部分的样式配置
  */
-export interface BubbleItemStyleProps extends BubbleStyleProps {
-  styles?: {
-    /**
-     * 气泡根容器的自定义样式
-     */
-    bubbleStyle?: React.CSSProperties;
+export interface BubbleStyles extends Record<string, React.CSSProperties | undefined> {
+  /**
+   * 气泡根容器的自定义样式
+   */
+  bubbleStyle?: React.CSSProperties;
 
-    /**
-     * 头像标题区域的自定义样式
-     */
-    bubbleAvatarTitleStyle?: React.CSSProperties;
+  /**
+   * 头像标题区域的自定义样式
+   */
+  bubbleAvatarTitleStyle?: React.CSSProperties;
 
-    /**
-     * 主容器的自定义样式
-     */
-    bubbleContainerStyle?: React.CSSProperties;
+  /**
+   * 主容器的自定义样式
+   */
+  bubbleContainerStyle?: React.CSSProperties;
 
-    /**
-     * 加载图标的自定义样式
-     */
-    bubbleLoadingIconStyle?: React.CSSProperties;
+  /**
+   * 加载图标的自定义样式
+   */
+  bubbleLoadingIconStyle?: React.CSSProperties;
 
-    /**
-     * 名称区域的自定义样式
-     */
-    bubbleNameStyle?: React.CSSProperties;
+  /**
+   * 名称区域的自定义样式
+   */
+  bubbleNameStyle?: React.CSSProperties;
 
-    /**
-     * 内容的自定义样式
-     */
-    bubbleListItemContentStyle?: React.CSSProperties;
+  /**
+   * 内容的自定义样式
+   */
+  bubbleListItemContentStyle?: React.CSSProperties;
 
-    /**
-     * 内容前置区域的自定义样式
-     */
-    bubbleListItemBeforeStyle?: React.CSSProperties;
+  /**
+   * 内容前置区域的自定义样式
+   */
+  bubbleListItemBeforeStyle?: React.CSSProperties;
 
-    /**
-     * 内容后置区域的自定义样式
-     */
-    bubbleListItemAfterStyle?: React.CSSProperties;
+  /**
+   * 内容后置区域的自定义样式
+   */
+  bubbleListItemAfterStyle?: React.CSSProperties;
 
-    /**
-     * 标题的自定义样式
-     */
-    bubbleListItemTitleStyle?: React.CSSProperties;
+  /**
+   * 标题的自定义样式
+   */
+  bubbleListItemTitleStyle?: React.CSSProperties;
 
-    /**
-     * 头像的自定义样式
-     */
-    bubbleListItemAvatarStyle?: React.CSSProperties;
+  /**
+   * 头像的自定义样式
+   */
+  bubbleListItemAvatarStyle?: React.CSSProperties;
 
-    /**
-     * 额外内容的自定义样式
-     */
-    bubbleListItemExtraStyle?: React.CSSProperties;
-  };
-
-  classNames?: {
-    /**
-     * 气泡根容器的自定义类名
-     */
-    bubbleClassName?: string;
-
-    /**
-     * 头像标题区域的自定义类名
-     */
-    bubbleAvatarTitleClassName?: string;
-
-    /**
-     * 主容器的自定义类名
-     */
-    bubbleContainerClassName?: string;
-
-    /**
-     * 加载图标的自定义类名
-     */
-    bubbleLoadingIconClassName?: string;
-
-    /**
-     * 名称区域的自定义类名
-     */
-    bubbleNameClassName?: string;
-
-    /**
-     * 内容的自定义类名
-     */
-    bubbleListItemContentClassName?: string;
-
-    /**
-     * 内容前置区域的自定义类名
-     */
-    bubbleListItemBeforeClassName?: string;
-
-    /**
-     * 内容后置区域的自定义类名
-     */
-    bubbleListItemAfterClassName?: string;
-
-    /**
-     * 标题的自定义类名
-     */
-    bubbleListItemTitleClassName?: string;
-
-    /**
-     * 头像的自定义类名
-     */
-    bubbleListItemAvatarClassName?: string;
-
-    bubbleListItemExtraClassName?: string;
-  };
+  /**
+   * 额外内容的自定义样式
+   */
+  bubbleListItemExtraStyle?: React.CSSProperties;
 }
+
+/**
+ * 气泡类名配置
+ * @description 气泡组件各部分的类名配置
+ */
+export interface BubbleClassNames extends Record<string, string | undefined> {
+  /**
+   * 气泡根容器的自定义类名
+   */
+  bubbleClassName?: string;
+
+  /**
+   * 头像标题区域的自定义类名
+   */
+  bubbleAvatarTitleClassName?: string;
+
+  /**
+   * 主容器的自定义类名
+   */
+  bubbleContainerClassName?: string;
+
+  /**
+   * 加载图标的自定义类名
+   */
+  bubbleLoadingIconClassName?: string;
+
+  /**
+   * 名称区域的自定义类名
+   */
+  bubbleNameClassName?: string;
+
+  /**
+   * 内容的自定义类名
+   */
+  bubbleListItemContentClassName?: string;
+
+  /**
+   * 内容前置区域的自定义类名
+   */
+  bubbleListItemBeforeClassName?: string;
+
+  /**
+   * 内容后置区域的自定义类名
+   */
+  bubbleListItemAfterClassName?: string;
+
+  /**
+   * 标题的自定义类名
+   */
+  bubbleListItemTitleClassName?: string;
+
+  /**
+   * 头像的自定义类名
+   */
+  bubbleListItemAvatarClassName?: string;
+
+  /**
+   * 额外内容的自定义类名
+   */
+  bubbleListItemExtraClassName?: string;
+}
+
+/**
+ * 气泡项样式属性
+ * @description 包含单一根样式和多个子元素样式的完整配置
+ */
+export interface BubbleItemStyleProps
+  extends BubbleStyleProps,
+    MultiStyleProps<BubbleStyles>,
+    MultiClassNameProps<BubbleClassNames> {}
 
 // 从统一类型文件导出，避免重复定义
 export type { BubbleMetaData, MessageBubbleData } from '../Types';

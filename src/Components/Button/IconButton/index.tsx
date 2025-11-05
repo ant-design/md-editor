@@ -26,9 +26,12 @@ export const IconButton: React.FC<IconButtonProps> = ({
   active,
   elevated,
   size = 'base',
-  loading,
+  loading: legacyLoading,
+  isLoading,
   onClick,
 }) => {
+  // 兼容旧属性
+  const loading = isLoading ?? legacyLoading;
   const context = useContext(ConfigProvider.ConfigContext);
   const prefixCls = context?.getPrefixCls('icon-button');
 
