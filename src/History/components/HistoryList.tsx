@@ -80,21 +80,17 @@ export const generateHistoryItems = ({
     },
   );
 
+  const groupMaxTimes = Object.fromEntries(
+    Object.entries(groupList).map(([key, list]) => [
+      key,
+      Math.max(...list.map((item) => dayjs(item.gmtCreate).valueOf())),
+    ]),
+  );
+
   // 按照时间顺序对分组进行排序：今日 > 昨日 > 一周内 > 其他
-  const sortedGroupKeys = Object.keys(groupList).sort((keyA, keyB) => {
-    const listA = groupList[keyA];
-    const listB = groupList[keyB];
-
-    // 使用最新的时间戳进行比较
-    const timeA = Math.max(
-      ...listA.map((item) => dayjs(item.gmtCreate).valueOf()),
-    );
-    const timeB = Math.max(
-      ...listB.map((item) => dayjs(item.gmtCreate).valueOf()),
-    );
-
-    return timeB - timeA;
-  });
+  const sortedGroupKeys = Object.keys(groupList).sort(
+    (keyA, keyB) => (groupMaxTimes[keyB] || 0) - (groupMaxTimes[keyA] || 0),
+  );
 
   const items = sortedGroupKeys.map((key) => {
     const list = groupList[key];
