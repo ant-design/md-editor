@@ -106,4 +106,3 @@ export const TextLoading: React.FC<TextLoadingProps> = ({
 };
 
 export default TextLoading;
-

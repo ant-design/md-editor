@@ -952,13 +952,7 @@ export class ProxySandbox {
       if (!worker) return;
 
       // 设置消息处理
-      this.setupWorkerHandlers(
-        worker,
-        workerUrl,
-        timeoutId,
-        resolve,
-        reject,
-      );
+      this.setupWorkerHandlers(worker, workerUrl, timeoutId, resolve, reject);
     });
   }
 

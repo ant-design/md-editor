@@ -69,4 +69,3 @@ export function useStyle(prefixCls: string) {
     return [genStyle(textLoadingToken)];
   });
 }
-
