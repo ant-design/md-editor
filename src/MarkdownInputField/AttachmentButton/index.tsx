@@ -324,12 +324,10 @@ const BUTTON_TITLE_STYLE: React.CSSProperties = {
 };
 
 const ButtonContent: React.FC<{ title?: React.ReactNode }> = ({ title }) => {
-  if (!title) return <Paperclip />;
-
   return (
     <>
       <Paperclip />
-      <div style={BUTTON_TITLE_STYLE}>{title}</div>
+      {title && <div style={BUTTON_TITLE_STYLE}>{title}</div>}
     </>
   );
 };
@@ -369,20 +367,20 @@ export const AttachmentButton: React.FC<
     uploadImage?.();
   };
 
+  const buttonWithStyle = (
+    <div style={BUTTON_WITH_TITLE_STYLE}>
+      <ButtonContent title={title} />
+    </div>
+  );
+
   const wrapper = render ? (
     render({
-      children: (
-        <div style={BUTTON_WITH_TITLE_STYLE}>
-          <ButtonContent title={title} />
-        </div>
-      ),
+      children: buttonWithStyle,
       supportedFormat: format,
     })
   ) : (
     <AttachmentButtonPopover supportedFormat={format}>
-      <div style={BUTTON_WITH_TITLE_STYLE}>
-        <ButtonContent title={title} />
-      </div>
+      {buttonWithStyle}
     </AttachmentButtonPopover>
   );
 
