@@ -26,7 +26,7 @@ export const useInputFieldStyle = (
     const base =
       typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
     return base;
-  }, [props.style?.maxHeight, props.attachment?.enable]);
+  }, [props.style?.maxHeight]);
 
   const collapsedHeightPx = useMemo(() => {
     const extra = props.attachment?.enable ? 90 : 0;
