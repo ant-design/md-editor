@@ -9,17 +9,6 @@ import {
 import { useStyle } from './style';
 
 export type WelcomeMessageTitleAnimateProps = Pick<
-  TextAnimateProps,
-  | 'delay'
-  | 'duration'
-  | 'variants'
-  | 'by'
-  | 'startOnView'
-  | 'once'
-  | 'animation'
->;
-
-export type WelcomeMessageDescriptionAnimateProps = Pick<
   TypingAnimationProps,
   | 'duration'
   | 'typeSpeed'
@@ -31,6 +20,17 @@ export type WelcomeMessageDescriptionAnimateProps = Pick<
   | 'showCursor'
   | 'blinkCursor'
   | 'cursorStyle'
+>;
+
+export type WelcomeMessageDescriptionAnimateProps = Pick<
+  TextAnimateProps,
+  | 'delay'
+  | 'duration'
+  | 'variants'
+  | 'by'
+  | 'startOnView'
+  | 'once'
+  | 'animation'
 >;
 
 /**
@@ -114,28 +114,30 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
     <div className={classnames(prefixCls, hashId, rootClassName)} style={style}>
       {/* Title */}
       {title && (
-        <TextAnimate
-          once
-          {...titleAnimateProps}
+        <TypingAnimation
           as="div"
+          {...titleAnimateProps}
           className={classnames(`${prefixCls}-title`, classNames?.title)}
         >
           {title}
-        </TextAnimate>
+        </TypingAnimation>
       )}
 
       {/* Description */}
       {description && (
-        <TypingAnimation
-          {...descriptionAnimateProps}
+        <TextAnimate
           as="div"
+          animation="blurInUp"
+          by="character"
+          once
+          {...descriptionAnimateProps}
           className={classnames(
             `${prefixCls}-description`,
             classNames?.description,
           )}
         >
           {description}
-        </TypingAnimation>
+        </TextAnimate>
       )}
     </div>,
   );

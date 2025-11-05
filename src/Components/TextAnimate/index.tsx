@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion, MotionProps, Variants } from 'framer-motion';
-import { isString } from 'lodash';
+import { isNumber, isObject, isString } from 'lodash';
 import toArray from 'rc-util/lib/Children/toArray';
 import React, { ElementType, memo, useContext } from 'react';
 import { useTextAnimateStyle } from './style';
@@ -304,19 +304,33 @@ const defaultItemAnimationVariants: Record<
   },
 };
 
-const resolveSegments = (children: React.ReactNode, by: AnimationType) => {
-  if (!isString(children)) return toArray(children);
-  switch (by) {
-    case 'word':
-      return children.split(/(\s+)/);
-    case 'character':
-      return children.split('');
-    case 'line':
-      return children.split('\n');
-    case 'text':
-    default:
-      return [children];
-  }
+export const resolveSegments = (
+  children: React.ReactNode,
+  by: AnimationType,
+) => {
+  const result: React.ReactNode[] = [];
+  toArray(children).forEach((item) => {
+    if (isString(item) || isNumber(item)) {
+      const itemString = item.toString();
+      switch (by) {
+        case 'word':
+          result.push(...itemString.split(/(\s+)/));
+          break;
+        case 'character':
+          result.push(...itemString.split(''));
+          break;
+        case 'line':
+          result.push(...itemString.split('\n'));
+          break;
+        case 'text':
+        default:
+          result.push(itemString);
+      }
+    } else {
+      result.push(item);
+    }
+  });
+  return result;
 };
 
 const TextAnimateBase = ({
@@ -403,7 +417,7 @@ const TextAnimateBase = ({
       >
         {segments.map((segment, i) => (
           <motion.span
-            key={`${by}-${isString(segment) ? segment : segment?.key}-${i}`}
+            key={`${by}-${isObject(segment) ? (segment as React.ReactElement).key : segment}-${i}`}
             variants={finalVariants.item}
             custom={i * staggerTimings[by]}
             className={classNames(
