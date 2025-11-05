@@ -80,7 +80,23 @@ export const generateHistoryItems = ({
     },
   );
 
-  const items = Object.keys(groupList).map((key) => {
+  // 按照时间顺序对分组进行排序：今日 > 昨日 > 一周内 > 其他
+  const sortedGroupKeys = Object.keys(groupList).sort((keyA, keyB) => {
+    const listA = groupList[keyA];
+    const listB = groupList[keyB];
+
+    // 使用最新的时间戳进行比较
+    const timeA = Math.max(
+      ...listA.map((item) => dayjs(item.gmtCreate).valueOf()),
+    );
+    const timeB = Math.max(
+      ...listB.map((item) => dayjs(item.gmtCreate).valueOf()),
+    );
+
+    return timeB - timeA;
+  });
+
+  const items = sortedGroupKeys.map((key) => {
     const list = groupList[key];
     const firstItem = list?.at(0);
     const label =
