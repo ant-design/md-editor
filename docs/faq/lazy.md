@@ -289,23 +289,27 @@ export default () => {
 
 如果发现元素未加载，可以检查：
 
-```tsx
+```tsx | pure
 // 增加 rootMargin 提前加载距离
-lazy={{
-  enable: true,
-  rootMargin: '500px', // 更大的提前加载范围
-}}
+<BaseMarkdownEditor
+  lazy={{
+    enable: true,
+    rootMargin: '500px', // 更大的提前加载范围
+  }}
+/>
 
 // 或者使用自定义占位符来观察加载状态
-lazy={{
-  enable: true,
-  renderPlaceholder: ({ height, style, isIntersecting, elementInfo }) => (
-    <div style={{ ...style, padding: '10px', background: '#f0f0f0' }}>
-      <div>元素 {elementInfo.index + 1}/{elementInfo.total}</div>
-      <div>状态: {isIntersecting ? '即将加载' : '等待中'}</div>
-    </div>
-  ),
-}}
+<BaseMarkdownEditor
+  lazy={{
+    enable: true,
+    renderPlaceholder: ({ height, style, isIntersecting, elementInfo }) => (
+      <div style={{ ...style, padding: '10px', background: '#f0f0f0' }}>
+        <div>元素 {elementInfo.index + 1}/{elementInfo.total}</div>
+        <div>状态: {isIntersecting ? '即将加载' : '等待中'}</div>
+      </div>
+    ),
+  }}
+/>
 ```
 
 ## 性能对比
