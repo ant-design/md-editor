@@ -31,6 +31,9 @@ import { QuickActions } from './QuickActions';
 import { SendActions } from './SendActions';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
+import { EditorContainer } from './components/EditorContainer';
+import { EditorContent } from './components/EditorContent';
+import { useInputFieldStyle } from './hooks/useInputFieldStyle';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
 import TopOperatingArea from './TopOperatingArea';
@@ -551,23 +554,18 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const [topRightPadding, setTopRightPadding] = useState(0);
   const [quickRightOffset, setQuickRightOffset] = useState(0);
 
-  const computedRightPadding = useMemo(() => {
-    const bottomOverlayPadding = props.toolsRender ? 0 : rightPadding || 52;
-    const topOverlayPadding = (topRightPadding || 0) + (quickRightOffset || 0);
-    return Math.max(bottomOverlayPadding, topOverlayPadding);
-  }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset]);
-
-  const collapsedHeight = useMemo(() => {
-    const mh = props.style?.maxHeight;
-    const base =
-      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
-    return base;
-  }, [props.style?.maxHeight, props.attachment?.enable]);
-
-  const collapsedHeightPx = useMemo(() => {
-    const extra = props.attachment?.enable ? 90 : 0;
-    return collapsedHeight + extra;
-  }, [props.style?.maxHeight, props.attachment?.enable]);
+  const {
+    collapsedHeight,
+    collapsedHeightPx,
+    enlargedStyle,
+    computedRightPadding,
+  } = useInputFieldStyle(
+    props,
+    rightPadding,
+    topRightPadding,
+    quickRightOffset,
+    isEnlarged,
+  );
 
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
@@ -669,16 +667,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     }
   });
 
-  /**
-   * 放大状态样式计算
-   */
-  const enlargedStyle = useMemo(() => {
-    if (!isEnlarged) return {};
-    return {
-      maxHeight: '980px',
-      minHeight: '280px',
-    } as React.CSSProperties;
-  }, [isEnlarged]);
 
   const beforeTools = useMemo(() => {
     if (props.beforeToolsRender) {
@@ -905,51 +893,25 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
             }}
           />
 
-          <div
-            style={{
-              backgroundColor: '#fff',
-              width: 'calc(100% - 4px)',
-              height: isEnlarged ? 'calc(100% - 4px)' : 'calc(100% - 4px)',
-              maxHeight: isEnlarged ? 'calc(100% - 4px)' : 'calc(100% - 4px)',
-              display: 'flex',
-              zIndex: 9,
-              flexDirection: 'column',
-              boxSizing: 'border-box',
-              borderRadius: (borderRadius || 16) - 2 || 10,
-              cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-              opacity: props.disabled ? 0.5 : 1,
-              minHeight: isEnlarged
-                ? 'auto'
-                : isMultiRowLayout
-                  ? 106
-                  : undefined,
-            }}
+          <EditorContainer
+            baseCls={baseCls}
+            hashId={hashId}
+            borderRadius={borderRadius}
+            isEnlarged={isEnlarged}
+            isLoading={isLoading}
+            disabled={props.disabled}
+            isMultiRowLayout={isMultiRowLayout}
+            minHeight={props.style?.minHeight}
           >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                borderRadius: (borderRadius || 16) - 2 || 10,
-                maxHeight: isEnlarged
-                  ? 'none'
-                  : (() => {
-                      const mh = props.style?.maxHeight;
-                      const base =
-                        typeof mh === 'number'
-                          ? mh
-                          : mh
-                            ? parseFloat(String(mh)) || 400
-                            : 400;
-                      const extra = props.attachment?.enable ? 90 : 0;
-                      return `min(${base + extra}px)`;
-                    })(),
-                height: isEnlarged ? '100%' : 'auto',
-                flex: 1,
-              }}
-              className={classNames(`${baseCls}-editor`, hashId, {
-                [`${baseCls}-editor-hover`]: isHover,
-                [`${baseCls}-editor-disabled`]: props.disabled,
-              })}
+            <EditorContent
+              baseCls={baseCls}
+              hashId={hashId}
+              borderRadius={borderRadius}
+              isEnlarged={isEnlarged}
+              isHover={isHover}
+              disabled={props.disabled}
+              attachmentEnabled={props.attachment?.enable}
+              styleMaxHeight={props.style?.maxHeight}
             >
               {/* 技能模式部分 */}
               <SkillModeBar
@@ -1011,7 +973,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   {...markdownProps}
                 />
               </div>
-            </div>
+            </EditorContent>
             {props.toolsRender ? (
               <div
                 style={{
@@ -1075,7 +1037,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 }}
               />
             ) : null}
-          </div>
+          </EditorContainer>
         </div>
       </Suggestion>
     </>,

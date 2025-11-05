@@ -147,3 +147,59 @@ export const generateUniqueId = (node: FileNode | GroupNode): string => {
   const randomStr = Math.random().toString(36).substring(2, 8);
   return `${node.type}_${node.name}_${timestamp}_${randomStr}`;
 };
+
+/**
+ * 确保节点有唯一ID的辅助函数
+ */
+export const ensureNodeWithId = <T extends FileNode | GroupNode>(node: T): T => ({
+  ...node,
+  id: node.id || generateUniqueId(node),
+});
+
+/**
+ * 通用的文件下载处理函数
+ */
+export const handleFileDownload = (file: FileNode) => {
+  let blobUrl: string | null = null;
+
+  try {
+    const link = document.createElement('a');
+
+    if (file.url) {
+      link.href = file.url;
+    } else if (file.content) {
+      const blob = new Blob([file.content], { type: 'text/plain' });
+      blobUrl = URL.createObjectURL(blob);
+      link.href = blobUrl;
+    } else if (file.file instanceof File || file.file instanceof Blob) {
+      blobUrl = URL.createObjectURL(file.file);
+      link.href = blobUrl;
+    } else {
+      return;
+    }
+
+    link.download = file.name || (file.file instanceof File ? file.file.name : '');
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } finally {
+    if (blobUrl) {
+      URL.revokeObjectURL(blobUrl);
+    }
+  }
+};
+
+/**
+ * 通用的默认分享处理函数
+ */
+export const handleDefaultShare = async (file: FileNode, locale?: any) => {
+  try {
+    const shareUrl = file.url || file.previewUrl || window.location.href;
+    await navigator.clipboard.writeText(shareUrl);
+    // 注意：这里需要导入 message，但为了保持工具函数的纯净性，暂不处理提示
+    // 实际使用时由调用方处理提示
+  } catch (error) {
+    console.error('Share failed:', error);
+  }
+};

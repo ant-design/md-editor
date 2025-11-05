@@ -9,15 +9,7 @@ import React, {
   useRef,
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import {
-  BaseRange,
-  BaseSelection,
-  Editor,
-  Node,
-  Range,
-  Transforms,
-} from 'slate';
-import { parserMdToSchema } from '../BaseMarkdownEditor';
+import { BaseSelection, Editor, Node, Range, Transforms } from 'slate';
 import { Elements } from '../el';
 import {
   CommentDataType,
@@ -31,31 +23,20 @@ import { useDebounceFn } from '@ant-design/pro-components';
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import { useRefFunction } from '../../Hooks/useRefFunction';
 import { PluginContext } from '../plugin';
-import {
-  handleFilesPaste,
-  handleHtmlPaste,
-  handleHttpLinkPaste,
-  handlePlainTextPaste,
-  handleSlateMarkdownFragment,
-  handleSpecialTextPaste,
-  handleTagNodePaste,
-  shouldInsertTextDirectly,
-} from './plugins/handlePaste';
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import { useEditorStore } from './store';
 import { useStyle } from './style';
 import { MARKDOWN_EDITOR_EVENTS, parserSlateNodeToMarkdown } from './utils';
+import { processCommentDecoration } from './utils/commentUtils';
 import {
   EditorUtils,
-  findByPathAndText,
-  findLeafPath,
   getSelectionFromDomSelection,
   hasEditableTarget,
   isEventHandled,
-  isPath,
 } from './utils/editorUtils';
+import { processPasteEvent } from './utils/pasteUtils';
 
 /**
  * Markdown 编辑器组件的属性接口
@@ -610,177 +591,13 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
    * @param {React.ClipboardEvent<HTMLDivElement>} e
    */
   const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
-    await handlePasteEvent(event);
-  };
-
-  /**
-   * 实际的粘贴处理逻辑
-   */
-  const handlePasteEvent = async (
-    event: React.ClipboardEvent<HTMLDivElement>,
-  ) => {
-    // 检查粘贴配置
-    const pasteConfig = props.pasteConfig;
-    if (pasteConfig?.enabled === false) {
-      return; // 如果禁用粘贴功能，直接返回
-    }
-
-    const currentTextSelection = markdownEditorRef.current.selection;
-    if (
-      currentTextSelection &&
-      currentTextSelection.anchor &&
-      Editor.hasPath(
-        markdownEditorRef.current,
-        currentTextSelection.anchor.path,
-      )
-    ) {
-      if (!Range.isCollapsed(currentTextSelection)) {
-        Transforms.delete(markdownEditorRef.current, {
-          at: currentTextSelection!,
-          reverse: true,
-        });
-      }
-    }
-
-    if (currentTextSelection) {
-      const nodeList = Editor?.node(
-        markdownEditorRef.current,
-        currentTextSelection.focus.path!,
-      );
-      const curNode = nodeList?.at(0);
-      if (
-        handleTagNodePaste(
-          markdownEditorRef.current,
-          currentTextSelection,
-          event.clipboardData,
-          curNode,
-        )
-      ) {
-        return;
-      }
-    }
-
-    props.onPaste?.(event);
-
-    const types = event.clipboardData?.types || ['text/plain'];
-
-    // 默认允许的类型
-    const defaultAllowedTypes = [
-      'application/x-slate-md-fragment',
-      'text/html',
-      'Files',
-      'text/markdown',
-      'text/plain',
-    ];
-
-    // 获取允许的类型
-    const allowedTypes = pasteConfig?.allowedTypes || defaultAllowedTypes;
-
-    // 1. 首先尝试处理 slate-md-fragment
-    if (
-      types.includes('application/x-slate-md-fragment') &&
-      allowedTypes.includes('application/x-slate-md-fragment')
-    ) {
-      if (
-        handleSlateMarkdownFragment(
-          markdownEditorRef.current,
-          event.clipboardData,
-          currentTextSelection,
-        )
-      ) {
-        return;
-      }
-    }
-
-    // 2. 然后尝试处理 HTML
-    if (types.includes('text/html') && allowedTypes.includes('text/html')) {
-      if (
-        await handleHtmlPaste(
-          markdownEditorRef.current,
-          event.clipboardData,
-          props,
-        )
-      ) {
-        return;
-      }
-    }
-
-    // 3. 处理文件
-    if (types.includes('Files') && allowedTypes.includes('Files')) {
-      if (
-        await handleFilesPaste(
-          markdownEditorRef.current,
-          event.clipboardData,
-          props,
-        )
-      ) {
-        return;
-      }
-    }
-
-    if (
-      types.includes('text/markdown') &&
-      allowedTypes.includes('text/markdown')
-    ) {
-      const text =
-        event.clipboardData?.getData?.('text/markdown')?.trim() || '';
-      if (text) {
-        Transforms.insertFragment(
-          markdownEditorRef.current,
-          parserMdToSchema(text, plugins).schema,
-        );
-      }
-
-      return;
-    }
-    // 4. 处理纯文本
-    if (types.includes('text/plain') && allowedTypes.includes('text/plain')) {
-      const text = event.clipboardData?.getData?.('text/plain')?.trim() || '';
-      if (!text) return;
-
-      const selection = markdownEditorRef.current.selection;
-
-      // 如果是表格或者代码块，直接插入文本
-      if (shouldInsertTextDirectly(markdownEditorRef.current, selection)) {
-        Transforms.insertText(markdownEditorRef.current, text);
-        return;
-      }
-
-      try {
-        // 处理特殊文本格式（media:// 和 attach:// 链接）
-        if (
-          handleSpecialTextPaste(markdownEditorRef.current, text, selection)
-        ) {
-          return;
-        }
-
-        // 处理 HTTP 链接
-        if (
-          handleHttpLinkPaste(markdownEditorRef.current, text, selection, store)
-        ) {
-          return;
-        }
-
-        // 处理普通文本
-        if (
-          await handlePlainTextPaste(
-            markdownEditorRef.current,
-            text,
-            selection,
-            plugins,
-          )
-        ) {
-          return;
-        }
-      } catch (e) {
-        console.log('insert error', e);
-      }
-    }
-
-    // 5. 如果前面的处理都失败了，才使用默认的插入行为
-    if (hasEditableTarget(markdownEditorRef.current, event.target)) {
-      ReactEditor.insertData(markdownEditorRef.current, event.clipboardData);
-    }
+    await processPasteEvent(
+      markdownEditorRef.current,
+      event,
+      props,
+      store,
+      plugins,
+    );
   };
 
   /**
@@ -953,149 +770,20 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
   const decorateFn = (e: any) => {
     const decorateList: any[] | undefined = high(e) || [];
+
+    // 早期返回：如果没有评论配置，直接返回
     if (!props?.comment) return decorateList;
     if (props?.comment?.enable === false) return decorateList;
     if (commentMap.size === 0) return decorateList;
 
     try {
-      const ranges: BaseRange[] = [];
       const [, path] = e;
-      const itemMap = commentMap.get(path.join(','));
-      if (!itemMap) return decorateList;
-      itemMap.forEach((itemList) => {
-        itemList?.forEach((item) => {
-          const { anchor, focus } = item.selection || {};
-
-          let newSelection: BaseSelection | undefined = undefined;
-          let fragment = undefined;
-          if (
-            anchor &&
-            focus &&
-            isPath(anchor.path) &&
-            focus.path &&
-            isPath(focus.path) &&
-            Editor.hasPath(markdownEditorRef.current, anchor.path) &&
-            Editor.hasPath(markdownEditorRef.current, focus.path)
-          ) {
-            newSelection = {
-              anchor: {
-                path: findLeafPath(markdownEditorRef.current, anchor.path),
-                offset: anchor.offset,
-              },
-              focus: {
-                path: findLeafPath(markdownEditorRef.current, focus.path),
-                offset: focus.offset,
-              },
-            } as BaseSelection;
-            fragment = Editor.fragment(
-              markdownEditorRef.current,
-              newSelection!,
-            );
-          } else if (item.refContent) {
-            const findDom = findByPathAndText(
-              markdownEditorRef.current,
-              item.path,
-              item.refContent,
-            ).at(0);
-
-            if (findDom) {
-              newSelection = {
-                anchor: {
-                  ...anchor,
-                  path: findLeafPath(markdownEditorRef.current, findDom.path),
-                  offset: findDom.offset.start,
-                },
-                focus: {
-                  ...focus,
-                  path: findLeafPath(markdownEditorRef.current, findDom.path),
-                  offset: findDom.offset.end,
-                },
-              };
-              fragment = Editor.fragment(
-                markdownEditorRef.current,
-                newSelection,
-              );
-            } else {
-              // 检查 focus.path 是否存在且有效
-              if (
-                focus &&
-                focus.path &&
-                isPath(focus.path) &&
-                Editor.hasPath(markdownEditorRef.current, focus.path)
-              ) {
-                try {
-                  // 获取 focus.path 对应的节点
-                  const [node] = Editor.node(
-                    markdownEditorRef.current,
-                    item.path,
-                  );
-
-                  // 检查该节点是否是 table 类型
-                  if (
-                    (node as any)?.type === 'table' ||
-                    (node as any)?.type === 'card'
-                  ) {
-                    // 获取 table 节点的开始和结尾位置
-                    const startPoint = Editor.start(
-                      markdownEditorRef.current,
-                      item.path,
-                    );
-                    const endPoint = Editor.end(
-                      markdownEditorRef.current,
-                      item.path,
-                    );
-
-                    newSelection = {
-                      anchor: startPoint,
-                      focus: endPoint,
-                    } as BaseSelection;
-
-                    fragment = Editor.fragment(
-                      markdownEditorRef.current,
-                      newSelection!,
-                    );
-                  }
-                } catch (error) {
-                  console.error('Error selecting table node:', error);
-                }
-              }
-            }
-          }
-
-          // 尝试调整路径，处理可能的节点变化
-
-          if (fragment && newSelection) {
-            const newAnchorPath = newSelection.anchor.path;
-            const newFocusPath = newSelection.focus.path;
-            if (
-              isPath(newFocusPath) &&
-              isPath(newAnchorPath) &&
-              Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
-              Editor.hasPath(markdownEditorRef.current, newFocusPath)
-            ) {
-              ranges.push({
-                anchor: {
-                  path: newAnchorPath,
-                  offset: newSelection.anchor.offset,
-                },
-                focus: {
-                  path: newFocusPath,
-                  offset: newSelection.focus.offset,
-                },
-                data: itemList,
-                comment: true,
-                id: item.id,
-                selection: newSelection,
-                updateTime: itemList
-                  .map((i) => i.updateTime)
-                  .sort()
-                  .join(','),
-              } as Range);
-            }
-          }
-        });
-      });
-      return decorateList.concat(ranges as any[]);
+      const commentRanges = processCommentDecoration(
+        markdownEditorRef.current,
+        path,
+        commentMap,
+      );
+      return decorateList.concat(commentRanges);
     } catch (error) {
       console.log('error', error);
       return decorateList;

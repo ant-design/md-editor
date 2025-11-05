@@ -11,7 +11,7 @@ import {
 } from '@sofa-design/icons';
 import { Empty } from 'antd';
 import classNames from 'classnames';
-import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState, type FC } from 'react';
 import { ActionIconBox } from '../../Components/ActionIconBox';
 import { I18nContext } from '../../I18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
@@ -19,6 +19,11 @@ import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
 import { fileTypeProcessor, isImageFile } from './FileTypeProcessor';
 import { PreviewComponent } from './PreviewComponent';
+import {
+  handleImagePreview,
+  processCustomPreviewData,
+  type PreviewCallbacks,
+} from './previewUtils';
 import { useFileStyle } from './style';
 import { generateUniqueId, getFileTypeIcon, getGroupIcon } from './utils';
 
@@ -779,83 +784,68 @@ export const FileComponent: FC<{
   // 预览文件处理
   const handlePreview = async (file: FileNode) => {
     // 如果用户提供了预览方法，尝试使用用户的方法
-    if (onPreview) {
-      // 立刻进入预览页并展示 loading
-      const currentCallId = ++previewRequestIdRef.current;
-      setPreviewFile(file);
-
-      try {
-        const previewData = await onPreview(file);
-        if (previewRequestIdRef.current !== currentCallId) return;
-        // 当用户返回 false：阻止内部预览逻辑，交由外部处理（如自定义弹窗）
-        if (previewData === false) {
-          setCustomPreviewContent(null);
-          setCustomPreviewHeader(null);
-          setPreviewFile(null);
-          return;
-        }
-        if (previewData) {
-          // 区分返回类型：ReactNode -> 自定义内容；FileNode -> 新文件预览
-          if (
-            React.isValidElement(previewData) ||
-            typeof previewData === 'string' ||
-            typeof previewData === 'number' ||
-            typeof previewData === 'boolean'
-          ) {
-            const content = React.isValidElement(previewData)
-              ? React.cloneElement(previewData as React.ReactElement, {
-                  setPreviewHeader: (header: React.ReactNode) =>
-                    setCustomPreviewHeader(header),
-                  back: handleBackToList,
-                  download: () => handleDownloadInPreview(file),
-                  share: () => {
-                    if (onShare) {
-                      onShare(file);
-                    } else {
-                      handleDefaultShare(file, locale);
-                    }
-                  },
-                })
-              : (previewData as React.ReactNode);
-            setCustomPreviewHeader(null);
-            setCustomPreviewContent(content);
-          } else if (
-            typeof previewData === 'object' &&
-            previewData !== null &&
-            'name' in (previewData as any)
-          ) {
-            setCustomPreviewContent(null);
-            setCustomPreviewHeader(null);
-            setPreviewFile(previewData as FileNode);
-          } else {
-            setCustomPreviewContent(null);
-            setCustomPreviewHeader(null);
-            setPreviewFile(file);
-          }
-          return;
-        }
-        setCustomPreviewContent(null);
-        setPreviewFile(file);
-        return;
-      } catch (err) {
-        if (previewRequestIdRef.current !== currentCallId) return;
-        setCustomPreviewContent(null);
-        setPreviewFile(file);
+    if (!onPreview) {
+      // 使用组件库内部的预览逻辑
+      const imagePreviewResult = handleImagePreview(file);
+      if (imagePreviewResult) {
+        setImagePreview(imagePreviewResult);
         return;
       }
-    }
-
-    // 使用组件库内部的预览逻辑
-    if (isImageFile(file)) {
-      const previewSrc = getPreviewSource(file);
-      setImagePreview({
-        visible: true,
-        src: previewSrc,
-      });
+      setCustomPreviewContent(null);
+      setPreviewFile(file);
       return;
     }
-    setCustomPreviewContent(null);
+
+    // 立刻进入预览页并展示 loading
+    const currentCallId = ++previewRequestIdRef.current;
     setPreviewFile(file);
+
+    try {
+      const previewData = await onPreview(file);
+
+      // 检查是否已被新的预览请求覆盖
+      if (previewRequestIdRef.current !== currentCallId) return;
+
+      // 处理预览数据
+      const previewCallbacks: PreviewCallbacks = {
+        setPreviewHeader: setCustomPreviewHeader,
+        onBack: handleBackToList,
+        onDownload: handleDownloadInPreview,
+        onShare: (f: FileNode) => {
+          if (onShare) {
+            onShare(f);
+          } else {
+            handleDefaultShare(f, locale);
+          }
+        },
+      };
+
+      const result = processCustomPreviewData(
+        previewData,
+        file,
+        previewCallbacks,
+      );
+
+      // 如果返回 false，阻止内部预览逻辑
+      if (result.file === null && result.content === null) {
+        setCustomPreviewContent(null);
+        setCustomPreviewHeader(null);
+        setPreviewFile(null);
+        return;
+      }
+
+      // 应用处理结果
+      setCustomPreviewContent(result.content);
+      setCustomPreviewHeader(result.header);
+      setPreviewFile(result.file || file);
+    } catch (err) {
+      // 检查是否已被新的预览请求覆盖
+      if (previewRequestIdRef.current !== currentCallId) return;
+
+      // 错误时使用默认预览
+      setCustomPreviewContent(null);
+      setPreviewFile(file);
+    }
   };
 
   // 通过 actionRef 暴露可编程接口
