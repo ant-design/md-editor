@@ -24,7 +24,8 @@ export type BubbleStyleProps = BaseStyleProps;
  * 气泡样式配置
  * @description 气泡组件各部分的样式配置
  */
-export interface BubbleStyles extends Record<string, React.CSSProperties | undefined> {
+export interface BubbleStyles {
+  [key: string]: React.CSSProperties | undefined;
   /**
    * 气泡根容器的自定义样式
    */
@@ -85,7 +86,8 @@ export interface BubbleStyles extends Record<string, React.CSSProperties | undef
  * 气泡类名配置
  * @description 气泡组件各部分的类名配置
  */
-export interface BubbleClassNames extends Record<string, string | undefined> {
+export interface BubbleClassNames {
+  [key: string]: string | undefined;
   /**
    * 气泡根容器的自定义类名
    */

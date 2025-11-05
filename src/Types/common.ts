@@ -20,7 +20,7 @@ export interface BaseStyleProps {
  * 多层级样式属性
  * @description 用于支持多个子元素自定义样式的组件
  */
-export interface MultiStyleProps<T extends Record<string, React.CSSProperties>> {
+export interface MultiStyleProps<T> {
   /**
    * 多个子元素的样式配置
    */
@@ -31,7 +31,7 @@ export interface MultiStyleProps<T extends Record<string, React.CSSProperties>> 
  * 多层级类名属性
  * @description 用于支持多个子元素自定义类名的组件
  */
-export interface MultiClassNameProps<T extends Record<string, string>> {
+export interface MultiClassNameProps<T> {
   /**
    * 多个子元素的类名配置
    */

@@ -15,7 +15,13 @@ export type ActionIconBoxProps = {
   transform?: boolean;
   className?: string;
   borderLess?: boolean;
+  /** 
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
+   */
   loading?: boolean;
+  /** 加载状态 */
+  isLoading?: boolean;
   style?: React.CSSProperties;
   active?: boolean;
   onInit?: () => void;
@@ -141,7 +147,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
       <Tooltip
         title={props.title}
         arrow={false}
-        mouseEnterDelay={2}
+        mouseEnterDelay={1}
         {...props.tooltipProps}
       >
         <span
