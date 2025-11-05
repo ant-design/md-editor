@@ -1135,6 +1135,24 @@ export class EditorStore {
     operations: UpdateOperation[],
   ): void {
     // 检查单元格属性是否变化
+    this.compareCellProperties(newCell, oldCell, path, operations);
+
+    // 处理单元格内容
+    const newChildren = newCell.children || [];
+    const oldChildren = oldCell.children || [];
+
+    this.compareCellChildren(newChildren, oldChildren, path, operations);
+  }
+
+  /**
+   * 比较单元格属性
+   */
+  private compareCellProperties(
+    newCell: Node,
+    oldCell: Node,
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
     const newCellProps = { ...newCell, children: undefined };
     const oldCellProps = { ...oldCell, children: undefined };
 
@@ -1146,81 +1164,177 @@ export class EditorStore {
         priority: 7,
       });
     }
+  }
 
-    // 处理单元格内容
-    const newChildren = newCell.children || [];
-    const oldChildren = oldCell.children || [];
-
+  /**
+   * 比较单元格子节点
+   */
+  private compareCellChildren(
+    newChildren: Node[],
+    oldChildren: Node[],
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
     // 简单文本单元格的优化处理
-    if (
+    if (this.isSimpleTextCell(newChildren, oldChildren)) {
+      this.compareSimpleTextCell(newChildren, oldChildren, path, operations);
+      return;
+    }
+
+    // 复杂单元格内容
+    this.compareComplexCellChildren(newChildren, oldChildren, path, operations);
+  }
+
+  /**
+   * 判断是否是简单文本单元格
+   */
+  private isSimpleTextCell(newChildren: Node[], oldChildren: Node[]): boolean {
+    return (
       newChildren.length === 1 &&
       oldChildren.length === 1 &&
       typeof newChildren[0].text === 'string' &&
       typeof oldChildren[0].text === 'string'
-    ) {
-      // 只有文本内容变化
-      if (newChildren[0].text !== oldChildren[0].text) {
-        operations.push({
-          type: 'text',
-          path: [...path, 0],
-          text: newChildren[0].text,
-          priority: 8,
-        });
-      }
+    );
+  }
 
-      // 检查文本节点的属性变化（加粗、斜体等）
-      const newTextProps = { ...newChildren[0] };
-      const oldTextProps = { ...oldChildren[0] };
-      delete newTextProps.text;
-      delete oldTextProps.text;
+  /**
+   * 比较简单文本单元格
+   */
+  private compareSimpleTextCell(
+    newChildren: Node[],
+    oldChildren: Node[],
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    // 只有文本内容变化
+    if (newChildren[0].text !== oldChildren[0].text) {
+      operations.push({
+        type: 'text',
+        path: [...path, 0],
+        text: newChildren[0].text,
+        priority: 8,
+      });
+    }
 
-      if (!isEqual(newTextProps, oldTextProps)) {
-        operations.push({
-          type: 'update',
-          path: [...path, 0],
-          properties: newTextProps,
-          priority: 7,
-        });
-      }
-    } else {
-      // 复杂单元格内容，递归处理子节点
-      // 使用子节点差异检测，而不是替换整个单元格
+    // 检查文本节点的属性变化（加粗、斜体等）
+    this.compareTextNodeProperties(
+      newChildren[0],
+      oldChildren[0],
+      path,
+      operations,
+    );
+  }
 
-      // 检查是否结构完全不同
-      const structurallyDifferent =
-        newChildren.length !== oldChildren.length ||
-        newChildren.some(
-          (n: Node, i: number) =>
-            oldChildren[i] && n.type !== oldChildren[i].type,
-        );
+  /**
+   * 比较文本节点属性
+   */
+  private compareTextNodeProperties(
+    newChild: Node,
+    oldChild: Node,
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    const newTextProps = { ...newChild };
+    const oldTextProps = { ...oldChild };
+    delete newTextProps.text;
+    delete oldTextProps.text;
 
-      if (structurallyDifferent) {
-        // 结构不同，替换单元格内容
-        // 但保留单元格本身，只更新children
-        const childOps = this.generateDiffOperations(newChildren, oldChildren);
+    if (!isEqual(newTextProps, oldTextProps)) {
+      operations.push({
+        type: 'update',
+        path: [...path, 0],
+        properties: newTextProps,
+        priority: 7,
+      });
+    }
+  }
 
-        // 调整子操作的路径
-        childOps.forEach((op) => {
-          operations.push({
-            ...op,
-            path: [...path, ...op.path],
-          });
-        });
-      } else {
-        // 逐个比较并更新子节点
-        for (
-          let i = 0;
-          i < Math.min(newChildren.length, oldChildren.length);
-          i++
-        ) {
-          this.compareNodes(
-            newChildren[i],
-            oldChildren[i],
-            [...path, i],
-            operations,
-          );
-        }
-      }
+  /**
+   * 比较复杂单元格子节点
+   */
+  private compareComplexCellChildren(
+    newChildren: Node[],
+    oldChildren: Node[],
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    // 检查是否结构完全不同
+    const structurallyDifferent = this.isStructurallyDifferent(
+      newChildren,
+      oldChildren,
+    );
+
+    if (structurallyDifferent) {
+      this.replaceComplexCellChildren(
+        newChildren,
+        oldChildren,
+        path,
+        operations,
+      );
+      return;
+    }
+
+    // 逐个比较并更新子节点
+    this.compareChildrenSequentially(
+      newChildren,
+      oldChildren,
+      path,
+      operations,
+    );
+  }
+
+  /**
+   * 判断结构是否不同
+   */
+  private isStructurallyDifferent(
+    newChildren: Node[],
+    oldChildren: Node[],
+  ): boolean {
+    if (newChildren.length !== oldChildren.length) return true;
+
+    return newChildren.some(
+      (n: Node, i: number) => oldChildren[i] && n.type !== oldChildren[i].type,
+    );
+  }
+
+  /**
+   * 替换复杂单元格子节点
+   */
+  private replaceComplexCellChildren(
+    newChildren: Node[],
+    oldChildren: Node[],
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    const childOps = this.generateDiffOperations(newChildren, oldChildren);
+
+    // 调整子操作的路径
+    childOps.forEach((op) => {
+      operations.push({
+        ...op,
+        path: [...path, ...op.path],
+      });
+    });
+  }
+
+  /**
+   * 逐个比较子节点
+   */
+  private compareChildrenSequentially(
+    newChildren: Node[],
+    oldChildren: Node[],
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    const length = Math.min(newChildren.length, oldChildren.length);
+
+    for (let i = 0; i < length; i++) {
+      this.compareNodes(
+        newChildren[i],
+        oldChildren[i],
+        [...path, i],
+        operations,
+      );
     }
   }
 

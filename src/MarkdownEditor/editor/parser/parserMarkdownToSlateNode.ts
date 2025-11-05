@@ -1393,6 +1393,95 @@ const addEmptyLinesIfNeeded = (
 };
 
 /**
+ * 元素类型处理器映射表
+ * 将元素类型映射到对应的处理函数
+ */
+type ElementHandler = {
+  handler: (
+    element: any,
+    plugins: MarkdownEditorPlugin[],
+    config?: any,
+    parent?: RootContent,
+    htmlTag?: { tag: string; color?: string; url?: string }[],
+    preElement?: Element | null,
+  ) => Element | Element[] | null;
+  needsHtmlResult?: boolean;
+};
+
+/**
+ * 元素处理器映射表
+ */
+const elementHandlers: Record<string, ElementHandler> = {
+  heading: { handler: (el, plugins) => handleHeading(el, plugins) },
+  html: { handler: () => null, needsHtmlResult: true },
+  image: { handler: (el) => handleImage(el) },
+  inlineMath: { handler: (el) => handleInlineMath(el) },
+  math: { handler: (el) => handleMath(el) },
+  list: { handler: (el, plugins) => handleList(el, plugins) },
+  footnoteReference: { handler: (el) => handleFootnoteReference(el) },
+  footnoteDefinition: {
+    handler: (el, plugins) => handleFootnoteDefinition(el, plugins),
+  },
+  listItem: { handler: (el, plugins) => handleListItem(el, plugins) },
+  paragraph: {
+    handler: (el, plugins, config) => handleParagraph(el, config, plugins),
+  },
+  inlineCode: { handler: (el) => handleInlineCode(el) },
+  thematicBreak: { handler: () => handleThematicBreak() },
+  code: { handler: (el) => handleCode(el) },
+  yaml: { handler: (el) => handleYaml(el) },
+  blockquote: { handler: (el, plugins) => handleBlockquote(el, plugins) },
+  table: {
+    handler: (el, plugins, config, parent, htmlTag, preElement) =>
+      parseTableOrChart(el, preElement, plugins),
+  },
+  definition: { handler: (el) => handleDefinition(el) },
+};
+
+/**
+ * 处理单个元素
+ */
+const handleSingleElement = (
+  currentElement: RootContent,
+  config: any,
+  plugins: MarkdownEditorPlugin[],
+  parent: RootContent | undefined,
+  htmlTag: { tag: string; color?: string; url?: string }[],
+  preElement: Element | null,
+): { el: Element | Element[] | null; contextProps?: any } => {
+  const elementType = currentElement.type;
+  const handlerInfo = elementHandlers[elementType];
+
+  // 特殊处理 html 类型
+  if (handlerInfo?.needsHtmlResult) {
+    const htmlResult = handleHtml(currentElement, parent, htmlTag);
+    return {
+      el: htmlResult.el,
+      contextProps: htmlResult.contextProps,
+    };
+  }
+
+  // 使用处理器映射表
+  if (handlerInfo) {
+    return {
+      el: handlerInfo.handler(
+        currentElement,
+        plugins || [],
+        config,
+        parent,
+        htmlTag,
+        preElement,
+      ),
+    };
+  }
+
+  // 默认处理
+  return {
+    el: handleTextAndInlineElements(currentElement, htmlTag, plugins || []),
+  };
+};
+
+/**
  * 解析Markdown节点块为Slate节点数组
  * 这是核心的解析函数，负责将各种类型的Markdown节点转换为对应的Slate编辑器节点
  *
@@ -1424,6 +1513,7 @@ const parserBlock = (
   let preElement: Element = null;
   let htmlTag: { tag: string; color?: string; url?: string }[] = [];
   let contextProps = {};
+
   for (let i = 0; i < nodes.length; i++) {
     const currentElement = nodes[i];
     const config =
@@ -1433,68 +1523,19 @@ const parserBlock = (
         ? preElement?.otherProps
         : {};
 
-    switch (currentElement.type) {
-      case 'heading':
-        el = handleHeading(currentElement, plugins || []);
-        break;
-      case 'html':
-        const htmlResult = handleHtml(currentElement, parent, htmlTag);
-        el = htmlResult.el;
-        if (htmlResult.contextProps) {
-          contextProps = { ...contextProps, ...htmlResult.contextProps };
-        }
-        break;
-      case 'image':
-        el = handleImage(currentElement);
-        break;
-      case 'inlineMath':
-        el = handleInlineMath(currentElement);
-        break;
-      case 'math':
-        el = handleMath(currentElement);
-        break;
-      case 'list':
-        el = handleList(currentElement, plugins || []);
-        break;
-      case 'footnoteReference':
-        el = handleFootnoteReference(currentElement);
-        break;
-      case 'footnoteDefinition':
-        el = handleFootnoteDefinition(currentElement, plugins || []);
-        break;
-      case 'listItem':
-        el = handleListItem(currentElement, plugins || []);
-        break;
-      case 'paragraph':
-        el = handleParagraph(currentElement, config, plugins || []);
-        break;
-      case 'inlineCode':
-        el = handleInlineCode(currentElement);
-        break;
-      case 'thematicBreak':
-        el = handleThematicBreak();
-        break;
-      case 'code':
-        el = handleCode(currentElement);
-        break;
-      case 'yaml':
-        el = handleYaml(currentElement);
-        break;
-      case 'blockquote':
-        el = handleBlockquote(currentElement, plugins || []);
-        break;
-      case 'table':
-        el = parseTableOrChart(currentElement, preElement, plugins || []);
-        break;
-      case 'definition':
-        el = handleDefinition(currentElement);
-        break;
-      default:
-        el = handleTextAndInlineElements(
-          currentElement,
-          htmlTag,
-          plugins || [],
-        );
+    // 使用统一的处理函数
+    const result = handleSingleElement(
+      currentElement,
+      config,
+      plugins,
+      parent,
+      htmlTag,
+      preElement,
+    );
+
+    el = result.el;
+    if (result.contextProps) {
+      contextProps = { ...contextProps, ...result.contextProps };
     }
 
     addEmptyLinesIfNeeded(els, preNode, currentElement, top);
@@ -1559,69 +1600,19 @@ const parseWithPlugins = (
           ? preElement?.otherProps
           : {};
 
-      switch (currentElement.type) {
-        case 'heading':
-          el = handleHeading(currentElement, plugins || []);
-          break;
-        case 'html':
-          const htmlResult = handleHtml(currentElement, parent, htmlTag);
-          el = htmlResult.el;
-          if (htmlResult.contextProps) {
-            contextProps = { ...contextProps, ...htmlResult.contextProps };
-          }
-          break;
-        case 'image':
-          el = handleImage(currentElement);
-          break;
-        case 'inlineMath':
-          el = handleInlineMath(currentElement);
-          break;
-        case 'math':
-          el = handleMath(currentElement);
-          break;
-        case 'list':
-          el = handleList(currentElement, plugins || []);
-          break;
-        case 'footnoteReference':
-          el = handleFootnoteReference(currentElement);
-          break;
-        case 'footnoteDefinition':
-          el = handleFootnoteDefinition(currentElement, plugins || []);
-          break;
-        case 'listItem':
-          el = handleListItem(currentElement, plugins || []);
-          break;
-        case 'paragraph':
-          el = handleParagraph(currentElement, config, plugins);
+      // 使用统一的处理函数
+      const result = handleSingleElement(
+        currentElement,
+        config,
+        plugins,
+        parent,
+        htmlTag,
+        preElement,
+      );
 
-          break;
-        case 'inlineCode':
-          el = handleInlineCode(currentElement);
-          break;
-        case 'thematicBreak':
-          el = handleThematicBreak();
-          break;
-        case 'code':
-          el = handleCode(currentElement);
-          break;
-        case 'yaml':
-          el = handleYaml(currentElement);
-          break;
-        case 'blockquote':
-          el = handleBlockquote(currentElement, plugins || []);
-          break;
-        case 'table':
-          el = parseTableOrChart(currentElement, preElement, plugins || []);
-          break;
-        case 'definition':
-          el = handleDefinition(currentElement);
-          break;
-        default:
-          el = handleTextAndInlineElements(
-            currentElement,
-            htmlTag,
-            plugins || [],
-          );
+      el = result.el;
+      if (result.contextProps) {
+        contextProps = { ...contextProps, ...result.contextProps };
       }
     }
 

@@ -931,163 +931,244 @@ export class ProxySandbox {
     injectedParams?: Record<string, any>,
   ): Promise<any> {
     return new Promise((resolve, reject) => {
-      // 检查注入的参数是否可序列化
-      let serializableParams: Record<string, any> = {};
-      if (injectedParams) {
-        try {
-          // 尝试序列化注入的参数，过滤不可序列化的对象
-          for (const [key, value] of Object.entries(injectedParams)) {
-            try {
-              JSON.stringify(value);
-              serializableParams[key] = value;
-            } catch {
-              // 如果包含不可序列化的对象（如 DOM 对象），则回退到同步执行
-              console.warn(`无法序列化注入参数 "${key}"，回退到同步执行`);
-              this.executeCode(code, injectedParams)
-                .then(resolve)
-                .catch(reject);
-              return;
-            }
-          }
-        } catch (error) {
-          // 如果序列化检查失败，回退到同步执行
-          console.warn('注入参数序列化检查失败，回退到同步执行');
-          try {
-            const result = this.executeCode(code, injectedParams);
-            resolve(result);
-          } catch (syncError) {
-            reject(syncError);
-          }
-          return;
-        }
-      }
+      // 尝试序列化参数，失败则回退
+      const serializableParams = this.trySerializeParams(
+        injectedParams,
+        code,
+        resolve,
+        reject,
+      );
+      if (!serializableParams) return; // 已经回退处理
 
-      // 创建 Worker 代码
-      const workerCode = `
-        self.onmessage = function(e) {
-          const { code, config, injectedParams } = e.data;
-          
-          try {
-            // 创建安全的执行环境
-            const safeGlobals = {
-              Math, Date, JSON, parseInt, parseFloat, isNaN, isFinite,
-              encodeURIComponent, decodeURIComponent, encodeURI, decodeURI,
-              String, Number, Boolean, Array, Object, RegExp,
-              Error, TypeError, ReferenceError, SyntaxError
-            };
-            
-            // 添加自定义全局变量
-            Object.assign(safeGlobals, config.customGlobals || {});
-            
-            // 添加注入的参数
-            Object.assign(safeGlobals, injectedParams || {});
-            
-            // 添加 console（如果允许）
-            if (config.allowConsole) {
-              safeGlobals.console = {
-                log: (...args) => self.postMessage({ type: 'log', data: args }),
-                warn: (...args) => self.postMessage({ type: 'warn', data: args }),
-                error: (...args) => self.postMessage({ type: 'error', data: args }),
-                info: (...args) => self.postMessage({ type: 'info', data: args }),
-                debug: (...args) => self.postMessage({ type: 'debug', data: args })
-              };
-            }
-            
-            // 创建执行函数
-            const wrappedCode = config.strictMode ? "'use strict';\\n" + code : code;
-            const func = new Function(...Object.keys(safeGlobals), 'return (function() { ' + wrappedCode + ' })()');
-            
-            // 执行代码
-            const result = func(...Object.values(safeGlobals));
-            
-            self.postMessage({ type: 'result', data: result });
-          } catch (error) {
-            self.postMessage({ type: 'error', data: { message: error.message, stack: error.stack } });
-          }
-        };
-      `;
+      // 创建 Worker
+      const { worker, workerUrl, timeoutId } = this.createWorkerInstance(
+        code,
+        serializableParams,
+        resolve,
+        reject,
+      );
 
-      // 创建 Blob URL
-      const blob = new Blob([workerCode], { type: 'application/javascript' });
-      const workerUrl = URL.createObjectURL(blob);
+      // Worker 创建失败，已经回退
+      if (!worker) return;
 
-      let worker: Worker | undefined;
-      let timeoutId: number | undefined;
-
-      try {
-        worker = new Worker(workerUrl);
-
-        // 设置超时
-        timeoutId = window.setTimeout(() => {
-          if (worker) {
-            worker.terminate();
-          }
-          URL.revokeObjectURL(workerUrl);
-          reject(
-            new Error(`Code execution timeout after ${this.config.timeout}ms`),
-          );
-        }, this.config.timeout);
-
-        // 监听消息
-        worker.onmessage = (e) => {
-          const { type, data } = e.data;
-
-          if (type === 'result') {
-            if (timeoutId) clearTimeout(timeoutId);
-            if (worker) worker.terminate();
-            URL.revokeObjectURL(workerUrl);
-            resolve(data);
-          } else if (type === 'error') {
-            if (timeoutId) clearTimeout(timeoutId);
-            if (worker) worker.terminate();
-            URL.revokeObjectURL(workerUrl);
-            reject(new Error(data.message));
-          } else if (
-            type === 'log' ||
-            type === 'warn' ||
-            type === 'error' ||
-            type === 'info' ||
-            type === 'debug'
-          ) {
-            // 转发控制台输出
-            if (this.config.allowConsole) {
-              const consoleMethod = console[type as keyof Console] as (
-                ...args: any[]
-              ) => void;
-              if (typeof consoleMethod === 'function') {
-                consoleMethod('[Sandbox]', ...data);
-              }
-            }
-          }
-        };
-
-        worker.onerror = (error) => {
-          if (timeoutId) clearTimeout(timeoutId);
-          if (worker) worker.terminate();
-          URL.revokeObjectURL(workerUrl);
-          reject(new Error(`Worker error: ${error.message}`));
-        };
-
-        // 发送代码到 Worker
-        worker.postMessage({
-          code,
-          config: this.config,
-          injectedParams: serializableParams,
-        });
-      } catch (error) {
-        if (timeoutId) clearTimeout(timeoutId);
-        if (worker) worker.terminate();
-        URL.revokeObjectURL(workerUrl);
-
-        // 如果 Worker 不可用，降级到同步执行
-        try {
-          const result = this.executeCode(code, injectedParams);
-          resolve(result);
-        } catch (syncError) {
-          reject(syncError);
-        }
-      }
+      // 设置消息处理
+      this.setupWorkerHandlers(
+        worker,
+        workerUrl,
+        timeoutId,
+        resolve,
+        reject,
+      );
     });
+  }
+
+  /**
+   * 尝试序列化参数，失败则回退到同步执行
+   */
+  private trySerializeParams(
+    injectedParams: Record<string, any> | undefined,
+    code: string,
+    resolve: (value: any) => void,
+    reject: (reason?: any) => void,
+  ): Record<string, any> | null {
+    if (!injectedParams) return {};
+
+    const serializableParams: Record<string, any> = {};
+
+    for (const [key, value] of Object.entries(injectedParams)) {
+      try {
+        JSON.stringify(value);
+        serializableParams[key] = value;
+      } catch {
+        console.warn(`无法序列化注入参数 "${key}"，回退到同步执行`);
+        this.fallbackToSyncExecution(code, injectedParams, resolve, reject);
+        return null;
+      }
+    }
+
+    return serializableParams;
+  }
+
+  /**
+   * 回退到同步执行
+   */
+  private fallbackToSyncExecution(
+    code: string,
+    injectedParams: Record<string, any>,
+    resolve: (value: any) => void,
+    reject: (reason?: any) => void,
+  ): void {
+    try {
+      const result = this.executeCode(code, injectedParams);
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  }
+
+  /**
+   * 创建 Worker 实例
+   */
+  private createWorkerInstance(
+    code: string,
+    serializableParams: Record<string, any>,
+    resolve: (value: any) => void,
+    reject: (reason?: any) => void,
+  ): { worker: Worker | null; workerUrl: string; timeoutId: number } {
+    const workerCode = this.generateWorkerCode();
+    const blob = new Blob([workerCode], { type: 'application/javascript' });
+    const workerUrl = URL.createObjectURL(blob);
+
+    try {
+      const worker = new Worker(workerUrl);
+      const timeoutId = this.setupWorkerTimeout(worker, workerUrl, reject);
+
+      // 发送代码到 Worker
+      worker.postMessage({
+        code,
+        config: this.config,
+        injectedParams: serializableParams,
+      });
+
+      return { worker, workerUrl, timeoutId };
+    } catch (error) {
+      URL.revokeObjectURL(workerUrl);
+      console.warn('Worker 创建失败，回退到同步执行');
+      this.fallbackToSyncExecution(code, serializableParams, resolve, reject);
+      return { worker: null, workerUrl, timeoutId: 0 };
+    }
+  }
+
+  /**
+   * 生成 Worker 代码
+   */
+  private generateWorkerCode(): string {
+    return `
+      self.onmessage = function(e) {
+        const { code, config, injectedParams } = e.data;
+        
+        try {
+          // 创建安全的执行环境
+          const safeGlobals = {
+            Math, Date, JSON, parseInt, parseFloat, isNaN, isFinite,
+            encodeURIComponent, decodeURIComponent, encodeURI, decodeURI,
+            String, Number, Boolean, Array, Object, RegExp,
+            Error, TypeError, ReferenceError, SyntaxError
+          };
+          
+          // 添加自定义全局变量
+          Object.assign(safeGlobals, config.customGlobals || {});
+          
+          // 添加注入的参数
+          Object.assign(safeGlobals, injectedParams || {});
+          
+          // 添加 console（如果允许）
+          if (config.allowConsole) {
+            safeGlobals.console = {
+              log: (...args) => self.postMessage({ type: 'log', data: args }),
+              warn: (...args) => self.postMessage({ type: 'warn', data: args }),
+              error: (...args) => self.postMessage({ type: 'error', data: args }),
+              info: (...args) => self.postMessage({ type: 'info', data: args }),
+              debug: (...args) => self.postMessage({ type: 'debug', data: args })
+            };
+          }
+          
+          // 创建执行函数
+          const wrappedCode = config.strictMode ? "'use strict';\\n" + code : code;
+          const func = new Function(...Object.keys(safeGlobals), 'return (function() { ' + wrappedCode + ' })()');
+          
+          // 执行代码
+          const result = func(...Object.values(safeGlobals));
+          
+          self.postMessage({ type: 'result', data: result });
+        } catch (error) {
+          self.postMessage({ type: 'error', data: { message: error.message, stack: error.stack } });
+        }
+      };
+    `;
+  }
+
+  /**
+   * 设置 Worker 超时
+   */
+  private setupWorkerTimeout(
+    worker: Worker,
+    workerUrl: string,
+    reject: (reason?: any) => void,
+  ): number {
+    return window.setTimeout(() => {
+      worker.terminate();
+      URL.revokeObjectURL(workerUrl);
+      reject(
+        new Error(`Code execution timeout after ${this.config.timeout}ms`),
+      );
+    }, this.config.timeout);
+  }
+
+  /**
+   * 设置 Worker 消息处理器
+   */
+  private setupWorkerHandlers(
+    worker: Worker,
+    workerUrl: string,
+    timeoutId: number,
+    resolve: (value: any) => void,
+    reject: (reason?: any) => void,
+  ): void {
+    worker.onmessage = (e) => {
+      const { type, data } = e.data;
+
+      if (type === 'result') {
+        this.cleanupWorker(worker, workerUrl, timeoutId);
+        resolve(data);
+        return;
+      }
+
+      if (type === 'error') {
+        this.cleanupWorker(worker, workerUrl, timeoutId);
+        reject(new Error(data.message));
+        return;
+      }
+
+      // 处理控制台输出
+      this.handleConsoleMessage(type, data);
+    };
+
+    worker.onerror = (error) => {
+      this.cleanupWorker(worker, workerUrl, timeoutId);
+      reject(new Error(`Worker error: ${error.message}`));
+    };
+  }
+
+  /**
+   * 处理控制台消息
+   */
+  private handleConsoleMessage(type: string, data: any): void {
+    if (!this.config.allowConsole) return;
+
+    const consoleTypes = ['log', 'warn', 'error', 'info', 'debug'];
+    if (!consoleTypes.includes(type)) return;
+
+    const consoleMethod = console[type as keyof Console] as (
+      ...args: any[]
+    ) => void;
+
+    if (typeof consoleMethod === 'function') {
+      consoleMethod('[Sandbox]', ...data);
+    }
+  }
+
+  /**
+   * 清理 Worker 资源
+   */
+  private cleanupWorker(
+    worker: Worker,
+    workerUrl: string,
+    timeoutId: number,
+  ): void {
+    clearTimeout(timeoutId);
+    worker.terminate();
+    URL.revokeObjectURL(workerUrl);
   }
 
   /**
