@@ -289,14 +289,18 @@ export default () => {
 
 如果发现元素未加载，可以检查：
 
-```tsx
-// 增加 rootMargin 提前加载距离
+**方案 1：增加 rootMargin 提前加载距离**
+
+```tsx | pure
 lazy={{
   enable: true,
   rootMargin: '500px', // 更大的提前加载范围
 }}
+```
 
-// 或者使用自定义占位符来观察加载状态
+**方案 2：使用自定义占位符来观察加载状态**
+
+```tsx | pure
 lazy={{
   enable: true,
   renderPlaceholder: ({ height, style, isIntersecting, elementInfo }) => (
