@@ -22,6 +22,8 @@ export type HistoryDataType = {
   tenantId?: string;
   /** 会话标题 */
   sessionTitle?: React.ReactNode;
+  /** 展示标题（标题自定义渲染，不参与内置的搜索功能） */
+  displayTitle?: React.ReactNode;
   /** 会话描述/副标题 */
   description?: React.ReactNode;
   /** 会话图标 */

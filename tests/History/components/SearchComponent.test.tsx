@@ -62,8 +62,9 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     expect(searchButton).toBeInTheDocument();
+    expect(searchButton).toHaveAttribute('data-title', '搜索');
   });
 
   it('应该在点击搜索按钮后展开输入框', () => {
@@ -74,7 +75,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     expect(screen.getByPlaceholderText('搜索话题')).toBeInTheDocument();
@@ -88,7 +89,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     expect(screen.getByPlaceholderText('搜索任务')).toBeInTheDocument();
@@ -105,7 +106,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     expect(screen.getByPlaceholderText('自定义搜索')).toBeInTheDocument();
@@ -134,7 +135,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     const input = screen.getByPlaceholderText('搜索话题') as HTMLInputElement;
@@ -163,7 +164,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     const input = screen.getByPlaceholderText('搜索话题');
@@ -179,7 +180,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     const input = screen.getByPlaceholderText('搜索话题');
@@ -206,7 +207,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     const input = screen.getByPlaceholderText('搜索话题');
@@ -229,7 +230,7 @@ describe('HistorySearch', () => {
       </TestWrapper>,
     );
 
-    const searchButton = screen.getByTitle('搜索');
+    const searchButton = screen.getByTestId('action-icon-box');
     fireEvent.click(searchButton);
 
     const input = screen.getByPlaceholderText('搜索话题');
@@ -269,10 +270,10 @@ describe('HistorySearch', () => {
 
     // 初始状态应该显示文本和图标按钮
     expect(screen.getByText('历史对话')).toBeInTheDocument();
-    expect(screen.getByTitle('搜索')).toBeInTheDocument();
+    const searchButton = screen.getByTestId('action-icon-box');
+    expect(searchButton).toHaveAttribute('data-title', '搜索');
 
     // 点击后应该显示输入框
-    const searchButton = screen.getByTitle('搜索');
     fireEvent.click(searchButton);
 
     expect(screen.queryByText('历史对话')).not.toBeInTheDocument();
@@ -291,7 +292,7 @@ describe('HistorySearch', () => {
         </TestWrapper>,
       );
 
-      const searchButton = screen.getByTitle('搜索');
+      const searchButton = screen.getByTestId('action-icon-box');
       fireEvent.click(searchButton);
 
       const input = screen.getByPlaceholderText('搜索话题');
@@ -315,7 +316,7 @@ describe('HistorySearch', () => {
         </TestWrapper>,
       );
 
-      const searchButton = screen.getByTitle('搜索');
+      const searchButton = screen.getByTestId('action-icon-box');
       fireEvent.click(searchButton);
 
       const input = screen.getByPlaceholderText('搜索话题');
@@ -348,7 +349,7 @@ describe('HistorySearch', () => {
         </TestWrapper>,
       );
 
-      const searchButton = screen.getByTitle('搜索');
+      const searchButton = screen.getByTestId('action-icon-box');
       fireEvent.click(searchButton);
 
       const input = screen.getByPlaceholderText('搜索话题');
@@ -382,7 +383,7 @@ describe('HistorySearch', () => {
         </TestWrapper>,
       );
 
-      const searchButton = screen.getByTitle('搜索');
+      const searchButton = screen.getByTestId('action-icon-box');
       fireEvent.click(searchButton);
 
       const input = screen.getByPlaceholderText('搜索话题');
@@ -408,7 +409,7 @@ describe('HistorySearch', () => {
         </TestWrapper>,
       );
 
-      const searchButton = screen.getByTitle('搜索');
+      const searchButton = screen.getByTestId('action-icon-box');
       fireEvent.click(searchButton);
 
       const input = screen.getByPlaceholderText('搜索话题');

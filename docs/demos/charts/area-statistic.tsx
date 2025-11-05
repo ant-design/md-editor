@@ -90,4 +90,3 @@ const AreaChartStatisticExample: React.FC = () => {
 };
 
 export default AreaChartStatisticExample;
-

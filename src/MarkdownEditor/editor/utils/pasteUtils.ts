@@ -192,9 +192,9 @@ const processPlainTextPaste = async (
 };
 
 /**
- * 使用默认插入行为
+ * 执行默认插入行为
  */
-const useDefaultInsert = (
+const insertDefaultData = (
   editor: EditorType,
   clipboardData: DataTransfer,
   target: EventTarget | null,
@@ -291,6 +291,6 @@ export const processPasteEvent = async (
   }
 
   // 6. 使用默认插入行为
-  useDefaultInsert(editor, event.clipboardData, event.target);
+  insertDefaultData(editor, event.clipboardData, event.target);
 };
 

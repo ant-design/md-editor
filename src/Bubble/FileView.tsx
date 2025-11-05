@@ -14,14 +14,14 @@ type BubbleFileViewProps = {
 
 const DEFAULT_DOWNLOAD_FILENAME = 'download';
 
-const openFileInNewWindow = (file: AttachmentFile) => {
+const openFileInNewWindow = (file: AttachmentFile): void => {
   const url = file?.previewUrl || file?.url;
-  if (url && typeof window !== 'undefined') {
-    window.open(url, '_blank');
-  }
+  if (!url || typeof window === 'undefined') return;
+
+  window.open(url, '_blank');
 };
 
-const downloadFile = (file: AttachmentFile) => {
+const downloadFile = (file: AttachmentFile): void => {
   const url = file?.url || file?.previewUrl;
   if (!url || typeof document === 'undefined') return;
 
@@ -44,26 +44,26 @@ const renderMoreAction = (
   file: AttachmentFile,
 ): React.ReactNode | undefined => {
   if (!cfg) return undefined;
-
-  if (React.isValidElement(cfg) || typeof cfg !== 'function') {
-    return cfg as React.ReactNode;
-  }
+  if (React.isValidElement(cfg)) return cfg as React.ReactNode;
+  if (typeof cfg !== 'function') return cfg as React.ReactNode;
 
   try {
-    if (cfg.length === 0) {
-      const result = cfg();
-      return typeof result === 'function' ? result(file) : result;
-    }
-    return cfg(file);
+    const result = cfg.length === 0 ? cfg() : cfg(file);
+    return typeof result === 'function' ? result(file) : result;
   } catch {
     return undefined;
   }
 };
 
-const createEventHandler = <T extends (...args: any[]) => void>(
-  handler: T | undefined,
-): T | undefined => {
-  return handler ? (((...args) => handler(...args)) as T) : undefined;
+const createViewAllHandler = (
+  handler: ((files: AttachmentFile[]) => void) | undefined,
+) => {
+  if (!handler) return undefined;
+
+  return (files: AttachmentFile[]) => {
+    handler(files);
+    return false;
+  };
 };
 
 /**
@@ -80,33 +80,28 @@ export const BubbleFileView: React.FC<BubbleFileViewProps> = ({
   bubble,
   placement,
 }) => {
-  const { originData, fileViewEvents, fileViewConfig } = bubble;
+  const { originData, fileViewEvents, fileViewConfig = {} } = bubble;
 
-  if (!originData?.fileMap || originData.fileMap.size === 0) {
-    return null;
-  }
+  if (!originData?.fileMap || originData.fileMap.size === 0) return null;
 
-  const allFiles = Array.from(originData.fileMap.values());
-  const eventOverrides = fileViewEvents?.(defaultHandlers) || {};
-  const config = fileViewConfig || {};
+  const events = fileViewEvents?.(defaultHandlers) || {};
 
   return (
     <FileMapView
-      className={config.className}
-      style={config.style}
-      maxDisplayCount={config.maxDisplayCount}
-      showMoreButton={config.showMoreButton}
-      onPreview={createEventHandler(eventOverrides.onPreview)}
-      onDownload={createEventHandler(eventOverrides.onDownload)}
-      onViewAll={
-        eventOverrides.onViewAll
-          ? () => eventOverrides.onViewAll?.(allFiles)
+      className={fileViewConfig.className}
+      style={fileViewConfig.style}
+      maxDisplayCount={fileViewConfig.maxDisplayCount}
+      showMoreButton={fileViewConfig.showMoreButton}
+      onPreview={events.onPreview}
+      onDownload={events.onDownload}
+      onViewAll={createViewAllHandler(events.onViewAll)}
+      renderMoreAction={
+        fileViewConfig.renderFileMoreAction
+          ? (file) =>
+              renderMoreAction(fileViewConfig.renderFileMoreAction, file)
           : undefined
       }
-      renderMoreAction={(file) =>
-        renderMoreAction(config.renderFileMoreAction, file)
-      }
-      customSlot={config.customSlot}
+      customSlot={fileViewConfig.customSlot}
       placement={placement}
       fileMap={originData.fileMap}
       data-testid="file-item"

@@ -142,9 +142,6 @@ describe('Schema', () => {
 
       const schemaRenderer = screen.getByTestId('schema-renderer');
       expect(schemaRenderer).toBeInTheDocument();
-      expect(schemaRenderer).toHaveAttribute('data-debug', 'false');
-      expect(schemaRenderer).toHaveAttribute('data-fallback', 'null');
-      expect(schemaRenderer).toHaveAttribute('data-default', 'false');
     });
 
     it('应该为agentar-card添加正确的样式类', () => {

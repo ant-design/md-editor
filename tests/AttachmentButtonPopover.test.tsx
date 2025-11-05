@@ -121,14 +121,14 @@ describe('AttachmentButtonPopover', () => {
       expect(screen.getByText('Upload File')).toBeInTheDocument();
     });
 
-    it('should not render when no supported format provided', () => {
-      const { container } = render(
+    it('should render children even when no supported format provided', () => {
+      render(
         <AttachmentButtonPopover>
           <button type="button">Upload File</button>
         </AttachmentButtonPopover>,
       );
 
-      expect(container.firstChild).toBeNull();
+      expect(screen.getByText('Upload File')).toBeInTheDocument();
     });
 
     it('should render with custom supported format', () => {

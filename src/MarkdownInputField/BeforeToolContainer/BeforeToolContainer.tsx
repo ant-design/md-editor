@@ -32,6 +32,7 @@ const SCROLL_STYLE: React.CSSProperties = {
   WebkitOverflowScrolling: 'touch',
   overscrollBehavior: 'contain',
   touchAction: 'pan-x',
+  paddingRight: 54,
 };
 
 const POPOVER_OVERLAY_STYLE: React.CSSProperties = { padding: 0 };
@@ -416,7 +417,7 @@ export const ActionItemContainer = (props: ActionItemContainerProps) => {
               trigger="click"
               placement="topRight"
               arrow={false}
-              overlayInnerStyle={POPOVER_OVERLAY_STYLE}
+              styles={{ body: POPOVER_OVERLAY_STYLE }}
               overlayClassName={classNames(
                 `${basePrefixCls}-overflow-popover`,
                 hashId,

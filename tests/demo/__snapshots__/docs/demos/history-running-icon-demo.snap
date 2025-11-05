@@ -197,7 +197,7 @@
               class="ant-card-body"
             >
               <div
-                style="height: 400px; border: 1px solid rgb(240, 240, 240); border-radius: 6px;"
+                style="height: 400px; border: 1px solid rgb(240, 240, 240); border-radius: 16px;"
               >
                 <div
                   agent="[object Object]"

@@ -4,7 +4,6 @@
  * 从 MarkdownInputField.tsx 中提取，用于包装编辑器内容区域
  */
 
-import classNames from 'classnames';
 import React, { type FC, type ReactNode } from 'react';
 
 export interface EditorContainerProps {
@@ -21,8 +20,8 @@ export interface EditorContainerProps {
 
 export const EditorContainer: FC<EditorContainerProps> = ({
   children,
-  baseCls,
-  hashId,
+  // baseCls, // 保留供将来使用
+  // hashId, // 保留供将来使用
   borderRadius,
   isEnlarged,
   isLoading,

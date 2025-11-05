@@ -90,11 +90,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   // 处理 ChartStatistic 组件配置
   const statistics = useMemo(() => {
     if (!statisticConfig) return null;
-    if (Array.isArray(statisticConfig)) {
-      if (statisticConfig.length === 0) return null;
-      return statisticConfig;
-    }
-    return [statisticConfig];
+    return Array.isArray(statisticConfig) ? statisticConfig : [statisticConfig];
   }, [statisticConfig]);
 
   // 响应式尺寸计算

@@ -15,12 +15,11 @@ vi.mock('../../src/MarkdownInputField/FileMapView', () => ({
         {props.maxDisplayCount ?? 'undefined'}
       </div>
       <div data-testid="file-map-showMoreButton">
-        {props.showMoreButton ? 'true' : 'false'}
+        {String(props.showMoreButton ?? '')}
       </div>
       <div data-testid="file-map-fileCount">{props.fileMap?.size || 0}</div>
       {props.onPreview && (
         <button
-          type="button"
           type="button"
           data-testid="preview-button"
           onClick={() => {
@@ -37,7 +36,6 @@ vi.mock('../../src/MarkdownInputField/FileMapView', () => ({
       {props.onDownload && (
         <button
           type="button"
-          type="button"
           data-testid="download-button"
           onClick={() => {
             const file = new File([], 'test.pdf') as AttachmentFile;
@@ -52,9 +50,11 @@ vi.mock('../../src/MarkdownInputField/FileMapView', () => ({
       {props.onViewAll && (
         <button
           type="button"
-          type="button"
           data-testid="view-all-button"
-          onClick={props.onViewAll}
+          onClick={async () => {
+            const files = Array.from(props.fileMap?.values() || []);
+            await props.onViewAll?.(files);
+          }}
         >
           View All
         </button>

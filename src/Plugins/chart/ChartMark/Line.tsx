@@ -1,4 +1,4 @@
-﻿import {
+import {
   CategoryScale,
   Chart as ChartJS,
   Legend,

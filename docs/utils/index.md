@@ -69,6 +69,24 @@ EditorUtils.toggleFormat(editor, 'bold');
 const imageNode = EditorUtils.createMediaNode('image.jpg', 'image');
 ```
 
+### 🌐 国际化工具
+
+#### [国际化 (I18n)](./i18n.md)
+
+提供完整的国际化解决方案，支持中英文切换。
+
+```typescript | pure
+import { I18nProvide, useLanguage } from '@ant-design/agentic-ui';
+
+// 使用国际化提供者
+<I18nProvide>
+  <App />
+</I18nProvide>
+
+// 在组件中使用
+const { locale, toggleLanguage } = useLanguage();
+```
+
 ### 🌐 DOM 操作工具
 
 #### [DOM 工具](./dom.md)
@@ -138,6 +156,13 @@ import {
 
   // 编辑器工具
   EditorUtils,
+
+  // 国际化
+  I18nProvide,
+  useLanguage,
+  cnLabels,
+  enLabels,
+  compileTemplate,
 
   // DOM 工具
   getOffsetTop,

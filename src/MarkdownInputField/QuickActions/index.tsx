@@ -136,6 +136,12 @@ export const QuickActions = React.forwardRef<HTMLDivElement, QuickActionsProps>(
       >
         <div
           ref={ref}
+          onBlur={(e) => {
+            e.stopPropagation();
+          }}
+          onFocus={(e) => {
+            e.stopPropagation();
+          }}
           contentEditable={false}
           onClick={(e) => {
             e.stopPropagation();

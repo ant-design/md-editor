@@ -193,7 +193,7 @@ export const handleFileDownload = (file: FileNode) => {
 /**
  * 通用的默认分享处理函数
  */
-export const handleDefaultShare = async (file: FileNode, locale?: any) => {
+export const handleDefaultShare = async (file: FileNode) => {
   try {
     const shareUrl = file.url || file.previewUrl || window.location.href;
     await navigator.clipboard.writeText(shareUrl);

@@ -32,4 +32,3 @@ const RadarChartToolbarFilterExample: React.FC = () => {
 };
 
 export default RadarChartToolbarFilterExample;
-

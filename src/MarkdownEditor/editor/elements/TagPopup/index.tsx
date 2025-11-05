@@ -249,6 +249,7 @@ const createDefaultDom = (
   children: React.ReactNode,
   text: string | undefined,
   placeholder: string | undefined,
+  isOpen: boolean,
 ) => {
   const isEmpty = !text?.trim();
   const hasItems = selectedItems?.length > 0;
@@ -264,13 +265,14 @@ const createDefaultDom = (
       onMouseEnter={() => handleMouseEnter(domRef)}
       onMouseLeave={() => handleMouseLeave(domRef)}
       title={placeholder}
-      contentEditable={!hasItems}
+      contentEditable={!hasItems ? undefined : false}
     >
       {children}
       {hasItems && (
         <ChevronDown
           className={classNames(`${baseCls}-tag-popup-input-arrow `, hashId, {
             empty: isEmpty,
+            open: isOpen,
           })}
         />
       )}
@@ -408,6 +410,7 @@ export const TagPopup = (props: RenderProps) => {
   }, []);
 
   const placeholder = props.placeholder;
+  const isOpen = type === 'dropdown' ? open : suggestionConnext?.open || false;
   const defaultDom = createDefaultDom(
     domRef,
     baseCls,
@@ -417,6 +420,7 @@ export const TagPopup = (props: RenderProps) => {
     children,
     props.text,
     placeholder,
+    isOpen,
   );
   const renderDom = getRenderDom(
     props.tagRender,

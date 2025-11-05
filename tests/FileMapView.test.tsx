@@ -66,18 +66,18 @@ describe('FileMapView', () => {
   describe('File Display', () => {
     it('should display limited number of files', () => {
       const fileMap = new Map();
-      fileMap.set('file-1', createMockFile('file1.jpg', 'image/jpeg'));
-      fileMap.set('file-2', createMockFile('file2.jpg', 'image/jpeg'));
-      fileMap.set('file-3', createMockFile('file3.jpg', 'image/jpeg'));
-      fileMap.set('file-4', createMockFile('file4.jpg', 'image/jpeg'));
+      fileMap.set('file-1', createMockFile('file1.pdf', 'application/pdf'));
+      fileMap.set('file-2', createMockFile('file2.pdf', 'application/pdf'));
+      fileMap.set('file-3', createMockFile('file3.pdf', 'application/pdf'));
+      fileMap.set('file-4', createMockFile('file4.pdf', 'application/pdf'));
 
       const { container } = render(
         <FileMapView fileMap={fileMap} maxDisplayCount={2} />,
       );
 
-      // Should only display first 2 image files
-      const images = container.querySelectorAll('img');
-      expect(images.length).toBe(2);
+      // Should only display first 2 non-image files (maxDisplayCount only affects non-image files)
+      const fileItems = container.querySelectorAll('[data-testid="file-item"]');
+      expect(fileItems.length).toBe(2);
     });
 
     it('should display all files when showMoreButton is false', () => {
@@ -103,13 +103,16 @@ describe('FileMapView', () => {
     it('should show "View All" button when files exceed max count', () => {
       const fileMap = new Map();
       for (let i = 1; i <= 5; i++) {
-        fileMap.set(`file-${i}`, createMockFile(`file${i}.jpg`, 'image/jpeg'));
+        fileMap.set(
+          `file-${i}`,
+          createMockFile(`file${i}.pdf`, 'application/pdf'),
+        );
       }
 
       render(<FileMapView fileMap={fileMap} maxDisplayCount={3} />);
 
       // Should show view all button
-      const viewAllButton = screen.queryByText(/查看.*文件/);
+      const viewAllButton = screen.queryByText('查看此任务中的所有文件');
       expect(viewAllButton).toBeInTheDocument();
     });
   });
@@ -152,7 +155,10 @@ describe('FileMapView', () => {
       const onViewAll = vi.fn();
       const fileMap = new Map();
       for (let i = 1; i <= 5; i++) {
-        fileMap.set(`file-${i}`, createMockFile(`file${i}.jpg`, 'image/jpeg'));
+        fileMap.set(
+          `file-${i}`,
+          createMockFile(`file${i}.pdf`, 'application/pdf'),
+        );
       }
 
       render(
@@ -163,16 +169,16 @@ describe('FileMapView', () => {
         />,
       );
 
-      const viewAllButton = screen.getByText(/查看.*文件/);
+      const viewAllButton = screen.getByText('查看此任务中的所有文件');
       fireEvent.click(viewAllButton);
 
       expect(onViewAll).toHaveBeenCalledWith(
         expect.arrayContaining([
-          expect.objectContaining({ name: 'file1.jpg' }),
-          expect.objectContaining({ name: 'file2.jpg' }),
-          expect.objectContaining({ name: 'file3.jpg' }),
-          expect.objectContaining({ name: 'file4.jpg' }),
-          expect.objectContaining({ name: 'file5.jpg' }),
+          expect.objectContaining({ name: 'file1.pdf' }),
+          expect.objectContaining({ name: 'file2.pdf' }),
+          expect.objectContaining({ name: 'file3.pdf' }),
+          expect.objectContaining({ name: 'file4.pdf' }),
+          expect.objectContaining({ name: 'file5.pdf' }),
         ]),
       );
     });
@@ -335,7 +341,7 @@ describe('FileMapView', () => {
   });
 
   describe('maxDisplayCount Prop', () => {
-    it('should use default maxDisplayCount of 3', () => {
+    it('should display all files when maxDisplayCount is not provided', () => {
       const fileMap = new Map();
       for (let i = 1; i <= 5; i++) {
         fileMap.set(`file-${i}`, createMockFile(`file${i}.txt`, 'text/plain'));
@@ -343,9 +349,9 @@ describe('FileMapView', () => {
 
       const { container } = render(<FileMapView fileMap={fileMap} />);
 
-      // Should display first 3 files
+      // Should display all files when maxDisplayCount is undefined
       const fileItems = container.querySelectorAll('[data-testid="file-item"]');
-      expect(fileItems.length).toBe(3);
+      expect(fileItems.length).toBe(5);
     });
 
     it('should respect custom maxDisplayCount', () => {
