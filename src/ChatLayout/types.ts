@@ -1,20 +1,17 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { LayoutHeaderConfig } from '../Components/LayoutHeader';
+import type { BaseStyleProps } from '../Types';
 
 /**
  * ChatLayout 组件的属性接口
  */
-export interface ChatLayoutProps {
+export interface ChatLayoutProps extends BaseStyleProps {
   /** 头部配置 */
   header?: LayoutHeaderConfig;
   /** 内容区域的自定义内容 */
   children?: ReactNode;
   /** 底部区域的自定义内容 */
   footer?: ReactNode;
-  /** 自定义类名 */
-  className?: string;
-  /** 自定义样式 */
-  style?: CSSProperties;
 }
 
 export interface ChatLayoutRef {

@@ -1,4 +1,5 @@
 import { MarkdownEditorProps } from '../MarkdownEditor';
+import { BaseStyleProps } from '../Types';
 
 export interface WhiteBoxProcessInterface {
   /** 分类类型
@@ -135,7 +136,7 @@ export interface DocMeta {
   answer?: string;
 }
 
-export interface ThoughtChainListProps {
+export interface ThoughtChainListProps extends BaseStyleProps {
   titleRender?: (
     props: ThoughtChainListProps,
     defaultDom: React.ReactNode,
@@ -148,8 +149,6 @@ export interface ThoughtChainListProps {
     createAt?: number;
     isAborted?: boolean;
   };
-  className?: string;
-  style?: React.CSSProperties;
   compact?: boolean;
   markdownRenderProps?: MarkdownEditorProps;
   finishAutoCollapse?: boolean;
