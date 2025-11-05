@@ -2,8 +2,12 @@
  * title: 模板字符串
  * description: 使用 compileTemplate 进行动态文本替换。
  */
-import { I18nProvide, useLanguage, compileTemplate } from '@ant-design/agentic-ui';
-import { Card, Space, Input, Button } from 'antd';
+import {
+  compileTemplate,
+  I18nProvide,
+  useLanguage,
+} from '@ant-design/agentic-ui';
+import { Button, Card, Input, Space } from 'antd';
 import React, { useState } from 'react';
 
 function TemplateContent() {
@@ -44,12 +48,14 @@ function TemplateContent() {
         {compiledText && (
           <div>
             <strong>编译结果:</strong>
-            <div style={{ 
-              background: '#e6f7ff', 
-              padding: 12, 
-              marginTop: 8,
-              borderRadius: 4
-            }}>
+            <div
+              style={{
+                background: '#e6f7ff',
+                padding: 12,
+                marginTop: 8,
+                borderRadius: 4,
+              }}
+            >
               {compiledText}
             </div>
           </div>
@@ -66,4 +72,3 @@ export default () => {
     </I18nProvide>
   );
 };
-

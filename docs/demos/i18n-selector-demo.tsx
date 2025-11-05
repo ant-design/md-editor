@@ -3,7 +3,7 @@
  * description: 使用 Select 组件创建语言选择器。
  */
 import { I18nProvide, useLanguage } from '@ant-design/agentic-ui';
-import { Select, Card, Space, Descriptions } from 'antd';
+import { Card, Descriptions, Select, Space } from 'antd';
 import React from 'react';
 
 function LanguageSelectorContent() {
@@ -39,15 +39,21 @@ function LanguageSelectorContent() {
           </Descriptions.Item>
         </Descriptions>
 
-        <Card 
-          size="small" 
+        <Card
+          size="small"
           title={locale.preview}
           style={{ background: '#fafafa' }}
         >
           <Space direction="vertical">
-            <div>{locale.bold} / {locale.italic}</div>
-            <div>{locale.copy} / {locale.edit} / {locale.delete}</div>
-            <div>{locale.undo} / {locale.redo}</div>
+            <div>
+              {locale.bold} / {locale.italic}
+            </div>
+            <div>
+              {locale.copy} / {locale.edit} / {locale.delete}
+            </div>
+            <div>
+              {locale.undo} / {locale.redo}
+            </div>
           </Space>
         </Card>
       </Space>
@@ -62,4 +68,3 @@ export default () => {
     </I18nProvide>
   );
 };
-

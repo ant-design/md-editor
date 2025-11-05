@@ -3,7 +3,7 @@
  * description: 展示国际化的基本使用方法，支持中英文切换。
  */
 import { I18nProvide, useLanguage } from '@ant-design/agentic-ui';
-import { Button, Space, Card } from 'antd';
+import { Button, Card, Space } from 'antd';
 import React from 'react';
 
 function I18nContent() {
@@ -18,8 +18,12 @@ function I18nContent() {
 
         <div>
           <h3>{locale.welcome}</h3>
-          <p>{locale.copy}: {locale.copySuccess}</p>
-          <p>{locale.edit} / {locale.delete} / {locale.cancel}</p>
+          <p>
+            {locale.copy}: {locale.copySuccess}
+          </p>
+          <p>
+            {locale.edit} / {locale.delete} / {locale.cancel}
+          </p>
         </div>
 
         <Button type="primary" onClick={toggleLanguage}>
@@ -37,4 +41,3 @@ export default () => {
     </I18nProvide>
   );
 };
-
