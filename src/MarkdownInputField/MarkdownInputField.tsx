@@ -534,6 +534,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
   const actionsRef = React.useRef<HTMLDivElement>(null);
+  const isSendingRef = React.useRef(false); // 防重复触发标记
   const [collapseSendActions, setCollapseSendActions] = useState(() => {
     if (typeof window === 'undefined') return false;
     if (window.innerWidth < 460) return true;
@@ -662,6 +663,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const sendMessage = useRefFunction(async () => {
     if (props.disabled) return;
     if (props.typing) return;
+    // 防止重复触发：如果正在加载中，直接返回
+    if (isLoading) return;
+    // 使用 ref 防止快速连续触发
+    if (isSendingRef.current) return;
+
     // 如果处于录音中：优先停止录音或输入
     if (recording) await stopRecording();
     const mdValue = markdownEditorRef?.current?.store?.getMDContent();
@@ -673,6 +679,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
     // allowEmptySubmit 开启时，即使内容为空也允许触发发送
     if (props.onSend && (props.allowEmptySubmit || mdValue)) {
+      // 设置发送标记
+      isSendingRef.current = true;
       setIsLoading(true);
       try {
         await props.onSend(mdValue || '');
@@ -680,8 +688,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         props.onChange?.('');
         setValue('');
         setFileMap?.(new Map());
+      } catch (error) {
+        console.error('Send message failed:', error);
+        throw error;
       } finally {
         setIsLoading(false);
+        // 重置发送标记
+        isSendingRef.current = false;
       }
     }
   });
@@ -799,7 +812,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         if (!(isEnter && isMod)) return;
         e.stopPropagation();
         e.preventDefault();
-        if (props.onSend) sendMessage();
+        // 防止重复触发：检查是否已经在加载中
+        if (props.onSend && !isLoading && !props.disabled && !props.typing) {
+          sendMessage();
+        }
       }
     },
   );
