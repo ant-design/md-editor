@@ -364,7 +364,24 @@ export class EditorStore {
     },
   ): void | Promise<void> {
     if (md === undefined) return;
-    if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
+
+    // 安全地比较当前内容，避免解析异常导致失效
+    try {
+      const currentMD = parserSlateNodeToMarkdown(
+        this._editor.current.children,
+      );
+      // 使用 trim 和规范化比较，避免空白字符差异
+      if (md.trim() === currentMD.trim()) return;
+    } catch (error) {
+      // 如果解析当前内容失败，继续执行设置新内容
+      console.warn(
+        'Failed to compare current content, proceeding with setMDContent:',
+        error,
+      );
+    }
+
+    // 取消之前的操作，避免竞态条件
+    this.cancelSetMDContent();
 
     const chunkSize = options?.chunkSize ?? 5000;
     const separator = options?.separator ?? /\n\n/;
@@ -374,20 +391,68 @@ export class EditorStore {
 
     // 如果内容较短，直接处理
     if (md.length <= chunkSize) {
-      const nodeList = parserMdToSchema(md, targetPlugins).schema;
-      this.setContent(nodeList);
-      this._editor.current.children = nodeList;
-      ReactEditor.deselect(this._editor.current);
-      // 调用进度回调
-      if (options?.onProgress) {
-        options.onProgress(1);
+      try {
+        const nodeList = parserMdToSchema(md, targetPlugins).schema;
+        this.setContent(nodeList);
+        this._editor.current.children = nodeList;
+        ReactEditor.deselect(this._editor.current);
+        // 调用进度回调
+        if (options?.onProgress) {
+          options.onProgress(1);
+        }
+      } catch (error) {
+        console.error('Failed to set MD content:', error);
+        throw error;
       }
       return;
     }
 
+    // 内容较长时，按指定分隔符拆分并分批处理
+    const chunks = this._splitMarkdown(md, separator);
+
     // 如果禁用 RAF，使用同步模式处理长内容
     if (!useRAF) {
-      const chunks = this._splitMarkdown(md, separator);
+      try {
+        const allNodes: Node[] = [];
+        for (const chunk of chunks) {
+          if (chunk.trim()) {
+            const { schema } = parserMdToSchema(chunk, targetPlugins);
+            allNodes.push(...schema);
+          }
+        }
+
+        if (allNodes.length > 0) {
+          this.setContent(allNodes);
+          this._editor.current.children = allNodes;
+          ReactEditor.deselect(this._editor.current);
+        }
+
+        // 调用进度回调
+        if (options?.onProgress) {
+          options.onProgress(1);
+        }
+      } catch (error) {
+        console.error('Failed to set MD content synchronously:', error);
+        throw error;
+      }
+      return;
+    }
+
+    // 如果使用 RAF 且分块数量较多，异步解析和插入
+    if (chunks.length > 10) {
+      // 创建新的 AbortController
+      this._currentAbortController = new AbortController();
+      return this._parseAndSetContentWithRAF(
+        chunks,
+        targetPlugins || [],
+        batchSize,
+        options?.onProgress,
+        this._currentAbortController.signal,
+      );
+    }
+
+    // 如果分块数量 <= 10，使用同步模式处理（修复：之前这里直接返回 undefined）
+    try {
       const allNodes: Node[] = [];
       for (const chunk of chunks) {
         if (chunk.trim()) {
@@ -406,23 +471,9 @@ export class EditorStore {
       if (options?.onProgress) {
         options.onProgress(1);
       }
-      return;
-    }
-
-    // 内容较长时，按指定分隔符拆分并分批处理
-    const chunks = this._splitMarkdown(md, separator);
-
-    // 如果使用 RAF 且分块数量较多，异步解析和插入
-    if (useRAF && chunks.length > 10) {
-      // 创建新的 AbortController
-      this._currentAbortController = new AbortController();
-      return this._parseAndSetContentWithRAF(
-        chunks,
-        targetPlugins || [],
-        batchSize,
-        options?.onProgress,
-        this._currentAbortController.signal,
-      );
+    } catch (error) {
+      console.error('Failed to set MD content with small chunks:', error);
+      throw error;
     }
   }
 
@@ -474,6 +525,18 @@ export class EditorStore {
             reject(new Error('Operation was cancelled'));
             return;
           }
+
+          // 检查编辑器是否仍然有效
+          if (!this._editor.current) {
+            if (rafId) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+            this._currentAbortController = null;
+            reject(new Error('Editor instance is no longer available'));
+            return;
+          }
+
           const endIndex = Math.min(
             currentChunkIndex + parseChunksPerFrame,
             totalChunks,
@@ -483,20 +546,25 @@ export class EditorStore {
           for (let i = currentChunkIndex; i < endIndex; i++) {
             const chunk = chunks[i];
             if (chunk.trim()) {
-              const { schema } = parserMdToSchema(chunk, plugins);
+              try {
+                const { schema } = parserMdToSchema(chunk, plugins);
 
-              if (schema.length > 0) {
-                if (isFirstBatch) {
-                  // 第一批：清空并插入
-                  this._editor.current.children = schema;
-                  this._editor.current.onChange();
-                  isFirstBatch = false;
-                } else {
-                  // 后续批次：追加节点
-                  Transforms.insertNodes(this._editor.current, schema, {
-                    at: [this._editor.current.children.length],
-                  });
+                if (schema.length > 0) {
+                  if (isFirstBatch) {
+                    // 第一批：清空并插入
+                    this._editor.current.children = schema;
+                    this._editor.current.onChange();
+                    isFirstBatch = false;
+                  } else {
+                    // 后续批次：追加节点
+                    Transforms.insertNodes(this._editor.current, schema, {
+                      at: [this._editor.current.children.length],
+                    });
+                  }
                 }
+              } catch (chunkError) {
+                // 单个 chunk 解析失败，记录但继续处理其他 chunks
+                console.warn(`Failed to parse chunk ${i}:`, chunkError);
               }
             }
           }
@@ -505,7 +573,12 @@ export class EditorStore {
           // 更新进度
           const progress = currentChunkIndex / totalChunks;
           if (onProgress) {
-            onProgress(progress);
+            try {
+              onProgress(progress);
+            } catch (progressError) {
+              // 进度回调失败不应该中断整个流程
+              console.warn('Progress callback failed:', progressError);
+            }
           }
 
           if (currentChunkIndex < totalChunks) {
