@@ -17,7 +17,7 @@ function I18nContent() {
         </div>
 
         <div>
-          <h3>{locale.welcome}</h3>
+          <h3>欢迎使用多语言支持</h3>
           <p>
             {locale.copy}: {locale.copySuccess}
           </p>

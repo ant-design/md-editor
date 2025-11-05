@@ -848,7 +848,8 @@ console.log('测试代码');
       });
 
       // 验证内容包含特殊标记
-      const value = result.schema[0].value as string;
+      const codeNode = result.schema[0] as { value?: string };
+      const value = codeNode.value as string;
       expect(value).toContain('【CODE_BLOCK:javascript】');
       expect(value).toContain('【/CODE_BLOCK】');
       expect(value).toContain("console.log('测试代码');");
@@ -873,7 +874,8 @@ console.log('测试代码');
       });
 
       // 验证嵌套的 think 代码块被正确转换
-      const value = result.schema[0].value as string;
+      const codeNode = result.schema[0] as { value?: string };
+      const value = codeNode.value as string;
       expect(value).toContain('【CODE_BLOCK:think】');
       expect(value).toContain('这是嵌套的 think 代码块');
     });

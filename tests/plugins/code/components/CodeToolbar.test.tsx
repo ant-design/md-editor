@@ -20,7 +20,6 @@ vi.mock('antd', () => ({
     <div data-testid="segmented">
       {options?.map((option: any, index: number) => (
         <button
-          type="button"
           key={index}
           type="button"
           data-testid={`segmented-option-${index}`}

@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
  * LazyElement 组件属性
  */
 export interface LazyElementProps {
-  /** 元素在文档中的位置信息 */
-  elementInfo: {
+  /** 元素在文档中的位置信息（可选，用于自定义占位符渲染） */
+  elementInfo?: {
     /** 元素类型 */
     type: string;
     /** 元素在文档中的索引 */
@@ -30,7 +30,7 @@ export interface LazyElementProps {
     /** 元素是否即将进入视口 */
     isIntersecting: boolean;
     /** 元素在文档中的位置信息 */
-    elementInfo: {
+    elementInfo?: {
       /** 元素类型 */
       type: string;
       /** 元素在文档中的索引 */
