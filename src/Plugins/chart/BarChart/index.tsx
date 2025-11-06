@@ -439,6 +439,11 @@ const BarChart: React.FC<BarChartProps> = ({
               base = value >= 0 ? pos : neg;
             }
 
+            // 当值为 0 时，直接返回纯色，避免渐变范围为 0 导致的显示问题
+            if (value === 0) {
+              return hexToRgba(base, 0.75);
+            }
+
             // 安全获取像素值，添加有限性检查
             const x0 = xScale.getPixelForValue(0);
             const x1 = xScale.getPixelForValue(value);
@@ -463,6 +468,11 @@ const BarChart: React.FC<BarChartProps> = ({
             const pos = color[0] || baseColor;
             const neg = color[1] || color[0] || baseColor;
             base = value >= 0 ? pos : neg;
+          }
+
+          // 当值为 0 时，直接返回纯色，避免渐变范围为 0 导致的显示问题
+          if (value === 0) {
+            return hexToRgba(base, 0.75);
           }
 
           // 安全获取像素值，添加有限性检查

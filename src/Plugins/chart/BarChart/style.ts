@@ -7,6 +7,15 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
+      // 统计数据容器样式
+      '&-statistic-container': {
+        display: 'flex',
+        gap: '16px',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+      },
+
       // 柱状图容器样式
       '.chart-wrapper': {
         width: '100%',
