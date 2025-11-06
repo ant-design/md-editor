@@ -2,17 +2,17 @@ import { TooltipProps } from 'antd';
 import { ReactNode } from 'react';
 import { MarkdownEditorProps } from '../MarkdownEditor/types';
 import { AttachmentFile } from '../MarkdownInputField/AttachmentButton/types';
+import {
+  BaseStyleProps,
+  BubbleMetaData,
+  MessageBubbleData,
+  MultiClassNameProps,
+  MultiStyleProps,
+  WithFalse,
+} from '../Types';
 import type { UseSpeechAdapter } from './MessagesContent/VoiceButton';
 import { BubbleExtraProps } from './types/BubbleExtra';
 import { DocInfoListProps } from './types/DocInfo';
-import {
-  BaseStyleProps,
-  WithFalse,
-  MessageBubbleData,
-  BubbleMetaData,
-  MultiStyleProps,
-  MultiClassNameProps,
-} from '../Types';
 
 /**
  * 基础样式属性

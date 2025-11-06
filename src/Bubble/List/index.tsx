@@ -307,7 +307,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
     onWheel,
     onTouchMove,
   } = props;
-  
+
   // 兼容旧属性
   const loading = isLoading ?? legacyLoading;
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);

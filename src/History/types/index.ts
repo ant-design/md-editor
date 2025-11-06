@@ -61,7 +61,7 @@ export interface HistoryProps {
   };
   /** 空状态渲染函数，当历史记录为空时显示 */
   emptyRender?: () => React.ReactNode;
-  /** 
+  /**
    * @deprecated 请使用 isLoading 代替
    * @description 已废弃，将在未来版本移除
    */
