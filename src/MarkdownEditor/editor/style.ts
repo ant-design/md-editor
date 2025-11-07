@@ -22,6 +22,9 @@ const blinkCaret = new Keyframes('blink-caret', {
   '50%': { borderColor: 'var(--color-primary-control-fill-primary)' },
 });
 
+const COMMENT_HIGHLIGHT_COLOR =
+  'var(--agentic-comment-highlight-color, rgba(21, 0, 255, 0.15))';
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     // 拖拽手柄样式
@@ -437,11 +440,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '& &-comment-comment': {
         display: 'inline-block',
-        background: 'linear-gradient(transparent 65%, rgba(21, 0, 255, 0.15))',
+        background: `linear-gradient(transparent 65%, ${COMMENT_HIGHLIGHT_COLOR})`,
         cursor: 'pointer',
       },
       '& &-comment-highlight': {
-        backgroundColor: 'rgba(21, 0, 255, 0.15)',
+        backgroundColor: COMMENT_HIGHLIGHT_COLOR,
         borderBottom: 0,
         cursor: 'pointer',
       },
