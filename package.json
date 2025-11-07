@@ -27,7 +27,8 @@
     "start": "npm run dev",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "version": "node scripts/bumpVersion.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
