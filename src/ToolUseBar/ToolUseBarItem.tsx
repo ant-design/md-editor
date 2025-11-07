@@ -128,9 +128,17 @@ const ToolUseBarItemComponent: React.FC<ToolUseBarItemProps> = ({
   }
 
   return (
-    <div key={tool.id} data-testid="ToolUserItem" className={toolClassName}>
+    <div
+      key={tool.id}
+      data-testid="ToolUserItem"
+      className={classnames(toolClassName, {
+        [`${prefixCls}-tool-collapsed`]: !showContent,
+      })}
+    >
       <div
-        className={toolBarClassName}
+        className={classnames(toolBarClassName, {
+          [`${prefixCls}-tool-bar-collapsed`]: !showContent,
+        })}
         data-testid="tool-user-item-tool-bar"
         onClick={handleClick}
       >

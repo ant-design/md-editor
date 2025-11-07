@@ -27,7 +27,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        gap: '8px',
+        gap: 0,
         zIndex: 1,
         maxWidth: 'min(800px,100%)',
         padding: '2px',
@@ -46,6 +46,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-expanded': {
           borderRadius: '14px',
           padding: 4,
+          gap: 8,
           outline: 'none',
           '&:hover': {
             background: 'var(--color-gray-bg-card-light)',

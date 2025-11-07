@@ -337,7 +337,23 @@ const ToolContentComponent: React.FC<ToolContentProps> = ({
     [],
   );
 
-  if (!showContent) return null;
+  if (!showContent || !expanded) {
+    return (
+      <div
+        style={{
+          overflow: 'hidden',
+          height: 1,
+          opacity: 0,
+          visibility: 'hidden',
+        }}
+        role="presentation"
+        aria-hidden="true"
+      >
+        {contentDom}
+        {errorDom}
+      </div>
+    );
+  }
 
   return (
     <AnimatePresence initial={false} mode="sync">
