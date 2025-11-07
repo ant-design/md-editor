@@ -72,7 +72,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
 
   return wrapSSR(
     <Tooltip
-      mouseEnterDelay={2}
+      mouseEnterDelay={1}
       arrow={false}
       title={
         recording

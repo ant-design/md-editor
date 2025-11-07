@@ -15,7 +15,13 @@ export type ActionIconBoxProps = {
   transform?: boolean;
   className?: string;
   borderLess?: boolean;
+  /**
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
+   */
   loading?: boolean;
+  /** 加载状态 */
+  isLoading?: boolean;
   style?: React.CSSProperties;
   active?: boolean;
   onInit?: () => void;
@@ -77,8 +83,10 @@ export type ActionIconBoxProps = {
  * - 响应式交互设计
  */
 export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
+  // 兼容旧属性
+  const propLoading = props.isLoading ?? props.loading;
   const [loading, setLoading] = useMergedState(false, {
-    value: props.loading,
+    value: propLoading,
     onChange: props.onLoadingChange,
   });
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -139,10 +147,11 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
       <Tooltip
         title={props.title}
         arrow={false}
-        mouseEnterDelay={2}
+        mouseEnterDelay={1}
         {...props.tooltipProps}
       >
         <span
+          data-title={props.title?.toString()}
           data-testid={props['data-testid'] || 'action-icon-box'}
           role="button"
           tabIndex={0}

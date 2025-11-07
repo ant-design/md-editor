@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
  * LazyElement 组件属性
  */
 export interface LazyElementProps {
-  /** 元素在文档中的位置信息 */
-  elementInfo: {
+  /** 元素在文档中的位置信息（可选，用于自定义占位符渲染） */
+  elementInfo?: {
     /** 元素类型 */
     type: string;
     /** 元素在文档中的索引 */
@@ -30,7 +30,7 @@ export interface LazyElementProps {
     /** 元素是否即将进入视口 */
     isIntersecting: boolean;
     /** 元素在文档中的位置信息 */
-    elementInfo: {
+    elementInfo?: {
       /** 元素类型 */
       type: string;
       /** 元素在文档中的索引 */
@@ -97,21 +97,34 @@ export const LazyElement: React.FC<LazyElementProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [hasRendered, setHasRendered] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+
+    // 如果已经渲染过，不需要再创建 observer
+    if (hasRendered) return;
+
+    // 清理之前的 observer（如果存在）
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
 
     // 创建 IntersectionObserver 实例
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           setIsIntersecting(entry.isIntersecting);
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !hasRendered) {
             setIsVisible(true);
             setHasRendered(true);
             // 元素已经渲染后，不再需要观察
-            observer.disconnect();
+            if (observerRef.current) {
+              observerRef.current.disconnect();
+              observerRef.current = null;
+            }
           }
         });
       },
@@ -121,12 +134,52 @@ export const LazyElement: React.FC<LazyElementProps> = ({
       },
     );
 
+    observerRef.current = observer;
     observer.observe(container);
 
+    // 使用 setTimeout 在下一帧检查初始可见性（给 IntersectionObserver 机会先触发）
+    const timeoutId = setTimeout(() => {
+      // 检查元素是否已经在视口内（解决初始加载时偶发未触发的问题）
+      const rect = container.getBoundingClientRect();
+      const windowHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+      const windowWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+
+      // 只有在元素有实际尺寸且未被渲染时才进行检查
+      if (
+        !hasRendered &&
+        (rect.height > 0 || rect.width > 0) &&
+        windowHeight > 0 &&
+        windowWidth > 0
+      ) {
+        // 解析 rootMargin 来扩展视口检测范围
+        const margin = parseInt(rootMargin) || 200;
+        const isInViewport =
+          rect.top < windowHeight + margin &&
+          rect.bottom > -margin &&
+          rect.left < windowWidth + margin &&
+          rect.right > -margin;
+
+        if (isInViewport) {
+          setIsVisible(true);
+          setHasRendered(true);
+          if (observerRef.current) {
+            observerRef.current.disconnect();
+            observerRef.current = null;
+          }
+        }
+      }
+    }, 100); // 100ms 延迟，给 IntersectionObserver 充足的时间触发
+
     return () => {
-      observer.disconnect();
+      clearTimeout(timeoutId);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
     };
-  }, [rootMargin]);
+  }, [rootMargin, hasRendered]);
 
   // 一旦渲染过就保持渲染状态
   if (hasRendered || isVisible) {

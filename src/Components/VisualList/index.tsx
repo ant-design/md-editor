@@ -36,8 +36,13 @@ export interface VisualListProps {
   emptyRender?: () => React.ReactNode;
   /** 自定义列表项渲染函数 */
   renderItem?: (item: VisualListItem, index: number) => React.ReactNode;
-  /** 是否显示加载状态 */
+  /**
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
+   */
   loading?: boolean;
+  /** 加载状态 */
+  isLoading?: boolean;
   /** 加载状态自定义渲染函数 */
   loadingRender?: () => React.ReactNode;
   /** 列表项自定义样式 */
@@ -107,7 +112,8 @@ const VisualListComponent: React.FC<VisualListProps> = ({
   filter,
   emptyRender,
   renderItem,
-  loading = false,
+  loading: legacyLoading = false,
+  isLoading,
   loadingRender,
   itemStyle,
   imageStyle,
@@ -117,6 +123,8 @@ const VisualListComponent: React.FC<VisualListProps> = ({
   variant = 'default',
   description,
 }) => {
+  // 兼容旧属性
+  const loading = isLoading ?? legacyLoading;
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 使用 useMemo 优化过滤后的数据计算

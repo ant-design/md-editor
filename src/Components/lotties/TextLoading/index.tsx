@@ -3,7 +3,7 @@ import cx from 'classnames';
 import React, { useContext } from 'react';
 import { useStyle } from './style';
 
-export interface ShinyTextProps {
+export interface TextLoadingProps {
   /**
    * 要显示的文本内容
    * @default "Loading..."
@@ -37,22 +37,22 @@ export interface ShinyTextProps {
 }
 
 /**
- * 闪光文字加载组件
+ * 文字加载组件
  *
  * 使用CSS动画展示闪光文字效果的加载状态组件，支持自定义文本、样式和动画开关。
  *
  * @component
  * @example
  * // 基础用法
- * <ShinyText />
+ * <TextLoading />
  *
  * @example
  * // 自定义文本
- * <ShinyText text="加载中..." />
+ * <TextLoading text="加载中..." />
  *
  * @example
  * // 自定义样式
- * <ShinyText
+ * <TextLoading
  *   text="正在处理"
  *   fontSize="20px"
  *   style={{ margin: '20px' }}
@@ -60,7 +60,7 @@ export interface ShinyTextProps {
  *
  * @example
  * // 禁用动画
- * <ShinyText disabled={true} />
+ * <TextLoading disabled={true} />
  *
  * @param props - 组件属性
  * @param props.text - 要显示的文本内容，默认为 "Loading..."
@@ -68,9 +68,9 @@ export interface ShinyTextProps {
  * @param props.className - 容器类名
  * @param props.style - 容器自定义样式
  * @param props.fontSize - 字体大小
- * @returns 渲染的闪光文字组件
+ * @returns 渲染的文字加载组件
  */
-export const ShinyText: React.FC<ShinyTextProps> = ({
+export const TextLoading: React.FC<TextLoadingProps> = ({
   text = 'Loading...',
   disabled = false,
   theme = 'light',
@@ -79,7 +79,7 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
   fontSize,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('agentic-shiny-text');
+  const prefixCls = getPrefixCls('agentic-text-loading');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   const containerStyle: React.CSSProperties = {
@@ -95,7 +95,7 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
         [`${prefixCls}-light`]: theme === 'light',
       })}
       style={containerStyle}
-      data-testid="shiny-text"
+      data-testid="text-loading"
       aria-label={text}
       role="status"
       aria-live="polite"
@@ -105,4 +105,4 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
   );
 };
 
-export default ShinyText;
+export default TextLoading;

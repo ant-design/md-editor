@@ -175,7 +175,9 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
+        if (disabled) return;
         if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // 防止键盘事件触发 click 事件
           onClick();
         }
       }}

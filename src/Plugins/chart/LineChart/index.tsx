@@ -11,6 +11,7 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
+import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -28,6 +29,7 @@ import {
   extractAndSortXValues,
   findDataPointByXValue,
 } from '../utils';
+import { useStyle } from './style';
 
 ChartJS.register(
   CategoryScale,
@@ -145,6 +147,7 @@ const LineChart: React.FC<LineChartProps> = ({
   // 样式注册
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls('line-chart-container');
+  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
@@ -399,7 +402,7 @@ const LineChart: React.FC<LineChartProps> = ({
     downloadChart(chartRef.current, 'line-chart');
   };
 
-  return (
+  return wrapSSR(
     <ChartContainer
       baseClassName={baseClassName}
       className={className}
@@ -435,7 +438,9 @@ const LineChart: React.FC<LineChartProps> = ({
       />
 
       {statistics && (
-        <div className={`${baseClassName}-statistic-container`}>
+        <div
+          className={classNames(`${baseClassName}-statistic-container`, hashId)}
+        >
           {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
@@ -462,7 +467,7 @@ const LineChart: React.FC<LineChartProps> = ({
       >
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
-    </ChartContainer>
+    </ChartContainer>,
   );
 };
 

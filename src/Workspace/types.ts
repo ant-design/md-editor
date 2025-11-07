@@ -391,13 +391,18 @@ export interface FileProps extends BaseChildProps {
    */
   actionRef?: React.MutableRefObject<FileActionRef | null>;
   /**
-   * 是否显示加载状态
-   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
    */
   loading?: boolean;
   /**
+   * 是否显示加载状态
+   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   */
+  isLoading?: boolean;
+  /**
    * 自定义加载渲染函数
-   * @description 当loading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
+   * @description 当isLoading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
    */
   loadingRender?: () => React.ReactNode;
   /**

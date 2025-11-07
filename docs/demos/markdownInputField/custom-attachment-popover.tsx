@@ -203,7 +203,7 @@ const CustomAttachmentPopoverDemo: React.FC = () => {
         content={content}
         trigger="hover"
         placement="top"
-        overlayInnerStyle={{ padding: 0 }}
+        styles={{ body: { padding: 0 } }}
       >
         {children}
       </Popover>

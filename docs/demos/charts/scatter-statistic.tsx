@@ -36,4 +36,3 @@ const ScatterChartStatisticExample: React.FC = () => {
 };
 
 export default ScatterChartStatisticExample;
-

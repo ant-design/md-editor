@@ -181,7 +181,11 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
-    const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
+    const displayText = React.useMemo(
+      () => item.displayTitle || item.sessionTitle,
+      [item.displayTitle, item.sessionTitle],
+    );
+    const { textRef, isTextOverflow } = useTextOverflow(displayText);
     const isRunning = React.useMemo(
       () => runningId?.includes(String(item.id || '')),
       [runningId, item.id],
@@ -285,7 +289,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
               }}
             >
               <Tooltip
-                title={isTextOverflow ? item.sessionTitle : null}
+                title={isTextOverflow ? displayText : null}
                 mouseEnterDelay={0.3}
                 open={isTextOverflow ? undefined : false}
               >
@@ -299,7 +303,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                     color: 'var(--color-gray-text-default)',
                   }}
                 >
-                  {item.sessionTitle}
+                  {displayText}
                 </div>
               </Tooltip>
             </div>
@@ -375,7 +379,11 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
-    const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
+    const displayText = React.useMemo(
+      () => item.displayTitle || item.sessionTitle,
+      [item.displayTitle, item.sessionTitle],
+    );
+    const { textRef, isTextOverflow } = useTextOverflow(displayText);
     const isTask = React.useMemo(() => type === 'task', [type]);
     const { locale } = React.useContext(I18nContext);
     const shouldShowIcon = React.useMemo(
@@ -515,7 +523,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
               }}
             >
               <Tooltip
-                title={isTextOverflow ? item.sessionTitle : null}
+                title={isTextOverflow ? displayText : null}
                 mouseEnterDelay={0.3}
                 open={isTextOverflow ? undefined : false}
               >
@@ -529,7 +537,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                     color: 'var(--color-gray-text-default)',
                   }}
                 >
-                  {item.sessionTitle}
+                  {displayText}
                 </div>
               </Tooltip>
             </div>

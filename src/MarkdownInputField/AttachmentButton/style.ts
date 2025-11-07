@@ -21,7 +21,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       color: 'var(--color-gray-text-secondary)',
       gap: 4,
       '&:hover': {
-        backgroundColor: 'rgba(0, 28, 57, 0.0353)',
+        backgroundColor: 'var(--color-gray-control-fill-hover)',
       },
       [`${token.componentCls}-file-list`]: {
         '&-item': {

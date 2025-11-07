@@ -272,6 +272,46 @@ export default () => {
 3. **首屏内容**：调整 `rootMargin` 以确保首屏内容能够立即加载
 4. **布局抖动**：设置合适的 `placeholderHeight` 可以减少滚动时的布局跳动
 
+### 加载可靠性优化
+
+为了解决偶发加载不出来的问题，`LazyElement` 组件实现了双重保障机制：
+
+1. **IntersectionObserver 监听**：主要的加载触发机制，实时监听元素进入视口
+2. **后备检查机制**：100ms 后自动检查元素是否在视口内，确保不会遗漏
+
+**常见场景处理：**
+
+- ✅ **初始加载时元素已在视口内**：后备检查会立即触发加载
+- ✅ **快速滚动**：IntersectionObserver 会及时捕获
+- ✅ **动态内容加载**：两种机制互为补充，确保可靠性
+
+**调试建议：**
+
+如果发现元素未加载，可以检查：
+
+**方案 1：增加 rootMargin 提前加载距离**
+
+```tsx | pure
+lazy={{
+  enable: true,
+  rootMargin: '500px', // 更大的提前加载范围
+}}
+```
+
+**方案 2：使用自定义占位符来观察加载状态**
+
+```tsx | pure
+lazy={{
+  enable: true,
+  renderPlaceholder: ({ height, style, isIntersecting, elementInfo }) => (
+    <div style={{ ...style, padding: '10px', background: '#f0f0f0' }}>
+      <div>元素 {elementInfo.index + 1}/{elementInfo.total}</div>
+      <div>状态: {isIntersecting ? '即将加载' : '等待中'}</div>
+    </div>
+  ),
+}}
+```
+
 ## 性能对比
 
 ### 懒加载渲染性能

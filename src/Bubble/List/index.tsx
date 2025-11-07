@@ -26,9 +26,14 @@ export type BubbleListProps = {
 
   bubbleRef?: MutableRefObject<any | undefined>;
   /**
-   * 是否正在加载
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
    */
   loading?: boolean;
+  /**
+   * 加载状态
+   */
+  isLoading?: boolean;
 
   pure?: boolean;
 
@@ -289,7 +294,8 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
     bubbleListRef,
     bubbleRenderConfig,
     className,
-    loading,
+    loading: legacyLoading,
+    isLoading,
     styles,
     classNames,
     markdownRenderConfig,
@@ -301,6 +307,9 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
     onWheel,
     onTouchMove,
   } = props;
+
+  // 兼容旧属性
+  const loading = isLoading ?? legacyLoading;
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
   const { compact } = useContext(BubbleConfigContext) || {};

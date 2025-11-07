@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import {
   BarElement,
   CategoryScale,
@@ -28,6 +29,7 @@ import {
   extractAndSortXValues,
   findDataPointByXValue,
 } from '../utils';
+import { useStyle } from './style';
 
 /**
  * @fileoverview 柱状图组件文件
@@ -246,6 +248,7 @@ const BarChart: React.FC<BarChartProps> = ({
   // 样式注册
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls('bar-chart-container');
+  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
@@ -439,6 +442,11 @@ const BarChart: React.FC<BarChartProps> = ({
               base = value >= 0 ? pos : neg;
             }
 
+            // 当值为 0 时，直接返回纯色，避免渐变范围为 0 导致的显示问题
+            if (value === 0) {
+              return hexToRgba(base, 0.75);
+            }
+
             // 安全获取像素值，添加有限性检查
             const x0 = xScale.getPixelForValue(0);
             const x1 = xScale.getPixelForValue(value);
@@ -463,6 +471,11 @@ const BarChart: React.FC<BarChartProps> = ({
             const pos = color[0] || baseColor;
             const neg = color[1] || color[0] || baseColor;
             base = value >= 0 ? pos : neg;
+          }
+
+          // 当值为 0 时，直接返回纯色，避免渐变范围为 0 导致的显示问题
+          if (value === 0) {
+            return hexToRgba(base, 0.75);
           }
 
           // 安全获取像素值，添加有限性检查
@@ -914,7 +927,7 @@ const BarChart: React.FC<BarChartProps> = ({
     downloadChart(chartRef.current, 'bar-chart');
   };
 
-  return (
+  return wrapSSR(
     <ChartContainer
       baseClassName={baseClassName}
       className={className}
@@ -951,7 +964,9 @@ const BarChart: React.FC<BarChartProps> = ({
       />
 
       {statistics && (
-        <div className={`${baseClassName}-statistic-container`}>
+        <div
+          className={classNames(`${baseClassName}-statistic-container`, hashId)}
+        >
           {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}

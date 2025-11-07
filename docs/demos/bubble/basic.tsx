@@ -273,7 +273,7 @@ export default () => {
           bubbleRef={bubbleRef}
           originData={mockFileMessage}
           fileViewConfig={{
-            // maxDisplayCount: 2,
+            maxDisplayCount: 2,
             // className: 'custom-file-view',
             // customSlot: <>123</>,
             renderFileMoreAction: () => (file: any) => (
@@ -381,11 +381,11 @@ export default () => {
               console.log('下载文件:', file);
               message.success('下载文件:');
             },
-            onViewAll: (files) => {
-              onViewAll(files);
-              console.log('查看所有文件:', files);
-              message.success('查看所有文件:');
-            },
+            // onViewAll: (files) => {
+            //   onViewAll(files);
+            //   console.log('查看所有文件:', files);
+            //   message.success('查看所有文件:');
+            // },
           })}
           onLike={handleLike}
           onDisLike={handleDisLike}

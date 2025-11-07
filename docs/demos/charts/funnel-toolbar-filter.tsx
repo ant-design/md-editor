@@ -30,4 +30,3 @@ const FunnelChartToolbarFilterExample: React.FC = () => {
 };
 
 export default FunnelChartToolbarFilterExample;
-

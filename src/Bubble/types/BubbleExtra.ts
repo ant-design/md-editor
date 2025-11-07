@@ -1,27 +1,5 @@
 import React from 'react';
-
-// 避免循环依赖，直接定义需要的类型
-export type WithFalse<T> = T | false;
-
-export interface MessageBubbleData<T = Record<string, any>> {
-  content?: React.ReactNode;
-  originContent?: string;
-  error?: any;
-  model?: string;
-  name?: string;
-  parentId?: string;
-  role: 'user' | 'system' | 'assistant' | 'agent' | 'bot';
-  createAt: number;
-  endTime?: number;
-  id: string;
-  updateAt: number;
-  extra?: T;
-  isFinished?: boolean;
-  isAborted?: boolean;
-  feedback?: 'thumbsUp' | 'thumbsDown' | 'none';
-  isRetry?: boolean;
-  isLatest?: boolean;
-}
+import { MessageBubbleData, WithFalse } from '../../Types';
 
 // 简化的 BubbleProps 类型，避免循环依赖
 export interface SimpleBubbleProps<T = Record<string, any>> {

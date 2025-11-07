@@ -1,4 +1,4 @@
-import LoadingLottie from '@ant-design/agentic-ui/TaskList/LoadingLottie';
+import { Loading } from '../../Components/Loading';
 import { Check, CircleDashed, OctagonX } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
@@ -27,9 +27,7 @@ const StatusIcon: FC<{
         <OctagonX style={{ color: 'var(--color-red-control-fill-primary)' }} />
       );
     case 'loading':
-      return (
-        <LoadingLottie style={{ color: 'var(--color-gray-text-disabled)' }} />
-      );
+      return <Loading style={{ color: 'var(--color-gray-text-disabled)' }} />;
     case 'pending':
     default:
       return (

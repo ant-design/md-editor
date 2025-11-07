@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { ToolUseBar } from '../src/ToolUseBar';
@@ -67,7 +67,7 @@ describe('ToolUseBar - Expanded Keys', () => {
     expect(mockOnExpandedKeysChange).toHaveBeenCalledWith(['tool1'], []);
   });
 
-  it('should collapse when clicking expanded item expand button', () => {
+  it('should collapse when clicking expanded item expand button', async () => {
     const mockOnExpandedKeysChange = vi.fn();
 
     // 在受控模式下，我们需要模拟父组件的状态更新行为
@@ -117,10 +117,12 @@ describe('ToolUseBar - Expanded Keys', () => {
     rerender(<TestComponent />);
 
     // 验证状态已经改变
-    contentContainers = container.querySelectorAll(
-      '[class*="ant-agentic-tool-use-bar-tool-container"]',
-    );
-    expect(contentContainers.length).toBe(0);
+    await waitFor(() => {
+      const collapsedContainers = container.querySelectorAll(
+        '[class*="ant-agentic-tool-use-bar-tool-container"]',
+      );
+      expect(collapsedContainers.length).toBe(0);
+    });
   });
 
   it('should support multiple expanded items', () => {

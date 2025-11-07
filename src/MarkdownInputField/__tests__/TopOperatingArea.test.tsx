@@ -220,7 +220,9 @@ describe('TopOperatingArea - 自定义操作按钮', () => {
     const buttonsContainer = document.querySelector(
       '.ant-agentic-top-operating-area-buttons',
     );
-    expect(buttonsContainer).toHaveClass('ant-agentic-top-operating-area-buttons');
+    expect(buttonsContainer).toHaveClass(
+      'ant-agentic-top-operating-area-buttons',
+    );
     expect(buttonsContainer).toBeInTheDocument();
   });
 });
@@ -275,7 +277,9 @@ describe('TopOperatingArea - 组合功能测试', () => {
       'custom',
     );
     expect(
-      document.querySelector('.ant-agentic-top-operating-area-back-buttons-visible'),
+      document.querySelector(
+        '.ant-agentic-top-operating-area-back-buttons-visible',
+      ),
     ).toBeInTheDocument();
   });
 
@@ -315,7 +319,9 @@ describe('TopOperatingArea - 组合功能测试', () => {
     expect(screen.getByTestId('btn-2')).toBeInTheDocument();
     expect(screen.queryByTestId('back-to-top')).not.toBeInTheDocument();
     expect(
-      document.querySelector('.ant-agentic-top-operating-area-back-buttons-hidden'),
+      document.querySelector(
+        '.ant-agentic-top-operating-area-back-buttons-hidden',
+      ),
     ).toBeInTheDocument();
   });
 });
@@ -325,9 +331,15 @@ describe('TopOperatingArea - 布局和样式', () => {
     render(<TopOperatingArea />);
 
     const container = document.querySelector('.ant-agentic-top-operating-area');
-    const leftArea = document.querySelector('.ant-agentic-top-operating-area-left');
-    const centerArea = document.querySelector('.ant-agentic-top-operating-area-center');
-    const rightArea = document.querySelector('.ant-agentic-top-operating-area-right');
+    const leftArea = document.querySelector(
+      '.ant-agentic-top-operating-area-left',
+    );
+    const centerArea = document.querySelector(
+      '.ant-agentic-top-operating-area-center',
+    );
+    const rightArea = document.querySelector(
+      '.ant-agentic-top-operating-area-right',
+    );
 
     expect(container).toBeInTheDocument();
     expect(leftArea).toBeInTheDocument();

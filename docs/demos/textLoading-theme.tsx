@@ -1,4 +1,4 @@
-import { ShinyText } from '@ant-design/agentic-ui';
+import { TextLoading } from '@ant-design/agentic-ui';
 import React from 'react';
 
 export default () => {
@@ -13,7 +13,7 @@ export default () => {
         }}
       >
         <h4>亮色主题（白色背景）</h4>
-        <ShinyText text="Loading..." theme="light" fontSize="24px" />
+        <TextLoading text="Loading..." theme="light" fontSize="24px" />
       </div>
 
       <div
@@ -24,9 +24,8 @@ export default () => {
         }}
       >
         <h4 style={{ color: '#fff' }}>暗色主题（黑色背景）</h4>
-        <ShinyText text="Loading..." theme="dark" fontSize="24px" />
+        <TextLoading text="Loading..." theme="dark" fontSize="24px" />
       </div>
     </div>
   );
 };
-
