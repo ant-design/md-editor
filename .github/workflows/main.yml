@@ -1,0 +1,35 @@
+# 定义 GitHub Actions 的工作流程名称
+name: Deploy to Vercel
+
+# 触发条件
+on:
+  push:
+    branches: [ main ] # 当代码推送到 main 分支时触发
+  pull_request:
+    branches: [ main ] # 当针对 main 分支发起 Pull Request 时触发
+
+# 定义工作流程中的作业（jobs）
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '9.8.0'
+      - name: Install Dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./
