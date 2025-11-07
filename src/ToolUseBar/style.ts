@@ -22,6 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'var(--color-gray-border-light)',
         boxShadow: 'var(--shadow-border-base)',
         minHeight: '20px',
+        backdropFilter: 'blur(8px)',
         width: 'max-content',
         transition: 'padding 0.2s ease',
         display: 'flex',
