@@ -21,8 +21,8 @@ vi.mock('../../src/MarkdownEditor/editor/components', () => ({
   ),
 }));
 
-vi.mock('../../src/TaskList/LoadingLottie', () => ({
-  LoadingLottie: () => <span>LoadingLottie</span>,
+vi.mock('../../src/Components/Loading', () => ({
+  Loading: () => <span>Loading</span>,
 }));
 
 describe('Component Integration Tests', () => {
