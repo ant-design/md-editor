@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import {
   BarElement,
   CategoryScale,
@@ -28,6 +29,7 @@ import {
   extractAndSortXValues,
   findDataPointByXValue,
 } from '../utils';
+import { useStyle } from './style';
 
 /**
  * @fileoverview 柱状图组件文件
@@ -246,6 +248,7 @@ const BarChart: React.FC<BarChartProps> = ({
   // 样式注册
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls('bar-chart-container');
+  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'bar'>>(null);
 
@@ -924,7 +927,7 @@ const BarChart: React.FC<BarChartProps> = ({
     downloadChart(chartRef.current, 'bar-chart');
   };
 
-  return (
+  return wrapSSR(
     <ChartContainer
       baseClassName={baseClassName}
       className={className}
@@ -961,7 +964,9 @@ const BarChart: React.FC<BarChartProps> = ({
       />
 
       {statistics && (
-        <div className={`${baseClassName}-statistic-container`}>
+        <div
+          className={classNames(`${baseClassName}-statistic-container`, hashId)}
+        >
           {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
