@@ -1,6 +1,6 @@
 import { Api, ChevronUp, X } from '@sofa-design/icons';
 import classnames from 'classnames';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { memo, useCallback, useMemo } from 'react';
 import { ToolCall } from './ToolUseBarItem';
 
@@ -309,21 +309,56 @@ const ToolContentComponent: React.FC<ToolContentProps> = ({
   }, [tool.content, contentClassName]);
 
   // 缓存容器元素
-  const containerElement = useMemo(() => {
-    if (!showContent || !expanded) return null;
+  const contentVariants = useMemo(
+    () => ({
+      expanded: {
+        height: 'auto',
+        opacity: 1,
+      },
+      collapsed: {
+        height: 0,
+        opacity: 0,
+      },
+    }),
+    [],
+  );
 
-    return (
-      <div
-        className={toolContainerClassName}
-        data-testid="tool-user-item-tool-container "
-      >
-        {contentDom}
-        {errorDom}
-      </div>
-    );
-  }, [showContent, expanded, toolContainerClassName, contentDom, errorDom]);
+  const contentTransition = useMemo(
+    () => ({
+      height: {
+        duration: 0.26,
+        ease: [0.4, 0, 0.2, 1],
+      },
+      opacity: {
+        duration: 0.26,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    }),
+    [],
+  );
 
-  return containerElement;
+  if (!showContent) return null;
+
+  return (
+    <AnimatePresence initial={false} mode="sync">
+      {expanded ? (
+        <motion.div
+          key="tool-content"
+          className={toolContainerClassName}
+          data-testid="tool-user-item-tool-container"
+          variants={contentVariants}
+          initial="collapsed"
+          animate="expanded"
+          exit="collapsed"
+          transition={contentTransition}
+          style={{ overflow: 'hidden' }}
+        >
+          {contentDom}
+          {errorDom}
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
 };
 
 export const ToolContent = memo(ToolContentComponent);
