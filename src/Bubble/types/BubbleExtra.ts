@@ -1,5 +1,5 @@
 import React from 'react';
-import { WithFalse, MessageBubbleData } from '../../Types';
+import { MessageBubbleData, WithFalse } from '../../Types';
 
 // 简化的 BubbleProps 类型，避免循环依赖
 export interface SimpleBubbleProps<T = Record<string, any>> {

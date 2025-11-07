@@ -71,8 +71,8 @@ export type {
   BubbleClassNames,
   BubbleItemStyleProps,
   BubbleRenderConfig,
-  BubbleStyles,
   BubbleStyleProps,
+  BubbleStyles,
   CustomConfig,
   WithFalse,
 } from './Bubble/type';
