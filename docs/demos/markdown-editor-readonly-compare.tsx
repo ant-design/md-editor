@@ -12,6 +12,7 @@ const defaultMarkdown = `# Markdown 编辑器示例
 
 ## 代码块
 
+
 \`\`\`javascript
 const hello = () => {
   console.log('Hello World!');
@@ -27,6 +28,16 @@ const hello = () => {
 1. 第一项
 2. 第二项
 3. 第三项
+
+\`\`\`mermaid
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+ 
+\`\`\`
 `;
 
 export default () => {

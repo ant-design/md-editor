@@ -42,8 +42,7 @@ import { useStyle } from './style';
  * @since 2024
  */
 
-// 注册 Chart.js 组件
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+let barChartComponentsRegistered = false;
 
 /**
  * 柱状图数据项类型
@@ -224,6 +223,20 @@ const BarChart: React.FC<BarChartProps> = ({
   dataLabelFormatter,
   chartOptions,
 }) => {
+  useMemo(() => {
+    if (barChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+    barChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(

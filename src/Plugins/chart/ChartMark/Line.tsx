@@ -14,18 +14,31 @@ import { stringFormatNumber } from '../utils';
 import { Container } from './Container';
 import { ChartProps } from './useChart';
 
-// 注册 Chart.js 组件
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+let chartMarkLineRegistered = false;
 
 export const Line: React.FC<ChartProps> = (props) => {
+  React.useMemo(() => {
+    if (chartMarkLineRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      CategoryScale,
+      LinearScale,
+      PointElement,
+      LineElement,
+      Title,
+      Tooltip,
+      Legend,
+    );
+    chartMarkLineRegistered = true;
+    return undefined;
+  }, []);
+
   const chartRef = React.useRef<ChartJS>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
   const lineChartRef = useRef<any>(null);

@@ -43,16 +43,7 @@ import { useStyle } from './style';
  * @since 2024
  */
 
-// 注册 Chart.js 组件
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
-);
+let areaChartComponentsRegistered = false;
 
 /**
  * 面积图数据项类型
@@ -267,6 +258,28 @@ const AreaChart: React.FC<AreaChartProps> = ({
   statistic: statisticConfig,
   variant,
 }) => {
+  useMemo(() => {
+    if (areaChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      CategoryScale,
+      LinearScale,
+      PointElement,
+      LineElement,
+      Filler,
+      Tooltip,
+      Legend,
+    );
+    areaChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(

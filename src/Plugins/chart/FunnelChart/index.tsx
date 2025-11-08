@@ -26,7 +26,7 @@ import { StatisticConfigType } from '../hooks/useChartStatistic';
 import { findDataPointByXValue, isXValueEqual, toNumber } from '../utils';
 import { useStyle } from './style';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+let funnelChartComponentsRegistered = false;
 
 export interface FunnelChartDataItem {
   /** 数据类别 */
@@ -104,6 +104,20 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   statistic: statisticConfig,
   ...props
 }) => {
+  useMemo(() => {
+    if (funnelChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+    funnelChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const safeData = Array.isArray(data) ? data : [];
 
   // 处理 ChartStatistic 组件配置

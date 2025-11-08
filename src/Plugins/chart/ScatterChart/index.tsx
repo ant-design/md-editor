@@ -24,8 +24,7 @@ import { defaultColorList } from '../const';
 import { StatisticConfigType } from '../hooks/useChartStatistic';
 import { useStyle } from './style';
 
-// 注册 Chart.js 组件
-ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
+let scatterChartComponentsRegistered = false;
 
 // 散点图数据项接口 - 扁平化数据格式
 export interface ScatterChartDataItem {
@@ -102,6 +101,20 @@ const ScatterChart: React.FC<ScatterChartProps> = ({
   textMaxWidth = 80,
   ...props
 }) => {
+  useMemo(() => {
+    if (scatterChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
+    scatterChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('scatter-chart');
   const { wrapSSR, hashId } = useStyle(prefixCls);

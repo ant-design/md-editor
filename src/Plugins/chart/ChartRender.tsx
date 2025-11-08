@@ -4,14 +4,9 @@ import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useContext, useMemo, useState } from 'react';
 import { ActionIconBox } from '../../Components/ActionIconBox';
+import { useIntersectionOnce } from '../../Hooks/useIntersectionOnce';
 import { I18nContext } from '../../I18n';
-import AreaChart from './AreaChart';
-import BarChart from './BarChart';
-import DonutChart from './DonutChart';
-import FunnelChart from './FunnelChart';
-import LineChart from './LineChart';
-import RadarChart from './RadarChart';
-import ScatterChart from './ScatterChart';
+import { loadChartRuntime, type ChartRuntime } from './loadChartRuntime';
 import { isNotEmpty, toNumber } from './utils';
 
 /**
@@ -206,6 +201,61 @@ export const ChartRender: React.FC<{
   const i18n = useContext(I18nContext);
   const [config, setConfig] = useState(() => props.config);
   const [renderKey, setRenderKey] = useState(0);
+  const [runtime, setRuntime] = useState<ChartRuntime | null>(null);
+  const [runtimeError, setRuntimeError] = useState<string | null>(null);
+  const [isRuntimeLoading, setRuntimeLoading] = useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const isIntersecting = useIntersectionOnce(containerRef);
+
+  const renderDescriptionsFallback = React.useMemo(() => {
+    const columnCount = config?.columns?.length || 0;
+    return chartData.length < 2 && columnCount > 8;
+  }, [chartData, config?.columns]);
+
+  const shouldLoadRuntime =
+    chartType !== 'table' &&
+    chartType !== 'descriptions' &&
+    !renderDescriptionsFallback;
+
+  React.useEffect(() => {
+    if (!shouldLoadRuntime) return;
+    if (!isIntersecting) return;
+    if (runtime) return;
+    if (isRuntimeLoading) return;
+    if (runtimeError) return;
+
+    let cancelled = false;
+    setRuntimeLoading(true);
+    loadChartRuntime()
+      .then((module) => {
+        if (cancelled) return;
+        setRuntime(module);
+      })
+      .catch((error) => {
+        if (cancelled) return;
+        const message = error instanceof Error ? error.message : String(error);
+        setRuntimeError(message);
+      })
+      .finally(() => {
+        if (cancelled) return;
+        setRuntimeLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    shouldLoadRuntime,
+    isIntersecting,
+    runtime,
+    isRuntimeLoading,
+    runtimeError,
+  ]);
+
+  const handleRetryRuntime = React.useCallback(() => {
+    setRuntime(null);
+    setRuntimeError(null);
+  }, []);
 
   // 获取国际化的图表类型映射
   const ChartMap = useMemo(() => getChartMap(i18n), [i18n]);
@@ -484,6 +534,7 @@ export const ChartRender: React.FC<{
     if (process.env.NODE_ENV === 'test') return null;
     //@ts-ignore
     if (window?.notRenderChart) return null;
+
     if (chartType === 'table') {
       return (
         <div
@@ -510,6 +561,115 @@ export const ChartRender: React.FC<{
         </div>
       );
     }
+
+    if (chartType === 'descriptions' || renderDescriptionsFallback) {
+      return (
+        <div
+          key={config?.index}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          }}
+        >
+          {chartData.map((row: Record<string, any>, rowIndex: number) => (
+            <Descriptions
+              bordered
+              key={`${config?.index}-${rowIndex}`}
+              column={{
+                xxl: 2,
+                xl: 2,
+                lg: 2,
+                md: 2,
+                sm: 1,
+                xs: 1,
+              }}
+              items={
+                config?.columns
+                  ?.map((column: { title?: string; dataIndex: string }) => {
+                    if (!column.title || !column.dataIndex) return null;
+                    return {
+                      label: column.title || '',
+                      children: row[column.dataIndex],
+                    };
+                  })
+                  .filter((item: any) => !!item) as DescriptionsItemType[]
+              }
+            />
+          ))}
+        </div>
+      );
+    }
+
+    if (!runtime && shouldLoadRuntime) {
+      const height = config?.height || 240;
+
+      if (runtimeError) {
+        return (
+          <div
+            style={{
+              minHeight: height,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              gap: 8,
+              color: 'rgba(239, 68, 68, 0.8)',
+            }}
+            role="alert"
+          >
+            <span>{runtimeError}</span>
+            <button
+              type="button"
+              onClick={handleRetryRuntime}
+              style={{
+                padding: '4px 12px',
+                borderRadius: '0.5em',
+                border: '1px solid rgba(239, 68, 68, 0.5)',
+                background: 'transparent',
+                color: 'rgba(239, 68, 68, 0.8)',
+                cursor: 'pointer',
+              }}
+            >
+              重试加载
+            </button>
+          </div>
+        );
+      }
+
+      return (
+        <div
+          style={{
+            minHeight: height,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            color: '#6B7280',
+          }}
+          role="status"
+          aria-live="polite"
+        >
+          {isRuntimeLoading || !isIntersecting ? '图表资源加载中…' : null}
+        </div>
+      );
+    }
+
+    if (!runtime) {
+      return null;
+    }
+
+    const {
+      DonutChart,
+      FunnelChart,
+      AreaChart,
+      BarChart,
+      LineChart,
+      RadarChart,
+      ScatterChart,
+    } = runtime;
+
     if (chartType === 'pie') {
       return (
         <DonutChart
@@ -524,6 +684,7 @@ export const ChartRender: React.FC<{
         />
       );
     }
+
     if (chartType === 'donut') {
       return (
         <DonutChart
@@ -538,6 +699,7 @@ export const ChartRender: React.FC<{
         />
       );
     }
+
     if (chartType === 'bar') {
       return (
         <BarChart
@@ -569,6 +731,7 @@ export const ChartRender: React.FC<{
         />
       );
     }
+
     if (chartType === 'column') {
       return (
         <BarChart
@@ -600,8 +763,8 @@ export const ChartRender: React.FC<{
         />
       );
     }
+
     if (chartType === 'radar') {
-      // Radar 数据需要映射为 { category, label, type, score }
       const radarData = (chartData || []).map((row: any, i: number) => {
         const filterLabel = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
@@ -614,6 +777,7 @@ export const ChartRender: React.FC<{
           ...(filterLabel ? { filterLabel } : {}),
         };
       });
+
       return (
         <RadarChart
           key={`${config?.index}-radar-${renderKey}`}
@@ -625,8 +789,8 @@ export const ChartRender: React.FC<{
         />
       );
     }
+
     if (chartType === 'scatter') {
-      // Scatter 数据需要映射为 { category, type, x, y }
       const scatterData = (chartData || []).map((row: any) => {
         const filterLabel = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
@@ -639,6 +803,7 @@ export const ChartRender: React.FC<{
           ...(filterLabel ? { filterLabel } : {}),
         };
       });
+
       return (
         <ScatterChart
           key={`${config?.index}-scatter-${renderKey}`}
@@ -650,8 +815,8 @@ export const ChartRender: React.FC<{
         />
       );
     }
+
     if (chartType === 'funnel') {
-      // Funnel 数据需要映射为 { category?, type?, filterLabel?, x, y, ratio? }
       const funnelData = (chartData || []).map((row: any, i: number) => {
         const filterLabel = getFieldValue(row, filterBy);
         const category = getFieldValue(row, groupBy);
@@ -665,6 +830,7 @@ export const ChartRender: React.FC<{
           ...(filterLabel ? { filterLabel } : {}),
         };
       });
+
       return (
         <FunnelChart
           key={`${config?.index}-funnel-${renderKey}`}
@@ -677,52 +843,33 @@ export const ChartRender: React.FC<{
         />
       );
     }
-    if (
-      chartType === 'descriptions' ||
-      (chartData.length < 2 && config?.columns.length > 8)
-    ) {
-      return (
-        <div
-          key={config?.index}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-          }}
-        >
-          {chartData.map((row: Record<string, any>) => {
-            return (
-              <Descriptions
-                bordered
-                key={config?.index}
-                column={{
-                  xxl: 2,
-                  xl: 2,
-                  lg: 2,
-                  md: 2,
-                  sm: 1,
-                  xs: 1,
-                }}
-                items={
-                  config?.columns
-                    .map((column: { title?: string; dataIndex: string }) => {
-                      if (!column.title || !column.dataIndex) return null;
-                      return {
-                        label: column.title || '',
-                        children: row[column.dataIndex],
-                      };
-                    })
-                    .filter((item: any) => !!item) as DescriptionsItemType[]
-                }
-              />
-            );
-          })}
-        </div>
-      );
-    }
-  }, [chartType, JSON.stringify(chartData), JSON.stringify(config)]);
 
-  if (!chartDom) return null;
+    return null;
+  }, [
+    chartType,
+    JSON.stringify(chartData),
+    JSON.stringify(config),
+    renderKey,
+    toolBar,
+    convertDonutData,
+    convertFlatData,
+    title,
+    dataTime,
+    filterBy,
+    groupBy,
+    colorLegend,
+    runtime,
+    runtimeError,
+    isRuntimeLoading,
+    isIntersecting,
+    shouldLoadRuntime,
+    renderDescriptionsFallback,
+    handleRetryRuntime,
+  ]);
 
-  return chartDom;
+  return (
+    <div ref={containerRef} style={{ width: '100%' }} contentEditable={false}>
+      {chartDom}
+    </div>
+  );
 };

@@ -31,15 +31,7 @@ import {
 } from '../utils';
 import { useStyle } from './style';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
-);
+let lineChartComponentsRegistered = false;
 
 export type LineChartDataItem = ChartDataItem;
 
@@ -123,6 +115,28 @@ const LineChart: React.FC<LineChartProps> = ({
   statistic: statisticConfig,
   ...props
 }) => {
+  useMemo(() => {
+    if (lineChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      CategoryScale,
+      LinearScale,
+      PointElement,
+      LineElement,
+      Filler,
+      Tooltip,
+      Legend,
+    );
+    lineChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
