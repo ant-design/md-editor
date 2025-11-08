@@ -66,10 +66,7 @@ export const loadMermaid = async (): Promise<MermaidApi> => {
  * - 自动生成唯一ID
  */
 export const Mermaid = (props: { element: CodeNode }) => {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
+  const isBrowser = typeof window !== 'undefined';
   const [state, setState] = useGetSetState({
     code: '',
     error: '',
@@ -85,15 +82,19 @@ export const Mermaid = (props: { element: CodeNode }) => {
   const isVisible = useIntersectionOnce(containerRef);
 
   useEffect(() => {
+    if (!isBrowser) {
+      return undefined;
+    }
+
     const nextCode = props.element.value || '';
     const currentState = state();
 
     if (!isVisible) {
-      return () => undefined;
+      return undefined;
     }
 
     if (currentState.code === nextCode && currentState.error === '') {
-      return () => undefined;
+      return undefined;
     }
 
     if (timer.current !== null) {
@@ -151,7 +152,13 @@ export const Mermaid = (props: { element: CodeNode }) => {
         timer.current = null;
       }
     };
-  }, [props?.element?.value, id, isVisible, setState, state]);
+  }, [isBrowser, props?.element?.value, id, isVisible, setState, state]);
+
+  if (!isBrowser) {
+    return null;
+  }
+
+  const snapshot = state();
 
   return (
     <div
@@ -174,15 +181,15 @@ export const Mermaid = (props: { element: CodeNode }) => {
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          visibility: state().code && !state().error ? 'visible' : 'hidden',
+          visibility: snapshot.code && !snapshot.error ? 'visible' : 'hidden',
         }}
       ></div>
-      {state().error && (
+      {snapshot.error && (
         <div style={{ textAlign: 'center', color: 'rgba(239, 68, 68, 0.8)' }}>
-          {state().error}
+          {snapshot.error}
         </div>
       )}
-      {!state().code && !state().error && (
+      {!snapshot.code && !snapshot.error && (
         <div style={{ textAlign: 'center', color: '#6B7280' }}>Empty</div>
       )}
     </div>

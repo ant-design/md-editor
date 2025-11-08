@@ -1,6 +1,9 @@
-import { MarkdownEditor } from '@ant-design/agentic-ui';
+import {
+  MarkdownEditor,
+  type MarkdownEditorInstance,
+} from '@ant-design/agentic-ui';
 import { Input } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const defaultMarkdown = `# Markdown 编辑器示例
 
@@ -42,6 +45,14 @@ flowchart TD
 
 export default () => {
   const [value, setValue] = useState(defaultMarkdown);
+  const readonlyEditorRef = useRef<MarkdownEditorInstance>(null);
+
+  useEffect(() => {
+    if (!readonlyEditorRef.current) {
+      return;
+    }
+    readonlyEditorRef.current.store.setMDContent(value);
+  }, [value]);
 
   return (
     <div style={{ display: 'flex', gap: 24 }}>
@@ -61,6 +72,7 @@ export default () => {
           width="100%"
           height="500px"
           readonly
+          editorRef={readonlyEditorRef}
           initValue={value}
         />
       </div>
