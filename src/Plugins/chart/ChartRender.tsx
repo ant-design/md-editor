@@ -4,6 +4,7 @@ import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useContext, useMemo, useState } from 'react';
 import { ActionIconBox } from '../../Components/ActionIconBox';
+import { Loading } from '../../Components/Loading';
 import { useIntersectionOnce } from '../../Hooks/useIntersectionOnce';
 import { I18nContext } from '../../I18n';
 import { loadChartRuntime, type ChartRuntime } from './loadChartRuntime';
@@ -651,7 +652,7 @@ export const ChartRender: React.FC<{
           role="status"
           aria-live="polite"
         >
-          {isRuntimeLoading || !isIntersecting ? '图表资源加载中…' : null}
+          {isRuntimeLoading || !isIntersecting ? <Loading /> : null}
         </div>
       );
     }

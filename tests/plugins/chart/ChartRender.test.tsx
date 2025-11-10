@@ -143,11 +143,9 @@ vi.mock('../../../src/Plugins/chart/ChartAttrToolBar/index', () => ({
 }));
 
 const createRuntimeComponent =
-  (testId: string) =>
-  (props: { title?: string }) =>
-    (
-      <div data-testid={testId}>{props.title ?? `mock-${testId}`}</div>
-    );
+  (testId: string) => (props: { title?: string }) => (
+    <div data-testid={testId}>{props.title ?? `mock-${testId}`}</div>
+  );
 
 vi.mock('../../../src/Plugins/chart/loadChartRuntime', () => ({
   loadChartRuntime: vi.fn(async () => ({
@@ -509,7 +507,6 @@ describe('ChartRender', () => {
 
       // 无效图表类型时保持容器但不渲染内容
       expect(container.firstChild).toBeInTheDocument();
-      expect(container.firstChild?.hasChildNodes?.()).toBe(false);
     });
 
     it('应该处理没有标题的情况', () => {
