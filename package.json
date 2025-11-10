@@ -17,6 +17,7 @@
     "dev": "dumi dev",
     "docs:build": "dumi build",
     "doctor": "father doctor",
+    "generate:version": "node scripts/bumpVersion.js",
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
@@ -27,8 +28,7 @@
     "start": "npm run dev",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage",
-    "tsc": "tsc --noEmit",
-    "version": "node scripts/bumpVersion.js"
+    "tsc": "tsc --noEmit"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
