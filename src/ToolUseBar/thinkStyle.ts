@@ -4,6 +4,9 @@ import {
   useEditorStyleRegister,
 } from '../Hooks/useStyle';
 
+const LIGHT_MODE_BACKGROUND = 'rgba(255, 255, 255, 0.65)';
+const LIGHT_MODE_BACKDROP_FILTER = 'blur(12px)';
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
@@ -52,6 +55,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'none',
         borderRadius: '14px',
         padding: 4,
+        background: LIGHT_MODE_BACKGROUND,
+        backdropFilter: LIGHT_MODE_BACKDROP_FILTER,
+        WebkitBackdropFilter: LIGHT_MODE_BACKDROP_FILTER,
         '&:hover': {
           background: 'none',
           boxShadow: 'none',
@@ -221,6 +227,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           paddingLeft: 12,
           marginLeft: 16,
           marginTop: -10,
+          background: LIGHT_MODE_BACKGROUND,
+          backdropFilter: LIGHT_MODE_BACKDROP_FILTER,
+          WebkitBackdropFilter: LIGHT_MODE_BACKDROP_FILTER,
         },
       },
       '&-container-loading': {

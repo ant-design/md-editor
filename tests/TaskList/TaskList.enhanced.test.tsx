@@ -5,11 +5,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { I18nContext } from '../../src/I18n';
 import { TaskList } from '../../src/TaskList';
 
-// Mock LoadingLottie
-vi.mock('../../src/TaskList/LoadingLottie', () => ({
-  LoadingLottie: ({ size, ...props }: any) => (
-    <div data-testid="loading-lottie" data-size={size} {...props}>
-      LoadingLottie
+// Mock Loading 组件
+vi.mock('../../src/Components/Loading', () => ({
+  Loading: ({ size, ...props }: any) => (
+    <div data-testid="task-list-loading" data-size={size} {...props}>
+      Loading
     </div>
   ),
 }));
@@ -123,9 +123,9 @@ describe('TaskList Component', () => {
       </TestWrapper>,
     );
 
-    const loadingLottie = screen.getByTestId('loading-lottie');
-    expect(loadingLottie).toBeInTheDocument();
-    expect(loadingLottie).toHaveAttribute('data-size', '16');
+    const loadingComponent = screen.getByTestId('task-list-loading');
+    expect(loadingComponent).toBeInTheDocument();
+    expect(loadingComponent).toHaveAttribute('data-size', '16');
   });
 
   it('应该支持点击展开/折叠', () => {

@@ -31,7 +31,11 @@ vi.mock('chart.js', () => ({
 // Mock react-chartjs-2
 vi.mock('react-chartjs-2', () => ({
   Bar: React.forwardRef((props: any, ref: any) => (
-    <div data-testid="bar-chart" ref={ref}>
+    <div 
+      data-testid="bar-chart" 
+      ref={ref}
+      data-chart-data={JSON.stringify(props.data)}
+    >
       Mocked Bar Chart
     </div>
   )),
@@ -442,6 +446,265 @@ describe('FunnelChart', () => {
       );
 
       expect(screen.getByTestId('chart-statistic')).toBeInTheDocument();
+    });
+  });
+
+  describe('bottomLayerMinWidth 测试', () => {
+    it('应该支持设置最小宽度占比', () => {
+      render(
+        <FunnelChart
+          data={sampleData}
+          bottomLayerMinWidth={0.1}
+          title="最小宽度控制"
+        />,
+      );
+
+      expect(screen.getByTestId('chart-container')).toBeInTheDocument();
+      
+      // 验证数据转换的正确性
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      // 原始数据: [1000, 800, 500, 300]，最大值 1000
+      // 最小宽度占比 0.1，即最小值应该 >= 1000 * 0.1 = 100
+      // 验证所有数据点的宽度（end - start）都符合约束
+      datasetData.forEach((point: [number, number]) => {
+        const width = Math.abs(point[1] - point[0]);
+        expect(width).toBeGreaterThanOrEqual(100);
+      });
+      
+      // 验证最大值保持不变（1000）
+      const maxWidth = Math.max(...datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0])));
+      expect(maxWidth).toBe(1000);
+      
+      // 验证最小值被调整到至少 100
+      const minWidth = Math.min(...datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0])));
+      expect(minWidth).toBeGreaterThanOrEqual(100);
+    });
+
+    it('应该处理 0 值（不限制最小宽度）', () => {
+      render(
+        <FunnelChart
+          data={sampleData}
+          bottomLayerMinWidth={0}
+          title="无最小宽度限制"
+        />,
+      );
+
+      expect(screen.getByTestId('chart-container')).toBeInTheDocument();
+      
+      // 验证数据未被调整，保持原始值
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      // 原始数据: [1000, 800, 500, 300]
+      // bottomLayerMinWidth=0 时不应该调整数据
+      const widths = datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0]));
+      expect(widths).toEqual([1000, 800, 500, 300]);
+    });
+
+    it('应该处理边界值 1（最小宽度等于最大宽度）', () => {
+      render(
+        <FunnelChart
+          data={sampleData}
+          bottomLayerMinWidth={1}
+          title="最小宽度等于最大宽度"
+        />,
+      );
+
+      expect(screen.getByTestId('chart-container')).toBeInTheDocument();
+      
+      // 验证所有数据点都被调整为最大值
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      // bottomLayerMinWidth=1 时，所有条的宽度都应该等于最大值 1000
+      const widths = datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0]));
+      widths.forEach((width: number) => {
+        expect(width).toBe(1000);
+      });
+    });
+
+    it('应该将超出范围的值（>1）视为不限制', () => {
+      render(
+        <FunnelChart
+          data={sampleData}
+          bottomLayerMinWidth={1.5}
+          title="超出范围的最小宽度"
+        />,
+      );
+
+      // 应该正常渲染，且行为等同于 bottomLayerMinWidth={0}
+      expect(screen.getByTestId('chart-container')).toBeInTheDocument();
+      
+      // 验证数据未被调整，保持原始值（与 bottomLayerMinWidth=0 行为一致）
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      const widths = datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0]));
+      expect(widths).toEqual([1000, 800, 500, 300]);
+    });
+
+    it('应该将负值视为不限制', () => {
+      render(
+        <FunnelChart
+          data={sampleData}
+          bottomLayerMinWidth={-0.1}
+          title="负值最小宽度"
+        />,
+      );
+
+      // 应该正常渲染，且行为等同于 bottomLayerMinWidth={0}
+      expect(screen.getByTestId('chart-container')).toBeInTheDocument();
+      
+      // 验证数据未被调整，保持原始值
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      const widths = datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0]));
+      expect(widths).toEqual([1000, 800, 500, 300]);
+    });
+
+    it('应该在数据跨度大时应用最小宽度', () => {
+      const largeRangeData: FunnelChartDataItem[] = [
+        { category: '默认', x: '曝光', y: 100000, ratio: 20 },
+        { category: '默认', x: '点击', y: 20000, ratio: 30 },
+        { category: '默认', x: '注册', y: 6000, ratio: 50 },
+        { category: '默认', x: '付费', y: 100, ratio: 0 },
+      ];
+
+      render(
+        <FunnelChart
+          data={largeRangeData}
+          bottomLayerMinWidth={0.15}
+          title="大跨度数据最小宽度"
+        />,
+      );
+
+      expect(screen.getByTestId('chart-container')).toBeInTheDocument();
+      
+      // 验证大跨度数据的最小宽度约束
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      // 原始数据: [100000, 20000, 6000, 100]，最大值 100000
+      // 最小宽度占比 0.15，即最小值应该 >= 100000 * 0.15 = 15000
+      const widths = datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0]));
+      const minWidth = Math.min(...widths);
+      const maxWidth = Math.max(...widths);
+      
+      // 验证最小宽度约束
+      expect(minWidth).toBeGreaterThanOrEqual(15000);
+      // 验证最大值保持不变
+      expect(maxWidth).toBe(100000);
+      
+      // 验证线性映射的正确性：数据应该在 [15000, 100000] 区间内单调递减
+      for (let i = 0; i < widths.length - 1; i++) {
+        expect(widths[i]).toBeGreaterThanOrEqual(widths[i + 1]);
+      }
+    });
+
+    it('应该在数据跨度小时不影响显示', () => {
+      const smallRangeData: FunnelChartDataItem[] = [
+        { category: '默认', x: '步骤1', y: 100, ratio: 90 },
+        { category: '默认', x: '步骤2', y: 90, ratio: 88 },
+        { category: '默认', x: '步骤3', y: 85, ratio: 0 },
+      ];
+
+      render(
+        <FunnelChart
+          data={smallRangeData}
+          bottomLayerMinWidth={0.15}
+          title="小跨度数据最小宽度"
+        />,
+      );
+
+      expect(screen.getByTestId('chart-container')).toBeInTheDocument();
+      
+      // 验证小跨度数据不需要调整（最小值 85 已经 >= 100 * 0.15 = 15）
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      // 原始数据: [100, 90, 85]，最大值 100，最小值 85
+      // 85 >= 100 * 0.15 = 15，所以不需要调整
+      const widths = datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0]));
+      expect(widths).toEqual([100, 90, 85]);
+    });
+    
+    it('应该正确处理线性映射的中间值', () => {
+      const testData: FunnelChartDataItem[] = [
+        { category: '默认', x: '步骤1', y: 1000, ratio: 100 },
+        { category: '默认', x: '步骤2', y: 700, ratio: 70 },
+        { category: '默认', x: '步骤3', y: 400, ratio: 57 },
+        { category: '默认', x: '步骤4', y: 100, ratio: 25 },
+      ];
+
+      render(
+        <FunnelChart
+          data={testData}
+          bottomLayerMinWidth={0.2}
+          title="线性映射测试"
+        />,
+      );
+
+      const barChart = screen.getByTestId('bar-chart');
+      const chartDataStr = barChart.getAttribute('data-chart-data');
+      expect(chartDataStr).toBeTruthy();
+      
+      const chartData = JSON.parse(chartDataStr!);
+      const datasetData = chartData.datasets[0].data;
+      
+      // 原始数据: [1000, 700, 400, 100]
+      // 最大值: 1000，最小值: 100
+      // bottomLayerMinWidth=0.2，最小宽度: 1000 * 0.2 = 200
+      // 线性映射: v' = 200 + (v - 100) / (1000 - 100) * (1000 - 200)
+      // 1000 -> 1000
+      // 700 -> 200 + (700-100)/900 * 800 = 200 + 533.33 = 733.33
+      // 400 -> 200 + (400-100)/900 * 800 = 200 + 266.67 = 466.67
+      // 100 -> 200
+      
+      const widths = datasetData.map((p: [number, number]) => Math.abs(p[1] - p[0]));
+      
+      // 验证最大值和最小值
+      expect(widths[0]).toBe(1000);
+      expect(widths[3]).toBeCloseTo(200, 0);
+      
+      // 验证中间值的线性映射（允许小数误差）
+      expect(widths[1]).toBeCloseTo(733.33, 1);
+      expect(widths[2]).toBeCloseTo(466.67, 1);
+      
+      // 验证单调递减
+      for (let i = 0; i < widths.length - 1; i++) {
+        expect(widths[i]).toBeGreaterThanOrEqual(widths[i + 1]);
+      }
     });
   });
 });

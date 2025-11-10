@@ -125,6 +125,7 @@ const MElementComponent = (
   },
 ) => {
   const dom = tableRenderElement(props, { readonly: props.readonly });
+
   if (dom) {
     return dom;
   }

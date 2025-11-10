@@ -13,17 +13,30 @@ import { stringFormatNumber } from '../utils';
 import { Container } from './Container';
 import { ChartProps } from './useChart';
 
-// 注册 Chart.js 组件
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+let chartMarkColumnRegistered = false;
 
 export const Column: React.FC<ChartProps> = (props) => {
+  React.useMemo(() => {
+    if (chartMarkColumnRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      CategoryScale,
+      LinearScale,
+      BarElement,
+      Title,
+      Tooltip,
+      Legend,
+    );
+    chartMarkColumnRegistered = true;
+    return undefined;
+  }, []);
+
   const chartRef = React.useRef<ChartJS>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
   const barChartRef = useRef<any>(null);

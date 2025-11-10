@@ -25,15 +25,7 @@ import { defaultColorList } from '../const';
 import { StatisticConfigType } from '../hooks/useChartStatistic';
 import { useStyle } from './style';
 
-// 注册 Chart.js 组件
-ChartJS.register(
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
-);
+let radarChartComponentsRegistered = false;
 
 // 雷达图数据项接口 - 扁平化数据格式
 export interface RadarChartDataItem {
@@ -93,6 +85,27 @@ const RadarChart: React.FC<RadarChartProps> = ({
   textMaxWidth = 80,
   ...props
 }) => {
+  useMemo(() => {
+    if (radarChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      RadialLinearScale,
+      PointElement,
+      LineElement,
+      Filler,
+      Tooltip,
+      Legend,
+    );
+    radarChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('radar-chart');
   const { wrapSSR, hashId } = useStyle(prefixCls);

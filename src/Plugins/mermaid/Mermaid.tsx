@@ -1,7 +1,34 @@
-import mermaid from 'mermaid';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
+import { useIntersectionOnce } from '../../Hooks/useIntersectionOnce';
 import { CodeNode } from '../../MarkdownEditor/el';
+
+type MermaidApi = typeof import('mermaid').default;
+
+let mermaidLoader: Promise<MermaidApi> | null = null;
+
+export const loadMermaid = async (): Promise<MermaidApi> => {
+  if (typeof window === 'undefined') {
+    throw new Error('Mermaid 仅在浏览器环境中可用');
+  }
+
+  if (!mermaidLoader) {
+    mermaidLoader = import('mermaid')
+      .then((module) => {
+        const api = module.default;
+        if (api?.initialize) {
+          api.initialize({ startOnLoad: false });
+        }
+        return api;
+      })
+      .catch((error) => {
+        mermaidLoader = null;
+        throw error;
+      });
+  }
+
+  return mermaidLoader;
+};
 
 /**
  * Mermaid 组件 - Mermaid图表渲染组件
@@ -38,62 +65,110 @@ import { CodeNode } from '../../MarkdownEditor/el';
  * - 居中显示图表
  * - 自动生成唯一ID
  */
-export const Mermaid = (props: { el: CodeNode }) => {
+export const Mermaid = (props: { element: CodeNode }) => {
+  const isBrowser = typeof window !== 'undefined';
   const [state, setState] = useGetSetState({
     code: '',
     error: '',
   });
+  const containerRef = useRef<HTMLDivElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
-  const timer = useRef(0);
+  const timer = useRef<number | null>(null);
+  const mermaidRef = useRef<MermaidApi | null>(null);
   const id = useMemo(
     () => 'm' + (Date.now() + Math.ceil(Math.random() * 1000)),
     [],
   );
-  const render = useCallback(async () => {
-    mermaid
-      .render(id, state().code)
-      .then((res) => {
-        setState({ error: '' });
-        divRef.current!.innerHTML = res.svg;
-      })
-      .catch(() => {
-        mermaid.parse(state().code).catch((e) => {
-          setState({ error: e.toString(), code: '' });
-        });
-      })
-      .finally(() => {
-        document.querySelector('#d' + id)?.classList.add('hidden');
-      });
-  }, []);
+  const isVisible = useIntersectionOnce(containerRef);
 
   useEffect(() => {
-    const code = props.el.value || '';
-    if (state().code !== code) {
-      clearTimeout(timer.current);
-      timer.current = window.setTimeout(
-        () => {
-          setState({ code: code });
-          if (state().code) {
-            render();
-          } else {
-            setState({ error: '' });
-          }
-        },
-        !state().code ? 0 : 300,
-      );
+    if (!isBrowser) {
+      return undefined;
     }
-    return () => window.clearTimeout(timer.current);
-  }, [props.el]);
+    console.log('props---', props);
+    const nextCode = props.element.value || '';
+    const currentState = state();
+
+    if (!isVisible) {
+      return undefined;
+    }
+
+    if (currentState.code === nextCode && currentState.error === '') {
+      return undefined;
+    }
+
+    if (timer.current !== null) {
+      window.clearTimeout(timer.current);
+      timer.current = null;
+    }
+
+    if (!nextCode) {
+      timer.current = window.setTimeout(() => {
+        setState({ code: '', error: '' });
+        if (divRef.current) {
+          divRef.current.innerHTML = '';
+        }
+        timer.current = null;
+      }, 0);
+      return () => {
+        if (timer.current !== null) {
+          window.clearTimeout(timer.current);
+          timer.current = null;
+        }
+      };
+    }
+
+    const delay = currentState.code ? 300 : 0;
+
+    timer.current = window.setTimeout(async () => {
+      try {
+        const api = mermaidRef.current ?? (await loadMermaid());
+        mermaidRef.current = api;
+        const { svg } = await api.render(id, nextCode);
+        if (divRef.current) {
+          divRef.current.innerHTML = svg;
+        }
+        setState({ code: nextCode, error: '' });
+      } catch (error) {
+        const api = mermaidRef.current;
+        if (api) {
+          try {
+            await api.parse(nextCode);
+          } catch (parseError) {
+            setState({ error: String(parseError), code: '' });
+            return;
+          }
+        }
+        setState({ error: String(error), code: '' });
+      } finally {
+        document.querySelector('#d' + id)?.classList.add('hidden');
+      }
+      timer.current = null;
+    }, delay);
+
+    return () => {
+      if (timer.current !== null) {
+        window.clearTimeout(timer.current);
+        timer.current = null;
+      }
+    };
+  }, [isBrowser, props?.element?.value, id, isVisible, setState, state]);
+
+  if (!isBrowser) {
+    return null;
+  }
+
+  const snapshot = state();
 
   return (
     <div
+      ref={containerRef}
       style={{
         marginBottom: '0.75em',
         cursor: 'default',
         userSelect: 'none',
         padding: '0.75rem 0',
-        backgroundColor: 'rgba(15, 17, 20, 0.05)',
-        borderRadius: '0.25em',
+        borderRadius: '1em',
         display: 'flex',
         justifyContent: 'center',
       }}
@@ -106,15 +181,15 @@ export const Mermaid = (props: { el: CodeNode }) => {
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          visibility: state().code && !state().error ? 'visible' : 'hidden',
+          visibility: snapshot.code && !snapshot.error ? 'visible' : 'hidden',
         }}
       ></div>
-      {state().error && (
+      {snapshot.error && (
         <div style={{ textAlign: 'center', color: 'rgba(239, 68, 68, 0.8)' }}>
-          {state().error}
+          {snapshot.error}
         </div>
       )}
-      {!state().code && !state().error && (
+      {!snapshot.code && !snapshot.error && (
         <div style={{ textAlign: 'center', color: '#6B7280' }}>Empty</div>
       )}
     </div>

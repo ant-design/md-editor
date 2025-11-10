@@ -14,7 +14,9 @@ const MermaidFlowchartExample: React.FC = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Mermaid el={{ type: 'code', value: data, children: [{ text: data }] }} />
+      <Mermaid
+        element={{ type: 'code', value: data, children: [{ text: data }] }}
+      />
     </div>
   );
 };

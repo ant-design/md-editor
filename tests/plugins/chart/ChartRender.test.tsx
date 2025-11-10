@@ -5,6 +5,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { I18nContext } from '../../../src/I18n';
 import { ChartRender } from '../../../src/Plugins/chart/ChartRender';
 
+vi.mock('../../../src/Hooks/useIntersectionOnce', () => ({
+  useIntersectionOnce: () => true,
+}));
+
 // Mock Chart.js（补齐 CategoryScale 等导出）
 vi.mock('chart.js', () => ({
   Chart: {
@@ -138,6 +142,23 @@ vi.mock('../../../src/Plugins/chart/ChartAttrToolBar/index', () => ({
   )),
 }));
 
+const createRuntimeComponent =
+  (testId: string) => (props: { title?: string }) => (
+    <div data-testid={testId}>{props.title ?? `mock-${testId}`}</div>
+  );
+
+vi.mock('../../../src/Plugins/chart/loadChartRuntime', () => ({
+  loadChartRuntime: vi.fn(async () => ({
+    AreaChart: createRuntimeComponent('area-chart'),
+    BarChart: createRuntimeComponent('bar-chart'),
+    DonutChart: createRuntimeComponent('donut-chart'),
+    FunnelChart: createRuntimeComponent('funnel-chart'),
+    LineChart: createRuntimeComponent('line-chart'),
+    RadarChart: createRuntimeComponent('radar-chart'),
+    ScatterChart: createRuntimeComponent('scatter-chart'),
+  })),
+}));
+
 describe('ChartRender', () => {
   const defaultProps = {
     chartType: 'bar' as const,
@@ -186,6 +207,7 @@ describe('ChartRender', () => {
     Object.defineProperty(window, 'notRenderChart', {
       value: false,
       writable: true,
+      configurable: true,
     });
     // 确保 window 对象存在
     if (typeof window === 'undefined') {
@@ -334,7 +356,8 @@ describe('ChartRender', () => {
         </I18nContext.Provider>,
       );
 
-      expect(container.firstChild).toBeNull();
+      expect(container.firstChild).toBeInTheDocument();
+      expect(container.firstChild?.hasChildNodes?.()).toBe(false);
     });
 
     it('应该在 notRenderChart 环境下返回 null', () => {
@@ -349,7 +372,8 @@ describe('ChartRender', () => {
         </I18nContext.Provider>,
       );
 
-      expect(container.firstChild).toBeNull();
+      expect(container.firstChild).toBeInTheDocument();
+      expect(container.firstChild?.hasChildNodes?.()).toBe(false);
     });
   });
 
@@ -481,8 +505,8 @@ describe('ChartRender', () => {
         </I18nContext.Provider>,
       );
 
-      // 检查组件是否返回 null（无效图表类型应该返回 null）
-      expect(container.firstChild).toBeNull();
+      // 无效图表类型时保持容器但不渲染内容
+      expect(container.firstChild).toBeInTheDocument();
     });
 
     it('应该处理没有标题的情况', () => {

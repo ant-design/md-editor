@@ -1,6 +1,9 @@
-import { MarkdownEditor } from '@ant-design/agentic-ui';
+import {
+  MarkdownEditor,
+  type MarkdownEditorInstance,
+} from '@ant-design/agentic-ui';
 import { Input } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const defaultMarkdown = `# Markdown 编辑器示例
 
@@ -11,6 +14,7 @@ const defaultMarkdown = `# Markdown 编辑器示例
 - ~~删除线~~
 
 ## 代码块
+
 
 \`\`\`javascript
 const hello = () => {
@@ -27,10 +31,28 @@ const hello = () => {
 1. 第一项
 2. 第二项
 3. 第三项
+
+\`\`\`mermaid
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+ 
+\`\`\`
 `;
 
 export default () => {
   const [value, setValue] = useState(defaultMarkdown);
+  const readonlyEditorRef = useRef<MarkdownEditorInstance>(null);
+
+  useEffect(() => {
+    if (!readonlyEditorRef.current) {
+      return;
+    }
+    readonlyEditorRef.current.store.setMDContent(value);
+  }, [value]);
 
   return (
     <div style={{ display: 'flex', gap: 24 }}>
@@ -50,6 +72,7 @@ export default () => {
           width="100%"
           height="500px"
           readonly
+          editorRef={readonlyEditorRef}
           initValue={value}
         />
       </div>

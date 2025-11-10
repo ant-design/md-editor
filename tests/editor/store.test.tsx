@@ -11,6 +11,7 @@ import {
 import { HistoryEditor, withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { parserMdToSchema } from '../../src';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
 import { EditorStore } from '../../src/MarkdownEditor/editor/store';
 
@@ -1721,6 +1722,27 @@ describe('EditorStore', () => {
       }
 
       expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('应该避免在代码块内部拆分内容', () => {
+      const md = [
+        '```js',
+        "console.log('line 1');",
+        '',
+        "console.log('line 3');",
+        '```',
+        '',
+        '结尾段落',
+      ].join('\n');
+
+      const expectedNodes = parserMdToSchema(md, store.plugins ?? []).schema;
+
+      store.setMDContent(md, undefined, {
+        chunkSize: 20,
+        useRAF: false,
+      });
+
+      expect(editor.children).toEqual(expectedNodes);
     });
 
     it('应该在小于 chunkSize 时不进行拆分', () => {

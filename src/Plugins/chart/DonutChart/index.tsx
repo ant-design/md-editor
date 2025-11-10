@@ -43,8 +43,7 @@ import type { DonutChartConfig, DonutChartProps } from './types';
  * @since 2024
  */
 
-// 注册 Chart.js 组件
-ChartJS.register(ArcElement, Tooltip, Legend);
+let donutChartComponentsRegistered = false;
 
 export type {
   DonutChartConfig,
@@ -100,6 +99,20 @@ const DonutChart: React.FC<DonutChartProps> = ({
   statistic: statisticConfig,
   ...props
 }) => {
+  useMemo(() => {
+    if (donutChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(ArcElement, Tooltip, Legend);
+    donutChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const { isMobile, windowWidth } = useMobile();
 
   // 默认配置：当 configs 不传时，使用默认配置，showLegend 默认为 true

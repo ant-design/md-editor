@@ -682,7 +682,148 @@ export class EditorStore {
    * @private
    */
   private _splitMarkdown(md: string, separator: string | RegExp): string[] {
-    return md.split(separator).filter(Boolean);
+    if (!md) {
+      return [];
+    }
+
+    const separatorMatches = this._collectSeparatorMatches(md, separator);
+
+    if (separatorMatches.length === 0) {
+      return [md];
+    }
+
+    const chunks: string[] = [];
+    let start = 0;
+    let currentMatchIndex = 0;
+    let insideFence = false;
+    let activeFence: '`' | '~' | null = null;
+    let index = 0;
+
+    while (index < md.length) {
+      if (this._isLineStart(md, index)) {
+        const fence = this._matchFence(md, index);
+        if (fence) {
+          if (!insideFence) {
+            insideFence = true;
+            activeFence = fence.marker;
+          } else if (activeFence === fence.marker) {
+            insideFence = false;
+            activeFence = null;
+          }
+          index = fence.end;
+          continue;
+        }
+      }
+
+      const match = separatorMatches[currentMatchIndex];
+      if (!insideFence && match && index === match.index) {
+        const chunk = md.slice(start, index);
+        if (chunk.length > 0) {
+          chunks.push(chunk);
+        }
+        start = index + match.length;
+        currentMatchIndex += 1;
+        index = start;
+        continue;
+      }
+
+      index += 1;
+    }
+
+    const tail = md.slice(start);
+    if (tail.length > 0) {
+      chunks.push(tail);
+    }
+
+    return chunks.length > 0 ? chunks : [md];
+  }
+
+  private _collectSeparatorMatches(
+    md: string,
+    separator: string | RegExp,
+  ): { index: number; length: number }[] {
+    if (typeof separator === 'string') {
+      const matches: { index: number; length: number }[] = [];
+      let searchIndex = md.indexOf(separator);
+      while (searchIndex !== -1) {
+        matches.push({ index: searchIndex, length: separator.length });
+        searchIndex = md.indexOf(separator, searchIndex + separator.length);
+      }
+      return matches;
+    }
+
+    const flags = separator.flags.includes('g')
+      ? separator.flags
+      : `${separator.flags}g`;
+    const globalRegex = new RegExp(separator.source, flags);
+    const matches: { index: number; length: number }[] = [];
+
+    let match: RegExpExecArray | null;
+    while ((match = globalRegex.exec(md)) !== null) {
+      const matchedText = match[0];
+      matches.push({ index: match.index, length: matchedText.length });
+      if (matchedText.length === 0) {
+        globalRegex.lastIndex += 1;
+      }
+    }
+
+    return matches;
+  }
+
+  private _isLineStart(content: string, position: number): boolean {
+    if (position === 0) {
+      return true;
+    }
+    return content[position - 1] === '\n';
+  }
+
+  private _matchFence(
+    content: string,
+    position: number,
+  ): { marker: '`' | '~'; end: number } | null {
+    let cursor = position;
+    let spaces = 0;
+
+    while (cursor < content.length && content[cursor] === ' ' && spaces < 3) {
+      cursor += 1;
+      spaces += 1;
+    }
+
+    if (cursor >= content.length) {
+      return null;
+    }
+
+    const char = content[cursor];
+    if (char !== '`' && char !== '~') {
+      return null;
+    }
+
+    let fenceLength = 0;
+    while (cursor < content.length && content[cursor] === char) {
+      cursor += 1;
+      fenceLength += 1;
+    }
+
+    if (fenceLength < 3) {
+      return null;
+    }
+
+    const lineEnd = this._findLineEnd(content, cursor);
+
+    return { marker: char as '`' | '~', end: lineEnd };
+  }
+
+  private _findLineEnd(content: string, position: number): number {
+    let cursor = position;
+    while (cursor < content.length && content[cursor] !== '\n') {
+      cursor += 1;
+    }
+
+    if (cursor < content.length && content[cursor] === '\n') {
+      return cursor + 1;
+    }
+
+    return cursor;
   }
 
   /**
