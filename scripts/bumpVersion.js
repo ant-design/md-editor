@@ -78,7 +78,7 @@ function runVersionCommand(command) {
   try {
     execSync(command, { stdio: 'inherit' });
   } catch (error) {
-    console.error(`执行 "${command}" 失败。`);
+    console.error(`执行 "${command}" 失败。`, error);
     process.exit(error.status ?? 1);
   }
 }
